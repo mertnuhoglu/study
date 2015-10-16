@@ -1,0 +1,46 @@
+fikirler
+	iş kazaları
+	kan tahlili
+	suç tahminleme
+iş kazaları
+	paydaşlar
+		stk
+		basın
+		inşaat firmaları: ceza önleme + repütasyon koruma
+		sigorta: risk değerleme (gerçek zamanlı)
+		işçiler: iş kalitesi artırma + firma tercihi
+		genel kamuoyu
+		denetleyici firma
+	süreç
+		1. haber siteleri -> 
+		2. crawl -> 
+		3. tasnif: hangileri kaza?
+			tartışma
+				değişik sitelerden haberlerin oylanması
+				haber ilk çıktığında bir kişi yaralanmıştır, sonra güncellenebilir: ölebilir
+		4. metinden veri çıkartma (fact extraction)
+		5. farklı haberlerden gelen kaza verilerini birleştirme ve doğrulama
+		6. çıkan verilerin insan validasyonu
+			belirli bir güvenilirlik skorunun altındaki veriler için
+		alternatif
+			2a: ajanstan verileri almak
+			2b: twitterdan verileri doğrulamak
+				risk: acaba yeterli olur mu?
+			2c: google alerts'ten veriler gelsin
+			6a: captcha ile çıkan verilerin validasyonu
+	çözüm
+		4a Name entity recognition
+			haberi yapan kişiyle, ölen kişiyi nasıl ayıklayacağız?
+				semantic role labeling: özne, nesne yüklem ayırma
+				n gram: birlikte bulunan kelimelerden ayırma
+				kişi ismi hangi html tag ve class içinde konulmuş
+			training data: eldeki mevcut çıkartılmış veri
+		4b resmi verilerden doğrulama
+			resmi gazeteden ölüm haberlerini çıkartıp doğrulamak
+			mernis'ten sorgulama yapmak (isim soyadı doğum tarihi?)
+				hangi verilerle sorgulama yapmaya izin veriliyor?
+	açık sorular
+		ssk'dan veri çekilebilir mi?
+		medya takip firmalarınden alınabilir mi?
+	otomatik nasıl yapılır?
+		
