@@ -1,10 +1,21 @@
 # Build and Release Folders
-bin/
-bin-debug/
-bin-release/
+**/bin/*
+**/bin-debug/*
+**/bin-release/*
+**/target/*
+**/out/*
 
 # Other files and folders
-.settings/
+**/.settings/*
+**/.idea/*
+*.csv
+*.arff
+*.Rhistory
+tags
+TAGSc
+Makefile
+*.docx
+*.jar
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
