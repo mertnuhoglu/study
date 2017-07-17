@@ -4,6 +4,8 @@
 **/bin-release/*
 **/target/*
 **/out/*
+**/node_modules/*
+**/bower_modules/*
 
 # Other files and folders
 **/.settings/*
@@ -16,7 +18,10 @@ TAGSc
 Makefile
 *.docx
 *.jar
+*.iml
+*.Rproj
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
+.Rproj.user

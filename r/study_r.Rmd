@@ -1,0 +1,52 @@
+---
+title: "R ile Veri Analizi"
+author: "Mert Nuhoglu"
+subtitle: Veri Gazeteciliği Atölye Programı
+output:
+  html_document: default
+---
+
+```{r load_packages, include=FALSE}
+    source("utils_study.R")
+    ss()
+```
+
+## Giriş
+
+- http://mertnuhoglu.github.io/data_analysis_presentations/r_verigazeteciligi/
+- Örneklere dayalı dil öğrenme
+    
+```{r }
+	 library(data.table)
+	 flights = fread("flights.csv")
+	 airports = fread("airports.csv")
+	 planes = fread("planes.csv")
+	 weather = fread("weather.csv")
+	 str(weather)
+```
+
+## Example 01
+
+```{r }
+  study_remove_all_na_columns = function() {
+    df = data.frame( a = c(1,2), b = NA, c = NA )
+    # find all na columns
+    # opt1: works
+    apply(is.na(df), 2, all)
+    # opt2: wrong
+    lapply(is.na(df), all)
+    # opt3: works
+    lapply(df, function(col) all(is.na(col)) )
+    # opt4: works
+    lapply(df, . %>% is.na %>% all )
+    # filtering columns
+    # opt1: correct
+    df[ c(T, F, F) ]
+    # opt2: correct
+    df[ lapply(df, . %>% is.na %>% all %>% not ) %>% unlist ]
+    # opt3: correct
+    df[ apply(!is.na(df), 2, all) ]
+    # opt4: correct
+    df[ applyc(!is.na(df), all) ] }
+```
+
