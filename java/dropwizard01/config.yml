@@ -1,0 +1,4 @@
+logging:
+  level: INFO
+  loggers:
+    study_dropwizard: DEBUG
