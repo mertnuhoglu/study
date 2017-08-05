@@ -15,10 +15,14 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static java.lang.String.format;
+
 
 public class StudyDentasNakliyeFiyatlariRaporlama {
     public static void main(String[] args) throws ParseException {
-        studyAggregateQueryUsingJsonAndMatch();
+        studyGetRates();
+//        studyAggregateQueryUsingJsonAndMatchAndSelectAllFields();
+//        studyAggregateQueryUsingJsonAndMatch();
 //        studyQueryByValidFromDate();
 //        studyQueryByValidFromDateByJson();
 //        studyQueryByValidFromDateByJsonByMilliseconds();
@@ -61,8 +65,55 @@ public class StudyDentasNakliyeFiyatlariRaporlama {
     private static void studyAggregateQueryUsingJsonAndMatch() throws ParseException {
         MongoCollection<Document> collection = getMongoCollection();
         Date start = new SimpleDateFormat("dd.MM.yyyy").parse("01.03.2017");
-        String queryMatch = String.format("{ 'validFromD' : { '$gte' : { '$date' : %s } } }", start.getTime());
-        String query = String.format("[{'$match': %s}, {'$sort': {'name':1, 'validFromD': -1}}, {'$group': {'_id': '$name', 'validFrom': { '$first': '$validFrom'}}}]", queryMatch);
+        String queryMatch = format("{ 'validFromD' : { '$gte' : { '$date' : %s } } }", start.getTime());
+        String query = format("[" +
+                        "{'$match': %s}, " +
+                        "{'$sort': {'name':1, 'validFromD': -1}}, " +
+                        "{'$group': {'_id': '$name', 'validFrom': { '$first': '$validFrom'}}}]",
+                queryMatch);
+
+        mongoAggregate(collection, query);
+    }
+
+    private static void studyAggregateQueryUsingJsonAndMatchAndSelectAllFields() throws ParseException {
+        MongoCollection<Document> collection = getMongoCollection();
+        Date start = new SimpleDateFormat("dd.MM.yyyy").parse("01.03.2017");
+        String match = format("{ 'validFromD' : { '$lte' : { '$date' : %s } } }", start.getTime());
+        String query = format("[" +
+                "{'$match': %s}, " +
+                "{'$sort': {'name':1, 'validFromD': -1}}, " +
+                "{'$group': {'_id': '$name', 'businessLocation': { '$first': '$businessLocation'}, 'cityType': { '$first': '$cityType'}, 'depotName': { '$first': '$depotName'}, 'distanceKM': { '$first': '$distanceKM'}, 'name': { '$first': '$name'}, 'province': { '$first': '$province'}, 'rateLargeTruck': { '$first': '$rateLargeTruck'}, 'ratePerExtraDrop': { '$first': '$ratePerExtraDrop'}, 'rateSmallTruck': { '$first': '$rateSmallTruck'}, 'rateTIR': { '$first': '$rateTIR'}, 'surchargeSideDoorPct': { '$first': '$surchargeSideDoorPct'}, 'town': { '$first': '$town'}, 'validFrom': { '$first': '$validFrom'}}}" +
+                "]", match);
+
+        mongoAggregate(collection, query);
+    }
+
+    private static void studyGetRates() throws ParseException {
+        MongoCollection<Document> collection = getMongoCollection();
+        String depotName = "ADANA";
+        String match = format("{ 'depotName' : '%s' }", depotName);
+        String query = format("[" +
+                    "{'$match': %s}, " +
+                    "{'$sort': {'name':1, 'validFromD': -1}}, " +
+                    "{'$group': " +
+                        "{'_id': '$name', " +
+                        "'businessLocation': { '$first': '$businessLocation'}, " +
+                        "'cityType': { '$first': '$cityType'}, " +
+                        "'depotName': { '$first': '$depotName'}, " +
+                        "'distanceKM': { '$first': '$distanceKM'}, " +
+                        "'name': { '$first': '$name'}, " +
+                        "'province': { '$first': '$province'}, " +
+                        "'rateLargeTruck': { '$first': '$rateLargeTruck'}, " +
+                        "'ratePerExtraDrop': { '$first': '$ratePerExtraDrop'}, " +
+                        "'rateSmallTruck': { '$first': '$rateSmallTruck'}, " +
+                        "'rateTIR': { '$first': '$rateTIR'}, " +
+                        "'surchargeSideDoorPct': { '$first': '$surchargeSideDoorPct'}, " +
+                        "'town': { '$first': '$town'}, " +
+                        "'validFrom': { '$first': '$validFrom'}" +
+                    "}}" +
+                "]",
+                match
+        );
 
         mongoAggregate(collection, query);
     }
@@ -112,7 +163,7 @@ public class StudyDentasNakliyeFiyatlariRaporlama {
         MongoCollection<Document> collection = getMongoCollection();
 
         Date start = new SimpleDateFormat("dd.MM.yyyy").parse("01.03.2017");
-        String query = String.format("{ 'validFromD' : { '$gte' : { '$date' : %s } } }", start.getTime());
+        String query = format("{ 'validFromD' : { '$gte' : { '$date' : %s } } }", start.getTime());
 
         mongoFind(collection, query);
     }

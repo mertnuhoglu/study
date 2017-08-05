@@ -2,7 +2,11 @@
 
 # Study Java
 
-    joinery
+    joinery DataFrame
+      not: error: NA satırlarını atlıyor
+        880	586	34	"AKDENIZ CAM BUSAN 3.OZEL ORGANIZE SANAYI BUSAN 3.OZEL ORGANIZE SANAYI KONYA"	"KONYA"	"SB"	NA	NA	0
+        DataFrame, içinde "NA" olan satırları okuyamıyor, atlıyor. 
+        çözüm: NA satırları boş geç
       select a column
         opt0        
           DataFrame<Object> df = DataFrame.readCsv("resources/miktar.csv")
@@ -68,6 +72,23 @@
         z Time Zone
         ' Escape for text delimiter
         ' Single quote
+      ex: DateFormat
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        String nowAsISO = df.format(new Date());
+        // 2017-07-26T09:29Z
+      ex: Java 8
+        thisMoment = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mmX")
+                                      .withZone(ZoneOffset.UTC)
+                                      .format(Instant.now());
+        // 2017-07-26T09:32Z
+      ex: LocalDateTime
+        DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME; 
+        LocalDateTime planDtTm;
+        String date_str = "2011-12-03T10:15:30";
+        planDtTm = LocalDateTime.parse(date_str, dtf);
+        // 2011-12-03T10:15:30
     process
       call terminal command        
         String inputDir = "../data/test_data/";
@@ -187,5 +208,9 @@
                 <groupId>org.springframework.boot</groupId>
             <dependency>
                 <groupId>com.jayway.jsonpath</groupId>
+    intellij
+      create exception breakpoint
+        https://www.jetbrains.com/help/idea/creating-exception-breakpoints.html
+        Run > View Breakpoints > + > Java Exception Breakpoint > Choose Exception Class: .NullPointerException
 
 
