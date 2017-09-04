@@ -4,7 +4,7 @@
 
     joinery DataFrame
       not: error: NA satırlarını atlıyor
-        880	586	34	"AKDENIZ CAM BUSAN 3.OZEL ORGANIZE SANAYI BUSAN 3.OZEL ORGANIZE SANAYI KONYA"	"KONYA"	"SB"	NA	NA	0
+        880 586 34  "AKDENIZ CAM BUSAN 3.OZEL ORGANIZE SANAYI BUSAN 3.OZEL ORGANIZE SANAYI KONYA" "KONYA" "SB"  NA  NA  0
         DataFrame, içinde "NA" olan satırları okuyamıyor, atlıyor. 
         çözüm: NA satırları boş geç
       select a column
@@ -179,6 +179,11 @@
       mongo java driver
     spring
       spring rest
+        error: mongo'ya bağlanmıyor çünkü ayarları otomatik varsayıyor
+          spring boot otomatik olarak başlarken mongoya bağlanmaya çalışıyor
+          pom.xml'de mongodb'yi görünce otomatik ona bağlanmaya çalışıyor
+          fakat mongo ayarları değiştiğinden bağlanamıyor
+          çözüm: spring kullanma veya otomatik konfigürasyonu engelle
         tutorial: getting started
           https://spring.io/guides/gs/rest-service/
           goal

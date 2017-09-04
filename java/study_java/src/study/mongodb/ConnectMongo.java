@@ -20,8 +20,8 @@ public class ConnectMongo {
 
     public static MongoDatabase getMongoDatabase() {
         String host = "localhost";
-        int port = 27017;
-        String db = "demo";
+        int port = 27018;
+        String db = "dentas";
         String user = "myUserAdmin";
         String password = "12345";
         return getMongoDatabase(host, port, db, user, password);

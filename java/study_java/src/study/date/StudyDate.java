@@ -19,9 +19,21 @@ public class StudyDate {
 //        studyCalendar();
 //        studyDateFormat();
 //        studyDateFormatAlternatives();
-        studyIsoLocalDateTime();
+//        studyIsoLocalDateTime();
+        studySimpleDateFormat();
     }
 
+    public static void studySimpleDateFormat() {
+        SimpleDateFormat inFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Date validFromD;
+        try {
+            validFromD = inFormat.parse("8/15/2017");
+        } catch (ParseException e) {
+            e.printStackTrace();
+            validFromD = new Date();
+        }
+        System.out.println("validFromD = " + validFromD);
+    }
     private static void studyIsoLocalDateTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME; // Ex: 2011-12-03T10:15:30
         LocalDateTime planDtTm;

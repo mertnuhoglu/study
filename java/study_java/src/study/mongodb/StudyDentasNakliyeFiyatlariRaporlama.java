@@ -21,7 +21,7 @@ import static java.lang.String.format;
 public class StudyDentasNakliyeFiyatlariRaporlama {
     public static void main(String[] args) throws ParseException {
         studyGetRates();
-//        studyAggregateQueryUsingJsonAndMatchAndSelectAllFields();
+        studyAggregateQueryUsingJsonAndMatchAndSelectAllFields();
 //        studyAggregateQueryUsingJsonAndMatch();
 //        studyQueryByValidFromDate();
 //        studyQueryByValidFromDateByJson();
@@ -30,7 +30,13 @@ public class StudyDentasNakliyeFiyatlariRaporlama {
 //        studyQueryUsingJson();
 //        studyIsoFormat();
 //        studyAggregateQueryUsingJsonAllFields();
-//        studyQueryByValidFromDateUsingJson();
+        studyQueryByValidFromDateUsingJson();
+    }
+
+    private static void studyAggregateQueryUsingJson2() {
+        MongoCollection<Document> collection = getMongoCollection();
+        String query = "[{'$sort': {'name':1, 'validFromD': -1}}, {'$group': {'_id': '$name', 'validFrom': { '$first': '$validFrom'}}}]";
+        mongoAggregate(collection, query);
     }
 
     public static void studyIsoFormat() {
@@ -77,7 +83,7 @@ public class StudyDentasNakliyeFiyatlariRaporlama {
 
     private static void studyAggregateQueryUsingJsonAndMatchAndSelectAllFields() throws ParseException {
         MongoCollection<Document> collection = getMongoCollection();
-        Date start = new SimpleDateFormat("dd.MM.yyyy").parse("01.03.2017");
+        Date start = new SimpleDateFormat("dd.MM.yyyy").parse("01.09.2017");
         String match = format("{ 'validFromD' : { '$lte' : { '$date' : %s } } }", start.getTime());
         String query = format("[" +
                 "{'$match': %s}, " +
@@ -155,7 +161,7 @@ public class StudyDentasNakliyeFiyatlariRaporlama {
 
     private static DB getMongoDb() {
         MongoClient mongoClient = getMongoClient();
-        return mongoClient.getDB("demo");
+        return mongoClient.getDB("dentas");
     }
 
 
@@ -215,7 +221,7 @@ public class StudyDentasNakliyeFiyatlariRaporlama {
     public static MongoDatabase getMongoDatabase() {
         MongoClient mongoClient = getMongoClient();
         MongoDatabase mongoDB;
-        String db = "demo";
+        String db = "dentas";
         mongoDB = mongoClient.getDatabase(db);
         return mongoDB;
     }
@@ -225,10 +231,10 @@ public class StudyDentasNakliyeFiyatlariRaporlama {
         MongoClient mongoClient;
         MongoDatabase mongoDB;
         String host = "localhost";
-        int port = 27017;
+        int port = 27018;
         String user = "myUserAdmin";
         String password = "12345";
-        credential = MongoCredential.createCredential(user, "demo", password.toCharArray());
+        credential = MongoCredential.createCredential(user, "dentas", password.toCharArray());
 
         mongoClient = new MongoClient(new ServerAddress(host, port), Arrays.asList(credential));
         return mongoClient;

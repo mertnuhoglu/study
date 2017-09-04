@@ -1,0 +1,7 @@
+version: '2'
+services:
+  opencpu:
+    image: opencpu/rstudio 
+    ports:
+      - "80:80"
+      - "8004:8004"

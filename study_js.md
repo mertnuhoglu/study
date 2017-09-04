@@ -463,4 +463,18 @@
                 <input id="datetimepicker" type="text" >
               javaScript
                 jQuery('#datetimepicker').datetimepicker();
+    error: Access-Control-Allow-Origin
+      https://stackoverflow.com/questions/35553500/xmlhttprequest-cannot-load-https-www-website-com
+        Same Origin Policy 
+          a security feature of browsers
+          how it happens?
+            alice is a person
+            bob runs website: website.com
+            mallory runs website: localhost:4300
+            alice is logged into bob's site
+            alice visits mallory
+              this has js that makes alice's browser make an http request to bob
+        solution: CORS
+          explicitly grant permission to mallory's site to access data via alice's browser
+      https://stackoverflow.com/questions/38043194/the-access-control-allow-origin-header-has-a-value-that-is-not-equal-to-the-su
 
