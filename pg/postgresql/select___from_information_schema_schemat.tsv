@@ -1,0 +1,15 @@
+catalog_name	schema_name	schema_owner	default_character_set_catalog	default_character_set_schema	default_character_set_name	sql_path
+app	pg_toast	postgres				
+app	pg_temp_1	postgres				
+app	pg_toast_temp_1	postgres				
+app	pg_catalog	postgres				
+app	public	postgres				
+app	information_schema	postgres				
+app	settings	superuser				
+app	pgjwt	superuser				
+app	auth	superuser				
+app	request	superuser				
+app	rabbitmq	superuser				
+app	util	superuser				
+app	data	superuser				
+app	api	superuser				

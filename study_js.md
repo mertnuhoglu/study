@@ -4,6 +4,7 @@
 
     conventions
     nodejs
+      install tools: npm npx
       string templates
         backtick ` not "
         `//${ocpu_domain}/ocpu/library/stats/R`
@@ -66,6 +67,17 @@
         define in docker-compose.yml
           environment:
            - MONGODB_URI=mongodb://myUserAdmin:12345@mongo:27017/beyp_poc
+      msg: Error: spawn psql ENOENT
+        at exports._errnoException (util.js:1036:11)
+        at Process.ChildProcess._handle.onexit (internal/child_process.js:193:32)
+        at onErrorNT (internal/child_process.js:359:16)
+        at _combinedTickCallback (internal/process/next_tick.js:74:11)
+        at process._tickCallback (internal/process/next_tick.js:98:9)
+        cause
+          psql is missing to execute/spawn
+          cannot find the program that it tries to spawn
+        general debug
+          https://stackoverflow.com/questions/27688804/how-do-i-debug-error-spawn-enoent-on-node-js#27883443
     process
       get working directory getwd pwd
         process.cwd()
@@ -477,4 +489,34 @@
         solution: CORS
           explicitly grant permission to mallory's site to access data via alice's browser
       https://stackoverflow.com/questions/38043194/the-access-control-allow-origin-header-has-a-value-that-is-not-equal-to-the-su
+    graphql
+      alternatives to graphql
+        postgraphql
+          n+1 problem
+            https://github.com/postgraphql/postgraphql/issues/219
+        join-monster
+          http://join-monster.readthedocs.io/en/latest/
+            on top of graphql
+            converts graphql to sql
+            solves roundtrip problem with joins
+            alternative to: Facebook DataLoader
+      HN: REST in Peace. Long Live GraphQL
+        https://news.ycombinator.com/item?id=14839576
+        critic: the article doesn't discuss costs and limitations
+        what is the benefit compared to REST?
+          multiple round trips to fetch data required by a view -> single request
+        critic: baron816: impractical bc it requires Relay or Apollo on frontend
+          answer: you can negate need for Relay/Apollo
+            https://stackoverflow.com/questions/42520663/how-send-graphql-query-by-postman
+        alternative: postgrest
+      HN: Apollo Server 1.0  – GraphQL Server for Node.js Frameworks
+        https://news.ycombinator.com/item?id=14814007
+        q: does apollo solve round trip issue with graphql (joins/n+1 problem)
+          ans: it does not. 
+            alternative: join-monster handles it
+            q: join-monster works only for at most 2 levels
+              subzero solves this problem
+        q: n+1 problem repeats and spoils
+          beware subsystems that propose to wrap and abstract your database for a new paradigm "automatically". They're leaky and difficult and take a decade to get right
+        q: graphql has functions called resolvers where you write your logic to get data from wherever you want. SQL, NoSQL, API, filesystem, etc.
 
