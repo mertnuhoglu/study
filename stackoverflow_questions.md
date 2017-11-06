@@ -1,5 +1,14 @@
   <url:file:///~/Dropbox (Personal)/projects/study/study/stackoverflow_questions.md>
 
+## sof q 20171027 
+
+I have two tables: A and B with a one-to-many relationship between them.
+
+  create table A (
+    a_id serial primary key
+  )
+  create table B ()
+
 ## sof q1 20170527
 
   https://stackoverflow.com/questions/44218060/capacity-assignment-without-for-loops-and-conditional-branches

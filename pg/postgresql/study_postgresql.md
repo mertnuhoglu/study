@@ -2,11 +2,31 @@
 
 # Study PostgreSQL 20171003 
 
+    Run 
+      docker start postgreststarterkit_db_1
+        opt
+          sudo docker run --name tutorial -p 5432:5432 ... -d postgres
+      DataGrip > postgrest_starter_kit superuser@docker
+        DB_NAME=app
+        DB_SCHEMA=api
+        SUPER_USER=superuser
+        SUPER_USER_PASSWORD=superuserpass
+      franchise - notebook
+        npx franchise-client@0.2.7
+        https://franchise.cloud/app/
+      psql -d app -h localhost -p 5432 -U superuser
+      jupyter
+        %load_ext sql
+        %%sql postgresql://superuser:superuserpass@localhost/app
+        select * from api.todos;
+        %sql select 1;
+      pgcli
+        pgcli postgresql://superuser:superuserpass@localhost/app
     Database Administration
       Roles
         CREATE ROLE leo LOGIN PASSWORD 'king' CREATEDB VALID UNTIL 'infinity'
         CREATE ROLE royalty INHERIT
-        GRANT royalty TO leo  
+        GRANT group_role TO leo  
         SET ROLE royalty
         CREATE DATABASE mydb
       Information Schema
@@ -118,7 +138,6 @@
       Serials
         CREATE SEQUENCE
         nextval(sequence_name)
-      select x FROM generate_series(1,20,1) As x
       String
         concat: ||
         extracting: substring
@@ -195,7 +214,6 @@
         CHECK (user_name = lower(user_name));
       ALTER TABLE schedules ADD CONSTRAINT ex_schedules
         EXCLUDE USING gist (room WITH =, time_slot WITH &&)
-    Indexes
     Views
       CREATE view_name AS query
       CREATE RECURSIVE VIEW view_name(columns) AS query
@@ -335,82 +353,92 @@
         );
       CREATE EXTENSION plpython3u;
     Builtin Functions
-      a BETWEEN x and y
-      a <= x AND a <= y
-      a NOT BETWEEN x AND y
-      <expression> IS [NOT] NULL
-      IS
-        TRUE
-        FALSE
-        UNKNOWN
-        NOT
-      char_length(string)
-      substring(string, int, int)
-      'thomas' ~ '.*thomas.*'
-      to_char(current_timestamp, 'HH12:MI:SS')
-      to_date('05 Dec 2000', 'DD Mon YYYY')
-      current_date()
-      current_time()
-      date_part('hour', timestamp '2011-02-16 20:38:40')
-      SELECT EXTRACT(DAY FROM TIMESTAMP '2001-02-16 20:38:40');
-      SELECT CURRENT_TIMESTAMP;
-      SELECT now();
-      SELECT a,
-        CASE WHEN a=1 THEN 'one'
-             WHEN a=2 THEN 'two'
-             ELSE 'other'
-        END
-        FROM test;
-      SELECT COALESCE(description, short_description, '(none)') ...
-      array_append(ARRAY[1,2], 3) 
-      array_cat(ARRAY[1,2,3], ARRAY[4,5]) 
-      array_ndims(ARRAY[[1,2,3], [4,5,6]])  
-      array_length(array[1,2,3], 1)  # 3
-      unnest(ARRAY[1,2])  
-        1
-        2
-        (2 rows)
-      array_agg(expression) any non-array type    
-      avg(expr)
-      bool_and(expr)
-      bool_or(expr)
-      count(*)
-      count(expr)
-      json_agg(expression)  
-      json_object_agg(name, value)  
-      max
-      min
-      string_agg(expr, delimiter)
-      STRING_AGG(a.activity, ';' ORDER BY a.activity) As activities
-      sum(expr)
-      row_number()
-      rank()
-      dense_rank()
-      percent_rank()
-      cume_dist()
-      ntile
-      lag
-      lead
-      first_value
-      last_value
-      nth_value
-      SELECT col1
-        FROM tab1
-        WHERE EXISTS (SELECT 1 FROM tab2 WHERE col2 = tab1.col2);
-      expression IN (subquery)
-      generate_series(start, stop, step interval)
-      SELECT generate_subscripts('{NULL,1,NULL,2}'::int[], 1) AS s;
-      current_catalog
-      current_database()
-      current_role
-      current_schema
-      current_user
-      has_any_column_privilege(user, table, privilege)
-      has_column_privilege(user, table, column, privilege)
-      SELECT current_setting('datestyle');
-      SELECT set_config('log_statement_stats', 'off', false);
-      pg_cancel_backend(pid int)  
-      select pg_start_backup('label_goes_here');
+      between is
+        a BETWEEN x and y
+        a <= x AND a <= y
+        a NOT BETWEEN x AND y
+        <expression> IS [NOT] NULL
+        IS
+          TRUE
+          FALSE
+          UNKNOWN
+          NOT
+      string substring to_char
+        char_length(string)
+        substring(string, int, int)
+        'thomas' ~ '.*thomas.*'
+        to_char(current_timestamp, 'HH12:MI:SS')
+        to_date('05 Dec 2000', 'DD Mon YYYY')
+      date temporal extract
+        current_date()
+        current_time()
+        date_part('hour', timestamp '2011-02-16 20:38:40')
+        SELECT EXTRACT(DAY FROM TIMESTAMP '2001-02-16 20:38:40');
+        SELECT CURRENT_TIMESTAMP;
+        SELECT now();
+      case coalesce
+        SELECT a,
+          CASE WHEN a=1 THEN 'one'
+               WHEN a=2 THEN 'two'
+               ELSE 'other'
+          END
+          FROM test;
+        SELECT COALESCE(description, short_description, '(none)') ...
+      array append ndims length unnest agg
+        array_append(ARRAY[1,2], 3) 
+        array_cat(ARRAY[1,2,3], ARRAY[4,5]) 
+        array_ndims(ARRAY[[1,2,3], [4,5,6]])  
+        array_length(array[1,2,3], 1)  # 3
+        unnest(ARRAY[1,2])  
+          1
+          2
+          (2 rows)
+        array_agg(expression) any non-array type    
+      aggregate avg bool_and count
+        avg(expr)
+        bool_and(expr)
+        bool_or(expr)
+        count(*)
+        count(expr)
+        max
+        min
+        sum(expr)
+      agg json_agg string_agg
+        json_agg(expression)  
+        json_object_agg(name, value)  
+        string_agg(expr, delimiter)
+        STRING_AGG(a.activity, ';' ORDER BY a.activity) As activities
+      window row_number rank cume_dist ntile
+        row_number()
+        rank()
+        dense_rank()
+        percent_rank()
+        cume_dist()
+        ntile
+        lag
+        lead
+        first_value
+        last_value
+        nth_value
+      IN generate_series 
+        SELECT col1
+          FROM tab1
+          WHERE EXISTS (SELECT 1 FROM tab2 WHERE col2 = tab1.col2);
+        expression IN (subquery)
+        generate_series(start, stop, step interval)
+        SELECT generate_subscripts('{NULL,1,NULL,2}'::int[], 1) AS s;
+      current db user schema setting set_config
+        current_catalog
+        current_database()
+        current_role
+        current_schema
+        current_user
+        has_any_column_privilege(user, table, privilege)
+        has_column_privilege(user, table, column, privilege)
+        SELECT current_setting('datestyle');
+        SELECT set_config('log_statement_stats', 'off', false);
+        pg_cancel_backend(pid int)  
+        select pg_start_backup('label_goes_here');
     Roles
       CREATE ROLE name;
       GRANT group_role TO role1, ...;
@@ -491,62 +519,70 @@
           log_directory = "pg_log"
           log_statement = "all"
       API
-        GET /people HTTP/1.1
-        verbs: OPTIONS, GET, POST, PATCH, DELETE
-        GET /people?age=gte.18&student=is.true
-        GET /people?and=(grade.gte.90,student.is.true,or(age.gte.14,age.is.null))
-        ?a=in."hi there","yes"
-        ?tags=cs.{example, new}
-        CREATE VIEW fresh_stories AS
-          SELECT *
-            FROM stories
-           WHERE pinned = true
-              OR published > now() - interval '1 day'
-          ORDER BY pinned DESC, published DESC;
-          -->
-          GET /fresh_stories HTTP/1.1
-        GET /people?select=*,full_name
-        CREATE FUNCTION full_name(people) RETURNS text AS $$
-          SELECT $1.fname || ' ' || $1.lname;
-        CREATE INDEX people_full_name_idx ON people
-          USING GIN (to_tsvector('english', full_name(people)));
-          -->
-          GET /people?full_name=fts.Beckett
-        GET /people?order=age.desc,height.asc
-        GET /people HTTP/1.1
-          Range-Unit: items
-          Range: 0-19
-        GET /people?limit=15&offset=30
-        /items?id=eq.1
-          [ {"id":1} ]
-        /items?id=eq.1
-          Accept: application/vnd.pgrst.object+json
-          {"id":1}
-        curl http://localhost:8080rest/items?id=gt.1&select=id,name,subitems(id,name)
-        /films?select=title,directors(id,last_name)
-        GET /films?select=*,actors(*)&actors.order=last_name,first_name
-        POST /rpc/function_name
-        CREATE FUNCTION add_them(a integer, b integer)
-          -->
-          POST /rpc/add_them
-            {"a":1, "b":2}
+        GET /entity?param1=op.value&...
+          GET /people HTTP/1.1
+          verbs: OPTIONS, GET, POST, PATCH, DELETE
+          GET /people?age=gte.18&student=is.true
+          GET /people?and=(grade.gte.90,student.is.true,or(age.gte.14,age.is.null))
+          ?a=in."hi there","yes"
+          ?tags=cs.{example, new}
+        GET /view
+          CREATE VIEW fresh_stories AS
+            SELECT *
+              FROM stories
+             WHERE pinned = true
+                OR published > now() - interval '1 day'
+            ORDER BY pinned DESC, published DESC;
+            -->
+            GET /fresh_stories HTTP/1.1
+        GET /entity?function /entity?order
+          GET /people?select=*,full_name
+          CREATE FUNCTION full_name(people) RETURNS text AS $$
+            SELECT $1.fname || ' ' || $1.lname;
+          CREATE INDEX people_full_name_idx ON people
+            USING GIN (to_tsvector('english', full_name(people)));
+            -->
+            GET /people?full_name=fts.Beckett
+          GET /people?order=age.desc,height.asc
+        Range pagination
+          GET /people HTTP/1.1
+            Range-Unit: items
+            Range: 0-19
+          GET /people?limit=15&offset=30
+        single item ?id=eq.1 Accept: vnd.pgrst
+          /items?id=eq.1
+            [ {"id":1} ]
+          /items?id=eq.1
+            Accept: application/vnd.pgrst.object+json
+            {"id":1}
+        joins items?select=id,subitems(id,field)
+          curl http://localhost:8080rest/items?id=gt.1&select=id,name,subitems(id,name)
+          /films?select=title,directors(id,last_name)
+          GET /films?select=*,actors(*)&actors.order=last_name,first_name
+        POST /rpc/function {args}
+          POST /rpc/function_name
+          CREATE FUNCTION add_them(a integer, b integer)
+            -->
+            POST /rpc/add_them
+              {"a":1, "b":2}
         request.header.XYZ
           SELECT current_setting('request.header.origin', true);
-        POST /table_name 
-          {"col1": "value", "col2": "value"}
-        PATCH /people?age=lt.13
-          {"category": "child"}
-        POST /people
-          Content-Type: text/csv
-          name,age
-          J Doe,62 
-          Jonas,10
-        POST /people
-          Content-Type: application/json
-          [
-            {"name":"J Doe", "age":62},
-            ..
-          ]
+        insert = POST, update = PATCH, delete = DELETE
+          POST /table_name 
+            {"col1": "value", "col2": "value"}
+          PATCH /people?age=lt.13
+            {"category": "child"}
+          POST /people
+            Content-Type: text/csv
+            name,age
+            J Doe,62 
+            Jonas,10
+          POST /people
+            Content-Type: application/json
+            [
+              {"name":"J Doe", "age":62},
+              ..
+            ]
       Authentication
         GRANT user123 TO authenticator;
       postgrest_starter_kit (psk)
@@ -626,3 +662,130 @@
           --du client_id="eq.1" \
           --du tasks.completed="eq.false"
         cloc --include-lang=SQL db/src/api/views_and_procedures.sql db/src/data/tables.sql db/src/authorization/privileges.sql db/src/libs/util/
+    psk: source code review
+      file structure
+        .env
+        docker-compose.yml
+        openresty: reverse proxy and lua code
+          lualib/user_code: application lua code
+          nginx/
+            conf
+            html
+          tests
+            rest: rest interface tests
+            common.js: helper functions
+          Dockerfile
+          entrypointsh: custom entrypoint
+        postgrest
+          tests: bash based integration tests
+            all.sh assert.sh
+        db: 
+          src: schema definition
+            data: definition of source tables
+              schema.sql tables.sql
+            api: api entities
+              schema.sql views_and_procedures.sql
+            libs:
+              auth pgjwt rabbitmq request settings util
+            authorization: roles and privileges
+              privileges.sql roles.sql
+            sample_data 
+              data.sql reset.sql
+            init.sql: entry point
+          tests: pgTap tests
+            rls.sql structure.sql
+      db
+        src
+          init.sh
+            ~/codes/pg/khumbuicefall/db/src/init.sh
+          init.sql
+            ~/codes/pg/khumbuicefall/db/src/init.sql
+          api
+      function call hierarchy
+        \ir libs/auth/schema.sql
+          \ir ../pgjwt/schema.sql
+            pgjwt--0.0.1.sql
+              FUNCTION url_encode
+              FUNCTION url_decode
+              FUNCTION algorithm_sign
+              FUNCTION sign
+              FUNCTION verify
+          encrypt_pass
+          sign_jwt
+          get_jwt_payload
+          set_auth_endpoints_privileges
+        \ir libs/request/schema.sql
+          create or replace function request.env_var(v text) returns text as $$
+          create or replace function request.jwt_claim(c text) returns text as $$
+          create or replace function request.cookie(c text) returns text as $$
+          create or replace function request.header(h text) returns text as $$
+          create or replace function request.user_id() returns int as $$
+          create or replace function request.user_role() returns text as $$
+        \ir libs/rabbitmq/schema.sql
+          create or replace function rabbitmq.send_message(
+          create or replace function rabbitmq.on_row_change() returns trigger as $$
+        \ir libs/util/schema.sql
+          \ir mutation_comments_trigger.sql;
+            create or replace function mutation_comments_trigger() returns trigger as $$
+        \ir data/schema.sql
+          \ir ../libs/auth/data/user_role_type.sql
+            create type user_role as enum ('webuser');
+          \ir ../libs/auth/data/user.sql
+            create table "user" (
+            create trigger user_encrypt_pass_trigger
+          \ir todo.sql
+            create table todo (
+            create trigger send_change_event
+          \ir tables.sql
+            create table client (
+            create table project (
+            create table task (
+            create table project_comment (
+            create table task_comment (
+        \ir api/schema.sql
+          \ir ../libs/auth/api/user_type.sql
+            create type "user" as (id int, name text, email text, role text);
+          \ir ../libs/auth/api/all.sql
+            \ir session_type.sql
+              create type session as (me json, token text);
+            \ir login.sql
+              create or replace function login(email text, password text) returns session as $$
+            \ir refresh_token.sql
+              create or replace function refresh_token() returns text as $$
+            \ir signup.sql
+              create or replace function signup(name text, email text, password text) returns session as $$
+            \ir me.sql
+              create or replace function me() returns "user" as $$
+          \ir todos.sql
+            create or replace view todos as
+          \ir views_and_procedures.sql
+            create or replace view clients as
+            create or replace view projects as
+            create or replace view tasks as
+            create or replace view comments as
+            create trigger comments_mutation
+        \ir authorization/roles.sql
+          create role :"authenticator" with login password :'authenticator_pass';
+          create role :"anonymous";
+          create or replace function _temp_create_application_roles("authenticator" text, "roles" text[]) returns void as $$
+        \ir authorization/privileges.sql
+          create policy todo_access_policy on data.todo to api 
+          create policy access_own_rows on client to api
+          create policy access_own_rows on project to api
+          create policy access_own_rows on task to api
+          create policy access_own_rows on project_comment to api
+          create policy access_own_rows on task_comment to api
+        \ir sample_data/data.sql
+          COPY data.user (id,name,email,"password") FROM STDIN (FREEZE ON);
+          COPY data.todo (id,todo,private,owner_id) FROM STDIN (FREEZE ON);
+          COPY client (id,name,address,user_id,created_on,updated_on) FROM STDIN (FREEZE ON);
+          COPY project (id,name,client_id,user_id,created_on,updated_on) FROM STDIN (FREEZE ON);
+          COPY task (id,name,completed,project_id,user_id,created_on,updated_on) FROM STDIN (FREEZE ON);
+          COPY project_comment (id,body,project_id,user_id,created_on,updated_on) FROM STDIN (FREEZE ON);
+          COPY task_comment (id,body,task_id,user_id,created_on,updated_on) FROM STDIN (FREEZE ON);
+      function signatures
+        type session as (me json, token text)
+        login(email, password): session
+        refresh_token(): text token
+        signup(name text, email text, password text): session
+        me(): user
