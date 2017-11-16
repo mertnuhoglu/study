@@ -2,6 +2,9 @@
 
 # Study PostgreSQL 20171003 
 
+    ref
+      <url:file:///~/projects/study/pg/postgrest02/README.md>
+      <url:file:///~/Dropbox (Personal)/mynotes/content/articles/articles_db.md>
     Run 
       docker start postgreststarterkit_db_1
         opt
@@ -15,6 +18,13 @@
         npx franchise-client@0.2.7
         https://franchise.cloud/app/
       psql -d app -h localhost -p 5432 -U superuser
+        psql -d app -U superuser -h localhost -w
+      env variables
+        export PGHOST=localhost
+        export PGPORT=5432
+        export PGUSER=superuser
+        export PGDATABASE=app
+        psql
       jupyter
         %load_ext sql
         %%sql postgresql://superuser:superuserpass@localhost/app
@@ -22,6 +32,9 @@
         %sql select 1;
       pgcli
         pgcli postgresql://superuser:superuserpass@localhost/app
+        pgcli app
+      db create
+        psql -c 'CREATE DATABASE library OWNER = superuser'
     Database Administration
       Roles
         CREATE ROLE leo LOGIN PASSWORD 'king' CREATEDB VALID UNTIL 'infinity'
@@ -177,6 +190,7 @@
         contains (@>)
         SELECT employee FROM employment WHERE period @> CURRENT_DATE GROUP BY employee
       JSON
+        https://www.postgresql.org/docs/current/static/functions-json.html
         INSERT INTO families_j (profile) VALUES (
           '{"name":"Gomez", "members": [{"member":{"relation":"padre",...}}]}')
         json_extract_path(profile, 'name') As family,
