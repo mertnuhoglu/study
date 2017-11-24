@@ -233,7 +233,7 @@
         standalone usage
           tldr
     twitter bootstrap id=g_10145
-      twitter bootstrap <url:file:///~/Dropbox/projects/study/study/study_js.md#r=g_10145>
+      twitter bootstrap <url:file:///~/projects/study/study/study_js.md#r=g_10145>
       cheatsheets
         https://hackerthemes.com/bootstrap-cheatsheet/
       themes
