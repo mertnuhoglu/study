@@ -1,0 +1,34 @@
+---
+title: "Data Generation Methods"
+author: "Mert Nuhoglu"
+subtitle: Alternative Ways to Generate Full Database to Test Data Model and APIs
+output:
+  html_document: default
+---
+
+```{r load_packages, include=FALSE}
+   library(dplyr)
+```
+
+## Problem
+
+- My ultimate goal is to make a backend API for some data model.
+- I want to test and find:
+  - Is data model correct?
+  - What are the correct SQL/data queries?
+- As input, I have yuml/uml data model
+- I want to build DDL and test data for this yuml data model automatically.
+- Then I will be able to write and test SQL/data queries to see if the model is correct?
+
+## Tools
+
+    jupyter
+      %%sql postgresql://superuser:superuserpass@localhost/app
+        select * from api.todos;
+    anosql
+      queries = anosql.load_queries('postgres', 'sql/study01.sql')
+      queries.select1(conn)
+    Sample Data Generator: datafiller
+      !datafiller --size=100 sql/library.sql > sql/library_test_data.sql
+    DDL Generator from Data: ddlgenerator
+      !ddlgenerator postgresql sql/sample_data01.csv > sql/sample_data01.ddl

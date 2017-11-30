@@ -1,0 +1,19 @@
+---
+title: "study_rpostgres.Rmd"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DBI)
+source("utils_study.R")
+```
+
+## Installation
+
+```{r install}
+# install.packages("remotes")
+remotes::install_github("rstats-db/RPostgres")
+```
+
+## Basic Usage

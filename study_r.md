@@ -1,7 +1,9 @@
-  <url:file:///~/Dropbox (Personal)/projects/study/study/study_r_20160304.md>
+---
+title: R Study Notes & Refcard
+file_path: <url:file:///~/projects/study/study_r.md>
+url: http://mertnuhoglu.com/tech/study_r/
 _ id=r_lastid sr_0006
-
-# Study R 20160304
+---
 
 ref - input
 
@@ -13,7 +15,7 @@ ref - input
       Sys.setlocale("LC_CTYPE", "en_US.UTF-8")
       https://stackoverflow.com/questions/25808595/issues-with-encoding-when-using-an-rscript-through-launchd
 
-## ref.otl
+## refcard with examples
 
     conventions
       iterative
