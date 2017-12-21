@@ -1,0 +1,118 @@
+---
+title: "Example: datafiller SQL Data Generator"
+date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+draft: false
+description: ""
+tags:
+categories: r debug
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+- data/library.sql
+- data/library_test_data.sql
+- data/library_test_data02.sql
+- data/library_test_data03.sql
+- data/library_test_data04.sql
+- data/library02.sql
+- data/library03.sql
+- data/library04.sql
+---
+
+## Getting Started 
+
+``` {bash}
+cat data/library.sql
+``` 
+
+Note meta attributes:
+
+``` sql
+CREATE TABLE Book(  --df: mult=2.0
+...
+``` 
+
+``` bash
+datafiller --size=2 data/library.sql > data/library_test_data.sql
+``` 
+
+``` {bash}
+head data/library_test_data.sql
+``` 
+
+## Meta Attributes
+
+``` {bash}
+cat data/library02.sql
+``` 
+
+Note the following attributes:
+
+``` sql
+  title TEXT NOT NULL, 
+  -- df English: word=/Users/mertnuhoglu/projects/test_data/google-10000-english-no-swears.txt
+  -- df: text=English length=4 lenvar=3
+  ...
+  born DATE NOT NULL, -- df: start=1950-01-01 end=2005-01-01
+  ...
+  phone TEXT 
+  -- df: chars='0-9' length=10 lenvar=0
+  -- df: null=0.01 size=1000000
+  ...
+``` 
+
+``` bash
+datafiller --size=3 data/library02.sql > data/library_test_data02.sql
+``` 
+
+``` {bash}
+cat data/library_test_data02.sql
+``` 
+
+``` {bash}
+cat data/library03.sql
+``` 
+
+Note the following attributes:
+
+``` sql
+  gender BOOLEAN NOT NULL, 
+  -- df: rate=0.25
+  ...
+  borrowed TIMESTAMP NOT NULL, 
+  -- df: size=72000 prec=60
+  ...
+  note TEXT,
+  -- df: sub=power prefix=note size=1000 rate=0.03
+``` 
+
+``` bash
+datafiller --size=3 data/library03.sql > data/library_test_data03.sql
+``` 
+
+``` {bash}
+cat data/library_test_data03.sql
+``` 
+
+``` {bash}
+cat data/library04.sql
+``` 
+
+Note the following attributes:
+
+``` sql
+  email TEXT NOT NULL CHECK(email LIKE '%@%'),
+  -- df: pattern='[a-z]{3,8}\.[a-z]{3,8}@(gmail|yahoo)\.com'
+  ...
+``` 
+
+``` bash
+datafiller --size=3 data/library04.sql > data/library_test_data04.sql
+``` 
+
+``` {bash}
+cat data/library_test_data04.sql
+``` 
+

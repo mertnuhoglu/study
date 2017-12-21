@@ -1,0 +1,235 @@
+[
+  {
+    "sha": "7b81a836c31500e685d043729259affa8b670a87",
+    "commit": {
+      "author": {
+        "name": "William Langford",
+        "email": "wlangfor@gmail.com",
+        "date": "2017-06-19T14:55:26Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2017-06-19T14:55:26Z"
+      },
+      "message": "Merge pull request #1403 from Argoday/master\n\nUse unsorted keys in walk",
+      "tree": {
+        "sha": "7f932f04ae055fe230abbf9beb9d68dc4683d8d4",
+        "url": "https://api.github.com/repos/stedolan/jq/git/trees/7f932f04ae055fe230abbf9beb9d68dc4683d8d4"
+      },
+      "url": "https://api.github.com/repos/stedolan/jq/git/commits/7b81a836c31500e685d043729259affa8b670a87",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null
+      }
+    },
+    "url": "https://api.github.com/repos/stedolan/jq/commits/7b81a836c31500e685d043729259affa8b670a87",
+    "html_url": "https://github.com/stedolan/jq/commit/7b81a836c31500e685d043729259affa8b670a87",
+    "comments_url": "https://api.github.com/repos/stedolan/jq/commits/7b81a836c31500e685d043729259affa8b670a87/comments",
+    "author": {
+      "login": "wtlangford",
+      "id": 3422295,
+      "avatar_url": "https://avatars2.githubusercontent.com/u/3422295?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/wtlangford",
+      "html_url": "https://github.com/wtlangford",
+      "followers_url": "https://api.github.com/users/wtlangford/followers",
+      "following_url": "https://api.github.com/users/wtlangford/following{/other_user}",
+      "gists_url": "https://api.github.com/users/wtlangford/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/wtlangford/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/wtlangford/subscriptions",
+      "organizations_url": "https://api.github.com/users/wtlangford/orgs",
+      "repos_url": "https://api.github.com/users/wtlangford/repos",
+      "events_url": "https://api.github.com/users/wtlangford/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/wtlangford/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "web-flow",
+      "id": 19864447,
+      "avatar_url": "https://avatars3.githubusercontent.com/u/19864447?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/web-flow",
+      "html_url": "https://github.com/web-flow",
+      "followers_url": "https://api.github.com/users/web-flow/followers",
+      "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+      "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+      "organizations_url": "https://api.github.com/users/web-flow/orgs",
+      "repos_url": "https://api.github.com/users/web-flow/repos",
+      "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/web-flow/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c538237f4e4c381d35f1c15497c95f659fd55850",
+        "url": "https://api.github.com/repos/stedolan/jq/commits/c538237f4e4c381d35f1c15497c95f659fd55850",
+        "html_url": "https://github.com/stedolan/jq/commit/c538237f4e4c381d35f1c15497c95f659fd55850"
+      },
+      {
+        "sha": "ca12bd9b5d15c0c4e5bd01d706ddbb3f4edefd36",
+        "url": "https://api.github.com/repos/stedolan/jq/commits/ca12bd9b5d15c0c4e5bd01d706ddbb3f4edefd36",
+        "html_url": "https://github.com/stedolan/jq/commit/ca12bd9b5d15c0c4e5bd01d706ddbb3f4edefd36"
+      }
+    ]
+  },
+  {
+    "sha": "c538237f4e4c381d35f1c15497c95f659fd55850",
+    "commit": {
+      "author": {
+        "name": "Nicolas Williams",
+        "email": "nico@cryptonector.com",
+        "date": "2017-05-21T21:24:48Z"
+      },
+      "committer": {
+        "name": "Nicolas Williams",
+        "email": "nico@cryptonector.com",
+        "date": "2017-05-21T21:24:48Z"
+      },
+      "message": "Deal with strptime() on OS X and *BSD (fix #1415)\n\nstrptime() on OS X and *BSDs (reputedly) does not set tm_wday and\ntm_yday unless corresponding %U and %j format specifiers were used.\nThat can be... surprising when one parsed year, month, and day anyways.\nGlibc's strptime() conveniently sets tm_wday and tm_yday in those cases,\nbut OS X's does not, ignoring them completely.\n\nThis commit makes jq compute those where possible, though the day of\nweek computation may be wrong for dates before 1900-03-01 or after\n2099-12-31.",
+      "tree": {
+        "sha": "86ae2d701edc08d00507c600bdff879f0f10916e",
+        "url": "https://api.github.com/repos/stedolan/jq/git/trees/86ae2d701edc08d00507c600bdff879f0f10916e"
+      },
+      "url": "https://api.github.com/repos/stedolan/jq/git/commits/c538237f4e4c381d35f1c15497c95f659fd55850",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null
+      }
+    },
+    "url": "https://api.github.com/repos/stedolan/jq/commits/c538237f4e4c381d35f1c15497c95f659fd55850",
+    "html_url": "https://github.com/stedolan/jq/commit/c538237f4e4c381d35f1c15497c95f659fd55850",
+    "comments_url": "https://api.github.com/repos/stedolan/jq/commits/c538237f4e4c381d35f1c15497c95f659fd55850/comments",
+    "author": {
+      "login": "nicowilliams",
+      "id": 604851,
+      "avatar_url": "https://avatars2.githubusercontent.com/u/604851?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/nicowilliams",
+      "html_url": "https://github.com/nicowilliams",
+      "followers_url": "https://api.github.com/users/nicowilliams/followers",
+      "following_url": "https://api.github.com/users/nicowilliams/following{/other_user}",
+      "gists_url": "https://api.github.com/users/nicowilliams/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/nicowilliams/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/nicowilliams/subscriptions",
+      "organizations_url": "https://api.github.com/users/nicowilliams/orgs",
+      "repos_url": "https://api.github.com/users/nicowilliams/repos",
+      "events_url": "https://api.github.com/users/nicowilliams/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/nicowilliams/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "nicowilliams",
+      "id": 604851,
+      "avatar_url": "https://avatars2.githubusercontent.com/u/604851?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/nicowilliams",
+      "html_url": "https://github.com/nicowilliams",
+      "followers_url": "https://api.github.com/users/nicowilliams/followers",
+      "following_url": "https://api.github.com/users/nicowilliams/following{/other_user}",
+      "gists_url": "https://api.github.com/users/nicowilliams/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/nicowilliams/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/nicowilliams/subscriptions",
+      "organizations_url": "https://api.github.com/users/nicowilliams/orgs",
+      "repos_url": "https://api.github.com/users/nicowilliams/repos",
+      "events_url": "https://api.github.com/users/nicowilliams/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/nicowilliams/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "4a6241be0697bbe4ef420c43689c34af59e50330",
+        "url": "https://api.github.com/repos/stedolan/jq/commits/4a6241be0697bbe4ef420c43689c34af59e50330",
+        "html_url": "https://github.com/stedolan/jq/commit/4a6241be0697bbe4ef420c43689c34af59e50330"
+      }
+    ]
+  },
+  {
+    "sha": "4a6241be0697bbe4ef420c43689c34af59e50330",
+    "commit": {
+      "author": {
+        "name": "Nicolas Williams",
+        "email": "nico@cryptonector.com",
+        "date": "2017-05-21T06:58:18Z"
+      },
+      "committer": {
+        "name": "Nicolas Williams",
+        "email": "nico@cryptonector.com",
+        "date": "2017-05-21T06:58:18Z"
+      },
+      "message": "Attempt to fix #1415\n\nOS X (and *BSD) strptime() does not set tm_wday nor tm_yday unless\ncorresponding format options are used.  That means we must call timegm()\nto set them.",
+      "tree": {
+        "sha": "0face3cc5ed698085e8693996b12d3b1748bdc65",
+        "url": "https://api.github.com/repos/stedolan/jq/git/trees/0face3cc5ed698085e8693996b12d3b1748bdc65"
+      },
+      "url": "https://api.github.com/repos/stedolan/jq/git/commits/4a6241be0697bbe4ef420c43689c34af59e50330",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null
+      }
+    },
+    "url": "https://api.github.com/repos/stedolan/jq/commits/4a6241be0697bbe4ef420c43689c34af59e50330",
+    "html_url": "https://github.com/stedolan/jq/commit/4a6241be0697bbe4ef420c43689c34af59e50330",
+    "comments_url": "https://api.github.com/repos/stedolan/jq/commits/4a6241be0697bbe4ef420c43689c34af59e50330/comments",
+    "author": {
+      "login": "nicowilliams",
+      "id": 604851,
+      "avatar_url": "https://avatars2.githubusercontent.com/u/604851?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/nicowilliams",
+      "html_url": "https://github.com/nicowilliams",
+      "followers_url": "https://api.github.com/users/nicowilliams/followers",
+      "following_url": "https://api.github.com/users/nicowilliams/following{/other_user}",
+      "gists_url": "https://api.github.com/users/nicowilliams/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/nicowilliams/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/nicowilliams/subscriptions",
+      "organizations_url": "https://api.github.com/users/nicowilliams/orgs",
+      "repos_url": "https://api.github.com/users/nicowilliams/repos",
+      "events_url": "https://api.github.com/users/nicowilliams/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/nicowilliams/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "nicowilliams",
+      "id": 604851,
+      "avatar_url": "https://avatars2.githubusercontent.com/u/604851?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/nicowilliams",
+      "html_url": "https://github.com/nicowilliams",
+      "followers_url": "https://api.github.com/users/nicowilliams/followers",
+      "following_url": "https://api.github.com/users/nicowilliams/following{/other_user}",
+      "gists_url": "https://api.github.com/users/nicowilliams/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/nicowilliams/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/nicowilliams/subscriptions",
+      "organizations_url": "https://api.github.com/users/nicowilliams/orgs",
+      "repos_url": "https://api.github.com/users/nicowilliams/repos",
+      "events_url": "https://api.github.com/users/nicowilliams/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/nicowilliams/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "1900c7bcac76777782505c89a032c18a65fcc487",
+        "url": "https://api.github.com/repos/stedolan/jq/commits/1900c7bcac76777782505c89a032c18a65fcc487",
+        "html_url": "https://github.com/stedolan/jq/commit/1900c7bcac76777782505c89a032c18a65fcc487"
+      }
+    ]
+  }
+]

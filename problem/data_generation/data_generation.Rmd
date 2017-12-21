@@ -32,3 +32,12 @@ output:
       !datafiller --size=100 sql/library.sql > sql/library_test_data.sql
     DDL Generator from Data: ddlgenerator
       !ddlgenerator postgresql sql/sample_data01.csv > sql/sample_data01.ddl
+
+## Development Process
+
+1. build data model. ex `[Company] - [Depot]`
+2. write ddl. ex `CREATE TABLE company (..)`
+3. write views. ex `CREATE VIEW company as SELECT company_id, ...`
+4. generate sample data. ex `datafiller model.sql > sample_data.sql`
+5. write rest calls. ex `/rpc/report_route_seq` `/rest/route_seq?plan_id=eq.1&select(route_seq_id,route())`
+6. test sql queries

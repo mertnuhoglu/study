@@ -1,0 +1,7 @@
+---
+field: a
+object:
+  field: b
+array:
+- f1: c
+- f2: d

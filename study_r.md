@@ -2,7 +2,7 @@
 title: R Study Notes & Refcard
 file_path: <url:file:///~/projects/study/study_r.md>
 url: http://mertnuhoglu.com/tech/study_r/
-_ id=r_lastid sr_0006
+_ id=r_lastid sr_0007
 ---
 
 ref - input
@@ -17,6 +17,20 @@ ref - input
 
 ## refcard with examples
 
+    install update upgrade
+      devtools::install_github("AndreaCirilloAC/updateR")
+      library(updateR)
+      updateR(admin_password = '<pass>') 
+    run R from console
+      oneliner
+        R -e 'rmarkdown::render("data_generation.Rmd", "html_document")'
+      run script
+        R CMD BATCH file.R
+          # output to standard out
+        Rscript file.R
+          # output in a file: file.Rout
+      shebang
+        #!/usr/bin/env Rscript
     conventions
       iterative
         export(.., na = "")
@@ -139,6 +153,12 @@ ref - input
             df[i,]
             dt[i]
           # wrong: for (row in df/dt)
+      set operations
+        union(x, y)
+        intersect(x, y)
+        setdiff(x, y)
+        setequal(x, y)
+        is.element(el, set)
     control
       if (cond) expr1 else expr2
       for (var in seq) expr
@@ -634,6 +654,7 @@ ref - input
         dirname("C:/some_dir/a")
         >[1] "C:/some_dir"
       dir.create(path = ... ) # mkdir
+        dir.create(path = ..., recursive = T) # mkdir -p
       list.files(path = ".", pattern = NULL, all.files = FALSE,
         full.names = FALSE, recursive = FALSE,
         ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE)
@@ -767,7 +788,12 @@ ref - input
             (?=)  positive
             (?!)  negative
         escapes backslashes
-          backslashes need to be doubled
+          backslashes need to be doubled for regex
+          newline: single
+            "\n"
+            cat("this\nis new")
+            # this
+            # is new
         character classes
           [:alnum:]
             [:alpha:] [:digit]
@@ -2102,6 +2128,7 @@ ref - input
         system(cmd)
         system(cmd, intern=T)
           capture output of command 
+        system2("echo", "hello")
         calling R from shell
           bash
             Rscript RscriptEcho.R study_rscript1.R test 10
@@ -2119,6 +2146,49 @@ ref - input
         GetOption("max.width")
         options(max.print=100)
         options(max.print=6)
+    # knitr
+      ref
+        http://kbroman.org/knitr_knutshell/
+      what is knitr
+        dynamic documents 
+        difference to rmarkdown
+          knitr supports rmarkdown in addition to latex, lyx etc.
+      how to run
+        opt1: Rstudio
+          #+K "Knit"
+        opt2: terminal
+          rmarkdown::render("vignettes/my-vignette.Rmd")
+        opt3: bash terminal
+          rmarkdown <file>
+          R -e 'rmarkdown::render("example.Rmd")'
+          R -e 'rmarkdown::render("example.Rmd", "pdf_document")'
+      relation between knitr and rmarkdown
+        http://rmarkdown.rstudio.com/lesson-2.html
+        knitr takes Rmd as input and produces md
+        pandoc takes md as input and produces html/pdf
+        rmarkdown::render() feeds .Rmd file to knitr
+        knitr executes code chunks and creates a new .md file
+      http://kbroman.org/knitr_knutshell/
+        Knitr Overview
+          Code Chunks
+            ex:
+              We see that this is an intercross with `r nind(sug)` individuals.
+              There are `r nphe(sug)` phenotypes, and genotype data at
+              `r totmar(sug)` markers across the `r nchr(sug)` autosomes.  The genotype
+              data is quite complete.
+              Use `plot()` to get a summary plot of the data.
+              ```{r summary_plot, fig.height=8}
+              plot(sug)
+              ```
+            inline: `r fun()`
+            new line: ```{r}
+            different text types allowed: Rmarkdown, Latex, AsciiDoc
+          Compiling the document
+            for Rmarkdown: 
+              opt1: Rstudio > Knit button
+              opt2: rmarkdown::render(file)
+              opt3: command line (gnu make)
+                R -e 'rmarkdown::render("example.Rmd")'
     rmarkdown
       ref
         http://rmarkdown.rstudio.com/
@@ -2136,6 +2206,7 @@ ref - input
         rmarkdown::render("input.Rmd")
         render("input.Rmd")
         render("input.Rmd", "pdf_document")
+        R -e 'rmarkdown::render("data_generation.Rmd", "html_document")'
       notebook in rstudio
       code chunks in rstudio
         #!i add new chunk
@@ -2691,6 +2762,7 @@ ref - input
       RJdbc
         install.packages("RJDBC")
     purrr
+      install.packages("tidyverse")
       reduce
         ex
           <url:file:///~/Dropbox/mynotes/content/mine/study_assign_kombin_termin.R>
@@ -2767,6 +2839,7 @@ ref - input
     rhandsontable
       install.packages("rhandsontable")
     shiny
+      install.packages("shiny")
       publishing to shinyapps.io
         shinyapps.io/admin
         new domain name
@@ -3385,6 +3458,7 @@ ref - input
     mongolite
       ref
         https://jeroen.github.io/mongolite
+      install.packages("mongolite")
       library(mongolite)
       ref
         study_dentas_mongodb.R
@@ -3451,16 +3525,39 @@ ref - input
       suppress disable library sourcing loading messages
         suppressMessages(library(x))
     packages packagesr
-      devtools
+      basic steps
+        ref
+          devtools for package building <url:#r=sr_0007>
+      devtools for package building id=sr_0007
+        devtools for package building <url:#r=sr_0007>
         devtools::create("mypackage")
           create a new package
+        devtools::document()
+          man/add.Rd
+          #+B   build and reload
+          updates NAMESPACE (for exported methods)
         devtools::load_all()
           reload your code
           #+L
-        devtools::document() generates: 
-          man/add.Rd
-          #+B   build and reload
         devtools::install()
+        devtools::build_vignettes()
+          build all vignettes
+          target dir: inst/doc
+        devtools::build()
+          create package with vignettes included
+        correct sequence
+          library("devtools")
+          devtools::document()
+          devtools::build_vignettes()
+          devtools::build()
+          devtools::install()
+          opt: encapsulate all
+            rutils::make_package()
+          git commit
+          git push
+        install/use your package
+          library("devtools")
+          devtools::install_github("username/packagename")
       github project
         # create R package in RStudio
         git init
@@ -3484,6 +3581,10 @@ ref - input
       installed packages
         sessionInfo()
         installed.packages()
+        check dplyr version
+          mat = installed.packages()
+          df = as_data_frame(as.table(mat))
+          filter(df, Var1 == "dplyr")
       file structure
         DESCRIPTION
         R/
@@ -3500,6 +3601,31 @@ ref - input
         .Rbuildignore
           ^.*\.Rproj$
         bundle: .tar.gz file
+      using magrittr pipe in external package
+        https://stackoverflow.com/questions/27947344/r-use-magrittr-pipe-operator-in-self-written-package#27979637
+        DESCRIPTION
+          Imports: 
+              magrittr (>= 0.7.1)
+        opt1: manually add to NAMESPACE
+          NAMESPACE
+            importFrom(magrittr,"%>%")
+        opt2: use roxygen comments for NULL (not a specific function)
+          #' @importFrom magrittr "%>%"
+          NULL
+          2. step
+            devtools::document()
+      roxygen basics
+        1. write comments
+          ex:
+            #' Add together two numbers
+            #'
+            #' @param x A number
+            #' @return The sum of \code{x} and 
+            #' @examples
+            #' add(1, 1)
+            add <- function(x, y) { x + y }
+        2. devtools::document()
+        3. ?add, example("add"), help("add")
       library: install path
         a directory containing installed packages
         paths of libraries:
@@ -3528,6 +3654,19 @@ ref - input
             NAMESPACE
           external data
             data/ directory
+            3 ways
+              binary data and available to user: data/
+                ex: example datasets
+              parsed data but not available to user: R/sysdata.rda
+                ex: data that your functions need
+              store raw data: inst/extdata
+            raw data
+              put original data files in:
+                inst/extdata
+              open with: system.file()
+                system.file("extdata", "2012.csv", package = "testdat")
+                ## [1] "/home/travis/R/Library/testdat/extdata/2012.csv"
+              dok et
           compiled code
             src/ directory
             compiled c code
@@ -3543,6 +3682,7 @@ ref - input
             release
         getting started
           install.packages(c("devtools", "roxygen2", "testthat", "knitr"))
+          install.packages(c("testthat", "knitr"))
         Package structure
           naming your package 
           Creating a package
@@ -3683,6 +3823,8 @@ ref - input
                 ggvis
               Suggests:
                 rlist
+            how to add to Imports:
+              devtools::use_package("dplyr")
             package::function()
               explicitly refer to external functions
             Suggests: optional
@@ -3830,11 +3972,13 @@ ref - input
               \eqn{a + b}
             Tables
               \tabular{}
-        Vignettes
+        # Vignettes
           intro
             browseVignettes()
-              see all installed vignettes
+              see all installed vignettes in browser
             browseVignettes("packagename")
+            vignette(package="dplyr")
+              list vignettes in console
             consists of
               source file
               HTML/PDF
@@ -3844,15 +3988,14 @@ ref - input
             edit(vignette(x))
               see its code
           Vignette workflow
-            creating
-              devtools::use_vignette("my-vignette")
-              1. creates vignettes/
-              2. Adds dependencies to DESCRIPTION
-              3. Drafts a vignette
+            1. devtools::use_vignette("my-vignette")
+              creates vignettes/
+              Adds dependencies to DESCRIPTION
+              Drafts a vignette
                 vignettes/my-vignette.Rmd
-            workflow
-              1. modify file
-              2. #+K "Knit"
+            2. modify file: vignettes/my-vignette.Rmd
+            3. RStudio #+K "Knit"
+              rmarkdown::render("vignettes/my-vignette.Rmd")
           Metadata
             first few lines
               ---
@@ -3955,6 +4098,19 @@ ref - input
           Imports
             which external functions can be used without ::
             best to be explicit: pkg::fun()
+        Installed files (inst/)
+          intro
+            opposite of .Rbuildignore
+              .Rbuildignore: remove files
+              inst/: add files to top level
+            to find a file in `inst/`
+              system.file("extdata", "mydata.csv", package = "mypackage")
+            ex
+              system.file("bash/build_datamodel_sdb.sh", package = "yumltordbschema")
+          Other languages
+            put scripts of java, perl, bash into inst/
+              inst/python, inst/bash
+            document in: DESCRIPTION > SystemRequirements
         External data
         Automated checking
           intro
@@ -3999,6 +4155,150 @@ ref - input
           setwd("..")
           install("cats")
         6. push to github
+    reprex: reproducible example codes
+      install.packages("reprex")
+      http://reprex.tidyverse.org
+      library(reprex)
+      opt1: copy some code into clipboard
+        reprex()
+        ex:
+          (y <- 1:4)
+          mean(y)
+        out:
+          ``` r
+          (y <- 1:4)
+          #> [1] 1 2 3 4
+          mean(y)
+          #> [1] 2.5
+          ```
+      opt2: from expression
+        reprex(mean(rnorm(10)))
+      opt3: from character vector
+        reprex(input = "mean(rnorm(10))\n")
+        reprex(input = "> mean(rnorm(10))\n")
+      opt4: from file
+        reprex(input = "my_reprex.R") 
+      opt5: RStudio addin text
+      for stackoverflow
+        reprex(..., venue = "so")
+      for runnable R script
+        reprex(..., venue = "R")
+    usethis
+      https://www.tidyverse.org/articles/2017/11/usethis-1.0.0/
+      install.packages("usethis")
+      library(usethis)
+      Create a new package -------------------------------------------------
+        tmp <- file.path(tempdir(), "mypkg")
+        create_package(tmp)
+        #> Changing active project to mypkg
+        #> ✔ Creating 'R/'
+        #> ✔ Creating 'man/'
+        #> ✔ Writing 'DESCRIPTION'
+        #> ✔ Writing 'NAMESPACE'
+      create/edit a script file in R/:
+        use_r("foo")
+        #> ● Edit 'R/foo.R'
+      unit testing
+        use_test("foo")
+        #> ✔ Adding 'testthat' to Suggests field in DESCRIPTION
+        #> ✔ Creating 'tests/testthat/'
+        #> ✔ Writing 'tests/testthat.R'
+        #> ✔ Writing 'tests/testthat/test-foo.R'
+        #> ● Edit 'tests/testthat/test-foo.R'
+      dependency/library
+        use_package("ggplot2")
+        #> ✔ Adding 'ggplot2' to Imports field in DESCRIPTION
+        #> ● Refer to functions with `ggplot2::fun()`
+        opt
+          use_dev_package()
+      use_roxygen_md() 
+        sets up roxygen2 and enables markdown mode 
+      use_package_doc() 
+        creates a skeleton documentation file for the complete package
+      use_readme_rmd() 
+        creates a README.Rmd
+      use_news_md() 
+        creates a basic NEWS.md 
+      use_vignette("vignette-name") 
+        sets you up for success by configuring DESCRIPTION and creating a .Rmd template in vignettes/
+      licenses
+        use_mit_license("Mert Nuhoglu")
+        use_apl2_license()
+        use_gpl3_license()
+        use_cc0_license()
+      init git
+        use_git()
+        #> ✔ Initialising Git repo
+        #> ✔ Adding '.Rhistory', '.RData', '.Rproj.user' to './.gitignore'
+        #> ✔ Adding files and committing
+      publish to github
+        use_github()
+      browsing config files
+        R
+          edit_r_profile()
+          edit_r_environ()
+          edit_r_makevars()
+        git
+          edit_git_config()
+          edit_git_ignore()
+    datapasta
+      https://github.com/MilesMcBain/datapasta
+      ref
+        <url:file:///~/projects/study/r/refcard_datapasta.Rmd>
+      install.packages("datapasta")
+      copy paste table/vector data
+      ex: terminal
+        library(magrittr); library(datapasta)
+        mtcars %>% head() %>% dpasta()
+        #> data.frame(
+        #>          mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1),
+        #>          cyl = c(6, 6, 4, 6, 8, 6),
+        #>         disp = c(160, 160, 108, 258, 360, 225),
+        #> )
+      ex: copy table from excel
+        df_paste()
+      functions
+        dpasta()
+        dmdclip()
+          for md. preceded by 4 spaces
+        tribble_paste()
+        vector_paste()
+        vector_paste_vertical()
+    blogdown
+      install.packages("blogdown")
+      cmd
+        library(blogdown)
+        blogdown::serve_site()
+        blogdown::new_site()
+        blogdown::new_post()
+        blogdown::build_site()
+      hugo + blogdown
+        migrate hugo site to blogdown
+          rename config.yml as config.yaml
+        copy files to tech/ directory
+          sync_rmd_to_blog_dirs
+          deprecated:
+            rsync -a --files-from=.to_blog_tech.tsv ./ /Users/mertnuhoglu/projects/jekyll/mertnuhoglu.com/content/tech
+        yaml header
+          ---
+          title: "Example: R Time and Date"
+          date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+          draft: false
+          description: ""
+          tags:
+          categories: examples R 
+          type: post
+          url:
+          author: "Mert Nuhoglu"
+          output: rmarkdown::html_document
+          blog: mertnuhoglu.com
+          resource_files:
+          -
+          ---
+        deploy
+          ./deploy.sh
+      conventions
+        links: [ex_sql_generation.Rmd](/tech/ex_sql_generation/ "SQL Generation")
     next
       read funs
       http://rmaps.github.io/

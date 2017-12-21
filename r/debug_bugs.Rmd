@@ -1,0 +1,23 @@
+---
+title: "Debugging Bugs in my Codes"
+date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+draft: true
+description: ""
+tags:
+categories: r debug
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+# mutate with ifelse overwrites a non-NA value with NA 
+
+    id=g_10178
+
+debug_r_isna_all_checks_column_inside_dplyr_mutate.R
+
+

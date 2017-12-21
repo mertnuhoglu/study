@@ -1,0 +1,34 @@
+---
+title: "Example: R Time and Date"
+date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+draft: false
+description: ""
+tags:
+categories: examples R 
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+## ISO 8601 Format
+
+Reading time:
+
+```{r}
+as.POSIXlt(Sys.time(), "UTC", "%Y-%m-%dT%H:%M:%S")
+as.POSIXlt(Sys.time(), "Asia/Baghdad", "%Y-%m-%dT%H:%M:%S")
+```
+
+Writing time:
+
+```{r}
+tm = as.POSIXlt(Sys.time(), "Asia/Baghdad", "%Y-%m-%dT%H:%M:%S")
+strftime(tm , "%Y-%m-%dT%H:%M:%S%z")
+strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S%z")
+```
+
+
