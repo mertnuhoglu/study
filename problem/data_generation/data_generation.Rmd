@@ -4,6 +4,7 @@ author: "Mert Nuhoglu"
 subtitle: Alternative Ways to Generate Full Database to Test Data Model and APIs
 output:
   html_document: default
+path: ~/projects/study/problem/data_generation/data_generation.Rmd
 ---
 
 ```{r load_packages, include=FALSE}

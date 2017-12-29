@@ -1,0 +1,108 @@
+---
+title: "Example: SQL Generation (unpublished probably will be deleted)"
+date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+draft: draft
+description: ""
+tags:
+categories: examples r sql
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+```{r}
+library(dplyr, warn.conflicts = F)
+data_model_dir = "/Users/mertnuhoglu/projects/itr/itr_documentation/data_model/"
+```
+
+
+## Error: plan_id in pln_orl is declared as PK instead of FK
+
+`plan_id` field should be a FK, but instead it is declared as PK:
+
+``` sql
+CREATE TABLE pln_orl (
+  plan_id BIGINT REFERENCES plan (plan_id)
+  ,  order_line_id BIGINT REFERENCES order_line (order_line_id)
+  ) ;
+``` 
+
+Check the data flow that produces this sql statement. The `yuml` file is correct as:
+
+    [pln_orl| plan_id BIGINT FK; order_line_id BIGINT FK; ]
+
+`data_field` dataframe is correct too:
+
+    > dfl %>% dplyr::filter(data_entity_id == 12)
+    # A tibble: 2 x 7
+      data_field_id data_field_name   type pk_fk data_entity_id fk_data_entity_id enum_var_name
+              <int>           <chr>  <chr> <chr>          <int>             <int>         <chr>
+    1            52         plan_id BIGINT    FK             12                11          <NA>
+    2            53   order_line_id BIGINT    FK             12                 9          <NA>
+
+Let's reproduce the error step by step:
+
+``` {r}
+deid = 12
+fd = dplyr::filter(dfl, data_entity_id == deid) %>%
+  dplyr::left_join(den, by = "data_entity_id")
+table_name = unique(fd$entity_name)
+non_keys = dplyr::filter(fd, pk_fk == "NON_KEY")
+pks = dplyr::filter(fd, pk_fk == "PK")
+pks
+fks = dplyr::filter(fd, pk_fk == "FK") %>%
+  dplyr::left_join(den_pk, by = c( "fk_data_entity_id" = "data_entity_id" ))
+fks
+create_table_sql_template( table_name, non_keys, pks, fks  )
+``` 
+
+The result is correct. False alarm. Maybe it was a caching issue :)
+
+# Ex01: CREATE TABLE sql generation in yumltordbschema::build_ddl()
+
+Assume that we have the following dataframe that contains the information of the fields of some database tables.
+
+```{r}
+dfl = tibble::tribble(
+  ~data_field_aid, ~data_field_name,   ~type,     ~pk_fk, ~data_entity_aid, ~entity_name,
+               1L,     "vehicle_id",  "TEXT",  "NOT_KEY",               1L,    "Vehicle",
+               2L,   "vehicle_type",  "TEXT",  "NOT_KEY",               1L,    "Vehicle"
+  )
+dfl
+```
+
+Now, we need to loop over each table name and generate `CREATE TABLE` sql statements. We need to loop over each `data_entity_aid` to do this.
+
+``` r
+dfl = tibble::tribble(
+  ~data_field_aid, ~data_field_name,   ~type,     ~pk_fk, ~data_entity_aid, ~entity_name,
+               1L,     "vehicle_id",  "TEXT",  "NOT_KEY",               1L,    "Vehicle",
+               2L,   "vehicle_type",  "TEXT",  "NOT_KEY",               1L,    "Vehicle"
+  )
+ids = dplyr::distinct(dfl, data_entity_aid)$data_entity_aid
+for (deid in ids) {
+  fd = dplyr::filter(dfl, data_entity_aid == deid)
+  table_name = unique(fd$entity_name)
+  nonpks = dplyr::filter(fd, pk_fk != "PK")
+  pks = dplyr::filter(fd, pk_fk == "PK")
+  yumltordbschema::create_table_sql_template( 
+    table_name, nonpks$data_field_name, nonpks$type, pks$data_field_name )
+  #> [1] "CREATE TABLE Vehicle (vehicle_id TEXT,vehicle_type TEXT);"
+}
+```
+

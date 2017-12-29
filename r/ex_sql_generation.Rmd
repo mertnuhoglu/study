@@ -8,66 +8,276 @@ categories: examples r sql
 type: post
 url:
 author: "Mert Nuhoglu"
-output: rmarkdown::html_document
+output: html_document
 blog: mertnuhoglu.com
 resource_files:
 -
 ---
 
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
 
-# Ex01: CREATE TABLE sql generation
-
-Assume that we have the following dataframe that contains the information of the fields of some database tables.
+``` {r set-options}
+options(width = 250)
+options(max.print = 30)
+``` 
 
 ```{r}
 library(dplyr, warn.conflicts = F)
-dfl = tibble::tribble(
-  ~data_field_aid, ~data_field_name,   ~type,     ~pk_fk, ~data_entity_aid, ~entity_name,
-               1L,     "vehicle_id",  "TEXT",  "NOT_KEY",               1L,    "Vehicle",
-               2L,   "vehicle_type",  "TEXT",  "NOT_KEY",               1L,    "Vehicle"
-  )
+```
+
+# yumltordbschema::build_rdb_data()
+
+``` r
+build_rdb_data = function(data_model_dir) {
+  build_datamodel_sdb.sh = system.file("bash/build_datamodel_sdb.sh", package = "yumltordbschema")
+  system2(build_datamodel_sdb.sh, data_model_dir)
+
+  build_yuml_data_model(data_model_dir)
+  den = update_new_entities(data_model_dir)
+  dfl = update_new_fields(den, data_model_dir)
+  return(list(data_entity = den, data_field = dfl))
+}
+```
+
+## yumltordbschema::build_yuml_data_model()
+
+
+```{r}
+lines = c("[enum_value| enum_value_id INT PK; enum_var_id INT FK; enum_value_name TEXT; ]",
+  "[enum_var| enum_var_id INT PK; enum_var_name TEXT; ]",
+  "[place| place_id INT PK; address TEXT; province TEXT; place_enum INT FK; ]")
+lines
+ydm = lines %>%
+  stringr::str_replace_all( "^[ \\[]*", "" ) %>%
+  stringr::str_replace_all( "[ \\]]*$", "" ) %>%
+  stringr::str_replace_all( "\\|\\s*", "\\|" ) %>%
+  stringr::str_replace_all( ";\\s*", ";" ) %>%
+  dplyr::data_frame( ln = . ) %>%
+  tidyr::separate( ln, c("entity_name", "columns"), "\\|" ) %>%
+  tidyr::unnest( columns = strsplit( columns, ";") ) %>%
+  tidyr::separate( columns, c("data_field_name", "type", "pk_fk"), " " ) %>%
+  dplyr::mutate( pk_fk = ifelse( is.na(pk_fk), "NON_KEY", pk_fk)) %>%
+  dplyr::mutate( type = ifelse( is.na(type), "TEXT", type)) %>%
+  dplyr::mutate( entity_name = tolower(entity_name) ) %>%
+  dplyr::mutate( data_field_name = tolower(data_field_name) ) 
+ydm
+``` 
+
+## yumltordbschema::update_new_entities()
+
+```{r}
+den = ydm %>%
+  dplyr::distinct( entity_name, .keep_all = T) %>%
+  dplyr::select( entity_name ) %>%
+  dplyr::mutate( data_entity_id = row_number() ) %>%
+  dplyr::select( data_entity_id, dplyr::everything() )
+den
+```
+
+## yumltordbschema::update_new_fields()
+
+```{r}
+dfl_p1 = ydm %>%
+  dplyr::inner_join( den, by = "entity_name" ) %>%
+  dplyr::select(-entity_name) %>%
+  dplyr::mutate( data_field_id = row_number() ) %>%
+  dplyr::select( data_field_id, dplyr::everything() )
+dfl_p1
+dfl_fk_id = dfl_p1 %>%
+  dplyr::select( data_field_id, data_field_name, pk_fk ) %>%
+  dplyr::filter( pk_fk == "FK" ) %>%
+  dplyr::filter( rutils::greplm( data_field_name, "_id$") ) %>%
+  dplyr::mutate( fk_data_entity_name = stringr::str_sub(data_field_name, end = -4)) %>%
+  dplyr::select( data_field_id, fk_data_entity_name ) 
+dfl_fk_id
+dfl_fk_enum = dfl_p1 %>%
+  dplyr::select( data_field_id, data_field_name, pk_fk ) %>%
+  dplyr::filter( pk_fk == "FK" ) %>%
+  dplyr::mutate( enum_var_name = data_field_name) %>%
+  dplyr::filter( rutils::greplm( data_field_name, "_enum$") ) %>%
+  dplyr::mutate( fk_data_entity_name = "enum_value") %>%
+  dplyr::select( data_field_id, fk_data_entity_name, enum_var_name ) 
+dfl_fk_enum
+den_id = den %>%
+  dplyr::select( data_entity_id, entity_name )
+dfl_fk = dplyr::bind_rows(dfl_fk_id, dfl_fk_enum) %>%
+  dplyr::left_join( den_id, by = c("fk_data_entity_name" = "entity_name") ) %>%
+  dplyr::select(-fk_data_entity_name) %>%
+  dplyr::select(data_field_id, fk_data_entity_id = data_entity_id, dplyr::everything()) 
+dfl_fk
+dfl = dfl_p1 %>%
+  dplyr::left_join( dfl_fk, by = "data_field_id" )
 dfl
 ```
 
-Now, we need to loop over each table name and generate `CREATE TABLE` sql statements. We need to loop over each `data_entity_aid` to do this.
+Check enum fields:
 
-``` r
-dfl = tibble::tribble(
-  ~data_field_aid, ~data_field_name,   ~type,     ~pk_fk, ~data_entity_aid, ~entity_name,
-               1L,     "vehicle_id",  "TEXT",  "NOT_KEY",               1L,    "Vehicle",
-               2L,   "vehicle_type",  "TEXT",  "NOT_KEY",               1L,    "Vehicle"
-  )
-ids = dplyr::distinct(dfl, data_entity_aid)$data_entity_aid
-for (deid in ids) {
-  fd = dplyr::filter(dfl, data_entity_aid == deid)
-  table_name = unique(fd$entity_name)
-  nonpks = dplyr::filter(fd, pk_fk != "PK")
-  pks = dplyr::filter(fd, pk_fk == "PK")
-  yumltordbschema::create_table_sql_template( 
-    table_name, nonpks$data_field_name, nonpks$type, pks$data_field_name )
-  #> [1] "CREATE TABLE Vehicle (vehicle_id TEXT,vehicle_type TEXT);"
-}
+```{r}
+dfl_fk %>% dplyr::filter(!is.na(enum_var_name))
+dfl %>% dplyr::filter(!is.na(enum_var_name))
 ```
 
-Definition of `create_table_sql_template()` is here:
+# yumltordbschema::build_ddl()
+
+Initial input arguments:
+
+``` {r}
+data_entity = den
+data_field = dfl
+```
+
+``` {r}
+den = data_entity 
+dfl = data_field 
+den
+dfl
+```
+
+``` {r}
+get_den_pk = function(den, dfl) {
+  dfl_pk = dfl %>%
+    dplyr::filter(pk_fk == "PK") %>%
+    dplyr::select(-pk_fk) %>%
+    dplyr::select(pk_data_field_id = data_field_id, fk_data_entity_id = data_entity_id, pk_data_field_name = data_field_name)
+  den %>%
+    dplyr::select(data_entity_id, entity_name) %>%
+    dplyr::left_join( dfl_pk, by = c("data_entity_id" = "fk_data_entity_id")) %>%
+    dplyr::select(data_entity_id, fk_data_entity_name = entity_name, fk_data_field_name = pk_data_field_name) 
+}
+den_pk = get_den_pk(den, dfl)
+den_pk
+``` 
+
+``` {r}
+get_dfl_fk = function(den, dfl) {
+  dfl_fk = dfl %>%
+    dplyr::filter(pk_fk == "FK") %>%
+    dplyr::select(-pk_fk) %>%
+    dplyr::left_join(get_den_pk(den, dfl), by = c("fk_data_entity_id" = "data_entity_id"))
+}
+dfl_fk = get_dfl_fk(den, dfl)
+dfl_fk
+``` 
+
+Check if all fk fields are set properly:
+
+``` {r}
+dfl_fk %>% dplyr::filter(is.na(fk_data_entity_id))
+``` 
+
+Set up a `data.table` that will store `CREATE TABLE` sql statements:
+
+``` {r}
+sql = data.table::data.table(
+                             data_entity_id = den$data_entity_id,
+                             sql_create_table = ""
+                             ) %>%
+  data.table::setkey(data_entity_id)
+ids = dplyr::distinct(dfl, data_entity_id)$data_entity_id
+```
+
+We will loop over each `data_entity_id` of all data fields `dfl`:
 
 ``` r
-create_table_sql_template = function( table_name, columns, types, pks ) {
-  # usage:
-  # template = create_table_sql_template( "t_c_bonitet_bali", names(cbb) )
-  # example output:
-  # "CREATE TABLE Vehicle ( vehicle_id bigint GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY, vehicle_type TEXT)"
+  for (deid in ids) {
+    fd = dplyr::filter(dfl, data_entity_id == deid) %>%
+      dplyr::left_join(den, by = "data_entity_id")
+    table_name = unique(fd$entity_name)
+    nonpks = dplyr::filter(fd, pk_fk != "PK")
+    pks = dplyr::filter(fd, pk_fk == "PK")
+    fks = dplyr::filter(fd, pk_fk == "FK") %>%
+      dplyr::left_join(den_pk, by = "data_entity_id")
+    sql[deid]$sql_create_table = create_table_sql( table_name, non_keys, pks, fks ) 
+  }
+```
+
+Run the loop for `deid = 1` as an example:
+
+``` {r}
+deid = 1
+fd = dplyr::filter(dfl, data_entity_id == deid) %>%
+  dplyr::left_join(den, by = "data_entity_id")
+fd
+```
+
+`fd` has the data fields of the current data entity among the ones we loop over:
+
+``` {r}
+table_name = unique(fd$entity_name)
+non_keys = dplyr::filter(fd, pk_fk == "NON_KEY")
+non_keys
+pks = dplyr::filter(fd, pk_fk == "PK")
+pks
+fks = dplyr::filter(fd, pk_fk == "FK") %>%
+  dplyr::left_join(den_pk, by = c( "fk_data_entity_id" = "data_entity_id"))
+fks
+```
+
+Actual job of producing `CREATE TABLE` statements are done by `create_table_sql()` function:
+
+Definition of `create_table_sql()` is here:
+
+``` {r}
+create_table_sql = function( table_name, non_keys, pks, fks ) {
   template_pk = "%s BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY"
-  pk_sql = sprintf(template_pk, pks)
-  template_column = "%s %s"
-  column_sql = pk_sql %>%
-    c( sprintf(template_column, columns, types) )
-  column_names = column_sql %>% paste(collapse=",")
+  sql_pk = sprintf(template_pk, pks$data_field_name)
+  template_fk = "%s int REFERENCES %s (%s)"
+  sql_fk = sprintf(template_fk, fks$data_field_name, fks$fk_data_entity_name, fks$fk_data_field_name)
+  template_nonkey = "%s %s"
+  sql_nonkey = sprintf(template_nonkey, non_keys$data_field_name, non_keys$type)
+  column_sql = c(sql_pk, sql_fk, sql_nonkey)
+  column_names = column_sql %>% paste(collapse=", ")
   template = "CREATE TABLE %s (%s);"
-  result = sprintf( template, table_name, column_names)
-  return(result)
+  create_table = sprintf( template, table_name, column_names)
+  return(create_table)
 }
 ```
+
+``` r
+sql[deid]$sql_create_table = create_table_sql( table_name, non_keys, pks, fks )
+``` 
+
+## yumltordbschema::create_table_sql()
+
+We have different templates for different types of data fields: PK fields, FK fields, non-key fields. These data fields are given as input to the function: `non_keys, pks, fks`
+
+``` {r}
+template_pk = "%s BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY"
+sql_pk = sprintf(template_pk, pks$data_field_name)
+sql_pk
+```
+
+``` {r}
+template_fk = "%s int REFERENCES %s (%s)"
+sql_fk = sprintf(template_fk, fks$data_field_name, fks$fk_data_entity_name, fks$fk_data_field_name)
+sql_fk
+```
+
+``` {r}
+template_nonkey = "%s %s"
+sql_nonkey = sprintf(template_nonkey, non_keys$data_field_name, non_keys$type)
+sql_nonkey
+```
+
+Now, we can concatenate all field definitions:
+
+``` {r}
+column_sql = c(sql_pk, sql_fk, sql_nonkey)
+column_names = column_sql %>% paste(collapse=", ")
+template = "CREATE TABLE %s (%s);"
+create_table = sprintf( template, table_name, column_names)
+create_table
+``` 
+
+Run the function at once:
+
+``` {r}
+create_table_sql( table_name, non_keys, pks, fks )
+``` 
 
 ## Why Can't We Use `apply` instead of `for` loop?
 
@@ -78,7 +288,7 @@ create_sql = function(fd) {
   table_name = unique(fd$entity_name)
   nonpks = dplyr::filter(fd, pk_fk != "PK")
   pks = dplyr::filter(fd, pk_fk == "PK")
-  yumltordbschema::create_table_sql_template( 
+  yumltordbschema::create_table_sql( 
     table_name, nonpks$data_field_name, nonpks$type, pks$data_field_name )
 }
 ```
@@ -100,3 +310,47 @@ for (deid in ids) {
 ```
 
 In order to use `apply()` function, we need to ensure that each row of `dfl` contains a distinct `data_entity_aid`.
+
+## Can I replace `for` loop with `lapply`?
+
+Instead of `for` loop, I can use `lapply` here:
+
+``` r
+for (deid in ids) {
+  fd = dplyr::filter(dfl, data_entity_id == deid) %>%
+    dplyr::left_join(den, by = "data_entity_id")
+  table_name = unique(fd$entity_name)
+  nonpks = dplyr::filter(fd, pk_fk != "PK")
+  pks = dplyr::filter(fd, pk_fk == "PK")
+  fks = dplyr::filter(fd, pk_fk == "FK") %>%
+    dplyr::left_join(den_pk, by = "data_entity_id")
+  sql[deid]$sql_create_table = create_table_sql( 
+    table_name, nonpks$data_field_name, nonpks$type, pks$data_field_name, fks )
+}
+```
+
+It will be something like:
+
+``` {r}
+loop_sql_create_table = function(deid, dfl, den) {
+  fd = dplyr::filter(dfl, data_entity_id == deid) %>%
+    dplyr::left_join(den, by = "data_entity_id")
+  table_name = unique(fd$entity_name)
+  nonpks = dplyr::filter(fd, pk_fk != "PK")
+  pks = dplyr::filter(fd, pk_fk == "PK")
+  fks = dplyr::filter(fd, pk_fk == "FK") %>%
+  dplyr::left_join(get_den_pk(den, dfl), by = "data_entity_id")
+  return(tibble::tibble(
+                        data_entity_id = deid
+                        , sql_create_table = create_table_sql( table_name, non_keys, pks, fks )
+                        )
+         )
+}
+sql = lapply(ids, loop_sql_create_table, dfl, den) %>%
+  dplyr::bind_rows()
+sql
+```
+
+Which one is better?
+
+I think `for` loop is easier to read and understand. But even so, I choose `lapply` over `for` loop because of composability. Having a side-effect-free function allows us to grow the program by composing building blocks.

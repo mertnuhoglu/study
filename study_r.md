@@ -961,6 +961,36 @@ ref - input
       alias
         extract2 [[
         check magrittr alias
+        ?magrittr::extract2
+          ‘extract’                 ‘`[`’
+          ‘extract2’                ‘`[[`’
+          ‘inset’                   ‘`[<-`’
+          ‘inset2’                  ‘`[[<-`’
+          ‘use_series’              ‘`$`’
+          ‘add’                     ‘`+`’
+          ‘subtract’                ‘`-`’
+          ‘multiply_by’             ‘`*`’
+          ‘raise_to_power’          ‘`^`’
+          ‘multiply_by_matrix’      ‘`%*%`’
+          ‘divide_by’               ‘`/`’
+          ‘divide_by_int’           ‘`%/%`’
+          ‘mod’                     ‘`%%`’
+          ‘is_in’                   ‘`%in%`’
+          ‘and’                     ‘`&`’
+          ‘or’                      ‘`|`’
+          ‘equals’                  ‘`==`’
+          ‘is_greater_than’         ‘`>`’
+          ‘is_weakly_greater_than’  ‘`>=`’
+          ‘is_less_than’            ‘`<`’
+          ‘is_weakly_less_than’     ‘`<=`’
+          ‘not’ (‘`n'est pas`’)     ‘`!`’
+          ‘set_colnames’            ‘`colnames<-`’
+          ‘set_rownames’            ‘`rownames<-`’
+          ‘set_names’               ‘`names<-`’
+        Examples:
+          iris %>%
+             extract(, 1:4) %>%
+             head
       examples
         http://stackoverflow.com/questions/31358953/in-r-subset-or-dplyrfilter-with-variable-from-vector
         rbind: filter mutate select left_join(original)
@@ -2195,6 +2225,18 @@ ref - input
         https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf
         https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
       render("input.Rmd", "pdf_document")
+      issues
+        line width
+          put to start of document:
+          ``` {r set-options}
+          options(width = 150)
+          ``` 
+        css div width (page)
+          <style>
+            .main-container {
+              max-width: 1600px !important;
+            }
+          </style>
       getting started
         rstudio > file > new > rmarkdown > .html
           örnek bir şablon dosya açılır
@@ -3528,6 +3570,9 @@ ref - input
       basic steps
         ref
           devtools for package building <url:#r=sr_0007>
+      issues
+        how to debug package functions
+          use RStudio
       devtools for package building id=sr_0007
         devtools for package building <url:#r=sr_0007>
         devtools::create("mypackage")
@@ -4299,6 +4344,9 @@ ref - input
           ./deploy.sh
       conventions
         links: [ex_sql_generation.Rmd](/tech/ex_sql_generation/ "SQL Generation")
+    colorout
+      https://github.com/jalvesaq/colorout
+      library(colorout)
     next
       read funs
       http://rmaps.github.io/

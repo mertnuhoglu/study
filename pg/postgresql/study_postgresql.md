@@ -19,6 +19,7 @@
         https://franchise.cloud/app/
       psql -d app -h localhost -p 5432 -U superuser
         psql -d app -U superuser -h localhost -w
+        set search_path = data, public;
       env variables
         export PGHOST=localhost
         export PGPORT=5432
@@ -33,6 +34,7 @@
       pgcli
         pgcli postgresql://superuser:superuserpass@localhost/app
         pgcli app
+        set search_path = data, public;
       db create
         psql -c 'CREATE DATABASE library OWNER = superuser'
     Database Administration

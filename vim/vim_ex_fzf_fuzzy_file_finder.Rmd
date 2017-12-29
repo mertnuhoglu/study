@@ -1,0 +1,38 @@
+---
+title: "Example: fzf fuzzy file finder"
+date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+draft: false
+description: ""
+tags:
+categories: vimscript, example
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+Most of the examples are taken from fzf wiki: https://github.com/junegunn/fzf/wiki/Examples-(vim)
+
+``` vim
+call fzf#run({'sink': 'e'})
+``` 
+
+`fzf#run()` function takes a dictionary as argument. This dictionary has two important keys: `sink` and `source`. `sink` is the channel where `fzf` output is redirected. `source` is the data stream where `fzf` makes search.
+
+For example, the above function call uses the default `source` which is the default find command. The `sink` is `e` command of Vim. Thus it will open the selected file with `e`. 
+
+Instead of `e` we could also use `tabedit`
+
+``` vim
+call fzf#run({'sink': 'tabedit'})
+``` 
+
+Or instead of using the default find command as input data stream, we can use any shell command that produces some data stream. For example:
+
+``` vim
+call fzf#run({'source': 'git ls-files', 'sink': 'e'})
+``` 
+

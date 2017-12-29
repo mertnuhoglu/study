@@ -19,6 +19,7 @@ resource_files:
 - data/library02.sql
 - data/library03.sql
 - data/library04.sql
+path: ~/projects/study/sql/ex_sql_data_generator_datafiller.Rmd
 ---
 
 ## Getting Started 
