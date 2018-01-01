@@ -29,10 +29,10 @@ options(max.print = 30)
 library(dplyr, warn.conflicts = F)
 ```
 
-# yumltordbschema::build_rdb_data()
+# yumltordbschema::yuml_to_rdb()
 
 ``` r
-build_rdb_data = function(data_model_dir) {
+yuml_to_rdb = function(data_model_dir) {
   build_datamodel_sdb.sh = system.file("bash/build_datamodel_sdb.sh", package = "yumltordbschema")
   system2(build_datamodel_sdb.sh, data_model_dir)
 
@@ -121,7 +121,7 @@ dfl_fk %>% dplyr::filter(!is.na(enum_var_name))
 dfl %>% dplyr::filter(!is.na(enum_var_name))
 ```
 
-# yumltordbschema::build_ddl()
+# yumltordbschema::rdb_to_ddl()
 
 Initial input arguments:
 

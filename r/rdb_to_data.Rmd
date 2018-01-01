@@ -81,10 +81,10 @@ yumltordbschema::read_data_field() %>% dplyr::as_data_frame() %>% datapasta::dpa
 
 `read_data_entity` and `read_data_field` functions import data from the file system. In order to make this `Rmd` file completely reproducible, I don't import data from the file system here.
 
-The main entry function for sql generation is `build_sql_for_entity`:
+The main entry function for sql generation is `rdb_to_data`:
 
 ``` r
-build_sql_for_entity = function(entity, data_entities, dfl, den) {
+rdb_to_data = function(entity, data_entities, dfl, den) {
   dflf = dfl %>%
     dplyr::left_join(den, by = "data_entity_id") %>%
     dplyr::filter(entity_name == entity) 
@@ -109,7 +109,7 @@ entities = c("enum_var", "enum_value")
 data_entities = lapply(entities, r_entity, data_model_dir) %>%
 	setNames(entities)
 data_entities
-lapply( entities, build_sql_for_entity, data_entities, dfl, den)
+lapply( entities, rdb_to_data, data_entities, dfl, den)
 ```
 
 Note that, these statements access file system. In this Rmd file, I don't want to import data from file system. Instead I will initialize `data_entities` from sample dataframes:
@@ -120,7 +120,7 @@ data_entities = list( enum_var = evr, enum_value = evl )
 data_entities
 ``` 
 
-Step by step, data flow inside `build_sql_for_entity()` is as follows:
+Step by step, data flow inside `rdb_to_data()` is as follows:
 
 ``` {r}
 entity = "enum_var"
@@ -176,10 +176,10 @@ build_sql = function(df, entity) {
 
 I put `sql_insert` inside `build_sql` function because later I will also create `UPDATE` and other commands in addition to `INSERT` inside `build_sql()`.
 
-So, let's update definition of `build_sql_for_entity()` with this `build_sql()` and run the program again:
+So, let's update definition of `rdb_to_data()` with this `build_sql()` and run the program again:
 
 ``` {r}
-build_sql_for_entity = function(entity, data_entities, dfl, den) {
+rdb_to_data = function(entity, data_entities, dfl, den) {
   dflf = dfl %>%
     dplyr::left_join(den, by = "data_entity_id") %>%
     dplyr::filter(entity_name == entity) 
@@ -188,7 +188,7 @@ build_sql_for_entity = function(entity, data_entities, dfl, den) {
     dplyr::select_(.dots = columns)
 	build_sql(df, entity)
 }
-lapply( entities, build_sql_for_entity, data_entities, dfl, den)
+lapply( entities, rdb_to_data, data_entities, dfl, den)
 ```
 
 Now, we can define functions that will generate `SQL UPDATE` and `SQL DELETE` commands. The functions are very similar to `SQL INSERT` generating functions.
@@ -256,7 +256,7 @@ build_sql = function(df, entity, id_column, den) {
        )
 } 
 
-build_sql_for_entity = function(entity, data_entities, dfl, den) {
+rdb_to_data = function(entity, data_entities, dfl, den) {
   dflf = dfl %>%
     dplyr::left_join(den, by = "data_entity_id") %>%
     dplyr::filter(entity_name == entity) 
@@ -268,7 +268,7 @@ build_sql_for_entity = function(entity, data_entities, dfl, den) {
     dplyr::select_(.dots = columns)
 	build_sql(df, entity, id_column, den)
 }
-ent_m_cmdtype_m_cmds = lapply( entities, build_sql_for_entity, data_entities, dfl, den) %>%
+ent_m_cmdtype_m_cmds = lapply( entities, rdb_to_data, data_entities, dfl, den) %>%
   setNames(entities)
 str(ent_m_cmdtype_m_cmds)
 ```

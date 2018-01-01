@@ -134,9 +134,9 @@ $(document).ready(function () {
 options(max.print = 30)</code></pre>
 <pre class="r"><code>library(dplyr, warn.conflicts = F)
 data_model_dir = &quot;/Users/mertnuhoglu/projects/itr/itr_documentation/data_model/&quot;</code></pre>
-<div id="yumltordbschemabuild_rdb_data" class="section level1">
-<h1>yumltordbschema::build_rdb_data()</h1>
-<pre class="r"><code>build_rdb_data = function(data_model_dir) {
+<div id="yumltordbschemayuml_to_rdb" class="section level1">
+<h1>yumltordbschema::yuml_to_rdb()</h1>
+<pre class="r"><code>yuml_to_rdb = function(data_model_dir) {
   build_datamodel_sdb.sh = system.file(&quot;bash/build_datamodel_sdb.sh&quot;, package = &quot;yumltordbschema&quot;)
   system2(build_datamodel_sdb.sh, data_model_dir)
 
@@ -278,8 +278,8 @@ dfl</code></pre>
 ## 1             9      place_enum   INT    FK              3                 1    place_enum</code></pre>
 </div>
 </div>
-<div id="yumltordbschemabuild_ddl" class="section level1">
-<h1>yumltordbschema::build_ddl()</h1>
+<div id="yumltordbschemardb_to_ddl" class="section level1">
+<h1>yumltordbschema::rdb_to_ddl()</h1>
 <p>Initial input arguments:</p>
 <pre class="r"><code>data_entity = den
 data_field = dfl</code></pre>

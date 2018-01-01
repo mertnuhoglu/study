@@ -31,9 +31,9 @@ library(dplyr, warn.conflicts = F)
 data_model_dir = "/Users/mertnuhoglu/projects/itr/itr_documentation/data_model/"
 ```
 
-# Implementation of `yumltordbschema::build_rdb_data()` function
+# Implementation of `yumltordbschema::yuml_to_rdb()` function
 
-`build_rdb_data()` takes as input `yuml` formatted data model and converts it into normalized structural data in RDB style.
+`yuml_to_rdb()` takes as input `yuml` formatted data model and converts it into normalized structural data in RDB style.
 
 Example input:
 
@@ -140,7 +140,7 @@ dfl
 ``` 
 
 ``` {r}
-build_ddl = function(data_entity, data_field) {
+rdb_to_ddl = function(data_entity, data_field) {
   get_den_pk = function(den, dfl) {
     dfl_pk = dfl %>%
       dplyr::filter(pk_fk == "PK") %>%
@@ -194,7 +194,7 @@ create_table_sql = function(table_name, non_keys, pks, fks) {
 ``` 
 
 ``` {r}
-ddl = build_ddl( data_entity = den, data_field = dfl)
+ddl = rdb_to_ddl( data_entity = den, data_field = dfl)
 ddl$sql_create_table
 ``` 
 
@@ -245,7 +245,7 @@ create_table_sql = function(table_name, non_keys, pks, fks) {
 Now, lets test this. First prepare the data to pass to `create_table_sql`
 
 ``` {r}
-ddl = build_ddl( data_entity = den, data_field = dfl)
+ddl = rdb_to_ddl( data_entity = den, data_field = dfl)
 ddl$sql_create_table
 ``` 
 

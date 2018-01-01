@@ -73,7 +73,7 @@ create_table_sql_template( table_name, non_keys, pks, fks  )
 
 The result is correct. False alarm. Maybe it was a caching issue :)
 
-# Ex01: CREATE TABLE sql generation in yumltordbschema::build_ddl()
+# Ex01: CREATE TABLE sql generation in yumltordbschema::rdb_to_ddl()
 
 Assume that we have the following dataframe that contains the information of the fields of some database tables.
 

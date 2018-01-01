@@ -173,8 +173,8 @@ dfl = tibble::tribble(
 <pre class="r"><code>yumltordbschema::read_data_entity() %&gt;% dplyr::as_data_frame() %&gt;% datapasta::dpasta()
 yumltordbschema::read_data_field() %&gt;% dplyr::as_data_frame() %&gt;% datapasta::dpasta()</code></pre>
 <p><code>read_data_entity</code> and <code>read_data_field</code> functions import data from the file system. In order to make this <code>Rmd</code> file completely reproducible, I don’t import data from the file system here.</p>
-<p>The main entry function for sql generation is <code>build_sql_for_entity</code>:</p>
-<pre class="r"><code>build_sql_for_entity = function(entity, data_entities, dfl, den) {
+<p>The main entry function for sql generation is <code>rdb_to_data</code>:</p>
+<pre class="r"><code>rdb_to_data = function(entity, data_entities, dfl, den) {
   dflf = dfl %&gt;%
     dplyr::left_join(den, by = &quot;data_entity_id&quot;) %&gt;%
     dplyr::filter(entity_name == entity) 
@@ -195,7 +195,7 @@ entities = c(&quot;enum_var&quot;, &quot;enum_value&quot;)
 data_entities = lapply(entities, r_entity, data_model_dir) %&gt;%
     setNames(entities)
 data_entities
-lapply( entities, build_sql_for_entity, data_entities, dfl, den)</code></pre>
+lapply( entities, rdb_to_data, data_entities, dfl, den)</code></pre>
 <p>Note that, these statements access file system. In this Rmd file, I don’t want to import data from file system. Instead I will initialize <code>data_entities</code> from sample dataframes:</p>
 <pre class="r"><code>entities = c(&quot;enum_var&quot;, &quot;enum_value&quot;)
 data_entities = list( enum_var = evr, enum_value = evl )
@@ -223,7 +223,7 @@ data_entities</code></pre>
 ##  9          3000                  depot           3
 ## 10          3001                factory           3
 ## 11          3002               customer           3</code></pre>
-<p>Step by step, data flow inside <code>build_sql_for_entity()</code> is as follows:</p>
+<p>Step by step, data flow inside <code>rdb_to_data()</code> is as follows:</p>
 <pre class="r"><code>entity = &quot;enum_var&quot;
 dflf = dfl %&gt;%
   dplyr::left_join(den, by = &quot;data_entity_id&quot;) %&gt;%
@@ -272,8 +272,8 @@ sql</code></pre>
               ))
 }</code></pre>
 <p>I put <code>sql_insert</code> inside <code>build_sql</code> function because later I will also create <code>UPDATE</code> and other commands in addition to <code>INSERT</code> inside <code>build_sql()</code>.</p>
-<p>So, let’s update definition of <code>build_sql_for_entity()</code> with this <code>build_sql()</code> and run the program again:</p>
-<pre class="r"><code>build_sql_for_entity = function(entity, data_entities, dfl, den) {
+<p>So, let’s update definition of <code>rdb_to_data()</code> with this <code>build_sql()</code> and run the program again:</p>
+<pre class="r"><code>rdb_to_data = function(entity, data_entities, dfl, den) {
   dflf = dfl %&gt;%
     dplyr::left_join(den, by = &quot;data_entity_id&quot;) %&gt;%
     dplyr::filter(entity_name == entity) 
@@ -282,7 +282,7 @@ sql</code></pre>
     dplyr::select_(.dots = columns)
     build_sql(df, entity)
 }
-lapply( entities, build_sql_for_entity, data_entities, dfl, den)</code></pre>
+lapply( entities, rdb_to_data, data_entities, dfl, den)</code></pre>
 <pre><code>## [[1]]
 ## [[1]]$sql_insert
 ## [1] &quot;INSERT INTO enum_var (enum_var_id,enum_var_name) VALUES ('1','route_stop_enum');&quot; &quot;INSERT INTO enum_var (enum_var_id,enum_var_name) VALUES ('2','action_enum');&quot;    
@@ -355,7 +355,7 @@ sql_update = function(df, entity) {
        )
 } 
 
-build_sql_for_entity = function(entity, data_entities, dfl, den) {
+rdb_to_data = function(entity, data_entities, dfl, den) {
   dflf = dfl %&gt;%
     dplyr::left_join(den, by = &quot;data_entity_id&quot;) %&gt;%
     dplyr::filter(entity_name == entity) 
@@ -367,7 +367,7 @@ build_sql_for_entity = function(entity, data_entities, dfl, den) {
     dplyr::select_(.dots = columns)
     build_sql(df, entity, id_column, den)
 }
-ent_m_cmdtype_m_cmds = lapply( entities, build_sql_for_entity, data_entities, dfl, den) %&gt;%
+ent_m_cmdtype_m_cmds = lapply( entities, rdb_to_data, data_entities, dfl, den) %&gt;%
   setNames(entities)
 str(ent_m_cmdtype_m_cmds)</code></pre>
 <pre><code>## List of 2
