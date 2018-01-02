@@ -1,0 +1,39 @@
+---
+title: "Process: From yuml to ddl and test data"
+date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+draft: false
+description: ""
+tags:
+categories: r, sql, datafiller, yuml
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+I wanted to automate the process from data modelling to testing it with sample data in actual database.
+
+To describe the data models, I use a very simple domain specific language (DSL) called as `yuml`. `yuml` is developed and used by some UML tool called [yuml.me](http://yuml.me "yuml.me").
+
+Starting from `yuml` the flow of information is as follows:
+
+    | yuml -> uml | yuml_to_uml.sh |
+    | yuml -> rdb | yuml_to_rdb.R  |
+    | rdb -> ddl  | rdb_to_ddl.R   |
+    | ddl -> data | ddl_to_data.sh |
+    | rdb -> data | rdb_to_data.R  |
+
+`rdb` is short for "requirements database". The name is actually a little misleading. Maybe, I should call it as "structural meta database". `rdb` files are some tsv/excel files that store meta data about the final product. I prefer to use `excel` instead of `tsv/csv` because it is easier to edit and view manually.
+
+## yuml -> uml 
+
+First step is converting `yuml` text to `uml` graphs. This is actually not required for data generation. But it is very easy to do and helps me visualize and understand the data model better.
+
+    yuml -i datamodel_enum.md -o datamodel_enum.png
+
+## yuml -> rdb
+
+
