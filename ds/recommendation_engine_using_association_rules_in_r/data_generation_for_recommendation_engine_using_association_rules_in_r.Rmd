@@ -1,0 +1,93 @@
+---
+title: "Data Generation for: Recommendation Engine Using Association Rules (Market Basket) in R"
+date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+draft: false
+description: ""
+tags:
+categories: recommendation, data
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: datascience.mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/ds/recommendation_engine_using_association_rules_in_r/data_generation_for_recommendation_engine_using_association_rules_in_r.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+```{r}
+library(dplyr, warn.conflicts = F)
+library(dbplyr, warn.conflicts = F)
+``` 
+
+```{r}
+df1 = readr::read_csv("brand.csv")
+df2 = readr::read_csv("product_category.csv")
+df3 = readr::read_csv("version.csv")
+``` 
+
+```{r}
+df = merge(df1, df2, all = T) %>%
+  merge(df3, all = T) %>%
+  mutate( product_title = sprintf("%s %s %s", brand, product_category, version) %>% tolower ) 
+writeLines(df$product_title, "product_title.txt")
+``` 
+
+``` {bash}
+cat schema.sql
+``` 
+
+``` {bash}
+datafiller --seed 1 --size=3 schema.sql > data.sql
+``` 
+
+``` {bash}
+cat data.sql | sed -n "/COPY/,+2 p"
+``` 
+
+Now, we are going to start postgresql database server and import the generated data.
+
+``` 
+docker start postgreststarterkit_db_1
+psql -d app -h localhost -p 5432 -U superuser
+drop schema if exists recommendation_engine cascade;
+create schema recommendation_engine;
+set search_path = recommendation_engine, public;
+\cd /Users/mertnuhoglu/projects/study/ds/recommendation_engine_using_association_rules_in_r
+\! pwd
+\ir schema.sql
+\ir data.sql
+``` 
+
+Read data from PostgreSQL into R dataframe:
+
+``` {r}
+con2 <- DBI::dbConnect(RPostgreSQL::PostgreSQL()
+  , user = Sys.getenv("SUPER_USER")
+  , password = Sys.getenv("SUPER_USER_PASSWORD")
+  , dbname = "app"
+  , host = "localhost"
+  , port = "5432"
+  , options = "-c search_path=recommendation_engine"
+)
+prd = tbl(con2, "product")
+por = tbl(con2, "purchase_order")
+orl = tbl(con2, "order_line")
+```
+
+Join the tables in order to produce data in target shape:
+
+``` {r}
+res = orl %>%
+  inner_join(prd, by = "product_id") %>%
+  select(purchase_order_id, title, amount) %>%
+  arrange(purchase_order_id, title)
+res
+```
+
