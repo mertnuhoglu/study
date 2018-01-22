@@ -4,7 +4,7 @@
 
     ref
       <url:file:///~/projects/study/pg/postgrest02/README.md>
-      <url:file:///~/Dropbox (Personal)/mynotes/content/articles/articles_db.md>
+      <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md>
     Run 
       docker start postgreststarterkit_db_1
         opt
@@ -37,6 +37,14 @@
         set search_path = data, public;
       db create
         psql -c 'CREATE DATABASE library OWNER = superuser'
+      R dbplyr
+        con <- DBI::dbConnect(RPostgreSQL::PostgreSQL()
+          , user = Sys.getenv("SUPER_USER")
+          , password = Sys.getenv("SUPER_USER_PASSWORD")
+          , dbname = "app"
+          , host = "localhost"
+          , port = "5432"
+        )
     Database Administration
       Roles
         CREATE ROLE leo LOGIN PASSWORD 'king' CREATEDB VALID UNTIL 'infinity'

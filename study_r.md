@@ -264,9 +264,12 @@ ref - input
           Y[X] # left outer join
           rbind(Y[X],X[Y]) # full outer join
         cross join
-          ft = c('D','D/A')
-          c3 = c('1571745','1571673')
-          CJ(ft,c3) # cross join
+          data.table for vectors
+            ft = c('D','D/A')
+            c3 = c('1571745','1571673')
+            CJ(ft,c3) # cross join
+          merge for dataframes
+            merge(df1, df2, all = TRUE)
         remove duplicated key value rows
           dt[unique(dt$key), mult = "first"]
       conditional assignment / if true
@@ -954,7 +957,91 @@ ref - input
         append new lines
           r = character()
           r = c(r, sprintf("filings that don't have xbrl: %s", length(missing_xbrl)))
-    dplyr
+    ## database
+      ref
+        <url:file:///~/projects/study/ds/study_db_with_r.Rmd>
+      ### RSQLite
+        install.packages("RSQLite")
+        library("RSQLite")
+      ### RPostgreSQL
+        install.packages("RPostgreSQL")
+        library("RPostgreSQL")
+        dbDriver
+        dbConnect
+          dbDisconnect
+        dbApply: apply function to each row
+        dbCallProc: call stored procedure
+        dbCommit
+          dbRollback
+        dbGetInfo
+          dbGetInfo(rs, what = "rowsAffected")
+          names(dbGetInfo)
+        ex
+          dbDriver
+          con = dbConnect(..)
+          df = dbGetQuery(con, ..)
+          rs = dbSendQuery(..)
+          df = fetch(rs, n = -1)
+        dbDataType.
+        dbListTables
+        dbReadTable
+          dbRemoveTable
+          dbWriteTable
+          dbExistsTable
+        rs = dbSendQuery
+          df = dbGetQuery
+      ROracle
+        install.packages("ROracle")
+        installing
+          tutorial
+            http://www.baldwhiteguy.co.nz/technical/index_files/mac-osx-oracle-instantclient.html
+          download:
+            instantclient-basic-macos.x64-11.2.0.4.0.zip
+            instantclient-sdk-macos.x64-11.2.0.4.0.zip
+            instantclient-sqlplus-macos.x64-11.2.0.4.0.zip
+            put into ~/tools/oracle/instantclient_11_2
+          setup
+            cd ~/tools/oracle/instantclient_11_2
+            ln -s libclntsh.dylib.11.1 libclntsh.dylib
+            export PATH=~/tools/oracle/instantclient_11_2:$PATH
+          https://docs.oracle.com/cd/E11882_01/install.112/e38228/inst_task.htm#BABHEBIG
+            export ORACLE=$HOME/tools/oracle/instantclient_11_2
+            export PATH=$ORACLE:$PATH
+            export DYLD_LIBRARY_PATH=$ORACLE
+            export NLS_LANG=$ORACLE
+            export OCI_LIB_DIR=$ORACLE
+            export OCI_INC_DIR=$ORACLE/sdk/include
+            sqlplus
+          install ROracle
+            http://dba.stackexchange.com/questions/66424/how-to-install-roracle-on-linux
+              R CMD INSTALL --configure-args='--with-oci-lib=/Users/mertnuhoglu/tools/oracle/instantclient_11_2 --with-oci-inc=/Users/mertnuhoglu/tools/oracle/instantclient_11_2/sdk/include' ROracle_1.2-2.tar.gz
+              
+        connection
+          opt1
+            drv <- dbDriver("Oracle")
+            username = "system"
+            password = "..."
+            dbname = "52.73.23.191:1521/btgdev"
+            con <- dbConnect(drv, user = username, password = password, dbname = dbname)
+          opt2
+            drv <- dbDriver("Oracle")
+            username = "system"
+            password = "..."
+            host = "52.73.23.191"
+            port = "1521"
+            sid = "btgdev"
+            connect.string <- paste( 
+              "(DESCRIPTION=",
+              "(ADDRESS=(PROTOCOL=tcp)(HOST=", host, 
+              ")(PORT=", port, "))", 
+              "(CONNECT_DATA=(SID=", sid, ")))", sep = "")
+      RJdbc
+        install.packages("RJDBC")
+      ### dbplyr
+        browseVignettes("dbplyr")
+        vignette("dbplyr")
+        install.packages("dbplyr")
+    ## dplyr
       vignettes and tutorials
         http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/
         https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html
@@ -2730,79 +2817,6 @@ ref - input
               sep: separator
       unite
         reverse of separate
-    database
-      RPostgreSQL
-        dbDriver
-        dbConnect
-          dbDisconnect
-        dbApply: apply function to each row
-        dbCallProc: call stored procedure
-        dbCommit
-          dbRollback
-        dbGetInfo
-          dbGetInfo(rs, what = "rowsAffected")
-          names(dbGetInfo)
-        ex
-          dbDriver
-          con = dbConnect(..)
-          df = dbGetQuery(con, ..)
-          rs = dbSendQuery(..)
-          df = fetch(rs, n = -1)
-        dbDataType.
-        dbListTables
-        dbReadTable
-          dbRemoveTable
-          dbWriteTable
-          dbExistsTable
-        rs = dbSendQuery
-          df = dbGetQuery
-      ROracle
-        install.packages("ROracle")
-        installing
-          tutorial
-            http://www.baldwhiteguy.co.nz/technical/index_files/mac-osx-oracle-instantclient.html
-          download:
-            instantclient-basic-macos.x64-11.2.0.4.0.zip
-            instantclient-sdk-macos.x64-11.2.0.4.0.zip
-            instantclient-sqlplus-macos.x64-11.2.0.4.0.zip
-            put into ~/tools/oracle/instantclient_11_2
-          setup
-            cd ~/tools/oracle/instantclient_11_2
-            ln -s libclntsh.dylib.11.1 libclntsh.dylib
-            export PATH=~/tools/oracle/instantclient_11_2:$PATH
-          https://docs.oracle.com/cd/E11882_01/install.112/e38228/inst_task.htm#BABHEBIG
-            export ORACLE=$HOME/tools/oracle/instantclient_11_2
-            export PATH=$ORACLE:$PATH
-            export DYLD_LIBRARY_PATH=$ORACLE
-            export NLS_LANG=$ORACLE
-            export OCI_LIB_DIR=$ORACLE
-            export OCI_INC_DIR=$ORACLE/sdk/include
-            sqlplus
-          install ROracle
-            http://dba.stackexchange.com/questions/66424/how-to-install-roracle-on-linux
-              R CMD INSTALL --configure-args='--with-oci-lib=/Users/mertnuhoglu/tools/oracle/instantclient_11_2 --with-oci-inc=/Users/mertnuhoglu/tools/oracle/instantclient_11_2/sdk/include' ROracle_1.2-2.tar.gz
-              
-        connection
-          opt1
-            drv <- dbDriver("Oracle")
-            username = "system"
-            password = "..."
-            dbname = "52.73.23.191:1521/btgdev"
-            con <- dbConnect(drv, user = username, password = password, dbname = dbname)
-          opt2
-            drv <- dbDriver("Oracle")
-            username = "system"
-            password = "..."
-            host = "52.73.23.191"
-            port = "1521"
-            sid = "btgdev"
-            connect.string <- paste( 
-              "(DESCRIPTION=",
-              "(ADDRESS=(PROTOCOL=tcp)(HOST=", host, 
-              ")(PORT=", port, "))", 
-              "(CONNECT_DATA=(SID=", sid, ")))", sep = "")
-      RJdbc
-        install.packages("RJDBC")
     purrr
       install.packages("tidyverse")
       reduce
@@ -4309,7 +4323,8 @@ ref - input
         tribble_paste()
         vector_paste()
         vector_paste_vertical()
-    blogdown
+    blogdown id=g_10179
+      blogdown <url:file:///~/projects/study/study_r.md#r=g_10179>
       install.packages("blogdown")
       cmd
         library(blogdown)

@@ -1,6 +1,6 @@
 ---
 title: "Reproducing: Introduction to Association Rules in R by Yosuke Yasuda"
-date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+date: 2018-01-12T18:30:12+03:00 
 draft: false
 description: ""
 tags:
@@ -27,33 +27,23 @@ options(max.print = 30)
 ``` 
 
 ```{r}
+.libPaths("/Users/mertnuhoglu/.exploratory/R/3.4")
 library(dplyr, warn.conflicts = F)
-data_model_dir = "/Users/mertnuhoglu/projects/itr/itr_documentation/data_model/"
 ```
 
 This document reproduces the code explained in [Introduction to Association Rules in R by Yosuke Yasuda](https://blog.exploratory.io/introduction-to-association-rules-market-basket-analysis-in-r-7a0dd900a3e0)
 
-```{r}
-library(lubridate)
-library(hms)
-library(tidyr)
-library(urltools)
-library(stringr)
-library(readr)
-library(broom)
-library(RcppRoll)
-library(tibble)
-library(dplyr)
-library(exploratory)
+csv files can be accessed from http://github.com/mertnuhoglu/study_data
 
-# Data Analysis Steps
-read_delim("/Users/yasudayousuke/Downloads/groceries (1).csv" , ",", quote = "\"", skip = 0 , col_names = FALSE , na = c("","NA") , locale=locale(encoding = "ASCII", decimal_mark = "."), trim_ws = FALSE , progress = FALSE) %>%
-  exploratory::clean_data_frame() %>%
-  mutate(transaction_id = row_number()) %>%
-  gather(key, product, -transaction_id, na.rm = TRUE) %>%
-  arrange(transaction_id) %>%
-  do_apriori(product, transaction_id, min_support = 0.0001) %>%
-  filter(support > 0.0004) %>%
-  group_by(rhs) %>%
-  top_n(3, lift)
+```{r}
+readr::read_csv("/Users/mertnuhoglu/projects/study_data/ds/article_introduction_to_association_rules_in_r_by_yosuke_yasuda_groceries.csv", , quote = "\"", skip = 0 , col_names = FALSE , na = c("","NA")) %>%
+  dplyr::mutate(transaction_id = row_number()) %>%
+  tidyr::gather(key, product, -transaction_id, na.rm = TRUE, convert = TRUE) %>%
+  dplyr::arrange(transaction_id) %>%
+  exploratory::do_apriori(product, transaction_id, min_support = 0.0001) %>%
+  dplyr::filter(support > 0.0004) %>%
+  dplyr::group_by(rhs) %>%
+  dplyr::top_n(3, lift)
 ```
+
+

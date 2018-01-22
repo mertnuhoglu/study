@@ -120,7 +120,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Data Generation for: Recommendation Engine Using Association Rules (Market Basket) in R</h1>
 <h4 class="author"><em>Mert Nuhoglu</em></h4>
-<h4 class="date"><em>2018-01-14T15:24:40+03:00</em></h4>
+<h4 class="date"><em>2018-01-15T18:26:07+03:00</em></h4>
 
 </div>
 
@@ -160,17 +160,17 @@ writeLines(df$product_title, &quot;product_title.txt&quot;)</code></pre>
 ##   -- df: text=product_title length=1
 ## );
 ## DROP TABLE IF EXISTS purchase_order CASCADE;
-## CREATE TABLE purchase_order (  --df: mult=1.2
+## CREATE TABLE purchase_order (  --df: mult=0.1
 ##   purchase_order_id SERIAL PRIMARY KEY
 ## );
 ## DROP TABLE IF EXISTS order_line CASCADE;
-## CREATE TABLE order_line (  --df: mult=3.0
+## CREATE TABLE order_line (  --df: mult=0.5
 ##   product_id INTEGER NOT NULL REFERENCES product (product_id)
 ##   , purchase_order_id INTEGER NOT NULL REFERENCES purchase_order (purchase_order_id)
 ##   , amount INTEGER NOT NULL --df: offset=1 size=5
 ##   , PRIMARY KEY (product_id, purchase_order_id)
 ## );</code></pre>
-<pre class="bash"><code>datafiller --seed 1 --size=3 schema.sql &gt; data.sql</code></pre>
+<pre class="bash"><code>datafiller --seed 1 --size=30 schema.sql &gt; data.sql</code></pre>
 <pre class="bash"><code>cat data.sql | sed -n &quot;/COPY/,+2 p&quot;</code></pre>
 <pre><code>## COPY product (product_id,title) FROM STDIN (ENCODING 'utf-8');
 ## 1    kia jant fk 4
@@ -179,18 +179,38 @@ writeLines(df$product_title, &quot;product_title.txt&quot;)</code></pre>
 ## 1
 ## 2
 ## COPY order_line (product_id,purchase_order_id,amount) FROM STDIN (ENCODING 'utf-8');
-## 3    1   5
-## 2    2   2</code></pre>
+## 25   1   5
+## 21   2   2</code></pre>
 <p>Now, we are going to start postgresql database server and import the generated data.</p>
-<pre><code>docker start postgreststarterkit_db_1
-psql -d app -h localhost -p 5432 -U superuser
-drop schema if exists recommendation_engine cascade;
-create schema recommendation_engine;
-set search_path = recommendation_engine, public;
-\cd /Users/mertnuhoglu/projects/study/ds/recommendation_engine_using_association_rules_in_r
-\! pwd
-\ir schema.sql
-\ir data.sql</code></pre>
+<pre><code>docker start postgreststarterkit_db_1</code></pre>
+<pre class="bash"><code>psql -d app -h localhost -p 5432 -U superuser -f init.sql</code></pre>
+<pre><code>## psql:init.sql:1: NOTICE:  drop cascades to 3 other objects
+## DETAIL:  drop cascades to table recommendation_engine.product
+## drop cascades to table recommendation_engine.purchase_order
+## drop cascades to table recommendation_engine.order_line
+## DROP SCHEMA
+## CREATE SCHEMA
+## SET
+## psql:schema.sql:1: NOTICE:  table &quot;product&quot; does not exist, skipping
+## DROP TABLE
+## CREATE TABLE
+## psql:schema.sql:8: NOTICE:  table &quot;purchase_order&quot; does not exist, skipping
+## DROP TABLE
+## CREATE TABLE
+## psql:schema.sql:12: NOTICE:  table &quot;order_line&quot; does not exist, skipping
+## DROP TABLE
+## CREATE TABLE
+## # filling table product (30)
+## COPY 30
+## # filling table purchase_order (3)
+## COPY 3
+## # filling table order_line (15)
+## COPY 15
+## ALTER SEQUENCE
+## ALTER SEQUENCE
+## ANALYZE
+## ANALYZE
+## ANALYZE</code></pre>
 <p>Read data from PostgreSQL into R dataframe:</p>
 <pre class="r"><code>con2 &lt;- DBI::dbConnect(RPostgreSQL::PostgreSQL()
   , user = Sys.getenv(&quot;SUPER_USER&quot;)
@@ -200,29 +220,104 @@ set search_path = recommendation_engine, public;
   , port = &quot;5432&quot;
   , options = &quot;-c search_path=recommendation_engine&quot;
 )
-prd = tbl(con2, &quot;product&quot;)
-por = tbl(con2, &quot;purchase_order&quot;)
-orl = tbl(con2, &quot;order_line&quot;)</code></pre>
-<p>Join the tables in order to produce data in target shape:</p>
-<pre class="r"><code>res = orl %&gt;%
-  inner_join(prd, by = &quot;product_id&quot;) %&gt;%
-  select(purchase_order_id, title, amount) %&gt;%
-  arrange(purchase_order_id, title)
-res</code></pre>
+prd = dplyr::tbl(con2, &quot;product&quot;)
+por = dplyr::tbl(con2, &quot;purchase_order&quot;)
+orl = dplyr::tbl(con2, &quot;order_line&quot;)</code></pre>
+<p>Join the tables:</p>
+<pre class="r"><code>orl2 = orl %&gt;%
+  dplyr::inner_join(prd, by = &quot;product_id&quot;) %&gt;%
+  dplyr::select(purchase_order_id, title, amount) %&gt;%
+  dplyr::arrange(purchase_order_id, title)
+orl2</code></pre>
 <pre><code>## # Source:     lazy query [?? x 3]
 ## # Database:   postgres 10.0.0 [superuser@localhost:5432/app]
 ## # Ordered by: purchase_order_id, title
-##   purchase_order_id             title amount
-##               &lt;int&gt;             &lt;chr&gt;  &lt;int&gt;
-## 1                 1 dacia kaporta 392      4
-## 2                 1  kia balans 1.3 j      5
-## 3                 1     kia jant fk 4      1
-## 4                 2 dacia kaporta 392      2
-## 5                 2  kia balans 1.3 j      1
-## 6                 2     kia jant fk 4      2
-## 7                 3 dacia kaporta 392      5
-## 8                 3  kia balans 1.3 j      1
-## 9                 3     kia jant fk 4      2</code></pre>
+##    purchase_order_id                    title amount
+##                &lt;int&gt;                    &lt;chr&gt;  &lt;int&gt;
+##  1                 1         ford aynalar 120      5
+##  2                 1 mercedes süspansiyon 1.3      5
+##  3                 1       opel debriyaj 4 dl      4
+##  4                 1     volkswagen lastik dl      1
+##  5                 2         dacia aynalar 20      3
+##  6                 2         dacia şaft 1.9 j      2
+##  7                 2         dacia yağlama dl      1
+##  8                 2      opel silecekler 392      2
+##  9                 2 opel yönlendirme 2.5 ctd      3
+## 10                 2        renault aks 1.3 j      4
+## # ... with more rows</code></pre>
+<p>Target shape requires to concatenate all products in one purchase order transaction together:</p>
+<pre class="r"><code>orl3 = orl2 %&gt;%
+  dplyr::collect() %&gt;%
+  dplyr::group_by(purchase_order_id) %&gt;%
+  dplyr::mutate(key = sprintf(&quot;x%s&quot;, row_number())) %&gt;%
+  dplyr::ungroup() %&gt;%
+  dplyr::mutate( row = row_number() ) 
+orl3</code></pre>
+<pre><code>## # A tibble: 15 x 5
+##    purchase_order_id                    title amount   key   row
+##                &lt;int&gt;                    &lt;chr&gt;  &lt;int&gt; &lt;chr&gt; &lt;int&gt;
+##  1                 1         ford aynalar 120      5    x1     1
+##  2                 1 mercedes süspansiyon 1.3      5    x2     2
+##  3                 1       opel debriyaj 4 dl      4    x3     3
+##  4                 1     volkswagen lastik dl      1    x4     4
+##  5                 2         dacia aynalar 20      3    x1     5
+##  6                 2         dacia şaft 1.9 j      2    x2     6
+##  7                 2         dacia yağlama dl      1    x3     7
+##  8                 2      opel silecekler 392      2    x4     8
+##  9                 2 opel yönlendirme 2.5 ctd      3    x5     9
+## 10                 2        renault aks 1.3 j      4    x6    10
+## 11                 2     volkswagen lastik dl      3    x7    11
+## 12                 3         dacia aynalar 20      4    x1    12
+## 13                 3         dacia yağlama dl      1    x2    13
+## 14                 3       opel debriyaj 4 dl      5    x3    14
+## 15                 3 opel yönlendirme 2.5 ctd      4    x4    15</code></pre>
+<pre class="r"><code>orl4 = orl3 %&gt;%
+  dplyr::select(purchase_order_id, key, title) %&gt;%
+  tidyr::spread(key = key, value = title) 
+orl4 </code></pre>
+<pre><code>## # A tibble: 3 x 8
+##   purchase_order_id               x1                       x2
+## *             &lt;int&gt;            &lt;chr&gt;                    &lt;chr&gt;
+## 1                 1 ford aynalar 120 mercedes süspansiyon 1.3
+## 2                 2 dacia aynalar 20         dacia şaft 1.9 j
+## 3                 3 dacia aynalar 20         dacia yağlama dl
+## # ... with 5 more variables: x3 &lt;chr&gt;, x4 &lt;chr&gt;, x5 &lt;chr&gt;, x6 &lt;chr&gt;,
+## #   x7 &lt;chr&gt;</code></pre>
+<pre class="r"><code>.libPaths(&quot;/Users/mertnuhoglu/.exploratory/R/3.4&quot;)
+library(exploratory)</code></pre>
+<pre><code>## Loading required package: broom</code></pre>
+<pre><code>## Loading required package: urltools</code></pre>
+<pre><code>## 
+## Attaching package: 'exploratory'</code></pre>
+<pre><code>## The following object is masked from 'package:urltools':
+## 
+##     url_parameters</code></pre>
+<pre class="r"><code># Data Analysis Steps
+res = orl4 %&gt;%
+  dplyr::select(-purchase_order_id) %&gt;%
+  dplyr::mutate(transaction_id = row_number()) %&gt;%
+  tidyr::gather(key, product, -transaction_id, na.rm = TRUE, convert = TRUE) %&gt;%
+  dplyr::arrange(transaction_id) %&gt;%
+  exploratory::do_apriori(product, transaction_id, min_support = 0.0001) %&gt;%
+  dplyr::filter(support &gt; 0.0004) %&gt;%
+  dplyr::group_by(rhs) %&gt;%
+  dplyr::top_n(3, lift)
+res</code></pre>
+<pre><code>## # A tibble: 438 x 5
+## # Groups:   rhs [10]
+##                         lhs                      rhs   support confidence
+##                       &lt;chr&gt;                    &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+##  1         ford aynalar 120 mercedes süspansiyon 1.3 0.3333333          1
+##  2 mercedes süspansiyon 1.3         ford aynalar 120 0.3333333          1
+##  3         ford aynalar 120       opel debriyaj 4 dl 0.3333333          1
+##  4         ford aynalar 120     volkswagen lastik dl 0.3333333          1
+##  5 mercedes süspansiyon 1.3       opel debriyaj 4 dl 0.3333333          1
+##  6 mercedes süspansiyon 1.3     volkswagen lastik dl 0.3333333          1
+##  7         dacia şaft 1.9 j      opel silecekler 392 0.3333333          1
+##  8      opel silecekler 392         dacia şaft 1.9 j 0.3333333          1
+##  9         dacia şaft 1.9 j        renault aks 1.3 j 0.3333333          1
+## 10        renault aks 1.3 j         dacia şaft 1.9 j 0.3333333          1
+## # ... with 428 more rows, and 1 more variables: lift &lt;dbl&gt;</code></pre>
 
 
 

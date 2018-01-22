@@ -1,0 +1,5 @@
+    [order_line| order_line_id PK; product_id @NN; amount INT; ]
+    [product| product_id PK; product_name TEXT; ]
+    [purchase_order| purchase_order_id PK; ]
+    [product] 1-n [order_line]
+    [purchase_order] 1-n [order_line]

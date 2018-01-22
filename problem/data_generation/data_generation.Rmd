@@ -42,3 +42,8 @@ path: ~/projects/study/problem/data_generation/data_generation.Rmd
 4. generate sample data. ex `datafiller model.sql > sample_data.sql`
 5. write rest calls. ex `/rpc/report_route_seq` `/rest/route_seq?plan_id=eq.1&select(route_seq_id,route())`
 6. test sql queries
+
+Process is documented here:
+
+{{yuml_to_data_process.Rmd}}
+

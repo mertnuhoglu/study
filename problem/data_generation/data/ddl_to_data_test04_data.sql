@@ -4,10 +4,10 @@
 -- fill table place (5)
 \echo # filling table place (5)
 COPY place (place_enum,address) FROM STDIN (ENCODING 'utf-8');
-3	address_4_
-1	address_5_5_5_5_
-1	address_5_5_5_5_
-5	address_4_
+5	address_2_2_2_2_
+4	address_1_
+4	address_5_5_5_5_
+4	address_1_
 5	address_2_2_2_2_
 \.
 

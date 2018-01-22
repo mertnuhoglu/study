@@ -3,25 +3,25 @@
 
 -- fill table order_line (2)
 \echo # filling table order_line (2)
-COPY order_line (shipment_date,irsaliye_kg,tesis,yas_toz) FROM STDIN (ENCODING 'utf-8');
-2017-12-29 12:54:30	irsaliye_kg_2_	tesis_1_	FALSE
-2017-12-29 12:54:30	irsaliye_k	tesis_1_	TRUE
+COPY order_line (order_line_id,purchase_order_id) FROM STDIN (ENCODING 'utf-8');
+1	purchase
+2	purchase
 \.
 
 -- fill table plan (2)
 \echo # filling table plan (2)
-COPY plan (title) FROM STDIN (ENCODING 'utf-8');
-title_2_2_2_2_2_
-title_2_2_2_2_2_
+COPY plan (plan_id,title) FROM STDIN (ENCODING 'utf-8');
+plan_id_2_2_2_2_	title_2_2_2_2_2_
+plan_id_1_	title_1_1_1_
 \.
 
 -- fill table pln_orl (4)
 \echo # filling table pln_orl (4)
-COPY pln_orl () FROM STDIN (ENCODING 'utf-8');
-
-
-
-
+COPY pln_orl (plan_id,order_line_id) FROM STDIN (ENCODING 'utf-8');
+plan_id_4_	1
+plan_id_2_2_2_2_	1
+plan_id_4_	2
+plan_id_1_	1
 \.
 
 -- restart sequences

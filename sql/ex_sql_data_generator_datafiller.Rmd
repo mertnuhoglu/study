@@ -1,6 +1,6 @@
 ---
 title: "Example: datafiller SQL Data Generator"
-date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+date: 2017-12-15T18:27:56+03:00 
 draft: false
 description: ""
 tags:
@@ -110,7 +110,7 @@ Note the following attributes:
 ``` 
 
 ``` bash
-datafiller --size=3 data/library04.sql > data/library_test_data04.sql
+datafiller --seed 1 --size=3 data/library04.sql > data/library_test_data04.sql
 ``` 
 
 ``` {bash}

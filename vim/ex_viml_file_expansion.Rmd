@@ -1,6 +1,6 @@
 ---
 title: "Example: VimL Vimscript File Expansion"
-date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+date: 2018-01-20T18:25:31+03:00 
 draft: false
 description: ""
 tags:

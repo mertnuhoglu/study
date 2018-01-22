@@ -1,6 +1,6 @@
 ---
 title: "Example: fzf fuzzy file finder"
-date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+date: 2017-12-30T18:26:59+03:00 
 draft: false
 description: ""
 tags:

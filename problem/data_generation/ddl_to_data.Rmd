@@ -1,0 +1,152 @@
+---
+title: "Generate Sample Data from DDL"
+date: 2018-01-19T18:30:12+03:00 
+draft: false
+description: ""
+tags:
+categories: sql, datafiller
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+- data/ddl_to_data_test01.sql
+- data/ddl_to_data_test01_data.sql
+- data/ddl_to_data_test02.sql
+- data/ddl_to_data_test02_data.sql
+- data/ddl_to_data_test03.sql
+- data/ddl_to_data_test03_data.sql
+- data/ddl_to_data_test04.sql
+- data/ddl_to_data_test04_data.sql
+- data/ddl_to_data_test05.sql
+- data/ddl_to_data_test05_data.sql
+- data/place_enum.txt
+path: ~/projects/study/problem/data_generation/ddl_to_data.Rmd
+---
+
+This document explains how to generate sample data for any database automatically from its database schema defined as `DDL` statements.
+
+To do this, I use `datafiller` which is a command line tool that generates random data from database schemas described in DDL. 
+
+## v01
+
+Here is the first version of my database schema with embedded datafiller directives. In this first version, there is only one datafiller directive. It is in this line: `CREATE TABLE Pln_Orl (  --df: mult=2.0`
+
+``` {bash}
+data/ddl_to_data_test01.sql
+``` 
+
+`df: mult=2.0` means to multiply number of samples to be generated for the corresponding entity with `2.0`. When running `datafiller` we specify size of the default sample set. Here I specified it as `--size=2`, so `datafiller` will generate 4 rows of `Pln_Orl`.
+
+``` {bash}
+datafiller --size=2 data/ddl_to_data_test01.sql > data/ddl_to_data_test01_data.sql
+``` 
+
+``` {bash}
+cat data/ddl_to_data_test01_data.sql | sed -n "/COPY/,+2 p"
+``` 
+
+## v02
+
+``` {bash}
+data/ddl_to_data_test02.sql
+``` 
+
+``` {bash}
+datafiller --size=2 data/ddl_to_data_test02.sql > data/ddl_to_data_test02_data.sql
+``` 
+
+``` {bash}
+cat data/ddl_to_data_test02_data.sql | sed -n "/COPY/,+2 p"
+``` 
+
+All BIGINT fields are left empty. It seems like datafiller does not support BIGINT properly.
+
+## v03
+
+``` {bash}
+data/ddl_to_data_test03.sql
+``` 
+
+``` {bash}
+datafiller --size=2 data/ddl_to_data_test03.sql > data/ddl_to_data_test03_data.sql
+``` 
+
+``` {bash}
+cat data/ddl_to_data_test03_data.sql | sed -n "/COPY/,+2 p"
+``` 
+
+## v04: Use Predefined Reference Ids as FK Data
+
+Use the usual command `word` to reuse some predefined list of values:
+
+``` sql
+-- df place_enum: word=./data/place_enum.txt
+CREATE TABLE place (
+  ...
+  ,  place_enum INT
+  -- df: text=place_enum length=1 
+  ...
+```
+
+Note that, `place_enum` is not a FK according to the above definition.
+
+Predefined reference ids are here:
+
+``` {bash}
+cat data/place_enum.txt
+``` 
+
+``` {bash}
+data/ddl_to_data_test04.sql
+``` 
+
+``` {bash}
+datafiller --size=5 data/ddl_to_data_test04.sql > data/ddl_to_data_test04_data.sql
+``` 
+
+``` {bash}
+cat data/ddl_to_data_test04_data.sql | sed -n "/COPY/,+2 p"
+``` 
+
+## v05: Use Predefined Reference Ids together with REFERENCES clause
+
+What if the referring column is defined as `FK`
+
+``` sql
+-- df place_enum: word=./data/place_enum.txt
+CREATE TABLE enum_value (
+  enum_value_id INT 
+  -- df: text=place_enum length=1 
+  ) ;
+CREATE TABLE place (
+  ...
+  ,  place_enum INT REFERENCES enum_value (enum_value_id)
+  -- df: text=place_enum length=1 
+  ...
+```
+
+``` {bash}
+data/ddl_to_data_test05.sql
+``` 
+
+``` bash
+datafiller --size=5 data/ddl_to_data_test05.sql > data/ddl_to_data_test05_data.sql
+``` 
+
+This doesn't work due to the following error:
+
+``` 
+## Traceback (most recent call last):
+##   File "/usr/local/bin/datafiller", line 5067, in <module>
+##     format(a.table.name, a.name, key.name)
+## AssertionError: foreign key place.place_enum target enum_value_id must be unique
+``` 
+
+`datafiller` expects that `enum_value$enum_value_id` is unique when it is referenced by some FK.
+
+``` {bash}
+cat data/ddl_to_data_test05_data.sql | sed -n "/COPY/,+2 p"
+``` 
+

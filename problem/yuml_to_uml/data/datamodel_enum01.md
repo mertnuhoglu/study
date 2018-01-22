@@ -1,0 +1,4 @@
+
+    [enum_value| enum_value_id PK; enum_var_id @NN; enum_value_name TEXT; ]
+    [enum_var| enum_var_id PK; enum_var_name TEXT; ]
+    [enum_var] 1-n [enum_value]

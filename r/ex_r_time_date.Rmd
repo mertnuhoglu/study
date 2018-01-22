@@ -1,6 +1,6 @@
 ---
 title: "Example: R Time and Date"
-date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+date: 2017-12-19T18:27:56+03:00 
 draft: false
 description: ""
 tags:

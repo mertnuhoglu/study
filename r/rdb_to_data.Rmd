@@ -1,6 +1,6 @@
 ---
-title: "Build Data SQL: Insert and Update Statements"
-date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+title: "Convert RDB to SQL Data Insert/Update Statements"
+date: 2018-01-20T18:30:12+03:00 
 draft: false
 description: ""
 tags:
@@ -72,7 +72,7 @@ dfl = tibble::tribble(
   )
 ```
 
-Of course, I didn't type this data manually. I reproduced this data using excellent life-saver library `datapasta` by running the following code on terminal once:
+I didn't type this data manually. I reproduced this data using excellent life-saver library `datapasta` by running the following code on terminal once:
 
 ``` r
 yumltordbschema::read_data_entity() %>% dplyr::as_data_frame() %>% datapasta::dpasta()
