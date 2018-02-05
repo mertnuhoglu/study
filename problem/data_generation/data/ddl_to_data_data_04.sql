@@ -3,12 +3,12 @@
 
 -- fill table place (5)
 \echo # filling table place (5)
-COPY place (place_enum,address) FROM STDIN (ENCODING 'utf-8');
-5	address_2_2_2_2_
-4	address_1_
-4	address_5_5_5_5_
-4	address_1_
-5	address_2_2_2_2_
+COPY place (place_id,place_enum,address) FROM STDIN (ENCODING 'utf-8');
+1	5	address_2_2_2_2_
+2	1	address_4_
+3	4	address_1_
+4	5	address_4_
+5	3	address_4_
 \.
 
 -- restart sequences

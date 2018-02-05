@@ -120,6 +120,30 @@ df_paste()
 #> )
 ```
 
+# Read Data from Excel/TSV
+
+This time, instead of copying data manually from Excel/TSV, I will read it inside R and then reproduce it:
+
+``` {r}
+library(magrittr)
+readr::read_tsv("data/refcard_datapasta_data_entity.tsv") %>%
+  datapasta::dpasta()
+``` 
+
+Instead of `readr`, I can also use `rio::import` but this time the output of `dpasta()` is not as nicely formatted as `tibble`:
+
+``` {r}
+rio::import("data/refcard_datapasta_data_entity.tsv") %>%
+  datapasta::dpasta()
+``` 
+
+I can also read using the base `read.csv`
+
+``` {r}
+read.csv("data/refcard_datapasta_data_entity.tsv", sep = "\t") %>%
+  datapasta::dpasta()
+``` 
+
 # Code for Markdown
 
 `dmdclip()` produces code that is intended with 4 spaces to use in markdown documents.

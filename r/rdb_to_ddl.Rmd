@@ -31,7 +31,7 @@ library(dplyr, warn.conflicts = F)
 data_model_dir = "/Users/mertnuhoglu/projects/itr/itr_documentation/data_model/"
 ```
 
-[RDB](/what_is_rdb/) is an abbreviation that I use for requirements database. I try to store all software specifications as structured data in a relational database format.
+[RDB](/tech/what_is_rdb/) is an abbreviation that I use for requirements database. I try to store all software specifications as structured data in a relational database format.
 
 Here is an example data set for RDB:
 

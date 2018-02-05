@@ -1,0 +1,35 @@
+---
+title: "R jsonlite: Read JSON Snippets"
+date: 2018-02-03T10:25:38+03:00 
+draft: false
+description: ""
+tags:
+categories: r, json, snippet
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- data/plan_jobs.json
+path: ~/projects/study/r/read_json.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+I have some json files exported from a mongodb database. Now, I am going to read and process them using `R jsonlite` library.
+
+```{r}
+result = jsonlite::fromJSON("data/plan_jobs.json")
+result
+```
+

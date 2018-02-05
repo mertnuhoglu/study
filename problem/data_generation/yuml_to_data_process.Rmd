@@ -42,7 +42,7 @@ This step is explained in [yuml_to_uml](/tech/yuml_to_uml/).
 
 Second step is converting `yuml` text to `RDB` data. 
 
-[RDB](/what_is_rdb/) is an abbreviation that I use for requirements database. I try to store all software specifications as structured data in a relational database format.
+[RDB](/tech/what_is_rdb/) is an abbreviation that I use for requirements database. I try to store all software specifications as structured data in a relational database format.
 
 Conversion of `yuml` to `RDB` is done by an R function called `yuml_to_rdb`:
 
