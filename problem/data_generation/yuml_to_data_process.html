@@ -120,7 +120,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Process: From yuml to ddl and test data</h1>
 <h4 class="author"><em>Mert Nuhoglu</em></h4>
-<h4 class="date"><em>2017-12-30T14:24:03+03:00</em></h4>
+<h4 class="date"><em>2018-01-20T18:30:12+03:00</em></h4>
 
 </div>
 
@@ -128,11 +128,40 @@ $(document).ready(function () {
 <p>I wanted to automate the process from data modelling to testing it with sample data in actual database.</p>
 <p>To describe the data models, I use a very simple domain specific language (DSL) called as <code>yuml</code>. <code>yuml</code> is developed and used by some UML tool called <a href="http://yuml.me" title="yuml.me">yuml.me</a>.</p>
 <p>Starting from <code>yuml</code> the flow of information is as follows:</p>
-<pre><code>yuml -&gt; uml
-yuml -&gt; rdb
-rdb -&gt; ddl
-ddl -&gt; data
-rdb -&gt; data</code></pre>
+<pre><code>| yuml -&gt; uml | yuml_to_uml.sh | yuml_to_uml.Rmd |
+| yuml -&gt; rdb | yuml_to_rdb.R  | yuml_to_rdb.Rmd |
+| rdb -&gt; ddl  | rdb_to_ddl.R   | rdb_to_ddl.Rmd  |
+| ddl -&gt; data | ddl_to_data.sh | ddl_to_data.Rmd | ex_sql_data_generator_datafiller.Rmd |
+| rdb -&gt; data | rdb_to_data.R  | rdb_to_data.Rmd |</code></pre>
+<p><code>rdb</code> is short for “requirements database”. The name is actually a little misleading. Maybe, I should call it as “structural meta database”. <code>rdb</code> files are some tsv/excel files that store meta data about the final product. I prefer to use <code>excel</code> instead of <code>tsv/csv</code> because it is easier to edit and view manually.</p>
+<div id="yuml---uml" class="section level2">
+<h2>yuml -&gt; uml</h2>
+<p>First step is converting <code>yuml</code> text to <code>uml</code> graphs. This is actually not required for data generation. But it is very easy to do and helps me visualize and understand the data model better.</p>
+<pre><code>yuml -i datamodel_enum.md -o datamodel_enum.png</code></pre>
+<p>This step is explained in <a href="/tech/yuml_to_uml/">yuml_to_uml</a>.</p>
+</div>
+<div id="yuml---rdb" class="section level2">
+<h2>yuml -&gt; rdb</h2>
+<p>Second step is converting <code>yuml</code> text to <code>RDB</code> data.</p>
+<p><a href="/tech/what_is_rdb/">RDB</a> is an abbreviation that I use for requirements database. I try to store all software specifications as structured data in a relational database format.</p>
+<p>Conversion of <code>yuml</code> to <code>RDB</code> is done by an R function called <code>yuml_to_rdb</code>:</p>
+<pre><code>rdb = yuml_to_rdb(data_model_dir)</code></pre>
+<p>This step is explained in <a href="/tech/yuml_to_rdb/">yuml_to_rdb</a>.</p>
+</div>
+<div id="rdb---ddl" class="section level2">
+<h2>rdb -&gt; ddl</h2>
+<p>Third step is converting <code>RDB</code> meta data to database schema defined as <code>DDL</code> statements.</p>
+<p>Conversion of <code>RDB</code> to <code>DDL</code> is done by an R function called <code>rdb_to_ddl</code>:</p>
+<pre><code>ddl = rdb_to_ddl( data_entity = den, data_field = dfl)</code></pre>
+<p>This step is explained in <a href="/tech/rdb_to_ddl/">rdb_to_ddl</a>.</p>
+</div>
+<div id="generating-data-ddl---data-and-rdb---data" class="section level2">
+<h2>Generating Data: <code>ddl -&gt; data</code> and <code>rdb -&gt; data</code></h2>
+<p>Fourth step is generating sample data. This consists of two steps that are independent of each other: <code>ddl -&gt; data</code> and <code>rdb -&gt; data</code></p>
+<p>In <code>ddl -&gt; data</code> step, sample data is generated using <code>datafiller</code> directives embedded as comments inside <code>DDL</code> statements. This step is explained in <a href="/tech/ddl_to_data/">ddl_to_data</a>.</p>
+<p>In <code>rdb -&gt; data</code> step, sample data is generated from <code>RDB</code> data. In general, I generate sample data from <code>DDL</code>. But some data must be predefined in order to make the system work. This data is mostly special knowledge such as enum values. For example, different types of package, different types of weight units are of this kind. I define this kind of knowledge in <code>RDB</code> database inside tsv files. Then I generate their <code>SQL</code> statements automatically using <code>rdb_to_ddl</code> function.</p>
+<p>This step is explained in <a href="/tech/rdb_to_data/">rdb_to_data</a></p>
+</div>
 
 
 

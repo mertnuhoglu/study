@@ -37,13 +37,15 @@ mongodb has two pairs of commands:
 `mongodump` command dumps everything into the directory given by `-o` argument in BSON format.
 
 ``` 
-mongodump -h {HOSTNAME} -u {DBUSER} -p {DBPASS} -d {DBNAME} -o /srv/app/mongo
+mongodump -h ${HOSTNAME} -u ${DBUSER} -p ${DBPASS} -d ${DBNAME} -o /srv/app/mongo
 ``` 
+
+Note that the following expressions are environment variables which should be defined in bash terminal: `-h ${HOSTNAME} -u ${DBUSER} -p ${DBPASS} -d ${DBNAME}`
 
 `mongorestore` command reads all BSON files in the directory and restores the database.
 
 ``` 
-mongorestore -h {HOSTNAME} -u {DBUSER} -p {DBPASS} --db {DBNAME} /srv/app/mongo
+mongorestore -h ${HOSTNAME} -u ${DBUSER} -p ${DBPASS} --db ${DBNAME} /srv/app/mongo
 ``` 
 
 ## Export and Import JSON Files
@@ -51,7 +53,7 @@ mongorestore -h {HOSTNAME} -u {DBUSER} -p {DBPASS} --db {DBNAME} /srv/app/mongo
 `mongoexport` and `mongoimport` commands export and import only one collection per call.
 
 ``` 
-mongoexport -h {HOSTNAME} -u {DBUSER} -p {DBPASS} -d {DBNAME} -c admin_locations -o admin_locations.json --jsonArray 
+mongoexport -h ${HOSTNAME} -u ${DBUSER} -p ${DBPASS} -d ${DBNAME} -c admin_locations -o admin_locations.json --jsonArray 
 ``` 
 
 This statement exports a single collection (aka table) called `admin_locations` into the file `admin_locations.json`. 
@@ -59,7 +61,7 @@ This statement exports a single collection (aka table) called `admin_locations` 
 Note the argument `--jsonArray`. This argument lets mongodb to put multiple json records into an array. If you don't specify it, all json records are separated by whitespace and many JSON readers will fail to read the file then.
 
 ``` 
-mongoimport -h {HOSTNAME} -u {DBUSER} -p {DBPASS} -d {DBNAME} --file admin_locations.json
+mongoimport -h ${HOSTNAME} -u ${DBUSER} -p ${DBPASS} -d ${DBNAME} --file admin_locations.json
 ``` 
 
 This statement imports the file `admin_locations.json` into a collection. Since the collection name is not given, mongodb assumes that it has the same name as json file ie. `admin_locations`.

@@ -33,3 +33,14 @@ result = jsonlite::fromJSON("data/plan_jobs.json")
 result
 ```
 
+```{r}
+library(dplyr, warn.conflicts = F)
+df1 = jsonlite::fromJSON("data/master_rates.json") %>%
+  select(-1) %>%
+  filter(depotName == "ADANA")
+df2 = df1 %>%
+  group_by(name) %>%
+  summarize(count = n())
+  filter(depotName == "ADANA")
+```
+

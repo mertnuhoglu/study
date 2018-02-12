@@ -981,3 +981,10 @@
           created_on   timestamptz not null default now(),
           updated_on   timestamptz
         );
+    questions and answers
+      deck01: from sof
+        ref
+          PostgreSQL: Stackoverflow SOF Popular Questions  id=g_10183
+        new function: header line?
+          CREATE OR REPLACE FUNCTION f_foo()
+        new function: CREATE FUNCTION foo() 

@@ -20,10 +20,10 @@ import static java.lang.String.format;
 
 public class StudyDentasNakliyeFiyatlariRaporlama {
     public static void main(String[] args) throws ParseException {
-//        studyGetRates_GroupByName();
+        studyGetRates_GroupByName();
         studyGetRatesValid();
         studyLoadTable();
-//        studyGetRatesByDepotName();
+        studyGetRatesByDepotName();
 //        studyAggregateQueryUsingJsonAndMatchAndSelectAllFields();
 //        studyAggregateQueryUsingJsonAndMatch();
 //        studyQueryByValidFromDate();
@@ -178,9 +178,11 @@ public class StudyDentasNakliyeFiyatlariRaporlama {
     private static void studyGetRatesByDepotName() throws ParseException {
         MongoCollection<Document> collection = getMongoCollection();
         String depotName = "ADANA";
-        String match = format("{ 'depotName' : '%s' }", depotName);
+        //String match = format("{ 'depotName' : '%s' }", depotName);
+        String match = format(" 'depotName' : '%s' ", depotName) +
+                format(", 'validFromD' : { '$lte' : { '$date' : %s } } ", new Date().getTime());
         String query = format("[" +
-                    "{'$match': %s}, " +
+                    "{'$match': {%s}}, " +
                     "{'$sort': {'name':1, 'validFromD': -1}}, " +
                     "{'$group': " +
                         "{'_id': '$name', " +
