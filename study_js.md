@@ -234,6 +234,8 @@
           tldr
     twitter bootstrap id=g_10145
       twitter bootstrap <url:file:///~/projects/study/study/study_js.md#r=g_10145>
+      ref
+        bootstrap twitter bootstrap <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10186>
       cheatsheets
         https://hackerthemes.com/bootstrap-cheatsheet/
       themes
