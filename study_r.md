@@ -2896,6 +2896,8 @@ ref - input
       install.packages("rhandsontable")
     shiny
       install.packages("shiny")
+      run
+        runApp("shinyScript.R")
       publishing to shinyapps.io
         shinyapps.io/admin
         new domain name

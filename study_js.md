@@ -521,4 +521,14 @@
         q: n+1 problem repeats and spoils
           beware subsystems that propose to wrap and abstract your database for a new paradigm "automatically". They're leaky and difficult and take a decade to get right
         q: graphql has functions called resolvers where you write your logic to get data from wherever you want. SQL, NoSQL, API, filesystem, etc.
+    stuff
+      mdn: mozilla developer network
+        https://developer.mozilla.org/
+      Learn CSS Grid for free
+        https://scrimba.com/g/gR8PTE
+        https://laracasts.com/series/css-grids-for-everyone
+      Es2015+ Cheatsheet
+        https://devhints.io/es6
+      CSS Cheatsheet
+        https://adam-marsden.co.uk/css-cheat-sheet
 

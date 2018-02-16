@@ -1,0 +1,7 @@
+﻿.container {
+    display: grid;
+    grid-template-columns: 100px auto;
+    grid-template-rows: 50px 50px 100px;
+    grid-gap: 3px;
+}
+

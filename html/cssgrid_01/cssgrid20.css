@@ -1,0 +1,22 @@
+﻿.container {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: [main-start] 1fr [content-start] 5fr [content-end main-end];
+  grid-template-rows: 40px auto 40px;
+}
+
+.header {
+  grid-column: main-start / main-end;
+}
+
+.menu { }
+
+.content {
+  grid-column: content-start / content-end;
+}
+
+.footer {
+  grid-column: 1 / 3;
+}
+
+

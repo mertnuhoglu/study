@@ -1,0 +1,15 @@
+﻿.container {
+  border: 1px solid black;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: repeat(2, 100px);
+}
+
+.container2 {
+  border: 1px solid black;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-rows: repeat(2, 100px);
+}

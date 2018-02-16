@@ -523,8 +523,11 @@ clozeq
 opt 
 
 ··  {{c1::array-replace}}(ar, NULL, 0) &lt;&gt; ar <br>
+··  -- substitute
 ··  {{c2::array-remove}}(ar, NULL) &lt;&gt; ar <br>
+··  -- delete
 ··  {{c3::array-position}}(ar, NULL) IS NOT NULL <br>
+··  -- index
 
 %
 

@@ -1,0 +1,22 @@
+﻿.container {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 40px auto 40px;
+}
+
+.header {
+  grid-column: 1 / 3;
+}
+
+.menu { }
+
+.content {
+  grid-column: 2 / 3;
+}
+
+.footer {
+  grid-column: 1 / 3;
+}
+
+
