@@ -1,0 +1,43 @@
+---
+title: "Rmarkdown and Shiny"
+date: 2018-02-20T16:32:17+03:00 
+draft: true
+description: ""
+tags:
+categories: r, shiny, rmarkdown
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/r/shiny/shiny_and_rmarkdown.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+```{r}
+numericInput("rows", "How many cars?", 5)
+
+renderTable({
+  head(cars, input$rows)
+})
+```
+
+Run it from R terminal:
+
+``` r
+rmarkdown::run("shiny_and_rmarkdown.Rmd")
+```
+

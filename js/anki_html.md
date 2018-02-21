@@ -611,3 +611,190 @@ clozeq
 
 ---
 
+## css grid ex 01
+
+··  columns and rows sizes <br>
+····  .container { <br>
+········  {{c1::display}}: grid; <br>
+········  {{c2::grid-template-columns}}: 100px auto 100px; <br>
+········  {{c3::grid-template-rows}}: 50px 50px; <br>
+····  grid-template-columns: {{c4::repeat}}(auto-fit, 100px); <br>
+··  sizes: <br>
+····  100px <br>
+····  {{c5::1fr}} <br>
+····  {{c6::auto}} <br>
+··  display: grid; <br>
+··  grid-{{c7::gap}}: 3px; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## css grid ex 02
+
+··  positioning <br>
+····  .header { <br>
+······  grid-column-start: 1; <br>
+······  grid-column-end: 3; <br>
+····  shorthand form: <br>
+······  {{c1::grid-column}}: 1 / 3;  <br>
+········  # start-end lines <br>
+······  grid-column: 1 / {{c2::span}} 2;  <br>
+········  # size <br>
+······  grid-column: 1 / {{c3::-}}1;  <br>
+········  # from end <br>
+····  grid-{{c4::row}}: 1 / 3; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## css grid ex 03
+
+··  naming lines <br>
+····  grid-template-columns: {{c1::[main-start]}} 1fr [content-start] 5fr [content-end main-end]; <br>
+····  grid-template-rows: [main-start] 40px {{c2::[content-start]}} auto [content-end] 40px [main-end]; <br>
+····  grid-column: {{c3::main-start}} / main-end; <br>
+····  grid-column: {{c4::main}}; <br>
+····  grid-{{c5::area}}: content; <br>
+··  grid-template-areas <br>
+····  grid-{{c6::template-areas}}: <br>
+······  "m . . h h h h h h h h h" <br>
+······  "m c c c c c c c c c c c" <br>
+······  "m f f f f f f f f f f f" <br>
+····  .header { <br>
+······  grid-area: {{c7::h}}; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## css grid ex 04
+
+··  auto-fit minmax auto-fill <br>
+····  grid-template-columns: {{c1::repeat}}(auto-fit, 100px); <br>
+····  grid-template-columns: repeat(auto-fit, {{c2::minmax}}(100px, 1fr)); <br>
+····  auto-fit <br>
+····  auto-{{c3::fill}} <br>
+··  grid-auto-rows flow <br>
+····  grid-{{c4::auto-rows}}: 100px; <br>
+····  grid-auto-{{c5::flow}}: dense; <br>
+··  justify-{{c6::content}} align <br>
+····  justify-content: {{c7::end}}; <br>
+····  start {{c8::center}} end <br>
+····  space-evenly {{c9::space-between}} space-around <br>
+····  {{c10::align-content}}: end; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## css basic selectors 01
+
+··  | description··················   | example··············   | <br>
+··  | select all elements of any type | {{c1::*}}{}··················   | <br>
+··  | select some—id················  | {{c2::#some—id}}{}············  | <br>
+··  | select class1 and class2 elems  | {{c3::.class1.class2}} {}····   | <br>
+··  | select h1 h3 types············  | {{c4::h1, h3}} {}············   | <br>
+··  | p follows img directly········  | {{c5::img + p}} {}············  | <br>
+··  | li direct children of ul······  | {{c6::ul &gt; li}} {}············  | <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## css basic selectors 02
+
+··  | span follows p················  | {{c1::p ~ span}} {}··········   | <br>
+··  | li descendant of ul··········   | {{c2::ul li}} {}··············  | <br>
+··  | &lt;a&gt; with title attribute······  | {{c3::a[title]}} {}··········   | <br>
+··  | &lt;a&gt; href matches g.com········  | {{c4::a[href="https://g.com"]}} | <br>
+··  | &lt;a&gt; href contains g··········   | {{c5::a[href*="g"]}}··········  | <br>
+··  | &lt;a&gt; href ends with ".org"····   | {{c6::a[href$=".org"]}}······   | <br>
+··  | &lt;a&gt; attr contains "val" word··  | {{c7::a[attr~="val"]}}········  | <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## css pseudo selectors 01
+
+··  | description··········  | selector············   | <br>
+··  | mouse over··········   | a{{c1:::hover}}······  | <br>
+··  | active link··········  | a{{c2:::active}}····   | <br>
+··  | focus················  | input{{c3:::focus}}··  | <br>
+··  | visited links········  | a{{c4:::visited}}····  | <br>
+··  | link (not yet visited) | a{{c5:::link}}······   | <br>
+··  | checked elements····   | input{{c6:::checked}}  | <br>
+··  | disabled elements····  | input{{c7:::disabled}} | <br>
+··  | enabled elements····   | input{{c8:::enabled}}  | <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## css pseudo selectors 01
+
+··  | not a specified element······  | {{c1:::not(p)}}······   | <br>
+··  | first line··················   | p{{c2::::first-line}}   | <br>
+··  | first letter················   | p{{c3::::first-letter}} | <br>
+··  | first child··················  | p{{c4:::first-child}}   | <br>
+··  | last child··················   | p{{c5:::last-child}}··  | <br>
+··  | nth child (every 4th)········  | p{{c6:::nth-child(4n)}} | <br>
+··  | first among same type siblings | p{{c7:::first-of-type}} | <br>
+··  | element with no children····   | p{{c8:::empty}}······   | <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## css box properties 01
+
+··  | description | css················  | values··············   | <br>
+··  | sizing····  | {{c1::box-sizing}}   | border-box··········   | <br>
+··  | margin····  | {{c2::margin}}····   | 2px 4px 6px 8px······  | <br>
+··  | padding··   | {{c3::padding}}····  | ..··················   | <br>
+··  | color····   | {{c4::border-color}} |······················  | <br>
+··  | style····   | {{c5::border-style}} | none hidden dotted ... | <br>
+··  | width····   | {{c6::border-width}} | 10px················   | <br>
+
+%
+
+%
+
+clozeq
+
+---
+

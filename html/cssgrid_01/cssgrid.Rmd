@@ -1,5 +1,5 @@
 ﻿---
-title: "CSS Grid Examples from Learn CSS Grid at Scrimba Course"
+title: "CSS Grid Examples from Learn CSS Grid Course at Scrimba"
 date: 2018-02-16T14:22:38+03:00  
 draft: false
 description: ""
@@ -14,6 +14,7 @@ resource_files:
 - cssgrid01.html
 - cssgrid02.html
 - cssgrid03.html
+- cssgrid04.html
 - cssgrid05.html
 - cssgrid06.html
 - cssgrid07.html
@@ -39,6 +40,7 @@ resource_files:
 - cssgrid01.css
 - cssgrid02.css
 - cssgrid03.css
+- cssgrid04.css
 - cssgrid05.css
 - cssgrid06.css
 - cssgrid07.css
@@ -259,7 +261,11 @@ The layout of the page is specified with the following expression:
       "m c c c c c c c c c c c"
       "f f f f f f f f f f f f"
 
-`h m c f` are `header menu content footer` sections respectively.
+`h m c f` are `header menu content footer` sections respectively, such as:
+
+    .header {
+      grid-area: h;
+    }
 
 <iframe src="cssgrid13.html" width="600" height="400"></iframe>
 

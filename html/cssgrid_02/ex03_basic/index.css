@@ -1,0 +1,19 @@
+.container {
+    display: grid;
+    grid-template-columns: 250px auto;
+    grid-template-row: 1fr auto 1fr;
+    grid-gap: 10px;
+}
+
+header, aside, article, footer {
+    background: #eee;
+    padding: 3px;
+}
+
+header, footer {
+    grid-column: 1 / 4;
+}
+
+article {
+    grid-column: 2 / 4;
+}
