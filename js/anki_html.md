@@ -798,3 +798,16 @@ clozeq
 
 ---
 
+## embed iframe
+
+··  &lt;iframe src="{{c1::page.html}}" {{c2::width}}="200" height="30"&gt;&lt;/iframe&gt; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+

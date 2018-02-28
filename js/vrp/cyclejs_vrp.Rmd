@@ -1,0 +1,90 @@
+---
+title: "CycleJS Implementation in VRP"
+date: 2018-02-27T18:23:18+03:00 
+draft: true
+description: ""
+tags:
+categories: javascript, cyclejs
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/vrp/cyclejs_vrp.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## v01: Calling and Viewing Data from a Simple REST API 
+
+First run the web service:
+
+``` bash
+json-server --watch ex/db.json
+open ex/cyclejs_vrp_ex01.html
+``` 
+
+Clicking the button results in:
+
+<div class="app" data-vivaldi-spatnav-clickable="1"><div><button class="get-first">Get first comment</button><div class="comment-details"><h4 class="comment-body">some comment</h4><h4 class="comment-id">1</h4></div></div></div>
+
+Note: The following code variants have different outputs:
+
+      h4('.comment-body', firstComment.body),
+      h4('.comment-id', `${firstComment.id}`)
+      //h4('.comment-json', `${firstComment}`)
+      //> [object Object]
+      //h4('.comment-json', firstComment.id)
+      //> TypeError: Cannot create property 'className' on number '1'
+
+The code of this web page:
+
+``` {bash}  
+cat ex/cyclejs_vrp_ex01.js
+``` 
+
+## Calling a Postgrest REST API
+
+Run the server embedded in docker container:
+
+    $ docker-compose up -d # wait for 5-10s before running the next command
+
+Make a basic request:
+
+    $ curl http://localhost:8080/rest/todos?select=id
+    [{"id":1},{"id":3},{"id":6}]
+
+## Consuming Postgrest REST API in CycleJS App
+
+    $ 
+``` bash
+docker-compose up -d 
+open ex/cyclejs_vrp_ex02.html
+``` 
+
+The response of REST API is as follows:
+
+    $ curl http://localhost:8080/rest/todos?select=id
+    [{"id":1},{"id":3},{"id":6}]
+
+The view code that presents this JSON data:
+
+    h4('.comment-id', `${json[0].id}`)
+
+After clicking the button we get:
+
+<div class="app"><button class="get-first">Get first comment</button><div class="comment-details"><h4 class="comment-id">1</h4></div></div>

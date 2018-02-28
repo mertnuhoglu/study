@@ -30,7 +30,7 @@ Starting from `yuml` the flow of information is as follows:
 
 `rdb` is short for "requirements database". The name is actually a little misleading. Maybe, I should call it as "structural meta database". `rdb` files are some tsv/excel files that store meta data about the final product. I prefer to use `excel` instead of `tsv/csv` because it is easier to edit and view manually.
 
-## yuml -> uml 
+## `yuml -> uml` 
 
 First step is converting `yuml` text to `uml` graphs. This is actually not required for data generation. But it is very easy to do and helps me visualize and understand the data model better.
 
@@ -38,7 +38,7 @@ First step is converting `yuml` text to `uml` graphs. This is actually not requi
 
 This step is explained in [yuml_to_uml](/tech/yuml_to_uml/). 
 
-## yuml -> rdb
+## `yuml -> rdb`
 
 Second step is converting `yuml` text to `RDB` data. 
 
@@ -50,7 +50,7 @@ Conversion of `yuml` to `RDB` is done by an R function called `yuml_to_rdb`:
 
 This step is explained in [yuml_to_rdb](/tech/yuml_to_rdb/). 
 
-## rdb -> ddl
+## `rdb -> ddl`
 
 Third step is converting `RDB` meta data to database schema defined as `DDL` statements.
 

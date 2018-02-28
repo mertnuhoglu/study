@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Form Layout #1: CSS Grid</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+		<form class="yeni_plan" action="">
+      <div class="yeni_plan__arac_parametreleri">
+        <h3 class="yeni_plan__heading">Araç Parametreleri</h3>
+
+        <label class="yeni_plan__label_heading">Araç Tipi</label>
+        <label class="yeni_plan__input_heading">Efektif Hacim</label>
+         
+        <label for="kamyon" class="yeni_plan__label">Kamyon</label>
+        <input id="kamyon" class="yeni_plan__input form-control" type="text">
+        <label class="yeni_plan__unit">m³/45m³</label>
+         
+        <label for="b_kamyon" class="yeni_plan__label">B.Kamyon</label>
+        <input id="b_kamyon" class="yeni_plan__input form-control" type="text">
+        <label class="yeni_plan__unit">m³/68m³</label>
+         
+        <label for="treyler" class="yeni_plan__label">Treyler</label>
+        <input id="treyler" class="yeni_plan__input form-control" type="text">
+        <label class="yeni_plan__unit">m³/86m³</label>
+      </div>
+
+      <div class="yeni_plan__rota_parametreleri">
+        <h3 class="yeni_plan__heading">Rota Parametreleri</h3>
+
+        <label class="yeni_plan__label" for="depo" class="label_depo">Depo</label>
+        <select class="yeni_plan__input form-control" id="depo" ng-options="o.label for o in depotOptions" ng-model="plan_depot" ng-disabled="!canChangeDepot()">
+          <option value="?" selected></option>
+          <option label="Adana" value="object:18">Adana</option>
+          <option label="Çorlu" value="object:19">Çorlu</option>
+          <option label="Denizli" value="object:20">Denizli</option>
+          <option label="Eskisehir" value="object:21">Eskisehir</option>
+        </select>
+         
+        <label for="maks_drop_sayisi" class="yeni_plan__label">Maks. Drop Sayısı</label>
+        <input id="maks_drop_sayisi" class="yeni_plan__input form-control" type="text">
+        <label class="yeni_plan__unit">adet</label>
+         
+        <label for="efektif_hacim_tolerans" class="yeni_plan__label">Efektif Hacim Tolerans</label>
+        <input id="efektif_hacim_tolerans" class="yeni_plan__input form-control" type="text">
+        <label class="yeni_plan__unit">%</label>
+      </div>
+
+			<button class="yeni_plan__submit btn btn-primary">Submit</button>
+		</form>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

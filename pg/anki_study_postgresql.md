@@ -1035,3 +1035,45 @@ clozeq
 
 ---
 
+## Summary of Steps in PSK
+
+1. basic REST request
+
+··  $ curl http://localhost:8080/rest/todos?select=id <br>
+··  [{"id":1},{"id":3},{"id":6}] <br>
+
+2. {{c1::authorized}} REST request
+
+··  $ export JWT—TOKEN=... <br>
+··  $ curl -H "Authorization: Bearer $JWT—TOKEN" http://localhost:8080/rest/todos?select=id,todo <br>
+··  [{"id":1,"todo":"item—1"},{"id":3,"todo":"item—3"},{"id":6,"todo":"item—6"}] <br>
+
+3. Edit `db/src/sample—data/{{c2::data.sql}}`:
+
+··  $ curl -H "Authorization: Bearer $JWT—TOKEN" http://localhost:8080/rest/todos?select=id,todo <br>
+··  [{"id":1,"todo":"item—1—updated"},{"id":3,"todo":"item—3"},{"id":6,"todo":"item—6"}] <br>
+
+4. Create new {{c7::table}}: data/table.sql imported from data/schema.sql
+
+5. Create new {{c3::view as API}}: api/views—and—procedures.sql imported from api/schema.sql
+
+6. Create {{c8::sample data}}: sample—data/data.sql imported from reset.sql
+
+··  delete previous data in reset.sql: <br>
+
+··  {{c4::truncate}} data.client restart identity cascade; <br>
+
+7. Grant {{c5::privilege}} for the new view: authorization/privileges.sql imported from init.sql
+
+8. Make request to new API:
+
+··  $ curl -H "Authorization: Bearer $JWT—TOKEN" http://localhost:8080/rest/{{c6::new—view}}?select=id,name <br>
+
+%
+
+%
+
+clozeq
+
+---
+

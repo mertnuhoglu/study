@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cycle App</title>
+<body>
+<div id="app"></div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.6/Rx.min.js"></script>
+<script>
+  Rx.Observable.timer(0, 1000)
+    .map(i => `Seconds ${i}`)
+    .subscribe(text => {
+      const container = document.querySelector('#app');
+      container.textContent = text;
+    })
+</script>
+</body>
+</html>
+

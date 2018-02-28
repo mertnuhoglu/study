@@ -1,0 +1,80 @@
+form {
+  display: grid;
+  padding: 1em;
+  background: #f9f9f9;
+  border: 1px solid #c1c1c1;
+  margin: 2rem auto 0 auto;
+  padding: 1em;
+}
+form input {
+  background: #fff;
+  border: 1px solid #9c9c9c;
+}
+form button {
+  background: lightgrey;
+  padding: 0.7em;
+  width: 100%;
+  border: 0;
+}
+form button:hover {
+  background: gold;
+}
+
+label {
+  padding: 0.5em 0.5em 0.5em 0;
+}
+
+input {
+  padding: 0.7em;
+  margin-bottom: 0.5rem;
+}
+input:focus {
+  outline: 3px solid gold;
+}
+
+@media (min-width: 400px) {
+  .yeni_plan {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 16px;
+  }
+
+  .yeni_plan__arac_parametreleri {
+    display: grid;
+    grid-template-columns: 3fr 3fr 75px;
+    grid-gap: 3px;
+  }
+
+  .yeni_plan__rota_parametreleri {
+    display: grid;
+    grid-template-columns: 3fr 3fr 35px;
+    grid-gap: 3px;
+  }
+  .yeni_plan__submit {
+    grid-column: 2 / -1;
+  }
+
+  .yeni_plan__heading {
+    grid-column: 1 / -1;
+    font-weight: bold;
+  }
+  .yeni_plan__label {
+    grid-column: 1 / 2;
+  }
+  .yeni_plan__input {
+    grid-column: 2 / 3;
+  }
+  .yeni_plan__unit {
+    grid-column: 3 / -1;
+    display: inline;
+  }
+  .yeni_plan__label_heading {
+    grid-column: 1 / 2;
+    font-weight: bold;
+  }
+  .yeni_plan__input_heading {
+    grid-column: 2 / 4;
+    font-weight: bold;
+  }
+
+}

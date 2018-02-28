@@ -1,0 +1,49 @@
+---
+title: "Mockup REST API Generator: JSON Server"
+date: 2018-02-27T16:28:02+03:00 
+draft: false
+description: ""
+tags:
+categories: javascript
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/mockup_rest_api_jsonserver.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+Install:
+
+    npm install -g json-server
+
+``` {bash}
+cat ex/db.json
+``` 
+
+``` bash
+json-server --watch ex/db.json
+``` 
+
+``` bash
+curl http://localhost:3000/posts/1
+## {
+##   "id": 1,
+##   "title": "json-server",
+##   "author": "typicode"
+## }
+``` 
