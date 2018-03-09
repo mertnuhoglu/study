@@ -38,9 +38,82 @@ library(dplyr, warn.conflicts = F)
 df1 = jsonlite::fromJSON("data/master_rates.json") %>%
   select(-1) %>%
   filter(depotName == "ADANA")
+df1
 df2 = df1 %>%
+  filter(depotName == "ADANA") %>%
   group_by(name) %>%
   summarize(count = n())
-  filter(depotName == "ADANA")
+df2
 ```
 
+## Pretty printing
+
+Let's see how json input data looks like:
+
+``` {bash}
+jq . data/plan_jobs.json | sed -n "1,20 p"
+``` 
+
+``` {bash}
+jq . data/plan_routes_sample.json | sed -n "1,50 p"
+``` 
+
+```{r}
+pr = jsonlite::fromJSON("data/plan_routes_sample.json") 
+pr
+str(pr)
+```
+
+old code:
+
+```{r}
+nR <- nrow(proutes)
+for( i in 1:nR){
+  
+  submitDate   <- proutes$submitDate[i]
+  submitDay    <- as.Date(substring(proutes$submitDate[i] , 1 , 10)) # submitDate'den saatli kismi atiyoruz.
+  storeLoc     <- gsub("\\-.*","" , proutes$rateLane)  #depo ismini rateLane'den çekiyoruz.
+  storeCity    <- storeLoc[i]
+  submitMonth  <- substring(proutes$submitDate[i] , 1 , 7)
+  submitwk     <- as.week(proutes$submitDate , sunday = FALSE)
+  submitWeek   <- submitwk$week[i]
+  
+  dropList <- proutes$drops[i]
+  dropListDF <- dropList[[1]]
+  
+  dropListDF["submitDate"] <- submitDate
+  dropListDF["submitDay"]  <- submitDay
+  dropListDF["storeLoc"]   <- storeCity
+  dropListDF["submitMonth"]<- submitMonth
+  dropListDF["submitWeek"] <- submitWeek
+  
+  
+  if(i == 1){
+    dropsDF <- cbind(dropListDF)
+  } else {
+    dropsDF <- rbind.fill(dropsDF, dropListDF)
+  }
+}
+```
+
+refactored code:
+
+```{r}
+pr$drops
+str(pr$drops)
+library(dplyr)
+prd = bind_rows(pr$drops)
+prd$destName
+nrow_drops = lapply(pr$drops, nrow) %>% unlist
+rep(c(0, 5), c(3, 2)) # 0 0 0 5 5 
+prid = pr$submitId %>% bind_rows %>%
+  setNames("submitId")
+prd_id = rep(prid$submitId, nrow_drops)
+cbind(prd, prd_id)
+```
+
+```{r}
+rt = pr %>%
+  select(-one_of("_id", "submitId", "drops") ) %>%
+  mutate(submitDay = as.Date(substring(submitDate, 1 , 10)))
+```

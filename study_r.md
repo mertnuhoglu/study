@@ -1017,6 +1017,16 @@ ref - input
               R CMD INSTALL --configure-args='--with-oci-lib=/Users/mertnuhoglu/tools/oracle/instantclient_11_2 --with-oci-inc=/Users/mertnuhoglu/tools/oracle/instantclient_11_2/sdk/include' ROracle_1.2-2.tar.gz
               
         connection
+          ex
+            con <- DBI::dbConnect(RPostgreSQL::PostgreSQL()
+              , user = Sys.getenv("SUPER_USER")
+              , password = Sys.getenv("SUPER_USER_PASSWORD")
+              , dbname = "app"
+              , host = "localhost"
+              , port = "5432"
+            )
+            df = DBI::dbGetQuery(con, "SELECT * FROM data.client")
+            df
           opt1
             drv <- dbDriver("Oracle")
             username = "system"
@@ -4167,7 +4177,7 @@ ref - input
             to find a file in `inst/`
               system.file("extdata", "mydata.csv", package = "mypackage")
             ex
-              system.file("bash/build_datamodel_sdb.sh", package = "yumltordbschema")
+              system.file("bash/cat_yuml.sh", package = "yumltordbschema")
           Other languages
             put scripts of java, perl, bash into inst/
               inst/python, inst/bash

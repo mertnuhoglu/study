@@ -6,6 +6,7 @@
 **/out/*
 **/node_modules/*
 **/bower_modules/*
+**/build/*
 
 # Other files and folders
 **/.settings/*
@@ -20,6 +21,7 @@ Makefile
 *.jar
 *.iml
 *.Rproj
+*.apkg
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important

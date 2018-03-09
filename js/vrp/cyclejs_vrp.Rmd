@@ -70,7 +70,6 @@ Make a basic request:
 
 ## Consuming Postgrest REST API in CycleJS App
 
-    $ 
 ``` bash
 docker-compose up -d 
 open ex/cyclejs_vrp_ex02.html
@@ -88,3 +87,99 @@ The view code that presents this JSON data:
 After clicking the button we get:
 
 <div class="app"><button class="get-first">Get first comment</button><div class="comment-details"><h4 class="comment-id">1</h4></div></div>
+
+## Consuming Actual Data in CycleJS App
+
+Start database server and postgrest:
+
+``` bash
+dmd=~/projects/itr/itr_documentation/data_model
+psk=~/codes/pg/khumbuicefall
+cd $psk
+docker-compose up -d
+``` 
+
+Generate schema and initial data:
+
+``` bash
+cd /Users/mertnuhoglu/projects/yumltordbschema
+R
+``` 
+
+``` R
+test_setup()
+main_rdb_to_data_step01()
+#> ~/projects/itr/itr_documentation/data_model/data/view/ddl.sql
+#> ~/projects/itr/itr_documentation/data_model/data/sql/sql_insert/sql_insert_enum_var.sql
+``` 
+
+Manually edit `ddl_m.sql` by moving updated lines from `ddl.sql`:
+
+``` vim
+#> ~/projects/itr/itr_documentation/data_model/data/view/ddl.sql
+:%s/\<BIGINT\>/INT/
+``` 
+
+Go to R console:
+
+``` R
+main_rdb_to_data_step02()
+#> ~/projects/itr/itr_documentation/data_model/data/view/data.sql
+``` 
+
+Import initial data into database to check:
+
+``` bash
+cd ~/projects/itr/itr_documentation/data_model/data/view/
+psql -d app -f init.sql
+``` 
+
+Move sql files to psk `${psk}/db/src` folder:
+
+``` bash
+cp ${dmd}/data/view/ddl_m.sql ${psk}/db/src/data/vrp_ddl_m.sql
+cp ${dmd}/data/sql/sql_insert/sql_insert_enum_var.sql ${psk}/db/src/sample_data
+cp ${dmd}/data/sql/sql_insert/sql_insert_enum_value.sql ${psk}/db/src/sample_data
+cp ${dmd}/data/view/data.sql ${psk}/db/src/sample_data/vrp_data.sql
+``` 
+
+Edit psk sql files:
+
+    data/schema.sql
+      \ir vrp_ddl_m.sql
+    init.sql
+      \ir sample_data/sql_insert_enum_var.sql
+      \ir sample_data/sql_insert_enum_value.sql
+      \ir sample_data/vrp_data.sql
+    api/schema.sql
+      \ir vrp_views.sql
+    api/vrp_views.sql
+      create or replace view plan as
+      select * from data.plan;
+    authorization/privileges.sql
+      grant select, insert, update, delete
+      on api.plan
+      to webuser;
+
+Test from console:
+
+``` bash
+export JWT_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk
+curl -H "Authorization: Bearer $JWT_TOKEN" http://localhost:8080/rest/plan?select=plan_id
+``` 
+
+Use in cyclejs:
+
+``` js
+const request$ = clickEvent$.map(() => {
+  return {
+    url: 'http://localhost:8080/rest/plan?select=plan_id',
+    method: 'GET',
+    headers: {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+``` 
+
+``` bash
+open ex/cyclejs_vrp_ex03.html
+``` 
+

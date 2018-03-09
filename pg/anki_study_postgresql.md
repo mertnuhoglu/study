@@ -100,7 +100,7 @@ clozeq
 ····  , {{c4::dbname}} = "app" <br>
 ····  , host = "localhost" <br>
 ····  , port = "5432" <br>
-··  )
+··  ) <br>
 
 %
 
@@ -469,7 +469,7 @@ clozeq
 ····  ),  <br>
 ····  cte2 {{c3::AS}} ( <br>
 ······  SELECT * FROM &lt;table2&gt; <br>
-····  )
+····  ) <br>
 ····  SELECT * <br>
 ····  FROM {{c4::cte1}} <br>
 ····  WHERE .. <br>
@@ -642,8 +642,8 @@ clozeq
 ··  array—ndims(ARRAY[[1,2,3], [4,5,6]])   <br>
 ··  {{c3::array—length}}(array[1,2,3], 1)  -- 3 <br>
 ··  {{c4::unnest}}(ARRAY[1,2])   <br>
-····  1
-····  2
+····  1 <br>
+····  2 <br>
 ····  (2 rows) <br>
 ··  {{c5::array—agg}}(expression)  <br>
 ··  -- convert any set to array <br>
@@ -694,7 +694,7 @@ clozeq
 ··  {{c5::first—value}} <br>
 ··  last—value <br>
 ··  nth—value <br>
-··   
+····  <br>
 %
 
 %
@@ -899,10 +899,10 @@ clozeq
 ······  Jonas,10 <br>
 ····  POST /people <br>
 ······  Content-Type: application/{{c6::json}} <br>
-······  [
+······  [ <br>
 ········  {"name":"J Doe", "age":62}, <br>
 ········  .. <br>
-······  ]
+······  ] <br>
 
 %
 
@@ -1076,4 +1076,195 @@ clozeq
 clozeq
 
 ---
+
+## psk: install and setup
+
+··  $ {{c1::git clone}} --single-branch https://github.com/subzerocloud/postgrest-starter-kit khumbuicefall <br>
+··  $ cd khumbuicefall <br>
+
+Edit `{{c2::.env}}`
+
+··  COMPOSE—PROJECT—NAME=khumbuicefall <br>
+
+Run the server embedded in docker container:
+
+··  $ {{c3::docker-compose up -d}} # wait for 5-10s before running the next command <br>
+
+Install and run [subzero-cli] to see what is going inside (optional):
+
+··  $ docker pull subzerocloud/subzero-cli-tools <br>
+··  $ npm install -g subzero-cli <br>
+··  $ {{c4::subzero}} dashboard <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## psk: basic REST calls
+
+··  $ curl http://localhost:8080/rest/{{c1::todos?select=id}} <br>
+··  [{"id":1},{"id":3},{"id":6}] <br>
+
+Make an authorized request
+
+··  $ export {{c2::JWT—TOKEN}}=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p—kMV1Ymk <br>
+··  $ curl -H "Authorization: Bearer $JWT—TOKEN" http://localhost:8080/rest/todos?select=id,todo <br>
+··  [{"id":1,"todo":"item—1"},{"id":3,"todo":"item—3"},{"id":6,"todo":"item—6"}] <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## Check Generated SQL Using subzero
+
+··  $ curl http://localhost:8080/rest/todos?select=id <br>
+
+The following SQL code is generated automatically by `postgrest`:
+
+··  {{c1::WITH}} pg—source AS <br>
+····  (SELECT  "api"."todos"."{{c2::id}}" FROM  "api"."{{c3::todos}}") <br>
+····  SELECT <br>
+······  null AS total—result—set, pg—catalog.count(—postgrest—t) AS page—total, array[]::text[] AS header, coalesce(array—to—json(array—agg(row—to—json({{c4::—postgrest—t}}))), '[]')::character varying AS body <br>
+······  FROM ( SELECT * FROM pg—source) —postgrest—t <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## psk: actual data
+
+··  {{c1::coalesce}}( <br>
+····  {{c2::array—to—json}}( <br>
+······  {{c3::array—agg}}( <br>
+········  {{c4::row—to—json}}(—postgrest—t))) <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## psk: editing db/src/ *.sql files
+
+`./db/src/data/todo.sql` changed
+
+··  --&gt; <br>
+
+··  Starting code reload ------------------------ <br>
+··  LOG:  statement: SELECT pg—terminate—backend(pid) FROM pg—stat—activity WHERE datname = 'app'; <br>
+··  FATAL:  terminating connection due to administrator command <br>
+··  LOG:  statement: DROP DATABASE if exists app; <br>
+
+··  LOG:  statement: {{c1::CREATE DATABASE}} app; <br>
+
+··  Ready --------------------------------------- <br>
+··  LOG:  statement: {{c2::set client—min—messages}} to warning; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## psk: order of call for db/src/*.sql files
+
+··  db/src/{{c1::init}}.sql <br>
+····  db/src/data/{{c2::schema}}.sql <br>
+······  db/src/data/{{c3::todo}}.sql <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## File Structure of `.sql` Files
+
+`init.sql` file contains several `include` i.e. `\ir` statements such as:
+
+··  \ir {{c1::data}}/schema.sql <br>
+··  \ir {{c2::api}}/schema.sql <br>
+··  \ir {{c3::authorization}}/roles.sql <br>
+··  \ir authorization/{{c4::privileges}}.sql <br>
+··  \ir {{c5::sample—data}}/data.sql <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## psk: reset.sql
+
+Added `data.client` table sample data into sample—data/data.sql
+
+Now edit `db/src/{{c1::sample—data}}/reset.sql` and add this line before `COMMIT`:
+
+··  {{c1::truncate}} data.client {{c2::restart}} identity cascade; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## psk: added new view `api.clients`. GRANT?
+
+Edit `db/src/authorization/privileges.sql` and add `GRANT` privilege statements:
+
+··  {{c1::grant}} select, insert, update, delete <br>
+··  on {{c2::api.clients}} <br>
+··  to {{c3::webuser}}; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## psk: Summary of Steps 
+
+1. basic REST request
+
+2. authorized REST request
+
+3. Edit `db/src/{{c1::sample—data/data}}.sql`:
+
+······  [{"id":1,"todo":"item—1—updated"},] <br>
+
+4. Create new table: data/{{c2::table}}.sql imported from data/schema.sql
+
+5. Create new view as API: api/{{c3::views—and—procedures}}.sql imported from api/schema.sql
+
+6. Create sample data: {{c4::sample—data}}/data.sql imported from reset.sql
+
+······  {{c5::truncate}} data.client restart identity cascade; <br>
+
+7. Grant privilege for the new view: authorization/{{c6::privileges}}.sql imported from init.sql
+
+8. Make request to new API:
 

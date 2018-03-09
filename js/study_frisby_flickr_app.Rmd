@@ -1,0 +1,319 @@
+---
+title: "Study Notes: Mostly adequate guide to FP: Example Flick App"
+date: 2018-02-16T14:22:38+03:00  
+draft: true 
+description: ""
+tags:
+categories: css
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_frisby_flickr_app.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+## Chapter 04: Currying
+
+This is how currying can be defined in a simple way:
+
+```{js}
+// curry :: ((a, b, ...) -> c) -> a -> b -> ... -> c
+function curry(fn) {
+  const arity = fn.length;
+
+  return function $curry(...args) {
+    if (args.length < arity) {
+      return $curry.bind(null, ...args);
+    }
+
+    return fn.call(null, ...args);
+  };
+}
+```
+
+Now, let's use `curry` for partial application:
+
+```{js}
+const match = curry((regex, s) => s.match(regex));
+match(/r/g, 'hello world'); // ["r"]
+const hasLetterR = match(/r/g); // x => x.match(/r/g)
+hasLetterR('hello world'); // [ 'r' ]
+```
+
+Argument order: Note that last argument is the most varying argument. This is the actual data.
+
+### Wrapping With `map`
+
+This may be the most important benefit of currying: 
+
+Wrapping a curried function with `map`, makes the function work on arrays.
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js"></script>
+
+```{js}
+const CDN = s => `https://cdnjs.cloudflare.com/ajax/libs/${s}`;
+const ramda = CDN('ramda/0.21.0/ramda.min');
+requirejs.config({ paths: { ramda } });
+require(['ramda'], ({ compose, curry, map, prop }) => {
+  const allHasLetterR = map(hasLetterR);
+  const xs = ['world', 'ali'];
+  allHasLetterR(xs);
+  // [Array(1), null]
+});
+2 + 1;
+```
+
+Therefore, we don't need to define functions that work on arrays if we can define them on single elements using `sort`, `filter`, `map` and other higher order functions.
+
+### Exercises
+
+Refactor by partially applying arguments:
+
+    // words :: String -> [String]
+    const words = str => split(' ', str);
+    --->>>
+    const words = split(' ');
+
+Refactor by partially applying arguments:
+
+    // filterQs :: [String] -> [String]
+    const filterQs = xs => filter(x => x.match(/q/i), xs);
+    --->>>
+    const filterQs = filter(match(/q/i));
+
+Refactor by partially applying arguments:
+
+    const keepHighest = (x, y) => (x >= y ? x : y);
+    // max :: [Number] -> Number
+    const max = xs => reduce((acc, x) => (x >= acc ? x : acc), -Infinity, xs);
+    --->>>
+    const max = reduce(keepHighest, -Infinity)
+
+Definition of curry:
+
+    // curry :: ((a, b, ...) -> c) -> a -> b -> ... -> c
+    function curry(fn) {
+      const arity = fn.length;
+      return function $curry(...args) {
+        if (args.length < arity) {
+          return $curry.bind(null, ...args);
+        }
+        return fn.call(null, ...args);
+      };
+    }
+
+## Chapter 05: Composing
+
+Definition of compose:
+
+    const compose = (f, g) => x => f(g(x));
+
+x: value being piped through f and g
+
+mnemonics: composition order:
+
+    Which one first?
+
+    First g, then f
+
+    Reverse order (f,g)
+
+    First g means: g inside
+
+### Debugging
+
+Common problem with composing `map`
+
+`map` takes two arguments:: (x->x) -> xs -> xs
+
+We need to first partially apply `map` in order to make it single argument function:
+
+Ex:
+
+    const angry = compose(exclaim, toUpperCase);
+    var reverse = reduce( (acc,x) => [x].concat(acc), [])
+    //wrong - we end up giving angry an array and we partially applied map with god knows what.
+    var latin = compose(map, angry, reverse);
+    latin(['frog', 'eyes']);
+    // error because:
+    -> reverse(['frog', 'eyes']) -> angry(['eyes', 'frog']) // error
+    --->>>
+    var latin = compose(map(angry), reverse);
+    latin(['frog', 'eyes']);
+    // ['EYES!', 'FROG!'])
+
+Note: `map(angry)` takes one input
+
+    map(angry) :: xs -> xs
+
+Use `trace` to debug any error:
+
+    const trace = curry((tag, x) => {
+      console.log(tag, x);
+      return x;
+    });
+
+    const dasherize = compose(
+      join('-'),
+      toLower,
+      trace('after split'),
+      split(' '),
+      replace(/\s{2,}/ig, ' '),
+    );
+
+    dasherize('The world is a vampire');
+    // after split [ 'The', 'world', 'is', 'a', 'vampire' ]
+
+### Exercises
+
+`prop` definition:
+
+    // prop :: String -> Object -> a
+    const prop = curry((p, obj) => obj[p]);
+
+Use `compose`:
+
+    // isLastInStock :: [Car] -> Boolean
+    const isLastInStock = (cars) => {
+      const lastCar = last(cars);
+      return prop('in_stock', lastCar);
+    };
+    --->>>
+    const isLastInStock = compose(prop('in_stock'), last);
+
+Make it a composition:
+
+    const average = xs => reduce(add, 0, xs) / xs.length;
+    // averageDollarValue :: [Car] -> Int
+    const averageDollarValue = (cars) => {
+      const dollarValues = map(c => c.dollar_value, cars);
+      return average(dollarValues);
+    };
+    --->>>
+    const averageDollarValue = compose(average, map(prop('dollar_value')));
+
+Make it a composition:
+
+    // fastestCar :: [Car] -> String
+    const fastestCar = (cars) => {
+      const sorted = sortBy(car => car.horsepower, cars);
+      const fastest = last(sorted);
+      return concat(fastest.name, ' is the fastest');
+    };
+    --->>>
+    const append = flip(concat);
+    const fastestCar = compose(
+      append(' is the fastest'),
+      prop('name'),
+      last,
+      sortBy(prop('horsepower')),
+    );
+
+Definition of flip:
+
+    // flip :: (a -> b) -> (b -> a)
+    const flip = curry((fn, a, b) => fn(b, a));
+
+## ch06: Flickr App Example
+
+### v01: Basics 
+
+HTML page:
+
+```{bash}
+cat 'ex/study_frisby_flickr_app_ex01.html' 
+```
+
+```{bash}
+cat 'ex/study_frisby_flickr_app_ex01.js' 
+```
+
+The resulting web page embedded as iframe:
+
+<iframe src="ex/study_frisby_flickr_app_ex01.html" width="100" height="30"></iframe>
+
+### mnemonics
+
+Assume that:
+
+    const f = curry( (x,y) => ... )
+
+Then first call puts single argument into the first position. Second call puts the argument into the next position:
+
+    f(x)(y)
+
+Assume that:
+
+    const Impure = {
+      getJSON: curry((callback, url) => $.getJSON(url, callback)),
+      setHtml: curry((sel, html) => $(sel).html(html)),
+      trace: curry((tag, x) => { console.log(tag, x); return x; }),
+    }; 
+    const app = compose(Impure.getJSON(Impure.trace('response')), url);
+
+Consider:
+
+    Impure.getJSON(Impure.trace('response'))
+
+Type signatures of the curried functions are:
+
+    Impure.trace('response') :: a -> a
+    Impure.getJSON :: (a->a) -> a -> j
+    Impure.getJSON(Impure.trace('response')) :: a -> j
+
+### v02: trace()
+
+Now, let's do some http requests and embed the resulting json data into web page.
+
+``` js
+const host = 'api.flickr.com';
+const path = '/services/feeds/photos_public.gne';
+const query = t => `?tags=${t}&format=json&jsoncallback=?`;
+const url = t => `https://${host}${path}${query(t)}`;
+const app = compose(Impure.getJSON(Impure.trace('response')), url);
+app('cats');
+``` 
+
+This code prints the result of `trace('response', url('cats'))`
+
+``` 
+## response {
+##   "title": "Recent Uploads tagged cats",
+##   "link": "https://www.flickr.com/photos/tags/cats/",
+##   "description": "",
+##   "modified": "2018-03-08T19:13:09Z",
+##   "generator": "https://www.flickr.com",
+##   "items": [
+##     {
+##       "title": "Watch high quality movies at http://ImovieSh.com/",
+##       "link": "https://www.flickr.com/photos/imoviesh/39985324204/",
+##       "media": {
+##         "m": "https://farm5.staticflickr.com/4785/39985324204_0124bb7b0b_m.jpg"
+##       },
+##       "date_taken": "2018-03-08T11:13:09-08:00",
+##       "description": " <p><a href=\"https://www.flickr.com/people/imoviesh/\">ImovieSh</a> posted a photo:</p> <p><a href=\"https://www.flickr.com/photos/imoviesh/39985324204/\" title=\"Watch high quality movies at http://ImovieSh.com/\"><img src=\"https://farm5.staticflickr.com/4785/39985324204_0124bb7b0b_m.jpg\" width=\"185\" height=\"240\" alt=\"Watch high quality movies at http://ImovieSh.com/\" /></a></p> <p>Watch high quality movies at <a href=\"http://ImovieSh.com/\" rel=\"nofollow\">ImovieSh.com/</a></p>",
+##       "published": "2018-03-08T19:13:09Z",
+##       "author": "nobody@flickr.com (\"ImovieSh\")",
+##       "author_id": "160658215@N07",
+##       "tags": "cute dogs animals aww cats love girls movie animal images baby birds adorable"
+##     },
+##  ...
+``` 
+
+### v03: DOM
+
+We will construct `img` elements out of this json data.
+
+``` js
+const mediaUrl = compose(prop('m'), prop('media'));
+const mediaUrls = compose(map(mediaUrl), prop('items'));
+```

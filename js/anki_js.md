@@ -6,7 +6,7 @@
 ··  &lt;{{c2::script}} type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.6/Rx.min.js"&gt;&lt;/{{c2::script}}&gt; <br>
 ··  &lt;{{c3::script}}&gt; <br>
 ····  Rx.Observable.{{c4::timer}}(0, 1000) <br>
-······  .{{c5::map}}(i =&gt; `Seconds ${i}`) <br>
+······  .{{c5::map}}(i =&gt; \`Seconds ${i}\`) <br>
 ······  .{{c6::subscribe}}(text =&gt; { <br>
 ········  const container = document.{{c7::querySelector}}('#app'); <br>
 ········  container.textContent = text; <br>
@@ -29,7 +29,7 @@ This code consists of two parts:
 1. {{c1::Logic}}
 
 ······  Rx.Observable.timer(0, 1000) <br>
-········  .map(i =&gt; `Seconds ${i}`) <br>
+········  .map(i =&gt; \`Seconds ${i}\`) <br>
 
 2. {{c2::Effects}}
 
@@ -71,7 +71,7 @@ clozeq
 
 ··  function {{c1::main}}() { <br>
 ····  return Rx.Observable.timer(0, 1000) <br>
-······  .map(i =&gt; `Seconds ${i}`); <br>
+······  .map(i =&gt; \`Seconds ${i}\`); <br>
 ··  } <br>
 
 ··  function {{c2::DOMEffect}}(text$) { <br>
@@ -131,11 +131,19 @@ clozeq
 ··  function main() { <br>
 ····  return { <br>
 ······  {{c3::DOM}}: Rx.Observable.timer(0, 1000) <br>
-········  .map(i =&gt; `Seconds ${i}`), <br>
+········  .map(i =&gt; \`Seconds ${i}\`), <br>
 ······  Log: Rx.Observable.timer(0, 2000) <br>
 ········  .map(i =&gt; 2*i), <br>
 ····  }; <br>
 ··  } <br>
+
+%
+
+%
+
+clozeq
+
+---
 
 ## rxjs ex05: multiple effects but they are hardcoded
 
@@ -196,7 +204,7 @@ clozeq
 ········  .{{c3::startWith}}(null) <br>
 ········  .{{c4::switchMap}}({{c5::()}} =&gt; <br>
 ··········  Rx.Observable.timer(0, 1000) <br>
-············  .map(i =&gt; `Seconds ${i}`) <br>
+············  .map(i =&gt; \`Seconds ${i}\`) <br>
 ········  ), <br>
 
 %
@@ -300,7 +308,7 @@ clozeq
 
 ····  .flatMapLatest(() =&gt; <br>
 ······  Rx.Observable.timer(0, 1000) <br>
-········  .map(i =&gt; `Seconds ${i}`) <br>
+········  .map(i =&gt; \`Seconds ${i}\`) <br>
 ····  ), <br>
 
 ····  ---&gt;&gt;&gt; <br>
@@ -311,7 +319,7 @@ clozeq
 ············  return { <br>
 ··············  {{c1::tagName}}: 'H1', <br>
 ··············  {{c2::children}}: [ <br>
-················  `Seconds ${i}` <br>
+················  \`Seconds ${i}\` <br>
 ··············  ] <br>
 ············  } <br>
 ··········  } <br>
@@ -361,7 +369,7 @@ clozeq
 ············  return { <br>
 ··············  tagName: 'H1', <br>
 ··············  children: [ <br>
-················  `Seconds ${i}` <br>
+················  \`Seconds ${i}\` <br>
 ··············  ] <br>
 ············  } <br>
 ··········  } <br>
@@ -375,7 +383,7 @@ clozeq
 ················  { <br>
 ··················  {{c2::tagName}}: 'SPAN', <br>
 ··················  {{c3::children}}: [ <br>
-····················  `Seconds ${i}` <br>
+····················  \`Seconds ${i}\` <br>
 ··················  ] <br>
 ················  } <br>
 ··············  ] <br>
@@ -457,7 +465,7 @@ clozeq
 ················  { <br>
 ··················  tagName: 'SPAN', <br>
 ··················  children: [ <br>
-····················  `Seconds ${i}` <br>
+····················  \`Seconds ${i}\` <br>
 ··················  ] <br>
 ················  } <br>
 ··············  ] <br>
@@ -475,7 +483,7 @@ clozeq
 ············  return { <br>
 ··············  {{c2::h}}('{{c3::H1}}', [ <br>
 ················  h('SPAN', [ <br>
-··················  `Seconds ${i}` <br>
+··················  \`Seconds ${i}\` <br>
 ················  ]) <br>
 ··············  ]) <br>
 
@@ -506,7 +514,7 @@ clozeq
 ··············  ... <br>
 ··············  {{c2::h1}}([ <br>
 ················  {{c3::span}}([ <br>
-··················  `Seconds ${i}` <br>
+··················  \`Seconds ${i}\` <br>
 ················  ]) <br>
 ··············  ]) <br>
 
@@ -554,7 +562,7 @@ clozeq
 ············  .map(i =&gt;  <br>
 ··············  {{c7::h1}}( {style: {background: 'yellow'}}, [ <br>
 ················  span([ <br>
-··················  `Seconds ${i}` <br>
+··················  \`Seconds ${i}\` <br>
 ················  ]) <br>
 ··············  ]) <br>
 ············  ) <br>
@@ -598,7 +606,7 @@ clozeq
 ··········  label('Name:'), <br>
 ··········  {{c7::input}}('.field', {type: 'text'}), <br>
 ··········  hr(), <br>
-··········  h1(`Hello ${name}!`) <br>
+··········  h1(\`Hello ${name}!\`) <br>
 ········  ]) <br>
 ······  ) <br>
 ····  }; <br>
@@ -670,6 +678,1018 @@ clozeq
 ····  }; <br>
 ··  } <br>
 
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: popup options
+
+··  {{c1::alert}}("message"): void <br>
+··  {{c2::confirm}}("yes or no"): boolean <br>
+··  var person = {{c3::prompt}}("enter name:", "default value") <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: window object implied
+
+··  document <br>
+··  --&gt; implies <br>
+··  {{c1::window}}.document <br>
+
+··  alert <br>
+··  --&gt; implies <br>
+··  window.alert <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: window: move, open
+
+··  window.{{c1::addEventListener}}('resize', update) <br>
+··  var x = window.document.{{c2::getElement}}ById("demo") <br>
+··  function update() { <br>
+····  x.{{c3::innerHTML}} = "inner window width: " + window.innerWidth; <br>
+··  } <br>
+··  var newWindow = window.{{c4::open}}("http://freecodecamp.com", "newWindow", "menubar=true,top=200,left=200") <br>
+
+··  &lt;input type="button" value="Close" onclick="{{c5::newWindow}}.close()" /&gt; <br>
+··  &lt;a href=".." target="newWindow"&gt;My &lt;/a&gt; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: node tree
+
+top node: {{c1::Document}}
+
+root node: {{c2::&lt;html&gt;}}
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: node tree 02
+
+
+··  var para = document.{{c1::createElement}}("p"); <br>
+··  var node = document.{{c2::createTextNode}}("hello"); <br>
+··  para.{{c3::appendChild}}(node); <br>
+··  var parent = document.getElementById("div1"); <br>
+··  parent.appendChild(para); <br>
+··  para.{{c4::innerHTML}} = "new text" <br>
+··  var child = document.getElementById("p1") <br>
+··  parent.{{c5::insertBefore}}(para, child) <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: event listener
+
+··  var myp = document.getElementById("myp"); <br>
+··  myp.addEventListener("click", function() { myDiv.{{c1::style}}.background = "blue" }); <br>
+
+same with onclick: but more constrained
+
+··  myp.{{c2::onclick}} = function() { myDiv.style.background = "blue" }; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: onclick
+
+··  &lt;h1 onclick="this.{{c1::innerHTML}}='Cereal!'"&gt;My fav&lt;/h1&gt; <br>
+··  &lt;h1 onclick="changeColor(this)"&gt;Change&lt;/h1&gt; <br>
+
+··  function {{c2::changeColor}}(obj) { <br>
+····  obj.style.color = "blue"; <br>
+··  } <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: css styles in js
+
+··  mydiv.style.background = 'red'; <br>
+··  mydiv.style.{{c1::cssText}} = 'background: red;'; <br>
+··  mydiv.{{c2::setAttribute}}("{{c3::style}}", "background: red;"); <br>
+
+show every style element:
+
+··  console.log({{c4::mydiv.style}}); <br>
+··  // inline styles  <br>
+··  console.log(window.{{c5::getComputedStyle}}(mydiv)); <br>
+··  // inline + css styles <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: dom manipulation
+
+··  var unicyle = document.{{c1::getElementsByClassName}}('unicycle'); <br>
+··  var unicyle = {{c2::div1}}.getElementsByClassName('unicycle'); <br>
+··  var paragraphs = document.{{c3::getElementsByTagName}}('p'); <br>
+··  var query = document.{{c4::querySelector}}('.unicycle'); <br>
+··  var query = document.{{c5::querySelectorAll}}('.unicycle'); <br>
+··  // returns array of elements <br>
+··  var query = document.querySelectorAll('.unicycle{{c6::, #div2}}'); <br>
+
+··  var text = "&lt;h1&gt;Hello&lt;/h1&gt;" <br>
+··  div1.{{c7::innerHTML}} = text; <br>
+··  // replaces all div1 content <br>
+
+note: innerHTML opens up {{c8::XSS}} attack
+
+··  instead use textContent <br>
+··  div1.{{c9::textContent}} = text; <br>
+··  // puts raw content <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: check: property is in an object?
+
+··  var my = {name: 'js'}; <br>
+··  if ({{c1::my.name}}) { ... } <br>
+··  console.log(my.{{c2::hasOwnProperty}}('name')) <br>
+··  // if name is contained directly (not from prototype) <br>
+··  console.log('name' {{c3::in my}}) <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: IIFE Immediately Invoked Function Expression 
+
+
+{{c1::IIFE}}: runs as soon as it is defined
+
+··  (function () { <br>
+····  console.log("my"); <br>
+··  })(); <br>
+··  (fav = function () { <br>
+····  console.log("my"); <br>
+··  })(); <br>
+··  fav(); <br>
+
+usecase: creating {{c2::closures}} so that variable names don't conflict with imported libraries
+
+··  (function() { <br>
+····  var a = 3; <br>
+··  }) <br>
+··  console.log(a); // {{c3::error}} <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: Get current URL 
+
+··  window.{{c1::location}}.protocol <br>
+··  window.location.{{c2::host}} <br>
+··  window.location.{{c3::pathname}} <br>
+··  window.location.{{c4::href}} <br>
+
+jquery
+
+··  $(location).{{c5::attr}}('&lt;property&gt;') <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: Destructuring in ES6 
+
+··  var obj = {x: 3, y: 5}; <br>
+
+old way:
+
+··  var x = obj.x; <br>
+··  var y = obj.y; <br>
+
+new:
+
+··  const {{c1:: {x,y} }} = obj; <br>
+··  console.log(x); <br>
+
+or rename
+
+··  const {  {{c2:: x : a, y: b}}  } = obj; <br>
+··  console.log(a); <br>
+
+assign from nested objects
+
+··  const a = { <br>
+····  start: {x: 5, y: 6} <br>
+··  } <br>
+··  const { {{c3::start}}: {x: startX}} = a; <br>
+
+assign from arrays
+
+··  const [a{{c4::,,,b}}] = [1,2,3,4,5]; <br>
+··  console.log(a); <br>
+
+rest operator
+
+··  const [a, {{c5::...b}}] = [1,2,3,4,5]; <br>
+··  console.log(b) <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: arrow functions
+
+when returning objects, always put into {{c1::paranthesis}}:
+
+··  var func = () =&gt; ({foo: 1}); <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: strings [bracket notation]
+
+··  var name = "ali" <br>
+··  console.log(name{{c1::[1]}}) <br>
+··  console.log(name[name.length - 1]) <br>
+··  name{{c2::[0]}} = "q"; // error: string is immutable <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: copying arrays
+
+··  var o = [true, false] <br>
+
+slice
+
+··  var copy1 = o.{{c1::slice(0)}}; <br>
+
+spread
+
+··  var copy2 = {{c2::[...o]}}; <br>
+
+deep
+
+··  var deep = [['free']] <br>
+··  var shallow = deep.slice(0) <br>
+··  shallow[0].{{c3::push}}['great'] <br>
+··  var copy = JSON.parse({{c4::JSON.stringify}}(deep)); <br>
+··  copy[0].push['awesome'] <br>
+··  console.log(shallow, deep) <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## beau: for in vs for of
+
+loop through property names
+
+··  for ({{c1::var in obj}}) <br>
+
+loop through array values
+
+··  for ({{c2::var of obj}}) <br>
+
+··  let obj = {name: "ali"} <br>
+··  for (key in obj) { <br>
+····  obj{{c3::[key]}} <br>
+··  } <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## crockford: const vs object freeze
+
+const applies to {{c1::bindings}} ("variables").  i.e. you cannot assign a new value to the binding.
+
+Object.freeze works on object values. i.e. you cannot change its {{c2::properties}}.
+
+··  var ob1 = { <br>
+····   foo : 1, <br>
+······  bar : { <br>
+··········  value : 2··  <br>
+······  } <br>
+··  }; <br>
+··  Object.{{c3::freeze}}( ob1 ); <br>
+··  const ob2 = { <br>
+····   foo : 1, <br>
+······  bar : { <br>
+··········  value : 2··  <br>
+······  } <br>
+··  } <br>
+··  ob1.foo = 4;  // (frozen) ob1.foo {{c4::not modified}} <br>
+··  ob2.foo = 4;  // (const) ob2.foo modified <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## crockford: http controversy: post put patch
+
+it creates {{c1::clutter}}
+
+programmers love clutter intuitively
+
+getting rid of clutter in programming is hard
+
+we enjoy clutter
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## crockford: es6: clutters
+
+let vs. var: get rid of {{c1::var}}
+
+let vs. const: use {{c2::const}}
+
+null vs undefined: use {{c3::undefined}}
+
+problem with null:
+
+you have to ask {{c4::is—null}}() before accessing
+
+correct implementation: an immutable empty object
+
+··  {{c5::const}} null = Object.{{c6::freeze}}(Object.{{c7::create}}()) <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## crockford: js: remove impurities
+
+··  Date <br>
+··  Math.random <br>
+··  delete <br>
+··  Object.{{c1::assign}} <br>
+··  Array.splice <br>
+··  Array.{{c2::sort}} <br>
+····  inplace editing <br>
+··  RegExp.exec <br>
+····  modifies regex object <br>
+··  assignment <br>
+··  var <br>
+··  {{c3::let}} <br>
+····  const is ok <br>
+··  for and loops  <br>
+····  recursion functions better <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## crockford: es6 features generators
+
+it is a mistake confusing behavior
+
+··  function element(array) { <br>
+····  {{c1::let i = 0}} <br>
+····  return function {{c2::generator}}() { <br>
+······  if (i &lt; array.length) { <br>
+········  let value = {{c3::array[i]}} <br>
+········  i += 1 <br>
+········  return value <br>
+······  } <br>
+····  } <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## crockford: better parts 01
+
+Saint Exupery: perfection is attained not when there is nothing more to add, but when there is nothing more to {{c1::subtract}}
+
+i made every mistake i can
+
+first: i didn't bother {{c2::learning}} the language before writing
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## crockford: es2015
+
+proper {{c1::tail}} call
+
+{{c2::ellipsis}} operator: much better than argument arrays
+
+{{c3::modules}}: import and export values. no need for require(..) stuff
+
+let and const: solves block scope
+
+destructuring
+<br>
+{{c4::WeakMap}}: any value can be key
+
+Megastring literals
+
+fat {{c5::arrow}}
+
+bad parts: {{c6::class}}
+
+%
+
+%
+
+clozeq
+
+---
+
+## crockford: stopped using
+
+Object.{{c1::create}} and new()
+
+··  problem: this <br>
+····  this in a method, bound to object <br>
+····  this in a function, bound to {{c2::global}} object <br>
+······  violates security <br>
+
+{{c3::null}}
+
+··  {{c4::typeof}}(null) returns object <br>
+
+{{c5::falsiness}}: using null, 0 instead of false
+
+{{c6::for}} -&gt; forEach, map from es5
+
+forEach -&gt; Object.{{c7::keys}} gives a nice array of keys
+
+loops: use only recursive functions
+
+··  function repeat(func) { <br>
+····  while (func() !== undefined) { <br>
+····  } <br>
+··  } <br>
+··  ---&gt;&gt;&gt; <br>
+··  function repeat(func) { <br>
+····  if (func() !== undefined) { <br>
+······  return {{c8::repeat}}(func); <br>
+····  } <br>
+··  } <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## JavaScript Patterns for 2017 01
+
+export
+
+··  function work(..) {..} <br>
+··  class Person { <br>
+····  constructor(name) {..} <br>
+··  {{c1::export}} {work, Person} <br>
+··  export default Person <br>
+
+import
+
+··  {{c2::import}} {Person, Animal} {{c3::from}} "./lib" <br>
+····  from lib.js or lib.ts <br>
+··  import HumanPerson from "./lib/humans" <br>
+····  exported by default <br>
+··  {{c4::import *}} as lib from "./lib" <br>
+····  lib.Person <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## JavaScript Patterns for 2017 02
+
+public apis with index.js
+
+··  in a {{c1::directory}} <br>
+····  put index.js <br>
+····  export public functions from here <br>
+····  like index.py <br>
+··  this will separate public and package scope <br>
+··  ex: index.js <br>
+····  export * from {{c2::"./humans"}} <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## JS Patterns 2017: Arrow syntax 03
+
+return an object literal
+
+··  # use ({..}) when returning objects <br>
+··  const result = [1,2,3].map(n =&gt; {value: n}) <br>
+··  // doesn't return objects, just {{c1::undefined}} <br>
+··  const result = [1,2,3].map(n =&gt; {{c2::({value: n})}} ) <br>
+··  // value:1, value:2 .. <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## JS Patterns 2017: Arrow syntax 04
+
+lexical this reference
+
+··  arrow doesn't bind {{c1::`this`}} <br>
+
+··  const adder = { <br>
+····  add: () =&gt; { this.x } <br>
+··  } <br>
+
+cannot rebind with {{c2::bind}}, apply
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## JS Patterns 2017: immutable data structure 01
+
+··  {{c1::const}} nums = [1,2,3] <br>
+··  Object.{{c2::freeze}}(nums) <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js wes bos: string templating
+
+··  const markup = \`${renderKeywords({{c1::beer.keywords}})}\` <br>
+··  funcion {{c2::renderKeywords}}(kw) { <br>
+····  return \`&lt;ul&gt; <br>
+······  ${kw.{{c3::map}}(key =&gt; &lt;{{c4::li}}&gt;${key}\` <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js wes bos: enhanced object literals
+
+··  const dog = { <br>
+····  first: first, <br>
+····  last: last <br>
+··  ---&gt;&gt;&gt; <br>
+····  {{c1::first, last,}} <br>
+
+method definition 
+
+··  var modal = { <br>
+····  create: function(sel) {.. <br>
+··  ---&gt;&gt;&gt; <br>
+····  {{c2::create(sel)}} { ... <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## difference bw nodejs and browser console
+
+no {{c1::window}}, no document object
+
+global process object
+
+··  var a = 1; <br>
+··  ---&gt;&gt;&gt; <br>
+··  {{c2::global}}.a // node <br>
+··  window.a // browser <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## frisby: point-free programming
+
+··  return ajaxCall(function(json) { <br>
+····  return callback(json); <br>
+··  }); <br>
+··  ---&gt;&gt;&gt; <br>
+··  return ajaxCall({{c1::callback}}); <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## frisby: why first class functions?
+
+multiple names for the same concept is source of confusion
+
+··  // specific to our current blog <br>
+··  var validArticles = function(articles) { <br>
+····  return articles.filter(function(article) { <br>
+······  return article !== null && article !== undefined; <br>
+····  }); <br>
+··  }; <br>
+··  ---&gt;&gt;&gt; more general <br>
+··  var compact = function({{c1::xs}}) { <br>
+····  return xs.filter(function({{c2::x}}) { <br>
+······  return x !== null && x !== undefined; <br>
+····  }); <br>
+··  }; <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## frisby: pure function
+
+given same input
+
+always return {{c1::same output}}
+
+and has no observable side effect
+
+
+slice is pure vs. {{c2::splice}} has effect
+
+modifies input array
+
+%
+
+%
+
+clozeq
+
+---
+
+## frisby: pure function 02
+
+··  // {{c1::impure}} <br>
+··  var minimum = 21; <br>
+··  var checkAge = function(age) { <br>
+····  return age &gt;= minimum; <br>
+··  }; <br>
+··  // {{c2::pure}} <br>
+··  var checkAge = function(age) { <br>
+····  var {{c3::minimum}} = 21; <br>
+····  return age &gt;= minimum; <br>
+··  }; <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## frisby: pure function 03
+
+what is side effect
+
+··  anything that {{c1::changes}} during computation other than the result <br>
+··  a change of the system state <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## frisby: pure function 04
+
+so what is side effects' use?
+
+··  they are not forbidden <br>
+··  we want to {{c1::contain}} them <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## frisby: pure function 05
+
+benefits of purity?
+
+··  Cacheable <br>
+··  Portable/{{c1::self-documenting}} <br>
+··  Testable <br>
+··  Reasonable <br>
+··  Parallel code <br>
+
+Erlang creator, Joe Armstrong: 
+
+"The problem with object-oriented languages is they’ve got all this {{c2::implicit}} environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana... and the entire jungle".
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## frisby: currying 01
+
+··  var add = function(x) { <br>
+····  return function({{c1::y}}) { <br>
+······  return x + y; <br>
+····  }; <br>
+··  }; <br>
+··  var increment = {{c2::add(1)}}; <br>
+··  increment(2); <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## frisby: currying 02
+
+data as {{c1::last}} argument
+
+··  match(/\s+/g, 'hello world'); <br>
+··  // [ ' ' ] <br>
+··  match(/\s+/g){{c1::('hello world')}}; <br>
+··  // [ ' ' ] <br>
+··  var {{c2::hasSpaces}} = match(/\s+/g); <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## how to import js library in web pages?
+
+··  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/{{c1::require.js}}/2.2.0/{{c1::require}}.min.js"&gt;&lt;/script&gt; <br>
+
+··  const {{c2::CDN}} = s =&gt; `https://cdnjs.cloudflare.com/ajax/libs/${s}`; <br>
+··  const {{c3::ramda}} = CDN('ramda/0.21.0/ramda.min'); <br>
+··  {{c4::requirejs}}.config({ paths: { ramda } }); <br>
+··  {{c5::require}}(['ramda'], ({ compose, curry, map, prop }) =&gt; { <br>
+····  // app <br>
+··  }); <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## how to import js library in web pages? 02
+
+··  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/{{c1::require.js}}/2.2.0/{{c1::require}}.min.js"&gt;&lt;/script&gt; <br>
+··  const R = {{c2::require}}('ramda'); <br>
+··  const prop = {{c3::R.prop}}; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+
+
+## node: node-gyp python error
+
+node-gyp: gyp ERR! stack You can pass the --python switch to point to Python &gt;= v2.5.0 & &lt; 3.0.0.
+
+··  npm install {{c1::--python}}=/usr/bin/python -g underscore-cli <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## ramda practical: FP Challenges:
+
+1. how to handle if-else: {{c1::Either}} monad
+
+2. how to handle null exceptions: {{c2::Maybe}} monad
+
+3. How to ensure reusable functions: {{c3::pure functions}}, {{c4::referential transparency}}
+
+4. How to ensure unchanged data: pure functions, {{c5::immutability}}
+
+5. Functions with multiple args. How to chain with a single value: {{c6::currying}}, {{c7::higher order functions}}
+
+%
+
+%
+
+clozeq
+
+---
+
+## ramda practical: Fantasyland Specs
+
+Dependencies of specs:
+
+··  {{c1::Functor}} <br>
+····  Alt <br>
+······  Plus <br>
+········  Alternative <br>
+····  Apply <br>
+······  Applicative <br>
+········  Alternative <br>
+········  {{c2::Monad}} <br>
+······  Chain <br>
+········  Monad <br>
+········  ChainRec <br>
+····  Bifunctor <br>
+····  Extend <br>
+······  Comonad <br>
+····  Profunctor <br>
+····  Traversable <br>
+··  {{c3::Foldable}} <br>
+····  Traversable <br>
+··  Semigroup <br>
+····  {{c4::Monoid}} <br>
+··  Setoid <br>
 
 %
 

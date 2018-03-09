@@ -46,3 +46,36 @@ clozeq
 
 ---
 
+## pretty print json with underscore / jq
+
+··  echo '{"a":2}' | underscore {{c1::print}} <br>
+
+··  echo '{"a":2}' | underscore print {{c2::--color}} <br>
+··   <br>
+··  underscore print {{c3::--in}} data/plan—jobs.json <br>
+
+··  jq {{c4::.}} data/plan—jobs.json <br>
+%
+
+%
+
+clozeq
+
+---
+
+## ag options
+
+limit file types
+
+··  ag {{c1::-G}} csv <br>
+··  ag --list{{c2::-file-types}} <br>
+··  ag -G {{c3::'\.md$'}} search—in—md <br>
+
+%
+
+%
+
+clozeq
+
+---
+

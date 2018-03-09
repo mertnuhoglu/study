@@ -5,6 +5,7 @@
     ref
       <url:file:///~/projects/study/pg/postgrest02/README.md>
       <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md>
+      <url:file:///~/projects/itr/itr_documentation/project_docs/doc_postgresql_with_R.Rmd>
     Run 
       docker start postgreststarterkit_db_1
         opt
@@ -45,6 +46,7 @@
           , host = "localhost"
           , port = "5432"
         )
+        df = DBI::dbGetQuery(con, "SELECT * FROM data.client")
     Database Administration
       Roles
         Roles
@@ -484,6 +486,8 @@
         (pwhash, real_name, home_phone, extra_info, shell)
         ON passwd TO public;
     postgrest
+      steps01
+        sudo docker run --name tutorial -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres
       steps
         sudo docker run --name tutorial -p 5432:5432 ... -d postgres
         CREATE SCHEMA api;
