@@ -39,32 +39,13 @@ Now start a static web server in order to prevent CORS errors:
 python3 -m http.server
 ``` 
 
-Open web page:
+Open web page: 
 
 http://localhost:8000/ex/ecmascript_modules_ex01.html
 
-## v02: Webpack
+or
 
-``` bash
-mkdir -p ex/ecmascript_modules_ex02/dist
-cd ex/ecmascript_modules_ex02
-npm init -y
-npm install --save-dev webpack
-touch ex/ecmascript_modules_ex02/webpack.config.js
-``` 
-
-npx webpack src/index.js --output dist/bundle.js
-
-## v03
-
-``` bash
-npm init
-npm install webpack webpack-cli -D
-mkdir -p ex/ecmascript_modules_ex03/src
-echo "console.log(‘Webpack 4 is running without config file’);" > ex/ecmascript_modules_ex03/src/index.js
-cd ex/ecmascript_modules_ex03/
-touch ex/ecmascript_modules_ex02/webpack.config.js
-``` 
+https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex01.html
 
 ## v04: Webpack Official Getting Started Tutorial
 
@@ -97,6 +78,10 @@ cp src/index.html dist/index.html
 open dist/index.html
 ``` 
 
+Open web page:
+
+https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex04/dist/index.html
+
 ## v05: Configuration File: `webpack.config.js`
 
 Now, let's use configuration file to specify parameters of webpack:
@@ -117,6 +102,10 @@ Now, we will use configuration settings while running `webpack`:
 cd ecmascript_modules_ex05
 ./node_modules/.bin/webpack --config webpack.config.js
 ``` 
+
+Open web page:
+
+https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex05/dist/index.html
 
 ## v06: Asset Management
 
@@ -196,6 +185,10 @@ To load image files inside js:
     ...
     console.log(Data);
 
+Open web page:
+
+https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex06/dist/index.html
+
 ## v07: Output Management
 
 ``` bash
@@ -230,7 +223,11 @@ Add `CleanWebpackPlugin` to webpack configuration:
     plugins: [
       new CleanWebpackPlugin(['dist']),
 
-## v06: Development
+Open web page:
+
+https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex07/dist/index.html
+
+## v08: Development
 
 ### Using source maps
 
@@ -272,7 +269,11 @@ Update `package.json`
 
 Run `npm start`
 
-## v06: Hot Module Replacement HMR
+Open web page:
+
+https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex08/dist/index.html
+
+## v09: Hot Module Replacement HMR
 
 HMR allows any file to be updated without refresh or recompiling.
 
@@ -293,4 +294,8 @@ cd ecmascript_modules_ex09
     ...
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
+
+Open web page:
+
+https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex09/dist/index.html
 

@@ -2269,3 +2269,290 @@ clozeq
 clozeq
 
 ---
+
+## js: static web page hosting in rawgit
+
+··  https://{{c1::rawgit}}.com/mertnuhoglu/{{c3::study}}/master/js/ex/ecmascript—modules—ex07/dist/index.html <br>
+
+··  https://rawgit.com/user/repo/{{c2::branch}}/file <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: es6 features 01
+
+destructuring with concise parameters
+
+··  let { {{c1::a,c}} } = {a:1, b:2, c:3}; <br>
+
+assign to a new variable name
+
+··  let {x: {{c2::vehicle}} } = {x: 'car'}; <br>
+··  let {x: { {{c3::name: driver}} } } = {x: {name: 'john'}}; <br>
+
+assigning a value to multiple variables
+
+··  let {x: {{c4::first}}, x: second} = {x:4}; <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: es6 features 02
+
+omit key if it is the same as variable name
+
+··  let a = 4, b = 7; <br>
+··  let concise = { {{c1::a,b}} }; <br>
+··  console.log(concise) // {a: 4, b: 7} <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: es6 features 03
+
+dynamic property names
+
+··  let city = 'london—'; <br>
+··  let a = { {{c1::[city+'population']}}: 350 }; <br>
+··  a[ city + 'county' ] <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: hyperscript helpers 01
+
+··  h('section#main', mainContents) <br>
+··  ---&gt;&gt;&gt; <br>
+··  {{c1::section}}('{{c2::#main}}', mainContents) <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: hyperscript helpers 02
+
+output
+
+··  &lt;ul id="best-menu"&gt; <br>
+····  &lt;li id="item-10" draggable="true" data-id="10"&gt;my title&lt;/li&gt; <br>
+····  &lt;li id="item-11" draggable="true" data-id="11"&gt;my title&lt;/li&gt; <br>
+··  &lt;g/ul&gt; <br>
+
+code:
+
+··  function attrs(id) { <br>
+····  return { {{c1::draggable: "true", "data-id": id}} }; <br>
+··  } <br>
+··  ul("{{c2::#best-menu}}', items.{{c3::map}}( item =&gt; <br>
+····  li('#item-'+item.id, attrs((item.id), {{c4::item.title}})) <br>
+··  )") <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: hyperscript helpers 03 How to setup
+
+··  npm install {{c1::hyperscript-helpers}} <br>
+
+··  const h = require('hyperscript'); <br>
+··  const { div, span, h1 } = require('hyperscript-helpers'){{c2::(h)}}; <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: hyperscript helpers 04 API
+
+··  tagName(selector) <br>
+··  tagName(attrs) <br>
+··  tagName({{c1::children}}) <br>
+··  tagName({{c2::attrs}}, children) <br>
+··  tagName(selector, children) <br>
+··  tagName(selector, {{c3::attrs}}, children) <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: hyperscript helpers 05 Multiple classes:
+
+··  button({className: "btn btn-default"});  <br>
+··  button({{c1::".btn.btn-default"}});············  <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: hyperscript helpers 06
+
+··  const ProfileLink = user =&gt; <br>
+····  &lt;a href={`/users/${u.id}`}&gt;{u.name}&lt;/a&gt; <br>
+··  ---&gt;&gt;&gt; <br>
+··  const ProfileLink = user =&gt; <br>
+··  {{c1:: a({href: `/users/${user.id}`}, user.name) }} <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: lonsdorf composable 01
+
+··  const ProfileLink = user =&gt; <br>
+····  &lt;a href={`/users/${u.id}`}&gt;{u.name}&lt;/a&gt; <br>
+··  ---&gt;&gt;&gt; <br>
+··  const ProfileLink = user =&gt; <br>
+····  a({{{c1::href}}: `/users/${user.id}`}, user.name) <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: lonsdorf composable 02 Component
+
+··  const Comp = g =&gt; <br>
+··  ({ <br>
+····  fold: g, <br>
+····  contramap: f =&gt; <br>
+······  Comp(x =&gt; {{c1::g(f(x))}} ) <br>
+··  }) <br>
+
+··  const Heading = str =&gt; h1(`Now Viewing ${str}`); <br>
+··  const Title = Comp(Heading).{{c2::contramap}}(s =&gt; s.pageName); <br>
+
+··  Title.fold({  <br>
+····  pageName: 'Home', <br>
+····  currentUser: { id: 2, name: 'Chris' } <br>
+··  }); <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: lonsdorf composable 03
+
+`contramap` is the {{c1::opposite}} of `map`
+
+`contramap` {{c2::prepends}} its input function `f` to the existing function `g` of `Comp`.
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: lonsdorf composable 04 map vs contramap
+
+How to do it with usual `map`?
+
+··  const Heading = str =&gt; h1(`Now Viewing ${str}`); <br>
+··  const s = { pageName: 'Home', currentUser: { id: 2, name: 'Chris' } } <br>
+··  const f = s =&gt; s.pageName <br>
+··  const g = Heading <br>
+
+··  Comp(f) <br>
+····  .contramap(g) <br>
+····  .fold(s) <br>
+
+··  Box(s) <br>
+····  .{{c1::map}}(g) <br>
+····  .fold({{c2::f}}) <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: lonsdorf composable 05 concat
+
+`concat` function concatenates two components:
+
+··  const Comp = g =&gt; <br>
+··  ({ <br>
+····  fold: g, <br>
+····  contramap: f =&gt; Comp(x =&gt; g(f(x))), <br>
+····  concat: other =&gt;  <br>
+······  Comp(x =&gt; {{c1::div( g(x) + other.fold(x) )}}) <br>
+··  }) <br>
+
+··  const Link = Comp(ProfileLink).contramap(s =&gt; s.currentUser) <br>
+··  const App = Heading.{{c2::concat}}(Link) <br>
+··  App.fold(s) <br>
+··  // &lt;div&gt; <br>
+··  //   &lt;h1&gt;Now viewing Home&lt;/h1&gt; <br>
+··  //   &lt;a href="/users/22"&gt;Chris&lt;/a&gt; <br>
+··  // &lt;/div&gt; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
