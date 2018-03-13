@@ -1,0 +1,24 @@
+---
+title: "How to import JS Files"
+date: 2018-03-09T15:11:59+03:00 
+draft: true 
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/import_js_files.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+

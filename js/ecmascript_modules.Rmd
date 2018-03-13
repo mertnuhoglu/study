@@ -1,0 +1,296 @@
+---
+title: "EcmaScript Modules"
+date: 2018-03-11T19:01:53+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/js/ecmascript_modules.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+## v01
+
+``` {bash}
+cat ex/ecmascript_modules_ex01.js
+``` 
+
+Using `import` inside `<script type="module">` tag:
+
+``` {bash}
+cat ex/ecmascript_modules_ex01.html
+``` 
+
+Now start a static web server in order to prevent CORS errors:
+
+``` bash
+python3 -m http.server
+``` 
+
+Open web page:
+
+http://localhost:8000/ex/ecmascript_modules_ex01.html
+
+## v02: Webpack
+
+``` bash
+mkdir -p ex/ecmascript_modules_ex02/dist
+cd ex/ecmascript_modules_ex02
+npm init -y
+npm install --save-dev webpack
+touch ex/ecmascript_modules_ex02/webpack.config.js
+``` 
+
+npx webpack src/index.js --output dist/bundle.js
+
+## v03
+
+``` bash
+npm init
+npm install webpack webpack-cli -D
+mkdir -p ex/ecmascript_modules_ex03/src
+echo "console.log(‘Webpack 4 is running without config file’);" > ex/ecmascript_modules_ex03/src/index.js
+cd ex/ecmascript_modules_ex03/
+touch ex/ecmascript_modules_ex02/webpack.config.js
+``` 
+
+## v04: Webpack Official Getting Started Tutorial
+
+Following [Webpack Getting Started Tutorial](https://webpack.js.org/guides/getting-started/)
+
+``` bash
+mkdir -p ex/ecmascript_modules_ex04
+cd ex/ecmascript_modules_ex04
+npm init -y
+npm install webpack webpack-cli -D
+mkdir src
+mkdir dist
+npm install --save lodash
+``` 
+
+``` {bash}
+cat ex/ecmascript_modules_ex04/src/index.html
+``` 
+
+``` {bash}
+cat ex/ecmascript_modules_ex04/src/index.js
+``` 
+
+``` bash
+cp src/index.html dist/index.html
+./node_modules/.bin/webpack src/index.js --output dist/bundle.js
+``` 
+
+``` bash
+open dist/index.html
+``` 
+
+## v05: Configuration File: `webpack.config.js`
+
+Now, let's use configuration file to specify parameters of webpack:
+
+I copied everything from ecmascript_modules_ex04 into a new folder
+
+``` bash
+cp -R ecmascript_modules_ex04 ecmascript_modules_ex05
+``` 
+
+``` {bash}
+cat ecmascript_modules_ex05/webpack.config.js
+``` 
+
+Now, we will use configuration settings while running `webpack`:
+
+``` bash
+cd ecmascript_modules_ex05
+./node_modules/.bin/webpack --config webpack.config.js
+``` 
+
+## v06: Asset Management
+
+### Loading CSS
+
+``` bash
+cd ..
+cp -R ecmascript_modules_ex05 ecmascript_modules_ex06
+cd ecmascript_modules_ex06
+npm install --save-dev style-loader css-loader
+``` 
+
+Add `style-loader` and `css-loader` to webpack configuration:
+
+``` {bash}
+cat ex/ecmascript_modules_ex06/webpack.config.js | sed -n '/module:/,/}/ p'
+``` 
+
+Now, we can `import` css files into the js scripts.
+
+``` {bash}
+cat ex/ecmascript_modules_ex06/src/style.css
+``` 
+
+To use css in js:
+
+    import './style.css'; // +
+    ...
+    element.classList.add('hello'); // +
+
+
+``` {bash}
+cat ex/ecmascript_modules_ex06/src/index.js
+``` 
+
+### Loading Images
+
+``` bash
+npm install --save-dev file-loader
+``` 
+
+Add to `webpack.config.js`:
+
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader'
+        ]
+      }
+
+To load image files inside js:
+
+    import Icon from './icon.png'; // +
+    ...
+    var myIcon = new Image();
+    myIcon.src = Icon;
+    element.appendChild(myIcon);
+
+### Loading Data
+
+``` bash
+npm install --save-dev csv-loader
+``` 
+
+Add to `webpack.config.js`:
+
+      {
+        test: /\.(csv|tsv)$/,
+        use: [
+          'csv-loader'
+        ]
+      }
+
+To load image files inside js:
+
+    import Data from './data.csv'; // +
+    ...
+    console.log(Data);
+
+## v07: Output Management
+
+``` bash
+cd ..
+cp -R ecmascript_modules_ex06 ecmascript_modules_ex07
+cd ecmascript_modules_ex07
+npm install --save-dev html-webpack-plugin
+``` 
+
+Add `HtmlWebpackPlugin` to webpack configuration:
+
+    const HtmlWebpackPlugin = require('html-webpack-plugin');
+    ...
+    plugins: [
+      new HtmlWebpackPlugin({
+        title: 'Output Management'
+      })
+    ],
+
+`HtmlWebpackPlugin` generates `dist/index.html`.
+
+### Cleaning up the `/dist` folder
+
+``` bash
+npm install --save-dev clean-webpack-plugin
+``` 
+
+Add `CleanWebpackPlugin` to webpack configuration:
+
+    const CleanWebpackPlugin = require('clean-webpack-plugin');
+    ...
+    plugins: [
+      new CleanWebpackPlugin(['dist']),
+
+## v06: Development
+
+### Using source maps
+
+How to track down errors? Webpack bundles source files into one bundle.js. When an error occurs how are we going to know from which origin file it comes from?
+
+So, we will split our webpack configuration into two: one for development environment, one for production environment.
+
+``` bash
+cd ..
+cp -R ecmascript_modules_ex07 ecmascript_modules_ex08
+cd ecmascript_modules_ex08
+``` 
+
+Add `inline-source-map` to webpack configuration:
+
+    devtool: 'inline-source-map',
+
+### Watching Updates in Files
+
+Every time we make a change in some file, we need to run `npm run build`.
+
+Let's run this command automatically after each change.
+
+``` bash
+npm install --save-dev webpack-dev-server
+``` 
+
+Update `webpack.config.js`
+
+    devServer: {
+      contentBase: './dist'
+    }
+
+This setups a static web server for `./dist` directory on `localhost:8080`.
+
+Update `package.json`
+
+    "start": "webpack-dev-server --open",
+
+Run `npm start`
+
+## v06: Hot Module Replacement HMR
+
+HMR allows any file to be updated without refresh or recompiling.
+
+``` bash
+cd ..
+cp -R ecmascript_modules_ex08 ecmascript_modules_ex09
+cd ecmascript_modules_ex09
+``` 
+
+### Enabling HMR
+
+`webpack.config.js`
+
+    devServer: {
+      contentBase: './dist',
+      hot: true
+    },
+    ...
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+
