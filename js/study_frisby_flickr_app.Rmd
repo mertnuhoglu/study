@@ -4,7 +4,7 @@ date: 2018-02-16T14:22:38+03:00
 draft: true 
 description: ""
 tags:
-categories: css
+categories: js
 type: post
 url:
 author: "Mert Nuhoglu"
@@ -316,4 +316,10 @@ We will construct `img` elements out of this json data.
 ``` js
 const mediaUrl = compose(prop('m'), prop('media'));
 const mediaUrls = compose(map(mediaUrl), prop('items'));
+```
+
+This code collects all `m` properties inside `response.items[].media` elements.
+
+``` js
+mediaUrls(url('cats'))
 ```

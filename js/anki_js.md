@@ -1699,3 +1699,573 @@ clozeq
 
 ---
 
+## eloquent10: modules: CommonJS: definition of require()
+
+··  require.{{c1::cache}} = Object.create(null) <br>
+··  function require(name) { <br>
+····  if (!(name in require.cache)) { <br>
+······  let code = {{c2::readFile}}(name) <br>
+······  let {{c3::module}} = {exports: {}} <br>
+······  require.cache[name] = module <br>
+······  let wrapper = {{c4::Function}}("require, exports, module", code) <br>
+······  wrapper(require, {{c5::module.exports}}, module) <br>
+····  } <br>
+····  return require.cache[name].{{c6::exports}} <br>
+··  } <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## eloquent10: modules: CommonJS: require()
+
+Example of using require()
+
+format-date.js:
+
+··  const ordinal = {{c1::require}}("ordinal") <br>
+··  const {days, months} = require("date-names") <br>
+··  {{c2::exports}}.formatDate = function(date, format) { <br>
+····  return format.replace(..) <br>
+··  } <br>
+
+using format-date.js:
+
+··  const {{{c3::formatDate}}} = require("./format-date") <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## eloquent10: modules: Function constructor
+
+··  let plusOne = {{c1::Function}}("n", "return n + 1;") <br>
+··  console.log({{c2::plusOne}}(4)) <br>
+··  //&gt; 5 <br>
+
+takes two args: 
+
+a string: a comma separated list of {{c2::arg names}}
+
+a string: function {{c3::body}}
+
+%
+
+%
+
+clozeq
+
+---
+
+## eloquent10: modules: Module definition
+
+a module specifies
+
+which other pieces it relies on ({{c1::dependencies}})
+which functions it provides for use ({{c2::interface}})
+
+%
+
+%
+
+clozeq
+
+---
+
+## eloquent10: modules: quote
+
+Write code that is easy to {{c1::delete}}, not easy to extend.
+
+Tef, Programming is Terrible
+
+%
+
+%
+
+clozeq
+
+---
+
+## eloquent10: modules: name argument
+
+when it starts with "./" or "../" it is {{c1::relative file path}}
+
+else, node will look for an {{c2::installed package}} by that name
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## eloquent10: ES Modules
+
+··  const ordinal = require("ordinal") <br>
+··  const {days, months} = require("date-names") <br>
+··  exports.formatDate = function(date, format) {..} <br>
+··  ---&gt;&gt;&gt; <br>
+··  {{c1::import ordinal}} from "ordinal" <br>
+··  import {{c2::{days, months}}} from "date-names" <br>
+··  {{c3::export function}} formatDate(date, format) {...} <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## eloquent10: modules: quote 2
+
+{{c1::don't assume}} that a painful mess is just the way it is.
+
+you can {{c2::improve the structure}} of almost everything by putting more thought into it
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: same origin policy definition
+
+js cannot access resources from {{c1::other}} websites. 
+
+it can access resources from that same site
+
+problem with file:// urls:
+
+origin becomes {{c2::null}}
+
+thus you cannot import other js modules
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: es modules 01
+
+index.html
+
+··  &lt;script type="{{c1::module}}" src="app.js"&gt;&lt;/script&gt; <br>
+
+app.js
+
+··  import lib from './lib.js' <br>
+··  lib.doStuff() <br>
+
+must: static {{c2::web server}} (due to CORS error from file:// urls)
+
+if authentication enabled, &lt;script {{c3::crossorigin}}="use-credentials"&gt;
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: es modules 02
+
+how to use external libraries that don't use es modules?
+
+opt1: {{c1::Webpack}}
+
+opt2: libraries can be used directly from {{c2::CDN}} or local node—modules
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: es modules 03: problems with AMD
+
+··  define(['file1', 'file2'], function(Class1, Class2)) { <br>
+····  let obj = new Class1(), <br>
+······  obj2 = new Class2(); <br>
+····  return obj.foo(obj2); <br>
+··  } <br>
+
+{{c1::boilerplate}}: need to wrap code in an outer function
+
+AMD dependencies: 
+1. array of strings
+2. parameters to callback function
+
+Node Ecosystem: some modules work only with {{c2::CommonJS}}
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: es modules 04: before modules
+
+Revealing Module Pattern
+
+··  var revealingModule = (function () { <br>
+····  var privateVar = "Ben Thomas"; <br>
+····  function setNameFn( strName ) { <br>
+······  privateVar = strName; <br>
+····  } <br>
+····  return { <br>
+········  {{c1::setName}}: setNameFn, <br>
+······  }; <br>
+····  })(); <br>
+··  revealingModule.setName( "Paul Adams" ); <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: es modules 05: CommonJS example
+
+··  var obj = {{c1::require}}('module—name') <br>
+··  {{c2::exports}} = function() { <br>
+····  return ...; <br>
+··  } <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: es modules 06: Node example
+
+··  var obj = {{c1::require}}('module—name') <br>
+··  {{c2::modules.exports}} = function() { <br>
+····  return ...; <br>
+··  } <br>
+
+con: {{c3::one file}} per module
+
+con: browsers cannot use them without {{c4::transpiling}}
+
+Browserify, Webpack
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: es modules 07: es modules ex
+
+main.js
+
+··  {{c1::import}} {square, diag} from 'lib'; <br>
+
+lib.js
+
+··  {{c2::export}} function square(x) { return x * x; } <br>
+
+import statement is {{c3::not dynamic}}
+
+makes static analyzers build tree of dependencies
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: es modules 08
+
+{{c1::implicit}} dependency:
+
+··  &lt;script src="https://unpkg.com/lodash@4.16.6"&gt;&lt;/script&gt; <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack 01: basic setup
+
+cli
+
+··  npm init -y <br>
+··  npm install --save-dev {{c1::webpack}} <br>
+
+src/index.js
+
+··  element.innerHTML = {{c1::—}}.join(['Hello','webpack'], ' '); <br>
+
+index.html
+
+··  &lt;script src="https://unpkg.com/lodash@4.16.6"&gt;&lt;/script&gt; <br>
+
+{{c2::implicit}} dependency:
+
+··  &lt;script src="https://unpkg.com/lodash@4.16.6"&gt;&lt;/script&gt; <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack 02: basic setup 02
+
+cli
+
+··  npm {{c1::install}} --save lodash <br>
+
+src/index.js
+
+··  {{c2::import}} — from 'lodash'; <br>
+
+index.html
+
+··  &lt;script src="{{c3::bundle.js}}"&gt;&lt;/script&gt; <br>
+
+cli
+
+··  {{c4::webpack}} src/index.js --output dist/bundle.js <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack 03: how it works
+
+Webpack {{c1::transpiles}} `import` and `export` statements
+
+other code is not touched
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack 04: Using a Configuration
+
+if complex setup is needed, use configuration file
+
+{{c1::webpack.config}}.js
+
+··  const path = {{c2::require}}('path'); <br>
+··  module.{{c3::exports}} = { <br>
+····  {{c4::entry}}: './src/index.js', <br>
+····  {{c5::output}}: { <br>
+······  filename: 'bundle.js', <br>
+······  path: path.{{c6::resolve}}(——dirname, 'dist') <br>
+····  } <br>
+··  } <br>
+
+cli
+
+··  npx webpack {{c7::--config}} webpack.config.js <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack 05: basic setup: npm shortcut
+
+package.json
+
+··  "scripts": { <br>
+····  "{{c1::build}}": "webpack" <br>
+··  } <br>
+
+cli
+
+··  npm run {{c2::build}} <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack 06: Loading CSS
+
+webpack.config.js
+
+··  module: { <br>
+····  {{c1::rules}}: [ <br>
+······  { <br>
+········  {{c2::test}}: /\.css$/, <br>
+········  use: [ <br>
+··········  'style-loader', <br>
+··········  'css-loader' <br>
+········  ] <br>
+······  } <br>
+····  ] <br>
+··  } <br>
+
+src.index.js
+
+··  import — from 'lodash'; <br>
+··  {{c3::import}} './style.css'; <br>
+··  function component() { <br>
+····  var element = document.createElement('div'); <br>
+····  element.innerHTML = —.join(['Hello','webpack'], ' '); <br>
+····  element.{{c4::classList}}.add('hello'); <br>
+····  return element; <br>
+··  } <br>
+··  document.body.appendChild(component()); <br>
+
+cli
+
+··  npm run build <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack 07: Loading Images
+
+··  npm install --save-dev file-loader <br>
+
+webpack.config.js
+
+··  module: { <br>
+····  rules: [ <br>
+······  { <br>
+········  test: /\.({{c1::png|svg|jpg|gif}})$/, <br>
+········  use: [ <br>
+··········  'file-loader' <br>
+········  ] <br>
+······  } <br>
+····  ] <br>
+··  } <br>
+
+src/index.js <br>
+
+··  import {{c2::Icon}} from './icon.png'; <br>
+··  var myIcon = new Image(); <br>
+··  myIcon.{{c3::src}} = Icon; <br>
+··  element.appendChild(myIcon); <br>
+
+src/style.css <br>
+
+··  .hello { <br>
+····  background: url('{{c4::./icon.png}}'); <br>
+··  } <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack 08: Loading Data
+
+··  npm install --save-dev {{c1::csv-loader}} xml-loader <br>
+
+··  module: { <br>
+····  rules: [ <br>
+······  { <br>
+········  test: /\.(csv|tsv)$/, <br>
+········  use: [ <br>
+··········  '{{c2::csv-loader}}' <br>
+········  ] <br>
+······  }, <br>
+······  { <br>
+········  test: /\.(xml)$/, <br>
+········  use: [ <br>
+··········  'xml-loader' <br>
+········  ] <br>
+······  } <br>
+····  ] <br>
+··  } <br>
+
+src/index.js
+
+··  import {{c3::Data}} from './data.xml'; <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack 09 file structuring
+
+··  /components <br>
+····  /{{c1::my-component}} <br>
+······  index.jsx <br>
+······  index.css <br>
+······  icon.svg <br>
+
+%
+
+%
+
+clozeq
+
+---
