@@ -71,9 +71,25 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({4:[function(require,module,exports) {
-console.log('hello parcel 00');
-},{}],6:[function(require,module,exports) {
+})({14:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addText = addText;
+function addText(text) {
+  $('#root').append('<p>' + text + '</p>');
+}
+},{}],4:[function(require,module,exports) {
+'use strict';
+
+var _app = require('./app.js');
+
+$('#root').append('\n  Date: <input type="text" id="datepicker">\n');
+$("#datepicker").datepicker();
+(0, _app.addText)("Look up!");
+},{"./app.js":14}],15:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -95,7 +111,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '62368' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '60760' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -196,5 +212,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[6,4])
-//# sourceMappingURL=/dist/study_hyperparcel.map
+},{}]},{},[15,4])
+//# sourceMappingURL=/dist/d129da571b1ba8dcbfbee2d6b4b41a20.map

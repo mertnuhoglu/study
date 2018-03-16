@@ -2704,3 +2704,19 @@ clozeq
 
 ---
 
+## js: document.querySelector instead of jquery
+
+    const {{c1::$}} = (e) => document.querySelector(e)
+    const {{c1::$$}} = (e) => document.querySelectorAll(e)
+
+    $('#root').innerHTML = `<h1>Parcel for VanillaJS</h1><br><time>${moment().format('LTS')}</time>`
+
+
+%
+
+%
+
+clozeq
+
+---
+
