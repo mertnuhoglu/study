@@ -2720,3 +2720,87 @@ clozeq
 
 ---
 
+## js: study_parcel_jquery.Rmd 01 ES + CommonJS 
+
+    const jquery = {{c1::require}}("jquery")
+    window.$ = window.jQuery = jquery;
+    require("jquery-ui-dist/jquery-ui.css")
+    require("jquery-ui-dist/jquery-ui.js")
+    {{c2::import}} {addText} from './app.js'
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: study_parcel_jquery.Rmd 02 parceljs steps
+
+    mkdir my_project && cd $_ && npm init -y 
+    npm i parcel-bundler jquery jquery-ui-dist
+
+index.html
+
+    <script src="./src/index.js"></script>
+
+{{c1::index.js}}
+
+    window.$ = require('jquery')
+    {{c2::import}} {addText} from './app.js'
+
+package.json
+
+    "start": "{{c3::parcel}} index.html",
+    "build": "parcel build index.html --public-url ./",
+
+    npm start
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: study_parcel_jquery.Rmd 03 import jquery
+
+import jquery and make it global variable
+
+Differences in `index.js` 
+
+    window.$ = require('jquery')
+    --->>>
+    import "./{{c1::import-jquery}}";
+
+a separate file `import-jquery.js` to import `jquery`:
+
+    import jquery from "jquery";
+    {{c2::export}} default ({{c3::window.$}} = window.jQuery = jquery);
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: use unpkg
+ 
+    <script src="https://unpkg.com/{{c1::jquery}}@3.1.1/dist/{{c2::jquery.js}}"></script>
+
+
+%
+
+%
+
+clozeq
+
+---
+
