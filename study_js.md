@@ -3,7 +3,25 @@
 # Study JS
 
     conventions
+    modules
+      webpack
+      Error: Cannot find module '../lib/polyfills'
+        cause: I copied the project from somewhere else
+          some of the references broken
+        solution:
+          npm install --save-dev webpack-dev-server
     nodejs
+      update npm
+        sudo npm install -g npm
+      update node
+        sudo npm cache clean -f
+        sudo npm install -g n
+        nvm ls
+        # check local node versions
+        nvm ls-remote
+        # check available node versions
+        nvm install 9.8.0
+        # install node version
       install tools: npm npx
       string templates
         backtick ` not "

@@ -130,8 +130,8 @@ $(document).ready(function () {
     max-width: 1600px !important;
   }
 </style>
-<div id="v01" class="section level2">
-<h2>v01</h2>
+<div id="v01-basic-example-01" class="section level2">
+<h2>v01: Basic Example 01</h2>
 <pre class="bash"><code>cat ex/ecmascript_modules_ex01.js</code></pre>
 <pre><code>## export function addTextToBody(text) {
 ##   const div = document.createElement('div');
@@ -154,6 +154,224 @@ $(document).ready(function () {
 ##     &lt;/script&gt;
 ##   &lt;/body&gt;
 ## &lt;/html&gt;</code></pre>
+<p>We have two options to open web page:</p>
+<ol style="list-style-type: decimal">
+<li><p>We can start a static web server in order to prevent CORS errors:</p>
+<pre class="bash"><code>python3 -m http.server</code></pre>
+<p>Open web page:</p>
+<p><a href="http://localhost:8000/ex/ecmascript_modules_ex01.html" class="uri">http://localhost:8000/ex/ecmascript_modules_ex01.html</a></p></li>
+<li><p>Or we can open the web page from a static web server such as rawgit:</p>
+<p><a href="https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex01.html" class="uri">https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex01.html</a></p></li>
+</ol>
+</div>
+<div id="v04-webpack-official-getting-started-tutorial" class="section level2">
+<h2>v04: Webpack Official Getting Started Tutorial</h2>
+<p>Following <a href="https://webpack.js.org/guides/getting-started/">Webpack Getting Started Tutorial</a>, I typed the following commands:</p>
+<pre class="bash"><code>mkdir -p ex/ecmascript_modules_ex04
+cd ex/ecmascript_modules_ex04
+npm init -y
+npm install webpack webpack-cli -D
+mkdir src
+mkdir dist
+npm install --save lodash</code></pre>
+<pre class="bash"><code>cat ex/ecmascript_modules_ex04/src/index.html</code></pre>
+<pre><code>## &lt;!doctype html&gt;
+## &lt;html&gt;
+##   &lt;head&gt;
+##     &lt;title&gt;Getting Started&lt;/title&gt;
+##   &lt;/head&gt;
+##   &lt;body&gt;
+##     &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+##   &lt;/body&gt;
+## &lt;/html&gt;</code></pre>
+<pre class="bash"><code>cat ex/ecmascript_modules_ex04/src/index.js</code></pre>
+<pre><code>## import _ from 'lodash';
+## 
+## function component() {
+##   var element = document.createElement('div');
+##   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+##   return element;
+## }
+## document.body.appendChild(component());</code></pre>
+<pre class="bash"><code>cp src/index.html dist/index.html
+./node_modules/.bin/webpack src/index.js --output dist/bundle.js</code></pre>
+<p>Note that, here we don’t generate <code>dist/index.html</code>. Instead we simply copied it from <code>src/index.html</code>. Later, we will use <code>HtmlWebpackPlugin</code> to generate it.</p>
+<pre class="bash"><code>open dist/index.html</code></pre>
+<p>Open web page:</p>
+<p><a href="https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex04/dist/index.html" class="uri">https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex04/dist/index.html</a></p>
+</div>
+<div id="v05-configuration-file-webpack.config.js" class="section level2">
+<h2>v05: Configuration File: <code>webpack.config.js</code></h2>
+<p>Now, let’s use configuration file to specify parameters of webpack:</p>
+<p>I copied everything from <code>ecmascript_modules_ex04</code> into a new folder</p>
+<pre class="bash"><code>cp -R ex/ecmascript_modules_ex04 ex/ecmascript_modules_ex05</code></pre>
+<pre class="bash"><code>cat ex/ecmascript_modules_ex05/webpack.config.js</code></pre>
+<pre><code>## const path = require('path');
+## module.exports = {
+##   entry: './src/index.js',
+##   output: {
+##     filename: 'bundle.js',
+##     path: path.resolve(__dirname, 'dist')
+##   }
+## }</code></pre>
+<p>Now, we will use configuration settings while running <code>webpack</code>:</p>
+<pre class="bash"><code>cd ex/ecmascript_modules_ex05
+./node_modules/.bin/webpack --config webpack.config.js</code></pre>
+<p>Open web page:</p>
+<p><a href="https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex05/dist/index.html" class="uri">https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex05/dist/index.html</a></p>
+</div>
+<div id="v06-asset-management" class="section level2">
+<h2>v06: Asset Management</h2>
+<div id="loading-css" class="section level3">
+<h3>Loading CSS</h3>
+<pre class="bash"><code>cp -R ex/ecmascript_modules_ex05 ex/ecmascript_modules_ex06
+cd ex/ecmascript_modules_ex06
+npm install --save-dev style-loader css-loader</code></pre>
+<p>Add <code>style-loader</code> and <code>css-loader</code> to webpack configuration:</p>
+<pre class="bash"><code>cat ex/ecmascript_modules_ex06/webpack.config.js | sed -n '/module:/,/}/ p'</code></pre>
+<pre><code>##   module: {
+##     rules: [
+##       {
+##         test: /\.css$/,
+##         use: [
+##           'style-loader',
+##           'css-loader'
+##         ]
+##       },</code></pre>
+<p>Now, we can <code>import</code> css files into the js scripts.</p>
+<pre class="bash"><code>cat ex/ecmascript_modules_ex06/src/style.css</code></pre>
+<pre><code>## .hello {
+##   color: blue;
+## }</code></pre>
+<p>To use css in js:</p>
+<pre><code>import './style.css'; // +
+...
+element.classList.add('hello'); // +</code></pre>
+<pre class="bash"><code>cat ex/ecmascript_modules_ex06/src/index.js</code></pre>
+<pre><code>## import _ from 'lodash';
+## import './style.css'; // +
+## import Icon from './icon.png'; // +
+## import Data from './data.csv'; // +
+## 
+## function component() {
+##   var element = document.createElement('div');
+##   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+##   element.classList.add('hello'); // +
+##   var myIcon = new Image();
+##   myIcon.src = Icon;
+##   element.appendChild(myIcon);
+##   console.log(Data);
+##   return element;
+## }
+## document.body.appendChild(component());</code></pre>
+</div>
+<div id="loading-images" class="section level3">
+<h3>Loading Images</h3>
+<pre class="bash"><code>npm install --save-dev file-loader</code></pre>
+<p>Add to <code>webpack.config.js</code>:</p>
+<pre><code>  {
+    test: /\.(png|svg|jpg|gif)$/,
+    use: [
+      'file-loader'
+    ]
+  }</code></pre>
+<p>To load image files inside js:</p>
+<pre><code>import Icon from './icon.png'; // +
+...
+var myIcon = new Image();
+myIcon.src = Icon;
+element.appendChild(myIcon);</code></pre>
+</div>
+<div id="loading-data" class="section level3">
+<h3>Loading Data</h3>
+<pre class="bash"><code>npm install --save-dev csv-loader</code></pre>
+<p>Add to <code>webpack.config.js</code>:</p>
+<pre><code>  {
+    test: /\.(csv|tsv)$/,
+    use: [
+      'csv-loader'
+    ]
+  }</code></pre>
+<p>To load image files inside js:</p>
+<pre><code>import Data from './data.csv'; // +
+...
+console.log(Data);</code></pre>
+<p>Open web page:</p>
+<p><a href="https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex06/dist/index.html" class="uri">https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex06/dist/index.html</a></p>
+</div>
+</div>
+<div id="v07-output-management" class="section level2">
+<h2>v07: Output Management</h2>
+<pre class="bash"><code>cp -R ex/ecmascript_modules_ex06 ex/ecmascript_modules_ex07
+cd ex/ecmascript_modules_ex07
+npm install --save-dev html-webpack-plugin</code></pre>
+<p>Add <code>HtmlWebpackPlugin</code> to webpack configuration:</p>
+<pre><code>const HtmlWebpackPlugin = require('html-webpack-plugin');
+...
+plugins: [
+  new HtmlWebpackPlugin({
+    title: 'Output Management'
+  })
+],</code></pre>
+<p><code>HtmlWebpackPlugin</code> generates <code>dist/index.html</code>.</p>
+<div id="cleaning-up-the-dist-folder" class="section level3">
+<h3>Cleaning up the <code>/dist</code> folder</h3>
+<pre class="bash"><code>npm install --save-dev clean-webpack-plugin</code></pre>
+<p>Add <code>CleanWebpackPlugin</code> to webpack configuration:</p>
+<pre><code>const CleanWebpackPlugin = require('clean-webpack-plugin');
+...
+plugins: [
+  new CleanWebpackPlugin(['dist']),</code></pre>
+<p>Open web page:</p>
+<p><a href="https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex07/dist/index.html" class="uri">https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex07/dist/index.html</a></p>
+</div>
+</div>
+<div id="v08-development" class="section level2">
+<h2>v08: Development</h2>
+<div id="using-source-maps" class="section level3">
+<h3>Using source maps</h3>
+<p>How to track down errors? Webpack bundles source files into one bundle.js. When an error occurs how are we going to know from which origin file it comes from?</p>
+<p>So, we will split our webpack configuration into two: one for development environment, one for production environment.</p>
+<pre class="bash"><code>cp -R ex/ecmascript_modules_ex07 ex/ecmascript_modules_ex08
+cd ex/ecmascript_modules_ex08</code></pre>
+<p>Add <code>inline-source-map</code> to webpack configuration:</p>
+<pre><code>devtool: 'inline-source-map',</code></pre>
+</div>
+<div id="watching-updates-in-files" class="section level3">
+<h3>Watching Updates in Files</h3>
+<p>Every time we make a change in some file, we need to run <code>npm run build</code>.</p>
+<p>Let’s run this command automatically after each change.</p>
+<pre class="bash"><code>npm install --save-dev webpack-dev-server</code></pre>
+<p>Update <code>webpack.config.js</code></p>
+<pre><code>devServer: {
+  contentBase: './dist'
+}</code></pre>
+<p>This setups a static web server for <code>./dist</code> directory on <code>localhost:8080</code>.</p>
+<p>Update <code>package.json</code></p>
+<pre><code>&quot;start&quot;: &quot;webpack-dev-server --open&quot;,</code></pre>
+<p>Run <code>npm start</code></p>
+<p>Open web page:</p>
+<p><a href="https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex08/dist/index.html" class="uri">https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex08/dist/index.html</a></p>
+</div>
+</div>
+<div id="v09-hot-module-replacement-hmr" class="section level2">
+<h2>v09: Hot Module Replacement HMR</h2>
+<p>HMR allows any file to be updated without refresh or recompiling.</p>
+<pre class="bash"><code>cp -R ex/ecmascript_modules_ex08 ex/ecmascript_modules_ex09
+cd ex/ecmascript_modules_ex09</code></pre>
+<div id="enabling-hmr" class="section level3">
+<h3>Enabling HMR</h3>
+<p><code>webpack.config.js</code></p>
+<pre><code>devServer: {
+  contentBase: './dist',
+  hot: true
+},
+...
+new webpack.NamedModulesPlugin(),
+new webpack.HotModuleReplacementPlugin()</code></pre>
+<p>Open web page:</p>
+<p><a href="https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex09/dist/index.html" class="uri">https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex09/dist/index.html</a></p>
+</div>
 </div>
 
 

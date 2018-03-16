@@ -10,5 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "mongodb": "^2.2.29"
-  }
+  },
+  "devDependencies": {}
 }

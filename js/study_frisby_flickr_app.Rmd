@@ -11,7 +11,8 @@ author: "Mert Nuhoglu"
 output: html_document
 blog: mertnuhoglu.com
 resource_files:
-- 
+- 'ex/study_frisby_flickr_app_ex01.html' 
+- 'ex/study_frisby_flickr_app_ex01.js' 
 path: ~/projects/study/js/study_frisby_flickr_app.Rmd
 ---
 

@@ -160,16 +160,17 @@ function curry(fn) {
 }
 </script>
 <p>Now, let’s use <code>curry</code> for partial application:</p>
-<pre class="js"><code>const match = curry((what, s) =&gt; s.match(what));
+<pre class="js"><code>const match = curry((regex, s) =&gt; s.match(regex));
 match(/r/g, 'hello world'); // [&quot;r&quot;]
 const hasLetterR = match(/r/g); // x =&gt; x.match(/r/g)
 hasLetterR('hello world'); // [ 'r' ]</code></pre>
 <script type="text/javascript">
-const match = curry((what, s) => s.match(what));
+const match = curry((regex, s) => s.match(regex));
 match(/r/g, 'hello world'); // ["r"]
 const hasLetterR = match(/r/g); // x => x.match(/r/g)
 hasLetterR('hello world'); // [ 'r' ]
 </script>
+<p>Argument order: Note that last argument is the most varying argument. This is the actual data.</p>
 <div id="wrapping-with-map" class="section level3">
 <h3>Wrapping With <code>map</code></h3>
 <p>This may be the most important benefit of currying:</p>
@@ -316,13 +317,17 @@ const fastestCar = compose(
   last,
   sortBy(prop('horsepower')),
 );</code></pre>
+<p>Definition of flip:</p>
+<pre><code>// flip :: (a -&gt; b) -&gt; (b -&gt; a)
+const flip = curry((fn, a, b) =&gt; fn(b, a));</code></pre>
 </div>
 </div>
 <div id="ch06-flickr-app-example" class="section level2">
 <h2>ch06: Flickr App Example</h2>
+<div id="v01-basics" class="section level3">
+<h3>v01: Basics</h3>
 <p>HTML page:</p>
-<pre class="bash"><code>cat 'ex/study_frisby_flickr_app_ex01.html' 
-cat 'ex/study_frisby_flickr_app_ex01.js' </code></pre>
+<pre class="bash"><code>cat 'ex/study_frisby_flickr_app_ex01.html' </code></pre>
 <pre><code>## &lt;!doctype html&gt;
 ## &lt;html lang=&quot;en&quot;&gt;
 ##   &lt;head&gt;
@@ -334,8 +339,9 @@ cat 'ex/study_frisby_flickr_app_ex01.js' </code></pre>
 ##     &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js&quot;&gt;&lt;/script&gt;
 ##     &lt;script src=&quot;study_frisby_flickr_app_ex01.js&quot;&gt;&lt;/script&gt;
 ##   &lt;/body&gt;
-## &lt;/html&gt;
-## const CDN = s =&gt; `https://cdnjs.cloudflare.com/ajax/libs/${s}`;
+## &lt;/html&gt;</code></pre>
+<pre class="bash"><code>cat 'ex/study_frisby_flickr_app_ex01.js' </code></pre>
+<pre><code>## const CDN = s =&gt; `https://cdnjs.cloudflare.com/ajax/libs/${s}`;
 ## const ramda = CDN('ramda/0.21.0/ramda.min');
 ## const jquery = CDN('jquery/3.0.0-rc1/jquery.min');
 ## 
@@ -349,8 +355,70 @@ cat 'ex/study_frisby_flickr_app_ex01.js' </code></pre>
 ##   const app = Impure.setHtml('body');
 ##   app('cats');
 ## });</code></pre>
+<p>The resulting web page embedded as iframe:</p>
 <iframe src="ex/study_frisby_flickr_app_ex01.html" width="100" height="30">
 </iframe>
+</div>
+<div id="mnemonics" class="section level3">
+<h3>mnemonics</h3>
+<p>Assume that:</p>
+<pre><code>const f = curry( (x,y) =&gt; ... )</code></pre>
+<p>Then first call puts single argument into the first position. Second call puts the argument into the next position:</p>
+<pre><code>f(x)(y)</code></pre>
+<p>Assume that:</p>
+<pre><code>const Impure = {
+  getJSON: curry((callback, url) =&gt; $.getJSON(url, callback)),
+  setHtml: curry((sel, html) =&gt; $(sel).html(html)),
+  trace: curry((tag, x) =&gt; { console.log(tag, x); return x; }),
+}; 
+const app = compose(Impure.getJSON(Impure.trace('response')), url);</code></pre>
+<p>Consider:</p>
+<pre><code>Impure.getJSON(Impure.trace('response'))</code></pre>
+<p>Type signatures of the curried functions are:</p>
+<pre><code>Impure.trace('response') :: a -&gt; a
+Impure.getJSON :: (a-&gt;a) -&gt; a -&gt; j
+Impure.getJSON(Impure.trace('response')) :: a -&gt; j</code></pre>
+</div>
+<div id="v02-trace" class="section level3">
+<h3>v02: trace()</h3>
+<p>Now, let’s do some http requests and embed the resulting json data into web page.</p>
+<pre class="js"><code>const host = 'api.flickr.com';
+const path = '/services/feeds/photos_public.gne';
+const query = t =&gt; `?tags=${t}&amp;format=json&amp;jsoncallback=?`;
+const url = t =&gt; `https://${host}${path}${query(t)}`;
+const app = compose(Impure.getJSON(Impure.trace('response')), url);
+app('cats');</code></pre>
+<p>This code prints the result of <code>trace('response', url('cats'))</code></p>
+<pre><code>## response {
+##   &quot;title&quot;: &quot;Recent Uploads tagged cats&quot;,
+##   &quot;link&quot;: &quot;https://www.flickr.com/photos/tags/cats/&quot;,
+##   &quot;description&quot;: &quot;&quot;,
+##   &quot;modified&quot;: &quot;2018-03-08T19:13:09Z&quot;,
+##   &quot;generator&quot;: &quot;https://www.flickr.com&quot;,
+##   &quot;items&quot;: [
+##     {
+##       &quot;title&quot;: &quot;Watch high quality movies at http://ImovieSh.com/&quot;,
+##       &quot;link&quot;: &quot;https://www.flickr.com/photos/imoviesh/39985324204/&quot;,
+##       &quot;media&quot;: {
+##         &quot;m&quot;: &quot;https://farm5.staticflickr.com/4785/39985324204_0124bb7b0b_m.jpg&quot;
+##       },
+##       &quot;date_taken&quot;: &quot;2018-03-08T11:13:09-08:00&quot;,
+##       &quot;description&quot;: &quot; &lt;p&gt;&lt;a href=\&quot;https://www.flickr.com/people/imoviesh/\&quot;&gt;ImovieSh&lt;/a&gt; posted a photo:&lt;/p&gt; &lt;p&gt;&lt;a href=\&quot;https://www.flickr.com/photos/imoviesh/39985324204/\&quot; title=\&quot;Watch high quality movies at http://ImovieSh.com/\&quot;&gt;&lt;img src=\&quot;https://farm5.staticflickr.com/4785/39985324204_0124bb7b0b_m.jpg\&quot; width=\&quot;185\&quot; height=\&quot;240\&quot; alt=\&quot;Watch high quality movies at http://ImovieSh.com/\&quot; /&gt;&lt;/a&gt;&lt;/p&gt; &lt;p&gt;Watch high quality movies at &lt;a href=\&quot;http://ImovieSh.com/\&quot; rel=\&quot;nofollow\&quot;&gt;ImovieSh.com/&lt;/a&gt;&lt;/p&gt;&quot;,
+##       &quot;published&quot;: &quot;2018-03-08T19:13:09Z&quot;,
+##       &quot;author&quot;: &quot;nobody@flickr.com (\&quot;ImovieSh\&quot;)&quot;,
+##       &quot;author_id&quot;: &quot;160658215@N07&quot;,
+##       &quot;tags&quot;: &quot;cute dogs animals aww cats love girls movie animal images baby birds adorable&quot;
+##     },
+##  ...</code></pre>
+</div>
+<div id="v03-dom" class="section level3">
+<h3>v03: DOM</h3>
+<p>We will construct <code>img</code> elements out of this json data.</p>
+<pre class="js"><code>const mediaUrl = compose(prop('m'), prop('media'));
+const mediaUrls = compose(map(mediaUrl), prop('items'));</code></pre>
+<p>This code collects all <code>m</code> properties inside <code>response.items[].media</code> elements.</p>
+<pre class="js"><code>mediaUrls(url('cats'))</code></pre>
+</div>
 </div>
 
 

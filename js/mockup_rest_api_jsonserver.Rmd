@@ -11,7 +11,7 @@ author: "Mert Nuhoglu"
 output: html_document
 blog: mertnuhoglu.com
 resource_files:
-- 
+- ex/db.json
 path: ~/projects/study/js/mockup_rest_api_jsonserver.Rmd
 state: wip
 ---

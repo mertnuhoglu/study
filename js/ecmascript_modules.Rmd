@@ -1,7 +1,7 @@
 ---
 title: "EcmaScript Modules"
-date: 2018-03-11T19:01:53+03:00 
-draft: true
+date: 2018-03-13T19:09:33+03:00 
+draft: false
 description: ""
 tags:
 categories: js
@@ -11,7 +11,14 @@ author: "Mert Nuhoglu"
 output: html_document
 blog: mertnuhoglu.com
 resource_files:
--
+- ex/ecmascript_modules_ex01.js
+- ex/ecmascript_modules_ex01.html
+- ex/ecmascript_modules_ex04/src/index.html
+- ex/ecmascript_modules_ex04/src/index.js
+- ex/ecmascript_modules_ex05/webpack.config.js
+- ex/ecmascript_modules_ex06/webpack.config.js
+- ex/ecmascript_modules_ex06/src/style.css
+- ex/ecmascript_modules_ex06/src/index.js
 path: ~/projects/study/js/ecmascript_modules.Rmd
 ---
 
@@ -21,7 +28,7 @@ path: ~/projects/study/js/ecmascript_modules.Rmd
   }
 </style>
 
-## v01
+## v01: Basic Example 01
 
 ``` {bash}
 cat ex/ecmascript_modules_ex01.js
@@ -33,23 +40,25 @@ Using `import` inside `<script type="module">` tag:
 cat ex/ecmascript_modules_ex01.html
 ``` 
 
-Now start a static web server in order to prevent CORS errors:
+We have two options to open web page:
 
-``` bash
-python3 -m http.server
-``` 
+1. We can start a static web server in order to prevent CORS errors:
 
-Open web page: 
+    ``` bash
+    python3 -m http.server
+    ``` 
+    
+    Open web page: 
+    
+    http://localhost:8000/ex/ecmascript_modules_ex01.html
 
-http://localhost:8000/ex/ecmascript_modules_ex01.html
+2. Or we can open the web page from a static web server such as rawgit:
 
-or
-
-https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex01.html
+    https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex01.html
 
 ## v04: Webpack Official Getting Started Tutorial
 
-Following [Webpack Getting Started Tutorial](https://webpack.js.org/guides/getting-started/)
+Following [Webpack Getting Started Tutorial](https://webpack.js.org/guides/getting-started/), I typed the following commands:
 
 ``` bash
 mkdir -p ex/ecmascript_modules_ex04
@@ -74,6 +83,8 @@ cp src/index.html dist/index.html
 ./node_modules/.bin/webpack src/index.js --output dist/bundle.js
 ``` 
 
+Note that, here we don't generate `dist/index.html`. Instead we simply copied it from `src/index.html`. Later, we will use `HtmlWebpackPlugin` to generate it.
+
 ``` bash
 open dist/index.html
 ``` 
@@ -86,20 +97,20 @@ https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex04/dist/i
 
 Now, let's use configuration file to specify parameters of webpack:
 
-I copied everything from ecmascript_modules_ex04 into a new folder
+I copied everything from `ecmascript_modules_ex04` into a new folder
 
 ``` bash
-cp -R ecmascript_modules_ex04 ecmascript_modules_ex05
+cp -R ex/ecmascript_modules_ex04 ex/ecmascript_modules_ex05
 ``` 
 
 ``` {bash}
-cat ecmascript_modules_ex05/webpack.config.js
+cat ex/ecmascript_modules_ex05/webpack.config.js
 ``` 
 
 Now, we will use configuration settings while running `webpack`:
 
 ``` bash
-cd ecmascript_modules_ex05
+cd ex/ecmascript_modules_ex05
 ./node_modules/.bin/webpack --config webpack.config.js
 ``` 
 
@@ -112,9 +123,8 @@ https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex05/dist/i
 ### Loading CSS
 
 ``` bash
-cd ..
-cp -R ecmascript_modules_ex05 ecmascript_modules_ex06
-cd ecmascript_modules_ex06
+cp -R ex/ecmascript_modules_ex05 ex/ecmascript_modules_ex06
+cd ex/ecmascript_modules_ex06
 npm install --save-dev style-loader css-loader
 ``` 
 
@@ -192,9 +202,8 @@ https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex06/dist/i
 ## v07: Output Management
 
 ``` bash
-cd ..
-cp -R ecmascript_modules_ex06 ecmascript_modules_ex07
-cd ecmascript_modules_ex07
+cp -R ex/ecmascript_modules_ex06 ex/ecmascript_modules_ex07
+cd ex/ecmascript_modules_ex07
 npm install --save-dev html-webpack-plugin
 ``` 
 
@@ -236,9 +245,8 @@ How to track down errors? Webpack bundles source files into one bundle.js. When 
 So, we will split our webpack configuration into two: one for development environment, one for production environment.
 
 ``` bash
-cd ..
-cp -R ecmascript_modules_ex07 ecmascript_modules_ex08
-cd ecmascript_modules_ex08
+cp -R ex/ecmascript_modules_ex07 ex/ecmascript_modules_ex08
+cd ex/ecmascript_modules_ex08
 ``` 
 
 Add `inline-source-map` to webpack configuration:
@@ -269,21 +277,25 @@ Update `package.json`
 
 Run `npm start`
 
-Open web page:
+Open web page: http://localhost:8080
 
-https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex08/dist/index.html
+Since these settings are for development purpose, we won't open this page from static web server.
 
 ## v09: Hot Module Replacement HMR
 
 HMR allows any file to be updated without refresh or recompiling.
 
 ``` bash
-cd ..
-cp -R ecmascript_modules_ex08 ecmascript_modules_ex09
-cd ecmascript_modules_ex09
+cp -R ex/ecmascript_modules_ex08 ex/ecmascript_modules_ex09
+cd ex/ecmascript_modules_ex09
 ``` 
 
 ### Enabling HMR
+
+``` bash
+cp -R ex/ecmascript_modules_ex08 ex/ecmascript_modules_ex09
+cd ex/ecmascript_modules_ex09
+``` 
 
 `webpack.config.js`
 
@@ -295,7 +307,75 @@ cd ecmascript_modules_ex09
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
 
-Open web page:
+Run `npm start`
 
-https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex09/dist/index.html
+Open web page: http://localhost:8080
+
+## v10: Using JQuery
+
+Using jquery and its addin libraries according to the ES module rules is not as simple as it should be.
+
+I follow the instructions given in [Webpack 2, jQuery plugins and imports-loader](https://medium.com/@stefanledin/webpack-2-jquery-plugins-and-imports-loader-e0d984650058) by Stefan Ledin.
+
+Use `imports-loader` webpack plugin
+
+``` bash
+cp -R ex/ecmascript_modules_ex09 ex/ecmascript_modules_ex10
+cd ex/ecmascript_modules_ex10
+npm install --save-dev imports-loader
+npm install --save jquery
+``` 
+
+Put jquery addin library chosen.js into src/vendor
+
+``` {bash}
+tree ex/ecmascript_modules_ex10
+``` 
+
+Add `imports-loader` for jquery to `webpack.config.js`
+
+      {
+        test: /vendor\/.+\.(jsx|js)$/,
+        use: [
+          'imports-loader?jQuery=jquery,$=jquery,this=>window',
+        ]
+      },
+
+Add `import` statements for jquery and its plugins to `index.js`
+
+    import {$, jQuery} from 'jquery';
+    window.$ = $;
+    window.jQuery = jQuery;
+    import "./vendor/chosen.jquery.min";
+
+Run `npm start`
+
+Open web page: http://localhost:8080
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/ecmascript_modules_ex10/
+
+## v11: Using JQuery 02
+
+Try `ProvidePlugin`
+
+I follow the instructions given in [Webpack Documentation](https://webpack.js.org/plugins/provide-plugin/).
+
+Use `ProvidePlugin` webpack plugin
+
+``` bash
+cp -R ex/ecmascript_modules_ex10 ex/ecmascript_modules_ex11
+cd ex/ecmascript_modules_ex11
+rm -rf node_modules
+npm install --save-dev html-webpack-plugin
+npm install
+``` 
+
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
+
+Now, we can use `$` anywhere in the scripts. 
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/ecmascript_modules_ex11/
 

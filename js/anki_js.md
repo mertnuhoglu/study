@@ -2556,3 +2556,151 @@ clozeq
 
 ---
 
+## js: webpack error 01
+
+··  npm start <br>
+
+··  Error: Cannot find module '../lib/polyfills' <br>
+
+cause: I copied the project from somewhere else.  some of the references broken
+
+solution: 
+
+··  {{c1::npm install}} --save-dev webpack-dev-server <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: comparison AMD, RequireJS, CommonJS, ES Modules
+
+ex: AMD
+
+··  {{c1::define}}(['file1', 'file2'], function(Class1, Class2)) { <br>
+····  let obj = new Class1(), <br>
+······  obj2 = new Class2(); <br>
+····  return obj.foo(obj2); <br>
+··  } <br>
+
+ex: CommonJS
+
+··  let Class1 = {{c2::require}}('file1'), <br>
+····  Class2 = require('file2') <br>
+····  obj = new Class1(), <br>
+····  obj2 = new Class2(); <br>
+··  module.exports = obj.foo(obj2); <br>
+
+ex: es6
+
+··  {{c3::import}} Class1 from 'file1' <br>
+··  import Class2 from 'file2' <br>
+··  let obj = new Class1(), <br>
+····  obj2 = new Class2(); <br>
+··  export default obj.foo(obj2); <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack when to use 01
+
+Webpack is 
+
+- a build tool: bundles all files in a {{c1::dependency graph}}
+- lets you use {{c2::require()}} to point to local files
+- replaces the file references with {{c3::URLs}} in final bundle
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack when to use 02 Earlier:
+
+2. Build script to concatenate and minify scripts
+
+··  ```  <br>
+··  // build-script.js <br>
+··  var scripts = [   <br>
+······  'jquery.min.js', <br>
+······  'jquery.some.plugin.js', <br>
+······  'main.js' <br>
+··  ].concat().uglify().writeTo('bundle.js'); <br>
+
+··  // Everything our app needs! <br>
+··  &lt;script src="bundle.js"&gt;&lt;/script&gt;   <br>
+··  ```  <br>
+
+··  Con: relied on the {{c1::order}} of concatenated files <br>
+··  Con: still has {{c2::global}} variables <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack when to use 03 The Good
+
+Static assets in a dependency graph has benefits:
+
+- {{c1::Dead asset}} elimination. Great especially for CSS rules.
+
+- Easier code {{c2::splitting}}. Each js file has a specific CSS file that reduces
+file sizes a lot.
+
+- You control how assets are {{c3::processed}}. Ex: You can base64 encode small files
+directly into js.
+ 
+- {{c4::Stable}} production deploys. No image missing.
+
+- {{c5::Hot}} page reloading. True CSS management. CDN cache busting.
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: update npm and node
+
+update npm
+
+    sudo npm install -g {{c1::npm}}
+
+update node
+
+    sudo npm cache clean -f
+    sudo npm install -g {{c2::n}}
+    nvm {{c3::ls}}
+    # check local node versions
+    nvm ls-remote
+    # check available node versions
+    nvm {{c4::install}} 9.8.0
+    # install node version
+
+
+%
+
+%
+
+clozeq
+
+---
+
