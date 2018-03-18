@@ -1,0 +1,102 @@
+---
+title: "Studying JavaScript Promises"
+date: 2018-03-18T16:37:50+03:00 
+draft: false
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_js_promises.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+## v01: Basic Example 01
+
+Studying the tutorials given in https://egghead.io/lessons/javascript-promises-with-es6
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_js_promises_ex01/
+
+``` {bash}
+mkdir -p ex/study_js_promises_ex01
+cd ex/study_js_promises_ex01
+``` 
+
+Edit `script01.js`
+
+``` js
+var d = new Promise((resolve, reject) => {
+  if (true) {
+    resolve('hello world');
+  } else {
+    reject('no bueno');
+  }
+});
+d.then((data) => console.log('success : ', data));
+d.catch((error) => console.log('error : ', error));
+``` 
+
+``` {bash}
+node ex/study_js_promises_ex01/script01.js
+``` 
+
+Let's make `reject` be run:
+
+Edit `script02.js`
+
+``` js
+...
+  if (true) {
+    resolve('hello world');
+  } else {
+    reject('no bueno');
+  }
+``` 
+
+``` {bash}
+node ex/study_js_promises_ex01/script02.js
+``` 
+
+## v03: Asynchronous behaviour using Promises
+
+Edit `script02.js`
+
+``` js
+...
+  setTimeout(() => {
+    if (true) {
+      resolve('hello world');
+    } else {
+      reject('no bueno');
+    }
+  }, 1000);
+``` 
+
+``` {bash}
+node ex/study_js_promises_ex01/script03.js
+``` 
+
+## v04: Style: instead of `catch` append a new lambda parameter to `then`
+
+``` js
+...
+d.then(
+  (data) => console.log('success : ', data)
+  , (error) => console.log('error : ', error)
+);
+``` 
+
+``` {bash}
+node ex/study_js_promises_ex01/script04.js
+``` 
+

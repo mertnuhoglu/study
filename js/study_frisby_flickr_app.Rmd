@@ -143,7 +143,7 @@ const R = require('ramda');
 
 Run `npm start` and open http://localhost:1234
 
-Or open rawgit: https://rawgit.com/mertnuhoglu/study/master/js/ex/study_frisby_flickr_app_ex03/dist/index.html
+Or open from rawgit: https://rawgit.com/mertnuhoglu/study/master/js/ex/study_frisby_flickr_app_ex03/dist/index.html
 
 ```{bash}
 cat "ex/study_frisby_flickr_app_ex03/index.html" 
@@ -153,17 +153,23 @@ cat "ex/study_frisby_flickr_app_ex03/index.html"
 cat "ex/study_frisby_flickr_app_ex03/index.js" 
 ```
 
-### v03: DOM
+### v04: DOM
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_frisby_flickr_app_ex04/
+
+``` bash
+mkdir study_frisby_flickr_app_ex04 && cd $_ && npm init -y && npm i parcel-bundler jquery ramda
+cp ../study_frisby_flickr_app_ex03/index.html . && mkdir -p src && cp ../study_frisby_flickr_app_ex03/index.js .
+``` 
 
 We will construct `img` elements out of this json data.
 
 ``` js
 const mediaUrl = compose(prop('m'), prop('media'));
 const mediaUrls = compose(map(mediaUrl), prop('items'));
+const render = compose(Impure.setHtml('js-main'), mediaUrls);
+const app = compose(Impure.getJSON(render), url);
 ```
 
 This code collects all `m` properties inside `response.items[].media` elements.
 
-``` js
-mediaUrls(url('cats'))
-```

@@ -34,11 +34,16 @@ path: ~/projects/study/js/ecmascript_modules.Rmd
 cat ex/ecmascript_modules_ex01.js
 ``` 
 
+    export function addTextToBody(text) { ... }
+
 Using `import` inside `<script type="module">` tag:
 
 ``` {bash}
 cat ex/ecmascript_modules_ex01.html
 ``` 
+
+    import {addTextToBody} from './ecmascript_modules_ex01.js';
+    addTextToBody('Modules are pretty cool.');
 
 We have two options to open web page:
 
