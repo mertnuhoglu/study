@@ -3,6 +3,19 @@
 # Study JS
 
     conventions
+    npm
+      pnpm: faster npm
+        uses symlinks instead of hard files everytime
+        install
+          npm install -g pnpm
+        update
+          pnpm install -g pnpm
+        usage
+          npm init -y
+          pnpm install lodash
+        commands
+          store prune
+            remove unreferenced packages
     modules
       webpack
       Error: Cannot find module '../lib/polyfills'
@@ -22,6 +35,16 @@
         # check available node versions
         nvm install 9.8.0
         # install node version
+      repl
+        error: invalid repl keyword
+          ex:
+            request('http://jsonplaceholder.typicode.com/users/1')
+              .then( html => console.log('body:', html) )
+          cause:
+            node's repl has commands that begin with `.` such as `.clear`
+          solution:
+            request('http://jsonplaceholder.typicode.com/users/1').
+              then( html => console.log('body:', html) )
       install tools: npm npx
       string templates
         backtick ` not "
@@ -495,6 +518,18 @@
                 <input id="datetimepicker" type="text" >
               javaScript
                 jQuery('#datetimepicker').datetimepicker();
+    http requests
+      alternative libraries
+        nodejs http
+          lots of boilerplate
+        request/request
+          very popular
+        unirest
+          supports 8 languages
+        got
+          popular and easy
+      request/request
+        https://github.com/request/request
     error: Access-Control-Allow-Origin
       https://stackoverflow.com/questions/35553500/xmlhttprequest-cannot-load-https-www-website-com
         Same Origin Policy 

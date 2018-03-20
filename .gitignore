@@ -8,6 +8,8 @@
 **/bower_modules/*
 **/build/*
 **/.cache/
+**/vendor/*
+**/dist/*
 
 # Other files and folders
 **/.settings/*

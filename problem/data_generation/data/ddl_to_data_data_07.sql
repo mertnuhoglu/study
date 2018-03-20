@@ -14,16 +14,16 @@ COPY enum_value (enum_value_id) FROM STDIN (ENCODING 'utf-8');
 -- fill table place (10)
 \echo # filling table place (10)
 COPY place (place_id,place_enum,address,action_enum) FROM STDIN (ENCODING 'utf-8');
-1	3002	address_10	2001
-2	3001	address_4_	2001
-3	\N	address_3_3_3	2000
-4	3000	address_6_6_6	2001
-5	\N	address_3_3_3	2001
-6	3000	address_2_2_2_2_	2001
-7	3002	address_7_	2001
-8	3001	address_2_2_2_2_	2001
-9	3000	address_2_2_2_2_	2000
-10	3001	address_5_5_5_5_	2000
+1	3001	address_2_2_2_2_	2000
+2	3000	address_6_6_6	2000
+3	3001	address_9_9_9	2000
+4	3001	address_5_5_5_5_	2001
+5	3002	address_5_5_5_5_	2001
+6	3000	address_5_5_5_5_	2000
+7	3001	address_6_6_6	2000
+8	3000	address_4_	2001
+9	3000	address_9_9_9	2001
+10	3001	address_10	2001
 \.
 
 -- restart sequences

@@ -1898,7 +1898,7 @@ opt2: libraries can be used directly from {{c2::CDN}} or local node—modules
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2047,7 +2047,7 @@ index.html
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2073,7 +2073,7 @@ cli
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2088,7 +2088,7 @@ other code is not touched
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2116,7 +2116,7 @@ cli
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2137,7 +2137,7 @@ cli
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2178,7 +2178,7 @@ cli
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2216,7 +2216,7 @@ src/style.css <br>
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2250,7 +2250,7 @@ src/index.js
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2266,7 +2266,7 @@ clozeq
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2573,7 +2573,7 @@ solution:
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2623,7 +2623,7 @@ Webpack is
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2650,7 +2650,7 @@ clozeq
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2674,7 +2674,7 @@ directly into js.
 
 %
 
-clozeq
+clozeq suspended
 
 ---
 
@@ -2794,6 +2794,49 @@ clozeq
 ## js: use unpkg
  
 ··  `` <script src="https://unpkg.com/{{c1::jquery}}@3.1.1/dist/{{c2::jquery.js}}"></script> `` <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: promise 01
+
+··  `` var d = new Promise((resolve, reject) => { `` <br>
+····  `` if (true) { `` <br>
+······  `` {{c3::resolve}}('hello world'); `` <br>
+····  `` } else { `` <br>
+······  `` reject('no bueno'); `` <br>
+····  `` } `` <br>
+··  `` }); `` <br>
+··  `` d.{{c1::then}}((data) => console.log('success : ', data)); `` <br>
+··  `` d.{{c2::catch}}((error) => console.log('error : ', error)); `` <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: promise 02 
+
+wait 1 sec then trigger `then()`
+
+··  `` var d = new Promise((resolve, reject) => { `` <br>
+····  `` {{c1::setTimeout}}(() => { `` <br>
+······  `` if (true) { `` <br>
+········  `` resolve('hello world'); `` <br>
+······  `` } else { `` <br>
+········  `` reject('no bueno'); `` <br>
+······  `` } `` <br>
+····  `` }, 1000); `` <br>
 
 
 %

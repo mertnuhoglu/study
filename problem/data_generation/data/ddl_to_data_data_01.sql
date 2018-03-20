@@ -12,16 +12,16 @@ COPY order_line (order_line_id,purchase_order_id) FROM STDIN (ENCODING 'utf-8');
 \echo # filling table plan (2)
 COPY plan (plan_id,title) FROM STDIN (ENCODING 'utf-8');
 plan_id_1_	title_1_1_1_
-plan_id_2_2_2_2_	title_1_1_1_
+plan_id_2_2_2_2_	title_2_2_2_2_2_
 \.
 
 -- fill table pln_orl (4)
 \echo # filling table pln_orl (4)
 COPY pln_orl (plan_id,order_line_id) FROM STDIN (ENCODING 'utf-8');
 plan_id_4_	1
-plan_id_4_	1
 plan_id_3_3_3	2
-plan_id_3_3_3	2
+plan_id_4_	2
+plan_id_1_	2
 \.
 
 -- restart sequences

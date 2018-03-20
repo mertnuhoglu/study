@@ -11,7 +11,14 @@ author: "Mert Nuhoglu"
 output: html_document
 blog: mertnuhoglu.com
 resource_files:
-- 
+- ex/study_js_promises_ex01/script01.js
+- ex/study_js_promises_ex01/script02.js
+- ex/study_js_promises_ex01/script03.js
+- ex/study_js_promises_ex01/script04.js
+- ex/study_js_promises_ex01/script05.js
+- ex/study_js_promises_ex01/script06.js
+- ex/study_js_promises_ex01/script07.js
+- ex/study_js_promises_ex01/script08.js
 path: ~/projects/study/js/study_js_promises.Rmd
 ---
 
@@ -69,7 +76,7 @@ node ex/study_js_promises_ex01/script02.js
 
 ## v03: Asynchronous behaviour using Promises
 
-Edit `script02.js`
+Edit `script03.js`
 
 ``` js
 ...
@@ -98,5 +105,59 @@ d.then(
 
 ``` {bash}
 node ex/study_js_promises_ex01/script04.js
+``` 
+
+## v05: Style: `catch` `then` methods can be chained
+
+``` js
+...
+d.then( (data) => console.log('success : ', data) )
+  .catch( (error) => console.log('error : ', error) );
+);
+``` 
+
+``` {bash}
+node ex/study_js_promises_ex01/script05.js
+``` 
+
+Multiple `then` can be chained too:
+
+``` js
+...
+d.then( (data) => console.log('success : ', data) )
+  .then( (data) => console.log('success 2 : ', data) )
+  .catch( (error) => console.log('error : ', error) );
+);
+``` 
+
+``` {bash}
+node ex/study_js_promises_ex01/script06.js
+``` 
+
+But note the output: `success 2 :  undefined`. This is because the second chain gets its input data from the previous chain's return value.
+
+``` js
+...
+d.then( (data) => {console.log('success : ', data); return 'foo';} )
+  .then( (data) => console.log('success 2 : ', data) )
+);
+``` 
+
+``` {bash}
+node ex/study_js_promises_ex01/script07.js
+``` 
+
+## v08: Any Exception inside Promise triggers `catch` method
+
+It doesn't matter where the exception is thrown. It will trigger `catch` method.
+
+``` js
+var d = new Promise((resolve, reject) => {
+  throw new Error('error here');
+  ...
+``` 
+
+``` {bash}
+node ex/study_js_promises_ex01/script08.js
 ``` 
 

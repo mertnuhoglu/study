@@ -151,10 +151,10 @@ $(document).ready(function () {
 ## 2    purchase
 ## COPY plan (plan_id,title) FROM STDIN (ENCODING 'utf-8');
 ## plan_id_1_   title_1_1_1_
-## plan_id_2_2_2_2_ title_1_1_1_
+## plan_id_2_2_2_2_ title_2_2_2_2_2_
 ## COPY pln_orl (plan_id,order_line_id) FROM STDIN (ENCODING 'utf-8');
 ## plan_id_4_   1
-## plan_id_4_   1</code></pre>
+## plan_id_3_3_3    2</code></pre>
 </div>
 <div id="v02-use-bigint-type-for-fk-and-pk-fields" class="section level2">
 <h2>v02: Use BIGINT Type for FK and PK Fields</h2>
@@ -178,11 +178,11 @@ $(document).ready(function () {
 <pre class="bash"><code>datafiller --size=2 data/ddl_to_data_schema_02.sql &gt; data/ddl_to_data_data_02.sql</code></pre>
 <pre class="bash"><code>cat data/ddl_to_data_data_02.sql | sed -n &quot;/COPY/,+2 p&quot;</code></pre>
 <pre><code>## COPY order_line (shipment_date,irsaliye_kg,tesis,yas_toz) FROM STDIN (ENCODING 'utf-8');
-## 2018-01-26 13:03:29  irsaliye_kg_2_  tesis_1_    TRUE
-## 2018-01-26 13:04:29  irsaliye_kg_2_  tesis_2_2_2_    TRUE
+## 2018-03-19 09:30:30  irsaliye_k  tesis_1_    TRUE
+## 2018-03-19 09:31:30  irsaliye_kg_2_  tesis_2_2_2_    TRUE
 ## COPY plan (title) FROM STDIN (ENCODING 'utf-8');
 ## title_2_2_2_2_2_
-## title_2_2_2_2_2_
+## title_1_1_1_
 ## COPY pln_orl () FROM STDIN (ENCODING 'utf-8');</code></pre>
 <p>All BIGINT fields are left empty. It seems like datafiller does not support BIGINT properly.</p>
 </div>
@@ -208,14 +208,14 @@ $(document).ready(function () {
 <pre class="bash"><code>datafiller --size=2 data/ddl_to_data_schema_03.sql &gt; data/ddl_to_data_data_03.sql</code></pre>
 <pre class="bash"><code>cat data/ddl_to_data_data_03.sql | sed -n &quot;/COPY/,+2 p&quot;</code></pre>
 <pre><code>## COPY order_line (order_line_id,shipment_date,irsaliye_kg,tesis,yas_toz) FROM STDIN (ENCODING 'utf-8');
-## 1    2018-01-26 13:03:30 irsaliye_kg_2_  tesis_1_    FALSE
-## 2    2018-01-26 13:03:30 irsaliye_k  tesis_1_    FALSE
+## 1    2018-03-19 09:30:30 irsaliye_k  tesis_2_2_2_    TRUE
+## 2    2018-03-19 09:31:30 \N  tesis_1_    FALSE
 ## COPY plan (plan_id,title) FROM STDIN (ENCODING 'utf-8');
-## 1    title_1_1_1_
+## 1    title_2_2_2_2_2_
 ## 2    title_1_1_1_
 ## COPY pln_orl (plan_id,order_line_id) FROM STDIN (ENCODING 'utf-8');
 ## 1    2
-## 1    1</code></pre>
+## 2    2</code></pre>
 <p>This worked. So <code>datafiller</code> supports INTEGER properly.</p>
 </div>
 <div id="v04-use-predefined-reference-ids-as-fk-data" class="section level2">
@@ -245,8 +245,8 @@ CREATE TABLE place (
 <pre class="bash"><code>datafiller --size=5 data/ddl_to_data_schema_04.sql &gt; data/ddl_to_data_data_04.sql</code></pre>
 <pre class="bash"><code>cat data/ddl_to_data_data_04.sql | sed -n &quot;/COPY/,+2 p&quot;</code></pre>
 <pre><code>## COPY place (place_id,place_enum,address) FROM STDIN (ENCODING 'utf-8');
-## 1    5   address_2_2_2_2_
-## 2    1   address_4_</code></pre>
+## 1    1   address_1_
+## 2    5   address_1_</code></pre>
 <p>This works. So, <code>word</code> directive can be used to refer to predefined rows from foreign key fields.</p>
 </div>
 <div id="v05-use-predefined-reference-ids-together-with-references-clause" class="section level2">
@@ -280,8 +280,8 @@ CREATE TABLE place ( --df: mult=2.0
 ## 1
 ## 2
 ## COPY place (place_id,place_enum,address) FROM STDIN (ENCODING 'utf-8');
-## 1    5   address_8_8_8_8_
-## 2    2   address_4_</code></pre>
+## 1    3   address_4_
+## 2    2   address_1_</code></pre>
 <p>This works too. So, we can use <code>REFERENCES</code> clause such that database server assures data integrity between tables that are related to each other.</p>
 </div>
 <div id="v06-generate-predefined-reference-id-file-from-rdb" class="section level2">
@@ -330,8 +330,8 @@ writeLines(as.character(m$enum_value), &quot;./data/ddl_to_data_enum_value_id.tx
 ## 1000
 ## 1001
 ## COPY place (place_id,enum_value_id,address) FROM STDIN (ENCODING 'utf-8');
-## 1    1000    address_7_
-## 2    1000    address_4_</code></pre>
+## 1    1004    address_8_8_8_8_
+## 2    1001    address_5_5_5_5_</code></pre>
 </div>
 <div id="v07-filter-enum-values-by-enum-variables" class="section level2">
 <h2>v07: Filter Enum Values by Enum Variables</h2>
@@ -414,9 +414,47 @@ m</code></pre>
 ## 3000
 ## 3001
 ## COPY place (place_id,place_enum,address,action_enum) FROM STDIN (ENCODING 'utf-8');
-## 1    3002    address_10  2001
-## 2    3001    address_4_  2001</code></pre>
+## 1    3001    address_2_2_2_2_    2000
+## 2    3000    address_6_6_6   2000</code></pre>
 <p>Note that, <code>place_enum</code> and <code>action_enum</code> values are sampled from their corresponding id reference files.</p>
+</div>
+<div id="v08-ordering-of-tables-first-independent-tables-then-dependent-ones" class="section level2">
+<h2>v08: Ordering of Tables: First Independent Tables Then Dependent Ones</h2>
+<p><code>datafiller</code> gives <code>KeyError</code> when the order of the referenced tables is wrong.</p>
+<p>For example, the following schema definition will give an error because <code>enum_var</code> is referred before its definition:</p>
+<pre class="sql"><code>CREATE TABLE enum_value (
+  enum_value_id INT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY
+  ,  enum_var_id INT NOT NULL REFERENCES enum_var (enum_var_id)
+  ,  enum_value_name TEXT 
+  ) ;
+CREATE TABLE enum_var (
+  enum_var_id INT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY
+  ,  enum_var_name TEXT 
+  ) ;</code></pre>
+</div>
+<div id="step-2-importing-data-into-postgresql-database" class="section level2">
+<h2>Step 2: Importing Data into PostgreSQL Database</h2>
+<p>Now, we are going to start postgresql database server and import the generated data. As database server, I use a docker container published by <a href="https://github.com/subzerocloud/postgrest-starter-kit" class="uri">https://github.com/subzerocloud/postgrest-starter-kit</a></p>
+<pre><code>docker start postgreststarterkit_db_1</code></pre>
+<p>I put user credentials for this database as environment variables into <code>.zshrc</code>:</p>
+<pre class="bash"><code>export PGHOST=localhost
+export PGPORT=5432
+export PGUSER=superuser
+export PGDATABASE=app</code></pre>
+<p>Now, I need to run the files that contain <code>DDL</code> and <code>COPY</code> SQL commands using <code>psql</code> tool. I can run those files separately one by one. But instead I made a new <code>sql</code> file that first initializes database schema by dropping it and then running <code>DDL</code> and <code>COPY</code> files.</p>
+<pre class="bash"><code>psql -d app -h localhost -p 5432 -U superuser -f data/ddl_to_data_init_01.sql</code></pre>
+<pre class="bash"><code>cat data/ddl_to_data_init_01.sql</code></pre>
+<pre><code>## drop schema if exists ddl_to_data cascade;
+## create schema ddl_to_data;
+## set search_path = ddl_to_data, public;
+## 
+## \ir schema.sql
+## \ir data.sql</code></pre>
+<div id="v09-exclude-some-tables" class="section level3">
+<h3>v09: Exclude some tables</h3>
+<p>Data for predefined tables comes from external sources. In order to exclude these tables from <code>datafiller</code> use <code>nogen</code> directive:</p>
+<pre class="sql"><code>CREATE TABLE enum_var ( -- df: nogen</code></pre>
+</div>
 </div>
 
 

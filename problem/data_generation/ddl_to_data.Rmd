@@ -11,24 +11,29 @@ author: "Mert Nuhoglu"
 output: rmarkdown::html_document
 blog: mertnuhoglu.com
 resource_files:
-- data/ddl_to_data_schema_01.sql
-- data/ddl_to_data_data_01.sql
-- data/ddl_to_data_schema_02.sql
-- data/ddl_to_data_data_02.sql
-- data/ddl_to_data_schema_03.sql
-- data/ddl_to_data_data_03.sql
-- data/ddl_to_data_schema_04.sql
-- data/ddl_to_data_data_04.sql
-- data/ddl_to_data_schema_05.sql
-- data/ddl_to_data_data_05.sql
-- data/ddl_to_data_place_enum.txt
-- data/ddl_to_data_schema_06.sql
-- data/ddl_to_data_data_06.sql
-- data/ddl_to_data_schema_07.sql
-- data/ddl_to_data_data_07.sql
+- data/action_enum.txt
 - data/ddl_to_data_action_enum.txt
+- data/ddl_to_data_data_01.sql
+- data/ddl_to_data_data_02.sql
+- data/ddl_to_data_data_03.sql
+- data/ddl_to_data_data_04.sql
+- data/ddl_to_data_data_05.sql
+- data/ddl_to_data_data_06.sql
+- data/ddl_to_data_data_07.sql
 - data/ddl_to_data_enum_value_id.txt
+- data/ddl_to_data_init_01.sql
 - data/ddl_to_data_place_enum.txt
+- data/ddl_to_data_place_enum01.txt
+- data/ddl_to_data_route_stop_enum.txt
+- data/ddl_to_data_schema_01.sql
+- data/ddl_to_data_schema_02.sql
+- data/ddl_to_data_schema_03.sql
+- data/ddl_to_data_schema_04.sql
+- data/ddl_to_data_schema_05.sql
+- data/ddl_to_data_schema_06.sql
+- data/ddl_to_data_schema_07.sql
+- data/place_enum.txt
+- data/route_stop_enum.txt
 path: ~/projects/study/problem/data_generation/ddl_to_data.Rmd
 ---
 

@@ -13,6 +13,8 @@ blog: mertnuhoglu.com
 resource_files:
 - 'ex/study_frisby_flickr_app_ex01/index.html' 
 - 'ex/study_frisby_flickr_app_ex01/index.js' 
+- ex/study_frisby_flickr_app_ex03/index.html 
+- ex/study_frisby_flickr_app_ex03/index.js 
 path: ~/projects/study/js/study_frisby_flickr_app.Rmd
 ---
 
@@ -165,6 +167,52 @@ cp ../study_frisby_flickr_app_ex03/index.html . && mkdir -p src && cp ../study_f
 We will construct `img` elements out of this json data.
 
 ``` js
+...
+const mediaUrl = compose(prop('m'), prop('media'));
+const mediaUrls = compose(map(mediaUrl), prop('items'));
+const render = compose(Impure.setHtml('js-main'), mediaUrls);
+const app = compose(Impure.getJSON(render), url);
+```
+
+This code collects all `m` properties inside `response.items[].media` elements.
+
+### v05: Testing from REPL
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_frisby_flickr_app_ex05/
+
+Testing through HTML pages is sometimes difficult. I want to check if I can test the above functions using Node REPL.
+
+``` bash
+mkdir -p ex/study_frisby_flickr_app_ex05 && cd $_ && npm init -y && pnpm i parcel-bundler ramda request request-promise-native
+``` 
+
+Edit `ex/study_frisby_flickr_app_ex05/index.js`:
+
+``` js
+var request = require('request-promise-native');
+var {compose, curry} = require('ramda');
+
+var Impure = {
+  getJSON: curry((callback, url) => 
+    request(url).then(callback).
+    catch( err => console.log('error:', err)) 
+  ),
+  trace: curry((tag, x) => { console.log(x); return x; }),
+}; 
+``` 
+
+I replaced `jquery` with `request` library because it can be run directly on node's REPL. That is easier to test in than in a browser.
+
+``` {bash}
+node ex/study_frisby_flickr_app_ex05/src/index.js | sed -n '1,6 p'
+``` 
+
+### v06: DOM Again
+
+We will construct `img` elements out of the json data, but this time we will use `request` library.
+
+``` js
+...
 const mediaUrl = compose(prop('m'), prop('media'));
 const mediaUrls = compose(map(mediaUrl), prop('items'));
 const render = compose(Impure.setHtml('js-main'), mediaUrls);
