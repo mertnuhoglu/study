@@ -37,12 +37,12 @@ Major points:
 Source code in https://github.com/mertnuhoglu/study/js/ex/study_hyperparcel/
 
 ``` bash
-mkdir study_hyperparcel && cd $_ && npm init -y && npm i hyperapp parcel-bundler 
+mkdir study_hyperparcel && cd $_ && npm init -y && pnpm i hyperapp parcel-bundler 
 ``` 
 
 The original tutorial uses jsx. I don't like jsx because of additional mental burden and no benefit over hyperscript as explained by Andre Staltz in https://staltz.com/nothing-new-in-react-and-flux-except-one-thing.html
 
-`index.html` is very basic:
+`ex/study_hyperparcel/index.html` is very basic:
 
 ``` html
 <html>
@@ -52,7 +52,7 @@ The original tutorial uses jsx. I don't like jsx because of additional mental bu
 </html>
 ``` 
 
-`index.js` is very basic:
+`ex/study_hyperparcel/index.js` is very basic:
 
 ``` js
 console.log('hello parcel')
@@ -90,15 +90,14 @@ mkdir study_hyperparcel02 && cd $_ && npm init -y && npm i hyperapp parcel-bundl
 
 `index.html` and `package.json` are the same.
 
-``` bash
-cp ../study_hyperparcel/index.html .
-cp ../study_hyperparcel/package.json .
-``` 
-
-Add hyperscript to `index.js`:
+Add hyperscript code to `ex/study_hyperparcel02/index.js`:
 
 ``` js
-console.log('hello parcel')
+var { h, app } = require('hyperapp');
+
+const view = (state, actions) =>
+  h("div", {}, "hello hyperapp")
+app({}, {}, view, document.body)
 ``` 
 
 ## v03

@@ -11,6 +11,7 @@ author: "Mert Nuhoglu"
 output: html_document
 blog: mertnuhoglu.com
 resource_files:
+- ex/study_ramda/package.json
 - ex/study_ramda/ex01.js
 - ex/study_ramda/ex02.js
 - ex/study_ramda/ex03.js

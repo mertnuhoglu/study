@@ -11,6 +11,7 @@ author: "Mert Nuhoglu"
 output: html_document
 blog: mertnuhoglu.com
 resource_files:
+- ex/study_http_requests_in_nodejs/package.json
 - ex/study_http_requests_in_nodejs/src/index.js
 - ex/study_http_requests_in_nodejs/src/index02.js
 path: ~/projects/study/js/study_http_requests_in_nodejs.Rmd

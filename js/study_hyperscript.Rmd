@@ -1,0 +1,61 @@
+---
+title: "Study Hyperscript"
+date: 2018-03-20T13:40:08+03:00 
+draft: true
+description: ""
+tags: 
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- ex/study_hyperscript/package.json
+path: ~/projects/study/js/study_hyperscript.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_hyperscript/
+
+In this document, I study various hyperscript libraries and generate some HTML output on the server side. Server side HTML rendering is very important to me because this allows me to test any hyperscript code in nodejs environment. Without that I need to make a new HTML page for each test and render it in a web browser which is a lot of overhead work.
+
+``` bash
+mkdir -p ex/study_hyperscript && cd $_ && npm init -y && pnpm i parcel-bundler hyperscript-helpers virtual-dom hyperscript react-hyperscript react hyperaxe preact preact-render-to-string preact-hyperscript
+``` 
+
+I run the following hyperscript code on each library:
+
+``` js
+const items = [
+  {'id': 1, 'title': "a"},
+  {'id': 2, 'title': "b"},
+];
+var out = ul('#bestest-menu', items.map( e =>
+  li('#item-'+e.id, e.title))
+);
+``` 
+
+The expected HTML output is here:
+
+    <ul id="bestest-menu"><li id="item-1">a</li><li id="item-2">b</li></ul>
+
+### v01: Basics
+
+Following documentation in https://github.com/ohanhi/hyperscript-helpers
+
+Edit `ex/study_hyperscript/ex01.js`
+
+``` js
+var h = require('virtual-dom/h')
+const { div, span, h1, ul, li } = require('hyperscript-helpers')(h); 
+ul('#bestest-menu', items.map( item =>
+  li('#item-'+item.id, attrs(item.id), item.title))
+);
+``` 
+

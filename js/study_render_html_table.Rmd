@@ -1,0 +1,61 @@
+---
+title: "Study Rendering HTML Table Using FP"
+date: 2018-03-20T11:01:01+03:00 
+draft: true
+description: ""
+tags: 
+categories: js, fp
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- ex/study_render_html_table/package.json
+path: ~/projects/study/js/study_render_html_table.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_render_html_table/
+
+``` bash
+mkdir -p ex/study_render_html_table && cd $_ && npm init -y && pnpm i parcel-bundler ramda
+``` 
+
+### v01: Basics
+
+``` js  
+const data = [
+  {'id': 1, 'title': "a"},
+  {'id': 2, 'title': "b"},
+];
+const getId = R.map(R.prop('id'));
+console.log(getId(data));
+``` 
+
+``` {bash}
+node ex/study_render_html_table/ex01.js
+``` 
+
+``` html
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Title</th> 
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>a</td> 
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>b</td> 
+  </tr>
+</table>
+``` 
+

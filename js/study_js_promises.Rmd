@@ -11,6 +11,7 @@ author: "Mert Nuhoglu"
 output: html_document
 blog: mertnuhoglu.com
 resource_files:
+- ex/study_js_promises_ex01/package.json
 - ex/study_js_promises_ex01/script01.js
 - ex/study_js_promises_ex01/script02.js
 - ex/study_js_promises_ex01/script03.js
