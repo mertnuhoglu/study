@@ -1357,22 +1357,6 @@ clozeq
 
 ---
 
-## js wes bos: string templating
-
-··  const markup = \`${renderKeywords({{c1::beer.keywords}})}\` <br>
-··  funcion {{c2::renderKeywords}}(kw) { <br>
-····  return \`&lt;ul&gt; <br>
-······  ${kw.{{c3::map}}(key =&gt; &lt;{{c4::li}}&gt;${key}\` <br>
-
-
-%
-
-%
-
-clozeq
-
----
-
 ## js wes bos: enhanced object literals
 
 ··  const dog = { <br>

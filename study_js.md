@@ -3,6 +3,167 @@
 # Study JS
 
     conventions
+    hyperscript
+      hyperaxe
+        https://github.com/ungoldman/hyperaxe
+        ex
+          var { a, img, video } = require('hyperaxe')
+          a({ href: '#' }, 'click')
+          // <a href="#">click</a>
+          img({ src: 'cats.gif', alt: 'lolcats' })
+          // <img src="cats.gif" alt="lolcats">
+          video({ src: 'dogs.mp4', autoplay: true })
+          // <video src="dogs.mp4" autoplay="true"></video>
+        custom tags
+          var x = require('hyperaxe')
+          var p = x('p')
+          p('over 9000')
+          // <p>over 9000</p>
+        css shorthand
+          var horse = x('.horse.with-hands')
+          horse('neigh')
+          // <div class="horse with-hands">neigh</div>
+        custom components
+          var siteNav = (...links) => x('nav.site')(
+            links.map(link =>
+              x('a.link')({ href: link.href }, link.text)
+            )
+          )
+          x.body(
+            siteNav(
+              { href: '#apps', text: 'apps' },
+              { href: '#games', text: 'games' }
+            )
+          )
+          // <body>
+          //   <nav class="site">
+          //     <a class="link" href="#apps">apps</a>
+          //     <a class="link" href="#games">games</a>
+          //   </nav>
+          // </body>
+        API
+          hyperaxe
+            args
+              tag: String
+              props: object
+              children: node, string, number, array
+            returns: a function that creates HTML elements
+            factory is variadic
+              x('.variadic')(
+                x('h1')('hi'),
+                x('h2')('hello')
+              )
+            array works too
+              x('.arrays')([
+                x('p')('hello'),
+                x('p')('mert')
+              ])
+          HTMLElement.outerHTML
+            returns stringified HTML
+          hyperaxe[tag]
+            all HTML tags are attached to `hyperaxe` as keys
+            partial application
+      hyperscript
+        ex
+          var h = require('hyperscript')
+          h('div#page',
+            h('div#header',
+              h('h1.classy', 'h', { style: {'background-color': '#22f'} })),
+            h('div#menu', { style: {'background-color': '#2f2'} },
+              h('ul',
+                h('li', 'one'),
+                h('li', 'two'),
+                h('li', 'three'))),
+              h('h2', 'content title',  { style: {'background-color': '#f22'} }),
+              h('p',
+                "so it's just like a templating engine,\n",
+                "but easy to use inline with javascript\n"),
+              h('p',
+                "the intention is for this to be used to create\n",
+                "reusable, interactive html widgets. "))
+        API
+          h(tag, attrs, [text?, Elements?, ...])
+            classes&id
+              ex: name.class1.class2#id
+              shortcut 
+            default tag name
+              if tag name is omitted, it defaults to <div>
+            attributes
+              {href: 'https://npm.im/hyperscript'}
+              gotchas:
+                colspan -> colSpan
+                for -> htmlFor
+              events
+                if an attribute is a function, it is registered as an event listener
+                ex
+                  var h = require('hyperscript')
+                  h('a', {href: '#',
+                    onclick: function (e) {
+                      alert('you are 1,000,000th visitor!')
+                      e.preventDefault()
+                    }
+                  }, 'click here to win a prize')
+              styles
+                if attr has style property it is handled specially
+                ex
+                  h('h1.fun', {style: {'font-family': 'Comic Sans MS'}}, 'Happy Birthday!')
+                ex: or as a string
+                  h('h1.fun', {style: 'font-family: Comic Sans MS'}, 'Happy Birthday!')
+            children
+              string: TextNode is created
+              HTMLElement: 
+              null: ignored
+              Array
+                ex
+                  var obj = {
+                    a: 'Apple',
+                    b: 'Banana',
+                    c: 'Cherry',
+                    d: 'Durian',
+                    e: 'Elder Berry'
+                  }
+                  h('table',
+                    h('tr', h('th', 'letter'), h('th', 'fruit')),
+                    Object.keys(obj).map(function (k) {
+                      return h('tr',
+                        h('th', k),
+                        h('td', obj[k])
+                      )
+                    })
+                  )
+      html2hyperscript cli
+        https://github.com/unframework/html2hyperscript
+        npm install -g html2hyperscript
+        html2hyperscript legacy_markup_file.html > shiny_new_syntax.js
+      html tags important
+        html-css-js.com/html/tags
+          a
+          body
+          br
+          div
+          form
+          h1-h2-h3-h4
+          head
+          html
+          iframe
+          img
+          input
+          li
+          link
+          meta
+          ol
+          option
+          p
+          script
+          select
+          span
+          style
+          table
+          td
+          textarea
+          title
+          tr
+          ul
     npm
       pnpm: faster npm
         uses symlinks instead of hard files everytime

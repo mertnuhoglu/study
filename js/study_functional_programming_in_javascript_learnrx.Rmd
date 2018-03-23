@@ -1,0 +1,651 @@
+---
+title: "Studying: Functional Programming in Javascript - learnrx"
+date: 2018-03-22T13:23:46+03:00 
+draft: true
+description: ""
+tags: rxjs
+categories: js, fp
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/js/study_functional_programming_in_javascript_learnrx.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+These are my study notes of the great article [Functional Programming in Javascript](http://reactivex.io/learnrx/). 
+
+Source code is in https://github.com/mertnuhoglu/study/js/ex/study_functional_programming_in_javascript_learnrx/
+
+``` bash
+mkdir -p ex/study_functional_programming_in_javascript_learnrx && cd $_ && npm init -y && pnpm i parcel-bundler rxjs
+``` 
+
+### v01: forEach: traverse an array
+
+``` js
+var names = ["Ali", "Veli"];
+names.forEach(function(name) {
+  console.log(name);
+});
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex01.js
+``` 
+
+### v02: Projecting an Array with forEach and push
+
+Convert the following array into the next array:
+
+``` js
+var items = [
+    {
+      "id": 1,
+      "title": "a",
+      "boxart": "boxart01",
+      "uri": "uri01",
+      "rating": [4.0],
+      "bookmark": []
+    },
+    {
+      "id": 2,
+      "title": "b",
+      "boxart": "boxart02",
+      "uri": "uri02",
+      "rating": [5.0],
+      "bookmark": [{ id: 101, time: 60 }]
+    },
+  ];
+// --->>>
+[ { id: 1, title: 'a' }, { id: 2, title: 'b' } ]
+``` 
+
+``` js
+result = [];
+items.forEach( e => 
+  result.push({ id: e.id, title: e.title })
+);
+console.log(result);
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex02.js
+``` 
+
+### v03: Implement map()
+
+Projecting an array is very common. `map` allows to do it easily
+
+``` js
+Array.prototype.map = function(projectionFunction) {
+  var results = [];
+  this.forEach(function(itemInArray) {
+    results.push(projectionFunction(itemInArray));
+
+  });
+
+  return results;
+};
+...
+result = items.map( e => ({ id: e.id, title: e.title }))
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex03.js
+``` 
+
+### v04: Filtering Arrays with forEach
+
+``` js
+result = []
+items.forEach( e => {
+  if (e.rating === 5.0) {
+    result.push(e);
+  }
+});
+console.log(result);
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex04.js
+``` 
+
+### v05: Implement filter()
+
+Traversing an array and filtering objects according to some criteria is very common. `filter` allows to do it easily:
+
+``` js
+var result = items.filter( e => e.rating === 5.0);
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex05.js
+``` 
+
+### v06: Querying Trees
+
+Simple arrays are flat. Trees are nested arrays. We cannot use `filter` and `map` directly because they are designed for flat arrays. We need to first flatten trees into flat arrays.
+
+
+``` js
+var listsOfItems = [
+  {
+    name: "list01",
+    items: [
+      {
+        "id": 1,
+        "title": "a",
+        "rating": 4.0,
+      },
+      {
+        "id": 2,
+        "title": "b",
+        "rating": 5.0,
+      },
+    ]
+  },
+  {
+    name: "list02",
+    items: [
+      {
+        "id": 5,
+        "title": "e",
+        "rating": 3.0,
+      },
+      {
+        "id": 7,
+        "title": "f",
+        "rating": 5.0,
+      },
+    ]
+  }
+];
+var result = [];
+listsOfItems.forEach( list => {
+  list.items.forEach( e => 
+    result.push(e.id) 
+  );
+});
+console.log(result);
+// [ 1, 2, 5, 7 ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex06.js
+``` 
+
+### v07: Implement `concatAll`
+
+`concatAll` expects each item in the array to be another array.
+
+``` js
+Array.prototype.concatAll = function() {
+  var results = [];
+  this.forEach(function(subArray) {
+    results.push.apply(results, subArray);
+  });
+
+  return results;
+};
+// JSON.stringify([ [1,2,3], [4,5,6], [7,8,9] ].concatAll()) === "[1,2,3,4,5,6,7,8,9]"
+// [1,2,3].concatAll(); // throws an error because this is a one-dimensional array
+``` 
+
+``` js
+var listsOfItems = [
+  {
+    name: "list01",
+    items: [
+      {
+        "id": 1,
+        "title": "a",
+        "subitems": [{ id: 301, time: 70 }]
+      },
+      {
+        "id": 2,
+        "title": "b",
+        "subitems": [{ id: 401, time: 30 }]
+      },
+    ]
+  },
+  {
+    name: "list02",
+    items: [
+      {
+        "id": 5,
+        "title": "e",
+        "subitems": [{ id: 101, time: 50 }, { id: 102, time: 40 }]
+      },
+      {
+        "id": 7,
+        "title": "f",
+        "subitems": [{ id: 201, time: 10 }]
+      },
+    ]
+  }
+];
+var result = listsOfItems.map( list =>
+  list.items.map((e) => (e.id))
+).concatAll();
+console.log(result);
+// [ 1, 2, 5, 7 ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex07.js
+``` 
+
+### v08: map filter and flatten
+
+``` js
+var result = listsOfItems.map( (list) =>
+  list.items.map( (e) =>
+    e.subitems.filter( (s) =>
+      s.time > 20
+    ).map( (s) =>
+      ({id: e.id, s: s.time})
+    )
+  ).concatAll()
+).concatAll();
+console.log(result);
+// [ { id: 1, s: 70 }, { id: 2, s: 30 }, { id: 5, s: 50 }, { id: 5, s: 40 } ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex08.js
+``` 
+
+### v09: Implement `concatMap`
+
+Note that, `map` and `concatAll` are chained together frequently. 
+
+Usually, when we flatten a tree we chain `map` and `concatAll`. Let `concatMap` do a `map` followed by a `concatAll`
+
+``` js
+Array.prototype.concatMap = function(projectionFunctionThatReturnsArray) {
+  return this.
+    map(function(item) {
+      return projectionFunctionThatReturnsArray(item);
+    }).
+    // apply the concatAll function to flatten the two-dimensional array
+    concatAll();
+};
+var words = [ ["cero","rien"], ["uno","un"] ];
+var allWords = [0,1].concatMap( (index) =>
+  words[index]
+);
+console.log(allWords);
+// [ 'cero', 'rien', 'uno', 'un' ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex09.js
+``` 
+
+### v10: concatMap and filter
+
+``` js
+var result = listsOfItems.concatMap( (list) =>
+  list.items.concatMap( (e) =>
+    e.subitems.filter( (s) =>
+      s.time > 20
+    ).map( (s) =>
+      ({id: e.id, s: s.time})
+    )
+  )
+)
+console.log(result);
+// [ { id: 1, s: 70 }, { id: 2, s: 30 }, { id: 5, s: 50 }, { id: 5, s: 40 } ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex10.js
+``` 
+
+### v11: forEach to find max rating item
+
+``` js
+var items = [
+    {
+      "id": 1,
+      "title": "a",
+      "rating": 4.0,
+    },
+    {
+      "id": 2,
+      "title": "b",
+      "rating": 5.0,
+    },
+  ];
+var maxRating = -1
+var maxItem = null
+items.forEach(function(e) {
+  if (e.rating > maxRating) {
+    maxItem = e;
+    maxRating = e.rating;
+  }
+});
+console.log(maxItem);
+// { id: 2, title: 'b', rating: 5 }
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex11.js
+``` 
+
+### v12: Implement `reduce`
+
+``` js
+Array.prototype.reduce = function(combiner, initialValue) {
+  var counter,
+    accumulatedValue;
+
+  // If the array is empty, do nothing
+  if (this.length === 0) {
+    return this;
+  }
+  else {
+    // If the user didn't pass an initial value, use the first item.
+    if (arguments.length === 1) {
+      counter = 1;
+      accumulatedValue = this[0];
+    }
+    else if (arguments.length >= 2) {
+      counter = 0;
+      accumulatedValue = initialValue;
+    }
+    else {
+      throw "Invalid arguments.";
+    }
+
+    // Loop through the array, feeding the current value and the result of
+    // the previous computation back into the combiner function until
+    // we've exhausted the entire array and are left with only one function.
+    while(counter < this.length) {
+      accumulatedValue = combiner(accumulatedValue, this[counter])
+      counter++;
+    }
+
+    return [accumulatedValue];
+  }
+};
+var r = [1,2,3].reduce( (acc, x) => acc + x )
+console.log(r)
+var r2 = [1,2,3].reduce( (acc, x) => acc + x, 10 )
+console.log(r2)
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex12.js
+``` 
+
+### v13: Find max number
+
+``` js
+var r = [2,3,1,4,5].reduce( (acc, curr) => {
+  if(acc > curr) {
+    return acc;
+  }
+  else {
+    return curr;
+  }
+});
+console.log(r)
+// [ 5 ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex13.js
+``` 
+
+### v14: Find max rating item's title
+
+``` js
+var items = [
+    {
+      "id": 1,
+      "title": "a",
+      "rating": 4.0,
+    },
+    {
+      "id": 2,
+      "title": "b",
+      "rating": 5.0,
+    },
+  ];
+var r = items.reduce( (acc,curr) => {
+  if (acc.rating > curr.rating) {
+    return acc;
+  }
+  else {
+    return curr;
+  }
+}).map(e => e.title)
+console.log(r)
+// [ 'b' ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex14.js
+``` 
+
+### v15: Converting an Array to a Map Using Reduce
+
+``` js
+var videos = [
+  {
+    "id": 65432445,
+    "title": "The Chamber"
+  },
+  {
+    "id": 675465,
+    "title": "Fracture"
+  },
+  {
+    "id": 70111470,
+    "title": "Die Hard"
+  },
+  {
+    "id": 654356453,
+    "title": "Bad Boys"
+  }
+];
+var r = videos.
+  reduce( 
+    (acc, x) => {
+      var obj = {};
+      obj[x.id] = x.title;
+      return Object.assign(acc, obj);
+    }, {});
+console.log(r)
+// [ { '675465': 'Fracture',
+//     '65432445': 'The Chamber',
+//     '70111470': 'Die Hard',
+//     '654356453': 'Bad Boys' } ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex15.js
+``` 
+
+### v16: Get id, title, and shortest subitem url for every item
+
+``` js
+var listsOfItems = [
+  {
+    name: "list_01",
+    items: [
+      {
+        "id": 1,
+        "title": "a",
+        "subitems": [
+          { time: 150, url: "url01"},
+          { time: 200, url: "url02"}
+        ],
+      },
+      {
+        "id": 2,
+        "title": "b",
+        "subitems": [
+          { time: 200, url:"url03" },
+          { time: 140, url:"url04" }
+
+        ],
+      }
+    ]
+  },
+  {
+    name: "list_02",
+    items: [
+      {
+        "id": 3,
+        "title": "c",
+        "subitems": [
+          { time: 130, url:"url05" },
+          { time: 200, url:"url06" }
+        ],
+      },
+      {
+        "id": 4,
+        "title": "d",
+        "subitems": [
+          { time: 200, url:"url07" },
+          { time: 120, url:"url08" },
+          { time: 300, url:"url09" }
+        ],
+      }
+    ]
+  }
+];
+var r = listsOfItems.concatMap((list) =>
+  list.items.concatMap((e) =>
+    e.subitems.reduce((acc,curr) => {
+      if (acc.time < curr.time) {
+        return acc;
+      }
+      else {
+        return curr;
+      }
+    }).map((s) =>
+      ({id: e.id, title: e.title, subitem: s.url})
+    )
+  )
+);
+console.log(r)
+// [ { id: 1, title: 'a', subitem: 'url01' },
+//   { id: 2, title: 'b', subitem: 'url04' },
+//   { id: 3, title: 'c', subitem: 'url05' },
+//   { id: 4, title: 'd', subitem: 'url08' } ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex16.js
+``` 
+
+### v17: Zipping Arrays: Combine two arrays by index
+
+``` js
+var videos = [
+  {
+    "id": 1,
+    "title": "a"
+  },
+  {
+    "id": 2,
+    "title": "b"
+  },
+  {
+    "id": 3,
+    "title": "c"
+  },
+  {
+    "id": 4,
+    "title": "d"
+  }
+];
+var bookmarks = [
+    {id: 101, time: 20},
+    {id: 102, time: 40},
+    {id: 103, time: 30},
+    {id: 104, time: 50}
+  ],
+  i,
+  pairs = [];
+for(i = 0; i < Math.min(videos.length, bookmarks.length); i++) {
+  pairs.push({video_id: videos[i].id, bookmark_id: bookmarks[i].id});
+}
+console.log(pairs)
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex17.js
+``` 
+
+### v18: Implement `zip`
+
+``` js
+Array.zip = function(left, right, combinerFunction) {
+	var counter,
+		results = [];
+
+	for(counter = 0; counter < Math.min(left.length, right.length); counter++) {
+		results.push(combinerFunction(left[counter],right[counter]));
+	}
+
+	return results;
+};
+var r = Array.zip(
+	[1,2,3],
+	[4,5,6], 
+	(left, right) => left + right 
+)
+console.log(r)
+// [ 5, 7, 9  ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex18.js
+``` 
+
+### v19: Zipping Arrays with `zip`
+
+``` js
+var videos = [
+  {
+    "id": 1,
+    "title": "a"
+  },
+  {
+    "id": 2,
+    "title": "b"
+  },
+];
+var bookmarks = [
+    {id: 101, time: 20},
+    {id: 102, time: 40},
+  ]
+var r = Array.zip(
+	videos,
+	bookmarks,
+	(video, bookmark) =>
+		({videoId: video.id, bookmarkId: bookmark.id})
+	)
+console.log(r)
+// [ { videoId: 1, bookmarkId: 101 },
+//   { videoId: 2, bookmarkId: 102 } ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex19.js
+``` 
+
+

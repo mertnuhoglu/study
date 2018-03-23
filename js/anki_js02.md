@@ -228,3 +228,117 @@ clozeq
 
 ---
 
+## js wes bos: string templating
+
+····  `` const markup = ` `` <br>
+······  `` <div> `` <br>
+········  `` <h2>${beer.name}</h2> `` <br>
+········  `` ${{{c1::renderKeywords}}(beer.keywords)} `` <br>
+······  `` </div> `` <br>
+····  `` ` `` <br>
+····  `` funcion renderKeywords(kw) { `` <br>
+······  `` return ( `` <br>
+········  `` `<ul> `` <br>
+··········  `` ${kw.{{c2::map}}(key => `li>${key}</li>`).{{c3::join}}('')} `` <br>
+········  `` </ul>`); `` <br>
+····  `` } `` <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: hyperaxe 01
+
+··  `` a({ href: '#' }, 'click') `` <br>
+
+%
+
+··  `` <a href="#">click</a> `` <br>
+
+%
+
+back hyperscript
+
+---
+
+## js: hyperaxe 02
+
+··  `` img({ src: 'cats.gif', alt: 'lolcats' }) `` <br>
+
+%
+
+··  `` <img src="cats.gif" alt="lolcats"> `` <br>
+
+%
+
+back hyperscript
+
+---
+
+## js: hyperaxe 03
+
+··  `` video({ src: 'dogs.mp4', autoplay: true }) `` <br>
+
+%
+
+··  `` <video src="dogs.mp4" autoplay="true"></video> `` <br>
+
+%
+
+back hyperscript
+
+---
+
+## js: hyperaxe 04
+
+··  `` var x = require('hyperaxe') `` <br>
+··  `` var custom = x('custom') `` <br>
+··  `` custom('over 9000') `` <br>
+
+%
+
+··  `` <custom>over 9000</custom> `` <br>
+
+%
+
+back hyperscript
+
+---
+
+## js: hyperaxe 05 css shorthand
+
+··  `` var default = x('.class1.class2') `` <br>
+··  `` default('content') `` <br>
+
+%
+
+··  `` <div class="class1 class2">content</div> `` <br>
+
+%
+
+clozeq
+
+---
+
+## js: rxjs 01 collect ids from nested subitems
+
+    listsOfItems :: [{name, items:[{id}]}]
+
+    listsOfItems.map( {{c1::list =>}}
+        list.items.map((e) => {{c1::(e.id)}})
+      ).concatAll();
+    // [ 1, 2, 5, 7 ]
+
+%
+
+%
+
+clozeq
+
+---
+

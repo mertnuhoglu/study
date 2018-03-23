@@ -1,0 +1,67 @@
+---
+title: "Studying Javascript and Its Quirks"
+date: 2018-03-22T15:50:17+03:00  
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_js.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_js/
+
+## Nested Map with Arrow Functions
+
+``` {bash}
+node ex/study_js/a01.js
+``` 
+
+``` {bash}
+node ex/study_js/a02.js
+``` 
+
+``` bash
+node ex/study_js/a03.js
+# /Users/mertnuhoglu/projects/study/js/ex/study_js/a03.js:43
+# list.items.map((e) => ({e.id}))
+# SyntaxError: Unexpected token .
+``` 
+
+## Shortcut for Nested JSON Objects
+
+``` js
+var listsOfItems = [
+  {
+    name: "list01",
+    items: [
+      {
+        "id": 1,
+      },
+    ],
+  },
+]
+``` 
+
+Short form to define this data structure:
+
+``` 
+listsOfItems :: [{name, items:[{id}]}]
+``` 
+
+
+
+

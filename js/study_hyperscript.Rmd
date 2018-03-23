@@ -12,6 +12,11 @@ output: html_document
 blog: mertnuhoglu.com
 resource_files:
 - ex/study_hyperscript/package.json
+- ex/study_hyperscript/ex01.js
+- ex/study_hyperscript/ex02.js
+- ex/study_hyperscript/ex03.js
+- ex/study_hyperscript/ex04.js
+- ex/study_hyperscript/ex06.js
 path: ~/projects/study/js/study_hyperscript.Rmd
 ---
 
@@ -45,17 +50,132 @@ The expected HTML output is here:
 
     <ul id="bestest-menu"><li id="item-1">a</li><li id="item-2">b</li></ul>
 
-### v01: Basics
+### v01: `virtual-dom` 
 
-Following documentation in https://github.com/ohanhi/hyperscript-helpers
+[`virtual-dom`](https://github.com/Matt-Esch/virtual-dom/tree/master/virtual-hyperscript) or `virtual-hyperscript` is a library that makes virtual DOM trees.
 
 Edit `ex/study_hyperscript/ex01.js`
 
 ``` js
 var h = require('virtual-dom/h')
 const { div, span, h1, ul, li } = require('hyperscript-helpers')(h); 
-ul('#bestest-menu', items.map( item =>
-  li('#item-'+item.id, attrs(item.id), item.title))
+const items = [
+  {'id': 1, 'title': "a"},
+  {'id': 2, 'title': "b"},
+];
+var out = ul('#bestest-menu', items.map( e =>
+  li('#item-'+e.id, e.title))
 );
+console.log(out.outerHTML);
+// undefined
+console.log(out);
+// VirtualNode(...)
+``` 
+
+This code doesn't generate HTML on server side. It requires a `document` object to render HTML.
+
+``` {bash}
+node ex/study_hyperscript/ex01.js | sed -n '1,4 p'
+``` 
+
+### v02: `hyperscript` and `outerHTML`
+
+[`hyperscript`](https://github.com/hyperhype/hyperscript) has `outerHTML` function that produces string HTML output inside nodejs without requiring a `document` object.
+
+Here I skipped the common code lines:
+
+``` js
+var h = require('hyperscript')
+const { div, span, h1, ul, li } = require('hyperscript-helpers')(h); 
+...
+var out = ul('#bestest-menu', items.map( e =>
+  li('#item-'+e.id, e.title))
+);
+console.log(out.outerHTML);
+// <ul id="bestest-menu"><li id="item-1">a</li><li id="item-2">b</li></ul>
+console.log(out);
+// Node(...)
+``` 
+
+``` {bash}
+node ex/study_hyperscript/ex02.js | sed -n '1,4 p'
+``` 
+
+### v03: `react-hyperscript`
+
+[`react-hyperscript`](https://github.com/mlmorg/react-hyperscript) provides `h` function but doesn't produce String HTML output by itself.
+
+``` js
+var h = require('react-hyperscript')
+const React = require('react')
+const { div, span, h1, ul, li } = require('hyperscript-helpers')(h); 
+...
+var out = ul('#bestest-menu', items.map( e =>
+  li('#item-'+e.id, e.title))
+);
+``` 
+
+``` {bash}
+node ex/study_hyperscript/ex03.js | sed -n '1,4 p'
+``` 
+
+Maybe, there is some `render` function to produce String HTML.
+
+### v04: `hyperaxe`
+
+This works similar to `hyperscript`. It runs on virtual DOM tree but can produce String HTML too.
+
+``` js
+var { div, span, h1, ul, li } = require('hyperaxe')
+...
+var out = ul('#bestest-menu', items.map( e =>
+  li('#item-'+e.id, e.title))
+);
+console.log(out.outerHTML);
+// <ul id="bestest-menu"><li id="item-1">a</li><li id="item-2">b</li></ul>
+``` 
+
+``` {bash}
+node ex/study_hyperscript/ex04.js | sed -n '1,4 p'
+``` 
+
+### v06: `preact` with `preact-render-to-string`
+
+Preact is an alternative to React. And it has a specific library called `preact-render-to-string` that allows Preact to be used inside Node.
+
+``` js
+const render = require('preact-render-to-string');
+const { h } = require('preact');
+var { div, span, h1, ul, li } = require('preact-hyperscript')
+...
+var vdom = ul('#bestest-menu', items.map( e =>
+  li('#item-'+e.id, e.title))
+);
+var out = render(vdom)
+console.log(out);
+// <ul id="bestest-menu"><li id="item-1">a</li><li id="item-2">b</li></ul>
+console.log(vdom);
+// VNode(...)
+``` 
+
+``` {bash}
+node ex/study_hyperscript/ex06.js | sed -n '1,4 p'
+``` 
+
+### v07: Template Strings 
+
+This example doesn't use any hyperscript library. It uses only template strings of standard ES6.
+
+``` js
+var out = items =>
+  `<ul id="bestest-menu">
+    ${items.map(e => `<li id="item-${e.id}">${e.title}</li>`).join('')}
+  </ul>`;
+console.log(out);
+// <ul id="bestest-menu"><li id="item-1">a</li><li id="item-2">b</li></ul>
+``` 
+
+``` {bash}
+node ex/study_hyperscript/ex07.js | sed -n '1,4 p'
 ``` 
 

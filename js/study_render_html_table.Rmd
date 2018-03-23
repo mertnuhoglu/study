@@ -1,7 +1,7 @@
 ---
 title: "Study Rendering HTML Table Using FP"
 date: 2018-03-20T11:01:01+03:00 
-draft: true
+draft: false
 description: ""
 tags: 
 categories: js, fp
@@ -24,22 +24,18 @@ path: ~/projects/study/js/study_render_html_table.Rmd
 Source code in https://github.com/mertnuhoglu/study/js/ex/study_render_html_table/
 
 ``` bash
-mkdir -p ex/study_render_html_table && cd $_ && npm init -y && pnpm i parcel-bundler ramda
+mkdir -p ex/study_render_html_table && cd $_ && npm init -y && pnpm i parcel-bundler ramda hyperaxe
 ``` 
 
 ### v01: Basics
 
-``` js  
+The goal is to convert the following JSON data to the following HTML table element using hyperscript:
+
+``` js
 const data = [
   {'id': 1, 'title': "a"},
   {'id': 2, 'title': "b"},
 ];
-const getId = R.map(R.prop('id'));
-console.log(getId(data));
-``` 
-
-``` {bash}
-node ex/study_render_html_table/ex01.js
 ``` 
 
 ``` html
@@ -57,5 +53,97 @@ node ex/study_render_html_table/ex01.js
     <td>b</td> 
   </tr>
 </table>
+``` 
+
+First let's produce the rows:
+
+``` js  
+var {table, tr, td} = require('hyperaxe');
+const data = [
+  {'id': 1, 'title': "a"},
+  {'id': 2, 'title': "b"},
+];
+var out = table(data.map( e =>
+  tr([
+    td(e.id), 
+    td(e.title)
+  ])
+));
+console.log(out.outerHTML);
+``` 
+
+``` {bash}
+node ex/study_render_html_table/ex01.js
+``` 
+
+### v02: Table Headers
+
+Now, let's produce table headers together with the rows:
+
+``` js
+var out = table(
+  tr(
+    th("Id"),
+    th("Title")
+  ),
+  data.map( e =>
+    tr([
+      td(e.id), 
+      td(e.title)
+    ])
+  )
+);
+``` 
+
+``` {bash}
+node ex/study_render_html_table/ex02.js
+``` 
+
+### v03: Loop Using Ramda `map` function
+
+Ramda provides lots of functions to apply functional programming. Let's use `R.map` instead of `Array.map`
+
+``` js
+...
+  data.map( e =>
+    tr([
+      td(e.id), 
+      td(e.title)
+    ])
+  )
+  // --->>>
+  R.map( e =>
+    tr([
+      td(e.id), 
+      td(e.title)
+    ])
+  )(data)
+``` 
+
+``` {bash}
+node ex/study_render_html_table/ex03.js
+``` 
+
+We can curry `R.map`:
+
+``` js
+...
+var renderItem = R.map( e =>
+  tr([
+    td(e.id), 
+    td(e.title)
+  ])
+)
+var out = table(
+  tr(
+    th("Id"),
+    th("Title")
+  ),
+  renderItem(data)
+);
+``` 
+
+``` {bash}
+node ex/study_render_html_table/ex03b.js
 ``` 
 

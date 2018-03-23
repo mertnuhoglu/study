@@ -1,5 +1,5 @@
 {
-  "name": "study_ramda",
+  "name": "study_render_html_table",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "hyperaxe": "^1.1.1",
     "parcel-bundler": "^1.6.2",
     "ramda": "^0.25.0"
   },

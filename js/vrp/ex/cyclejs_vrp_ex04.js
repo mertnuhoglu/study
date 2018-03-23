@@ -1,4 +1,4 @@
-const {button, h1, h4, a, div, makeDOMDriver} = CycleDOM;
+const {button, h1, h4, a, div, table, thead, tbody, tr, td, th, makeDOMDriver} = CycleDOM;
 const {makeHTTPDriver} = CycleHTTPDriver;
 
 // DOM read effect: button clicked
@@ -26,7 +26,7 @@ function main(sources) {
   
   const request$ = clickEvent$.map(() => {
     return {
-      url: 'http://localhost:8080/rest/plan?select=plan_id',
+      url: 'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id',
       method: 'GET',
       headers: {
         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
@@ -35,8 +35,8 @@ function main(sources) {
   });
   
   const response$$ = sources.HTTP
-    .filter(response$ => response$.request.url ===
-           'http://localhost:8080/rest/plan?select=plan_id');
+    //.filter(response$ => response$.request.url ===
+           //'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id');
   
   const response$ = response$$.switch();
   const json$ = response$.map(response => response.body)
@@ -44,11 +44,23 @@ function main(sources) {
   
   return {
     DOM: json$.map(json =>
-      div([
-        button('.get-first', 'Get plan id'),
-        json === null ? null : div('.comment-details', [
-          h4('.comment-id', `${json[0].plan_id}`)
-        ])
+      table([
+        thead(
+          tr(
+            th('Plan Id'),
+            th('Kullanıcı'),
+            th('Depot Id')
+          )
+        ),
+        tbody(
+          json.map(e => 
+            tr([
+              td(e.plan_id),
+              td(e.usr),
+              td(e.depot_id)
+            ])
+          )
+        )
       ])
     ),
     HTTP: request$,

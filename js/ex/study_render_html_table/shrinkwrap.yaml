@@ -1,4 +1,5 @@
 dependencies:
+  hyperaxe: 1.1.1
   parcel-bundler: 1.6.2
   ramda: 0.25.0
 packages:
@@ -116,7 +117,7 @@ packages:
   /autoprefixer/6.7.7:
     dependencies:
       browserslist: 1.7.7
-      caniuse-db: 1.0.30000815
+      caniuse-db: 1.0.30000817
       normalize-range: 0.1.2
       num2fraction: 1.2.2
       postcss: 5.2.18
@@ -683,7 +684,7 @@ packages:
   /brfs/1.5.0:
     dependencies:
       quote-stream: 1.0.2
-      resolve: 1.5.0
+      resolve: 1.6.0
       static-module: 2.2.2
       through2: 2.0.3
     dev: false
@@ -699,6 +700,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-j/CbCixCFxihBRwmCzLkj0QpOM4=
+  /browser-split/0.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-QUGcrvdpdVkp3VGJZ9PuwKYmJ3E=
   /browserify-aes/1.1.1:
     dependencies:
       buffer-xor: 1.0.3
@@ -753,15 +758,15 @@ packages:
       integrity: sha512-Z942RysHXmJrhqk88FmKBVq/v5tqmSkDz7p54G/MGyjMnCFFnC79XWNbg+Vta8W6Wb2qtSZTSxIGkJrRpCFEiA==
   /browserslist/1.7.7:
     dependencies:
-      caniuse-db: 1.0.30000815
-      electron-to-chromium: 1.3.39
+      caniuse-db: 1.0.30000817
+      electron-to-chromium: 1.3.40
     dev: false
     resolution:
       integrity: sha1-C9dnBCWL6CmyOYu1Dkti0aFmsLk=
   /browserslist/2.11.3:
     dependencies:
-      caniuse-lite: 1.0.30000815
-      electron-to-chromium: 1.3.39
+      caniuse-lite: 1.0.30000817
+      electron-to-chromium: 1.3.40
     dev: false
     resolution:
       integrity: sha512-yWu5cXT7Av6mVwzWc8lMsJMHWn4xyjSuGYi4IozbVTLUOEYPSagUB8kiMDUHA1fS3zjr8nkxkn9jdvug4BBRmA==
@@ -806,20 +811,20 @@ packages:
   /caniuse-api/1.6.1:
     dependencies:
       browserslist: 1.7.7
-      caniuse-db: 1.0.30000815
+      caniuse-db: 1.0.30000817
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: false
     resolution:
       integrity: sha1-tTTnxzTE+B7F++isoq0kNUuWLGw=
-  /caniuse-db/1.0.30000815:
+  /caniuse-db/1.0.30000817:
     dev: false
     resolution:
-      integrity: sha1-DiGPoTPQ0HHIhqoEG0NSWMx0aJE=
-  /caniuse-lite/1.0.30000815:
+      integrity: sha1-yfjiNoh89grmI9H7Hl7JKHerEik=
+  /caniuse-lite/1.0.30000817:
     dev: false
     resolution:
-      integrity: sha512-PGSOPK6gFe5fWd+eD0u2bG0aOsN1qC4B1E66tl3jOsIoKkTIcBYAc2+O6AeNzKW8RsFykWgnhkTlfOyuTzgI9A==
+      integrity: sha512-O68CSiZY4NuxdGT0gQO+2vtU07/FOrCUpGPYincrOjybQIdsSyWC9CWx+hhm+SnCTAwpG/AywH4cU5RAkqbFXA==
   /chalk/1.1.3:
     dependencies:
       ansi-styles: 2.2.1
@@ -875,6 +880,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-4CoL/A3hf90V3VIEjeuhSvlGFEHKzOz+Wfc2IVZc+FaUgU0ZQafJTP49fvnULipOPcAfqhyI2duwQyns6xqjYA==
+  /class-list/0.1.1:
+    dependencies:
+      indexof: 0.0.1
+    dev: false
+    resolution:
+      integrity: sha1-m5dFGSxBebXaCg12M2WOPHDXlss=
   /class-utils/0.3.6:
     dependencies:
       arr-union: 3.1.0
@@ -1349,10 +1360,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
-  /electron-to-chromium/1.3.39:
+  /electron-to-chromium/1.3.40:
     dev: false
     resolution:
-      integrity: sha1-16RpZAnKCZXidQFW2mEsIhr62E0=
+      integrity: sha1-H71tl779crim+SHcONIkE9L2/d8=
   /elliptic/6.4.0:
     dependencies:
       bn.js: 4.11.8
@@ -1755,12 +1766,26 @@ packages:
     dev: false
     resolution:
       integrity: sha1-ZouTd26q5V696POtRkswekljYl4=
+  /html-element/2.2.0:
+    dependencies:
+      class-list: 0.1.1
+    dev: false
+    engines:
+      node: '>=4.2'
+    resolution:
+      integrity: sha1-w8H/iMJh23TQr2OR7vkMNG+QBzA=
+  /html-tags/2.0.0:
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-ELMKOGCF9Dzt41PMj6fLDe7qZos=
   /htmlnano/0.1.7:
     dependencies:
       cssnano: 3.10.0
       object-assign: 4.1.1
       posthtml: 0.11.3
-      posthtml-render: 1.1.1
+      posthtml-render: 1.1.2
       svgo: 1.0.5
       uglify-js: 3.3.16
     dev: false
@@ -1792,6 +1817,21 @@ packages:
     dev: false
     resolution:
       integrity: sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
+  /hyperaxe/1.1.1:
+    dependencies:
+      html-tags: 2.0.0
+      hyperscript: 2.0.2
+    dev: false
+    resolution:
+      integrity: sha512-aniLhGZl+98+POnJaW8jU/wC1lPyLG85M+oUkN2bsbAfnR+mGVb2yTS0YifOqT8Uuid6CYLzFxO0V+WM0jBzFw==
+  /hyperscript/2.0.2:
+    dependencies:
+      browser-split: 0.0.0
+      class-list: 0.1.1
+      html-element: 2.2.0
+    dev: false
+    resolution:
+      integrity: sha1-ODnLpFVUvf4nu4HCFC0WhPgTWvU=
   /ieee754/1.1.10:
     dev: false
     resolution:
@@ -2013,10 +2053,10 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha1-PMWfAAJRlLarLjjbrmaJJWtmBXI=
-  /is-url/1.2.2:
+  /is-url/1.2.3:
     dev: false
     resolution:
-      integrity: sha1-SYkFpZO/R8wtnn9zg3K792lsfyY=
+      integrity: sha512-vmOHLvzbcnsdFz8wQPXj1lgI5SE8AUlUGMenzuZzRFjoReb1WB+pLt9GrIo7BTker+aTcwrjTDle7odioWeqyw==
   /is-windows/1.0.2:
     dev: false
     engines:
@@ -2542,7 +2582,7 @@ packages:
       glob: 7.1.2
       grapheme-breaker: 0.3.2
       htmlnano: 0.1.7
-      is-url: 1.2.2
+      is-url: 1.2.3
       js-yaml: 3.11.0
       json5: 0.5.1
       micromatch: 3.1.9
@@ -2555,8 +2595,8 @@ packages:
       postcss-value-parser: 3.3.0
       posthtml: 0.11.3
       posthtml-parser: 0.4.1
-      posthtml-render: 1.1.1
-      resolve: 1.5.0
+      posthtml-render: 1.1.2
+      resolve: 1.6.0
       sanitize-filename: 1.6.1
       semver: 5.5.0
       serialize-to-js: 1.2.0
@@ -2880,15 +2920,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-h7vXIQ21Ikz2w5wPClPakNP6mJeJCK6BT0GpqnQrNNABdR7/TchNlFyryL1Bz6Ww53YWCKkr6tdZuHlxY1AVdQ==
-  /posthtml-render/1.1.1:
+  /posthtml-render/1.1.2:
     dev: false
     resolution:
-      integrity: sha512-pK8z1so6UtZlr9KjEfgXNQnxVWEEtqyrbdy9kpJFWkqyhIJgv7g9jsEi4uxOrI0kdH0Gfb2pCaa0m+ALpoOuAA==
+      integrity: sha512-RJ3Q1eSwyEEDLXQg3EBDc3owB42KwTFV1jXQW91kZ8p+ukeiRUpVWUw++Rent8oCTMFrdKAVtuXPyo5pQ3hCfw==
   /posthtml/0.11.3:
     dependencies:
       object-assign: 4.1.1
       posthtml-parser: 0.3.3
-      posthtml-render: 1.1.1
+      posthtml-render: 1.1.2
     dev: false
     engines:
       node: '>=0.10.0'
@@ -3123,12 +3163,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-IDEU2CrSxe2ejgQRs5ModeiJ6Xs=
-  /resolve/1.5.0:
+  /resolve/1.6.0:
     dependencies:
       path-parse: 1.0.5
     dev: false
     resolution:
-      integrity: sha512-hgoSGrc3pjzAPHNBg+KnFcK2HwlHTs/YrAGUr6qgTVUZmXv1UEXXl0bZNBKMA9fud6lRYFdPGz0xXxycPzmmiw==
+      integrity: sha512-mw7JQNu5ExIkcw4LPih0owX/TZXjD/ZUF/ZQ/pDnkw3ZKhDcZZw5klmBlj6gVMwjQ3Pz5Jgu7F3d0jcDVuEWdw==
   /ret/0.1.15:
     dev: false
     engines:
@@ -3787,5 +3827,6 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 4
 shrinkwrapVersion: 3
 specifiers:
+  hyperaxe: ^1.1.1
   parcel-bundler: ^1.6.2
   ramda: ^0.25.0
