@@ -3,6 +3,8 @@
 # Study JS
 
     conventions
+    ramdajs
+      const newObject = R.omit([propertyToRemove], origObject)
     hyperscript
       hyperaxe
         https://github.com/ungoldman/hyperaxe

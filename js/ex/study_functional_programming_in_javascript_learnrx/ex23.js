@@ -47,66 +47,36 @@ Array.prototype.reduce = function(combiner, initialValue) {
     return [accumulatedValue];
   }
 };
+Array.zip = function(left, right, combinerFunction) {
+	var counter,
+		results = [];
 
-var listsOfItems = [
-  {
-    name: "list_01",
-    items: [
-      {
-        "id": 1,
-        "title": "a",
-        "subitems": [
-          { time: 150, url: "url01"},
-          { time: 200, url: "url02"}
-        ],
-      },
-      {
-        "id": 2,
-        "title": "b",
-        "subitems": [
-          { time: 200, url:"url03" },
-          { time: 140, url:"url04" }
+	for(counter = 0; counter < Math.min(left.length, right.length); counter++) {
+		results.push(combinerFunction(left[counter],right[counter]));
+	}
 
-        ],
-      }
-    ]
-  },
-  {
-    name: "list_02",
-    items: [
-      {
-        "id": 3,
-        "title": "c",
-        "subitems": [
-          { time: 130, url:"url05" },
-          { time: 200, url:"url06" }
-        ],
-      },
-      {
-        "id": 4,
-        "title": "d",
-        "subitems": [
-          { time: 200, url:"url07" },
-          { time: 120, url:"url08" },
-          { time: 300, url:"url09" }
-        ],
-      }
-    ]
-  }
+	return results;
+};
+
+var prices = [
+  // ... from the NASDAQ's opening day
+  {name: "ANGI", price: 31.22, timeStamp: new Date(2018,3,15) },
+  {name: "MSFT", price: 32.32, timeStamp: new Date(2018,3,15) },
+  {name: "GOOG", price: 150.43, timeStamp: new Date(2018,3,15)},
+  {name: "MSFT", price: 28.44, timeStamp: new Date(2018,3,16)},
+  {name: "GOOG", price: 199.33, timeStamp: new Date(2018,3,16)},
+  // ...and up to the present.
 ];
-var r = listsOfItems.concatMap((list) =>
-  list.items.concatMap((e) =>
-    e.subitems.reduce((acc,curr) => {
-      if (acc.time < curr.time) {
-        return acc;
-      }
-      else {
-        return curr;
-      }
-    }).map((s) =>
-      ({id: e.id, title: e.title, url: s.url})
-    )
+var now = new Date();
+var r = prices.
+  filter((e) => 
+    (e.name === 'MSFT' && 
+      e.timeStamp > new Date( now.getFullYear(), now.getMonth(), now.getDate() - 10))
   )
-);
-
 console.log(r)
+// [ { name: 'MSFT',
+//     price: 32.32,
+//     timeStamp: 2018-04-14T21:00:00.000Z },
+//   { name: 'MSFT',
+//     price: 28.44,
+//     timeStamp: 2018-04-15T21:00:00.000Z } ]

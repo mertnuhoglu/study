@@ -47,6 +47,16 @@ Array.prototype.reduce = function(combiner, initialValue) {
     return [accumulatedValue];
   }
 };
+Array.zip = function(left, right, combinerFunction) {
+	var counter,
+		results = [];
+
+	for(counter = 0; counter < Math.min(left.length, right.length); counter++) {
+		results.push(combinerFunction(left[counter],right[counter]));
+	}
+
+	return results;
+};
 
 var listsOfItems = [
   {
@@ -59,6 +69,10 @@ var listsOfItems = [
           { time: 150, url: "url01"},
           { time: 200, url: "url02"}
         ],
+        "sub_b": [
+          { type: "m", time: 20 },
+          { type: "s", time: 30 },
+        ]
       },
       {
         "id": 2,
@@ -66,8 +80,11 @@ var listsOfItems = [
         "sub_a": [
           { time: 200, url:"url03" },
           { time: 140, url:"url04" }
-
         ],
+        "sub_b": [
+          { type: "m", time: 12 },
+          { type: "s", time: 20 },
+        ]
       }
     ]
   },
@@ -81,6 +98,10 @@ var listsOfItems = [
           { time: 130, url:"url05" },
           { time: 200, url:"url06" }
         ],
+        "sub_b": [
+          { type: "m", time: 23 },
+          { type: "s", time: 11 },
+        ]
       },
       {
         "id": 4,
@@ -90,36 +111,14 @@ var listsOfItems = [
           { time: 120, url:"url08" },
           { time: 300, url:"url09" }
         ],
+        "sub_b": [
+          { type: "m", time: 15 },
+          { type: "s", time: 8 },
+        ]
       }
     ]
   }
 ];
-var r = listsOfItems.concatMap((list) =>
-  list.items.concatMap((e) =>
-    e.sub_a.reduce((acc,curr) => {
-      if (acc.time < curr.time) {
-        return acc;
-      }
-      else {
-        return curr;
-      }
-    }).map((s) =>
-      ({id: e.id, title: e.title, subitem: s.url})
-    )
-  )
-);
-
-console.log(r)
-Array.zip = function(left, right, combinerFunction) {
-	var counter,
-		results = [];
-
-	for(counter = 0; counter < Math.min(left.length, right.length); counter++) {
-		results.push(combinerFunction(left[counter],right[counter]));
-	}
-
-	return results;
-};
 var r = listsOfItems.concatMap((list) =>
   list.items.concatMap((e) =>
 		Array.zip(
@@ -131,27 +130,13 @@ var r = listsOfItems.concatMap((list) =>
 					return curr;
 				}
 			}),
-			e.
+			e.sub_b.filter((sub_b) => sub_b.type === "m"),
+      (sub_a, sub_b) => ({id: e.id, title: e.title, time: sub_b.time, url: sub_a.url})
 		)
 	)
 );
-var r = movieLists.concatMap(function(movieList) {
-	return movieList.videos.concatMap(function(video) {
-		return Array.zip(
-			video.boxarts.reduce(function(acc,curr) {
-				if (acc.width * acc.height < curr.width * curr.height) {
-					return acc;
-				}
-				else {
-					return curr;
-				}
-			}),
-			video.interestingMoments.filter(function(interestingMoment) {
-				return interestingMoment.type === "Middle";
-			}),
-			function(boxart, interestingMoment) {
-				return {id: video.id, title: video.title, time: interestingMoment.time, url: boxart.url};
-			});
-	});
-});
 console.log(r)
+// [ { id: 1, title: 'a', time: 20, url: 'url01' },
+//   { id: 2, title: 'b', time: 12, url: 'url04' },
+//   { id: 3, title: 'c', time: 23, url: 'url05' },
+//   { id: 4, title: 'd', time: 15, url: 'url08' } ]

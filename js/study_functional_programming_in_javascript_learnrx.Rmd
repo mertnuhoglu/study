@@ -196,7 +196,8 @@ Array.prototype.concatAll = function() {
 
   return results;
 };
-// JSON.stringify([ [1,2,3], [4,5,6], [7,8,9] ].concatAll()) === "[1,2,3,4,5,6,7,8,9]"
+// [ [1,2,3], [4,5,6], [7,8,9] ].concatAll()
+// "[1,2,3,4,5,6,7,8,9]"
 // [1,2,3].concatAll(); // throws an error because this is a one-dimensional array
 ``` 
 
@@ -246,6 +247,12 @@ node ex/study_functional_programming_in_javascript_learnrx/ex07.js
 
 ### v08: map filter and flatten
 
+``` 
+listsOfItems :: [ { name, items: [ { id, title, subitems: [ { id, time } ] } ] } ]
+--->>>
+result :: [ { id, time } ]
+``` 
+
 ``` js
 var result = listsOfItems.map( (list) =>
   list.items.map( (e) =>
@@ -266,15 +273,15 @@ node ex/study_functional_programming_in_javascript_learnrx/ex08.js
 
 ### v09: Implement `concatMap`
 
-Note that, `map` and `concatAll` are chained together frequently. 
+Note that, `map` and `concatAll` are chained together usually 
 
 Usually, when we flatten a tree we chain `map` and `concatAll`. Let `concatMap` do a `map` followed by a `concatAll`
 
 ``` js
-Array.prototype.concatMap = function(projectionFunctionThatReturnsArray) {
+Array.prototype.concatMap = function(projection) {
   return this.
     map(function(item) {
-      return projectionFunctionThatReturnsArray(item);
+      return projection(item);
     }).
     // apply the concatAll function to flatten the two-dimensional array
     concatAll();
@@ -292,6 +299,12 @@ node ex/study_functional_programming_in_javascript_learnrx/ex09.js
 ``` 
 
 ### v10: concatMap and filter
+
+``` 
+listsOfItems :: [ { name, items: [ { id, title, subitems: [ { id, time } ] } ] } ]
+--->>>
+result :: [ { id, time } ]
+``` 
 
 ``` js
 var result = listsOfItems.concatMap( (list) =>
@@ -312,6 +325,12 @@ node ex/study_functional_programming_in_javascript_learnrx/ex10.js
 ``` 
 
 ### v11: forEach to find max rating item
+
+``` 
+items :: [ { id, title, rating } ]
+--->>>
+maxItem :: { id, title, rating }
+``` 
 
 ``` js
 var items = [
@@ -345,9 +364,9 @@ node ex/study_functional_programming_in_javascript_learnrx/ex11.js
 ### v12: Implement `reduce`
 
 ``` js
-Array.prototype.reduce = function(combiner, initialValue) {
+Array.prototype.reduce = function(combiner, init) {
   var counter,
-    accumulatedValue;
+    acc;
 
   // If the array is empty, do nothing
   if (this.length === 0) {
@@ -357,11 +376,11 @@ Array.prototype.reduce = function(combiner, initialValue) {
     // If the user didn't pass an initial value, use the first item.
     if (arguments.length === 1) {
       counter = 1;
-      accumulatedValue = this[0];
+      acc = this[0];
     }
     else if (arguments.length >= 2) {
       counter = 0;
-      accumulatedValue = initialValue;
+      acc = init;
     }
     else {
       throw "Invalid arguments.";
@@ -371,11 +390,11 @@ Array.prototype.reduce = function(combiner, initialValue) {
     // the previous computation back into the combiner function until
     // we've exhausted the entire array and are left with only one function.
     while(counter < this.length) {
-      accumulatedValue = combiner(accumulatedValue, this[counter])
+      acc = combiner(acc, this[counter])
       counter++;
     }
 
-    return [accumulatedValue];
+    return [acc];
   }
 };
 var r = [1,2,3].reduce( (acc, x) => acc + x )
@@ -409,6 +428,12 @@ node ex/study_functional_programming_in_javascript_learnrx/ex13.js
 
 ### v14: Find max rating item's title
 
+``` 
+items :: [ { id, title, rating } ]
+--->>>
+result :: [ title ]
+``` 
+
 ``` js
 var items = [
     {
@@ -439,6 +464,12 @@ node ex/study_functional_programming_in_javascript_learnrx/ex14.js
 ``` 
 
 ### v15: Converting an Array to a Map Using Reduce
+
+``` 
+videos :: [ { id, title } ]
+--->>>
+result :: [ { id: title } ]
+``` 
 
 ``` js
 var videos = [
@@ -478,6 +509,12 @@ node ex/study_functional_programming_in_javascript_learnrx/ex15.js
 ``` 
 
 ### v16: Get id, title, and shortest subitem url for every item
+
+``` 
+listsOfItems :: [ { name, items: [ { id, title, subitems: [ { time, url } ] } ] } ]
+--->>>
+result :: [ { id, title, url } ]
+``` 
 
 ``` js
 var listsOfItems = [
@@ -536,15 +573,15 @@ var r = listsOfItems.concatMap((list) =>
         return curr;
       }
     }).map((s) =>
-      ({id: e.id, title: e.title, subitem: s.url})
+      ({id: e.id, title: e.title, url: s.url})
     )
   )
 );
 console.log(r)
-// [ { id: 1, title: 'a', subitem: 'url01' },
-//   { id: 2, title: 'b', subitem: 'url04' },
-//   { id: 3, title: 'c', subitem: 'url05' },
-//   { id: 4, title: 'd', subitem: 'url08' } ]
+// [ { id: 1, title: 'a', url: 'url01' },
+//   { id: 2, title: 'b', url: 'url04' },
+//   { id: 3, title: 'c', url: 'url05' },
+//   { id: 4, title: 'd', url: 'url08' } ]
 ``` 
 
 ``` {bash}
@@ -552,6 +589,13 @@ node ex/study_functional_programming_in_javascript_learnrx/ex16.js
 ``` 
 
 ### v17: Zipping Arrays: Combine two arrays by index
+
+``` js
+videos :: [ { id, title } ]
+bookmarks :: [ { id, time } ]
+--->>>
+pairs :: [ { video_id, bookmark_id } ]
+``` 
 
 ``` js
 var videos = [
@@ -584,6 +628,10 @@ for(i = 0; i < Math.min(videos.length, bookmarks.length); i++) {
   pairs.push({video_id: videos[i].id, bookmark_id: bookmarks[i].id});
 }
 console.log(pairs)
+// [ { video_id: 1, bookmark_id: 101 },
+//   { video_id: 2, bookmark_id: 102 },
+//   { video_id: 3, bookmark_id: 103 },
+//   { video_id: 4, bookmark_id: 104 } ]
 ``` 
 
 ``` {bash}
@@ -593,20 +641,18 @@ node ex/study_functional_programming_in_javascript_learnrx/ex17.js
 ### v18: Implement `zip`
 
 ``` js
-Array.zip = function(left, right, combinerFunction) {
-	var counter,
+Array.zip = function(xs, ys, combiner) {
+	var i,
 		results = [];
-
-	for(counter = 0; counter < Math.min(left.length, right.length); counter++) {
-		results.push(combinerFunction(left[counter],right[counter]));
+	for(i = 0; i < Math.min(xs.length, ys.length); i++) {
+		results.push(combiner(xs[i],ys[i]));
 	}
-
 	return results;
 };
 var r = Array.zip(
 	[1,2,3],
 	[4,5,6], 
-	(left, right) => left + right 
+	(x, y) => x + y 
 )
 console.log(r)
 // [ 5, 7, 9  ]
@@ -617,6 +663,13 @@ node ex/study_functional_programming_in_javascript_learnrx/ex18.js
 ``` 
 
 ### v19: Zipping Arrays with `zip`
+
+``` 
+videos :: [ { id, title } ]
+bookmarks :: [ { id, time } ]
+--->>>
+pairs :: [ { video_id, bookmark_id } ]
+``` 
 
 ``` js
 var videos = [
@@ -646,6 +699,610 @@ console.log(r)
 
 ``` {bash}
 node ex/study_functional_programming_in_javascript_learnrx/ex19.js
+``` 
+
+### v20: Get Each Item's id, title, sub_b.m, shortest sub_a url
+
+``` 
+listsOfItems :: [ { name, items: [ { id, title, sub_a: [ { time, url } ], sub_b: [ { type, time } ] } ] } ]
+--->>>
+result :: [ { id, time, url } ]
+``` 
+
+``` js
+var listsOfItems = [
+  {
+    name: "list_01",
+    items: [
+      {
+        "id": 1,
+        "title": "a",
+        "sub_a": [
+          { time: 150, url: "url01"},
+          { time: 200, url: "url02"}
+        ],
+        "sub_b": [
+          { type: "m", time: 20 },
+          { type: "s", time: 30 },
+        ]
+      },
+      {
+        "id": 2,
+        "title": "b",
+        "sub_a": [
+          { time: 200, url:"url03" },
+          { time: 140, url:"url04" }
+        ],
+        "sub_b": [
+          { type: "m", time: 12 },
+          { type: "s", time: 20 },
+        ]
+      }
+    ]
+  },
+  {
+    name: "list_02",
+    items: [
+      {
+        "id": 3,
+        "title": "c",
+        "sub_a": [
+          { time: 130, url:"url05" },
+          { time: 200, url:"url06" }
+        ],
+        "sub_b": [
+          { type: "m", time: 23 },
+          { type: "s", time: 11 },
+        ]
+      },
+      {
+        "id": 4,
+        "title": "d",
+        "sub_a": [
+          { time: 200, url:"url07" },
+          { time: 120, url:"url08" },
+          { time: 300, url:"url09" }
+        ],
+        "sub_b": [
+          { type: "m", time: 15 },
+          { type: "s", time: 8 },
+        ]
+      }
+    ]
+  }
+];
+var r = listsOfItems.concatMap((list) =>
+  list.items.concatMap((e) =>
+		Array.zip(
+			e.sub_a.reduce((acc,curr) => {
+				if (acc.time < curr.time) {
+					return acc;
+				}
+				else {
+					return curr;
+				}
+			}),
+			e.sub_b.filter((sub_b) => sub_b.type === "m"),
+      (sub_a, sub_b) => ({id: e.id, title: e.title, time: sub_b.time, url: sub_a.url})
+		)
+	)
+);
+console.log(r)
+// [ { id: 1, title: 'a', time: 20, url: 'url01' },
+//   { id: 2, title: 'b', time: 12, url: 'url04' },
+//   { id: 3, title: 'c', time: 23, url: 'url05' },
+//   { id: 4, title: 'd', time: 15, url: 'url08' } ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex20.js
+``` 
+
+### ex21: Converting from Arrays to Trees
+
+We have two related arrays. We join them together to form a tree. 
+
+This is like having two relational tables and converting that to tree data. Note that, there is one-to-many relationship between `list` and `video`. So the foreign key reference is stored inside `video` array (table). In the final tree, the parent `list` contains `video` as child object.
+
+``` js
+lists :: [ { id, name } ]
+videos :: [ { list_id, id, title } ]
+--->>>
+result :: [ { name, videos: [ { id, title } ] } ]
+``` 
+
+``` js
+var lists = [
+    {
+      "id": 901,
+      "name": "group_01"
+    },
+    {
+      "id": 902,
+      "name": "group_02"
+    }
+  ],
+  videos = [
+    {
+      "list_id": 901,
+      "id": 1,
+      "title": "a"
+    },
+    {
+      "list_id": 901,
+      "id": 2,
+      "title": "b"
+    },
+    {
+      "list_id": 902,
+      "id": 3,
+      "title": "c"
+    },
+    {
+      "list_id": 902,
+      "id": 4,
+      "title": "d"
+    }
+  ];
+
+var r = lists.map((list) => {
+  return {
+    name: list.name,
+    videos: videos.
+      filter((video) => video.list_id === list.id).
+      map((video) => ({id: video.id, title: video.title}))
+  };
+});
+console.log(JSON.stringify(r))
+// [
+//   {
+//     "name": "group_01",
+//     "videos": [
+//       {
+//         "id": 1,
+//         "title": "a"
+//       },
+//       {
+//         "id": 2,
+//         "title": "b"
+//       }
+//     ]
+//   },
+//   {
+//     "name": "group_02",
+//     "videos": [
+//       {
+//         "id": 3,
+//         "title": "c"
+//       },
+//       {
+//         "id": 4,
+//         "title": "d"
+//       }
+//     ]
+//   }
+// ]
+
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex21.js
+``` 
+
+### v22: Converting from Arrays to Deeper Trees
+
+This time we have 4 separate arrays (tables). Each object (row) has a parent id. 
+
+``` js
+lists :: [ { id, name } ]
+videos :: [ { list_id, id, title } ]
+boxarts :: [ { video_id, size, url } ]
+bookmarks :: [ { video_id, time } ]
+--->>>
+result :: [ { name, videos: [ { id, title, time, boxart } ] } ]
+``` 
+
+``` js
+var lists = [
+    {
+      "id": 901,
+      "name": "group_01"
+    },
+    {
+      "id": 902,
+      "name": "group_02"
+    }
+  ],
+  videos = [
+    {
+      "list_id": 901,
+      "id": 1,
+      "title": "a"
+    },
+    {
+      "list_id": 901,
+      "id": 2,
+      "title": "b"
+    },
+    {
+      "list_id": 902,
+      "id": 3,
+      "title": "c"
+    },
+    {
+      "list_id": 902,
+      "id": 4,
+      "title": "d"
+    }
+  ],
+  boxarts = [
+    { video_id: 1, size: 130, url:"url_01" },
+    { video_id: 1, size: 200, url:"url_02" },
+    { video_id: 2, size: 200, url:"url_03" },
+    { video_id: 2, size: 120, url:"url_04" },
+    { video_id: 2, size: 300, url:"url_05" },
+    { video_id: 3, size: 150, url:"url_06" },
+    { video_id: 3, size: 200, url:"url_07" },
+    { video_id: 4, size: 200, url:"url_08" },
+    { video_id: 4, size: 140, url:"url_09" }
+  ],
+  bookmarks = [
+    { video_id: 1, time: 20 },
+    { video_id: 2, time: 30 },
+    { video_id: 3, time: 40 },
+    { video_id: 4, time: 45 }
+  ];
+
+var r = lists.map((list) => {
+  return {
+    name: list.name,
+    videos:
+      videos.
+        filter((video) => video.list_id === list.id ).
+        concatMap((video) => (
+          Array.zip(
+            bookmarks.
+              filter((bookmark) => bookmark.video_id === video.id),
+            boxarts.
+              filter((boxart) => boxart.video_id === video.id).
+              reduce( (acc,curr) => ( acc.size < curr.size ? acc : curr )),
+            (bookmark, boxart) => ({ id: video.id, title: video.title, time: bookmark.time, boxart: boxart.url })
+          )
+        ))
+  };
+});
+
+console.log(JSON.stringify(r))
+// [
+//   {
+//     "name": "group_01",
+//     "videos": [
+//       {
+//         "id": 1,
+//         "title": "a",
+//         "time": 20,
+//         "boxart": "url_01"
+//       },
+//       {
+//         "id": 2,
+//         "title": "b",
+//         "time": 30,
+//         "boxart": "url_04"
+//       }
+//     ]
+//   },
+//   {
+//     "name": "group_02",
+//     "videos": [
+//       {
+//         "id": 3,
+//         "title": "c",
+//         "time": 40,
+//         "boxart": "url_06"
+//       },
+//       {
+//         "id": 4,
+//         "title": "d",
+//         "time": 45,
+//         "boxart": "url_09"
+//       }
+//     ]
+//   }
+// ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex22.js
+``` 
+
+### v23: Stock Ticker
+
+``` js
+var prices = [
+  // ... from the NASDAQ's opening day
+  {name: "ANGI", price: 31.22, timeStamp: new Date(2018,3,15) },
+  {name: "MSFT", price: 32.32, timeStamp: new Date(2018,3,15) },
+  {name: "GOOG", price: 150.43, timeStamp: new Date(2018,3,15)},
+  {name: "MSFT", price: 28.44, timeStamp: new Date(2018,3,16)},
+  {name: "GOOG", price: 199.33, timeStamp: new Date(2018,3,16)},
+  // ...and up to the present.
+];
+var now = new Date();
+var r = prices.
+  filter((e) => 
+    (e.name === 'MSFT' && 
+      e.timeStamp > new Date( now.getFullYear(), now.getMonth(), now.getDate() - 10))
+  )
+console.log(r)
+// [ { name: 'MSFT',
+//     price: 32.32,
+//     timeStamp: 2018-04-14T21:00:00.000Z },
+//   { name: 'MSFT',
+//     price: 28.44,
+//     timeStamp: 2018-04-15T21:00:00.000Z } ]
+``` 
+
+``` {bash}
+node ex/study_functional_programming_in_javascript_learnrx/ex23.js
+``` 
+
+### v24: Working with Observables
+
+Observable is a new collection type. It is a sequence of values that a data producer pushes to the consumer. 
+
+### v25: Subscribing to an event
+
+``` js
+var buttonClicks = Observable.fromEvent(button, "click");
+buttonClicks.
+  take(1).
+  forEach(function() {
+    alert("Button was clicked once. Stopping Traversal.");
+  });
+``` 
+
+### v27: Completing Sequences with takeUntil()
+
+``` js
+function(pricesNASDAQ, printRecord, stopButton) {
+  var stopButtonClicks = Observable.fromEvent(stopButton,"click"),
+    microsoftPrices =
+      pricesNASDAQ.
+        filter(function(priceRecord) {
+          return priceRecord.name === "MSFT";
+        }).
+        takeUntil(stopButtonClicks);
+
+  microsoftPrices.
+    forEach(function(priceRecord) {
+      printRecord(priceRecord);
+    });
+}
+``` 
+
+### v28: Querying Observables
+
+`map()`
+
+``` js
+[1,2,3].map(function(x) { return x + 1 })                       === [2,3,4]
+seq([1,,,2,,,3]).map(function(x) { return x + 1})               === seq([2,,,3,,,4])
+seq([1,,,2,,,3,,,]).map(function(x) { return x + 1 })           === seq([2,,,3,,,4,,,])
+``` 
+
+`filter()`
+
+``` js
+[1,2,3].filter(function(x) { return x > 1; })                   === [2,3]
+seq([1,,,2,,,3]).filter(function(x) { return x > 1; })          === seq([2,,,3])
+seq([1,,,2,,,3,,,]).filter(function(x) { return x > 1; })       === seq([2,,,3,,,])
+``` 
+
+`concatAll()`
+
+``` js
+[ [1, 2, 3], [4, 5, 6] ].concatAll()                             === [1,2,3,4,5,6]
+seq([ seq([1,,,2,,,3]),,,seq([4,,,5,,,6]) ]).concatAll()         === seq([1,,,2,,,3,,,4,,,5,,,6])
+seq([
+  seq([1,,,, ,2, ,3])
+  ,,,seq([,,4, ,5, ,,6]) ]).
+  concatAll()                                                  === seq([1,,,,,2,,3,,4,,5,,,6])
+
+// Notice that as long as at least one sequence being
+// concatenated is incomplete, the concatenated sequence is also
+// incomplete.
+seq([
+  seq([1,, ,,, ,,,2,,,3])
+  ,,,seq([4,,,5,,, ,,, ,,6,,,]) ]).
+  concatAll()                                                  === seq([1,,,,,,,,2,,,3,4,,,5,,,,,,,,6,,,])
+``` 
+
+`reduce()`
+
+``` js
+[ 1, 2, 3 ].reduce(sumFunction)                                 === [ 6 ]
+seq([ 1,,,2,,,3 ]).reduce(sumFunction)                          === seq([,,,,,,6])
+seq([ 1,,,2,,,3,,, ]).reduce(sumFunction)                       === seq([ ,,,,,,,,,])
+``` 
+
+`zip()`
+
+``` js
+// In both Arrays and Observables, the zipped sequence
+// completes as soon as either the left or right-hand
+// side sequence completes.
+Array.zip([1,2],[3,4,5], sumFunction)                           === [4,6]
+Observable.zip(seq([1,,,2]),seq([3,,,4,,,5]), sumFunction)      === seq([4,,,6])
+``` 
+
+`take()`
+
+``` js
+[1,2,3].take(2)                                                 === [1, 2]
+seq([ 1,,,2,,,3 ]).take(2)                                      === seq([ 1,,,2 ])
+seq([ 1,,,2,,,3,,, ]).take(2)                                   === seq([ 1,,,2 ])
+``` 
+
+`takeUntil()`
+
+``` js
+// takeUntil works for Arrays, but it's not very useful
+// because the result will always be an empty array.
+[1,2,3].takeUntil([1])                                          === []
+seq([1,,,2,,,3,,, ]).takeUntil(
+seq([ ,,, ,,4 , ]))                                             === seq([ 1,,,2 ])
+``` 
+
+### v29: Creating a mouse drag event
+
+``` js
+function(sprite, spriteContainer) {
+  var spriteMouseDowns = Observable.fromEvent(sprite, "mousedown"),
+    spriteContainerMouseMoves = Observable.fromEvent(spriteContainer, "mousemove"),
+    spriteContainerMouseUps = Observable.fromEvent(spriteContainer, "mouseup"),
+    spriteMouseDrags =
+      // For every mouse down event on the sprite...
+      spriteMouseDowns.
+        // --------------------------------------------------------
+        //					  INSERT CODE HERE
+        // --------------------------------------------------------
+        // Complete this expression...
+        // For every mouse down event, return the mouse move event
+        // sequence until a mouse up event occurs.
+
+  // For each mouse drag event, move the sprite to the absolute page position.
+  spriteMouseDrags.forEach(function(dragPoint) {
+    sprite.style.left = dragPoint.pageX + "px";
+    sprite.style.top = dragPoint.pageY + "px";
+  });
+}
+``` 
+
+### v30: Traversing callback-based Asynchronous APIs
+
+A callback API as a sequence. UI Event sequences never complete on their own.
+
+``` js
+mouseMoves === seq([ {x: 23, y: 55},,,,,,,{x: 44, y: 99},,,{x:55,y:99},,,{x: 54, y:543},,, ]);
+``` 
+
+HTTP responses are different. They always return a sequence that completes after pushing one item.
+
+``` js
+getJSONAsObservable("http://api-global.netflix.com/abTestInformation") ===
+  seq([ { urlPrefix: "billboardTest" } ])
+``` 
+
+Why create sequences if they contain only one object? To make the Observable API simpler. Observable sequence models both a single object and multiple objects.
+
+How to convert a callback API into an Observable sequence? For DOM events we have a conversion function: `fromEvent()`
+
+`Observable.create()` can be used to convert any async API into an Observable.
+
+``` js
+function(window, $) {
+  var getJSON = function(url) {
+    return Observable.create(function(observer) {
+      var subscribed = true;
+
+      $.getJSON(url,
+        {
+          success:
+            function(data) {
+              // If client is still interested in the results, send them.
+              if (subscribed) {
+                // Send data to the client
+                observer.next(data);
+                // Immediately complete the sequence
+                observer.complete();
+              }
+            },
+          error: function(ex) {
+            // If client is still interested in the results, send them.
+            if (subscribed) {
+              // Inform the client that an error occurred.
+              observer.error(ex);
+            }
+          }
+        });
+
+      // Definition of the Subscription objects unsubscribe (dispose in RxJS 4) method.
+      return function() {
+        subscribed = false;
+      }
+    });
+  };
+
+  var observer = {
+    // onNext in RxJS 4
+    next: function (data) {
+      alert(JSON.stringify(data));
+    },
+    // onError in RxJS 4
+    error: function (err) {
+      alert(err);
+    },
+    // onComplete in RxJS 4
+    complete: function () {
+      alert("The asynchronous operation has completed.");
+    }
+  };
+
+  var subscription =
+    getJSON("http://api-global.netflix.com/abTestInformation").subscribe(observer);
+
+  // setTimeout(function () {
+  // 	alert("Changed my mind, I do not want notifications any more!")
+  // 	subscription.unsubscribe();
+  // }, 10);
+}
+``` 
+
+### v31: Sequencing HTTP Requests with Observable
+
+``` js
+function(window, getJSON, showMovieLists, showError) {
+  var movieListsSequence =
+    Observable.zip(
+      getJSON("http://api-global.netflix.com/abTestInformation").
+        concatMap(function(abTestInformation) {
+          return Observable.zip(
+            getJSON("http://api-global.netflix.com/" + abTestInformation.urlPrefix + "/config").
+              concatMap(function(config) {
+                if (config.showInstantQueue) {
+                  return getJSON("http://api-global.netflix.com/" + abTestInformation.urlPrefix + "/queue").
+                    map(function(queueMessage) {
+                      return queueMessage.list;
+                    });
+                }
+                else {
+                  return Observable.returnValue(undefined);
+                }
+              }),
+            getJSON("http://api-global.netflix.com/" + abTestInformation.urlPrefix + "/movieLists"),
+            function(queue, movieListsMessage) {
+              var copyOfMovieLists = Object.create(movieListsMessage.list);
+              if (queue !== undefined) {
+                copyOfMovieLists.push(queue);
+              }
+
+              return copyOfMovieLists;
+            });
+        }),
+      Observable.fromEvent(window, "load"),
+      function(movieLists, loadEvent) {
+        return movieLists;
+      });
+
+  movieListsSequence.
+    forEach(
+      function(movieLists) {
+        showMovieLists(movieLists);
+      },
+      function(err) {
+        showError(err);
+      });
+}
 ``` 
 
 

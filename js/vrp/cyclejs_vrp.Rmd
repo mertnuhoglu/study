@@ -75,6 +75,49 @@ docker-compose up -d
 open ex/cyclejs_vrp_ex02.html
 ``` 
 
+`ex/cyclejs_vrp_ex02.js`
+
+``` js
+function main(sources) {
+  const clickEvent$ = sources.DOM
+    .select('.get-first').events('click');
+  
+  const request$ = clickEvent$.map(() => {
+    return {
+      url: 'http://localhost:8080/rest/todos?select=id',
+      method: 'GET',
+    };
+  });
+  
+  const response$$ = sources.HTTP
+    .filter(response$ => response$.request.url ===
+           'http://localhost:8080/rest/todos?select=id');
+  
+  const response$ = response$$.switch();
+  const json$ = response$.map(response => response.body)
+    .startWith(null);
+  
+  return {
+    DOM: json$.map(json =>
+      div([
+        button('.get-first', 'Get first comment'),
+        json === null ? null : div('.comment-details', [
+          h4('.comment-id', `${json[0].id}`)
+        ])
+      ])
+    ),
+    HTTP: request$,
+  };
+}
+
+const drivers = {
+  DOM: makeDOMDriver('#app'),
+  HTTP: makeHTTPDriver(),
+}
+
+Cycle.run(main, drivers);
+``` 
+
 The response of REST API is as follows:
 
     $ curl http://localhost:8080/rest/todos?select=id
@@ -183,3 +226,32 @@ const request$ = clickEvent$.map(() => {
 open ex/cyclejs_vrp_ex03.html
 ``` 
 
+### Table with CycleJs
+
+``` bash
+open ex/cyclejs_vrp_ex04.html
+``` 
+
+### Bundle it with ParcelJs
+
+Source code in https://github.com/mertnuhoglu/study/js/vrp/ex/cyclejs_vrp/
+
+``` bash
+mkdir -p ex/cyclejs_vrp/ex05 && cd $_ && npm init -y && npm i parcel-bundler rxjs @cycle/rxjs-run @cycle/dom @cycle/http
+``` 
+
+`ex/cyclejs_vrp/ex05/package.json`
+
+    "start": "parcel index.html",
+    "build": "parcel build index.html --public-url ./",
+
+removed
+
+    "start": "cycle-scripts start",
+    "build": "cycle-scripts build",
+
+`ex/cyclejs_vrp/ex05/index.js`
+
+Run `npm start`
+ 
+Open http://localhost:1234

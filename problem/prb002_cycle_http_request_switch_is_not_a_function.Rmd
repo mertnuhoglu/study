@@ -1,0 +1,48 @@
+
+2018-03-28T14:07:36+03:00 
+
+# Problem
+
+switch() is not a function:
+
+    <url:file:///~/projects/study/js/vrp/ex/cyclejs_vrp/ex05/package.json>
+
+    <url:file:///~/projects/study/js/vrp/ex/cyclejs_vrp/ex05/index.js>
+    const response$ = sources.HTTP.
+      filter(r$ => r$.request.url ===
+             'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id').
+      switch();
+
+## Options
+
+    opt01: debug working cyclejs http example
+    opt02: find out how to debug cyclejs examples
+    opt03: global sourcing of libs with new versions
+    opt04: require old version libs
+    opt05: find out what HTTP object returns: rxjs object or cyclejs object?
+    opt06: call select() only. what does it return?
+
+## Issues
+
+- I cannot debug cyclejs http example
+
+## Differences between my example (ex05) and working cyclejs example
+
+- xstream vs rxjs
+- sources.HTTP.select vs sources.HTTP.filter
+- filter isn't used
+
+## Differences between ex04 (working) and ex05
+
+- no parceljs
+- versions of rxjs: 4 vs 5
+- versions of cyclejs http: 7 vs 14
+
+## opt06: call select() only. what does it return?
+
+The following works:
+
+    const response$$ = sources.HTTP.select();
+    //const response$ = response$$.flatten();
+    const response$ = response$$.switch();
+

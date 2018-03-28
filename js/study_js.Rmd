@@ -62,6 +62,250 @@ Short form to define this data structure:
 listsOfItems :: [{name, items:[{id}]}]
 ``` 
 
+## Function.prototype.apply()
 
+Taken from: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
 
+`apply()` calls a function with a given `this` and `arguments` provided as an array.
+
+``` js
+var numbers = [5, 6, 2, 3, 7];
+var max = Math.max.apply(null, numbers);
+console.log(max);
+// 7
+var min = Math.min.apply(null, numbers);
+console.log(min);
+// 2
+``` 
+
+``` {bash}
+node ex/study_js/b01.js
+``` 
+
+## `concatMap`
+
+### Simple Example for `concatMap` 01
+
+``` js
+var xs = [1,2,3]
+var r01 = xs.map(x => x * 2)
+console.log(r01)
+// [ 2, 4, 6 ]
+var r02 = xs.map(x => [x * 2]).concatAll()
+console.log(r02)
+// [ 2, 4, 6 ]
+``` 
+
+``` {bash}
+node ex/study_js/c01.js
+``` 
+
+mnemonics: 
+
+    concatMap = flatMap = chain = map then join = map then concat
+    map: extra boxing
+    concat: unbox once
+
+reference:
+
+    Frisby's Mostly Adequate Guide to Functional Programming - Brian Lonsdorf
+    Chapter 9: Monadic Onions
+
+### Simple Example for `concatMap` 02
+
+`concatMap` consists of `map` then `concat`. When `map` produces a boxed result, `concat` unboxes it.
+
+``` js
+var xs = [
+  {x_id: 11, ys: [{y_id: 51}, {y_id: 52}]},
+  {x_id: 12, ys: [{y_id: 61}, {y_id: 62}]},
+]
+var r01 = xs.map(x => x.ys.map(y => y.y_id))
+console.log(r01)
+// [ [ 51, 52 ], [ 61, 62 ] ]
+var r02 = xs.map(x => x.ys.map(y => y.y_id)).concatAll()
+console.log(r02)
+// [ 51, 52, 61, 62 ]
+var r03 = xs.concatMap(x => x.ys.map(y => y.y_id))
+console.log(r03)
+// [ 51, 52, 61, 62 ]
+``` 
+
+``` {bash}
+node ex/study_js/c02.js
+``` 
+
+Why do we use `concatMap` especially when mapping over subarray items?
+
+Because map over subarray returns a nested array.
+
+## Hot - Cold Observables in RxJs
+
+### Hot vs Cold Observables - Ben Lesh
+
+https://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339
+
+Summary: You want a HOT observable when you don't want to create your producer over and over again.
+
+Cold: Observable creates the producer
+
+    var cold = new Observable((observer) => {
+      var producer = new Producer()
+      ...
+    })
+
+Hot: Observable closes over the producer
+
+    var producer = new Producer()
+    var hot = new Observable((observer) => {
+      ...
+    })
+
+### Demystifying Cold and Hot Observables in RxJS
+
+https://egghead.io/lessons/rxjs-demystifying-cold-and-hot-observables-in-rxjs
+
+Summary: Cold observables are like recorded videos. Everybody starts from start. Hot observables are like live videos. Everybody watches the same video at any time.
+
+Cold:
+
+    var clock = Rx.Observable.interval(1000).take(3).map(x => x+1);
+    clock.subscribe(i => console.log('a: ' + i));
+    setTimeout(function () {
+      clock.subscribe(i => console.log('   b: ' + i));
+    }, 1500);
+    // "a: 1"
+    // "a: 2"
+    // "   b: 1"
+    // "a: 3"
+    // "   b: 2"
+    // "   b: 3"
+
+Hot:
+
+    var clock = Rx.Observable.interval(1000).take(3).map(x => x+1)
+      .publish().refCount();
+    clock.subscribe(i => console.log('a: ' + i));
+    setTimeout(function () {
+      clock.subscribe(i => console.log('   b: ' + i));
+    }, 1500);
+    var clock = Rx.Observable.interval(1000).take(10).map(x => x+1)
+      .publish().refCount();
+    // "a: 1"
+    // "a: 2"
+    // "   b: 2"
+    // "a: 3"
+    // "   b: 3"
+
+## setTimeout vs. setInterval
+
+https://stackoverflow.com/questions/729921/settimeout-or-setinterval#731625
+
+Timeout: execute a certain amount of time after calling
+
+Interval: eexcute a certain amount of time after previous interval fired
+
+## Why we need callbags - Andre Staltz
+
+https://staltz.com/why-we-need-callbags.html
+
+Ex:
+
+``` js
+const {observe, fromEvent, map, filter, pipe} = require('callbag-basics');
+
+pipe(
+  fromEvent(document, 'click'),
+  filter(ev => ev.target.tagName === 'BUTTON'),
+  map(ev => ({x: ev.clientX, y: ev.clientY}))
+  observe(x => console.log(x))
+);
+``` 
+
+Callback is a specification that guides you for callback-based programming. It supports both reactive programming and iterable programming. The same operator works for both of them usually.
+
+### Section: Hybrid push and pull primitive
+
+Pull-style data sources, such as `Math.random()`, `UUID()`, network requests has some issues.
+
+[A Pull is just two Pushes](https://github.com/cyclejs/cyclejs/issues/581#issuecomment-353895517) thus Push is more foundational primitive than Pull.
+
+This also means 'Push is another word for message passing, so Pull is just two messages'. 
+
+`x => void` type callback functions are one-way message passing. 
+
+Observables bring on top of callbacks: 
+
+- 3 types of notifications: next, error, complete
+- Observable Grammar: `(next)*(error|complete)?`
+- Functional operators
+
+How to simplify then Observer/Observable API:
+
+``` typescript
+interface Observer {
+  next(x): void;
+  error(e): void;
+  complete(): void;
+}
+interface Observable {
+  subscribe(observer): Subscription;
+}
+``` 
+
+More raw form is:
+
+``` js
+function myObservable(nextCallback) {
+}
+``` 
+
+This is also very similar to:
+
+``` js
+function myObserver(nextCallback) {
+}
+``` 
+
+But there are different types of messages 
+
+- for Observer: `next`, `error`, `complete`
+- for Observable: `subscribe`, `unsubscribe`
+
+So parameterize message type and unify different functions:
+
+``` js
+function observer(msgType, msgPayload) {}
+function observable(msgType, msgPayload) {}
+``` 
+
+All possible function calls are as follows:
+
+`Observer`
+
+- `observer(1, data): void` corresponds to `next`
+- `observer(2, err): void` corresponds to `error`
+- `observer(2): void` corresponds to `complete`
+
+`Observable`
+
+- `observable(0, observer): void` corresponds to `subscribe`
+- `observable(2): void` corresponds to `unsubscribe`
+
+But we are missing `observer(0, payload)` and `observable(1, payload)`. Why are they missing? Because they require iterable programming.
+
+So, let's think of `Consumer` instead of `Observer` and of `Producer` instead of `Observable`
+
+`Consumer`
+
+- `consumer(0, producer): void` = pass the producer to the consumer
+- `consumer(1, data): void` = `next`
+- `consumer(2, err): void` = `error`
+- `consumer(2): void` = `complete`
+
+`Producer`
+
+- `producer(0, consumer): void` = `subscribe`
+- `producer(1, data): void` = request received from consumer
+- `producer(2): void` = `unsubscribe`
 

@@ -1,0 +1,50 @@
+
+---
+
+### opt1
+
+    mkdir -p ex/prb001_parcel_cycle/ex01/ && cd $_ && npm init -y && pnpm i parcel-bundler @cycle/run
+    touch ex/prb001_parcel_cycle/ex01/index.html
+    touch ex/prb001_parcel_cycle/ex01/index.js
+    package.json
+        "start": "parcel index.html",
+        "build": "parcel build index.html --public-url ./",
+    npm start
+
+    pnpm i rxjs 
+    pnpm i @cycle/rxjs-run @cycle/dom
+    npm install
+
+### opt02
+
+    mkdir -p ex/prb001_parcel_cycle/ex02/ && cd $_ && npm init -y && npm i parcel-bundler rxjs @cycle/rxjs-run @cycle/dom
+    touch ex/prb001_parcel_cycle/ex02/index.html
+    touch ex/prb001_parcel_cycle/ex02/index.js
+    package.json
+        "start": "parcel index.html",
+        "build": "parcel build index.html --public-url ./",
+    npm start
+
+### opt03
+
+    mkdir -p ex/prb001_parcel_cycle/ex03/ && cd $_ && npm init -y && pnpm i parcel-bundler rxjs @cycle/rxjs-run @cycle/dom
+    touch ex/prb001_parcel_cycle/ex03/index.html
+    touch ex/prb001_parcel_cycle/ex03/index.js
+    package.json
+        "start": "parcel index.html",
+        "build": "parcel build index.html --public-url ./",
+    npm start
+
+Gives error. 
+
+### Conclusion
+
+The problem is caused by `pnpm`
+
+The following command doesn't work:
+
+    pnpm i parcel-bundler rxjs @cycle/rxjs-run @cycle/dom
+
+Using `npm` works instead:
+
+    npm i parcel-bundler rxjs @cycle/rxjs-run @cycle/dom

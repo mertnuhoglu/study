@@ -1,0 +1,720 @@
+---
+title: "Studying RxJs"
+date: 2018-03-26T14:40:52+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_rxjs.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_rxjs/
+
+## Egghead RxJs Intro to Reactive Programming - Andre Staltz
+
+### 04-egghead-rxjs-04-reactive-programming-async-requests-and-responses-in-rxjs
+
+Nested Observables:
+
+``` js
+var req$ = Rx.Observable.just('https://api.github.com/users')
+req$.subscribe(url => {
+  var res$ = Rx.Observable.fromPromise(jQuery.getJSON(url));
+  res$.subscribe(response => { console.log(response) });
+})
+``` 
+
+How to do this without nested Observables?
+
+``` js
+var req$ = Rx.Observable.just('https://api.github.com/users')
+var res$ = req$.
+  flatMap(url => Rx.Observable.fromPromise(jQuery.getJSON(url)));
+res$.subscribe(response => { console.log(response) });
+``` 
+
+`flatMap` flattens nested Observable's events into the parent Observable's event stream.
+
+### 06-egghead-rxjs-reactive-programming-new-requests-from-refresh-clicks.mp4
+
+We have two streams of request: startupRequest$ and refreshClick$.
+
+``` js
+var refreshButton = document.querySelector('.refresh')
+var refreshClick$ = Rx.Observable.fromEvent(refreshButton, 'click')
+var startupRequest$ = Rx.Observable.just('https://api.github.com/users')
+var req$ = refreshClick$
+  .map(ev => {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=';
+  })
+var res$ = req$.
+  flatMap(url => Rx.Observable.fromPromise(jQuery.getJSON(url)));
+``` 
+
+Merging stream of clicks with start stream:
+
+``` js
+var res$ = req$.
+  merge(startupRequest$).
+  flatMap(url => Rx.Observable.fromPromise(jQuery.getJSON(url)));
+``` 
+
+### 07-egghead-rxjs-reactive-programming-clear-data-while-loading-with-rxjs-startwith.mp4
+
+Clear HTML elements on startup and each refresh. And this should be done at the time of declaration:
+
+``` js
+function createSuggestion$(res$) {
+  return res$.map(listUser =>
+    listUser[Math.floor(Math.random().listUser.length)]
+  )
+  .startWith(null)
+  .merge(refreshClick$.map(ev => null))
+``` 
+
+### 08-egghead-rxjs-reactive-programming-sharing-network-requests-with-rxjs-merge.mp4
+
+We make a new request for each subscribe() call:
+
+``` js
+var suggestion1$ = createSuggestion$(res$)
+var suggestion2$ = createSuggestion$(res$)
+var suggestion3$ = createSuggestion$(res$)
+``` 
+
+``` js
+var res$ = req$
+  .merge(startupReq$)
+  .flatMap(url => Rx.Observable.fromPromise(jQuery.getJSON(url)))
+  .shareReplay(1)
+``` 
+
+## Egghead CycleJs Fundamentals - Andre Staltz
+
+### 12-egghead-rxjs-an-interactive-counter-in-cycle-js.mp4
+
+``` js
+const decrementClick$ = sources.DOM.select('.decrement').events('click')
+const incrementClick$ = sources.DOM.select('.increment').events('click')
+const decrementAction$ = decrementClick$.map(ev => -1)
+const incrementAction$ = incrementClick$.map(ev => +1)
+const number$ = Rx.Observable.of(10)
+  .merge(decrementAction$)
+  .merge(incrementAction$)
+  .scan( (prev, curr) => prev + curr)
+``` 
+
+### 13-egghead-rxjs-using-the-http-driver.mp4
+
+``` js
+const clickEvent$ = sources.DOM.select('.get-first').events('click')
+const request$ = clickEvent$.map(() => {
+  return {
+    url: 'http://jsonplaceholder.typicode.com/users/1',
+    method: 'GET',
+  }
+})
+const response$$ = sources.HTTP
+  .filter(response$ => response$.request.url === 'http://jsonplaceholder.typicode.com/users/1')
+const response$ = response$$.switch() // flattens
+const firstUser$ = response$.map(response => response.body)
+  .startWith(null)
+``` 
+
+### 14-egghead-rxjs-body-mass-index-calculator-built-in-cycle-js.mp4
+
+``` js
+const changeWeight$ = sources.DOM.select('.weight').events('input')
+  .map(ev => ev.target.value)
+const changeHeight$ = sources.DOM.select('.height').events('input')
+  .map(ev => ev.target.value)
+const state$ = Rx.Observable.combineLatest(
+  changeWeight$.startWith(70),
+  changeHeight$.startWith(170),
+  (weight, height) => {
+    const heightMeters = height * 0.01;
+    const bmi = Math.round(weight / heightMeters * heightMeters));
+    return {bmi, weight, height};
+  }
+``` 
+
+### 15-egghead-rxjs-model-view-intent-pattern-for-separation-of-concerns.mp4
+
+``` js
+function intent(DOMSource) {
+  const changeWeight$ = DOMSource.select('.weight').events('input')
+    .map(ev => ev.target.value)
+  const changeHeight$ = DOMSource.select('.height').events('input')
+    .map(ev => ev.target.value)
+  return {changeWeight$, changeHeight$}
+}
+function model(changeWeight$, changeHeight$) {
+  const state$ = Rx.Observable.combineLatest(
+    changeWeight$.startWith(70),
+    changeHeight$.startWith(170),
+    (weight, height) => {
+      const heightMeters = height * 0.01;
+      const bmi = Math.round(weight / heightMeters * heightMeters));
+      return {bmi, weight, height};
+    }
+}
+function view(state$) {
+  return {
+    DOM: state$.map( state =>
+      div([
+        div([
+          label('Weight: ' + state.weight + ' kg'),
+          input('.weight', {type: 'range', min: 40, max: 150, value: 70})
+        ]),
+        div([
+          label('Height: ' + state.height + 'cm'),
+          input('.height', {type: 'range', min: 140, max: 220, value: 170})
+        ]),
+        h2('BMI is ' + state.bmi)
+  }
+}
+function main(sources) {
+  const {changeWeight$, changeHeight$} = intent(sources.DOM) 
+  const state$ = model(changeWeight$, changeHeight$)
+  const vtree$ = view(state$)
+  return {
+    DOM: vtree$
+  }
+}
+``` 
+
+### 16-egghead-rxjs-our-first-component-a-labeled-slider.mp4
+
+We have repeated code in weight and height sliders.
+
+``` js
+function intent(DOMSource) {
+  return DOMSource.select('.slider').events('input')
+    .map(ev => ev.target.value)
+}
+function model(change$, props$) {
+  const initialValue$ = props$.map(props => props.init).first()
+  const value$ = initialValue$.concat(change$)
+  return Rx.Observable.combineLatest(value$, props$, (value, props) => {
+    return {
+      label: props.label,
+      unit: props.unit,
+      min: props.min,
+      max: props.max,
+      value: value,
+    }
+  }
+}
+function view(state$) {
+  return state$.map(state =>
+    div('.labeled-slider', [
+      label('.label', `${state.label}: ${state.value${state.unit}`'Weight: ' + value +kg'),
+      input('.slider', {type: 'range', min: state.min, max: state.max, value: state.value})
+    ])
+  )
+}
+function LabeledSlider(sources) {
+  const change$ = intent(sources.DOM)
+  const state$ = model(change$, sources.props)
+  const vtree$ = view(state$)
+  return {
+    DOM: vtree$,
+    value: state$.map(state => state.value),
+  }
+}
+function main(sources) {
+  const props$ = Rx.Observable.of({
+    label: 'Height',
+    unit: 'cm',
+    min: 140,
+    max: 220,
+    init: 170
+  })
+  return LabeledSlider({DOM: sources.DOM, props: props$})
+}
+const drivers = {
+  DOM: makeDOMDriver("#app")
+}
+Cycle.run(main, drivers)
+``` 
+
+### 17-egghead-rxjs-using-the-component-in-the-main-function.mp4
+
+How can we reuse `LabeledSlider`
+
+``` js
+const WeightSlider = isolate(LabeledSlider, 'weight')
+const HeightSlider = isolate(LabeledSlider, 'height')
+const weightProps$ = Rx.Observable.of({
+  label: 'Weight',
+  unit: 'kg',
+  min: 40,
+  max: 150,
+  init: 70
+const heightProps$ = Rx.Observable.of({
+  label: 'Height',
+  unit: 'cm',
+  min: 140,
+  max: 220,
+  init: 170
+})
+const weightSinks = WeightSlider({DOM: sources.DOM, props: weightProps$})
+const heightSinks = HeightSlider({DOM: sources.DOM, props: heightProps$})
+const weightVTree$ = weightSinks.DOM
+const heightVTree$ = heightSinks.DOM
+const weightValue$ = weightSinks.value
+const heightValue$ = heightSinks.value
+const bmi$ = Rx.Observable.combineLatest(weightValue$, heightValue$, 
+  (weight, height) => {
+    const heightMeters = height * 0.01
+    const bmi = Math.round( weight / (heightMeters*heightMeters))
+    return bmi
+  }
+const vtree$ = Rx.Observable.combineLatest(
+  bmi$, weightVTree$, heightVTree$, (weightVTree, heightVTree) =>
+    div([
+      weightVTree,
+      heightVTree,
+      h2('BMI is ' + bmi)
+``` 
+
+## Egghead - RxJS Beyond the Basics: Creating Observables from scratch - Andre Staltz
+
+### 11-egghead-rxjs-creation-operator-create.mp4
+
+``` js
+function subscribe(observer) {
+  observer.next(42)
+  observer.next(100)
+  observer.next(200)
+  observer.complete()
+}
+var bar = Rx.Observable(subscribe)
+var observer = {
+  next: function (x) { console.log('next + x) }, 
+  error: function (err) { console.log('error ' + err) },
+  complete: function () { console.log('done') },
+}
+bar.subscribe(observer)
+``` 
+
+### 12-egghead-rxjs-returning-subscriptions-from-the-subscribe-function.mp4
+
+What does subscribe return?
+
+``` js
+function subscribe(observer) {
+  var id = setInterval(function () {
+    observer.next('hi')
+  }, 1000)
+  return function unsubscribe() {
+    clearInterval(id)
+  }
+}
+var bar = Rx.Observable(subscribe)
+var observer = {
+  next: function (x) { console.log('next + x) }, 
+  error: function (err) { console.log('error ' + err) },
+  complete: function () { console.log('done') },
+}
+var subscription = bar.subscribe(observer)
+setTimeout(function() {
+  subscription.unsubscribe()
+}, 4500)
+``` 
+
+## Egghead - RxJS Beyond the Basics: Operators in Depth - Andre Staltz
+
+### 01-egghead-rxjs-what-rxjs-operators-are.mp4
+
+``` js
+function operator(source) {
+  // result = ...
+  return result;
+}
+``` 
+
+Source Observable is unchanged. 
+
+Ex: multiplyByTen operator
+
+``` js
+var foo = Rx.Observable.of(1,2,3,4,5)
+function multiplyByTen() {
+  var source = this;
+  var result = Rx.Observable.create(function subscribe(observer) {
+    source.subscribe(
+      function (x) { observer.next(x*10)},
+      function (err) { observer.error(err) },
+      function () { observer.complete() }
+    )
+  })
+  return result
+}
+Rx.Observable.prototype.multiplyByTen = multiplyByTen
+var bar = foo.multiplyByTen()
+bar.subscribe(
+  function (x) { console.log('next + x) }, 
+  function (err) { console.log('error ' + err) },
+  function () { console.log('done') },
+)
+``` 
+
+Generalize it by making multiplier a parameter:
+
+``` js
+var foo = Rx.Observable.of(1,2,3,4,5)
+function multiplyBy(multiplier) {
+  var source = this;
+  var result = Rx.Observable.create(function subscribe(observer) {
+    source.subscribe(
+      function (x) { observer.next(x*multiplier)},
+      function (err) { observer.error(err) },
+      function () { observer.complete() }
+    )
+  })
+  return result
+}
+Rx.Observable.prototype.multiplyBy = multiplyBy
+var bar = foo.multiplyBy(10)
+bar.subscribe(
+  function (x) { console.log('next + x) }, 
+  function (err) { console.log('error ' + err) },
+  function () { console.log('done') },
+)
+``` 
+
+We create a subscription chain.
+
+    bar.subscribe -> source.subscribe -> ...
+
+### 02-egghead-rxjs-marble-diagrams-in-ascii-form.mp4
+
+
+### 03-egghead-rxjs-transformation-operator-map-and-mapto.mp4
+
+We can generalize `multiplyBy` to any calculation:
+
+``` js
+var foo = Rx.Observable.of(1,2,3,4,5)
+function map(project) {
+  var source = this;
+  var result = Rx.Observable.create(function subscribe(observer) {
+    source.subscribe(
+      function (x) { observer.next(project(x))},
+      function (err) { observer.error(err) },
+      function () { observer.complete() }
+    )
+  })
+  return result
+}
+Rx.Observable.prototype.map = map
+var bar = foo.map(x => x * 10)
+bar.subscribe(
+  function (x) { console.log('next + x) }, 
+  function (err) { console.log('error ' + err) },
+  function () { console.log('done') },
+)
+``` 
+
+### 04-egghead-rxjs-utility-operator-do.mp4
+
+`do` is a special case of `map` where it returns its input untouched.
+
+### 05-egghead-rxjs-filtering-operator-filter.mp4
+
+
+### 06-egghead-rxjs-filtering-operators-take-first-skip.mp4
+
+
+### 07-egghead-rxjs-filtering-operators-takelast-last.mp4
+
+
+### 08-egghead-rxjs-combination-operators-concat-startwith.mp4
+
+    --0--1--2--3--4--5--6--7-
+      take(3)
+    --0--1--2|                (foo)
+             (345|)           (more)
+      concat
+    --0--1--2(345|)
+
+    var foo = Rx.Observable.interval(100).take(3)
+    var more = Rx.Observable.of(3,4,5)
+    var bar = foo.concat(more)
+
+how to prepend values?
+
+    var bar = foo.startWith('a')
+
+ex
+
+    --0--1--2--3--4--5--6--7-
+      take(3)
+    --0--1--2|                (foo)
+      startWith('a')
+    a-0--1--2|                
+
+### 09-egghead-rxjs-combination-operator-merge.mp4
+
+merge = OR operator
+
+    ----0----1---2--  (foo)
+    --0----1-----3--  (bar)
+       merge
+    --0-0--1-1---(23)--  
+
+### 10-egghead-rxjs-combination-operator-combinelatest.mp4
+
+combineLatest = AND operator
+
+    ----0----1---2--  (foo)
+    --0----1-----3--  (bar)
+      foo.combineLatest(bar, (x,y) => x + y)
+    ----0--1-2---7--  
+
+### 11-egghead-rxjs-combination-operator-withlatestfrom.mp4
+
+uppercase if latest value from bar is 1
+
+    ----H--e---l---l---o|  (foo)
+    --0--1---0---1---0|    (bar)
+      foo.withLatestFrom(bar, (x,y) => y === 1 ? x.toUpperCase() : x.toLowerCase())
+    ----h--E---l---L---o|  
+
+``` js
+var foo = Rx.Observable.interval(500).take(5).
+  zip(Rx.Observable.of('H', 'e', 'l', 'l', 'o'), (_,c) => c)
+var bar = Rx.Observable.interval(300).take(7).
+  zip(Rx.Observable.of(0,1,0,1,0,1,0), (_xx) => x)
+var combined = foo.withLatestFrom(bar, (c,n) => n === 1 ? c.toUpperCase(): c.toLowerCase())
+combined.subscribe(
+  function (x) { console.log('next + x) }, 
+  function (err) { console.log('error ' + err) },
+  function () { console.log('done') },
+)
+``` 
+
+
+### 12-egghead-rxjs-combination-operator-zip.mp4
+
+AND style combinations:
+
+- combineLatest
+- withLatestFrom
+- zip
+
+    ----0----1---2--  (foo)
+    --0----1-----3--  (bar)
+      zip((x,y) => x + y)
+    ----0----2---5--
+
+ex: spread a sync value over time
+
+    (hello|)          (foo)
+    --0--1--2--3--4|  (bar)
+      zip((x,y) => x)
+    --h--e--l--l--o|
+
+### 13-egghead-rxjs-transformation-operator-scan.mp4
+
+combining values over time of one observable: horizontal combinator
+
+    ---h--e--l--l--o
+      scan((acc,x) => acc + x, '')
+    ---h--(he)(hel)(hell)(hello)
+
+### 14-egghead-rxjs-transformation-operator-buffer.mp4
+
+combine last values:
+
+- buffer
+- bufferCount
+- bufferTime
+- bufferToggle
+- bufferWhen
+
+    ---h--e--l--l--o|
+      bufferCount(2)
+    ------([h,e])---ll--o|
+
+    ---h--e--l--l--o|
+      bufferTime(300ms)
+    ------([h,e])---ll--o|
+
+    ---h--e--l--l--o|
+    -------0-----1--2|
+      buffer(closing observable)
+    -------h-----e--ll|
+
+### 15-egghead-rxjs-transformation-operators-delay-and-delaywhen.mp4
+
+    --0--1--2--3--4|
+      delay(1000)
+    ----0--1--2--3--4|
+
+    --0--1--2--3--4|
+      delayWhen(x => ----0| )
+    ----0--1--2--3--4|
+
+### 16-egghead-rxjs-transformation-operators-debounce-and-debouncetime.mp4
+
+similar to delay and delayWhen
+
+rate limiting operators:
+
+- debounce
+- throttle
+- audit
+
+waits for some silence time
+
+    --0--1--2-------
+      debounceTime(1000)
+    ------------2---
+
+Do it only when user stands for 500 ms:
+
+    var inputText = Rx.Observable.fromEvent(fieldElem, 'input')
+      .map(ev => ev.target.value)
+      .debounceTime(500)
+
+debounce(func)
+
+### 17-egghead-rxjs-filtering-operators-throttle-and-throttletime.mp4
+
+First emits, then causes silence
+
+    --0--1--2-----4|
+      throttleTime(1000)
+    --0-----2-----4|
+
+### 18-egghead-rxjs-filtering-operators-distinct-and-distinctuntilchanged.mp4
+
+    --a--b--a--c--b|
+      distinct()
+    --a--b-----c---|
+
+    --a--b--a--a--b|
+      distinctUntilChanged()
+    --a--b--a-----b|
+
+### 19-egghead-rxjs-error-handling-operator-catch.mp4
+
+Error handling operators:
+
+- catch
+- retry
+
+    var result = bar.catch(error => Rx.Observable.of('Z'))
+
+    --a--b--c--d--2|  (foo)
+      map(toUpperCase)
+    --a--b--c--d--#  (bar)
+      catch(# => Z|)
+    --a--b--c--d--Z|
+
+    --a--b--c--d--2|  (foo)
+      map(toUpperCase)
+    --a--b--c--d--#  (bar)
+      catch(# => never())
+    --a--b--c--d---------...
+
+## Ben Lesh _ RxJS 5 In Modern Web Applications-D7ImfM7_mcs.mp4
+
+``` js
+const operator = (observable) => observable
+
+const operator = (observable) => 
+  (observer) => {}
+
+const operator = (observable) => 
+  (observer) => {
+    return observable({
+      next(x) {},
+      error(err) {},
+      complete() {}
+    })
+}
+``` 
+
+operators: chaining observers together:
+
+``` js
+const operator = (observable) => 
+  (observer) => {
+    return observable({
+      next(x) { observer.next(x) },
+      error(err) { observer.error(err) },
+      complete() { observer.complete() }
+    })
+}
+``` 
+
+make map operator:
+
+``` js
+const operator = (observable, mapFn) => 
+  (observer) => {
+    return observable({
+      next(x) { observer.next(mapFn(x)) },
+      error(err) { observer.error(err) },
+      complete() { observer.complete() }
+    })
+}
+``` 
+
+``` js
+const source = map(myObservable, x => x + '!')
+``` 
+
+dot chaining
+
+``` js
+const source = observable.
+  scan(scanFn).
+  filter(filterFn).
+  map(mapFn1).
+  map(mapFn2)
+``` 
+
+Why is Observable class?
+
+- dot chaining
+- type safety
+- performance optimization
+
+But it is just wrapping a function
+
+``` js
+observable.map()
+``` 
+
+## How to Debug rxjs Code - Andre Staltz
+
+https://staltz.com/how-to-debug-rxjs-code.html
+
+Short answer: `.do(x => console.log(x))`
+
+Traditional debuggers are designed for procedural programming. They don't work with callback-based code.
+
+3 ways to debug
+
+- `.do(x => console.log(x))`
+- draw dependency graph and follow the flow
+- draw marble diagram

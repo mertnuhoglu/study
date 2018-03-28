@@ -1,0 +1,958 @@
+---
+title: "Studying Learn Rxjs Book"
+date: 2018-03-24T20:49:14+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_learn_rxjs.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_learn_rxjs/
+
+This is my reading notes for the [Learn Rxjs Book](https://www.learnrxjs.io/operators/combination/)
+
+## Operators
+
+### Combination Operators
+
+#### combineLatest
+
+When any observable emits a value, emit the latest value 
+
+    combineLatest(observables: ...Observable, project: function): Observable
+
+Why use?
+
+When you have multiple observables that rely on each other for some calculation. Examples: calculation of BMI
+
+Note: `combineLatest` won't emit a value until each observable emits one value.
+
+Tests:
+
+    const t1 = hot(  'a----b-----c---|');
+    const t2 = hot(  '-----e------f--------|');
+    const t3 = hot(  '-------------h-----i---------|')
+    const expected = '-------------y-----z---------|';
+    var combined = Observable.combineLatest(t1, t2, t3, (a,b,c) => a + b + c);
+    expectObservable(combined).toBe(expected, { y: 'cfh', z: 'cfi'});
+
+Ex: 
+
+``` js
+import { timer } from 'rxjs/observable/timer';
+import { combineLatest } from 'rxjs/observable/combineLatest';
+const timerOne = timer(1000, 4000);
+const timerTwo = timer(2000, 4000);
+const timerThree = timer(3000, 4000);
+//when one timer emits, emit the latest values from each timer as an array
+const combined = combineLatest(timerOne, timerTwo, timerThree);
+const subscribe = combined.subscribe(
+  ([timerValOne, timerValTwo, timerValThree]) => {
+    /*
+      Example:
+    timerOne first tick: 'Timer One Latest: 1, Timer Two Latest:0, Timer Three Latest: 0
+    timerTwo first tick: 'Timer One Latest: 1, Timer Two Latest:1, Timer Three Latest: 0
+    timerThree first tick: 'Timer One Latest: 1, Timer Two Latest:1, Timer Three Latest: 1
+  */
+    console.log(
+      `Timer One Latest: ${timerValOne},
+     Timer Two Latest: ${timerValTwo},
+     Timer Three Latest: ${timerValThree}`
+    );
+  }
+);
+``` 
+
+Ex: combine events from 2 buttons
+
+``` js
+import { mapTo, startWith, scan, tap, map } from 'rxjs/operators';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { combineLatest } from 'rxjs/observable/combineLatest';
+
+// helper function to set HTML
+const setHtml = id => val => (document.getElementById(id).innerHTML = val);
+
+const addOneClick$ = id =>
+  fromEvent(document.getElementById(id), 'click').pipe(
+    // map every click to 1
+    mapTo(1),
+    startWith(0),
+    // keep a running total
+    scan((acc, curr) => acc + curr),
+    // set HTML for appropriate element
+    tap(setHtml(`${id}Total`))
+  );
+
+const combineTotal$ = combineLatest(addOneClick$('red'), addOneClick$('black'))
+  .pipe(map(([val1, val2]) => val1 + val2))
+  .subscribe(setHtml('total'));
+``` 
+
+``` html
+<div>
+  <button id='red'>Red</button>
+  <button id='black'>Black</button>
+</div>
+<div>Red: <span id="redTotal"></span> </div>
+<div>Black: <span id="blackTotal"></span> </div>
+<div>Total: <span id="total"></span> </div>
+``` 
+
+#### concat
+
+    concat(observables: ...*): Observable
+
+Subscribe to observables in order. When one previous completes, emit values of it.
+
+Tests:
+
+    const sourceOne = Observable.of(1,2,3);
+    const sourceTwo = Observable.of(4,5,6);
+    const example = sourceOne.concat(sourceTwo);
+    const values = {a: 1, b: 2, c: 3, d: 4, e: 5, f: 6};
+    const expected = '(abcdef|)';
+    expectObservable(example).toBe(expected, values);
+
+Ex: 
+
+``` js
+import { concat } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+
+//emits 1,2,3
+const sourceOne = of(1, 2, 3);
+//emits 4,5,6
+const sourceTwo = of(4, 5, 6);
+//emit values from sourceOne, when complete, subscribe to sourceTwo
+const example = sourceOne.pipe(concat(sourceTwo));
+//output: 1,2,3,4,5,6
+const subscribe = example.subscribe(val =>
+  console.log('Example: Basic concat:', val)
+);
+``` 
+
+#### merge
+
+    merge(input: Observable): Observable
+
+Turn multiple observables into a single observable.
+
+Ex:
+
+``` js
+import { mapTo } from 'rxjs/operators';
+import { interval } from 'rxjs/observable/interval';
+import { merge } from 'rxjs/observable/merge';
+//emit every 2.5 seconds
+const first = interval(2500);
+//emit every 2 seconds
+const second = interval(2000);
+
+//emit outputs from one observable
+const example = merge(
+  first.pipe(mapTo('FIRST!')),
+  second.pipe(mapTo('SECOND!')),
+);
+//output: "SECOND!", "FIRST!", 
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+#### startWith
+
+    startWith(an: Values): Observable
+
+Emit given value first
+
+Tests:
+
+    const source = Observable.of(1,2,3);
+    const example =  source.startWith(0);
+    const values = {a: 0, b: 1, c: 2, d: 3};
+    const expected = '(abcd|)';
+    expectObservable(example).toBe(expected, values);
+
+Ex:
+
+``` js
+import { startWith } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+
+//emit (1,2,3)
+const source = of(1, 2, 3);
+//start with 0
+const example = source.pipe(startWith(0));
+//output: 0,1,2,3
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+Ex: scan startWith initial acc value
+
+``` js
+import { startWith, scan } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+
+//emit ('World!', 'Goodbye', 'World!')
+const source = of('World!', 'Goodbye', 'World!');
+//start with 'Hello', concat current string to previous
+const example = source.pipe(
+  startWith('Hello'),
+  scan((acc, curr) => `${acc} ${curr}`)
+);
+/*
+  output:
+  "Hello"
+  "Hello World!"
+  "Hello World! Goodbye"
+  "Hello World! Goodbye World!"
+*/
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+#### withLatestFrom
+
+    withLatestFrom(other: Observable, project: Function): Observable
+
+When event is received, also provide the last value from another observable
+
+Ex:
+
+``` js
+import { withLatestFrom, map } from 'rxjs/operators';
+import { interval } from 'rxjs/observable/interval';
+
+//emit every 5s
+const source = interval(5000);
+//emit every 1s
+const secondSource = interval(1000);
+const example = source.pipe(
+  withLatestFrom(secondSource),
+  map(([first, second]) => {
+    return `First Source (5s): ${first} Second Source (1s): ${second}`;
+  })
+);
+/*
+  "First Source (5s): 0 Second Source (1s): 4"
+  "First Source (5s): 1 Second Source (1s): 9"
+  "First Source (5s): 2 Second Source (1s): 14"
+  ...
+*/
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+### Conditional Operators
+
+#### defaultIfEmpty
+
+    defaultIfEmpty(defaultValue: any): Observable
+
+Emit given value if nothing is emitted before completion
+
+Ex:
+
+``` js
+import { defaultIfEmpty } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+
+const empty = of();
+//emit 'Observable.of() Empty!' when empty, else any values from source
+const exampleOne = empty.pipe(defaultIfEmpty('Observable.of() Empty!'));
+//output: 'Observable.of() Empty!'
+const subscribe = exampleOne.subscribe(val => console.log(val));
+``` 
+
+### Creation Operators
+
+#### from
+
+    from(ish: ObservableInput, mapFn, function, thisArg: any, scheduler: Scheduler): Observable
+
+Turn an array, promise, or iterable into an observable
+
+Ex: Observable from array 
+
+``` js
+import { from } from 'rxjs/observable/from';
+
+//emit array as a sequence of values
+const arraySource = from([1, 2, 3, 4, 5]);
+//output: 1,2,3,4,5
+const subscribe = arraySource.subscribe(val => console.log(val));
+``` 
+
+Ex: Observable from Promise
+
+``` js
+import { from } from 'rxjs/observable/from';
+
+//emit result of promise
+const promiseSource = from(new Promise(resolve => resolve('Hello World!')));
+//output: 'Hello World'
+const subscribe = promiseSource.subscribe(val => console.log(val));
+``` 
+
+Ex: Observable from collection
+
+``` js
+import { from } from 'rxjs/observable/from';
+
+//works on js collections
+const map = new Map();
+map.set(1, 'Hi');
+map.set(2, 'Bye');
+
+const mapSource = from(map);
+//output: [1, 'Hi'], [2, 'Bye']
+const subscribe = mapSource.subscribe(val => console.log(val));
+``` 
+
+Ex: Observable from string
+
+``` js
+import { from } from 'rxjs/observable/from';
+
+//emit string as a sequence
+const source = from('Hello World');
+//output: 'H','e','l','l','o',' ','W','o','r','l','d'
+const subscribe = source.subscribe(val => console.log(val));
+``` 
+
+#### of
+
+    of(...values, scheduler: Scheduler): Observable
+
+Emit variable amount of values in a sequence
+
+Ex: Emit a sequence of numbers
+
+``` js
+//emits any number of provided values in sequence
+const source = Rx.Observable.of(1, 2, 3, 4, 5);
+//output: 1,2,3,4,5
+const subscribe = source.subscribe(val => console.log(val));
+``` 
+
+Ex: Emit an object, array, and function
+
+``` js
+import { of } from 'rxjs/observable/of';
+//emits values of any type
+const source = of({ name: 'Brian' }, [1, 2, 3], function hello() {
+  return 'Hello';
+});
+//output: {name: 'Brian}, [1,2,3], function hello() { return 'Hello' }
+const subscribe = source.subscribe(val => console.log(val));
+``` 
+
+#### interval
+
+    interval(period: number, scheduler: Scheduler): Observable
+
+Emit numbers in sequence based on provided timeframe
+
+Ex: Emit sequence of values at 1 second interval
+
+``` js
+import { interval } from 'rxjs/observable/interval';
+
+//emit value in sequence every 1 second
+const source = interval(1000);
+//output: 0,1,2,3,4,5....
+const subscribe = source.subscribe(val => console.log(val));
+``` 
+
+#### create
+
+    create(subscribe: function)
+
+Create an observable with given subscription function
+
+Ex: Observable that emits multiple values
+
+``` js
+import { Observable } from 'rxjs/Observable';
+/*
+  Create an observable that emits 'Hello' and 'World' on  
+  subscription.
+*/
+const hello = Observable.create(function(observer) {
+  observer.next('Hello');
+  observer.next('World');
+});
+
+//output: 'Hello'...'World'
+const subscribe = hello.subscribe(val => console.log(val));
+``` 
+
+Ex: Emit even numbers on timer
+
+``` js
+import { Observable } from 'rxjs/Observable';
+
+/*
+  Increment value every 1s, emit even numbers.
+*/
+const evenNumbers = Observable.create(function(observer) {
+  let value = 0;
+  const interval = setInterval(() => {
+    if (value % 2 === 0) {
+      observer.next(value);
+    }
+    value++;
+  }, 1000);
+
+  return () => clearInterval(interval);
+});
+//output: 0...2...4...6...8
+const subscribe = evenNumbers.subscribe(val => console.log(val));
+//unsubscribe after 10 seconds
+setTimeout(() => {
+  subscribe.unsubscribe();
+}, 10000);
+``` 
+
+#### empty
+
+    empty(scheduler: Scheduler): Observable
+
+Observable that immediately completes
+
+Ex:
+
+``` js
+import { empty } from 'rxjs/observable/empty';
+
+//Create observable that immediately completes
+const example = empty();
+//output: 'Complete!'
+const subscribe = example.subscribe({
+  next: () => console.log('Next'),
+  complete: () => console.log('Complete!')
+});
+``` 
+
+#### range
+
+    range(start: number, count: number, scheduler: Scheduler): Observable
+
+Emit numbers in provided range in sequence
+
+``` js
+import { range } from 'rxjs/observable/range';
+
+//emit 1-10 in sequence
+const source = range(1, 10);
+//output: 1,2,3,4,5,6,7,8,9,10
+const example = source.subscribe(val => console.log(val));
+``` 
+
+#### fromEvent
+
+    fromEvent(target: EventTargetLike, eventName: string, selector: function): Observable
+
+Turn event into observable sequence
+
+Ex: Observable from mouse clicks
+
+``` js
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { map } from 'rxjs/operators';
+
+//create observable that emits click events
+const source = fromEvent(document, 'click');
+//map to string with given event timestamp
+const example = source.pipe(map(event => `Event time: ${event.timeStamp}`));
+//output (example): 'Event time: 7276.390000000001'
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+#### timer
+
+      timer(initialDelay: number | Date, period: number, scheduler: Scheduler): Observable
+
+After given duration, emit numbers in sequence every specified duration
+
+Ex: Emit first after 1 second, then every 2 seconds
+
+``` js
+import { timer } from 'rxjs/observable/timer';
+
+const source = timer(1000, 2000);
+//output: 0,1,2,3,4,5......
+const subscribe = source.subscribe(val => console.log(val));
+``` 
+
+### Error Handling Operators
+
+#### catchError
+
+    catchError(project: function): Observable
+
+Gracefully handle errors in an observable sequence
+
+Ex:
+
+``` js
+import { _throw } from 'rxjs/observable/throw';
+import { catchError } from 'rxjs/operators';
+//emit error
+const source = _throw('This is an error!');
+//gracefully handle error, returning observable with error message
+const example = source.pipe(catchError(val => of(`I caught: ${val}`)));
+//output: 'I caught: This is an error'
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+### Multicasting Operators
+
+#### publish
+
+    publish(): ConnectableObservable
+
+Share source and make hot by calling connect
+
+Ex: 
+
+``` js
+import { interval } from 'rxjs/observable/of';
+import { publish, tap } 'rxjs/operators';
+
+//emit value every 1 second
+const source = interval(1000);
+const example = source.pipe(
+  //side effects will be executed once
+  tap(_ => console.log('Do Something!')),
+  //do nothing until connect() is called
+  publish()
+);
+
+
+/*
+  source will not emit values until connect() is called
+  output: (after 5s)
+  "Do Something!"
+  "Subscriber One: 0"
+  "Subscriber Two: 0"
+  "Do Something!"
+  "Subscriber One: 1"
+  "Subscriber Two: 1"
+*/
+const subscribe = example.subscribe(val =>
+  console.log(`Subscriber One: ${val}`)
+);
+const subscribeTwo = example.subscribe(val =>
+  console.log(`Subscriber Two: ${val}`)
+);
+
+//call connect after 5 seconds, causing source to begin emitting items
+setTimeout(() => {
+  example.connect();
+}, 5000);
+``` 
+
+#### share
+
+    share(): Observable
+
+Ex: Multiple subscribers sharing source
+
+``` js
+import { timer } from 'rxjs/observable/timer';
+import { tap, mapTo, share } 'rxjs/operators';
+
+//emit value in 1s
+const source = timer(1000);
+//log side effect, emit result
+const example = source.pipe(
+  tap(() => console.log('***SIDE EFFECT***')),
+  mapTo('***RESULT***')
+);
+
+/*
+  ***NOT SHARED, SIDE EFFECT WILL BE EXECUTED TWICE***
+  output:
+  "***SIDE EFFECT***"
+  "***RESULT***"
+  "***SIDE EFFECT***"
+  "***RESULT***"
+*/
+const subscribe = example.subscribe(val => console.log(val));
+const subscribeTwo = example.subscribe(val => console.log(val));
+
+//share observable among subscribers
+const sharedExample = example.pipe(share());
+/*
+  ***SHARED, SIDE EFFECT EXECUTED ONCE***
+  output:
+  "***SIDE EFFECT***"
+  "***RESULT***"
+  "***RESULT***"
+*/
+const subscribeThree = sharedExample.subscribe(val => console.log(val));
+const subscribeFour = sharedExample.subscribe(val => console.log(val));
+``` 
+
+### Filtering Operators
+
+#### debounceTime
+
+    debounceTime(dueTime: number, scheduler: Scheduler): Observable
+
+Discard emitted values that take less than the specified time between outputs
+
+``` js
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { timer } from 'rxjs/observable/timer';
+import { debounceTime, map } from 'rxjs/operators';
+
+const input = document.getElementById('example');
+
+//for every keyup, map to current input value
+const example = fromEvent(input, 'keyup').pipe(map(i => i.currentTarget.value));
+
+//wait .5s between keyups to emit current value
+//throw away all other values
+const debouncedInput = example.pipe(debounceTime(500));
+
+//log values
+const subscribe = debouncedInput.subscribe(val => {
+  console.log(`Debounced Input: ${val}`);
+});
+``` 
+
+#### distinctUntilChanged
+
+    distinctUntilChanged(compare: function): Observable
+
+Only emit when current value different than the last
+
+``` js
+import { from } from 'rxjs/observable/from';
+import { distinctUntilChanged } from 'rxjs/operators';
+
+//only output distinct values, based on the last emitted value
+const myArrayWithDuplicatesInARow = from([1, 1, 2, 2, 3, 1, 2, 3]);
+
+const distinctSub = myArrayWithDuplicatesInARow
+  .pipe(distinctUntilChanged())
+  //output: 1,2,3,1,2,3
+  .subscribe(val => console.log('DISTINCT SUB:', val));
+
+const nonDistinctSub = myArrayWithDuplicatesInARow
+  //output: 1,1,2,2,3,1,2,3
+  .subscribe(val => console.log('NON DISTINCT SUB:', val));
+``` 
+
+#### filter
+
+    filter(select: Function, thisArg: any): Observable
+
+Like Array.filter
+
+``` js
+import { from } from 'rxjs/observable/from';
+import { filter } from 'rxjs/operators';
+
+//emit (1,2,3,4,5)
+const source = from([1, 2, 3, 4, 5]);
+//filter out non-even numbers
+const example = source.pipe(filter(num => num % 2 === 0));
+//output: "Even number: 2", "Even number: 4"
+const subscribe = example.subscribe(val => console.log(`Even number: ${val}`));
+``` 
+
+#### take
+
+    take(count: number): Observable
+
+Emit provided number of values before completing.
+
+``` js
+import { of } from 'rxjs/observable/of';
+import { take } 'rxjs/operators';
+
+//emit 1,2,3,4,5
+const source = of(1, 2, 3, 4, 5);
+//take the first emitted value then complete
+const example = source.pipe(take(1));
+//output: 1
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+#### takeUntil
+
+    takeUntil(notifier: Observable): Observable
+
+Emit values until provided observable emits
+
+``` js
+import { interval } from 'rxjs/observable/interval';
+import { timer } from 'rxjs/observable/timer';
+import { takeUntil } 'rxjs/operators';
+
+//emit value every 1s
+const source = interval(1000);
+//after 5 seconds, emit value
+const timer = timer(5000);
+//when timer emits after 5s, complete source
+const example = source.pipe(takeUntil(timer));
+//output: 0,1,2,3
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+### Transformation Operators
+
+#### bufferTime
+ 
+    bufferTime(bufferTimeSpan: number, bufferCreationInterval: number, scheduler: Scheduler): Observable
+
+Collect emitted values until provided time has passed, emit as array
+
+``` js
+//Create an observable that emits a value every 500ms
+const source = Rx.Observable.interval(500);
+//After 2 seconds have passed, emit buffered values as an array
+const example = source.bufferTime(2000);
+//Print values to console
+//ex. output [0,1,2]...[3,4,5,6]
+const subscribe = example.subscribe(val =>
+  console.log('Buffered with Time:', val)
+);
+``` 
+
+#### concatMap
+
+    concatMap(project: function, resultSelector: function): Observable
+
+Map values to inner observable, subscribe and emit in order.
+
+``` js
+import { of } from 'rxjs/observable/of';
+import { concatMap, delay, mergeMap } from 'rxjs/operators';
+
+//emit delay value
+const source = of(2000, 1000);
+// map value from source into inner observable, when complete emit result and move to next
+const example = source.pipe(
+  concatMap(val => of(`Delayed by: ${val}ms`).pipe(delay(val)))
+);
+//output: With concatMap: Delayed by: 2000ms, With concatMap: Delayed by: 1000ms
+const subscribe = example.subscribe(val =>
+  console.log(`With concatMap: ${val}`)
+);
+
+// showing the difference between concatMap and mergeMap
+const mergeMapExample = source
+  .pipe(
+    // just so we can log this after the first example has run
+    delay(5000),
+    mergeMap(val => of(`Delayed by: ${val}ms`).pipe(delay(val)))
+  )
+  .subscribe(val => console.log(`With mergeMap: ${val}`));
+``` 
+
+#### map
+
+    map(project: Function, thisArg: any): Observable
+
+Like Array.map
+
+Ex:
+
+``` js
+import { from } from 'rxjs/observable/from';
+import { map } from 'rxjs/operators';
+
+//emit (1,2,3,4,5)
+const source = from([1, 2, 3, 4, 5]);
+//add 10 to each value
+const example = source.pipe(map(val => val + 10));
+//output: 11,12,13,14,15
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+#### mergeMap
+ 
+    mergeMap(project: function: Observable, resultSelector: function: any, concurrent: number): Observable
+
+Map to observable, emit values
+
+``` js
+import { of } from 'rxjs/observable/of';
+import { mergeMap } from 'rxjs/operators';
+
+//emit 'Hello'
+const source = of('Hello');
+//map to inner observable and flatten
+const example = source.pipe(mergeMap(val => of(`${val} World!`)));
+//output: 'Hello World!'
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+#### scan
+
+    scan(accumulator: function, seed: any): Observable
+
+Like Array.reduce 
+
+``` js
+import { of } from 'rxjs/observable/of';
+import { scan } from 'rxjs/operators';
+
+const source = of(1, 2, 3);
+// basic scan example, sum over time starting with zero
+const example = source.pipe(scan((acc, curr) => acc + curr, 0));
+// log accumulated values
+// output: 1,3,6
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+#### switchMap
+
+    switchMap(project: function: Observable, resultSelector: function(outerValue, innerValue, outerIndex, innerIndex): any): Observable
+
+Map to observable, complete previous inner observable, emit values
+
+``` js
+import { timer } from 'rxjs/observable/timer';
+import { interval } from 'rxjs/observable/interval';
+import { switchMap } from 'rxjs/operators';
+
+//emit immediately, then every 5s
+const source = timer(0, 5000);
+//switch to new inner observable when source emits, emit items that are emitted
+const example = source.pipe(switchMap(() => interval(500)));
+//output: 0,1,2,3,4,5,6,7,8,9...0,1,2,3,4,5,6,7,8
+const subscribe = example.subscribe(val => console.log(val));
+``` 
+
+#### differences
+
+`concatMap` vs `mergeMap`: 
+
+concatMap does not subscribe to inner (next) observable until the previous completes
+
+mergeMap subscribes immediately to inner observables
+
+`switchMap` vs other flattening operators:
+
+cancelling effect. On each emission the previous inner observable is cancelled and new observable is subscribed.
+
+mnemonics: switch to a new observable
+
+`concat` vs `merge`:
+
+`concat` protects order of events.
+
+`interval` vs `timer`
+
+`timer` allows to specify when should the emissions start: `timer(3000, 1000)`
+
+### Summary
+
+Combination Operators:
+
+- combineAll
+- combineLatest
+- concat
+- concatAll
+- forkJoin
+- merge
+- mergeAll
+- pairwise
+- race
+- startWith
+- withLatestFrom
+- zip
+
+Conditional Operators:
+
+- defaultIfEmpty
+- every
+
+Creation Operators:
+
+- create
+- empty 
+- from
+- fromEvent
+- fromPromise
+- interval
+- of
+- range
+- throw
+- timer
+
+Error Handling:
+
+- catchError
+- retry
+- retryWhen
+
+Multicasting:
+
+- publish
+- multicast
+- share
+- shareReplay
+
+Filtering:
+
+- debounce
+- debounceTime
+- distinctUntilChanged
+- filter 
+- first
+- ignoreElements
+- last
+- sample
+- single
+- skip
+- skipUntil
+- take
+- takeUntil
+- takeWhile
+- throttle
+- throttleTime
+
+Transformation:
+
+- buffer
+- bufferCount
+- bufferTime
+- bufferToggle
+- bufferWhen
+- concatMap
+- concatMapTo
+- exhaustMap
+- expand
+- groupBy
+- map
+- mapTo
+- mergeMap
+- partition
+- pluck 
+- reduce
+- scan
+- switchMap
+- window
+- windowCount
+- windowTime
+- windowToggle
+- windowWhen
+

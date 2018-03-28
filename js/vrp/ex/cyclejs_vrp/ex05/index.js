@@ -1,5 +1,7 @@
-const {button, h1, h4, a, div, table, thead, tbody, tr, td, th, makeDOMDriver} = CycleDOM;
-const {makeHTTPDriver} = CycleHTTPDriver;
+import Rx from 'rxjs/Rx'
+import {run} from '@cycle/rxjs-run'
+import {button, h1, h4, a, div, table, thead, tbody, tr, td, th, makeDOMDriver} from '@cycle/dom';
+import {makeHTTPDriver} from '@cycle/http';
 
 // DOM read effect: button clicked
 // HTTP write effect: request sent
@@ -35,33 +37,37 @@ function main(sources) {
     };
   });
   
-  const response$ = sources.HTTP.
-    filter(r$ => r$.request.url ===
-           'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id').
-    switch();
+  const response$$ = sources.HTTP.select();
+  //const response$ = response$$.flatten();
+  const response$ = response$$.switch();
+  //const response$ = sources.HTTP.
+    //filter(r$ => r$.request.url ===
+           //'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id').
+    //flatten();
   const json$ = response$.map(response => response.body);
   
   return {
-    DOM: json$.map(json =>
-      table([
-        thead(
-          tr(
-            th('Plan Id'),
-            th('Kullanıcı'),
-            th('Depot Id')
-          )
-        ),
-        tbody(
-          json.map(e => 
+    DOM: json$.
+      map(json =>
+        table([
+          thead(
             tr([
-              td(e.plan_id),
-              td(e.usr),
-              td(e.depot_id)
+              th('Plan Id'),
+              th('Kullanıcı'),
+              th('Depot Id')
             ])
+          ),
+          tbody(
+            json.map(e => 
+              tr([
+                td(e.plan_id),
+                td(e.usr),
+                td(e.depot_id)
+              ])
+            )
           )
-        )
-      ])
-    ),
+        ])
+      ),
     HTTP: request$,
   };
 }
@@ -71,4 +77,5 @@ const drivers = {
   HTTP: makeHTTPDriver(),
 }
 
-Cycle.run(main, drivers);
+run(main, drivers);
+

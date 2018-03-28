@@ -47,66 +47,85 @@ Array.prototype.reduce = function(combiner, initialValue) {
     return [accumulatedValue];
   }
 };
+Array.zip = function(left, right, combinerFunction) {
+	var counter,
+		results = [];
 
-var listsOfItems = [
-  {
-    name: "list_01",
-    items: [
-      {
-        "id": 1,
-        "title": "a",
-        "subitems": [
-          { time: 150, url: "url01"},
-          { time: 200, url: "url02"}
-        ],
-      },
-      {
-        "id": 2,
-        "title": "b",
-        "subitems": [
-          { time: 200, url:"url03" },
-          { time: 140, url:"url04" }
+	for(counter = 0; counter < Math.min(left.length, right.length); counter++) {
+		results.push(combinerFunction(left[counter],right[counter]));
+	}
 
-        ],
-      }
-    ]
-  },
-  {
-    name: "list_02",
-    items: [
-      {
-        "id": 3,
-        "title": "c",
-        "subitems": [
-          { time: 130, url:"url05" },
-          { time: 200, url:"url06" }
-        ],
-      },
-      {
-        "id": 4,
-        "title": "d",
-        "subitems": [
-          { time: 200, url:"url07" },
-          { time: 120, url:"url08" },
-          { time: 300, url:"url09" }
-        ],
-      }
-    ]
-  }
-];
-var r = listsOfItems.concatMap((list) =>
-  list.items.concatMap((e) =>
-    e.subitems.reduce((acc,curr) => {
-      if (acc.time < curr.time) {
-        return acc;
-      }
-      else {
-        return curr;
-      }
-    }).map((s) =>
-      ({id: e.id, title: e.title, url: s.url})
-    )
-  )
-);
+	return results;
+};
 
-console.log(r)
+var lists = [
+    {
+      "id": 901,
+      "name": "group_01"
+    },
+    {
+      "id": 902,
+      "name": "group_02"
+    }
+  ],
+  videos = [
+    {
+      "list_id": 901,
+      "id": 1,
+      "title": "a"
+    },
+    {
+      "list_id": 901,
+      "id": 2,
+      "title": "b"
+    },
+    {
+      "list_id": 902,
+      "id": 3,
+      "title": "c"
+    },
+    {
+      "list_id": 902,
+      "id": 4,
+      "title": "d"
+    }
+  ];
+
+var r = lists.map((list) => {
+  return {
+    name: list.name,
+    videos: videos.
+      filter((video) => video.list_id === list.id).
+      map((video) => ({id: video.id, title: video.title}))
+  };
+});
+console.log(JSON.stringify(r))
+// [
+//   {
+//     "name": "group_01",
+//     "videos": [
+//       {
+//         "id": 1,
+//         "title": "a"
+//       },
+//       {
+//         "id": 2,
+//         "title": "b"
+//       }
+//     ]
+//   },
+//   {
+//     "name": "group_02",
+//     "videos": [
+//       {
+//         "id": 3,
+//         "title": "c"
+//       },
+//       {
+//         "id": 4,
+//         "title": "d"
+//       }
+//     ]
+//   }
+// ]
+

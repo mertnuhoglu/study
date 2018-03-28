@@ -1,0 +1,583 @@
+---
+title: "Studying RxJs Manual"
+date: 2018-03-24T09:54:33+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_rxjs_manual.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_rxjs_manual/
+
+This is my reading notes for the [Manual of RxJs](http://reactivex.io/rxjs/manual/overview.html)
+
+## Introduction
+
+Core concepts in RxJs:
+
+- Observable: invokable collection of future values (events)
+- Observer: collection of callbacks that listen to values coming from Observable
+- Subscription: execution of Observable
+- Operators: functions like `map, filter, concat`
+- Subject: similar to EventEmitter. It multicasts a value to multiple Observers
+- Schedulers: control concurrency
+
+## First Examples
+
+Before RxJs we had event listeners:
+
+    var button = document.querySelector('button');
+    button.addEventListener('click', () => console.log('Clicked!'));
+
+Now we use Observables:
+
+    var button = document.querySelector('button');
+    Rx.Observable.fromEvent(button, 'click')
+      .subscribe(() => console.log('Clicked!'));
+
+## Purity
+
+Before:
+
+    var count = 0;
+    var button = document.querySelector('button');
+    button.addEventListener('click', () => console.log(`Clicked ${++count} times`));
+
+With RxJs, you isolate the state (`count`):
+
+    var button = document.querySelector('button');
+    Rx.Observable.fromEvent(button, 'click')
+      .scan(count => count + 1, 0)
+      .subscribe(count => console.log(`Clicked ${count} times`));
+
+## Flow
+
+Operators control how the events flow through observables: `throttleTime, filter, delay, debounceTime, take, takeUntil, distinct, distinctUntilChanged` etc.
+
+Ex: Limiting one click per second:
+
+    var button = document.querySelector('button');
+    Rx.Observable.fromEvent(button, 'click')
+      .throttleTime(1000)
+      .scan(count => count + 1, 0)
+      .subscribe(count => console.log(`Clicked ${count} times`));
+
+## Transform Values
+
+Ex: Add current mouse x position for every click:
+
+    var button = document.querySelector('button');
+    Rx.Observable.fromEvent(button, 'click')
+      .throttleTime(1000)
+      .map(event => event.clientX)
+      .scan((count, clientX) => count + clientX, 0)
+      .subscribe(count => console.log(count));
+
+Value producing operators: `map, pluck, pairwise, sample` etc.
+
+## Observable
+
+Observables are lazy push collections of multiple values
+
+    | .    | Single   | Multiple   |
+    | Pull | Function | Iterator   |
+    | Push | Promise  | Observable |
+
+Ex: Push values 1,2 immediately (synchronously) when subscribed, and 3 after one second:
+
+``` js
+var observable = Rx.Observable.create(function (observer) {
+  observer.next(1)
+  observer.next(2)
+  setTimeout(() => {
+    observer.next(3)
+    observer.complete()
+  }, 1000)
+})
+observable.subscribe({
+  next: x => console.log(`${x}`),
+  error: err => console.error(`error ${err}`),
+  complete: () => console.log('done')
+})
+``` 
+
+## Pull versus Push
+
+What is Pull?
+
+The Consumer determines when it receives data.
+
+Every function is a Pull system. The function is a Producer. The client code pulls the single return value.
+
+    | .    | Producer | Consumer |
+    | Pull | Passive  | Active   |
+    | Push | Active   | Passive  |
+
+What is Push?
+
+The Producer determines when to send data.
+
+## Observables as generalizations of functions
+
+Observables are like functions with zero arguments.
+
+Ex: Similarity of Functions to Observables
+
+``` js
+function foo() {
+  console.log('Hello');
+  return 42;
+}
+
+var x = foo.call(); // same as foo()
+console.log(x);
+var y = foo.call(); // same as foo()
+console.log(y);
+``` 
+
+with Observables:
+
+``` js
+var foo = Rx.Observable.create(function (observer) {
+  console.log('Hello');
+  observer.next(42);
+});
+
+foo.subscribe(function (x) {
+  console.log(x);
+});
+foo.subscribe(function (y) {
+  console.log(y);
+});
+``` 
+
+Output is the same in both cases:
+
+``` js
+"Hello"
+42
+"Hello"
+42
+``` 
+
+Difference between an Observable and a function:
+
+Observables can return multiple values over time. Functions cannot.
+
+You can't do this:
+
+``` js
+function foo() {
+  console.log('Hello');
+  return 42;
+  return 100;
+}
+``` 
+
+But you can do it with Observables:
+
+``` js
+var foo = Rx.Observable.create(function (observer) {
+  console.log('Hello');
+  observer.next(42);
+  observer.next(100);
+});
+``` 
+
+You can also return values asynchronously:
+
+``` js
+var foo = Rx.Observable.create(function (observer) {
+  console.log('Hello');
+  observer.next(42);
+  setTimeout(() => {
+    observer.next(100);
+  }, 1000);
+  observer.next(70);
+});
+``` 
+
+## Anatomy of an Observable
+
+Core Observable functionalities:
+
+- Creating Observables: ex: `create()`
+- Subscribing to Observables: `subscribe()`
+- Executing the Observable: ex: `next()`
+- Disposing Observables: `unsubscribe()`
+
+### Creating Observables
+
+``` js
+var observable = Rx.Observable.create(function subscribe(observer) {
+  var id = setInterval(() => {
+    observer.next('hi')
+  }, 1000);
+});
+``` 
+
+Creation operators: `of, from, interval` etc.
+
+#### Subscribing to Observables
+
+``` js
+observable.subscribe(x => console.log(x));
+``` 
+
+#### Executing Observables
+
+Observable execution = the code inside `Observable.create(function subscribe(observer) {...})`
+
+It is a lazy computation. 
+
+It happens only when each Observer subscribes.
+
+The execution produces multiple values over time.
+
+There are three types of values:
+
+- `next` notification
+- `error` notification
+- `complete` notification
+
+Observable Grammar (Contract):
+
+    next*(error|complete)?
+
+Ex: An Observable execution that does three next notifications, then completes:
+
+``` js
+var observable = Rx.Observable.create(function subscribe(observer) {
+  try {
+    observer.next(1);
+    observer.next(2);
+    observer.next(3);
+    observer.complete();
+  } catch(err) {
+    observer.error(err);
+  }
+});
+``` 
+
+#### Disposing Observable Executions
+
+How to cancel an execution?
+
+`subscribe()` returns subscription object:
+
+``` js
+var observable = Rx.Observable.from([10, 20, 30]);
+var subscription = observable.subscribe(x => console.log(x))
+subscription.unsubscribe()
+``` 
+
+### Observer
+
+What is an Observer?
+
+A consumer of values pushed by an Observable.
+
+An Observer is a set of callbacks for `next`, `error` and `complete`.
+
+``` js
+var observer = {
+  next: x => console.log(`next ${x}`),
+  error: err => console.log(`error ${err}`),
+  complete: () => console.log('completed')
+}
+observable.subscribe(observer)
+``` 
+
+Observers can be partial (without `error` or `complete` callback).
+
+### Subscription
+
+What is a Subscription?
+
+An object that represents a disposable resource, the execution of an Observable.
+
+### Subject
+
+What is a Subject?
+
+A special type of Observable to multicastt to many Observers.
+
+Plain Observables are unicast ie. each Observer owns an independent execution of the Observable.
+
+A Subject is an Observable, but can multicast to many Observers. 
+
+They store a list of many observers.
+
+`subscribe` does not invoke a new execution. It simply registers the observer.
+
+Every Subject is both an Observable and an Observer. 
+
+It has methods `next(v)`, `error(e)`, and `complete()`
+
+Push a new value to the Subject with `next(v)`. It will be multicasted to the Observers registered to listen to the Subject.
+
+``` js
+var subject = new Rx.Subject();
+subject.subscribe({
+  next: (v) => console.log('observerA: ' + v)
+});
+subject.subscribe({
+  next: (v) => console.log('observerB: ' + v)
+});
+subject.next(1);
+subject.next(2);
+// observerA: 1
+// observerB: 1
+// observerA: 2
+// observerB: 2
+``` 
+
+A Subject can `subscribe` to an Observable too, because it is an Observer too.
+
+``` js
+var subject = new Rx.Subject();
+subject.subscribe({
+  next: (v) => console.log('observerA: ' + v)
+});
+subject.subscribe({
+  next: (v) => console.log('observerB: ' + v)
+});
+var observable = Rx.Observable.from([1, 2]);
+observable.subscribe(subject); 
+// observerA: 1
+// observerB: 1
+// observerA: 2
+// observerB: 2
+``` 
+
+#### Multicasted Observables
+
+Observers subscribe to a Subject. And the Subject subscribes to the source Observable.
+
+``` js
+var source = Rx.Observable.from([1, 2, 3]);
+var subject = new Rx.Subject();
+var multicasted = source.multicast(subject);
+// These are, under the hood, `subject.subscribe({...})`:
+multicasted.subscribe({
+  next: (v) => console.log('observerA: ' + v)
+});
+multicasted.subscribe({
+  next: (v) => console.log('observerB: ' + v)
+});
+// This is, under the hood, `source.subscribe(subject)`:
+multicasted.connect();
+``` 
+
+#### BehaviorSubject
+
+This is a variant of Subject that has a notion of "the current value". Whenever a new Observer subscribes, it immediately receives the current value.
+
+#### ReplaySubject
+
+This can send old values too. But it can also record a part of the Observable execution.
+
+#### AsyncSubject
+
+It only sends the last value of the Observable execution to its observers.
+
+## Operators
+
+### What are operators?
+
+They are methods of Observable such as `map, filter, merge`
+
+They don't change the existing Observable. Instead, they return a new Observable.
+
+An Operator is essentially a pure function. It takes one Observable as input and returns another Observable as output.
+
+The following function maps a value of the input Observable to its multiplication by 10.
+
+``` js
+function multiplyByTen(input) {
+  var output = Rx.Observable.create(function subscribe(observer) {
+    input.subscribe({
+      next: (v) => observer.next(10 * v),
+    });
+  });
+  return output;
+}
+var input = Rx.Observable.from([1, 2, 3, 4]);
+var output = multiplyByTen(input);
+output.subscribe(x => console.log(x));
+``` 
+
+This corresponds to the following `map` call:
+
+``` js
+var input = Rx.Observable.from([1, 2, 3, 4]);
+var output = input.map(x => 10 * x);
+output.subscribe(x => console.log(x));
+``` 
+
+### Instance operators versus static operators
+
+Examples of static operators: 
+
+1. Creation operators: `from, interval` etc.
+
+        var observable = Rx.Observable.interval(1000);
+
+2. Combination operators that take multiple Observables as input: `merge, combineLatest, concat` etc.
+
+        var observable1 = Rx.Observable.interval(1000);
+        var observable2 = Rx.Observable.interval(400);
+        var merged = Rx.Observable.merge(observable1, observable2);
+
+## Marble Diagrams of Operators in `xstream`
+
+References:
+
+https://github.com/staltz/xstream
+
+### Factories
+
+`create(producer)`
+
+`empty()`
+
+    -|
+
+`throw(error)`
+
+    -X
+
+`from(input)`
+
+    input: Array|PromiseLike|Observable
+
+`of(a, b)`
+
+    of(1,2,3)
+    123|
+
+`fromArray(array)`
+
+    fromArray([1,2,3])
+    123|
+
+`fromPromise(promise)`
+
+    fromPromise( ----42 )
+    -----------------42|
+
+`fromObservable(observable)`
+
+`periodic(period)` = `interval()`
+
+    periodic(1000)
+    ---0---1---2---3....
+
+`merge(stream1, stream2)`
+
+    --1----2----4
+    ----a----b---
+    merge
+    --1-a--2-b--4
+
+`combine(stream1, stream2)`
+
+combines latest events from each input stream
+
+    --1----2----4
+    ----a----b---
+    combine
+    ----1a---2b-4b
+
+### Methods and Operators
+
+`map(project)`
+
+    --1----2----4
+    map(i=>i*10)
+    --10---20---40
+
+`mapTo(projectedValue)`
+
+    --1----2----4
+    mapTo(10)
+    --10---10---10
+
+`filter(predicate)`
+
+    --1----2----4
+    filter(i=>i%2===0)
+    -------2----4
+
+`take(amount)`
+
+    --1----2----4
+    take(2)
+    --1----2|
+
+`drop(amount)`
+
+reverse of `take`
+
+    --1----2----4
+    drop(2)
+    ------------4
+
+`last()`
+
+    --1----2----4
+    last()
+    ------------4
+
+`startWith(initial)`
+
+    --1----2----4
+    startWith(0)
+    0-1----2----4
+
+`endWhen(other)` = `takeUntil`
+
+    --1----2----4
+    endWhen(  -a--b--| )
+    --1----2---|
+
+`fold(accumulate, seed)` = `scan`
+
+    --1----2----4
+    fold((acc, x) => acc + x, 3)
+    3-4----6----10
+
+`flatten()`
+
+    --+--------+---------------
+      \        \
+       \       ----1----2---3--
+       --a--b----c----d--------
+              flatten
+    -----a--b------1----2---3--
+
+`compose(operator)`
+
+chained style: instead of `out = f(in)` write `out = in.compose(f)`
+
+`debug(labelOrSpy)`
+
+    --1----2----4
+    debug
+    --1----2----4
+
