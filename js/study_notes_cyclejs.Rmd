@@ -606,3 +606,21 @@ cat ex/cyclejs_ex17.js
 
 ## v14: BMI Calculator
 
+## v18: Onionify
+
+``` bash
+mkdir -p ex/study_notes_cyclejs/ex18 && cd $_ && npm init -y && npm i parcel-bundler --save-dev && npm i xstream @cycle/run @cycle/dom @cycle/http
+``` 
+
+`ex/study_notes_cyclejs/ex18/package.json`
+
+    "start": "parcel index.html",
+    "build": "parcel build index.html --public-url ./",
+
+Edit `ex/study_notes_cyclejs/ex18/index.js`
+
+    npm start
+ 
+    http://localhost:1234
+
+

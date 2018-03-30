@@ -1,5 +1,5 @@
 {
-  "name": "ex06",
+  "name": "ex18",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,11 +11,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "parcel-bundler": "^1.7.0"
+  },
   "dependencies": {
     "@cycle/dom": "^20.2.0",
     "@cycle/http": "^14.9.0",
-    "@cycle/rxjs-run": "^8.0.0",
-    "parcel-bundler": "^1.7.0",
-    "rxjs": "^5.5.8"
+    "@cycle/run": "^4.1.0",
+    "cycle-onionify": "^5.0.0",
+    "xstream": "^11.2.0"
   }
 }

@@ -221,15 +221,53 @@ some comment
 </div>
 <div id="consuming-postgrest-rest-api-in-cyclejs-app" class="section level2">
 <h2>Consuming Postgrest REST API in CycleJS App</h2>
-<pre><code>$ </code></pre>
 <pre class="bash"><code>docker-compose up -d 
 open ex/cyclejs_vrp_ex02.html</code></pre>
+<p><code>ex/cyclejs_vrp_ex02.js</code></p>
+<pre class="js"><code>function main(sources) {
+  const clickEvent$ = sources.DOM
+    .select('.get-first').events('click');
+  
+  const request$ = clickEvent$.map(() =&gt; {
+    return {
+      url: 'http://localhost:8080/rest/todos?select=id',
+      method: 'GET',
+    };
+  });
+  
+  const response$$ = sources.HTTP
+    .filter(response$ =&gt; response$.request.url ===
+           'http://localhost:8080/rest/todos?select=id');
+  
+  const response$ = response$$.switch();
+  const json$ = response$.map(response =&gt; response.body)
+    .startWith(null);
+  
+  return {
+    DOM: json$.map(json =&gt;
+      div([
+        button('.get-first', 'Get first comment'),
+        json === null ? null : div('.comment-details', [
+          h4('.comment-id', `${json[0].id}`)
+        ])
+      ])
+    ),
+    HTTP: request$,
+  };
+}
+
+const drivers = {
+  DOM: makeDOMDriver('#app'),
+  HTTP: makeHTTPDriver(),
+}
+
+Cycle.run(main, drivers);</code></pre>
 <p>The response of REST API is as follows:</p>
 <pre><code>$ curl http://localhost:8080/rest/todos?select=id
 [{&quot;id&quot;:1},{&quot;id&quot;:3},{&quot;id&quot;:6}]</code></pre>
 <p>The view code that presents this JSON data:</p>
 <pre><code>h4('.comment-id', `${json[0].id}`)</code></pre>
-<p>After clicking the button:</p>
+<p>After clicking the button we get:</p>
 <div class="app">
 <button class="get-first">
 Get first comment
@@ -239,6 +277,80 @@ Get first comment
 1
 </h4>
 </div>
+</div>
+</div>
+<div id="consuming-actual-data-in-cyclejs-app" class="section level2">
+<h2>Consuming Actual Data in CycleJS App</h2>
+<p>Start database server and postgrest:</p>
+<pre class="bash"><code>dmd=~/projects/itr/itr_documentation/data_model
+psk=~/codes/pg/khumbuicefall
+cd $psk
+docker-compose up -d</code></pre>
+<p>Generate schema and initial data:</p>
+<pre class="bash"><code>cd /Users/mertnuhoglu/projects/yumltordbschema
+R</code></pre>
+<pre class="r"><code>test_setup()
+main_rdb_to_data_step01()
+#&gt; ~/projects/itr/itr_documentation/data_model/data/view/ddl.sql
+#&gt; ~/projects/itr/itr_documentation/data_model/data/sql/sql_insert/sql_insert_enum_var.sql</code></pre>
+<p>Manually edit <code>ddl_m.sql</code> by moving updated lines from <code>ddl.sql</code>:</p>
+<pre class="vim"><code>#&gt; ~/projects/itr/itr_documentation/data_model/data/view/ddl.sql
+:%s/\&lt;BIGINT\&gt;/INT/</code></pre>
+<p>Go to R console:</p>
+<pre class="r"><code>main_rdb_to_data_step02()
+#&gt; ~/projects/itr/itr_documentation/data_model/data/view/data.sql</code></pre>
+<p>Import initial data into database to check:</p>
+<pre class="bash"><code>cd ~/projects/itr/itr_documentation/data_model/data/view/
+psql -d app -f init.sql</code></pre>
+<p>Move sql files to psk <code>${psk}/db/src</code> folder:</p>
+<pre class="bash"><code>cp ${dmd}/data/view/ddl_m.sql ${psk}/db/src/data/vrp_ddl_m.sql
+cp ${dmd}/data/sql/sql_insert/sql_insert_enum_var.sql ${psk}/db/src/sample_data
+cp ${dmd}/data/sql/sql_insert/sql_insert_enum_value.sql ${psk}/db/src/sample_data
+cp ${dmd}/data/view/data.sql ${psk}/db/src/sample_data/vrp_data.sql</code></pre>
+<p>Edit psk sql files:</p>
+<pre><code>data/schema.sql
+  \ir vrp_ddl_m.sql
+init.sql
+  \ir sample_data/sql_insert_enum_var.sql
+  \ir sample_data/sql_insert_enum_value.sql
+  \ir sample_data/vrp_data.sql
+api/schema.sql
+  \ir vrp_views.sql
+api/vrp_views.sql
+  create or replace view plan as
+  select * from data.plan;
+authorization/privileges.sql
+  grant select, insert, update, delete
+  on api.plan
+  to webuser;</code></pre>
+<p>Test from console:</p>
+<pre class="bash"><code>export JWT_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk
+curl -H &quot;Authorization: Bearer $JWT_TOKEN&quot; http://localhost:8080/rest/plan?select=plan_id</code></pre>
+<p>Use in cyclejs:</p>
+<pre class="js"><code>const request$ = clickEvent$.map(() =&gt; {
+  return {
+    url: 'http://localhost:8080/rest/plan?select=plan_id',
+    method: 'GET',
+    headers: {
+      &quot;Authorization&quot;: &quot;Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk&quot;</code></pre>
+<pre class="bash"><code>open ex/cyclejs_vrp_ex03.html</code></pre>
+<div id="table-with-cyclejs" class="section level3">
+<h3>Table with CycleJs</h3>
+<pre class="bash"><code>open ex/cyclejs_vrp_ex04.html</code></pre>
+</div>
+<div id="bundle-it-with-parceljs" class="section level3">
+<h3>Bundle it with ParcelJs</h3>
+<p>Source code in <a href="https://github.com/mertnuhoglu/study/js/vrp/ex/cyclejs_vrp/" class="uri">https://github.com/mertnuhoglu/study/js/vrp/ex/cyclejs_vrp/</a></p>
+<pre class="bash"><code>mkdir -p ex/cyclejs_vrp/ex05 &amp;&amp; cd $_ &amp;&amp; npm init -y &amp;&amp; npm i parcel-bundler rxjs @cycle/rxjs-run @cycle/dom @cycle/http</code></pre>
+<p><code>ex/cyclejs_vrp/ex05/package.json</code></p>
+<pre><code>&quot;start&quot;: &quot;parcel index.html&quot;,
+&quot;build&quot;: &quot;parcel build index.html --public-url ./&quot;,</code></pre>
+<p>removed</p>
+<pre><code>&quot;start&quot;: &quot;cycle-scripts start&quot;,
+&quot;build&quot;: &quot;cycle-scripts build&quot;,</code></pre>
+<p><code>ex/cyclejs_vrp/ex05/index.js</code></p>
+<p>Run <code>npm start</code></p>
+<p>Open <a href="http://localhost:1234" class="uri">http://localhost:1234</a></p>
 </div>
 </div>
 

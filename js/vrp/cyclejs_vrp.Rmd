@@ -255,3 +255,33 @@ removed
 Run `npm start`
  
 Open http://localhost:1234
+
+### Apply MVI Architecture
+
+``` bash
+mkdir -p ex/cyclejs_vrp/ex06 && cd $_ && npm init -y && npm i parcel-bundler rxjs @cycle/rxjs-run @cycle/dom @cycle/http
+``` 
+
+`ex/cyclejs_vrp/ex06/package.json`
+
+    "start": "parcel index.html",
+    "build": "parcel build index.html --public-url ./",
+
+Edit `ex/cyclejs_vrp/ex06/index.js`
+
+Run `npm start`
+ 
+Open http://localhost:1234
+
+``` js
+function main(sources) {
+  const json$ = model(sources.HTTP);
+  return {
+    DOM: view(json$),
+    HTTP: intent(sources.DOM),
+  };
+}
+``` 
+
+### Onion Example
+

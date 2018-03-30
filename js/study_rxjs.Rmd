@@ -718,3 +718,616 @@ Traditional debuggers are designed for procedural programming. They don't work w
 - `.do(x => console.log(x))`
 - draw dependency graph and follow the flow
 - draw marble diagram
+
+## Article: Migrating from RxJS 4 to 5
+
+https://github.com/ReactiveX/RxJS/blob/master/MIGRATION.md
+
+Compliance with ES7 Observable Spec https://github.com/tc39/proposal-observable
+
+### Key Classes Recomposed
+
+Observer -> Subscriber implements Observer: Observer is an interface
+
+IDisposable -> Subscription: Subscription is a class, not an interface
+
+Observer Interface Changes (Subjects too):
+
+- observer.onNext -> observer.next
+- onError -> error
+- onCompleted -> complete
+
+- `dispose` -> `unsubscribe`
+
+- All Subscriptions are "Composite"
+
+Operators Renamed or Removed:
+
+    | RxJs 4           | RxJs 5                      |
+    | bufferWithTime   | bufferTime                  |
+    | concat           | concat                      |
+    | concatMap        | concatMap                   |
+    | do               | do                          |
+    | doAction         | do                          |
+    | flatMapLatest    | switchMap                   |
+    | flatMap          | mergeMap or flatMap         |
+    | groupByUntil     | groupBy                     |
+    | just             | of                          |
+    | map(value)       | mapTo(value)                |
+    | replay           | publishReplay               |
+    | selectConcat     | concatMap                   |
+    | selectMany(fn)   | mergeMap(fn)                |
+    | select           | map                         |
+    | singleInstance   | share                       |
+    | slice(start,end) | skip(start).take(end-start) |
+    | sum              | reduce((s,v)=> s + v, 0)    |
+    | tap              | do                          |
+    | where            | filter                      |
+
+Some operators are split:
+
+| ...      | RxJs 4                              | RxJs 5           |
+| buffer   | buffer(closings: Observable)        | same             |
+| ...      | buffer(closingFactory: function)    | bufferWhen(..)   |
+| ..       | buffer(openingns, closingSelector)) | bufferToggle(..) |
+| window   | window                              | window           |
+| ..       | window                              | windowWhen       |
+| ..       | window                              | windowToggle     |
+| debounce | debounce                            | debounce         |
+| ..       | debounce(delay, scheduler)          | debounceTime     |
+| throttle | throttle                            | throttleTime     |
+| delay    | delay                               | delay            |
+| ..       | delay                               | delyaWhen        |
+| sample   | sample                              | sampleTime       |
+
+npm: 
+
+RxJs4 `rx`
+RxJs5 `rxjs`
+
+## Article: Pipeable Operators
+
+https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md
+
+Version 5.5 ships pipeable (lettable) operators.
+
+Accessed in `rxjs/operators`
+
+Better than "patch" operators in `rxjs/add/operator/*`
+
+Renamed Operators:
+
+    | old name | new name   |
+    | op       | tap        |
+    | catch    | catchError |
+    | switch   | switchAll  |
+    | finally  | finalize   |
+    | let      | pipe       |
+
+`let` operator is called as `pipe`. It cannot be imported:
+
+    source$.let(op) -> source$.pipe(op)
+
+`throw` is a key word. import as:
+
+    import {_throw} from 'rxjs/observable/throw'
+
+### Why?
+
+1. Importing a patch operator augments `Observable.prototype` for all consumers, creating blind dependencies.
+
+2. Operators patched directly are not tree-shakeable
+
+3. Unused operators cannot be detected by lint.
+
+4. Functional composition is better. 
+
+### What?
+
+A function that can be used with `pipe` operator.
+
+A pipeable operator has signature:
+
+    <T, R>(source: Observable<T>) => Observable<R>
+
+### Usage
+
+import creation methods from `rxjs/observable/*`
+
+import pipeable operators from `rxjs/operators`
+
+``` js
+import {range} from 'rxjs/observable/range'
+import {map, filter, scan} from 'rxjs/operators'
+const source$ = range(0, 10)
+source$.pipe(
+  filter(x => x % 2 === 0),
+  map(x => x + x),
+  scan((acc, x) => acc + x, 0)
+)
+.subscribe(x=> console.log(x))
+``` 
+
+### Build Your Own Operators
+
+``` js
+const takeEveryNth = (n: number) => filter((value, index) => index % n === 0)
+``` 
+
+``` js
+interval(1000).pipe(
+  takeEveryNth(2),
+  map(x => x + x),
+  take(3),
+  toArray()
+)
+.subscribe(x => console.log(x))
+// [0, 4, 6]
+``` 
+
+## Article: CycleJs API Reference
+
+https://cycle.js.org/api/index.html
+
+### Cycle Run for xstream
+
+    npm install @cycle/run xstream
+
+`run(main, drivers)` for apps with xstream
+
+``` js
+import {run} from '@cycle/run'
+run(main, drivers)
+``` 
+
+### Run() for RxJS
+
+    npm install @cycle/rxjs-run rxjs
+
+`run(main, drivers)` for apps with RxJS
+
+``` js
+import {run} from '@cycle/rxjs-run'
+run(main, drivers)
+``` 
+
+### Run() for most.js
+
+    npm install @cycle/most-run most
+
+### Cycle DOM
+
+    npm install @cycyle/dom
+
+Based on [snabbdom](https://github.com/snabbdom/snabbdom)
+
+#### Isolation semantics
+
+Uses `@cycle/isolate` package
+
+#### API
+
+`makeDOMDriver(container, options)`
+
+Factory for DOM driver function.
+
+The input to the driver is a stream of virtual DOM (snabbdom VNode). 
+
+The output of the driver is a `DOMSource`: a collection of Observables queried with `select()` and `events()`
+
+Stream is either xstream of RxJs Observable.
+
+`DOMSource.select(selector)`: returns a new DOMSource
+
+`DOMSource.events(eventType, options)`
+
+`mocDOMSource(mockConfig)`
+
+`h()`
+
+### Cycle HTML
+
+		npm install @cycle/html
+
+Driver to render virtual DOM as HTML.
+
+This is for server-side rendered HTML.
+
+#### API
+
+`makeHTMLDriver(effect, options)`
+
+### Cycle HTTP
+
+		npm install @cycle/http
+
+Driver for HTTP requests, based on [superagent](https://github.com/visionmedia/superagent).
+
+``` js
+function main(sources) {
+  let request$ = xs.of({
+    url: 'http://localhost:8080/hello', // GET method by default
+    category: 'hello',
+  });
+
+  let response$ = sources.HTTP
+    .select('hello')
+    .flatten();
+
+  let vdom$ = response$
+    .map(res => res.text) // We expect this to be "Hello World"
+    .startWith('Loading...')
+    .map(text =>
+      div('.container', [
+        h1(text)
+      ])
+    );
+
+  return {
+    DOM: vdom$,
+    HTTP: request$
+  };
+}
+``` 
+
+### Isolate
+
+		npm install @cycle/isolate
+
+``` js
+import isolate from '@cycle/isolate';
+import LabeledSlider from './LabeledSlider';
+
+function bmiCalculator({DOM}) {
+  let weightProps$ = Rx.Observable.just({
+    label: 'Weight', unit: 'kg', min: 40, initial: 70, max: 140
+  });
+  let heightProps$ = Rx.Observable.just({
+    label: 'Height', unit: 'cm', min: 140, initial: 170, max: 210
+  });
+
+  // LabeledSlider is a dataflow component
+  // isolate(LabeledSlider) is an impure function: it generates
+  // a NEW dataflow component every time it is called.
+  let WeightSlider = isolate(LabeledSlider);
+  let HeightSlider = isolate(LabeledSlider);
+
+  let weightSlider = WeightSlider({DOM, props$: weightProps$});
+  let heightSlider = HeightSlider({DOM, props$: heightProps$});
+
+  let bmi$ = Rx.Observable.combineLatest(
+    weightSlider.value$,
+    heightSlider.value$,
+    (weight, height) => {
+      let heightMeters = height * 0.01;
+      let bmi = Math.round(weight / (heightMeters * heightMeters));
+      return bmi;
+    }
+  );
+
+  return {
+    DOM: bmi$.combineLatest(weightSlider.DOM, heightSlider.DOM,
+      (bmi, weightVTree, heightVTree) =>
+        h('div', [
+          weightVTree,
+          heightVTree,
+          h('h2', 'BMI is ' + bmi)
+        ])
+      )
+  };
+}
+``` 
+
+#### API
+
+`isolate(component, scope)`
+
+Takes a `component` function
+
+## Article: CycleJs Documentation
+
+https://cycle.js.org/getting-started.html
+
+### Dialogue abstraction
+
+Human-Computer Interaction
+
+Cyclejs introduces message passing architecture to model HCI. Most frontend frameworks focus on GUI on the DOM. 
+
+HCI is a two-way process: both sides listen and speak. HCI is a dialogue.
+
+Dialogue concept is used in [Haskell 1.0 Stream-based I/O](https://www.haskell.org/definition/haskell-report-1.0.ps.gz)
+
+		type Dialogue = [Response] -> [Request]
+
+`Dialogue` is the model of interaction with the OS. `[Response]` is a stream of messages from the OS.
+
+### Senses/actuators as I/O
+
+Output devices present information to the human. Input devices detect actions from the human. 
+
+`inputDevices` and `outputDevices` can be used as such:
+
+``` js
+function computer(inputDevices) {
+	return outputDevices
+}
+``` 
+
+Let's call `inputDevices` as `senses` and `outputDevices` as `actuators`. Then we have a symmetry between human and computer. Then we can also model human as such:
+
+``` js
+function human(senses) {
+	return actuators;
+}
+``` 
+
+### Streams
+
+#### Reactive Programming
+
+We have two modules: `Foo` and `Bar`. Foo affects state living inside Bar. Shown as: `Foo -> Bar`
+
+Example for such arrow: when Foo does a network request, increment a counter in Bar.
+
+Where does this arrow live? Where is it defined?
+
+Inside Foo:
+
+``` js
+function onNetworkRequest() {
+	// ..
+  Bar.incrementCounter();
+}
+``` 
+
+When Foo owns the relationship, we say the arrow lives at the arrow tail.
+
+`Foo-> Bar` Foo is proactive. Bar is passive.
+
+The alternative is to invert the ownership of the arrow. Then Bar owns it. 
+
+`Foo ->Bar` Foo is listenable. Bar is reactive.
+
+With This approach, Bar listens to an event happening in Foo. It manages its own state when an event happens. Bar is reactive. Foo is unaware of the existence of the arrow.
+
+Inside Bar:
+
+``` js
+Foo.addOnNetworkRequestListener(() => {
+	self.incrementCounter()
+}
+``` 
+
+#### What is a Stream?
+
+Spreadsheets utilize the same idea. Cell formulas defined at the arrow head. Dependent cells define their dependency formulas.
+
+Stream contract
+
+		(next)* (complete|error){0,1}
+
+``` js
+click clickCount$ = click$.
+	mapTo(1).
+	fold((count, x) => count + x, 0)
+``` 
+
+#### Streams in CycleJs
+
+- Computer's output: stream of screen images
+- Human's output: stream of mouse/keyboard events
+
+``` js
+function computer(userEventsStream) {
+  return userEventsStream
+    .map(event => /* ... */)
+    .filter(someCondition)
+    .map(transformItToScreenPixels)
+    .flatten();
+}
+``` 
+
+We use driver functions as proxy of the external world. 
+
+### Basic Examples
+
+#### Toggle a checkbox
+
+``` js
+import xs from 'xstream';
+import {run} from '@cycle/run';
+import {div, input, p, makeDOMDriver} from '@cycle/dom';
+
+function main(sources) {
+  const sinks = {
+    DOM: sources.DOM.select('input').events('change')
+			.map(ev => ev.target.checked)
+			.startWith(false)
+      .map(toggled =>
+        div([
+          input({attrs: {type: 'checkbox'}}), 'Toggle me',
+          p(toggled ? 'ON' : 'off')
+        ])
+      )
+  };
+  return sinks;
+}
+
+run(main, {
+  DOM: makeDOMDriver('#app'),
+});
+``` 
+
+#### HTTP Requests
+
+#### Increment a counter
+
+How to have state?
+
+``` js
+const count$ = action$.fold((x, y) => x + y, 0);
+``` 
+
+### Model-View-Intent
+
+`main` = `intent -> model -> view`
+
+``` js
+function main(sources) {
+  return {DOM: view(model(intent(sources.DOM)))};
+}
+``` 
+
+function main(sources) {
+  return {DOM: view(model(intent(sources.DOM)))};
+}
+
+### Components
+
+Any cyclejs app can be reused as a component in a larger cyclejs app.
+
+Why? `main` is a pure function, taking inputs from outside world out returning output. 
+
+Each `main` function is called dataflow component. 
+
+`isolateSource` and `isolateSink`
+
+``` js
+   const weightSources = {
+     DOM: sources.DOM.select('.weight'), props: weightProps$
+   };
+// --->>>
+``` 
+
+``` js
+  const {isolateSource, isolateSink} = sources.DOM;
+
+  const weightSources = {
+    DOM: isolateSource(sources.DOM, 'weight'), props: weightProps$
+  };
+``` 
+
+`isolate` handles this for us:
+
+``` js
+function isolate(Component, scope) {
+  return function IsolatedComponent(sources) {
+    const {isolateSource, isolateSink} = sources.DOM;
+    const isolatedDOMSource = isolateSource(sources.DOM, scope);
+    const sinks = Component({DOM: isolatedDOMSource});
+    const isolatedDOMSink = isolateSink(sinks.DOM, scope);
+    return {
+      DOM: isolatedDOMSink
+    };
+  };
+}
+``` 
+
+``` js
+   const WeightSlider = isolate(LabeledSlider, 'weight');
+   const HeightSlider = isolate(LabeledSlider, 'height');
+``` 
+
+### Drivers
+
+## Article: snabbdom README
+
+https://github.com/snabbdom/snabbdom
+
+A virtual DOM library
+
+### Why
+
+Existing solutions are too bloated, slow, lacked features, had OOP API.
+
+### Introduction
+
+Very simple core with ≅ 200 SLOC.
+
+- Server side (node) HTML rendering: snabbdom-to-html
+- Template strings: snabby
+
+## Article: Snabbdom to HTML
+
+https://github.com/snabbdom/snabbdom-to-html
+
+    npm install snabbdom-to-html
+
+``` js
+var h = require('snabbdom/h')
+var toHTML = require('snabbdom-to-html')
+
+var output = toHTML(
+  h('div', { style: { color: 'red' } }, 'The quick brown fox jumps')
+)
+
+console.log(output)
+// => <div style="color: red">The quick brown fox jumps</div>
+``` 
+
+## Article: snabby: template strings
+ 
+https://github.com/jamen/snabby
+
+For creating snabbdom virtual nodes using template strings, instead of hyperscript. It can also patch the nodes using `update` function similar to `yo-yo`.
+
+		npm install --save snabby
+
+``` js
+var html = require('snabby')
+var foo = html`<div>Hello Earth</div>`
+var bar = html`<div>Hello Mars</div>`
+// patch to dom
+html.update(document.body, foo)
+// patch updates
+html.update(foo, bar)
+``` 
+
+## Article: yo-yo: template strings
+
+https://www.npmjs.com/package/yo-yo
+
+Updates real dom using template strings instead of virtual dom and hyperscript.
+
+
+## Article: superagent
+
+https://github.com/visionmedia/superagent
+
+Ajax with less suck
+
+		npm install superagent
+
+``` js
+request
+	.post('/api/pet')
+	.send({ name: 'Manny', species: 'cat' })
+	.set('X-API-Key', 'foobar')
+	.set('accept', 'json')
+	.end((err, res) => {
+		// ..
+	});
+``` 
+
+Extended via plugins:
+
+``` js
+const nocache = require('superagent-no-cache');
+const request = require('superagent');
+const prefix = require('superagent-prefix')('/static');
+
+request
+  .get('/some-url')
+  .query({ action: 'edit', city: 'London' }) // query string
+  .use(prefix) // Prefixes *only* this request
+  .use(nocache) // Prevents caching of *only* this request
+  .end((err, res) => {
+    // Do something
+  });
+``` 
+
+## Article: Cyclejs Onionify
+
+https://github.com/staltz/cycle-onionify
+

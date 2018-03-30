@@ -38,12 +38,7 @@ function main(sources) {
   });
   
   const response$$ = sources.HTTP.select();
-  //const response$ = response$$.flatten();
   const response$ = response$$.switch();
-  //const response$ = sources.HTTP.
-    //filter(r$ => r$.request.url ===
-           //'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id').
-    //flatten();
   const json$ = response$.map(response => response.body);
   
   return {
