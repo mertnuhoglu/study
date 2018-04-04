@@ -624,3 +624,26 @@ Edit `ex/study_notes_cyclejs/ex18/index.js`
     http://localhost:1234
 
 
+# Article: Handling lists in Cyclejs
+
+https://github.com/cyclejs/cyclejs/issues/312
+
+## How to create Dynamic List Components
+
+A component that consists of a dynamic number of child components
+
+List of child components is dynamic:
+
+- create/add child
+- remove child
+- change order of children
+- change of child state may cause change of list component state
+
+Communication: Components exchange data.
+
+- grandparent <-> parent <-> child(ren)
+
+Ex: TodoMVC with onionify:
+
+https://github.com/cyclejs/todomvc-cycle/tree/onionify
+

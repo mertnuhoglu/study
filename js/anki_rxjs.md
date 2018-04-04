@@ -2514,3 +2514,171 @@ clozeq
 
 ---
 
+## rxjs: How to Debug rxjs Code - Andre Staltz
+
+3 ways to debug
+
+    .{{c1::do}}(x => console.log(x))
+    draw {{c2::dependency graph}} and follow the flow
+    draw {{c3::marble diagram}}
+
+%
+
+%
+
+clozeq
+
+---
+
+## rxjs: pipeable operators 01
+
+import creation methods from `rxjs/observable/*`
+
+import pipeable operators from `rxjs/operators`
+
+··  `` import {range} from '{{c1::rxjs/observable}}/range' `` <br>
+··  `` import {map, filter, scan} from '{{c2::rxjs/operators}}' `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## rxjs: Build Your Own Operators
+
+··  `` const takeEveryNth = (n: number) => filter((value, index) => index % n === 0) `` <br>
+
+··  `` interval(1000).pipe( `` <br>
+····  `` {{c1::takeEveryNth}}(2), `` <br>
+····  `` map(x => x + x), `` <br>
+····  `` take(3), `` <br>
+····  `` toArray() `` <br>
+··  `` ) `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## rxjs: cycle run for xstream
+
+··  `` import {run} from '{{c1::@cycle/run}}' `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## Cycle HTML
+
+		npm install @cycle/html
+
+Driver to render virtual DOM as HTML.
+
+This is for {{c1::server-side}} rendered HTML.
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## rxjs: Dialogue abstraction
+
+    type Dialogue = [Response] -> [Request]
+
+`Dialogue` is the model of interaction with the OS. `[Response]` is a {{c1::stream}} of messages from the OS.
+
+%
+
+%
+
+clozeq
+
+---
+
+## Reactive Programming 01
+
+two modules: `Foo` and `Bar`. Foo affects state living inside Bar. Shown as: 
+
+    Foo -> Bar
+
+Where does this arrow live? Where is it defined?
+
+Inside Foo:
+
+··  `` function onNetworkRequest() { `` <br>
+····  `` // .. `` <br>
+····  `` {{c1::Bar}}.incrementCounter(); `` <br>
+··  `` } `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## Reactive Programming 02
+
+When Foo owns the relationship, we say the arrow lives at the {{c1::arrow tail}}.
+
+    `Foo-> Bar` Foo is proactive. Bar is passive.
+
+The alternative is to invert the ownership of the arrow. Then Bar owns it. 
+
+    `Foo ->Bar` Foo is {{c3::listenable}}. Bar is {{c2::reactive}}.
+
+%
+
+%
+
+clozeq
+
+---
+
+## Reactive Programming 03
+
+With This approach, Bar listens to an event happening in Foo. It manages its {{c1::own state}} when an event happens. Bar is reactive. Foo is {{c2::unaware}} of the existence of the arrow.
+
+%
+
+%
+
+clozeq
+
+---
+
+## Article: Snabbdom to HTML
+
+··  `` npm install snabbdom-to-html `` <br>
+
+··  `` var h = require('snabbdom/h') `` <br>
+··  `` var toHTML = require('snabbdom-to-html') `` <br>
+··  `` var output = {{c1::toHTML}}( `` <br>
+····  `` h('div', { style: { color: 'red' } }, 'The quick brown fox jumps') `` <br>
+··  `` ) `` <br>
+··  `` console.log(output) `` <br>
+··  `` // => <div style="color: red">The quick brown fox jumps</div> `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+

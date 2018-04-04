@@ -766,19 +766,19 @@ Operators Renamed or Removed:
 
 Some operators are split:
 
-| ...      | RxJs 4                              | RxJs 5           |
-| buffer   | buffer(closings: Observable)        | same             |
-| ...      | buffer(closingFactory: function)    | bufferWhen(..)   |
-| ..       | buffer(openingns, closingSelector)) | bufferToggle(..) |
-| window   | window                              | window           |
-| ..       | window                              | windowWhen       |
-| ..       | window                              | windowToggle     |
-| debounce | debounce                            | debounce         |
-| ..       | debounce(delay, scheduler)          | debounceTime     |
-| throttle | throttle                            | throttleTime     |
-| delay    | delay                               | delay            |
-| ..       | delay                               | delyaWhen        |
-| sample   | sample                              | sampleTime       |
+    | ...      | RxJs 4                              | RxJs 5           |
+    | buffer   | buffer(closings: Observable)        | same             |
+    | ...      | buffer(closingFactory: function)    | bufferWhen(..)   |
+    | ..       | buffer(openingns, closingSelector)) | bufferToggle(..) |
+    | window   | window                              | window           |
+    | ..       | window                              | windowWhen       |
+    | ..       | window                              | windowToggle     |
+    | debounce | debounce                            | debounce         |
+    | ..       | debounce(delay, scheduler)          | debounceTime     |
+    | throttle | throttle                            | throttleTime     |
+    | delay    | delay                               | delay            |
+    | ..       | delay                               | delyaWhen        |
+    | sample   | sample                              | sampleTime       |
 
 npm: 
 
@@ -897,7 +897,7 @@ run(main, drivers)
 
 ### Cycle DOM
 
-    npm install @cycyle/dom
+    npm install @cycle/dom
 
 Based on [snabbdom](https://github.com/snabbdom/snabbdom)
 
@@ -1326,8 +1326,4 @@ request
     // Do something
   });
 ``` 
-
-## Article: Cyclejs Onionify
-
-https://github.com/staltz/cycle-onionify
 

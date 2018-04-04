@@ -1,0 +1,504 @@
+---
+title: "Studying CycleJs Onion Architecture"
+date: 2018-04-04T22:14:00+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_cyclejs_onion_architecture.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_cyclejs_onion_architecture/
+
+## Article: Cyclejs Onionify
+
+https://github.com/staltz/cycle-onionify
+
+### What is onionify
+
+A fractal state management tool:
+
+`onionify` creates a wrapped `main`
+
+Onionify is a component wrapper, not a driver. This way, state won't live in a driver, because the wrapped `main` is still just a cyclejs app.
+
+State stream as source, reducer stream as sink:
+
+`main` can access state as:
+
+    const state$ = sources.onion.state$;
+
+`main` returns a stream of reducer functions as:
+
+    return {
+      onion: reducer$,
+
+One large state tree for the entire application:
+
+All the state lives in the state stream managed by onionify.
+
+### Why use onionify
+
+Simpler: State management with `props$` and `state$` is hard to understand. With onion, there is no distinction between props and state. 
+
+Eliminates circular dependencies of stream
+
+Familiar technique: reducer functions and a single state atom: Like Redux and Elm. To update any part in the state tree, you write reducer functions. 
+
+Fractal
+
+### How to use onionify
+
+How to read state and update state:
+
+How to initialize state:
+
+How to compose nested components:
+
+## Article: Using cycle-onionify within a non-onionified Cycle.js app
+
+https://stackoverflow.com/questions/45580058/using-cycle-onionify-within-a-non-onionified-cycle-js-app
+
+ref: /Users/mertnuhoglu/codes/js/ex_onion_ahmat_fasiha
+
+`index.ts`:
+
+``` js
+import Counter from "./Counter";
+function main(sources: Sources): Sinks {
+  ...
+  const counterSinks = onionify(Counter)(sources);
+  const combinedVdom$ = xs.combine(vdom$, counterSinks.DOM)
+    .map(div);
+  return {
+      DOM: combinedVdom$,
+  }
+}
+``` 
+
+`Counter.ts`:
+
+``` js
+export default function Counter(sources) {
+  const action$ = xs.merge(
+    sources.DOM.select('.decrement').events('click').map(ev => -1),
+    sources.DOM.select('.increment').events('click').map(ev => +1)
+  );
+  const updateReducer$ = action$.map(num => function updateReducer(prevState) {
+    return { count: prevState.count + num };
+  });
+  ...
+  const reducer$ = xs.merge(initReducer$, updateReducer$);
+  ...
+  const state$ = sources.onion.state$;
+  ...
+  return {
+    DOM: vdom$,
+    onion: reducer$,
+  };
+``` 
+
+## Article: Components in Cyclejs
+
+https://prezi.com/qccb8qdalcvs/components-in-cyclejs/
+
+What is onionify?
+
+It wraps `main` function and provides it with an `onion`
+
+That is a state object.
+
+To update the state, you return to the onion a stream of reducer functions.
+
+## Article: Reducer Pattern in Cyclejs
+
+https://staltz.com/reducer-pattern-in-cyclejs.html
+
+Each action stream is mapped to a reducer function
+
+This produces a stream of reducer functions. We merge all of them to get one stream of reducer functions.
+
+The stream of reducer functions is reduced to accumulate state over time.
+
+Mapping an action stream to a reducer function:
+
+``` js
+const setHighlightReducer$ = actions.setHighlight$
+  .map(highlighted => function setHighlightReducer(state) {
+    return state.set('highlighted', highlighted)
+  })
+``` 
+
+Merging reducer streams:
+
+``` js
+xs.merge(
+    moveHighlightReducer$,
+    setHighlightReducer$,
+    selectHighlightedReducer$,
+    hideReducer$
+  )
+``` 
+
+Reducing reducer function stream:
+
+``` js
+reducer$.fold((acc, reducer) => reducer(acc), state)
+``` 
+
+## Me: Data Flow of State in Onion
+
+Component:
+
+    input: sources.DOM
+    input: sources.onion.state$
+    output: sink.onion: reducer$
+    output: sink.DOM: vdom$
+
+Onion:
+
+    input: reducer$
+    output: onion.state$
+
+    Component :: (DOMSource, onion.state$) -> (reducer$, vdom$)
+    Onion :: reducer$ -> onion.state$
+
+index.ts:
+
+    onionify(Counter)(sources)
+
+Counter.ts:
+
+    act1$ = sources.DOM.select(..)
+    red1$ = act1$.map(num => state => {count: state.count + num})
+    red$ = xs.merge(red1$, red2$, ...)
+    state$ = onion.sources.state
+    vdom$ = state$.map(..)
+    return {onion: red$, DOM: vdom$}
+
+DOM -> state vs state -> DOM
+
+    DOM -> state
+      sources.DOM -> [intent] -> [model] -> [onion] -> state$
+      intent(DOM$): action$ -> model(action$): reducer$ -> onion(reducer$): state$
+    state -> DOM
+      sources.onion.state -> [view] -> sinks.DOM
+
+onion as a Driver
+
+    {DOM$, state$} -> [Component] -> {vdom$, reducer$}
+    {vdom$} -> [DOMDriver] -> {DOM$} -> [Component]
+    {reducer$} -> [onion] -> {state$} -> [Component]
+
+## Code Reading: Cycle Onionify Examples Basic
+
+cycle-onionify/examples/basic
+
+data flow: 
+
+    sources.DOM -> action$ -> updateReducer$ -> reducer$ -> sinks.onion
+
+`main.js`
+
+    const action$ = xs.merge(
+      sources.DOM.select('.decrement').events('click').map(ev => -1),
+      sources.DOM.select('.increment').events('click').map(ev => +1)
+    );
+    const initReducer$ = xs.of(function initReducer() {
+      return {count: 0};
+    });
+    const updateReducer$ = action$.map(num => function updateReducer(prevState) {
+      return {count: prevState.count + num};
+    });
+    const reducer$ = xs.merge(initReducer$, updateReducer$);
+    return {
+      DOM: vdom$,
+      onion: reducer$,
+    }
+
+data flow:
+
+    sources.onion.state$ -> vdom$ -> sinks.DOM
+
+`main.js`
+
+    const state$ = sources.onion.state$;
+    const vdom$ = state$.map(state =>
+      div([
+        button('.decrement', 'Decrement'),
+        button('.increment', 'Increment'),
+        p('Counter: ' + state.count)
+      ])
+    );
+
+wrap `main`
+
+    const wrappedMain = onionify(main);
+    run(wrappedMain, {
+      DOM: makeDOMDriver('#main-container')
+    });
+
+## Code Reading: meeting-price-calculator Example Project
+
+https://github.com/olpeh/meeting-price-calculator
+
+/Users/mertnuhoglu/codes/js/meeting-price-calculator
+
+`src/index.ts`
+
+wrapping main
+
+    import App from './components/app';
+
+    const main: Component = App;
+
+    const wrappedMain = onionify(storageify(main, { key: 'mpc-state' }));
+
+`src/components/app/index.ts`
+
+define components:
+
+    const tickerSinks = isolate(Ticker, { onion: tickerLens })(sources);
+    const controlsSinks = isolate(Controls, { onion: controlsLens })(sources);
+    const durationSinks = isolate(Duration, { onion: durationLens })(sources);
+
+merge their sinks.DOM:
+
+    const vdom$ = xs
+      .combine(
+        headerVDom$,
+        tickerSinks.DOM,
+        controlsSinks.DOM,
+
+merge reducer streams:
+
+    const parentReducer$ = model();
+    const reducer$ = xs.merge(
+      parentReducer$,
+      tickerSinks.onion,
+
+return sinks
+
+    const sinks: any = {
+      DOM: vdom$,
+      onion: reducer$
+    };
+
+`model.js` returns `parentReducer$` that initializes state$:
+
+    const initReducer$: xs<Reducer> = xs.of(
+      (prev?: State): State =>
+        prev !== undefined
+          ? prev
+          : {
+              startTime: moment(),
+              duration: 0,
+              currency: '€',
+              personAmount: 4,
+              avgPrice: 100
+            }
+    );
+
+    return initReducer$;
+
+State and Reducer types are defined in `index.ts`
+
+    export interface State {
+      startTime: moment.Moment;
+      duration: number;
+      currency: string;
+      personAmount: number;
+      avgPrice: number;
+    }
+    export type Reducer = (prev?: State) => State | undefined;
+
+#### Subcomponents
+
+`Ticker` is used in `App` as:
+
+    const tickerSinks = isolate(Ticker, { onion: tickerLens })(sources);
+
+`components/ticker/index.ts`
+
+It returns `sinks.DOM` and `sinks.onion`
+
+    export default function Ticker(sources: Sources): Sinks {
+      const reducer$: xs<Reducer> = model(sources.Time);
+      const state$: xs<State> = (sources.onion.state$ as any) as xs<State>;
+      const vdom$ = view(state$);
+
+      const sinks = {
+        DOM: vdom$,
+        onion: reducer$
+      };
+
+`view.ts`
+
+    export default function view(state$: xs<State>): xs<VNode> {
+      return state$.map(({ currency, totalPrice }) =>
+        div(`.${styles.actualPrice}`, [
+          div(`.${styles.priceLabel}`, 'This meeting has cost'),
+          div(`.${styles.priceValue}`, formatPrice(totalPrice, currency))
+
+Remember the interface of State:
+
+    export interface State {
+      startTime: moment.Moment;
+      duration: number;
+      currency: string;
+      personAmount: number;
+      avgPrice: number;
+
+`styles.ts` 
+
+    export const styles = stylesheet({
+      actualPrice: {
+        justifyContent: 'center'
+      },
+
+`model.ts`
+
+    export default function model(timeSource: TimeSource): xs<Reducer> {
+      const initReducer$: xs<Reducer> = xs.of(
+        (prev?: State): State =>
+          prev !== undefined
+            ? prev
+            : {
+                startTime: moment(),
+                duration: 0,
+                currency: '€',
+                totalPrice: 0
+
+Why does it redefine `initReducer$`?
+
+They have different data structures. Compare to App.initReducer$
+
+    const initReducer$: xs<Reducer> = xs.of(
+      (prev?: State): State =>
+        prev !== undefined
+          ? prev
+          : {
+              startTime: moment(),
+              duration: 0,
+              currency: '€',
+              personAmount: 4,
+              avgPrice: 100
+            }
+
+In fact, `State` of each component is different too. 
+
+    export interface State {
+      startTime: moment.Moment;
+      duration: number;
+      currency: string;
+      totalPrice: number;
+    }
+
+Compare to `App.State`
+
+    export interface State {
+      startTime: moment.Moment;
+      duration: number;
+      currency: string;
+      personAmount: number;
+      avgPrice: number;
+    }
+
+What about accessing State of other components?
+
+Ticker component imports App.State:
+
+    import { State as AppState } from '../app';
+
+To access particular data pieces, use lenses:
+
+`app/index.ts`:
+
+    import Ticker, { lens as tickerLens } from '../ticker';
+    ...
+    const tickerSinks = isolate(Ticker, { onion: tickerLens })(sources);
+
+`ticker/index.ts` defines `lens`:
+
+    export const lens = {
+      get: (state: AppState): State =>
+        state
+          ? {
+              startTime: state.startTime,
+              duration: state.duration,
+              currency: state.currency,
+              totalPrice: calculatePrice(
+                state.personAmount,
+                state.avgPrice,
+                state.duration
+              )
+            }
+          : {
+              startTime: moment(),
+              duration: 0,
+              currency: '€',
+              totalPrice: 0
+            },
+
+      set: (state: AppState, childState: State) => ({
+        ...state,
+        duration: childState.duration
+      })
+    };
+
+What is the interface of `state` above? It is `AppState`:
+
+    export interface State {
+      startTime: moment.Moment;
+      duration: number;
+      currency: string;
+      personAmount: number;
+      avgPrice: number;
+    }
+
+Note that, this is converted to `Ticker.State`
+
+    export interface State {
+      startTime: moment.Moment;
+      duration: number;
+      currency: string;
+      totalPrice: number;
+    }
+
+How exactly is `lens` used?
+
+`Ticker` component is fed with the data through the lens:
+
+    const tickerSinks = isolate(Ticker, { onion: tickerLens })(sources);
+
+The state data is used in `Ticker` here:
+
+    const state$: xs<State> = (sources.onion.state$ as any) as xs<State>;
+    const vdom$ = view(state$);
+
+Don't forget since `App.State` is converted to `Ticker.State`, `sources.onion.state$` has the interface of `Ticker.State`
+
+Check that `Ticker.view` uses `Ticker.State` interface:
+
+    import { State } from './index';
+    export default function view(state$: xs<State>): xs<VNode> {
+      return state$.map(({ currency, totalPrice }) =>
+
+## Me: Onion Architecture Templates
+
+    onion architecture <url:file:///~/projects/study/study_js.md#r=g_10196>
+

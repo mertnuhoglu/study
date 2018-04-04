@@ -990,3 +990,30 @@ db.json
 ··  `` ##   "title": "json-server", `` <br>
 ··  `` ##   "author": "typicode" `` <br>
 ··  `` ## } `` <br>
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: webpack error: devServer.proxy is not a function
+
+··  `` webpack.config.js `` <br>
+····  `` //devServer.proxy({ `` <br>
+······  `` //'/api': { target: 'http://localhost:3000' } `` <br>
+····  `` //}), `` <br>
+··  `` npm run build `` <br>
+··  `` open {{c1::build}}/index.html `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+

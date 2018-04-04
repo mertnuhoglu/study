@@ -3,6 +3,208 @@
 # Study JS
 
     conventions
+    cyclejs
+      onion architecture id=g_10196
+        onion architecture <url:file:///~/projects/study/study_js.md#r=g_10196>
+        index.js intent.js model.js view.js styles.js 
+          ex: ticker
+            export function Ticker(sources): Sinks
+            export function model(timeSource: TimeSource): xs<Reducer> {
+            export function view(state$: xs<State>): xs<VNode> {
+            export const styles = stylesheet({
+          ex: sliderInput
+            export function SliderInput(sources: Sources): Sinks {
+            export function intent(domSource): SliderInputActions {
+            export function model(actions: SliderInputActions): xs<Reducer> {
+            export function view(state$: xs<State>): xs<VNode> {
+            export const styles = stylesheet({
+        index.js
+          ex: controls/index.js
+            export interface State {
+            export const lens = {
+            export default function Controls(sources: Sources): Sinks {
+              # model view intent
+        export interface State
+          export interface State {
+            description: string;
+            unit: string;
+            min: number;
+        lenses
+          ex: controls/index.js
+            export const lens = {
+              get: (state: AppState): State => ({
+                currency: state.currency,
+                personAmount: state.personAmount,
+                avgPrice: state.avgPrice
+              }),
+              set: (state: AppState, childState: State) => ({
+                ...state,
+                currency: childState.currency,
+                personAmount: childState.personAmount,
+                avgPrice: childState.avgPrice
+              })
+            };
+          ex: sliderInput/index.js
+            export const personAmountLens = {
+              get: (state: AppState): State => ({
+                description: 'Person amount',
+                unit: state.personAmount > 1 ? 'persons' : 'person',
+                min: 1,
+                max: 100,
+                step: 1,
+                value: state.personAmount
+              }),
+              set: (state: AppState, childState: State) => ({
+                ...state,
+                personAmount: childState.value
+              })
+            };
+            export const avgPriceLens = {
+              get: (state: AppState): State => ({
+                description: 'Average price',
+        model view intent
+          ex: app/index.js
+            const parentReducer$ = model();
+            const tickerSinks = isolate(Ticker, { onion: tickerLens })(sources);
+            const reducer$ = xs.merge( parentReducer$, tickerSinks.onion,..
+            const headerVDom$: xs<VNode> = Header();
+            const vdom$ = xs.combine( headerVDom$, tickerSinks.DOM, ..
+          ex: controls/index.ts function Controls:
+            const actions: Actions = intent(sources.DOM);
+            const parentReducer$: xs<Reducer> = model(actions);
+            const personAmountReducer$: xs<Reducer> = personAmountSlider.onion;
+            const reducer$: xs<Reducer> = xs.merge( parentReducer$, personAmountReducer$, ..
+            const vdom$ = view(state$, personAmountSlider.DOM, avgPriceSlider.DOM);
+          ex: sliderInput/index.ts function SliderInput
+            const actions: SliderInputActions = intent(sources.DOM);
+            const reducer$: xs<Reducer> = model(actions);
+            const vdom$: xs<VNode> = view(state$);
+          ex: ticker/index.ts function Ticker
+            const reducer$: xs<Reducer> = model(sources.Time);
+            const vdom$ = view(state$);
+        data flow
+          DOM -> state
+            sources.DOM -> action$ -> reducer_i$ -> reducer$ -> sinks.onion
+              act1$ = sources.DOM.select(..)
+              red1$ = act1$.map(num => state => {count: state.count + num})
+              red$ = xs.merge(red1$, red2$, ...)
+              return {onion: red$, DOM: vdom$}
+          state -> DOM
+            sources.onion.state -> state$ -> vdom$ -> sinks.DOM
+              state$ = onion.sources.state
+              vdom$ = state$.map(..)
+              return {onion: red$, DOM: vdom$}
+        use subcomponents:
+          ex: app/index.js
+            const tickerSinks = isolate(Ticker, { onion: tickerLens })(sources);
+            const controlsSinks = isolate(Controls, { onion: controlsLens })(sources);
+          ex: controls/index.js
+            const personAmountSlider: Sinks = isolate(SliderInput, { onion: personAmountLens })(sources);
+            const avgPriceSlider: Sinks = isolate(SliderInput, { onion: avgPriceLens })(sources);
+        intent()
+          ex: controls/intent.js
+            export default function intent(domSource): Actions {
+              const currencyChangeAction$: xs<string> = domSource
+                .select(`.${styles.currencySelect}`)
+                .events('change')
+                .map(inputEv => (inputEv.target as HTMLInputElement).value);
+          ex: sliderInput/intent.js
+            export default function intent(domSource): SliderInputActions {
+              const ValueChangeAction$ = domSource
+                .select('.SliderInput-input')
+                .events('input')
+                .map(inputEv => parseInt((inputEv.target as HTMLInputElement).value));
+        model()
+          ex: app/model.js
+            export default function model(): xs<Reducer> {
+              const initReducer$: xs<Reducer> = xs.of(
+                (prev?: State): State =>
+                  prev !== undefined
+                    ? prev
+                    : {
+                        startTime: moment(),
+                        duration: 0,
+          ex: ticker/model.js
+            export default function model(timeSource: TimeSource): xs<Reducer> {
+              const initReducer$: xs<Reducer> = xs.of(
+                (prev?: State): State =>
+                  prev !== undefined
+                    ? prev
+                    : {
+                        startTime: moment(),
+                        duration: 0,
+              const tickReducer$: xs<Reducer> = timeSource
+                .periodic(1000)
+                .map(i => (prevState: State): State => ({
+              return xs.merge(initReducer$, tickReducer$);
+          ex: sliderInput/model.js
+            export default function model(actions: SliderInputActions): xs<Reducer> {
+              const defaultReducer$: xs<Reducer> = xs.of(
+                (prev?: State): State =>
+                  prev !== undefined
+                    ? prev
+                    : {
+                        description: 'description',
+                        unit: 'unit',
+              const valueChangeReducer$: xs<Reducer> = actions.ValueChangeAction$.map(
+                value => (prevState: State): State => ({
+                  ...prevState,
+              return xs.merge(defaultReducer$, valueChangeReducer$);
+        initReducer
+          const initReducer$: xs<Reducer> = xs.of(
+            (prev?: State): State =>
+              prev !== undefined
+                ? prev
+                : {
+                    startTime: moment(),
+                    duration: 0,
+        view()
+          ex: sliderInput/view.js
+            export default function view(state$: xs<State>): xs<VNode> {
+              return state$.map(({ description, unit, min, max, step, value }) =>
+                div(`.${styles.sliderInput}`, [
+          ex: ticker/view.js
+            export default function view(state$: xs<State>): xs<VNode> {
+              return state$.map(({ currency, totalPrice }) =>
+                div(`.${styles.actualPrice}`, [
+        styles
+          ex: app/styles.js
+            export const styles = stylesheet({
+              flexContainer: {
+                height: '100%',
+          ex: ticker/styles.js
+            export const styles = stylesheet({
+              actualPrice: {
+                justifyContent: 'center'
+          ex: sliderInput/styles.js
+            export const styles = stylesheet({
+              sliderInput: {
+                display: 'flex',
+                flexDirection: 'column',
+        App State and App Sources & Sinks
+          import { Sources, Sinks } from '../../interfaces';
+          import { State as AppState } from '../app';
+        interfaces.js
+          export type Sources = {
+            DOM: DOMSource;
+            onion: StateSource<State>;
+          export type Sinks = {
+            DOM: xs<VNode>;
+        header.js footer.js
+          export default function Header(): xs<VNode> {
+            return xs.of(
+              header(`.${headerStyles}`, [h1('Header-title', 'Meeting price calculator')])
+        App
+          index.js
+            vdom$
+              const headerVDom$: xs<VNode> = Header();
+              const vdom$ = xs
+                .combine(
+                  headerVDom$,
+                  tickerSinks.DOM,
+              .map(([header, ticker, controls, duration, footer]) =>
+                div(`.${styles.flexContainer}`, [
+                  header,
     ramdajs
       const newObject = R.omit([propertyToRemove], origObject)
     hyperscript
@@ -181,11 +383,19 @@
             remove unreferenced packages
     modules
       webpack
-      Error: Cannot find module '../lib/polyfills'
-        cause: I copied the project from somewhere else
-          some of the references broken
-        solution:
-          npm install --save-dev webpack-dev-server
+        Error: Cannot find module '../lib/polyfills'
+          cause: I copied the project from somewhere else
+            some of the references broken
+          solution:
+            npm install --save-dev webpack-dev-server
+        Error: devServer.proxy is not a function
+          solution:
+            webpack.config.js
+              //devServer.proxy({
+                //'/api': { target: 'http://localhost:3000' }
+              //}),
+            npm run build
+            open build/index.html
     nodejs
       update npm
         sudo npm install -g npm

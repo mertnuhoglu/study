@@ -1,0 +1,53 @@
+---
+title: "Studying Chrome Devtools"
+date: 2018-04-04T16:22:11+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_chrome_devtools.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_chrome_devtools/
+
+## Article: Egghead Chrome Devtools
+
+### 04-egghead-misc-chrome-devtools-elements-console-integration.mp4
+
+current element in inspector:
+
+    $0
+
+previous element:
+
+    $1 $2 ...
+
+find an element like jquery:
+
+    $('span') // finds one element
+    $$('span') // finds all elements
+    $x('html/body/div') // find by path
+    inspect($('span')) // select in inspector
+
+monitor events on web page
+    
+    monitorEvent($('h1'), 'click')
+
+dom breakpoint
+
+    inspector > .select element > Break on ... > Subtree Modifications
+

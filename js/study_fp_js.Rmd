@@ -1,0 +1,1020 @@
+---
+title: "Studying Functional Programming in JS"
+date: 2018-04-02T16:30:20+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_fp_js.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_fp_js/
+
+## Optics
+
+### Article: Lenses and Virtual DOM Support Open Closed
+
+http://joneshf.github.io/programming/2015/12/19/Lenses-and-Virtual-DOM-Support-Open-Closed.html
+
+Sandi Metz, “duplication is far cheaper than using the wrong abstraction.”
+
+getter:
+
+    foo.bar;
+    --->>>
+    view(bar, foo);
+
+setter:
+
+    foo.bar = 3;
+    --->>>
+    set(bar, 3, foo);
+
+They compose:
+
+    foo.bar.baz.quux;
+    --->>>
+    view(compose(bar, baz, quux), foo);
+
+    foo.bar.baz.quux = 3;
+    --->>>
+    set(compose(bar, baz, quux), 3, foo);
+
+#### Ex: Making Radio Button `disabled`
+
+We have a radio button:
+
+``` js
+import {h} from 'virtual-dom';
+
+function radio(name, value, description, actualValue) {
+  return h('input', {
+    checked: value === actualValue,
+    type: 'radio',
+    value
+  }, description);
+}
+``` 
+
+This is the VNode object:
+
+``` js
+> const bar = radio('foo', 'bar', 'Bar', 'bar');
+VirtualNode {
+  tagName: 'input',
+  properties:
+   { checked: true,
+     type: 'radio',
+     value: SoftSetHook { value: 'bar' } },
+  children: [ VirtualText { text: 'Bar' } ],
+``` 
+
+``` js
+import {compose, lensProp, set} from 'ramda';
+
+const properties = lensProp('properties');
+const disabled = lensProp('disabled');
+const propsDisabled = compose(properties, disabled);
+const disable = set(propsDisabled, true);
+``` 
+
+Now, we added `disabled` attribute:
+
+``` js
+> disable(bar)
+{ tagName: 'input',
+  properties:
+   { checked: true,
+     type: 'radio',
+     value: SoftSetHook { value: 'bar' },
+     disabled: true },
+  children: [ VirtualText { text: 'Bar' } ],
+``` 
+
+Each `lens` returns a new object. So there is no possibility of breaking anything.
+
+#### Ex: Complex Radio
+
+Let's work on a nested radio object:
+
+``` js
+function complexRadio(name, value, description, actualValue) {
+  return h('div.some-formatting-container', [
+    h('div.some-other-formatting-container', [
+      h('span', 'Some text about the radio'),
+      radio(name, value, description, actualValue),
+    ]),
+  ]);
+}
+``` 
+
+``` js
+> const bar = complexRadio('foo', 'bar', 'Bar', 'bar')
+> bar.children[0].children[1]
+VirtualNode {
+  tagName: 'input',
+  properties:
+   { checked: true,
+     type: 'radio',
+     value: SoftSetHook { value: 'bar' } },
+  children: [ VirtualText { text: 'Bar' } ],
+``` 
+
+The lens to make the object `disabled`
+
+``` js
+import {compose, lensIndex, lensProp, set} from 'ramda';
+
+// Using the `propsDisabled` lens from before.
+// We add a few more.
+const children = lensProp('children');
+const _0 = lensIndex(0);
+const _1 = lensIndex(1);
+const complexDisabled = compose(children, _0, children, _1, propsDisabled);
+const complexDisable = set(complexDisabled, true);
+``` 
+
+Alternative way by reusing `disable` function:
+
+``` js
+import {compose, lensIndex, lensProp, over} from 'ramda';
+
+// Using the `disable` function from before.
+
+// We add a few new lenses.
+const children = lensProp('children');
+const _0 = lensIndex(0);
+const _1 = lensIndex(1);
+const complexDisabled = compose(children, _0, children, _1);
+const complexDisable = over(complexDisabled, disable);
+``` 
+
+Here we use `over` instead of `set`. `over` applies a function to the focus of the lens:
+
+``` js
+set(lensProp('foo'), 13, {foo: 3}); //=> {foo: 13}
+over(lensProp('foo'), add(10), {foo: 3}); //=> {foo: 13}
+``` 
+
+### Article - Lenses with Immutable.js - Brian Lonsdorf
+
+https://medium.com/@drboolean/lenses-with-immutable-js-9bda85674780 
+
+``` js
+import Task from 'data.task'
+import Maybe from 'data.maybe'
+import {lensProp, lensIndex,compose, map, toUpper, reverse, replace} from 'ramda'
+import {mapped, over, view, set, lens, iso, from} from 'ramda-lens'
+import {Map, List} from 'immutable'
+``` 
+
+What is a lens?
+
+A getter/setter pair.
+
+``` js
+const addrs = [{street: '99 Walnut Dr.', zip: '04821'}, {street: '2321 Crane Way', zip: '08082'}]
+const user = {id: 3, name: 'Charles Bronson', addresses: addrs}
+``` 
+
+Basic usage:
+
+``` js
+const name = lensProp('name')
+
+view(name, user)
+// Charles Bronson
+
+set(name, 'Richard Branson', user)
+// { id: 3, name: 'Richard Branson', addresses: [ { street: '99 Walnut Dr.', zip: '04821' }, { street: '2321 Crane Way', zip: '08082' } ] }
+
+over(name, toUpper, user)
+// { id: 3, name: 'CHARLES BRONSON', addresses: [ { street: '99 Walnut Dr.', zip: '04821' }, { street: '2321 Crane Way', zip: '08082' } ] }
+``` 
+
+`view(name)` = `prop('name')`
+
+#### Composition
+
+Lenses compose in left-to-right order:
+
+``` js
+const addresses = lensProp('addresses')
+const street = lensProp('street')
+const first = lensIndex(0)
+
+const firstStreet = compose(addresses, first, street)
+
+view(firstStreet, user)
+// 99 Walnut Dr.
+
+over(firstStreet, reverse, user)
+// { id: 3, name: 'Charles Bronson', addresses: [ { street: '.rD tunlaW 99', zip: '04821' }, { street: '2321 Crane Way', zip: '08082' } ] }
+``` 
+
+#### Mapping
+
+To access an object inside a function use `mapped` which is also a lens.
+
+``` js
+over(compose(mapped, mapped, mapped, name), toUpper, Task.of(Maybe.of([user])))
+// Task(Maybe([{ id: 3, name: 'CHARLES BRONSON', addresses: [Object] }]))
+``` 
+
+This is like `map` over all values of some array.
+
+#### Ex: Remove Street Numbers
+
+``` js
+const addresses = lensProp('addresses')
+const street = lensProp('street')
+const allStreets = compose(addresses, mapped, street)
+
+//  :: Int -> Task Error User
+const getUser = id => new Task((rej, res) => setTimeout(() => res(user), 400))
+
+// profilePage :: User -> Html
+const profilePage = compose(map(x => `<span>${x.street}<span>`), view(addresses))
+
+// updateUser :: User -> User
+const updateUser = over(allStreets, replace(/\d+/, '****'))
+
+// renderProfile :: User -> Html
+const renderProfile = compose(map(compose(profilePage, updateUser)), getUser)
+
+renderProfile(1).fork(console.log, console.log)
+// [ '<span>**** Walnut Dr.<span>', '<span>**** Crane Way<span>' ]
+``` 
+
+### Article: Functional Lenses, How Do They Work - Drew Tipson
+
+https://medium.com/@dtipson/functional-lenses-d1aba9e52254
+
+Lenses are references to subparts of complex data structures expressed in a functional form.
+
+You can focus in some particular path of a complex object without losing the context of overall data.
+
+How do they really work?
+
+Critical idea: `lensOver` applies a function at a particular part of a complex data object, yet it still returns back the entire object.
+
+This allows us to chain together a lot of pure, declarative operations.
+
+``` js
+var bigBird = {
+  name: "Big Bird",
+  age:6,
+  comments:[
+    {body:'sing, sing a song',title:'Line 1'},
+    {body:'make it simple',title:'Line 2'},
+    {body:'sing out strong',title:'Line 3'}]
+};
+
+lensOver('comments', map( lensOver('body', capitalizeFirst) ))(bigBird);
+/*
+{
+ "name": "Big Bird",
+ "age": 6,
+ "comments": [
+  {"body": "Sing, sing a song", "title": "Line 1"},
+  {"body": "Make it simple", "title": "Line 2"},
+  {"body": "Sing out strong", "title": "Line 3"}
+ ]
+}
+*/
+``` 
+
+`lensOver` is like generic `map`. It takes some container (like array), opens it up, does projection, but returns same data structure. 
+
+To build a real lens implementation we need: composing, currying, mapping, array and object cloning and splicing, k combinator, constant and identity functors.
+
+``` js
+const pipe = (fn,...fns) => (...args) => fns.reduce( (acc, f) => f(acc), fn(...args));
+const compose = (...fns) => pipe(...fns.reverse());
+
+//simple auto currying 
+//(does NOT separately handle f.length == args.length or f.length < args.length cases)
+const curry = (f, ...args) => (f.length <= args.length) ? 
+  f(...args) : 
+  (...more) => curry(f, ...args, ...more);
+
+const mapWith = curry((f, xs) => xs.map(f));
+``` 
+
+`mapWith` is a curried (point-free) version of map.
+
+``` js
+update = require('ramda.update');//for Arrays
+assoc = require('ramda.assoc');//for Objects
+
+//curried arguments to both are in this order: index|key => replacement value -> Array|Object
+``` 
+
+splicing/setting function take three arguments: a reference to where to splice/set, new value, actual object/array to transform.
+
+``` js
+const arrayLens = curry(
+    (index, f, xs) => mapWith(replacement => update(index, replacement, xs), f(xs[index]) );
+);
+
+const objectLens = curry(
+    (key, f, xs) => mapWith(replacement => assoc(key, replacement, xs), f(xs[key]) );
+);
+``` 
+
+Only remaining issue: How are we going to apply `lensOver` to strings and numbers?
+
+``` js
+//K Combinator!
+const _K = x => y => x;//y is probably more accurately written as (), but that's longer!
+
+const Const = x => ({value: x, map(){ return this; }});
+
+const Identity = x => ({value: x, map: mapf => Identity(mapf(x)) });
+``` 
+
+What is "mapping"? "mapping" over something means taking a container, opening it up, applying a function to its contents, and then returning same type of container.
+
+Thus, we cannot work on primitive values directly since they don't have `map`. They are wrapped in a special container that does. The core lens operations make that happen:
+
+``` js
+const view = curry( (lens, targetData) => lens(Const)(targetData).value );
+
+const over = curry( (lens, apf, targetData) => lens(y => Identity(apf(y)) )(targetData).value );
+
+const set = curry( (lens, val, targetData) => over(lens, _K(val), targetData) );
+``` 
+
+Example:
+
+``` js
+const lens_get0 = arrayLens(0)
+const view_get0 = view(lens_get0)
+``` 
+
+Note that, the `lens` argument is the partially-applied function `arrayLens/objectLens` with just the first argument. The remaining two arguments for them are `Const` and `targetData`
+
+The `lens` object is a reference to the location of some particular data, it is an instruction about where to look. But we don't yet specify what we'll be looking at. 
+
+Thus, we may also call `arrayLens/objectLens` as `executeArrayLens/executeObjectLens`, because once they have all 3 arguments, they are actually executing some lens-related behavior, not just defining the Lens.
+
+`view/set/over` are helpers to complete execution.
+
+View: extracts and returns the property found at a particular location.
+
+What does `view` do with its two arguments?
+
+Over: It maps over the Functor, Identity.
+
+set: A special case of `over`
+
+K combinator `x => () => x` ignores the getter value that comes from `targetData`
+
+#### Killer Feature: Lenses Compose
+
+Lenses compose left-to-right
+
+``` js
+compose(objectLens('comments'), arrayLens(0))
+``` 
+
+This is equivalent to: `['comments'][0]`
+
+This is like an ordered set of instructions: "go through the door marked 'comments', then the door marked 0"
+
+`makeLenses` returns pre-configured lenses:
+
+``` js
+const makeLenses = (...paths) => paths.reduce( (acc, key) => {
+    const oL = objectLens(key)
+    return set(oL, oL, acc)
+  }, {num: arrayLens}
+)
+let L = makeLenses('comments', 'body')
+const firstCommentBody = compose(L.comments, L.num(0), L.body)
+``` 
+
+Ramda has similar function: `lensPath`
+
+Its variadic implementation:
+
+``` js
+const lensPath = (...paths) 
+  => compose(...paths.map( path => typeof path ==="string" ? objectLens(path) : arrayLens(path) ));
+
+over(lensPath('comments',0,'body'), some_function)(data);//inline
+
+const firstCommentBody = lensPath('comments',0,'body');
+over(firstCommentBody, some_function)(data);//then use
+``` 
+
+Ramda `lensPath` is not variadic, it takes a single array. With Es6, we can do:
+
+``` js
+const RlensPath = (arr) => lensPath(...arr)
+``` 
+
+If you want to use string paths like `comments.0.body`, you can use `str.split('.')`
+
+#### `mapped`
+
+``` js
+const mapped = curry(
+  (f, x) => Identity( mapWith( compose( x=>x.value, f), x) )
+);
+
+//usage
+const mapTwice = compose(mapped, mapped);
+over(mapTwice, x=>x+1, [[4, 6, 7], [5, 7, 8]]);
+//-> [[5, 7, 8], [6, 8, 9]]
+``` 
+
+`mapped` is a particular sort of lens. It knows how to run a map operation on a Functor. It is like "go through all the doors at once"
+
+Example: We have a collection of objects with property 'id'. But ids are in string format, while we expect them to be integers:
+
+``` js
+const dataset = {
+  entries: [{id:"1"},{id:"2"},{id:"3"}]
+};
+
+const L = makeLenses('entries','id');
+
+const eachEntrysId = compose(L.entries, mapped, L.id);
+const makeInt = x => parseInt(x, 10);
+
+over(eachEntrysId, makeInt)(data);//boom: we fixed all the ids so they're Integers!
+
+over(L.entries, mapWith(over(L.id, x => parseInt(x, 10))), dataset);//same result, but eh, messy
+``` 
+
+Example: Partially applied `over` and `set`
+
+``` js
+const fixEntryIdstoInts = over(eachEntrysId, x => parseInt(x, 10));
+
+//and then pass around or use that named function on any set of data with the right structure
+fixEntryIdstoInts(dataset2);
+fixEntryIdstoInts(dataset3);
+fixEntryIdstoInts(dataset4);
+
+//or map it over a collection of collections
+const alldatasets = [dataset, dataset2, dataset3, dataset4];
+mapWith(fixEntryIdstoInts, alldatasets);//fix an array of datasets
+
+//or compose it together with other non-lens operations/IO operations, etc.
+compose(render, fixEntryIdstoInts, _.head)(alldatasets);//get the last dataset, fix its ids, render
+``` 
+
+#### Conclusion
+
+Less implementations should obey a [particular set of laws](https://www.schoolofhaskell.com/user/tel/lenses-from-scratch#laws)
+
+### Article: Lenses Quick n' Dirty-104807358.mp4 - Brian Lonsdorf
+
+#### Functor Review
+
+``` js
+map(add(1), [1,2,3])
+//=> [2,3,4]
+map(add(1), {a: 1, b: 2})
+//=> {a: 2, b: 3}
+``` 
+
+``` js
+map(map(add(1)), Future.of(Maybe(2)))
+//=> Future(Maybe(3))
+``` 
+
+#### Getters and Setters
+
+``` js
+map(f, Identity(x)) // Identity(f(x))
+map(f, Const(x)) // Const(x) !noop
+``` 
+
+``` js
+map(add(1), Identity(2))
+//=> Identity(3)
+map(add(1), Const(2))
+//=> Const(2)
+``` 
+
+``` js
+compose(fold, map(add(1)), Identity)(2)
+//=> 3
+compose(fold, map(add(1)), Const)(2)
+//=> 2
+``` 
+
+``` js
+var getter = function(f, x) {
+  return compose(fold, map(f), Const)(x)
+}
+var setter = function(f, x) {
+  return compose(fold, map(f), Identity)(x)
+}
+getter(reverse, [1,2,3])
+//=> [1,2,3]
+setter(reverse, [1,2,3])
+//=> [3,2,1]
+``` 
+
+getter ignores f argument.
+
+#### Lenses
+
+Lens: A function that acts as both a getter and setter.
+
+Example:
+
+``` js
+var objectLens = function(key) {
+  return function(f, obj) {
+    return map(set(key, obj), f(obj[key]))
+  }
+}
+``` 
+
+What does f do? It will either run setter (if f is Identity) or run getter (if f is Const)
+
+We can implement this:
+
+``` js
+var view = function(lens, x) {
+  return compose(fold, lens(Const))(x)
+}
+var over = function(lens, f, x) {
+  return compose(fold, lens(compose(Identity, f)))(x)
+}
+var set = function(lens, v, x) {
+  return over(lens, K(v), x)
+}
+``` 
+
+#### Uses
+
+``` js
+var L = makeLenses(['friends', 'email', 'name'])
+var user = {name: 'Emily', friends: [{email: 'bob@ross.net'}, {email: 'kendra@space.org'}]}
+view(L.name, user)
+//=> 'Emily'
+view(L.friends, user)
+//=> [{email: 'bob@ross.net'}, {email: 'kendra@space.org'}]
+over(L.name, replace("E", "***"), user)
+//=> {name: '***mily', friends: [{email: 'bob@ross.net'}, {email: 'kendra@space.org'}]}
+``` 
+
+### Article: Everything Reduced: Transducers in Javascript - Drew Tipson
+
+Ever worked with "Collections"? Ever chained collection-y operations together? Stop it.
+
+Replace .chain().op().op().value() syntax with something more point-free and functional.
+
+`Array.reduce` takes any iterable:
+
+``` js
+//native reduce, here being used to sum
+  [1,2,3].reduce( (acc, item) => acc+item, 0);//-> 6
+// ^xs^   ^method ^------- accFn -------^  ^start   
+
+//a more functional version of reduce: it takes the starting point & list/data last
+const reduce = (accFn, start, xs) => xs.reduce(accFn, start);
+
+//usage:
+reduce( (acc, item) => acc+item, 0, [1,2,3] );//-> 6
+``` 
+
+`accFn` is the most important part. It gets two things and combine them into one result.
+
+`(a,b) -> a` or in curried notation: `a -> b -> a`
+
+The first argument and the output are of the same type because reduce is built to pipe that output right into the first argument of theh same function again on the next loop.
+
+`reduce` is similar to `compose` as if a single callback function can be repeated over and over as there are more items remaining.
+
+``` js
+const adding = (acc, item) => acc+item;//reducing function: a -> b -> a
+[1,2,3].reduce(adding, 0);//-> 6
+
+//same as adding, but arguments are reversed and curried
+const addingRC = item => acc => acc+item;// b -> a -> a
+compose( addingRC(1), addingRC(2), addingRC(3) )(0);//-> 6
+``` 
+
+Any iterative operation like mapping and filtering can be expressed in terms of reducing alone:
+
+``` js
+//mapping expressed as a reduce operation: we transform each item and add it to the result
+const mapper = transformerFn => (acc, item) => acc.concat( transformerFn(item) );
+const incrementer = mapper(x => x+1);//pre-baking mapper w/ a transformer
+reduce( incrementer, [], [1,2,3] );//-> [2,3,4]
+
+//filtering expressed as reduce operation: it tests each item to see if it should be added
+const filterer = testFn => (acc, item) => testFn(item) ? acc.concat( item ) : acc;
+const falsyRemover = filterer(x=>!!x);//pre-baking the filterer w/ a test
+reduce( falsyRemover, [], [1,null,2,3])//-> [1,2,3]
+``` 
+
+We can go even further. For example, we can combine filtering and mapping:
+
+``` js
+//just for fun, the transformer & test functions arguments each have defaults that amount to no-ops 
+const mapperfilterer = (transformerFn=(x=>x), testFn=(x=>true)) => (acc, item) => {
+  let transformedItem = transformerFn(item, acc);
+  return testFn(transformedItem, acc) ? acc.concat( transformedItem ) : acc;
+};
+
+const incrementThenFilterLessThenThree = mapperfilterer(x=>x+1, x=>x<3);
+
+[1,1,2,3].reduce(incrementThenFilterLessThenThree, []);//-> [2,2]
+``` 
+
+Now we loop over the array only once while doing both operations.
+
+But what if we want to filter the original values, not the transformed ones?
+
+``` js
+//our enhanced mapping & filtering operations, now with a way to specify a "resultifier"
+const mapping = transformFn => resultifierFn => 
+  (acc, item) => resultifierFn(acc, transformFn(item, acc));
+  
+const filtering = testFn => resultifierFn => (acc, item) => 
+  testFn(item, acc) ? resultifierFn(acc, item) : acc;
+  
+//some, er... resultifiers
+const concat = (array, value) => array.concat([value]);//build up a final result
+const sum = (x, y) => x+y;
+
+//example usage in a reduce operation
+reduce( filtering(x=>x>1)(concat), [], [1,2,3]);//-> [2,3]
+reduce( mapping(x=>x+1)(sum), 0, [1,2,3]);//-> 2+3+4 = 9
+``` 
+
+Note, resultifiers `sum` and `concat` take two arguments and then return a single result. This is exactly what we expect from reducing functions. 
+
+``` js
+reduce( concat, [], [1,2,3]);//-> [1,2,3]
+reduce( sum, 0, [1,2,3]);//-> 1+2+3 = 6
+``` 
+
+Interestingly, `mapping` and `filtering` also return reducing functions ultimately:
+
+    (acc, item) => resultifierFn(acc, transformFn(item, acc));
+
+In summary, they first choose a mapping/filtering logic (transformFn), then they accep a reducing function (sum, concat), then they wrap it somehow and return a new reducing function. It is like this:
+
+    (result->a->result:a) -> (result->b->result:ab)
+
+In a way, we transform one sort of reducing function (sum, concat) into another one. We transform reduces. That is we transduce.
+
+#### Transducer
+
+If the inputs and outputs of a transducer are the same sort of thing (reducing function), we can take the output of any one and use it as input to another one. 
+
+That is, transducers compose. Thus, we can construct map and filter as we please, in any order we wish.
+
+``` js
+//types of transformations
+const mapping = transformFn => reducingFn => 
+  (acc, item) => reducingFn(acc, transformFn(item, acc));
+  
+const filtering = testFn => reducingFn => (acc, item) => 
+  testFn(item, acc) ? reducingFn(acc, item) : acc;
+
+//defining particular mapping/filtering operations
+const divideByThree = mapping(x=>x/3);// returns a transducer
+const keepOnlyIntegers = filtering(x => x % 1 === 0);//returns a transducer
+
+//combining them  
+const divBy3andOnlyIntergers = compose(divideByThree, keepOnlyIntegers);// transducers compose!
+
+
+//using the composed transducer in a reduce method with concat on a starting array
+[3,4,9,13,14,12].reduce( divBy3andOnlyIntergers(concat), []);//-> [ 1, 3, 4 ]
+
+//a transducer (composed or not) + a reducing function = a reducing function
+const divBy3andOnlyIntergersAndSum = compose(divideByThree, keepOnlyIntegers)(sum);
+
+//using the completed reducing function on a starting value
+reduce(divBy3andOnlyIntergersAndSum, 0, [3,4,9,13,14,12]);//-> (1+3+4) = 8
+``` 
+
+The final functions loop through the array only once. 
+
+#### Order of Composition
+
+The most peculiar feature of transducer composition: the order of composition.
+
+We know that different ordering can lead to different results (increment then filter vs filter then increment). 
+
+Note that, transducers compose left-to-right like lenses. 
+
+Why? What do we pass into composed chain of transducers? A reducing function like `concat`
+
+The rightmost function receives this `concat`. But it then returns a function, not a value. So, next link in our chain, gets that reducing function. 
+
+When the final reduce operation runs and is handed actual values (accumulator and item), the outermost wrapper is the last reducing function. So that operation runs first. 
+
+Ex: This example shows that composing higher order functions result in left-to-right order.
+
+``` js
+let funcOne = f => v => f(v)/2;
+let funcTwo = g => v => g(v);
+
+let higherOrderComposition = compose(funcOne, funcTwo);
+
+higherOrderComposition(x=>x+10)(0);//-> 5
+
+//let's add logging so we can see what's running in what order
+compose( 
+  f => v => !console.log('ran f/funcOne') && f(v)/2,  
+  g => v => !console.log('ran g/funcTwo') && g(v)
+)(x=>x+10)(0);
+
+//-> logs "ran f/funcOne"
+//-> logs "ran g/funcTwo"
+//-> 5
+``` 
+
+Ex: This example shows that composing simple functions result in right-to-left order:
+
+``` js
+compose(v => !console.log('ran f') && v/2, v => !console.log('ran g') && v+10)(0);
+
+//-> logs "ran g"
+//-> logs "ran f"
+//-> 5
+``` 
+
+### Article: Composing lenses in Ramda
+
+https://medium.com/@vladimirgorej/composing-lenses-in-ramda-5abfbd09d8bb
+
+``` js
+import { lensPath, view } from 'ramda';
+
+const complexObject = { level1: { level2: { prop1: 1, prop2: 2 } } };
+const prop1Lens = lensPath(['level1', 'level2', 'prop1']);
+
+console.assert(view(prop1Lens, complexObject) === 1);
+``` 
+
+``` js
+import { lensPath, compose, view } from 'ramda';
+
+const enabledLens = lensPath(['enabled']);
+
+const sshServiceLens = lensPath(['sshService']);
+const sshServiceEnabledLens = compose(sshServiceLens, enabledLens);
+
+const telnetServiceLens = lensPath(['telentService']);
+const telnetServiceEnabledLens = compose(telnetServiceLens, enabledLens);
+
+// Usage
+// -----
+
+const services = {
+  sshService: { enabled: true },
+  telnetService: { enabled: false },
+};
+
+console.assert(view(sshServiceEnabledLens, services) === true);
+console.assert(view(telnetServiceEnabledLens, services) === false);
+``` 
+
+### Article: Easier lenses in JavaScript with reshape-ramda
+
+https://medium.com/@maxbendick/easier-lenses-in-javascript-with-reshape-ramda-8d756eaf08e3
+
+``` js
+/* Creates lens
+from anything implementing:
+  { a: any, b: { c: any } }
+to:
+  { x: any, y: any }
+*/
+lensFromPattern({
+  a: 'x',
+  b: {
+    c: 'y',
+  },
+})
+``` 
+
+Ways to make lenses:
+
+- `lens`
+- `lensIndex` and `lensPath`
+- `lensPath`: 
+- `compose`
+
+#### Ex: Pattern matching in reverse
+
+Pattern matching is a way to get values by using data structures
+
+``` js
+// Sets a=1 and b={ val: 2 }
+const { a, b } = { a: 1, b: { val: 2 }, c: 3}
+``` 
+
+In Ramda:
+
+``` js
+const myLens = lensFromPattern({
+  a: 'x',     // binds 'x' to value at path ['a']
+  b: {
+    val: 'y', // binds 'y' to value at path ['b', 'val']
+  },
+})
+
+// returns { x: 1, y: 2 }
+view(myLens, {
+  a: 1,
+  b: { val: 2, c: 3 },
+  d: 4
+})
+
+// returns {
+//   a: 3,
+//   b: { val: 4, c: 3 },
+//   d: 4
+// }
+set(myLens, 
+  { x: 3, y: 4 },
+  {
+    a: 1,
+    b: { val: 2, c: 3 },
+    d: 4
+  }
+)
+const updateLocation = ({x, y}) => ({
+  x: x + 1,
+  y: y - 2,
+})
+
+// returns {
+//   a: 2,
+//   b: { val: 0, c: 3 },
+//   d: 4
+// }
+// 
+// `over` applies a function through the lens to the data
+over(myLens, updateLocation, {
+  a: 1,
+  b: { val: 2, c: 3 },
+  d: 4
+})
+``` 
+
+#### Ex: Teleporting Wizards and Monsters
+
+``` js
+import { lensFromPattern } from 'reshape-ramda'
+import { over } from 'ramda'
+// This is a general location update function.
+// In a game, it might be used in several 
+// places on several kinds of entities.
+const updateLocation = ({x, y}) => ({
+  x: x + 1,
+  y: y - 2,
+})
+// Here's the first kind of entity
+const oldWizard = {
+  type: 'player',
+  name: 'al',
+  class: 'wizard',
+  location: {
+    x: 5,
+    y: 9,
+  },
+}
+// Adapt the entity to work with updateLocation
+const playerLocationLens = lensFromPattern({
+  location: {
+    x: 'x',
+    y: 'y',
+  },
+})
+// Do the update (doesn't change oldWizard)
+const newWizard = over(
+  playerLocationLens,
+  updateLocation,
+  oldWizard)
+// A test case
+expect(newWizard).toEqual({
+  type: 'player',
+  name: 'al',
+  class: 'wizard',
+  location: {
+    x: 6,
+    y: 7,
+  },
+})
+``` 
+
+Same function can work with other data structures:
+
+``` js
+const oldSwarm = {
+  type: 'monster',
+  class: 'bee swarm',
+  state: {
+    centroid: {
+      distanceFromTop: 15,
+      distanceFromLeft: 20,
+    }
+  }
+}
+const swarmCentroidLens = lensFromPattern({
+  state: {
+    centroid: {
+      distanceFromTop: 'x',
+      distanceFromLeft: 'y',
+    }
+  }
+})
+const newSwarm = over(swarmCentroidLens, updateLocation, oldSwarm)
+expect(newSwarm).toEqual({
+  type: 'monster',
+  class: 'bee swarm',
+  state: {
+    centroid: {
+      distanceFromTop: 16,
+      distanceFromLeft: 18,
+    }
+  }
+})
+``` 
+
+### Article: Introduction to optics: lenses and prisms
+
+https://medium.com/@gcanti/introduction-to-optics-lenses-and-prisms-3230e73bfcfe
+
+Two main types of optics: Lens and Prism
+
+Lens is for working with product types (tuples, objects). 
+
+Prims is for sum types (maybe, union) and arrays.
+
+Ex:
+
+``` js
+type Street = { num: number, name: string };
+type Address = { city: string, street: Street };
+``` 
+
+### Article: Using functional lenses to modify objects by example - Gleb Bahmutov
+
+https://glebbahmutov.com/blog/lenses/
+
+``` js
+const fooBarBazLens = R.lensPath(['foo', 'bar', 'baz'])
+
+// reading value is called `R.view`
+const readFooBarBaz = R.view(fooBarBazLens)
+readFooBarBaz({foo: {bar: {baz: 42}}})
+//=> 42
+
+// writing value is called `R.set`
+const setFooBarBaz = R.set(readFooBarBaz)
+const o = {}
+const output = setFooBarBaz(1, o)
+// o is still {}
+// output is {foo: {bar: {baz: 1}}}
+``` 
+
+``` js
+const fooLens = R.lensProp('foo')
+R.view(fooLens, {foo: 42}) // 42
+``` 
+
+``` js
+var tomato = {
+  firstName: '  Tomato ',
+  data: {elapsed: 100, remaining: 1400},
+  id:123
+}
+var transformations = {
+  firstName: R.trim,
+  lastName: R.trim, // Will not get invoked.
+  data: {elapsed: R.add(1), remaining: R.add(-1)}
+}
+R.pick(['firstName'], R.evolve(transformations, tomato))
+//=> {firstName: 'Tomato'}
+``` 
+
