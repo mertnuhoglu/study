@@ -1,0 +1,110 @@
+.vrp_container {
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-template-row: 1fr auto 1fr;
+  grid-gap: 10px;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+header, article, footer {
+  background: #eee;
+  padding: 3px;
+}
+
+header, footer {
+  grid-column: 1 / 3;
+}
+
+article {
+  grid-column: 1 / 3;
+}
+
+nav {
+  justify-content: space-between !important;
+}
+
+.yeni_plan {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+  background: #f9f9f9;
+  border: 1px solid #c1c1c1;
+  margin: 2rem auto 0 auto;
+  padding: 1em;
+}
+
+.yeni_plan__arac_parametreleri {
+  display: grid;
+  grid-template-columns: 3fr 3fr 75px;
+  grid-gap: 3px;
+}
+
+.yeni_plan__rota_parametreleri {
+  display: grid;
+  grid-template-columns: 3fr 3fr 35px;
+  grid-gap: 3px;
+}
+.yeni_plan__submit {
+  grid-column: 2 / -1;
+}
+
+.yeni_plan__heading {
+  grid-column: 1 / -1;
+  font-weight: bold;
+}
+.yeni_plan__label {
+  grid-column: 1 / 2;
+}
+.yeni_plan__input {
+  grid-column: 2 / 3;
+}
+.yeni_plan__unit {
+  grid-column: 3 / -1;
+  display: inline;
+}
+.yeni_plan__label_heading {
+  grid-column: 1 / 2;
+  font-weight: bold;
+}
+.yeni_plan__input_heading {
+  grid-column: 2 / 4;
+  font-weight: bold;
+}
+
+.siparisler {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  grid-gap: 16px;
+}
+
+.stk_siparisler__col1 {
+  grid-column: 1 / 2;
+}
+.stk_siparisler__col2 {
+  grid-column: 2 / 3;
+}
+
+.mfgpro_indir {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 16px;
+}
+
+.arac {
+}
+
+.arac__heading {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.arac__harita {
+  margin-left: auto;
+}
+
+.arac__mfgpro_aktarimi {
+  justify-content: space-around;
+  margin-bottom: 0;
+}
+

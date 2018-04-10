@@ -1,0 +1,1740 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+                           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.36.0/handsontable.full.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.18/jquery.datetimepicker.min.css">
+
+    <title>RotaPlan</title>
+  </head>
+  <body>
+
+    <div id="app"  class="vrp_container">
+      <div>
+        <header>
+          <nav class="navbar navbar-light bg-light navbar-expand-md">
+            <a class="navbar-brand" href="#">RotaPlan</a>
+            <ul class="nav nav-pills">
+              <li class="nav-item"><a href="/plan" class="nav-link active">Planla</a></li>
+              <li class="nav-item"><a href="/manage" class="nav-link">Yönet</a></li>
+              <li class="nav-item"><a href="/report" class="nav-link">Raporlama</a></li>
+              <li class="nav-item"><a href="/" class="nav-link">Çıkış</a></li>
+            </ul>
+            <a href="#" class="nav-link">#username</a>
+          </nav>
+        </header>
+        <article class="card" id="plan_panel">
+          <ul class="nav nav-tabs" id="planlama" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="gecmis_planlar-tab" data-toggle="tab" href="#gecmis_planlar" role="tab"
+                                                                                                          aria-controls="gecmis_planlar"
+                                                                                                          aria-selected="true">Geçmiş Planlar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="yeni_plan-tab" data-toggle="tab" href="#yeni_plan" role="tab" aria-controls="yeni_plan"
+                                                                                                    aria-selected="false">Yeni Plan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="bos_plan-tab" data-toggle="tab" href="#bos_plan" role="tab" aria-controls="bos_plan"
+                                                                                                  aria-selected="false">Boş Plan</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="gecmis_planlar" role="tabpanel" aria-labelledby="gecmis_planlar-tab">
+              <button class="btn btn-primary" type="button">Tabloyu Yenile</button>
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Tarih</th>
+                    <th>Kullanıcı</th>
+                    <th>Depo</th>
+                    <th>Durum</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2017-06-14</td>
+                    <th>plan_corlu</th>
+                    <th>Corlu</th>
+                    <th>Tamamlandı</th>
+                    <th>
+                      <button class="btn btn-xs btn-primary" type="button">Verileri Al</button>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+              <nav aria-label="Sayfalandırma">
+                <ul class="pagination">
+                  <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span
+                                                                      aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                </ul>
+              </nav>
+            </div>
+            <div class="tab-pane fade" id="yeni_plan" role="tabpanel" aria-labelledby="yeni_plan-tab">
+              <form class="yeni_plan" action="">
+                <div class="yeni_plan__arac_parametreleri">
+                  <h3 class="yeni_plan__heading">Araç Parametreleri</h3>
+
+                  <label class="yeni_plan__label_heading">Araç Tipi</label>
+                  <label class="yeni_plan__input_heading">Efektif Hacim</label>
+
+                  <label for="kamyon" class="yeni_plan__label">Kamyon</label>
+                  <input id="kamyon" class="yeni_plan__input form-control" type="text">
+                  <label class="yeni_plan__unit">m³/45m³</label>
+
+                  <label for="b_kamyon" class="yeni_plan__label">B.Kamyon</label>
+                  <input id="b_kamyon" class="yeni_plan__input form-control" type="text">
+                  <label class="yeni_plan__unit">m³/68m³</label>
+
+                  <label for="treyler" class="yeni_plan__label">Treyler</label>
+                  <input id="treyler" class="yeni_plan__input form-control" type="text">
+                  <label class="yeni_plan__unit">m³/86m³</label>
+                </div>
+
+                <div class="yeni_plan__rota_parametreleri">
+                  <h3 class="yeni_plan__heading">Rota Parametreleri</h3>
+
+                  <label class="yeni_plan__label" for="depo" class="label_depo">Depo</label>
+                  <select class="yeni_plan__input form-control" id="depo" ng-options="o.label for o in depotOptions"
+                                                                          ng-model="plan_depot" ng-disabled="!canChangeDepot()">
+                    <option value="?" selected></option>
+                    <option label="Adana" value="object:18">Adana</option>
+                    <option label="Çorlu" value="object:19">Çorlu</option>
+                    <option label="Denizli" value="object:20">Denizli</option>
+                    <option label="Eskisehir" value="object:21">Eskisehir</option>
+                  </select>
+
+                  <label for="maks_drop_sayisi" class="yeni_plan__label">Maks. Drop Sayısı</label>
+                  <input id="maks_drop_sayisi" class="yeni_plan__input form-control" type="text">
+                  <label class="yeni_plan__unit">adet</label>
+
+                  <label for="efektif_hacim_tolerans" class="yeni_plan__label">Efektif Hacim Tolerans</label>
+                  <input id="efektif_hacim_tolerans" class="yeni_plan__input form-control" type="text">
+                  <label class="yeni_plan__unit">%</label>
+                </div>
+
+                <button class="yeni_plan__submit btn btn-primary">Gönder</button>
+              </form>
+            </div>
+            <div class="tab-pane fade" id="bos_plan" role="tabpanel" aria-labelledby="bos_plan-tab">
+              Boş Plan
+            </div>
+          </div>
+        </article>
+        <article class="card" id="plan_detail_panel">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="stk_siparisler-tab" data-toggle="tab" href="#stk_siparisler" role="tab"
+                                                                                                          aria-controls="stk_siparisler" aria-selected="true">Stk. Siparişler</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="urt_siparisler-tab" data-toggle="tab" href="#urt_siparisler" role="tab"
+                                                                                                   aria-controls="urt_siparisler" aria-selected="false">Ürt. Siparişler</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="ozet-tab" data-toggle="tab" href="#ozet" role="tab"
+                                                                               aria-controls="ozet" aria-selected="false">Özet</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="adresler-tab" data-toggle="tab" href="#adresler" role="tab"
+                                                                                       aria-controls="adresler" aria-selected="false">Adresler</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="rotalar-tab" data-toggle="tab" href="#rotalar" role="tab"
+                                                                                     aria-controls="rotalar" aria-selected="false">Rotalar</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="siparisler tab-pane fade show active" id="stk_siparisler" role="tabpanel"
+                                                                                  aria-labelledby="stk_siparisler-tab">
+              <div class="dropdown stk_siparisler__col1">
+                <button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                                                                                 aria-haspopup="true" aria-expanded="false">
+                  Sayı Formatı: Türkçe
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">İngilizce</a>
+                  <a class="dropdown-item" href="#">Türkçe</a>
+                </div>
+              </div>
+              <div class="alert alert-info stk_siparisler__col2">
+                Sayı formatının bilgisayarınızdaki Excel ile aynı olduğundan emin olun. <br>
+                Gönderilecek siparişleri "G" ile işaretlemeyi unutmayın. <br>
+                Stok miktarının sadece bir kısmı gönderilecekse gönderilecek m² girin.
+              </div>
+              <div id="ordersTableDiv">
+                <div id="ordersTable" class="hot handsontable htRowHeaders htColumnHeaders" data-vivaldi-spatnav-clickable="1"
+                                                                                            _vimium-has-onclick-listener="">
+                  <div class="ht_master handsontable" style="position: relative; overflow: visible;">
+                    <div class="wtHolder" style="position: relative; overflow: visible;">
+                      <div class="wtHider" style="width: 1302px; height: 50px;">
+                        <div class="wtSpreader" style="position: relative; top: 0px; left: 0px;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                              <col style="width: 80px;">
+                              <col style="width: 56px;">
+                              <col style="width: 81px;">
+                              <col style="width: 76px;">
+                              <col style="width: 82px;">
+                              <col style="width: 52px;">
+                              <col style="width: 50px;">
+                              <col style="width: 60px;">
+                              <col style="width: 63px;">
+                              <col style="width: 61px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 56px;">
+                              <col style="width: 60px;">
+                              <col style="width: 63px;">
+                              <col style="width: 50px;">
+                              <col style="width: 62px;">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 25px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Gönder M2</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Gönder</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Müşteri Adı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stok Kodu</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stok Tanımı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sipariş</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">K</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sip.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Svk.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stk.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">M2</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">M3</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">KG</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Flt</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Plt#</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">P.Ebadı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sip.Trhi.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">TrmnTrhi</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Şehir</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sevk Kd</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th class="">
+                                  <div class="relative"><span class="rowHeader">1</span></div>
+                                </th>
+                                <td class="htNoWrap"></td>
+                                <td class="htCenter htNoWrap"><input class="htCheckboxRendererInput" type="checkbox"
+                                                                                                     autocomplete="off" tabindex="-1" data-row="0" data-col="1">
+                                </td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 216px; display: none; top: 26px; left: 50px;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 23px; width: 1px; display: none; top: 26px; left: 50px;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 216px; display: none; top: 49px; left: 50px;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 24px; width: 1px; display: none; top: 26px; left: 266px;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none; top: 45px; left: 262px;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 79px; display: none; top: 26px; left: 50px;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 23px; width: 2px; display: none; top: 26px; left: 50px;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 79px; display: none; top: 48px; left: 50px;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 24px; width: 2px; display: none; top: 26px; left: 128px;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none; top: 45px; left: 125px;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ht_clone_top handsontable"
+                       style="position: absolute; top: 0px; left: 0px; overflow: hidden; height: 30px; transform: translate3d(0px, 0px, 0px);">
+                    <div class="wtHolder" style="position: relative; height: 60px;">
+                      <div class="wtHider" style="width: 1302px;">
+                        <div class="wtSpreader" style="position: relative; left: 0px;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                              <col style="width: 80px;">
+                              <col style="width: 56px;">
+                              <col style="width: 81px;">
+                              <col style="width: 76px;">
+                              <col style="width: 82px;">
+                              <col style="width: 52px;">
+                              <col style="width: 50px;">
+                              <col style="width: 60px;">
+                              <col style="width: 63px;">
+                              <col style="width: 61px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 56px;">
+                              <col style="width: 60px;">
+                              <col style="width: 63px;">
+                              <col style="width: 50px;">
+                              <col style="width: 62px;">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 25px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Gönder M2</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Gönder</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Müşteri Adı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stok Kodu</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stok Tanımı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sipariş</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">K</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sip.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Svk.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stk.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">M2</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">M3</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">KG</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Flt</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Plt#</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">P.Ebadı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sip.Trhi.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">TrmnTrhi</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Şehir</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sevk Kd</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody></tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ht_clone_left handsontable"
+                       style="position: absolute; top: 0px; left: 0px; overflow: hidden; width: 54px; transform: translate3d(0px, 0px, 0px);">
+                    <div class="wtHolder" style="position: relative; width: 84px;">
+                      <div class="wtHider" style="height: 50px;">
+                        <div class="wtSpreader" style="position: relative; top: 0px;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 25px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th class="">
+                                  <div class="relative"><span class="rowHeader">1</span></div>
+                                </th>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ht_clone_top_left_corner handsontable"
+                       style="position: absolute; top: 0px; left: 0px; overflow: hidden; transform: translate3d(0px, 0px, 0px); height: 30px; width: 54px;">
+                    <div class="wtHolder" style="position: relative;">
+                      <div class="wtHider">
+                        <div class="wtSpreader" style="position: relative;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 25px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody></tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="handsontableInputHolder" style="top: 0px; left: 0px; display: none;"><textarea
+                                                       class="handsontableInput" style="width: 0px; height: 0px;"></textarea></div>
+                  <div class="manualRowResizer" style="left: 0px; top: 601px; width: 50px;"></div>
+                  <div class="handsontableInputHolder" style="top: 0px; left: 0px; display: none;"><textarea
+                                                       class="handsontableInput" style="width: 0px; height: 0px;"></textarea></div>
+                  <div class="manualColumnResizer" style="top: 557px; left: 124px; height: 26px;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="siparisler tab-pane fade" id="urt_siparisler" role="tabpanel" aria-labelledby="urt_siparisler-tab">
+              <div class="dropdown stk_siparisler__col1">
+                <button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                                                                                 aria-haspopup="true" aria-expanded="false">
+                  Sayı Formatı: Türkçe
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">İngilizce</a>
+                  <a class="dropdown-item" href="#">Türkçe</a>
+                </div>
+              </div>
+              <div class="alert alert-info stk_siparisler__col2">
+                Sayı formatının bilgisayarınızdaki Excel ile aynı olduğundan emin olun. <br>
+                Gönderilecek siparişleri "G" ile işaretlemeyi unutmayın. <br>
+                Stok miktarının sadece bir kısmı gönderilecekse gönderilecek m² girin.
+              </div>
+              <div id="ordersTableDiv">
+                <div id="ordersTable" class="hot handsontable htRowHeaders htColumnHeaders" data-vivaldi-spatnav-clickable="1"
+                                                                                            _vimium-has-onclick-listener="">
+                  <div class="ht_master handsontable" style="position: relative; overflow: visible;">
+                    <div class="wtHolder" style="position: relative; overflow: visible;">
+                      <div class="wtHider" style="width: 1302px; height: 50px;">
+                        <div class="wtSpreader" style="position: relative; top: 0px; left: 0px;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                              <col style="width: 80px;">
+                              <col style="width: 56px;">
+                              <col style="width: 81px;">
+                              <col style="width: 76px;">
+                              <col style="width: 82px;">
+                              <col style="width: 52px;">
+                              <col style="width: 50px;">
+                              <col style="width: 60px;">
+                              <col style="width: 63px;">
+                              <col style="width: 61px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 56px;">
+                              <col style="width: 60px;">
+                              <col style="width: 63px;">
+                              <col style="width: 50px;">
+                              <col style="width: 62px;">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 25px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Gönder M2</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Gönder</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Müşteri Adı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stok Kodu</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stok Tanımı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sipariş</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">K</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sip.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Svk.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stk.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">M2</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">M3</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">KG</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Flt</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Plt#</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">P.Ebadı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sip.Trhi.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">TrmnTrhi</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Şehir</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sevk Kd</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th class="">
+                                  <div class="relative"><span class="rowHeader">1</span></div>
+                                </th>
+                                <td class="htNoWrap"></td>
+                                <td class="htCenter htNoWrap"><input class="htCheckboxRendererInput" type="checkbox"
+                                                                                                     autocomplete="off" tabindex="-1" data-row="0" data-col="1">
+                                </td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 216px; display: none; top: 26px; left: 50px;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 23px; width: 1px; display: none; top: 26px; left: 50px;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 216px; display: none; top: 49px; left: 50px;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 24px; width: 1px; display: none; top: 26px; left: 266px;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none; top: 45px; left: 262px;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 79px; display: none; top: 26px; left: 50px;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 23px; width: 2px; display: none; top: 26px; left: 50px;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 79px; display: none; top: 48px; left: 50px;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 24px; width: 2px; display: none; top: 26px; left: 128px;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none; top: 45px; left: 125px;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ht_clone_top handsontable"
+                       style="position: absolute; top: 0px; left: 0px; overflow: hidden; height: 30px; transform: translate3d(0px, 0px, 0px);">
+                    <div class="wtHolder" style="position: relative; height: 60px;">
+                      <div class="wtHider" style="width: 1302px;">
+                        <div class="wtSpreader" style="position: relative; left: 0px;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                              <col style="width: 80px;">
+                              <col style="width: 56px;">
+                              <col style="width: 81px;">
+                              <col style="width: 76px;">
+                              <col style="width: 82px;">
+                              <col style="width: 52px;">
+                              <col style="width: 50px;">
+                              <col style="width: 60px;">
+                              <col style="width: 63px;">
+                              <col style="width: 61px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 56px;">
+                              <col style="width: 60px;">
+                              <col style="width: 63px;">
+                              <col style="width: 50px;">
+                              <col style="width: 62px;">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 25px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Gönder M2</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Gönder</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Müşteri Adı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stok Kodu</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stok Tanımı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sipariş</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">K</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sip.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Svk.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Stk.Mik.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">M2</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">M3</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">KG</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Flt</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Plt#</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">P.Ebadı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sip.Trhi.</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">TrmnTrhi</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Şehir</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Sevk Kd</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody></tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ht_clone_left handsontable"
+                       style="position: absolute; top: 0px; left: 0px; overflow: hidden; width: 54px; transform: translate3d(0px, 0px, 0px);">
+                    <div class="wtHolder" style="position: relative; width: 84px;">
+                      <div class="wtHider" style="height: 50px;">
+                        <div class="wtSpreader" style="position: relative; top: 0px;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 25px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th class="">
+                                  <div class="relative"><span class="rowHeader">1</span></div>
+                                </th>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ht_clone_top_left_corner handsontable"
+                       style="position: absolute; top: 0px; left: 0px; overflow: hidden; transform: translate3d(0px, 0px, 0px); height: 30px; width: 54px;">
+                    <div class="wtHolder" style="position: relative;">
+                      <div class="wtHider">
+                        <div class="wtSpreader" style="position: relative;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 25px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody></tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="handsontableInputHolder" style="top: 0px; left: 0px; display: none;"><textarea
+                                                       class="handsontableInput" style="width: 0px; height: 0px;"></textarea></div>
+                  <div class="manualRowResizer" style="left: 0px; top: 601px; width: 50px;"></div>
+                  <div class="handsontableInputHolder" style="top: 0px; left: 0px; display: none;"><textarea
+                                                       class="handsontableInput" style="width: 0px; height: 0px;"></textarea></div>
+                  <div class="manualColumnResizer" style="top: 557px; left: 124px; height: 26px;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="ozet" role="tabpanel" aria-labelledby="ozet-tab">
+              <table class="table table-condensed table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Tarih</th>
+                    <th>Kullanıcı</th>
+                    <th>Depo</th>
+                    <th>Maksimum Drop Sayısı</th>
+                    <th>Efektif Hacim Tolerans</th>
+                    <th>Kamyon Efektif<br>Hacim
+                    </th>
+                    <th>Treyler Efektif<br>
+                    </th>
+                    <th>Durum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2018-02-01 21:05:46</td>
+                    <td>manager</td>
+                    <td>DENIZLI</td>
+                    <td>4</td>
+                    <td>10</td>
+                    <td>35</td>
+                    <td>55</td>
+                    <td>TAMAMLANDI</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-condensed table-striped table-hover" ng-show="myDataServ.plan_routes.length > 0">
+                <thead>
+                  <tr>
+                    <th>Plandaki Sipariş Sayısı</th>
+                    <th>Plan Dışı Sipariş Sayısı</th>
+                    <th>Plandaki Müşteri Sayısı</th>
+                    <th>Plandaki Konum Sayısı</th>
+                    <th>Plandaki Araç Sayısı</th>
+                    <th>Planın Toplam Maliyeti</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>273</td>
+                    <td>65</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1,434.00 TL</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="adresler" role="tabpanel" aria-labelledby="adresler-tab">
+              <div id="custDestsTableDiv">
+                <div id="custDestsTable" class="hot handsontable htRowHeaders htColumnHeaders"
+                                         data-vivaldi-spatnav-clickable="1" _vimium-has-onclick-listener="">
+                  <div class="ht_master handsontable" style="position: relative; overflow: visible;">
+                    <div class="wtHolder" style="position: relative; overflow: visible;">
+                      <div class="wtHider" style="width: 1100px; height: 71px;">
+                        <div class="wtSpreader" style="position: relative; top: 0px; left: 0px;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 46px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Müşteri<br>Kodu</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Müşteri<br>Adı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Adres<br>Kodu</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Adres</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Şehir</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">İl</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">İlçe</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Belde/<br>Belediye</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Mahalle/<br>Köy</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Posta<br>Kodu</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Lat</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Lon</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Avrupada?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Kamyon<br>Kabul?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">B.Kamyon<br>Kabul?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">TIR<br>Kabul?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Direkt<br>Zorunlu?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Serbest<br>Bölge?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Eklenme<br>Tarih</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Teyit 1<br>Tarih</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Teyit 2<br>Tarih</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th class="">
+                                  <div class="relative"><span class="rowHeader">1</span></div>
+                                </th>
+                                <td class="htNoWrap">51008</td>
+                                <td class="htNoWrap">DENIZLI CAM A.</td>
+                                <td class="htNoWrap">1</td>
+                                <td class="htNoWrap">CORLU</td>
+                                <td class="htNoWrap">TEKIRDAG</td>
+                                <td class="htNoWrap">TEKIRDAG</td>
+                                <td class="htNoWrap">CORLU</td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                                <td class="htRight htNumeric htNoWrap">41,1558</td>
+                                <td class="htRight htNumeric htNoWrap">27,8137</td>
+                                <td class="htNoWrap"><input class="htCheckboxRendererInput" type="checkbox" autocomplete="off"
+                                                                                                            tabindex="-1" data-row="0" data-col="12"></td>
+                                <td class="htNoWrap"><input class="htCheckboxRendererInput" type="checkbox" autocomplete="off"
+                                                                                                            tabindex="-1" data-row="0" data-col="13"></td>
+                                <td class="htNoWrap"><input class="htCheckboxRendererInput" type="checkbox" autocomplete="off"
+                                                                                                            tabindex="-1" data-row="0" data-col="14"></td>
+                                <td class="htNoWrap"><input class="htCheckboxRendererInput" type="checkbox" autocomplete="off"
+                                                                                                            tabindex="-1" data-row="0" data-col="15"></td>
+                                <td class="htNoWrap"><input class="htCheckboxRendererInput" type="checkbox" autocomplete="off"
+                                                                                                            tabindex="-1" data-row="0" data-col="16"></td>
+                                <td class="htNoWrap"><input class="htCheckboxRendererInput" type="checkbox" autocomplete="off"
+                                                                                                            tabindex="-1" data-row="0" data-col="17"></td>
+                                <td class="htNoWrap">2018-02-01</td>
+                                <td class="htNoWrap"></td>
+                                <td class="htNoWrap"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 149px; display: none; top: 47px; left: 50px;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 23px; width: 1px; display: none; top: 47px; left: 50px;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 149px; display: none; top: 70px; left: 50px;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 24px; width: 1px; display: none; top: 47px; left: 199px;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none; top: 66px; left: 195px;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 50px; display: none; top: 47px; left: 149px;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 23px; width: 2px; display: none; top: 47px; left: 149px;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 50px; display: none; top: 69px; left: 149px;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 24px; width: 2px; display: none; top: 47px; left: 198px;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none; top: 66px; left: 195px;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ht_clone_top handsontable"
+                       style="position: absolute; top: 0px; left: 0px; overflow: hidden; height: 51px; transform: translate3d(0px, 0px, 0px);">
+                    <div class="wtHolder" style="position: relative; height: 81px;">
+                      <div class="wtHider" style="width: 1100px;">
+                        <div class="wtSpreader" style="position: relative; left: 0px;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                              <col style="width: 50px;">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 46px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Müşteri<br>Kodu</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Müşteri<br>Adı</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Adres<br>Kodu</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Adres</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Şehir</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">İl</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">İlçe</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Belde/<br>Belediye</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Mahalle/<br>Köy</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Posta<br>Kodu</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Lat</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Lon</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Avrupada?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Kamyon<br>Kabul?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">B.Kamyon<br>Kabul?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">TIR<br>Kabul?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Direkt<br>Zorunlu?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Serbest<br>Bölge?</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Eklenme<br>Tarih</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Teyit 1<br>Tarih</span></div>
+                                </th>
+                                <th class="">
+                                  <div class="relative"><span class="colHeader columnSorting">Teyit 2<br>Tarih</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody></tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ht_clone_left handsontable"
+                       style="position: absolute; top: 0px; left: 0px; overflow: hidden; width: 54px; transform: translate3d(0px, 0px, 0px);">
+                    <div class="wtHolder" style="position: relative; width: 84px;">
+                      <div class="wtHider" style="height: 71px;">
+                        <div class="wtSpreader" style="position: relative; top: 0px;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 46px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th class="">
+                                  <div class="relative"><span class="rowHeader">1</span></div>
+                                </th>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ht_clone_top_left_corner handsontable"
+                       style="position: absolute; top: 0px; left: 0px; overflow: hidden; transform: translate3d(0px, 0px, 0px); height: 51px; width: 54px;">
+                    <div class="wtHolder" style="position: relative;">
+                      <div class="wtHider">
+                        <div class="wtSpreader" style="position: relative;">
+                          <table class="htCore">
+                            <colgroup>
+                              <col class="rowHeader">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                                <th class="" style="height: 46px;">
+                                  <div class="relative"><span class="colHeader cornerHeader">&nbsp;</span></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody></tbody>
+                          </table>
+                          <div class="htBorders">
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill"
+                                   style="background-color: red; height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder fill corner"
+                                   style="background-color: red; height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area"
+                                   style="background-color: rgb(137, 175, 249); height: 1px; width: 1px; display: none;"></div>
+                              <div class="wtBorder area corner"
+                                   style="background-color: rgb(137, 175, 249); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                            <div style="position: absolute; top: 0px; left: 0px;">
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current"
+                                   style="background-color: rgb(82, 146, 247); height: 2px; width: 2px; display: none;"></div>
+                              <div class="wtBorder current corner"
+                                   style="background-color: rgb(82, 146, 247); height: 5px; width: 5px; border: 2px solid rgb(255, 255, 255); display: none;"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="handsontableInputHolder" style="top: 0px; left: 0px; display: none;"><textarea
+                                                       class="handsontableInput" style="width: 0px; height: 0px;"></textarea></div>
+                  <div class="manualColumnResizer" style="top: 711px; left: 244px; height: 47px;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="rotalar" role="tabpanel" aria-labelledby="rotalar-tab">
+              <ul class="mfgpro_indir nav nav-pills">
+
+                <li class="btn btn-xs pull-right"><a href="#" ng-click="exportSelectedRoutes(myDataServ.plan_job.submitId)"
+                                                              data-vivaldi-spatnav-clickable="1"><span
+                                                              class="glyphicon glyphicon-save"></span>Seçilenleri MFG Pro İçin İndir</a></li>
+
+                <li class="btn btn-xs dropdown pull-right"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Kalanları
+                    İndir<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li ng-repeat="lo in loArr"><a href="#"
+                                                   ng-click="exportLeftoverOrders(myDataServ.plan_job.submitId, lo.isWip)"
+
+                                                   data-vivaldi-spatnav-clickable="1">Stok</a></li>
+                    <li ng-repeat="lo in loArr"><a href="#"
+                                                   ng-click="exportLeftoverOrders(myDataServ.plan_job.submitId, lo.isWip)"
+
+                                                   data-vivaldi-spatnav-clickable="1">Üretim</a></li>
+                  </ul>
+                </li>
+
+              </ul>
+              <div class="arac">
+                <div class="arac__heading">
+                  <h3 class="arac__title">Araç 1</h3>
+                  <a class="arac__harita btn btn-xs btn-primary" id="routeLink_1"
+                                                                 href="https://www.google.com/maps/dir/37.818221,29.133363/40.778309,29.973301/41.190166,29.204752/41.226262,29.027215/41.1558,27.8137"
+                                                                 target="_blank">Harita</a>
+                </div>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Kilometre</td>
+                      <td>761.0</td>
+
+                      <td>Liste Fiyatı</td>
+                      <td>1,434.00 TL</td>
+                      <td>(DENIZLI-&gt;TEKIRDAG-CORLU:760km)</td>
+                    </tr>
+                    <tr>
+                      <td>Konum Sayısı</td>
+                      <td>1</td>
+
+                      <td>Topl. Km Farkı</td>
+                      <td>0.00 TL</td>
+                    </tr>
+                    <tr>
+                      <td>Drop Sayısı</td>
+                      <td>1</td>
+
+                      <td>Topl. Drop Farkı</td>
+                      <td>0.00 TL</td>
+
+                    </tr>
+                    <tr>
+                      <td>Müşteri Sayısı</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <td>Sipariş Satırı Sayısı</td>
+                      <td>1</td>
+
+                      <td>Topl. Maliyet</td>
+                      <td>1,434.00 TL</td>
+                    </tr>
+                    <tr>
+                      <td>Yüklü Ağırlık</td>
+                      <td>2,704.0 kg</td>
+                    </tr>
+                    <tr>
+                      <td>Yüklü Hacim</td>
+                      <td>19.740 m<sup>3</sup></td>
+                    </tr>
+                    <tr>
+                      <td>Efektif Araç Kapasite</td>
+                      <td>35 m<sup>3</sup></td>
+                    </tr>
+                    <tr>
+                      <td>Doluluk Oranı</td>
+                      <td>56.40%</td>
+                    </tr>
+                    <tr>
+                      <td>Araç Tipi</td>
+                      <td>KAMYON</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table class="table">
+                  <thead>
+                    <tr style="border: 1px solid gray;">
+                      <th>Konum</th>
+                      <th>Müşteri</th>
+                      <th>Sipariş</th>
+                      <th>Stok Kodu</th>
+                      <th>Sipariş<br>Tipi</th>
+                      <th>Drop<br>Adet</th>
+                      <th>Drop<br>m<sup>2</sup></th>
+                      <th>Drop<br>kg</th>
+                      <th>Drop<br>Palet</th>
+                      <th>Drop<br>m<sup>3</sup></th>
+                      <th>Araç<br>Tercih</th>
+                    </tr>
+                  </thead>
+                  <!-- ngRepeat: drop in route.drops -->
+                  <tbody>
+                    <tr data-ng-repeat="drop in route.drops" style="border-left: 1px solid gray; border-right: 1px solid gray;"
+                                                             >
+                                                             <td>TEKIRDAG-CORLU</td>
+                                                             <td>DENIZLI CAM A.</td>
+                                                             <td>54467/1</td>
+                                                             <td>51008-1976</td>
+                                                             <td>Stk.</td>
+                                                             <td>7360</td>
+                                                             <td>6,624.0</td>
+                                                             <td>2,704.0</td>
+                                                             <td>19</td>
+                                                             <td>19.74</td>
+                                                             <td>B.KAMYON,KAMYON,TIR</td>
+                    </tr><!-- end ngRepeat: drop in route.drops -->
+                  </tbody>
+                </table>
+
+                <form class="form-inline alert alert-info arac__mfgpro_aktarimi">
+                  <label>MFG Pro Aktarımı: </label>
+                  <label class="checkbox-inline checkbox-primary"><input type="checkbox" disabled="disabled">Uygun</label>
+                  <label class="checkbox-inline checkbox-primary"><input type="checkbox" disabled="disabled">Kapalı kasa</label>
+                  <label class="checkbox-inline checkbox-primary"><input type="checkbox" disabled="disabled">Yakın bölge</label>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </article>
+        <footer>Footer</footer>
+      </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.18/jquery.datetimepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.36.0/handsontable.full.min.js"></script>
+  </body>
+</html>

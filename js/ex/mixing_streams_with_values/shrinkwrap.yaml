@@ -1,0 +1,92 @@
+dependencies:
+  rxjs: 5.5.8
+  snabbdom: 0.7.1
+  snabbdom-to-html: 5.1.0
+  xstream: 11.2.0
+packages:
+  /browser-split/0.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-ewl1dPjj6tYG+0Zk5krf3aKYGpM=
+  /lodash.escape/4.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-yQRGkMIeBClL6qUXcS/e0fqI3pg=
+  /lodash.forown/4.4.0:
+    dev: false
+    resolution:
+      integrity: sha1-hRFc8E9z75ZuztUlEdOJPMRmg68=
+  /lodash.kebabcase/4.1.1:
+    dev: false
+    resolution:
+      integrity: sha1-hImxyw0p/4gZXM7KRI/21swpXDY=
+  /lodash.remove/4.7.0:
+    dev: false
+    resolution:
+      integrity: sha1-8x0x58OaBpDVB07A02JxYjNO5iY=
+  /lodash.uniq/4.5.0:
+    dev: false
+    resolution:
+      integrity: sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
+  /object-assign/4.1.1:
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
+  /parse-sel/1.0.0:
+    dependencies:
+      browser-split: 0.0.1
+    dev: false
+    resolution:
+      integrity: sha1-uTANK7lGoGwiyY4gjkeyCIaQy90=
+  /rxjs/5.5.8:
+    dependencies:
+      symbol-observable: 1.0.1
+    dev: false
+    engines:
+      npm: '>=2.0.0'
+    resolution:
+      integrity: sha512-Bz7qou7VAIoGiglJZbzbXa4vpX5BmTTN2Dj/se6+SwADtw4SihqBIiEa7VmTXJ8pynvq0iFr5Gx9VLyye1rIxQ==
+  /snabbdom-to-html/5.1.0:
+    dependencies:
+      lodash.escape: 4.0.1
+      lodash.forown: 4.4.0
+      lodash.kebabcase: 4.1.1
+      lodash.remove: 4.7.0
+      lodash.uniq: 4.5.0
+      object-assign: 4.1.1
+      parse-sel: 1.0.0
+    dev: false
+    resolution:
+      integrity: sha512-Fir4/BLW7HRQYAgj2JLOK7BoY3nIfQuwBhCdLdxL/vwgyR+9HRzYWokDcs1IVA7QdDmD84YAdv/8A55NIQEnWQ==
+  /snabbdom/0.7.1:
+    dev: false
+    resolution:
+      integrity: sha512-uIOCq6rfkBZg2VdSopy9jL0cIOdrkHCcwOjDsLnjef6Z5oPoD8V7nKI8de4gP5GfvyqLY0RBDJP8LVU19Nsw5Q==
+  /symbol-observable/1.0.1:
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-g0D8RwLDEi310iKI+IKD9RPT/dQ=
+  /symbol-observable/1.2.0:
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
+  /xstream/11.2.0:
+    dependencies:
+      symbol-observable: 1.2.0
+    dev: false
+    resolution:
+      integrity: sha512-0M3joPldICNrYhE4b79uG34hoeEZGMMn0HIWniYqT3QqHbtoIZTL3XJCPhfrPMHGcVIMkYYW3Rqm/oMpJrhspQ==
+registry: 'https://registry.npmjs.org/'
+shrinkwrapMinorVersion: 4
+shrinkwrapVersion: 3
+specifiers:
+  rxjs: ^5.5.8
+  snabbdom: ^0.7.1
+  snabbdom-to-html: ^5.1.0
+  xstream: ^11.2.0

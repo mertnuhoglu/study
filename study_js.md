@@ -62,7 +62,7 @@
             export const avgPriceLens = {
               get: (state: AppState): State => ({
                 description: 'Average price',
-        model view intent
+        intent model view
           ex: app/index.js
             const parentReducer$ = model();
             const tickerSinks = isolate(Ticker, { onion: tickerLens })(sources);
@@ -83,6 +83,8 @@
             const reducer$: xs<Reducer> = model(sources.Time);
             const vdom$ = view(state$);
         data flow
+          complete cycle
+            {DOMSource} -> [App.intent] -> {action$} -> [App.model] -> {reducer$} -> [onion] -> {state$} -> [App.view] -> {vdom$} -> [DomDriver] -> {DOMSource}
           DOM -> state
             sources.DOM -> action$ -> reducer_i$ -> reducer$ -> sinks.onion
               act1$ = sources.DOM.select(..)
@@ -136,6 +138,8 @@
               const tickReducer$: xs<Reducer> = timeSource
                 .periodic(1000)
                 .map(i => (prevState: State): State => ({
+                  ...prevState,
+                  duration: moment().diff(prevState.startTime, 'seconds')
               return xs.merge(initReducer$, tickReducer$);
           ex: sliderInput/model.js
             export default function model(actions: SliderInputActions): xs<Reducer> {
@@ -149,7 +153,39 @@
               const valueChangeReducer$: xs<Reducer> = actions.ValueChangeAction$.map(
                 value => (prevState: State): State => ({
                   ...prevState,
+                  value
               return xs.merge(defaultReducer$, valueChangeReducer$);
+        setter lens: [model] -> reducer$ -> [onion]
+          ex: sliderInput/
+            model.js
+              const valueChangeReducer$ = actions.ValueChangeAction$.map(
+                value => (prevState) => ({
+                  ...prevState,
+                  value
+            index.js
+              const personAmountLens = {
+                get: (state) => ({ ...
+                set: (state: AppState, childState: State) => ({
+                  ...state,
+                  personAmount: childState.value
+              export const avgPriceLens = {
+                get: (state) => ({ ...
+                set: (state: AppState, childState: State) => ({
+                  ...state,
+                  avgPrice: childState.value
+          ex: ticker/
+            model.js
+              const tickReducer$ = timeSource
+                .periodic(1000)
+                .map(i => (prevState) => ({
+                  ...prevState,
+                  duration: moment().diff(prevState.startTime, 'seconds')
+            index.js
+              export const lens = {
+                get: (state) => ...
+                set: (state: AppState, childState: State) => ({
+                  ...state,
+                  duration: childState.duration
         initReducer
           const initReducer$: xs<Reducer> = xs.of(
             (prev?: State): State =>
@@ -336,9 +372,8 @@
                     })
                   )
       html2hyperscript cli
-        https://github.com/unframework/html2hyperscript
-        npm install -g html2hyperscript
-        html2hyperscript legacy_markup_file.html > shiny_new_syntax.js
+        http://html-to-hyperscript.paqmind.com/
+          https://github.com/ivan-kleshnin/html-to-hyperscript
       html tags important
         html-css-js.com/html/tags
           a

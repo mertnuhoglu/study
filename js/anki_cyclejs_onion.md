@@ -660,3 +660,164 @@ clozeq
 
 ---
 
+## Code Read: onion architecture 21
+
+common templates of the architecture:
+
+··  `` {{c1::index.js}} intent.js model.js view.js styles.js  `` <br>
+··  `` {{c2::index.js}} `` <br>
+··  `` export interface {{c3::State}} `` <br>
+··  `` {{c4::lenses}} `` <br>
+··  `` {{c5::intent model view}} `` <br>
+··  `` {{c6::data flow}} `` <br>
+··  `` {{c7::use subcomponents}}: `` <br>
+··  `` {{c8::intent()}} `` <br>
+··  `` {{c9::model()}} `` <br>
+··  `` {{c17::setter lens}}: [model] -> reducer$ -> [onion] `` <br>
+··  `` {{c10::initReducer}} `` <br>
+··  `` {{c11::view() }} `` <br>
+··  `` {{c12::styles}} `` <br>
+··  `` {{c13::App State}} and App Sources & Sinks `` <br>
+··  `` {{c14::interfaces.js }} `` <br>
+··  `` {{c15::header.js}} footer.js `` <br>
+··  `` {{c16::App}} `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## Me: Data Flow of State in Onion 05
+
+complete data cycle
+
+··  `` {DOMSource} -> [App.{{c1::intent}}] -> {action$} -> [App.model] ->  `` <br>
+··  `` {reducer$} -> [{{c2::onion}}] -> {state$} -> [App.view] ->  `` <br>
+··  `` {vdom$} -> [{{c3::DomDriver}}] -> {DOMSource} `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## Code Read: onion architecture 22
+
+ex: ticker/model.js
+
+··  `` function model(timeSource){ `` <br>
+····  `` const initReducer$: xs = xs.of( ... `` <br>
+····  `` const tickReducer$: xs = timeSource `` <br>
+······  `` .periodic(1000) `` <br>
+······  `` .map(i => (prevState: State): State => ({ `` <br>
+········  `` {{c1::...prevState}}, `` <br>
+········  `` duration: moment().diff({{c2::prevState.startTime}}, 'seconds') `` <br>
+······  `` return xs.{{c3::merge}}(initReducer$, tickReducer$); `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## Code Read: onion architecture 23
+
+ex: sliderInput/model.js
+
+··  `` function model(actions) { `` <br>
+····  `` const defaultReducer$: xs = xs.of( ... `` <br>
+····  `` const valueChangeReducer$: xs = actions.ValueChangeAction$.map( `` <br>
+······  `` value => (prevState: State): State => ({ `` <br>
+········  `` {{c1::...prevState}}, `` <br>
+········  `` {{c2::value}} `` <br>
+····  `` return xs.merge(defaultReducer$, valueChangeReducer$); `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## Code Read: onion architecture 24
+
+ex: ticker/view.js
+
+··  `` function view(state$) { `` <br>
+····  `` return state$.map({{c1::({ currency, totalPrice })}} => `` <br>
+······  `` div(`.${styles.actualPrice}`, [ `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## Code Read: onion architecture 25
+
+setter lens: [model] -&gt; reducer$ -&gt; [onion]
+
+ex: sliderInput/
+
+··  `` model.js `` <br>
+····  `` const valueChangeReducer$ = actions.ValueChangeAction$.map( `` <br>
+······  `` value => (prevState) => ({ `` <br>
+········  `` ...prevState, `` <br>
+········  `` {{c1::value}} `` <br>
+··  `` index.js `` <br>
+····  `` const personAmountLens = { `` <br>
+······  `` get: (state) => ({ ... `` <br>
+······  `` set: (state: AppState, childState: State) => ({ `` <br>
+········  `` ...state, `` <br>
+········  `` personAmount: {{c2::childState}}.{{c3::value}} `` <br>
+····  `` export const avgPriceLens = { `` <br>
+······  `` get: (state) => ({ ... `` <br>
+······  `` set: (state: AppState, childState: State) => ({ `` <br>
+········  `` ...state, `` <br>
+········  `` avgPrice: childState.value `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## Code Read: onion architecture 26
+
+setter lens: [model] -&gt; reducer$ -&gt; [onion]
+
+ex: ticker/
+
+··  `` model.js `` <br>
+····  `` const tickReducer$ = timeSource `` <br>
+······  `` .periodic(1000) `` <br>
+······  `` .map(i => (prevState) => ({ `` <br>
+········  `` {{c1::...prevState}}, `` <br>
+········  `` {{c2::duration}}: moment().diff({{c3::prevState}}.startTime, 'seconds') `` <br>
+··  `` index.js `` <br>
+····  `` export const lens = { `` <br>
+······  `` get: (state) => ... `` <br>
+······  `` set: (state: AppState, childState: State) => ({ `` <br>
+········  `` ...state, `` <br>
+········  `` duration: childState.{{c4::duration}} `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+

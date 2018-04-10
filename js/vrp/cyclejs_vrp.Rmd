@@ -283,5 +283,425 @@ function main(sources) {
 }
 ``` 
 
-### Onion Example
+### Split intent model view into Separate Files
+
+``` bash
+mkdir -p ex/cyclejs_vrp/ex07 && cd $_ && npm init -y && npm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom @cycle/http
+``` 
+
+`ex/cyclejs_vrp/ex07/package.json`
+
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+
+Start database server and postgrest:
+
+``` bash
+dmd=~/projects/itr/itr_documentation/data_model
+psk=~/codes/pg/khumbuicefall
+cd $psk
+docker-compose up -d
+``` 
+
+Edit `ex/cyclejs_vrp/ex07/src/index.js`
+
+``` js
+import { run } from '@cycle/run';
+import { makeDOMDriver } from '@cycle/dom';
+import {makeHTTPDriver} from '@cycle/http';
+
+import App from './components/app';
+
+const main = App;
+
+const drivers = {
+  DOM: makeDOMDriver('#app'),
+  HTTP: makeHTTPDriver(),
+};
+
+run(main, drivers);
+``` 
+
+Edit `ex/cyclejs_vrp/ex07/src/components/app/index.js`
+
+``` js
+import xs from 'xstream'
+import {makeDOMDriver} from '@cycle/dom';
+import model from './model';
+import view from './view';
+import intent, { Actions } from './intent';
+
+export default function main(sources) {
+  const json$ = model(sources.HTTP);
+  return {
+    DOM: view(json$),
+    HTTP: intent(sources.DOM),
+  };
+}
+``` 
+
+Edit `ex/cyclejs_vrp/ex07/src/components/app/intent.js`
+
+``` js
+import xs from 'xstream';
+
+export default function intent(dom$) {
+  const clickEvent$ = dom$
+    .select('.get-first').events('click')
+    .startWith(null);
+
+  const request$ = clickEvent$.map(() => {
+    return {
+      url: 'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id',
+      method: 'GET',
+      headers: {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+      }
+    };
+  });
+  return request$;
+}
+``` 
+
+Edit `ex/cyclejs_vrp/ex07/src/components/app/model.js`
+
+``` js
+import xs from 'xstream';
+
+export default function model(http$) {
+  const response$$ = http$.select();
+  const response$ = response$$.flatten();
+  const json$ = response$.map(response => response.body);
+  return json$;
+}
+``` 
+
+Edit `ex/cyclejs_vrp/ex07/src/components/app/view.js`
+
+``` js
+import xs from 'xstream';
+import {button, h1, h4, a, div, table, thead, tbody, tr, td, th} from '@cycle/dom';
+
+export default function view(json$) {
+  return json$.
+    map(json =>
+      table([
+        thead(
+          tr([
+            th('Plan Id'),
+            th('Kullanıcı'),
+            th('Depot Id')
+          ])
+        ),
+        tbody(
+          json.map(e => 
+            tr([
+              td(e.plan_id),
+              td(e.usr),
+              td(e.depot_id)
+            ])
+          )
+        )
+      ])
+    )
+}
+``` 
+
+Run `npm start`
+ 
+Open http://localhost:1234
+
+### Apply Onion Architecture
+
+``` bash
+mkdir -p ex/cyclejs_vrp/ex08 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom @cycle/http cycle-onionify cycle-storageify @cycle/storage
+``` 
+
+``` {bash}
+cp -R ex/cyclejs_vrp/ex07/src/ ex/cyclejs_vrp/ex08/src/ 
+``` 
+
+`ex/cyclejs_vrp/ex08/package.json`
+
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+
+Start database server and postgrest:
+
+``` bash
+dmd=~/projects/itr/itr_documentation/data_model
+psk=~/codes/pg/khumbuicefall
+cd $psk
+docker-compose up -d
+``` 
+
+Edit `ex/cyclejs_vrp/ex08/src/index.js`
+
+``` js
+import onionify from 'cycle-onionify';
+import storageify from 'cycle-storageify';
+import storageDriver from '@cycle/storage';
+...
+const wrappedMain = onionify(storageify(main, { key: 'mpc-state' }));
+...
+const drivers = {
+  storage: storageDriver,
+  ...
+run(wrappedMain, drivers);
+``` 
+
+Edit `ex/cyclejs_vrp/ex08/src/components/app/index.js`
+
+``` js
+...
+  const parentReducer$ = model(sources.HTTP);
+  const reducer$ = xs.merge(
+    parentReducer$
+  );
+  const state$ = sources.onion.state$;
+  const vdom$ = view(state$);
+  return {
+    DOM: vdom$,
+    HTTP: intent(sources.DOM),
+    onion: reducer$,
+  };
+``` 
+
+Edit `ex/cyclejs_vrp/ex08/src/components/app/model.js`
+
+``` js
+...
+  const responseReducer$ = response$.map(
+    response => (prevState) => ({
+      body: response.body
+    })
+  );
+  return xs.merge(responseReducer$);
+``` 
+
+Edit `ex/cyclejs_vrp/ex08/src/components/app/view.js`
+
+``` js
+...
+export default function view(state$) {
+  return state$.map(({body}) =>
+    ...
+      tbody(
+        body.map(e => 
+          tr([
+            td(e.plan_id),
+``` 
+
+### v09: Make Page Layout and Add New Components
+
+``` bash
+mkdir -p ex/cyclejs_vrp/ex09 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom @cycle/http cycle-onionify cycle-storageify @cycle/storage typestyle bootstrap jquery jquery-ui-dist popper.js
+``` 
+
+``` {bash}
+cp -R ex/cyclejs_vrp/ex08/src/ ex/cyclejs_vrp/ex09/src/ 
+``` 
+
+`ex/cyclejs_vrp/ex09/package.json`
+
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+
+Start database server and postgrest:
+
+``` bash
+dmd=~/projects/itr/itr_documentation/data_model
+psk=~/codes/pg/khumbuicefall
+cd $psk
+docker-compose up -d
+``` 
+
+Edit `ex/cyclejs_vrp/ex09/src/components/app/index.js`
+
+``` js
+import "./import_jquery";
+...
+import PlanPanel from '../plan_panel';
+...
+  const vdom$ = xs.combine(
+    Header(),
+    PlanPanel(state$),
+  ).map( ([header, plan_panel]) =>
+    div(
+      [
+        header,
+        plan_panel,
+      ]
+    )
+  )
+  ...
+``` 
+
+Edit `ex/cyclejs_vrp/ex09/src/import_jquery.js`
+
+``` js
+import jquery from "jquery";
+export default (window.$ = window.jQuery = jquery);
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+``` 
+
+Edit `ex09/src/components/plan_panel/index.js`
+
+``` js
+export default function PlanPanel(state$) {
+  const panel_vdom$ = state$.map( ({body}) =>
+    article("#plan_panel.card", [
+    ...
+            tbody(
+              body.map(e => 
+                tr([
+                  td(e.plan_id),
+                  td(e.usr),
+                  ...
+``` 
+
+### v10: Bootstrap + CycleJs Base Example
+
+``` bash
+mkdir -p ex/cyclejs_vrp/ex10 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom @cycle/http cycle-onionify cycle-storageify @cycle/storage typestyle bootstrap jquery jquery-ui-dist popper.js
+``` 
+
+``` {bash}
+cp -R ex/cyclejs_vrp/ex09/src/ ex/cyclejs_vrp/ex10/src/ 
+``` 
+
+`ex/cyclejs_vrp/ex10/package.json`
+
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+
+Edit `ex/cyclejs_vrp/ex10/src/components/plan_panel/index.js`
+
+``` js
+  const panel_vdom$ = state$.map( ({body}) =>
+    article("#plan_panel.card", [
+      ul("#planlama.nav.nav-tabs", {
+        "attrs": {
+          "role": "tablist",
+        },
+    ...
+``` 
+
+Note that DOM attributes/properties are nested under `"attrs"` object.
+
+Run `npm start`
+ 
+Open http://localhost:1234
+
+### v11: Parcel + CycleJs Simplest Example
+
+``` bash
+mkdir -p ex/cyclejs_vrp/ex11 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom
+``` 
+
+`ex/cyclejs_vrp/ex11/package.json`
+
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+
+Edit `ex/cyclejs_vrp/ex11/src/index.js`
+
+Run `npm start`
+ 
+Open http://localhost:1234
+
+### v12: Parcel + CycleJs Simplest Example
+
+``` bash
+mkdir -p ex/cyclejs_vrp/ex12 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom
+``` 
+
+``` {bash}
+cp -R ex/cyclejs_vrp/ex11/src/ ex/cyclejs_vrp/ex12/src/ 
+``` 
+
+`ex/cyclejs_vrp/ex12/package.json`
+
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+
+Edit `ex/cyclejs_vrp/ex12/src/index.js`
+
+Run `npm start`
+ 
+Open http://localhost:1234
+
+Generated HTML file:
+
+### v13: Use snabbdom h with attrs + bootstrap example
+
+``` bash
+mkdir -p ex/cyclejs_vrp/ex13 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom snabbdom snabbdom-to-html
+``` 
+
+``` {bash}
+cp -R ex/cyclejs_vrp/ex12/src/ ex/cyclejs_vrp/ex13/src/ 
+``` 
+
+`ex/cyclejs_vrp/ex13/package.json`
+
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+
+Edit `ex/cyclejs_vrp/ex13/src/index.js`
+
+``` js
+  h("ul#myTab.nav.nav-tabs", {
+    "attrs": {
+      "role": "tablist",
+    },
+``` 
+
+Run `npm start`
+ 
+Open http://localhost:1234
+
+### v14: Use snabbdom helper functions with attrs + bootstrap example
+
+``` bash
+mkdir -p ex/cyclejs_vrp/ex14 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom snabbdom snabbdom-to-html
+``` 
+
+``` {bash}
+cp -R ex/cyclejs_vrp/ex13/src/ ex/cyclejs_vrp/ex14/src/ 
+``` 
+
+`ex/cyclejs_vrp/ex14/package.json`
+
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+
+Edit `ex/cyclejs_vrp/ex14/src/index.js`
+
+``` js
+import "./import_jquery";
+...
+  ul("#myTab.nav.nav-tabs", {
+    "attrs": {
+      "role": "tablist",
+    },
+``` 
+
+Edit `ex/cyclejs_vrp/ex14/src/import_jquery.js`
+
+``` js
+import jquery from "jquery";
+export default (window.$ = window.jQuery = jquery);
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+``` 
+
+``` bash
+npm i bootstrap jquery jquery-ui-dist popper.js
+``` 
+
+Run `npm start`
+ 
+Open http://localhost:1234
 

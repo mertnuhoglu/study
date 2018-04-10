@@ -31,7 +31,7 @@ Source code in https://github.com/mertnuhoglu/study/js/ex/study_hyperscript/
 In this document, I study various hyperscript libraries and generate some HTML output on the server side. Server side HTML rendering is very important to me because this allows me to test any hyperscript code in nodejs environment. Without that I need to make a new HTML page for each test and render it in a web browser which is a lot of overhead work.
 
 ``` bash
-mkdir -p ex/study_hyperscript && cd $_ && npm init -y && pnpm i parcel-bundler hyperscript-helpers virtual-dom hyperscript react-hyperscript react hyperaxe preact preact-render-to-string preact-hyperscript
+mkdir -p ex/study_hyperscript && cd $_ && npm init -y && pnpm i parcel-bundler hyperscript-helpers virtual-dom hyperscript react-hyperscript react hyperaxe preact preact-render-to-string preact-hyperscript snabbdom snabbdom-to-html snabbdom-helpers most
 ``` 
 
 I run the following hyperscript code on each library:
@@ -177,5 +177,42 @@ console.log(out);
 
 ``` {bash}
 node ex/study_hyperscript/ex07.js | sed -n '1,4 p'
+``` 
+
+### v08: `snabbdom` with `snabbdom-to-html`
+
+snabbdom is another virtual dom library. 
+
+``` js
+var vdom = h("ul#bestest-menu", items.map( e =>
+  h(`li#item-${e.id}`, e.title))
+);
+var out = toHTML(vdom)
+console.log(out);
+// <ul id="bestest-menu"><li id="item-1">a</li><li id="item-2">b</li></ul>
+console.log(vdom);
+// VNode(...)
+``` 
+
+``` {bash}
+node ex/study_hyperscript/ex08.js | sed -n '1,4 p'
+``` 
+
+### v09: Use `snabbdom` with bootstrap attributes
+
+Generate a bootstrap tab panel:
+
+``` js
+var vdom = h("div", [
+  h("ul#myTab.nav.nav-tabs", {
+    "attrs": {
+      "role": "tablist",
+    },
+  }, [
+  ...
+``` 
+
+``` {bash}
+node ex/study_hyperscript/ex09.js | sed -n '1,4 p'
 ``` 
 

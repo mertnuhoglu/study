@@ -13,6 +13,7 @@
     "hyperaxe": "^1.1.1",
     "hyperscript": "^2.0.2",
     "hyperscript-helpers": "^3.0.3",
+    "most": "^1.7.3",
     "parcel-bundler": "^1.6.2",
     "preact": "^8.2.7",
     "preact-hyperscript": "^0.7.1",
@@ -20,6 +21,9 @@
     "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-hyperscript": "^3.2.0",
+    "snabbdom": "^0.7.1",
+    "snabbdom-helpers": "^7.2.0",
+    "snabbdom-to-html": "^5.1.0",
     "virtual-dom": "^2.1.1"
   }
 }

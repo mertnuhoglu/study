@@ -1,0 +1,121 @@
+---
+title: "Mixing Streams with Values"
+date: 2018-04-06T07:34:34+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/mixing_streams_with_values.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/mixing_streams_with_values/
+
+## v01: Basic Problem
+
+``` bash
+mkdir -p ex/mixing_streams_with_values && cd $_ && npm init -y && pnpm i rxjs
+``` 
+
+Edit `ex/mixing_streams_with_values/ex01.js`
+
+``` js
+...
+const s2 = of(1,2,3)
+s2.subscribe(x => console.log(x))
+const s3 = of(1,s2,3)
+s3.subscribe(x => console.log(x))
+``` 
+
+``` {bash}
+node ex/mixing_streams_with_values/ex01.js
+``` 
+
+## v02: Use `forkJoin`
+
+Edit `ex/mixing_streams_with_values/ex02.js`
+
+``` js
+...
+const s1 = of(2)
+s1.subscribe(x => console.log(x))
+const s2 = forkJoin(
+  s1
+)
+s2.subscribe(x => console.log(x))
+const s3 = forkJoin(
+  of(1),
+  s1,
+  of(3)
+)
+s3.subscribe(x => console.log(x))
+``` 
+
+``` {bash}
+node ex/mixing_streams_with_values/ex02.js
+``` 
+
+## v03: Stream of Virtual Dom
+
+``` bash
+pnpm i snabbdom snabbdom-to-html
+``` 
+
+Edit `ex/mixing_streams_with_values/ex03.js`
+
+``` js
+...
+const s1 = of(
+  h('div', 'Subpart of div')
+)
+const s2 = forkJoin(
+  of(h('div', 'Part 1')),
+  s1,
+  of(h('div', 'Part 2')),
+)
+s2.subscribe(x => x.map(e => console.log(toHTML(e))))
+``` 
+
+``` {bash}
+node ex/mixing_streams_with_values/ex03.js
+``` 
+
+## v04: Use xstream
+
+``` bash
+pnpm i xstream
+``` 
+
+Edit `ex/mixing_streams_with_values/ex04.js`
+
+``` js
+...
+const s1 = xs.of(
+  h('div', 'Subpart of div')
+)
+s1.addListener({next: x => console.log(toHTML(x))})
+const s2 = xs.merge(
+  xs.of(h('div', 'Part 1')),
+  s1,
+  xs.of(h('div', 'Part 2')),
+)
+s2.addListener({next: x => console.log(toHTML(x))})
+``` 
+
+``` {bash}
+node ex/mixing_streams_with_values/ex04.js
+``` 
+

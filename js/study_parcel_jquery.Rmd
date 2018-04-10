@@ -93,11 +93,15 @@ cp ../study_parcel_jquery/src/index.js src/
 
 Differences in `index.js` 
 
+`ex/study_parcel_jquery02/src/index.js`
+
     window.$ = require('jquery')
     --->>>
     import "./import-jquery";
 
 So we created a separate file `import-jquery.js` to import `jquery`:
+
+`ex/study_parcel_jquery02/src/import-jquery.js`
 
     import jquery from "jquery";
     export default (window.$ = window.jQuery = jquery);
@@ -206,11 +210,13 @@ Open http://localhost:1234
 Source code in https://github.com/mertnuhoglu/study/js/ex/study_parcel_jquery05/
 
 ``` bash
-mkdir study_parcel_jquery05 && cd $_ && npm init -y && npm i parcel-bundler jquery jquery-ui-dist
+mkdir ex/study_parcel_jquery05 && cd $_ && npm init -y && npm i parcel-bundler jquery jquery-ui-dist
 cp ../study_parcel_jquery04/index.html . && mkdir -p src && cp ../study_parcel_jquery04/src/index.js src/
 ``` 
 
 `index.js` sources `jquery` with CommonJs `require()` and `app.js` with ES6 module syntax:
+
+Edit `ex/study_parcel_jquery05/src/index.js`
 
 ``` js
 const jquery = require("jquery")
@@ -218,6 +224,14 @@ window.$ = window.jQuery = jquery;
 require("jquery-ui-dist/jquery-ui.css")
 require("jquery-ui-dist/jquery-ui.js")
 import {addText} from './app.js'
+``` 
+
+Edit `ex/study_parcel_jquery05/src/app.js`
+
+``` js
+export function addText(text) {
+  $('#root').append(`<p>${text}</p>`)
+}
 ``` 
 
 Run `npm start`

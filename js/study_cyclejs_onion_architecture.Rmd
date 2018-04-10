@@ -204,6 +204,10 @@ onion as a Driver
     {vdom$} -> [DOMDriver] -> {DOM$} -> [Component]
     {reducer$} -> [onion] -> {state$} -> [Component]
 
+cycle of data flow:
+
+    {DOMSource} -> [App.intent] -> {action$} -> [App.model] -> {reducer$} -> [onion] -> {state$} -> [App.view] -> {vdom$} -> [DomDriver] -> {DOMSource}
+
 ## Code Reading: Cycle Onionify Examples Basic
 
 cycle-onionify/examples/basic
