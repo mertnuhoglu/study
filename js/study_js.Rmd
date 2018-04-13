@@ -309,3 +309,14 @@ So, let's think of `Consumer` instead of `Observer` and of `Producer` instead of
 - `producer(1, data): void` = request received from consumer
 - `producer(2): void` = `unsubscribe`
 
+## Article: sendmail
+
+https://www.npmjs.com/package/sendmail
+
+``` {bash}
+cd /Users/mertnuhoglu/projects/study/js/ex/study_js/send_mail
+npm init -y && pnpm i sendmail
+``` 
+
+Edit `ex/study_js/send_mail/ex01.js`
+

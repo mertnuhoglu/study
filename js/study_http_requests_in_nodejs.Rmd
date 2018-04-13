@@ -80,3 +80,18 @@ request('http://jsonplaceholder.typicode.com/users/1').
 node ex/study_http_requests_in_nodejs/src/index03.js
 ``` 
 
+## v04: superagent
+
+Edit `ex/study_http_requests_in_nodejs/src/index04.js`:
+
+``` js
+...
+request('http://jsonplaceholder.typicode.com/users/1').
+  then( json => console.log(JSON.parse(json).company))
+``` 
+
+``` {bash}
+node ex/study_http_requests_in_nodejs/src/index03.js
+``` 
+
+
