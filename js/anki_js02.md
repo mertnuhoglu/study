@@ -11,6 +11,7 @@
 %
 
 clozeq
+active
 
 ---
 
@@ -27,6 +28,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -40,6 +42,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -64,6 +67,7 @@ solution:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -79,6 +83,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -96,6 +101,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -116,6 +122,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -134,6 +141,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -152,6 +160,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -169,6 +178,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -186,6 +196,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -206,6 +217,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -225,6 +237,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -249,6 +262,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -322,6 +336,7 @@ back hyperscript
 %
 
 clozeq
+suspended
 
 ---
 
@@ -339,6 +354,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -354,6 +370,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -373,6 +390,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -392,6 +410,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -410,6 +429,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -432,6 +452,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -452,6 +473,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -471,6 +493,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -491,6 +514,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -517,6 +541,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -536,6 +561,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -562,6 +588,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -587,6 +614,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -611,6 +639,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -632,6 +661,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -657,6 +687,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -680,6 +711,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -713,6 +745,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -731,6 +764,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -751,6 +785,7 @@ mnemonics:
 %
 
 clozeq
+active
 
 ---
 
@@ -767,6 +802,7 @@ Chapter 9: {{c1::Monadic}} Onions
 %
 
 clozeq
+active
 
 ---
 
@@ -791,6 +827,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -805,6 +842,7 @@ Because map over subarray returns a {{c1::nested array}}.
 %
 
 clozeq
+active
 
 ---
 
@@ -827,6 +865,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -846,6 +885,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -871,6 +911,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -904,6 +945,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -937,6 +979,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -969,6 +1012,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -997,6 +1041,7 @@ db.json
 %
 
 clozeq
+active
 
 ---
 
@@ -1008,6 +1053,370 @@ clozeq
 ····  `` //}), `` <br>
 ··  `` npm run build `` <br>
 ··  `` open {{c1::build}}/index.html `` <br>
+
+%
+
+%
+
+clozeq
+suspended
+
+---
+
+## js: introspection Reflect API 01
+
+Reflect is a collection of {{c1::internal methods}} like `[[Get]]` `[[Set]]` `[[HasOwnProperty]]`
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: introspection Reflect API 02
+
+Reflect.apply is similar to `Function#apply`
+
+··  `` var ages = [11, 33, 12, 54, 18, 96]; `` <br>
+
+··  `` // Function.prototype style: `` <br>
+··  `` var youngest = Math.min.apply(Math, ages); `` <br>
+··  `` var type = Object.prototype.toString.call(youngest); `` <br>
+
+··  `` // Reflect style: `` <br>
+··  `` var youngest = Reflect.apply({{c1::Math.min, Math, ages}}); `` <br>
+··  `` var type = Reflect.apply({{c2::Object.prototype.toString, youngest}}); `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: introspection Reflect API 03
+
+··  `` function totalNumbers() { `` <br>
+····  `` return Array.prototype.reduce.call(arguments, function (total, next) { `` <br>
+······  `` return total + next; `` <br>
+····  `` }, 0); `` <br>
+··  `` } `` <br>
+··  `` Reflect.apply({{c1::totalNumbers, null, [1, 2, 3, 4]}}) === 10; `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: introspection Reflect API 04
+
+··  `` function MyDate() { `` <br>
+····  `` /*…*/ `` <br>
+··  `` } `` <br>
+··  `` Reflect.{{c1::defineProperty}}(MyDate, 'now', { `` <br>
+····  `` value: () => currentms `` <br>
+··  `` }); `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: introspection Reflect API 05
+
+··  `` var myObject = {}; `` <br>
+··  `` Object.defineProperty(myObject, 'hidden', { `` <br>
+····  `` value: true, `` <br>
+····  `` enumerable: false, `` <br>
+··  `` }); `` <br>
+··  `` var theDescriptor = Reflect.{{c1::getOwnPropertyDescriptor}}({{c2::myObject, 'hidden'}}); `` <br>
+··  `` assert.deepEqual(theDescriptor, { value: true, enumerable: true }); `` <br>
+
+··  `` assert(Object.getOwnPropertyDescriptor(1, 'foo') === undefined) `` <br>
+··  `` Reflect.getOwnPropertyDescriptor(1, 'foo'); // throws TypeError `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: introspection Reflect API 06
+
+··  `` var myObj = { foo: 'bar' }; `` <br>
+··  `` delete myObj.foo; `` <br>
+··  `` assert(myObj.{{c1::hasOwnProperty}}('foo') === false); `` <br>
+
+··  `` myObj = { foo: 'bar' }; `` <br>
+··  `` Reflect.{{c2::deleteProperty}}(myObj, 'foo'); `` <br>
+··  `` assert(myObj.hasOwnProperty('foo') === false); `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: introspection Reflect API 07
+
+··  `` var myObj = new FancyThing(); `` <br>
+··  `` assert(Reflect.{{c1::getPrototypeOf}}(myObj) === FancyThing.prototype); `` <br>
+
+··  `` // Old style `` <br>
+··  `` assert(Object.getPrototypeOf(myObj) === FancyThing.prototype); `` <br>
+
+··  `` Object.getPrototypeOf(1); // undefined `` <br>
+··  `` Reflect.getPrototypeOf(1); // TypeError `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: introspection Reflect API 08
+
+··  `` var myObj = new FancyThing(); `` <br>
+··  `` assert(Reflect.{{c1::setPrototypeOf}}(myObj, OtherThing.{{c2::prototype}}) === true); `` <br>
+··  `` assert(Reflect.getPrototypeOf(myObj) === OtherThing.prototype); `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: introspection Reflect API 09
+
+··  `` var myObject = { `` <br>
+····  `` foo: 1, `` <br>
+····  `` bar: 2, `` <br>
+····  `` baz() { `` <br>
+······  `` return this.foo + this.bar; `` <br>
+····  `` }, `` <br>
+··  `` } `` <br>
+
+··  `` assert(Reflect.{{c1::get}}({{c2::myObject, 'foo'}}) === 1); `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: introspection Reflect API 10
+
+··  `` myObject = { `` <br>
+····  `` foo: 1, `` <br>
+··  `` }; `` <br>
+··  `` Object.setPrototypeOf(myObject, { `` <br>
+····  `` get bar() { `` <br>
+······  `` return 2; `` <br>
+····  `` }, `` <br>
+····  `` baz: 3, `` <br>
+··  `` }); `` <br>
+··  `` assert(Reflect.{{c1::has}}(myObject, 'foo') === true); `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: introspection Reflect API 11
+
+··  `` var myObject = { `` <br>
+····  `` foo: 1, `` <br>
+····  `` bar: 2, `` <br>
+····  `` [Symbol.for('baz')]: 3, `` <br>
+····  `` [Symbol.for('bing')]: 4, `` <br>
+··  `` }; `` <br>
+··  `` assert.deepEqual(Object.getOwnPropertyNames(myObject), ['foo', 'bar']); `` <br>
+··  `` .deepEqual(Reflect.{{c1::ownKeys}}(myObject), ['foo', 'bar', Symbol.for('baz'), Symbol.for('bing')]); `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: source-map 01
+
+compiled some file with Babel:
+
+    "use strict";
+
+    var square = function square(x) {
+      return x * x;
+    };
+    //# {{c1::sourceMappingURL}}=test.js.map
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: source-map 02
+
+the source map content inside “test.js.map”:
+
+    {
+        "version": 3,
+        "sources": ["test.es6.js"],
+        "names": [],
+        "{{c1::mappings}}": ";;AAAA,IAAM,MAAM,GAAG,SAAT,MAAM,CAAI,CAAC;SAAK,CAAC,GAAG,CAAC;CAAA,CAAC",
+        "file": "test.js",
+        "sourcesContent": ["const square = (x) => x * x;"]
+    }
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: source-map 03
+
+"mappings" data format uses "Base 64 VLQ" format.
+
+{{c1::VLQ}}: variable-length quantity. It is used to store a number in space-efficient way.
+
+For example “AAAA” stands for [0,0,0,0] and “GAAG” stands for [3,0,0,3].
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: source-map 04
+
+Limitations of source maps
+
+1. Source maps map positions in the code, but they don’t map how two variable names relate to one another.
+
+2. Optimizations can make the compiled source code {{c1::not match}} the behavior you’d expect from the code you wrote.
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: esmodules 01 How to load an ES6/7/X application in the browser without a bundler
+
+    <script type="{{c1::module}}" src="path/to/es6/module.js"></script>
+
+The browser recursively resolves all `import` dependencies.
+
+But they cannot resolve {{c2::NPM}} dependencies.
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: esmodules 02 Service Workers and Unchained
+
+Service Workers {{c1::intercept}} network requests and handle their response.
+
+Use SW to:
+
+- fetch files
+- remap `import` files to `node_modules` folder
+- detect `JSX` and transpile them
+
+Unchained is like bundlers and transpilers.
+
+It provides helpers to register Service Workers, a polyfill to support dynamic `import`. It can resolve file `import`.
+
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: esmodules 03 Using ES modules natively in Node.js
+
+Nodejs supports ES6 modules natively with option `--experimental-modules`
+
+    // main.mjs
+    import {add} from './lib.mjs';
+
+    node --{{c1::experimental-modules}} main.mjs
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: esmodules 04 decoding source map mappings VLQ numbers
+
+Decode using `vlq`
+
+    const vlq = require('vlq')
+    {{c1::vlq}}.decode('QAAQC')
+
+%
+
+%
+
+clozeq
+
+---
+
+## js: devtools Chrome DevTools: Never Pause Here
+
+{{c1::Behavior-based}} breakpoints (Chrome calls them conditional breakpoints):
+
+- An exception is thrown
+- The DOM is modified
+- A DOM event is triggered (e.g. when the user click on a button)
+- An Ajax request is made
+
 
 %
 

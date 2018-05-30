@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.36.0/handsontable.full.min.css">-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.36.0/handsontable.full.min.js"></script>-->
+    <script src="../node_modules/handsontable/dist/handsontable.full.min.js"></script>
+    <!--<script src="handsontable.full.min.js"></script>-->
+    <!--<script src="handsontable.full.min.036.js"></script>-->
+    <link rel="stylesheet" media="screen" href="../node_modules/handsontable/dist/handsontable.full.css">
+    <title>Cycle App</title>
+    <body>
+      <div id="app"></div>
+      <table id="table_id" class="display">
+      </table>
+      <script type="text/javascript" src="index.js"> </script>
+      <script type="text/javascript" > 
+        var data = [
+          ["", "Ford", "Tesla", "Toyota", "Honda"],
+          ["2017", 10, 11, 12, 13],
+          ["2018", 20, 11, 14, 13],
+          ["2019", 30, 15, 12, 13]
+        ];
+        var container = document.getElementById('table_id');
+        var hot = new Handsontable(container, {
+          data: data,
+          rowHeaders: true,
+          colHeaders: true,
+          filters: true,
+          dropdownMenu: true
+        });
+      </script>
+    </body>
+  </html>

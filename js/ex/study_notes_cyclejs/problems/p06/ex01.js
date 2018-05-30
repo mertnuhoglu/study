@@ -1,0 +1,24 @@
+const xs = require('xstream').default
+const delay = require('xstream/extra/delay').default
+console.log(typeof delay)
+const keys = Reflect.ownKeys(delay)
+console.log(keys)
+
+var secondProxy$ = xs.create();
+var first$ = secondProxy$.map(x => x * 10).take(3);
+var second$ = first$.map(x => x + 1).startWith(1).compose(delay(100));
+secondProxy$.imitate(second$);
+
+second$.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+//> function
+//> [ 'length', 'name', 'prototype' ]
+//> 1
+//> 11
+//> 111
+//> 1111
+//> completed
+

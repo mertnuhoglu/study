@@ -8,6 +8,7 @@ Sandi Metz, “duplication is far cheaper than using the wrong abstraction.”
 %
 
 clozeq
+active
 
 ---
 
@@ -31,6 +32,7 @@ setter:
 %
 
 clozeq
+active
 
 ---
 
@@ -48,6 +50,7 @@ setter:
 %
 
 clozeq
+active
 
 ---
 
@@ -69,6 +72,7 @@ They compose:
 %
 
 clozeq
+active
 
 ---
 
@@ -99,6 +103,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -123,6 +128,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -150,6 +156,7 @@ Let's work on a nested radio object:
 %
 
 clozeq
+active
 
 ---
 
@@ -173,6 +180,7 @@ Alternative way by reusing `disable` function:
 %
 
 clozeq
+active
 
 ---
 
@@ -188,6 +196,7 @@ Here we use `over` instead of `set`. `over` applies a function to the focus of t
 %
 
 clozeq
+active
 
 ---
 
@@ -204,6 +213,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -224,6 +234,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -245,6 +256,7 @@ Lenses compose in left-to-right order:
 %
 
 clozeq
+active
 
 ---
 
@@ -262,6 +274,7 @@ This is like `map` over all values of some array.
 %
 
 clozeq
+active
 
 ---
 
@@ -286,6 +299,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -300,6 +314,7 @@ You can focus in some particular path of a complex object without losing the {{c
 %
 
 clozeq
+active
 
 ---
 
@@ -314,6 +329,7 @@ This allows us to {{c2::chain}} together a lot of pure, declarative operations.
 %
 
 clozeq
+active
 
 ---
 
@@ -345,6 +361,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -364,6 +381,7 @@ To build a real lens implementation we need: composing, currying, mapping, array
 %
 
 clozeq
+suspended
 
 ---
 
@@ -378,6 +396,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -396,6 +415,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -411,6 +431,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -425,6 +446,7 @@ What is "mapping"?
 %
 
 clozeq
+active
 
 ---
 
@@ -439,6 +461,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -454,6 +477,7 @@ This is equivalent to: {{c1::`['comments'][0]`}}
 %
 
 clozeq
+suspended
 
 ---
 
@@ -476,6 +500,7 @@ Ramda has similar function: {{c1::`lensPath`}}
 %
 
 clozeq
+suspended
 
 ---
 
@@ -490,6 +515,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -507,6 +533,7 @@ Functor Review
 %
 
 clozeq
+active
 
 ---
 
@@ -520,6 +547,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -533,6 +561,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -548,6 +577,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -563,6 +593,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -584,6 +615,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -598,6 +630,7 @@ Replace .chain().op().op().value() syntax with something more point-free and fun
 %
 
 clozeq
+active
 
 ---
 
@@ -611,6 +644,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -627,6 +661,7 @@ The first argument and the output are of the {{c2::same type}} because reduce is
 %
 
 clozeq
+active
 
 ---
 
@@ -645,6 +680,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -665,6 +701,7 @@ Any iterative operation like mapping and filtering can be expressed in terms of 
 %
 
 clozeq
+suspended
 
 ---
 
@@ -684,6 +721,7 @@ We can go even further. For example, we can combine filtering and mapping:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -705,6 +743,7 @@ But what if we want to filter the original values, not the transformed ones?
 %
 
 clozeq
+suspended
 
 ---
 
@@ -720,6 +759,7 @@ Note, resultifiers `sum` and `concat` take {{c1::two arguments}} and then return
 %
 
 clozeq
+active
 
 ---
 
@@ -737,6 +777,7 @@ Interestingly, `mapping` and `filtering` also return reducing functions ultimate
 %
 
 clozeq
+active
 
 ---
 
@@ -753,6 +794,7 @@ In a way, we {{c4::transform}} one sort of reducing function (sum, concat) into 
 %
 
 clozeq
+suspended
 
 ---
 
@@ -768,6 +810,7 @@ That is, transducers {{c2::compose}}. Thus, we can construct map and filter as w
 %
 
 clozeq
+suspended
 
 ---
 
@@ -789,6 +832,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -809,6 +853,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -827,6 +872,7 @@ When the final reduce operation runs and is handed actual values (accumulator an
 %
 
 clozeq
+active
 
 ---
 
@@ -844,6 +890,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -867,6 +914,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -884,6 +932,7 @@ Ways to make lenses:
 %
 
 clozeq
+active
 
 ---
 
@@ -907,6 +956,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 

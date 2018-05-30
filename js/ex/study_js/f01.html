@@ -1,0 +1,9 @@
+
+<script src="node_modules/unchained-js/dist/unchained.client.js"></script>
+<script>
+  // register a Service Worker.
+  UnchainedClient.register('f01_sw.js', { scope: '/' }).then(
+    // The Service Worker is ready, we can now import the main file.
+    UnchainedClient.import('index.js')
+  );
+</script>

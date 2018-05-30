@@ -47,7 +47,9 @@ This document uses some of the code explained in [Introduction to Association Ru
 library(exploratory)
 
 # Data Analysis Steps
-readr::read_csv("/Users/mertnuhoglu/projects/study_data/ds/article_introduction_to_association_rules_in_r_by_yosuke_yasuda_groceries.csv", , quote = "\"", skip = 0 , col_names = FALSE , na = c("","NA")) %>%
+df = readr::read_csv("/Users/mertnuhoglu/projects/study_data/ds/article_introduction_to_association_rules_in_r_by_yosuke_yasuda_groceries.csv", , quote = "\"", skip = 0 , col_names = FALSE , na = c("","NA")) 
+df
+df %>%
   dplyr::mutate(transaction_id = row_number()) %>%
   tidyr::gather(key, product, -transaction_id, na.rm = TRUE, convert = TRUE) %>%
   dplyr::arrange(transaction_id) %>%

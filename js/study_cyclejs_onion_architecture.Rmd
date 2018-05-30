@@ -164,10 +164,12 @@ reducer$.fold((acc, reducer) => reducer(acc), state)
 
 Component:
 
-    input: sources.DOM
-    input: sources.onion.state$
-    output: sink.onion: reducer$
-    output: sink.DOM: vdom$
+    input: sources.DOM = DOMSource = actions$
+    input: sources.onion.state$ = state$
+    output: sink.onion: reducer$ = reducer$
+    output: sink.DOM: vdom$ = DOMSink
+
+    DOMSource -> [app] -> reducer$ -> [onion] -> state$ -> [app] -> DOMSink
 
 Onion:
 
@@ -210,7 +212,7 @@ cycle of data flow:
 
 ## Code Reading: Cycle Onionify Examples Basic
 
-cycle-onionify/examples/basic
+~/codes/js/cycle-onionify/examples/basic
 
 data flow: 
 
@@ -260,8 +262,7 @@ wrap `main`
 
 https://github.com/olpeh/meeting-price-calculator
 
-/Users/mertnuhoglu/codes/js/meeting-price-calculator
-
+`~/codes/js/meeting-price-calculator/src/index.ts`
 `src/index.ts`
 
 wrapping main
@@ -501,8 +502,4 @@ Check that `Ticker.view` uses `Ticker.State` interface:
     import { State } from './index';
     export default function view(state$: xs<State>): xs<VNode> {
       return state$.map(({ currency, totalPrice }) =>
-
-## Me: Onion Architecture Templates
-
-    onion architecture <url:file:///~/projects/study/study_js.md#r=g_10196>
 

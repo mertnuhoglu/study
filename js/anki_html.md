@@ -17,6 +17,7 @@ content tab2 <br>
 %
 
 clozeq
+suspended
 
 ---
 
@@ -30,6 +31,7 @@ shortcut: {{c1::#j}} <br>
 %
 
 clozeq
+suspended
 
 ---
 
@@ -44,6 +46,7 @@ https://{{c1::getbootstrap}}.com/docs/3.3/javascript/#tabs <br>
 %
 
 clozeq
+suspended
 
 ---
 
@@ -92,6 +95,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -159,6 +163,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -212,6 +217,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -255,6 +261,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -294,6 +301,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -338,6 +346,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -360,7 +369,8 @@ clozeq
 
 %
 
-clozeq 
+clozeq
+suspended 
 
 --- 
 
@@ -404,6 +414,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -441,6 +452,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -486,6 +498,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -522,6 +535,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -558,6 +572,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -608,6 +623,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -631,6 +647,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -654,6 +671,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -678,6 +696,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -702,6 +721,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -720,6 +740,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -738,6 +759,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -758,6 +780,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -777,6 +800,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -795,6 +819,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -807,6 +832,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 

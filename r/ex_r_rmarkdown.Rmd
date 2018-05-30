@@ -83,3 +83,30 @@ str(df)
 #>  $ web     : logi FALSE
 ```
 
+## styles.css specific for Rmd files
+
+Header of Rmd file:
+
+``` Rmd
+...
+output:
+  html_document:
+    css: styles.css
+    ...
+``` 
+
+`styles.css`
+
+``` css
+.app {
+  background-color: #D2D2CF;
+}
+``` 
+
+Use `.app` inside `HTML` code in the Rmd document:
+
+``` html
+<div class="app" data-vivaldi-spatnav-clickable="1"><div><button class="get-first">Get first comment</button><div class="comment-details"><h4 class="comment-body">some comment</h4><h4 class="comment-id">1</h4></div></div></div>
+``` 
+
+

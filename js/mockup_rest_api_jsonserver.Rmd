@@ -31,8 +31,18 @@ Install:
 
     npm install -g json-server
 
-``` {bash}
-cat ex/db.json
+Edit `ex/db.json`
+
+``` json
+{
+  "posts": [
+    { "id": 1, "title": "json-server", "author": "typicode" }
+  ],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+  "profile": { "name": "typicode" }
+}
 ``` 
 
 ``` bash
@@ -47,3 +57,17 @@ curl http://localhost:3000/posts/1
 ##   "author": "typicode"
 ## }
 ``` 
+
+Alternative port
+
+``` bash
+json-server --watch ex/db.json --port 3001
+``` 
+
+``` bash
+curl http://localhost:3001/profile
+## {
+##   "name": "typicode"
+## }
+``` 
+

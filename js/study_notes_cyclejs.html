@@ -69,6 +69,7 @@ h6 {
 }
 </style>
 
+<link href="data:text/css;charset=utf-8,%2Eapp%20%7B%0Abackground%2Dcolor%3A%20%23D2D2CF%3B%0A%7D%0A" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -138,19 +139,18 @@ options(max.print = 30)</code></pre>
 <h2>v01</h2>
 <iframe src="ex/cyclejs_ex01.html" width="200" height="30">
 </iframe>
-<pre class="bash"><code>cat ex/cyclejs_ex01.html | sed -n &quot;/&lt;body&gt;/,/&lt;\/body&gt;/ p&quot;</code></pre>
-<pre><code>## &lt;body&gt;
-## &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
-## &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.6/Rx.min.js&quot;&gt;&lt;/script&gt;
-## &lt;script&gt;
-##   Rx.Observable.timer(0, 1000)
-##     .map(i =&gt; `Seconds ${i}`)
-##     .subscribe(text =&gt; {
-##       const container = document.querySelector('#app');
-##       container.textContent = text;
-##     })
-## &lt;/script&gt;
-## &lt;/body&gt;</code></pre>
+<p>Edit <code>ex/cyclejs_ex01.html</code></p>
+<pre class="html"><code>...
+&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.6/Rx.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  Rx.Observable.timer(0, 1000)
+    .map(i =&gt; `Seconds ${i}`)
+    .subscribe(text =&gt; {
+      const container = document.querySelector('#app');
+      container.textContent = text;
+    })
+&lt;/script&gt;</code></pre>
 <p>This code consists of two parts:</p>
 <ol style="list-style-type: decimal">
 <li><p>Logic</p>
@@ -170,31 +170,32 @@ options(max.print = 30)</code></pre>
 <div id="v02" class="section level2">
 <h2>v02</h2>
 <p>Now, let’s encapsulate logic and effects parts into two separate functions.</p>
-<pre class="bash"><code>cat ex/cyclejs_ex02.js</code></pre>
-<pre><code>## function main() {
-##   return Rx.Observable.timer(0, 1000)
-##     .map(i =&gt; `Seconds ${i}`);
-## }
-## 
-## function DOMEffect(text$) {
-##   text$.subscribe(text =&gt; {
-##     const container = document.querySelector('#app');
-##     container.textContent = text;
-##   });
-## }
-## 
-## DOMEffect(main());</code></pre>
+<p>Edit <code>ex/cyclejs_ex02.js</code></p>
+<pre class="js"><code>function main() {
+  return Rx.Observable.timer(0, 1000)
+    .map(i =&gt; `Seconds ${i}`);
+}
+
+function DOMEffect(text$) {
+  text$.subscribe(text =&gt; {
+    const container = document.querySelector('#app');
+    container.textContent = text;
+  });
+}
+
+DOMEffect(main());</code></pre>
 <iframe src="ex/cyclejs_ex02.html" width="200" height="30">
 </iframe>
 <p>We can use the rx observable in other effects too. For example:</p>
-<pre class="bash"><code>cat ex/cyclejs_ex03.js | sed -n &quot;/function consoleLogEffect/,$ p&quot;</code></pre>
-<pre><code>## function consoleLogEffect(msg$) {
-##   msg$.subscribe(msg =&gt; console.log(msg));
-## }
-## 
-## const sink = main();
-## consoleLogEffect(sink);
-## DOMEffect(sink);</code></pre>
+<p>Edit <code>ex/cyclejs_ex03.js</code></p>
+<pre class="js"><code>...
+function consoleLogEffect(msg$) {
+  msg$.subscribe(msg =&gt; console.log(msg));
+}
+
+const sink = main();
+consoleLogEffect(sink);
+DOMEffect(sink);</code></pre>
 <iframe src="ex/cyclejs_ex03.html" width="200" height="30">
 </iframe>
 </div>
@@ -204,6 +205,7 @@ options(max.print = 30)</code></pre>
 <p>Now, we want to show two different streams.</p>
 <iframe src="ex/cyclejs_ex04.html" width="200" height="30">
 </iframe>
+<p>Edit <code>ex/cyclejs_ex04.js</code></p>
 <pre class="js"><code>function main() {
   return {
     DOM: Rx.Observable.timer(0, 1000)
@@ -229,6 +231,7 @@ DOMEffect(sink.DOM);</code></pre>
 }
 run(main);</code></pre>
 <p>But now the effects are hard-coded. Let’s parameterize it too:</p>
+<p>Edit <code>ex/cyclejs_ex05.js</code></p>
 <pre class="js"><code>function run(main, effects) {
   const sinks = main();
   Object.keys(effects).forEach(key =&gt; {
@@ -244,12 +247,39 @@ run(main, effects);</code></pre>
 <iframe src="ex/cyclejs_ex05.html" width="200" height="30">
 </iframe>
 <p>Now, rename <code>effects</code> function as <code>drivers</code>. The reason for this renaming is that drivers are interfaces between software and hardware. Our drivers are interfaces between program (logic part) and effects.</p>
+<p>Edit <code>ex/cyclejs_ex06.js</code></p>
 <pre class="js"><code>const drivers = {
   DOM: DOMDriver,
   Log: consoleLogDriver,
 }</code></pre>
 <iframe src="ex/cyclejs_ex06.html" width="200" height="30">
 </iframe>
+<p>Data flow between modules occurs as follows:</p>
+<pre><code>    B: Browser
+    DD: DOMDriver
+    m: main
+    
+    [B] -&gt; evt -&gt; [DD] -&gt; click$ -&gt; [m] -&gt; text$ -&gt; [DD] -&gt; doc.innerHTML -&gt; [B]
+                        |                |
+                      DOMSource        main.sinks.DOM
+
+click$ = DOMSource
+    text$ = main.sinks.DOM</code></pre>
+<p>Note that, there are two side effects:</p>
+<pre><code>    evt: input side effect
+    doc.innerHTML: output side effect</code></pre>
+<p>Note that, the side effects are handled in <code>subscribe</code> and <code>Rx.Observable.fromEvent</code>. Although these side effects are input/output of <code>DOMDriver</code>, they are not argument/return expressions.</p>
+<pre><code>    evt -&gt; Rx.Observable.fromEvent(...)
+    doc.innerHTML -&gt; text$.subscribe(...)</code></pre>
+<p>Also note that, input and output side effects are at the beginning and end of the application’s interface to external world.</p>
+<pre class="js"><code>function DOMDriver(text$) {
+  text$.subscribe(text =&gt; {
+    const container = document.querySelector('#app');
+    container.textContent = text;
+  });
+  const DOMSource = Rx.Observable.fromEvent(document, 'click');
+  return DOMSource;
+}</code></pre>
 </div>
 <div id="v05" class="section level2">
 <h2>v05</h2>
@@ -287,6 +317,7 @@ const sinks = main(proxyDOMSource);
 const DOMSource = drivers.DOM(sinks.DOM);
 DOMSource.subscribe(click =&gt; proxyDOMSource.next(click));</code></pre>
 <p>Now, let’s use this input source stream in our example. Instead of using <code>Rx.Observable.timer</code> stream once, let’s use click stream to restart <code>timer</code>.</p>
+<p>Edit <code>ex/cyclejs_ex07.js</code></p>
 <pre class="js"><code>function main() {
   return {
     DOM: Rx.Observable.timer(0, 1000)
@@ -317,6 +348,7 @@ function main(DOMSource) {
 <div id="v06" class="section level2">
 <h2>v06</h2>
 <p>Now, parameterize input source arguments to main() function. There can be different types of drivers.</p>
+<p>Edit <code>ex/cyclejs_ex08.js</code></p>
 <pre class="js"><code>function main(DOMSource) {
 
 ---&gt;&gt;&gt;
@@ -350,6 +382,7 @@ function run(main, drivers) {
 <div id="v07-improving-dom-driver" class="section level2">
 <h2>v07 Improving DOM Driver</h2>
 <p>Now, let’s return HTML element stream instead of text stream inside the DOM driver.</p>
+<p>Edit <code>ex/cyclejs_ex09.js</code></p>
 <pre class="js"><code>      .flatMapLatest(() =&gt;
         Rx.Observable.timer(0, 1000)
           .map(i =&gt; `Seconds ${i}`)
@@ -440,6 +473,7 @@ function run(main, drivers) {
 <div id="v08-different-types-of-input-events" class="section level2">
 <h2>v08: Different Types of Input Events</h2>
 <p>Currently, we have only click type input events. But there are other types of input events too, such as <code>mouseover</code>.</p>
+<p>Edit <code>ex/cyclejs_ex11.js</code></p>
 <pre class="js"><code>  const DOMSource = Rx.Observable.fromEvent(document, 'click');
 
   ---&gt;&gt;&gt;
@@ -461,6 +495,7 @@ function run(main, drivers) {
 <div id="v09" class="section level2">
 <h2>v09</h2>
 <p>Our view code can be automated a little further:</p>
+<p>Edit <code>ex/cyclejs_ex12.js</code></p>
 <pre class="js"><code>              return {
                 tagName: 'H1',
                 children: [
@@ -516,6 +551,7 @@ function span(children) {
 <div id="v10" class="section level2">
 <h2>v10</h2>
 <p>Can we move DOMDriver into an external framework? Yes, only application specific code inside DOMDriver is HTML element id <code>#app</code>.</p>
+<p>Edit <code>ex/cyclejs_ex13.js</code></p>
 <pre class="js"><code>function DOMDriver(obj$) {
   function createElement(obj) {
     const element = document.createElement(obj.tagName);
@@ -600,6 +636,7 @@ const drivers = {
 ## Cycle.run(main, drivers);</code></pre>
 <iframe src="ex/cyclejs_ex14.html" width="200" height="30">
 </iframe>
+<p>Edit <code>ex/cyclejs_ex14.js</code></p>
 <pre class="js"><code>const {h, h1, span, makeDOMDriver} = CycleDOM;
 ...
   const mouseover$ = sources.DOM.select('span').events('mouseover');</code></pre>
@@ -609,6 +646,7 @@ const drivers = {
 </div>
 <div id="v11-hello-world-app" class="section level2">
 <h2>v11 Hello World App</h2>
+<p>Edit <code>ex/cyclejs_ex15.js</code></p>
 <pre class="bash"><code>cat ex/cyclejs_ex15.js</code></pre>
 <pre><code>## const {label, input, hr, div, h1, makeDOMDriver} = CycleDOM;
 ## 
@@ -637,6 +675,7 @@ const drivers = {
 </div>
 <div id="v12-decrement-increment-state" class="section level2">
 <h2>v12: Decrement Increment: State</h2>
+<p>Edit <code>ex/cyclejs_ex16.js</code></p>
 <pre class="bash"><code>cat ex/cyclejs_ex16.js</code></pre>
 <pre><code>## const {button, p, label, div, makeDOMDriver} = CycleDOM;
 ## 
@@ -673,6 +712,7 @@ const drivers = {
 </div>
 <div id="v13-http-driver" class="section level2">
 <h2>v13: HTTP Driver</h2>
+<p>Edit <code>ex/cyclejs_ex17.js</code></p>
 <pre class="bash"><code>cat ex/cyclejs_ex17.js</code></pre>
 <pre><code>## const {button, h1, h4, a, div, makeDOMDriver} = CycleDOM;
 ## const {makeHTTPDriver} = CycleHTTPDriver;
@@ -721,23 +761,77 @@ const drivers = {
 ##   HTTP: makeHTTPDriver(),
 ## }
 ## 
-## Cycle.run(main, drivers);
-## 
-## 
-## 
-## 
-## 
-## 
-## 
-## 
-## 
-## 
-## </code></pre>
+## Cycle.run(main, drivers);</code></pre>
 <iframe src="ex/cyclejs_ex17.html" width="200" height="250">
 </iframe>
 </div>
 <div id="v14-bmi-calculator" class="section level2">
 <h2>v14: BMI Calculator</h2>
+</div>
+<div id="v18-onionify" class="section level2">
+<h2>v18: Onionify</h2>
+<pre class="bash"><code>mkdir -p ex/study_notes_cyclejs/ex18 &amp;&amp; cd $_ &amp;&amp; npm init -y &amp;&amp; npm i parcel-bundler --save-dev &amp;&amp; npm i xstream @cycle/run @cycle/dom @cycle/http</code></pre>
+<p><code>ex/study_notes_cyclejs/ex18/package.json</code></p>
+<pre><code>&quot;start&quot;: &quot;parcel index.html&quot;,
+&quot;build&quot;: &quot;parcel build index.html --public-url ./&quot;,</code></pre>
+<p>Edit <code>ex/study_notes_cyclejs/ex18/index.js</code></p>
+<pre><code>npm start
+
+http://localhost:1234</code></pre>
+</div>
+<div id="article-handling-lists-in-cyclejs" class="section level1">
+<h1>Article: Handling lists in Cyclejs</h1>
+<p><a href="https://github.com/cyclejs/cyclejs/issues/312" class="uri">https://github.com/cyclejs/cyclejs/issues/312</a></p>
+<div id="how-to-create-dynamic-list-components" class="section level2">
+<h2>How to create Dynamic List Components</h2>
+<p>A component that consists of a dynamic number of child components</p>
+<p>List of child components is dynamic:</p>
+<ul>
+<li>create/add child</li>
+<li>remove child</li>
+<li>change order of children</li>
+<li>change of child state may cause change of list component state</li>
+</ul>
+<p>Communication: Components exchange data.</p>
+<ul>
+<li>grandparent &lt;-&gt; parent &lt;-&gt; child(ren)</li>
+</ul>
+<p>Ex: TodoMVC with onionify:</p>
+<p><a href="https://github.com/cyclejs/todomvc-cycle/tree/onionify" class="uri">https://github.com/cyclejs/todomvc-cycle/tree/onionify</a></p>
+</div>
+</div>
+<div id="problems" class="section level1">
+<h1>Problems</h1>
+<pre class="bash"><code>mkdir -p ex/study_notes_cyclejs &amp;&amp; cd $_ &amp;&amp; npm init -y &amp;&amp; pnpm i parcel-bundler --save-dev &amp;&amp; npm i xstream @cycle/run @cycle/dom @cycle/http cycle-onionify cycle-storageify @cycle/storage typestyle bootstrap jquery jquery-ui-dist popper.js handsontable
+node ex/study_functional_programming_in_javascript_learnrx/ex01.js</code></pre>
+<div id="p01-multiple-html-elements-as-vdom" class="section level2">
+<h2>p01: Multiple HTML Elements As vdom</h2>
+<pre class="bash"><code>mkdir -p ex/study_notes_cyclejs/p01</code></pre>
+<p>Opt01: xs.of + one div vdom</p>
+<p>Edit <code>ex/study_notes_cyclejs/problems/p01/index_01.js</code></p>
+<pre class="js"><code>...
+  const vdom$ = xs.of(
+    div(&quot;div01&quot;),
+  )</code></pre>
+<pre class="js"><code>  console.log(Object.getOwnPropertyNames(vdom$))
+  console.log(Reflect.ownKeys(vdom$))
+// Array(7)0: &quot;_prod&quot;1: &quot;_ils&quot;2: &quot;_stopID&quot;3: &quot;_dl&quot;4: &quot;_d&quot;5: &quot;_target&quot;6: &quot;_err&quot;length: 7__proto__: Array(0)</code></pre>
+<div class=".app">
+div01
+</div>
+<p>Edit <code>ex/study_notes_cyclejs/problems/p01/index_02.js</code></p>
+<pre class="js"><code>...
+  const vdom$ = xs.of(
+    div(&quot;div01&quot;),
+    div(&quot;div02&quot;),
+  )</code></pre>
+<div class="app">
+<div>
+div02
+</div>
+</div>
+<p>Edit <code>ex/study_notes_cyclejs/problems/p01/index_03.js</code> Edit <code>ex/study_notes_cyclejs/problems/p01/index_04.js</code> Edit <code>ex/study_notes_cyclejs/problems/p01/index_05.js</code></p>
+</div>
 </div>
 
 

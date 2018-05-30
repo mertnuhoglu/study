@@ -50,9 +50,10 @@ We have two options to open web page:
 1. We can start a static web server in order to prevent CORS errors:
 
     ``` bash
+    cd ~/projects/study/js
     python3 -m http.server
     ``` 
-    
+
     Open web page: 
     
     http://localhost:8000/ex/ecmascript_modules_ex01.html
@@ -60,6 +61,8 @@ We have two options to open web page:
 2. Or we can open the web page from a static web server such as rawgit:
 
     https://rawgit.com/mertnuhoglu/study/master/js/ex/ecmascript_modules_ex01.html
+
+# Modules with Webpack
 
 ## v04: Webpack Official Getting Started Tutorial
 

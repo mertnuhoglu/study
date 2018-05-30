@@ -1,0 +1,107 @@
+---
+title: "Studying Parcel-Redux Bundler"
+date: 2018-05-04T11:10:48+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_parcel_redux.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+## v01
+
+``` bash
+mkdir -p ex/study_parcel_redux/ex01/ && cd $_ && npm init -y && npm i itt
+``` 
+
+Edit `ex/study_parcel_redux/ex01/index.js`
+
+``` js
+const itt = require('itt')
+const math = require('./math')
+console.log(itt.range(10).map(math.square).join(' '))
+``` 
+
+Edit `ex/study_parcel_redux/ex01/math.js`
+
+``` js
+exports.square = x => x * x
+``` 
+
+``` bash
+parcel index.js parcel.js
+``` 
+
+``` {bash}
+node ex/study_parcel_redux/ex01/parcel.js
+``` 
+
+Edit `ex/study_parcel_redux/ex01/index.html`
+
+``` html
+...
+  <script src="./parcel.js"> </script>
+``` 
+
+Open `ex/study_parcel_redux/ex01/index.html`
+
+Open Debugger in Developer Tools. Note that, source mapping is working. You can put breakpoint inside `index.js` instead of bundled `parcel.js`.
+
+## v02: No Source Map
+
+``` bash
+mkdir -p ex/study_parcel_redux/ex02/ && cd $_ && npm init -y && pnpm i itt && cp ../ex01/*.js . && cp ../ex01/*.html .
+``` 
+
+``` bash
+parcel --no-map index.js parcel.js
+``` 
+
+Open `ex/study_parcel_redux/ex02/index.html`
+
+Note that, now there is no `index.js` inside Source files in Developer Tools. 
+
+## v03: watch files
+
+``` bash
+cd ex/study_parcel_redux/ex01
+parcel -w index.js parcel.js
+``` 
+
+Edit `ex/study_parcel_redux/ex01/index.html`
+
+Refresh the browser
+
+## Rename parcel as parcel-redux
+
+``` bash
+alias parcel-redux=parcel
+``` 
+
+## package.json with parcel-redux
+
+Edit `~/projects/study/js/ex/study_parcel_redux/ex01/package.json`
+
+  "scripts": {
+    "start": "parcel -w index.js dist/parcel.js",
+
+``` bash
+npm run start
+``` 
+
+Open `~/projects/study/js/ex/study_parcel_redux/ex01/index.html` in browser
+

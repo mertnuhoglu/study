@@ -1,0 +1,44 @@
+<!doctype html>
+<!--code from: https://glebbahmutov.com/blog/use-lenses-in-hyperapp/-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js"></script>
+    <script type="module">
+      import {h, app} from "https://rawgit.com/hyperapp/hyperapp/master/src/index.js"
+      // import ramda from "https://cdnjs.cloudflare.com/ajax/libs/ramda/0.21.0/ramda.min"
+      // import {lensProp} from "https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.js"
+      // import {ramda} from "https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.js"
+      // import ramda from "https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.js"
+      const CDN = s => `https://cdnjs.cloudflare.com/ajax/libs/${s}`;
+      const ramda = CDN('ramda/0.21.0/ramda.min');
+      const jquery = CDN('jquery/3.0.0-rc1/jquery.min');
+
+      requirejs.config({ paths: { ramda, jquery } });
+      require(['jquery', 'ramda'], ($, { curry, lensProp }) => {
+         const Impure = {
+          getJSON: curry((callback, url) => $.getJSON(url, callback)),
+          setHtml: curry((sel, html) => $(sel).html(html)),
+          trace: curry((tag, x) => { console.log(tag, x); return x; }),
+        }; 
+        const countLens = lensProp('count')
+        console.log(countLens)
+
+        const state = {count: 0}
+        const actions = {
+          down: () => state => ({ count: state.count - 1 }),
+          up: () => state => ({ count: state.count + 1 })
+        }
+        const view = (state, actions) => h("main", {}, [
+          h("h1", {}, state.count),
+          h("button", { onclick: actions.down }, "-"),
+          h("button", { onclick: actions.up }, "+"),
+        ])
+        app(state, actions, view, document.body)
+      });
+
+    </script>
+  </head>
+</html>
+<body>
+</body>

@@ -1,0 +1,495 @@
+---
+title: "CycleJS Implementation in VRP"
+date: 2018-02-27T18:23:18+03:00 
+draft: true
+description: ""
+tags:
+categories: javascript, cyclejs
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/vrp/cyclejs_vrp.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## Common For Most Subprojects:
+
+`ex/ex15/package.json`
+
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+
+Start database server and postgrest:
+
+``` bash
+dmd=~/projects/itr/itr_documentation/data_model
+psk=~/codes/pg/khumbuicefall
+cd $psk
+docker-compose up -d
+``` 
+
+### v01: Datatables + ParcelJs
+
+``` bash
+mkdir -p ex/ex01 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i bootstrap jquery jquery-ui-dist popper.js datatables.net datatables.net-dt
+``` 
+
+``` bash
+cp -R /Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex14/src/ ex/ex01/src/ 
+``` 
+
+Edit `ex/ex01/src/import_jquery.js`
+
+``` js
+...
+const dt = require( 'datatables.net' )();
+import 'datatables.net-dt/css/jquery.dataTables.css'
+``` 
+
+Edit `ex/ex01/src/index.html`
+
+``` html
+...
+      <table id="table_id" class="display">
+        <thead>
+          <tr>
+            <th>Column 1</th>
+            ...
+``` 
+
+Edit `ex/ex01/src/index.js`
+
+``` js
+import "./import_jquery";
+$('#table_id').DataTable();
+``` 
+
+### v02: Datatables + Cyclejs 
+
+``` bash
+mkdir -p ex/ex02 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom bootstrap jquery jquery-ui-dist popper.js datatables.net datatables.net-dt
+``` 
+
+``` bash
+cp -R ex/ex17/src/ ex/ex02/src/ 
+``` 
+
+Edit `ex/ex02/src/index.js`
+
+``` js
+...
+$('#table_id').DataTable();
+
+function main(sources) {
+	return {
+		DOM: xs.of(
+    ...
+``` 
+
+### v03: Datatables + Cyclejs: DataTable inside vdom
+
+``` bash
+mkdir -p ex/ex03 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom bootstrap jquery jquery-ui-dist popper.js datatables.net datatables.net-dt
+``` 
+
+``` bash
+cp -R ex/ex02/src/ ex/ex03/src/ 
+``` 
+
+Edit `ex/ex03/src/index.js`
+
+``` js
+...
+        table("#table_id.display", [
+          ...
+          ]).DataTable()
+    ...
+``` 
+
+This doesn't work. The error is:
+
+    Uncaught TypeError: (0 , _dom.table)(...).DataTable is not a function
+
+### Study Options
+
+Options:
+
+    opt01: table_id vdom içinde oluşturulur
+    opt02: table_id'nin içindeki elementler vdom içinde oluşturulur
+    opt03: table_id html içinde olur, onun içine mount etmeye çalış
+    opt04: snabbdom ile DataTable() nasıl kullanılır?
+    opt05: DataTable() fiziksel olsun, fakat kullandığı model rxjs ile beslensin?
+    opt06: how to convert react component to cyclejs component?
+    opt07: bir tür driver yapabilirim https://github.com/cyclejs-community/awesome-cyclejs#drivers
+    opt08: webcomponent'ları cyclejs içinde nasıl kullanılır?  https://github.com/Saulis/iron-data-table
+    opt09: react componenti cyclejs içinde kullanma? https://medium.com/@zbzzn/integrating-react-and-datatables-not-as-hard-as-advertised-f3364f395dfa
+    opt10: fiziksel domla sanal dom birlikte kullanılır mı? snabbdom + datatables
+    opt11: datatables fiziksel olsun, içindeki veriyi dışarıdan cjs ile yönetelim
+
+#### opt11: datatables fiziksel olsun, içindeki veriyi dışarıdan cjs ile yönetelim
+
+`index.html`
+
+    <div id="app"></div>
+    <table id="table_id" class="display">
+
+`index.js`
+
+    $('#table_id').DataTable({data: data});
+
+Bu datayı nasıl çekerim cyclejs'ten?
+
+    function view(sources) {
+      sources.onion.state$.subscribe( state =>
+        data = state.table_data
+        $('#table_id').DataTable({data: data});
+      )
+    }
+
+### ex04: opt11 Physical Datatables Subscribed to State Stream
+
+``` bash
+mkdir -p ex/ex04 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom bootstrap jquery jquery-ui-dist popper.js datatables.net datatables.net-dt
+``` 
+
+``` bash
+cp -R ex/ex02/src/ ex/ex04/src/ 
+``` 
+
+Edit `ex/ex04/src/index.js`
+
+opt1:
+
+``` js
+  const vdom$ = xs.periodic(1000).
+      map( x => {
+        jQuery('#table_id').DataTable()
+        const r = div([ 
+          'Hello Datatables',
+        ])
+        return r
+      })
+``` 
+
+opt2:
+
+``` js
+  const vdom$ = xs.periodic(1000).
+      map( x => {
+        const r = div([ 
+          'Hello Datatables',
+        ])
+        return r
+      })
+  vdom$.subscribe({
+    next: (value) => {
+      jQuery('#table_id').DataTable()
+    }
+  })
+``` 
+
+### ex05: Datatable's data is fed from cyclejs
+
+``` bash
+mkdir -p ex/ex05 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom bootstrap jquery jquery-ui-dist popper.js datatables.net datatables.net-dt
+``` 
+
+``` bash
+cp -R ex/ex04/src/ ex/ex05/src/ 
+``` 
+
+Edit `ex/ex05/src/index.js`
+
+``` js
+  const data = [ {
+      "name":       "Ali Osman",
+      "position":   "System Architect",
+      ...
+  ]
+  vdom$.subscribe({
+    next: (value) => {
+      jQuery('#table_id').DataTable( {        
+        data: data,
+        columns: [
+          { data: 'name' },
+  ...
+``` 
+
+### ex06: Handsontable + cyclejs
+
+``` bash
+mkdir -p ex/ex06 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom bootstrap jquery jquery-ui-dist popper.js handsontable
+``` 
+
+``` bash
+cp -R ex/ex05/src/ ex/ex06/src/ 
+``` 
+
+Edit `ex/ex06/src/index.html`
+
+``` js
+...
+      <table id="table_id" class="display">
+``` 
+
+Edit `ex/ex06/src/index.js`
+
+``` js
+...
+import 'handsontable/dist/handsontable.full.min.css'
+const Handsontable = require('handsontable/dist/handsontable.full.min.js')
+...
+var data = [
+  ["", "Ford", "Tesla", "Toyota", "Honda"],
+  ["2017", 10, 11, 12, 13],
+  ["2018", 20, 11, 14, 13],
+  ["2019", 30, 15, 12, 13]
+];
+var container = document.getElementById('table_id');
+var hot = new Handsontable(container, {
+  data: data,
+  rowHeaders: true,
+  colHeaders: true,
+  filters: true,
+  dropdownMenu: true
+});
+``` 
+
+### ex07: Handsontable + cyclejs
+
+``` bash
+mkdir -p ex/ex07 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom bootstrap jquery jquery-ui-dist popper.js handsontable
+``` 
+
+``` bash
+cp -R ex/ex06/src/ ex/ex07/src/ 
+``` 
+
+Edit `ex/ex07/src/index.js`
+
+### ex08: Handsontable mounted on vdom managed by cyclejs (Error)
+
+``` bash
+mkdir -p ex/ex08 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom bootstrap jquery jquery-ui-dist popper.js handsontable
+``` 
+
+``` bash
+cp -R ex/ex07/src/ ex/ex08/src/ 
+``` 
+
+Edit `ex/ex08/src/index.js`
+
+``` js
+  const vdom$ = xs.of(
+    div([ 
+      'Hello Handsontable',
+      table("#vdom_table.display", [
+			...
+``` 
+
+Error:
+
+		TypeError: Cannot read property 'insertBefore' of null
+
+		vdom$.subscribe({
+			next: (value) => {
+				var container = document.getElementById('vdom_table');
+				var hot = new Handsontable(container, {
+
+### ex09: Handsontable mounted on vdom managed by cyclejs
+
+``` bash
+mkdir -p ex/ex09 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom bootstrap jquery jquery-ui-dist popper.js handsontable
+``` 
+
+``` bash
+cp -R ex/ex08/src/ ex/ex09/src/ 
+``` 
+
+Edit `ex/ex09/src/index.js`
+
+``` js
+  const vdom$ = xs.of(
+    div([ 
+      'Hello Handsontable',
+      table("#vdom_table.display", [
+        thead(
+          tr([
+            th('Plan Id'),
+            th('Kullanıcı'),
+            th('Depot Id')
+          ])
+        ),
+        tbody(
+          tr([
+            td("a"),
+            td("b"),
+            td("c"),
+          ])
+        )
+      ])
+    ])
+  ).map( (dom) => {
+		var container = document.getElementById('vdom_table');
+		var hot = new Handsontable(container, {
+		...
+	}
+``` 
+
+Problem: `document` inside `map` is not correct. Instead of `document` we need to change `dom` object itself.
+
+### ex10: opt07 Make a Simple Driver for Handsontable
+
+``` bash
+mkdir -p ex/ex10 && cd $_ 
+cp ~/projects/study/js/ex/cyclejs_ex08.* .
+mv cyclejs_ex08.html index.html
+mv cyclejs_ex08.js index.js
+``` 
+
+Edit `ex/ex10/index.js`
+
+``` js
+...
+var container = document.getElementById('example');
+var hot = new Handsontable(container, {
+...
+``` 
+
+Edit `ex/ex10/index.html`
+
+``` js
+...
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.36.0/handsontable.full.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.36.0/handsontable.full.min.js"></script>
+...
+      <table id="example" class="display">
+...
+``` 
+
+#### ex10.02: Encapsulate Vanilla JS of Handsontable into a Driver
+
+Edit `ex/ex10/index_02.js`
+
+``` js
+function main(sources) {
+  const sinks = {
+		...
+		Hot: click$
+			.startWith(null)
+...
+function HotDriver(data$) {
+	...
+  data$.subscribe( temp => {
+    var container = document.getElementById('example');
+    var hot = new Handsontable(container, {
+      data: data,
+			...
+}
+...
+const drivers = {
+	...
+	Hot: HotDriver,
+``` 
+
+Edit `ex/ex10/index_02.html`
+
+#### ex10.03: HotDriver
+
+Edit `ex/ex10/index_03.js`
+
+``` js
+...
+var container = document.getElementById('example');
+var hot = new Handsontable(container, {
+	data: data1,
+});
+...
+function main(sources) {
+	const sinks = {
+		...
+		Hot: Rx.Observable.timer(0, 2000)
+		.map(i => {
+			data1[0][i % 7] = i; 
+			return data1
+		})
+...
+function HotDriver(data$) {
+	data$.subscribe( data => {
+		hot.loadData(data)
+...
+``` 
+
+#### ex10.04: HotDriver read side effect
+
+Edit `ex/ex10/index_04.js`
+
+``` js
+...
+hot.addHook('afterChange', function () {
+  console.log(hot.getSourceData())
+})
+``` 
+
+#### ex10.05: HotDriver read side effect as Observable
+
+Edit `ex/ex10/index_05.js`
+
+``` js
+function main(sources) {
+  ...
+	const sinks = {
+		Log: sources.Hot,
+  ...
+function HotDriver(data$) {
+  ...
+  const HotSource = Rx.Observable.create(function(observer) {
+    hot.addHook('afterChange', function () {
+      observer.next(hot.getSourceData())
+    })
+  })
+  return HotSource
+}
+
+``` 
+
+#### ex10.06: HotDriver with xstream
+
+Edit `ex/ex10/index_06.js`
+
+``` js
+function HotDriver(data$) {
+  data$.addListener({
+    next: data => {
+    ...
+  var producer = {
+    start: function(observer) {
+      hot.addHook('afterChange', function () {
+        observer.next(hot.getSourceData())
+      })
+      ...
+  const HotSource = xs.create(producer)
+  return HotSource
+``` 
+
+Run `npm start`
+ 
+
+

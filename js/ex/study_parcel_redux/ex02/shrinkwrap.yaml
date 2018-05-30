@@ -1,0 +1,12 @@
+dependencies:
+  itt: 0.6.1
+packages:
+  /itt/0.6.1:
+    dev: false
+    resolution:
+      integrity: sha512-rE9MPJ3vfwHt94UoFuuT+eNA1gTYbP2usmat1BhanB9BKveW83Cx1HuwAN1BL/pwvg4NAWQy108E1AuBLlgWAQ==
+registry: 'https://registry.npmjs.org/'
+shrinkwrapMinorVersion: 4
+shrinkwrapVersion: 3
+specifiers:
+  itt: ^0.6.1

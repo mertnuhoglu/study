@@ -12,6 +12,7 @@ when an event happens, we {{c2::react}} to it
 %
 
 clozeq
+active
 
 ---
 
@@ -30,6 +31,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -51,6 +53,7 @@ Now we use Observables:
 %
 
 clozeq
+active
 
 ---
 
@@ -74,6 +77,7 @@ With RxJs, you isolate the state (`count`):
 %
 
 clozeq
+active
 
 ---
 
@@ -95,6 +99,7 @@ Ex: Limiting one click per second:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -116,6 +121,7 @@ Value producing operators: `map, pluck, pairwise, sample` etc.
 %
 
 clozeq
+suspended
 
 ---
 
@@ -132,6 +138,7 @@ Observables are lazy push collections of multiple values
 %
 
 clozeq
+active
 
 ---
 
@@ -154,6 +161,7 @@ Ex: Push values 1,2 immediately (synchronously) when subscribed, and 3 after one
 %
 
 clozeq
+active
 
 ---
 
@@ -169,6 +177,7 @@ Every {{c1::function}} is a Pull system. The function is a Producer. The client 
 %
 
 clozeq
+active
 
 ---
 
@@ -185,6 +194,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -211,6 +221,7 @@ Observables are like functions with zero arguments.
 %
 
 clozeq
+suspended
 
 ---
 
@@ -232,6 +243,7 @@ You can't do this:
 %
 
 clozeq
+active
 
 ---
 
@@ -247,6 +259,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -266,6 +279,7 @@ Creation operators: `of, from, interval` etc.
 %
 
 clozeq
+active
 
 ---
 
@@ -284,6 +298,7 @@ The execution produces {{c4::multiple}} values over time.
 %
 
 clozeq
+suspended
 
 ---
 
@@ -305,6 +320,7 @@ Observable Grammar (Contract):
 %
 
 clozeq
+active
 
 ---
 
@@ -331,6 +347,7 @@ Observers can be {{c5::partial}} (without `error` or `complete` callback).
 %
 
 clozeq
+active
 
 ---
 
@@ -345,6 +362,7 @@ An object that represents a disposable resource, the {{c1::execution}} of an Obs
 %
 
 clozeq
+active
 
 ---
 
@@ -367,6 +385,7 @@ They store a {{c3::list}} of many observers.
 %
 
 clozeq
+active
 
 ---
 
@@ -383,6 +402,7 @@ Push a new value to the Subject with `next(v)`. It will be {{c3::multicasted}} t
 %
 
 clozeq
+active
 
 ---
 
@@ -408,6 +428,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -435,6 +456,7 @@ A Subject can {{c1::`subscribe`}} to an Observable too, because it is an Observe
 %
 
 clozeq
+suspended
 
 ---
 
@@ -447,6 +469,7 @@ Observers subscribe to a {{c1::Subject}}. And the Subject subscribes to the {{c2
 %
 
 clozeq
+suspended
 
 ---
 
@@ -465,6 +488,7 @@ An Operator is essentially {{c2::a pure function}}. It takes one Observable as i
 %
 
 clozeq
+suspended
 
 ---
 
@@ -495,6 +519,7 @@ This corresponds to the following `map` call:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -517,6 +542,7 @@ Examples of static operators:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -538,6 +564,7 @@ When any observable emits a value, emit the {{c1::latest}} value
 %
 
 clozeq
+suspended
 
 ---
 
@@ -560,6 +587,7 @@ Tests:
 %
 
 clozeq
+active
 
 ---
 
@@ -583,6 +611,7 @@ Turn multiple observables into a {{c1::single}} observable.
 %
 
 clozeq
+active
 
 ---
 
@@ -604,6 +633,7 @@ Tests:
 %
 
 clozeq
+active
 
 ---
 
@@ -634,6 +664,7 @@ When event is received, also provide the last value from another observable
 %
 
 clozeq
+suspended
 
 ---
 
@@ -648,6 +679,7 @@ Turn an {{c1::array}}, {{c2::promise}}, or iterable into an observable
 %
 
 clozeq
+active
 
 ---
 
@@ -666,6 +698,7 @@ Ex: Observable from array
 %
 
 clozeq
+suspended
 
 ---
 
@@ -684,6 +717,7 @@ Ex: Observable from Promise
 %
 
 clozeq
+suspended
 
 ---
 
@@ -704,6 +738,7 @@ Ex: Observable from collection
 %
 
 clozeq
+suspended
 
 ---
 
@@ -719,6 +754,7 @@ Emit variable amount of values in a sequence
 %
 
 clozeq
+suspended
 
 ---
 
@@ -735,6 +771,7 @@ Ex: Emit a sequence of numbers
 %
 
 clozeq
+suspended
 
 ---
 
@@ -754,6 +791,7 @@ Ex: Emit an object, array, and function
 %
 
 clozeq
+suspended
 
 ---
 
@@ -768,6 +806,7 @@ Emit {{c1::numbers in sequence}} based on provided timeframe
 %
 
 clozeq
+suspended
 
 ---
 
@@ -785,6 +824,7 @@ Ex: Emit sequence of values at 1 second interval
 %
 
 clozeq
+suspended
 
 ---
 
@@ -799,6 +839,7 @@ Create an observable with given {{c1::subscription function}}
 %
 
 clozeq
+suspended
 
 ---
 
@@ -819,6 +860,7 @@ Ex: Observable that emits multiple values
 %
 
 clozeq
+suspended
 
 ---
 
@@ -849,6 +891,7 @@ Ex: Emit even numbers on timer
 %
 
 clozeq
+suspended
 
 ---
 
@@ -863,6 +906,7 @@ Observable that {{c1::immediately completes}}
 %
 
 clozeq
+suspended
 
 ---
 
@@ -881,6 +925,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -900,6 +945,7 @@ Emit numbers in provided range in sequence
 %
 
 clozeq
+suspended
 
 ---
 
@@ -914,6 +960,7 @@ Turn event into observable sequence
 %
 
 clozeq
+suspended
 
 ---
 
@@ -933,6 +980,7 @@ Ex: Observable from mouse clicks
 %
 
 clozeq
+suspended
 
 ---
 
@@ -947,6 +995,7 @@ After given duration, emit numbers in sequence every specified duration
 %
 
 clozeq
+suspended
 
 ---
 
@@ -964,6 +1013,7 @@ Ex: Emit first after 1 second, then every 2 seconds
 %
 
 clozeq
+suspended
 
 ---
 
@@ -978,6 +1028,7 @@ Gracefully handle errors in an observable sequence
 %
 
 clozeq
+suspended
 
 ---
 
@@ -995,6 +1046,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1009,6 +1061,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1043,6 +1096,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1057,6 +1111,7 @@ Discard emitted values that take less than the specified time between outputs
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1079,6 +1134,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1093,6 +1149,7 @@ Only emit when current value different than the last
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1114,6 +1171,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1132,6 +1190,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1146,6 +1205,7 @@ Emit provided number of values before completing.
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1162,6 +1222,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1176,6 +1237,7 @@ Emit values until provided observable emits
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1193,6 +1255,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1207,6 +1270,7 @@ Collect emitted values until provided time has passed, emit as array
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1225,6 +1289,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1239,6 +1304,7 @@ Map values to inner observable, subscribe and emit in order.
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1268,6 +1334,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1284,6 +1351,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1298,6 +1366,7 @@ Map to observable, emit values
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1314,6 +1383,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1328,6 +1398,7 @@ Like Array.reduce
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1343,6 +1414,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1357,6 +1429,7 @@ Map to observable, complete previous inner observable, emit values
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1373,6 +1446,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1398,6 +1472,7 @@ Combination Operators:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1413,6 +1488,7 @@ Conditional Operators:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1436,6 +1512,7 @@ Creation Operators:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1452,6 +1529,7 @@ Error Handling:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1469,6 +1547,7 @@ Multicasting:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1498,6 +1577,7 @@ Filtering:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1535,6 +1615,7 @@ Transformation:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1548,6 +1629,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1563,6 +1645,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1578,6 +1661,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -1593,6 +1677,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -1608,6 +1693,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1623,6 +1709,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -1640,6 +1727,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1659,6 +1747,7 @@ combines latest events from each input stream
 %
 
 clozeq
+active
 
 ---
 
@@ -1675,6 +1764,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -1692,6 +1782,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -1710,6 +1801,7 @@ reverse of `take`
 %
 
 clozeq
+active
 
 ---
 
@@ -1726,6 +1818,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -1742,6 +1835,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -1758,6 +1852,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1774,6 +1869,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -1793,6 +1889,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -1807,6 +1904,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -1824,6 +1922,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -1846,6 +1945,7 @@ Nested Observables:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1875,6 +1975,7 @@ Merging stream of clicks with start stream:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1894,6 +1995,7 @@ Clear HTML elements on startup and each refresh. And this should be done at the 
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1915,6 +2017,7 @@ We make a new request for each subscribe() call:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1935,6 +2038,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1958,6 +2062,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1977,6 +2082,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -1996,6 +2102,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2014,6 +2121,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2036,6 +2144,7 @@ Component
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2062,6 +2171,7 @@ Component
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2083,6 +2193,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2107,6 +2218,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2139,6 +2251,7 @@ What does subscribe return?
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2154,6 +2267,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2184,6 +2298,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2220,6 +2335,7 @@ We create a subscription chain.
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2232,6 +2348,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -2254,6 +2371,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2270,6 +2388,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2287,6 +2406,7 @@ merge = OR operator
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2304,6 +2424,7 @@ combineLatest = AND operator
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2321,6 +2442,7 @@ uppercase if latest value from bar is 1
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2342,6 +2464,7 @@ AND style combinations:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2359,6 +2482,7 @@ ex: spread a sync value over time
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2375,6 +2499,7 @@ combining values over time of one observable: horizontal combinator
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2398,6 +2523,7 @@ combine last values:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2416,6 +2542,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2438,6 +2565,7 @@ waits for some silence time
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2454,6 +2582,7 @@ Do it only when user stands for 500 ms:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2470,6 +2599,7 @@ First emits, then causes silence
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2488,6 +2618,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2511,6 +2642,7 @@ Error handling operators:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2527,6 +2659,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2544,6 +2677,7 @@ import pipeable operators from `rxjs/operators`
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2563,6 +2697,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2575,6 +2710,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2592,6 +2728,7 @@ This is for {{c1::server-side}} rendered HTML.
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2606,6 +2743,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2629,6 +2767,7 @@ Inside Foo:
 %
 
 clozeq
+suspended
 
 ---
 
@@ -2647,6 +2786,7 @@ The alternative is to invert the ownership of the arrow. Then Bar owns it.
 %
 
 clozeq
+active
 
 ---
 
@@ -2659,6 +2799,7 @@ With This approach, Bar listens to an event happening in Foo. It manages its {{c
 %
 
 clozeq
+active
 
 ---
 
@@ -2679,6 +2820,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 

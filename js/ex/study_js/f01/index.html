@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+    <!-- load the UnchainedClient helper. -->
+    <script src="node_modules/unchained-js/dist/unchained.client.js"></script>
+    <script>
+        // register a Service Worker.
+        UnchainedClient.register('sw.js', { scope: '/' })
+            .then(() =>
+                // The Service Worker is ready, we can now import the main file.
+                UnchainedClient.import('index.js')
+            );
+    </script>
+</body>
+</html>

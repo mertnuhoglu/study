@@ -1,1 +1,3 @@
-*.html
+shrinkwrap.yml
+shrinkwrap.yaml
+package.json

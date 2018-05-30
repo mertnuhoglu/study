@@ -1,0 +1,84 @@
+---
+title: "Basbug Recommendation Engine Demo 01"
+date: 2018-04-17T21:17:06+03:00 
+draft: true
+description: ""
+tags:
+categories: recommendation, data
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: 
+resource_files:
+- 
+path: ~/projects/study/ds/recommendation_engine_using_association_rules_in_r/basbug_recommendation_example_01.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+```{r}
+library(dplyr, warn.conflicts = F)
+``` 
+
+``` r
+df = rio::import("data/basbug/tavsiye_dataset.xlsx") %>%
+  select(purchase_order_id = FaturaNo, title = UrunId, amount = Quantity)
+rio::export(df[1:500, ], "data/basbug/tavsiye_dataset_01.tsv")
+``` 
+
+``` {r}
+orl2 = rio::import("data/basbug/tavsiye_dataset_01.tsv")
+orl2
+``` 
+
+Target shape requires to concatenate all products in one purchase order transaction together:
+
+``` {r}
+orl3 = orl2 %>%
+  dplyr::collect() %>%
+  dplyr::group_by(purchase_order_id) %>%
+  dplyr::mutate(key = sprintf("x%s", row_number())) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate( row = row_number() ) 
+orl3
+
+orl4 = orl3 %>%
+  dplyr::select(purchase_order_id, key, title) %>%
+  tidyr::spread(key = key, value = title) 
+orl4 
+```
+
+```{r}
+.libPaths("/Users/mertnuhoglu/.exploratory/R/3.4")
+library(exploratory)
+
+# Data Analysis Steps
+res = orl4 %>%
+  dplyr::select(-purchase_order_id) %>%
+  dplyr::mutate(transaction_id = row_number()) %>%
+  tidyr::gather(key, product, -transaction_id, na.rm = TRUE, convert = TRUE) %>%
+  dplyr::arrange(transaction_id) %>%
+  exploratory::do_apriori(product, transaction_id, min_support = 0.0001) %>%
+  dplyr::filter(support > 0.0004) %>%
+  dplyr::group_by(rhs) %>%
+  dplyr::top_n(3, lift)
+res
+```
+
+```{r}
+res = orl4 %>%
+  dplyr::select(-purchase_order_id) %>%
+  dplyr::mutate(transaction_id = row_number()) %>%
+  tidyr::gather(key, product, -transaction_id, na.rm = TRUE, convert = TRUE) %>%
+  dplyr::arrange(transaction_id) %>%
+  exploratory::do_apriori(product, transaction_id, min_support = 0.0001) %>%
+  dplyr::filter(support > 0.0004) %>%
+  dplyr::group_by(rhs) %>%
+  dplyr::top_n(3, lift)
+res
+```

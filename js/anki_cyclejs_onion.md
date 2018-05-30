@@ -19,6 +19,7 @@ State stream as {{c1::source}}, reducer stream as sink:
 %
 
 clozeq
+active
 
 ---
 
@@ -33,6 +34,7 @@ All the state lives in the state stream managed by onionify.
 %
 
 clozeq
+active
 
 ---
 
@@ -47,6 +49,7 @@ Eliminates {{c2::circular}} dependencies of stream
 %
 
 clozeq
+active
 
 ---
 
@@ -68,6 +71,7 @@ index.ts
 %
 
 clozeq
+suspended
 
 ---
 
@@ -95,6 +99,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -108,6 +113,7 @@ clozeq
 %
 
 clozeq
+active
 
 ---
 
@@ -131,6 +137,7 @@ Counter.ts:
 %
 
 clozeq
+active
 
 ---
 
@@ -150,6 +157,7 @@ It {{c1::wraps}} `main` function and provides it with an `onion`
 %
 
 clozeq
+active
 
 ---
 
@@ -179,6 +187,7 @@ The stream of reducer functions is reduced to accumulate state over time.
 %
 
 clozeq
+suspended
 
 ---
 
@@ -205,6 +214,7 @@ clozeq
 %
 
 clozeq
+suspended
 
 ---
 
@@ -219,6 +229,7 @@ data flow:
 %
 
 clozeq
+active
 
 ---
 
@@ -234,6 +245,7 @@ data flow:
 %
 
 clozeq
+active
 
 ---
 
@@ -251,6 +263,7 @@ wrap `main`
 %
 
 clozeq
+suspended
 
 ---
 
@@ -269,6 +282,7 @@ sliderInput/ index.js intent.js model.js view.js styles.js
 %
 
 clozeq
+active
 
 ---
 
@@ -287,6 +301,7 @@ index.js
 %
 
 clozeq
+active
 
 ---
 
@@ -304,6 +319,7 @@ export interface State
 %
 
 clozeq
+active
 
 ---
 
@@ -330,6 +346,7 @@ lenses: ex: controls/index.js
 %
 
 clozeq
+active
 
 ---
 
@@ -349,6 +366,7 @@ model view intent: ex: app/index.js
 %
 
 clozeq
+active
 
 ---
 
@@ -368,6 +386,7 @@ model view intent: ex: controls/index.ts function Controls:
 %
 
 clozeq
+active
 
 ---
 
@@ -387,6 +406,7 @@ data flow: {{c1::DOM}} -&gt; state
 %
 
 clozeq
+active
 
 ---
 
@@ -404,6 +424,7 @@ data flow: {{c1::state}} -&gt; DOM
 %
 
 clozeq
+active
 
 ---
 
@@ -420,6 +441,7 @@ use subcomponents: ex: app/index.js
 %
 
 clozeq
+active
 
 ---
 
@@ -435,6 +457,7 @@ use subcomponents: ex: controls/index.js
 %
 
 clozeq
+active
 
 ---
 
@@ -453,6 +476,7 @@ intent(): ex: controls/intent.js
 %
 
 clozeq
+active
 
 ---
 
@@ -475,6 +499,7 @@ model(): ex: app/model.js
 %
 
 clozeq
+active
 
 ---
 
@@ -501,6 +526,7 @@ model(): ex: ticker/model.js
 %
 
 clozeq
+active
 
 ---
 
@@ -521,6 +547,7 @@ initReducer
 %
 
 clozeq
+active
 
 ---
 
@@ -537,6 +564,7 @@ view(): ex: sliderInput/view.js
 %
 
 clozeq
+active
 
 ---
 
@@ -553,6 +581,7 @@ styles: ex: app/styles.js
 %
 
 clozeq
+active
 
 ---
 
@@ -568,6 +597,7 @@ App State and App Sources & Sinks
 %
 
 clozeq
+active
 
 ---
 
@@ -586,6 +616,7 @@ interfaces.js
 %
 
 clozeq
+active
 
 ---
 
@@ -602,6 +633,7 @@ header.js footer.js
 %
 
 clozeq
+active
 
 ---
 
@@ -623,6 +655,7 @@ App: index.js: vdom$
 %
 
 clozeq
+active
 
 ---
 
@@ -641,6 +674,7 @@ DOM -&gt; state vs state -&gt; DOM
 %
 
 clozeq
+active
 
 ---
 
@@ -657,6 +691,7 @@ onion as a Driver
 %
 
 clozeq
+active
 
 ---
 
@@ -687,6 +722,7 @@ common templates of the architecture:
 %
 
 clozeq
+active
 
 ---
 
@@ -703,6 +739,7 @@ complete data cycle
 %
 
 clozeq
+active
 
 ---
 
@@ -724,6 +761,7 @@ ex: ticker/model.js
 %
 
 clozeq
+active
 
 ---
 
@@ -744,6 +782,7 @@ ex: sliderInput/model.js
 %
 
 clozeq
+active
 
 ---
 
@@ -760,6 +799,7 @@ ex: ticker/view.js
 %
 
 clozeq
+active
 
 ---
 
@@ -791,6 +831,7 @@ ex: sliderInput/
 %
 
 clozeq
+active
 
 ---
 
@@ -812,6 +853,247 @@ ex: ticker/
 ······  `` set: (state: AppState, childState: State) => ({ `` <br>
 ········  `` ...state, `` <br>
 ········  `` duration: childState.{{c4::duration}} `` <br>
+
+%
+
+%
+
+clozeq
+active
+
+---
+
+## Code Read: routing-view 01
+
+··  `` import {makeHashHistoryDriver} from '{{c3::@cycle/history}}'; `` <br>
+··  `` ... `` <br>
+··  `` run(main, { `` <br>
+····  `` DOM: makeDOMDriver('#app'), `` <br>
+····  `` {{c1::history}}: {{c2::makeHashHistoryDriver()}} `` <br>
+
+%
+
+%
+
+clozeq
+active
+
+---
+
+## Code Read: routing-view 02
+
+··  `` function main(sources) { `` <br>
+····  `` const {{c1::history$}} = sources.DOM.select({{c2::'nav'}}).events('click') `` <br>
+······  `` .map(e => e.target.{{c3::dataset}}.page) `` <br>
+······  `` .compose({{c4::dropRepeats()}}) `` <br>
+····  `` ... `` <br>
+····  `` return { `` <br>
+······  `` DOM: vdom$, `` <br>
+······  `` history: {{c5::history$}}, `` <br>
+
+%
+
+%
+
+clozeq
+active
+
+---
+
+## Code Read: routing-view 03
+
+··  `` function main(sources) { `` <br>
+····  `` ... `` <br>
+····  `` const vdom$ = view({{c1::sources.history}}); `` <br>
+····  `` ... `` <br>
+····  `` return { `` <br>
+······  `` DOM: vdom$, `` <br>
+······  `` history: history$, `` <br>
+
+%
+
+%
+
+clozeq
+active
+
+---
+
+## Code Read: routing-view 04
+
+··  `` function view(history$) { `` <br>
+····  `` return {{c1::history$}}.map(history => { `` <br>
+······  `` const {{c2::{pathname} }} = history; `` <br>
+······  `` let page = h1('404 not found'); `` <br>
+······  `` if (pathname === '/home') { `` <br>
+········  `` page = {{c3::homePageView()}}; `` <br>
+······  `` ... `` <br>
+······  `` return div([ `` <br>
+········  `` navigation({{c4::pathname}}), `` <br>
+········  `` {{c5::page}}, `` <br>
+········  `` br(), `` <br>
+········  `` h3('History object'), `` <br>
+········  `` p(JSON.stringify(history)) `` <br>
+······  `` ]); `` <br>
+····  `` }); `` <br>
+
+%
+
+%
+
+clozeq
+active
+
+---
+
+## Code Read: routing-view 05
+
+··  `` function navigation(pathname) { `` <br>
+····  `` return nav([ `` <br>
+······  `` span({ `` <br>
+········  `` {{c1::dataset}}: {{{c2::page}}: 'home'}, `` <br>
+········  `` class: {{{c3::'active'}}: {{c4::pathname}} === '/home'} `` <br>
+······  `` }, 'Home'), `` <br>
+······  `` span({ `` <br>
+········  `` dataset: {page: 'about'}, `` <br>
+········  `` class: {'active': pathname === '/about'} `` <br>
+······  `` }, 'About'), `` <br>
+
+%
+
+%
+
+clozeq
+active
+
+---
+
+## DOMDriver implementation 01
+
+Data flow:
+
+··  `` B: Browser `` <br>
+··  `` DD: DOMDriver `` <br>
+··  `` m: main `` <br>
+··  ``  `` <br>
+··  `` [B] -> evt -> [DD] -> {{c1::click$}} -> [m] -> {{c2::text$}} -> [DD] -> doc.innerHTML -> [B] `` <br>
+··  `` click$ = {{c3::DOMSource}} `` <br>
+··  `` text$ = {{c4::main.sinks.DOM}} `` <br>
+
+%
+
+%
+
+clozeq
+active
+
+---
+
+## DOMDriver implementation 02
+
+··  `` evt: {{c1::input}} side effect `` <br>
+··  `` doc.innerHTML: {{c2::output}} side effect `` <br>
+
+%
+
+%
+
+clozeq
+active
+
+---
+
+## DOMDriver implementation 03
+
+side effects are handled by:
+
+··  `` evt -> {{c1::Rx.Observable.fromEvent}}(...) `` <br>
+··  `` doc.innerHTML -> {{c2::text$.subscribe}}(...) `` <br>
+
+%
+
+%
+
+clozeq
+active
+
+---
+
+## DOMDriver implementation 04
+
+··  `` function DOMDriver(text$) { `` <br>
+····  `` {{c1::text$}}.subscribe(text => { `` <br>
+······  `` const container = document.querySelector('#app'); `` <br>
+······  `` container.textContent = text; `` <br>
+····  `` }); `` <br>
+····  `` const {{c2::DOMSource}} = Rx.Observable.fromEvent(document, 'click'); `` <br>
+····  `` return DOMSource; `` <br>
+··  `` } `` <br>
+
+
+%
+
+%
+
+clozeq
+active
+
+---
+
+## debug cyclejs 01
+
+how to write data shape of stream elements?
+
+    var toHTML = require('snabbdom-to-html')
+    global.{{c1::toHTML}} = toHTML
+    ...
+    .debug( x => {
+      global.x = x
+      console.log(toHTML(x))
+    } )
+
+%
+
+%
+
+clozeq
+
+---
+
+## debug cyclejs 02
+
+    {body: Array(2)}
+      0 : {plan_id: 1}
+      1 : {plan_id: 2}
+
+		.map( ({body}) =>
+			div([
+				body.map(e => 
+					div([
+						td(e.plan_id),
+
+output 04_01
+
+    div( {{c1::[ [}}
+        div([td(1)]),
+        div([td(2)]),
+      ]
+    ])
+
+%
+
+%
+
+clozeq
+
+---
+
+## debug cyclejs 03
+
+eğer bir sorunun nedenini bulamıyorsan, 
+
+stream içindeki {{c1::verinin şeklini çiz}}
+
 
 %
 

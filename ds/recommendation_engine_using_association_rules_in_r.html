@@ -120,7 +120,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Ex: Recommendation Engine Using Association Rules (Market Basket) in R</h1>
 <h4 class="author"><em>Mert Nuhoglu</em></h4>
-<h4 class="date"><em>2018-01-15T21:12:10+03:00</em></h4>
+<h4 class="date"><em>2018-01-13T18:30:12+03:00</em></h4>
 
 </div>
 
@@ -148,14 +148,7 @@ library(dplyr, warn.conflicts = F)</code></pre>
 library(exploratory)
 
 # Data Analysis Steps
-readr::read_csv(&quot;/Users/mertnuhoglu/projects/study_data/ds/article_introduction_to_association_rules_in_r_by_yosuke_yasuda_groceries.csv&quot;, , quote = &quot;\&quot;&quot;, skip = 0 , col_names = FALSE , na = c(&quot;&quot;,&quot;NA&quot;)) %&gt;%
-  dplyr::mutate(transaction_id = row_number()) %&gt;%
-  tidyr::gather(key, product, -transaction_id, na.rm = TRUE, convert = TRUE) %&gt;%
-  dplyr::arrange(transaction_id) %&gt;%
-  exploratory::do_apriori(product, transaction_id, min_support = 0.0001) %&gt;%
-  dplyr::filter(support &gt; 0.0004) %&gt;%
-  dplyr::group_by(rhs) %&gt;%
-  dplyr::top_n(3, lift)</code></pre>
+df = readr::read_csv(&quot;/Users/mertnuhoglu/projects/study_data/ds/article_introduction_to_association_rules_in_r_by_yosuke_yasuda_groceries.csv&quot;, , quote = &quot;\&quot;&quot;, skip = 0 , col_names = FALSE , na = c(&quot;&quot;,&quot;NA&quot;)) </code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   X1 = col_character(),
@@ -168,6 +161,29 @@ readr::read_csv(&quot;/Users/mertnuhoglu/projects/study_data/ds/article_introduc
 ## row # A tibble: 5 x 5 col     row   col  expected    actual expected   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt; actual 1     2  &lt;NA&gt; 4 columns 3 columns file 2     3  &lt;NA&gt; 4 columns 1 columns row 3     6  &lt;NA&gt; 4 columns 5 columns col 4     7  &lt;NA&gt; 4 columns 1 columns expected 5     8  &lt;NA&gt; 4 columns 5 columns actual # ... with 1 more variables: file &lt;chr&gt;
 ## ... ................. ... ................................. ........ ................................. ...... ................................. .... ................................. ... ................................. ... ................................. ........ ................................. ...... .......................................
 ## See problems(...) for more details.</code></pre>
+<pre class="r"><code>df</code></pre>
+<pre><code>## # A tibble: 9,835 x 4
+##                  X1                  X2             X3                       X4
+##               &lt;chr&gt;               &lt;chr&gt;          &lt;chr&gt;                    &lt;chr&gt;
+##  1     citrus fruit semi-finished bread      margarine              ready soups
+##  2   tropical fruit              yogurt         coffee                     &lt;NA&gt;
+##  3       whole milk                &lt;NA&gt;           &lt;NA&gt;                     &lt;NA&gt;
+##  4        pip fruit              yogurt   cream cheese             meat spreads
+##  5 other vegetables          whole milk condensed milk long life bakery product
+##  6       whole milk              butter         yogurt                     rice
+##  7       rolls/buns                &lt;NA&gt;           &lt;NA&gt;                     &lt;NA&gt;
+##  8 other vegetables            UHT-milk     rolls/buns             bottled beer
+##  9       pot plants                &lt;NA&gt;           &lt;NA&gt;                     &lt;NA&gt;
+## 10       whole milk             cereals           &lt;NA&gt;                     &lt;NA&gt;
+## # ... with 9,825 more rows</code></pre>
+<pre class="r"><code>df %&gt;%
+  dplyr::mutate(transaction_id = row_number()) %&gt;%
+  tidyr::gather(key, product, -transaction_id, na.rm = TRUE, convert = TRUE) %&gt;%
+  dplyr::arrange(transaction_id) %&gt;%
+  exploratory::do_apriori(product, transaction_id, min_support = 0.0001) %&gt;%
+  dplyr::filter(support &gt; 0.0004) %&gt;%
+  dplyr::group_by(rhs) %&gt;%
+  dplyr::top_n(3, lift)</code></pre>
 <pre><code>## # A tibble: 30 x 5
 ## # Groups:   rhs [15]
 ##                                lhs          rhs      support confidence      lift

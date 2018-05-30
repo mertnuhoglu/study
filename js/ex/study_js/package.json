@@ -1,0 +1,25 @@
+{
+  "name": "study_js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "a01.js",
+  "scripts": {
+    "e04": "parcel e04.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cycle/dom": "^20.2.0",
+    "preact": "^8.2.9",
+    "snabbdom": "^0.7.1",
+    "snabbdom-helpers": "^7.2.0",
+    "snabbdom-to-html": "^5.1.0",
+    "unchained-js": "^0.2.0",
+    "xstream": "^11.2.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.7.1"
+  }
+}

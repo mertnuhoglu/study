@@ -1,0 +1,210 @@
+---
+title: "Study Notes for CycleJs Router"
+date: 2018-02-26T22:04:09+03:00 
+draft: false
+description: ""
+tags:
+categories: cyclejs, javascript
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/js/study_cyclejs_router.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## Common For Most Subprojects:
+
+`ex/cyclejs_vrp/ex15/package.json`
+
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+
+## v01: History Driver
+
+``` bash
+mkdir -p ex/study_cyclejs_router/ex01 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/history && mkdir -p src
+``` 
+
+Edit `ex/study_cyclejs_router/ex01/src/index.js`
+
+``` js
+function main(sources){
+  return {
+    // updates the browser URL every 500ms
+    history: xs.periodic(500).map(i => `url-${i}`)
+    ...
+``` 
+
+Updates browser URL every 500 ms
+
+    ...
+    http://localhost:1234/url-23
+    http://localhost:1234/url-24
+    ...
+
+## Ex: cyclejs examples: routing-view
+
+https://github.com/cyclejs/cyclejs/tree/master/examples/advanced/routing-view
+
+``` bash
+cd ~/codes/js/cyclejs/examples/advanced/routing-view
+npm start
+open index.html
+``` 
+
+`~/codes/js/cyclejs/examples/advanced/routing-view/src/main.js`
+
+Navbar elements:
+
+<nav><span class="active" data-page="home">Home</span><span data-page="about">About</span><span data-page="contacts">Contacts</span></nav>
+
+Note that, they have `data-page` attributes:
+
+``` html
+<nav><span class="active" data-page="home">Home</span><span data-page="about">About</span><span data-page="contacts">Contacts</span></nav>
+``` 
+
+They are constructed inside `~/codes/js/cyclejs/examples/advanced/routing-view/src/main.js`
+
+``` js
+function navigation(pathname) {
+  return nav([
+    span({
+      dataset: {page: 'home'},
+      class: {'active': pathname === '/home'}
+    }, 'Home'),
+    ...
+``` 
+
+`dataset` properties are accessed from `click` event handler:
+
+``` js
+function main(sources) {
+  const history$ = sources.DOM.select('nav').events('click')
+    .map(e => e.target.dataset.page)
+    .compose(dropRepeats())
+``` 
+
+`sources.history` is an input to `view()`
+
+``` js
+function view(history$) {
+  return history$.map(history => {
+    const {pathname} = history;
+    let page = h1('404 not found');
+    if (pathname === '/home') {
+      page = homePageView();
+      ...
+    return div([
+      navigation(pathname),
+      page,
+      ...
+``` 
+
+Every `page` is another `view` function:
+
+``` js
+function homePageView() {
+  return div([
+    h1('Welcome to History Examples!'),
+    ...
+``` 
+
+## Ex: cycle-spa-template
+
+https://github.com/SteveALee/cycle-spa-template
+
+`~/codes/js/cycle-spa-template/src/app.tsx`
+
+``` js
+import { routes, initialRoute } from './routes'
+...
+export function App(sources: Sources): Sinks {
+...
+    const match$ = sources.router.define(routes)
+``` 
+
+`~/codes/js/cycle-spa-template/src/routes.ts`
+
+``` js
+import { Component } from './drivers'
+
+import { Page1 } from './pages/page1'
+...
+export const routes: Routes = {
+    '/': Page1,
+    '/p2': Page2
+    ...
+``` 
+
+`~/codes/js/cycle-spa-template/src/drivers.ts`
+
+``` js
+import { makeRouterDriver, RouterSource, RouteMatcher } from 'cyclic-router'
+import switchPath from 'switch-path'
+...
+export type Component = (s: DriverSources) => DriverSinks
+...
+export type DriverSources = {
+...
+    router: RouterSource
+...
+mkDriversCond = () => ({
+...
+    router: makeRouterDriver(
+        createBrowserHistory(),
+        switchPath as RouteMatcher
+``` 
+
+`~/codes/js/cycle-spa-template/src/app.tsx`
+
+``` js
+		...
+    const pageSinks$ = match$.map(
+        ({ path, value: page }: { path: string; value: Component }) => {
+            return isolate(page, `page_${path}`)(
+                Object.assign({}, sources, {
+                    router: sources.router.path(path)
+                })
+            )
+        }
+    ) 
+		...
+			router: pageSinks$.map((ps: Sinks) => ps.router).flatten()
+``` 
+
+`~/codes/js/cycle-spa-template/src/pages/page1.tsx`
+ 
+``` js
+    const routes$ = sources.DOM
+        .select('[data-action="navigate"]')
+        .events('click')
+        .mapTo('/p2')
+		...
+        router: routes$
+``` 
+
+## v02: switch-path example
+
+https://github.com/staltz/switch-path
+
+``` bash
+mkdir -p ex/study_cyclejs_router/ex02 && cd $_ && npm init -y && pnpm i switch-path
+``` 
+
+Edit `ex/study_cyclejs_router/ex02/switchpath01.js`

@@ -1,0 +1,12 @@
+dependencies:
+  switch-path: 1.2.0
+packages:
+  /switch-path/1.2.0:
+    dev: false
+    resolution:
+      integrity: sha1-P4css8frK3f7lQnepOPz/yXs9VY=
+registry: 'https://registry.npmjs.org/'
+shrinkwrapMinorVersion: 4
+shrinkwrapVersion: 3
+specifiers:
+  switch-path: ^1.2.0

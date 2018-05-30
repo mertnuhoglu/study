@@ -1,0 +1,425 @@
+---
+title: "Studying CycleJs Examples"
+date: 2018-05-13T08:51:26+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_cyclejs_examples.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_cyclejs_examples/
+
+# Example: List Items
+
+From `~/codes/js/cyclejs/examples/advanced/many/src/List.js`
+
+    <url:/Users/mertnuhoglu/codes/js/cyclejs/examples/advanced/many/src/List.js#tn=function List(sources) {>
+  
+
+Everything is setup by `main.js`
+
+``` js
+function main(sources) {
+  return List(sources);
+}
+
+run(main, {
+  DOM: makeDOMDriver('#main-container')
+});
+``` 
+
+`List` is the main app component. 
+
+``` js
+function List(sources) {
+  const proxyItemRemove$ = xs.create();
+  const action$ = intent(sources.DOM, proxyItemRemove$);
+  const itemWrapper = makeItemWrapper(sources.DOM);
+  const items$ = model(action$, itemWrapper);
+  const itemRemove$ = items$
+    .map(items => xs.merge(...items.map(item => item.Remove)))
+    .flatten();
+  proxyItemRemove$.imitate(itemRemove$);
+  const vtree$ = view(items$);
+
+  return {
+    DOM: vtree$
+  };
+}
+``` 
+
+The actions start with `intent`:
+
+``` js
+...
+  const proxyItemRemove$ = xs.create();
+  const action$ = intent(sources.DOM, proxyItemRemove$);
+``` 
+
+`intent` contains clicking triggers:
+
+``` js
+function intent(domSource, itemRemove$) {
+  return xs.merge(
+    domSource.select('.add-one-btn').events('click')
+      .mapTo({type: 'ADD_ITEM', payload: 1}),
+			...
+``` 
+
+Note that, all user actions are clicked to some js objects with `type` and `payload` properties.
+
+After `intent` subcomponents called `item` are constructed in `List()`
+
+``` js
+	// List()
+  const itemWrapper = makeItemWrapper(sources.DOM);
+``` 
+
+``` js
+function makeItemWrapper(DOM) {
+  return function itemWrapper(props, id) {
+    const item = isolate(Item)({DOM, Props: xs.of(props)});
+    return {
+      DOM: item.DOM,
+      Remove: item.Remove.mapTo(id)
+    }
+  }
+}
+``` 
+
+`makeItemWrapper()` returns a function called `itemWrapper()`
+
+`itemWrapper()` returns an object 
+
+``` js
+    return {
+      DOM: item.DOM,
+      Remove: item.Remove.mapTo(id)
+    }
+``` 
+
+This is actually sinks of `Item`. 
+
+Note that, `Remove` property of sinks contains the `id` of `Item`
+
+After `makeItemWrapper` comes `model` in `List()`
+
+``` js
+	// List()
+  const items$ = model(action$, itemWrapper);
+``` 
+
+`model()` is a very big function. Here I hided the inner details:
+
+``` js
+function model(action$, itemFn) {
+  function createRandomItemProps() {...}
+  let mutableLastId = 0;
+  function createNewItem(props) {...}
+  const addItemReducer$ = action$...
+  const removeItemReducer$ = action$...
+  const initialState = [createNewItem({color: 'red', width: 300})]
+  return xs.merge(addItemReducer$, removeItemReducer$)
+    .fold((listItems, reducer) => reducer(listItems), initialState);
+}
+``` 
+
+So, the output of `model()` is the final state stream. Note that, the state stream is obtained by folding reducer function streams.
+
+There are two reducer function streams:
+
+		return xs.merge(addItemReducer$, removeItemReducer$)
+
+`addItemReducer$` adds new items. This is triggered by the `ADD_ITEM` clicks in `intent()`
+
+`removeItemReducer$` removes existing items. This is triggered by `REMOVE_ITEM` clicks in `intent()`
+
+Let's see their implementations:
+
+``` js
+  const removeItemReducer$ = action$
+    .filter(a => a.type === 'REMOVE_ITEM')
+    .map(action => function removeItemReducer(listItems) {
+      return listItems.filter(item => item.id !== action.payload);
+    });
+``` 
+
+First, it filters actions by their type. 
+
+Then, it maps actions to reducer functions. The reducer function takes `listItems` as input and removes the `item` with `id` given inside `action.payload`
+
+``` js
+  const addItemReducer$ = action$
+    .filter(a => a.type === 'ADD_ITEM')
+    .map(action => {
+      const amount = action.payload;
+      let newItems = [];
+      for (let i = 0; i < amount; i++) {
+        newItems.push(createNewItem(createRandomItemProps()));
+      }
+      return function addItemReducer(listItems) {
+        return listItems.concat(newItems);
+      };
+    });
+
+``` 
+
+This reducer filters actions by their type too. 
+
+Then it maps actions to reducer functions. But adding `newItems` first requires to construct new items using `createNewItem`
+
+After `model()` comes the following lines in `List()`
+
+``` js
+	// List()
+  const itemRemove$ = items$
+    .map(items => xs.merge(...items.map(item => item.Remove)))
+    .flatten();
+``` 
+
+## Remove functionality
+
+Note that `intent()` takes two arguments: `sources.DOM` and `proxyItemRemove$`
+
+What is  `proxyItemRemove$`?
+
+It is the proxy for `itemRemove$`
+
+		const itemRemove$ = items$
+			.map(items => xs.merge(...items.map(item => item.Remove)))
+			.flatten();
+
+For each `items` array, this produces an `item.Remove` array.
+
+But what is `item.Remove`?
+
+``` js
+function Item(sources) {
+  const action$ = intent(sources.DOM);
+  const state$ = model(sources.Props, action$);
+  const vtree$ = view(state$);
+  return {
+    DOM: vtree$,
+    Remove: action$.filter(action => action.type === 'REMOVE'),
+  };
+}
+``` 
+
+So, `item.Remove` is actually a filtered `action$` stream. Namely, it is a subset of `sources.DOM` stream.
+
+Where do we add `action.type` attribute to action stream? This is done inside `Item.intent()`
+
+``` js
+function intent(domSource) {
+  return xs.merge(
+    domSource.select('.color-field').events('input')
+      .map(ev => ({type: 'CHANGE_COLOR', payload: ev.target.value})),
+
+    domSource.select('.width-slider').events('input')
+      .map(ev => ({type: 'CHANGE_WIDTH', payload: parseInt(ev.target.value)})),
+
+    domSource.select('.remove-btn').events('click')
+      .mapTo({type: 'REMOVE'})
+  );
+}
+``` 
+
+We take `click` events from `.remove-btn` button and map them to `{type: 'REMOVE'}`.
+
+How do we use `Remove` action stream?
+
+We use it in three places:
+
+1. inside `model.createNewItem()`
+
+2. inside `makeItemWrapper()`
+
+3. inside `itemRemove$` that is passed to `List.intent()`
+
+4. inside `List.intent()`
+
+``` js
+function model(action$, itemFn) {
+  function createNewItem(props) {
+    const id = mutableLastId++;
+    const sinks = itemFn(props, id);
+    return {id, DOM: sinks.DOM.remember(), Remove: sinks.Remove};
+  }
+  const addItemReducer$ = action$
+		...
+        newItems.push(createNewItem(createRandomItemProps()));
+``` 
+
+``` js
+function makeItemWrapper(DOM) {
+  return function itemWrapper(props, id) {
+    const item = isolate(Item)({DOM, Props: xs.of(props)});
+    return {
+      DOM: item.DOM,
+      Remove: item.Remove.mapTo(id)
+``` 
+
+``` js
+  const action$ = intent(sources.DOM, proxyItemRemove$);
+  const itemRemove$ = items$
+    .map(items => xs.merge(...items.map(item => item.Remove)))
+    .flatten();
+  proxyItemRemove$.imitate(itemRemove$);
+``` 
+
+``` js
+function intent(domSource, itemRemove$) {
+  return xs.merge(
+    domSource.select('.add-one-btn').events('click')
+      .mapTo({type: 'ADD_ITEM', payload: 1}),
+
+    domSource.select('.add-many-btn').events('click')
+      .mapTo({type: 'ADD_ITEM', payload: 1000}),
+
+    itemRemove$.map(id => ({type: 'REMOVE_ITEM', payload: id}))
+``` 
+
+Understanding the data flow regarding `Remove` is a little difficult. Let's linearize the data flow:
+
+		action$ -> [Item.intent()] -> {Remove: action$.filter(..)} -> [itemWrapper()] -> {Remove: id = item.Remove.mapTo(id)} -> [createNewItem()] -> {Remove: id = sinks.Remove}
+
+There is a repeating pattern in all data streams. We have input and output or source and sink. They have the same property names, but the data types of the properties are different. For example:
+
+		DOM: DOMSource -> DOM: DOMSink
+
+`DOMSource` is `action$`. `DOMSink` is `vdom$`
+
+Similarly, for `Remove` there are two different data types:
+
+		Remove: action$ -> Remove: id$
+
+By convention, we can also call them as `RemoveSo$` and `RemoveSi$` or `RemoveA$` and `RemoveS$`.
+
+## Data Flow of List-Item
+
+List:
+
+		sources.DOM 
+		itemRemove$: -> [List.intent] -> action$: -> [model] -> items$ 
+		  RemoveA$                      {type, payload}$        {id,DOM,RemoveA$}$
+                                    itemWrapper():
+												      		  	{DOMSource, RemoveA$}
+    items$ -> [map] -> itemRemove$
+    RemoveA$ = id$
+
+Item:
+
+		sources: -> [Item()] -> sinks: {DOMSink, RemoveA$}
+		  {DOM, Props}
+
+inside Item()
+
+		sources.DOM -> [intent] -> action$: -> [model] -> state$: -> [view] -> DOMSink
+		        		          		   {type, payload}        {color, width}
+                               sources.Props
+    DOMSink -> sinks: {DOMSink}
+		action$ -> sinks: {RemoveA$}
+
+### Data Flow of Remove Action
+
+    DOMSource -> [Item.intent>select] -> 'remove-btn' clicks$ -> [intent>mapTo] -> {type: REMOVE} -> [Item>return] -> {type:REMOVE} -> [List.itemWrapper>return] -> {Remove: id$} -> [model.createNewItem>return] -> {id, Remove: id$} -> [List()>map] -> id$ _n: itemRemove$ -> [List.intent] -> {type: REMOVE_ITEM, payload: id} -> [model>removeItemReducer$] -> removeItemReducer$ -> [model>fold] -> items$
+
+Nested functions:
+
+    Item(): 
+      DOMSource -> [Item.intent>select] -> 'remove-btn' clicks$ -> [intent>mapTo] -> {type: REMOVE} -> [Item>return] -> {type:REMOVE} _n: id$ 
+      ==>
+      DOMSource -> [Item()] -> {type:REMOVE} _n: id$ 
+
+### Rules for Data Flow Mapping
+
+1. Execution of data flow is mapped. Not the abstract syntax tree of functions.
+
+2. The functions that operate on streams don't have to be literal function definitions. Instead expressions should be mapped. 
+
+3. Function definitions show the place of the operation in our code. But it doesn't determine the execution order of data flow.
+
+4. Show function definition with `>`. Ex: List() > map
+
+    Ex: `[model>fold]`
+
+5. Specify names separately with `_n`. They don't have to be actual names. You can create names as well.
+
+    Ex: `{type: REMOVE} _n: id$`
+
+6. imitate() makes cyclical dependency possible. But note that, the data flow is still linear and uncyclical.
+
+    This data flow steps occur with the help of `imitate`:
+
+        id$ _n: itemRemove$ -> [List.intent] -> {type: REMOVE_ITEM, payload: id} -> [model>removeItemReducer$] -> removeItemReducer$ -> [model>fold] -> items$
+
+    But note that, `List.intent` comes actually before `imitate` in the code:
+
+        const action$ = intent(sources.DOM, proxyItemRemove$);
+        ...
+        proxyItemRemove$.imitate(itemRemove$);
+
+7. We don't start the data flow with code definition. 
+
+        const proxyItemRemove$ = xs.create();
+        const action$ = intent(sources.DOM, proxyItemRemove$);
+        const itemWrapper = makeItemWrapper(sources.DOM);
+
+    We start data flow from inside makeItemWrapper
+
+        function makeItemWrapper(DOM) {
+          return function itemWrapper(props, id) {
+            const item = isolate(Item)({DOM, Props: xs.of(props)});
+
+    Since, the first data flow step occurs inside Item, we started the data flow from there:
+
+        function Item(sources) {
+          const action$ = intent(sources.DOM);
+
+    Data flow:
+
+        DOMSource -> [Item.intent>select] -> 'remove-btn' clicks$ 
+
+Note that, the data flow has a very different shape than the code's structure. I think this hints that we should document data flow in addition or maybe in prior to actual code writing.
+
+## ex01: todomvc-onion
+
+``` bash
+mkdir -p ex/study_cyclejs_examples/ex01 && cd $_ && npm init -y && pnpm i parcel-bundler --save-dev && npm i xstream @cycle/run @cycle/dom @cycle/http cycle-storageify @cycle/storage @cycle/history @cycle/isolate todomvc-common todomvc-app-css
+``` 
+
+Edit `~/projects/study/js/ex/study_cyclejs_examples/ex01/.babelrc`
+
+``` js
+{
+  "presets": ["es2015"],
+  "plugins": ["transform-object-rest-spread"]
+}
+``` 
+
+Edit `~/projects/study/js/ex/study_cyclejs_examples/ex01/package.json`
+
+``` js
+"devDependencies": {
+  "babel-preset-env": "^1.7.0",
+  "babel-plugin-transform-object-rest-spread": "^6.6.5",
+  "babel-preset-es2015": "^6.3.13",
+  "babel-register": "^6.4.3",
+  "babelify": "^7.2.0",
+``` 
+

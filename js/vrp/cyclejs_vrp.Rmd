@@ -29,6 +29,22 @@ options(width = 150)
 options(max.print = 30)
 ``` 
 
+## Common For Most Subprojects:
+
+`ex/cyclejs_vrp/ex15/package.json`
+
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+
+Start database server and postgrest:
+
+``` bash
+dmd=~/projects/itr/itr_documentation/data_model
+psk=~/codes/pg/khumbuicefall
+cd $psk
+docker-compose up -d
+``` 
+
 ## v01: Calling and Viewing Data from a Simple REST API 
 
 First run the web service:
@@ -51,10 +67,51 @@ Note: The following code variants have different outputs:
       //h4('.comment-json', firstComment.id)
       //> TypeError: Cannot create property 'className' on number '1'
 
-The code of this web page:
+Edit `ex/cyclejs_vrp_ex01.js`:
 
-``` {bash}  
-cat ex/cyclejs_vrp_ex01.js
+``` js
+const {button, h1, h4, a, div, makeDOMDriver} = CycleDOM;
+const {makeHTTPDriver} = CycleHTTPDriver;
+
+function main(sources) {
+  const clickEvent$ = sources.DOM
+    .select('.get-first').events('click');
+  
+  const request$ = clickEvent$.map(() => {
+    return {
+      url: 'http://localhost:3000/comments/1',
+      method: 'GET',
+    };
+  });
+  
+  const response$$ = sources.HTTP
+    .filter(response$ => response$.request.url ===
+           'http://localhost:3000/comments/1');
+  
+  const response$ = response$$.switch();
+  const firstComment$ = response$.map(response => response.body)
+    .startWith(null);
+  
+  return {
+    DOM: firstComment$.map(firstComment =>
+      div([
+        button('.get-first', 'Get first comment'),
+        firstComment === null ? null : div('.comment-details', [
+          h4('.comment-body', firstComment.body),
+          h4('.comment-id', `${firstComment.id}`)
+        ])
+      ])
+    ),
+    HTTP: request$,
+  };
+}
+
+const drivers = {
+  DOM: makeDOMDriver('#app'),
+  HTTP: makeHTTPDriver(),
+}
+
+Cycle.run(main, drivers);
 ``` 
 
 ## Calling a Postgrest REST API
@@ -152,14 +209,14 @@ R
 ``` R
 test_setup()
 main_rdb_to_data_step01()
-#> ~/projects/itr/itr_documentation/data_model/data/view/ddl.sql
-#> ~/projects/itr/itr_documentation/data_model/data/sql/sql_insert/sql_insert_enum_var.sql
+  #> ~/projects/itr/itr_documentation/data_model/data/view/ddl.sql
+  #> ~/projects/itr/itr_documentation/data_model/data/sql/sql_insert/sql_insert_enum_var.sql
 ``` 
 
 Manually edit `ddl_m.sql` by moving updated lines from `ddl.sql`:
 
 ``` vim
-#> ~/projects/itr/itr_documentation/data_model/data/view/ddl.sql
+  #> ~/projects/itr/itr_documentation/data_model/data/view/ddl.sql
 :%s/\<BIGINT\>/INT/
 ``` 
 
@@ -167,7 +224,7 @@ Go to R console:
 
 ``` R
 main_rdb_to_data_step02()
-#> ~/projects/itr/itr_documentation/data_model/data/view/data.sql
+  #> ~/projects/itr/itr_documentation/data_model/data/view/data.sql
 ``` 
 
 Import initial data into database to check:
@@ -228,8 +285,32 @@ open ex/cyclejs_vrp_ex03.html
 
 ### Table with CycleJs
 
-``` bash
-open ex/cyclejs_vrp_ex04.html
+Edit `ex/cyclejs_vrp_ex04.js`
+
+``` js
+...
+  const response$ = sources.HTTP.
+    filter(r$ => r$.request.url ===
+           'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id').
+    switch();
+  const json$ = response$.map(response => response.body);
+  
+  return {
+    DOM: json$.map(json =>
+      table([
+        thead(
+          tr(
+            th('Plan Id'),
+            th('Kullanıcı'),
+            th('Depot Id')
+          )
+        ),
+        tbody(
+          json.map(e => 
+            tr([
+              td(e.plan_id),
+              td(e.usr),
+              td(e.depot_id)
 ``` 
 
 ### Bundle it with ParcelJs
@@ -250,7 +331,67 @@ removed
     "start": "cycle-scripts start",
     "build": "cycle-scripts build",
 
-`ex/cyclejs_vrp/ex05/index.js`
+Edit `ex/cyclejs_vrp/ex05/index.js`
+
+``` js
+import Rx from 'rxjs/Rx'
+import {run} from '@cycle/rxjs-run'
+import {button, h1, h4, a, div, table, thead, tbody, tr, td, th, makeDOMDriver} from '@cycle/dom';
+import {makeHTTPDriver} from '@cycle/http';
+
+function main(sources) {
+  const clickEvent$ = sources.DOM
+    .select('.get-first').events('click')
+    .startWith(null);
+  
+  const request$ = clickEvent$.map(() => {
+    return {
+      url: 'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id',
+      method: 'GET',
+      headers: {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+      }
+    };
+  });
+  
+  const response$$ = sources.HTTP.select();
+  const response$ = response$$.switch();
+  const json$ = response$.map(response => response.body);
+  
+  return {
+    DOM: json$.
+      map(json =>
+        table([
+          thead(
+            tr([
+              th('Plan Id'),
+              th('Kullanıcı'),
+              th('Depot Id')
+            ])
+          ),
+          tbody(
+            json.map(e => 
+              tr([
+                td(e.plan_id),
+                td(e.usr),
+                td(e.depot_id)
+              ])
+            )
+          )
+        ])
+      ),
+    HTTP: request$,
+  };
+}
+
+const drivers = {
+  DOM: makeDOMDriver('#app'),
+  HTTP: makeHTTPDriver(),
+}
+
+run(main, drivers);
+
+``` 
 
 Run `npm start`
  
@@ -417,7 +558,7 @@ Open http://localhost:1234
 mkdir -p ex/cyclejs_vrp/ex08 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom @cycle/http cycle-onionify cycle-storageify @cycle/storage
 ``` 
 
-``` {bash}
+``` bash
 cp -R ex/cyclejs_vrp/ex07/src/ ex/cyclejs_vrp/ex08/src/ 
 ``` 
 
@@ -498,7 +639,7 @@ export default function view(state$) {
 mkdir -p ex/cyclejs_vrp/ex09 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom @cycle/http cycle-onionify cycle-storageify @cycle/storage typestyle bootstrap jquery jquery-ui-dist popper.js
 ``` 
 
-``` {bash}
+``` bash
 cp -R ex/cyclejs_vrp/ex08/src/ ex/cyclejs_vrp/ex09/src/ 
 ``` 
 
@@ -567,7 +708,7 @@ export default function PlanPanel(state$) {
 mkdir -p ex/cyclejs_vrp/ex10 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom @cycle/http cycle-onionify cycle-storageify @cycle/storage typestyle bootstrap jquery jquery-ui-dist popper.js
 ``` 
 
-``` {bash}
+``` bash
 cp -R ex/cyclejs_vrp/ex09/src/ ex/cyclejs_vrp/ex10/src/ 
 ``` 
 
@@ -611,13 +752,13 @@ Run `npm start`
  
 Open http://localhost:1234
 
-### v12: Parcel + CycleJs Simplest Example
+### v12: Parcel + CycleJs + Tabs But Not Working
 
 ``` bash
 mkdir -p ex/cyclejs_vrp/ex12 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom
 ``` 
 
-``` {bash}
+``` bash
 cp -R ex/cyclejs_vrp/ex11/src/ ex/cyclejs_vrp/ex12/src/ 
 ``` 
 
@@ -628,11 +769,18 @@ cp -R ex/cyclejs_vrp/ex11/src/ ex/cyclejs_vrp/ex12/src/
 
 Edit `ex/cyclejs_vrp/ex12/src/index.js`
 
+``` js
+		DOM: xs.of(
+			div([
+				ul("#myTab.nav.nav-tabs", {
+					"role": "tablist",
+				}, [
+        ...
+``` 
+
 Run `npm start`
  
 Open http://localhost:1234
-
-Generated HTML file:
 
 ### v13: Use snabbdom h with attrs + bootstrap example
 
@@ -640,7 +788,7 @@ Generated HTML file:
 mkdir -p ex/cyclejs_vrp/ex13 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom snabbdom snabbdom-to-html
 ``` 
 
-``` {bash}
+``` bash
 cp -R ex/cyclejs_vrp/ex12/src/ ex/cyclejs_vrp/ex13/src/ 
 ``` 
 
@@ -662,13 +810,13 @@ Run `npm start`
  
 Open http://localhost:1234
 
-### v14: Use snabbdom helper functions with attrs + bootstrap example
+### v14: import snabbdom + bootstrap in js
 
 ``` bash
-mkdir -p ex/cyclejs_vrp/ex14 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom snabbdom snabbdom-to-html
+mkdir -p ex/cyclejs_vrp/ex14 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom bootstrap jquery jquery-ui-dist popper.js
 ``` 
 
-``` {bash}
+``` bash
 cp -R ex/cyclejs_vrp/ex13/src/ ex/cyclejs_vrp/ex14/src/ 
 ``` 
 
@@ -704,4 +852,710 @@ npm i bootstrap jquery jquery-ui-dist popper.js
 Run `npm start`
  
 Open http://localhost:1234
+
+### v15: Full Page Layout 01: Handsontable Component
+
+``` bash
+mkdir -p ex/cyclejs_vrp/ex15 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom @cycle/http cycle-onionify cycle-storageify @cycle/storage typestyle bootstrap jquery jquery-ui-dist popper.js handsontable
+``` 
+
+``` bash
+cp -R ex/cyclejs_vrp/ex10/src/ ex/cyclejs_vrp/ex15/src/ 
+``` 
+
+Edit `ex/cyclejs_vrp/ex15/src/components/app/index.js`
+
+``` js
+...
+export default function main(sources) {
+  var data1 = [
+    ['', 'Tesla', 'Nissan', 'Toyota', 'Honda', 'Mazda', 'Ford'],
+    ['2017', 10, 11, 12, 13, 15, 16],
+  ];
+  ...
+  return {
+    DOM: vdom$,
+    HTTP: intent(sources.DOM),
+    onion: reducer$,
+    Hot: xs.periodic(2000)
+      .map(i => {
+        console.log(data1)
+        data1[0][i % 7] = i; 
+        return data1
+      })
+...
+``` 
+
+Edit `ex/cyclejs_vrp/ex15/src/index.js`
+
+``` js
+...
+var hot = new Handsontable(container, {
+  data: data1,
+});
+
+const drivers = {
+  DOM: makeDOMDriver('#app'),
+  HTTP: makeHTTPDriver(),
+  storage: storageDriver,
+  Hot: HotDriver,
+};
+
+function HotDriver(data$) {
+  data$.addListener({
+    next: data => {
+      hot.loadData(data)
+    }}
+  )
+  var producer = {
+    start: function(observer) {
+      hot.addHook('afterChange', function () {
+        console.log("changed")
+        observer.next(hot.getSourceData())
+      })
+    },
+    stop: function () {
+      console.log("stopped")
+    }
+  }
+  const HotSource = xs.create(producer)
+  return HotSource
+}
+...
+``` 
+
+### v15.02: Full Page Layout: Make HotDriver pure function
+
+Edit `ex/cyclejs_vrp/ex15/package.json`
+
+  "scripts": {
+    "start02": "parcel src02/index.html",
+
+Edit `ex/cyclejs_vrp/ex15/src02/index.js`
+
+``` js
+...
+const init$ = xs.of(
+  [
+    ['', 'Tesla', 'Nissan', 'Toyota', 'Honda', 'Mazda', 'Ford'],
+    ['2017', 10, 11, 12, 13, 15, 16],
+  ]
+)
+const drivers = {
+  Hot: makeHotDriver("#example", init$),
+  ...
+function makeHotDriver(mount_id, init$) {
+  var hot;
+  init$.subscribe({
+    next: data => {
+      var container = document.querySelector(mount_id);
+      hot = new Handsontable(container, {
+        data: data,
+      });
+    }
+  })
+  return function HotDriver(data$) {
+    ...
+``` 
+
+Run `npm run start02`
+
+### v15.03: Full Page Layout: Make initial data non-stream
+
+Edit `ex/cyclejs_vrp/ex15/package.json`
+
+  "scripts": {
+    "start03": "parcel src03/index.html",
+
+Edit `ex/cyclejs_vrp/ex15/src03/index.js`
+
+``` js
+...
+const initial_data = [
+  ['', 'Tesla', 'Nissan', 'Toyota', 'Honda', 'Mazda', 'Ford'],
+  ['2017', 10, 11, 12, 13, 15, 16],
+]
+const drivers = {
+  ...
+  Hot: makeHotDriver("#example", initial_data),
+  ...
+function makeHotDriver(mount_id, initial_data) {
+  var hot;
+  var container = document.querySelector(mount_id);
+  hot = new Handsontable(container, {
+    data: initial_data,
+  });
+  ...
+``` 
+
+### v15.04: Full Page Layout: No initial data
+
+Edit `ex/cyclejs_vrp/ex15/package.json`
+
+  "scripts": {
+    "start04": "parcel src04/index.html",
+
+Edit `ex/cyclejs_vrp/ex15/src04/index.js`
+
+``` js
+...
+const drivers = {
+  ...
+  Hot: makeHotDriver("#example", [[]]),
+  ...
+function makeHotDriver(mount_id, initial_data) {
+  var hot;
+  var container = document.querySelector(mount_id);
+  hot = new Handsontable(container, {
+    data: initial_data,
+    minRows: 1,
+    minCols: 7,
+    minSpareRows: 1,
+    contextMenu: true
+...
+``` 
+
+### v15.05: Full Page Layout: Fixing layout css of Handsontable
+
+Edit `ex/cyclejs_vrp/ex15/package.json`
+
+  "scripts": {
+    "start05": "parcel src05/index.html",
+
+Edit `ex/cyclejs_vrp/ex15/src05/index.html`
+
+``` html
+...
+    <div id="app"> </div>
+    <div class="outside"> 
+      <article>
+        <table id="example" class="display">
+        </table>
+      </article>
+    </div>
+``` 
+
+Edit `ex/cyclejs_vrp/ex15/src05/index.css`
+
+``` js
+.outside {
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-template-row: 1fr auto 1fr;
+  grid-gap: 10px;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+...
+``` 
+
+Use sinks.DOM and isolate for Header() subcomponent:
+
+``` bash
+npm i @cycle/isolate
+``` 
+
+Edit `ex/cyclejs_vrp/ex15/src06/components/app/index.js`
+
+``` js
+import isolate from '@cycle/isolate';
+...
+export default function main(sources) {
+  const headerSinks = isolate(Header)(sources)
+  ...
+  const vdom$ = xs.combine(
+    headerSinks.DOM,
+    PlanPanel(state$),
+  ...
+``` 
+
+Edit `ex/cyclejs_vrp/ex15/src06/components/header/index.js`
+
+``` js
+...
+export default function Header() {
+  const vdom$ = xs.of(
+    header([
+    ...
+  const sinks = {
+    DOM: vdom$,
+  }
+  return sinks;
+...
+``` 
+
+### v15.06: standardize isolate() and sinks.DOM for subcomponents
+
+Edit `ex/cyclejs_vrp/ex15/package.json`
+
+  "scripts": {
+    "start06": "parcel src06/index.html",
+
+``` bash
+npm i @cycle/isolate
+``` 
+
+Edit `ex/cyclejs_vrp/ex15/src06/components/app/index.js`
+
+``` js
+import isolate from '@cycle/isolate';
+...
+export default function main(sources) {
+  ...
+  const planPanelSinks = PlanPanel(sources)
+  ...
+  const vdom$ = xs.combine(
+    headerSinks.DOM,
+    planPanelSinks.DOM,
+  ...
+``` 
+
+Edit `ex/cyclejs_vrp/ex15/src06/components/plan_panel/index.js`
+
+``` js
+...
+export default function PlanPanel(sources) {
+  const state$ = sources.onion.state$
+  ...
+``` 
+
+### v15.06.e01: standardize isolate() and sinks.DOM for subcomponents: isolate(PlanPanel) doesn't work
+
+The following code doesn't work:
+
+    //const planPanelSinks = PlanPanel(sources)
+    const planPanelSinks = isolate(PlanPanel)(sources)
+
+All vdom disappears after that.
+
+Edit `ex/cyclejs_vrp/ex15/package.json`
+
+  "scripts": {
+    "start06e01": "parcel src06e01/index.html",
+
+Use only `planPanelSinks.DOM` first:
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src06e01/components/app/index.js`
+
+``` js
+...
+  const planPanelSinks = PlanPanel(state$)
+  ...
+  const vdom$ = xs.combine(
+    headerSinks.DOM,
+    planPanelSinks.DOM,
+    ...
+``` 
+
+This works. 
+
+#### v15.06.e02: wrap with isolate
+
+Now, wrap it with `isolate`
+
+Edit `ex/cyclejs_vrp/ex15/package.json`
+
+  "scripts": {
+    "start06e02": "parcel src06e02/index.html",
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src06e02/components/app/index.js`
+
+``` js
+...
+  const planPanelSinks = isolate(PlanPanel)(state$)
+``` 
+
+Error:
+
+    Uncaught TypeError: state$.map is not a function
+        at PlanPanel (index.js:14)
+        at wrappedComponent (index.js:152)
+        at main (index.js:20)
+        at index.js:27
+        at mainOnionified (onionify.js:14)
+
+#### v15.06.e03 PlanPanel(sources) with isolate wrapper
+
+Make PlanPanel take sources as argument:
+
+Edit `ex/cyclejs_vrp/ex15/package.json`
+
+  "scripts": {
+    "start06e03": "parcel src06e03/index.html",
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src06e03/components/app/index.js`
+
+``` js
+...
+  const planPanelSinks = isolate(PlanPanel)(sources)
+``` 
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src06e03/components/plan_panel/index.js`
+
+``` js
+...
+export default function PlanPanel(sources) {
+  const state$ = sources.onion.state$;
+  ...
+``` 
+
+Debug:
+ 
+    state$.debug(x$ => x$.debug(y$ => y$.debug(console.log)))
+    # MemoryStream {_prod: Debug, _ils: Array(0), _stopID: {…}, _dl: {…}, _d: false, …}
+    state0$.debug(x$ => x$.debug(y$ => y$.debug(console.log)))
+
+#### v15.06.e04 PlanPanel(sources) without isolate wrapper
+
+What happens if we undo isolate wrapper of PlanPanel but implement with sources still?
+
+Edit `ex/cyclejs_vrp/ex15/package.json`
+
+  "scripts": {
+    "start06e04": "parcel src06e03/index.html",
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src06e04/components/app/index.js`
+
+``` js
+...
+  const planPanelSinks = PlanPanel(sources)
+``` 
+
+Now, it works correctly. So, the problem seems to be in the interaction between `isolate`, `sources`, and `onion`
+
+With `isolate` Console logs:
+
+``` js
+inside isolate.ts 
+isolate called 
+inside isolate.ts 
+isolate called for PlanPanel 
+response: 
+Object { req: {…}, xhr: XMLHttpRequest, text: "[{\"plan_id\":1,\"usr\":\"usr_4_4_4_4_4_4\",\"depot_id\":4},{\"plan_id\":2,\"usr\":\"usr_4_4_4_4_4_4\",\"depot_id\":2},{\"plan_id\":3,\"usr\":\"usr_2_2_2_2_\",\"depot_id\":5},{\"plan_id\":4,\"usr\":\"usr_1_1_1_1_1_1\",\"depot_id\":3},{\"plan_id\":5,\"usr\":\"usr_1_1_1_1_1_1\",\"depot_id\":3}]", statusText: "OK", statusCode: 200, status: 200, statusType: 2, info: false, ok: true, redirect: false, … }
+reducer: function (prevState) {
+      console.log("responseReducer$:");
+      console.log(response);
+      global.response = response;
+      return {
+        body: response.body
+      };
+    } index.js:32:17
+responseReducer$: 
+Object { req: {…}, xhr: XMLHttpRequest, text: "[{\"plan_id\":1,\"usr\":\"usr_4_4_4_4_4_4\",\"depot_id\":4},{\"plan_id\":2,\"usr\":\"usr_4_4_4_4_4_4\",\"depot_id\":2},{\"plan_id\":3,\"usr\":\"usr_2_2_2_2_\",\"depot_id\":5},{\"plan_id\":4,\"usr\":\"usr_1_1_1_1_1_1\",\"depot_id\":3},{\"plan_id\":5,\"usr\":\"usr_1_1_1_1_1_1\",\"depot_id\":3}]", statusText: "OK", statusCode: 200, status: 200, statusType: 2, info: false, ok: true, redirect: false, … }
+``` 
+
+Without `isolate` Console logs:
+
+``` js
+inside isolate.ts _set-to-string-tag.js:8
+isolate called 
+response: 
+Object { req: {…}, xhr: XMLHttpRequest, text: "[{\"plan_id\":1,\"usr\":\"usr_4_4_4_4_4_4\",\"depot_id\":4},{\"plan_id\":2,\"usr\":\"usr_4_4_4_4_4_4\",\"depot_id\":2},{\"plan_id\":3,\"usr\":\"usr_2_2_2_2_\",\"depot_id\":5},{\"plan_id\":4,\"usr\":\"usr_1_1_1_1_1_1\",\"depot_id\":3},{\"plan_id\":5,\"usr\":\"usr_1_1_1_1_1_1\",\"depot_id\":3}]", statusText: "OK", statusCode: 200, status: 200, statusType: 2, info: false, ok: true, redirect: false, … }
+reducer: function (prevState) {
+      console.log("responseReducer$:");
+      console.log(response);
+      global.response = response;
+      return {
+        body: response.body
+      };
+    } 
+responseReducer$: 
+Object { req: {…}, xhr: XMLHttpRequest, text: "[{\"plan_id\":1,\"usr\":\"usr_4_4_4_4_4_4\",\"depot_id\":4},{\"plan_id\":2,\"usr\":\"usr_4_4_4_4_4_4\",\"depot_id\":2},{\"plan_id\":3,\"usr\":\"usr_2_2_2_2_\",\"depot_id\":5},{\"plan_id\":4,\"usr\":\"usr_1_1_1_1_1_1\",\"depot_id\":3},{\"plan_id\":5,\"usr\":\"usr_1_1_1_1_1_1\",\"depot_id\":3}]", statusText: "OK", statusCode: 200, status: 200, statusType: 2, info: false, ok: true, redirect: false, … }
+PlanPanel state: 
+Object { body: (5) […] }
+``` 
+
+Note that the difference is the last log line:
+
+``` js
+...
+PlanPanel state: 
+Object { body: (5) […] }
+``` 
+
+So, with `isolate` the following code is not executed:
+
+`~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src06e04/components/plan_panel/index.js`
+
+``` js
+export default function PlanPanel(sources) {
+  const state$ = sources.onion.state$;
+  const panel_vdom$ = state$
+    .debug( x => {
+      console.log("PlanPanel state: " )
+      console.log(x)
+      ...
+``` 
+
+If this is not called, then `state$` doesn't have new event. But why? `responseReducer$` has returned a new object. This should be passed to the `state$` stream.
+
+Why is it not passed to the `state$` stream? This is probably related to `onion`
+
+`~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src06e04/components/app/model.js`
+
+``` js
+export default function model(http$) {
+  const response$$ = http$.select();
+  const response$ = response$$.flatten()
+    .debug( x => console.log("response: "))
+    .debug( x => console.log(x))
+
+  const responseReducer$ = response$.map(
+    response => (prevState) => {
+      console.log("responseReducer$:")
+      console.log(response)
+      global.response = response
+      return {
+        body: response.body
+      }
+  ...
+``` 
+
+#### debug inside xstream and isolate.ts
+
+Copy xstream's source file
+
+`/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src06e04/xstream/index.ts`
+
+    import xs from 'xstream';
+    ->
+    import xs from '../../xstream';
+
+#### v15.06.e05 Simpler Example for PlanPanel(sources) with isolate wrapper
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src06e05/components/app/index.js`
+
+``` js
+...
+  const planPanelSinks = isolate(PlanPanel, {storage: null, onion: null})(sources)
+  ...
+``` 
+
+Now, it works.
+
+### v15.07: standardize isolate() and sinks.DOM for subcomponents part 2
+
+Edit `ex/cyclejs_vrp/ex15/package.json`
+
+  "scripts": {
+    "start07": "parcel src07/index.html",
+
+Edit `ex/cyclejs_vrp/ex15/src07/components/app/index.js`
+
+``` js
+...
+  const headerSinks = isolate(Header, {storage: null, onion: null, Hot: null})(sources)
+  const planPanelSinks = isolate(PlanPanel, {storage: null, onion: null, Hot: null})(sources)
+  const detailPanelSinks = isolate(DetailPanel, {storage: null, onion: null, Hot: null})(sources)
+  ...
+``` 
+
+### v15.08: multiple requests without onion
+
+Taken from `<url:/Users/mertnuhoglu/projects/study/js/study_notes_cyclejs.Rmd#tn=## p05: Multiple HTTP Requests Using Multiple Components>`
+
+Edit `ex/cyclejs_vrp/ex15/package.json`
+
+  "scripts": {
+    "start08": "parcel src08/index.html",
+
+Edit `ex/cyclejs_vrp/ex15/src08/components/app/index.js`
+
+### v15.09: Get Detail Data for a Selected Plan
+
+#### v15.09_01: Make state non-stream object
+
+Currently state stream consists of two substate-streams:
+
+``` js
+  const {plans$, purchase_orders$} = state$
+``` 
+
+I want to obtain only one stream of global state. 
+
+`plans$` and `purchase_orders$` are streams of the following arrays:
+
+``` js
+[
+  {
+    "plan_id": 1,
+    "usr": "usr_4_4_4_4_4_4",
+    "depot_id": 4
+  },
+  {
+    "plan_id": 2,
+    "usr": "usr_4_4_4_4_4_4",
+    "depot_id": 2
+  }
+]
+``` 
+
+``` js
+[
+  {
+    "purchase_order_id": 1,
+    "company_id": 2,
+    "order_extid": "order_extid_2",
+    "company_extid": "company_e"
+  },
+  {
+    "purchase_order_id": 2,
+    "company_id": 5,
+    "order_extid": "order_extid_2",
+    "company_extid": "company_e"
+  }
+]
+``` 
+
+Now, how can we convert these streams into a single state object of the form:
+
+
+``` js
+{
+  plans: [{..}, {..}, ...],
+  purchase_orders: [{..}, {..}, ...],
+}
+``` 
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_01/components/app/index.js`
+
+``` js
+...
+  //const {plans$, purchase_orders$} = state$
+  const planPanelSinks = isolate(PlanPanel, {storage: null, onion: null, Hot: null})(sources, state$)
+  const detailPanelSinks = isolate(DetailPanel, {storage: null, onion: null, Hot: null})(sources, state$)
+``` 
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_01/components/app/model.js`
+
+``` js
+  const rs$ = xs.combine(plans$, purchase_orders$)
+    .map( ([plans, purchase_orders]) => ({
+      plans: plans,
+      purchase_orders: purchase_orders,
+    }))
+``` 
+
+### v15.09_02 Return reducers from model()
+
+Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src09/index.js`
+
+``` js
+  //const state$ = model(sources)
+  const initialState = {
+    plans: [], 
+    purchase_orders: [],
+  }
+  const reducer$ = model(sources)
+  const state$ = reducer$
+    .fold((prevState, reducer) => reducer(prevState), initialState);
+``` 
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_02/components/app/model.js`
+
+``` js
+export default function model(sources) {
+  const planReducer$ = sources.HTTP.select('plan')
+    .flatten()
+    .map(res => function planReducer(prevState) {
+      return {
+        ...prevState,
+        plans: res.body
+      }
+    })
+  const purchaseOrderReducer$ = sources.HTTP.select('purchase_order')
+    .flatten()
+    .map(res => function purchaseOrderReducer(prevState) {
+      return {
+        ...prevState,
+        purchase_orders: res.body
+      }
+    })
+
+  const reducer$ = xs.merge(planReducer$, purchaseOrderReducer$)
+  return reducer$
+}
+``` 
+
+### v15.09_03 Use my onionify() function before cyclejs.onionify
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_03/index.js`
+
+``` js
+//const main = App;
+const initialState = {
+  plans: [], 
+  purchase_orders: [],
+}
+function onion(reducer$) {
+  const state$ = xs.merge(reducer$)
+    .fold((prevState, reducer) => reducer(prevState), initialState);
+  return state$
+}
+function onionify(main) {
+  return function mainOnionified(sources) {
+    const reducerMimic$ = xs.create()
+    const state$ = onion(reducerMimic$)
+    sources.onion = {state$}
+    const sinks = main(sources)
+    reducerMimic$.imitate(sinks.onion)
+    return sinks
+  }
+}
+const main = onionify(App);
+``` 
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_03/components/app/index.js`
+
+``` js
+export default function main(sources) {
+  //const state$ = model(sources)
+  //const initialState = {
+    //plans: [], 
+    //purchase_orders: [],
+  //}
+  const reducer$ = model(sources)
+  //const state$ = reducer$
+    //.fold((prevState, reducer) => reducer(prevState), initialState);
+  const state$ = sources.onion.state$
+  ...
+  return {
+    onion: reducer$,
+    ...
+``` 
+
+### v15.09_04 Use cyclejs.onionify()
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_04/index.js`
+
+``` js
+import onionify from 'cycle-onionify';
+const main = onionify(App);
+``` 
+
+## v15.10_01 Add "Get Data" Button
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_01/components/plan_panel/index.js`
+
+``` js
+function view(state$) {
+...
+              state.plans.map(e => 
+                tr(".plan_row", 
+                  [
+                    td(e.plan_id),
+                    td(e.usr),
+                    td(e.depot_id),
+                    td(
+                      button(".get_plan_details", 
+                        {dataset: {plan_id: e.plan_id}},
+                        "Verileri Getir"
+                      )
+                    ),
+                  ])
+                  ...
+}
+``` 
+
+Button click events will be piped into `intent()` function
 

@@ -320,3 +320,1917 @@ npm init -y && pnpm i sendmail
 
 Edit `ex/study_js/send_mail/ex01.js`
 
+## Article: Metaprogramming in ES6: Symbols and why they're awesome by Keith Cirkel
+
+https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/
+
+### Metaprogramming
+
+Some types of metaprogramming:
+
+1. Code Generation
+
+    `eval`
+
+2. Reflection/Intropection
+
+    finding out about the structure of the application
+
+    `Function#name` `Function#length` `Function#bind` `Function#apply`
+
+    All methods on `Object`: `getOwnProperties`
+
+    operators: `typeof` `instanceof` `delete`
+
+Metaprogramming in ES6:
+
+`Symbol`, `Reflect` and `Proxy`
+
+Symbols: for reflection within implementation
+
+Reflect: reflection through introspection
+
+Proxy: reflection through intercession: wrapping objects and intercepting
+
+### Symbols - Reflection within Implementation
+
+Symbols are a new primitive. 
+
+`Symbol()` function creates them.
+
+``` js
+Symbol();
+console.log(Symbol())
+assert(typeof Symbol() === 'symbol')
+new Symbol(); // TypeError
+``` 
+
+You can give a description to be used for debugging on console:
+
+``` js
+console.log(Symbol('foo')); 
+//> Symbol(foo)
+``` 
+
+### Uses for Symbols
+
+It is a way to attach properties to an Object
+
+1. As a unique value where you'd normally use a String or Integer
+
+``` js
+log.levels = {
+  DEBUG: Symbol('debug'),
+  INFO: Symbol('info'),
+}
+``` 
+
+2. A place to put metadata values in an Object
+
+``` js
+var size = Symbol('size')
+obj[size] = 0
+``` 
+
+3. Let developers add hooks to their objects
+
+## Article: Metaprogramming in ES6: Part 2 - Reflect By Keith Cirkel
+
+https://www.keithcirkel.co.uk/metaprogramming-in-es6-part-2-reflect/
+
+- Symbols are to change the behaviour of existing objects
+- Reflect is to discover low level information about your code
+- Proxy is to intercept the behaviours of objects
+
+`Reflect` is a new global object like `JSON` and `Math`. It provides introspection methods.
+
+### Internal Methdos
+
+JS Specs define several [internal methods](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-ordinary-object-internal-methods-and-internal-slots). They let js engine perform operations.
+
+Examples for internal methods: `[[Get]]` `[[Set]]` `[[HasOwnProperty]]`
+
+`Object.prototype.hasOwnProperty` is an implementation of `[[HasOwnProperty]]`. 
+
+`[[OwnPropertyKeys]]` simulation with public methods:
+
+``` js
+var keys = Object.getOwnPropertyNames(o).concat(Object.getOwnPropertySymbols(o));
+``` 
+
+Reflect is a collection of all of these internal methods. 
+
+### Reflect.apply
+
+Similar to `Function#apply`
+
+``` js
+var ages = [11, 33, 12, 54, 18, 96];
+
+// Function.prototype style:
+var youngest = Math.min.apply(Math, ages);
+var oldest = Math.max.apply(Math, ages);
+var type = Object.prototype.toString.call(youngest);
+
+// Reflect style:
+var youngest = Reflect.apply(Math.min, Math, ages);
+var oldest = Reflect.apply(Math.max, Math, ages);
+var type = Reflect.apply(Object.prototype.toString, youngest);
+``` 
+
+Example:
+
+``` js
+function totalNumbers() {
+  return Array.prototype.reduce.call(arguments, function (total, next) {
+    return total + next;
+  }, 0);
+}
+Reflect.apply(totalNumbers, null, [1, 2, 3, 4]) === 10;
+``` 
+
+### Reflect.construct
+
+This is similar to `Reflect.apply`. It lets you call a constructor with a set of arguments.
+
+``` js
+class Greeting {
+
+    constructor(name) {
+        this.name = name;
+    }
+
+    greet() {
+      return `Hello ${name}`;
+    }
+
+}
+const greetingFactory = (name) => Reflect.construct(Greeting, [name]);
+``` 
+
+### Reflect.defineProperty
+
+Similar to `Object.defineProperty`. It lets you define metadata about a property.
+
+``` js
+function MyDate() {
+  /*…*/
+}
+Reflect.defineProperty(MyDate, 'now', {
+  value: () => currentms
+});
+``` 
+
+### Reflect.getOwnPropertyDescriptor
+
+``` js
+var myObject = {};
+Object.defineProperty(myObject, 'hidden', {
+  value: true,
+  enumerable: false,
+});
+var theDescriptor = Reflect.getOwnPropertyDescriptor(myObject, 'hidden');
+assert.deepEqual(theDescriptor, { value: true, enumerable: true });
+
+assert(Object.getOwnPropertyDescriptor(1, 'foo') === undefined)
+Reflect.getOwnPropertyDescriptor(1, 'foo'); // throws TypeError
+``` 
+
+### Reflect.deleteProperty
+
+``` js
+var myObj = { foo: 'bar' };
+delete myObj.foo;
+assert(myObj.hasOwnProperty('foo') === false);
+
+myObj = { foo: 'bar' };
+Reflect.deleteProperty(myObj, 'foo');
+assert(myObj.hasOwnProperty('foo') === false);
+``` 
+
+### Reflect.getPrototypeOf(target)
+
+``` js
+var myObj = new FancyThing();
+assert(Reflect.getPrototypeOf(myObj) === FancyThing.prototype);
+
+// Old style
+assert(Object.getPrototypeOf(myObj) === FancyThing.prototype);
+
+Object.getPrototypeOf(1); // undefined
+Reflect.getPrototypeOf(1); // TypeError
+``` 
+
+### Reflect.setPrototypeOf ( target, proto )
+
+``` js
+var myObj = new FancyThing();
+assert(Reflect.setPrototypeOf(myObj, OtherThing.prototype) === true);
+assert(Reflect.getPrototypeOf(myObj) === OtherThing.prototype);
+
+// Old style
+assert(Object.setPrototypeOf(myObj, OtherThing.prototype) === myObj);
+assert(Object.getPrototypeOf(myObj) === FancyThing.prototype);
+
+Object.setPrototypeOf(1); // TypeError
+Reflect.setPrototypeOf(1); // TypeError
+
+var myFrozenObj = new FancyThing();
+Object.freeze(myFrozenObj);
+
+Object.setPrototypeOf(myFrozenObj); // TypeError
+assert(Reflect.setPrototypeOf(myFrozenObj) === false);
+``` 
+
+### Reflect.isExtensible (target)
+
+``` js
+var myObject = {};
+var myNonExtensibleObject = Object.preventExtensions({});
+
+assert(Reflect.isExtensible(myObject) === true);
+assert(Reflect.isExtensible(myNonExtensibleObject) === false);
+Reflect.isExtensible(1); // throws TypeError
+Reflect.isExtensible(false);  // throws TypeError
+
+// Using Object.isExtensible
+assert(Object.isExtensible(myObject) === true);
+assert(Object.isExtensible(myNonExtensibleObject) === false);
+
+// ES5 Object.isExtensible semantics
+Object.isExtensible(1); // throws TypeError on older browsers
+Object.isExtensible(false);  // throws TypeError on older browsers
+
+// ES6 Object.isExtensible semantics
+assert(Object.isExtensible(1) === false); // only on newer browsers
+assert(Object.isExtensible(false) === false); // only on newer browsers
+``` 
+
+### Other Methods
+
+Reflect.preventExtensions ( target )
+
+myObject[Symbol.iterator]()
+
+Reflect.get ( target, propertyKey [ , receiver ])
+
+``` js
+var myObject = {
+  foo: 1,
+  bar: 2,
+  baz() {
+    return this.foo + this.bar;
+  },
+}
+
+assert(Reflect.get(myObject, 'foo') === 1);
+``` 
+
+Reflect.set ( target, propertyKey, V [ , receiver ] )
+
+``` js
+var myObject = {
+  foo: 1,
+  set bar(value) {
+    return this.foo = value;
+  },
+}
+
+assert(myObject.foo === 1);
+assert(Reflect.set(myObject, 'foo', 2));
+assert(myObject.foo === 2);
+``` 
+
+Reflect.has ( target, propertyKey )
+
+``` js
+myObject = {
+  foo: 1,
+};
+Object.setPrototypeOf(myObject, {
+  get bar() {
+    return 2;
+  },
+  baz: 3,
+});
+
+// Without Reflect.has
+assert(('foo' in myObject) === true);
+
+// With Reflect.has:
+assert(Reflect.has(myObject, 'foo') === true);
+``` 
+
+Reflect.ownKeys ( target )
+
+``` js
+var myObject = {
+  foo: 1,
+  bar: 2,
+  [Symbol.for('baz')]: 3,
+  [Symbol.for('bing')]: 4,
+};
+
+assert.deepEqual(Object.getOwnPropertyNames(myObject), ['foo', 'bar']);
+assert.deepEqual(Object.getOwnPropertySymbols(myObject), [Symbol.for('baz'), Symbol.for('bing')]);
+
+// Without Reflect.ownKeys:
+var keys = Object.getOwnPropertyNames(myObject).concat(Object.getOwnPropertySymbols(myObject));
+assert.deepEqual(keys, ['foo', 'bar', Symbol.for('baz'), Symbol.for('bing')]);
+
+// With Reflect.ownKeys:
+assert.deepEqual(Reflect.ownKeys(myObject), ['foo', 'bar', Symbol.for('baz'), Symbol.for('bing')]);
+``` 
+
+## Reflection: Getting the Name of a Function
+
+https://stackoverflow.com/questions/12089823/get-name-of-prototype-object
+
+Only hoisted functions (function someFunc() {) have a retrievable name.
+
+Assigned functions do not, because you are not technically naming the function but creating an anonymous function and assigning a reference to it (in the memory) to a named variable.
+
+So it's the var, not the function, that is named
+
+``` bash
+cd ex/study_js && npm init -y && npm i xstream snabbdom snabbdom-to-html snabbdom-helpers @cycle/dom
+``` 
+
+Edit `ex/study_js/d01.js`
+
+``` js
+const xs = require('xstream').default
+var snabbdom = require('snabbdom');
+var h = require('snabbdom/h').default; 
+var {div} = require("snabbdom-helpers");
+
+const vdom$ = xs.of(
+  div("div01"),
+)
+``` 
+
+``` bash
+node ex/study_js/d01.js
+//> [ '_prod', '_ils', '_stopID', '_dl', '_d', '_target', '_err' ]
+//> Stream {
+//>   _n: [Function],
+//>   _e: [Function],
+//>   _c: [Function],
+//>   _x: [Function],
+//>   _stopNow: [Function],
+//>   _add: [Function],
+//>   _remove: [Function],
+//>   _pruneCycles: [Function],
+//>   _hasNoSinks: [Function],
+//>   ctor: [Function],
+//>   addListener: [Function],
+//>   removeListener: [Function],
+//>   subscribe: [Function],
+//>   _map: [Function],
+//>   map: [Function],
+//>   mapTo: [Function],
+//>   filter: [Function],
+//>   take: [Function],
+//>   drop: [Function],
+//>   last: [Function],
+//>   startWith: [Function],
+//>   endWhen: [Function],
+//>   fold: [Function],
+//>   replaceError: [Function],
+//>   flatten: [Function],
+//>   compose: [Function],
+//>   remember: [Function],
+//>   debug: [Function],
+//>   imitate: [Function],
+//>   shamefullySendNext: [Function],
+//>   shamefullySendError: [Function],
+//>   shamefullySendComplete: [Function],
+//>   setDebugListener: [Function],
+//>   [Symbol(observable)]: [Function] }
+``` 
+
+Edit `ex/study_js/d02.js`
+
+``` js
+...
+vdom$.addListener({
+  next: x => {
+    console.log(Reflect.ownKeys(x))
+    console.log(Reflect.getPrototypeOf(x))
+    var d1 = div("1")
+    console.log(Reflect.getPrototypeOf(d1))
+    console.log(d1.name)
+    //console.log(d1.prototype.constructor.name)
+    // error: d1.prototype is undefined
+    let f1 = function fn(a) {
+      return a + 1
+    }
+    console.log(f1.name)
+    console.log(f1.prototype.constructor.name)
+  },
+})
+``` 
+
+``` bash
+node ex/study_js/d02.js
+//> undefined
+//> [ 'sel', 'data', 'children', 'text', 'elm', 'key' ]
+//> {}
+//> {}
+//> undefined
+//> fn
+//> fn
+``` 
+
+Edit `ex/study_js/d03.js`
+
+``` js
+...
+vdom$
+  .debug(x => console.log(Reflect.ownKeys(x)))
+``` 
+
+``` bash
+node ex/study_js/d03.js
+//> 
+``` 
+
+Edit `ex/study_js/d04.js`
+
+``` js
+...
+const vdom$ = xs.of(
+  h('div',"div01"),
+)
+vdom$
+  .debug(x => console.log(Reflect.ownKeys(x)))
+  .addListener({
+    next: x => console.log(toHTML(x))
+  })
+``` 
+
+``` js
+node ex/study_js/d04.js
+//> [ 'sel', 'data', 'children', 'text', 'elm', 'key' ]
+//> <div>div01</div>
+``` 
+
+Edit `ex/study_js/d05.js`
+
+``` js
+...
+const vdom$ = xs.of(
+  div("div01"),
+)
+vdom$
+  .debug(x => console.log(Reflect.ownKeys(x)))
+  .addListener({
+    next: x => console.log(toHTML(x))
+  })
+``` 
+
+``` bash
+node ex/study_js/d05.js
+//> [ 'sel', 'data', 'children', 'text', 'elm', 'key' ]
+//> { sel: 'div',
+//>   data: { attrs: {}, props: {}, style: {}, on: {}, class: {}, hook: {} },
+//>   children: undefined,
+//>   text: undefined,
+//>   elm: undefined,
+//>   key: undefined }
+//> <div></div>
+``` 
+
+Edit `ex/study_js/d05.js`
+
+``` js
+...
+const {div} = require('@cycle/dom');
+const vdom$ = xs.of(
+  div("div01"),
+)
+vdom$
+  .debug(x => console.log(Reflect.ownKeys(x)))
+  .addListener({
+    next: console.log
+  })
+``` 
+
+``` bash
+node ex/study_js/d05.js
+//> [ 'sel', 'data', 'children', 'text', 'elm', 'key' ]
+//> { sel: 'div',
+//>   data: {},
+//>   children: undefined,
+//>   text: 'div01',
+//>   elm: undefined,
+//>   key: undefined }
+``` 
+
+## Console: Make Some Object Globally Available For Console
+
+Opt01: global.x
+
+Edit `~/projects/study/js/ex/study_js/e01.js`
+
+``` js
+function f() {
+  let x = "hello pal"
+  global.x = x
+}
+f()
+``` 
+
+This didn't work. Console:
+
+		Uncaught ReferenceError: x is not defined
+				at <anonymous>:1:1
+		(anonymous) @ VM42:1
+
+Opt02: window.x
+
+Edit `~/projects/study/js/ex/study_js/e02.js`
+
+``` js
+function f() {
+  let x = "hello pal"
+  window.x = x
+}
+f()
+``` 
+
+This works. 
+
+Opt03: window["x"]
+
+Edit `~/projects/study/js/ex/study_js/e03.js`
+
+``` js
+function f() {
+  let x = "hello pal"
+  window["x"] = x
+}
+f()
+``` 
+
+This works. 
+
+Opt04: with cyclejs 
+
+``` bash
+pnpm i parcel-bundler --save-dev
+``` 
+
+Edit `~/projects/study/js/ex/study_js/e04.js`
+
+``` js
+...
+function main(sources) {
+  const vdom$ = xs.of(
+    div("planet earth")
+  )
+  let x = "x"
+  let y = "y"
+  window.x = x
+  global.y = y
+	...
+``` 
+
+Both `x` and `y` are available in browser's console.
+
+## Topic: Source Maps
+
+### Article: How do source maps work? - Matt Zeunert
+
+http://www.mattzeunert.com/2016/02/14/how-do-source-maps-work.html
+
+#### What does a source map look like?
+
+Let’s compile this ES 2015 code with Babel:
+
+``` js
+const square = (x) => x * x;
+``` 
+
+This is the compiled JavaScript code:
+
+``` js
+"use strict";
+
+var square = function square(x) {
+  return x * x;
+};
+//# sourceMappingURL=test.js.map
+``` 
+
+And this is the source map content inside “test.js.map”:
+
+``` js
+{
+    "version": 3,
+    "sources": ["test.es6.js"],
+    "names": [],
+    "mappings": ";;AAAA,IAAM,MAAM,GAAG,SAAT,MAAM,CAAI,CAAC;SAAK,CAAC,GAAG,CAAC;CAAA,CAAC",
+    "file": "test.js",
+    "sourcesContent": ["const square = (x) => x * x;"]
+}
+``` 
+
+JSON data fields:
+
+- Version: This is the source map standard revision that was used.
+- Sources: This list contains the original file names before compilation. 
+- File: Filename of the compiled code.
+- Content: Content of the files specified in Sources.
+
+"mappings" data format is complicated. It uses "Base 64 VLQ" format.
+
+#### Base 64 VLQ
+
+VLQ: variable-length quantity. It is used to store a number in space-efficient way.
+
+For example “AAAA” stands for [0,0,0,0] and “GAAG” stands for [3,0,0,3].
+
+#### Interpreting the mappings entries
+
+Each value in the array is an index that refers to a position either in the compiled source code or in the original source code.
+
+- [0]: Column index in the compiled file
+- [1]: What original source file the location in the compiled source maps to
+- [2]: Row index in the original source file (i.e. the line number)
+- [3]: Column index in the original source file
+
+All positions are relative to the previous position
+
+The mappings are separated by semi-colons, and each mapping describes one line.
+
+#### Interpreting the mappings value in our example
+
+    "mappings": ";;AAAA,IAAM,MAAM,GAAG,SAAT,MAAM,CAAI,CAAC;SAAK,CAAC,GAAG,CAAC;CAAA,CAAC",
+
+There is one file: `test.es6.js` and it contains one line. Thus, middle values are always AA = 00
+
+`IAAM = [4,0,0,6]`
+
+``` 
+0|1|2|3|4|  
+v|a|r| |s|q|u|a|r|e|  
+0|1|2|3|4|5|6|  
+c|o|n|s|t| |s|q|u|a|r|e|
+``` 
+
+#### Limitations of source maps
+
+1. Source maps map positions in the code, but they don’t map how two variable names relate to one another.
+
+2. Optimizations can make the compiled source code not match the behavior you’d expect from the code you wrote.
+
+Another example of variable renaming is using the let keyword with Babel. Babel has to rename it to get the desired scoping behavior:
+
+``` js
+var x = 55;
+var someCondition = true;
+if (someCondition){
+    let x = 66;
+}
+
+// Babel transforms this code into:
+
+var x = 55;
+var someCondition = true;
+if (someCondition) {
+    var _x = 66;
+}
+``` 
+
+#### Compiled code behaving differently in the debugger than the original code
+
+For example, you might try to set a breakpoint on one line but Chrome sets the breakpoint a few lines further down.
+
+### Article: Source Maps - Webpack
+
+Inline source maps vs separate source maps. Inline for development.
+
+Hidden source maps: stack trace information only
+
+Enabling Source Maps in Webpack. `source-map` slowest but highest quality.
+
+### You might not need to transpile your JavaScript
+
+https://medium.freecodecamp.org/you-might-not-need-to-transpile-your-javascript-4d5e0a438ca
+
+### How to Improve the Frontend Dev Experience without a Bundler
+
+https://medium.com/chialab-open-source/a-study-about-how-to-improve-frontend-dev-experience-without-a-bundler-1b4c3a461a35
+
+#### How to load an ES6/7/X application in the browser without a bundler
+
+``` js
+<script type="module" src="path/to/es6/module.js"></script>
+<!-- OR (only in Chrome 64) -->
+<script>
+const module = await import('path/to/es6/module.js');
+</script>
+``` 
+
+The browser recursively resolves all `import` dependencies.
+
+But they cannot resolve NPM dependencies.
+
+#### Service Workers to the rescue
+
+Service Workers intercept network requests and handle their response.
+
+Use SW to:
+
+- fetch files
+- remap `import` files to `node_modules` folder
+- detect `JSX` and transpile them
+
+[Using Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers)
+
+#### Developing Unchained
+
+Unchained is like bundlers and transpilers.
+
+It provides helpers to register Service Workers, a polyfill to support dynamic `import`. It can resolve file `import`.
+
+#### Example: Preact Project
+
+``` bash
+mkdir -p ex/study_js/f01 && cd $_
+npm init -y
+pnpm i preact unchained-js
+``` 
+
+Edit `~/projects/study/js/ex/study_js/f01/index.html`
+
+``` html
+...
+    <script src="node_modules/unchained-js/dist/unchained.client.js"></script>
+    <script>
+        // register a Service Worker.
+        UnchainedClient.register('sw.js', { scope: '/' })
+            .then(() =>
+                // The Service Worker is ready, we can now import the main file.
+                UnchainedClient.import('index.js')
+            );
+    </script>
+``` 
+
+Edit `~/projects/study/js/ex/study_js/f01/sw.js`
+
+``` js
+// import the Unchained Service Worker core.
+importScripts('node_modules/unchained-js/dist/unchained.sw.js');
+``` 
+
+Edit `~/projects/study/js/ex/study_js/f01/index.js`
+
+``` js
+import { h, render } from 'preact';
+import TodoList from './todolist.component.js';
+
+render(<TodoList />, document.body);
+``` 
+
+Edit `~/projects/study/js/ex/study_js/f01/todolist.component.js`
+
+``` js
+import { h, Component } from 'preact';
+
+const localTodos = JSON.parse(localStorage.getItem('todos') || '[]');
+
+export default class TodoList extends Component {
+    state = { todos: localTodos, text: '' };
+    setText = e => {
+        this.setState({ text: e.target.value });
+    };
+    addTodo = () => {
+        let { todos, text } = this.state;
+        todos = todos.concat({ text });
+        localStorage.setItem('todos', JSON.stringify(todos));
+        this.setState({ todos, text: '' });
+    };
+    render({ }, { todos, text }) {
+        return (
+            <form onSubmit={this.addTodo} action="javascript:">
+                <input value={text} onInput={this.setText} />
+                <button type="submit">Add</button>
+                <ul>
+                    { todos.map( todo => (
+                        <li>{todo.text}</li>
+                    )) }
+                </ul>
+            </form>
+        );
+    }
+}
+``` 
+
+``` bash
+npm install -g http-server
+http-server .
+``` 
+
+Open http://localhost:8081/
+
+This solution includes Hot Module Reloading by default. Refresh the page and the browser reloads only updated files.
+
+#### Conclusion
+
+Service Workers benefits:
+
+- Reduces the amount of dependencies 
+- Transpiling does not block main UI thread
+- Source code updates are very fast
+- Code splitting with dynamic `import()`
+- Source maps support
+
+### Article: Using ES modules natively in Node.js
+
+http://2ality.com/2017/09/native-esm-node.html
+
+Nodejs supports ES6 modules natively with option `--experimental-modules`
+
+``` bash
+mkdir -p ex/study_js/f02/esm-demo && cd $_
+mkdir esm-demo && cd $_
+``` 
+
+Edit `~/projects/study/js/ex/study_js/f02/esm-demo/lib.mjs`
+
+``` js
+export function add(x, y) {
+    return x + y;
+}
+``` 
+
+Edit `~/projects/study/js/ex/study_js/f02/esm-demo/main.mjs`
+
+``` js
+import {add} from './lib.mjs';
+
+console.log('Result: '+add(2, 3));
+``` 
+
+``` bash
+node --experimental-modules main.mjs
+> Result: 5
+``` 
+
+Rules:
+
+- File extension must be ".mjs"
+- If you omit extension, `.mjs` is assumed
+- Libraries referred via bare paths without extensions. Example: `'lodash'`
+- Accessing `node_modules` folder is not determined.
+
+### Article: ECMAScript modules in browsers
+
+https://jakearchibald.com/2017/es-modules-in-browsers/
+
+Rather than publish the whole of node_modules, I'd rather create a little resource like:
+
+``` js
+import foo from "some-node-module";
+export default foo;
+``` 
+
+…and pass that through rollup. Then you'll get a flat, tree-shaken copy of the module outside of node_modules.
+
+http://disq.us/p/1j5guzz
+
+### Article: ES6 modules support lands in browsers: is it time to rethink bundling?
+
+https://www.contentful.com/blog/2017/04/04/es6-modules-support-lands-in-browsers-is-it-time-to-rethink-bundling/
+
+``` js
+import dep1 from './dep-1.js';
+import isEmpty from './lodash/isEmpty.js';
+
+function getComponent() {
+  const element = document.createElement('div');
+  element.innerHTML = dep1() + ' ' + isEmpty([]);
+
+  return element;
+}
+
+document.body.appendChild(getComponent());
+``` 
+
+### Article: Exploring JS 16.6. Using ES6 modules in browsers
+
+http://exploringjs.com/es6/ch_modules.html#sec_modules-in-browsers
+
+``` js
+<script type="module">
+    import $ from 'lib/jquery';
+    var x = 123;
+
+    // The current scope is not global
+    console.log('$' in window); // false
+    console.log('x' in window); // false
+
+    // `this` still refers to the global object
+    console.log(this === window); // true
+</script>
+``` 
+
+### Issue: Different Types of Source Maps
+
+Webpack generates different types of source maps such as `eval-source-map, eval`. Not all of them work in the same manner.
+
+https://webpack.js.org/configuration/devtool/
+
+There is a validator to check if source map is correctly formatted.
+
+https://github.com/webpack/webpack/issues/3165
+
+Source map explorer: visualizes how much space each dependency takes:
+
+https://www.youtube.com/watch?v=7aY9BoMEpG8
+
+#### Article: Ben Vinegar: Source maps through the looking glass | JSConf EU 2017
+
+https://www.youtube.com/watch?v=NkVes0UMe9Y
+
+Debug symbols map machine instructions to source locations and symbols.
+
+But js bundlers are different. They map some text to some other text.
+
+Source maps: 
+
+- json files
+- only filenames, lines, column
+- source files can be any kind of text (css to sass etc.)
+- plain text transfer
+
+node-source-map: convert stacktrace to original source file references
+
+Example: add.js
+
+``` js
+// add.js
+export function add(...args) {...}
+``` 
+
+``` bash
+babel add.js \
+  --out-file add.dist.js \
+  --source-maps \
+  --presets=es2015
+ls add*
+> add.js add.dist.js add.dist.js.map
+``` 
+
+Open `add.dist.js`
+
+``` js
+...
+//# sourceMappingURL=add.dist.js.map
+``` 
+
+The last line `//# sourceMappingURL=add.dist.js.map` tells the browser where the source map is defined.
+
+    "mappings": "AAAAA,QAAQC,GAAR,CAAY,aAAZ",
+
+VLQ: 4-tuple numbers
+
+";" per line in output file
+
+Decode using `vlq`
+
+``` js
+const vlq = require('vlq')
+vlq.decode('QAAQC')
+``` 
+
+Segment values are relative. 
+
+    QAAQC,G
+
+What is `G`? Only one number.
+
+This is the same identifier in the source file.
+
+``` js
+// add.dist.js
+exports.add = add
+// ->
+// add.js
+export function add(..args) {..}
+``` 
+
+`add` is repeated. Second `add` refers to the same `add` in source.
+
+Tool for querying source map: 
+
+``` bash
+npm i -g source-map
+``` 
+
+#### Article: Better Type Checking With In-Browser TypeScript Transpiling In Angular 2
+
+https://www.bennadel.com/blog/3095-better-type-checking-with-in-browser-typescript-transpiling-in-angular-2.htm
+
+https://www.bennadel.com/blog/3094-building-angular-2-demos-with-system-js-and-typescript.htm
+
+https://technicallyrural.ca/2017/09/02/how-to-run-typescript-in-the-browser/
+
+https://github.com/systemjs/systemjs
+
+Dynamic module loader.
+
+http://www.mograblog.com/2016/07/the-many-ways-of-running-typescript.html
+
+#### Article: Source Map Visualization
+
+https://github.com/lydell/source-map-visualize
+
+https://sokra.github.io/source-map-visualization/
+
+#### Other
+
+http://www.mattzeunert.com/2016/07/07/resolving-minified-production-stacktrace.html
+
+Going from production stack traces back to original sources
+
+https://blog.angularindepth.com/debugging-rxjs-part-2-logging-56904459f144
+
+RxJS logging
+
+#### Article: We need to talk about source maps
+
+http://bytes.inso.cc/2014/03/19/we-need-to-talk-about-source-maps/
+
+#### Article: Source Map Types Supported by Webpack
+
+https://survivejs.com/webpack/building/source-maps/#source-map-types-supported-by-webpack
+
+Two categories of source maps:
+
+- Inline: mapping data are added to generated files
+- Separate source maps
+
+Inline source maps are faster. But they make the bundles big.
+
+##### Inline Source Map Types
+
+`devtool: "eval"`: Each module is wrapped within `eval`
+
+``` js
+webpackJsonp([1, 2], {
+  "./src/index.js": function(module, exports) {
+    eval("console.log('Hello world');\n\n//////////////////\n// WEBPACK FOOTER\n// ./src/index.js\n// module id = ./src/index.js\n// module chunks = 1\n\n//# sourceURL=webpack:///./src/index.js?")
+  }
+}, ["./src/index.js"]);
+``` 
+
+`devtool: "cheap-eval-source-map"`: Each module is wrapped within `eval` but the code is in base64 encoded format:
+
+Decoding the code gets the mapping:
+
+``` js
+{
+  "file": "./src/index.js",
+  "mappings": "AAAA",
+  "sourceRoot": "",
+  "sources": [
+    "webpack:///./src/index.js?0e04"
+  ],
+  "sourcesContent": [
+    "console.log('Hello world');\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./src/index.js\n// module id = ./src/index.js\n// module chunks = 1"
+  ],
+  "version": 3
+}
+``` 
+
+`devtool: "cheap-module-eval-source-map"`: Better quality
+
+`devtool: "eval-source-map"`: Best quality
+
+``` js
+{
+  "file": "./src/index.js",
+  "mappings": "AAAAA,QAAQC,GAAR,CAAY,aAAZ",
+  "names": [
+    "console",
+    "log"
+  ],
+  "sourceRoot": "",
+  "sources": [
+    "webpack:///./src/index.js?dadc"
+  ],
+  "sourcesContent": [
+    "console.log('Hello world');\n\n\n// WEBPACK FOOTER //\n// ./src/index.js"
+  ],
+  "version": 3
+}
+``` 
+
+#### Article: Chrome DevTools: Never Pause Here
+
+http://www.mattzeunert.com/2016/03/17/devtools-never-pause-here.html
+
+Behavior-based breakpoints (Chrome calls them conditional breakpoints):
+
+- An exception is thrown
+- The DOM is modified
+- A DOM event is triggered (e.g. when the user click on a button)
+- An Ajax request is made
+
+#### Article: Bug Webpack Incompatibility with Devtools
+
+https://github.com/webpack/webpack/issues/6400
+
+What is the current behavior?
+
+Source map plugins inject three new lines and a footer template into every source map objects. This behavior not works well with Chrome DevTools' new workspaces 2.0 API.
+
+## Topic: npm package publishing
+
+### Node.js — How to test your new NPM module without publishing it every 5 minutes - Alex Mills
+
+https://medium.com/@the1mills/how-to-test-your-npm-module-without-publishing-it-every-5-minutes-1c4cb4b369be
+
+You have two packages: "viking" and "tudor".
+
+"tudor" depends on "viking".
+
+Every time you make a change in "viking" you need to publish it to npm and install in "tudor" again.
+
+How to save this work?
+
+Solution 1: Use absolute path to "viking"
+
+Inside tudor/index.js
+
+``` js
+var viking = require('/Users/foo/bar/baz/WebstormProjects/viking');  //we simply point to the root of the local project, which will find the package.json file which in turn points to your index.js file
+``` 
+
+We can use symbolic links to make this solution easier.
+
+Solution 2:
+
+``` bash
+npm install /absolute/path/to/viking
+``` 
+
+Then package.json includes absolute path:
+
+``` js
+"dependencies": {
+  "viking": "file:../../oresoftware/viking",
+},
+``` 
+
+Solution 3: Using npm link
+
+``` bash
+cd <viking-root>
+npm link
+cd <tudor-root>
+npm link viking # create a symlink locally to global viking symlink
+``` 
+
+# Idioms of Javascript
+
+## Object.keys
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_js/idioms/001.js`
+
+``` js
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+
+// simple array
+var arr = ['a', 'b', 'c'];
+console.log(Object.keys(arr)); // console: ['0', '1', '2']
+
+// array like object
+var obj = { 0: 'a', 1: 'b', 2: 'c' };
+console.log(Object.keys(obj)); // console: ['0', '1', '2']
+
+// array like object with random key ordering
+var anObj = { 100: 'a', 2: 'b', 7: 'c' };
+console.log(Object.keys(anObj)); // console: ['2', '7', '100']
+
+// getFoo is a property which isn't enumerable
+var myObj = Object.create({}, {
+  getFoo: {
+    value: function () { return this.foo; }
+  } 
+});
+myObj.foo = 1;
+console.log(Object.keys(myObj)); // console: ['foo']
+``` 
+
+## Article: Javascript Hacks for Hipsters - Tal Bereznitskey
+
+https://hackernoon.com/javascript-hacks-for-hipsters-624d50c76e8e
+
+01: Method calling by condition
+
+``` js
+// Boring
+if (success) {
+ obj.start();
+} else {
+ obj.stop();
+}
+// Hipster-fun
+var method = (success ? ‘start’ : ‘stop’);
+obj[method]();
+``` 
+
+02: String joins
+
+``` js
+[‘first’, ‘name’].join(‘ ‘); // = ‘first name’;
+[‘milk’, ‘coffee’, ‘suger’].join(‘, ‘); // = ‘milk, coffee, suger’
+``` 
+
+03: Default Operator ||
+
+``` js
+// default to ‘No name’ when myName is empty (or null, or undefined)
+var name = myName || ‘No name’;
+// make sure we have an options object
+var doStuff = function(options) {
+ options = options || {};
+ // …
+};
+``` 
+
+04: Guard Operator &&
+
+``` js
+// Boring
+if (isThisAwesome) {
+ alert(‘yes’); // it’s not
+}
+// Awesome
+isThisAwesome && alert(‘yes’);
+// Also cool for guarding your code
+var aCoolFunction = undefined;
+aCoolFunction && aCoolFunction(); // won’t run nor crash
+``` 
+
+05: xxx as TODO placeholder
+
+``` js
+var z = 15;
+doSomeMath(z, 10);
+xxx // Great placeholder. I’m the only one using xxx and it’s so easy to find in code instead of TODOs
+doSomeMoreMath(z, 15);
+``` 
+
+06: Timing
+
+``` js
+var a = [1,2,3,4,5,6,7,8,9,10];
+console.time(‘testing_forward’);
+for (var i = 0; i < a.length; i++);
+console.timeEnd(‘testing_forward’);
+// output: testing_forward: 0.041ms
+console.time(‘testing_backwards’);
+for (var i = a.length — 1; i >= 0; i—);
+console.timeEnd(‘testing_backwards’);
+// output: testing_backwards: 0.030ms 
+``` 
+
+07: debugger
+
+``` js
+var x = 1;
+debugger; // Code execution stops here, happy debugging
+x++;
+var x = Math.random(2);
+if (x > 0.5) {
+ debugger; // Conditional breakpoint
+}
+x—;
+``` 
+
+08: Old School Debugging
+
+``` js
+var deeplyNestedFunction = function() {
+ var private_object = {
+ year: ‘2013'
+ };
+ // Globalize it for debugging:
+ pub = private_object;
+};
+// Now from the console (Chrome dev tools, firefox tools, etc)
+pub.year;
+``` 
+
+09: Templating
+
+``` js
+var firstName = ‘Tal’;
+var screenName = ‘ketacode’
+// Ugly
+‘Hi, my name is ‘ + firstName + ‘ and my twitter screen name is @’ + screenName;
+// Super
+var template = ‘Hi, my name is {first-name} and my twitter screen name is @{screen-name}’;
+var txt = template.replace(‘{first-name}’, firstName)
+ .replace(‘{screen-name}’, screenName);
+``` 
+
+## Article: JavaScript hacks for ES6 hipsters - Tal Bereznitskey
+
+https://hackernoon.com/javascript-hacks-for-es6-hipsters-67d633ce8ace
+
+01: Swap variables using array destructuring
+
+``` js
+let a = 'world', b = 'hello'
+[a, b] = [b, a]
+console.log(a) // -> hello
+console.log(b) // -> world
+// Yes, it's magic
+``` 
+
+02: Async/Await with destructuring
+
+``` js
+const [user, account] = await Promise.all([
+  fetch('/user'),
+  fetch('/account')
+])
+``` 
+
+03: Debugging
+
+``` js
+const a = 5, b = 6, c = 7
+console.log({ a, b, c })
+// outputs this nice object:
+// {
+//    a: 5,
+//    b: 6,
+//    c: 7
+// }
+``` 
+
+04: One liners with array operations
+
+``` js
+// Find max value
+const max = (arr) => Math.max(...arr);
+max([123, 321, 32]) // outputs: 321
+// Sum array
+const sum = (arr) => arr.reduce((a, b) => (a + b), 0)
+sum([1, 2, 3, 4]) // output: 10
+``` 
+
+05: concat arrays with `spread` operator
+
+``` js
+const one = ['a', 'b', 'c']
+const two = ['d', 'e', 'f']
+const three = ['g', 'h', 'i']
+// Old way #1
+const result = one.concat(two, three)
+// Old way #2
+const result = [].concat(one, two, three)
+// New
+const result = [...one, ...two, ...three]
+``` 
+
+06: Clone objects with `spread`
+
+``` js
+const obj = { ...oldObj }
+const arr = [ ...oldArr ]
+``` 
+
+07: Named parameters
+
+``` js
+const getStuffNotBad = (id, force, verbose) => {
+  ...do stuff
+}
+const getStuffAwesome = ({ id, name, force, verbose }) => {
+  ...do stuff
+}
+// Somewhere else in the codebase... WTF is true, true?
+getStuffNotBad(150, true, true)
+// Somewhere else in the codebase... I ❤ JS!!!
+getStuffAwesome({ id: 150, force: true, verbose: true })
+``` 
+
+## Article: Javascript Idioms - Zoltan Kochan
+
+https://www.kochan.io/javascript/javascript-idioms.html
+
+01: Double exclamation converts anything to boolean
+
+``` js
+var foo = 0
+console.log(!!foo)
+//> false
+// equivalent to
+Boolean(foo)
+``` 
+
+02: Converting arguments to array using slice
+
+``` js
+(function() {
+  console.log(arguments instanceof Array)
+  //> false
+
+  var args = Array.prototype.slice.call(arguments)
+  console.log(args instanceof Array)
+  //> true
+})()
+``` 
+
+03: Assigning default values with || and ?:
+
+``` js
+function foo(opts) {
+  var msg = opts.message || 'Hello world!'
+  console.log(msg)
+}
+
+// instead of
+function foo(opts) {
+  var msg = opts.message ? opts.message : 'Hello world!'
+  console.log(msg)
+}
+``` 
+
+04: Converting to array if not already
+
+``` js
+var totallyArray = [].concat(value)
+
+//instead of
+var totallyArray = value instanceof Array ? value : [value]
+``` 
+
+05: Converting strings to number
+
+``` js
+var foo = +'12.2'
+var bar = +'12'
+
+// instead of
+var foo = parseFloat('12.2')
+var bar = parseInt('12')
+``` 
+
+06: Checking if an array includes an element using tilde operator 
+
+``` js
+if (~[1, 2, 3].indexOf(2)) { console.log('includes') }
+
+// instead of
+if ([1, 2, 3].indexOf(2) > -1) { console.log('includes') }
+``` 
+
+07: Writing multi-line strings
+
+``` js
+var multiStr = [
+  "This is the first line",
+  "This is the second line",
+  "This is more..."
+].join("\n");
+
+// instead of
+var multiStr = "This is the first line\n" +
+  "This is the second line\n" +
+  "This is more...";
+``` 
+
+08: Looping through an array
+
+``` js
+for (var i = arr.length; i--;) {
+  // ...
+}
+
+// instead of
+for (var i = 0; i < arr.length; i++) {
+  // ...
+}
+``` 
+
+09: setTimeout(func, 0): schedule a function to run after current event loop tick
+
+``` js
+setTimeout(function() {
+  console.log('log message from next tick')
+}, 0)
+
+console.log('Hello world!')
+//> Hello world!
+//> log message from next tick
+``` 
+
+10: void 0 instead of `undefined`
+
+``` js
+void 0 == undefined
+``` 
+
+## Article: javascript idioms for doing common things - stackoverflow.com
+
+https://stackoverflow.com/questions/18039126/javascript-idioms-for-doing-common-things
+
+01: Get the last characters of a string 
+
+``` js
+myString = "Some string."
+b = myString[myString.length - 1]; // get the period
+// ->
+b = myString.slice(-1);
+``` 
+
+## Article http://jakegaylor.com/js-blog/
+
+01: Use an object instead as arguments
+
+``` js
+var cars = findCars(4, 'red', 'sedan', 'compact', true, 'tesla');
+// ->
+var cars = findCars({
+  doors: 4,
+  color: 'red',
+  bodyStyle: 'sedan',
+  bodySize: 'compact',
+  manufacturer: 'tesla',
+  rearDriveOnly: true
+});
+
+``` 
+
+02: First class functions
+
+``` js
+function makeGreeter (greeting) {
+  return function greeter (name) {
+     console.log(greeting + ", " + name);
+  }
+}
+
+var greeter = makeGreeter("Hello");
+greeter("World");
+``` 
+
+03: Chaining
+
+``` js
+function makeApple() {
+    function setColor (color) {
+        apple.color = color;
+        return apple;
+    }
+
+    function setSize (size) {
+        apple.size = size;
+        return apple;
+    }
+
+    function setWeight (weight) {
+        apple.weight = weight;
+        return apple;
+    }
+    // hoisting will ensure this is declared in time.
+    var apple = {
+        setColor: setColor,
+        setSize: setSize,
+        setWeight: setWeight
+    };
+    return apple;
+}
+
+var apple = makeApple();
+// make a large red apple of weight 8 ounces
+apple.setColor('red').setSize('large').setWeight('8 oz');
+console.log(apple);
+// {color: 'red', size: 'large', weight: '8 oz' ...}
+``` 
+
+## Article: Idiomatic Javascript
+ 
+https://github.com/rwaldron/idiomatic.js/
+
+01: Whitespace
+
+``` js
+if ( condition ) {
+  // statements
+}
+for ( var i = 0; i < 100; i++ ) {
+  // statements
+}
+// better
+var i = 0,
+  length = 100;
+
+for ( ; i < length; i++ ) {
+  // statements
+}
+``` 
+
+``` js
+// Named Function Declaration
+function foo( arg1, argN ) {
+
+}
+``` 
+
+02: Type checks
+
+
+``` js
+// String:
+typeof variable === "string"
+// Number:
+typeof variable === "number"
+// Boolean:
+typeof variable === "boolean"
+// Object:
+typeof variable === "object"
+// Array:
+Array.isArray( arrayLikeObject )
+// (wherever possible)
+// Node:
+elem.nodeType === 1
+// null:
+variable === null
+// null or undefined:
+variable == null
+// undefined:
+// Global Variables:
+typeof variable === "undefined"
+// Local Variables:
+variable === undefined
+// Properties:
+object.prop === undefined
+object.hasOwnProperty( prop )
+"prop" in object
+``` 
+
+04: Conditional evaluation
+
+``` js
+// When only evaluating that a string is not empty,
+// instead of this:
+if ( string !== "" ) ...
+
+// ...evaluate truthiness, like this:
+if ( string ) ...
+
+// When only evaluating that a string _is_ empty,
+// instead of this:
+if ( string === "" ) ...
+
+// ...evaluate falsy-ness, like this:
+if ( !string ) ...
+``` 
+
+
+``` js
+// Prefer `===` over `==` (unless the case requires loose type evaluation)
+
+// === does not coerce type, which means that:
+
+"1" === 1;
+// false
+
+// == does coerce type, which means that:
+
+"1" == 1;
+// true
+
+
+// 4.2.2
+// Booleans, Truthies & Falsies
+
+// Booleans:
+true, false
+
+// Truthy:
+"foo", 1
+
+// Falsy:
+"", 0, null, undefined, NaN, void 0
+
+``` 
+
+05: Practical Style
+
+
+``` js
+// A Practical Module
+
+(function( global ) {
+  var Module = (function() {
+
+    var data = "secret";
+
+    return {
+      // This is some boolean property
+      bool: true,
+      // Some string value
+      string: "a string",
+      // An array property
+      array: [ 1, 2, 3, 4 ],
+      // An object property
+      object: {
+        lang: "en-Us"
+      },
+      getData: function() {
+        // get the current value of `data`
+        return data;
+      },
+      setData: function( value ) {
+        // set the value of `data` and return it
+        return ( data = value );
+      }
+    };
+  })();
+
+  // Other things might happen here
+
+  // expose our module to the global object
+  global.Module = Module;
+
+})( this );
+
+``` 
+
+``` js
+// A Practical Constructor
+
+(function( global ) {
+
+  function Ctor( foo ) {
+
+    this.foo = foo;
+
+    return this;
+  }
+
+  Ctor.prototype.getFoo = function() {
+    return this.foo;
+  };
+
+  Ctor.prototype.setFoo = function( val ) {
+    return ( this.foo = val );
+  };
+
+
+  // To call constructor's without `new`, you might do this:
+  var ctor = function( foo ) {
+    return new Ctor( foo );
+  };
+
+
+  // expose our constructor to the global object
+  global.ctor = ctor;
+
+})( this );
+``` 
+
+06: Naming:
+
+
+``` js
+// Naming functions, objects, instances, etc
+
+camelCase; function and var declarations
+
+
+// 6.A.3.4
+// Naming constructors, prototypes, etc.
+
+PascalCase; constructor function
+
+
+// 6.A.3.5
+// Naming regular expressions
+
+rDesc = //;
+
+
+// 6.A.3.6
+// From the Google Closure Library Style Guide
+
+functionNamesLikeThis;
+variableNamesLikeThis;
+ConstructorNamesLikeThis;
+EnumNamesLikeThis;
+methodNamesLikeThis;
+SYMBOLIC_CONSTANTS_LIKE_THIS;
+
+``` 
+
+
+## Article: 12 Simple (Yet Powerful) JavaScript Tips
+
+http://javascriptissexy.com/12-simple-yet-powerful-javascript-tips/
+
+01: && and ||
+
+``` js
+if (userName) {
+  logIn (userName);
+}
+ else {
+   signUp ();
+}
+// ->
+userName && logIn (userName) || signUp ();
+``` 
+
+``` js
+var userID;
+if (userName && userName.loggedIn) {
+  userID = userName.id;
+}
+else {
+  userID = null;
+}
+// ->
+
+var userID = userName && userName.loggedIn && userName.id
+``` 
+
+02: IIFE
+
+``` js
+(function () {
+ // Do fun stuff
+ }
+)()
+``` 
+
+The anonymous function is immediately inovaked.
+
+``` js
+// Shown without the parentheses here:
+? = function () {};
+
+// And with the parentheses here:
+(? = function () {});
+// An unknown variable assigned the value of a function, wrapped in a parentheses, which turns it into an unnamed function expression.
+``` 
+
+Named IIFE:
+
+``` js
+(showName = function (name) {console.log(name || "No Name")}) (); // No Name
+
+showName ("Rich"); // Rich
+showName (); // No Name
+``` 
+
+Points:
+
+- You cannot use `var` for `showName`. But it is not necessary. Any variable declared without `var` is global.
+
+- Named function can be called both immediately and later. Anonymous can only be invoked immediately.
+
+Use case: complex logic without named functions:
+
+``` js
+var unnamedDocs = [], namedDocs = ["a_bridge_runover", "great_dreamers"];
+
+function createDoc(documentTitle) {
+    var documentName = documentTitle 
+        ?
+ (function (theName) {
+        var newNamedDoc = theName.toLocaleLowerCase().replace(" ", "_");
+        namedDocs.push(newNamedDoc);
+        return newNamedDoc;
+    })(documentTitle)
+        :
+        (function () {
+            var newUnnamedDoc = "untitled_" + Number(namedDocs.length + 1);
+            unnamedDocs.push(newUnnamedDoc);
+            return newUnnamedDoc;
+        })();
+    return documentName;
+}
+createDoc("Over The Rainbow"); // over_the rainbow
+createDoc(); // untitled_4
+``` 
+
+## Article:  JavaScript's Tilde: Its Real Use Is No Mystery
+
+https://www.joezimjs.com/javascript/javascript-tilde-real-no-mystery/
+
+`~` is bitwise not operator.
+
+Ex: `8` is `1000` in binary. `~` converts each bit to the opposite value. And ~8 becomes -9.
+
+

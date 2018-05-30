@@ -8,7 +8,9 @@ categories: cyclejs, javascript
 type: post
 url:
 author: "Mert Nuhoglu"
-output: html_document
+output:
+  html_document:
+    css: styles.css
 blog: mertnuhoglu.com
 resource_files:
 - ex/cyclejs_ex17.js
@@ -63,12 +65,26 @@ This blog post is simply my work through notes while studying great video course
 
 I really love Andre's style of teaching. He explains hard topics in a very easy to understand way. 
 
+# Andre Staltz' CycleJs Fundamentals
+
 ## v01
 
 <iframe src="ex/cyclejs_ex01.html" width="200" height="30"></iframe>
 
-``` {bash}
-cat ex/cyclejs_ex01.html | sed -n "/<body>/,/<\/body>/ p"
+Edit `ex/cyclejs_ex01.html`
+
+``` html
+...
+<div id="app"></div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.6/Rx.min.js"></script>
+<script>
+  Rx.Observable.timer(0, 1000)
+    .map(i => `Seconds ${i}`)
+    .subscribe(text => {
+      const container = document.querySelector('#app');
+      container.textContent = text;
+    })
+</script>
 ``` 
 
 This code consists of two parts: 
@@ -97,16 +113,39 @@ Effects part is imperative. Logic part is functional. We need to separate these 
 
 Now, let's encapsulate logic and effects parts into two separate functions.
 
-``` {bash}
-cat ex/cyclejs_ex02.js
+Edit `ex/cyclejs_ex02.js`
+
+``` js
+function main() {
+  return Rx.Observable.timer(0, 1000)
+    .map(i => `Seconds ${i}`);
+}
+
+function DOMEffect(text$) {
+  text$.subscribe(text => {
+    const container = document.querySelector('#app');
+    container.textContent = text;
+  });
+}
+
+DOMEffect(main());
 ``` 
 
 <iframe src="ex/cyclejs_ex02.html" width="200" height="30"></iframe>
 
 We can use the rx observable in other effects too. For example:
 
-``` {bash}
-cat ex/cyclejs_ex03.js | sed -n "/function consoleLogEffect/,$ p"
+Edit `ex/cyclejs_ex03.js`
+
+``` js
+...
+function consoleLogEffect(msg$) {
+  msg$.subscribe(msg => console.log(msg));
+}
+
+const sink = main();
+consoleLogEffect(sink);
+DOMEffect(sink);
 ``` 
 
 <iframe src="ex/cyclejs_ex03.html" width="200" height="30"></iframe>
@@ -119,6 +158,7 @@ Now, we want to show two different streams.
 
 <iframe src="ex/cyclejs_ex04.html" width="200" height="30"></iframe>
 
+Edit `ex/cyclejs_ex04.js`
 
 ``` js
 function main() {
@@ -153,6 +193,8 @@ run(main);
 
 But now the effects are hard-coded. Let's parameterize it too:
 
+Edit `ex/cyclejs_ex05.js`
+
 ``` js
 function run(main, effects) {
   const sinks = main();
@@ -172,6 +214,8 @@ run(main, effects);
 
 Now, rename `effects` function as `drivers`. The reason for this renaming is that drivers are interfaces between software and hardware. Our drivers are interfaces between program (logic part) and effects.
 
+Edit `ex/cyclejs_ex06.js`
+
 ``` js
 const drivers = {
   DOM: DOMDriver,
@@ -180,6 +224,42 @@ const drivers = {
 ``` 
 
 <iframe src="ex/cyclejs_ex06.html" width="200" height="30"></iframe>
+
+Data flow between modules occurs as follows:
+
+		B: Browser
+		DD: DOMDriver
+		m: main
+		
+		[B] -> evt -> [DD] -> click$ -> [m] -> text$ -> [DD] -> doc.innerHTML -> [B]
+                            |                |
+                          DOMSource        main.sinks.DOM
+
+    click$ = DOMSource
+		text$ = main.sinks.DOM
+
+Note that, there are two side effects:
+
+		evt: input side effect
+		doc.innerHTML: output side effect
+
+Note that, the side effects are handled in `subscribe` and `Rx.Observable.fromEvent`. Although these side effects are input/output of `DOMDriver`, they are not argument/return expressions. 
+
+		evt -> Rx.Observable.fromEvent(...)
+		doc.innerHTML -> text$.subscribe(...)
+
+Also note that, input and output side effects are at the beginning and end of the application's interface to external world.
+
+``` js
+function DOMDriver(text$) {
+  text$.subscribe(text => {
+    const container = document.querySelector('#app');
+    container.textContent = text;
+  });
+  const DOMSource = Rx.Observable.fromEvent(document, 'click');
+  return DOMSource;
+}
+``` 
 
 ## v05
 
@@ -233,6 +313,8 @@ So, we pass an empty stream as the initial input argument of `main()`
 
 Now, let's use this input source stream in our example. Instead of using `Rx.Observable.timer` stream once, let's use click stream to restart `timer`.
 
+Edit `ex/cyclejs_ex07.js`
+
 ``` js
 function main() {
   return {
@@ -266,6 +348,8 @@ Now, clicking anywhere in the web page, restarts the `timer` count from zero.
 ## v06
 
 Now, parameterize input source arguments to main() function. There can be different types of drivers.
+
+Edit `ex/cyclejs_ex08.js`
 
 ``` js
 function main(DOMSource) {
@@ -311,6 +395,8 @@ Cycle.run(main, drivers);
 ## v07 Improving DOM Driver
 
 Now, let's return HTML element stream instead of text stream inside the DOM driver.
+
+Edit `ex/cyclejs_ex09.js`
 
 ``` js
       .flatMapLatest(() =>
@@ -416,6 +502,8 @@ Let's make `createElement` more generic:
 
 Currently, we have only click type input events. But there are other types of input events too, such as `mouseover`.
 
+Edit `ex/cyclejs_ex11.js`
+
 ``` js
   const DOMSource = Rx.Observable.fromEvent(document, 'click');
 
@@ -442,6 +530,8 @@ Currently, we have only click type input events. But there are other types of in
 ## v09
 
 Our view code can be automated a little further:
+
+Edit `ex/cyclejs_ex12.js`
 
 ``` js
               return {
@@ -506,6 +596,8 @@ Now, we can use js functions instead of a markup language such as HTML or templa
 
 Can we move DOMDriver into an external framework? Yes, only application specific code inside DOMDriver is HTML element id `#app`.
 
+Edit `ex/cyclejs_ex13.js`
+
 ``` js
 function DOMDriver(obj$) {
   function createElement(obj) {
@@ -568,6 +660,8 @@ cat ex/cyclejs_ex14.js
 
 <iframe src="ex/cyclejs_ex14.html" width="200" height="30"></iframe>
 
+Edit `ex/cyclejs_ex14.js`
+
 ``` js
 const {h, h1, span, makeDOMDriver} = CycleDOM;
 ...
@@ -582,6 +676,8 @@ You can also specify attributes of HTML elements:
 
 ## v11 Hello World App
 
+Edit `ex/cyclejs_ex15.js`
+
 ``` {bash}
 cat ex/cyclejs_ex15.js
 ``` 
@@ -590,6 +686,8 @@ cat ex/cyclejs_ex15.js
 
 ## v12: Decrement Increment: State
 
+Edit `ex/cyclejs_ex16.js`
+
 ``` {bash}
 cat ex/cyclejs_ex16.js
 ``` 
@@ -597,6 +695,8 @@ cat ex/cyclejs_ex16.js
 <iframe src="ex/cyclejs_ex16.html" width="200" height="150"></iframe>
 
 ## v13: HTTP Driver
+
+Edit `ex/cyclejs_ex17.js`
 
 ``` {bash}
 cat ex/cyclejs_ex17.js
@@ -624,6 +724,116 @@ Edit `ex/study_notes_cyclejs/ex18/index.js`
     http://localhost:1234
 
 
+# Reference CycleJs Examples
+
+## ref01: Simple CycleJs with import + parceljs
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref01/index.js`
+
+``` js
+import {run} from '@cycle/run';
+import {div, label, input, hr, h1, makeDOMDriver} from '@cycle/dom';
+
+function main(sources) {
+  const vdom$ = sources.DOM
+    .select('.myinput').events('input')
+    .map(ev => ev.target.value)
+    .startWith('')
+    .map(name =>
+      div([
+        label('Name:'),
+        input('.myinput', {attrs: {type: 'text'}}),
+        hr(),
+        h1(`Hello ${name}`)
+      ])
+    );
+  return {
+    DOM: vdom$,
+  };
+}
+
+run(main, {
+  DOM: makeDOMDriver('#app')
+});
+
+``` 
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/package.json`
+
+``` js
+...
+  "scripts": {
+    "ref01": "parcel ref_ex/ref01/index.html",
+``` 
+
+## ref02: Simple CycleJs xs.of instead of sources.DOM
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref02/index.js`
+
+``` js
+import xs from 'xstream';
+import {run} from '@cycle/run';
+import {div, makeDOMDriver} from '@cycle/dom';
+
+function main(sources) {
+  const vdom$ = xs.of(
+    div("planet earth")
+  )
+  return {
+    DOM: vdom$,
+  };
+}
+
+run(main, {
+  DOM: makeDOMDriver('#app')
+});
+``` 
+
+## ref03: Simple Onion
+
+Based on ~/codes/js/cycle-onionify/examples/basic/src/main.js
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref03/index.js`
+
+``` js
+...
+  const state$ = sources.onion.state$
+    .debug( x => {
+      global.x = x
+      console.log(x)
+    } )
+...
+  const reducer$ = xs.merge(initReducer$, updateReducer$)
+    .debug(console.log)
+``` 
+
+Executing the web page prints on Console:
+
+``` js
+ƒ initReducer() {
+  return { count: 0 };
+}
+{count: 0}
+``` 
+
+## ref04: HTTP Request
+
+Based on /Users/mertnuhoglu/codes/js/cyclejs/examples/basic/http-random-user
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref04/index.js`
+
+## ref05: Multiple HTTP Requests
+
+Based on ~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_04.js
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref05/index.js`
+
+## ref06: Complex App: Multiple Components + Onion + Multiple HTTP Requests
+
+Based on ~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src07/
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref06/index.js`
+
 # Article: Handling lists in Cyclejs
 
 https://github.com/cyclejs/cyclejs/issues/312
@@ -646,4 +856,1625 @@ Communication: Components exchange data.
 Ex: TodoMVC with onionify:
 
 https://github.com/cyclejs/todomvc-cycle/tree/onionify
+
+# Problems
+
+``` bash
+mkdir -p ex/study_notes_cyclejs && cd $_ && npm init -y && pnpm i parcel-bundler --save-dev && npm i xstream @cycle/run @cycle/dom @cycle/http cycle-onionify cycle-storageify @cycle/storage typestyle bootstrap jquery jquery-ui-dist popper.js handsontable
+node ex/study_functional_programming_in_javascript_learnrx/ex01.js
+``` 
+
+## p01: Multiple HTML Elements As vdom 
+
+``` bash
+mkdir -p ex/study_notes_cyclejs/p01
+``` 
+
+Opt01: xs.of + one div vdom 
+
+Edit `ex/study_notes_cyclejs/problems/p01/index_01.js`
+
+``` js
+...
+  const vdom$ = xs.of(
+    div("div01"),
+  )
+``` 
+
+``` js
+  console.log(Object.getOwnPropertyNames(vdom$))
+  console.log(Reflect.ownKeys(vdom$))
+// Array(7)0: "_prod"1: "_ils"2: "_stopID"3: "_dl"4: "_d"5: "_target"6: "_err"length: 7__proto__: Array(0)
+``` 
+
+<div class="app"><div>div01</div></div>
+
+Opt02: xs.of + multiple div vdom
+
+Edit `ex/study_notes_cyclejs/problems/p01/index_02.js`
+
+``` js
+...
+  const vdom$ = xs.of(
+    div("div01"),
+    div("div02"),
+  )
+``` 
+
+<div class="app"><div>div02</div></div>
+
+Note that, virtual dom should consist only of a single outer element.
+
+Opt03: xs.of + multiple div inside a single div
+
+Edit `ex/study_notes_cyclejs/problems/p01/index_03.js`
+
+``` js
+...
+  const vdom$ = xs.of(
+    div([
+      div("div01"),
+      div("div02"),
+    ])
+``` 
+
+<div class="app"><div><div>div01</div><div>div02</div></div></div>
+
+Opt04: Reflection: what is the content of vdom$ 
+
+Edit `ex/study_notes_cyclejs/problems/p01/index_04.js`
+
+``` js
+...
+  const vdom$ = xs.of(
+    div("div01"),
+  )
+  vdom$.addListener({
+    next: x => {
+      console.log(Reflect.ownKeys(x))
+    },
+  })
+  ...
+``` 
+
+Also check: <url:/Users/mertnuhoglu/projects/study/js/study_js.Rmd#tn=## Reflection: Getting the Name of a Function>
+
+Opt05: Use `debug` instead of `addListener`
+
+Edit `ex/study_notes_cyclejs/problems/p01/index_05.js`
+
+``` js
+...
+  const vdom$ = xs.of(
+    div("div01"),
+  ).debug(x => console.log(Reflect.ownKeys(x)))
+``` 
+
+Console:
+
+    ["sel", "data", "children", "text", "elm", "key"]
+
+Opt06: `state$.map` instead of `xs.of`
+
+Edit `ex/study_notes_cyclejs/problems/p01/index_06.js`
+
+``` js
+...
+  const state$ = xs.of({a: 1})
+  const vdom$ = state$.map( (x) =>
+    div(`div ${x.a}`),
+  )
+``` 
+
+<div class="app"><div>div 1</div></div>
+
+Opt07: Multiple div with `state$.map`
+
+Edit `ex/study_notes_cyclejs/problems/p01/index_07.js`
+
+``` js
+...
+  const vdom$ = state$.map( (x) =>
+    div(`div${x.a}`),
+    div(`div2`),
+``` 
+
+<div class="app"><div>div1</div></div>
+
+Opt08: Use nested component
+
+Edit `ex/study_notes_cyclejs/problems/p01/index_08.js`
+
+``` js
+...
+function component(sources) {
+  const state$ = xs.of({a: 1})
+  const vdom$ = state$.map( (x) =>
+    div(`div${x.a}`),
+  )
+	return {
+		DOM: vdom$,
+	};
+}
+
+function main(sources) {
+	const c1 = component(sources)
+  return {
+    DOM: c1.DOM,
+  };
+}
+``` 
+
+<div class="app"><div>div1</div></div>
+
+Opt09: use `isolate` for nested component
+
+``` js
+...
+	const c1 = isolate(component)(sources)
+...
+``` 
+
+<div class="app"><div>div1</div></div>
+
+## p02: Debugging state$.map( ({body}) => table(..)) 
+
+Opt01: Move files into sandbox
+
+ex/study_notes_cyclejs/problems/p02/v01
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p02/v01/src/components/plan_panel/index.js`
+
+``` js
+...
+	const panel_vdom$ = state$.map( ({body}) =>
+		div("1"),
+	)
+``` 
+
+Works well.
+
+Opt02: Use body to reproduce the error
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p02/v02/src/components/plan_panel/index.js`
+
+``` js
+...
+	const panel_vdom$ = state$.map( ({body}) =>
+    body.map(e => "ali"),
+	)
+``` 
+
+Error: browser output: `undefined`
+
+### Opt03: debug()
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p02/v03/src/components/plan_panel/index.js`
+
+``` js
+...
+	const panel_vdom$ = state$
+		.debug( x => console.log(x))
+    .debug( ({body}) => console.log(body))
+    .map( ({body}) =>
+      div([
+        body.map(e => 
+          div([
+            td(e.plan_id),
+          ])
+        ),
+      ])
+    )
+``` 
+
+Console:
+
+``` js
+{body: Array(5)}body: Array(5)0: {plan_id: 1, usr: "usr_4_4_4_4_4_4", depot_id: 4}1: {plan_id: 2, usr: "usr_4_4_4_4_4_4", depot_id: 2}2: {plan_id: 3, usr: "usr_2_2_2_2_", depot_id: 5}3: {plan_id: 4, usr: "usr_1_1_1_1_1_1", depot_id: 3}4: {plan_id: 5, usr: "usr_1_1_1_1_1_1", depot_id: 3}length: 5__proto__: Array(0)__proto__: Object
+(5) [{…}, {…}, {…}, {…}, {…}]
+0 : {plan_id: 1, usr: "usr_4_4_4_4_4_4", depot_id: 4}
+1 : {plan_id: 2, usr: "usr_4_4_4_4_4_4", depot_id: 2}
+2 : {plan_id: 3, usr: "usr_2_2_2_2_", depot_id: 5}
+3 : {plan_id: 4, usr: "usr_1_1_1_1_1_1", depot_id: 3}
+4 : {plan_id: 5, usr: "usr_1_1_1_1_1_1", depot_id: 3}
+length : 5
+__proto__ : Array(0)
+``` 
+
+### Opt04_01: Reproduce the error with static data
+
+Edit ~/projects/study/js/ex/study_notes_cyclejs/problems/p02/v04/index_01.js
+
+``` js
+...
+function component(sources) {
+	const state$ = xs.of({
+		body: [
+			{plan_id: 1, usr: "usr1", depot_id: 4},
+			{plan_id: 2, usr: "usr2", depot_id: 2}
+		]})
+	const vdom$ = state$
+		.debug( (x) => console.log(x))
+		.map( ({body}) =>
+			div([
+				body.map(e => 
+					div([
+						td(e.plan_id),
+					])
+				),
+			])
+    ).debug( console.log )
+``` 
+
+Console:
+
+``` js
+{sel: "div", data: {…}, children: Array(1), text: undefined, elm: undefined, …}
+``` 
+
+### Opt04_02: Fix the error
+
+Edit ~/projects/study/js/ex/study_notes_cyclejs/problems/p02/v04/index_02.js
+
+``` js
+...
+    .map( ({body}) =>
+      div(
+        body.map(e => 
+          div([
+            div(e.plan_id),
+          ])
+        ),
+      ),
+    ).debug( console.log )
+``` 
+
+Console:
+
+``` js
+{sel: "div", data: {…}, children: Array(2), text: undefined, elm: undefined, …}
+``` 
+
+### Understand the Cause of the Error:
+
+input:
+
+    {body: Array(2)}
+      0 : {plan_id: 1, usr: "usr_4_4_4_4_4_4", depot_id: 4}
+      1 : {plan_id: 2, usr: "usr_4_4_4_4_4_4", depot_id: 2}
+
+stream element: body
+
+    0 : {plan_id: 1, usr: "usr_4_4_4_4_4_4", depot_id: 4}
+    1 : {plan_id: 2, usr: "usr_4_4_4_4_4_4", depot_id: 2}
+
+mapper 04_01
+
+		.map( ({body}) =>
+			div([
+				body.map(e => 
+					div([
+						td(e.plan_id),
+
+output 04_01
+
+    div([
+      [
+        div([td(1)]),
+        div([td(2)]),
+      ]
+    ])
+
+mapper 04_02
+
+    .map( ({body}) =>
+      div(
+        body.map(e => 
+          div([
+            div(e.plan_id),
+
+output 04_02
+
+    div([
+      div([div(1)]),
+      div([div(2)]),
+    ])
+
+Note that, output_04_01 has double nested array inside div: div([[div(..)]])
+
+Double nested array cannot be rendered by browser.
+
+### How To Find Out The Cause Of The Mistake
+
+Put .debug() after map and check children.
+
+    .debug( x => console.log(x.children) )
+
+Or toHTML()
+ 
+    var toHTML = require('snabbdom-to-html')
+    global.toHTML = toHTML
+    ...
+    .debug( x => {
+      global.x = x
+      console.log(toHTML(x))
+    } )
+    // "<div><div></div></div>"
+
+## p03: Multiple HTTP Requests
+
+Opt01: Multiple Buttons
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_01.js`
+
+The following xs.merge(..) streams don't work:
+
+``` js
+...
+  const response$ = xs.merge(
+    user$,
+    todo$,
+  )
+    .debug(x => {
+      console.log(x)
+    })
+  const vdom$ = xs.merge(
+    userVdom$, 
+    todoVdom$,
+  )
+    .debug(x => {
+      console.log(x)
+    })
+    ...
+``` 
+
+There is no event at all after xs.merge
+
+Cause: Use xs.combine() instead of xs.merge.
+
+### Test xs.merge
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/merge_01.js`
+
+``` js
+const xs = require('xstream').default
+
+var s1$ = xs.periodic(1000)
+  .endWhen(xs.periodic(5000).take(1))
+
+s1$.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+
+``` 
+
+Now, add a new stream:
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/merge_02.js`
+
+``` js
+var s1$ = xs.periodic(1000)
+  .map(i => i * 2)
+  .endWhen(xs.periodic(5000).take(1))
+var s2$ = xs.periodic(1000)
+  .map(i => i * 3)
+  .endWhen(xs.periodic(5000).take(1))
+var s3$ = xs.merge(s1$, s2$)
+
+s3$.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+
+``` 
+
+``` bash
+node problems/p03/merge_02.js
+> 0
+> 0
+> 2
+> 3
+> 4
+> 6
+> 6
+> 9
+> completed
+``` 
+
+---
+
+Opt02: Use xs.combine() instead of xs.merge.
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_02.js`
+
+``` js
+...
+  const vdom$ = xs.combine(
+    userVdom$, 
+    todoVdom$,
+  )
+    .map( ([user, todo]) =>
+      div([
+        user,
+        todo,
+      ])
+    )
+    ...
+``` 
+
+Opt03: Make intent return both requests
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_03.js`
+
+``` js
+function intent(sources) {
+  ...
+  return xs.merge(getRandomUser$, getTodo$)
+``` 
+
+The output:
+
+<div class="app"><div><div class="users"><button class="get-random">Get user</button><div class="user-details"><h1 class="user-name">Leanne Graham</h1><a class="user-website" href="hildegard.org">hildegard.org</a></div></div><div class="todos"><button class="get-todo">Get todo</button><div class="todo-details"><h1 class="todo-title">delectus aut autem</h1></div></div></div></div>
+
+Opt04: Structure as intent model view functions
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_04.js`
+
+``` js
+function main(sources) {
+  const requests$ = intent(sources)
+  const {user$, todo$} = model(sources)
+  const vdom$ = view({user$, todo$})
+  return {
+    DOM: vdom$,
+    HTTP: requests$,
+  };
+}
+...
+``` 
+
+Opt05: Call the REST Services when Loading the Web Page
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_05.js`
+
+``` js
+...
+function intent(sources) {
+  const getRandomUser$ = xs.of(
+    {
+      url: 'https://jsonplaceholder.typicode.com/users/1',
+      category: 'users',
+      method: 'GET',
+    }
+  )
+  const getTodo$ = xs.of(
+    {
+      url: 'https://jsonplaceholder.typicode.com/todos/1',
+      category: 'todos',
+      method: 'GET',
+    }
+  )
+  return xs.merge(getRandomUser$, getTodo$)
+}
+``` 
+
+Opt06: Use xs.from
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_06.js`
+
+``` js
+function intent(sources) {
+  const requests$ = xs.from(
+    [
+      {
+        url: 'https://jsonplaceholder.typicode.com/users/1',
+        ...
+    ]
+  )
+  return requests$
+}
+``` 
+
+Opt08: Call REST services without view
+
+``` js
+function main(sources) {
+  const requests$ = intent(sources)
+  const {user$, todo$} = model(sources)
+  const userVdom$ = user$.map( user => 
+    user
+  )
+  const todoVdom$ = todo$.map( todo =>
+    todo
+  )
+  userVdom$.addListener({
+    next: x => console.log(x),
+  })
+  todoVdom$.addListener({
+    next: x => console.log(x),
+  })
+  return {
+    HTTP: requests$,
+  };
+}
+``` 
+
+Opt07: Call my REST Services without view
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_07.js`
+
+``` js
+  const requests$ = xs.from(
+    [
+      {
+        url: 'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id',
+        ...
+      {
+        url: 'http://localhost:8080/rest/purchase_order?select=purchase_order_id,company_id,order_extid,company_extid',
+        ...
+``` 
+
+Opt09: Call my REST Services with view
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_09.js`
+
+``` bash
+cd ex/study_notes_cyclejs/
+npm run p03_09
+``` 
+
+``` js
+function view(state) {
+  const {user$, todo$} = state
+  const userVdom$ = user$
+    .map( users =>
+      div(
+        users === null ? "" : users.map( user =>
+          div(user.usr)
+        )
+      ),
+    )
+
+  const todoVdom$ = todo$
+    .map( todos =>
+      div(
+        todos === null ? "" : todos.map( todo =>
+          div(todo.purchase_order_id)
+        )
+      ),
+    )
+  const vdom$ = xs.combine(
+    userVdom$, 
+    todoVdom$,
+  )
+    .map( ([user, todo]) =>
+      div([
+        user,
+        todo,
+      ])
+    )
+  return vdom$
+}
+``` 
+
+It works. 
+
+## p04: CycleJs without Bundlers and Transpilers like ParcelJs
+
+I wonder if not using bundlers will make debugging easier? Because sometimes the bundler and transpiler makes the code so obfuscated that chrome's source mapping doesn't work correctly.
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p04/index.js`
+
+This seems too difficult to try.
+
+## p05: Multiple HTTP Requests Using Multiple Components
+
+Started from `<url:/Users/mertnuhoglu/projects/study/js/vrp/cyclejs_vrp.Rmd#tn=### v15.07: standardize isolate() and sinks.DOM for subcomponents part 2>`
+
+Opt01: Complex App: Multiple Components + Onion + Single HTTP Request + Hot
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01/index.js`
+
+Opt01b: Move Hot sinks to DetailPanel: Multiple Components + Onion + Single HTTP Request + Hot
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b/index.js`
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b/components/app/index.js`
+
+``` js
+...
+  const hot$ = detailPanelSinks.Hot
+  return {
+    Hot: hot$,
+``` 
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b/components/detail_panel/index.js`
+
+``` js
+...
+  const sinks = {
+    Hot: xs.periodic(2000)
+    .take(1)
+    .map(i => data1),
+``` 
+
+Opt01b02: Use state$ as Hot data: Multiple Components + Onion + Single HTTP Request + Hot
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b02/index.js`
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b02/components/detail_panel/index.js`
+
+``` js
+...
+  const sinks = {
+    Hot: state$
+    .map( ({body}) => body )
+    .map( xs => xs.map( y => Object.keys(y).map( key => y[key] ) )),
+``` 
+
+Opt02: Remove Onion and Hot from Complex App: Multiple Components + Single HTTP Request
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex02/index.js`
+
+Opt03: Add Multiple HTTP Requests to Complex App: Multiple Components + Multiple HTTP Requests
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex03/index.js`
+
+Opt04: Add Hot and pipe its data from model(): Multiple Components + Multiple HTTP + Hot pipeline
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex04/index.js`
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex04/components/app/index.js`
+
+``` js
+...
+  const hot$ = detailPanelSinks.Hot
+  return {
+    DOM: vdom$,
+    HTTP: intent(sources),
+    Hot: hot$,
+``` 
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex04/components/detail_panel/index.js`
+
+``` js
+export default function DetailPanel(sources, purchase_order$) {
+  const state$ = purchase_order$
+  ...
+  const sinks = {
+    DOM: panel_vdom$,
+    Hot: state$
+    .map( xs => xs.map( y => Object.keys(y).map( key => y[key] ) )),
+``` 
+
+## p06: xstream.compose function
+
+`imitate` allows circular dependency of streams
+
+``` bash
+node ex/study_notes_cyclejs/problems/p06/ex02.js
+``` 
+
+Edit `ex/study_notes_cyclejs/problems/p06/ex02.js`
+
+``` js
+const xs = require('xstream').default
+const delay = require('xstream/extra/delay').default
+
+var secondProxy$ = xs.create();
+var first$ = secondProxy$.map(x => x * 10).take(3);
+var second$ = first$.map(x => x + 1).startWith(1).compose(delay(100));
+secondProxy$.imitate(second$);
+
+second$.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+//> 1
+//> 11
+//> 111
+//> 1111
+//> completed
+``` 
+
+If we remove `secondProxy$.imitate(second$);` what happens?
+
+Edit `ex/study_notes_cyclejs/problems/p06/ex03.js`
+
+``` js
+var secondProxy$ = xs.create();
+var first$ = secondProxy$.map(x => x * 10).take(3);
+var second$ = first$.map(x => x + 1).startWith(1).compose(delay(100));
+//> 1
+``` 
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p06/ex05.js`
+
+``` js
+const input = xs.of(1, 2, 3, 4)
+const out = input.compose(delay(500))
+//> 1
+//> 2
+//> 3
+//> 4
+//> completed
+``` 
+
+## p07: Sample Apps for Master-Detail Relationships
+
+ex01: Static view is rendered
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex01/index.js`
+
+``` js
+...
+  const state$ = xs.of([
+    {"item_id": 1, "title": "item01"},
+    {"item_id": 2, "title": "item02"},
+  ])
+  const vdom$ = view(state$)
+... 
+function view(state$) {
+  return state$.map( (state) => {
+    const items = state
+    return div([
+      section(".new_item", [
+        input(".new_item_title"),
+        button(".new_item_submit", "Add Item"),
+      ]), 
+      section(".item_list",        
+        items.map( (item) =>
+          div(".item",[
+            span(".item_title", `${item.title}`),
+            button(".remove_item", {dataset: {item_id: item.item_id}}, `Remove ${item.item_id}`),
+          ]),
+        ) 
+      )
+    ])
+  }
+  )
+}
+``` 
+
+Check if `click` actions work:
+
+``` js
+function intent(dom$) {
+  const newItem$ = dom$.select('.new_item_submit').events('click')
+    .mapTo({type: "NEW_ITEM"})
+    .debug()
+  const removeItem$ = dom$.select('.remove_item').events('click')
+    .map((e) => ({type: "REMOVE_ITEM", payload: e.target.dataset.item_id}))
+    .debug()
+  return {newItem$, removeItem$ }
+}
+...
+  const actions = intent(sources.DOM)
+  actions.newItem$.addListener({
+    next: data => {
+      console.log("newItem$")
+      console.log(data)
+    }})
+``` 
+
+Note that, in order for this to work, we need to add addListener to `actions.newItem$` streams. Otherwise the stream's producer doesn't start at all.
+
+### Ex03: Pipe actions to model()
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex03/index.js`
+
+``` js
+  const actions = intent(sources.DOM)
+  const reducers = model(actions)
+  addListener(reducers)
+  const state2$ = xs.merge(...reducers)
+    .fold((listItems, reducer) => reducer(listItems), {"initial": 0});
+  addListenerStream(state2$, "state2$")
+``` 
+
+``` js
+function model(actions) {
+  const newItem$ = actions.newItem$.map(function newItemReducer(prevState){
+    return {"item_id": 3, "title": "item03"}
+  })
+  addListenerStream(newItem$, "model.newItem$")
+  const removeItem$ = actions.removeItem$.map(function removeItemReducer(prevState) {
+    return {}
+  })
+  return {newItem$, removeItem$}
+}
+``` 
+
+Now, clicking the buttons will pipe events until model(). But model's responses are not piped to view() yet:
+
+``` js
+  const state$ = xs.of([
+    {"item_id": 1, "title": "item01"},
+    {"item_id": 2, "title": "item02"},
+  ])
+  const vdom$ = view(state$)
+``` 
+
+### Ex03a: Why does `model.newItem$` stream return the response object instead of the reducer function?
+
+In the logs, I should get `function` events instead of the returning results of the function invocations. 
+
+``` js
+model.newItem$
+index.js:1744 {item_id: 3, title: "item03"}
+``` 
+
+The cause of this unexpected behaviour lies with the reducer function definitions:
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex03a/index.js`
+
+``` js
+  const newItem$ = actions.newItem$.map(function newItemReducer(prevState){
+    console.log("inside newItemReducer")
+    return {"item_id": 3, "title": "item03"}
+  })
+``` 
+
+This reducer returns the object `{"item_id": 3, "title": "item03"}` instead of the function `newItemReducer`. Correct reducer is the following:
+
+``` js
+  const newItem$ = actions.newItem$.mapTo(function newItemReducer(prevState){
+    console.log("inside newItemReducer")
+    return {"item_id": 3, "title": "item03"}
+  })
+``` 
+
+### Ex04: Pipe model's response to view:
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex04/index.js`
+
+``` js
+  const reducers = model(actions)
+  const state$ = xs.merge(...reducers)
+    .fold((listItems, reducer) => reducer(listItems), seeds)
+    .startWith(seeds)
+  const vdom$ = view(state$)
+``` 
+
+When I first run this, there was no event coming from state$ stream. The reason for this was the spread operator for object properties does not work properly without babel plugin. To solve the problem, I added the spread operator plugin to package.json:
+
+``` js
+    "babel-preset-env": "^1.7.0",
+    "babel-plugin-transform-object-rest-spread": "^6.6.5",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.4.3",
+    "babelify": "^7.2.0",
+``` 
+
+And I put these lines into `~/codes/js/todomvc-cycle-onion/.babelrc`:
+
+``` js
+{
+  "presets": ["es2015"],
+  "plugins": ["transform-object-rest-spread"]
+}
+``` 
+
+### Ex05: Use onion instead of your own reducer fold function:
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex05/index.js`
+
+Instead of my own custom reducer fold expression, use onion:
+
+``` js
+  //const state$ = xs.merge(...reducers)
+    //.fold((listItems, reducer) => reducer(listItems), seeds)
+    //.startWith(seeds)
+``` 
+
+Now this becomes:
+
+``` js
+const initReducer$ = xs.of(function initReducer() {
+  return seeds;
+})
+...
+  const reducer$ = xs.merge(initReducer$, ...reducers)
+  const state$ = sources.onion.state$
+  const vdom$ = view(state$)
+  return {
+    DOM: vdom$,
+    onion: reducer$,
+  };
+``` 
+
+Unexpected behaviour with xs.merge:
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex05/index01.js`
+
+We merge initial reducer stream with other reducer streams. But the order of merging stream arguments change the behaviour of the final stream.
+
+The following works sometimes:
+
+``` js
+  const reducer$ = xs.merge(initReducer$, ...reducers)
+``` 
+
+But the following merge expressions don't work:
+
+``` js
+  const reducer$ = xs.merge(initReducer$, reducers.newItem$)
+  const reducer$ = xs.merge(reducers.newItem$, initReducer$)
+``` 
+
+But if I add `startWith` to them, then they work too:
+
+``` js
+  const reducer$ = xs.merge(initReducer$, reducers.newItem$)
+    .startWith(initReducer$)
+  const reducer$ = xs.merge(reducers.newItem$, initReducer$)
+    .startWith(initReducer$)
+``` 
+
+I didn't understand why sometimes they work and sometimes don't. Maybe it is an issue with parceljs bundler.
+
+I will always use `startWith` in order to assure proper working. 
+
+Now this didn't work:
+
+``` js
+  const reducer$ = xs.merge(initReducer$, reducers.newItem$)
+    .startWith(initReducer$)
+``` 
+
+And commenting startWith works:
+
+``` js
+  const reducer$ = xs.merge(initReducer$, reducers.newItem$)
+``` 
+
+My choice: Never use spread operator in xs.merge.
+
+Another related oddity is that `startWith` works only if `addListenerStream` is called. For example, the following works:
+
+``` js
+  const reducer$ = xs.merge(initReducer$, reducers.newItem$)
+    .startWith(initReducer$)
+  addListenerStream(reducer$, "reducer$")
+``` 
+
+But every click causes to add two new items.
+
+When I comment `addListenerStream` then nothing is rendered. 
+
+When I remove both `addListenerStream` and `startWith` then it works correctly.
+
+### Ex06: Making new items from the input content
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex06/index.js`
+
+First, I tried to use `sampleCombine` operator:
+
+``` js
+  const updateInput$ = dom$.select('.new_item_title').events('input')
+    .map(ev => ev.target.value.trim())
+  const submit$ = dom$.select('.new_item_submit').events('click')
+    .mapTo({type: "NEW_ITEM"})
+  const newItem$ = updateInput$.compose(sampleCombine(submit$))
+    .map( ([title, submit]) => title)
+``` 
+
+This fires a new event after each key typing. This is not what I want. I want to fire a new event only after clicking `submit` button.
+
+Then, I tried to use `combine` operator:
+
+``` js
+  const newItem$ = xs.combine(updateInput$, submit$)
+    .map( ([title, submit]) => title)
+``` 
+
+This fires a new event after each key typing too. 
+
+Then, I tried to use `sampleCombine` again but this time I reversed the order of input streams:
+
+``` js
+  var newItem$ = submit$.compose(sampleCombine(updateInput$))
+    .map( ([submit, input]) => input )
+``` 
+
+Now, it works as expected. 
+
+### Ex07: Define an id generator and assign id to new items
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex07/index.js`
+
+Initial state now contains max id number:
+
+``` js
+const initState = {
+  max_id: 2,
+  items: [
+    {"item_id": 1, "title": "item01"},
+    {"item_id": 2, "title": "item02"},
+  ],
+}
+const initReducer$ = xs.of(function initReducer() {
+  return initState
+})
+``` 
+
+Since the structure of the state object changed, we need to update reducer functions as well:
+
+``` js
+...
+    function newItemReducer(prevState){
+      return {        
+        max_id: prevState.max_id + 1,
+        items: [
+          ...prevState.items,
+          {"item_id": (prevState.max_id + 1), "title": title},
+        ]}
+``` 
+
+### Ex08: Remove items
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex08/index.js`
+
+``` js
+  const removeItem$ = actions.removeItem$.map(action => function removeItemReducer(prevState) {
+    return {
+      ...prevState,
+      items: prevState.items.filter(item => item.item_id !== +action.payload)
+    }
+``` 
+
+## p08: How to make data flow model from the code?
+
+Example 01: <url:file:///~/codes/js/front-end-reactive-architectures/9781484231791/examples/weather-onionify/src/CityForm.js>
+
+``` js
+  const getRequest = city => ({
+          type: CITY_SEARCH,
+          city: city,
+          url: `http://api.apixu.com/v1/forecast.json?key=04ca1fa2705645e4830214415172307&q=${city}&days=7`,
+          category: CATEGORY
+  })
+  ...
+  const intent = DOM => {
+    return xs.combine(input$, btn$)
+             .map(([city, mouseEvt]) => getRequest(city))
+             .startWith(getRequest(INIT_CITY))
+  ...
+  const actions$ = intent(sources.DOM);
+  ...
+  return { HTTP: actions$ }
+  ...
+  const reducer$ = model(sources.HTTP);
+  ...
+  const model = (HTTP) => {
+    return HTTP.map(...)
+  ...
+  return { onion: reducer$, }
+``` 
+
+    0:sources.DOM -> 1:[intent] -> 2:sinks.HTTP -> 3:[HTTPDriver] -> 4:sources.HTTP -> 5:[model] -> 6:reducer$ -> 7:[onion] -> 8:state$ -> 9:[view] -> 10:vdom$ -> 11:[DOMDriver] -> (0)
+    6: sinks.onion = reducer$
+    8: state$ = sources.onion.state$
+    10: sinks.DOM = vdom$
+
+Example 02: <url:/Users/mertnuhoglu/codes/js/cyclejs/examples/advanced/many/src/List.js#tn=function List(sources) {>
+
+``` js
+  const proxyItemRemove$ = xs.create();
+  const action$ = intent(sources.DOM, proxyItemRemove$);
+  const itemWrapper = makeItemWrapper(sources.DOM);
+  const items$ = model(action$, itemWrapper);
+  const itemRemove$ = items$
+    .map(items => xs.merge(...items.map(item => item.Remove)))
+    .flatten()
+  proxyItemRemove$.imitate(itemRemove$);
+  const vtree$ = view(items$);
+``` 
+
+    <url:/Users/mertnuhoglu/projects/study/js/study_cyclejs_examples.Rmd#tn=## Data Flow of List-Item>
+
+## p09: Textual representation of the data flow models:
+
+opt01: linear flow sequence
+
+    (0)sources.DOM -> [intent] -> sinks.HTTP -> [HTTPDriver] -> sources.HTTP -> [model] -> reducer$ -> [onion] -> state$ -> [view] -> sinks.DOM -> [DOMDriver] -> (0)
+
+opt02: give each element an id number
+
+    0:sources.DOM -> 1:[intent] -> 2:sinks.HTTP -> 3:[HTTPDriver] -> 4:sources.HTTP -> 5:[model] -> 6:reducer$ -> 7:[onion] -> 8:state$ -> 9:[view] -> 10:sinks.DOM -> 11:[DOMDriver] -> (0)
+
+opt03: branches represented by using new flow sequences
+
+    0:sources.DOM -> 1:[intent] -> 2:sinks.HTTP -> 3:[HTTPDriver] -> 4:sources.HTTP -> 5:[model] -> 6:reducer$ -> 7:[onion] -> 8:state$ -> 9:[view] -> 10:sinks.DOM -> 11:[DOMDriver] -> (0)
+    1:[intent] -> 12:actions$ -> 5:[model]
+
+opt04: names as attributes
+
+    0:sources.DOM -> 1:[intent] -> 2:sinks.HTTP -> 3:[HTTPDriver] -> 4:sources.HTTP -> 5:[model] -> 6:reducer$ -> 7:[onion] -> 8:state$ -> 9:[view] -> 10:sinks.DOM -> 11:[DOMDriver] -> (0)
+    0:_n:DOMSource
+    2:_n:actions
+
+opt05: what if we have encapsulating objects as elements?
+
+    2:actions
+    2:_n:{HTTP, newItem$}
+
+opt06: what if we want to explicitly show that HTTP goes into sinks?
+
+    2:sinks.HTTP
+    2:HTTP
+
+    2:_n:sinks.HTTP
+
+    2:actions
+    2:_n:{HTTP, newItem$}
+    2:_e: sinks.HTTP = actions.HTTP
+
+    2: actions = {HTTP, newItem$}
+    2: sinks.HTTP = actions.HTTP
+
+choose: opt06.d, opt06.b, opt03
+
+## p10: form submit için bir operatör tanımlama
+
+Ex01:
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p10/ex01.js`
+
+Ex04: Reverse the input stream arguments
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p10/ex04.js`
+
+``` js
+// s1:  -0-1-2-3|
+// s2:  ---0---1|
+// res: ---1---3|
+const s1 = xs.periodic(250).take(4)
+  .debug()
+const s2 = xs.periodic(510).take(2)
+  .debug()
+
+const res = s2.compose(sampleCombine(s1))
+  .map( ([v2, v1]) => v1 )
+// 0
+// 1
+// 0
+// res: 1
+// 2
+// 3
+// 1
+// res: 3
+// res completed
+``` 
+
+## p11: Numerical simulation using xstream
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p11/ex01.js`
+
+``` js
+const ticks = xs.periodic(100).take(100)
+// pop(t) = 0.05 * dt * pop(t-1) + pop(t-1)
+const population = ticks.fold((acc,cur) =>
+  0.05 * 0.1 * acc + acc,
+  100
+)
+// pop: 100
+// pop: 100.5
+// pop: 101.0025
+// pop: 101.5075125
+// pop: 102.01505006250001
+// ...
+``` 
+
+## p12: Convert two substreams of state into a single stream of state
+
+Problem from: <url:/Users/mertnuhoglu/projects/study/js/vrp/cyclejs_vrp.Rmd#tn=#### v15.09_01: Make state non-stream object>
+
+Currently state stream consists of two substate-streams:
+
+``` js
+  const {plans$, purchase_orders$} = state$
+``` 
+
+I want to obtain only one stream of global state. 
+
+`plans$` and `purchase_orders$` are streams of the following arrays:
+
+``` js
+[
+  { "plan_id": 1, "usr": "usr_4_4_4_4_4_4", "depot_id": 4 },
+  { "plan_id": 2, "usr": "usr_4_4_4_4_4_4", "depot_id": 2 }
+]
+``` 
+
+``` js
+[
+  { "purchase_order_id": 1, "company_id": 2, "order_extid": "order_extid_2", "company_extid": "company_e" },
+  { "purchase_order_id": 2, "company_id": 5, "order_extid": "order_extid_2", "company_extid": "company_e" }
+]
+``` 
+
+Now, how can we convert these streams into a single state object of the form:
+
+``` js
+{
+  plans: [{..}, {..}, ...],
+  purchase_orders: [{..}, {..}, ...],
+}
+``` 
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p12/ex01.js`
+
+``` js
+const rs$ = xs.combine(plans$, purchase_orders$)
+  .map( ([plans, purchase_orders]) => ({
+    plans: plans,
+    purchase_orders: purchase_orders,
+  }))
+// result: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2}],"purchase_orders":[{"purchase_order_id":1,"company_id":2,"order_extid":"order_extid_2","company_extid":"company_e"},{"purchase_order_id":2,"company_id":5,"order_extid":"order_extid_2","company_extid":"company_e"}]}
+``` 
+
+## p13: Make HTTP Requests in nodejs with xstream
+
+My ultimate goal is to test everything inside a normal GUI application first in the nodejs side. Lastly, I was about to convert a state object returning model() function to a reducer returning function. From `<url:/Users/mertnuhoglu/projects/study/js/vrp/cyclejs_vrp.Rmd#tn=### v15.09_02 Return reducers from model()>`
+
+``` js
+const {makeHTTPDriver} = require('@cycle/http')
+const xs = require('xstream').default
+
+const HTTP = makeHTTPDriver()
+const requests$ = xs.from(
+  [
+    {
+      url: 'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id',
+      method: 'GET',
+      headers: {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+      },
+      category: 'plan',
+    },
+  ]
+)
+const httpSource = HTTP(requests$)
+
+const plans$ = httpSource.select('plan')
+  .flatten()
+  .map(res => 
+    res.body
+  )
+// result: [{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}]
+// s1 completed
+``` 
+
+## p14: Converting state returning model() function to reducer returning function
+
+From `<url:/Users/mertnuhoglu/projects/study/js/vrp/cyclejs_vrp.Rmd#tn=### v15.09_02 Return reducers from model()>`
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p14/ex01.js`
+
+``` js
+const planReducer$ = httpSource.select('plan')
+  .flatten()
+  .map(res => function planReducer(prevState) {
+    return res.body
+  })
+
+const state$ = xs.merge(planReducer$)
+  .fold((prevState, reducer) => reducer(prevState), {});
+// result: {}
+// result: [{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}]
+// s1 completed
+``` 
+
+Now, let's do this with combined results.
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p14/ex02.js`
+
+``` js
+const requests$ = intent()
+const httpSource = HTTP(requests$)
+
+const initialState = {
+  plans: [], 
+  purchase_orders: [],
+}
+const planReducer$ = httpSource.select('plan')
+  .flatten()
+  .map(res => function planReducer(prevState) {
+    return {
+      ...prevState,
+      plans: res.body
+    }
+  })
+const purchaseOrderReducer$ = httpSource.select('purchase_order')
+  .flatten()
+  .map(res => function purchaseOrderReducer(prevState) {
+    return {
+      ...prevState,
+      purchase_orders: res.body
+    }
+  })
+const reducer$ = xs.merge(planReducer$, purchaseOrderReducer$)
+
+const state$ = reducer$
+  .fold((prevState, reducer) => reducer(prevState), initialState);
+// result: {"plans":[],"purchase_orders":[]}
+// result: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[]}
+// result: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[{"purchase_order_id":1,"company_id":2,"order_extid":"order_extid_2","company_extid":"company_e"},{"purchase_order_id":2,"company_id":5,"order_extid":"order_extid_2","company_extid":"company_e"},{"purchase_order_id":3,"company_id":3,"order_extid":"order_extid_2","company_extid":"company_e"},{"purchase_order_id":4,"company_id":1,"order_extid":"order_extid_2","company_extid":"company_e"},{"purchase_order_id":5,"company_id":1,"order_extid":"order_extid_2","company_extid":"company_e"}]}
+``` 
+
+Note that, we deleted `xs.combine` expression completely. `fold` replaces the need for `combine`. At each folding iteration, the `prevState` is combined with current `reducer`'s response. 
+
+## p15: Converting reducer$.fold to onion
+
+From `<url:/Users/mertnuhoglu/projects/study/js/vrp/cyclejs_vrp.Rmd#tn=### v15.09_02 Return reducers from model()>`
+
+### p15 ex01
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p15/ex01.js`
+
+``` js
+function intent() {
+  const requests$ = xs.from(
+    [
+      {
+        url: 'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id',
+        method: 'GET',
+        headers: {
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+        },
+        category: 'plan',
+      },
+    ]
+  )
+  return requests$
+}
+const requests$ = intent()
+const HTTP = makeHTTPDriver()
+const httpSource = HTTP(requests$)
+
+function model(httpSource) {
+  const planReducer$ = httpSource.select('plan')
+    .flatten()
+    .map(res => function planReducer(prevState) {
+      return res.body
+    })
+  return planReducer$
+}
+const reducer$ = model(httpSource)
+
+function onion(reducer$) {
+  const state$ = xs.merge(reducer$)
+    .fold((prevState, reducer) => reducer(prevState), {});
+  return state$
+}
+const state$ = onion(reducer$)
+``` 
+
+I reorganized the existing expressions into separate functions. 
+
+### p15 ex02
+
+Now, let's use onionify `main()` function.
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p15/ex02.js`
+
+``` js
+...
+function main() {
+  const requests$ = intent()
+  const HTTP = makeHTTPDriver()
+  const httpSource = HTTP(requests$)
+  const reducer$ = model(httpSource)
+  return reducer$
+}
+function onionify(main) {
+  return function mainOnionified() {
+    const reducer$ = main()
+    const state$ = onion(reducer$)
+    return state$
+  }
+}
+const mainOnionified = onionify(main);
+const state$ = mainOnionified()
+``` 
+
+### p15 ex03
+
+Now, let's use cycle's own `onionify()`.
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p15/ex03.js`
+
+``` js
+const onionify = require('cycle-onionify').default
+...
+function main(sources) {
+  const requests$ = intent()
+  const HTTP = makeHTTPDriver()
+  const httpSource = HTTP(requests$)
+  const reducer$ = model(httpSource)
+  const state$ = sources.onion.state$
+  return {
+    onion: reducer$,
+    state$: state$
+  }
+}
+//function onionify(main) {
+  //return function mainOnionified() {
+    //const reducer$ = main()
+    //const state$ = onion(reducer$)
+    //return state$
+  //}
+//}
+const mainOnionified = onionify(main);
+const sources = {}
+const state$ = mainOnionified(sources).state$
+``` 
+
+### p15 ex04
+
+Now, let's make our own `onionify()` more similar to `cyclejs.onionify()`.
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p15/ex04.js`
+
+``` js
+function onion(reducer$) {
+  const state$ = xs.merge(reducer$)
+    .fold((prevState, reducer) => reducer(prevState), initialState);
+  return state$
+}
+function main(sources) {
+  const requests$ = intent()
+  const HTTP = makeHTTPDriver()
+  const httpSource = HTTP(requests$)
+  const reducer$ = model(httpSource)
+  const state$ = sources.onion.state$
+  return {
+    onion: reducer$,
+    state$: state$,
+  }
+}
+function onionify(main) {
+  return function mainOnionified(sources) {
+    const reducerMimic$ = xs.create()
+    const state$ = onion(reducerMimic$)
+    sources.onion = {state$}
+    const sinks = main(sources)
+    reducerMimic$.imitate(sinks.onion)
+    return sinks
+  }
+}
+const mainOnionified = onionify(main);
+const sources = {}
+const state$ = mainOnionified(sources).state$
+``` 
+
+### p15 ex05
+
+Now, let's initialize state with initialState.
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p15/ex05.js`
+
+``` js
+function model(httpSource) {
+  const initReducer$ = xs.of(
+    function initReducer(prevState) {
+      const initialState = {
+        plans: [], 
+        purchase_orders: [],
+      }
+      return initialState
+    }
+  )
+  const planReducer$ = httpSource.select('plan')
+    .flatten()
+    .map(res => function planReducer(prevState) {
+      return {
+        ...prevState, 
+        plans: res.body
+      }
+    })
+  return xs.merge(initReducer$, planReducer$)
+}
+...
+// result: {"plans":[],"purchase_orders":[]}
+// result: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[]}
+``` 
+
+# xstream Operators
+
+## between: `first.mapTo(source.endWhen(second)).flatten()`
+
+From `~/codes/js/cyclejs/examples/advanced/autocomplete-search/src/app.js`
+
+``` js
+/**
+ * source: --a--b----c----d---e-f--g----h---i--j-----
+ * first:  -------F------------------F---------------
+ * second: -----------------S-----------------S------
+ *                         between
+ * output: ----------c----d-------------h---i--------
+ */
+function between(first, second) {
+  return (source) => first.mapTo(source.endWhen(second)).flatten()
+}
+...
+  const inputBlurToItem$ = inputBlur$.compose(between(itemMouseDown$, itemMouseUp$))
+``` 
+
+``` js
+/**
+ * source: --a--b----c----d---e-f--g----h---i--j-----
+ * first:  -------F------------------F---------------
+ * second: -----------------S-----------------S------
+ *                       notBetween
+ * output: --a--b-------------e-f--g-----------j-----
+ */
+function notBetween(first, second) {
+  return source => xs.merge(
+    source.endWhen(first),
+    first.map(() => source.compose(dropUntil(second))).flatten()
+  )
+}
+...
+  const inputBlurToElsewhere$ = inputBlur$.compose(notBetween(itemMouseDown$, itemMouseUp$))
+``` 
+
+# Opinions
+
+## Opinion01: What do we get for free by using reactive programming?
+
+Andre Staltz says in his article http://cycle.js.org/observables.html#reactive-programming:
+
+Assume that `foo` module affects `bar` module in such a way:
+
+    class foo 
+      function onRequest() {
+        bar.increment()
+      }
+
+Here `foo` is proactive and `bar` is passive. Shown as foo -> bar
+
+In this case, we can classify knowledge discovery with the following table:
+
+    |                         | passive     | reactive    |
+    | how does bar work?      | find usages | look inside |
+    | which modules affected? | look inside | find usages |
+
+Let's see if this is valid for our code in `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex08/index.js` too:
+
+The state data is managed by `model()` function. 
+
+``` js
+function model(actions) {
+  const newItem$ = actions.newItem$.map( title =>
+    function newItemReducer(prevState){
+      return {        
+        max_id: prevState.max_id + 1,
+        items: [
+          ...prevState.items,
+          {"item_id": (prevState.max_id + 1), "title": title},
+        ]}
+    })
+  const removeItem$ = actions.removeItem$.map(action => function removeItemReducer(prevState) {
+    return {
+      ...prevState,
+      items: prevState.items.filter(item => item.item_id !== +action.payload)
+    }
+  })
+  return {newItem$, removeItem$}
+}
+``` 
+
+Here we can see how state update logic is designed. 
+
+What about all the modules that are affected by `model()`. For this information we have to find all usages of `model()`
+
+``` js
+  const reducers = model(actions)
+``` 
 

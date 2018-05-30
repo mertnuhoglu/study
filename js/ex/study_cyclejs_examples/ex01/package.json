@@ -1,0 +1,36 @@
+{
+  "name": "ex01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "ref02": "parcel ref02/index.html",
+    "build": "parcel build index.html --public-url ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-plugin-transform-object-rest-spread": "^6.6.5",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.4.3",
+    "babelify": "^7.2.0",
+    "parcel-bundler": "^1.8.1",
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "@cycle/dom": "^20.4.0",
+    "@cycle/history": "^6.10.0",
+    "@cycle/http": "^14.9.0",
+    "@cycle/isolate": "^3.3.0",
+    "@cycle/run": "^4.1.0",
+    "@cycle/storage": "^5.0.3",
+    "cycle-storageify": "^4.0.1",
+    "todomvc-app-css": "^2.1.2",
+    "todomvc-common": "^1.0.5",
+    "xstream": "^11.2.0"
+  }
+}

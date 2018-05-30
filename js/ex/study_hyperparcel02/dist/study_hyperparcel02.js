@@ -71,7 +71,7 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({4:[function(require,module,exports) {
+})({3:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -363,7 +363,7 @@ var view = function view(state, actions) {
   return (0, _hyperapp.h)("div", {}, "hello hyperapp");
 };
 (0, _hyperapp.app)({}, {}, view, document.body);
-},{"hyperapp":4}],6:[function(require,module,exports) {
+},{"hyperapp":3}],4:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -385,7 +385,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '64866' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '60576' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -486,5 +486,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[6,2])
+},{}]},{},[4,2])
 //# sourceMappingURL=/dist/study_hyperparcel02.map

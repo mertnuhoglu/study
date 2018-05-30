@@ -1,0 +1,18 @@
+dependencies:
+  preact: 8.2.9
+  unchained-js: 0.2.0
+packages:
+  /preact/8.2.9:
+    dev: false
+    resolution:
+      integrity: sha512-ThuGXBmJS3VsT+jIP+eQufD3L8pRw/PY3FoCys6O9Pu6aF12Pn9zAJDX99TfwRAFOCEKm/P0lwiPTbqKMJp0fA==
+  /unchained-js/0.2.0:
+    dev: false
+    resolution:
+      integrity: sha512-QklIR9O3bKe4wrZX0SkRTYHx2aIwzVUH3KOt6GGLM0YWntou3l0iTqd51p49VxaYtF5mjYSg6jH0QztH7LhPLA==
+registry: 'https://registry.npmjs.org/'
+shrinkwrapMinorVersion: 4
+shrinkwrapVersion: 3
+specifiers:
+  preact: ^8.2.7
+  unchained-js: ^0.2.0

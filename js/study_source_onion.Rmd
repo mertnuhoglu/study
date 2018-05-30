@@ -1,0 +1,89 @@
+---
+title: "Study Source Code of cycle-onionify"
+date: 2018-05-12T10:05:13+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_source_onion.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_source_onion
+
+https://github.com/staltz/cycle-onionify
+
+## onionify.ts
+
+Defined in `~/codes/js/cycle-onionify/src/onionify.ts`
+
+### `function onionify()` returns `function mainOnionified`
+
+    return function mainOnionified(sources: Omit<So, 'onion'>): Omit<Si, 'onion'> {
+      const reducerMimic$ = xs.create<Reducer<T>>();
+      const state$ = reducerMimic$
+        .fold((state, reducer) => reducer(state), void 0 as (T | undefined))
+        .drop(1);
+
+`sources` is input argument. 
+
+No input argument has been used yet.
+
+      sources[name] = new StateSource<any>(state$, name);
+      const sinks = main(sources as So);
+
+This `main` comes from `onionify` initialization. From `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref03/index.js`
+
+    const wrappedMain = onionify(main);
+    run(wrappedMain, {
+      DOM: makeDOMDriver('#app')
+    });
+    ...
+    function main(sources) {
+      ...
+      return {
+        DOM: vdom$,
+        onion: reducer$,
+      };
+
+Note that, onionify has signature:
+
+    export function onionify<T, So extends OSo<T>, Si extends OSi<T>>(
+                                    main: MainFn<So, Si>,
+                                    name: string = 'onion'): MainOnionified<T, So, Si> {
+
+So, `sinks` returned by this `main` comes from actual app's sinks:
+
+      const sinks = main(sources as So); // onion
+        <- comes from: app/index.js
+      return {
+        DOM: vdom$,
+        onion: reducer$,
+      };
+
+Now `name` is `onion`:
+
+      if (sinks[name]) {  // onion
+        const stream$ = concat(
+          xs.fromObservable<Reducer<T>>(sinks[name]),
+          xs.never(),
+        );
+        reducerMimic$.imitate(stream$);
+      }
+
+So `sinks[name]` is `reducer$` from app.main's return.
+
+Note that, when calling `run` we don't provide `sources.onion`. `sources.onion` is provided inside `onionify.wrappedMain()`
