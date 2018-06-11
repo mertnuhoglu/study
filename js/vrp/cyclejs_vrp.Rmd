@@ -1436,7 +1436,7 @@ Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_01/components/app/model.js`
     }))
 ``` 
 
-### v15.09_02 Return reducers from model()
+#### v15.09_02 Return reducers from model()
 
 Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src09/index.js`
 
@@ -1477,7 +1477,7 @@ export default function model(sources) {
 }
 ``` 
 
-### v15.09_03 Use my onionify() function before cyclejs.onionify
+#### v15.09_03 Use my onionify() function before cyclejs.onionify
 
 Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_03/index.js`
 
@@ -1524,7 +1524,7 @@ export default function main(sources) {
     ...
 ``` 
 
-### v15.09_04 Use cyclejs.onionify()
+#### v15.09_04 Use cyclejs.onionify()
 
 Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_04/index.js`
 
@@ -1533,7 +1533,9 @@ import onionify from 'cycle-onionify';
 const main = onionify(App);
 ``` 
 
-## v15.10_01 Add "Get Data" Button
+### v15.10: Add "Get Data" Button and Populate DetailPanel Data
+
+#### v15.10_01 Add "Get Data" Button
 
 Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_01/components/plan_panel/index.js`
 
@@ -1559,3 +1561,32 @@ function view(state$) {
 
 Button click events will be piped into `intent()` function
 
+``` js
+function intent(dom$) {
+  const getPlanDetails$ = dom$.select('.get_plan_details').events('click')
+    .map((e) => ({type: "GET_PLAN_DETAILS", payload: e.target.dataset.plan_id}))
+    ...
+``` 
+
+Now, move HTTP request from `app` to `plan_panel`
+
+#### v15.10_02 Add "Get Data" Button: Move its HTTP handling's model() expressions from App to PlanPanel
+
+Currently HTTP handling is done in App.model() completely `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_02/components/app/model.js`
+
+``` js
+export default function model(sources) {
+...
+  const purchaseOrderReducer$ = sources.HTTP.select('purchase_order')
+    .flatten()
+    .map(res => function purchaseOrderReducer(prevState) {
+      return {
+        ...prevState,
+        purchase_orders: res.body
+      }
+    })
+``` 
+
+I want to move this functionality to `PlanPanel.model()` because the triggering event for it is sourced from `PlanPanel.intent()`
+
+Now, if I move it from `App` to `PlanPanel` what will happen to `state` object?

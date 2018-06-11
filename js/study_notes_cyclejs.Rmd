@@ -824,7 +824,7 @@ Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref04/index.js`
 
 ## ref05: Multiple HTTP Requests
 
-Based on ~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_04.js
+Based on ~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/index_04.js
 
 Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref05/index.js`
 
@@ -872,7 +872,7 @@ mkdir -p ex/study_notes_cyclejs/p01
 
 Opt01: xs.of + one div vdom 
 
-Edit `ex/study_notes_cyclejs/problems/p01/index_01.js`
+Edit `ex/study_notes_cyclejs/src/problems/p01/index_01.js`
 
 ``` js
 ...
@@ -891,7 +891,7 @@ Edit `ex/study_notes_cyclejs/problems/p01/index_01.js`
 
 Opt02: xs.of + multiple div vdom
 
-Edit `ex/study_notes_cyclejs/problems/p01/index_02.js`
+Edit `ex/study_notes_cyclejs/src/problems/p01/index_02.js`
 
 ``` js
 ...
@@ -907,7 +907,7 @@ Note that, virtual dom should consist only of a single outer element.
 
 Opt03: xs.of + multiple div inside a single div
 
-Edit `ex/study_notes_cyclejs/problems/p01/index_03.js`
+Edit `ex/study_notes_cyclejs/src/problems/p01/index_03.js`
 
 ``` js
 ...
@@ -922,7 +922,7 @@ Edit `ex/study_notes_cyclejs/problems/p01/index_03.js`
 
 Opt04: Reflection: what is the content of vdom$ 
 
-Edit `ex/study_notes_cyclejs/problems/p01/index_04.js`
+Edit `ex/study_notes_cyclejs/src/problems/p01/index_04.js`
 
 ``` js
 ...
@@ -941,7 +941,7 @@ Also check: <url:/Users/mertnuhoglu/projects/study/js/study_js.Rmd#tn=## Reflect
 
 Opt05: Use `debug` instead of `addListener`
 
-Edit `ex/study_notes_cyclejs/problems/p01/index_05.js`
+Edit `ex/study_notes_cyclejs/src/problems/p01/index_05.js`
 
 ``` js
 ...
@@ -956,7 +956,7 @@ Console:
 
 Opt06: `state$.map` instead of `xs.of`
 
-Edit `ex/study_notes_cyclejs/problems/p01/index_06.js`
+Edit `ex/study_notes_cyclejs/src/problems/p01/index_06.js`
 
 ``` js
 ...
@@ -970,7 +970,7 @@ Edit `ex/study_notes_cyclejs/problems/p01/index_06.js`
 
 Opt07: Multiple div with `state$.map`
 
-Edit `ex/study_notes_cyclejs/problems/p01/index_07.js`
+Edit `ex/study_notes_cyclejs/src/problems/p01/index_07.js`
 
 ``` js
 ...
@@ -983,7 +983,7 @@ Edit `ex/study_notes_cyclejs/problems/p01/index_07.js`
 
 Opt08: Use nested component
 
-Edit `ex/study_notes_cyclejs/problems/p01/index_08.js`
+Edit `ex/study_notes_cyclejs/src/problems/p01/index_08.js`
 
 ``` js
 ...
@@ -1021,9 +1021,9 @@ Opt09: use `isolate` for nested component
 
 Opt01: Move files into sandbox
 
-ex/study_notes_cyclejs/problems/p02/v01
+ex/study_notes_cyclejs/src/problems/p02/v01
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p02/v01/src/components/plan_panel/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p02/v01/src/components/plan_panel/index.js`
 
 ``` js
 ...
@@ -1036,7 +1036,7 @@ Works well.
 
 Opt02: Use body to reproduce the error
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p02/v02/src/components/plan_panel/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p02/v02/src/components/plan_panel/index.js`
 
 ``` js
 ...
@@ -1049,7 +1049,7 @@ Error: browser output: `undefined`
 
 ### Opt03: debug()
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p02/v03/src/components/plan_panel/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p02/v03/src/components/plan_panel/index.js`
 
 ``` js
 ...
@@ -1083,7 +1083,7 @@ __proto__ : Array(0)
 
 ### Opt04_01: Reproduce the error with static data
 
-Edit ~/projects/study/js/ex/study_notes_cyclejs/problems/p02/v04/index_01.js
+Edit ~/projects/study/js/ex/study_notes_cyclejs/src/problems/p02/v04/index_01.js
 
 ``` js
 ...
@@ -1114,7 +1114,7 @@ Console:
 
 ### Opt04_02: Fix the error
 
-Edit ~/projects/study/js/ex/study_notes_cyclejs/problems/p02/v04/index_02.js
+Edit ~/projects/study/js/ex/study_notes_cyclejs/src/problems/p02/v04/index_02.js
 
 ``` js
 ...
@@ -1205,7 +1205,7 @@ Or toHTML()
 
 Opt01: Multiple Buttons
 
-Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_01.js`
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/index_01.js`
 
 The following xs.merge(..) streams don't work:
 
@@ -1234,7 +1234,7 @@ Cause: Use xs.combine() instead of xs.merge.
 
 ### Test xs.merge
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/merge_01.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/merge_01.js`
 
 ``` js
 const xs = require('xstream').default
@@ -1252,7 +1252,7 @@ s1$.addListener({
 
 Now, add a new stream:
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/merge_02.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/merge_02.js`
 
 ``` js
 var s1$ = xs.periodic(1000)
@@ -1288,7 +1288,7 @@ node problems/p03/merge_02.js
 
 Opt02: Use xs.combine() instead of xs.merge.
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_02.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/index_02.js`
 
 ``` js
 ...
@@ -1307,7 +1307,7 @@ Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_02.js`
 
 Opt03: Make intent return both requests
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_03.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/index_03.js`
 
 ``` js
 function intent(sources) {
@@ -1321,7 +1321,7 @@ The output:
 
 Opt04: Structure as intent model view functions
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_04.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/index_04.js`
 
 ``` js
 function main(sources) {
@@ -1338,7 +1338,7 @@ function main(sources) {
 
 Opt05: Call the REST Services when Loading the Web Page
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_05.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/index_05.js`
 
 ``` js
 ...
@@ -1363,7 +1363,7 @@ function intent(sources) {
 
 Opt06: Use xs.from
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_06.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/index_06.js`
 
 ``` js
 function intent(sources) {
@@ -1404,7 +1404,7 @@ function main(sources) {
 
 Opt07: Call my REST Services without view
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_07.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/index_07.js`
 
 ``` js
   const requests$ = xs.from(
@@ -1419,7 +1419,7 @@ Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_07.js`
 
 Opt09: Call my REST Services with view
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p03/index_09.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/index_09.js`
 
 ``` bash
 cd ex/study_notes_cyclejs/
@@ -1466,7 +1466,7 @@ It works.
 
 I wonder if not using bundlers will make debugging easier? Because sometimes the bundler and transpiler makes the code so obfuscated that chrome's source mapping doesn't work correctly.
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p04/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p04/index.js`
 
 This seems too difficult to try.
 
@@ -1476,13 +1476,13 @@ Started from `<url:/Users/mertnuhoglu/projects/study/js/vrp/cyclejs_vrp.Rmd#tn=#
 
 Opt01: Complex App: Multiple Components + Onion + Single HTTP Request + Hot
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p05/ex01/index.js`
 
 Opt01b: Move Hot sinks to DetailPanel: Multiple Components + Onion + Single HTTP Request + Hot
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p05/ex01b/index.js`
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b/components/app/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p05/ex01b/components/app/index.js`
 
 ``` js
 ...
@@ -1491,7 +1491,7 @@ Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b/components/a
     Hot: hot$,
 ``` 
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b/components/detail_panel/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p05/ex01b/components/detail_panel/index.js`
 
 ``` js
 ...
@@ -1503,9 +1503,9 @@ Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b/components/d
 
 Opt01b02: Use state$ as Hot data: Multiple Components + Onion + Single HTTP Request + Hot
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b02/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p05/ex01b02/index.js`
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b02/components/detail_panel/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p05/ex01b02/components/detail_panel/index.js`
 
 ``` js
 ...
@@ -1517,17 +1517,17 @@ Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex01b02/components
 
 Opt02: Remove Onion and Hot from Complex App: Multiple Components + Single HTTP Request
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex02/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p05/ex02/index.js`
 
 Opt03: Add Multiple HTTP Requests to Complex App: Multiple Components + Multiple HTTP Requests
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex03/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p05/ex03/index.js`
 
 Opt04: Add Hot and pipe its data from model(): Multiple Components + Multiple HTTP + Hot pipeline
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex04/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p05/ex04/index.js`
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex04/components/app/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p05/ex04/components/app/index.js`
 
 ``` js
 ...
@@ -1538,7 +1538,7 @@ Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex04/components/ap
     Hot: hot$,
 ``` 
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p05/ex04/components/detail_panel/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p05/ex04/components/detail_panel/index.js`
 
 ``` js
 export default function DetailPanel(sources, purchase_order$) {
@@ -1555,10 +1555,10 @@ export default function DetailPanel(sources, purchase_order$) {
 `imitate` allows circular dependency of streams
 
 ``` bash
-node ex/study_notes_cyclejs/problems/p06/ex02.js
+node ex/study_notes_cyclejs/src/problems/p06/ex02.js
 ``` 
 
-Edit `ex/study_notes_cyclejs/problems/p06/ex02.js`
+Edit `ex/study_notes_cyclejs/src/problems/p06/ex02.js`
 
 ``` js
 const xs = require('xstream').default
@@ -1583,7 +1583,7 @@ second$.addListener({
 
 If we remove `secondProxy$.imitate(second$);` what happens?
 
-Edit `ex/study_notes_cyclejs/problems/p06/ex03.js`
+Edit `ex/study_notes_cyclejs/src/problems/p06/ex03.js`
 
 ``` js
 var secondProxy$ = xs.create();
@@ -1592,7 +1592,7 @@ var second$ = first$.map(x => x + 1).startWith(1).compose(delay(100));
 //> 1
 ``` 
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p06/ex05.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p06/ex05.js`
 
 ``` js
 const input = xs.of(1, 2, 3, 4)
@@ -1608,7 +1608,7 @@ const out = input.compose(delay(500))
 
 ex01: Static view is rendered
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex01/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p07/ex01/index.js`
 
 ``` js
 ...
@@ -1665,7 +1665,7 @@ Note that, in order for this to work, we need to add addListener to `actions.new
 
 ### Ex03: Pipe actions to model()
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex03/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p07/ex03/index.js`
 
 ``` js
   const actions = intent(sources.DOM)
@@ -1710,7 +1710,7 @@ index.js:1744 {item_id: 3, title: "item03"}
 
 The cause of this unexpected behaviour lies with the reducer function definitions:
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex03a/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p07/ex03a/index.js`
 
 ``` js
   const newItem$ = actions.newItem$.map(function newItemReducer(prevState){
@@ -1730,7 +1730,7 @@ This reducer returns the object `{"item_id": 3, "title": "item03"}` instead of t
 
 ### Ex04: Pipe model's response to view:
 
-Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex04/index.js`
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p07/ex04/index.js`
 
 ``` js
   const reducers = model(actions)
@@ -1761,7 +1761,7 @@ And I put these lines into `~/codes/js/todomvc-cycle-onion/.babelrc`:
 
 ### Ex05: Use onion instead of your own reducer fold function:
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex05/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p07/ex05/index.js`
 
 Instead of my own custom reducer fold expression, use onion:
 
@@ -1789,7 +1789,7 @@ const initReducer$ = xs.of(function initReducer() {
 
 Unexpected behaviour with xs.merge:
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex05/index01.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p07/ex05/index01.js`
 
 We merge initial reducer stream with other reducer streams. But the order of merging stream arguments change the behaviour of the final stream.
 
@@ -1850,7 +1850,7 @@ When I remove both `addListenerStream` and `startWith` then it works correctly.
 
 ### Ex06: Making new items from the input content
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex06/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p07/ex06/index.js`
 
 First, I tried to use `sampleCombine` operator:
 
@@ -1885,7 +1885,7 @@ Now, it works as expected.
 
 ### Ex07: Define an id generator and assign id to new items
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex07/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p07/ex07/index.js`
 
 Initial state now contains max id number:
 
@@ -1917,7 +1917,7 @@ Since the structure of the state object changed, we need to update reducer funct
 
 ### Ex08: Remove items
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex08/index.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p07/ex08/index.js`
 
 ``` js
   const removeItem$ = actions.removeItem$.map(action => function removeItemReducer(prevState) {
@@ -2023,11 +2023,11 @@ choose: opt06.d, opt06.b, opt03
 
 Ex01:
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p10/ex01.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p10/ex01.js`
 
 Ex04: Reverse the input stream arguments
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p10/ex04.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p10/ex04.js`
 
 ``` js
 // s1:  -0-1-2-3|
@@ -2053,7 +2053,7 @@ const res = s2.compose(sampleCombine(s1))
 
 ## p11: Numerical simulation using xstream
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p11/ex01.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p11/ex01.js`
 
 ``` js
 const ticks = xs.periodic(100).take(100)
@@ -2107,7 +2107,7 @@ Now, how can we convert these streams into a single state object of the form:
 }
 ``` 
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p12/ex01.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p12/ex01.js`
 
 ``` js
 const rs$ = xs.combine(plans$, purchase_orders$)
@@ -2121,6 +2121,8 @@ const rs$ = xs.combine(plans$, purchase_orders$)
 ## p13: Make HTTP Requests in nodejs with xstream
 
 My ultimate goal is to test everything inside a normal GUI application first in the nodejs side. Lastly, I was about to convert a state object returning model() function to a reducer returning function. From `<url:/Users/mertnuhoglu/projects/study/js/vrp/cyclejs_vrp.Rmd#tn=### v15.09_02 Return reducers from model()>`
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p13/ex01.js`
 
 ``` js
 const {makeHTTPDriver} = require('@cycle/http')
@@ -2154,7 +2156,7 @@ const plans$ = httpSource.select('plan')
 
 From `<url:/Users/mertnuhoglu/projects/study/js/vrp/cyclejs_vrp.Rmd#tn=### v15.09_02 Return reducers from model()>`
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p14/ex01.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p14/ex01.js`
 
 ``` js
 const planReducer$ = httpSource.select('plan')
@@ -2172,7 +2174,7 @@ const state$ = xs.merge(planReducer$)
 
 Now, let's do this with combined results.
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p14/ex02.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p14/ex02.js`
 
 ``` js
 const requests$ = intent()
@@ -2215,7 +2217,7 @@ From `<url:/Users/mertnuhoglu/projects/study/js/vrp/cyclejs_vrp.Rmd#tn=### v15.0
 
 ### p15 ex01
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p15/ex01.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p15/ex01.js`
 
 ``` js
 function intent() {
@@ -2261,7 +2263,7 @@ I reorganized the existing expressions into separate functions.
 
 Now, let's use onionify `main()` function.
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p15/ex02.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p15/ex02.js`
 
 ``` js
 ...
@@ -2287,7 +2289,7 @@ const state$ = mainOnionified()
 
 Now, let's use cycle's own `onionify()`.
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p15/ex03.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p15/ex03.js`
 
 ``` js
 const onionify = require('cycle-onionify').default
@@ -2319,7 +2321,7 @@ const state$ = mainOnionified(sources).state$
 
 Now, let's make our own `onionify()` more similar to `cyclejs.onionify()`.
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p15/ex04.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p15/ex04.js`
 
 ``` js
 function onion(reducer$) {
@@ -2357,7 +2359,7 @@ const state$ = mainOnionified(sources).state$
 
 Now, let's initialize state with initialState.
 
-Edit `~/projects/study/js/ex/study_notes_cyclejs/problems/p15/ex05.js`
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p15/ex05.js`
 
 ``` js
 function model(httpSource) {
@@ -2384,6 +2386,372 @@ function model(httpSource) {
 // result: {"plans":[],"purchase_orders":[]}
 // result: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[]}
 ``` 
+
+## p16: onion with one subcomponent and lens
+
+I want to mimic a web app that has a parent component and a subcomponent where the subcomponent accesses the global state using a lens object. 
+
+### p16.01 Creating subcomponent
+
+Here I have only setup two files, one parent component and one subcomponent.
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex01.js`
+
+``` js
+const sub = require('./ex01_sub').default
+...
+function main(sources) {
+  const component = sub
+``` 
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex01_sub.js`
+
+``` js
+function main() {
+  console.log("inside sub")
+}
+
+exports.main = main
+``` 
+
+### p16.02 Pass the global state to subcomponent
+
+### p16.02a Bug:
+
+Run `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex02a.js`
+
+``` bash
+/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex02.js:96
+state$.addListener({
+       ^
+
+TypeError: Cannot read property 'addListener' of undefined
+``` 
+
+This error shows that component() is not side-effect free.
+
+Where do we introduce side-effect?
+
+``` js
+function isolateAllSources(outerSources, lens) {
+  const innerSources = outerSources
+  innerSources.onion = outerSources.onion.state$.map(lens.get)
+``` 
+
+In this line, we actually change the `sources` input from parent component. 
+
+Solution:
+
+``` js
+function isolateAllSources(outerSources, lens) {
+  const innerSources = {}
+  for (const channel in outerSources) {
+    innerSources[channel] = outerSources[channel]
+  }
+  innerSources.onion.state$ = outerSources.onion.state$.map(lens.get)
+  return innerSources
+}
+``` 
+
+But this time, subcomponent's onion.state$ will replace parent's onion.state$. So, I decouple subcomponent's onion from parent component's onion:
+
+``` js
+function isolateAllSources(outerSources, lens) {
+  const innerSources = {}
+  for (const channel in outerSources) {
+    innerSources[channel] = outerSources[channel]
+  }
+  innerSources.onion = {}
+  innerSources.onion.state$ = outerSources.onion.state$.map(lens.get)
+  return innerSources
+}
+``` 
+
+### p16.02: Correct implementation
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex02.js`
+
+``` js
+function isolate(component, lens) {
+  // lens = scope
+  return function wrappedComponent(outerSources) {
+    const innerSources = isolateAllSources(outerSources, lens)
+    //const innerSources = isolateAllSources({onion: {state$ : xs.create()}}, lens)
+    const innerSinks = component(innerSources)
+    const outerSinks = isolateAllSinks(outerSources, innerSinks, lens)
+    return outerSinks
+  }
+}
+function isolateAllSources(outerSources, lens) {
+  const innerSources = {}
+  for (const channel in outerSources) {
+    innerSources[channel] = outerSources[channel]
+  }
+  innerSources.onion = {}
+  innerSources.onion.state$ = outerSources.onion.state$.map(lens.get)
+  return innerSources
+}
+function isolateAllSinks(outerSources, innerSinks, lens) {
+  const innerReducer$ = innerSinks.onion
+  const outerReducer$ = innerReducer$.map( innerReducer =>
+    function outerReducer(outer) {
+      // outer = prevState of App
+      // prevInner = prevState of component
+      const prevInner = lens.get(outer)
+      const nextInner = innerReducer(prevInner)
+      return lens.set(outer, nextInner)
+    }
+  )
+  const outerSinks = innerSinks
+  outerSinks.onion = outerReducer$
+  return outerSinks
+}
+``` 
+
+Now, instantiate the subcomponent:
+
+``` js
+function main(sources) {
+  const component = isolate(sub, subLens)
+  component(sources)
+  ...
+``` 
+
+The lens of subcomponent doesn't make any modification on global state. Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex02_sub.js`
+
+``` js
+const subLens = {
+  get: (state) => ({
+    ...state,
+    sub: 1,
+  }),
+  set: (state, childState) => ({
+    ...state,
+  })
+}
+``` 
+
+### p16.03 Refactoring: Move isolate and onion functions to external module:
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex03_isolate.js`
+
+``` js
+...
+exports.isolate = isolate
+``` 
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex03.js`
+
+``` js
+const {isolate} = require('./ex03_isolate')
+...
+``` 
+
+### p16.04 Customize the data using lenses
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex04_sub.js`
+
+``` js
+const subLens = {
+  get: (state) => ({
+    ...state,
+    firstPlan: state.plans.filter(plan => plan.plan_id === 1),
+  }),
+``` 
+
+### p16.05 Setting up run() method
+
+Currently, I setup the sources and sinks inside main() function. Let's move them outside and encapsulate into a separate run() function:
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex05.js`
+
+``` js
+const {run} = require('@cycle/run')
+function main(sources) {
+  const component = isolate(sub, subLens)
+  const requests$ = intent()
+  //const HTTP = makeHTTPDriver()
+  //const httpSource = HTTP(requests$)
+  const {onion: subReducer$} = component(sources)
+  ...
+}
+const mainOnionified = onionify(main);
+run(mainOnionified, {
+  HTTP: makeHTTPDriver(),
+})
+``` 
+
+#### p16.05a Run app without Cyclejs.run()
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex05a.js`
+
+``` js
+const HTTP = makeHTTPDriver()
+const mainOnionified = onionify(main);
+
+const proxyHTTPSource = xs.from([{url: null, method: null}])
+//const httpSource = HTTP(proxyHTTPSource)
+const httpSource = HTTP(intent())
+const sources = {HTTP: httpSource}
+const sinks = mainOnionified(sources)
+proxyHTTPSource.imitate(sinks.HTTP)
+``` 
+
+This didn't work.
+
+#### p16.05b Implement Cyclejs.run() by my own
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex05b.js`
+
+``` js
+function run(main, drivers) {
+  const proxySources = {}
+  Object.keys(drivers).forEach(key => {
+    proxySources[key] = new xs.create();
+  })
+  const sinks = main(proxySources);
+  Object.keys(drivers).forEach(key => {
+    const source = drivers[key](sinks[key]);
+    source.subscribe(x => proxySources[key].next(x));
+  })
+}
+``` 
+
+This didn't work yet.
+
+
+### p16.06 Subcomponent changes global state using setter lens
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex06.js`
+
+``` js
+const isolate = require('@cycle/isolate').default
+...
+  const component = isolate(sub, {onion: subLens})(sources)
+  const parentReducer$ = model(httpSource)
+  const reducer$ = xs.merge(parentReducer$, subReducer$)
+``` 
+
+Add initial state to component:
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex06_sub.js`
+
+``` js
+function model(httpSource) {
+  const initialReducer$ = xs.of( prevState => ({
+    firstPlan: {},
+  }))
+  const firstPlanReducer$ = httpSource.select('purchase_order')
+    .flatten()
+    .map( value => function firstPlanReducer(prevState) {
+      return {
+        ...prevState,
+      }
+    })
+  return xs.merge(firstPlanReducer$)
+}
+``` 
+
+Moreover, pipe sources.HTTP to component:
+
+``` js
+function main(sources) {
+...
+  const reducer$ = model(sources.HTTP)
+``` 
+
+Also, return `requests$` from component to app:
+
+``` js
+function main(sources) {
+  const requests$ = intent()
+  ...
+  return {
+    onion: reducer$,
+    HTTP: requests$,
+``` 
+
+Then merge these requests with App's own requests in ex06.js
+
+``` js
+function main(sources) {
+  const component = isolate(sub, {onion: subLens})(sources)
+
+  const parentRequests$ = intent()
+  const requests$ = xs.merge(parentRequests$, component.HTTP)
+  ...
+  return {
+    onion: reducer$,
+    state$: state$,
+    HTTP: requests$,
+``` 
+
+### p16.07 Convert js to typescript
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex07.ts`
+
+I didn't make any changes except import statements:
+
+``` js
+import {makeHTTPDriver} from '@cycle/http'
+import xs from 'xstream'
+import onionify from 'cycle-onionify'
+import {main as sub, subLens} from './ex07_sub'
+import isolate from '@cycle/isolate'
+import {run} from '@cycle/run'
+...
+``` 
+
+### p16.08 Add type annotations
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex08.ts`
+
+### p16.08a Add type annotations: Sinks problem
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex08a.ts`
+
+``` js
+function main(sources: Sources): Sinks {
+...
+  const component = isolate(sub, {onion: subLens})(sources)
+  const parentReducer$ = model(sources.HTTP)
+  const reducer$ = xs.merge(parentReducer$, component.onion)
+
+  const onion2: xs<(s: any) => any> = component.onion
+  const onion3: xs<(s: any) => any> = parentReducer$
+  const onion4: xs<(s: any) => any> = xs.merge(parentReducer$, component.onion)
+  const sinks: Sinks = {
+    //onion: parentReducer$,
+    onion: reducer$,
+    HTTP: requests$,
+  }
+  return sinks
+}
+``` 
+
+`onion2` and `onion3` are ok, but `onion4` gives the following type error by tyscript compiler:
+
+    Type '{ onion: Stream<{} | Reducer>; HTTP: Stream<{} | { url: string; method: string; headers: { "Autho...' is not assignable to type 'Sinks'.
+      Types of property 'onion' are incompatible.
+        Type 'Stream<{} | Reducer>' is not assignable to type 'Stream<(s: any) => any>'.
+          Type '{} | Reducer' is not assignable to type '(s: any) => any'.
+            Type '{}' is not assignable to type '(s: any) => any'.
+              Type '{}' provides no match for the signature '(s: any): any'.
+
+The difference between them is: `xs.merge`. So this modifies the type from `Stream<Reducer>` to `Stream<{} | Reducer>`
+
+To solve the problem, make `sinks` of type `any`
+
+``` js
+...
+  const sinks: any = {
+    //onion: parentReducer$,
+    onion: reducer$,
+    HTTP: requests$,
+  }
+  return sinks
+``` 
+
 
 # xstream Operators
 
@@ -2445,7 +2813,7 @@ In this case, we can classify knowledge discovery with the following table:
     | how does bar work?      | find usages | look inside |
     | which modules affected? | look inside | find usages |
 
-Let's see if this is valid for our code in `~/projects/study/js/ex/study_notes_cyclejs/problems/p07/ex08/index.js` too:
+Let's see if this is valid for our code in `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p07/ex08/index.js` too:
 
 The state data is managed by `model()` function. 
 

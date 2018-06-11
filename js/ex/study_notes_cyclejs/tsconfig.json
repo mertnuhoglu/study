@@ -1,0 +1,17 @@
+{
+  "compileOnSave": false,
+  "compilerOptions":
+  {
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "module": "CommonJS",
+    "sourceMap": true,
+		"removeComments": true,
+		"preserveConstEnums": true,
+    "target": "ES5"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "skipLibCheck": true
+}

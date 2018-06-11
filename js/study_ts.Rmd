@@ -1,0 +1,462 @@
+---
+title: "Studying TypeScript"
+date: 2018-05-31T13:50:25+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_ts.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_ts/
+
+# Problems 
+
+## p01: Debugging error: TS2300:Duplicate identifier 'URL' in cyclejs
+
+Source problem occurs in `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex07_sub.ts`
+
+		❯ tsc ex07_sub.ts
+		../../node_modules/@types/node/index.d.ts:2381:15 - error TS2300: Duplicate identifier 'URL'.
+
+Edit `~/projects/study/js/ex/study_ts/problems/p01/ex01.ts`
+
+``` ts
+var a = 10
+console.log(a)
+``` 
+
+Edit `~/projects/study/js/ex/study_ts/problems/p01/ex02.ts`
+
+``` ts
+let a = 10
+console.log(a)
+``` 
+
+Edit `~/projects/study/js/ex/study_ts/problems/p01/ex03.ts`
+
+``` ts
+var a101 = 10
+console.log(a101)
+``` 
+
+All scripts work well with `tsc` but only `ex03.ts` works with `ts-node`:
+
+``` bash
+❯ tsc ex01.ts
+
+❯ tsc ex02.ts
+
+❯ tsc ex03.ts
+
+❯ node ex01.js
+10
+
+❯ node ex02.js
+10
+
+❯ node ex03.js
+10
+``` 
+
+``` bash
+❯ ts-node ex01.ts
+
+/usr/local/lib/node_modules/ts-node/src/index.ts:250
+		return new TSError(diagnosticText, diagnosticCodes)
+					 ^
+TSError: ⨯ Unable to compile TypeScript:
+ex02.ts(1,5): error TS2451: Cannot redeclare block-scoped variable 'a'.
+
+❯ ts-node ex02.ts
+
+/usr/local/lib/node_modules/ts-node/src/index.ts:250
+		return new TSError(diagnosticText, diagnosticCodes)
+					 ^
+TSError: ⨯ Unable to compile TypeScript:
+ex02.ts(1,5): error TS2451: Cannot redeclare block-scoped variable 'a'.
+
+❯ ts-node ex03.ts
+10
+``` 
+
+After adding one `export`, ts-node works well.
+
+Edit `~/projects/study/js/ex/study_ts/problems/p01/ex04.ts`
+
+``` js
+export var a = 10
+console.log(a)
+``` 
+
+``` bash
+❯ ts-node ex06.ts
+10
+``` 
+
+### Error: Cannot redeclare block-scoped variable
+
+When multiple files declare same variables, we get this error: 
+
+opt01: Use `import` when importing modules
+
+https://glebbahmutov.com/blog/trying-typescript/
+
+opt02: Use at least one `export` or `import` in the file:
+
+``` js
+export var a = 10
+``` 
+
+### Adding xstream to ts scripts
+
+Edit `~/projects/study/js/ex/study_ts/problems/p01/ex07.ts`
+
+``` js
+import xs from 'xstream'
+
+export var a101 = 10
+console.log(a101)
+``` 
+
+Now, let's use this xstream object.
+
+Edit `~/projects/study/js/ex/study_ts/problems/p01/ex08.ts`
+
+``` js
+import xs from 'xstream'
+
+var stream = xs.periodic(1000)
+	.filter(i => i % 2 === 0)
+	.map(i => i * i)
+	.endWhen(xs.periodic(5000).take(1))
+
+// So far, the stream is idle.
+// As soon as it gets its first listener, it starts executing.
+
+stream.addListener({
+	next: i => console.log(i),
+	error: err => console.error(err),
+	complete: () => console.log('completed'),
+})
+``` 
+
+Edit `~/projects/study/js/ex/study_ts/problems/p01/ex09.ts`
+
+This is taken from `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p13/ex01.js`
+
+This works without any change. 
+
+Edit `~/projects/study/js/ex/study_ts/problems/p01/ex10.ts`
+
+This is taken from `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p14/ex01.js`
+
+``` bash
+❯ tsc ex10.ts
+../../node_modules/@cycle/run/lib/cjs/types.d.ts:32:36 - error TS2536: Type 'P' cannot be used to index type 'Si'.
+
+32     [P in keyof (So & Si)]: Driver<Si[P], So[P]>;
+																			~~~~~
+``` 
+
+This error is probably valid for cyclejs library not my own code. IntelliJ and Alm don't give this error.
+
+Edit `~/projects/study/js/ex/study_ts/problems/p01/ex11.ts`
+
+This is taken from `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p15/ex05.js`
+
+This gives error while compiling but it runs with node.
+
+Note that, ts-node doesn't run now, but node runs generated js files.
+
+Edit `~/projects/study/js/ex/study_ts/problems/p01/ex12.ts`
+
+Taken from `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex01.js`
+
+Now, run the last p16 example.
+
+Edit `~/projects/study/js/ex/study_ts/problems/p01/ex13.ts`
+
+Taken from `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex07.ts`
+
+This gives error too, but it runs. 
+
+		const mainOnionified = onionify(main);
+
+		Error:(65, 33) TS2345:Argument of type '(sources: any) => { onion: Stream<{} | ((prevState: any) => { plans: never[]; purchase_orders: ne...' is not assignable to parameter of type 'MainFn<any, OSi<{}>>'.
+		Type '{ onion: Stream<{} | ((prevState: any) => { plans: never[]; purchase_orders: never[]; firstPlan: ...' is not assignable to type 'OSi<{}>'.
+			Types of property 'onion' are incompatible.
+				Type 'Stream<{} | ((prevState: any) => { plans: never[]; purchase_orders: never[]; firstPlan: {}; })>' is not assignable to type 'Stream<Reducer<{}>>'.
+					Types of property '_prod' are incompatible.
+						Type 'InternalProducer<{} | ((prevState: any) => { plans: never[]; purchase_orders: never[]; firstPlan:...' is not assignable to type 'InternalProducer<Reducer<{}>>'.
+							Type '{} | ((prevState: any) => { plans: never[]; purchase_orders: never[]; firstPlan: {}; })' is not assignable to type 'Reducer<{}>'.
+								Type '{}' is not assignable to type 'Reducer<{}>'.
+
+# Articles 
+
+## Article: Learn Typescript in 30 Minutes
+
+https://tutorialzine.com/2016/07/learn-typescript-in-30-minutes
+
+Edit `~/projects/study/js/ex/study_ts/articles/art01/ex01.ts`
+
+``` bash
+tsc ex01.ts
+tsc *.ts 
+tsc ex01.ts --watch
+node ex01.js
+``` 
+
+Better:
+
+``` bash
+ts-node ex01.ts
+``` 
+
+### ex01
+
+Edit `~/projects/study/js/ex/study_ts/articles/art01/ex01.ts`
+
+``` js
+var burger: string = 'hamburger',     // String 
+    calories: number = 300,           // Numeric
+    tasty: boolean = true;            // Boolean
+
+// Alternatively, you can omit the type declaration:
+// var burger = 'hamburger';
+
+// The function expects a string and an integer.
+// It doesn't return anything so the type of the function itself is void.
+
+function speak(food: string, energy: number): void {
+  console.log("Our " + food + " has " + energy + " calories.");
+}
+
+speak(burger, calories);
+// Our hamburger has 300 calories.
+``` 
+
+### ex02.ts
+
+Ts catches type errors:
+
+Edit `~/projects/study/js/ex/study_ts/articles/art01/ex02.ts`
+
+``` js
+var burger: boolean = 'hamburger'
+
+//> compile error
+// TSError:     Unable to compile TypeScript
+// ex02.ts (1,5): Type '"hamburger"' is not assignable to type 'boolean'. (2322)
+``` 
+
+### ex03.ts: Wrong argument 
+
+Edit `~/projects/study/js/ex/study_ts/articles/art01/ex03.ts`
+
+``` js
+function speak(food: string, energy: number): void {
+  console.log("Our " + food + " has " + energy + " calories.");
+}
+speak("hamburger", "a lot");
+//> ../../projects/study/js/ex/study_ts/articles/art01/ex03.ts (4,20): Argument of type '"a lot"' is not assignable to parameter of type 'number'. (2345)
+``` 
+
+### Interfaces
+
+Edit `~/projects/study/js/ex/study_ts/articles/art01/ex04.ts`
+
+``` js
+interface Food {
+    name: string;
+    calories: number;
+}
+function speak(food: Food): void{
+  console.log(food.name + " has " + food.calories);
+}
+var ice_cream = {
+  name: "ice cream", 
+  calories: 200
+}
+speak(ice_cream);
+//> ice cream has 200
+``` 
+
+The order of the properties does not matter.
+
+### Classes
+
+Edit `~/projects/study/js/ex/study_ts/articles/art01/ex05.ts`
+
+``` js
+class Menu {
+  items: Array<string>;  
+  pages: number;         
+  constructor(item_list: Array<string>, total_pages: number) {
+    this.items = item_list;    
+    this.pages = total_pages;
+  }
+  list(): void {
+    console.log("menu:");
+    for(var i=0; i < this.items.length; i++) {
+      console.log(this.items[i]);
+    }
+  }
+} 
+var sundayMenu = new Menu(["pancakes","waffles"], 1);
+sundayMenu.list();
+// menu:
+// pancakes
+// waffles
+``` 
+
+### Generics
+
+Edit `~/projects/study/js/ex/study_ts/articles/art01/ex06.ts`
+
+``` js
+function genericFunc<T>(argument: T): T[] {    
+  var arrayOfT: T[] = [];    
+  arrayOfT.push(argument);   
+  return arrayOfT;
+}
+
+var arrayFromString = genericFunc<string>("beep");
+console.log(arrayFromString[0]);         
+console.log(typeof arrayFromString[0])   
+
+var arrayFromNumber = genericFunc(42);
+console.log(arrayFromNumber[0]);         
+console.log(typeof arrayFromNumber[0])   
+// beep
+// string
+// 42
+// number
+``` 
+
+### Modules for AMD
+
+Skip this. Better use Es6 Modules or CommonJS modules.
+
+## Article: Learn TypeScript in Y Minutes
+
+https://learnxinyminutes.com/docs/typescript/
+
+### Basic types:
+
+Edit `~/projects/study/js/ex/study_ts/articles/art02/ex01.ts`
+
+``` js
+let isDone: boolean = false;
+let isDone = false;
+let notSure: any = 4;
+notSure = "maybe a string instead";
+const numLivesForCat = 9;
+let list: number[] = [1, 2, 3];
+let list: Array<number> = [1, 2, 3];
+enum Color { Red, Green, Blue };
+let c: Color = Color.Green;
+``` 
+
+### Functions
+
+Edit `~/projects/study/js/ex/study_ts/articles/art02/ex02.ts`
+
+``` js
+let f1 = function (i: number): number { return i * i; }
+let f2 = function (i: number) { return i * i; }
+let f5 = (i: number) => i * i;
+``` 
+
+### Interfaces
+
+Edit `~/projects/study/js/ex/study_ts/articles/art02/ex03.ts`
+
+``` js
+interface Person {
+  name: string;
+  age?: number;
+  move(): void;
+}
+let p: Person = { name: "Bobby", move: () => { } };
+let invalidPerson: Person = { name: "Bobby", age: true };
+
+interface SearchFunc {
+  (source: string, subString: string): boolean;
+}
+let mySearch: SearchFunc;
+mySearch = function (src: string, sub: string) {
+  return src.search(sub) != -1;
+}
+``` 
+
+### Classes
+
+Edit `~/projects/study/js/ex/study_ts/articles/art02/ex04.js`
+
+``` js
+class Point {
+  x: number;
+  constructor(x: number, public y: number = 0) {
+    this.x = x;
+  }
+  dist() { return Math.sqrt(this.x * this.x + this.y * this.y); }
+  static origin = new Point(0, 0);
+}
+
+let p1 = new Point(10, 20);
+let p2 = new Point(25); //y will be 0
+``` 
+
+### Modules
+
+Edit `~/projects/study/js/ex/study_ts/articles/art02/ex05.ts`
+
+``` js
+module Geometry {
+  export class Square {
+    constructor(public sideLength: number = 0) {
+    }
+    area() {
+      return Math.pow(this.sideLength, 2);
+    }
+  }
+}
+let s1 = new Geometry.Square(5);
+import G = Geometry;
+let s2 = new G.Square(10);
+``` 
+
+### Generics
+
+Edit `~/projects/study/js/ex/study_ts/articles/art02/ex06.ts`
+
+``` js
+class Tuple<T1, T2> {
+  constructor(public item1: T1, public item2: T2) {
+  }
+}
+interface Pair<T> {
+  item1: T;
+  item2: T;
+}
+let pairToTuple = function <T>(p: Pair<T>) {
+  return new Tuple(p.item1, p.item2);
+};
+let tuple = pairToTuple({ item1: "hello", item2: "world" });
+``` 
+

@@ -1,0 +1,50 @@
+---
+title: "Studying PureScript"
+date: 2018-06-06T09:49:55+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/js/study_ps.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_ps/
+
+https://leanpub.com/purescript/read
+
+https://github.com/adkelley/javascript-to-purescript
+
+# Book: Purescript By Example
+
+## Ch02: Getting Started
+
+### 2.5 Hello, PureScript!
+
+### 2.6 Compiling for the Browser
+
+### 2.7 Removing Unused Code
+
+### 2.8 Compiling CommonJS Modules
+
+### 2.9 Tracking Dependencies with Bower
+
+### 2.10 Computing Diagonals
+
+### 2.11 Testing Code Using the Interactive Mode
+
+### 2.12 Conclusion
+

@@ -1,0 +1,101 @@
+
+    health#nvim_typescript#check
+    ========================================================================
+    ## Find Node
+      - OK: node is in $PATH
+
+    ## Find Local Typescript
+      - WARNING: No local server found, using global
+        - ADVICE:
+          - Install typescript locally for more accurate tooling
+              $ npm install typescript --save-dev
+
+    ## Find Global Typescript
+      - OK: global tsserver is found
+
+    ## Check for node bindings
+      - OK: node bindings found
+
+    health#deoplete#check
+    ========================================================================
+    ## deoplete.nvim
+      - OK: has("nvim") was successful
+      - OK: exists("v:t_list") was successful
+      - OK: has("timers") was successful
+      - OK: has("python3") was successful
+      - INFO: If you're still having problems, try the following commands:
+        $ export NVIM_PYTHON_LOG_FILE=/tmp/log
+        $ export NVIM_PYTHON_LOG_LEVEL=DEBUG
+        $ nvim
+        $ cat /tmp/log_{PID}
+        and then create an issue on github
+
+    health#nvim#check
+    ========================================================================
+    ## Configuration
+      - OK: no issues found
+
+    ## Performance
+      - OK: Build type: Release
+
+    ## Remote Plugins
+      - OK: Up to date
+
+    ## terminal
+      - INFO: key_backspace (kbs) terminfo entry: key_backspace=^H
+      - INFO: key_dc (kdch1) terminfo entry: key_dc=\E[3~
+      - INFO: $XTERM_VERSION=''
+      - INFO: $VTE_VERSION=''
+      - INFO: $COLORTERM=''
+      - INFO: $SSH_TTY=''
+
+    ## tmux
+      - OK: escape-time: 0ms
+      - INFO: $TERM: screen-256color
+
+    health#provider#check
+    ========================================================================
+    ## Clipboard (optional)
+      - OK: Clipboard tool found: pbcopy
+
+    ## Python 2 provider (optional)
+      - WARNING: No Python interpreter was found with the neovim module.  Using the first available for diagnostics.
+      - WARNING: provider/pythonx: Could not load Python 2:
+        python2 not found in search path or not executable.
+        /usr/bin/python2.7 does not have the "neovim" module. :help |provider-python|
+        /usr/bin/python2.6 does not have the "neovim" module. :help |provider-python|
+        /usr/local/bin/python is Python 3.6 and cannot provide Python 2.
+      - ERROR: Python provider error
+        - ADVICE:
+          - provider/pythonx: Could not load Python 2:
+              python2 not found in search path or not executable.
+              /usr/bin/python2.7 does not have the "neovim" module. :help |provider-python|
+              /usr/bin/python2.6 does not have the "neovim" module. :help |provider-python|
+              /usr/local/bin/python is Python 3.6 and cannot provide Python 2.
+      - INFO: Executable: Not found
+
+    ## Python 3 provider (optional)
+      - INFO: `g:python3_host_prog` is not set.  Searching for python3 in the environment.
+      - INFO: Multiple python3 executables found.  Set `g:python3_host_prog` to avoid surprises.
+      - INFO: Executable: /usr/local/bin/python3
+      - INFO: Other python executable: /Users/mertnuhoglu/miniconda3/bin/python3
+      - INFO: Python3 version: 3.6.4
+      - INFO: python3-neovim version: 0.2.4 (outdated; from /usr/local/lib/python3.6/site-packages/neovim)
+      - WARNING: Latest python3-neovim is NOT installed: 0.2.6
+
+    ## Ruby provider (optional)
+      - INFO: Ruby: ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin15]
+      - INFO: Host: /Users/mertnuhoglu/.rvm/gems/ruby-2.1.1/bin/neovim-ruby-host
+      - ERROR: Command timed out: 'gem' 'list' '-ra' '^neovim$'
+      - ERROR: Failed to run: gem list -ra ^neovim$
+        - ADVICE:
+          - Make sure you're connected to the internet.
+          - Are you behind a firewall or proxy?
+
+    ## Node provider (optional)
+      - INFO: Node: v10.0.0
+      - WARNING: Missing "neovim" npm package.
+        - ADVICE:
+          - Run in shell: npm install -g neovim
+          - Is the npm bin directory in $PATH?
+

@@ -1,0 +1,50 @@
+{
+  "sessions": [
+    {
+      "id": "b7dcc522-6aeb-40a5-9e06-8e11f8153371",
+      "tabLayout": {
+        "type": "stack",
+        "width": 100,
+        "height": 100,
+        "tabs": [
+          {
+            "id": "e45b7b8a-39c7-42ef-97aa-aaf3c89672ab",
+            "relativeUrl": "file://./tsconfig.json",
+            "additionalData": null
+          },
+          {
+            "id": "ba9a3737-bfbc-4a80-afae-dfd14d585664",
+            "relativeUrl": "file://./problems/p01/ex10.ts",
+            "additionalData": null
+          },
+          {
+            "id": "27e91619-4b80-4fe2-a5dd-feac8db63348",
+            "relativeUrl": "file://./problems/p01/ex11.js",
+            "additionalData": null
+          },
+          {
+            "id": "85509c39-5437-4210-84b0-f3411ce18f9e",
+            "relativeUrl": "file://./problems/p01/ex11.ts",
+            "additionalData": null
+          },
+          {
+            "id": "a3387a5d-b5f9-499c-93db-5740ae34acc5",
+            "relativeUrl": "file://./problems/p01/ex13.ts",
+            "additionalData": null
+          },
+          {
+            "id": "0acf1e10-9800-4d44-9a57-463105a807dc",
+            "relativeUrl": "file://./problems/p01/ex13_sub.ts",
+            "additionalData": null
+          }
+        ],
+        "subItems": [],
+        "activeItemIndex": 0
+      },
+      "lastUsed": 1528446325515,
+      "selectedTabId": "0acf1e10-9800-4d44-9a57-463105a807dc",
+      "fileTreeExpanded": true
+    }
+  ],
+  "relativePathToTsconfig": "./tsconfig.json"
+}
