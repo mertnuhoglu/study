@@ -6,7 +6,7 @@ import isolate from '@cycle/isolate'
 import {run} from '@cycle/run'
 
 import { Component } from './interfaces08a';
-import { Sources, Sinks } from './interfaces';
+import { Sources, Sinks } from './interfaces08a';
 
 export interface State {
   plans: any

@@ -5,13 +5,13 @@ import {main as sub, subLens} from './ex08_sub'
 import isolate from '@cycle/isolate'
 import {run} from '@cycle/run'
 
-import { Component } from './interfaces';
-import { Sources, Sinks } from './interfaces';
+import { Component, Plan, PurchaseOrder } from './interfaces08';
+import { Sources, Sinks } from './interfaces08';
 
 export interface State {
-  plans: Array<any>
-  purchase_orders: Array<any>
-  firstPlan: any
+  plans: Array<Plan>
+  purchase_orders: Array<PurchaseOrder>
+  firstPlan: Plan | {}
 }
 
 export type Reducer = (prev?: State) => State | undefined;
@@ -81,9 +81,11 @@ const drivers: any = {
 }
 run(mainOnionified, drivers)
 
+console.log("hohoho2")
 // component state: {"plans":[],"purchase_orders":[],"firstPlan":[]}
 // app state:: {"plans":[],"purchase_orders":[],"firstPlan":{}}
 // component state: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[],"firstPlan":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4}]}
 // app state:: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[],"firstPlan":{}}
 // component state: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[],"firstPlan":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4}]}
 // app state:: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[],"firstPlan":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4}]}
+

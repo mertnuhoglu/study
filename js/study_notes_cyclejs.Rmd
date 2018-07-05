@@ -2706,7 +2706,94 @@ import {run} from '@cycle/run'
 
 Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex08.ts`
 
-### p16.08a Add type annotations: Sinks problem
+``` js
+...
+function model(httpSource): xs<Reducer> {
+  const initReducer$: xs<Reducer> = xs.of(
+    function initReducer(prevState: State): State {
+      const initialState = {
+        plans: [], 
+        purchase_orders: [],
+        firstPlan: {},
+      }
+      return initialState
+    }
+  )
+  const planReducer$: xs<Reducer> = httpSource.select('plan')
+    .flatten()
+    .map(res => function planReducer(prevState) {
+      return {
+        ...prevState, 
+        plans: res.body
+      }
+    })
+  return xs.merge(initReducer$, planReducer$)
+}
+function main(sources: Sources): Sinks {
+  const component = isolate(sub, {onion: subLens})(sources)
+
+  const parentRequests$ = intent()
+  const requests$ = xs.merge(parentRequests$, component.HTTP)
+
+  const parentReducer$ = model(sources.HTTP)
+  const reducer$ = xs.merge(parentReducer$, component.onion)
+
+  const state$ = xs.merge(sources.onion.state$, component.state$)
+``` 
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex08_sub.ts`
+
+``` js
+...
+function model(httpSource): xs<Reducer> {
+  const initialReducer$: xs<Reducer> = xs.of( (prevState: State): State => ({
+    plans: [],
+    purchase_orders: [],
+    firstPlan: {},
+  }))
+  const firstPlanReducer$: xs<Reducer> = httpSource.select('purchase_order')
+    .flatten()
+    .map( value => function firstPlanReducer(prevState) {
+      return {
+        ...prevState,
+      }
+    })
+  return xs.merge(firstPlanReducer$)
+}
+``` 
+
+#### Compiling and running TypeScript files
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/tsconfig.json`
+
+``` js
+{
+  "compileOnSave": false,
+  "compilerOptions":
+  {
+    "skipLibCheck": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "sourceMap": true,
+		"removeComments": true,
+		"preserveConstEnums": true,
+    "target": "ES5"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "skipLibCheck": true
+}
+``` 
+
+``` bash
+cd ~/projects/study/js/ex/study_notes_cyclejs
+tsc
+node dist/problems/p16//ex08.js
+``` 
+
+#### p16.08a Add type annotations: Sinks problem
 
 Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex08a.ts`
 

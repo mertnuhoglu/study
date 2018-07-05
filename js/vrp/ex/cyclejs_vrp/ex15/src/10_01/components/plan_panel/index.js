@@ -16,7 +16,7 @@ function intent(dom$) {
   const getPlanDetails$ = dom$.select('.get_plan_details').events('click')
     .map((e) => ({type: "GET_PLAN_DETAILS", payload: e.target.dataset.plan_id}))
     .debug()
-  //addListenerStream(getPlanDetails$, "getPlanDetails$")
+	addListenerStream(getPlanDetails$, "getPlanDetails$")
   const requests$ = xs.from(
     [
       {

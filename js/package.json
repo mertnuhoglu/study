@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@cycle/time": "^0.13.0",
     "mongodb": "^2.2.29"
   },
   "devDependencies": {}

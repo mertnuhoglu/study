@@ -2,8 +2,9 @@
   "compileOnSave": false,
   "compilerOptions":
   {
+    "skipLibCheck": true,
     "rootDir": "./src",
-    "outDir": "./lib",
+    "outDir": "./dist",
     "module": "CommonJS",
     "sourceMap": true,
 		"removeComments": true,

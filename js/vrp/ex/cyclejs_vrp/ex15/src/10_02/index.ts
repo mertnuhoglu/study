@@ -8,7 +8,7 @@ import onionify from 'cycle-onionify';
 import App from './components/app';
 import 'handsontable/dist/handsontable.full.min.css'
 
-const main = onionify(App);
+const main: any = onionify(App);
 
 const drivers = {
   DOM: makeDOMDriver('#app'),

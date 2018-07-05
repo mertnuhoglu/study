@@ -22,3 +22,16 @@ export type Sinks = {
 
 export type Component = (s: Sources) => Sinks;
 
+export type Plan = {
+  plan_id: number
+  usr: string
+  depot_id: number
+}
+
+export type PurchaseOrder = {
+  purchase_order_id: number
+  company_id: number
+  order_extid: string
+  company_exti: string
+}
+

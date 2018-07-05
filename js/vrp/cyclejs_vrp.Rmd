@@ -1570,7 +1570,27 @@ function intent(dom$) {
 
 Now, move HTTP request from `app` to `plan_panel`
 
-#### v15.10_02 Add "Get Data" Button: Move its HTTP handling's model() expressions from App to PlanPanel
+#### v15.10_02 Migrate to TypeScript 01
+
+It is sufficient to rename `index.js` to `index.ts`
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_02/index.html`
+
+``` html
+...
+  <script src="./index.ts"> </script>
+``` 
+
+Now, we can use TypeScript in scripts. For example, edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_02/index.ts`
+
+``` ts
+...
+const main: any = onionify(App);
+``` 
+
+#### v15.10_03 Add "Get Data" Button: Move its HTTP handling's model() expressions from App to PlanPanel
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_03/index.ts`
 
 Currently HTTP handling is done in App.model() completely `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_02/components/app/model.js`
 
@@ -1588,5 +1608,29 @@ export default function model(sources) {
 ``` 
 
 I want to move this functionality to `PlanPanel.model()` because the triggering event for it is sourced from `PlanPanel.intent()`
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_03/components/plan_panel/model.ts`
+
+``` js
+export default function model(sources): xs<Reducer> {
+  const initReducer$: xs<Reducer> = xs.of(
+    function initReducer(prevState: State) {
+      const initialState = {
+        purchase_orders: [],
+      }
+      return initialState
+    }
+  )
+  const purchaseOrderReducer$: xs<Reducer> = sources.HTTP.select('purchase_order')
+    .flatten()
+    .map(res => function purchaseOrderReducer(prevState: State) {
+      return {
+        ...prevState,
+        purchase_orders: res.body
+      }
+    })
+  return xs.merge(initReducer$, purchaseOrderReducer$)
+}
+``` 
 
 Now, if I move it from `App` to `PlanPanel` what will happen to `state` object?

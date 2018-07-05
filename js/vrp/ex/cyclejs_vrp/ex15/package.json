@@ -28,6 +28,7 @@
     "10_01": "parcel 10_01/index.html",
     "10_02": "parcel 10_02/index.html",
     "10_03": "parcel 10_03/index.html",
+    "10_03a": "node 10_03a/index.html",
     "10_04": "parcel 10_04/index.html",
     "10_05": "parcel 10_05/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
