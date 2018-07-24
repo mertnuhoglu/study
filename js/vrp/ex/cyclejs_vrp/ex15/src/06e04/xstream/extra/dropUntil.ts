@@ -1,4 +1,4 @@
-import {Operator, InternalListener, Stream, OutSender, NO_IL} from '../index';
+import {Operator, InternalListener, Stream, OutSender, NO_IL} from '..';
 
 class OtherIL<T> implements InternalListener<any>, OutSender<T> {
   constructor(public out: Stream<T>,

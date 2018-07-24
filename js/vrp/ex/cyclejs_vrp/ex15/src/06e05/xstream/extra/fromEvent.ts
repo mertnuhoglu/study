@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import {EventEmitter} from 'events';
-import {Stream, InternalProducer, InternalListener} from '../index';
+import {Stream, InternalProducer, InternalListener} from '..';
 
 export class DOMEventProducer implements InternalProducer<Event> {
   public type = 'fromEvent';

@@ -1417,7 +1417,7 @@ Now, how can we convert these streams into a single state object of the form:
 }
 ``` 
 
-Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_01/components/app/index.js`
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/09_01/components/app/index.js`
 
 ``` js
 ...
@@ -1426,7 +1426,7 @@ Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_01/components/app/index.js`
   const detailPanelSinks = isolate(DetailPanel, {storage: null, onion: null, Hot: null})(sources, state$)
 ``` 
 
-Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_01/components/app/model.js`
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/09_01/components/app/model.js`
 
 ``` js
   const rs$ = xs.combine(plans$, purchase_orders$)
@@ -1451,7 +1451,7 @@ Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src09/index.j
     .fold((prevState, reducer) => reducer(prevState), initialState);
 ``` 
 
-Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_02/components/app/model.js`
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/09_02/components/app/model.js`
 
 ``` js
 export default function model(sources) {
@@ -1479,7 +1479,7 @@ export default function model(sources) {
 
 #### v15.09_03 Use my onionify() function before cyclejs.onionify
 
-Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_03/index.js`
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/09_03/index.js`
 
 ``` js
 //const main = App;
@@ -1505,7 +1505,7 @@ function onionify(main) {
 const main = onionify(App);
 ``` 
 
-Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_03/components/app/index.js`
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/09_03/components/app/index.js`
 
 ``` js
 export default function main(sources) {
@@ -1526,7 +1526,7 @@ export default function main(sources) {
 
 #### v15.09_04 Use cyclejs.onionify()
 
-Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/09_04/index.js`
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/09_04/index.js`
 
 ``` js
 import onionify from 'cycle-onionify';
@@ -1537,25 +1537,25 @@ const main = onionify(App);
 
 #### v15.10_01 Add "Get Data" Button
 
-Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_01/components/plan_panel/index.js`
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_01/components/plan_panel/index.js`
 
 ``` js
 function view(state$) {
 ...
-              state.plans.map(e => 
-                tr(".plan_row", 
-                  [
-                    td(e.plan_id),
-                    td(e.usr),
-                    td(e.depot_id),
-                    td(
-                      button(".get_plan_details", 
-                        {dataset: {plan_id: e.plan_id}},
-                        "Verileri Getir"
-                      )
-                    ),
-                  ])
-                  ...
+		state.plans.map(e => 
+			tr(".plan_row", 
+				[
+					td(e.plan_id),
+					td(e.usr),
+					td(e.depot_id),
+					td(
+						button(".get_plan_details", 
+							{dataset: {plan_id: e.plan_id}},
+							"Verileri Getir"
+						)
+					),
+				])
+				...
 }
 ``` 
 
@@ -1574,14 +1574,14 @@ Now, move HTTP request from `app` to `plan_panel`
 
 It is sufficient to rename `index.js` to `index.ts`
 
-Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_02/index.html`
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_02/index.html`
 
 ``` html
 ...
   <script src="./index.ts"> </script>
 ``` 
 
-Now, we can use TypeScript in scripts. For example, edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_02/index.ts`
+Now, we can use TypeScript in scripts. For example, edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_02/index.ts`
 
 ``` ts
 ...
@@ -1590,9 +1590,9 @@ const main: any = onionify(App);
 
 #### v15.10_03 Add "Get Data" Button: Move its HTTP handling's model() expressions from App to PlanPanel
 
-Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_03/index.ts`
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03/index.ts`
 
-Currently HTTP handling is done in App.model() completely `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_02/components/app/model.js`
+Currently HTTP handling is done in App.model() completely `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_02/components/app/model.js`
 
 ``` js
 export default function model(sources) {
@@ -1609,7 +1609,7 @@ export default function model(sources) {
 
 I want to move this functionality to `PlanPanel.model()` because the triggering event for it is sourced from `PlanPanel.intent()`
 
-Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/10_03/components/plan_panel/model.ts`
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03/components/plan_panel/model.ts`
 
 ``` js
 export default function model(sources): xs<Reducer> {
@@ -1634,3 +1634,144 @@ export default function model(sources): xs<Reducer> {
 ``` 
 
 Now, if I move it from `App` to `PlanPanel` what will happen to `state` object?
+
+##### v15.10_03a Error: TypeError: Cannot read property '_add' of undefined
+
+I couldn't find any useful log information.
+
+To systematically eliminate all bug possibilities, I converted the web app to node app.
+
+Check `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03a/10_03a_vs_10_03.diff` to see what to change in order to run the app from nodejs.
+
+``` bash
+tsc
+node dist/10_03a/index.js
+``` 
+
+		/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/dist/10_03a/components/plan_panel/index.js:29
+		/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/dist/10_03a/components/plan_panel/index.js
+				var getPlanDetails$ = dom$.select('.get_plan_details').events('click')
+																	 ^
+		TypeError: Cannot read property 'select' of undefined
+
+##### v15.10_03b Error: TypeError: Cannot read property '_add' of undefined
+
+Debugging of this error is studied here: 
+
+		p17: Systematic elimination of possible bug causes <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10219>
+
+The cause of the error:
+
+``` js
+  const reducer$ = xs.merge(
+    parentReducer$, 
+    planPanelSinks.onion
+``` 
+
+Cause: `planPanelSinks.onion` is `undefined` because `PlanPanel` doesn't return `onion` property.
+
+Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03b/components/plan_panel/index.ts`
+
+``` js
+export function PlanPanel(sources) {
+	...
+  const reducer$ = model(sources)
+  const sinks = {
+    DOM: view(state$),
+    HTTP: requests$,
+    onion: reducer$,
+  }
+  return sinks
+``` 
+
+##### v15.10_03c How To Make TypeScript To Catch This Error: TypeError: Cannot read property '_add' of undefined
+
+Alternative ways are studied here:
+
+		p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10223>
+
+Since TypeScript is a strongly typed language, it can catch this type of errors. 
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03c/components/app/index.ts`
+
+``` js
+export default function main(sources: Sources): Sinks {
+...
+  const sinks: Sinks = {
+    DOM: vdom$,
+    HTTP: requests$,
+    Hot: hot$,
+    onion: reducer$,
+  }
+  return sinks;
+}
+``` 
+
+`Sinks` type is defined in `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03c/interfaces.ts`
+ 
+``` js
+export type Sinks = {
+  DOM: xs<VNode>;
+	onion: xs<(s: any) => any>;
+	HTTP: xs<any>;
+	Hot: xs<any>;
+};
+``` 
+
+##### v15.10_03g Type-safe `onionify()`
+
+Takes p18/08 as example:
+
+		<url:/Users/mertnuhoglu/projects/study/js/study_notes_cyclejs.Rmd#tn=### p18.08: Implement onionify without Omit. Step 02>
+
+Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03g/index.ts`
+
+##### v15.10_03k Type assertion to isolate's return
+
+`isolate` returns `Component<any, any>`. Use type assertion to return `Component<Sources, Sinks>`
+
+Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03k/components/app/index.ts`
+
+``` ts
+  const header = isolate(Header, {storage: null, onion: null, Hot: null}) as Component<Sources, Sinks>
+  const headerSinks = header(sources)
+  const planPanel = isolate(PlanPanel, {storage: null, onion: planPanelLens, Hot: null}) as Component<Sources, Sinks>
+  const planPanelSinks = planPanel(sources)
+  const detailPanel = isolate(DetailPanel, {storage: null, onion: null, Hot: null}) as Component<Sources, Sinks>
+  const detailPanelSinks = detailPanel(sources)
+``` 
+
+Now, `planPanelSinks` has type `Sinks`.
+
+###### Cause of the Problem that `purchase_orders` is missing: setter lens implementation is wrong
+
+Still `state` doesn't contain `purchase_orders`. The problem seems to be related to the `PlanPanel` reducer logic.
+
+I put a breakpoint inside `onionify` function:
+
+		return function mainOnionified(sources: So): Si {
+			const state$ = reducerMimic$
+					.fold((state, reducer) =>  {
+							return reducer(state) // breakpoint
+					}, ...
+					)
+
+By debugging, I found out that `PlanPanel`'s setter lens implementation is wrong
+
+Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03k/components/plan_panel/index.ts`
+
+Before:
+
+		export const lens = {
+			set: (state: AppState, childState: State) => ({
+				...state,
+				firstPlan: childState.firstPlan,
+
+`purchase_orders` comes from `State` and it needs to be returned. But it is missing. Fix:
+
+		export const lens = {
+			set: (state: AppState, childState: State) => ({
+				...state,
+				purchase_orders: childState.purchase_orders,
+				firstPlan: childState.firstPlan,
+

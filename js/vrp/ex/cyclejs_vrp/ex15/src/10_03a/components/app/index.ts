@@ -19,6 +19,12 @@ export type Reducer = (prev?: State) => State | undefined
 
 export default function main(sources: Sources): Sinks {
   const state$ = sources.onion.state$
+  state$.addListener({
+    next: i => console.log(`state:: ${JSON.stringify(i)}`),
+    error: err => console.error(err),
+    complete: () => console.log('s1 completed'),
+  })
+
   const headerSinks = isolate(Header, {storage: null, onion: null, Hot: null})(sources)
   const planPanelSinks = isolate(PlanPanel, {storage: null, onion: planPanelLens, Hot: null})(sources)
   const detailPanelSinks = isolate(DetailPanel, {storage: null, onion: null, Hot: null})(sources)
@@ -47,9 +53,9 @@ export default function main(sources: Sources): Sinks {
 
   const hot$ = detailPanelSinks.Hot
   const sinks: any = {
-    DOM: vdom$,
+    //DOM: vdom$,
     HTTP: requests$,
-    Hot: hot$,
+    //Hot: hot$,
     onion: reducer$,
   }
   return sinks;

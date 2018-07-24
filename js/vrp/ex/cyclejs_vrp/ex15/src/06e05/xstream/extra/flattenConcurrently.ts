@@ -1,4 +1,4 @@
-import {Operator, Stream, OutSender, InternalListener} from '../index';
+import {Operator, Stream, OutSender, InternalListener} from '..';
 
 class FCIL<T> implements InternalListener<T>, OutSender<T> {
   constructor(public out: Stream<T>,

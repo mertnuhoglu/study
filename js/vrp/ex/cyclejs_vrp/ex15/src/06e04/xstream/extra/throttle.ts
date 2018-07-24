@@ -1,4 +1,4 @@
-import {Operator, Stream} from '../index';
+import {Operator, Stream} from '..';
 
 class ThrottleOperator<T> implements Operator<T, T> {
   public type = 'throttle';

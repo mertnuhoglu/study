@@ -1,6 +1,6 @@
 import xs from 'xstream'
 
-function intent() {
+export function intent() {
   const requests$ = xs.from(
     [
       {

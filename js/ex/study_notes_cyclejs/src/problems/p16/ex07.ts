@@ -5,7 +5,7 @@ import {main as sub, subLens} from './ex07_sub'
 import isolate from '@cycle/isolate'
 import {run} from '@cycle/run'
 
-function intent() {
+export function intent() {
   const requests$ = xs.from(
     [
       {

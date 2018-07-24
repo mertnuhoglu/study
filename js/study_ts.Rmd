@@ -206,9 +206,2060 @@ This gives error too, but it runs.
 							Type '{} | ((prevState: any) => { plans: never[]; purchase_orders: never[]; firstPlan: {}; })' is not assignable to type 'Reducer<{}>'.
 								Type '{}' is not assignable to type 'Reducer<{}>'.
 
+## p02: Type Error: Type '{}' provides no match for the signature '(s: any): any'. id=g_10220
+
+		p02: Type Error: Type '{}' provides no match for the signature '(s: any): any'.  <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10220>
+
+This error occurs in `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03c/components/app/index.ts`
+
+``` js
+	export type Sinks2 = {
+		onion: xs<(s: any) => any>;
+	};
+  const sinks2: Sinks2 = {
+    onion: reducer$,
+  }
+``` 
+
+Error message:
+
+``` js
+[ts] Type '{ DOM: Stream<VNode>; HTTP: Stream<{} | { url: string; method: string; headers: { "Authorization"...' is not assignable to type 'Sinks'.
+       Types of property 'onion' are incompatible.
+         Type 'Stream<{} | Reducer>' is not assignable to type 'Stream<(s: any) => any>'.
+           Type '{} | Reducer' is not assignable to type '(s: any) => any'.
+             Type '{}' is not assignable to type '(s: any) => any'.
+               Type '{}' provides no match for the signature '(s: any): any'.
+``` 
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p02/ex01.ts`
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p02/ex02/index.ts`
+
+Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03d/index.ts`
+
+Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03d/components/app/index.ts`
+
+``` js
+const planPanelSinks = isolate(PlanPanel, {storage: null, onion: planPanelLens, Hot: null})(sources)
+planPanelSinks.onion: any
+``` 
+
+But if we don't use `isolate` then types are preserved:
+
+``` js
+const planPanelSinks2 = PlanPanel(sources)
+planPanelSinks2.onion: xs<(s:any) => any>
+``` 
+
+### p02_03: Why does `isolate()` remove type information? id=g_10222
+
+		p02_03: Why does `isolate()` remove type information?  <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10222>
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p02/ex03.ts`
+
+Continue: p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10223>
+
+### 10_03e: Run App Without Using isolate()
+
+Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03e/index.ts`
+
+I cancelled this option because this will result in a poor implementation of `isolate()`.
+
+### 10_03f: Why does `isolate()` remove type information? Web app
+
+Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03f/index.ts`
+
+ref
+
+		Continue: p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10223>
+
+## p03: Type Inference Issues
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p03/ex01.ts`
+
+``` ts
+type T1 = { p1: string }
+export function f1(): T1 {
+    const p1: "ali" = "ali"
+    return {
+        p1
+    }
+}
+const v1 = f1() // type: string
+const v2: "ali" = "ali" // type: "ali"
+``` 
+
+Note that the type of `v1` is `string` not `"ali"` although the type inside `f1` is `"ali"`. The type of a property of the result of function `f1` is specified in the type declaration of `T1` not by the declaration of `p1` inside `f1`.
+
+## p04: Optional Property Specifically Required For Some Specific Variable
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p04/ex01.ts`
+
+``` ts
+export type T1 = {
+    p1: string
+    p2?: string
+}
+const v1: T1 = {p1: "ali"}
+const v2: T1 = {p1: "ali", p2: "cin"}
+const v3: T1 & {p2: string} = {p1: "adu", p2: "p2"}
+const v4: T1 & {p2: string} = {p1: "adu"} // Error: Type '{ p1: string; }' is not assignable to type 'T1 & { p2: string; }'.\n  Type '{ p1: string; }' is not assignable to type '{ p2: string; }'.\n    Property 'p2' is missing in type '{ p1: string; }'.
+
+type T2 = {
+    p1: string
+}
+type T3 = T2 & {p2: string}
+
+function f2a(a: T2): void {}
+function f3a(a: T3): void {}
+const v5: T2 = {p1: "p1"}
+const v6: T3 = {p1: "p1", p2: "p2"}
+f2a(v5)
+f3a(v6)
+f3a(v5) // Error: Property 'p2' is missing in type 'T2'.
+f2a({p1: "p1", p2: "p2"}) // Error: 'p2' does not exist in type 'T2'.
+f3a({p1: "p1", p2: "p2"})
+``` 
+
+## p05: Meaning of `extends`: subset or superset?
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p05/ex01.ts`
+
+``` ts
+export type A = {a: string} 
+export type B = {a: string, b: string}
+
+type AB = A extends B ? never : string // string
+type BA = B extends A ? never : string // never
+// B extends A
+// A doesn't extend B
+``` 
+
+## p06: `and` `or` operators
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p06/ex01.ts`
+
+``` ts
+type A = {a: number}
+type B = {b: number}
+type C = A & B
+type D = A | B
+type C_is_A = C extends A ? true : false // true
+type C_is_B = C extends B ? true : false // true
+type D_is_not_A = D extends A ? true : false // false
+type D_is_not_B = D extends B ? true : false // false
+const c1: C = {a: 0, b: 1}
+const a1: A = c1 as A
+a1.a
+a1.b // Error: Property 'b' does not exist on type 'A'.
+const d1: D = {a: 0}
+d1.b // Error: Property 'b' does not exist on type 'A'.
+d1.a 
+const d2: D = {b: 1}
+d2.b
+const d3: D = {a: 0, b: 1}
+d3.a // Error: Property 'a' does not exist on type 'D'. Property 'a' does not exist on type 'B'.
+d3.b // Error: Property 'b' does not exist on type 'D'. Property 'b' does not exist on type 'A'.
+const d4: D = {c: 1} // Error: Type '{ c: number; }' is not assignable to type 'D'. Object literal may only specify known properties, and 'c' does not exist in type 'D'.
+const d5 = d3 as A
+d5.a
+d5.b // Error: Property 'b' does not exist on type 'A'.
+const d6 = d3 as A & B
+d6.a
+d6.b
+``` 
+
+In which conditions do we have `isa` relationship when using unions and intersections?
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p06/ex03.ts`
+
+``` ts
+export type A = {a: number}
+type B = {b: number}
+type AandB = A & B
+type AorB = A | B
+type AandB_is_A = AandB extends A ? true : false // true
+type A_isnt_AandB = A extends AandB ? true : false // false
+type AorB_isnt_A = AorB extends A ? true : false // false
+type A_is_AorB = A extends AorB ? true : false // true
+``` 
+
+Note: 
+
+- AandB is A and B.
+- AorB isnt A or B but A is AorB 
+
+From a set perspective
+
+- AandB is the intersection set. An intersection set is a subset of both A and B
+- AorB is the union set. A and B are subsets of their union set.
+
+When we see `S extends State`, we don't directly remember `union`. What are the logical relationships between this kind of expressions?
+
+Suppose that we need to define such a type:
+
+`type Reducer<S extends State> = (prev?: S) => S `
+
+Then:
+
+		S is a subset of State set.
+		S is_a State
+		S is a subtype of State as in inheritance.
+		State is a union of S and X sets. ie. State = S | X
+		S is an intersection of State and X sets. ie. S = State & X
+
+Another mnemonics might be usign visual symbols:
+
+		type AandB = A & B 
+			AandB is_a A and B
+			AandB -> A, B (where -> = is_a)
+			AandB is subtype (subset)
+			AandB is smaller (intersection)
+			smaller => subtype
+		type AorB = A | B 
+			A and B is_a AorB
+			AorB <- A, B
+			AorB is supertype (superset)
+			AorB is bigger (union)
+			bigger => supertype
+
+## p07: Make Reducer type-safe
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p07/ex01.ts`
+
+In the following implementation, `Reducer` is defined by `State`. 
+
+`State` has two subtypes: `A` and `B`. I want to parameterize `Reducer` with these subtypes of `State`
+
+``` ts
+export type A = {a: string}
+type B = {b: string}
+type State = A | B
+type Reducer = (prev?: State) => State
+const redA$: Stream<Reducer> = xs.of(
+    function initReducer(prev: State) {
+        const initialState: State = {
+            a: "a"
+        }
+        return initialState
+``` 
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p07/ex02.ts`
+
+``` ts
+type A_is_State = A extends State? true : false  // true
+type Reducer<S extends State> = (prev?: S) => S 
+const redA$: Stream<Reducer<A>> = xs.of(
+    function initReducer(prev: A) {
+        const initialState: A = {
+            a: "a"
+        }
+        return initialState
+    }
+)
+const redB$: Stream<Reducer<B>> = xs.of(
+    function initReducer(prev: B) {
+        const initialState: B = {
+            b: "b"
+        }
+        return initialState
+    }
+)
+``` 
+
 # Articles 
 
-## Article: Learn Typescript in 30 Minutes
+## article: Advanced Types - Typescript Handbook id=g_10224
+
+		article: Advanced Types - Typescript Handbook <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10224>
+		https://www.typescriptlang.org/docs/handbook/advanced-types.html
+
+### sub: Intersection Types
+
+Combines multiple types into one.
+
+Ex:
+
+		A & B
+		has all members of A and B
+
+How to create a mixin:
+
+``` js
+function extend<T, U>(first: T, second: U): T & U {
+    let result = <T & U>{};
+    for (let id in first) {
+        (<any>result)[id] = (<any>first)[id];
+    }
+    for (let id in second) {
+        if (!result.hasOwnProperty(id)) {
+            (<any>result)[id] = (<any>second)[id];
+        }
+    }
+    return result;
+}
+
+class Person {
+    constructor(public name: string) { }
+}
+interface Loggable {
+    log(): void;
+}
+class ConsoleLogger implements Loggable {
+    log() {
+        // ...
+    }
+}
+var jim = extend(new Person("Jim"), new ConsoleLogger());
+var n = jim.name;
+jim.log();
+``` 
+
+### sub: Union Types
+
+Ex: Either a number or a string
+
+Example use:
+
+``` js
+function padLeft(value: string, padding: any) {
+    if (typeof padding === "number") {
+        return Array(padding + 1).join(" ") + value;
+    }
+    if (typeof padding === "string") {
+        return padding + value;
+    }
+    throw new Error(`Expected string or number, got '${padding}'.`);
+}
+
+padLeft("Hello world", 4); // returns "    Hello world"
+``` 
+
+Gives runtime error with:
+
+``` js
+let indentedString = padLeft("Hello world", true); 
+``` 
+
+Solution:
+
+``` js
+function padLeft(value: string, padding: string | number) {
+``` 
+
+Warning: Use only members that are common in both types. 
+
+Ex:
+
+``` js
+interface Bird {
+    fly();
+    layEggs();
+}
+
+interface Fish {
+    swim();
+    layEggs();
+}
+
+function getSmallPet(): Fish | Bird {
+    // ...
+}
+
+let pet = getSmallPet();
+pet.layEggs(); // okay
+pet.swim();    // errors
+``` 
+
+### sub: Type Guards and Differentiating Types
+
+Example: Check the presence of a member to differentiate between two types 
+
+``` js
+let pet = getSmallPet();
+
+// Each of these property accesses will cause an error
+if (pet.swim) {
+    pet.swim();
+}
+else if (pet.fly) {
+    pet.fly();
+}
+``` 
+
+Solution with type assertions
+
+``` js
+let pet = getSmallPet();
+
+if ((<Fish>pet).swim) {
+    (<Fish>pet).swim();
+}
+else {
+    (<Bird>pet).fly();
+}
+``` 
+
+Problem: We use type assertions several times.
+
+Solution: Type guard
+
+Type guards perform a runtime check that assures the type in some scope
+
+Define a function whose return type is a type predicate:
+
+``` js
+function isFish(pet: Fish | Bird): pet is Fish {
+    return (<Fish>pet).swim !== undefined;
+}
+``` 
+
+`pet is Fish` is type predicate. 
+
+When `isFish(pet)` is called, TS will narrow pet to `Fish`
+
+``` js
+// Both calls to 'swim' and 'fly' are now okay.
+
+if (isFish(pet)) {
+    pet.swim();
+}
+else {
+    pet.fly();
+}
+``` 
+
+Now, TS knows in `if` branch, that pet is a `Fish` and in `else` branch, it is a `Bird`
+
+
+### sub: `typeof` type guards
+
+Rewrite `padLeft` with type predicates:
+
+``` js
+function isNumber(x: any): x is number {
+	return typeof x === "number";
+}
+
+function isString(x: any): x is string {
+	return typeof x === "string";
+}
+
+function padLeft(value: string, padding: string | number) {
+	if (isNumber(padding)) {
+		return Array(padding + 1).join(" ") + value;
+	}
+	if (isString(padding)) {
+		return padding + value;
+	}
+	throw new Error(`Expected string or number, got '${padding}'.`);
+}
+``` 
+
+Defining a function for each type predicate is difficult. Alternative solution: `typeof x === "number"`
+
+``` js
+function padLeft(value: string, padding: string | number) {
+	if (typeof padding === "number") {
+		return Array(padding + 1).join(" ") + value;
+	}
+	if (typeof padding === "string") {
+		return padding + value;
+	}
+	throw new Error(`Expected string or number, got '${padding}'.`);
+}
+``` 
+
+`typeof` checks only: `number`, `string`, `boolean`, `symbol`
+
+### sub: `instanceof` type guards
+
+`instanceof` narrows types using their constructor function.
+
+The rhs must be a constructor function.
+
+``` js
+interface Padder {
+	getPaddingString(): string
+}
+
+class SpaceRepeatingPadder implements Padder {
+	constructor(private numSpaces: number) { }
+	getPaddingString() {
+		return Array(this.numSpaces + 1).join(" ");
+	}
+}
+
+class StringPadder implements Padder {
+	constructor(private value: string) { }
+	getPaddingString() {
+		return this.value;
+	}
+}
+
+function getRandomPadder() {
+	return Math.random() < 0.5 ?
+		new SpaceRepeatingPadder(4) :
+		new StringPadder("	");
+}
+
+// Type is 'SpaceRepeatingPadder | StringPadder'
+let padder: Padder = getRandomPadder();
+
+if (padder instanceof SpaceRepeatingPadder) {
+	padder; // type narrowed to 'SpaceRepeatingPadder'
+}
+if (padder instanceof StringPadder) {
+	padder; // type narrowed to 'StringPadder'
+}
+``` 
+
+### sub: Nullable types
+
+TS has two special types: `null` `undefined`
+
+They can be assigned to anything. They are valid values of every type.
+
+This is "billion dollar mistake" according to Tony Hoare.
+
+`--strictNullChecks` flag prevents this. 
+
+``` js
+let s = "foo";
+s = null; // error, 'null' is not assignable to 'string'
+let sn: string | null = "bar";
+sn = null; // ok
+
+sn = undefined; // error, 'undefined' is not assignable to 'string | null'
+``` 
+
+### sub: Optional parameters and properties
+
+`--strictNullChecks` adds `| undefined` automatically to optional parameters and properties:
+
+``` js
+function f(x: number, y?: number) {
+	return x + (y || 0);
+}
+f(1, 2);
+f(1);
+f(1, undefined);
+f(1, null); // error, 'null' is not assignable to 'number | undefined'
+``` 
+
+``` js
+class C {
+	a: number;
+	b?: number;
+}
+let c = new C();
+c.a = 12;
+c.a = undefined; // error, 'undefined' is not assignable to 'number'
+c.b = 13;
+c.b = undefined; // ok
+c.b = null; // error, 'null' is not assignable to 'number | undefined'
+``` 
+
+### sub: Type Guards and Type Assertions
+
+To get rid of `null` you need type guard.
+
+``` js
+function f(sn: string | null): string {
+	if (sn == null) {
+		return "default";
+	}
+	else {
+		return sn;
+	}
+}
+``` 
+
+`null` elimination:
+
+``` js
+function f(sn: string | null): string {
+	return sn || "default";
+}
+``` 
+
+When compiler can't eliminate `null` or `undefined`, use type assertion:
+
+Syntax is postfix `!: identifier!`. Ex: `name!.charAt(0)`
+
+``` js
+function broken(name: string | null): string {
+	function postfix(epithet: string) {
+		return name.charAt(0) + '.	the ' + epithet; // error, 'name' is possibly null
+	}
+	name = name || "Bob";
+	return postfix("great");
+}
+
+function fixed(name: string | null): string {
+	function postfix(epithet: string) {
+		return name!.charAt(0) + '.	the ' + epithet; // ok
+	}
+	name = name || "Bob";
+	return postfix("great");
+}
+``` 
+
+@todo: Runtime'da eğer name null ise, ne oluyor?
+
+### sub: Type Aliases
+
+Type aliases create a new name for a type.
+
+``` js
+type Name = string;
+type NameResolver = () => string;
+type NameOrResolver = Name | NameResolver;
+function getName(n: NameOrResolver): Name {
+	if (typeof n === "string") {
+		return n;
+	}
+	else {
+		return n();
+	}
+}
+``` 
+
+Aliasing doesn't create a new type. It creates a new name.
+
+It can also be used as a form of documentation.
+
+They can be generic
+
+``` js
+type Container<T> = { value: T }
+``` 
+
+They can refer to itself in a property:
+
+``` js
+type Tree<T> = {
+	value: T
+	left: Tree<T>
+	right: Tree<T>
+}
+``` 
+
+Ex: Complex types with intersection types
+
+``` js
+type LinkedList<T> = T & { next: LinkedList<T> }
+interface Person { name: string }
+var people: LinkedList<Person>
+var s = people.name
+var s = people.next.name
+``` 
+
+### sub: Interfaces vs. Type Aliases
+
+Differences:
+
+Interfaces create a new name. Type aliases don't create a new name.
+
+``` js
+type Alias = { num: number }
+interface Interface {
+	num: number;
+}
+declare function aliased(arg: Alias): Alias;
+declare function interfaced(arg: Interface): Interface;
+``` 
+
+Aliases cannot be extended or implemented.
+
+### sub: String Literal Types
+
+Enum-like behavior
+
+``` js
+type Easing = "ease-in" | "ease-out" | "ease-in-out";
+class UIElement {
+	animate(dx: number, dy: number, easing: Easing) {
+		if (easing === "ease-in") {
+			// ...
+		}
+		else if (easing === "ease-out") {
+		}
+		else if (easing === "ease-in-out") {
+		}
+		else {
+			// error! should not pass null or undefined.
+		}
+	}
+}
+
+let button = new UIElement();
+button.animate(0, 0, "ease-in");
+button.animate(0, 0, "uneasy"); // error: "uneasy" is not allowed here
+``` 
+
+String literal types can be used in the same way to distinguish overloads:
+
+``` js
+function createElement(tagName: "img"): HTMLImageElement;
+function createElement(tagName: "input"): HTMLInputElement;
+// ... more overloads ...
+function createElement(tagName: string): Element {
+// ... code goes here ...
+}
+``` 
+
+### sub: Numeric Literal Types
+
+``` js
+function rollDie(): 1 | 2 | 3 | 4 | 5 | 6 {
+// ...
+}
+``` 
+
+These are seldom written explicitly, they can be useful when narrowing can catch bugs:
+
+``` js
+function foo(x: number) {
+	if (x !== 1 || x !== 2) {
+		//				 ~~~~~~~
+		// Operator '!==' cannot be applied to types '1' and '2'.
+	}
+}
+``` 
+
+### sub: Enum Member Types
+
+"Singleton types" = "literal types" or "enum member types"
+
+### sub: Discriminated Types
+
+Combining singleton types, union types, type guards, and type aliases to build "discriminated unions" (aka tagged unions or algebraic data types)
+
+Three parts:
+
+1. discriminant
+2. union
+3. type guards on common property
+
+``` ts
+interface Square {
+	kind: "square";
+	size: number;
+}
+interface Rectangle {
+	kind: "rectangle";
+	width: number;
+	height: number;
+}
+interface Circle {
+	kind: "circle";
+	radius: number;
+}
+``` 
+
+`kind` property = discriminant or tag
+
+Other properties are specific to each interface.
+
+Put all interfaces into a union:
+
+``` js
+type Shape = Square | Rectangle | Circle
+``` 
+
+Use the discriminated union:
+
+``` js
+function area(s: Shape) {
+	switch (s.kind) {
+		case "square": return s.size * s.size;
+		case "rectangle": return s.height * s.width;
+		case "circle": return Math.PI * s.radius ** 2;
+	}
+}
+``` 
+
+### sub: Exhaustiveness Checking:
+
+Check if we	do cover all variants of the discriminated union.
+
+`never` type checks for exhaustiveness:
+
+``` js
+function assertNever(x: never): never {
+	throw new Error("Unexpected object: " + x);
+}
+function area(s: Shape) {
+	switch (s.kind) {
+		case "square": return s.size * s.size;
+		case "rectangle": return s.height * s.width;
+		case "circle": return Math.PI * s.radius ** 2;
+		default: return assertNever(s); // error here if there are missing cases
+	}
+}
+``` 
+
+### sub: Polymorphic `this` types
+
+`this` is any subtype of the containing class or interface. This is called F-bounded polymorphism.
+
+``` js
+class BasicCalculator {
+	public constructor(protected value: number = 0) { }
+	public currentValue(): number {
+		return this.value;
+	}
+	public add(operand: number): this {
+		this.value += operand;
+		return this;
+	}
+	public multiply(operand: number): this {
+		this.value *= operand;
+		return this;
+	}
+	// ... other operations go here ...
+}
+
+let v = new BasicCalculator(2)
+	.multiply(5)
+	.add(1)
+	.currentValue();
+``` 
+
+Now, subtypes can keep the fluent interface:
+
+``` js
+class ScientificCalculator extends BasicCalculator {
+	public constructor(value = 0) {
+		super(value);
+	}
+	public sin() {
+		this.value = Math.sin(this.value);
+		return this;
+	}
+	// ... other operations go here ...
+}
+
+let v = new ScientificCalculator(2)
+	.multiply(5)
+	.sin()
+	.add(1)
+	.currentValue();
+``` 
+
+### sub: Index Types
+
+Compiler checks code that uses dynamic property names. 
+
+Ex: Pick a subset of properties from an object
+
+``` js
+function pluck<T, K extends keyof T>(o: T, names: K[]): T[K][] {
+	return names.map(n => o[n]);
+}
+
+interface Person {
+	name: string;
+	age: number;
+}
+let person: Person = {
+	name: 'Jarid',
+	age: 35
+};
+let strings: string[] = pluck(person, ['name']); // ok, string[]
+``` 
+
+`keyof T`: the index type query operator. For any type T, keyof T is the union of known, public property names of T. For example:
+
+``` js
+let personProps: keyof Person; // 'name' | 'age'
+``` 
+
+`keyof Person` is completely interchangeable with `'name' | 'age'`
+
+`T[K]`: the indexed access operator.
+
+That means that `person['name']` has the type `Person['name']`. 
+
+You can use `T[K]` in a generic context. You just have to make sure that the type variable `K extends keyof T`. 
+
+``` js
+function getProperty<T, K extends keyof T>(o: T, name: K): T[K] {
+	return o[name]; // o[name] is of type T[K]
+}
+``` 
+
+In getProperty, `o: T` and `name: K`, so that means `o[name]: T[K]`.
+
+### sub: Index types and string index signatures
+
+`keyof T` is `string`
+
+`T[string]` is the type of the index signature
+
+``` js
+interface Map<T> {
+	[key: string]: T;
+}
+let keys: keyof Map<number>; // string
+let value: Map<number>['foo']; // number
+``` 
+
+### sub: Mapped types
+
+Take an existing type.
+
+Make its properties optional:
+
+``` js
+interface PersonPartial {
+	name?: string;
+	age?: number;
+}
+``` 
+
+Make a readonly version:
+
+``` js
+interface PersonReadonly {
+	readonly name: string;
+	readonly age: number;
+}
+``` 
+
+To simplify this TS has "mapped types"
+
+``` js
+type Readonly<T> = {
+	readonly [P in keyof T]: T[P];
+}
+type Partial<T> = {
+	[P in keyof T]?: T[P];
+}
+``` 
+
+And to use it:
+
+``` js
+type PersonPartial = Partial<Person>;
+type ReadonlyPerson = Readonly<Person>;
+``` 
+
+Simplest example:
+
+``` js
+type Keys = 'option1' | 'option2';
+type Flags = { [K in Keys]: boolean };
+``` 
+
+There are three parts:
+
+1. Type variable `K`
+2. String literal union `Keys`
+3. Resulting type of property
+
+This is equivalent to:
+
+``` js
+type Flags = {
+	option1: boolean;
+	option2: boolean;
+}
+``` 
+
+Real applications look like `Readonly` or `Partial`
+
+``` js
+type NullablePerson = { [P in keyof Person]: Person[P] | null }
+type PartialPerson = { [P in keyof Person]?: Person[P] }
+``` 
+
+General version:
+
+``` js
+type Nullable<T> = { [P in keyof T]: T[P] | null }
+type Partial<T> = { [P in keyof T]?: T[P] }
+``` 
+
+The properties list is `keyof T` and the resulting type is some variant of `T[P]`.
+
+`Readonly<T>` and `Partial<T>` are included in TypeScript’s standard library along with `Pick` and `Record`:
+
+``` js
+type Pick<T, K extends keyof T> = {
+	[P in K]: T[P];
+}
+type Record<K extends string, T> = {
+	[P in K]: T;
+}
+``` 
+
+Readonly, Partial and Pick are homomorphic whereas Record is not. 
+
+``` js
+type ThreeStringProps = Record<'prop1' | 'prop2' | 'prop3', string>
+``` 
+
+Non-homomorphic types are essentially creating new properties
+
+### sub: Inference from mapped types
+
+How to unwrap properties of a type?
+
+``` js
+function unproxify<T>(t: Proxify<T>): T {
+	let result = {} as T;
+	for (const k in t) {
+		result[k] = t[k].get();
+	}
+	return result;
+}
+
+let originalProps = unproxify(proxyProps);
+``` 
+
+## article: Advanced TypeScript Types with Examples - Elena Sufieva
+
+https://levelup.gitconnected.com/advanced-typescript-types-with-examples-1d144e4eda9e
+
+### sub: Record
+
+A built-in type.
+
+To make a typed `Map` and composite interface.
+
+``` js
+const a: Record<string, string> = {
+	key1: "value1",
+	key2: "value2",
+}
+``` 
+
+Uses: A dictionary as key-value pairs
+
+Ex: User cart
+
+``` js
+interface ProductInCart {
+	id: string
+	amount: number
+}
+class CartModel {
+	products: Record<string, ProductInCart> = {}
+	error?: Error = undefined
+}
+``` 
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/articles/art03/ex01.ts`
+
+## article: TypeScript Evolution - Marius Schulz  id=g_10231
+
+		article: TypeScript Evolution - Marius Schulz  <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10231>
+
+### Non-Nullable Types
+
+tsconfig.json
+
+		{
+				"compilerOptions": {
+						"strictNullChecks": true
+
+Then assigning null to some typed object is error:
+
+``` ts
+let name: string;
+name = "Marius";   // OK
+name = null;       // Error
+name = undefined;  // Error
+``` 
+
+How can we assign null then?
+
+``` ts
+let name: string | null;
+name = "Marius";   // OK
+name = null;       // OK
+name = undefined;  // Error
+``` 
+
+Before accessing a property, you need to use a type guard:
+
+``` ts
+function getLength(s: string | null) {
+    if (s === null) {
+        return 0;
+    }
+    
+    return s.length;
+}
+``` 
+
+Truthiness semantics:
+
+``` ts
+function getLength(s: string | null) {
+    return s ? s.length : 0;
+}
+``` 
+
+Function invocations with nullable types require type guards too:
+
+``` ts
+function doSomething(callback?: () => void) {
+    if (callback) {
+        callback(); 
+    }
+}
+``` 
+
+### Control Flow Based Type Analysis
+
+		the type checker analyses all possible flows of control in statements and expressions to produce the most specific type possible (the narrowed type) at any given location for a local variable or parameter that is declared to have a union type
+
+``` ts
+let command: string | string[];
+
+command = "pwd";
+command.toLowerCase();    // Here, command is of type 'string'
+
+command = ["ls", "-la"];
+command.join(" ");        // Here, command is of type 'string[]'
+``` 
+
+TS compiler knows when `command` is `string` or `string[]`
+
+### Acquiring Type Declaration Files
+
+No need for tools such as `typings` or `tsd`
+
+Ex: Normal untyped, js implementation of lodash:
+
+		npm install --save lodash
+
+Typed implementation:
+
+		npm install --save @types/lodash
+
+Always prefix any library with `@types/`
+
+Where Do Type Declaration Files Go?
+
+		node_modules/@types/lodash/index.d.ts
+
+### Read-Only Properties
+
+``` ts
+type Point = {
+    readonly x: number;
+    readonly y: number;
+};
+``` 
+
+### Tagged Union Types
+
+``` ts
+interface Cash {
+    kind: "cash";
+}
+
+interface PayPal {
+    kind: "paypal";
+    email: string;
+}
+
+interface CreditCard {
+    kind: "credit";
+    cardNumber: string;
+    securityCode: string;
+}
+``` 
+
+`kind`: `discriminant property` of `string literal type`
+
+``` ts
+type PaymentMethod = Cash | PayPal | CreditCard; // three constituent types
+``` 
+
+Using:
+
+``` ts
+function describePaymentMethod(method: PaymentMethod) {
+    switch (method.kind) {
+        case "cash":
+            // Here, method has type Cash
+            return "Cash";
+
+        case "paypal":
+            // Here, method has type PayPal
+            return `PayPal (${method.email})`;
+
+        case "credit":
+            // Here, method has type CreditCard
+            return `Credit card (${method.cardNumber})`;
+    }
+}
+``` 
+
+### More Literal Types
+
+``` ts
+let zeroOrOne: 0 | 1;
+
+zeroOrOne = 0;
+``` 
+
+``` ts
+function getPort(scheme: "http" | "https"): 80 | 443 {
+    switch (scheme) {
+        case "http": return 80;
+        case "https": return 443;
+    }
+}
+
+const httpPort = getPort("http");  // Type 80 | 443
+``` 
+
+``` ts
+const enum HttpPort {
+    Http = 80,
+    Https = 443
+}
+function getScheme(port: HttpPort.Http): "http";
+function getScheme(port: HttpPort.Https): "https";
+function getScheme(port: HttpPort): "http" | "https" {
+    switch (port) {
+        case HttpPort.Http: return "http";
+        case HttpPort.Https: return "https";
+    }
+}
+
+const scheme = getScheme(HttpPort.Http);
+``` 
+
+### The never Type
+
+Two uses:
+
+- Return type of functions that never return
+- Type of variables under type guards that are never true
+
+Features:
+
+- `never` is a subtype of every type
+- `never` has no subtype
+- Functions that don't return has return type `never`
+- If a function returns at least one `never` then all returns must be `never`
+
+``` ts
+// Type () => never
+const sing = function() {
+    while (true) {
+        console.log("Never gonna give you up");
+        console.log("Never gonna let you down");
+        console.log("Never gonna run around and desert you");
+        console.log("Never gonna make you cry");
+        console.log("Never gonna say goodbye");
+        console.log("Never gonna tell a lie and hurt you");
+    }
+};
+// Type (message: string) => never
+const failwith = (message: string) => {
+    throw new Error(message);
+};
+``` 
+
+### keyof and Lookup Types
+
+Before 2.1:
+
+``` ts
+function prop(obj: {}, key: string) {
+    return obj[key];
+}
+const todo = {
+    id: 1,
+    text: "Buy milk",
+    due: new Date(2016, 11, 31)
+};
+
+const id = prop(todo, "id");      // any
+const text = prop(todo, "text");  // any
+const due = prop(todo, "due");    // any
+``` 
+
+Since TS cannot know type of `obj[key]`, it assigns `any` type implicitly.
+
+With TS 2.1, we have `keyof` (index type query)
+
+``` ts
+interface Todo {
+    id: number;
+    text: string;
+    due: Date;
+}
+type TodoKeys = keyof Todo;  // "id" | "text" | "due"
+``` 
+
+Now, we can annotate type of `prop` function:
+
+``` ts
+function prop<T, K extends keyof T>(obj: T, key: K) {
+    return obj[key];
+}
+``` 
+
+Now, TS can infer the correct types:
+
+``` ts
+const id = prop(todo, "id");      // number
+const text = prop(todo, "text");  // string
+const due = prop(todo, "due");    // Date
+``` 
+
+### Mapped Types
+
+They allow you to create new types from existing ones by mapping over property types. 
+
+The transformations are specified by some rule.
+
+Ex: Map `Point` to `FrozenPoint` without mapped types.
+
+``` ts
+interface Point {
+    x: number;
+    y: number;
+}
+
+interface FrozenPoint {
+    readonly x: number;
+    readonly y: number;
+}
+
+function freezePoint(p: Point): FrozenPoint {
+    return Object.freeze(p);
+}
+
+const origin = freezePoint({ x: 0, y: 0 });
+
+// Error! Cannot assign to 'x' because it
+// is a constant or a read-only property.
+origin.x = 42;  
+``` 
+
+Costs of this way:
+
+1. We need two interfaces
+2. We need `freezePoint` function
+
+Ex: With mapped types
+
+``` ts
+freeze<T>(o: T): Readonly<T>; // from lib.d.ts
+type Readonly<T> = {
+    readonly [P in keyof T]: T[P];
+};
+``` 
+
+`Readonly` is a mapped type.
+
+`[P in keyof T]: T[P]` denotes that type of each `P` of type `T` is transformed to `T[P]`
+
+The type `T[P]` is a lookup type. It represents type of property `P` of the type `T.`
+
+### Intuitive Explanation of Syntax
+
+We have a type alias:
+
+``` ts
+type ReadonlyPoint = Readonly<Point>
+``` 
+
+Resolution:
+
+``` ts
+// -->>
+type ReadonlyPoint = {
+    readonly [P in keyof Point]: Point[P];
+};
+// -->>
+
+type ReadonlyPoint = {
+    readonly [P in "x" | "y"]: Point[P];
+};
+// -->>
+
+type ReadonlyPoint = {
+    readonly x: Point["x"];
+    readonly y: Point["y"];
+};
+// -->>
+
+type ReadonlyPoint = {
+    readonly x: number;
+    readonly y: number;
+};
+``` 
+
+### Other Mapped Types
+
+4 mapped types: `Readonly Partial Pick Record`
+
+``` ts
+/**
+ * Make all properties in T optional
+ */
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+};
+
+/**
+ * From T pick a set of properties K
+ */
+type Pick<T, K extends keyof T> = {
+    [P in K]: T[P];
+};
+
+/**
+ * Construct a type with a set of properties K of type T
+ */
+type Record<K extends string, T> = {
+    [P in K]: T;
+};
+``` 
+
+Custom mapped types:
+
+``` ts
+/**
+ * Make all properties in T nullable
+ */
+type Nullable<T> = {
+    [P in keyof T]: T[P] | null;
+};
+
+/**
+ * Turn all properties of T into strings
+ */
+type Stringify<T> = {
+    [P in keyof T]: string;
+};
+``` 
+
+### Improved Inference for Literal Types
+
+TS improves inference for literal types when a `const` variable or `readonly` property has a literal initializer.
+
+#### const Variables
+
+``` ts
+var baseUrl = "https://example.com"
+// inferred: string
+let baseUrl = "https://example.com"
+// inferred: string
+const baseUrl = "https://example.com"
+// inferred: https://example.com
+``` 
+
+#### readonly Properties
+
+``` ts
+class ApiClient {
+    private readonly baseUrl = "https://api.example.com/";
+    // Inferred type: "https://api.example.com/"
+
+``` 
+
+### Literal Type Widening
+
+What is the difference between _widening_ and _non-widening_ literal types.
+
+Widening: assigning a literal type to a `let` variable:
+
+``` ts
+const stringLiteral = "https";  // Type "https"
+const numericLiteral = 42;      // Type 42
+const booleanLiteral = true;    // Type true
+let widenedStringLiteral = stringLiteral;    // Type string
+let widenedNumericLiteral = numericLiteral;  // Type number
+let widenedBooleanLiteral = booleanLiteral;  // Type boolean
+``` 
+
+Same for enum literals:
+
+``` ts
+enum FlexDirection {
+    Row,
+    Column
+}
+
+const enumLiteral = FlexDirection.Row;  // Type FlexDirection.Row
+let widenedEnumLiteral = enumLiteral;   // Type FlexDirection
+``` 
+
+#### Non-Widening Literal Types
+
+Explicitly annotate variable to be of a literal type:
+
+``` ts
+const stringLiteral: "https" = "https";  // Type "https" (non-widening)
+const numericLiteral: 42 = 42;           // Type 42 (non-widening)
+let widenedStringLiteral = stringLiteral;    // Type "https" (non-widening)
+let widenedNumericLiteral = numericLiteral;  // Type 42 (non-widening)
+``` 
+
+Usefulness:
+
+``` ts
+const http = "http";    // Type "http" (widening)
+const https = "https";  // Type "https" (widening)
+
+const protocols = [http, https];  // Type string[]
+
+const first = protocols[0];   // Type string
+const second = protocols[1];  // Type string
+``` 
+
+``` ts
+const http: "http" = "http";     // Type "http" (non-widening)
+const https: "https" = "https";  // Type "https" (non-widening)
+
+const protocols = [http, https];  // Type ("http" | "https")[]
+
+const first = protocols[0];   // Type "http" | "https"
+const second = protocols[1];  // Type "http" | "https"
+``` 
+
+Use a tuple to retain position information of the string literal types in the array.
+
+``` ts
+const http = "http";    // Type "http" (widening)
+const https = "https";  // Type "https" (widening)
+
+const protocols: ["http", "https"] = [http, https];  // Type ["http", "https"]
+
+const first = protocols[0];   // Type "http" (non-widening)
+const second = protocols[1];  // Type "https" (non-widening)
+``` 
+
+### The object Type
+
+`object` represents any non-primitive type.
+
+``` ts
+// All primitive types
+type Primitive =
+    | boolean
+    | number
+    | string
+    | symbol
+    | null
+    | undefined;
+
+// All non-primitive types
+type NonPrimitive = object;
+``` 
+
+### Dotted Properties and String Index Signatures
+
+Before 2.2 this was error:
+
+``` ts
+interface Dictionary<T> {
+    [key: string]: T;
+}
+
+const portNumbers: Dictionary<number> = {};
+
+// OK
+portNumbers["http"] = 80;
+
+// Error: Property 'http' does not exist on type 'Dictionary<number>'.
+portNumbers.http = 80;
+``` 
+
+But you must define an explicit string index signature in order for dotted property access to be type correct for arbitrary properties:
+
+``` ts
+const portNumbers = {};
+
+// OK
+portNumbers["http"] = 80;
+
+// Error: Property 'http' does not exist on type '{}'.
+portNumbers.http = 80;
+``` 
+
+### Null Checking for Expression Operands
+
+What if one argument of an operator is null?
+
+``` ts
+function isValidPasswordLength(password: string, min: number, max?: number) {
+    return password.length >= min
+        && password.length <= max;  // Error: Object is possibly 'undefined'.
+}
+// Fix:
+
+function isValidPasswordLength(password: string, min: number, max: number = Number.MAX_VALUE) {
+    return password.length >= min
+        && password.length <= max;
+}
+``` 
+
+### Mixin Classes 
+
+Mixin class: a class that implements a distinct functionality
+
+Other classes can include mixin
+
+Mixins provide a form of code reuse based on composing behavior.
+
+		[A mixin is] a function that
+
+		takes a constructor,
+		declares a class that extends that constructor,
+		adds members to that new class, and
+		returns the class itself.
+
+Ex: Timestamped mixin
+
+``` ts
+type Constructor<T = {}> = new (...args: any[]) => T;
+
+function Timestamped<TBase extends Constructor>(Base: TBase) {
+    return class extends Base {
+        timestamp = Date.now();
+    };
+}
+``` 
+
+Let's analyze:
+
+``` ts
+type Constructor<T = {}> = new (...args: any[]) => T;
+``` 
+
+An alias for the construct signature. It describes a type that can construct objects of type `T` and whose constructor function accepts an arbitrary number of parameters of any type.
+
+It uses a generic parameter default: `T = {}` It means: `T` is `{}` by default.
+
+``` ts
+function Timestamped<TBase extends Constructor>(Base: TBase) {
+    return class extends Base {
+        timestamp = Date.now();
+    };
+}
+``` 
+
+`Timestamped` takes a parameter `Base` of generic type `TBase`
+
+`TBase` is constrained to be compatible with `Constructor`
+
+Within the body, we create a new class. 
+
+``` ts
+	...
+	return class extens Base {
+		timestamp = Date.now()
+	}
+``` 
+
+We are creating a class expression rather than a class declaration. 
+
+How to include mixin in another class?
+
+``` ts
+class User {
+    name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
+// Create a new class by mixing "Timestamped" into "User"
+const TimestampedUser = Timestamped(User);
+
+// Instantiate the new "TimestampedUser" class
+const user = new TimestampedUser("John Doe");
+
+// We can now access properties from both the "User" class
+// and our "Timestamped" mixin in a type-safe manner
+console.log(user.name);
+console.log(user.timestamp);
+``` 
+
+### Generic Parameter Defaults
+
+``` ts
+declare namespace React {
+    class Component<Props = any, State = any> {
+        props: Props;
+        state: State;
+    }
+}
+``` 
+
+### String Enums
+
+Enums with string-valued members: Assign a string value to an enum member
+
+``` ts
+enum MediaTypes {
+    JSON = "application/json",
+    XML = "application/xml"
+}
+fetch("https://example.com/api/endpoint", {
+    headers: {
+        Accept: MediaTypes.JSON
+    }
+}).then(response => {...
+``` 
+
+Difference from number-valued enums: reverse mapping doesn't work.
+
+``` ts
+MediaTypes["JSON"];              // "application/json"
+MediaTypes["application/json"];  // undefined
+
+MediaTypes["XML"];               // "application/xml"
+MediaTypes["application/xml"];   // undefined
+// enum with number-valued members
+enum DefaultPorts {
+    HTTP = 80,
+    HTTPS = 443
+}
+DefaultPorts["HTTP"];   // 80
+DefaultPorts[80];       // "HTTP"
+
+DefaultPorts["HTTPS"];  // 443
+DefaultPorts[443];      // "HTTPS"
+``` 
+
+### Weak Type Detection
+
+A type is weak if all of its properties are optional.
+
+``` ts
+interface PrettierConfig {
+    printWidth?: number;
+    tabWidth?: number;
+    semi?: boolean;
+}
+``` 
+
+The goal is to find silent bugs.
+
+Ex:
+
+``` ts
+interface PrettierConfig {
+    printWidth?: number;
+    tabWidth?: number;
+    semi?: boolean;
+}
+
+function createFormatter(config: PrettierConfig) {
+    // ...
+}
+
+const prettierConfig = {
+    semicolons: true
+};
+
+const formatter = createFormatter(prettierConfig); // Error
+``` 
+
+Before TS 2.4, this was type-correct since all properties of `PrettierConfig` are optional. 
+
+Now, you cannot assign anything to a weak type when a new property exists. 
+
+Error message:
+
+``` ts
+Type '{ semicolons: boolean; }' has no properties
+in common with type 'PrettierConfig'.
+``` 
+
+#### Explicit Type Annotation
+
+Explicit type annotation to the `prettierConfig` object
+
+``` ts
+const prettierConfig: PrettierConfig = {
+    semicolons: true // Error
+};
+
+const formatter = createFormatter(prettierConfig);
+// error message:
+// Object literal may only specify known properties,
+// and 'semicolons' does not exist in type 'PrettierConfig'.
+``` 
+
+Workaround: to add an index signature:
+
+``` ts
+interface PrettierConfig {
+    [prop: string]: any;
+    printWidth?: number;
+    tabWidth?: number;
+    semi?: boolean;
+}
+
+function createFormatter(config: PrettierConfig) {
+    // ...
+}
+
+const prettierConfig = {
+    semicolons: true
+};
+
+const formatter = createFormatter(prettierConfig);
+``` 
+
+## article: TypeScript Handbook: Generics  id=g_10232
+
+		article: TypeScript Handbook: Generics  <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10232>
+		https://www.typescriptlang.org/docs/handbook/generics.html
+
+### Hello World of Generics
+
+identity function without generics:
+
+``` ts
+function identity(arg: number): number {
+    return arg;
+}
+``` 
+
+For any type:
+
+``` ts
+function identity(arg: any): any {
+    return arg;
+}
+``` 
+
+But this implementation will accept any	type. We lose information about what the input type was. 
+
+Use a _type variable_:
+
+``` ts
+function identity<T>(arg: T): T {
+    return arg;
+}
+``` 
+
+We can use it in two ways: explicitly or implicitly using _type argument inference_
+
+``` ts
+let output = identity<string>("myString");  // type: 'string'
+let output = identity("myString");  // type: 'string'
+``` 
+
+### Working with Generic Type Variables
+
+``` ts
+function loggingIdentity<T>(arg: T): T {
+    console.log(arg.length);  // Error: T doesn't have .length
+    return arg;
+}
+// Fix:
+function loggingIdentity<T>(arg: T[]): T[] {
+    console.log(arg.length);  // Array has a .length, so no more error
+    return arg;
+}
+// or
+function loggingIdentity<T>(arg: Array<T>): Array<T> {
+    console.log(arg.length);  // Array has a .length, so no more error
+    return arg;
+}
+``` 
+
+### Generic Types
+
+``` ts
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+let myIdentity: <T>(arg: T) => T = identity;
+``` 
+
+Write the generic type as a call signature of an object literal type:
+
+``` ts
+let myIdentity: {<T>(arg: T): T} = identity;
+``` 
+
+Write as a generic interface. 
+
+``` ts
+interface GenericIdentityFn {
+    <T>(arg: T): T;
+}
+
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+let myIdentity: GenericIdentityFn = identity;
+``` 
+
+Move generic parameter to be a parameter of the interface:
+
+``` ts
+interface GenericIdentityFn<T> {
+    (arg: T): T;
+}
+
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+let myIdentity: GenericIdentityFn<number> = identity;
+``` 
+
+### Generic Classes
+
+It is not possible to create generic enums and namespaces.
+
+``` ts
+class GenericNumber<T> {
+    zeroValue: T;
+    add: (x: T, y: T) => T;
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function(x, y) { return x + y; };
+``` 
+
+A class has two sides to its type: static side and instance side. Generic classes are generic only over their instance side rather than static side. So, static members can not use class's type parameter.
+
+### Generic Constraints
+
+Ex: Constraint: Types that have `length` property
+
+``` ts
+function loggingIdentity<T>(arg: T): T {
+    console.log(arg.length);  // Error: T doesn't have .length
+    return arg;
+}
+``` 
+
+Make an interface that describes this constraint: 
+
+``` ts
+interface Lengthwise {
+    length: number;
+}
+
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+    console.log(arg.length);  // Now we know it has a .length property, so no more error
+    return arg;
+}
+``` 
+
+Uses:
+
+``` ts
+loggingIdentity(3);  // Error, number doesn't have a .length property
+loggingIdentity({length: 10, value: 3});
+``` 
+
+#### Using Type Parameters in Generic Constraints
+
+``` ts
+function getProperty<T, K extends keyof T>(obj: T, key: K) {
+    return obj[key];
+}
+
+let x = { a: 1, b: 2, c: 3, d: 4 };
+
+getProperty(x, "a"); // okay
+getProperty(x, "m"); // error: Argument of type 'm' isn't assignable to 'a' | 'b' | 'c' | 'd'.
+``` 
+
+#### Using Class Types in Generics
+
+Factories using generics
+
+``` ts
+function create<T>(c: {new(): T; }): T {
+    return new c();
+}
+``` 
+
+## article: Real World Use Case For Typescript Record Types id=g_10229
+
+		article: Real World Use Case For Typescript Record Types <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10229>
+
+http://www.rickcarlino.com/2017/02/27/real-world-use-case-for-typescript-record-types.html
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/articles/art04/ex01.ts`
+
+``` ts
+type UserPref = {
+  [pref: string]: any;
+}
+
+let prefs: UserPref = {
+    "PET_NAME": "Fido"
+}
+``` 
+
+How can we prevent spell mistakes?
+
+		prefs["petName"] = "This is actually a typo.";
+
+We can't do the following because index types must be string or number.
+
+``` ts
+type PrefName = "PET_NAME" | "SEATING_PREFERENCE" | "AGE";
+
+type UserPref = {
+  [pref: PrefName]: any;
+  // Wrong! ^
+}
+``` 
+
+Solution: Use Record types.
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/articles/art04/ex02.ts`
+
+``` ts
+// This will serve as a form of implicit documentation later on.
+type PrefName = "PET_NAME" | "SEATING_PREFERENCE" | "AGE";
+
+// This will act as a "restricted dictionary".
+type UserPref = Record<PrefName, any>;
+
+// ALMOST works (but we forgot one thing):
+let prefs: UserPref = {
+    "PET_NAME": "fido"
+}
+``` 
+
+This has still an error: Record's properties have to be defined all at once. 
+
+		Type '{ "PET_NAME": string; }' is not assignable to type 'Record<PrefName, any>'.
+			Property 'SEATING_PREFERENCE' is missing in type '{ "PET_NAME": string; }'.
+		let prefs: Record<PrefName, any>
+
+Solution: Use Partial<Record>
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/articles/art04/ex03.ts`
+
+``` ts
+type UserPref = Partial<Record<PrefName, any>>
+``` 
+
+## Article: Learn Typescript in 30 Minutes id=g_10233
+
+		Article: Learn Typescript in 30 Minutes <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10233>
 
 https://tutorialzine.com/2016/07/learn-typescript-in-30-minutes
 
@@ -459,4 +2510,409 @@ let pairToTuple = function <T>(p: Pair<T>) {
 };
 let tuple = pairToTuple({ item1: "hello", item2: "world" });
 ``` 
+
+## Article: Type guards and conditional types in typescript & prelude.ts
+
+http://emmanueltouzery.github.io/blog/posts/2018-04-07-prelude-type-guards.html
+
+### What are type guards?
+
+#### Predicates and type guards
+
+#### Use in `filter` 
+
+``` ts
+Vector.of<number|string>(1,"a",2,3,"b").filter(typeOf("number"))
+// => Vector.of<number>(1,2,3)
+``` 
+
+Note that, result is not of type `Vector<number|string>` but `Vector<number>`
+
+This is due to type signature of filter:
+
+``` ts
+class Collection<T> {
+    filter<U extends T>(fn:(v:T)=>v is U): Collection<U>;
+    filter(predicate:(v:T)=>boolean): Collection<T>;
+}
+``` 
+
+The type signature is overloaded. First definition accepts only type guards. Second signature is a catch-all signature.
+
+``` ts
+const canvas = Option.ofNullable(document.getElementById("myCanvas"))
+    .filter(instanceOf(HTMLCanvasElement))
+    .getOrThrow("Cannot find the canvas element!");
+``` 
+
+#### Use in `partition` and conditional types
+
+``` ts
+Vector.of(1,2,3,4).partition(x => x%2===0)
+=> [Vector.of(2,4),Vector.of(1,3)]
+``` 
+
+``` ts
+Vector.of<number|string>(1,"a",2,3,"b")
+    .partition(typeOf("number"))
+// => [Vector.of<number>(1,2,3), Vector.of<number|string>("a","b")]
+``` 
+
+TS 2.8.1 has added conditional types.
+
+``` ts
+Vector.of<number|string>(1,"a",2,3,"b")
+    .partition(typeOf("number"))
+// => [Vector.of<number>(1,2,3), Vector.of<string>("a","b")]
+``` 
+
+``` ts
+Vector.of<number|string|boolean>(1,"a",2,3,"b",true)
+    .partition(typeOf("number"))
+// => [Vector.of<number>(1,2,3), Vector.of<string|boolean>("a","b",true)]
+``` 
+
+This is due to type signature of `partition`
+
+``` ts
+partition<U extends T>(predicate:(v:T)=>v is U): [Collection<U>,Collection<Exclude<T,U>>];
+partition(predicate:(x:T)=>boolean): [Collection<T>,Collection<T>];
+``` 
+
+#### More about conditional types
+
+Compiler can only do:
+
+- Express conditions on types
+- Compute a type based on other types
+- Condition like `T extends U ? X : Y`
+
+Definition of `Exclude`
+
+``` ts
+type Exclude<T, U> = T extends U ? never : T
+``` 
+
+This has distributiveness aspect:
+
+> Distributive conditional types are automatically distributed over union types during instantiation. For example, an instantiation of
+> `T extends U ? X : Y`
+> with the type argument `A | B | C` for `T` is resolved as
+> `(A extends U ? X : Y) | (B extends U ? X : Y) | (C extends U ? X : Y)`
+
+Ex: resolve Exclude<string|number|boolean, number>:
+
+1. `Exclude<string|number|boolean, number>`
+
+2. 
+	 
+			 string extends number ? never : string
+		 | number extends number ? never : number
+		 | boolean extends number ? never : boolean
+
+3. 
+	 
+			 false ? never : string
+		 | true ? never : number
+		 | false ? never : boolean
+
+4. 
+	 
+			string | never | boolean
+
+5. 
+	 
+			string | boolean
+
+#### `typeOf`
+
+``` ts
+Vector.of<any>(1,"a",2,3,"b").filter(typeOf("number"))
+=> Vector.of<number>(1,2,3)
+
+Option.of<any>(1).filter(typeOf("string"))
+=> Option.none<string>()
+
+Option.of<any>("str").filter(typeOf("string"))
+=> Option.of<string>("str")
+``` 
+
+
+## Article: prelude.ts
+
+https://github.com/emmanueltouzery/prelude.ts
+
+- Persistent immutable collections (Vector, Set, Map, Stream)
+- Option, Either, Predicate, Future
+
+``` ts
+Vector.of(1,2,3)
+	.map(x => x*2)
+	.head()
+// => Option.of(2)
+``` 
+
+## Article: Type Queries and typeof in TypeScript - Marius Schulz
+
+https://blog.mariusschulz.com/2016/05/31/type-queries-and-typeof-in-typescript
+
+TypeScript's `typeof` is very different from JavaScript's `typeof`
+
+JS typeof:
+
+``` js
+typeof undefined; // "undefined"
+typeof true;      // "boolean"
+typeof 1337;      // "number"
+typeof "foo";     // "string"
+typeof {};        // "object"
+typeof parseInt;  // "function"
+typeof Symbol();  // "symbol"
+``` 
+
+### TS Type Queries:
+
+`typeof` starts a type query. 
+
+A type query obtains the type of an identifier or property access expression (identifiers joined by dots)
+
+``` ts
+let rectangle1 = {width: 100, height: 200}
+let rectangle2: typeof rectangle1
+``` 
+
+Type of `rectangle1` is `{width: 100, height: 200}`
+
+### Naming Types with Type Aliases
+
+``` ts
+let rectangle1 = { width: 100, height: 200 };
+
+// Obtain the type of `rectangle1` and call it `Rectangle`
+type Rectangle = typeof rectangle1;
+
+let rectangle2: Rectangle;
+``` 
+
+## Article: TypeScript 2.8 Conditional Types id=g_10234
+
+		Article: TypeScript 2.8 Conditional Types <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10234>
+
+https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+
+Conditional types allow to express non-uniform type mappings. It selects one of two possible types based on a condition.
+
+The condition is a type relationship test.
+
+``` ts
+T extends U ? X : Y
+``` 
+
+Example:
+
+``` ts
+type TypeName<T> =
+    T extends string ? "string" :
+    T extends number ? "number" :
+    T extends boolean ? "boolean" :
+    T extends undefined ? "undefined" :
+    T extends Function ? "function" :
+    "object";
+
+type T0 = TypeName<string>;  // "string"
+type T1 = TypeName<"a">;  // "string"
+type T2 = TypeName<true>;  // "boolean"
+type T3 = TypeName<() => void>;  // "function"
+type T4 = TypeName<string[]>;  // "object"
+``` 
+
+### Distributive Conditional Types
+
+Distributive conditional types are automatically distributed over union types during instantiation
+
+``` ts
+type T10 = TypeName<string | (() => void)>;  // "string" | "function"
+type T12 = TypeName<string | string[] | undefined>;  // "string" | "object" | "undefined"
+type T11 = TypeName<string[] | number[]>;  // "object"
+``` 
+
+In `T extends U ? X : Y`, `T` refers to individual constituents after the conditional type is distributed over the union type.
+
+### Predefined Conditional Types
+
+``` ts
+Exclude<T, U>
+Extract<T, U>
+NonNullable<T>
+ReturnType<T>
+InstanceType<T>
+``` 
+
+``` ts
+type T00 = Exclude<"a" | "b" | "c" | "d", "a" | "c" | "f">;  // "b" | "d"
+type T01 = Extract<"a" | "b" | "c" | "d", "a" | "c" | "f">;  // "a" | "c"
+
+type T02 = Exclude<string | number | (() => void), Function>;  // string | number
+type T03 = Extract<string | number | (() => void), Function>;  // () => void
+
+type T04 = NonNullable<string | number | undefined>;  // string | number
+type T05 = NonNullable<(() => string) | string[] | null | undefined>;  // (() => string) | string[]
+
+function f1(s: string) {
+    return { a: 1, b: s };
+}
+
+class C {
+    x = 0;
+    y = 0;
+}
+
+type T10 = ReturnType<() => string>;  // string
+type T11 = ReturnType<(s: string) => void>;  // void
+type T12 = ReturnType<(<T>() => T)>;  // {}
+type T13 = ReturnType<(<T extends U, U extends number[]>() => T)>;  // number[]
+type T14 = ReturnType<typeof f1>;  // { a: number, b: string }
+type T15 = ReturnType<any>;  // any
+type T16 = ReturnType<never>;  // any
+type T17 = ReturnType<string>;  // Error
+type T18 = ReturnType<Function>;  // Error
+
+type T20 = InstanceType<typeof C>;  // C
+type T21 = InstanceType<any>;  // any
+type T22 = InstanceType<never>;  // any
+type T23 = InstanceType<string>;  // Error
+type T24 = InstanceType<Function>;  // Error
+``` 
+
+Implementation of `Omit`
+
+``` ts
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> 
+``` 
+
+### Improved control over mapped type modifiers
+
+Modifiers: `readonly` or `?`
+
+How to remove modifiers?
+
+Using `+` or `-`
+
+Ex: 
+
+``` ts
+type Required<T> = { [P in keyof T]-?: T[P] };
+``` 
+
+### Improved `keyof` with intersection types
+
+``` ts
+type A = { a: string };
+type B = { b: string };
+
+type T1 = keyof (A & B);  // "a" | "b"
+type T2<T> = keyof (T & B);  // keyof T | "b"
+type T3<U> = keyof (A & U);  // "a" | keyof U
+type T4<T, U> = keyof (T & U);  // keyof T | keyof U
+type T5 = T2<A>;  // "a" | "b"
+type T6 = T3<B>;  // "a" | "b"
+type T7 = T4<A, B>;  // "a" | "b"
+``` 
+
+## Article: Improved Redux type safety with TypeScript 2.8
+
+https://medium.com/@martin_hotell/improved-redux-type-safety-with-typescript-2-8-2c11a8062575
+
+Before TypeScript 2.8
+
+- Define type definiton first
+- Implement action creator with return type annotated with your defined type
+
+Ex:
+
+``` ts
+// you need to define the shape first
+type SetAgeAction = { type: typeof SET_AGE; payload: number }
+// then implement the shape
+const setAge = (age: number): SetAgeAction => ({ type: SET_AGE, payload: age })
+``` 
+
+Now, we can get return type of any function.
+
+### ReturnType<T>
+
+
+``` ts
+const SET_AGE = '[user] SET_AGE'
+const setAge = (age: number) => ({ type: SET_AGE, payload: age })
+``` 
+
+Now we need return type of action creator?
+
+Why do we need?
+
+To have 100% type safe reducers with discriminant unions. 
+
+``` ts
+type SetAgeAction = ReturnType<typeof setAge>
+``` 
+
+Inferred implementation of `SetAgeAction`
+
+``` ts
+{
+	type: string
+	payload: number
+}
+``` 
+
+But this loses literal string type of `SET_AGE`
+
+Fix:
+
+``` ts
+const setAge = (age: number) => ({ type: SET_AGE as typeof SET_AGE, payload: age })
+``` 
+
+Inferred implementation of `SetAgeAction`
+
+``` ts
+{
+	type: '[user] SET_AGE'
+	payload: number
+}
+``` 
+
+### How to remove explicitly casting type
+
+``` ts
+interface Action<T extends string> {
+	type: T
+}
+interface ActionWithPayload<T extends string, P> extends Action<T> {
+	payload: P
+}
+function createAction<T extends string>(type: T): Action<T>
+function createAction<T extends string, P>(type: T, payload: P): ActionWithPayload<T, P>
+function createAction<T extends string, P>(type: T, payload: P): {
+	return payload === undefined ? { type } : {type, payload }
+``` 
+
+Now, action creator becomes:
+
+``` ts
+const setAge = (age: number) => createAction(SET_AGE, age)
+``` 
+
+Inferred implementation of `SetAgeAction`
+
+``` ts
+type SetAgeAction = ReturnType<typeof setAge>
+{
+	type: '[user] SET_AGE'
+	payload: number
+}
+``` 
+
+
 

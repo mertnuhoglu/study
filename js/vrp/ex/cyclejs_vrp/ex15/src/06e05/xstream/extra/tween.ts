@@ -1,4 +1,4 @@
-import {Stream} from '../index';
+import {Stream} from '..';
 import concat from './concat';
 
 export type Ease = (x: number, from: number, to: number) => number;

@@ -1,4 +1,4 @@
-import {Operator, Stream} from '../index';
+import {Operator, Stream} from '..';
 
 class PairwiseOperator<T> implements Operator<T, [T, T]> {
   public type = 'pairwise';

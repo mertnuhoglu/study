@@ -1,0 +1,18 @@
+{
+  "compileOnSave": false,
+  "compilerOptions":
+  {
+    "skipLibCheck": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "sourceMap": true,
+		"removeComments": true,
+		"preserveConstEnums": true,
+    "target": "ES5"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "skipLibCheck": true
+}

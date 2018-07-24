@@ -1,0 +1,27 @@
+---
+title: "Study Vim"
+date: 2018-07-20T11:11:06+03:00 
+draft: false
+description: ""
+tags:
+categories: vimscript, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+## Article: Operator-Pending Mappings
+
+http://learnvimscriptthehardway.stevelosh.com/chapters/15.html
+
+Operator: a command that waits for a movement command
+
+Examples of operators:  , y, c
+
+		| keys | operator | movement      |
+		| dw   | delete   | to next word  |
+		| ci(  | change   | inside parens |

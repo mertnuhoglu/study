@@ -1,6 +1,6 @@
 import xs from 'xstream';
 import { nav, a, ul, li, header, h1 } from '@cycle/dom';
-import { style } from 'typestyle';
+import { style } from 'typestyle/lib';
 
 const headerStyles = style({
 });

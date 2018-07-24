@@ -40,13 +40,7 @@ function model(httpSource) {
   return xs.merge(initReducer$, planReducer$)
 }
 
-function onion(reducer$) {
-  const state$ = xs.merge(reducer$)
-    .fold((prevState, reducer) => reducer(prevState), {});
-  return state$
-}
 function main(sources) {
-  const component = sub
   const requests$ = intent()
   const HTTP = makeHTTPDriver()
   const httpSource = HTTP(requests$)

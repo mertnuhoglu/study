@@ -1,5 +1,5 @@
 import { a, article, button, div, form, h3, input, label, li, nav, option, select, span, table, tbody, td, th, thead, tr, ul } from '@cycle/dom';
-import { style } from 'typestyle';
+import { style } from 'typestyle/lib';
 import xs from 'xstream';
 import { Plan, PurchaseOrder } from '../../interfaces';
 import { State as AppState } from '../app';

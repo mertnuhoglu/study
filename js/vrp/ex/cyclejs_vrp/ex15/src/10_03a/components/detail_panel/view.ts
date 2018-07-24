@@ -1,6 +1,6 @@
 import xs from 'xstream';
 import {a, article, br, button, div, form, h3, input, label, li, span, sup, table, tbody, td, th, thead, tr, ul} from '@cycle/dom';
-import { style } from 'typestyle';
+import { style } from 'typestyle/lib';
 import 'handsontable'
 
 const styles = style({

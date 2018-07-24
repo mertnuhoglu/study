@@ -834,6 +834,12 @@ Based on ~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src07/
 
 Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref06/index.js`
 
+## ref07: Node Apps
+
+Based on `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex01.js`
+
+		p16: onion with one subcomponent and lens <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10221>
+
 # Article: Handling lists in Cyclejs
 
 https://github.com/cyclejs/cyclejs/issues/312
@@ -2387,11 +2393,13 @@ function model(httpSource) {
 // result: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[]}
 ``` 
 
-## p16: onion with one subcomponent and lens
+## p16: onion with one subcomponent and lens id=g_10221
+
+		p16: onion with one subcomponent and lens <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10221>
 
 I want to mimic a web app that has a parent component and a subcomponent where the subcomponent accesses the global state using a lens object. 
 
-### p16.01 Creating subcomponent
+### p16.01 Creating subcomponent. Uses `cycle-onionify.onionify()`
 
 Here I have only setup two files, one parent component and one subcomponent.
 
@@ -2414,7 +2422,7 @@ function main() {
 exports.main = main
 ``` 
 
-### p16.02 Pass the global state to subcomponent
+### p16.02 Pass the global state to subcomponent. Custom `isolate()` with `cycle-onionify.onionify()`
 
 ### p16.02a Bug:
 
@@ -2839,6 +2847,853 @@ To solve the problem, make `sinks` of type `any`
   return sinks
 ``` 
 
+### p16.09 Implement custom type-safe `isolate` 
+
+Custom `isolate` comes from `ex03_isolate.js`.
+
+Type-safe use of cyclejs comes from `ex08.ts`
+
+Let's merge them together.
+
+
+
+## p17: Systematic elimination of possible bug causes id=g_10219
+
+		p17: Systematic elimination of possible bug causes <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10219>
+
+The application gives the following error message:
+
+		TypeError: Cannot read property '_add' of undefined
+		index.js:112
+				at Merge._start (/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/node_modules/xstream/index.js:112:1)
+				at Stream._add (/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/node_modules/xstream/index.js:873:1)
+				at ConcatProducer._start (/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/node_modules/xstream/extra/concat.js:13:1)
+				at Stream._add (/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/node_modules/xstream/index.js:873:1)
+				at Stream._add (/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/node_modules/xstream/index.js:861:1)
+				at Fold._start (/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/node_modules/xstream/index.js:551:1)
+				at MemoryStream._add (/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/node_modules/xstream/index.js:1708:1)
+				at Drop._start (/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/node_modules/xstream/index.js:345:1)
+				at Stream._add (/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/node_modules/xstream/index.js:873:1)
+				at Filter._start (/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/node_modules/xstream/index.js:439:1)
+
+The stacktrace doesn't show exact location where the bug occurs. And I don't understand anything of the error message. 
+
+I need to eliminate all possible bug causes systematically.
+
+### Put debug(console.log) to each stream
+
+I put debug() expression after each stream to find out where exactly the problem might have occurred.
+
+``` js
+ const requests$ = xs.merge(
+    parentRequests$,
+    planPanelSinks.HTTP,
+  )
+    .debug(x => { console.log("app/index main requests$"); console.log(x); })
+``` 
+
+### p17_01: Initial application
+
+``` bash
+npm run p17_01
+``` 
+
+This is the baseline version. This gives the above error message.
+
+### p17_02: Elimination of DetailPanel Component
+
+``` bash
+npm run p17_02
+``` 
+
+I eliminated `DetailPanel` component. Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p17/ex02/components/app/index.ts`
+
+``` js
+...
+export default function main(sources: Sources): Sinks {
+...
+  // const detailPanelSinks = isolate(DetailPanel, {storage: null, onion: null, Hot: null})(sources)
+	...
+  const vdom$ = xs.combine(
+    headerSinks.DOM,
+		planPanelSinks.DOM,
+    // detailPanelSinks.DOM,
+  ).map( ([
+    header, 
+    plan_panel, 
+    // detail_panel
+  ]) =>
+    div('.vrp_container',
+      [
+        header,
+        plan_panel,
+        // detail_panel, 
+      ]
+    )
+  )
+    .debug(x => { console.log("app/index main vdom$"); console.log(x); })
+	...
+  // const hot$ = detailPanelSinks.Hot
+  //   .debug(x => { console.log("app/index main hot$"); console.log(x); })
+  const sinks: any = {
+    DOM: vdom$,
+    HTTP: requests$,
+    // Hot: hot$,
+    onion: reducer$,
+  }
+  return sinks;
+}
+``` 
+
+I still get the above error message. I also get the log messages from `debug` expressions but I still cannot locate the exact location of the bug.
+
+		app model return$
+		model.ts:24 ƒ initReducer(prevState) {
+						var initialState = {
+								plans: [],
+								purchase_orders: [],
+								firstPlan: {}
+						};
+						return initialState;
+				}
+		index.ts:28 app/index main parentReducer$
+		index.ts:28 ƒ initReducer(prevState) {
+						var initialState = {
+								plans: [],
+								purchase_orders: [],
+								firstPlan: {}
+						};
+						return initialState;
+				}
+		index.ts:30 app/index main reducer$
+		index.ts:30 ƒ initReducer(prevState) {
+						var initialState = {
+								plans: [],
+								purchase_orders: [],
+								firstPlan: {}
+						};
+						return initialState;
+				}
+		index.ts:300 PlanPanel state$
+		index.ts:300 Object
+		index.ts:295 PlanPanel panel_vdom$
+		index.ts:295 Object
+		index.ts:49 app/index main vdom$
+		index.ts:49 Object
+		index.js:112 Uncaught TypeError: Cannot read property '_add' of undefined
+
+### p17.03: Elimination of PlanPanel.vdom$
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p17/ex03/components/app/index.ts
+
+``` js
+...
+  const vdom$ = xs.combine(
+    headerSinks.DOM,
+    // planPanelSinks.DOM,
+    // detailPanelSinks.DOM,
+  ).map( ([
+    header, 
+    // plan_panel, 
+    // detail_panel
+  ]) =>
+    div('.vrp_container',
+      [
+        header,
+        // plan_panel,
+        // detail_panel, 
+      ]
+    )
+  )
+``` 
+
+Now, the app works properly. The log messages are as follows:
+
+		app/index main vdom$
+		index.ts:49 Object
+		intent.ts:16 app intent requests$
+		intent.ts:16 Object
+		index.ts:55 app/index main requests$
+		index.ts:55 Object
+		index.ts:52 PlanPanel intent requests$
+		index.ts:52 Object
+		index.ts:55 app/index main requests$
+		index.ts:55 Object
+
+Let's compare the log messages with and without `plan_panel`
+
+``` js
+app model return$
+_stream_readable.js:1019 ƒ initReducer(prevState) {
+        var initialState = {
+            plans: [],
+            purchase_orders: [],
+            firstPlan: {}
+        };
+        return initialState;
+    }
+index.ts:28 app/index main parentReducer$
+index.ts:28 ƒ initReducer(prevState) {
+        var initialState = {
+            plans: [],
+            purchase_orders: [],
+            firstPlan: {}
+        };
+        return initialState;
+    }
+index.ts:30 app/index main reducer$
+index.ts:30 ƒ initReducer(prevState) {
+        var initialState = {
+            plans: [],
+            purchase_orders: [],
+            firstPlan: {}
+        };
+        return initialState;
+    }
+_stream_writable.js:687 PlanPanel state$
+_stream_writable.js:687 {plans: Array(0), purchase_orders: Array(0), firstPlan: Array(0)}
+_stream_writable.js:687 PlanPanel panel_vdom$
+_stream_writable.js:687 {sel: "article#plan_panel.card", data: {…}, children: Array(2), text: undefined, elm: undefined, …}
+index.ts:49 app/index main vdom$
+index.ts:49 {sel: "div.vrp_container", data: {…}, children: Array(2), text: undefined, elm: undefined, …}
+10_03b.3015f0a2.js:247 Uncaught TypeError: Cannot read property '_add' of undefined
+``` 
+
+Without `plan_panel`, `intent.requests$` is not triggered.
+
+### Cause of the Problem
+
+``` js
+  const reducer$ = xs.merge(
+    parentReducer$, 
+    planPanelSinks.onion
+``` 
+
+`planPanelSinks.onion` is `undefined` because `PlanPanel` doesn't return `onion` property.
+
+``` js
+export function PlanPanel(sources) {
+  const state$ = sources.onion.state$
+    .debug(x => { console.log("PlanPanel state$"); console.log(x); })
+  const {actions, requests$} = intent(sources.DOM)
+	requests$
+    .debug(x => { console.log("PlanPanel requests$"); console.log(x); })
+  const sinks = {
+    DOM: view(state$),
+    HTTP: requests$,
+  }
+  return sinks
+``` 
+
+We should return `onion` property in the response object. Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p17/ex04/components/plan_panel/index.ts`
+
+``` js
+export function PlanPanel(sources) {
+  const state$ = sources.onion.state$
+    .debug(x => { console.log("PlanPanel state$"); console.log(x); })
+  const {actions, requests$} = intent(sources.DOM)
+	requests$
+    .debug(x => { console.log("PlanPanel requests$"); console.log(x); })
+  const reducer$ = model(sources)
+  const sinks = {
+    DOM: view(state$),
+    HTTP: requests$,
+    onion: reducer$,
+  }
+  return sinks
+}
+``` 
+
+### Did Systematic Elimination Really Work?
+
+Systematic elimination reduced my focus into PlanPanel component first. Then it reduced my focus into `intent()`. 
+
+Then I noticed that `intent()` is not called when the error occurs. I knew that `intent` returns `requests$` and `requests$` is used by `model()` functions.
+
+So, I decided to focus into `model()`. I commented `planReducer$` inside `model()`. Then I noticed that `PlanPanel.model()` was not being called at all. Thus there was no `onion` property in the returned response of `PlanPanel`.
+
+### Why Didn't TypeScript Give an Error for undefined variable?
+
+``` js
+  const reducer$ = xs.merge(
+    parentReducer$, 
+    planPanelSinks.onion
+  )
+``` 
+
+`planPanelSinks.onion` is `undefined`. 
+
+But this doesn't break any type constraint.
+
+## p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` id=g_10223
+
+		p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10223>
+
+### p18.01: Base Node App
+
+Based on 
+
+		"p02_03: Why does `isolate()` remove type information?"  <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10222>
+		`~/projects/study/js/ex/study_notes_cyclejs/src/problems/p15/ex04.js`
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p18/ex01.ts`
+
+``` js
+type Sinks = { onion: xs<(s: any) => any | undefined> }
+interface State_a { field_a: String }
+interface State_b { field_b: String }
+type Reducer_a = (prev?: State_a) => State_a | undefined
+type Reducer_b = (prev?: State_b) => State_b | undefined
+function model_a(): xs<Reducer_a> {
+    return xs.of(
+        function initReducer(prevState: State_a) {
+            return { field_a: "a" }
+        }
+    )
+}
+function model_b(): xs<Reducer_b> {
+    return xs.of(
+        function initReducer(prevState: State_b) {
+            return { field_b: "b" }
+        }
+    )
+}
+
+function main(): Sinks {
+    const parentReducer$ = model_a()
+    const compReducer$ = model_b()
+    const reducer$ = xs.merge(
+        parentReducer$,
+        compReducer$
+    )
+    const sinks: Sinks = {
+        onion: reducer$
+    }
+    return sinks
+}
+
+main().onion.addListener({ next: console.log })
+``` 
+
+### p18.02: Encapsulate Components into Their Own Functions
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p18/ex02.ts`
+
+``` js
+...
+function comp_b(): Sinks {
+    const reducer$ = model_b()
+    const sinks: Sinks = {
+        onion: reducer$
+    }
+    return sinks
+}
+function comp_a(): Sinks {
+    const parentReducer$ = model_a()
+    const cmp_b = comp_b()
+		...
+``` 
+
+### p18.03: Custom `onionify()`
+
+Original `onionify()` is defined in `cycle-onionify` here: `~/codes/js/cycle-onionify/src/onionify.ts`
+
+Based on `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p15/ex04.js`
+
+``` js
+function main(): Sinks {
+    const mainOnionified = onionify(comp_a)
+    const sources = {}
+    const sinks = mainOnionified(sources)
+    return sinks
+}
+``` 
+
+`onionify()` function removes type information. The returned `mainOnionified` object has type `MainFn<any, any>`
+
+### p18.04: Simplify type removal with a reference example. Step 01: Remove `So`
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p18/ex04.ts`
+
+``` js
+type MainFn<Si> = () => Si
+type Reducer<T> = (state: T) => T
+type OSi<T> = {onion: Stream<Reducer<T>>};
+type Omit<T, K extends keyof T> = any;
+type MainOnionified<T, Si extends OSi<T>> = MainFn<Omit<Si, 'onion'>>;
+function onionify<T, So, Si extends OSi<T>>(main: MainFn<Si>): MainOnionified<T, Si> {
+    return function mainOnionified(): Omit<Si, 'onion'> {
+        let sources = {onion: undefined}
+        const reducerMimic$ = xs.create<Reducer<T>>();
+        const state$ = reducerMimic$
+            .fold((state, reducer) => reducer(state), void 0 as (T | undefined))
+            .drop(1);
+        sources.onion = {state$}
+        const sinks = main();
+        reducerMimic$.imitate(sinks.onion);
+        return sinks;
+    }
+}
+function main(): Sinks {
+    const mainOnionified = onionify(comp_a)
+    const sinks = mainOnionified()
+    return sinks
+}
+
+console.log("ex04.ts")
+main().onion.addListener({ next: console.log })
+``` 
+
+Type of `mainOnionified` is `MainFn<any>`
+
+### p18.05: Simplify type removal with a reference example. Step 02: Remove `Omit`
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p18/ex05.ts`
+
+Remove the following line:
+
+``` ts
+type Omit<T, K extends keyof T> = any;
+``` 
+
+``` js
+type MainFn<Si> = () => Si
+type Reducer<T> = (state: T) => T
+type OSi<T> = {onion: Stream<Reducer<T>>};
+type MainOnionified<T, Si extends OSi<T>> = MainFn<Sinks>;
+function onionify<T, So, Si extends OSi<T>>(main: MainFn<Si>): MainOnionified<T, Si> {
+    return function mainOnionified(): Sinks {
+        let sources = {onion: undefined}
+        const reducerMimic$ = xs.create<Reducer<T>>();
+        const state$ = reducerMimic$
+            .fold((state, reducer) => reducer(state), void 0 as (T | undefined))
+            .drop(1);
+        sources.onion = {state$}
+        const sinks = main();
+        reducerMimic$.imitate(sinks.onion);
+        return sinks;
+    }
+}
+function main(): Sinks {
+    const mainOnionified = onionify(comp_a)
+    const sinks = mainOnionified()
+    return sinks
+}
+``` 
+
+Now, the type of `mainOnionified` is `MainFn<Sinks>`. 
+
+`Omit` was equivalent to `any`. Therefore the type of `mainOnionified` was becoming `MainFn<any>`
+
+``` js
+type Omit<T, K extends keyof T> = any;
+type MainOnionified<T, Si extends OSi<T>> = MainFn<Omit<Si, 'onion'>>;
+function onionify<T, So, Si extends OSi<T>>(main: MainFn<Si>): MainOnionified<T, Si> {
+    return function mainOnionified(): Omit<Si, 'onion'> {
+``` 
+
+### p18.06: Implement Omit with type safety
+
+With TypeScript 2.1 comes new keywords `Pick` and `Exclude`. They can be used as type subtraction operator:
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p18/ex06.ts`
+
+``` js
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+``` 
+
+But now I get another error:
+
+``` ts
+function main(): Sinks {
+    const mainOnionified = onionify(comp_a)
+    const sinks = mainOnionified()
+    return sinks // error
+}
+``` 
+
+		Type 'Pick<Sinks, never>' is not assignable to type 'Sinks'.
+		Property 'onion' is missing in type 'Pick<Sinks, never>'
+
+### p18.07: Implement onionify without Omit
+
+I couldn't understand why `Omit` is used in `onionify`. I omitted `Omit`. Now type safety is provided.
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p18/ex07.ts`
+
+``` ts
+...
+type MainOnionified<T, Si extends OSi<T>> = MainFn<Si>;
+function onionify<T, So, Si extends OSi<T>>(main: MainFn<Si>): MainOnionified<T, Si> {
+    return function mainOnionified(): Si {
+		...
+``` 
+
+### p18.08: Implement onionify without Omit. Step 02
+
+Current MainFn generifies only Sinks. It should also generify Sources.
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p18/ex08.ts`
+
+Implementation of type-safe `Omit` and `MainOnionified`:
+
+``` ts
+...
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> // @essence
+
+type MainOnionified<T, So extends OSo<T>, Si extends OSi<T>> =
+    MainFn<Omit<So, 'onion'>, Si>;
+export function onionify<T, So extends OSo<T>, Si extends OSi<T>>(
+    main: MainFn<So, Si>,
+    name: string = 'onion'): MainOnionified<T, So, Si> {
+``` 
+
+This implementation requires `Sources` to be defined in terms of `State`. But there is not a super type `State`.
+
+``` ts
+type Sources = { onion: StateSource<State> }
+``` 
+
+As a remedy, I defined `State` as a union of state types of all subcomponents:
+
+``` ts
+interface State_a { field_a: String }
+interface State_b { field_b: String }
+type State = State_a | State_b
+``` 
+
+### p18.08a: Does This Catch Errors Due To Forgetting `onion` in Sinks
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p18/ex08a.ts`
+
+``` ts
+function comp_b(sources: Sources): Sinks {
+    // essence: removed reducer$. compiler catches the error
+    // const reducer$ = model_b()
+    const sinks: Sinks = {
+        // onion: reducer$ 
+				// Error: Type '{}' is not assignable to type 'Sinks'.
+        // Property 'onion' is missing in type '{}'.
+    }
+    return sinks
+}
+``` 
+
+I removed `onion` from `sinks` object. This caused an immediate error caught by typescript.
+
+		// Error: Type '{}' is not assignable to type 'Sinks'.
+		// Property 'onion' is missing in type '{}'.
+
+#### p18.p01: Testing and Studying Generic Types
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p18/p01/ex01.ts`
+
+``` ts
+function fun01<T>(a: T): T {
+    return a
+}
+const g: "help" = fun01("help")
+
+type MainFn<T> = (arg: T) => T
+function fun02<T>(arg01: T): MainFn<T> {
+    return (arg: T) => arg
+}
+const g02: MainFn<string> = fun02("help")
+const g03: string = g02("ali")
+
+function fun03<T>(fun: MainFn<T>): MainFn<T> {
+    return function mainFun(arg: T): T {
+        return arg
+    }
+}
+const g04: MainFn<string> = fun03(g02)
+const g05: string = g04("b")
+``` 
+
+##### p18.p01.02: Refactor p18.08
+
+I wanted to refactor p18.08 such that only the essence of the logic remains. But this didn't work as I expected because the type logic needs to changed in order to simplify as much as I want.
+
+##### p18.p01.03: Use Conditional Types to Compare MainFn and App Types
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p18/p01/ex03.ts`
+
+``` ts
+...
+import { comp_a, MainFn, Sources, Sinks, onionify, State, model_a } from './ex02'
+type T22 = typeof comp_a extends MainFn<Sources, Sinks> ? never : string // never
+type T23 = typeof comp_a extends MainFn<Pick<Sources, never>, Sinks> ? never : string // never
+const main01 = onionify(comp_a) // MainFn<Pick<Sources, never>, Sinks>
+
+import xs from 'xstream'
+import Stream from 'xstream';
+import { StateSource } from '../cycle-onionify/StateSource';
+type Sources02 = { onion: StateSource<State>, DOM: {} }
+type Sinks02 = { onion: xs<(s: any) => any | undefined>, DOM: {} }
+function comp_b(sources: Sources02): Sinks02 { 
+    return { 
+        onion: model_a(),
+        DOM: {},
+    }
+}
+const main02 = onionify(comp_b) // MainFn<Pick<Sources02, "DOM">, Sinks02>
+``` 
+
+Conditional type checkings show that `comp_a` and `comp_b` can be assigned to `MainFn` 
+
+## p19: Test: addListener doesn't consume streaming data
+
+I want to verify that `addListener` doesn't consume streaming data. 
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p19/ex01.ts`
+
+``` ts
+var stream = xs.periodic(1000)
+  .map(i => i)
+  .endWhen(xs.periodic(5000).take(1))
+
+stream.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+
+// 0
+// 1
+// 2
+// 3
+// completed
+``` 
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p19/ex02.ts`
+
+``` ts
+var stream = xs.periodic(1000)
+  .map(i => i)
+  .endWhen(xs.periodic(5000).take(1))
+
+const s2 = stream
+  .map(i => i + 10)
+  .debug(console.log)
+
+stream.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+
+// 0
+// 1
+// 2
+// 3
+// completed
+``` 
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p19/ex03.ts`
+
+``` ts
+...
+const s2 = stream
+  .map(i => i + 10)
+  .debug(console.log)
+
+s2.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+
+// 10
+// 10
+// 11
+// 11
+// 12
+// 12
+// 13
+// 13
+// completed
+``` 
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p19/ex04.ts`
+
+``` ts
+...
+const s2 = stream
+  .map(i => i + 10)
+
+s2.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+
+// 0
+// 10
+// 1
+// 11
+// 2
+// 12
+// 3
+// 13
+// completed
+``` 
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p19/ex05.ts`
+
+``` ts
+...
+stream.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+s2.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+
+// 0
+// 10
+// 1
+// 11
+// 2
+// 12
+// 3
+// 13
+// completed
+``` 
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p19/ex06.ts`
+
+``` ts
+...
+const s3 = stream
+  .map(i => i + 20)
+  .debug()
+
+stream.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+s2.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+
+// 0
+// 10
+// 1
+// 11
+// 2
+// 12
+// 3
+// 13
+// completed
+``` 
+
+## p20: Type-safe Component Usage
+
+First example is using a component without `isolate`.
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p20/ex01.ts`
+
+``` ts
+...
+function comp_a(sources: Sources): Sinks {
+    const parentReducer$ = model_a()
+    const cmp_b = comp_b(sources)
+    const reducer$ = xs.merge(
+        parentReducer$,
+        cmp_b.onion,
+    )
+    const sinks: Sinks = {
+        onion: reducer$
+    }
+		...
+``` 
+
+Second example uses isolate. 
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p20/ex02.ts`
+
+``` ts
+...
+    const cmp_b = isolate(comp_b) as Component<Sources, Sinks>
+    const sinks_b = cmp_b(sources)
+    const reducer$ = xs.merge(
+        parentReducer$,
+        sinks_b.onion,
+    )
+		...
+``` 
+
+`cmp_b` accepts an argument of type `Sources`. `isolate(comp_b)` returns an object of this type.
+
+Third example: What happens when `cmp_b` accepts an argument of type `Sources & SoHTTP`
+
+``` ts
+...
+function comp_b(sources: Sources & SoHTTP): Sinks {
+    sources.HTTP.debug() // @essence
+    const reducer$ = model_b()
+    const sinks: Sinks = {
+        onion: reducer$
+    }
+    return sinks
+}
+function comp_a(sources: Sources): Sinks {
+    const parentReducer$ = model_a()
+    const cmp_b = isolate(comp_b) as Component<Sources, Sinks>
+    const sinks_b = cmp_b(sources) // @essence
+    const reducer$ = xs.merge(
+        parentReducer$,
+        sinks_b.onion,
+    )
+		...
+``` 
+
+Now, on runtime I get the following error:
+
+		TypeError: Cannot read property 'debug' of undefined
+		ex03.ts:31
+				at comp_b (/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p20/ex03.ts:31:18)
+
+TypeScript cannot catch this error on compile time. Why? `sources` is not of type `Sources & SoHTTP`. Note that, `comp_b` and `cmp_b` has different type signatures. `cmp_b` is of type `cmp_b: Component<Sources, Sinks>`
+
+We need to make `cmp_b: Component<Sources & SoHTTP, Sinks>`
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p20/ex04.ts`
+
+``` ts
+...
+    const cmp_b = isolate(comp_b) as Component<Sources & SoHTTP, Sinks> // @essence
+    const sinks_b = cmp_b(sources) // Error: Argument of type 'Sources' is not assignable to parameter of type 'Sources & SoHTTP'.
+		...
+``` 
+
+Now, we get a compile time type error. 
+
+We can of course use type assertion:
+
+		    const sinks_b = cmp_b(sources as Sources & SoHTTP)
+
+But this is too verbose. 
+
+Can we make `isolate` return correct type?
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_notes_cyclejs/src/problems/p20/ex05.ts`
+
+We need to change type definitions of `isolate`. Let's do it later.
+
+For now, apply a fast fix:
+
+``` ts
+function comp_a(sources: Sources & SoHTTP): Sinks {
+...
+``` 
 
 # xstream Operators
 

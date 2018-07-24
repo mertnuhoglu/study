@@ -1,4 +1,4 @@
-import {Stream, InternalProducer, InternalListener} from '../index';
+import {Stream, InternalProducer, InternalListener} from '..';
 
 export interface FromDiagramOptions {
   values?: Object;

@@ -1,10 +1,12 @@
 import xs from 'xstream';
-import { Reducer, State } from './index';
+import { Reducer, State } from '.';
 
 export default function model(sources): xs<Reducer> {
   const initReducer$: xs<Reducer> = xs.of(
     function initReducer(prevState: State) {
       const initialState = {
+        // plans: [],
+        // firstPlan: undefined,
         purchase_orders: [],
       }
       return initialState

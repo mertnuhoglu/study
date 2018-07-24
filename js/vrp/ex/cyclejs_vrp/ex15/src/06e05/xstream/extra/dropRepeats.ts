@@ -1,4 +1,4 @@
-import {Operator, Stream} from '../index';
+import {Operator, Stream} from '..';
 const empty = {};
 
 export class DropRepeatsOperator<T> implements Operator<T, T> {

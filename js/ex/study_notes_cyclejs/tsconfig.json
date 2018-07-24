@@ -6,13 +6,16 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "module": "CommonJS",
+    "noImplicitAny": false,
     "sourceMap": true,
 		"removeComments": true,
 		"preserveConstEnums": true,
-    "target": "ES5"
+    "target": "ES5",
+    "types": [
+      "core-js"
+    ]
   },
   "exclude": [
     "node_modules"
   ],
-  "skipLibCheck": true
 }
