@@ -342,9 +342,9 @@ In this section, I defined only one table `client`. The actual tutorial creates 
         $ curl -H "Authorization: Bearer $JWT_TOKEN" http://localhost:8080/rest/todos?select=id,todo
         [{"id":1,"todo":"item_1_updated"},{"id":3,"todo":"item_3"},{"id":6,"todo":"item_6"}]
 
-4. Create new table: data/table.sql imported from data/schema.sql
+4. Create new table: `data/table.sql` imported from `data/schema.sql`
 
-5. Create new view as API: api/views_and_procedures.sql imported from api/schema.sql
+5. Create new view as API: `api/views_and_procedures.sql` imported from api/schema.sql
 
 6. Create sample data: sample_data/data.sql imported from reset.sql
 

@@ -1,5 +1,5 @@
 
-## Run posgtersql database server from docker
+## pgs01: Run posgtersql database server in docker
 
 docker start `{{c1::postgreststarterkit_db_1}}` 
 
@@ -7,12 +7,11 @@ docker start `{{c1::postgreststarterkit_db_1}}`
 
 %
 
-clozeq
 suspended
 
 ___
 
-## Run pgcli with existing env variables
+## pgs01: Run pgcli with existing env variables
 
 ··  `` pgcli {{c1::app}}  `` <br>
 ··  `` set {{c2::search_path}} = {{c3::data}}, public;  `` <br>
@@ -21,12 +20,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## Env variables for postgresql database clients
+## pgs01: Env variables for postgresql database clients
 
 ··  `` export {{c1::PGHOST}}=localhost  `` <br>
 ··  `` export {{c2::PGPORT}}=5432  `` <br>
@@ -37,12 +35,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## where is sql documentation notes?
+## pgs01: where is sql documentation notes?
 
 ~/Dropbox/mynotes/content/articles/{{c1::articles_db}}.md
 
@@ -50,12 +47,11 @@ ___
 
 %
 
-clozeq
 suspended
 
 ___
 
-## what are the repl tools for sql?
+## pgs01: what are the repl tools for sql?
 
 ··  `` {{c1::franchise}} notebook  `` <br>
 ··  `` {{c2::psql}}  `` <br>
@@ -68,12 +64,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## postgresql connection string example?
+## pgs01: postgresql connection string example?
 
 ··  `` {{c1::postgresql}}://{{c2::superuser}}:{{c3::superuserpass}}@localhost/{{c4::app}}  `` <br>
 
@@ -81,12 +76,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## how to create new database from terminal
+## pgs01: how to create new database from terminal
 
 ··  `` psql _c '{{c1::CREATE DATABASE}} library OWNER = {{c2::superuser}}'  `` <br>
 
@@ -94,12 +88,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## how to connect to pgs db from R?
+## pgs01: how to connect to pgs db from R?
 
 ··  `` con <_ DBI::{{c1::dbConnect}}({{c2::RPostgreSQL}}::PostgreSQL()  `` <br>
 ····  `` , user = Sys.{{c3::getenv}}("SUPER_USER")  `` <br>
@@ -113,12 +106,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## `study_postgresql.md` TOC 01
+## pgs01: `study_postgresql.md` TOC 01
 
 ··  `` {{c1::Run}}: how to run db  `` <br>
 ··  `` {{c2::Database Administration}}: roles, information schema, GRANT, backup ...  `` <br>
@@ -141,12 +133,11 @@ ___
 
 %
 
-clozeq
 suspended
 
 ___
 
-## sql grant
+## pgs01: sql grant
 
 ··  `` GRANT {{c1::some_privilege}} TO {{c2::some_role}}  `` <br>
 ··  `` CREATE ROLE todo_user NOLOGIN;  `` <br>
@@ -156,12 +147,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## sql privilege list
+## pgs01: sql privilege list
 
 ··  `` ALL {{c1::ON ALL}}  `` <br>
 ··  `` ON {{c2::ALL TABLES}}/SEQUENCES  `` <br>
@@ -178,12 +168,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## sql privilege: grantee can grant onwards
+## pgs01: sql privilege: grantee can grant onwards
 
 ··  `` WITH {{c1::GRANT OPTION}}  `` <br>
 ··  `` GRANT ALL ON ALL TABLES IN SCHEMA public TO mydb_admin WITH {{c1::GRANT OPTION}}  `` <br>
@@ -192,12 +181,11 @@ ___
 
 %
 
-clozeq
 suspended
 
 ___
 
-## pgs backup and restore
+## pgs01: backup and restore
 
 ··  `` {{c1::pg_dump}}: selective backup  `` <br>
 ··  `` {{c2::pg_dumpall}}: all  `` <br>
@@ -209,12 +197,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs password stored in
+## pgs01: password stored in
 
 ··  `` ~/{{c1::.pgpass}}  `` <br>
 
@@ -222,12 +209,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## the path of disk space to store db in pgs?
+## pgs01: the path of disk space to store db in pgs?
 
 ··  `` {{c1::TABLESPACE}}  `` <br>
 ··  `` CREATE {{c1::TABLESPACE}} secondary LOCATION 'path'  `` <br>
@@ -238,12 +224,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## psql arguments
+## pgs01: psql arguments
 
 ··  `` psql {{c1::_d}} app {{c2::_h}} localhost {{c3::_p}} 5432 {{c4::_U}} superuser  `` <br>
 
@@ -251,12 +236,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## psql commands 01
+## pgs01: psql commands 01
 
 ··  `` {{c1::\c}} <dbname> <username>  `` <br>
 ··  `` list tables: {{c2::\dt}}  `` <br>
@@ -271,12 +255,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## psql commands 02
+## pgs01: psql commands 02
 
 ··  `` save command history: {{c1::\s}} <filename>  `` <br>
 ··  `` exec commands from file: {{c2::\i}} <filename>  `` <br>
@@ -301,12 +284,11 @@ ___
 
 %
 
-clozeq
 suspended
 
 ___
 
-## pgs: what are main data types?
+## pgs01: pgs: what are main data types?
 
 ··  `` {{c1::numeric}}: integer bigint decimal numeric real double precision  `` <br>
 ··  `` serials  `` <br>
@@ -321,12 +303,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: add uniqueness constraint
+## pgs01: pgs: add uniqueness constraint
 
 ··  `` {{c1::ALTER TABLE}} logs_2011 ADD {{c2::CONSTRAINT}} uq   `` <br>
 ····  `` {{c3::UNIQUE}} (user_name, log_ts);  `` <br>
@@ -335,12 +316,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: constraint all chars as lowercase
+## pgs01: pgs: constraint all chars as lowercase
 
 ··  `` ALTER TABLE logs ADD {{c1::CONSTRAINT}} chk   `` <br>
 ····  `` {{c2::CHECK}} (user_name = {{c3::lower}}(user_name));  `` <br>
@@ -349,12 +329,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: fk constraint
+## pgs01: pgs: fk constraint
 
 ··  `` ALTER TABLE facts ADD CONSTRAINT fk_facts_f   `` <br>
 ····  `` {{c2::FOREIGN KEY}} (fact_type_id) {{c1::REFERENCES}} lu_fact_types (fact_type_id)  `` <br>
@@ -363,12 +342,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: view examples
+## pgs01: pgs: view examples
 
 ··  `` CREATE {{c1::view_name}} {{c1::AS}} query  `` <br>
 ··  `` CREATE {{c2::RECURSIVE VIEW}} view_name({{c3::columns}}) AS query  `` <br>
@@ -383,12 +361,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: handy 01
+## pgs01: pgs: handy 01
 
 ··  `` {{c1::DISTINCT}} ON  `` <br>
 ··  `` {{c2::LIMIT}} and OFFSET  `` <br>
@@ -403,12 +380,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: handy02
+## pgs01: pgs: handy02
 
 ··  `` SELECT .. WHERE <col1> {{c1::ILIKE}} '%duke%'  `` <br>
 ··  `` DELETE FROM census.facts  `` <br>
@@ -423,12 +399,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: handy 03
+## pgs01: pgs: handy 03
 
 ··  `` SELECT x FROM census.lu_fact_types As x {{c1::LIMIT}} 2;  `` <br>
 ··  `` SELECT {{c2::array_to_json}}({{c3::array_agg}}(f)) As cat FROM (  `` <br>
@@ -445,12 +420,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: window ex 01
+## pgs01: pgs: window ex 01
 
 ··  `` SELECT tract_id, val, {{c1::AVG}}(val) {{c2::OVER}} () as val_avg  `` <br>
 ····  `` FROM census.facts  `` <br>
@@ -464,12 +438,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: window ex 02
+## pgs01: pgs: window ex 02
 
 ··  `` SELECT   `` <br>
 ····  `` ROW_NUMBER() OVER ({{c1::wt}}) As rnum,   `` <br>
@@ -484,12 +457,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: cte ex 01
+## pgs01: pgs: cte ex 01
 
 ··  `` {{c1::WITH}}   `` <br>
 ····  `` {{c2::cte1}} AS (  `` <br>
@@ -506,12 +478,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: recursive cte ex 01
+## pgs01: pgs: recursive cte ex 01
 
 ··  `` WITH {{c1::RECURSIVE}} subordinates AS (  `` <br>
 ····  `` SELECT employee_id, manager_id, full_name  `` <br>
@@ -528,12 +499,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: define function 01
+## pgs01: pgs: define function 01
 
 ··  `` CREATE OR REPLACE FUNCTION func_name(arg1 {{c1::arg1_datatype}} {{c2::DEFAULT}} arg1_default)  `` <br>
 ····  `` {{c3::RETURNS}} <some type> | set of <some type> | {{c4::TABLE}} (..) AS  `` <br>
@@ -542,12 +512,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: define window function 01
+## pgs01: pgs: define window function 01
 
 ··  `` CREATE {{c1::AGGREGATE}} my_agg (input data type) ( ..)  `` <br>
 
@@ -555,12 +524,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: define function 02
+## pgs01: pgs: define function 02
 
 ··  `` CREATE OR REPLACE FUNCTION write_to_log(param_user_name varchar, param_description text)  `` <br>
 ····  `` RETURNS integer AS  `` <br>
@@ -575,12 +543,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: builtin functions 01: between
+## pgs01: pgs: builtin functions 01: between
 
 ··  `` a {{c1::BETWEEN}} x AND y  `` <br>
 ··  `` a <= x AND a <= y  `` <br>
@@ -590,12 +557,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: builtin functions 02: IS check null
+## pgs01: pgs: builtin functions 02: IS check null
 
 ··  `` <expression> IS [NOT] {{c1::NULL}}  `` <br>
 
@@ -603,12 +569,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: builtin functions 03: character funs
+## pgs01: pgs: builtin functions 03: character funs
 
 ··  `` {{c1::char_length}}(string)  `` <br>
 ··  `` __ length  `` <br>
@@ -625,12 +590,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: builtin functions 04: temporals
+## pgs01: pgs: builtin functions 04: temporals
 
 current date funs:
 
@@ -648,12 +612,11 @@ extract:
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: builtin functions 05: case
+## pgs01: pgs: builtin functions 05: case
 
 ··  `` SELECT a,  `` <br>
 ····  `` {{c1::CASE}} WHEN a=1 THEN 'one'  `` <br>
@@ -668,12 +631,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: builtin functions 06: arrays
+## pgs01: pgs: builtin functions 06: arrays
 
 ··  `` {{c1::array_append}}(ARRAY[1,2], 3)   `` <br>
 ··  `` {{c2::array_cat}}(ARRAY[1,2,3], ARRAY[4,5])   `` <br>
@@ -690,12 +652,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: builtin functions 07: aggregate
+## pgs01: pgs: builtin functions 07: aggregate
 
 ··  `` avg(expr)  `` <br>
 ··  `` {{c1::bool_and}}(expr)  `` <br>
@@ -713,12 +674,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: builtin functions 08: window
+## pgs01: pgs: builtin functions 08: window
 
 ··  `` {{c1::row_number}}()  `` <br>
 ··  `` __ row no  `` <br>
@@ -739,12 +699,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgs: current db setting
+## pgs01: pgs: current db setting
 
 ··  `` {{c1::current_catalog}}  `` <br>
 ··  `` {{c2::current_database}}()  `` <br>
@@ -757,12 +716,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## postgrest (pgr): getting started app steps
+## pgs01: postgrest (pgr): getting started app steps
 
 ··  `` sudo docker run __name tutorial _p 5432:5432 ... _d {{c1::postgres}}  `` <br>
 ··  `` CREATE {{c2::SCHEMA}} api;  `` <br>
@@ -792,12 +750,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgr: API ex 01
+## pgs01: pgr: API ex 01
 
 ··  `` GET /{{c1::people}}?age=gte.18&student=is.true  `` <br>
 ··  `` GET /people?{{c2::and=}}(grade.{{c2::gte}}.90,student.{{c3::is}}.true,{{c4::or}}(age.gte.14,age.{{c5::is}}.null))  `` <br>
@@ -809,12 +766,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgr: API ex 02
+## pgs01: pgr: API ex 02
 
 ··  `` GET /view  `` <br>
 ····  `` CREATE {{c1::VIEW}} fresh_stories AS  `` <br>
@@ -830,12 +786,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgr: API ex 03
+## pgs01: pgr: API ex 03
 
 ··  `` GET /entity?function /entity?order  `` <br>
 ····  `` GET /people?{{c1::select=}}*,full_name  `` <br>
@@ -848,12 +803,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgr: API ex 04
+## pgs01: pgr: API ex 04
 
 ··  `` Range pagination  `` <br>
 ····  `` GET /people HTTP/1.1  `` <br>
@@ -865,12 +819,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgr: API ex 05
+## pgs01: pgr: API ex 05
 
 ··  `` single item ?id=eq.1 Accept: vnd.pgrst  `` <br>
 ····  `` /items?{{c1::id}}={{c2::eq}}.1  `` <br>
@@ -883,12 +836,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgr: API ex 06
+## pgs01: pgr: API ex 06
 
 ··  `` joins items?select=id,{{c1::subitems}}(id,field)  `` <br>
 ····  `` curl http://localhost:8080rest/items?id=gt.1&select=id,name,{{c2::subitems}}(id,name)  `` <br>
@@ -899,12 +851,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgr: API ex 07
+## pgs01: pgr: API ex 07
 
 ··  `` {{c1::POST}} /{{c2::rpc}}/function {args}  `` <br>
 ··  `` POST /rpc/function_name  `` <br>
@@ -917,12 +868,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgr: API ex 08
+## pgs01: pgr: API ex 08
 
 ··  `` request.header.XYZ  `` <br>
 ····  `` SELECT {{c1::current_setting}}('{{c2::request.header.origin}}', true);  `` <br>
@@ -931,12 +881,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgr: API ex 09
+## pgs01: pgr: API ex 09
 
 ··  `` insert = {{c1::POST}}, update = {{c2::PATCH}}, delete = DELETE  `` <br>
 ····  `` POST /table_name   `` <br>
@@ -959,12 +908,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## pgr: authentication ex
+## pgs01: pgr: authentication ex
 
 ··  `` Authentication  `` <br>
 ····  `` GRANT user123 TO {{c1::authenticator}};  `` <br>
@@ -973,12 +921,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## `postgrest_starter_kit` psk TOC 01
+## pgs01: `postgrest_starter_kit` psk TOC 01
 
 ··  `` db/src/data/{{c1::tables}}.sql  `` <br>
 ····  `` create table client (...)  `` <br>
@@ -998,12 +945,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## `postgrest_starter_kit` psk TOC 02
+## pgs01: `postgrest_starter_kit` psk TOC 02
 
 ··  `` curl _H ".." http:.../clients?select=id,name  `` <br>
 ··  `` db/src/{{c1::authorization}}/privileges.sql  `` <br>
@@ -1019,12 +965,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## psk file structure 01
+## pgs01: psk file structure 01
 
 ··  `` .env  `` <br>
 ··  `` docker_compose.yml  `` <br>
@@ -1036,12 +981,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## psk file structure 02
+## pgs01: psk file structure 02
 
 ··  `` openresty: reverse proxy and lua code  `` <br>
 ····  `` {{c1::lualib}}/user_code: application lua code  `` <br>
@@ -1061,12 +1005,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## psk file structure 03
+## pgs01: psk file structure 03
 
 ··  `` db/  `` <br>
 ····  `` {{c1::src}}: schema definition  `` <br>
@@ -1088,12 +1031,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## Summary of Steps in PSK
+## pgs01: Summary of Steps in PSK
 
 1. basic REST request
 
@@ -1131,12 +1073,11 @@ ___
 
 %
 
-clozeq
 suspended
 
 ___
 
-## psk: install and setup
+## pgs01: psk: install and setup
 
 ··  `` $ {{c1::git clone}} __single_branch https://github.com/subzerocloud/postgrest_starter_kit khumbuicefall  `` <br>
 ··  `` $ cd khumbuicefall  `` <br>
@@ -1159,12 +1100,11 @@ Install and run `[subzero_cli]` to see what is going inside (optional):
 
 %
 
-clozeq
 suspended
 
 ___
 
-## psk: basic REST calls
+## pgs01: psk: basic REST calls
 
 ··  `` $ curl http://localhost:8080/rest/{{c1::todos?select=id}}  `` <br>
 ··  `` [{"id":1},{"id":3},{"id":6}]  `` <br>
@@ -1179,12 +1119,11 @@ Make an authorized request
 
 %
 
-clozeq
 active
 
 ___
 
-## Check Generated SQL Using subzero
+## pgs01: Check Generated SQL Using subzero
 
 ··  `` $ curl http://localhost:8080/rest/todos?select=id  `` <br>
 
@@ -1200,12 +1139,11 @@ The following SQL code is generated automatically by `postgrest`:
 
 %
 
-clozeq
 active
 
 ___
 
-## psk: actual data
+## pgs01: psk: actual data
 
 ··  `` {{c1::coalesce}}(  `` <br>
 ····  `` {{c2::array_to_json}}(  `` <br>
@@ -1216,12 +1154,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## psk: editing db/src/ *.sql files
+## pgs01: psk: editing db/src/ *.sql files
 
 `./db/src/data/todo.sql` changed
 
@@ -1241,12 +1178,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## psk: order of call for db/src/*.sql files
+## pgs01: psk: order of call for db/src/*.sql files
 
 ··  `` db/src/{{c1::init}}.sql  `` <br>
 ····  `` db/src/data/{{c2::schema}}.sql  `` <br>
@@ -1256,12 +1192,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## File Structure of `.sql` Files
+## pgs01: File Structure of `.sql` Files
 
 `init.sql` file contains several `include` i.e. `\ir` statements such as:
 
@@ -1275,12 +1210,11 @@ ___
 
 %
 
-clozeq
 active
 
 ___
 
-## psk: reset.sql
+## pgs01: psk: reset.sql
 
 Added `data.client` table sample data into `sample_data/data.sql`
 
@@ -1292,12 +1226,11 @@ Now edit `db/src/{{c1::sample_data}}/reset.sql` and add this line before `COMMIT
 
 %
 
-clozeq
 active
 
 ___
 
-## psk: added new view `api.clients`. GRANT?
+## pgs01: psk: added new view `api.clients`. GRANT?
 
 Edit `db/src/authorization/privileges.sql` and add `GRANT` privilege statements:
 
@@ -1309,12 +1242,11 @@ Edit `db/src/authorization/privileges.sql` and add `GRANT` privilege statements:
 
 %
 
-clozeq
 active
 
 ___
 
-## psk: Summary of Steps 
+## pgs01: psk: Summary of Steps 
 
 1. basic REST request
 
@@ -1335,4 +1267,12 @@ ___
 7. Grant privilege for the new view: authorization/{{c6::privileges}}.sql imported from init.sql
 
 8. Make request to new API:
+
+
+%
+
+%
+
+
+---
 

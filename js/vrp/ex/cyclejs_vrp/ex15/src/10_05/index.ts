@@ -1,4 +1,4 @@
-// @description: type safety for all functions
+// @description: "Get Data" butonuna basınca, detay tablo gelen veriyle doldurulsun
 import xs from 'xstream'
 import { run } from '@cycle/run';
 import { makeDOMDriver } from '@cycle/dom';

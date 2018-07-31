@@ -336,6 +336,29 @@ type BA = B extends A ? never : string // never
 // A doesn't extend B
 ``` 
 
+What about distributive conditional types?
+
+Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p05/ex02.ts`
+
+Note that, conditional types are distributed over union types:
+
+		Exclude<string|number|boolean, number>
+		=>
+	 	 string extends number ? never : string
+	  | number extends number ? never : number
+	  | boolean extends number ? never : boolean
+
+Second argument can also be a union type:
+
+``` ts
+export type A = Exclude<"a" | "b", "a" | "c"> // "b"
+
+type A1 = "a" extends ("a" | "c") ? never : "a" // never
+type B1 = "b" extends ("a" | "c") ? never : "b" // "b"
+``` 
+
+So, `Exclude` removes "a".
+
 ## p06: `and` `or` operators
 
 Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p06/ex01.ts`

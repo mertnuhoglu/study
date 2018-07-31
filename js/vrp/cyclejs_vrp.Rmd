@@ -1775,3 +1775,22 @@ Before:
 				purchase_orders: childState.purchase_orders,
 				firstPlan: childState.firstPlan,
 
+#### v15.10_04 Type safety for all functions
+
+Made `Reducer` type safe.
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_04/interfaces.ts`
+
+``` ts
+...
+export type Reducer<T extends State> = (prev?: T) => T  // @essence
+``` 
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_04/components/app/model.ts`
+
+``` ts
+...
+export default function model(sources: Sources & SoHTTP): Stream<Reducer<State>> { // @change
+  const initReducer$: Stream<Reducer<State>> = xs.of(
+``` 
+

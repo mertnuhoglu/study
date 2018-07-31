@@ -904,3 +904,43 @@ clozeq
 
 ---
 
+## ts: distributive conditional types
+
+Distributive conditional types are automatically distributed {{c1::over union types}} during instantiation. 
+
+ex:
+
+····`` `(A|B|C) extends U ? X : Y` `` <br>
+····`` => `` <br>
+····`` `(A extends U ? X : Y) | (B extends U ? X : Y) | (C extends U ? X : Y)` `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## ts: index access inside index signature
+
+··  `` type Nullable<T> = { `` <br>
+··    `` [{{c1::P in keyof T}}]: T[P] | null; `` <br>
+··  `` }; `` <br>
+
+··  `` type Record<K extends string, T> = { `` <br>
+··    `` {{c2::[P in K]}}: T; `` <br>
+··  `` }; `` <br>
+
+··  `` type Readonly<T> = { `` <br>
+··    `` readonly [{{c3::P in keyof T}}]: T[P]; `` <br>
+··  `` }; `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+

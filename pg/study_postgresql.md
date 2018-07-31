@@ -573,7 +573,7 @@
             Accept: application/vnd.pgrst.object+json
             {"id":1}
         joins items?select=id,subitems(id,field)
-          curl http://localhost:8080rest/items?id=gt.1&select=id,name,subitems(id,name)
+          curl http://localhost:8080/rest/items?id=gt.1&select=id,name,subitems(id,name)
           /films?select=title,directors(id,last_name)
           GET /films?select=*,actors(*)&actors.order=last_name,first_name
         POST /rpc/function {args}
@@ -989,7 +989,7 @@
     questions and answers
       deck01: from sof
         ref
-          PostgreSQL: Stackoverflow SOF Popular Questions  id=g_10183
+					SOF PostgreSQL: Stackoverflow SOF Popular Questions   <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10238>
         new function: header line?
           CREATE OR REPLACE FUNCTION f_foo()
         new function: CREATE FUNCTION foo() 
