@@ -12,7 +12,7 @@ output: html_document
 blog: mertnuhoglu.com
 resource_files:
 - img/2018-02-26_12.07.57.png
-path: ~/projects/study/pg/study_postgrest_starter_kit.Rmd
+path: ~/projects/study/db/study_postgrest_starter_kit.Rmd
 state: wip
 next: row level security, authentication webusers, mutation
 ---
