@@ -408,7 +408,7 @@ type AorB_isnt_A = AorB extends A ? true : false // false
 type A_is_AorB = A extends AorB ? true : false // true
 ``` 
 
-Note: 
+Note, `isa` relationship is equivalent to `subset` relationship. When `U` is subset of `T` then `U` is a `T` aka `U extends T`.
 
 - AandB is A and B.
 - AorB isnt A or B but A is AorB 

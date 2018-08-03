@@ -1,0 +1,33 @@
+---
+title: "Study Database"
+date: 2018-07-31T11:31:24+03:00 
+draft: true
+description: ""
+tags:
+categories: database, postgresql
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/db/study_db.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+
+

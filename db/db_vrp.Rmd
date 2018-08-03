@@ -1,0 +1,106 @@
+---
+title: "Database Implementation in VRP"
+date: 2018-07-31T11:26:31+03:00 
+draft: true
+description: ""
+tags:
+categories: database, vrp, postgresql
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/db/db_vrp.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## Before Starting
+
+Start database server and postgrest:
+
+``` bash
+dmd=~/projects/itr/itr_documentation/data_model
+psk=~/codes/pg/khumbuicefall
+cd $psk
+docker-compose up -d
+``` 
+
+## Connect to VRP Database
+
+### Vim DB Plugin
+
+``` vimscript
+DB g:prod = postgresql://superuser:superuserpass@localhost/app
+DB g:prod select * from data.client
+``` 
+
+``` 
+ id |   name    |  address   | user_id |       created_on       | updated_on 
+----+-----------+------------+---------+------------------------+------------
+  1 | Apple     | address_1_ |       1 | 2017-07-18 11:31:12+00 | 
+  2 | Microsoft | address_1_ |       1 | 2017-07-18 11:31:12+00 | 
+  3 | Amazon    | address_1_ |       2 | 2017-07-18 11:31:12+00 | 
+(3 rows)
+``` 
+
+### psql
+
+``` bash
+psql -c 'select * from data.client'
+``` 
+
+``` 
+ id |   name    |  address   | user_id |       created_on       | updated_on 
+----+-----------+------------+---------+------------------------+------------
+  1 | Apple     | address_1_ |       1 | 2017-07-18 11:31:12+00 | 
+  2 | Microsoft | address_1_ |       1 | 2017-07-18 11:31:12+00 | 
+  3 | Amazon    | address_1_ |       2 | 2017-07-18 11:31:12+00 | 
+(3 rows)
+``` 
+
+## Show Table List and Meta Data
+
+``` sql
+show search_path
+--    search_path   
+-- -----------------
+--  "$user", public
+(1 row)
+``` 
+
+``` sql
+\dn
+--    List of schemas
+--    Name   |   Owner   
+-- ----------+-----------
+--  api      | superuser
+--  auth     | superuser
+--  data     | superuser
+--  pgjwt    | superuser
+--  public   | postgres
+--  rabbitmq | superuser
+--  request  | superuser
+--  settings | superuser
+-- (8 rows)
+``` 
+
+``` sql
+\dt
+``` 
+
+a

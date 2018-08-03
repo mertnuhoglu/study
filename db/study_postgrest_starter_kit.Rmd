@@ -333,28 +333,116 @@ In this section, I defined only one table `client`. The actual tutorial creates 
 
 2. authorized REST request
 
-        $ export JWT_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk
+        $ export JWT_TOKEN=...
         $ curl -H "Authorization: Bearer $JWT_TOKEN" http://localhost:8080/rest/todos?select=id,todo
-        [{"id":1,"todo":"item_1"},{"id":3,"todo":"item_3"},{"id":6,"todo":"item_6"}]
 
-3. Edit `db/src/sample_data/data.sql`:
+3. Edit `sample_data/data.sql`:
 
-        $ curl -H "Authorization: Bearer $JWT_TOKEN" http://localhost:8080/rest/todos?select=id,todo
-        [{"id":1,"todo":"item_1_updated"},{"id":3,"todo":"item_3"},{"id":6,"todo":"item_6"}]
+				COPY client (id,name,address)
+				1	Apple	address_1_	
 
-4. Create new table: `data/table.sql` imported from `data/schema.sql`
+4. Create `data/todo.sql`
 
-5. Create new view as API: `api/views_and_procedures.sql` imported from api/schema.sql
+				create table client ( id serial primary key,...
 
-6. Create sample data: sample_data/data.sql imported from reset.sql
+5. Edit `data/schema.sql`: `\ir todo.sql` 
 
-    delete previous data in reset.sql:
+6. Create `api/views_and_procedures.sql` imported from `api/schema.sql`
+
+				create or replace view clients as...
+
+7. Edit `reset.sql`
 
         truncate data.client restart identity cascade;
 
-7. Grant privilege for the new view: authorization/privileges.sql imported from init.sql
+8. Edit `authorization/privileges.sql` imported from `init.sql`
 
-8. Make request to new API:
+				grant select, insert, update, delete ...
+
+9. Make request to new API:
 
         $ curl -H "Authorization: Bearer $JWT_TOKEN" http://localhost:8080/rest/clients?select=id,name
+
+## Import Dependencies Between Sql Files:
+
+`sample_data/reset.sql`
+
+		truncate task_comment restart identity cascade;
+		\ir vrp_data.sql
+
+`init.sql`
+
+		\ir data/schema.sql
+		\ir api/schema.sql
+		\ir authorization/roles.sql
+		\ir authorization/privileges.sql
+		\ir sample_data/data.sql
+		\ir sample_data/sql_insert_enum_var.sql
+		\ir sample_data/sql_insert_enum_value.sql
+		\ir sample_data/vrp_data.sql
+
+`data/schema.sql`
+
+		\ir todo.sql
+		\ir tables.sql
+		\ir vrp_ddl_m.sql
+
+`data/vrp_ddl_m.sql`
+
+		CREATE TABLE enum_var (...
+
+`api/schema.sql`
+
+		\ir todos.sql
+		\ir views_and_procedures.sql
+		\ir vrp_views.sql
+
+`api/views_and_procedures.sql`
+
+		create or replace view clients as ...
+
+`api/vrp_views.sql`
+
+		create or replace view purchase_order as ...
+
+`authorization/privileges.sql`
+
+		grant select, insert, update, delete on api.purchase_order ...
+
+`sample_data/vrp_data.sql`
+
+		COPY address (address_id,address,company_extid) 
+		1	address_3_3_3	company_e
+
+## Refcard SQL Files 01
+
+		sample_data/reset.sql 
+			truncate plan ...
+			sample_data/data.sql 
+				COPY plan (id,name,...)
+				1,plan_1,...
+		init.sql
+			data/schema.sql
+				ddl.sql
+					CREATE TABLE enum_var (...)
+			api/schema.sql
+				views.sql
+					CREATE VIEW clients as ...
+			authorization/privileges.sql
+				grant select ... on api.clients
+			sample_data/data.sql
+				COPY plan (id,name, ...)
+
+## Refcard SQL Files 02
+
+		reset.sql 
+			truncate plan ...
+			data.sql 
+		init.sql
+			data/schema.sql
+				ddl.sql
+			api/schema.sql
+				views.sql
+			authorization/privileges.sql
+			sample_data/data.sql
 
