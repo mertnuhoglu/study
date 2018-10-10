@@ -1,10 +1,10 @@
 import { style } from 'typestyle/lib';
 import { Plan, PurchaseOrder, Sinks, Sources, SoHTTP, SiHTTP } from '../../interfaces';
+import { addListenerStream } from '../../interfaces';
 import { State as AppState } from '../app';
+import {intent} from './intent'
 import model from './model'
 import {view} from './view'
-import {intent} from './intent'
-import { addListenerStream } from '../../interfaces';
 
 export interface State {
   plans: Array<Plan>
@@ -28,17 +28,16 @@ const styles = style({
 
 
 export function PlanPanel(sources: Sources & SoHTTP): Sinks & SiHTTP {
+  const {requests$} = intent(sources.DOM)
+	requests$.debug(x => { console.log("PlanPanel requests$"); console.log(x); })
+  const reducer$ = model(sources)
   const state$ = sources.onion.state$
     .debug(x => { console.log("PlanPanel state$"); console.log(x); })
   addListenerStream(state$, "PlanPanel.state$")
-  const {requests$} = intent(sources.DOM)
-	requests$
-    .debug(x => { console.log("PlanPanel requests$"); console.log(x); })
-  const reducer$ = model(sources)
   const sinks = {
-    DOM: view(state$),
     HTTP: requests$,
     onion: reducer$,
+    DOM: view(state$),
   }
   return sinks
 }

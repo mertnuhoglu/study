@@ -1,5 +1,5 @@
-import { a, article, button, div, form, h3, input, label, li, nav, option, select, span, table, tbody, td, th, thead, tr, ul } from '@cycle/dom';
 import xs, {Stream} from 'xstream';
+import { a, article, button, div, form, h3, input, label, li, nav, option, select, span, table, tbody, td, th, thead, tr, ul } from '@cycle/dom';
 import { State } from '.';
 
 export function view(state$: Stream<State>) {

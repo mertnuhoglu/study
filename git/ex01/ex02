@@ -1,0 +1,24 @@
+#!/bin/bash -e
+git init --bare origin
+git clone origin clone1
+cd clone1
+echo 0 > file.txt
+git add file.txt
+git commit -am "initial commit"
+git push origin master
+git checkout -b branch1
+git push origin branch1
+cd ..
+git clone origin clone2
+cd clone1
+git checkout branch1
+echo 1 > file.txt
+git commit -am "1 (in clone1)"
+git push origin branch1
+cd ../clone2
+git checkout branch1
+echo 2 > file2.txt
+git add file2.txt
+git commit -m "2 (in clone2)"
+git pull --no-edit origin branch1
+git push origin branch1

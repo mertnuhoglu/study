@@ -90,11 +90,10 @@ Run request again:
 The following SQL code is generated automatically by `postgrest`:
 
 ``` sql
-WITH pg_source AS
-  (SELECT  "api"."todos"."id" FROM  "api"."todos")
-  SELECT
-    null AS total_result_set, pg_catalog.count(_postgrest_t) AS page_total, array[]::text[] AS header, coalesce(array_to_json(array_agg(row_to_json(_postgrest_t))), '[]')::character varying AS body
-    FROM ( SELECT * FROM pg_source) _postgrest_t
+WITH 
+	pg_source AS (SELECT  "api"."todos"."id" FROM  "api"."todos")
+	SELECT null AS total_result_set, pg_catalog.count(_postgrest_t) AS page_total, array[]::text[] AS header, coalesce(array_to_json(array_agg(row_to_json(_postgrest_t))), '[]')::character varying AS body
+		FROM ( SELECT * FROM pg_source) _postgrest_t
 ``` 
 
     +--------------------+--------------+----------+------------------------------+
@@ -108,10 +107,10 @@ Let's return both `id` and `todo` attributes:
     $ curl -H "Authorization: Bearer $JWT_TOKEN" http://localhost:8080/rest/todos?select=id,todo
 
 ``` sql
-WITH pg_source AS
-  (SELECT  "api"."todos"."id", "api"."todos"."todo" FROM  "api"."todos")
-  SELECT null AS total_result_set, pg_catalog.count(_postgrest_t) AS page_total, array[]::text[] AS header, coalesce(array_to_json(array_agg(row_to_json(_postgrest_t))), '[]')::character varying AS body
-  FROM ( SELECT * FROM pg_source) _postgrest_t
+WITH 
+	pg_source AS (SELECT  "api"."todos"."id", "api"."todos"."todo" FROM  "api"."todos")
+	SELECT null AS total_result_set, pg_catalog.count(_postgrest_t) AS page_total, array[]::text[] AS header, coalesce(array_to_json(array_agg(row_to_json(_postgrest_t))), '[]')::character varying AS body
+		FROM ( SELECT * FROM pg_source) _postgrest_t
 ``` 
 
     +--------------------+--------------+----------+--------------------------------------------------------------------------------------+
@@ -123,10 +122,10 @@ WITH pg_source AS
 In order to understand this code, I simplified it to its core:
 
 ``` sql
-WITH pg_source AS
-  (SELECT  "api"."todos"."id", "api"."todos"."todo" FROM  "api"."todos")
-  SELECT _postgrest_t AS body
-  FROM ( SELECT * FROM pg_source) _postgrest_t
+WITH 
+	pg_source AS (SELECT  "api"."todos"."id", "api"."todos"."todo" FROM  "api"."todos")
+	SELECT _postgrest_t AS body
+		FROM ( SELECT * FROM pg_source) _postgrest_t
 ``` 
 
     +--------------------+
@@ -142,7 +141,7 @@ Adding `row_to_json` function:
 ``` sql
 WITH pg_source AS
   (SELECT  "api"."todos"."id", "api"."todos"."todo" FROM  "api"."todos")
-  SELECT row_to_json(_postgrest_t) AS body
+SELECT row_to_json(_postgrest_t) AS body
   FROM ( SELECT * FROM pg_source) _postgrest_t
 ``` 
 
@@ -159,7 +158,7 @@ Adding `array_agg` function:
 ``` sql
 WITH pg_source AS
   (SELECT  "api"."todos"."id", "api"."todos"."todo" FROM  "api"."todos")
-  SELECT array_agg(row_to_json(_postgrest_t)) AS body
+SELECT array_agg(row_to_json(_postgrest_t)) AS body
   FROM ( SELECT * FROM pg_source) _postgrest_t
 ``` 
 
@@ -174,7 +173,7 @@ Adding `array_to_json` function:
 ``` sql
 WITH pg_source AS
   (SELECT  "api"."todos"."id", "api"."todos"."todo" FROM  "api"."todos")
-  SELECT array_to_json(array_agg(row_to_json(_postgrest_t))) AS body
+SELECT array_to_json(array_agg(row_to_json(_postgrest_t))) AS body
   FROM ( SELECT * FROM pg_source) _postgrest_t
 ``` 
 
@@ -413,36 +412,4 @@ In this section, I defined only one table `client`. The actual tutorial creates 
 
 		COPY address (address_id,address,company_extid) 
 		1	address_3_3_3	company_e
-
-## Refcard SQL Files 01
-
-		sample_data/reset.sql 
-			truncate plan ...
-			sample_data/data.sql 
-				COPY plan (id,name,...)
-				1,plan_1,...
-		init.sql
-			data/schema.sql
-				ddl.sql
-					CREATE TABLE enum_var (...)
-			api/schema.sql
-				views.sql
-					CREATE VIEW clients as ...
-			authorization/privileges.sql
-				grant select ... on api.clients
-			sample_data/data.sql
-				COPY plan (id,name, ...)
-
-## Refcard SQL Files 02
-
-		reset.sql 
-			truncate plan ...
-			data.sql 
-		init.sql
-			data/schema.sql
-				ddl.sql
-			api/schema.sql
-				views.sql
-			authorization/privileges.sql
-			sample_data/data.sql
 

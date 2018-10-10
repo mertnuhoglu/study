@@ -11,6 +11,17 @@ function main(sources) {
     sources.DOM.select('.increment').events('click').map(ev => +1)
   );
 
+  const initReducer$ = xs.of(function initReducer() {
+    return {count: 0};
+  });
+
+  const updateReducer$ = action$.map(num => function updateReducer(prevState) {
+    return {count: prevState.count + num};
+  })
+
+  const reducer$ = xs.merge(initReducer$, updateReducer$)
+    .debug(console.log)
+
   const state$ = sources.onion.state$
     .debug( x => {
       global.x = x
@@ -24,17 +35,6 @@ function main(sources) {
       p('Counter: ' + state.count)
     ])
   );
-
-  const initReducer$ = xs.of(function initReducer() {
-    return {count: 0};
-  });
-
-  const updateReducer$ = action$.map(num => function updateReducer(prevState) {
-    return {count: prevState.count + num};
-  })
-
-  const reducer$ = xs.merge(initReducer$, updateReducer$)
-    .debug(console.log)
 
   return {
     DOM: vdom$,

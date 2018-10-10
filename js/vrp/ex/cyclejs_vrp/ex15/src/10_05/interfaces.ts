@@ -14,23 +14,21 @@ export type State = AppState | PlanPanelState
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> 
 // @description: Reducer type safe olsun
 // export type Component = (s: Sources) => Sinks; // @essence
-export type Reducer<T extends State> = (prev?: T) => T  // @essence
+export type Reducer<T extends State> = (prev?: T) => T  
 
-// @essence
 export type Sources = {
-  DOM: DOMSource;
-  onion: StateSource<State>;
-};
+  DOM: DOMSource
+  onion: StateSource<State>
+}
 export type SoHTTP = { HTTP: HTTPSource }
 export type SoTime = { Time: TimeSource }
-export type SoStorage = {storage: StorageSource}
-
+export type SoStorage = {storage: StorageSource }
 export type Sinks = {
-  DOM: Stream<VNode>;
+  DOM: Stream<VNode>
   onion: Stream<Reducer<State>>
-};
-export type SiHTTP = {HTTP: Stream<RequestInfo>}
-export type SiHot = {Hot: Stream<{}>}
+}
+export type SiHTTP = { HTTP: Stream<RequestInfo> }
+export type SiHot = { Hot: Stream<{}> }
 
 export type Plan = {
   plan_id: number
@@ -64,7 +62,7 @@ export type DictStream = {
 }
 
 export type Intent = {
-  actions?: DictStream, // @change
+  actions?: DictStream, 
   requests$: Stream<RequestInfo>,
 }
 

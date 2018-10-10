@@ -12,6 +12,8 @@ export default function main(sources) {
   const headerSinks = isolate(Header, {storage: null, onion: null, Hot: null})(sources)
   const planPanelSinks = isolate(PlanPanel, {storage: null, onion: null, Hot: null})(sources)
   const detailPanelSinks = isolate(DetailPanel, {storage: null, onion: null, Hot: null})(sources)
+
+	const request$ = intent(sources.DOM)
   const parentReducer$ = model(sources.HTTP);
   const reducer$ = xs.merge(
     parentReducer$
@@ -36,7 +38,7 @@ export default function main(sources) {
   ];
   return {
     DOM: vdom$,
-    HTTP: intent(sources.DOM),
+    HTTP: request$,
     onion: reducer$,
     Hot: xs.periodic(2000)
     .take(1)

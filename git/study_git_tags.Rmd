@@ -1,0 +1,63 @@
+---
+title: "Studying Git Tags"
+date: 2018-09-19T09:13:58+03:00 
+draft: true
+description: ""
+tags:
+categories: js
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/git/study_git_tags.Rmd
+wip: true
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+## Moving Existing Git Tags 
+
+``` bash 
+❯ git commit -m "step 05: access rights to api entities"
+[test05 8ea22a5] step 05: access rights to api entities
+ 1 file changed, 5 insertions(+)
+
+~/codes/pg/test05 test05 ⇡
+❯ git tag -d step05
+Deleted tag 'step05' (was e2bd85a)
+
+~/codes/pg/test05 test05 ⇡
+❯ git push origin :step05
+To https://github.com/mertnuhoglu/study_psk
+ - [deleted]         step05
+
+~/codes/pg/test05 test05 ⇡ 6s
+❯ git tag -d step05
+Deleted tag 'step05' (was e2bd85a)
+
+~/codes/pg/test05 test05 ⇡
+❯ git tag -a step05
+
+
+~/codes/pg/test05 test05 ⇡ 6s
+
+~/codes/pg/test05 test05 ⇡ 6s
+❯ git push --follow-tags
+Counting objects: 7, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (7/7), 721 bytes | 0 bytes/s, done.
+Total 7 (delta 3), reused 2 (delta 1)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/mertnuhoglu/study_psk
+   b1e0e18..8ea22a5  test05 -> test05
+ * [new tag]         step05 -> step05
+```
+

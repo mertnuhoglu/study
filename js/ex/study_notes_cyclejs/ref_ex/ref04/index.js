@@ -4,11 +4,6 @@ import {div, button, h1, h4, a, makeDOMDriver, DOMSource} from '@cycle/dom';
 import {makeHTTPDriver, Response, HTTPSource} from '@cycle/http';
 
 function main(sources) {
-  const user$ = sources.HTTP.select('users')
-    .flatten()
-    .map(res => res.body)
-    .startWith(null);
-
   const getRandomUser$ = sources.DOM.select('.get-random').events('click')
     .map(() => {
       return {
@@ -17,6 +12,11 @@ function main(sources) {
         method: 'GET',
       };
     });
+
+  const user$ = sources.HTTP.select('users')
+    .flatten()
+    .map(res => res.body)
+    .startWith(null);
 
   const vdom$ = user$.map(user =>
     div('.users', [

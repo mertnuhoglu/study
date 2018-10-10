@@ -29,6 +29,10 @@ options(width = 150)
 options(max.print = 30)
 ``` 
 
+## References
+
+		refcard cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10245>
+
 ## Common For Most Subprojects:
 
 `ex/cyclejs_vrp/ex15/package.json`
@@ -188,7 +192,7 @@ After clicking the button we get:
 
 <div class="app"><button class="get-first">Get first comment</button><div class="comment-details"><h4 class="comment-id">1</h4></div></div>
 
-## Consuming Actual Data in CycleJS App
+## Consuming Actual Data in CycleJS App id=g_10533
 
 Start database server and postgrest:
 
@@ -201,12 +205,22 @@ docker-compose up -d
 
 Generate schema and initial data:
 
+		ref: Implementation of yuml to rdb and yuml to data <url:file:///~/projects/study/r/yuml_to_rdb.Rmd>
+
 ``` bash
 cd /Users/mertnuhoglu/projects/yumltordbschema
 R
 ``` 
 
+You can load package by either of these into R:
+
+		devtools::load_all()
+		library(yumltordbschema)
+
+		ref: devtools for package building <url:file:///~/pCloud Drive/mynotes/content/code/cr/cr.md#r=sr_0007>
+
 ``` R
+devtools::load_all()
 test_setup()
 main_rdb_to_data_step01()
   #> ~/projects/itr/itr_documentation/data_model/data/view/ddl.sql
@@ -217,6 +231,7 @@ Manually edit `ddl_m.sql` by moving updated lines from `ddl.sql`:
 
 ``` vim
   #> ~/projects/itr/itr_documentation/data_model/data/view/ddl.sql
+https://www.youtube.com/watch?v=o_743uD0vCE&t=218s
 :%s/\<BIGINT\>/INT/
 ``` 
 
@@ -313,7 +328,7 @@ Edit `ex/cyclejs_vrp_ex04.js`
               td(e.depot_id)
 ``` 
 
-### Bundle it with ParcelJs
+## Bundle it with ParcelJs
 
 Source code in https://github.com/mertnuhoglu/study/js/vrp/ex/cyclejs_vrp/
 
@@ -393,11 +408,11 @@ run(main, drivers);
 
 ``` 
 
-Run `npm start`
+Run `npm start` or `npm run start` or `npm run 01`
  
 Open http://localhost:1234
 
-### Apply MVI Architecture
+## Apply MVI Architecture
 
 ``` bash
 mkdir -p ex/cyclejs_vrp/ex06 && cd $_ && npm init -y && npm i parcel-bundler rxjs @cycle/rxjs-run @cycle/dom @cycle/http
@@ -416,10 +431,12 @@ Open http://localhost:1234
 
 ``` js
 function main(sources) {
-  const json$ = model(sources.HTTP);
+	const request$ = intent(sources.DOM)
+  const state$ = model(sources.HTTP)
+	const vdom$ = view(state$)
   return {
-    DOM: view(json$),
-    HTTP: intent(sources.DOM),
+    HTTP: request$,
+    DOM: vdom$,
   };
 }
 ``` 
@@ -552,7 +569,7 @@ Run `npm start`
  
 Open http://localhost:1234
 
-### Apply Onion Architecture
+## Apply Onion Architecture
 
 ``` bash
 mkdir -p ex/cyclejs_vrp/ex08 && cd $_ && npm init -y && pnpm i --save-dev parcel-bundler && npm i xstream @cycle/run @cycle/dom @cycle/http cycle-onionify cycle-storageify @cycle/storage
@@ -1794,3 +1811,20 @@ export default function model(sources: Sources & SoHTTP): Stream<Reducer<State>>
   const initReducer$: Stream<Reducer<State>> = xs.of(
 ``` 
 
+#### v15.10_05
+
+## Run Project id=g_10532
+
+Start database server and postgrest:
+
+``` bash
+cd $VRP_PSK_DIR
+docker-compose up 
+subzero dashboard
+git checkout vrp_psk01_step03
+``` 
+
+		walkthrough vrp_psk01 <url:file:///~/projects/itr/itr_documentation/doc_itr.md#r=g_10551>
+		deprecated: Consuming Actual Data in CycleJS App <url:file:///~/projects/study/js/vrp/cyclejs_vrp.Rmd#r=g_10533>
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_05/index.ts`

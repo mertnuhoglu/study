@@ -1,8 +1,8 @@
-import { State } from '.';
-import { Reducer, Sources, ActionPayload, SoHTTP, DictStream } from '../../interfaces';
-import { addListenerStream } from '../../interfaces';
 import Stream from 'xstream';
 import xs from 'xstream';
+import { Reducer, Sources, ActionPayload, SoHTTP, DictStream } from '../../interfaces';
+import { addListenerStream } from '../../interfaces';
+import { State } from '.';
 
 export default function model(sources: Sources & SoHTTP): xs<Reducer<State>> {
   const initReducer$: Stream<Reducer<State>> = xs.of(

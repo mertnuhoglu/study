@@ -840,6 +840,10 @@ Based on `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex01.js`
 
 		p16: onion with one subcomponent and lens <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10221>
 
+## ref08: Full CycleJs App:
+
+		articles - cyclejs <url:file:///~/pCloud Drive/mynotes/content/code/cjs/cjs.md#r=g_10585>
+
 # Article: Handling lists in Cyclejs
 
 https://github.com/cyclejs/cyclejs/issues/312

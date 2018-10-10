@@ -330,8 +330,8 @@ Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p05/ex01.ts`
 export type A = {a: string} 
 export type B = {a: string, b: string}
 
-type AB = A extends B ? never : string // string
-type BA = B extends A ? never : string // never
+type AB = A extends B ? true : false // false
+type BA = B extends A ? true : false // true
 // B extends A
 // A doesn't extend B
 ``` 
@@ -413,11 +413,30 @@ Note, `isa` relationship is equivalent to `subset` relationship. When `U` is sub
 - AandB is A and B.
 - AorB isnt A or B but A is AorB 
 
-From a set perspective
+From a set perspective. Take the sets:
 
 - AandB is the intersection set. An intersection set is a subset of both A and B
 - AorB is the union set. A and B are subsets of their union set.
 
+From a set perspective. Take the instances of the sets:
+
+- a_and_b is both A and B. It can substitute both at the same time.
+- a_or_b is either A or B. 
+
+From a members perspective. 
+
+- a_and_b has properties of both A and B.
+- a_or_b has properties of either A or B. 
+
+Intersection is useful when used as: `a_and_b: A & B`
+
+		function main(sources: Sources & SoHTTP): Sinks & SiHTTP & SiHot {
+
+Union is usually used as: `<T extends AorB>`
+
+		type State = AppState | PlanPanelState
+		type Reducer<T extends State> = (prev?: T) => T  
+		
 When we see `S extends State`, we don't directly remember `union`. What are the logical relationships between this kind of expressions?
 
 Suppose that we need to define such a type:
@@ -430,7 +449,6 @@ Then:
 		S is_a State
 		S is a subtype of State as in inheritance.
 		State is a union of S and X sets. ie. State = S | X
-		S is an intersection of State and X sets. ie. S = State & X
 
 Another mnemonics might be usign visual symbols:
 

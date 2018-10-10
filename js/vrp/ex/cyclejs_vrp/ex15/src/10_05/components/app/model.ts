@@ -3,7 +3,7 @@ import { State } from '.';
 import { Reducer, Sources, SoHTTP } from '../../interfaces';
 import Stream from 'xstream';
 
-export default function model(sources: Sources & SoHTTP): Stream<Reducer<State>> { // @change
+export default function model(sources: Sources & SoHTTP): Stream<Reducer<State>> { 
   const initReducer$: Stream<Reducer<State>> = xs.of(
     function initReducer(prevState: State) {
       const initialState: State = {
