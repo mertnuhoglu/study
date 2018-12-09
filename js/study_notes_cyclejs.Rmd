@@ -388,7 +388,7 @@ Cycle.run(main, drivers);
 
 `Cycle.run` function is defined in:
 
-    <script src="https://rawgit.com/cyclejs/cycle-core/v6.0.0/dist/cycle.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cyclejs/cycle-core@v6.0.0/dist/cycle.js"></script>
 
 <iframe src="ex/cyclejs_ex08.html" width="200" height="30"></iframe>
 
