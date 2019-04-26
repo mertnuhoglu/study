@@ -1,0 +1,176 @@
+---
+title: "Study gdrive gdocs cli 20190227"
+date: 2019-02-27T13:31:18+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, curl
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/study_gdrive_gdocs.Rmd
+state: wip
+---
+
+
+# R googledrive
+
+## Authentication
+
+Call this once in a directory. It will cache the authentication OAuth credentials in the current dir inside .httr-oauth
+
+``` r
+googledrive::drive_auth()
+``` 
+
+
+## Find files `drive_find()`
+
+``` r
+install.packages("googledrive")
+library(googledrive)
+drive_find(q = "name contains 'Antifragile'")
+drive_find(n_max = 50)
+drive_find(pattern = "Antifragile")
+drive_find(type = "")
+``` 
+
+``` r
+drive_find(type = "folder")
+drive_find(q = "mimeType = 'application/vnd.google-apps.folder'")
+``` 
+
+ls root folder
+
+``` r
+drive_find(q = "'root' in parents")
+  ##>    name                                                                                   id                                            drive_resource
+  ##>  * <chr>                                                                                  <chr>                                         <list>
+  ##>  1 Entire Sales                                                                           1KMZv7Mi1Ty-x2HrMr7ncgj_S_n5qfWJb49Lza4xLMMw  <list [34]>
+  ##>  2 Entire Sales.pptx                                                                      0B84FICJAFTpKR080SndxaFgxbDl0MjluSXZvVjNIV09… <list [39]>
+  ##>  3 VC funds at / below $200M in size (new funds raised since 2011)                        1ebGZ6-ivf_3woBGC4Kz_3217DhjGsefoRu_5iP3nuFQ  <list [32]>
+## FYI: this is equivalent to
+drive_ls("~/")
+drive_ls("~/Play Books Notes/")
+  ##>    name                                                                                      id                                         drive_resource
+  ##>  * <chr>                                                                                     <chr>                                      <list>
+  ##>  1 "Notes from \"Antifragile: Things That Gain from Disorder\""                              1b3_1uRZmS9LxiBdfpCQxmin_WhEocDoIJ-4j2G_r… <list [34]>
+  ##>  2 "Notes from \"The Will to Meaning\""                                                      1uw90kQBhG9D_Uf2jkU0yKbEawIBdEQufBnYs538D… <list [34]>
+af0 = drive_ls("~/Play Books Notes/", q = "name contains 'Antifragile'")
+af0
+  ##>   name                                                         id                                           drive_resource
+  ##> * <chr>                                                        <chr>                                        <list>
+  ##> 1 "Notes from \"Antifragile: Things That Gain from Disorder\"" 1b3_1uRZmS9LxiBdfpCQxmin_WhEocDoIJ-4j2G_rfZE <list [34]>
+``` 
+
+## find files `drive_get()`
+
+``` r
+(file = drive_get('~/Play Books Notes/Notes from "Antifragile: Things That Gain from Disorder".gdoc'))
+``` 
+
+## mime types: `drive_mime_type()`
+
+``` r
+drive_mime_type("spreadsheet")
+  ##> [1] "application/vnd.google-apps.spreadsheet"
+drive_mime_type(c("presentation", "pdf", "document"))
+  ##> [1] "application/vnd.google-apps.presentation" "application/pdf" "application/vnd.google-apps.document"
+drive_mime_type(expose())
+  ##>    mime_type                                                               ext   human_type default
+  ##>    <chr>                                                                   <chr> <chr>      <lgl>
+  ##>  1 application/x-vnd.oasis.opendocument.presentation                       NA    NA         NA
+  ##>  2 text/tab-separated-values                                               tsv   tsv        TRUE
+  ##>  3 image/jpeg                                                              jpeg  jpeg       TRUE
+``` 
+
+## download/export files: `drive_download(as_id(""))`
+
+Use `as_id`
+
+``` r
+as_id("1b3_1uRZmS9LxiBdfpCQxmin_WhEocDoIJ-4j2G_rfZE")
+drive_download(as_id("1b3_1uRZmS9LxiBdfpCQxmin_WhEocDoIJ-4j2G_rfZE"), type = "txt")
+drive_download(as_id("1b3_1uRZmS9LxiBdfpCQxmin_WhEocDoIJ-4j2G_rfZE"), type = "txt", path = "/Users/mertnuhoglu/gdrive/Play Books Notes/Notes from Antifragile.txt")
+``` 
+ 
+## Setup Google Drive Access using R googledrive
+
+``` r
+install.packages("devtools")
+devtools::install_github("tidyverse/googlesheets4")
+library(googledrive)
+library(googlesheets4)
+``` 
+
+Upload the csv and simultaneously convert to a Sheet
+
+``` r
+(iris_tempfile <- tempfile(pattern = "iris-", fileext = ".csv"))
+write.csv(iris, iris_tempfile, row.names = FALSE)
+(iris_ss <- drive_upload(iris_tempfile, type = "spreadsheet"))
+``` 
+
+``` r
+## visit the new Sheet in the browser, in an interactive session!
+drive_browse(iris_ss)
+``` 
+
+# prasmussen/gdrive deprecated
+
+## Setup Google Drive Access using gdrive
+
+Use `gdrive` tool from https://github.com/prasmussen/gdrive
+
+Install on Mac:
+
+``` bash
+brew install gdrive
+``` 
+
+Authentication:
+
+``` bash
+gdrive about
+  ##> copy paste google authentication url
+``` 
+
+``` bash
+gdrive list
+``` 
+
+Upload and import a csv file:
+
+``` bash
+gdrive import zoom_data_extract_20181221.csv
+  ##> 1vw8l-WSh62QLHGWWs5NpG8lVO9mm_rx5ssTUFimW_Ek
+gdrive upload --mime='application/vnd.google-apps.spreadsheet' zoom_data_extract_20181221.csv
+gdrive upload --mime 'application/vnd.google-apps.spreadsheet' zoom_data_extract_20181221.csv
+gdrive import --mime 'text/csv' zoom_data_extract_20181221.csv
+``` 
+
+This didn't upload csv file as spreadsheet. 
+
+## Convert a gdoc to text
+
+``` bash
+gdrive help export
+``` 
+
+Find file first
+
+``` bash
+gdrive list -q "name contains Antifragile"
+``` 
+
+
+# nodejs
+
+https://github.com/googleapis/google-api-nodejs-client
+

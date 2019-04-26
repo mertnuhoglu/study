@@ -1,9 +1,10 @@
 ---
-title: "R ile Veri Analizi"
+title: "Study R"
 author: "Mert Nuhoglu"
-subtitle: Veri Gazeteciliği Atölye Programı
 output:
   html_document: default
+    toc: true
+    toc_float: true
 ---
 
 ```{r load_packages, include=FALSE}
@@ -15,7 +16,7 @@ output:
 
 - http://mertnuhoglu.github.io/data_analysis_presentations/r_verigazeteciligi/
 - Örneklere dayalı dil öğrenme
-    
+
 ```{r }
 	 library(data.table)
 	 flights = fread("flights.csv")
@@ -49,4 +50,473 @@ output:
     # opt4: correct
     df[ applyc(!is.na(df), all) ] }
 ```
+
+## Ex02: Matrix to dataframe
+
+
+``` bash
+m0 = matrix(c("a","b","c",1,2,3,4,5,6,7,8,9),ncol = 3)
+titles = m0[1,]
+d0 = dplyr::as_data_frame(m0)
+setNames(d0, titles)
+  ##> # A tibble: 4 x 3
+  ##>   a     `2`   `6`
+  ##>   <chr> <chr> <chr>
+  ##> 1 a     2     6
+  ##> 2 b     3     7
+  ##> 3 c     4     8
+  ##> 4 1     5     9
+``` 
+
+## Ex03:
+
+``` bash
+sevk_emri_data = jsonlite::fromJSON('{"sevk_emri_data": [["irsaliye_no", "irsaliye_sevk_tarihi", "cari_kod", "unvan", "teslIm_adres", "teslim_sehir", "teslim_sehir__1", "malzeme_kodu", "malzeme_adi", "irsaliye_KG", "tesis", "IL", "ILCE", "Yaş/Toz"], ["1043", "2017-01-02T00:00:00Z", "2I00048", "ISIKSAN YALITIM INS. TAAH. SAN. VE TIC. LTD. STI.", "FABRIKADAN TESLIM ALACAGIZ.", "TEKİRDAĞ", "TÜRKİYE", "1032248PX20", "PE 5088 RAL3004 Smooth", "20", "ÇERKEZKÖY", "TEKIRDAG", "CERKEZKOY", "Toz"], ["1044", "2017-01-02T00:00:00Z", "1P00009", "BSH EV ALETLERI SANAYI VE TICARET A.S.", "YILDIRIM BEYAZID MAH.HAYRI BATUR CAD. NO: 72 CERKEZKOY", "TEKİRDAĞ", "TÜRKİYE", "1021378EB500", "G Miles+ W87 Vzf 07020 Smooth", "1000", "ÇERKEZKÖY", "TEKIRDAG", "CERKEZKOY", "Toz"], ["1045", "2017-01-02T00:00:00Z", "1P00009", "BSH EV ALETLERI SANAYI VE TICARET A.S.", "YILDIRIM BEYAZID MAH.HAYRI BATUR CAD. NO: 72 CERKEZKOY", "TEKİRDAĞ", "TÜRKİYE", "1023813EB300", "G Miles+ W88 Vzf 07020 Smooth", "300", "ÇERKEZKÖY", "TEKIRDAG", "CERKEZKOY", "Toz"]]}')$sevk_emri_data
+titles = sevk_emri_data[1,]
+sem = dplyr::as_data_frame(sevk_emri_data[2:nrow(sevk_emri_data),]) %>%
+	setNames(titles)
+``` 
+
+## Ex04: sprintf with multiple vectors
+
+``` R
+sprintf("%s %s", "a", "a")
+  ##> [1] "a a"
+sprintf("%s %s", "a", c("a", "b"))
+  ##> [1] "a a" "a b"
+``` 
+
+I want to obtain:
+
+		[1] "a a" "a b" 
+		->
+		[1] "a a b"
+
+``` R
+do.call( 'sprintf', list("a", "a", "b") ) 
+  ##> [1] "a"
+do.call( 'sprintf', as.list(c("a", "a", "b")) ) 
+  ##> [1] "a"
+list("a", "a", "b")
+  ##> [[1]]
+  ##> [1] "a"
+  ##> 
+  ##> [[2]]
+  ##> [1] "a"
+  ##> 
+  ##> [[3]]
+  ##> [1] "b"
+``` 
+
+``` R
+sprintf("%s %s", c("a", "a", "b"))
+  ##> Error in sprintf("%s %s", c("a", "a", "b")) : too few arguments
+sprintf("min %s", c(1, 2, 3))
+  ##> [1] "min 1" "min 2" "min 3"
+``` 
+
+Prepare the argument before sprintf:
+
+``` R
+sprintf("%s %s", "a", paste("a", "b"))
+  ##> [1] "a a b"
+``` 
+
+## Ex05: sprintf with very long arg
+
+``` R
+Error in sprintf(sql04, "data_20180903", "data_20181202") :
+  'fmt' length exceeds maximal format length 8192
+``` 
+
+Solution:
+
+Use paste0
+
+## Ex06: sprintf errors
+
+``` sql
+columns = c(
+	"bq_company_legal_name",
+	"bq_company_commonly_known_as_name",
+	"company_ein",
+	"bq_ticker",
+	"bq_cusip",
+	"bq_cik",
+	"bq_website",
+	"bq_company_contact_name",
+	"bq_company_address1_line_1",
+	"bq_company_address1_line_2",
+	"bq_company_address1_city",
+	"bq_company_address1_state",
+	"bq_company_address1_zip5",
+	"bq_comp_fgn_address1_cntry",
+	"bq_company_phone",
+	"bq_age_oldest_plan",
+	"bq_business_code",
+	"bq_industry_name",
+	"bq_industry_sub_sector",
+	"bq_industry_sector",
+	"bq_naics_code",
+	"bq_naics_description",
+	"bq_sic_code",
+	"bq_sic_description",
+	"bq_gics_code",
+	"bq_gics_description",
+	"bq_year",
+	"bq_comp_most_recent_filing_date",
+	"bq_age_oldest_pens_plan_p",
+	"bq_age_oldest_welf_plan_p",
+	"bq_mths_since_latest_plan_file_p",
+	"bq_age_oldest_pens_plan",
+	"bq_age_oldest_welf_plan",
+	"bq_mths_since_latest_plan_file",
+	"bq_data_run_date",
+	"bq_no_filings_prev_2_yrs_ind",
+	"bq_closed_all_plans_ind",
+	"bq_public_indicator",
+	"bq_small_company_ind"
+)
+sprintf("distinct(cnt, company_ein, %s) %>% nrow()", columns)
+do.call( sprintf, c( fmt = "distinct(cnt, company_ein, %s) %>% nrow()", as.list(columns)) ) 
+``` 
+
+``` R
+lapply(columns, function(v) 
+sprintf("distinct(cnt, company_ein, %s) %>% nrow()", v)
+sprintf("%s %>%", v)
+sprintf("%s) %>%", v)
+sprintf("distinct(cnt, company_ein, %s", v)
+sprintf("distinct(cnt, company_ein, %s)", v)
+sprintf("distinct(cnt, company_ein, %s) %>%", v)
+sprintf("distinct(cnt, company_ein, %s) %>% nrow()", v)
+)
+``` 
+
+## Ex07: sample function
+
+``` r
+x = letters[1:5]
+set.seed(1)
+sample(x)
+#> [1] "b" "e" "d" "c" "a"
+sample(x, replace = F)
+#> [1] "e" "d" "b" "c" "a"
+sample(x, replace = T)
+#> [1] "b" "a" "d" "b" "d"
+sample(x, size = 3, replace = T)
+#> [1] "c" "d" "e"
+```
+
+## Ex08: probability distributions
+
+```{r}
+b0 = rbeta(5, 6, 3)
+b0
+mean(b0)
+```
+
+## Ex09: Sample quantiles
+
+```{r}
+q0 = quantile(x = rnorm(100))
+q0
+str(q0)
+```
+
+```{r}
+quantile(x = rnorm(10), probs = seq(0, 1, 0.1))
+```
+
+## Ex10: rep function
+
+``` {r}
+rep.int(1:3, 2)
+  ##> [1] 1 2 3 1 2 3
+rep(2, 3)
+  ##> [1] 2 2 2
+rep(1:3, 2)
+  ##> [1] 1 2 3 1 2 3
+rep(1:3, each = 2)
+  ##> [1] 1 1 2 2 3 3
+rep(1:3, c(2,2,2))
+  ##> [1] 1 1 2 2 3 3
+rep(1:3, c(2,1,1))
+  ##> [1] 1 1 2 3
+rep(1:3, each = 2, len = 4)
+  ##> [1] 1 1 2 2
+rep(1:3, each = 2, times = 3)
+  ##>  [1] 1 1 2 2 3 3 1 1 2 2 3 3 1 1 2 2 3 3
+``` 
+
+``` {r}
+xs = list(h = 1:3, name = "a")
+xs
+  ##> $h
+  ##> [1] 1 2 3
+  ##> 
+  ##> $name
+  ##> [1] "a"
+rep(xs, 2)
+  ##> $h
+  ##> [1] 1 2 3
+  ##> 
+  ##> $name
+  ##> [1] "a"
+  ##> 
+  ##> $h
+  ##> [1] 1 2 3
+  ##> 
+  ##> $name
+  ##> [1] "a"
+``` 
+
+## Ex11: seq function
+
+``` {r}
+seq(0, 1, length.out = 3)
+  ##> [1] 0.0 0.5 1.0
+seq(stats::runif(3))
+  ##> [1] 1 2 3 
+seq(stats::runif(5))
+  ##> [1] 1 2 3 4 5
+seq(stats::rnorm(5))
+  ##> [1] 1 2 3 4 5
+seq(1, 7, by = 2)
+  ##> [1] 1 3 5 7
+seq(1, 7, by = pi)
+  ##> [1] 1.000000 4.141593
+``` 
+
+## Article01: Generating Data in R
+
+https://labs.uswitch.com/generating-data-in-r/
+
+```{r}
+#generate 5 samples 
+runif(5, min = 0, max = 10) 
+```
+
+```{r}
+#We can extend the runif() function like this:
+runif_vec_proto <- function(min, max) {return(runif(1, min = min, max = max))}  
+runif_vec <- Vectorize(runif_vec_proto); runif_vec_proto <- NULL
+
+# uniform dists 0-5 3-6 3-6 7-10. take one sample from each
+runif_vec(min = c(0, 3, 3, 7), max = c(5 , 6, 6, 10))  
+```
+
+### Ex01: Probability that B is better than A
+
+```{r}
+observations_in_A <- 5000; observations_in_B <- 5000;  
+successes_in_A <- 510; successes_in_B <- 553
+
+successes_in_A/observations_in_A;successes_in_B/observations_in_B;
+```
+
+```{r}
+#fails calculations for beta distribution
+fails_in_A <- observations_in_A - successes_in_A  
+fails_in_B <- observations_in_B - successes_in_B
+
+#Sample from the posterior distribution for each variant, assuming uninformative prior:
+samples <- 1000000  
+sampled_true_success_rates_A <- rbeta(samples, successes_in_A+1, fails_in_A+1)  
+sampled_true_success_rates_B <- rbeta(samples, successes_in_B+1, fails_in_B+1)  
+sampled_absolute_increase_in_BvsA <- sampled_true_success_rates_B-sampled_true_success_rates_A
+
+#Look at the quantiles, for interest
+quantile(sampled_absolute_increase_in_BvsA, seq(0,1, 0.05))
+
+#Estimate the chance that the true success rate of B is greater than that of A
+mean(sampled_absolute_increase_in_BvsA>0)  
+```
+
+### Ex03: Compare Logistic regression with Neural Network
+
+```{r}
+#install.packages(c(‘dplyr’, ‘nnet’, ‘ggplot2’, 'reshape2'))
+require(dplyr); require(nnet); require(ggplot2); require(reshape2)
+
+#generate independent variable samples
+x <- runif(1000, 0, 1000)
+
+#generate success/fail observations, which has a probability which follows 
+#a logistic curve which is close to 0 around x = 0, 
+#close to 0.6 around x=1000, and close to 0.3 around x=500
+d <- 0.6*plogis(x, location = 500, scale = 30)  
+rbinom_vec_proto <- function(p, size = 1) {return(rbinom(1, size, p))}  
+rbinom_vec <- Vectorize(rbinom_vec_proto); rbinom_vec_proto <- NULL  
+y <- rbinom_vec(d)
+
+#Add data to data frame
+data <- data.frame(x = x,  y = y)
+
+#Add the fitted values from standard logistic regression and from a single neuron neural network to the data frame
+m <- glm(y~x, data, family = binomial())  
+f <- m$fitted.values  
+m2 <- nnet(y~x, data, size = 1, entropy = TRUE, abstol = 1.0e-7, reltol = 1.0e-10)  
+f2 <- m2$fitted.values  
+data  <- data.frame(x = x, y = y, p = d, logistic = f, nnet = f2)
+
+#Plot the original outcome probability, the binary outcome data, 
+#and the fitted values from our two models for each x:
+data %>% melt('x') %>% ggplot(aes(x, value, color = variable)) + geom_point()  
+```
+
+### purrr::splice id=g_10796
+
+Follows https://www.rdocumentation.org/packages/purrr/versions/0.2.5/topics/splice
+
+``` r
+> library(purrr)
+Warning message:
+package ‘purrr’ was built under R version 3.5.2
+> inputs <- list(arg1 = "a", arg2 = "b")
+>
+> # splice() concatenates the elements of inputs with arg3
+> splice(inputs, arg3 = c("c1", "c2")) %>% str()
+List of 3
+ $ arg1: chr "a"
+ $ arg2: chr "b"
+ $ arg3: chr [1:2] "c1" "c2"
+> list(inputs, arg3 = c("c1", "c2")) %>% str()
+List of 2
+  ..$ arg1: chr "a"
+  ..$ arg2: chr "b"
+ $ arg3: chr [1:2] "c1" "c2"
+> c(inputs, arg3 = c("c1", "c2")) %>% str()
+List of 4
+ $ arg1 : chr "a"
+ $ arg2 : chr "b"
+ $ arg31: chr "c1"
+ $ arg32: chr "c2"
+``` 
+
+### Article: Contingency tables in R
+
+Follows https://www.datacamp.com/community/tutorials/contingency-tables-r
+
+#### How to make a table
+
+``` r
+library(MASS)
+Cars93$Type
+table(Cars93$Type)
+  ##> Compact   Large Midsize   Small  Sporty     Van 
+  ##>      16      11      22      21      14       9 
+``` 
+
+``` r
+prop.table(table(Cars93$Type))
+``` 
+
+#### How to make a contingency table
+
+Using two frequencies combined:
+
+``` r
+table(Cars93$Type)
+  ##> Compact   Large Midsize   Small  Sporty     Van 
+  ##>      16      11      22      21      14       9 
+table(Cars93$Origin)
+  ##>     USA non-USA
+  ##>      48      45
+table(Cars93$Type, Cars93$Origin)
+  ##>           USA non-USA
+  ##>   Compact   7       9
+  ##>   Large    11       0
+  ##>   Midsize  10      12
+  ##>   Small     7      14
+  ##>   Sporty    8       6
+  ##>   Van       5       4
+str(table(Cars93$Type, Cars93$Origin))
+  ##>  'table' int [1:6, 1:2] 7 11 10 7 8 5 9 0 12 14 ...
+``` 
+
+#### Marginals from contingency table: row sums
+
+``` r
+t0 = table(Cars93$Type, Cars93$Origin)
+rowSums(t0)
+  ##> Compact   Large Midsize   Small  Sporty     Van
+  ##>      16      11      22      21      14       9
+colSums(t0)
+``` 
+
+#### Percents from contingency table
+
+Percentages overall:
+
+``` r
+t1 = prop.table(table(Cars93$Type, Cars93$Origin))
+t1
+  ##>                  USA    non-USA
+  ##>   Compact 0.07526882 0.09677419
+  ##>   Large   0.11827957 0.00000000
+  ##>   Midsize 0.10752688 0.12903226
+  ##>   Small   0.07526882 0.15053763
+  ##>   Sporty  0.08602151 0.06451613
+  ##>   Van     0.05376344 0.04301075
+``` 
+
+Percentages row-wise:
+
+``` r
+t2 = prop.table(table(Cars93$Type, Cars93$Origin), margin=1)
+t2
+  ##>                 USA   non-USA
+  ##>   Compact 0.4375000 0.5625000
+  ##>   Large   1.0000000 0.0000000
+  ##>   Midsize 0.4545455 0.5454545
+  ##>   Small   0.3333333 0.6666667
+  ##>   Sporty  0.5714286 0.4285714
+  ##>   Van     0.5555556 0.4444444
+``` 
+
+#### Chi-squared test: Are row/column variables independent
+
+Are `Type` and `Origin` independent:
+
+``` r
+chisq.test(Cars93$Type, Cars93$Origin)
+``` 
+
+#### 3 dimensional tables
+
+``` r
+ftable(Cars93$Man.trans.avail, Cars93$Origin, Cars93$Type)
+  ##>              Compact Large Midsize Small Sporty Van
+  ##>                                 
+  ##> No  USA            2    11       9     0      0   4
+  ##>     non-USA        0     0       4     0      0   2
+  ##> Yes USA            5     0       1     7      8   1
+  ##>     non-USA        9     0       8    14      6   2
+``` 
+
+### `base::table()` Examples
+
+``` r
+a0 = c("a", "b", "c", "a", "b", "a")
+table(a0)
+  ##> a b c
+  ##> 3 2 1
+str(table(a0))
+  ##>  'table' int [1:3(1d)] 3 2 1
+``` 
+
+### `base::prop.table` Examples
+
+It converts frequencies into fractions (percentages):
+
+``` r
+a0 = c("a", "b", "c", "a", "b", "a")
+table(a0)
+  ##> a b c
+  ##> 3 2 1
+prop.table(table(a0))
+  ##>         a         b         c
+  ##> 0.5000000 0.3333333 0.1666667
+``` 
 

@@ -1,0 +1,160 @@
+---
+title: "dplyr: counting functions 20190226"
+date: 2019-02-26T11:20:11+03:00 
+draft: true
+description: ""
+tags:
+categories: r dplyr 
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+library(dplyr)
+``` 
+
+## toy data
+
+``` r
+td01 = tibble::tribble(
+  ~id,   ~key, ~value,
+  1,   "a",  2,
+  2,   "b",  3,
+  3,   "a",  4
+  ) 
+td02 = tibble::tribble(
+  ~id,   ~a, ~b,
+  1,      5,  9,
+  2,      6,  8,
+  3,      6,  9
+  ) 
+td03 = tibble::tribble(
+  ~id,   ~a, ~b,
+  1,      5,  9,
+  2,      6,  8,
+  3,      6,  9,
+  4,      6,  9,
+  5,      6,  8
+  ) 
+``` 
+
+## ex01: tally and count
+
+``` r
+td02 %>%
+	dplyr::group_by(a) %>%
+	dplyr::summarize(n = dplyr::n())
+  ##>       a     n
+  ##> 1     5     1
+  ##> 2     6     2
+``` 
+
+``` r
+td02 %>%
+	dplyr::tally()
+  ##>       n
+  ##> 1     3
+td02 %>%
+	dplyr::group_by(a) %>%
+	dplyr::tally()
+  ##>       a     n
+  ##> 1     5     1
+  ##> 2     6     2
+``` 
+
+``` r
+td02 %>%
+	dplyr::count()
+  ##>       n
+  ##> 1     3
+td02 %>%
+	dplyr::group_by(a) %>%
+	dplyr::count()
+  ##>       a     n
+  ##> 1     5     1
+  ##> 2     6     2
+td02 %>%
+	dplyr::count(a) 
+  ##>       a     n
+  ##> 1     5     1
+  ##> 2     6     2
+``` 
+
+`add_tally` short-hand for `mutate`()
+
+`add_count` short for `group_by` + `add_tally`
+
+``` r
+td02 %>%
+	dplyr::add_tally()
+  ##>      id     a     b     n
+  ##> 1     1     5     9     3
+  ##> 2     2     6     8     3
+  ##> 3     3     6     9     3
+td02 %>%
+	dplyr::add_count(a) 
+  ##>      id     a     b     n
+  ##> 1     1     5     9     1
+  ##> 2     2     6     8     2
+  ##> 3     3     6     9     2
+``` 
+
+Repeated calls roll up a level of detail.
+
+``` r
+td03 %>%
+	dplyr::count(a, b) 
+  ##>       a     b     n
+  ##> 1     5     9     1
+  ##> 2     6     8     2
+  ##> 3     6     9     2
+td03 %>%
+	dplyr::count(a, b, sort = T) 
+  ##>       a     b     n
+  ##> 1     6     8     2
+  ##> 2     6     9     2
+  ##> 3     5     9     1
+``` 
+
+## ex02: n_distinct
+
+``` r
+x <- sample(1:10, 100, rep = TRUE)
+length(x)
+  #> [1] 100
+length(unique(x))
+  #> [1] 10
+n_distinct(x)
+  #> [1] 10
+``` 
+
+``` r
+td03 %>%
+	summarize(n = n_distinct(a))
+  ##>       n
+  ##>   <int>
+  ##> 1     2
+``` 
+
+## tally
+
+``` r
+# tally() is short-hand for summarise()
+mtcars %>% tally()
+mtcars %>% group_by(cyl) %>% tally()
+``` 
+
+

@@ -181,7 +181,7 @@ suspended
 ············  &lt;/div&gt; <br>
 ····  {{c4::Inline}} Form  <br>
 ······  .form-inline <br>
-······  /Users/mertnuhoglu/Dropbox/public/img/ss-277.png <br>
+······  /Users/mertnuhoglu/gdrive/public/img/ss-277.png <br>
 ····  {{c5::Horizontal}} form <br>
 ······  like rows <br>
 ······  ex <br>
@@ -200,7 +200,7 @@ suspended
 ············  &lt;{{c9::option}}&gt;1&lt;...&gt; <br>
 ····  Static control <br>
 ······  static text next to a form label <br>
-······  /Users/mertnuhoglu/Dropbox/public/img/ss-278.png <br>
+······  /Users/mertnuhoglu/gdrive/public/img/ss-278.png <br>
 ······  ex <br>
 ··········  &lt;form class="form-horizontal"&gt; <br>
 ··········  &lt;div class="form-group"&gt; <br>
@@ -245,11 +245,11 @@ suspended
 ······  .{{c10::img-rounded}} .img-circle .img-thumbnail <br>
 ··  {{c11::Helper}} classes <br>
 ····  Contextual colors <br>
-······  /Users/mertnuhoglu/Dropbox/public/img/ss-279.png <br>
+······  /Users/mertnuhoglu/gdrive/public/img/ss-279.png <br>
 ····  Contextual backgrounds <br>
-······  /Users/mertnuhoglu/Dropbox/public/img/ss-280.png <br>
+······  /Users/mertnuhoglu/gdrive/public/img/ss-280.png <br>
 ····  Close icon <br>
-······  /Users/mertnuhoglu/Dropbox/public/img/ss-281.png <br>
+······  /Users/mertnuhoglu/gdrive/public/img/ss-281.png <br>
 ··  Responsive utilities <br>
 ····  Print classes <br>
 ····  Test cases <br>
@@ -275,7 +275,7 @@ suspended
 ··  {{c3::Button groups}} <br>
 ····  Basic example <br>
 ········  &lt;div class="btn-group" ...&gt; <br>
-······  /Users/mertnuhoglu/Dropbox/public/img/ss-282.png <br>
+······  /Users/mertnuhoglu/gdrive/public/img/ss-282.png <br>
 ····  Button toolbar <br>
 ······  multiple .btn-group elements grouped <br>
 ······  .btn-toolbar <br>
@@ -288,11 +288,11 @@ suspended
 ··  Button dropdowns <br>
 ····  use buttons to trigger dropdown <br>
 ··  Input groups <br>
-····  /Users/mertnuhoglu/Dropbox/public/img/ss-283.png <br>
+····  /Users/mertnuhoglu/gdrive/public/img/ss-283.png <br>
 ··  {{c4::Navs}} <br>
 ····  Tabs <br>
 ········  &lt;ul class="nav nav-tabs"&gt; <br>
-······  /Users/mertnuhoglu/Dropbox/public/img/ss-284.png <br>
+······  /Users/mertnuhoglu/gdrive/public/img/ss-284.png <br>
 ····  Pills <br>
 ······  .nav-pills instead of .nav-tabs <br>
 
@@ -310,7 +310,7 @@ suspended
 ··  {{c1::Navbar}} <br>
 ····  Default navbar <br>
 ······  as navigation headers <br>
-······  /Users/mertnuhoglu/Dropbox/public/img/ss-285.png <br>
+······  /Users/mertnuhoglu/gdrive/public/img/ss-285.png <br>
 ······  ex: <br>
 ········  &lt;nav class="navbar" <br>
 ··········  &lt;div .. <br>
@@ -322,7 +322,7 @@ suspended
 ··  Labels <br>
 ····  &lt;span class="label" <br>
 ··  Badges <br>
-····  /Users/mertnuhoglu/Dropbox/public/img/ss-286.png <br>
+····  /Users/mertnuhoglu/gdrive/public/img/ss-286.png <br>
 ····  &lt;span class="badge"&gt;42 <br>
 ··  Jumbotron <br>
 ····  key content on page <br>
@@ -336,10 +336,10 @@ suspended
 ··  Progress bars <br>
 ··  Media Object <br>
 ····  image + alongside text <br>
-····  /Users/mertnuhoglu/Dropbox/public/img/ss-287.png <br>
+····  /Users/mertnuhoglu/gdrive/public/img/ss-287.png <br>
 ··  {{c3::List group}} <br>
 ····  .list-group <br>
-····  /Users/mertnuhoglu/Dropbox/public/img/ss-288.png <br>
+····  /Users/mertnuhoglu/gdrive/public/img/ss-288.png <br>
 
 %
 
@@ -356,14 +356,14 @@ suspended
 ····  to put element in a box <br>
 ····  Basic example <br>
 ······  .panel <br>
-······  /Users/mertnuhoglu/Dropbox/public/img/ss-289.png <br>
+······  /Users/mertnuhoglu/gdrive/public/img/ss-289.png <br>
 ····  With tables <br>
-······  /Users/mertnuhoglu/Dropbox/public/img/ss-290.png <br>
+······  /Users/mertnuhoglu/gdrive/public/img/ss-290.png <br>
 ··  {{c2::Wells}} <br>
 ····  .well <br>
 ····  Default well <br>
 ······  gives inset effect <br>
-······  /Users/mertnuhoglu/Dropbox/public/img/ss-291.png <br>
+······  /Users/mertnuhoglu/gdrive/public/img/ss-291.png <br>
 
 %
 

@@ -1,0 +1,24 @@
+{
+  "name": "e01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "e01_01": "node e01/superagent01.js",
+    "e01_02": "node e01/superagent02.js",
+    "e01_03": "node e01/superagent03.js",
+    "e01_04": "node e01/cycle01.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cycle/dom": "^22.0.0",
+    "@cycle/http": "^15.0.0",
+    "@cycle/run": "^5.1.0",
+    "superagent": "^4.0.0-beta.5",
+    "superagent-debugger": "^1.2.9",
+    "xstream": "^11.7.0"
+  }
+}

@@ -160,5 +160,3 @@ var d = new Promise((resolve, reject) => {
 
 ``` {bash}
 node ex/study_js_promises_ex01/script08.js
-``` 
-

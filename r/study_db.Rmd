@@ -1,0 +1,40 @@
+---
+title: "Studying Databases with DBI Package"
+date: 2018-12-04T09:14:19+03:00 
+draft: true
+description: ""
+tags:
+categories: r database
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+## dbWriteTable
+
+### Verify that table is created when it doesn't exist:
+
+``` sql
+library("RSQLite")
+     con <- dbConnect(RSQLite::SQLite(), ":memory:")
+
+     dbWriteTable(con, "mtcars", mtcars[1:5, ])
+     dbReadTable(con, "mtcars")
+
+     dbWriteTable(con, "mtcars", mtcars[6:10, ], append = TRUE)
+     dbReadTable(con, "mtcars")
+
+     dbWriteTable(con, "mtcars", mtcars[1:10, ], overwrite = TRUE)
+     dbReadTable(con, "mtcars")
+
+     # No row names
+     dbWriteTable(con, "mtcars", mtcars[1:10, ], overwrite = TRUE, row.names = FALSE)
+     dbReadTable(con, "mtcars")
+
+``` 
+
+

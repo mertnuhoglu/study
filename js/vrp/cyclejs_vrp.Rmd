@@ -31,7 +31,7 @@ options(max.print = 30)
 
 ## References
 
-		refcard cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10245>
+		refcard cyclejs <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g_10245>
 
 ## Common For Most Subprojects:
 
@@ -217,7 +217,7 @@ You can load package by either of these into R:
 		devtools::load_all()
 		library(yumltordbschema)
 
-		ref: devtools for package building <url:file:///~/pCloud Drive/mynotes/content/code/cr/cr.md#r=sr_0007>
+		ref: devtools for package building <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=sr_0007>
 
 ``` R
 devtools::load_all()
@@ -1813,7 +1813,42 @@ export default function model(sources: Sources & SoHTTP): Stream<Reducer<State>>
 
 #### v15.10_05
 
-## Run Project id=g_10532
+Implement Flow01:
+
+		1. User clicks: Plan Listesi > .seç plan > Verileri Getir
+		2. Button click sends plan_id
+		3. App queries purchase_orders belonging to this plan_id
+		4. App views DetailPlan table with these purchase_orders
+
+Curl tests in `<url:/Users/mertnuhoglu/projects/study/js/vrp/study_vrp.Rmd#tn=003 study_vrp>`
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_05/components/plan_panel/intent.ts`
+
+``` js
+    const planDetails$: xs<RequestInfo> = dom$.select('.get_plan_details').events('click')
+			.map((e) => e.target.dataset.plan_id)
+			.map(plan_id => ({
+				url: `http://localhost:8080/rest/plan?select=order_line(purchase_order(purchase_order_id))&plan_id=eq.${plan_id}`,
+``` 
+
+Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_05/components/plan_panel/model.ts`
+
+``` js
+  const purchaseOrderReducer$: xs<Reducer<State>> = sources.HTTP.select('purchase_order')
+    .flatten()
+    .map(res => function purchaseOrderReducer(prevState: State) {
+			let pos = R.pipe(
+				R.map(a => R.prop('order_line', a).map(R.prop('purchase_order'))),
+				R.unnest
+			)(res.body)
+      return {
+        ...prevState,
+        purchase_orders: pos
+      }
+    })
+``` 
+
+## Run Project: Backend and Frontend id=g_10532
 
 Start database server and postgrest:
 
@@ -1826,5 +1861,11 @@ git checkout vrp_psk01_step03
 
 		walkthrough vrp_psk01 <url:file:///~/projects/itr/itr_documentation/doc_itr.md#r=g_10551>
 		deprecated: Consuming Actual Data in CycleJS App <url:file:///~/projects/study/js/vrp/cyclejs_vrp.Rmd#r=g_10533>
+
+``` bash
+npm run 10_05
+``` 
+
+Open http://localhost:1234
 
 Edit `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_05/index.ts`

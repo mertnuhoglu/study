@@ -1,0 +1,53 @@
+---
+title: "Study Repex"
+date: 2019-02-17T19:04:09+03:00 
+draft: true
+description: ""
+tags:
+categories: r statistics
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## Article01: Official Manual
+
+Following https://reprex.tidyverse.org
+
+Let’s say you copy this code onto your clipboard:
+
+``` r
+(y <- 1:4)
+mean(y)
+``` 
+
+Then call reprex(), where the default target venue is GitHub:
+
+``` r
+reprex()
+``` 
+
+You get on the clipboard:
+
+``` r
+(y <- 1:4)
+  #> [1] 1 2 3 4
+mean(y)
+  #> [1] 2.5
+```
+

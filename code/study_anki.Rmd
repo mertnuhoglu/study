@@ -1,0 +1,127 @@
+---
+title: "Study anki"
+date: 2019-02-21T13:52:38+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/study_anki.Rmd
+state: wip
+---
+
+## Customize Settings for Cloze Card Type
+
+I usually use anki for code blocks. To format them in an easy to read style, I changed styling card settings of `Cloze`.
+
+1. Tools > Manage Note Types
+
+3. Select `Cloze` > Cards
+
+Front Template
+
+``` sql
+{{cloze:Text}}
+``` 
+
+Styling
+
+``` sql
+.card {
+ font-family: Inconsolata;
+ font-size: 16px;
+ text-align: left;
+ color: black;
+ background-color: rgb(249, 245, 141);
+}
+
+.cloze {
+ font-weight: bold;
+ color: red;
+}
+``` 
+
+Back Template
+
+``` sql
+{{cloze:Text}}<br>
+{{Extra}}
+``` 
+
+4. Cards
+
+## How to convert markdown to anki?
+
+Edit `~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim`
+
+``` vimscript
+function! ConvertAnkiMd()
+  set expandtab
+	retab
+  g/<url:/ s/<url:file:...// | s/>$//
+  " indented lines match this regex:
+  " \(  \+\)\(.*\)\(<br>$\)\@!
+  " escape < > ` in not indented lines
+  v/\(  \+\)\(.*\)\(<br>$\)\@!/ s/<\(br>\)\@!/\&lt;/g | s/\(<br\)\@<!>/\&gt;/g
+  " wrap in ` and append <br>
+  %s/^\(  \+\)\(.*\)/\1`` \2 `` <br>/
+  " replace indentation spaces with center dots · because anki ignores spaces
+  g/^  / s/  /··/g 
+	%s/··``/  ``/
+  " escape [..](..)
+  " wrap underscore words with backquote
+  v/^·/ s/](/\&#093;(/ | s/\( \)\@<=[^ `]\+_[^ `]\+/`\0`/g
+	g/<br>/left
+endfunction
+command! ConvertAnkiMd call ConvertAnkiMd()
+``` 
+
+Prepare a md file such as:
+
+``` md
+---
+
+## Question Title
+
+Question body {{c2::cloze_placeholder01}}/{{c1::cloze_placeholder02}}
+
+%
+
+Answer body (optional)
+
+% 
+
+clozeq
+
+---
+
+``` 
+
+Usage: 
+
+1. Call `:ConvertAnkiMd` on a md file in vim. Save it as similar to: `anki_<something>.md`
+
+2. Convert to apkg
+
+``` bash
+ankdown -p <file>.apkg -d db01 -i <file>.md
+``` 
+
+3. Open anki and import apkg: File > Import ...
+
+4. Select deck. Open (B) > Whole Collection > Select cards > File > Change card type (#+m) > Cloze
+
+## Shortcut for placeholder making:
+
+``` vimscript
+vnoremap <Leader>e s{{c1::<c-r>"}}<esc>
+``` 
+

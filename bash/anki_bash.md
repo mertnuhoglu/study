@@ -79,3 +79,30 @@ clozeq
 
 ---
 
+## string manipulation 01
+
+··  `` var="someletters_12345_moreletters.ext" `` <br>
+··  `` digits=$( echo $var | {{c1::sed}} "s/.*_\([0-9]\+\).*/\1/p" -n ) `` <br>
+··  `` echo $digits `` <br>
+····  `` ##> 12345 `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+
+## tee 01
+
+··  `` bash datarun03.sh {{c1::2>&1}} | tee datarun03.sh.log `` <br>
+
+%
+
+%
+
+clozeq
+
+---
+

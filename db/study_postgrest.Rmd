@@ -1,0 +1,721 @@
+---
+title: "Study Postgrest"
+date: 2018-10-25T10:27:12+03:00 
+draft: true
+description: ""
+tags:
+categories: database, postgresql
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/db/study_postgrest.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+Summarized in `~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g_10633>`
+
+## Start postgrest server
+
+### initialize psk postgrest server
+
+``` bash
+subzero base-project
+  ##> user inputs: psk01
+	##> choose database migration n
+cd psk01
+``` 
+
+### bzq postgrest server
+
+ref: `00: Start docker  <url:file:///~/projects/bizqualify/BQ-data-run/datarun/make_api_ready_for_creditsafe_20181219.md#r=g_10761>`
+
+``` bash
+subzero base-project
+cd psk06
+``` 
+
+Edit `docker-compose.yml`
+
+``` yml
+    volumes:
+      - "./db/src:/docker-entrypoint-initdb.d"
+      - ~/postgresql:/var/lib/postgresql/data
+``` 
+
+Edit `~/.bashrc`
+
+``` text
+export DB_HOST=localhost
+export DB_PORT=5432
+export DB_NAME=bizqualify
+export DB_SCHEMA=api
+export DB_USER=bqdata
+export DB_PASS=bqdata
+export DB_ANON_ROLE=readonly
+export DB_ANON_PASS=readonly
+export SUPER_USER=superuser
+export SUPER_USER_PASSWORD=superuserpass
+export PGHOST=localhost
+export PGPORT=5432
+export PGDATABASE=$DB_NAME
+export PGUSER=$SUPER_USER
+export PGPASSWORD=$SUPER_USER_PASSWORD
+``` 
+
+Edit `.env`
+
+``` text
+DB_HOST=db
+DB_PORT=5432
+DB_NAME=bizqualify
+DB_USER=bqdata
+DB_PASS=bqdata
+
+SUPER_USER=superuser
+SUPER_USER_PASSWORD=superuserpass
+DB_SCHEMA=api
+``` 
+
+``` bash
+source ~/.bashrc
+``` 
+
+### vrp postgrest server
+
+ref: `walkthrough vrp_psk01 <url:file:///~/projects/itr/itr_documentation/doc_itr.md#r=g_10551>`
+
+First prepare the data: `walkthrough yuml2data01 <url:file:///~/projects/itr/itr_documentation/doc_itr.md#r=g_10550>`
+
+Starting database and postgrest with `~/projects/itr/vrp_psk01/docker-compose.yml`
+
+``` bash
+cd /Users/mertnuhoglu/projects/itr/vrp_psk01
+docker-compose up
+``` 
+
+## Create new data from scratch
+
+### Default Data
+
+### vrp Data
+
+### Toy Data id=g_10771
+
+``` sql
+CREATE SCHEMA <new_schema>;
+CREATE TABLE <new_schema>.<table> (
+	id bigint,
+	title text
+);
+DELETE FROM <new_schema>.<table>;
+COPY <new_schema>.<table> (id,title) FROM STDIN (ENCODING 'utf-8');
+101	t101
+101	t201
+\.
+GRANT USAGE ON SCHEMA <new_schema> TO anonymous, webuser;
+CREATE VIEW api.<table> AS
+SELECT id, title FROM <new_schema>.<table>;
+GRANT SELECT ON api.<table> TO anonymous;
+GRANT SELECT, INSERT, UPDATE, DELETE ON api.<table> to webuser;
+``` 
+
+Example:
+
+``` sql
+CREATE SCHEMA schema01;
+CREATE TABLE schema01.table01 (
+	id bigint,
+	title text
+);
+DELETE FROM schema01.table01;
+COPY schema01.table01 (id,title) FROM STDIN (ENCODING 'utf-8');
+101	t101
+101	t201
+\.
+GRANT USAGE ON SCHEMA schema01 TO anonymous, webuser;
+CREATE VIEW api.table01 AS
+SELECT id, title FROM schema01.table01;
+GRANT SELECT ON api.table01 TO anonymous;
+GRANT SELECT, INSERT, UPDATE, DELETE ON api.table01 to webuser;
+``` 
+
+``` bash
+curl http://localhost:8080/rest/table01?select=id
+  ##> [{"id":101},
+  ##>  {"id":101}]
+``` 
+
+### bzq data
+
+## Make a query 
+
+Two options:
+
+- Default data
+- Custom data (vrp, bzq, toy data, etc.)
+
+### Use curl to make a query
+
+opt01: Default data
+
+ref: `walkthrough study_psk <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g_10522>`
+
+``` bash
+curl http://localhost:8080/rest/todos?select=id
+curl http://localhost:8080/rest/todos?select=id,todo
+  ##> [{"id":1,"todo":"item_1"},
+  ##> {"id":3,"todo":"item_3"},
+  ##> {"id":6,"todo":"item_6"}]
+``` 
+
+opt02: vrp data
+
+ref: `walkthrough vrp_psk01 <url:file:///~/projects/itr/itr_documentation/doc_itr.md#r=g_10551>`
+
+``` bash
+curl -H "Authorization: Bearer $JWT_TOKEN" http://localhost:8080/rest/address
+``` 
+
+opt03: sample toy data
+
+``` bash
+curl http://localhost:8080/rest/table01?select=id
+  ##> [{"id":101},
+  ##>  {"id":101}]
+``` 
+
+``` bash
+curl http://localhost:8080/rest/table01
+  ##> [{"id":101,"title":"t101"},
+  ##>  {"id":101,"title":"t201"}]
+``` 
+
+opt04: bzq data
+
+ref: `~/projects/study/db/tutorial_postgrest.Rmd`
+
+``` bash
+curl -H "Authorization: Bearer $JWT_TOKEN" http://34.221.238.13:8080/rest/all_data?limit=3 > ../log/log_curl_all_data_limit_3.json
+curl -H "Authorization: Bearer $JWT_TOKEN" http://34.221.238.13:8080/rest/all_data?bq_website=eq.zerotaxplan.com > ../log/log_curl_bq_website.json
+``` 
+
+### Use superagent or cyclejs to make a query
+
+opt01: default data
+
+opt02: vrp data
+
+Superagent use. ref: `Use superagent or cyclejs <url:file:///~/projects/study/db/study_postgrest.Rmd#r=g_10763>`
+
+``` js
+superagent
+	.get( 'http://localhost:8080/rest/company' )
+``` 
+
+cyclejs use. From `p03: Multiple HTTP Requests <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10764>`
+
+``` js
+  const requests$ = xs.from(
+    [
+      {
+        url: 'http://localhost:8080/rest/plan?select=plan_id,usr,depot_id',
+        method: 'GET',
+        headers: {
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+        },
+        category: 'users',
+      },
+``` 
+
+opt03: toy data
+
+opt04: bzq data
+
+### Use R to make a query
+
+#### opt01: default data
+
+#### opt02: vrp data
+
+Edit `~/projects/study/db/ex/study_postgrest/e02/query_vrp01.R`
+
+``` bash
+response <- httr::GET("http://localhost:8080/rest/address",
+	add_headers(
+		"Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+	)
+)
+print(status_code(response))
+  ##> [1] 200
+httr::content(response, as = "text")
+  ##> [1] "[{\"address_id\":1,\"address\":\"address_3_3_3\",\"company_extid\"...
+httr::content(response, as = "parsed") %>% str                        
+  ##> List of 5
+  ##>  $ :List of 3
+  ##>   ..$ address_id   : int 1
+  ##>   ..$ address      : chr "address_3_3_3"
+  ##>   ..$ company_extid: NULL
+  ##>  $ :List of 3
+``` 
+
+#### opt03: toy data
+
+Edit `~/projects/study/db/ex/study_postgrest/e02/query_toy01.R`
+
+``` R
+response <- httr::GET("http://localhost:8080/rest/table01")
+print(response)
+  ##> Response [http://localhost:8080/rest/table01]
+  ##>   Date: 2019-01-20 18:31
+  ##>   Status: 200
+  ##>   Content-Type: application/json; charset=utf-8
+  ##>   Size: 56 B
+  ##> [{"id":101,"title":"t101"},
+``` 
+
+``` R
+response <- httr::GET("http://localhost:8080/rest/table01", 
+											query = list( select = "id")
+											)
+httr::content(response, as = "text")
+  ##> [1] "[{\"id\":101}, \n {\"id\":101}]"
+``` 
+
+``` R
+response <- httr::GET("http://localhost:8080/rest/table01?select=id")
+httr::content(response, as = "parsed") %>% str
+  ##> List of 2
+  ##>  $ :List of 1
+  ##>   ..$ id: int 101
+  ##>  $ :List of 1
+  ##>   ..$ id: int 101
+``` 
+
+#### opt04: bzq data
+
+## Bulk Insert Data with CSV or JSON
+
+### Use curl to insert data
+
+#### opt02: vrp data insert
+
+##### JSON Bulk Data Insert
+
+``` vim
+DB g:prod = postgresql://superuser:superuserpass@localhost/app
+DB g:prod select * from api.company
+``` 
+
+			 company_id | company_extid | company_name 
+			------------+---------------+--------------
+								1 | company_e     | company_name
+								2 | company_e     | company_name
+								3 | company_e     | company_name
+								4 | company_e     | company_name
+								5 | company_e     | company_name
+			(5 rows)
+
+###### Opt01: POST data as HTML form
+
+``` bash
+curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: application/json" -d '[{"company_id": "103", "company_name":"company_103"},{"company_id": "102", "company_name":"company_102"}]'  http://localhost:8080/rest/company
+``` 
+
+``` vim
+DB g:prod select * from api.company
+``` 
+
+			 company_id | company_extid | company_name 
+			------------+---------------+--------------
+								1 | company_e     | company_name
+								2 | company_e     | company_name
+								3 | company_e     | company_name
+								4 | company_e     | company_name
+								5 | company_e     | company_name
+							103 |               | company_103
+							102 |               | company_102
+			(7 rows)
+
+###### Opt02: Send data in a json file
+
+``` bash
+cd /Users/mertnuhoglu/projects/study/db/ex/study_postgrest/e01
+curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: application/json" --data-binary @company02.json http://localhost:8080/rest/company
+``` 
+
+###### Opt03: Send data using form-data
+
+``` bash
+cd /Users/mertnuhoglu/projects/study/db/ex/study_postgrest/e01
+curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: application/json" --form @company02.json http://localhost:8080/rest/company
+curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: application/json" --form file=@company02.json http://localhost:8080/rest/company
+``` 
+
+These don't work. I get the following error messages:
+
+		Warning: Illegally formatted input field!
+		curl: option -F: is badly used here
+
+		{"message":"Error in $: Failed reading: takeWhile1"}
+
+##### CSV Bulk Data Insert
+
+###### Opt01: Embed text inside form data `-d`
+
+Use `\n` inside single quoted string like `$'...\n...'` according to [Ansi-C Quoting](http://www.gnu.org/software/bash/manual/html_node/ANSI_002dC-Quoting.html#ANSI_002dC-Quoting)
+
+``` bash
+curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: text/csv" -d $'company_id,company_extid,company_name\n201,,company_201'  http://localhost:8080/rest/company
+``` 
+
+###### Opt02: Send csv file
+
+``` bash
+cd /Users/mertnuhoglu/projects/study/db/ex/study_postgrest/e01
+curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: text/csv" --data-binary @company01.csv http://localhost:8080/rest/company
+``` 
+
+I can specify full path too:
+
+		curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: text/csv" --data-binary @/Users/mertnuhoglu/projects/study/db/ex/study_postgrest/e01/company01.csv http://localhost:8080/rest/company
+
+#### opt03: toy data insert id=g_10772
+
+Prepare toy data to insert:
+
+		~/projects/study/db/ex/study_postgrest/e03/table01.json
+		~/projects/study/db/ex/study_postgrest/e03/table01.csv
+
+Delete data first:
+
+``` sql
+DELETE FROM schema01.table01;
+``` 
+
+opt01: Embed data
+
+		curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: text/csv" -d $'id,title\n401,t401\n402,t402' http://localhost:8080/rest/table01
+
+opt02: Send file
+
+		curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: text/csv" --data-binary @/Users/mertnuhoglu/projects/study/db/ex/study_postgrest/e03/table01.csv http://localhost:8080/rest/table01
+		curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: application/json" --data-binary @/Users/mertnuhoglu/projects/study/db/ex/study_postgrest/e03/table01.json http://localhost:8080/rest/table01
+
+Test data:
+
+``` sql
+SELECT id FROM schema01.table01;
+  ##>  id
+  ##> -----
+  ##>  201
+  ##>  202
+  ##>  401
+  ##>  402
+``` 
+
+### Use superagent or cyclejs id=g_10763
+
+#### opt02: vrp data insert
+
+##### Opt01: Use superagent to send file data
+
+Clean data first
+
+``` vim
+DB g:prod delete from api.company where company_id > 100
+``` 
+
+``` bash
+mkdir -p ex/study_postgrest/ && cd $_ && npm init -y && pnpm i superagent
+``` 
+
+Edit `~/projects/study/db/ex/study_postgrest/e01/superagent01.js`
+
+``` bash
+superagent
+	.post( 'http://localhost:8080/rest/company' )
+	.set('Content-Type', 'text/csv')
+	.send('@company01.csv')
+``` 
+
+This gives the following error:
+
+``` bash
+(node:6934) UnhandledPromiseRejectionWarning: Error: Bad Request
+    at Request.callback (/Users/mertnuhoglu/projects/study/db/ex/study_postgrest/node_modules/.registry.npmjs.org/superagent/4.0.0-beta.5/node_modules/superagent/lib/node/index.js:783:15)
+``` 
+
+Edit `~/projects/study/db/ex/study_postgrest/e01/superagent03.js`
+
+``` js
+superagent
+	.post( 'http://localhost:8080/rest/company' )
+	.set('Content-Type', 'text/csv')
+	.set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk')
+	.send('company_id,company_extid,company_name\n201,,company_201')
+``` 
+
+This works. 
+
+##### Opt02: Use Cyclejs to send file using attach.name (plumber)
+
+This method doesn't work with postgrest. postgrest only support `x-www-form-urlencoded`
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p13/ex04.js`
+
+``` bash
+      url: 'http://localhost:4500/echo2',
+      method: 'POST',
+      headers: {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+      },
+			attach: [
+				{
+					name: 'upload',
+					path: '/Users/mertnuhoglu/projects/study/r/ex/study_plumber_restful_apis/e01.R',
+					filename: 'e01.R'
+				}
+			],
+``` 
+
+Prerequisite: Run the web service `echo2` in: `study_plumber_restful_apis.Rmd`
+		
+		ref: <url:/Users/mertnuhoglu/projects/study/r/study_plumber_restful_apis.Rmd#tn=## e02: Uploading File with Plumber>
+
+Run cyclejs:
+
+``` bash
+cd ~/projects/study/js/ex/study_notes_cyclejs/
+node src/problems/p13/ex03.js
+'# result: {"formContents":{"upload":{"filename":["e01.R"],"tempfile":["/var/folders/f9/d201s84j0gb95830cjhp09_m0000gq/T//Rtmpl9bWKT/Multipartdf8062e3f36d"],"content_type":["application/octet-stream"],"head":["Content-Disposition: form-data; name=\"upload\"; filename=\"e01.R\"\r\nContent-Type: application/octet-stream"]}}}
+``` 
+
+##### Opt03: Use Cyclejs to send file data
+
+Clean data first
+
+``` vim
+DB g:prod delete from api.company where company_id > 100
+``` 
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p13/ex05.js`
+
+Prerequisite: Run the web service `echo2` in: `study_plumber_restful_apis.Rmd`
+		
+		ref: <url:/Users/mertnuhoglu/projects/study/r/study_plumber_restful_apis.Rmd#tn=## e02: Uploading File with Plumber>
+
+Run cyclejs (from `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p13/ex03.js`)
+
+``` bash
+cd ~/projects/study/js/ex/study_notes_cyclejs/
+node src/problems/p13/ex03.js
+'# result: {"formContents":{"upload":{"filename":["e01.R"],"tempfile":["/var/folders/f9/d201s84j0gb95830cjhp09_m0000gq/T//Rtmpl9bWKT/Multipartdf8062e3f36d"],"content_type":["application/octet-stream"],"head":["Content-Disposition: form-data; name=\"upload\"; filename=\"e01.R\"\r\nContent-Type: application/octet-stream"]}}}
+``` 
+
+This method doesn't work with postgrest. Use `send` instead of `attach` while sending data to postgrest.
+
+Edit `~/projects/study/db/ex/study_postgrest/e01/cycle01.js`
+
+``` js
+      url: 'http://localhost:8080/rest/company',
+      method: 'POST',
+      headers: {
+				'Content-Type': 'text/csv',
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+      },
+			send: 'company_id,company_extid,company_name\n203,,company_203',
+			category: 'company'
+``` 
+
+This works. 
+
+### Use R to upload data id=g_10759
+
+#### opt01: default data
+
+#### opt02: vrp data
+
+##### opt01: csv in body
+
+``` R
+response <- httr::POST("http://localhost:8080/rest/company", 
+	body = "company_id,company_extid,company_name\n201,,company_201",
+	add_headers(
+		"Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk",
+		"Content-Type" = "text/csv"
+	)
+)
+``` 
+
+Test
+
+``` sql
+SELECT * FROM api.company;
+  ##>         201 |               | company_201
+DELETE FROM api.company WHERE company_id = 201;
+``` 
+
+##### opt02: list (json) in body
+
+``` R
+response <- httr::POST("http://localhost:8080/rest/company", 
+	body = list(company_id = 201, company_name = "c201"),
+	encode = "json",
+	add_headers(
+		"Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+	)
+)
+status_code(response)
+  ##> 201
+``` 
+
+##### opt03: csv from file
+
+``` R
+response <- httr::POST("http://localhost:8080/rest/company", 
+	body = upload_file("~/projects/study/db/ex/study_postgrest/e03/company01.csv"),
+	add_headers(
+		"Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk",
+		"Content-Type" = "text/csv"
+	)
+)
+``` 
+
+#### opt03: toy data
+
+##### opt01: csv in body
+
+``` R
+response <- httr::POST("http://localhost:8080/rest/table01", 
+	body = "id,title\n501,t501\n502,t502",
+	add_headers(
+		"Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk",
+		"Content-Type" = "text/csv"
+	)
+)
+httr::content(response, as = "text")
+``` 
+
+##### opt02: list (json) in body
+
+``` R
+response <- httr::POST("http://localhost:8080/rest/table01", 
+	body = list(id = 601, title = "t601"),
+	encode = "json",
+	add_headers(
+		"Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+	)
+)
+status_code(response)
+  ##> 201
+http_status(response)
+  ##> $category
+  ##> [1] "Success"
+  ##> 
+  ##> $reason
+  ##> [1] "Created"
+  ##> 
+  ##> $message
+  ##> [1] "Success: (201) Created"
+warn_for_status(response)
+stop_for_status(response)
+``` 
+
+##### opt03: csv from file
+
+This is actually equivalent to previous `in-body` POST requests. Both calls generate the same POST request.
+
+``` R
+response <- httr::POST("http://localhost:8080/rest/table01", 
+	body = upload_file("~/projects/study/db/ex/study_postgrest/e03/table01.csv"),
+	add_headers(
+		"Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk",
+		"Content-Type" = "text/csv"
+	)
+)
+``` 
+
+#### opt04: bzq data
+
+### Evaluation of Different Methods
+
+Reference:
+
+		veri gönderme - http <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10651>
+
+We have to use x-www-form-urlencoded because postgrest supports only this method. 
+
+Whether we pass the path of the file to curl or put the content directly doesn't matter. Since superagent works with direct content, let's choose that method:
+
+So, choose the following methods only:
+
+``` bash
+curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: application/json" -d '[{"company_id": "103", "company_name":"company_103"},{"company_id": "102", "company_name":"company_102"}]'  http://localhost:8080/rest/company
+``` 
+
+Edit `~/projects/study/db/ex/study_postgrest/e01/superagent03.js`
+
+``` js
+superagent
+	.post( 'http://localhost:8080/rest/company' )
+	.set('Content-Type', 'text/csv')
+	.set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk')
+	.send('company_id,company_extid,company_name\n201,,company_201')
+``` 
+
+#### Upload data to postgrest with cyclejs id=g_10758
+
+``` bash
+cd ex/study_postgrest/ 
+pnpm i xstream @cycle/run @cycle/dom @cycle/http
+``` 
+
+Edit `~/projects/study/db/ex/study_postgrest/e01/cycle01.js`
+
+``` js
+      url: 'http://localhost:8080/rest/company',
+      method: 'POST',
+      headers: {
+				'Content-Type': 'text/csv',
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+      },
+			send: 'company_id,company_extid,company_name\n203,,company_203',
+			category: 'company'
+``` 
+
+Run
+
+		npm run e01_04
+
+I got the following error when I first ran:
+
+		'column "company_id,company_extid,company_name\n201,,company_201" of relation "company" does not exist' },
+
+Solution: Add Content-Type to header:
+
+      headers: {
+				'Content-Type': 'text/csv',
+
+## Summary
+
+Summarized in:
+
+		~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g_10633>
+

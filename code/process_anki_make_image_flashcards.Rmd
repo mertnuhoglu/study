@@ -1,0 +1,274 @@
+---
+title: "Process Anki: Make Image Flashcards 20190313"
+date: 2019-03-13T13:41:24+03:00 
+draft: true
+description: ""
+tags:
+categories: anki
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/code/process_anki_make_image_flashcards.Rmd
+state: wip
+---
+
+## 01. Resimleri topla
+
+### opt01:
+
+#### Example: Prepare "kitten memes" flashcards
+
+01. Search for "kitten memes"
+
+https://www.google.com/search?q=kitten+memes
+
+01b. Split flashcard pdf
+
+``` bash
+convert adjectives.pdf adjective_%03d.pdf
+``` 
+
+### opt02: tek tek resimleri topla
+
+## 02. Resim dosyalarını standartlaştır
+
+tüm resimlerin boyutlarını küçült
+
+``` bash
+cd /Users/mertnuhoglu/gdrive/public/kitten/
+rename 's/jpeg$/jpg/g' *.jpeg
+mogrify -format jpg *.pdf
+rm -f *.pdf
+mogrify -format jpg *.png
+mogrify -format jpg *.gif
+mogrify -quality 80 -density 300x300 -resize 400x400 *.jpg 
+rm -f *.png
+rm -f *.gif
+``` 
+
+``` bash
+mogrify -quality 90 -density 300x300 -resize 600x600 *.jpg 
+``` 
+
+
+## 03. mp3 dosyalarını hazırla
+
+### 01: Soru ve yanıt kelimelerini hazırla
+
+``` bash
+ls *.jpg | sed -e 's/_/ /g' -e 's/.jpg//' | tee >(pbcopy) > words
+``` 
+
+Put into Google Sheets Column 3
+
+Google Sheets Column 2:
+
+``` bash
+=GOOGLETRANSLATE(C1, "en", "tr")
+``` 
+
+Fix translations manually in sheets.
+
+### 02: wget için mp3 linklerini oluştur
+
+#### opt01: jpg dosyalardan kelime listesini oluştur
+
+``` bash
+ls *.jpg | sed -e 's/\(word_\)\?\(\w\+\)/\2/' | sed -e 's/.jpg$//' | sed -e 's/_/ /g' | sed -e 's/^to //' | tee >(pbcopy) > links
+``` 
+
+manually fix words and make them single words
+
+``` bash
+s#\w\+#https://ssl.gstatic.com/dictionary/static/sounds/oxford/\0--_us_1.mp3#
+``` 
+
+#### opt02: from text
+
+``` bash
+s#; \(to \)\?\(\w\+\)\(.*\)#; \1\2\3 <br> [sound:\2--_us_1.mp3]#
+``` 
+
+Put the words into vim:
+
+``` bash
+s#\w\+#https://ssl.gstatic.com/dictionary/static/sounds/oxford/\0--_us_1.mp3#
+``` 
+
+Put into `links`
+
+### 03. mp3 dosyalarını indir
+
+``` bash
+wget -i links
+``` 
+
+``` bash
+cat links | grep -Po '\w+--_us_1.mp3' | sed -e 's/.*/[sound:\0]/' | tee >(pbcopy) > files
+``` 
+
+Put into Google Sheets Column 4
+
+#### opt01: Türkçe dosyaları da indir
+
+Copy column 2 from Google Sheets
+
+``` bash
+pbpaste > turkish_words
+``` 
+
+
+---
+
+## 03. tüm dosyaların ismini değiştir
+
+Dosyaya önek ekle
+
+``` bash
+rename 's/-/_/g' *.jpg
+rename 's/^(\w+).jpg$/word_$1.jpg/' *.jpg
+rename 's/^(\w+).jpg$/word_prep01_$1.jpg/' *.jpg
+rename 's/^(\w+).jpg$/book_kidnap_$1.jpg/' *.jpg
+``` 
+
+dosya isimlerini <img> linklerine çevir:
+
+### opt01: ls'den girdiyi al
+
+``` bash
+ls *.jpg | sed -e 's/.*/<img src="\0"> <br> /' | tee >(pbcopy) > images
+``` 
+
+Put into Google Sheets Column 1
+
+### opt02: girdiyi metinden al
+
+``` bash
+%s/\.png\>/.jpg/
+v/<img\>/ s/\(\w\+\.jpg\)\>/<img src="\1">/
+``` 
+
+## 04. google sheets kolonlarını birleştir
+
+Tüm kolonları kopyala ve sheets dosyasına aktar
+
+``` bash
+tags="book_kidnap sentences"
+tags="preposition word"
+tags="party word"
+pbpaste > sheets
+sed -e 's/\t/ <br> /' -e 's/\t/; /' -e 's/\t/ <br> /' -e "s/$/; ${tags}/" sheets | tee >(pbcopy) > anki.txt
+``` 
+
+Append anki.txt to final anki txt file such as `~/gdrive/mynotes/stuff/ozgur_emin/english/anki/anki_book01_words.txt`
+
+## 05. Move files to anki collection.media folder
+
+Move jpg files to `collection.media` folder: `/Users/mertnuhoglu/Library/Application Support/Anki2/ozgureminnuhoglu/collection.media/`
+
+``` bash
+mv -n *.jpg "/Users/mertnuhoglu/Library/Application Support/Anki2/ozgureminnuhoglu/collection.media/"
+mv -n *.mp3 "/Users/mertnuhoglu/Library/Application Support/Anki2/ozgureminnuhoglu/collection.media/"
+``` 
+
+``` bash
+ANKI_DIR='/Users/mertnuhoglu/gdrive/mynotes/stuff/ozgur_emin/english/anki'
+ANKI_FILE=${ANKI_DIR}/anki_book01_repeat.txt
+ANKI_FILE=${ANKI_DIR}/anki_book01_words.txt
+ANKI_FILE=${ANKI_DIR}/anki_english02.txt
+ANKI_FILE=${ANKI_DIR}/anki_kitten.txt
+ANKI_FILE=${ANKI_DIR}/anki_lego02_repeat_basic.txt
+ANKI_FILE=${ANKI_DIR}/anki_lego03_repeat.txt
+ANKI_FILE=${ANKI_DIR}/anki_lego2_repeat.txt
+ANKI_FILE=${ANKI_DIR}/anki_lego2_words.txt
+ANKI_FILE=${ANKI_DIR}/anki_prepositions01.txt
+ANKI_FILE=${ANKI_DIR}/anki_repeat01.txt
+ANKI_FILE=${ANKI_DIR}/anki_repeat01_words.txt
+ANKI_FILE=${ANKI_DIR}/anki_test.txt
+ANKI_FILE=${ANKI_DIR}/anki_verbs01.txt
+ANKI_FILE=${ANKI_DIR}/anki_verbs01_cloze.txt
+ANKI_FILE=${ANKI_DIR}/anki_verbs01_reverse.txt
+ANKI_FILE=${ANKI_DIR}/anki_verbs02.txt
+ANKI_FILE=${ANKI_DIR}/anki_words02.txt
+ANKI_FILE=${ANKI_DIR}/anki_words03_meb.txt
+ANKI_FILE=${ANKI_DIR}/anki_zootopia_repeat_basic.txt
+ANKI_FILE=${ANKI_DIR}/anki_zootopia_repeat_words.txt
+ANKI_FILE=${ANKI_DIR}/test.txt
+ANKI_FILE=${ANKI_DIR}/zootopia02.txt
+``` 
+
+``` bash
+cat anki.txt >> $ANKI_FILE
+``` 
+
+## 06. Import text into Anki
+
+		Anki > import text > + Allow HTML 
+	
+Deprecated
+
+04. vim içi düzeltmeler
+
+opt06: kelimeleri linklerden sona da kopyala:
+
+		<img src="word_action.jpg"> <br> ;
+		->
+		<img src="word_action.jpg"> <br> ; action;
+
+``` bash
+s#\(word_\)\(\w\+\)\(.jpg\)\(.*\)#\1\2\3\4 \r\2# | g/^\w\+$/ s/_/ /g
+g/<img/ j
+
+``` 
+
+opt03a: metin içindeki dosya isimlerini düzeltme (sound mp4'den)
+
+``` bash
+rename 's/.mp4.jpg/.jpg/g' *.jpg
+``` 
+
+``` bash
+s/\[sound:\([^.]\+\)\.mp4\]/<img src="\1.jpg">/
+``` 
+
+opt03b: cloze ifadelerini eski haline çevir
+
+``` bash
+s/{{c\d::\([^}]*\)}}/\1/g
+``` 
+
+tr: çevirilerini kaldır
+
+``` bash
+s/tr:.*//
+``` 
+
+opt03c: [...] ifadelerini eski haline çevir
+
+``` bash
+s/-[^;]*;//
+``` 
+
+opt04: Sonuna ekleme yap
+
+``` bash
+s#$# <br> <b>words:</b> <br> 
+``` 
+
+Output: `~/gdrive/mynotes/stuff/ozgur_emin/english/anki/anki_kitten.txt`
+
+``` 
+<img src="kitten_make_yourself_useful.jpg">; bir işe yara <br> ve bana biraz lazanya getir; kitten
+<img src="kitten_what_are_these.jpg">; bu şeyler nedir?; kitten
+``` 
+
+opt05: cloze sorularını oluştur:
+
+
+

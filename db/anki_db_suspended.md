@@ -1,6 +1,6 @@
 ## pgs01: where is sql documentation notes?
 
-~/Dropbox/mynotes/content/articles/{{c1::articles_db}}.md
+`~/gdrive/mynotes/content/articles/{{c1::articles_db}}.md`
 
 %
 

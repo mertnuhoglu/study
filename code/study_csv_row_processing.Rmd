@@ -1,0 +1,75 @@
+---
+title: "Study csv tsv row processing"
+date: 2019-03-28T10:07:57+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/study_csv_row_processing.Rmd
+state: wip
+---
+
+## Ex01: while read
+
+Check `ex/study_csv_row_processing/table01.tsv`
+
+``` txt
+101	a
+102	b
+103	c
+``` 
+
+Edit `ex/study_csv_row_processing/ex01a.sh`
+
+``` bash
+while read col01 col02; do
+  echo "col01=$col01 col02=$col02"
+done < table01.tsv
+``` 
+
+Run it 
+
+``` bash
+cd /Users/mertnuhoglu/projects/study/code/ex/study_csv_row_processing/
+bash ex01a.sh
+  ##> col01=101 col02=a
+  ##> col01=102 col02=b
+  ##> col01=103 col02=c
+``` 
+
+## opt02: in2csv json and jq
+
+``` bash
+csvjson table02.csv
+csvjson table02.tsv
+  ##> [{"id": 101.0, "title": "a"}, {"id": 102.0, "title": "b"}, {"id": 103.0, "title": "c"}]
+``` 
+
+``` bash
+csvjson table02.tsv | jq .
+  ##> [
+  ##>   {
+  ##>     "id": 101,
+  ##>     "title": "a"
+  ##>   },
+  ##>   {
+  ##>     "id": 102,
+  ##>     "title": "b"
+  ##>   },
+``` 
+
+``` bash
+csvjson table02.tsv | jq .
+``` 
+
+
+

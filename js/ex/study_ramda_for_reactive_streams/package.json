@@ -1,0 +1,44 @@
+{
+  "name": "study_ramda_for_reactive_streams",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "index01": "babel-node --presets env index01.js",
+    "index02": "babel-node --presets env index02.js",
+    "index03": "babel-node --presets env index03.js",
+    "index04": "babel-node --presets env index04.js",
+    "index05": "babel-node --presets env index05.js",
+    "test02": "ava test02.js",
+    "test05": "ava test05.js",
+    "test03": "ava test03.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "parcel-bundler": "^1.10.3",
+    "snap-shot": "^2.17.0"
+  },
+  "dependencies": {
+    "@cycle/dom": "^21.1.0",
+    "@cycle/http": "^14.10.0",
+    "@cycle/run": "^4.4.0",
+    "ramda": "^0.25.0",
+    "xstream": "^11.7.0"
+  },
+  "ava": {
+    "failWithoutAssertions": false,
+    "require": [
+      "babel-register"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@ava/stage-4"
+    ]
+  }
+}

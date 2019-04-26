@@ -1,0 +1,320 @@
+---
+title: "Study ExpressJs Server"
+date: 2018-10-23T16:57:51+03:00
+draft: true
+description: ""
+tags: ramdajs
+categories: js, fp
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+path: ~/projects/study/js/study_expressjs_server.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_expressjs_server/
+
+``` bash
+mkdir -p ex/study_expressjs_server && cd $_ && npm init -y && pnpm i express
+``` 
+
+## e01: Getting Started
+
+Tutorial from: https://expressjs.com/en/starter/hello-world.html
+
+`package.json`
+
+``` js
+    "e01": "node e01/server.js",
+``` 
+
+Edit `~/projects/study/js/ex/study_expressjs_server/e01/server.js`
+
+``` js
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.get('/', (req, res) => res.send('Hello World!'))
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+``` 
+
+Run server
+
+``` bash
+npm run e01
+``` 
+
+Open http://localhost:3000
+
+## e03: POST and Parse
+
+Tutorial from https://codeforgeek.com/2014/09/handle-get-post-request-express-4/
+
+Run server
+
+``` bash
+npm run e03
+``` 
+
+``` bash
+pnpm i body-parser
+``` 
+
+Edit `~/projects/study/js/ex/study_expressjs_server/e03/server.js`
+
+``` js
+var bodyParser     =         require("body-parser");
+var app            =         express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.get('/',function(req,res){
+  res.sendfile("index.html");
+});
+app.post('/login',function(req,res){
+  var user_name=req.body.user;
+  var password=req.body.password;
+  console.log("User name = "+user_name+", password is "+password);
+  res.end("yes");
+});
+``` 
+
+Edit `~/projects/study/js/ex/study_expressjs_server/e03/index.html`
+
+``` js
+      $(document).ready(function(){
+        var user,pass;
+        $("#submit").click(function(){
+          user=$("#user").val();
+          pass=$("#password").val();
+          $.post("http://localhost:3000/login",{user: user,password: pass}, function(data){
+            if(data==='done')
+              {
+                alert("login success");
+              }
+          });
+        });
+      });
+``` 
+
+``` bash
+npm run e03
+``` 
+
+Test it:
+
+Opt01: Open file:///Users/mertnuhoglu/projects/study/js/ex/study_expressjs_server/e03/index.html inside browser.
+
+### Opt02: Test with curl:
+
+``` bash
+curl -X POST -H "Content-Type: application/json" -d '{"user":"bob", "password": "ali"}' http://localhost:3000/login
+``` 
+
+### Opt03: Use js with `superagent`
+
+``` bash
+pnpm i superagent
+``` 
+
+Edit `~/projects/study/js/ex/study_expressjs_server/e03/superagent03.js`
+
+``` js
+superagent
+  .post( 'http://localhost:3000/login' )
+	.set('Content-Type', 'application/json')
+	.send('{"user":"bob", "password": "ali"}')
+``` 
+
+``` bash
+node e03/superagent03.js
+``` 
+
+Server gives the following console output:
+
+		User name = bob, password is ali
+
+### Opt03b: Pass send arguments as js object:
+
+Edit `~/projects/study/js/ex/study_expressjs_server/e03/superagent03b.js`
+
+``` js
+	.send({user:"bob", password: "ali"})
+``` 
+
+``` bash
+node e03/superagent03b.js
+``` 
+
+### Opt04: Use cyclejs 
+
+``` bash
+cd ex/study_expressjs_server/ 
+pnpm i xstream @cycle/run @cycle/dom @cycle/http
+``` 
+
+Edit `~/projects/study/js/ex/study_expressjs_server/e03/cycle01.js`
+
+``` js
+      url: 'http://localhost:3000/login',
+      method: 'POST',
+			send: '{"user":"bob", "password": "ali"}',
+			category: 'express'
+``` 
+
+``` bash
+node e03/cycle01.js
+``` 
+
+Server gives the following console output:
+
+		User name = undefined, password is undefined
+
+Is this due to argument handling in server side `~/projects/study/js/ex/study_expressjs_server/e03/server.js`?
+
+``` js
+  var user_name=req.body.user;
+  var password=req.body.password;
+``` 
+
+But superagent works well.
+
+Let's put `Content-Type` explicitly in `~/projects/study/js/ex/study_expressjs_server/e03/cycle02.js`
+
+``` js
+      url: 'http://localhost:3000/login',
+      method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			send: '{"user":"bob", "password": "ali"}',
+			category: 'express'
+``` 
+
+Now it works as expected:
+
+``` bash
+node e03/cycle01.js
+``` 
+
+		User name = bob, password is ali
+
+### Opt04b: Arguments as js objects in cyclejs
+
+Edit `~/projects/study/js/ex/study_expressjs_server/e03/cycle01b.js`
+
+``` js
+			send: {user:"bob", password: "ali"},
+``` 
+
+``` bash
+node e03/cycle01b.js
+``` 
+
+It works.
+
+## e04: File Attach Upload 
+
+Tutorial from: https://github.com/expressjs/multer
+
+``` bash
+pnpm i multer cors
+``` 
+
+Edit `~/projects/study/js/ex/study_expressjs_server/e04/server.js`
+
+Edit `~/projects/study/js/ex/study_expressjs_server/e04/index.html`
+
+Test with curl 
+
+``` bash
+curl -i -X POST -H "Content-Type: multipart/form-data" -F "avatar=@/Users/mertnuhoglu/projects/study/js/ex/study_expressjs_server/img/galileo.jpg" http://localhost:3000/profile
+``` 
+
+``` js
+$ ls  uploads
+cefb8ee2439642b7409b7a9f80d51935
+``` 
+
+Test with superagent:
+
+Edit `~/projects/study/js/ex/study_expressjs_server/e04/superagent01.js`
+
+``` bash
+superagent.post( 'http://localhost:3030/profile' )
+	.set('Content-Type', 'multipart/form-data')
+  .attach('avatar', '/Users/mertnuhoglu/projects/study/js/ex/study_expressjs_server/img/galileo.jpg')
+``` 
+
+``` bash
+node e04/superagent01.js
+``` 
+
+``` js
+$ ls  uploads
+4afe8690171893efc6a7d4ef36d569b5
+cefb8ee2439642b7409b7a9f80d51935
+``` 
+
+Test with cyclejs: Not related to this tutorial. Done elsewhere
+
+		Ref: <url:/Users/mertnuhoglu/projects/study/db/study_postgrest.Rmd#tn=#### Opt02: Use Cyclejs to send file using attach.name>
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p13/ex04.js`
+
+``` bash
+      url: 'http://localhost:4500/echo2',
+      method: 'POST',
+			attach: [
+				{
+					name: 'upload',
+					path: '/Users/mertnuhoglu/projects/study/r/ex/study_plumber_restful_apis/e01.R',
+					filename: 'e01.R'
+				}
+			],
+``` 
+
+## e05: File Attach Upload 02
+
+Tutorial from: https://github.com/chybie/file-upload-express
+
+``` bash
+git clone
+cd /Users/mertnuhoglu/codes/js/file-upload-express
+pnpm i
+yarn start
+``` 
+
+``` bash
+curl -i -X POST -H "Content-Type: multipart/form-data" -F "avatar=@/Users/mertnuhoglu/projects/study/js/ex/study_expressjs_server/img/galileo.jpg" http://localhost:3030/profile
+
+'# HTTP/1.1 100 Continue
+'# HTTP/1.1 200 OK
+'# X-Powered-By: Express
+'# Access-Control-Allow-Origin: *
+'# Content-Type: application/json; charset=utf-8
+'# Content-Length: 83
+'# ETag: W/"53-cgvxJhRPRIMestHgpFhD5OVG3uw"
+'# Date: Wed, 24 Oct 2018 09:58:01 GMT
+'# Connection: keep-alive
+
+'# {"id":1,"fileName":"47b7b977250abb1436cc285846057368","originalName":"galileo.jpg"}
+``` 
+
+The uploaded file is here:
+
+``` bash
+$ ls /Users/mertnuhoglu/codes/js/file-upload-express/uploads/
+47b7b977250abb1436cc285846057368
+db.json
+``` 
+

@@ -1,0 +1,12 @@
+version: '2'
+services:
+
+  openresty:
+    image: openresty/openresty:jessie
+    ports:
+      - "80:80"
+    volumes:
+      - ./conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - ./lualib/user_code:/usr/local/openresty/lualib/user_code
+      - ./conf/includes:/usr/local/openresty/nginx/conf/includes
+

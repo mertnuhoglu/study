@@ -1,0 +1,565 @@
+---
+title: "Examples Bash"
+date: 2018-12-22T10:44:48+03:00 
+draft: true
+description: ""
+tags:
+categories: bash
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/examples_bash.Rmd
+state: wip
+---
+
+## sed a sql file and run it with psql
+
+``` bash
+cd ~/BQ-data-run/datarun
+sed -e 's/data_20181217/data_20181220/g' -e 's/data_20181202/data_20181219/g' concatenate_sep_data.sql > concatenate_sep_data_20181220.sql
+psql -f ./concatenate_sep_data_20181220.sql
+``` 
+
+### 01. Pull all time info from log files into one file
+
+Give relative end range:
+
+``` R
+sed -n '/proc.time/,+2 p;$q' 10_generate_bq_numbers.R.log
+sed -n '/proc.time/,+2 p;$q' *.R.log 
+  ##> > proc.time()
+  ##>     user   system  elapsed
+  ##>    0.924    0.056 1030.983
+  ##> > proc.time()
+  ##>     user   system  elapsed
+  ##>    0.716    0.044 1383.123
+``` 
+
+## sshpass for passwordless scp and ssh 
+
+``` bash
+sshpass -p bizqualify1 scp ./$file_all root@ftp1.bizqualify.com:/home/bloomberg/
+scp awsbzq:~/bizqualify_data/zoom_data_extract_20181220.csv ./log
+scp awsbzq:~/BQ-data-run/log/postgresqltuner.log ../log
+scp "/Users/mertnuhoglu/projects/bizqualify/data_bizqualify/BizQualify_v6_4_complete data dictionary_current_with financials__Dec 2018.xlsx" awsbzq:~/bizqualify_data/
+``` 
+
+## ftp to upload 
+
+Use ftp to upload a file:
+
+``` sql
+lftp sftp://bizqualify:$pass@sftp.bloomberg.com  -e "put $file_all; bye"
+``` 
+
+# mount a disk/volume 
+
+You can check which volumes have been mounted with. The following will list them all:
+
+``` bash
+sudo lsblk --output NAME,TYPE,SIZE,FSTYPE,MOUNTPOINT,LABEL
+  ##> NAME    TYPE   SIZE FSTYPE MOUNTPOINT LABEL
+  ##> xvda    disk     2T
+  ##> └─xvda1 part     2T ext4   /          cloudimg-rootfs
+  ##> xvdb    disk 152.6G ext3   /mnt
+  ##> xvdc    disk 152.6G ext3
+  ##> xvdf    disk   1.5T
+  ##> └─xvdf1 part   750G ext4              cloudimg-rootfs
+``` 
+
+mount device to `/mnt/`
+
+``` bash
+sudo mount /dev/xvdf1 /mnt/
+``` 
+
+``` bash
+df -H
+  ##> Filesystem      Size  Used Avail Use% Mounted on
+  ##> udev             16G     0   16G   0% /dev
+  ##> tmpfs           3.2G  9.1M  3.2G   1% /run
+  ##> /dev/xvda1      2.1T  883M  2.1T   1% /
+  ##> tmpfs            16G     0   16G   0% /dev/shm
+  ##> tmpfs           5.3M     0  5.3M   0% /run/lock
+  ##> tmpfs            16G     0   16G   0% /sys/fs/cgroup
+  ##> /dev/xvdf1      781G  740G   41G  95% /mnt
+  ##> tmpfs           3.2G     0  3.2G   0% /run/user/1000
+``` 
+
+## format external disk 
+
+Check volume name:
+
+``` bash
+sudo lsblk --output NAME,TYPE,SIZE,FSTYPE,MOUNTPOINT,LABEL
+  ##> NAME    TYPE  SIZE FSTYPE MOUNTPOINT LABEL
+  ##> xvda    disk  750G
+  ##> └─xvda1 part  750G ext4   /          cloudimg-rootfs
+  ##> xvdf    disk    2T
+``` 
+
+Format the disk
+
+``` bash
+sudo file -s /dev/xvdf
+  ##> /dev/xvdf: data
+sudo mkfs -t ext4 /dev/xvdf
+``` 
+
+# aws ec2
+
+## get volume id and instance id 
+
+Get volume id of `bzqdb` and instance id of `bzq02` https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-volumes.html
+
+``` bash
+aws ec2 describe-volumes --filters Name=tag:Name,Values=bzqdb | jq '.Volumes[].VolumeId'
+  ##> "vol-01dbb839dedafbee9"
+aws ec2 describe-instances --filters Name=tag:Name,Values=bzq02 | jq '.Reservations[].Instances[].InstanceId'
+  ##> "i-027ae2359c7142343"
+``` 
+
+## create and attach an EBS disk volume to an EC2 instance
+
+Create a disk volume (EBS)
+
+``` bash
+aws ec2 create-volume --size 2000 --region us-west-2 --availability-zone us-west-2c --volume-type gp2
+``` 
+
+Attach `bzqdb` to `bzq02`
+
+``` bash
+aws ec2 attach-volume --instance-id i-027ae2359c7142343 --volume-id vol-01dbb839dedafbee9 --device /dev/sdf
+``` 
+
+### 04.05. detach EBS volume `bzqdb` from instance `bzq02`
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-detaching-volume.html
+
+First unmount it:
+
+``` bash
+sudo umount -d /dev/xvdf
+``` 
+
+Detach it from `bzq02`
+
+``` bash
+aws ec2 detach-volume --instance-id i-027ae2359c7142343 --volume-id vol-01dbb839dedafbee9
+  ##> {
+  ##>     "AttachTime": "2018-12-21T14:10:01.000Z",
+  ##>     "InstanceId": "i-027ae2359c7142343",
+  ##>     "VolumeId": "vol-01dbb839dedafbee9",
+  ##>     "State": "detaching",
+  ##>     "Device": "/dev/sdf"
+  ##> }
+``` 
+
+### 04.06. new EC2 instance `bzq03`
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/request-spot-instances.html
+
+``` bash
+aws ec2 request-spot-instances --spot-price "" --type "one-time" --launch-specification file://xxx.json
+``` 
+
+### 04.13. terminate `bzq02` and delete its volumes
+
+``` bash
+aws ec2 terminate-instances --instance-ids i-027ae2359c7142343
+``` 
+
+Delete volumes of `bzq02` https://docs.aws.amazon.com/cli/latest/reference/ec2/delete-volume.html
+
+``` bash
+aws ec2 describe-volumes --filters Name=status,Values=available | jq '.Volumes[].VolumeId'
+  ##> "vol-011c509651643e1e2"
+  ##> "vol-03c829218b96efaf8"
+aws ec2 delete-volume --volume-id vol-011c509651643e1e2
+aws ec2 delete-volume --volume-id vol-03c829218b96efaf8
+``` 
+
+### 04.14. allocate elastic ip address
+
+What are existing elastic IP addresses?
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-addresses.html
+
+``` bash
+aws ec2 describe-addresses | jq '.Addresses[].PublicIp'
+  ##> "34.215.116.149"
+``` 
+
+Create (allocate) a new IP address if there is no existing address:
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/allocate-address.html
+
+``` bash
+aws ec2 allocate-address
+``` 
+
+Associate IP address to `bzq03` https://docs.aws.amazon.com/cli/latest/reference/ec2/associate-address.html
+
+``` bash
+aws ec2 associate-address --instance-id i-03317e7025b6e7aaf --public-ip 34.215.116.149
+  ##> {
+  ##>     "AssociationId": "eipassoc-01455bc9e2ae30426"
+  ##> }
+``` 
+
+### 04.10. symlink `bzq03` home dir to `bzqdb` dirs
+
+``` bash
+ln -s /data/home/bizqualify_data/ /home/ubuntu/bizqualify_data
+ln -s /data/home/backup/ /home/ubuntu/backup
+``` 
+
+### 04.15. change .ssh config settings
+
+Update `~/.ssh/config`
+
+``` text
+Host awsbzq
+Hostname ec2-34-215-116-149.us-west-2.compute.amazonaws.com
+User ubuntu
+IdentityFile ~/.ssh/bizqualify.pem
+``` 
+
+Update `~/.ssh/known_hosts`
+
+Delete `34.215.116.149` from it.
+
+Now, connect again.
+
+``` bash
+ssh awsbzq
+``` 
+
+# create a new user
+
+https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps
+https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04#step-four-
+
+``` bash
+# change mertnuhoglu with your username
+adduser mertnuhoglu
+usermod -aG sudo mertnuhoglu
+su - mertnuhoglu
+mkdir ~/.ssh
+chmod 700 ~/.ssh
+# run on localhost
+cat ~/.ssh/id_rsa.pub | ssh root@[ip] "cat >> /home/mertnuhoglu/.ssh/authorized_keys"
+sudo vim /etc/ssh/sshd_config
+	PermitRootLogin without-password
+``` 
+
+# install apps 
+
+## setup docker and docker-compose
+
+``` bash
+# docker setup
+# from: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+# enter password
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+apt-cache policy docker-ce
+sudo apt-get install -y docker-ce
+sudo systemctl status docker
+sudo usermod -aG docker ${USER}
+su - ${USER}
+# enter password
+id -nG
+
+# docker-compose
+# from: 
+sudo curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.15.0/docker-compose-$(uname -s)-$(uname -m)"
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose -v
+# logoff login
+
+``` 
+
+## setup postgres
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04
+
+``` bash
+sudo apt-get update
+sudo apt-get -y install postgresql postgresql-contrib
+sudo apt-get -y install postgresql-client
+``` 
+
+## setup R
+
+https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-16-04-2
+
+``` bash
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+sudo add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial/'
+sudo apt-get update
+sudo apt-get -y install r-base
+``` 
+
+Install R packages
+
+``` bash
+sudo apt-get -y install libpq-dev
+sudo apt-get -y install libcurl4-openssl-dev
+sudo -i R -e 'install.packages(c("RPostgreSQL","doMC","data.table","scales","tidyverse"), dep=TRUE)'
+``` 
+
+## setup google cloud storage cli
+
+https://cloud.google.com/storage/docs/gsutil_install#deb
+
+``` bash
+export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update && sudo apt-get -y install google-cloud-sdk
+gcloud init
+# password
+# you need to authenticate in your own browser using your google password
+``` 
+
+## setup common utilities
+
+``` bash
+sudo add-apt-repository ppa:aacebedo/fasd
+sudo apt-get update
+sudo apt-get -y install fasd
+
+sudo apt-get -y install tmux
+curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
+sudo dpkg -i ripgrep_0.10.0_amd64.deb
+sudo apt install sshpass
+sudo apt install rg
+``` 
+
+## tmux
+
+``` bash
+tmux new -s t0
+tmux attach -d -t t0
+``` 
+
+## logs
+
+``` bash
+# check logs
+cd ~/bizqualify_log/$data_run_date
+tail -f 02_ingestion.R.log
+``` 
+
+## disk usage
+
+``` bash
+# check disk usage of the system
+df -H
+``` 
+
+Sizes of the directories below home directory:
+
+``` bash
+du -h $HOME | sort -rh | head
+  ##> 190G    /home/ubuntu
+  ##> 176G    /home/ubuntu/bizqualify_data
+  ##> 98G     /home/ubuntu/bizqualify_data/raw
+  ##> 81G     /home/ubuntu/bizqualify_data/raw/smarty_street/bizqualify_smarty_street
+  ##> 81G     /home/ubuntu/bizqualify_data/raw/smarty_street
+  ##> 14G     /home/ubuntu/bizqualify_data/clean
+  ##> 11G     /home/ubuntu/BQ-data-run
+  ##> 7.9G    /home/ubuntu/bizqualify_data/raw/20181202
+  ##> 7.8G    /home/ubuntu/bizqualify_data/raw/20181115_v4
+  ##> 6.8G    /home/ubuntu/bizqualify_data/clean/20181202
+```
+
+Total free disk space on file system:
+
+``` r
+df -H
+  ##> Filesystem      Size  Used Avail Use% Mounted on
+  ##> udev            136G     0  136G   0% /dev
+  ##> tmpfs            28G   18M   28G   1% /run
+  ##> /dev/xvda1      781G  679G  103G  87% /
+  ##> tmpfs           136G  4.1k  136G   1% /dev/shm
+  ##> tmpfs           5.3M     0  5.3M   0% /run/lock
+  ##> tmpfs           136G     0  136G   0% /sys/fs/cgroup
+  ##> tmpfs            28G     0   28G   0% /run/user/1000
+```
+
+Database size:
+
+``` sql
+SELECT d.datname AS Name,  pg_catalog.pg_get_userbyid(d.datdba) AS Owner,
+    CASE WHEN pg_catalog.has_database_privilege(d.datname, 'CONNECT')
+        THEN pg_catalog.pg_size_pretty(pg_catalog.pg_database_size(d.datname))
+        ELSE 'No Access'
+    END AS SIZE
+FROM pg_catalog.pg_database d
+    ORDER BY
+    CASE WHEN pg_catalog.has_database_privilege(d.datname, 'CONNECT')
+        THEN pg_catalog.pg_database_size(d.datname)
+        ELSE NULL
+    END DESC -- nulls first
+    LIMIT 20;
+  ##>     name    |  owner   |  size
+  ##> ------------+----------+---------
+  ##>  bizqualify | postgres | 438 GB
+  ##>  postgres   | postgres | 7000 kB
+  ##>  template1  | postgres | 6857 kB
+  ##>  template0  | postgres | 6857 kB
+```
+
+And this command checks the biggest relations (tables):
+
+``` r
+SELECT nspname || '.' || relname AS "relation",
+    pg_size_pretty(pg_relation_size(C.oid)) AS "size"
+  FROM pg_class C
+  LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace)
+  WHERE nspname NOT IN ('pg_catalog', 'information_schema')
+  ORDER BY pg_relation_size(C.oid) DESC
+  LIMIT 20;
+  ##>                     relation                    |  size
+  ##> ------------------------------------------------+---------
+  ##>  data_20181202.clean_variables                  | 21 GB
+  ##>  data_20181115.all_data                         | 17 GB
+``` 
+
+Size of schema
+
+``` sql
+CREATE OR REPLACE FUNCTION pg_schema_size(text) RETURNS BIGINT AS $$
+SELECT SUM(pg_total_relation_size(quote_ident(schemaname) || '.' || quote_ident(tablename)))::BIGINT FROM pg_tables WHERE schemaname = $1
+$$ LANGUAGE SQL;
+SELECT pg_size_pretty(pg_schema_size('data_20181115_v3b'));
+  ##>  pg_size_pretty
+  ##> ----------------
+  ##>  71 GB
+``` 
+
+
+## gsutil
+
+``` bash
+gsutil ls gs://bizqualify_all_data
+``` 
+
+make a bucket (dir)
+
+``` bash
+gsutil mb gs://bizqualify_ian_data
+gsutil ls gs://bizqualify_ian_data/*
+  ##> gs://bizqualify_ian_data/all_data.csv
+  ##> gs://bizqualify_ian_data/industries.csv
+  ##> gs://bizqualify_ian_data/sectors.csv
+``` 
+
+``` bash
+gsutil cp -r gs://bizqualify_common_files/ /mnt/volume_nyc1_01/bizqualify_data/raw/common
+``` 
+
+``` bash
+gsutil cp gs://bizqualify_all_data/data_${previous_data_run_date}_ts.csv .
+``` 
+
+``` bash
+gsutil mv gs://bizqualify_clients/hbk gs://bizqualify_clients/hbk0
+``` 
+
+## head
+
+``` bash
+head -n 1 bq_hedge_funds_all_data_deltas_20181115.csv >> filtered.csv
+``` 
+
+``` bash
+head -n 1 bq_hedge_funds_all_data_20181115.csv > filtered.csv
+rg -FS "PRA" bq_hedge_funds_all_data_20181115.csv >> filtered.csv
+``` 
+
+Make sample files for them as they are too big.
+
+``` bash
+head -n 100 data_20181027_ts.csv > data_20181027_ts_sample.csv
+head -n 1 data_20181001_ts_sample.csv | grep bq_company_legal_name_expanded
+	##> exists
+head -n 1 data_20181027_ts_sample.csv | grep bq_company_legal_name_expanded
+	##> not exists
+``` 
+
+## rg
+
+Fixed word search:
+
+``` bash
+rg -FS "4.58e" data_20181115_ts.csv
+rg -vFS "IESC" filter_458e_v2.csv | wc -l # 0
+``` 
+
+Exclusion with glob pattern:
+
+``` bash
+$ rg -l -g !'*.html' lftp
+bash/examples_bash.Rmd
+bash/study_bash.Rmd
+``` 
+
+## bq
+
+``` bash
+bq query 'select count(*) from `bigquery-public-data.samples.shakespeare`'
+``` 
+
+Check if there is any table similar in BQ:
+
+``` sql
+SELECT * 
+FROM publicdata.samples.__TABLES__
+WHERE starts_with(table_id, 'bq_hedge')
+```
+
+``` bash
+SELECT * FROM [bizqualify:bq_data.data_20181115_ts] WHERE bq_cusip = '69354M108' LIMIT 1000;
+``` 
+
+## other
+
+### lftp 
+
+``` bash
+lftp sftp://username:pass@sftp.domain.com -e 'set sftp:connect-program "ssh -a -x -i /home/ubuntu/.ssh/id_rsa"'
+``` 
+
+``` bash
+put florida_universe_twosigma_20180702.csv
+put florida_universe_twosigma_20170818.csv
+``` 
+
+### tee
+
+``` bash
+# pipe output to pbcopy and to stdout
+echo 'hello' | tee >(pbcopy)
+``` 
+
+### multiline echo 
+
+``` bash
+__text="
+c.NotebookApp.allow_origin = '*' #allow all origins
+c.NotebookApp.ip = '0.0.0.0' # listen on all IPs
+"
+echo "$__text" >> /home/ubuntu/.jupyter/jupyter_notebook_config.py
+``` 
+

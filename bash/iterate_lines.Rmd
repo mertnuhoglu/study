@@ -1,0 +1,34 @@
+---
+title: "Iterate Lines"
+date: 2019-04-22T15:36:48+03:00 
+draft: true
+description: ""
+tags:
+categories: bash
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/iterate_lines.Rmd
+state: wip
+---
+
+## Ex01: while loop
+
+https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash
+
+``` bash
+# ':' is the delimiter here, and there are three fields on each line in the file
+# IFS set below is restricted to the context of `read`, it doesn't affect any other code
+while IFS=: read -r field1 field2 field3; do
+  # process the fields
+  # if the line has less than three fields, the missing fields will be set to an empty string
+  # if the line has more than three fields, `field3` will get all the values, including the third field plus the delimiter(s)
+done < input.txt
+``` 
+

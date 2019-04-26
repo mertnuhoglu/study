@@ -17,4 +17,9 @@ const data = {
 R.map(([k, v]) => global[k] = v, R.toPairs(R));
 const fn = compose(toPairs);
 console.log(fn(data));
-// [ [ 'group1-perm1', true ], ... ]
+// [ [ 'group1-perm1', true ],
+//   [ 'group1-perm2', false ],
+//   [ 'group2-perm1', false ],
+//   [ 'group2-perm2', true ],
+//   [ 'perm3', true ],
+//   [ 'perm4', false ] ]

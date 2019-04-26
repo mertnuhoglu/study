@@ -1,0 +1,1122 @@
+---
+title: "Study Openresty"
+date: 2019-01-02T14:51:52+03:00 
+draft: false
+description: ""
+tags:
+categories: aws
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/code/study_openresty.Rmd
+---
+
+## ex01: Run a Basic OpenResty Server
+
+``` bash
+mkdir -p ex/study_openresty/openresty01
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/openresty01/docker-compose.yml`
+
+``` yml
+  openresty:
+    image: openresty/openresty:jessie
+    ports:
+      - "80:80"
+``` 
+
+``` bash
+curl -Is http://localhost/
+  ##> HTTP/1.1 200 OK
+  ##> Server: openresty/1.13.6.1
+  ##> Date: Wed, 02 Jan 2019 12:03:24 GMT
+``` 
+
+Check conf file:
+
+``` bash
+docker exec openresty01_openresty_1 nginx -v
+  ##> nginx version: openresty/1.13.6.1
+docker exec openresty01_openresty_1 cat /etc/nginx/conf.d/default.conf
+docker exec openresty01_openresty_1 ls /usr/local/openresty/nginx/html
+  ##> 50x.html
+  ##> index.html
+``` 
+
+## ex02: Custom default.conf file
+
+``` bash
+cp -R openresty01 openresty02
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/openresty02/docker-compose.yml`
+
+``` yml
+...
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/openresty02/default.conf`
+
+``` nginx
+server {
+    listen       80;
+    server_name  localhost;
+
+    #charset koi8-r;
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    location / {
+        root   /usr/local/openresty/nginx/html;
+        index  index.html index.htm;
+    }
+``` 
+
+``` bash
+docker-compose up
+curl -Is http://localhost/ | head -n1
+  ##> HTTP/1.1 200 OK
+``` 
+
+## ex03: Custom conf files 
+
+``` bash
+cp -R openresty01 openresty03
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/openresty03/docker-compose.yml`
+
+``` yml
+...
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/openresty03/conf.d/nginx.conf`
+
+``` nginx
+server {
+	location /a {
+		root   /usr/local/openresty/nginx/html;
+		index  index.html index.htm;
+	}
+}
+``` 
+
+``` bash
+docker-compose up
+curl -Is http://localhost/a | head -n1
+  ##> HTTP/1.1 404 Not Found
+``` 
+
+		openresty_1  | 2019/01/02 17:12:22 [error] 6#6: *1 open() "/usr/local/openresty/nginx/html/a" failed (2: No such file or directory), client: 192.168.0.1, server: , request: "HEAD /a HTTP/1.1", host: "localhost"
+
+## ex04: Volume binding for html files
+
+``` bash
+cp -R openresty03 openresty04
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/openresty04/docker-compose.yml`
+
+``` yml
+...
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./html:/usr/local/openresty/nginx/html
+``` 
+
+``` bash
+mkdir -p openresty04/html
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/openresty04/html/a`
+
+``` text
+Ok
+``` 
+
+``` bash
+docker-compose up
+curl -Is http://localhost/a | head -n1
+  ##> empty
+curl -Is http://localhost/ | head -n1
+  ##> empty
+curl -s http://localhost/ 
+  ##> empty
+``` 
+
+Check files in html directory:
+
+``` bash
+docker exec openresty04_openresty_1 ls /usr/local/openresty/nginx/html
+  ##> a
+  ##> a.html
+``` 
+
+So, html folder inside container is overwritten by host html folder:
+
+``` bash
+ls openresty04/html
+  ##> a      a.html
+``` 
+
+## ex05: custom location for /a and /
+
+``` bash
+cp -R openresty04 openresty05
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/openresty05/docker-compose.yml`
+
+``` yml
+...
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./html:/usr/local/openresty/nginx/html
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/openresty05/conf.d/nginx.conf`
+
+``` nginx
+location / {
+		root   /usr/local/openresty/nginx/html;
+		index  index.html index.htm;
+}
+location /a {
+		root   /usr/local/openresty/nginx/html;
+		index  a;
+}
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/openresty05/html/index.html`
+
+``` bash
+Ok index
+``` 
+
+``` bash
+docker-compose up
+curl -Is http://localhost/a | head -n1
+``` 
+
+Error
+
+		openresty_1  | nginx: [emerg] "location" directive is not allowed here in /etc/nginx/conf.d/nginx.conf:1
+
+
+## Tutorial01: Definitely an openresty guide
+
+Following http://www.staticshin.com/programming/definitely-an-open-resty-guide/
+
+All examples inside `/Users/mertnuhoglu/projects/study/code/ex/study_openresty/tut01`
+
+### Ex01: Hello World
+
+``` bash
+mkdir tut01
+cd $_
+mkdir logs
+mkdir conf
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex01/conf/nginx.conf`
+
+``` nginx
+worker_processes  1;
+error_log logs/error.log;
+events {
+  worker_connections 1024;
+}
+http {
+  server {
+		listen 8080;
+		location / {
+			default_type text/html;
+			content_by_lua ' ngx.say("<p>hello, world</p>") ';
+		}
+	}
+}
+``` 
+
+Use openresty docker
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex01/docker-compose.yml`
+
+``` yml
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/conf.d/default.conf
+``` 
+
+I got an error:
+
+		openresty_1  | nginx: [emerg] "worker_processes" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+
+Check `worker_processes` directive in previous conf files.
+
+#### opt01: /etc/nginx/nginx.conf
+
+``` bash
+cp -R ex01 ex01a
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex01a/docker-compose.yml`
+
+``` yml
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf
+``` 
+
+``` bash
+curl -Is http://localhost:80/
+  ##> HTTP/1.1 200 OK
+``` 
+
+But the response is not expected. 
+
+#### Check docker image openresty files
+
+``` bash
+docker exec ex01a_openresty_1 ls /etc/nginx
+  ##> conf.d
+  ##> nginx.conf
+docker exec ex01a_openresty_1 ls /etc/nginx/conf.d
+  ##> default.conf
+docker exec ex01a_openresty_1 cat /etc/nginx/conf.d/default.conf
+  ##> server {
+  ##>     listen       80;
+  ##>     server_name  localhost;
+  ##> 
+  ##>     #charset koi8-r;
+  ##>     #access_log  /var/log/nginx/host.access.log  main;
+  ##> 
+  ##>     location / {
+  ##>         root   /usr/local/openresty/nginx/html;
+  ##>         index  index.html index.htm;
+  ##>     }
+``` 
+
+Restart openresty with no custom volumes
+
+``` bash
+cp -R ex01 ex01b
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex01b/docker-compose.yml`
+
+``` bash
+  openresty:
+    image: openresty/openresty:jessie
+    ports:
+      - "80:80"
+``` 
+
+``` bash
+docker exec ex01b_openresty_1 ls /etc/nginx
+  ##> conf.d
+docker exec ex01b_openresty_1 ls /etc/nginx/conf.d
+  ##> default.conf
+docker exec ex01b_openresty_1 cat /etc/nginx/conf.d/default.conf
+  ##> server {
+  ##>     listen       80;
+  ##>     server_name  localhost;
+  ##> 
+  ##>     location / {
+  ##>         root   /usr/local/openresty/nginx/html;
+  ##>         index  index.html index.htm;
+  ##>     }
+  ##> 
+  ##>     error_page   500 502 503 504  /50x.html;
+  ##>     location = /50x.html {
+  ##>         root   /usr/local/openresty/nginx/html;
+  ##>     }
+  ##> }
+docker exec ex01b_openresty_1 cat /usr/local/openresty/nginx/html/index.html
+  ##> <h1>Welcome to OpenResty!</h1>
+  ##> <p>If you see this page, the OpenResty web platform is successfully installed and
+  ##> working. Further configuration is required.</p>
+``` 
+
+Check other volume bindings from psk docker-compose.yml in `~/projects/itr/vrp_psk01/docker-compose.yml`
+
+``` bash
+    volumes:
+      - "./openresty/entrypoint.sh:/entrypoint.sh"
+      - "./openresty/nginx/conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf"
+      - "./openresty/nginx/conf/includes:/usr/local/openresty/nginx/conf/includes"
+      - "./openresty/nginx/html:/usr/local/openresty/nginx/html"
+      - "./openresty/lualib/user_code:/usr/local/openresty/lualib/user_code"
+``` 
+
+``` bash
+docker exec ex01b_openresty_1 ls /
+  ##> ...
+docker exec ex01b_openresty_1 cat /entrypoint.sh
+  ##> cat: /entrypoint.sh: No such file or directory
+docker exec ex01b_openresty_1 cat /usr/local/openresty/nginx/conf/nginx.conf
+  ##> #user  nobody;
+  ##> worker_processes  1;
+  ##> 
+  ##> #error_log  logs/error.log;
+  ##> #error_log  logs/error.log  notice;
+  ##> #error_log  logs/error.log  info;
+  ##> 
+  ##> #pid        logs/nginx.pid;
+  ##> 
+  ##> 
+  ##> events {
+  ##>     worker_connections  1024;
+  ##> }
+  ##> 
+  ##> 
+  ##> http {
+  ##>     include       mime.types;
+  ##>     default_type  application/octet-stream;
+  ##> 
+  ##>     #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+  ##>     #                  '$status $body_bytes_sent "$http_referer" '
+  ##>     #                  '"$http_user_agent" "$http_x_forwarded_for"';
+  ##> 
+  ##>     #access_log  logs/access.log  main;
+  ##> 
+  ##>     sendfile        on;
+  ##>     #tcp_nopush     on;
+  ##> 
+  ##>     #keepalive_timeout  0;
+  ##>     keepalive_timeout  65;
+  ##> 
+  ##>     #gzip  on;
+  ##> 
+  ##>     include /etc/nginx/conf.d/*.conf;
+  ##> }
+docker exec ex01b_openresty_1 ls /usr/local/openresty/nginx/conf
+  ##> nginx.conf
+  ##> nginx.conf.default
+docker exec ex01b_openresty_1 ls /usr/local/openresty/nginx/conf/includes
+  ##> No such file or directory
+docker exec ex01b_openresty_1 ls /usr/local/openresty/nginx/html
+  ##> 50x.html
+  ##> index.html
+docker exec ex01b_openresty_1 ls /usr/local/openresty/nginx/
+  ##> conf
+  ##> fastcgi_temp
+  ##> html
+  ##> logs
+  ##> modules
+``` 
+
+### opt02: /usr/local/openresty/nginx/conf/nginx.conf
+
+``` bash
+cp -R ex01 ex01c
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex01c/conf/nginx.conf`
+
+``` nginx
+worker_processes  1;
+error_log logs/error.log;
+events {
+  worker_connections 1024;
+}
+http {
+  server {
+		listen 8080;
+		location / {
+			default_type text/html;
+			content_by_lua '
+				ngx.say("<p>hello, world</p>")
+			';
+		}
+	}
+}
+``` 
+
+Use openresty docker
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex01c/docker-compose.yml`
+
+``` yml
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/conf.d/default.conf
+``` 
+
+``` bash
+curl http://localhost:80/
+  ##> <p>hello, world</p>
+``` 
+
+Change `nginx.conf`
+
+``` bash
+docker exec ex01c_openresty_1 nginx -s reload
+``` 
+
+``` bash
+curl http://localhost:80/
+  ##> <p>hello, world</p>
+  ##> <p>merhaba</p>
+``` 
+
+### Directives
+
+Directive = command 
+
+Two types of directives:
+
+- Simple
+- Block level
+
+``` bash
+location / {             # block level directive
+	proxy_pass htt://...   # simple directive
+}
+``` 
+
+#### Openresty Directives
+
+##### `lua_code_cache`
+
+Turn caching off during development phase
+
+Do `nginx -s reload` over and over again
+
+###### Ex02: `lua_code_cache` and `content_by_lua_file`
+
+``` bash
+cp -R ex01c ex02
+``` 
+
+Where to put lua files?
+
+psk put them into 
+
+      - "./openresty/lualib/user_code:/usr/local/openresty/lualib/user_code"
+
+Where did it define lua search path?
+
+~/projects/itr/vrp_psk01/openresty/nginx/conf/includes/http/init_lua.conf
+
+		lua_package_path '${prefix}../lualib/user_code/?.lua;;';
+
+``` bash
+mkdir -p conf/includes/http
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex02/conf/nginx.conf`
+
+``` bash
+http {
+	include includes/http/*.conf;
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex02/conf/includes/http/init_lua.conf`
+
+``` bash
+lua_package_path '${prefix}../lualib/user_code/?.lua;;';
+init_by_lua_file '../lualib/user_code/init_phase.lua';
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex02/docker-compose.yml`
+
+``` bash
+      - "./openresty/nginx/conf/includes:/usr/local/openresty/nginx/conf/includes"
+      - "./openresty/lualib/user_code:/usr/local/openresty/lualib/user_code"
+``` 
+
+``` bash
+mkdir -p lualib/user_code
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex02/lualib/user_code/hello_world.lua`
+
+``` lua
+ngx.say("<p>Hello world from a lua file</p>");
+``` 
+
+Error: 
+
+		openresty_1  | 2019/01/04 14:58:38 [error] 1#1: init_by_lua_file error: cannot open /usr/local/openresty/nginx/../lualib/user_code/init_phase.lua: No such file or directory
+
+Delete from `~/projects/study/code/ex/study_openresty/tut01/ex02/conf/includes/http/init_lua.conf`
+
+		init_by_lua_file '../lualib/user_code/init_phase.lua';
+
+Error: 404 Not found 
+
+		$ curl http://localhost/by_file
+
+####### opt01: Less files
+
+``` bash
+cp -R ex02 ex02a
+cd ex02a
+mv lualib/user_code/hello_world.lua . 
+``` 
+
+No difference. Still 404 Error.
+
+Error:
+
+		openresty_1  | 2019/01/04 15:07:38 [error] 8#8: *1 failed to load external Lua file "/usr/local/openresty/nginx/./hello_world.lua": cannot open /usr/local/openresty/nginx/./hello_world.lua: No such file or directory, client: 192.168.144.1, server: , request: "GET /by_file HTTP/1.1", host: "localhost"
+
+``` bash
+docker exec ex02a_openresty_1 ls /usr/local/openresty/nginx
+  ##> html
+  ##> logs
+  ##> modules
+``` 
+
+####### opt02: Put lua files into nginx/ folder
+
+``` bash
+cp -R ex02a ex02b
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex02b/docker-compose.yml`
+
+``` bash
+      - ./lua:/usr/local/openresty/nginx/conf/lua
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex02b/conf/nginx.conf`
+
+``` bash
+			content_by_lua_file ./conf/lua/hello_world.lua; #update it with path to your lua file
+``` 
+
+``` bash
+mkdir -p lua
+mv hello_world.lua lua/
+``` 
+
+This works:
+
+``` bash
+docker-compose up
+curl http://localhost/by_file
+  ##> <p>Hello world from a lua file</p>
+``` 
+
+####### opt03: Don't use content_by_lua_file. Use content_by_lua_block instead
+
+openresty documentation doesn't recommend usage of content_by_lua_file: https://github.com/openresty/lua-nginx-module#content_by_lua
+
+		NOTE Use of this directive is discouraged following the v0.9.17 release. Use the content_by_lua_block directive instead.
+
+``` bash
+cp -R ex02b ex02c
+cd ex02c
+rm -rf lua
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex02c/conf/nginx.conf`
+
+``` nginx
+http {
+  server {
+		listen 80;
+		location /by_block {
+			default_type text/html;
+			lua_code_cache off; #only for development
+			content_by_lua_block {
+				ngx.say("<p>Hello world from a lua block</p>");
+			}
+		}
+	}
+}
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex02c/docker-compose.yml`
+
+``` bash
+    volumes:
+      - ./conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+``` 
+
+``` bash
+curl http://localhost/by_block
+  ##> <p>Hello world from a lua block</p>
+``` 
+
+##### `init_by_lua`
+
+Use of `init_by_lua` is discouraged by documentation. Use `init_by_lua_block` instead:
+
+		https://github.com/openresty/lua-nginx-module#init_by_lua
+
+###### Ex03: `init_by_lua_block`
+
+``` bash
+cp -R ex02c ex03
+cd ex03
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut01/ex03/conf/nginx.conf`
+
+``` bash
+		init_by_lua_block {
+			cjson = require("cjson") -- cjson is a global variable
+		}
+
+		location /one {
+			content_by_lua_block {
+				local validate = 3
+				decoded_one = cjson.decode({hello="world"}) --decoded_one is a global variable
+			}
+		}
+
+		location /two {
+			content_by_lua_block {
+				ngx.say(cjson.encode(decoded_one))
+			}
+		}
+``` 
+
+``` bash
+curl http://localhost/one
+  ##> 500 Error
+``` 
+
+Error:
+
+	content_by_lua(nginx.conf:20):3: Expected object key string but found invalid token at character 2
+
+## Tutorial: Building an API Gateway with Lua and Nginx
+
+Following https://yos.io/2016/01/28/building-an-api-gateway-with-lua-and-nginx/
+
+### API Gateway
+
+In microservices, there are some common functionalities like authentication, logging, rate-limiting.
+
+These functionalities are done by a central gateway/proxy. This pattern is called API Gateway.
+
+### Why OpenResty
+
+Source: https://www.staticshin.com/top-tens/things-about-openresty.html
+
+1. It is nginx
+
+	 It lets developers to program nginx, not only configure it.
+	
+2. fast
+
+3. Small memory requirement
+
+4. Lua
+
+	 Luajit is very fast and light.
+
+5. `*by_lua` directives
+
+For example: access_by_lua allows you to do lua processing during access phase of an nginx request. `rewrite_by_lua` allows you during nginx rewrite request phase.
+
+Learn more about [http request processing phases](http://www.nginxguts.com/2011/01/phases/)
+
+6. ngx.location.capture.multi
+
+proxy_pass allows to pass requests to different servers.  with location capture api you get a response from the proxied server in your code. so, you can have external services such as mailchimp, amazon. you can proxy them as your internal microservices.
+
+7. Simple application architecture
+
+### Minimum Viable Gateway
+
+Two core features: 
+
+- Routing
+- Request Transformation
+
+Running openresty: https://github.com/yosriady/openresty-quickstart.git
+
+## Tutorial02: Nginx Cookbook Chapter 12 OpenResty
+
+Following from the book Nginx Cookbook Chapter 12
+
+### Ex01:
+
+``` bash
+mkdir -p tut02
+cp -R tut01/ex03 tut02/ex01
+cd tut02/ex01
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut02/ex01/conf/nginx.conf`
+
+``` nginx
+		location /simpletest {
+			default_type 'text/plain';
+			content_by_lua_block {
+				ngx.say('hello earth')
+			}
+		}
+``` 
+
+``` bash
+curl http://localhost/simpletest
+  ##> hello earth
+``` 
+
+### Ex02: Json
+
+``` bash
+cp -R ex01 ex02
+cd ex02
+``` 
+
+Edit `~/projects/study/code/ex/study_openresty/tut02/ex02/conf/nginx.conf`
+
+``` nginx
+		location /simplejson {
+			default_type 'application/json';
+			content_by_lua_block {
+				local cjson = require "cjson.safe" 
+				ngx.say(cjson.encode({test="Encoded with CJSON",enabled=true}))
+			}
+		}
+``` 
+
+``` bash
+curl http://localhost/simplejson
+  ##> {"test":"Encoded with CJSON","enabled":true}
+``` 
+
+## Code Examples 01: beiyannanfei
+
+https://github.com/beiyannanfei/test/blob/e7c45217a8460d01c1076dc9d977494899dd83e8/SENSORO/macNginx/nginx_01.conf
+
+Usage of: `prox_pass`, `^~`
+
+``` nginx
+    server {
+        listen 6699;
+
+        location ^~ /mytest/ {      
+            proxy_pass http://127.0.0.1:5000/;
+        }
+
+        location / {
+            proxy_pass http://127.0.0.1:5000/;  
+        }
+    }
+``` 
+
+Usage of: `ngx.say`, `=`
+
+``` nginx
+        location = /test {
+            content_by_lua_block {
+                ngx.say("hello test");
+            }
+        }
+``` 
+
+https://github.com/beiyannanfei/test/blob/e7c45217a8460d01c1076dc9d977494899dd83e8/SENSORO/macNginx/nginx_02.conf
+
+https://github.com/beiyannanfei/test/blob/e7c45217a8460d01c1076dc9d977494899dd83e8/SENSORO/macNginx/nginx_03.conf
+
+Usage of: `ngx.location.capture`, `args`, `ngx.req.get_uri_args`, `response.status`, `response.body`
+
+``` nginx
+    server {
+        listen 6700;
+        server_name localhost;
+
+        location = /sum {
+            internal;   
+            content_by_lua_block {
+                local args = ngx.req.get_uri_args()
+                ngx.say(tonumber(args.a) + tonumber(args.b))
+            }
+        }
+
+        location = /app/test {  #curl "127.0.0.1:6700/app/test?aa=10&bb=20"  =>status: 200 response: 30
+            content_by_lua_block {
+                local arg = ngx.req.get_uri_args()
+                local res = ngx.location.capture("/sum", {args={a=arg.aa,b=arg.bb}})
+                ngx.say("status: ", res.status, " response: ", res.body)
+            }
+        }
+    }
+``` 
+
+Usage of: `ngx.redirect`, `rewrite_by_lua_block`
+
+``` nginx
+    server {
+        listen 6703;
+        server_name localhost;
+
+        location = /foo {
+            content_by_lua_block {
+                ngx.say([[I am foo]]);
+            }
+        }
+
+        location = / {  #浏览器访问 127.0.0.1:6703/ 会重定向到127.0.0.1:6703/foo
+            rewrite_by_lua_block {
+                return ngx.redirect("/foo");
+            }
+        }
+    }
+``` 
+
+
+https://github.com/beiyannanfei/test/blob/e7c45217a8460d01c1076dc9d977494899dd83e8/SENSORO/macNginx/nginx_04.conf
+
+Usage of: `get_post_args`, `get_uri_args`
+
+``` nginx
+        location /print_param { #curl "127.0.0.1:6710/print_param?a=10&b=20" -d "c=30&d=40"
+            content_by_lua_block {
+                local arg = ngx.req.get_uri_args();
+                for k, v in pairs(arg) do
+                    ngx.say("[GET ] key:", k, " v:", v);
+                end
+
+                ngx.req.read_body();    
+                local arg = ngx.req.get_post_args();
+                for k, v in pairs(arg) do
+                    ngx.say("[POST ] key:", k, " v:", v);
+                end
+            }
+        }
+``` 
+
+Usage of: `encode_args`, `ngx.location.capture`, `ngx.HTTP_POST`
+
+``` nginx
+        location /deliver_param {   #传递参数 curl "127.0.0.1:6710/deliver_param"
+            content_by_lua_block {
+                local res = ngx.location.capture(
+                    "/print_param",
+                    {
+                        method = ngx.HTTP_POST,
+                        args = ngx.encode_args({a = 1, b = "2b"}),
+                        body = ngx.encode_args({c = 3, d = "4d"})
+                    }
+                );
+                ngx.say(res.body);
+            }
+        }
+``` 
+
+https://github.com/beiyannanfei/test/blob/e7c45217a8460d01c1076dc9d977494899dd83e8/SENSORO/macNginx/nginx_05.conf
+
+Usage of: `get_body_data`, `get_post_args`
+
+``` nginx
+        location /test {    #curl "127.0.0.1:6720/test" -d "a=10"
+            content_by_lua_block {
+                local data = ngx.req.get_body_data(); --(注: 只会读取不会解析)
+                local arg = ngx.req.get_post_args();  --(注: 读取并解析)
+                ngx.say("hello ", data);            -- => hello a=10
+                ngx.say("HELLO ", arg.a);           -- => HELLO 10
+            }
+        }
+``` 
+
+https://github.com/beiyannanfei/test/blob/e7c45217a8460d01c1076dc9d977494899dd83e8/SENSORO/macNginx/nginx_09.conf
+
+Usage of: `access_by_lua_file`, `param.is_number`, `content_by_lua`, `$1.lua`
+
+``` nginx
+        location ~ ^/api/([-_0-9a-zA-Z/]+) {    #curl "127.0.0.1:6751/api/add?a=2&b=61"|"127.0.0.1:6751/api/sub?a=2&b=61"|127.0.0.1:6751/api/mul?a=2&b=61|127.0.0.1:6751/api/div?a=2&b=61
+            access_by_lua_file  /Users/sensoro/bynf/test/SENSORO/macNginx/nginx09/access_check.lua;
+            content_by_lua_file /Users/sensoro/bynf/test/SENSORO/macNginx/nginx09/$1.lua;
+        }
+``` 
+
+`access_check.lua`
+
+``` lua
+local param= require("comm/param")  
+local args = ngx.req.get_uri_args()
+
+if not param.is_number(args.a, args.b) then
+    ngx.exit(ngx.HTTP_BAD_REQUEST)
+    return
+end
+``` 
+
+`add.lua`
+
+``` lua
+local args = ngx.req.get_uri_args();
+ngx.say(args.a + args.b);
+``` 
+
+https://github.com/beiyannanfei/test/blob/e7c45217a8460d01c1076dc9d977494899dd83e8/SENSORO/macNginx/nginx_10.conf
+
+Usage of: `ngx.var.arg_a`, `host`, `query_string`
+``` bash
+        location /test {    #curl "127.0.0.1:6752/test?a=10" -d "b=20"
+            content_by_lua_file /Users/sensoro/bynf/test/SENSORO/macNginx/nginx09/nginxVar.lua;
+        }
+``` 
+
+`nginxVar.lua`
+
+``` bash
+ngx.log(ngx.INFO, string.format("======== $arg_name                 ========: %s ===", ngx.var.arg_a));
+ngx.log(ngx.INFO, string.format("======== $args                     ========: %s ===", ngx.var.args));
+ngx.log(ngx.INFO, string.format("======== $binary_remote_addr       ========: %s ===", ngx.var.binary_remote_addr));
+ngx.log(ngx.INFO, string.format("======== $body_bytes_sent          ========: %s ===", ngx.var.body_bytes_sent));
+ngx.log(ngx.INFO, string.format("======== $content_length           ========: %s ===", ngx.var.content_length));
+ngx.log(ngx.INFO, string.format("======== $content_type             ========: %s ===", ngx.var.content_type));
+ngx.log(ngx.INFO, string.format("======== document_root             ========: %s ===", ngx.var.document_root));
+ngx.log(ngx.INFO, string.format("======== document_uri              ========: %s ===", ngx.var.document_uri));
+ngx.log(ngx.INFO, string.format("======== host                      ========: %s ===", ngx.var.host));
+ngx.log(ngx.INFO, string.format("======== hostname                  ========: %s ===", ngx.var.hostname));
+ngx.log(ngx.INFO, string.format("======== http_cookie               ========: %s ===", ngx.var.http_cookie));
+ngx.log(ngx.INFO, string.format("======== http_referer              ========: %s ===", ngx.var.http_referer));
+ngx.log(ngx.INFO, string.format("======== http_user_agent           ========: %s ===", ngx.var.http_user_agent));
+ngx.log(ngx.INFO, string.format("======== http_via                  ========: %s ===", ngx.var.http_via));
+ngx.log(ngx.INFO, string.format("======== http_x_forwarded_for      ========: %s ===", ngx.var.http_x_forwarded_for));
+ngx.log(ngx.INFO, string.format("======== is_args                   ========: %s ===", ngx.var.is_args));
+ngx.log(ngx.INFO, string.format("======== limit_rate                ========: %s ===", ngx.var.limit_rate));
+ngx.log(ngx.INFO, string.format("======== nginx_version             ========: %s ===", ngx.var.nginx_version));
+ngx.log(ngx.INFO, string.format("======== pid                       ========: %s ===", ngx.var.pid));
+ngx.log(ngx.INFO, string.format("======== query_string              ========: %s ===", ngx.var.query_string));
+ngx.log(ngx.INFO, string.format("======== realpath_root             ========: %s ===", ngx.var.realpath_root));
+ngx.log(ngx.INFO, string.format("======== remote_addr               ========: %s ===", ngx.var.remote_addr));
+ngx.log(ngx.INFO, string.format("======== remote_port               ========: %s ===", ngx.var.remote_port));
+ngx.log(ngx.INFO, string.format("======== remote_user               ========: %s ===", ngx.var.remote_user));
+ngx.log(ngx.INFO, string.format("======== request                   ========: %s ===", ngx.var.request));
+ngx.log(ngx.INFO, string.format("======== request_body              ========: %s ===", ngx.var.request_body));
+ngx.log(ngx.INFO, string.format("======== request_body_file         ========: %s ===", ngx.var.request_body_file));
+ngx.log(ngx.INFO, string.format("======== request_completion        ========: %s ===", ngx.var.request_completion));
+ngx.log(ngx.INFO, string.format("======== request_filename          ========: %s ===", ngx.var.request_filename));
+ngx.log(ngx.INFO, string.format("======== request_method            ========: %s ===", ngx.var.request_method));
+ngx.log(ngx.INFO, string.format("======== request_uri               ========: %s ===", ngx.var.request_uri));
+ngx.log(ngx.INFO, string.format("======== scheme                    ========: %s ===", ngx.var.scheme));
+ngx.log(ngx.INFO, string.format("======== server_addr               ========: %s ===", ngx.var.server_addr));
+ngx.log(ngx.INFO, string.format("======== server_name               ========: %s ===", ngx.var.server_name));
+ngx.log(ngx.INFO, string.format("======== server_port               ========: %s ===", ngx.var.server_port));
+ngx.log(ngx.INFO, string.format("======== server_protocol           ========: %s ===", ngx.var.server_protocol));
+ngx.log(ngx.INFO, string.format("======== uri                       ========: %s ===", ngx.var.uri));
+``` 
+
+Usage of: `ngx.exit`
+
+``` nginx
+        location /sum { # curl "192.168.1.163:6753/sum?a=10&b=20"
+            #准入阶段处理
+            access_by_lua_block {
+                local black_ips = {["127.0.0.1"] = true};
+                local ip = ngx.var.remote_addr;
+                if true == black_ips[ip] then
+                    ngx.exit(ngx.HTTP_FORBIDDEN);
+                end
+            }
+            #处理业务
+            content_by_lua_block {
+                local a = tonumber(ngx.var.arg_a) or 0;
+                local b = tonumber(ngx.var.arg_b) or 0;
+                ngx.say("sum: ", a + b);
+            }
+        }
+``` 
+
+Usage of: `limit_rate`, `alias`
+
+``` nginx
+        location /download {    
+           access_by_lua_block {
+               ngx.var.limit_rate = 1000;
+           }
+           alias /Users/sensoro/bynf/test/SENSORO/macNginx/test.jpg;
+        }
+``` 
+
+https://github.com/beiyannanfei/test/blob/e7c45217a8460d01c1076dc9d977494899dd83e8/SENSORO/macNginx/nginx_11.conf
+
+Usage of: `rewrite_by_lua_block`, `content_by_lua_block`
+
+``` bash
+        location = /test {  # curl "127.0.0.1:6755/test"  => 79
+            rewrite_by_lua_block {
+                ngx.log(ngx.ERR, "========= rewrite_by_lua_block =========");
+                ngx.ctx.foo = 76;
+            }
+            access_by_lua_block {
+                ngx.log(ngx.ERR, "========= access_by_lua_block =========");
+                ngx.ctx.foo = ngx.ctx.foo + 3;
+            }
+            content_by_lua_block {
+                ngx.log(ngx.ERR, "========= content_by_lua_block =========");
+                ngx.say(ngx.ctx.foo);
+            }
+        }
+``` 
+
+# Official Reference
+
+## `location`
+
+http://nginx.org/en/docs/http/ngx_http_core_module.html#location
+
+		Syntax:	location [ = | ~ | ~* | ^~ ] uri { ... }
+		location @name { ... }
+		Default:	—
+		Context:	server, location
+
+Two options:
+
+- a prefix string
+- a regular expression
+
+Regex: 
+
+- `~*` modifier: case insensitive
+- `~` modifier: case sensitive
+
+Nested `location` blocks are allowed.
+
+`=` modifier: 
+
+- exact match
+- search terminates right after first match. Thus no nested locations.
+
+If multiple locations match, then longest matching prefix is selected. Then regular expressions are checked.
+
+Example01:
+
+``` nginx
+location = / {
+    [ configuration A ]
+}
+
+location / {
+    [ configuration B ]
+}
+
+location /documents/ {
+    [ configuration C ]
+}
+
+location ^~ /images/ {
+    [ configuration D ]
+}
+
+location ~* \.(gif|jpg|jpeg)$ {
+    [ configuration E ]
+}
+``` 
+
+		| Request                    | Matching Configuration |
+		| `/`                        | A                      |
+		| `/index.html`              | B                      |
+		| `/documents/document.html` | C                      |
+		| `/images/1.gif`            | D                      |
+		| `/documents/1.jpg`         | E                      |
+
+## Configuring Logging
+
+https://docs.nginx.com/nginx/admin-guide/monitoring/logging/

@@ -1,0 +1,37 @@
+---
+title: "Study Packages in R"
+date: 2019-03-26T11:10:53+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/study_packages_in_R.Rmd
+state: wip
+---
+
+## Article01: R Package Primer
+
+http://kbroman.org/pkg_primer/pages/docs.html
+
+### Roxegen2
+
+``` bash
+R -e 'library(devtools);document()'
+``` 
+
+Create a `.Rbuildignore` in package directory with a single line:
+
+``` bash
+Makefile
+``` 
+
+So, `R CMD build` will not include that file in `.tar.gz` file

@@ -1,0 +1,98 @@
+---
+title: "Print File Structure 20190422"
+date: 2019-04-22T11:15:24+03:00 
+draft: true
+description: ""
+tags:
+categories: bash
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/print_file_structure.Rmd
+state: wip
+---
+
+## Ex01
+
+https://stackoverflow.com/questions/14352290/listing-only-directories-using-ls-in-bash-an-examination
+
+``` bash
+cd /Users/mertnuhoglu/projects/study/bash/ex/print_file_structure
+cd /Users/mertnuhoglu/gdrive/
+ls -d */ 
+  ##> Apps/             other/
+  ##> Camera Uploads/   projects/
+ls -d /Users/mertnuhoglu/gdrive/
+  ##> /Users/mertnuhoglu/gdrive/
+ls -1d /Users/mertnuhoglu/gdrive/
+  ##> /Users/mertnuhoglu/gdrive/
+ls -1d /Users/mertnuhoglu/gdrive/*/
+  ##> /Users/mertnuhoglu/gdrive/Apps/
+  ##> /Users/mertnuhoglu/gdrive/Camera Uploads/
+``` 
+
+Using `echo`
+
+``` bash
+cd /Users/mertnuhoglu/gdrive/
+echo */
+  ##> Apps/ Camera Uploads/ keynote_resimler/ konuk bloglar/ 
+echo /Users/mertnuhoglu/gdrive/
+echo /Users/mertnuhoglu/gdrive/*/
+  ##> /Users/mertnuhoglu/gdrive/Apps/ /Users/mertnuhoglu/gdrive/Camera Uploads/ 
+``` 
+
+Using `ls` with `awk`
+
+``` bash
+ls -1d /Users/mertnuhoglu/gdrive/*/ | awk -F "/" "{print \$(NF-1)}"
+  ##> Apps
+  ##> Camera Uploads
+  ##> keynote_resimler
+  ##> konuk bloglar
+``` 
+
+Using `tree`
+
+``` bash
+tree -di -L 1 /Users/mertnuhoglu/gdrive/
+  ##> Apps
+  ##> Camera Uploads
+  ##> keynote_resimler
+  ##> konuk bloglar
+``` 
+
+`tree` options:
+
+``` bash
+-d     List directories only.
+-f     Prints the full path prefix for each file.
+-i     Makes tree not print the indentation lines, useful when used in conjunction with the -f option.
+``` 
+
+Join lines with space:
+
+``` bash
+tree -di -L 1 /Users/mertnuhoglu/gdrive/ | sed -e 's/$/\//' | xargs
+  ##> /Users/mertnuhoglu/gdrive// Apps/ Camera Uploads/ 
+``` 
+
+### Logs 
+
+Join lines with space. Indent all the lines except the first line:
+
+``` bash
+tree -di -L 1 /Users/mertnuhoglu/gdrive/ | sed -e '2,$ s/$/\//' -e '2 s/^/@@@/' | xargs | sed -e 's/@@@/\r  /'
+tree -di -L 1 /Users/mertnuhoglu/gdrive/ | sed -e '2,$ s/$/\//' -e '2 s/^/@@@/' | xargs 
+tree -di -L 1 /Users/mertnuhoglu/gdrive/ | sed -e '2,$ s/$/\//' -e '2 s/^/@@@/' | xargs | sed -e 's/@@@/\r  /p'
+tree -di -L 1 /Users/mertnuhoglu/gdrive/ | sed -e '2,$ s/$/\//' -e '2 s/^/@@@/' | xargs | sed -n -e 's/@@@/\r  /p'
+tree -di -L 1 /Users/mertnuhoglu/gdrive/ | sed -e 's/$/\//' | xargs | sed -e 's/ /\r/'
+tree -di -L 1 /Users/mertnuhoglu/gdrive/ | sed -e 's/$/\//' | xargs | sed -e 's/ /\r/g'
+``` 
+

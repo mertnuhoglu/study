@@ -1,0 +1,393 @@
+---
+title: "Study BQ BigQuery Database"
+date: 2018-12-25T11:47:15+03:00 
+draft: true
+description: ""
+tags:
+categories: database, bigquery
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/db/study_bq.Rmd
+state: wip
+---
+
+## Basics of BQ
+
+https://cloud.google.com/bigquery/docs/bq-command-line-tool
+
+``` bash
+bq query --nouse_legacy_sql 'select count(*) from `bigquery-public-data.samples.shakespeare`'
+bq query --use_legacy_sql=false 'select count(*) from `bigquery-public-data.samples.shakespeare`'
+  ##> +--------+
+  ##> |  f0_   |
+  ##> +--------+
+  ##> | 164656 |
+  ##> +--------+
+``` 
+
+Help:
+
+``` bash
+bq version
+bq help
+bq --help # help on flags
+bq help <command>
+bq <command> --help # help on flags
+``` 
+
+Edit `$HOME/.bigqueryrc`
+
+``` text
+project_id = bizqualify
+credential_file = /Users/mertnuhoglu/.config/gcloud/legacy_credentials/mert.nuhoglu@gmail.com/singlestore_bq.json
+
+[ls]
+--max_results=3000
+``` 
+
+Put global flags into `~/.bigqueryrc`
+
+``` bash
+[query]
+--use_legacy_sql=false
+``` 
+
+Now run the query again:
+
+``` bash
+bq query 'select count(*) from `bigquery-public-data.samples.shakespeare`'
+  ##> +--------+
+  ##> |  f0_   |
+  ##> +--------+
+  ##> | 164656 |
+  ##> +--------+
+bq query 'select count(*) from bigquery-public-data.samples.shakespeare'
+  ##> Syntax error: Unexpected "-" at [1:30]
+bq query 'select count(*) from bq_data.data_20190103_ts'
+  ##> | 6657466 |
+``` 
+
+## Introduction to Interacting with BigQuery
+
+Following `https://cloud.google.com/bigquery/docs/interacting-with-bigquery`
+
+## Creating and using datasets
+
+Following `https://cloud.google.com/bigquery/docs/datasets#bigquery-create-dataset-cli`
+
+``` bash
+bq --location=[LOCATION] mk --dataset --default_table_expiration [INTEGER] --default_partition_expiration [INTEGER2] --description [DESCRIPTION] [PROJECT_ID]:[DATASET]
+``` 
+
+Examples
+
+``` bash
+bq --location=US mk -d --default_table_expiration 3600 --description "This is my dataset." mydataset
+``` 
+
+### Listing datasets
+
+``` bash
+bq ls --format=prettyjson --project_id [PROJECT_ID]
+``` 
+
+Examples
+
+``` bash
+  # default project:
+bq ls --format=prettyjson
+  ##>   {
+  ##>     "datasetReference": {
+  ##>       "datasetId": "SEC_financial_statements",
+  ##>       "projectId": "bizqualify"
+  ##>     },
+  ##>     "id": "bizqualify:SEC_financial_statements",
+  ##>     "kind": "bigquery#dataset",
+  ##>     "location": "US"
+  ##>   },
+  ##>   {...
+bq ls --format=prettyjson --project_id myotherproject
+  # including anonymous datasets
+bq ls -a --format=prettyjson
+``` 
+
+### Getting dataset metadata
+
+``` sql
+bq --location=US query --use_legacy_sql=false '
+SELECT * FROM `bigquery-public-data.samples.__TABLES_SUMMARY__`'
+  ##> +----------------------+------------+-----------------+---------------+------+
+  ##> |      project_id      | dataset_id |    table_id     | creation_time | type |
+  ##> +----------------------+------------+-----------------+---------------+------+
+  ##> | bigquery-public-data | samples    | github_nested   | 1457975804113 |    1 |
+  ##> | bigquery-public-data | samples    | github_timeline | 1457975805074 |    1 |
+  ##> | bigquery-public-data | samples    | gsod            | 1457975806075 |    1 |
+  ##> | bigquery-public-data | samples    | model           | 1531863352546 |    4 |
+  ##> | bigquery-public-data | samples    | natality        | 1457975807183 |    1 |
+  ##> | bigquery-public-data | samples    | shakespeare     | 1457975805856 |    1 |
+  ##> | bigquery-public-data | samples    | trigrams        | 1457975810399 |    1 |
+  ##> | bigquery-public-data | samples    | wikipedia       | 1457975807908 |    1 |
+  ##> +----------------------+------------+-----------------+---------------+------+
+bq --location=US query --use_legacy_sql=false '
+SELECT
+  table_id
+FROM
+  `bigquery-public-data.samples.__TABLES_SUMMARY__`'
+  ##> +-----------------+
+  ##> |    table_id     |
+  ##> +-----------------+
+  ##> | github_nested   |
+  ##> | github_timeline |
+  ##> | gsod            |
+  ##> | natality        |
+  ##> | shakespeare     |
+  ##> | trigrams        |
+  ##> | wikipedia       |
+  ##> +-----------------+
+``` 
+
+
+## Loading data into BigQuery
+
+Following `https://cloud.google.com/bigquery/docs/loading-data`
+
+### Overview
+
+Load data from:
+
+- Cloud Storage
+- Google Ads etc.
+- Readable data source (local machine)
+- Streaming inserts
+- DML
+- Cloud Dataflow pipeline
+
+Google Drive is not supported. 
+
+### Loading data from Cloud Storage
+
+`https://cloud.google.com/bigquery/docs/loading-data-cloud-storage`
+
+#### CSV Files
+
+`https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv`
+
+General command:
+
+``` bash
+bq --location=[LOCATION] load --source_format=[FORMAT] [DATASET].[TABLE] [PATH_TO_SOURCE] [SCHEMA]
+``` 
+
+Example:
+
+``` bash
+bq --location=US load --source_format=CSV mydataset.mytable gs://mybucket/mydata.csv qtr:STRING,sales:FLOAT,year:STRING
+``` 
+
+The schema is defined inline in the format `[FIELD]:[DATA_TYPE]`, `[FIELD]:[DATA_TYPE]`. 
+
+``` bash
+bq --location=asia-northeast1 load --skip_leading_rows=2 --source_format=CSV mydataset.mytable gs://mybucket/mydata.csv ./myschema.json
+``` 
+
+`--skip_leading_rows`: header rows
+
+`--replace`: overwrite existing data
+
+### Loading data from local file
+
+`https://cloud.google.com/bigquery/docs/loading-data-local`
+
+General structure:
+
+``` bash
+bq --location=[LOCATION] load --source_format=[FORMAT] [DATASET].[TABLE] [PATH_TO_SOURCE] [SCHEMA]
+``` 
+
+Examples:
+
+``` bash
+  # csv:
+bq --location=asia-northeast1 load --source_format=CSV mydataset.mytable ./mydata.csv qtr:STRING,sales:FLOAT,year:STRING
+  # json
+bq --location=US load --source_format=NEWLINE_DELIMITED_JSON mydataset.mytable ./mydata.json ./myschema.json
+  # schema auto-detection:
+bq --location=EU load --autodetect --source_format=CSV mydataset.mytable ./mydata.csv
+``` 
+
+### Alternatives to loading data
+
+`https://cloud.google.com/bigquery/docs/loading-data#alternatives_to_loading_data`
+
+- Public datasets
+- Shared datasets
+- External data sources
+- Stackdriver log files
+
+
+## Migrating to Standard SQL
+
+https://cloud.google.com/bigquery/docs/reference/standard-sql/migrating-from-legacy-sql
+
+Two SQL dialects:
+
+- standard SQL = SQL 2011 (BigQuery 2.0)
+- legacy SQL = non-standard SQL = BigQuery SQL (BigQuery 1.0)
+
+Standard SQL Advantages:
+
+- WITH clause
+
+## Points and Examples
+
+### ex01: Query from a file
+
+https://stackoverflow.com/questions/33426395/google-bigquery-bq-command-line-execute-query-from-a-file
+
+Edit `~/projects/study/db/ex/study_bq/ex01.sql`
+
+``` sql
+SELECT x FROM UNNEST([1, 2, 3]) AS x
+``` 
+
+Run query from that file:
+
+``` sql
+mkdir -p ex/study_bq
+cd $_
+bq query 'SELECT x FROM UNNEST([1, 2, 3]) AS x'
+  ##> | x |
+  ##> +---+
+  ##> | 1 |
+  ##> | 2 |
+  ##> | 3 |
+bq query --flagfile=~/projects/study/db/ex/study_bq/ex01.sql
+  ##> | x |
+  ##> +---+
+  ##> | 1 |
+  ##> | 2 |
+  ##> | 3 |
+bq query "$(cat ~/projects/study/db/ex/study_bq/ex01.sql)"
+  ##> | x |
+  ##> +---+
+  ##> | 1 |
+  ##> | 2 |
+  ##> | 3 |
+``` 
+
+### ex02: What are format options?
+
+``` bash
+bq --help format
+  ##>   --format: <none|json|prettyjson|csv|sparse|pretty>:
+  ##>     Format for command output. Options include:
+  ##>     pretty: formatted table output
+  ##>     sparse: simpler table output
+  ##>     prettyjson: easy-to-read JSON format
+  ##>     json: maximally compact JSON
+  ##>     csv: csv format with header
+  ##>     The first three are intended to be
+  ##>     human-readable, and the latter three are for
+  ##>     passing to another program. If no format is
+  ##>     selected, one will be chosen based on the command
+  ##>     run.
+``` 
+
+``` bash
+bq ls --format=sparse
+  ##>                      datasetId                     
+  ##>  ------------------------------------------------- 
+  ##>   SEC_financial_statements                         
+  ##>   alliance_bernstein_metro                         
+	##> ...
+``` 
+
+``` bash
+bq ls --format=prettyjson
+  ##>   {
+  ##>     "datasetReference": {
+  ##>       "datasetId": "SEC_financial_statements",
+  ##>       "projectId": "bizqualify"
+  ##>     },
+  ##>     "id": "bizqualify:SEC_financial_statements",
+  ##>     "kind": "bigquery#dataset",
+  ##>     "location": "US"
+  ##>   },
+  ##>   {...
+``` 
+
+``` bash
+bq ls --format=csv
+  ##> kind,location,id,datasetReference
+  ##> bigquery#dataset,US,bizqualify:SEC_financial_statements,"{u'projectId': u'bizqualify', u'datasetId': u'SEC_financial_statements'}"
+  ##> bigquery#dataset,US,bizqualify:alliance_bernstein_metro,"{u'projectId': u'bizqualify', u'datasetId': u'alliance_bernstein_metro'}"
+``` 
+
+``` bash
+bq ls --format=json
+	##> [{"kind":"bigquery#dataset","location":"US","id":"bizqualify:SEC_financial_statements","datasetReference":{"projectId":"bizqualify","datasetId":"SEC_financial_statements"}},..
+``` 
+
+``` bash
+bq ls --format=pretty
+  ##> +-------------------------------------------------+
+  ##> |                    datasetId                    |
+  ##> +-------------------------------------------------+
+  ##> | SEC_financial_statements                        |
+  ##> | alliance_bernstein_metro                        |
+``` 
+
+### ex03: Export schema
+
+``` bash
+bq show --format=prettyjson bigquery-public-data:samples.wikipedia | jq '.schema.fields'
+  ##> [
+  ##>   {
+  ##>     "description": "The title of the page, as displayed on the page (not in the URL). Always starts with a capital letter and may begin with a namespace (e.g. \"Talk:\", \"User:\", \"User Talk:\", ... )",
+  ##>     "mode": "REQUIRED",
+  ##>     "name": "title",
+  ##>     "type": "STRING"
+  ##>   },
+  ##>   {
+  ##>     "description": "A unique ID for the article that was revised. These correspond to the order in which articles were created, except for the first several thousand IDs, which are issued in alphabetical order.",
+  ##>     "mode": "NULLABLE",
+  ##>     "name": "id",
+  ##>     "type": "INTEGER"
+  ##>   },
+``` 
+
+``` bash
+bq show --format=sparse bigquery-public-data:samples.wikipedia
+  ##>    Last modified                   Schema                   Total Rows   Total Bytes   Expiration   Time Partitioning   Labels
+  ##>  ----------------- --------------------------------------- ------------ ------------- ------------ ------------------- --------
+  ##>   14 Mar 20:16:47   |- title: string (required)             313797035    38324173849
+  ##>                     |- id: integer
+  ##>                     |- language: string (required)
+  ##>                     |- wp_namespace: integer (required)
+  ##>                     |- is_redirect: boolean
+  ##>                     |- revision_id: integer
+  ##>                     |- contributor_ip: string
+  ##>                     |- contributor_id: integer
+  ##>                     |- contributor_username: string
+  ##>                     |- timestamp: integer (required)
+  ##>                     |- is_minor: boolean
+  ##>                     |- is_bot: boolean
+  ##>                     |- reversion_id: integer
+  ##>                     |- comment: string
+  ##>                     |- num_characters: integer (required)
+``` 
+
+``` bash
+bq show --format=pretty bigquery-public-data:samples.wikipedia
+  ##> similar
+``` 
+
+
+

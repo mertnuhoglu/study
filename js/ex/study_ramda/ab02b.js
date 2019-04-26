@@ -8,4 +8,10 @@ const addLabel = chain(append, head);
 //const addLabel = ([value, checked]) => ({value, checked, label: value});
 const fn = compose(map(addLabel), toPairs);
 console.log(fn(data));
-// [ [ 'group1-perm1', true, 'group1-perm1' ], ...
+// [ [ 'group1-perm1', true, 'group1-perm1' ],
+//   [ 'group1-perm2', false, 'group1-perm2' ],
+//   [ 'group2-perm1', false, 'group2-perm1' ],
+//   [ 'group2-perm2', true, 'group2-perm2' ],
+//   [ 'perm3', true, 'perm3' ],
+//   [ 'perm4', false, 'perm4' ] ]
+

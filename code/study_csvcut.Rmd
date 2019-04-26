@@ -1,0 +1,332 @@
+---
+title: "Study csvcut"
+date: 2019-03-20T09:13:46+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/study_csvcut.Rmd
+state: wip
+---
+
+## Article01: Official Tutorial
+
+Follow https://csvkit.readthedocs.io/en/1.0.3/tutorial/1_getting_started.html#getting-the-data
+
+### 1. Getting started
+
+#### 1.3 Getting the data
+
+``` bash
+cd /Users/mertnuhoglu/projects/study/code/ex/study_csvcut
+curl -L -O https://raw.githubusercontent.com/wireservice/csvkit/master/examples/realdata/ne_1033_data.xlsx
+
+``` 
+
+#### 1.4. in2csv
+
+``` bash
+in2csv ne_1033_data.xlsx > data.csv
+head -n 3 data.csv
+  ##> state,county,fips,nsn,item_name,quantity,ui,acquisition_cost,total_cost,ship_date,federal_supply_category,federal_supply_category_name,federal_supply_class,federal_supply_class_name
+  ##> NE,ADAMS,31001.0,1005-00-589-1271,"RIFLE,7.62 MILLIMETER",1.0,Each,138.0,138.0,2008-07-11,10.0,WEAPONS,1005.0,"Guns, through 30 mm"
+  ##> NE,ADAMS,31001.0,1005-00-589-1271,"RIFLE,7.62 MILLIMETER",1.0,Each,138.0,138.0,2008-07-11,10.0,WEAPONS,1005.0,"Guns, through 30 mm"
+csvlook data.csv | less -S
+  ##> | state | county     |   fips | nsn              | item_name
+  ##> | ----- | ---------- | ------ | ---------------- | ------------------------------------
+  ##> | NE    | ADAMS      | 31,001 | 1005-00-589-1271 | RIFLE,7.62 MILLIMETER
+  ##> | NE    | ADAMS      | 31,001 | 1005-00-589-1271 | RIFLE,7.62 MILLIMETER
+``` 
+
+#### 1.5. csvlook
+
+``` bash
+csvlook data.csv | less -S
+``` 
+
+Note: `less -S` unwraps (chops long lines) lines. You can use arrow keys to scroll left and right. (But not in tmux)
+
+#### 1.6. csvcut
+
+What columns in in data:
+
+``` bash
+csvcut -n data.csv
+  ##>   1: state
+  ##>   2: county
+  ##>   3: fips
+  ##>   4: nsn
+  ##>   5: item_name
+``` 
+
+Subset (extract) columns by their names or order nos.
+
+``` bash
+csvcut -c 1,2 data.csv
+csvcut -c county,item_name data.csv
+``` 
+
+Get unique values:
+
+``` bash
+csvcut -c 1 examples/realdata/FY09_EDU_Recipients_by_State.csv | sed 1d | sort | uniq
+``` 
+
+#### 1.8 Pipes
+
+``` bash
+csvcut -c county,item_name,quantity data.csv | csvlook | head
+  ##> | county     | item_name                                                      | quantity |
+  ##> | ---------- | -------------------------------------------------------------- | -------- |
+  ##> | ADAMS      | RIFLE,7.62 MILLIMETER                                          |        1 |
+  ##> | ADAMS      | RIFLE,7.62 MILLIMETER                                          |        1 |
+``` 
+
+### 2. Examining the data
+
+#### 2.1. csvstat
+
+``` bash
+csvcut -c county,acquisition_cost,ship_date data.csv | csvstat
+  ##>   1. "county"
+  ##> 
+  ##>         Type of data:          Text
+  ##>         Contains null values:  False
+  ##>         Unique values:         35
+  ##>         Longest value:         10 characters
+  ##>         Most common values:    DOUGLAS (760x)
+  ##>                                DAKOTA (42x)
+  ##>                                CASS (37x)
+  ##>                                HALL (23x)
+  ##>                                LANCASTER (18x)
+  ##>   2. "acquisition_cost"
+  ##> 
+  ##>         Type of data:          Number
+  ##>         Contains null values:  False
+  ##>         Unique values:         75
+  ##>         Smallest value:        0
+  ##>         Largest value:         412,000
+  ##>         Sum:                   5,430,787.55
+  ##>         Mean:                  5,242.073
+  ##>         Median:                6,000
+  ##>         StDev:                 13,368.078
+  ##>         Most common values:    6,800 (304x)
+  ##>                                10,747 (195x)
+  ##>                                6,000 (105x)
+  ##>                                499 (98x)
+  ##>                                0 (81x)
+  ##> 
+  ##>                                ...
+
+``` 
+
+Print only one stat: `min`
+
+``` bash
+csvstat --min examples/realdata/FY09_EDU_Recipients_by_State.csv
+  ##>     1. State Name: None
+  ##>     2. State Abbreviate: None
+  ##>     3. Code: 1
+``` 
+
+One column and one stat:
+
+``` bash
+csvstat -c 4 --mean examples/realdata/FY09_EDU_Recipients_by_State.csv
+  ##> 6049
+``` 
+
+#### 2.2 csvgrep
+
+``` bash
+csvcut -c county,item_name,total_cost data.csv | csvgrep -c county -m LANCASTER | csvlook
+  ##> | county    | item_name                      | total_cost |
+  ##> | --------- | ------------------------------ | ---------- |
+  ##> | LANCASTER | RIFLE,5.56 MILLIMETER          |        120 |
+  ##> | LANCASTER | RIFLE,5.56 MILLIMETER          |        120 |
+``` 
+
+Regex search:
+
+``` bash
+csvgrep -c 1 -r "^I" examples/realdata/FY09_EDU_Recipients_by_State.csv
+``` 
+
+Search with non-empty cells
+
+``` bash
+csvgrep -c 1 -r "^$" -i examples/realdata/FY09_EDU_Recipients_by_State.csv
+``` 
+
+#### 2.3. csvsort
+
+``` bash
+csvcut -c county,item_name,total_cost data.csv | csvgrep -c county -m LANCASTER | csvsort -c total_cost -r | csvlook
+  ##> | county    | item_name                      | total_cost |
+  ##> | --------- | ------------------------------ | ---------- |
+  ##> | LANCASTER | MINE RESISTANT VEHICLE         |    412,000 |
+  ##> | LANCASTER | IMAGE INTENSIFIER,NIGHT VISION |      6,800 |
+``` 
+
+### 3. Power tools
+
+#### 3.1. csvjoin
+
+Get second dataset
+
+``` bash
+curl -L -O https://raw.githubusercontent.com/wireservice/csvkit/master/examples/realdata/acs2012_5yr_population.csv
+csvstat acs2012_5yr_population.csv
+
+``` 
+
+Join by `fips` column
+
+``` bash
+csvjoin -c fips data.csv acs2012_5yr_population.csv > joined.csv
+``` 
+
+What is the lowest population county to receive equipment?
+
+``` bash
+csvcut -c county,item_name,total_population joined.csv | csvsort -c total_population | csvlook | head
+  ##> | county     | item_name                                                      | total_population |
+  ##> | ---------- | -------------------------------------------------------------- | ---------------- |
+  ##> | MCPHERSON  | RIFLE,5.56 MILLIMETER                                          |              348 |
+  ##> | WHEELER    | RIFLE,5.56 MILLIMETER                                          |              725 |
+``` 
+
+Append two empty columns:
+
+``` bash
+echo "," | csvjoin examples/dummy.csv -
+``` 
+
+#### 3.2. csvstack: concatenate/combine subsets
+
+``` bash
+curl -L -O https://raw.githubusercontent.com/wireservice/csvkit/master/examples/realdata/ks_1033_data.csv
+in2csv ne_1033_data.xlsx > ne_1033_data.csv
+csvstack ne_1033_data.csv ks_1033_data.csv > region.csv
+
+``` 
+
+``` bash
+csvstat -c state,acquisition_cost region.csv
+``` 
+
+If you supply the -g flag then csvstack can also add a “grouping column” to each row, so that you can tell which file each row came from
+
+#### 3.3. csvsql and sql2csv
+
+csvsql can also leverage sqlite to allow execution of ad hoc SQL queries
+
+csvsql generates a create table statement:
+
+``` bash
+csvsql -i sqlite joined.csv
+  ##> CREATE TABLE joined (
+  ##>         state VARCHAR(2) NOT NULL,
+  ##>         county VARCHAR(10) NOT NULL,
+  ##>         fips DECIMAL NOT NULL,
+``` 
+
+Create sql, run in database and import the data:
+
+``` bash
+csvsql --db sqlite:///leso.db --insert joined.csv
+``` 
+
+Query data:
+
+``` bash
+sql2csv --db sqlite:///leso.db --query "select * from joined"
+  ##> NE,YORK,31185,1005-00-856-6885,"RIFLE,5.56 MILLIMETER",1,Each,120,120,2012-04-20,10,WEAPONS,1005,"Guns, through 30 mm","York County, NE",13727,0
+  ##> NE,YORK,31185,1005-00-856-6885,"RIFLE,5.56 MILLIMETER",1,Each,120,120,2012-04-20,10,WEAPONS,1005,"Guns, through 30 mm","York County, NE",13727,0
+``` 
+
+Where is database?
+
+``` bash
+ls -lh leso.db
+  ##> -rw-r--r--  1 mertnuhoglu  staff   204K Mar 20 10:38 leso.db
+``` 
+
+Run database in memory:
+
+``` bash
+csvsql --query "select county,item_name from joined where quantity > 5;" joined.csv | csvlook
+  ##> | county  | item_name                              |
+  ##> | ------- | -------------------------------------- |
+  ##> | DAKOTA  | SPECTACLES SET,BALL                    |
+  ##> | DAKOTA  | SPECTACLES SET,BALL                    |
+``` 
+
+### 4. Going elsewhere with your data
+
+#### 4.1. csvjson: going online
+
+``` bash
+csvcut -c county,item_name data.csv | csvgrep -c county -m "GREELEY" | csvjson --indent 4
+  ##> [
+  ##>     {
+  ##>         "county": "GREELEY",
+  ##>         "item_name": "RIFLE,7.62 MILLIMETER"
+  ##>     },
+``` 
+
+Add a lookup table (with some key variable)
+
+``` bash
+csvjson --indent 2 --key fips acs2012_5yr_population.csv | head
+  ##> {
+  ##>     "31001": {
+  ##>         "fips": "31001",
+  ##>         "name": "Adams County, NE",
+  ##>         "total_population": "31299",
+  ##>         "margin_of_error": "0"
+  ##>     },
+``` 
+
+#### 4.3. csvformat
+
+Pipe-delimeted: -D \|
+
+Tab-delimeted: -T
+
+Quote every cell: -U 1
+
+``` bash
+csvformat -T data.csv
+``` 
+
+## Article02: eleven-awesome-things-you-can-do-csvkit
+
+Follow https://source.opennews.org/articles/eleven-awesome-things-you-can-do-csvkit/
+
+### 10. Turn your Github issues (json) into a csv
+
+``` bash
+curl https://api.github.com/repos/onyxfish/csvkit/issues?state=open | in2csv -f json > issues.csv
+  ##> [issues.csv]
+  ##> 
+  ##> url,labels_url,comments_url,events_url,html_url,id,number,title,user,labels,state,locked,assignee,milestone,comments,created_at,updated_at,closed_at,pull_request,body
+  ##> https://api.github.com/repos/onyxfish/csvkit/issues/329,https://api.github.com/repos/onyxfish/csvkit/issues/329/labels{/name},https://api.github.com/repos/onyxfish/csvkit/issues/329/comments,https://api.github.com/repos/onyxfish/csvkit/issues/329/events,https://github.com/onyxfish/csvkit/pull/329,42344699,329,Adding support for multiline json documents,,,open,False,,,0,2014-09-09T20:03:02Z,2014-09-09T20:03:02Z,,,Fixes #275
+
+``` 
+
+### 11. Slice a 9,655 column file using index ranges
+
+``` bash
+csvcut -c 1-10,20-25 data.csv | csvcut -n
+``` 
+

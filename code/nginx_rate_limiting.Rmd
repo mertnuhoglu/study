@@ -1,0 +1,427 @@
+---
+title: "Nginx Rate Limiting"
+date: 2019-01-02T10:39:03+03:00 
+draft: false
+description: ""
+tags:
+categories: aws
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/code/nginx_rate_limiting.Rmd
+---
+
+# Tutorial 01
+
+Following https://github.com/sportebois/nginx-rate-limit-sandbox
+
+## Ex00:
+
+Install the software:
+
+``` bash
+brew install siege
+mkdir -p ex/nginx_rate_limiting
+cd $_
+git clone https://github.com/sportebois/nginx-rate-limit-sandbox
+``` 
+
+Run nginx server:
+
+``` bash
+cd nginx-rate-limit-sandbox
+docker run -it --rm -p 80:80 sportebois/nginx-rate-limit-sandbox
+``` 
+
+Test it:
+
+``` bash
+$ siege -b -r 1 -c 10 http://127.0.0.1:80/by-uri/burst0
+New configuration template added to /Users/mertnuhoglu/.siege
+Run siege -C to view the current settings in that file
+** SIEGE 4.0.4
+** Preparing 10 concurrent users for battle.
+The server is now under siege...
+HTTP/1.1 200     0.07 secs:       3 bytes ==> GET  /by-uri/burst0
+HTTP/1.1 503     0.08 secs:     214 bytes ==> GET  /by-uri/burst0
+HTTP/1.1 503     0.09 secs:     214 bytes ==> GET  /by-uri/burst0
+HTTP/1.1 503     0.09 secs:     214 bytes ==> GET  /by-uri/burst0
+HTTP/1.1 503     0.09 secs:     214 bytes ==> GET  /by-uri/burst0
+HTTP/1.1 503     0.09 secs:     214 bytes ==> GET  /by-uri/burst0
+HTTP/1.1 503     0.09 secs:     214 bytes ==> GET  /by-uri/burst0
+HTTP/1.1 503     0.09 secs:     214 bytes ==> GET  /by-uri/burst0
+HTTP/1.1 503     0.10 secs:     214 bytes ==> GET  /by-uri/burst0
+HTTP/1.1 503     0.10 secs:     214 bytes ==> GET  /by-uri/burst0
+
+Transactions:                      1 hits
+Availability:                  10.00 %
+Elapsed time:                   0.10 secs
+Data transferred:               0.00 MB
+Response time:                  0.89 secs
+Transaction rate:              10.00 trans/sec
+Throughput:                     0.02 MB/sec
+Concurrency:                    8.90
+Successful transactions:           1
+Failed transactions:               9
+Longest transaction:            0.10
+Shortest transaction:           0.07
+``` 
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/nginx-rate-limit-sandbox/Dockerfile`
+
+``` Dockerfile
+COPY default.conf /etc/nginx/conf.d/default.conf
+ADD index.html /etc/nginx/html/index.html
+``` 
+
+### Check nginx.conf file:
+
+Where is nginx.conf file?
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/nginx-rate-limit-sandbox/default.conf`
+
+``` nginx
+limit_req_zone $request_uri zone=by_uri:10m rate=30r/m;
+limit_req_zone $binary_remote_addr zone=by_ip:10m rate=30r/m;
+
+server {
+    listen 80;
+
+    location /by-uri/burst0 {
+        limit_req zone=by_uri;
+        try_files $uri /index.html;
+    }
+    location /by-ip/burst0 {
+        limit_req zone=by_ip;
+        try_files $uri /index.html;
+    }
+``` 
+
+### Build docker image from Dockerfile
+
+``` bash
+docker build -t nginx01 .
+``` 
+
+## Use docker-compose.yml
+
+### Ex01
+
+``` bash
+mkdir -p ex/nginx_rate_limiting/ex01/nginx01
+``` 
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/ex01/nginx01/docker-compose.yml`
+
+``` docker
+version: '2'
+services:
+
+  web:
+    image: nginx:1.14
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./index.html:/etc/nginx/html/index.html
+    command: [nginx-debug, '-g', 'daemon off;']
+    ports:
+      - "80:80"
+``` 
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/ex01/nginx01/nginx.conf`
+
+``` nginx
+limit_req_zone $request_uri zone=by_uri:10m rate=30r/m;
+limit_req_zone $binary_remote_addr zone=by_ip:10m rate=30r/m;
+
+server {
+    location /by-ip/burst0 {
+        limit_req zone=by_ip;
+        try_files $uri /index.html;
+    }
+``` 
+
+#### Error: directive not allowed here
+
+I got an error:
+
+		web_1  | 2019/01/02 08:08:24 [emerg] 1#1: "limit_req_zone" directive is not allowed here in /etc/nginx/nginx.conf:3
+
+``` bash
+docker container exec nginx01_web_1 nginx -v
+``` 
+
+opt02: Remove `limit_req_zone`
+
+``` bash
+cp -R nginx01 nginx02
+``` 
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/ex01/nginx02/nginx.conf`
+
+``` nginx
+server {
+    listen 80;
+
+		limit_req_zone $request_uri zone=by_uri:10m rate=30r/m;
+		limit_req_zone $binary_remote_addr zone=by_ip:10m rate=30r/m;
+``` 
+
+Then I got this error:
+
+		web_1  | 2019/01/02 08:44:45 [emerg] 1#1: "server" directive is not allowed here in /etc/nginx/nginx.conf:4
+
+### Ex01: opt03: wrap everything in http{} 
+
+opt03: wrap everything in http{} 
+
+``` bash
+cp -R nginx01 nginx03
+``` 
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/ex01/nginx03/nginx.conf`
+
+``` nginx
+events {
+    worker_connections  1024;
+}
+
+http {
+	limit_req_zone $request_uri zone=by_uri:10m rate=30r/m;
+	limit_req_zone $binary_remote_addr zone=by_ip:10m rate=30r/m;
+	server {
+		listen 80;
+
+		location /by-uri/burst0 {
+``` 
+
+This works
+
+``` bash
+cd ~/projects/study/code/ex/nginx_rate_limiting/ex01/nginx03
+docker-compose up
+``` 
+
+Now, test rate limiting.
+
+``` bash
+curl http://127.0.0.1:80/by-uri/burst0
+	##> Ok
+siege -b -r 1 -c 10 http://127.0.0.1:80/by-uri/burst0
+  ##> HTTP/1.1 200     0.07 secs:       3 bytes ==> GET  /by-uri/burst0
+  ##> HTTP/1.1 503     0.07 secs:     213 bytes ==> GET  /by-uri/burst0
+``` 
+
+Yes, rate limiting by uri works this time.
+
+Check	if rate limiting by ip works too:
+
+``` bash
+curl http://127.0.0.1:80/by-ip/burst0
+	##> Ok
+siege -b -r 1 -c 10 http://127.0.0.1:80/by-ip/burst0
+  ##> Successful transactions:           1
+  ##> Failed transactions:               9
+``` 
+
+## Use openresty docker image
+
+### Ex02: opt01: 
+
+``` bash
+cp -R nginx01 nginx04
+``` 
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/ex02/nginx04/docker-compose.yml`
+
+``` yml
+  openresty:
+    image: openresty/openresty:jessie
+    command: [nginx-debug, '-g', 'daemon off;']
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./index.html:/etc/nginx/html/index.html
+``` 
+
+		ERROR: for nginx04_openresty_1  Cannot start service openresty: b'OCI runtime create failed: container_linux.go:348: starting container process caused "exec: \\"nginx-debug\\": executable file not found in $PATH": unknown'
+
+### Ex02: opt02:
+
+``` bash
+cp -R nginx04 nginx05
+mkdir -p nginx05/openresty
+cp ~/projects/itr/vrp_psk01/openresty/entrypoint.sh nginx05/openresty
+``` 
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/ex02/nginx05/openresty/entrypoint.sh`
+
+``` bash
+exec /usr/local/openresty/bin/openresty -g "daemon off; error_log /dev/stderr info;"
+``` 
+
+``` bash
+curl http://127.0.0.1:80/by-ip/burst0
+  ##> <html>
+  ##> <head><title>404 Not Found</title></head>
+  ##> <body bgcolor="white">
+  ##> <center><h1>404 Not Found</h1></center>
+  ##> <hr><center>openresty/1.13.6.1</center>
+  ##> </body>
+  ##> </html>
+``` 
+
+### Ex02: opt03:
+
+``` bash
+cd /Users/mertnuhoglu/projects/study/code/ex/nginx_rate_limiting/ex02
+cp -R nginx04 nginx06
+``` 
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/ex02/nginx06/docker-compose.yml`
+
+``` yml
+    volumes:
+      - ./conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+``` 
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/ex02/nginx06/conf/nginx.conf`
+
+``` nginx
+http {
+  limit_req_zone $request_uri zone=by_uri:10m rate=30r/m;
+  limit_req_zone $binary_remote_addr zone=by_ip:10m rate=30r/m;
+  server {
+		...
+    location /by-uri/burst0 {
+        limit_req zone=by_uri;
+        try_files $uri /index.html;
+    }
+``` 
+
+``` bash
+docker-compose up
+``` 
+
+``` bash
+siege -b -r 1 -c 10 http://127.0.0.1:80/by-ip/burst0
+  ##> Successful transactions:           1
+  ##> Failed transactions:               9
+``` 
+
+``` bash
+siege -b -r 1 -c 10 http://127.0.0.1:80/by-uri/burst0
+  ##> Successful transactions:           1
+  ##> Failed transactions:               9
+``` 
+
+## Use psk's openresty docker image
+
+### ex03: psk01
+
+Base project
+
+``` bash
+mkdir -p /Users/mertnuhoglu/projects/study/code/ex/nginx_rate_limiting/ex03
+subzero base-project
+cd psk01
+docker-compose up
+curl http://localhost:8080/rest/todos?select=id
+``` 
+
+### ex03: psk02 test with `/simpletest`
+
+``` bash
+subzero base-project
+cd psk02
+``` 
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/ex03/psk02/openresty/nginx/conf/nginx.conf`
+
+``` bash
+http {
+		limit_req_zone $request_uri zone=by_uri:10m rate=30r/m;
+		limit_req_zone $binary_remote_addr zone=by_ip:10m rate=30r/m;
+    server {
+				location /simpletest {
+					default_type 'text/plain';
+					limit_req zone=by_uri;
+					content_by_lua_block {
+						ngx.say('hello earth')
+					}
+				}
+``` 
+
+``` bash
+docker-compose up
+curl http://localhost:8080/rest/todos?select=id
+curl http://localhost:8080/simpletest
+siege -b -r 1 -c 10 http://localhost:8080/rest/todos?select=id
+siege -b -r 1 -c 10 http://localhost:8080/simpletest
+  ##> Successful transactions:           1
+  ##> Failed transactions:               9
+``` 
+
+So, rate limiting works for `/simpletest`.
+
+Now, disable it and reload nginx
+
+``` bash
+docker ps --format '{{.Names}}'
+docker container exec postgreststarterkit_openresty_1 nginx -s reload
+``` 
+
+Ok, this works too.
+
+``` bash
+siege -b -r 1 -c 10 http://localhost:8080/simpletest
+  ##> Successful transactions:           10
+  ##> Failed transactions:               0
+``` 
+
+Now, put `limit_req` into `internal_rest.conf` and `rest.conf`
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/ex03/psk02/openresty/nginx/conf/includes/http/server/locations/internal_rest.conf`
+
+``` bash
+location /internal/rest/ {
+    internal;
+    include includes/http/server/locations/internal_rest/*.conf;
+    default_type  application/json;
+		limit_req zone=by_uri;
+``` 
+
+Edit `~/projects/study/code/ex/nginx_rate_limiting/ex03/psk02/openresty/nginx/conf/includes/http/server/locations/rest.conf`
+
+``` bash
+location /rest {
+	limit_req zone=by_uri;
+	include includes/http/server/locations/rest/*.conf;
+``` 
+
+``` bash
+siege -b -r 1 -c 10 http://localhost:8080/rest/todos?select=id
+  ##> Successful transactions:           1
+  ##> Failed transactions:               9
+``` 
+
+Now, disable `internal_rest.conf`
+
+``` bash
+siege -b -r 1 -c 10 http://localhost:8080/rest/todos?select=id
+  ##> Successful transactions:          10
+  ##> Failed transactions:               0
+``` 
+
+Now, disable `rest.conf` but enable `internal_rest.conf`
+
+``` bash
+siege -b -r 1 -c 10 http://localhost:8080/rest/todos?select=id
+  ##> Successful transactions:           1
+  ##> Failed transactions:               9
+``` 
+

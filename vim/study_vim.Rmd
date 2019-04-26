@@ -25,3 +25,23 @@ Examples of operators:  , y, c
 		| keys | operator | movement      |
 		| dw   | delete   | to next word  |
 		| ci(  | change   | inside parens |
+
+## other
+
+### range xnoremap
+
+``` sql
+function! CommentLines() range
+  exe a:firstline.",".a:lastline."s/^/  ##> /"
+endfunction	
+command! -nargs=* -range CommentLines <line1>,<line2>call CommentLines()
+
+nnoremap <Leader>cl :<c-u>call CommentLines()<CR>
+``` 
+
+->
+
+``` sql
+xnoremap <Leader>cl :call CommentLines()<CR>
+``` 
+

@@ -1,0 +1,23 @@
+{
+  "name": "study_sanctuary",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+		"ex01": "babel-node --presets env ex01/v01.js",
+		"ex01a": "babel-node --presets env ex01/v01a.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "parcel-bundler": "^1.10.3",
+    "ramda": "^0.25.0",
+    "sanctuary": "^0.15.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}

@@ -1,0 +1,104 @@
+---
+title: "Openresty Authentication"
+date: 2019-01-08T18:51:47+03:00 
+draft: false
+description: ""
+tags:
+categories: aws
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/code/openresty_authentication.Rmd
+---
+
+## Explanation to a child
+
+## ex01: How to use
+
+Start a psk container:
+
+``` bash
+subzero base-project
+cd psk02
+docker-compose up
+``` 
+
+Step01: Login and get JWT_TOKEN
+
+``` bash
+curl \
+-H "Content-Type: application/json" \
+-H "Accept: application/vnd.pgrst.object+json" \
+-d '{"email":"alice@email.com","password":"pass"}' \
+http://localhost:8080/rest/rpc/login
+  ##> {"me":{"id":1,"name":"alice","email":"alice@email.com","role":"webuser"},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIiA6ICJ3ZWJ1c2VyIiwgInVzZXJfaWQiIDogMSwgImV4cCIgOiAxNTQ3MDMxNDU3fQ.2IuJtatpQZT4kmcbHP2dUqh9rsCgVpl_ypzq8SrFh7I"}
+``` 
+
+Step02: Use JWT_TOKEN to make an authorized request
+
+``` bash
+export JWT_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk
+curl -H "Authorization: Bearer $JWT_TOKEN" http://localhost:8080/rest/todos?select=id,todo
+  ##> [{"id":1,"todo":"item_1"},
+  ##>  {"id":2,"todo":"item_2"},
+  ##>  {"id":3,"todo":"item_3"},
+  ##>  {"id":6,"todo":"item_6"}]
+``` 
+
+## How does it work?
+
+Payload of the above JWT_TOKEN
+
+``` json
+{
+  "user_id": 1,
+  "role": "webuser"
+}
+``` 
+
+pgr switches to this role:
+
+``` sql
+SET LOCAL ROLE webuser;
+-- run the query
+-- wrap the results into json
+-- return json
+``` 
+
+Previously we executed:
+
+``` sql
+CREATE ROLE webuser NOLOGIN;
+-- grant this role access to certain tables etc
+GRANT webuser TO authenticator;
+-- allow authenticator to switch into webuser role
+``` 
+
+## Managing user credentials
+
+User credentials are defined in `~/projects/study/code/ex/nginx_rate_limiting/ex03/psk02/db/src/sample_data/data.sql`
+
+``` sql
+COPY data.user (id,name,email,"password") FROM STDIN (FREEZE ON);
+1	alice	alice@email.com	pass
+2	bob	bob@email.com	pass
+\.
+``` 
+
+Note that, all data.user rows have by default the role "webuser" as defined in `~/projects/study/code/ex/nginx_rate_limiting/ex03/psk02/db/src/libs/auth/data/user.sql`
+
+``` bash
+create table "user" (
+	"role"				 user_role not null default settings.get('auth.default-role')::user_role,
+``` 
+
+`auth.default-role` is set in `~/projects/study/code/ex/nginx_rate_limiting/ex03/psk02/db/src/init.sql`
+
+``` bash
+select settings.set('auth.default-role', 'webuser');
+``` 
+

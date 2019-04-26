@@ -1,0 +1,781 @@
+---
+title: "Study AWS CLI"
+date: 2019-01-01T13:42:44+03:00 
+draft: false
+description: ""
+tags:
+categories: aws
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/code/study_aws_cli.Rmd
+---
+
+Related documents:
+
+		~/projects/bizqualify/BQ-data-run/datarun/restore_snapshot_on_aws_ec2_20181220.md
+
+# S3
+
+``` bash
+aws s3 ls 
+  ##> 2018-11-02 07:36:58 iterativecom
+  ##> 2017-09-22 13:09:18 mert01
+  ##> 2018-06-19 11:11:26 nuhogluvakfi
+``` 
+
+``` bash
+aws s3 ls s3://iterativecom
+  ##>                            PRE mongo/
+  ##> 2017-09-22 12:16:38     183094 fatura_201707_aws.pdf
+  ##> 2017-09-22 12:45:22      66126 klima_faturasi.pdf
+aws s3 ls s3://iterativecom/mongo
+                           PRE mongo/
+aws s3 ls s3://iterativecom/mongo/
+  ##> 2018-11-13 11:56:19   49748300 dentas_20181113_115530.tar.gz
+  ##> 2018-04-01 21:08:24        589 dentas_json_20180401_210535.tar.gz
+  ##> 2018-04-01 21:14:24   36798232 dentas_json_20180401_211203.tar.gz
+  ##> 2017-09-22 17:52:40     444764 dentasdev_20170922_173831.tar.gz
+  ##> 2018-02-02 08:41:30   23617638 dentasdev_20180202_084109.tar.gz
+  ##> 2018-04-12 09:13:23   23643363 dentasdev_20180412_091301.tar.gz
+``` 
+
+``` bash
+aws s3 cp s3://iterativecom/mongo/dentas_20181113_115530.tar.gz
+``` 
+
+# EC2
+
+## IP Address Management
+
+What are existing elastic IP addresses?
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-addresses.html
+
+``` bash
+aws ec2 describe-addresses | jq '.Addresses[].PublicIp'
+  ##> "34.215.116.149"
+``` 
+
+Create (allocate) a new IP address if there is no existing address:
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/allocate-address.html
+
+``` bash
+aws ec2 allocate-address
+``` 
+
+Associate IP address to `bzq03` https://docs.aws.amazon.com/cli/latest/reference/ec2/associate-address.html
+
+``` bash
+aws ec2 associate-address --instance-id i-03317e7025b6e7aaf --public-ip 34.215.116.149
+  ##> {
+  ##>     "AssociationId": "eipassoc-01455bc9e2ae30426"
+  ##> }
+``` 
+
+## Instance Management
+
+Get volume id of `bzqdb` and instance id of `bzq02` https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-volumes.html
+
+``` bash
+aws ec2 describe-instances --filters Name=tag:Name,Values=bzq02 | jq '.Reservations[].Instances[].InstanceId'
+  ##> "i-027ae2359c7142343"
+aws ec2 describe-instances --filters Name=tag:Name,Values=bzq04 | jq '.Reservations[].Instances[].PublicIpAddress'
+  ##> "34.210.175.146"
+``` 
+
+Complete output:
+
+``` bash
+aws ec2 describe-instances
+  ##> {
+  ##>     "Reservations": [
+  ##>         {
+  ##>             "OwnerId": "652181256058", 
+  ##>             "ReservationId": "r-050541c1ed17e165e", 
+  ##>             "Groups": [], 
+  ##>             "RequesterId": "735274184610", 
+  ##>             "Instances": [
+  ##>                 {
+  ##>                     "Monitoring": {
+  ##>                         "State": "disabled"
+  ##>                     }, 
+  ##>                     "PublicDnsName": "ec2-34-221-238-13.us-west-2.compute.amazonaws.com", 
+  ##>                     "State": {
+  ##>                         "Code": 16, 
+  ##>                         "Name": "running"
+  ##>                     }, 
+  ##>                     "EbsOptimized": false, 
+  ##>                     "LaunchTime": "2018-12-28T10:57:30.000Z", 
+  ##>                     "PublicIpAddress": "34.221.238.13", 
+  ##>                     "PrivateIpAddress": "172.31.13.206", 
+  ##>                     "ProductCodes": [], 
+  ##>                     "VpcId": "vpc-e764ac9f", 
+  ##>                     "StateTransitionReason": "", 
+  ##>                     "InstanceId": "i-049331178df9037d8", 
+  ##>                     "ImageId": "ami-79873901", 
+  ##>                     "PrivateDnsName": "ip-172-31-13-206.us-west-2.compute.internal", 
+  ##>                     "KeyName": "bizqualify", 
+  ##>                     "SecurityGroups": [
+  ##>                         {
+  ##>                             "GroupName": "launch-wizard-1", 
+  ##>                             "GroupId": "sg-01ff8337293a961fd"
+  ##>                         }
+  ##>                     ], 
+  ##>                     "ClientToken": "38cd7447-8449-4e29-99d1-d0ce91631cb5", 
+  ##>                     "SubnetId": "subnet-5783b70d", 
+  ##>                     "InstanceType": "c3.4xlarge", 
+  ##>                     "NetworkInterfaces": [
+  ##>                         {
+  ##>                             "Status": "in-use", 
+  ##>                             "MacAddress": "0a:70:92:6e:dc:68", 
+  ##>                             "SourceDestCheck": true, 
+  ##>                             "VpcId": "vpc-e764ac9f", 
+  ##>                             "Description": "", 
+  ##>                             "Association": {
+  ##>                                 "PublicIp": "34.221.238.13", 
+  ##>                                 "PublicDnsName": "ec2-34-221-238-13.us-west-2.compute.amazonaws.com", 
+  ##>                                 "IpOwnerId": "amazon"
+  ##>                             }, 
+  ##>                             "NetworkInterfaceId": "eni-0558b57246bc96ddb", 
+  ##>                             "PrivateIpAddresses": [
+  ##>                                 {
+  ##>                                     "PrivateDnsName": "ip-172-31-13-206.us-west-2.compute.internal", 
+  ##>                                     "Association": {
+  ##>                                         "PublicIp": "34.221.238.13", 
+  ##>                                         "PublicDnsName": "ec2-34-221-238-13.us-west-2.compute.amazonaws.com", 
+  ##>                                         "IpOwnerId": "amazon"
+  ##>                                     }, 
+  ##>                                     "Primary": true, 
+  ##>                                     "PrivateIpAddress": "172.31.13.206"
+  ##>                                 }
+  ##>                             ], 
+  ##>                             "PrivateDnsName": "ip-172-31-13-206.us-west-2.compute.internal", 
+  ##>                             "Attachment": {
+  ##>                                 "Status": "attached", 
+  ##>                                 "DeviceIndex": 0, 
+  ##>                                 "DeleteOnTermination": true, 
+  ##>                                 "AttachmentId": "eni-attach-0d56375448e5350f9", 
+  ##>                                 "AttachTime": "2018-12-28T10:57:30.000Z"
+  ##>                             }, 
+  ##>                             "Groups": [
+  ##>                                 {
+  ##>                                     "GroupName": "launch-wizard-1", 
+  ##>                                     "GroupId": "sg-01ff8337293a961fd"
+  ##>                                 }
+  ##>                             ], 
+  ##>                             "SubnetId": "subnet-5783b70d", 
+  ##>                             "OwnerId": "652181256058", 
+  ##>                             "PrivateIpAddress": "172.31.13.206"
+  ##>                         }
+  ##>                     ], 
+  ##>                     "SourceDestCheck": true, 
+  ##>                     "Placement": {
+  ##>                         "Tenancy": "default", 
+  ##>                         "GroupName": "", 
+  ##>                         "AvailabilityZone": "us-west-2c"
+  ##>                     }, 
+  ##>                     "Hypervisor": "xen", 
+  ##>                     "InstanceLifecycle": "spot", 
+  ##>                     "BlockDeviceMappings": [
+  ##>                         {
+  ##>                             "DeviceName": "/dev/sda1", 
+  ##>                             "Ebs": {
+  ##>                                 "Status": "attached", 
+  ##>                                 "DeleteOnTermination": false, 
+  ##>                                 "VolumeId": "vol-0968f946bd3368c7c", 
+  ##>                                 "AttachTime": "2018-12-28T10:57:31.000Z"
+  ##>                             }
+  ##>                         }
+  ##>                     ], 
+  ##>                     "Architecture": "x86_64", 
+  ##>                     "RootDeviceType": "ebs", 
+  ##>                     "RootDeviceName": "/dev/sda1", 
+  ##>                     "VirtualizationType": "hvm", 
+  ##>                     "Tags": [
+  ##>                         {
+  ##>                             "Value": "sfr-e79848ca-e0c2-48b5-8099-56541053ed25", 
+  ##>                             "Key": "aws:ec2spot:fleet-request-id"
+  ##>                         }
+  ##>                     ], 
+  ##>                     "SpotInstanceRequestId": "sir-cc7gae3q", 
+  ##>                     "AmiLaunchIndex": 0
+  ##>                 }
+  ##>             ]
+  ##>         }
+  ##>     ]
+  ##> }
+``` 
+
+### create-launch-template 
+
+#### Create a new template from a json file
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html
+
+Example:
+
+``` bash
+aws ec2 create-launch-template --launch-template-name TemplateForWebServer --version-description WebVersion1 --launch-template-data file://template-data.json
+``` 
+
+`template-data.json`
+
+``` json
+{
+    "NetworkInterfaces": [{
+        "AssociatePublicIpAddress": true,
+        "DeviceIndex": 0,
+        "Ipv6AddressCount": 1,
+        "SubnetId": "subnet-7b16de0c"
+    }],
+    "ImageId": "ami-8c1be5f6",
+    "InstanceType": "r4.4xlarge",
+    "TagSpecifications": [{
+        "ResourceType": "instance",
+        "Tags": [{
+            "Key":"Name",
+            "Value":"webserver"
+        }]
+    }],
+    "CpuOptions": {
+        "CoreCount":4,
+        "ThreadsPerCore":2
+    }
+}
+``` 
+
+#### Delete launch template
+
+``` bash
+aws ec2 delete-launch-template --launch-template-id $LaunchTemplateId
+``` 
+
+
+#### Create a template json file from an existing instance
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html
+
+``` bash
+aws ec2 get-launch-template-data --instance-id i-0123d646e8048babc --query "LaunchTemplateData"
+``` 
+
+``` bash
+    {
+        "Monitoring": {}, 
+        "ImageId": "ami-8c1be5f6", 
+        "BlockDeviceMappings": [
+            {
+                "DeviceName": "/dev/xvda", 
+                "Ebs": {
+                    "DeleteOnTermination": true
+                }
+            }
+        ], 
+        "EbsOptimized": false, 
+        "Placement": {
+            "Tenancy": "default", 
+            "GroupName": "", 
+            "AvailabilityZone": "us-east-1a"
+        }, 
+        "InstanceType": "t2.micro", 
+        "NetworkInterfaces": [
+            {
+                "Description": "", 
+                "NetworkInterfaceId": "eni-35306abc", 
+                "PrivateIpAddresses": [
+                    {
+                        "Primary": true, 
+                        "PrivateIpAddress": "10.0.0.72"
+                    }
+                ], 
+                "SubnetId": "subnet-7b16de0c", 
+                "Groups": [
+                    "sg-7c227019"
+                ], 
+                "Ipv6Addresses": [
+                    {
+                        "Ipv6Address": "2001:db8:1234:1a00::123"
+                    }
+                ], 
+                "PrivateIpAddress": "10.0.0.72"
+            }
+        ]
+    }
+``` 
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/get-launch-template-data.html
+
+``` bash
+aws ec2 get-launch-template-data --instance-id i-0056f770abb4901fc --query 'LaunchTemplateData' > ec2_r5_instance_template.json
+``` 
+
+Check: `/Users/mertnuhoglu/projects/bizqualify/BQ-data-run/ref/ec2_r5_instance_template.json`
+
+``` bash
+{
+    "BlockDeviceMappings": [
+        {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+                "Encrypted": false,
+                "SnapshotId": "snap-0252bea5b37202c35",
+                "VolumeType": "gp2",
+                "VolumeSize": 300,
+                "DeleteOnTermination": false
+            }
+						...
+``` 
+
+#### Create a launch template version
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html
+
+``` bash
+aws ec2 create-launch-template-version --launch-template-id lt-0abcd290751193123 --version-description WebVersion2 --source-version 1 --launch-template-data "ImageId=ami-c998b6b2"
+``` 
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/create-launch-template-version.html
+
+## Controlling Output with `--query`
+
+Following https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-output.html
+
+``` bash
+aws ec2 describe-volumes --query 'Volumes[*].{ID:VolumeId,AZ:AvailabilityZone,Size:Size}'
+[
+    {
+        "AZ": "us-west-2c",
+        "ID": "vol-0ea9b9b309ea55196",
+        "Size": 2000
+    },
+    {
+        "AZ": "us-west-2c",
+        "ID": "vol-01dbb839dedafbee9",
+        "Size": 2000
+    },
+    {
+        "AZ": "us-west-2c",
+        "ID": "vol-0968f946bd3368c7c",
+        "Size": 2000
+    }
+``` 
+
+Without any control what would the output be:
+
+``` bash
+aws ec2 describe-volumes
+{
+    "Volumes": [
+        {
+            "AvailabilityZone": "us-west-2c", 
+            "Attachments": [
+                {
+                    "AttachTime": "2018-12-21T12:28:17.000Z", 
+                    "InstanceId": "i-03317e7025b6e7aaf", 
+                    "VolumeId": "vol-0ea9b9b309ea55196", 
+                    "State": "attached", 
+                    "DeleteOnTermination": false, 
+                    "Device": "/dev/sda1"
+                }
+            ], 
+            "Encrypted": false, 
+            "VolumeType": "gp2", 
+            "VolumeId": "vol-0ea9b9b309ea55196", 
+            "State": "in-use", 
+            "Iops": 6000, 
+            "SnapshotId": "snap-029c581bada66fc52", 
+            "CreateTime": "2018-12-21T12:28:17.597Z", 
+            "Size": 2000
+        }, 
+        {
+            "AvailabilityZone": "us-west-2c", 
+            "Attachments": [
+                {
+                    "AttachTime": "2018-12-21T18:18:03.000Z", 
+                    "InstanceId": "i-03317e7025b6e7aaf", 
+                    "VolumeId": "vol-01dbb839dedafbee9", 
+                    "State": "attached", 
+                    "DeleteOnTermination": false, 
+                    "Device": "/dev/sdf"
+                }
+            ], 
+            "Tags": [
+                {
+                    "Value": "bzqdb", 
+                    "Key": "Name"
+                }
+            ], 
+            "Encrypted": false, 
+            "VolumeType": "gp2", 
+            "VolumeId": "vol-01dbb839dedafbee9", 
+            "State": "in-use", 
+            "Iops": 6000, 
+            "SnapshotId": "", 
+            "CreateTime": "2018-12-21T14:08:17.514Z", 
+            "Size": 2000
+        }, 
+        {
+            "AvailabilityZone": "us-west-2c", 
+            "Attachments": [
+                {
+                    "AttachTime": "2018-12-28T10:57:31.000Z", 
+                    "InstanceId": "i-049331178df9037d8", 
+                    "VolumeId": "vol-0968f946bd3368c7c", 
+                    "State": "attached", 
+                    "DeleteOnTermination": false, 
+                    "Device": "/dev/sda1"
+                }
+            ], 
+            "Encrypted": false, 
+            "VolumeType": "gp2", 
+            "VolumeId": "vol-0968f946bd3368c7c", 
+            "State": "in-use", 
+            "Iops": 6000, 
+            "SnapshotId": "snap-029c581bada66fc52", 
+            "CreateTime": "2018-12-28T10:57:30.951Z", 
+            "Size": 2000
+        }
+    ]
+}
+
+``` 
+
+### Filtering with `--query`
+
+--query follows JMESPath specs.
+
+Display only first volume from `Volumes` list
+
+``` bash
+aws ec2 describe-volumes --query 'Volumes[0]'
+``` 
+
+Wildcard `*` iterates over all items in the list. 
+
+Iterate over all volumes and get elements: VolumeId, AvailabilityZone, Size
+
+``` bash
+aws ec2 describe-volumes --query 'Volumes[*].{ID:VolumeId,AZ:AvailabilityZone,Size:Size}'
+[
+    {
+        "InstanceId": "i-a071c394",
+        "AZ": "us-west-2a",
+        "ID": "vol-e11a5288",
+        "Size": 30
+    },
+    {
+        "InstanceId": "i-4b41a37c",
+        "AZ": "us-west-2a",
+        "ID": "vol-2e410a47",
+        "Size": 8
+    }
+]
+``` 
+
+Using dictionary notation, you can also chain keys together, like key1.key2[0].key3, to filter elements deeply nested within the structure
+
+``` bash
+aws ec2 describe-volumes --query 'Volumes[*].{ID:VolumeId,InstanceId:Attachments[0].InstanceId,AZ:AvailabilityZone,Size:Size}'
+``` 
+
+Get as ordered list without keys:
+
+``` bash
+aws ec2 describe-volumes --query 'Volumes[*].[VolumeId, Attachments[0].InstanceId, AvailabilityZone, Size]'
+[
+    [
+        "vol-e11a5288",
+        "i-a071c394",
+        "us-west-2a",
+        30
+    ],
+    [
+        "vol-2e410a47",
+        "i-4b41a37c",
+        "us-west-2a",
+        8
+    ]
+]
+
+``` 
+
+Filter results by the value of a specific field using `?`
+
+``` bash
+$ aws ec2 describe-volumes --query 'Volumes[?AvailabilityZone==`us-west-2a`]'
+``` 
+
+``` bash
+aws ec2 describe-volumes --query 'Volumes[?AvailabilityZone==`us-west-2c`]'
+``` 
+
+### Text Output
+
+``` bash
+aws ec2 describe-volumes --output text
+  ##> VOLUMES us-west-2c      2018-12-21T12:28:17.597ZFalse   6000    2000    snap-029c581bada66fc52 in-use   vol-0ea9b9b309ea55196   gp2
+  ##> ATTACHMENTS     2018-12-21T12:28:17.000Z       False    /dev/sda1       i-03317e7025b6e7aaf    attached vol-0ea9b9b309ea55196
+  ##> VOLUMES us-west-2c      2018-12-21T14:08:17.514ZFalse   6000    2000            in-use  vol-01dbb839dedafbee9   gp2
+  ##> ATTACHMENTS     2018-12-21T18:18:03.000Z       False    /dev/sdf        i-03317e7025b6e7aaf    attached vol-01dbb839dedafbee9
+  ##> TAGS    Name    bzqdb
+  ##> VOLUMES us-west-2c      2018-12-28T10:57:30.951ZFalse   6000    2000    snap-029c581bada66fc52 in-use   vol-0968f946bd3368c7c   gp2
+``` 
+
+``` bash
+aws ec2 describe-volumes --query 'Volumes[*].[VolumeId, Attachments[0].InstanceId, AvailabilityZone, Size, FakeKey]' --output text
+  ##> vol-0ea9b9b309ea55196	i-03317e7025b6e7aaf	us-west-2c	2000	None
+  ##> vol-01dbb839dedafbee9	i-03317e7025b6e7aaf	us-west-2c	2000	None
+  ##> vol-0968f946bd3368c7c	i-049331178df9037d8	us-west-2c	2000	None
+``` 
+
+Using `grep` and `awk`
+
+``` bash
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Placement.AvailabilityZone, State.Name, InstanceId]' --output text
+  ##> us-west-2c	running	i-049331178df9037d8
+  ##> us-west-2c	running	i-03317e7025b6e7aaf
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Placement.AvailabilityZone, State.Name, InstanceId]' --output text | grep us-west-2c | grep running | awk '{print $3}'
+  ##> i-049331178df9037d8
+  ##> i-03317e7025b6e7aaf
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Placement.AvailabilityZone, State.Name, InstanceId, Tags]' --output text
+  ##> us-west-2c	running	i-049331178df9037d8
+  ##> aws:ec2spot:fleet-request-id	sfr-e79848ca-e0c2-48b5-8099-56541053ed25
+  ##> us-west-2c	running	i-03317e7025b6e7aaf
+  ##> Name	bzq03
+  ##> aws:ec2spot:fleet-request-id	sfr-20fa1929-13de-4a86-bd42-d7b999b0d6fd
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Placement.AvailabilityZone, State.Name, InstanceId, Tags]' --output table
+``` 
+
+Automate changing instance types for each stopped instance:
+
+``` bash
+$ aws ec2 describe-instances --query 'Reservations[*].Instances[*].[State.Name, InstanceId]' --output text |
+> grep stopped |
+> awk '{print $2}' |
+> while read line;
+> do aws ec2 modify-instance-attribute --instance-id $line --instance-type '{"Value": "m1.medium"}';
+> done
+``` 
+
+### Table Output
+
+This is both hierarchical and list based format:
+
+``` bash
+aws ec2 describe-volumes --output table
+  ##> ---------------------------------------------------------
+  ##> |                    DescribeVolumes                    |
+  ##> +-------------------------------------------------------+
+  ##> ||                       Volumes                       ||
+  ##> |+---------------------+-------------------------------+|
+  ##> ||  AvailabilityZone   |  us-west-2c                   ||
+  ##> ||  CreateTime         |  2018-12-21T12:28:17.597Z     ||
+  ##> ||  Encrypted          |  False                        ||
+  ##> ||  Iops               |  6000                         ||
+  ##> ||  Size               |  2000                         ||
+  ##> ||  SnapshotId         |  snap-029c581bada66fc52       ||
+  ##> ||  State              |  in-use                       ||
+  ##> ||  VolumeId           |  vol-0ea9b9b309ea55196        ||
+  ##> ||  VolumeType         |  gp2                          ||
+  ##> |+---------------------+-------------------------------+|
+  ##> |||                    Attachments                    |||
+  ##> ||+----------------------+----------------------------+||
+  ##> |||  AttachTime          |  2018-12-21T12:28:17.000Z  |||
+  ##> |||  DeleteOnTermination |  False                     |||
+  ##> |||  Device              |  /dev/sda1                 |||
+  ##> |||  InstanceId          |  i-03317e7025b6e7aaf       |||
+  ##> |||  State               |  attached                  |||
+  ##> |||  VolumeId            |  vol-0ea9b9b309ea55196     |||
+  ##> ||+----------------------+----------------------------+||
+  ##> ||                       Volumes                       ||
+  ##> |+---------------------+-------------------------------+|
+  ##> ||  AvailabilityZone   |  us-west-2c                   ||
+  ##> ||  CreateTime         |  2018-12-21T14:08:17.514Z     ||
+  ##> ||  Encrypted          |  False                        ||
+  ##> ||  Iops               |  6000                         ||
+  ##> ||  Size               |  2000                         ||
+  ##> ||  SnapshotId         |                               ||
+  ##> ||  State              |  in-use                       ||
+  ##> ||  VolumeId           |  vol-01dbb839dedafbee9        ||
+  ##> ||  VolumeType         |  gp2                          ||
+  ##> |+---------------------+-------------------------------+|
+  ##> |||                    Attachments                    |||
+  ##> ||+----------------------+----------------------------+||
+  ##> |||  AttachTime          |  2018-12-21T18:18:03.000Z  |||
+  ##> |||  DeleteOnTermination |  False                     |||
+  ##> |||  Device              |  /dev/sdf                  |||
+  ##> |||  InstanceId          |  i-03317e7025b6e7aaf       |||
+  ##> |||  State               |  attached                  |||
+  ##> |||  VolumeId            |  vol-01dbb839dedafbee9     |||
+  ##> ||+----------------------+----------------------------+||
+  ##> |||                       Tags                        |||
+  ##> ||+------------------------+--------------------------+||
+  ##> |||  Key                   |  Name                    |||
+  ##> |||  Value                 |  bzqdb                   |||
+  ##> ||+------------------------+--------------------------+||
+  ##> ||                       Volumes                       ||
+  ##> |+---------------------+-------------------------------+|
+  ##> ||  AvailabilityZone   |  us-west-2c                   ||
+  ##> ||  CreateTime         |  2018-12-28T10:57:30.951Z     ||
+  ##> ||  Encrypted          |  False                        ||
+  ##> ||  Iops               |  6000                         ||
+  ##> ||  Size               |  2000                         ||
+  ##> ||  SnapshotId         |  snap-029c581bada66fc52       ||
+  ##> ||  State              |  in-use                       ||
+  ##> ||  VolumeId           |  vol-0968f946bd3368c7c        ||
+  ##> ||  VolumeType         |  gp2                          ||
+  ##> |+---------------------+-------------------------------+|
+  ##> |||                    Attachments                    |||
+  ##> ||+----------------------+----------------------------+||
+  ##> |||  AttachTime          |  2018-12-28T10:57:31.000Z  |||
+  ##> |||  DeleteOnTermination |  False                     |||
+  ##> |||  Device              |  /dev/sda1                 |||
+  ##> |||  InstanceId          |  i-049331178df9037d8       |||
+  ##> |||  State               |  attached                  |||
+  ##> |||  VolumeId            |  vol-0968f946bd3368c7c     |||
+  ##> ||+----------------------+----------------------------+||
+``` 
+
+## Tag Management
+
+### create-tags
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/create-tags.html
+
+Each tag consists of a key and optional value.
+
+Syntax
+
+`--resources` (list)
+
+		The IDs of one or more resources, separated by spaces.
+
+		Constraints: Up to 1000 resource IDs. We recommend breaking up this request into smaller batches.
+
+Syntax:
+
+		"string" "string" ...
+
+``` bash
+aws ec2 create-tags --resources ami-78a54011 --tags Key=Stack,Value=production
+``` 
+
+``` bash
+aws ec2 create-tags --resources i-049331178df9037d8 --tags Key=Name,Value=bzq04
+``` 
+
+### describe-tags
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-tags.html
+
+``` bash
+aws ec2 describe-tags
+  ##> {
+  ##>     "Tags": [
+  ##>         {
+  ##>             "ResourceType": "spot-instances-request", 
+  ##>             "ResourceId": "sir-cc7gae3q", 
+  ##>             "Value": "sfr-e79848ca-e0c2-48b5-8099-56541053ed25", 
+  ##>             "Key": "aws:ec2spot:fleet-request-id"
+  ##>         }, 
+  ##>         {
+  ##>             "ResourceType": "spot-instances-request", 
+  ##>             "ResourceId": "sir-ii3g8hfn", 
+  ##>             "Value": "sfr-20fa1929-13de-4a86-bd42-d7b999b0d6fd", 
+  ##>             "Key": "aws:ec2spot:fleet-request-id"
+  ##>         }, 
+  ##>         {
+  ##>             "ResourceType": "instance", 
+  ##>             "ResourceId": "i-03317e7025b6e7aaf", 
+  ##>             "Value": "bzq03", 
+  ##>             "Key": "Name"
+  ##>         }, 
+  ##>         {
+  ##>             "ResourceType": "instance", 
+  ##>             "ResourceId": "i-03317e7025b6e7aaf", 
+  ##>             "Value": "sfr-20fa1929-13de-4a86-bd42-d7b999b0d6fd", 
+  ##>             "Key": "aws:ec2spot:fleet-request-id"
+  ##>         }, 
+  ##>         {
+  ##>             "ResourceType": "instance", 
+  ##>             "ResourceId": "i-049331178df9037d8", 
+  ##>             "Value": "sfr-e79848ca-e0c2-48b5-8099-56541053ed25", 
+  ##>             "Key": "aws:ec2spot:fleet-request-id"
+  ##>         }, 
+  ##>         {
+  ##>             "ResourceType": "volume", 
+  ##>             "ResourceId": "vol-01dbb839dedafbee9", 
+  ##>             "Value": "bzqdb", 
+  ##>             "Key": "Name"
+  ##>         }
+  ##>     ]
+  ##> }
+``` 
+
+Tags for a single resource:
+
+``` bash
+aws ec2 describe-tags --filters "Name=resource-id,Values=i-1234567890abcdef8"
+``` 
+
+Tags for a type of resource:
+
+``` bash
+aws ec2 describe-tags --filters "Name=resource-type,Values=volume"
+``` 
+
+Tags based on a key and a value:
+
+``` bash
+aws ec2 describe-tags --filters "Name=key,Values=Stack" "Name=value,Values=Test"
+``` 
+
+### Tagging EC2 Resources
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html
+
+Each tag consists of a key and an optional value.
+
+They are used to categorize AWS resources.
+
+CLI commands:
+
+		create-tags
+		delete-tags
+		describe-tags
+
+### Iam Instance Profile
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-iam-instance-profile-associations.html
+
+``` bash
+aws ec2 describe-iam-instance-profile-associations
+``` 
+
+### Create new spot request
+
+Edit `~/projects/study/code/ex/ec2_r5_instance_spot_request.json`
+
+``` bash
+aws ec2 request-spot-fleet --spot-fleet-request-config file://~/projects/study/code/ex/ec2_r5_instance_spot_request.json
+  ##>     "SpotFleetRequestId": "sfr-78b469dc-b644-4f09-93c3-8c7c277393a9"
+``` 
+
+Watch request history:
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-spot-fleet-request-history.html
+
+``` bash
+aws ec2 describe-spot-fleet-request-history --spot-fleet-request-id sfr-78b469dc-b644-4f09-93c3-8c7c277393a9 --start-time 2015-05-26T00:00:00Z
+``` 
+
+
+
+
+

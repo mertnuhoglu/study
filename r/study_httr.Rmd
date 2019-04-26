@@ -1,0 +1,165 @@
+---
+title: "Study httr"
+author: "Mert Nuhoglu"
+subtitle: httr library
+output:
+  html_document: default
+---
+
+## POST
+
+Following httr manual:
+
+``` R
+library(httr)
+b2 <- "http://httpbin.org/post"
+POST(b2, body = "A simple text string")
+  ##> Response [http://httpbin.org/post]
+  ##>   Date: 2019-01-21 07:15
+  ##>   Status: 200
+  ##>   Content-Type: application/json
+  ##>   Size: 438 B
+  ##> {
+  ##>   "args": {},
+  ##>   "data": "A simple text string",
+  ##>   "files": {},
+  ##>   "form": {},
+  ##>   "headers": {
+  ##>     "Accept": "application/json, text/xml, application/xml, */*",
+  ##>     "Accept-Encoding": "gzip, deflate",
+  ##>     "Connection": "close",
+  ##>     "Content-Length": "20",
+  ##> ...
+POST(b2, body = list(x = "A simple text string"))
+POST(b2, body = list(y = upload_file(system.file("CITATION"))))
+POST(b2, body = list(x = "A simple text string"), encode = "json")
+# Various types of empty body:
+POST(b2, body = NULL, verbose())
+POST(b2, body = FALSE, verbose())
+POST(b2, body = "", verbose())
+``` 
+
+## Debugging http requests
+
+``` R
+response <- httr::POST("http://localhost:8888/rest/table01", 
+											body = list(id = 601, title = "t601"),
+											encode = "json", verbose()
+											)
+  ##> POST /rest/table01 HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> Accept-Encoding: gzip, deflate
+  ##> Accept: application/json, text/xml, application/xml, */*
+  ##> Content-Type: application/json
+  ##> Content-Length: 25
+  ##> 
+  ##> {"id":601,"title":"t601"}
+
+	##> fails to insert data to postgrest
+``` 
+
+Add header:
+
+``` bash
+response <- httr::POST("http://localhost:8080/rest/table01", 
+											body = list(id = 601, title = "t601"),
+											encode = "json", 
+											add_headers(Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"), 
+											verbose()
+											)
+  ##> -> POST /rest/table01 HTTP/1.1
+  ##> -> Host: localhost:8080
+  ##> -> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> -> Accept-Encoding: gzip, deflate
+  ##> -> Accept: application/json, text/xml, application/xml, */*
+  ##> -> Content-Type: application/json
+  ##> -> Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk
+  ##> -> Content-Length: 25
+  ##> ->
+  ##> >> {"id":601,"title":"t601"}
+
+	##> succeeds to insert data to postgrest
+``` 
+
+Content-Type
+
+``` bash
+response <- httr::POST("http://localhost:8080/rest/table01", 
+	body = "id,title\n501,t501\n502,t502",
+	encode = "raw",
+	add_headers(
+		Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk", 
+		Content-Type = "text/csv"
+	),
+	verbose()
+)
+  ##> Error: unexpected ')' in ")"
+response <- httr::POST("http://localhost:8080/rest/table01", 
+	body = "id,title\n501,t501\n502,t502",
+	encode = "raw",
+	add_headers(
+		Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk"
+	),
+	content_type("text/csv"),
+	verbose()
+)
+  ##> -> POST /rest/table01 HTTP/1.1
+  ##> -> Host: localhost:8080
+  ##> -> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> -> Accept-Encoding: gzip, deflate
+  ##> -> Accept: application/json, text/xml, application/xml, */*
+  ##> -> Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk
+  ##> -> Content-Type: text/csv
+  ##> -> Content-Length: 26
+  ##> ->
+  ##> >> id,title
+  ##> >> 501,t501
+  ##> >> 502,t502
+response <- httr::POST("http://localhost:8080/rest/table01", 
+	body = "id,title\n501,t501\n502,t502",
+	encode = "raw",
+	add_headers(
+		"Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk",
+		"Content-Type" = "text/csv"
+	),
+	verbose()
+)
+  ##> works
+``` 
+
+Upload a file
+
+``` sql
+response <- httr::POST("http://localhost:8080/rest/table01", 
+	body = upload_file("~/projects/study/db/ex/study_postgrest/e03/table01.csv"),
+	add_headers(
+		"Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk",
+		"Content-Type" = "text/csv"
+	),
+	verbose()
+)
+  ##> -> POST /rest/table01 HTTP/1.1
+  ##> -> Host: localhost:8080
+  ##> -> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> -> Accept-Encoding: gzip, deflate
+  ##> -> Accept: application/json, text/xml, application/xml, */*
+  ##> -> Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk
+  ##> -> Content-Type: text/csv
+  ##> -> Content-Length: 27
+  ##> ->
+  ##> >> id,title
+  ##> >> 201,t201
+  ##> >> 202,t202
+``` 
+
+``` sql
+SELECT * FROM schema01.table01;
+  ##>  id  | title
+  ##> -----+-------
+  ##>  201 | t201
+  ##>  202 | t202
+DELETE FROM schema01.table01;
+``` 
+
+

@@ -1,0 +1,73 @@
+---
+title: "Study lftp"
+date: 2019-03-06T16:31:37+03:00 
+draft: true
+description: ""
+tags:
+categories: gcloud
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+
+---
+
+## Article: Linux Lftp Client Tutorial For Ftp, Http, Sftp, Https, Ftps, Fish Potocols
+
+https://www.poftut.com/linux-lftp-client-tutorial-ftp-http-sftp-https-ftps-fish-potocols/
+
+Help:
+
+``` bash
+lftp -h
+  ##> Usage: lftp [OPTS] <site>
+  ##> `lftp' is the first command executed by lftp after rc files
+  ##>  -f <file>           execute commands from the file and exit
+  ##>  -c <cmd>            execute the commands and exit
+  ##>  --help              print this help and exit
+  ##>  --version           print lftp version and exit
+  ##> Other options are the same as in `open' command
+  ##>  -e <cmd>            execute the command just after selecting
+  ##>  -u <user>[,<pass>]  use the user/password for authentication
+  ##>  -p <port>           use the port for connection
+  ##>  <site>              host name, URL or bookmark name
+``` 
+
+### Configuration file
+
+``` bash
+cat /etc/lftp.conf 
+  ##> # try inet6 before inet
+  ##> set dns:order "inet6 inet"
+	##> ...
+``` 
+
+### Interactive shell
+
+``` bash
+lftp
+``` 
+
+Inside lftp:
+
+``` bash
+help
+``` 
+
+### Disable SSL Certification Verification
+
+When you get error:
+
+As we know SSL certificates are approved by the authorities. But in some cases servers can use unapproved certificates. This will create following error.
+
+		Fatal error: Certificate verification: Not trusted
+
+Turn off SSL certificate verify:
+
+Edit `~/.lftp/rc` or `/etc/lftp.conf`
+
+``` bash
+set ssl:verify-certificate no
+``` 
+

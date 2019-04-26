@@ -1,0 +1,12 @@
+version: '2'
+services:
+
+  openresty:
+    image: openresty/openresty:jessie
+    entrypoint: /entrypoint.sh
+    ports:
+      - "80:80"
+    volumes:
+      - "./openresty/entrypoint.sh:/entrypoint.sh"
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./index.html:/etc/nginx/html/index.html

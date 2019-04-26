@@ -1,0 +1,405 @@
+---
+title: "Study curl"
+date: 2019-01-21T10:26:49+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, curl
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/study_curl.Rmd
+state: wip
+---
+
+## sof: How to set up a reverse Telnet on Mac OS X
+
+Following `https://superuser.com/questions/979867/how-to-set-up-a-reverse-telnet-on-mac-os-x`
+
+## Debugging curl requests
+
+### stackoverflow:
+
+Following `https://stackoverflow.com/questions/866946/how-can-i-see-the-request-headers-made-by-curl-when-sending-a-request-to-the-ser`
+
+#### opt01: `curl -vs`
+
+``` bash
+curl -vs www.stackoverflow.com 2>&1 | sed '/^* /d; /bytes data]$/d; s/> //; s/< //'
+  ##> GET / HTTP/1.1
+  ##> Host: www.stackoverflow.com
+  ##> User-Agent: curl/7.43.0
+  ##> Accept: */*
+  ##> 
+  ##> HTTP/1.1 301 Moved Permanently
+  ##> Content-Type: text/html; charset=UTF-8
+  ##> Location: https://stackoverflow.com/
+  ##> Content-Length: 149
+  ##> Accept-Ranges: bytes
+  ##> Date: Mon, 21 Jan 2019 08:23:52 GMT
+  ##> Via: 1.1 varnish
+  ##> Connection: keep-alive
+  ##> X-Served-By: cache-hhn1526-HHN
+  ##> X-Cache: MISS
+  ##> X-Cache-Hits: 0
+  ##> X-Timer: S1548059033.614401,VS0,VE83
+  ##> X-DNS-Prefetch-Control: off
+  ##> Vary: Fastly-SSL
+  ##> Set-Cookie: prov=53cf05ac-d691-f338-92c7-f2df2b2878f5; domain=.stackoverflow.com; expires=Fri, 01-Jan-2055 00:00:00 GMT; path=/; HttpOnly
+  ##> 
+  ##> <head><title>Document Moved</title></head>
+  ##> <body><h1>Object Moved</h1>This document may be found <a HREF="https://stackoverflow.com/">here</a></body>
+``` 
+
+Description:
+
+		-vs - add headers (-v) but remove progress bar (-s)
+		2>&1 - combine stdout and stderr into single stdout
+
+#### opt02: `curl --trace-ascii`
+
+`--trace-ascii` shows request headers, response headers, response body
+
+``` bash
+curl --trace-ascii curl.trace https://www.google.com/ 
+``` 
+
+This produces file: `~/projects/study/bash/curl.trace`
+
+``` text
+== Info:   Trying 172.217.23.132...
+== Info: Connected to www.google.com (172.217.23.132) port 443 (#0)
+== Info: TLS 1.2 connection using TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+== Info: Server certificate: www.google.com
+== Info: Server certificate: Google Internet Authority G3
+== Info: Server certificate: GlobalSign
+=> Send header, 78 bytes (0x4e)
+0000: GET / HTTP/1.1
+0010: Host: www.google.com
+0026: User-Agent: curl/7.43.0
+003f: Accept: */*
+004c: 
+<= Recv header, 17 bytes (0x11)
+0000: HTTP/1.1 200 OK
+<= Recv header, 37 bytes (0x25)
+0000: Date: Mon, 21 Jan 2019 08:26:12 GMT
+<= Recv header, 13 bytes (0xd)
+0000: Expires: -1
+<= Recv header, 35 bytes (0x23)
+0000: Cache-Control: private, max-age=0
+<= Recv header, 45 bytes (0x2d)
+0000: Content-Type: text/html; charset=ISO-8859-1
+...
+``` 
+
+#### opt03: `curl --dump-header`
+
+``` bash
+curl --dump-header curl.trace2 https://www.google.com/ 
+``` 
+
+This produces file: `~/projects/study/bash/curl.trace2`
+
+``` text
+HTTP/1.1 200 OK
+Date: Mon, 21 Jan 2019 08:28:43 GMT
+Expires: -1
+Cache-Control: private, max-age=0
+Content-Type: text/html; charset=ISO-8859-1
+P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+Server: gws
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+Set-Cookie: 1P_JAR=2019-01-21-08; expires=Wed, 20-Feb-2019 08:28:43 GMT; path=/; domain=.google.com
+Set-Cookie: NID=156=AAORaohNlQsMAKaRMXiPAQ-zlWntRmiMPlpOF6ThfuwlzRO704PkBrZJPXiLi69AhB69GpZM4ozx18OEJa-3nl0trivAZwKMxkdx54PsZaALd8ZblBP1_ZyPikyQZVc5Rwp021HKUJBGRC4cJxLuntnpYo-wHIzlVNK6xISSLmg; expires=Tue, 23-Jul-2019 08:28:43 GMT; path=/; domain=.google.com; HttpOnly
+Alt-Svc: quic=":443"; ma=2592000; v="44,43,39,35"
+Accept-Ranges: none
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+``` 
+
+``` bash
+curl -I https://www.google.com/ 
+``` 
+
+#### opt04: `netcat`
+
+Open a terminal window:
+
+``` bash
+nc -l -p 8888
+``` 
+
+On another terminal:
+
+``` bash
+curl --form 'foo=bar' localhost:8888
+``` 
+
+`nc` output:
+
+		POST / HTTP/1.1
+		Host: localhost:8888
+		User-Agent: curl/7.43.0
+		Accept: */*
+		Content-Length: 141
+		Expect: 100-continue
+		Content-Type: multipart/form-data; boundary=------------------------c2a2a902c5123c8c
+
+		--------------------------c2a2a902c5123c8c
+		Content-Disposition: form-data; name="foo"
+
+		bar
+		--------------------------c2a2a902c5123c8c--
+
+## List open ports with netstat
+
+Following `https://apple.stackexchange.com/questions/117644/how-can-i-list-my-open-network-ports-with-netstat`
+
+``` bash
+$ lsof -Pn -i4 | rg 2399
+netcat    21162 mertnuhoglu    4u  IPv4 0x8a3383dd17da36a5      0t0  TCP 127.0.0.1:2399->127.0.0.1:59472 (ESTABLISHED)
+netcat    21221 mertnuhoglu    3u  IPv4 0x8a3383dd184fedad      0t0  TCP 127.0.0.1:59472->127.0.0.1:2399 (ESTABLISHED)
+``` 
+
+## Debug: make a query to postgrest id=g_10773
+
+### Debug using curl GET
+
+#### opt01: use netcat to debug 
+
+``` bash
+nc -l -p 8888
+``` 
+
+``` bash
+curl http://localhost:8888/rest/table01?select=id
+  ##> GET /rest/table01?select=id HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: curl/7.43.0
+  ##> Accept: */*
+``` 
+
+``` bash
+curl localhost:8888/rest/table01?select=id
+	##> zsh: no matches found: localhost:8888/rest/table01?select=id
+``` 
+
+``` bash
+curl localhost:8888
+  ##> GET / HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: curl/7.43.0
+  ##> Accept: */*
+``` 
+
+``` bash
+curl --form 'foo=bar' localhost:8888
+  ##> POST / HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: curl/7.43.0
+  ##> Accept: */*
+  ##> Content-Length: 141
+  ##> Expect: 100-continue
+  ##> Content-Type: multipart/form-data; boundary=------------------------cd8c3544adf30ea1
+  ##> 
+  ##> --------------------------cd8c3544adf30ea1
+  ##> Content-Disposition: form-data; name="foo"
+  ##> 
+  ##> bar
+  ##> --------------------------cd8c3544adf30ea1--
+``` 
+
+#### opt02: use `-v` to debug
+
+``` bash
+curl -vs http://localhost:8080/rest/table01?select=id
+  ##> > GET /rest/table01?select=id HTTP/1.1
+  ##> > Host: localhost:8080
+  ##> > User-Agent: curl/7.43.0
+  ##> > Accept: */*
+  ##> >
+  ##> < HTTP/1.1 200 OK
+  ##> < Server: openresty
+  ##> < Date: Mon, 21 Jan 2019 10:02:44 GMT
+  ##> < Content-Type: application/json; charset=utf-8
+  ##> < Transfer-Encoding: chunked
+  ##> < Connection: keep-alive
+  ##> < Vary: Accept-Encoding
+  ##> < Content-Range: */*
+  ##> < X-Frame-Options: SAMEORIGIN
+  ##> < X-Content-Type-Options: nosniff
+  ##> < X-XSS-Protection: 1; mode=block
+  ##> < Content-Location: /rest/table01?select=id
+  ##> < Request-Time: 0.007
+  ##> <
+  ##> { [12 bytes data]
+``` 
+
+### Debug using R httr::GET
+
+#### opt01: use netcat to debug 
+
+``` bash
+nc -l -p 8888
+``` 
+
+``` R
+response <- httr::GET("http://localhost:8888/rest/table01")
+  ##> GET /rest/table01 HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> Accept-Encoding: gzip, deflate
+  ##> Accept: application/json, text/xml, application/xml, */*
+response <- httr::GET("http://localhost:8888/rest/table01", 
+											query = list( select = "id")
+											)
+  ##> GET /rest/table01?select=id HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> Accept-Encoding: gzip, deflate
+  ##> Accept: application/json, text/xml, application/xml, */*
+response <- httr::GET("http://localhost:8888/rest/table01?select=id")
+  ##> GET /rest/table01?select=id HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> Accept-Encoding: gzip, deflate
+  ##> Accept: application/json, text/xml, application/xml, */*
+``` 
+
+#### opt02: use verbose() to debug 
+
+``` R
+response <- httr::GET("http://localhost:8080/rest/table01", verbose())
+  ##> -> GET /rest/table01 HTTP/1.1
+  ##> -> Host: localhost:8080
+  ##> -> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> -> Accept-Encoding: gzip, deflate
+  ##> -> Accept: application/json, text/xml, application/xml, */*
+  ##> ->
+  ##> <- HTTP/1.1 200 OK
+  ##> <- Server: openresty
+  ##> <- Date: Mon, 21 Jan 2019 10:25:30 GMT
+  ##> <- Content-Type: application/json; charset=utf-8
+  ##> <- Transfer-Encoding: chunked
+  ##> <- Connection: keep-alive
+  ##> <- Vary: Accept-Encoding
+  ##> <- Content-Range: 0-1/*
+  ##> <- X-Frame-Options: SAMEORIGIN
+  ##> <- X-Content-Type-Options: nosniff
+  ##> <- X-XSS-Protection: 1; mode=block
+  ##> <- Content-Location: /rest/table01
+  ##> <- Request-Time: 0.016
+  ##> <- Content-Encoding: gzip
+  ##> <-
+``` 
+
+## Debug: Insert data with POST to postgrest  id=g_10774
+
+### Debug using curl POST
+
+``` sql
+curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: text/csv" -d $'id,title\n401,t401\n402,t402' http://localhost:8888/rest/table01
+  ##> POST /rest/table01 HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: curl/7.43.0
+  ##> Accept: */*
+  ##> Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk
+  ##> Content-Type: text/csv
+  ##> Content-Length: 26
+  ##> 
+  ##> id,title
+  ##> 401,t401
+  ##> 402,t402
+curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: text/csv" --data-binary @/Users/mertnuhoglu/projects/study/db/ex/study_postgrest/e03/table01.csv http://localhost:8888/rest/table01
+  ##> POST /rest/table01 HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: curl/7.43.0
+  ##> Accept: */*
+  ##> Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk
+  ##> Content-Type: text/csv
+  ##> Content-Length: 27
+  ##> 
+  ##> id,title
+  ##> 201,t201
+  ##> 202,t202
+curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: application/json" --data-binary @/Users/mertnuhoglu/projects/study/db/ex/study_postgrest/e03/table01.json http://localhost:8888/rest/table01
+  ##> POST /rest/table01 HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: curl/7.43.0
+  ##> Accept: */*
+  ##> Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk
+  ##> Content-Type: application/json
+  ##> Content-Length: 65
+  ##> 
+  ##> [{"id": "301", "title": "t301"}, {"id": "302", "title": "t302"}]
+``` 
+
+### Debug using R httr::POST
+
+``` R
+response <- httr::POST("http://localhost:8888/rest/table01", 
+											body = "id,title\n501,t501\n502,t502",
+											encode = "raw", verbose()
+											)
+  ##> POST /rest/table01 HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> Accept-Encoding: gzip, deflate
+  ##> Accept: application/json, text/xml, application/xml, */*
+  ##> Content-Length: 26
+  ##> 
+  ##> id,title
+  ##> 501,t501
+  ##> 502,t502
+	##> fails: no insert
+response <- httr::POST("http://localhost:8888/rest/table01", 
+											body = "id,title\n501,t501\n502,t502",
+											encode = "raw", verbose()
+											)
+  ##> POST /rest/table01 HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> Accept-Encoding: gzip, deflate
+  ##> Accept: application/json, text/xml, application/xml, */*
+  ##> Content-Length: 26
+  ##> 
+  ##> id,title
+  ##> 501,t501
+  ##> 502,t502
+	##> fails
+response <- httr::POST("http://localhost:8888/rest/table01", 
+											body = '[{"id": "301", "title": "t301"}, {"id": "302", "title": "t302"}]',
+											encode = "json", verbose()
+											)
+  ##> POST /rest/table01 HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> Accept-Encoding: gzip, deflate
+  ##> Accept: application/json, text/xml, application/xml, */*
+  ##> Content-Length: 64
+  ##> 
+  ##> [{"id": "301", "title": "t301"}, {"id": "302", "title": "t302"}]
+	##> fails
+response <- httr::POST("http://localhost:8888/rest/table01", 
+											body = list(id = 601, title = "t601"),
+											encode = "json", verbose()
+											)
+  ##> POST /rest/table01 HTTP/1.1
+  ##> Host: localhost:8888
+  ##> User-Agent: libcurl/7.43.0 r-curl/3.2 httr/1.4.0
+  ##> Accept-Encoding: gzip, deflate
+  ##> Accept: application/json, text/xml, application/xml, */*
+  ##> Content-Type: application/json
+  ##> Content-Length: 25
+  ##> 
+  ##> {"id":601,"title":"t601"}
+	##> fails
+``` 
+

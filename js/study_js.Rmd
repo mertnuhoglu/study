@@ -36,9 +36,9 @@ node ex/study_js/a02.js
 
 ``` bash
 node ex/study_js/a03.js
-# /Users/mertnuhoglu/projects/study/js/ex/study_js/a03.js:43
-# list.items.map((e) => ({e.id}))
-# SyntaxError: Unexpected token .
+'# /Users/mertnuhoglu/projects/study/js/ex/study_js/a03.js:43
+'# list.items.map((e) => ({e.id}))
+'# SyntaxError: Unexpected token .
 ``` 
 
 ## Shortcut for Nested JSON Objects
@@ -60,6 +60,141 @@ Short form to define this data structure:
 
 ``` 
 listsOfItems :: [{name, items:[{id}]}]
+``` 
+
+## Reshaping Nested Arrays
+
+``` {bash}
+node ex/study_js/a04.js
+``` 
+
+``` js
+let as = [
+	{ p1: 'a01', bs: [ {p2: 'b11'}, {p2: 'b12'} ] },
+	{ p1: 'a02', bs: [ {p2: 'b21'} ] },
+]
+let ys = as.map(a => ({bs2: a.bs.map(b => b.p2)}))
+console.log(ys)
+// [ { bs2: [ 'b11', 'b12' ] }, { bs2: [ 'b21' ] } ]
+``` 
+
+## `apply` unboxes array arg and passes them to the fun arg
+
+``` {bash}
+node ex/study_js/a05.ts
+``` 
+
+The following is equivalent to the next example:
+
+``` js
+let ps = []
+ps.push.apply(ps, [1,2])
+console.log(ps)
+// [ 1, 2 ]
+``` 
+
+``` js
+let qs = []
+qs.push(1,2)
+console.log(qs)
+// [ 1, 2 ]
+``` 
+
+## Implement `concatAll` with Examples
+
+``` {bash}
+node ex/study_js/a06.ts
+``` 
+
+``` js
+let ass = [
+	[1,2],
+	[3]
+]
+let rs = []
+
+ass.forEach( as => rs.push.apply(rs, as) )
+console.log(rs)
+// [ 1, 2, 3 ]
+
+let concatAll = function(ass) {
+  let rs = [];
+	ass.forEach( as => rs.push.apply(rs, as))
+  return rs;
+}
+
+console.log(concatAll(ass))
+// [ 1, 2, 3 ]
+``` 
+
+## Naming Nested Arrays
+
+Normal way of defining an array:
+
+``` js
+as = [ {p1: 1}, {p1: 2} ]
+``` 
+
+Using map over an array:
+
+``` js
+as.map( a => a.p1 )
+``` 
+
+Note that, the name `a` doesn't exist in the definition of `as`
+
+It corresponds to each element of an array.
+
+Let's define the array with `a` elements as named `a'`:
+
+``` js
+as = [ a': {p1: 1}, a': {p1: 2} ]
+``` 
+
+Now, do it for nested arrays:
+
+``` js
+as = [ a': { bs: [ b': {p1: 1} ] } ]
+``` 
+
+Note that, we don't specify `a'` and `b'` normally. But they are useful as implicitly defined names, because we have to refer them when mapping over the array `as`. Such as:
+
+``` js
+as.map(a => a.bs.map(b => b.p1))
+``` 
+
+So, we need 4 names in double-nested array:
+
+``` js
+x1 = [ x2': { x3: [ x4': { p1: 1 } ] }]
+``` 
+
+`x1` and `x3` are already specified in idiomatic js. `x2` and `x4` are specified only as `map` arguments.
+
+## What does `map` do in nested arrays?
+
+`map` traverses an array and produces another array. 
+
+What about the elements of arrays? Are they protected by `map` operation?
+
+No, `map` protects only arrays and nothing more.
+
+So, if input to `map` is a double-nested array, then the output is a double-nested array too.
+
+Each `map` corresponds to an array. If there are two `map` operations nested, then we have double-nested array.
+
+``` js
+as = [ {name, items: [ {id, title} ]} ]
+``` 
+
+We want to have the following output:
+
+``` js
+ys = [ [id11, id12], [id21] ]
+``` 
+ 
+``` js
+as.map( a => a.items.map( b => b.id ) )
 ``` 
 
 ## Function.prototype.apply()
@@ -110,6 +245,7 @@ reference:
 
     Frisby's Mostly Adequate Guide to Functional Programming - Brian Lonsdorf
     Chapter 9: Monadic Onions
+		## Chapter 9: Monadic Onions <url:file:///~/gdrive/mynotes/content/books/fp/book_frisby_adequate_guide_to_functional_programming.md#r=g_10601>
 
 ### Simple Example for `concatMap` 02
 

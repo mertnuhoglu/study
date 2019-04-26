@@ -1,0 +1,212 @@
+---
+title: "Study plumber RESTful APIs"
+date: 2018-10-24T10:14:06+03:00 
+draft: true
+description: ""
+tags:
+categories: examples r plumber
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/r/study_plumber_restful_apis.Rmd
+---
+
+## v01: Getting Started
+
+Tutorial from https://www.rplumber.io/docs/quickstart.html#quickstart
+
+Edit `~/projects/study/r/ex/study_plumber_restful_apis/e01.R`
+
+``` r
+  #' @get /echo
+function(msg=""){
+  list(msg = paste0("The message is: '", msg, "'"))
+}
+``` 
+
+Open an R console and run:
+
+``` r
+pr <- plumber::plumb("e01.R")
+pr$run(port=4500)
+``` 
+
+Run:
+
+Open http://localhost:4500/echo
+
+``` bash
+curl http://localhost:4500/echo
+'# {"msg":["The message is: ''"]}
+``` 
+
+Open http://localhost:4500/plot
+
+http://localhost:4500/plot?spec=setosa
+
+Edit `~/projects/study/r/ex/study_plumber_restful_apis/e01.R`
+
+``` R
+  #' @post /add1
+function(num=0){
+  list(y = as.numeric(num) + 1)
+}
+``` 
+
+``` bash
+curl -X POST -H "Content-Type: application/json" -d '{"num":"3"}' http://localhost:4500/add1
+'# {"y":[4]}
+curl -X POST -H "Content-Type: application/json" -d '{"num":"3"}' http://localhost:4500/add2
+'# {"y":[5]}
+``` 
+
+### v02: Multiple Arguments
+
+``` R
+  #' Increment the parameter by one
+  #' @param num The number to increment
+  #' @param x The number to add
+  #' @post /add3
+add3 = function(num=0, x=0){
+  list(y = as.numeric(num) + as.numeric(x))
+}
+``` 
+
+``` bash
+curl -X POST -H "Content-Type: application/json" -d '{"num":"3", "x":"5"}' http://localhost:4500/add3
+  ##> {"y":[8]}
+``` 
+
+### Testing API with cyclejs
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p13/ex02a.js`
+
+``` js
+const requests$ = xs.from(
+  [
+    {
+      url: 'http://localhost:4500/add2',
+      method: 'POST',
+			send: '{"num":"3"}',
+			category: 'plumber'
+``` 
+
+Run cyclejs:
+
+``` bash
+cd ~/projects/study/js/ex/study_notes_cyclejs/
+node src/problems/p13/ex02a.js
+``` 
+
+## e02: Uploading File with Plumber
+
+Following the code in https://github.com/trestletech/plumber/issues/75
+
+Edit `~/projects/study/r/ex/study_plumber_restful_apis/e02.R`
+
+``` bash
+  #' @post /echo2
+function(req){
+	formContents = Rook::Multipart$parse(req)
+	somefile <- readLines(con = formContents$upload$tempfile)
+	print(formContents$upload$tempfile)
+  list(formContents=formContents)
+}
+``` 
+
+Run server:
+
+``` r
+pr <- plumber::plumb("e02.R")
+pr$run(port=4500)
+``` 
+
+### Test with curl:
+
+``` js
+cd /Users/mertnuhoglu/projects/study/r/ex/study_plumber_restful_apis
+curl -v -F foo=bar -F upload=@e01.R http://localhost:4500/echo
+  ##> * Connected to localhost (127.0.0.1) port 4500 (#0)
+  ##> > POST /echo HTTP/1.1
+  ##> > Host: localhost:4500
+  ##> > User-Agent: curl/7.43.0
+  ##> > Accept: */*
+  ##> > Content-Length: 1233
+  ##> > Expect: 100-continue
+  ##> > Content-Type: multipart/form-data; boundary=------------------------6f1446e921f68590
+  ##> >
+  ##> < HTTP/1.1 100 Continue
+  ##> } [246 bytes data]
+  ##> < HTTP/1.1 200 OK
+  ##> < Content-Type: application/json
+  ##> < Date: Mon, 26 Nov 2018 13:08:38 GMT
+  ##> < Connection: close
+  ##> < Content-Length: 327
+  ##> <
+  ##> { [327 bytes data]
+  ##> 100  1560  100   327  100  1233   9323  35155 --:--:-- --:--:-- --:--:-- 36264
+
+curl -v -F foo=bar -F upload=@e01.R http://localhost:4500/echo2
+'# * Connected to localhost (127.0.0.1) port 4500 (#0)
+'# > POST /echo2 HTTP/1.1
+'# > Host: localhost:4500
+'# > User-Agent: curl/7.43.0
+'# > Accept: */*
+'# > Content-Length: 1233
+'# > Expect: 100-continue
+'# > Content-Type: multipart/form-data; boundary=------------------------bd5f5f34d07cc20f
+'# >
+'# < HTTP/1.1 100 Continue
+'# < HTTP/1.1 200 OK
+'# < Content-Type: application/json
+'# < Date: Wed, 24 Oct 2018 18:01:36 GMT
+'# < Connection: close
+'# < Content-Length: 327
+'# <
+'# * Closing connection 0
+'# {"formContents":{"foo":["bar"],"upload":{"filename":["e01.R"],"tempfile":["/var/folders/f9/d201s84j0gb95830cjhp09_m0000gq/T//Rtmp0TY9Wq/Multipart851f36a910a5"],"content_type":["application/octet-stream"],"head":["Content-Disposition: form-data; name=\"upload\"; filename=\"e01.R\"\r\nContent-Type: application/octet-stream"]}}}
+``` 
+
+### Test with superagent:
+
+Edit `~/projects/study/r/ex/study_plumber_restful_apis/js/e02/superagent01.js`
+
+``` bash
+superagent.post( 'http://localhost:4500/echo2' )
+	.set('Content-Type', 'multipart/form-data')
+	.attach('upload', '~/projects/study/r/ex/study_plumber_restful_apis/e01.R')
+``` 
+
+``` bash
+mkdir -p ex/study_plumber_restful_apis/js && cd $_ && npm init -y && pnpm i superagent
+node e02/superagent01.js
+``` 
+
+### Test with cyclejs
+
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p13/ex03.js`
+
+``` bash
+	url: 'http://localhost:4500/echo2',
+	method: 'POST',
+	attach: [
+		{
+			name: 'upload',
+			path: '~/projects/study/r/ex/study_plumber_restful_apis/e01.R',
+			filename: 'e01.R'
+		}
+``` 
+
+Run cyclejs:
+
+``` bash
+cd ~/projects/study/js/ex/study_notes_cyclejs/
+node src/problems/p13/ex03.js
+'# result: {"formContents":{"upload":{"filename":["e01.R"],"tempfile":["/var/folders/f9/d201s84j0gb95830cjhp09_m0000gq/T//Rtmpl9bWKT/Multipartdf8062e3f36d"],"content_type":["application/octet-stream"],"head":["Content-Disposition: form-data; name=\"upload\"; filename=\"e01.R\"\r\nContent-Type: application/octet-stream"]}}}
+``` 
+
+## e03: 

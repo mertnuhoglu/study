@@ -1,0 +1,1122 @@
+---
+title: "Examples Database"
+date: 2018-12-21T11:49:32+03:00 
+draft: true
+description: ""
+tags:
+categories: database, postgresql
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/db/examples_db.Rmd
+state: wip
+---
+
+## 02. Filter Companies by Zip Code
+
+Filter companies by zip code:
+
+``` sql
+SELECT company_ein, bq_company_address1_zip5 
+FROM data_20181217.all_data 
+WHERE bq_company_address1_zip5 IN ('94303', '10010', '02451')
+LIMIT 3;
+``` 
+
+Export the results into csv file:
+
+``` sql
+\COPY ( SELECT * FROM client.altdg ORDER BY RANDOM() ) TO '~/bizqualify_data/altdg_test_data.csv' WITH CSV HEADER;
+``` 
+
+Import csv file into database:
+
+``` sql
+\COPY data_20181001.all_data FROM '~/bizqualify_data/data_20181001_ts.csv' DELIMITER ',' CSV HEADER;
+``` 
+
+Export from bash:
+
+``` sql
+echo "\copy  ( SELECT ... ) To '${schema}_ts.csv' With CSV HEADER" | psql -d bizqualify
+``` 
+
+Rename a schema
+
+``` sql
+ALTER SCHEMA data_20181202 RENAME TO data_20181219;
+``` 
+
+``` sql
+CREATE SCHEMA raw_data_20181219;
+GRANT USAGE ON SCHEMA raw_data_20181219 TO readonly;
+ALTER DEFAULT PRIVILEGES IN SCHEMA raw_data_20181219
+GRANT SELECT ON TABLES TO readonly;
+``` 
+
+Run a SQL script:
+
+``` bash
+psql -f ./concatenate_sep_data_20181220.sql
+``` 
+
+### UNION and LIMIT
+
+``` sql
+SELECT *
+FROM data_20181220.all_data 
+WHERE bq_company_address1_zip5 = '94303'
+AND bq_year = 2018
+LIMIT 100
+UNION ALL
+SELECT *
+FROM data_20181220.all_data 
+WHERE bq_company_address1_zip5 = '10010'
+AND bq_year = 2018;
+``` 
+
+### Error: UNION and LIMIT
+
+		ERROR:  syntax error at or near "UNION"
+		LINE 7: UNION ALL
+
+So, the problem is related to using LIMIT and UNION together.
+
+Wrap SELECT inside parantheses.
+
+``` sql
+(SELECT *
+FROM data_20181220.all_data 
+WHERE bq_company_address1_zip5 = '94303'
+AND bq_year = 2018
+ORDER BY bq_current_employees_plan DESC
+LIMIT 100)
+UNION ALL
+(SELECT *
+FROM data_20181220.all_data 
+WHERE bq_company_address1_zip5 = '10010'
+AND bq_year = 2018
+ORDER BY bq_current_employees_plan DESC
+LIMIT 100)
+UNION ALL
+SELECT *
+FROM data_20181220.all_data 
+WHERE bq_company_address1_zip5 = '02451'
+AND bq_year = 2018
+ORDER BY bq_current_employees_plan DESC
+LIMIT 100;
+``` 
+
+This works
+
+### Get rows with multiple/duplicate bq_company_sec_name for the same bq_ticker
+
+``` sql
+SELECT count(DISTINCT bq_company_sec_name), bq_ticker
+FROM backtest.oct11_oct18
+GROUP BY bq_ticker
+HAVING count(DISTINCT bq_company_sec_name) > 1;
+  ##>      3 | AA
+  ##>      2 | ACI
+``` 
+
+### Are there any rows with duplicate company_ein values?
+
+``` sql
+SELECT count(*), company_ein
+FROM data_20181115_v5.companies_non_ts
+GROUP BY company_ein
+HAVING count(*) > 1;
+  ##>  count | company_ein
+  ##> -------+-------------
+  ##> (0 rows)
+``` 
+
+Find duplicate rows:
+
+``` bash
+SELECT * FROM (
+  SELECT bq_cusip, company_ein,
+  row_number() OVER(PARTITION BY bq_cusip, company_ein ORDER BY bq_cusip ASC) AS row
+  FROM data_20181115.all_data
+) dups
+WHERE 
+dups.row > 1
+``` 
+
+Find both company_ein and bq_cusip
+
+``` sql
+CREATE TABLE public.test_cusip (
+	bq_cusip text,
+	company_ein text
+);
+DELETE FROM public.test_cusip;
+COPY public.test_cusip (bq_cusip,company_ein) FROM STDIN (ENCODING 'utf-8');
+101	201
+101	201
+102	201
+103	203
+103	203
+104	204
+104	205
+\.
+``` 
+
+``` sql
+WITH uni AS (
+	SELECT DISTINCT ON (bq_cusip, company_ein) bq_cusip, company_ein FROM public.test_cusip ORDER BY bq_cusip, company_ein
+),
+a AS (
+	SELECT bq_cusip, string_agg(company_ein, ', ') AS company_ein FROM uni
+	GROUP BY uni.bq_cusip
+	HAVING count(*) > 1
+),
+b AS (
+	SELECT company_ein, string_agg(bq_cusip, ', ') AS bq_cusip FROM uni
+	GROUP BY uni.company_ein
+	HAVING count(*) > 1
+)
+SELECT bq_cusip, company_ein FROM a
+UNION ALL
+SELECT bq_cusip, company_ein FROM b;
+  ##>  bq_cusip | company_ein
+  ##> ----------+-------------
+  ##>  104      | 204, 205
+  ##>  101, 102 | 201
+  ##> (2 rows)
+``` 
+
+opt02: create temp table
+
+``` sql
+CREATE TEMP TABLE invalid_cusip (bq_cusip text, company_ein text);
+WITH uni AS (
+	SELECT DISTINCT ON (bq_cusip, company_ein) bq_cusip, company_ein FROM data_20181115.all_data ORDER BY bq_cusip, company_ein
+),
+a AS (
+	SELECT bq_cusip, string_agg(company_ein, ', ') AS company_ein FROM uni
+	GROUP BY uni.bq_cusip
+	HAVING count(*) > 1
+),
+b AS (
+	SELECT company_ein, string_agg(bq_cusip, ', ') AS bq_cusip FROM uni
+	GROUP BY uni.company_ein
+	HAVING count(*) > 1
+)
+INSERT INTO invalid_cusip
+SELECT bq_cusip, company_ein FROM a
+UNION ALL
+SELECT bq_cusip, company_ein FROM b;
+  ##> bq_cusip,company_ein
+  ##> 81617J301,"205960810, 814561945"
+  ##> 038923108,"113291561, 202133699"
+  ##> 92047W101,"300939371, 611782197"
+  ##> 69354M108,"260566203, 541820933"
+  ##> 69354M108,260566203
+``` 
+
+#### 07.04.03. Error: ambiguous company_ein
+
+Error
+
+		psql:datarun/concatenate_sep_data.sql:175: ERROR:  column reference "company_ein" is ambiguous
+		LINE 173: SELECT company_ein, bq_company_name, bq_company_legal_name, ...
+
+Cause:
+
+		joined AS (
+			SELECT lhs.*, rhs.*
+			FROM a_minus_b lhs
+			LEFT JOIN data_20181217.companies_non_ts rhs USING (company_ein)
+
+lhs.* and rhs.* both contain company_ein.
+
+## 07. Update Non Time Series Variables From Original Dataset
+
+We need to run update statements for all columns and for each company_ein:
+
+``` sql
+UPDATE data_20181204.all_data 
+SET bq_company_legal_name = ...
+WHERE company_ein = '202133699';
+``` 
+
+### 07.01. Create a Toy Problem
+
+``` sql
+CREATE TEMP TABLE test_timeseries_original (
+	company_ein text,
+	bq_year bigint,
+	a text,
+	b text
+);
+CREATE TEMP TABLE test_timeseries_addend (
+	company_ein text,
+	bq_year bigint,
+	a text,
+	b text
+);
+DELETE FROM test_timeseries_original;
+DELETE FROM test_timeseries_addend;
+COPY test_timeseries_original (company_ein, bq_year, a, b) FROM STDIN (ENCODING 'utf-8');
+101	2018	a01	b01
+101	2016	a01	b01
+102	2018	a02	b02
+\.
+COPY test_timeseries_addend (company_ein, bq_year, a, b) FROM STDIN (ENCODING 'utf-8');
+101	2017	a01x	b01x
+102	2017	a02x	b02x
+\.
+``` 
+
+``` sql
+CREATE TEMP TABLE test_companies_non_ts AS 
+SELECT DISTINCT company_ein, a, b
+FROM test_timeseries_original;
+CREATE TEMP TABLE test_timeseries_concatenated AS TABLE test_timeseries_original;
+WITH a_minus_b AS (
+	SELECT lhs.company_ein, lhs.bq_year
+	FROM test_timeseries_addend lhs
+	LEFT JOIN test_timeseries_original rhs USING (company_ein, bq_year)
+	WHERE tto.company_ein IS NULL
+),
+joined AS (
+	SELECT lhs.*, rhs.a, rhs.b
+	FROM a_minus_b lhs
+	LEFT JOIN test_companies_non_ts rhs USING (company_ein)
+)
+INSERT INTO test_timeseries_concatenated (company_ein, bq_year, a, b)
+SELECT company_ein, bq_year, a, b
+FROM joined;
+``` 
+
+``` sql
+SELECT * FROM test_timeseries_concatenated ORDER BY company_ein, bq_year;
+  ##>  company_ein | bq_year |  a  |  b
+  ##> -------------+---------+-----+-----
+  ##>  101         |    2016 | a01 | b01
+  ##>  101         |    2017 | a01 | b01
+  ##>  101         |    2018 | a01 | b01
+  ##>  102         |    2017 | a02 | b02
+  ##>  102         |    2018 | a02 | b02
+``` 
+
+### 07.02. Verify that there is no duplicate data before concatenation
+
+We should be sure that test_timeseries_original doesn't contain any duplicate company_ein rows. Else concatenation will add new rows due to joining operation. 
+
+``` sql
+CREATE TEMP TABLE test_companies_non_ts AS 
+SELECT DISTINCT company_ein, a, b
+FROM test_timeseries_original;
+``` 
+
+How can we verify that this won't create any duplicate company_ein rows before concatenation?
+
+``` sql
+WITH a AS (
+	SELECT count(*) FROM test_timeseries_original GROUP BY company_ein, bq_year
+)
+SELECT count(*) FROM a;
+  ##>  count
+  ##> -------
+  ##>      3
+``` 
+
+### 07.03. Test Verification in Real Data
+
+``` sql
+WITH a AS (
+	SELECT count(*) FROM data_20181202.all_data GROUP BY company_ein, bq_year
+)
+SELECT count(*) FROM a;
+  ##>   count
+  ##> ---------
+  ##>  6583082
+SELECT count(*) FROM data_20181202.all_data;
+  ##>   count
+  ##> ---------
+  ##>  6583082
+``` 
+
+So, all rows are unique by company_ein and bq_year.
+
+# Backup and Restore a Postgres Database
+
+Where is postgres database?
+
+``` sql
+SELECT name, setting FROM pg_settings WHERE category = 'File Locations';
+  ##>        name        |                 setting
+  ##> -------------------+------------------------------------------
+  ##>  config_file       | /etc/postgresql/9.5/main/postgresql.conf
+  ##>  data_directory    | /var/lib/postgresql/9.5/main
+  ##>  external_pid_file | /var/run/postgresql/9.5-main.pid
+  ##>  hba_file          | /etc/postgresql/9.5/main/pg_hba.conf
+  ##>  ident_file        | /etc/postgresql/9.5/main/pg_ident.conf
+  ##> (5 rows)
+``` 
+
+``` bash
+sudo -u postgres psql -c "SHOW data_directory;"   
+  ##>         data_directory
+  ##> ------------------------------
+  ##>  /var/lib/postgresql/9.5/main
+  ##> (1 row)
+``` 
+
+Stop postgres before changing data directory:
+
+``` bash
+sudo systemctl stop postgresql
+sudo systemctl status postgresql
+  ##> Dec 21 13:30:45 ip-172-31-5-223 systemd[1]: Stopped PostgreSQL RDBMS.
+``` 
+
+Edit postgres conf file:
+
+``` bash
+sudo vim /etc/postgresql/9.5/main/postgresql.conf
+``` 
+
+Update the following line:
+
+``` txt
+data_directory = '/mnt/var/lib/postgresql/9.5/main'
+``` 
+
+Copy postgres data directory:
+
+``` bash
+sudo rsync -aP /var/lib/postgresql/9.5/main /data/postgresql/
+``` 
+
+Start postgres again:
+
+``` bash
+sudo systemctl start postgresql
+sudo systemctl status postgresql
+  ##> Dec 21 13:35:04 ip-172-31-5-223 systemd[1]: Started PostgreSQL RDBMS.
+``` 
+
+## dump and restore postgres
+
+``` bash
+# dumping pg database
+# https://www.postgresql.org/docs/9.1/static/backup-dump.html#BACKUP-DUMP-RESTORE
+# dumping
+pg_dumpall -U $SUPER_USER > ~/bizqualify_data/pgbackup01
+# restoring
+psql -f ~/bizqualify_data/pgbackup01 postgres
+``` 
+
+## pg_restore
+
+``` bash
+pg_restore -d bizqualify ~/backup/data_20181115_v4b.dump
+``` 
+
+## schema export
+
+``` bash
+# only ddl -s
+pg_dump --schema=data_20181217 -s bizqualify > schema_data_20181217.sql
+
+# data and ddl
+pg_dump bizqualify -Fc --schema data_20181217 > database.dump
+``` 
+
+# postgres environment variables
+
+``` bash
+export PGHOST=localhost
+export PGPORT=5432
+export PGUSER=$DB_USER
+export PGDATABASE=$DB_NAME
+export PGPASSWORD=$DB_PASS
+``` 
+
+# postgres setup initial database
+
+``` bash
+sudo -u postgres psql -c "CREATE DATABASE $DB_NAME;"   # this is automatically done when postgres server starts
+psql -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASS';"
+psql -c "GRANT ALL PRIVILEGES ON DATABASE $DB_NAME TO $DB_USER;"
+sudo -u postgres psql -c "ALTER ROLE $DB_USER WITH SUPERUSER"
+psql -c "CREATE USER $DB_ANON_ROLE WITH LOGIN NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION password '$DB_ANON_PASS'"
+``` 
+
+# 01.03. Find the differences for some indicator variable
+
+Let's try to find which companies have different values for some indicator variable. Take `bq_defined_contrib_pens_ind` as example:
+
+#### 01.03.01. Create a Toy Problem
+
+First let's create a simple toy data:
+
+``` sql
+CREATE TEMP TABLE test (
+  a text,
+  b text
+);
+DELETE FROM test;
+COPY test (a, b) FROM STDIN (ENCODING 'utf-8');
+101	10
+102	20
+103	30
+104	40
+105	50
+\.
+``` 
+
+``` sql
+CREATE TEMP TABLE test (
+  bq_ticker text,
+  bq_data_run_date text,
+  bq
+);
+DELETE FROM test;
+COPY test (bq_ticker, bq_data_run_date) FROM STDIN (ENCODING 'utf-8');
+a01 2017-10-02
+a01 2017-11-02
+a01 2018-11-02
+\.
+``` 
+
+``` sql
+CREATE TEMP TABLE test_ind_01 (
+	company_ein text,
+	bq_year bigint,
+	a_ind bigint
+);
+CREATE TEMP TABLE test_ind_02 (
+	company_ein text,
+	bq_year bigint,
+	a_ind bigint
+);
+DELETE FROM test_ind_01;
+DELETE FROM test_ind_01;
+COPY test_ind_01 (company_ein,bq_year,a_ind) FROM STDIN (ENCODING 'utf-8');
+101	2017	0
+102	2017	0
+103	2017	0
+\.
+COPY test_ind_02 (company_ein,bq_year,a_ind) FROM STDIN (ENCODING 'utf-8');
+101	2017	1
+102	2017	0
+103	2018	1
+\.
+``` 
+
+In this sample data set, there are two companies whose `a_ind` has changed:
+
+		101	2017
+
+We need to find them:
+
+``` sql
+WITH a AS ( SELECT company_ein, bq_year, a_ind FROM test_ind_01),
+b AS ( SELECT company_ein, bq_year, a_ind FROM test_ind_02)
+SELECT company_ein, bq_year
+FROM a 
+INNER JOIN b USING (company_ein, bq_year)
+WHERE a.a_ind != b.a_ind;
+  ##> company_ein | bq_year
+  ##>-------------+---------
+  ##> 101         |    2017
+``` 
+
+# 05. Compare all Indicator Variables
+
+### 05.01. Sample Data Test
+
+First let's create another simple toy problem:
+
+``` sql
+CREATE TEMP TABLE test_ind_01 (
+	company_ein text,
+	bq_year bigint,
+	a_ind bigint,
+	b_ind bigint
+);
+CREATE TEMP TABLE test_ind_02 (
+	company_ein text,
+	bq_year bigint,
+	a_ind bigint,
+	b_ind bigint
+);
+DELETE FROM test_ind_01;
+DELETE FROM test_ind_01;
+COPY test_ind_01 (company_ein,bq_year,a_ind,b_ind) FROM STDIN (ENCODING 'utf-8');
+101	2017	0	1
+102	2017	0	0
+103	2017	0	1
+\.
+COPY test_ind_02 (company_ein,bq_year,a_ind,b_ind) FROM STDIN (ENCODING 'utf-8');
+101	2017	1	1
+102	2017	0	1
+103	2018	1	0
+\.
+``` 
+
+In this sample data set, there are one company whose `a_ind` has changed:
+
+		101	2017
+
+And there are one company whose `b_ind` has changed:
+
+		102	2017
+
+We need to produce such a result:
+
+		| company_ein | bq_year | ind_variable |
+		|-------------|---------|--------------|
+		| 101         | 2017    | a_ind        |
+		| 102         | 2017    | b_ind        |
+
+
+### 05.02. Long Format Data Test
+
+What if we had the data in long format. Such as:
+
+``` sql
+CREATE TEMP TABLE test_long_01 (
+	company_ein text,
+	bq_year bigint,
+	ind_value bigint,
+	ind_variable text
+);
+CREATE TEMP TABLE test_long_02 (
+	company_ein text,
+	bq_year bigint,
+	ind_value bigint,
+	ind_variable text
+);
+DELETE FROM test_long_01;
+DELETE FROM test_long_02;
+COPY test_long_01 (company_ein,bq_year,ind_value,ind_variable) FROM STDIN (ENCODING 'utf-8');
+101	2017	0	a_ind
+102	2017	0	a_ind
+103	2017	0	a_ind
+101	2017	1	b_ind
+102	2017	0	b_ind
+103	2017	1	b_ind
+\.
+COPY test_long_02 (company_ein,bq_year,ind_value,ind_variable) FROM STDIN (ENCODING 'utf-8');
+101	2017	1	a_ind
+102	2017	0	a_ind
+103	2018	1	a_ind
+101	2017	1	b_ind
+102	2017	1	b_ind
+103	2018	0	b_ind
+\.
+``` 
+
+``` sql
+WITH a AS ( SELECT company_ein, bq_year, ind_value, ind_variable FROM test_long_01),
+b AS ( SELECT company_ein, bq_year, ind_value, ind_variable FROM test_long_02)
+SELECT company_ein, bq_year, ind_variable
+FROM a 
+INNER JOIN b USING (company_ein, bq_year, ind_variable)
+WHERE a.ind_value != b.ind_value;
+  ##>  company_ein | bq_year | ind_variable
+  ##> -------------+---------+--------------
+  ##>  101         |    2017 | a_ind
+  ##>  102         |    2017 | b_ind
+``` 
+
+### 05.03. Unpivot: Convert Wide Format to Long Format opt01: use unnest
+
+Test unnest for ind_variable
+
+``` sql
+SELECT a.company_ein, a.bq_year, 
+  unnest(array['a_ind', 'b_ind']) AS ind_variable
+FROM test_ind_01 a;
+  ##>  company_ein | bq_year | ind_variable
+  ##> -------------+---------+--------------
+  ##>  101         |    2017 | a_ind
+  ##>  101         |    2017 | b_ind
+  ##>  102         |    2017 | a_ind
+  ##>  102         |    2017 | b_ind
+  ##>  103         |    2017 | a_ind
+  ##>  103         |    2017 | b_ind
+``` 
+
+``` sql
+SELECT a.company_ein, a.bq_year, 
+  unnest(array['a_ind', 'b_ind']) AS ind_variable,
+	unnest(array[a_ind, b_ind]) AS ind_value
+FROM test_ind_01 a ;
+  ##>  company_ein | bq_year | ind_variable | ind_value
+  ##> -------------+---------+--------------+-----------
+  ##>  101         |    2017 | a_ind        |         0
+  ##>  101         |    2017 | b_ind        |         1
+  ##>  102         |    2017 | a_ind        |         0
+  ##>  102         |    2017 | b_ind        |         0
+  ##>  103         |    2017 | a_ind        |         0
+  ##>  103         |    2017 | b_ind        |         1
+``` 
+
+This is correct. 
+
+Now, test it:
+
+``` sql
+WITH 
+a AS ( 
+	SELECT t.company_ein, t.bq_year, 
+		unnest(array['a_ind', 'b_ind']) AS ind_variable,
+		unnest(array[a_ind, b_ind]) AS ind_value
+	FROM test_ind_01 t 
+),
+b AS ( 
+	SELECT t.company_ein, t.bq_year, 
+		unnest(array['a_ind', 'b_ind']) AS ind_variable,
+		unnest(array[a_ind, b_ind]) AS ind_value
+	FROM test_ind_02 t 
+)
+SELECT company_ein, bq_year, ind_variable, a.ind_value AS ind_before, b.ind_value AS ind_after
+FROM a
+INNER JOIN b USING (company_ein, bq_year, ind_variable)
+WHERE a.ind_value != b.ind_value;
+  ##>  company_ein | bq_year | ind_variable | ind_before | ind_after
+  ##> -------------+---------+--------------+------------+-----------
+  ##>  101         |    2017 | a_ind        |          0 |         1
+  ##>  102         |    2017 | b_ind        |          0 |         1
+``` 
+
+# DROP and CREATE SCHEMA
+
+``` sql
+DROP SCHEMA IF EXISTS data_20181212 CASCADE;
+CREATE SCHEMA data_20181212;
+GRANT USAGE ON SCHEMA data_20181212 TO readonly;
+ALTER DEFAULT PRIVILEGES IN SCHEMA data_20181212
+GRANT SELECT ON TABLES TO readonly;
+``` 
+
+# CREATE TABLE AS
+
+``` sql
+CREATE TABLE data_20181212.clean_variables AS (SELECT * FROM data_20181202.clean_variables);
+``` 
+
+# LIKE
+
+``` sql
+SELECT count(*) FROM data_20181202.master_variables WHERE acknowledgement_id LIKE 'f_%';
+  ##>  count
+  ##> --------
+  ##>  291548
+``` 
+
+# 03.01.01. Which tables do have `acknowledgement_id`?
+
+Which tables do have `acknowledgement_id`?
+
+``` sql
+set search_path = 20181202;
+SELECT table_name FROM information_schema.columns WHERE column_name = 'acknowledgement_id';
+  ##>         table_name         
+  ##> ---------------------------
+  ##>  clean_variables
+  ##>  extracted_variables
+SELECT n.nspname AS schema ,c.relname
+	FROM pg_class as c
+	INNER JOIN pg_attribute as a on a.attrelid = c.oid
+	INNER JOIN pg_namespace as n on c.relnamespace = n.oid
+WHERE a.attname = 'acknowledgement_id' and c.relkind = 'r';
+  ##>       schema       |          relname
+  ##> -------------------+---------------------------
+  ##>  data_20181202     | extracted_variables
+  ##>  data_20181202     | plan_transfer
+  ##>  data_20181202     | type_bnft_variables
+  ##>  data_20181202     | derived_variables
+  ##>  data_20181202     | clean_variables
+  ##>  data_20181202     | master_variables
+  ##>  data_20181202     | master_variables_forecast
+	##> ...
+SELECT c.relname
+FROM pg_class as c
+INNER JOIN pg_attribute as a on a.attrelid = c.oid
+INNER JOIN pg_namespace as n on c.relnamespace = n.oid
+WHERE a.attname = 'acknowledgement_id' 
+AND c.relkind = 'r' 
+AND n.nspname = 'data_20181202';
+  ##>           relname
+  ##> ---------------------------
+  ##>  extracted_variables
+  ##>  plan_transfer
+  ##>  type_bnft_variables
+  ##>  derived_variables
+  ##>  clean_variables
+  ##>  master_variables
+	##>  master_variables_forecast
+``` 
+
+# Count Rows
+
+Get estimated counts of rows in all tables:
+
+``` sql
+SELECT schemaname,relname,n_live_tup 
+  FROM pg_stat_user_tables 
+	WHERE schemaname = 'data_20181202'
+  ORDER BY n_live_tup DESC;
+  ##>   schemaname   |                  relname                  | n_live_tup
+  ##> ---------------+-------------------------------------------+------------
+  ##>  data_20181202 | derived_variables                         |    8136539
+  ##>  data_20181202 | extracted_variables                       |    7704524
+``` 
+
+### 02.01. Verify that these are really unique
+
+Count the unique number of key values in them.
+
+``` sql
+SELECT COUNT(DISTINCT acknowledgement_id) FROM data_20181202.master_variables;
+  ##> 7930263
+SELECT COUNT(*) FROM data_20181202.master_variables;
+  ##> 7930263
+SELECT reltuples FROM pg_class WHERE oid = 'data_20181202.master_variables'::regclass;
+  ##> 7.63872e+06
+SELECT n_live_tup FROM pg_stat_user_tables WHERE schemaname = 'data_20181202' AND relname = 'master_variables';
+  ##> 7638715
+``` 
+
+As seen above, exact counts of rows are different than estimates. Let's collect exact counts of rows in each table:
+
+``` sql
+SELECT 
+	table_schema,
+	table_name, 
+	count_rows(table_schema, table_name)
+FROM information_schema.tables
+WHERE 
+	table_schema IN ('data_20181202') 
+	AND table_type='BASE TABLE'
+ORDER BY 3 DESC;
+  ##>  table_schema  |                table_name                 | count_rows
+  ##> ---------------+-------------------------------------------+------------
+  ##>  data_20181202 | master_variables                          |    7930263
+  ##>  data_20181202 | extracted_variables                       |    7761393
+``` 
+
+# Alter Data Types
+
+``` sql
+ALTER TABLE data_20181105.all_data_dup
+ALTER COLUMN bq_revenue TYPE bigint,
+ALTER COLUMN bq_sp_500_indicator TYPE text;
+```
+
+# Concatenate Tables
+
+## opt01: First anti join then insert
+
+Now first copy the existing data into a new table:
+
+``` sql
+DROP TABLE data_20181105.all_data3;
+CREATE TABLE data_20181105.all_data3 AS
+SELECT ad.* FROM data_20181105.all_data_dup ad;
+```
+
+Then merge all_data of September into all_data of November but excluding duplicate (existing) rows.
+
+``` sql
+WITH ad09_minus_ad11 AS (
+		SELECT ad09.*
+		FROM data_20180903.all_data ad09
+		LEFT JOIN data_20181105.all_data3 ad11 ON ad09.company_ein = ad11.company_ein AND ad09.bq_year = ad11.bq_year
+		WHERE ad11.company_ein IS NULL
+	)
+INSERT INTO data_20181105.all_data3
+	SELECT ad09_minus_ad11.*
+	FROM ad09_minus_ad11;
+``` 
+
+## opt02: First anti join, then left join and project rhs columns, then insert
+
+We need to run update statements for all columns and for each company_ein:
+
+``` sql
+UPDATE data_20181204.all_data 
+SET bq_company_legal_name = ...
+WHERE company_ein = '202133699';
+``` 
+
+opt01 cannot handle this use case.
+
+### 07.01. Create a Toy Problem
+
+``` sql
+CREATE TEMP TABLE test_timeseries_original (
+	company_ein text,
+	bq_year bigint,
+	a text,
+	b text
+);
+CREATE TEMP TABLE test_timeseries_addend (
+	company_ein text,
+	bq_year bigint,
+	a text,
+	b text
+);
+DELETE FROM test_timeseries_original;
+DELETE FROM test_timeseries_addend;
+COPY test_timeseries_original (company_ein, bq_year, a, b) FROM STDIN (ENCODING 'utf-8');
+101	2018	a01	b01
+101	2016	a01	b01
+102	2018	a02	b02
+\.
+COPY test_timeseries_addend (company_ein, bq_year, a, b) FROM STDIN (ENCODING 'utf-8');
+101	2017	a01x	b01x
+102	2017	a02x	b02x
+\.
+``` 
+
+``` sql
+CREATE TEMP TABLE test_companies_non_ts AS 
+SELECT DISTINCT company_ein, a, b
+FROM test_timeseries_original;
+
+CREATE TEMP TABLE test_timeseries_concatenated AS TABLE test_timeseries_original;
+
+WITH a_minus_b AS (
+	SELECT lhs.company_ein, lhs.bq_year
+	FROM test_timeseries_addend lhs
+	LEFT JOIN test_timeseries_original rhs USING (company_ein, bq_year)
+	WHERE tto.company_ein IS NULL
+),
+joined AS (
+	SELECT lhs.*, rhs.a, rhs.b
+	FROM a_minus_b lhs
+	LEFT JOIN test_companies_non_ts rhs USING (company_ein)
+)
+INSERT INTO test_timeseries_concatenated (company_ein, bq_year, a, b)
+SELECT company_ein, bq_year, a, b
+FROM joined;
+``` 
+
+``` sql
+SELECT * FROM test_timeseries_concatenated ORDER BY company_ein, bq_year;
+  ##>  company_ein | bq_year |  a  |  b
+  ##> -------------+---------+-----+-----
+  ##>  101         |    2016 | a01 | b01
+  ##>  101         |    2017 | a01 | b01
+  ##>  101         |    2018 | a01 | b01
+  ##>  102         |    2017 | a02 | b02
+  ##>  102         |    2018 | a02 | b02
+``` 
+
+### 07.02. Verify that there is no duplicate data before concatenation
+
+How can we verify that this won't create any duplicate company_ein rows before concatenation?
+
+``` sql
+WITH a AS (
+	SELECT count(*) FROM test_timeseries_original GROUP BY company_ein, bq_year
+)
+SELECT count(*) FROM a;
+  ##>  count
+  ##> -------
+  ##>      3
+``` 
+
+``` sql
+WITH a AS (
+	SELECT count(*) FROM data_20181202.all_data GROUP BY company_ein, bq_year
+)
+SELECT count(*) FROM a;
+  ##>   count
+  ##> ---------
+  ##>  6583082
+SELECT count(*) FROM data_20181202.all_data;
+  ##>   count
+  ##> ---------
+  ##>  6583082
+``` 
+
+How can I find which of the variables has multiple values for one company_ein?
+
+``` sql
+SELECT count(*), company_ein
+FROM data_20181217.companies_non_ts
+GROUP BY company_ein
+HAVING count(*) > 1
+LIMIT 10;
+  ##>  count | company_ein
+  ##> -------+-------------
+  ##>      2 | 010001010
+  ##>      2 | 010004010
+  ##>      9 | 010018250
+  ##>      9 | 010020240
+  ##>      9 | 010021090
+  ##>      9 | 010021545
+  ##>      9 | 010022110
+  ##>      8 | 010022450
+``` 
+
+## 02.01. Verify that no Nov or Dec filing exists
+
+``` sql
+SELECT count(*)
+FROM data_20181115_v3.all_data
+WHERE extract(MONTH from bq_comp_most_recent_filing_date) IN (11, 12)
+AND extract(YEAR from bq_comp_most_recent_filing_date) IN (2018);
+  ##> count
+  ##>-------
+  ##> 0
+``` 
+
+# 20190118
+
+``` sql
+DROP TABLE IF EXISTS <original_data>concat.companies_non_ts;
+SELECT count(DISTINCT company_ein) FROM data_20190103b.non_profit_firmo;
+``` 
+
+``` sql
+UPDATE client.deshaw a
+SET bq_sp_500_indicator = b.bq_sp_500_indicator
+FROM client.deshaw b
+WHERE b.bq_data_run_date = '2017-10-02'
+  AND a.bq_ticker = b.bq_ticker
+  AND a.bq_data_run_date > '2017-10-02'
+  AND a.bq_data_run_date < '2018-03-05';
+``` 
+
+Fix the type of a column:
+
+``` sql
+UPDATE data_20180806.all_data
+SET bq_sp_500_indicator = REGEXP_REPLACE(COALESCE(bq_sp_500_indicator, '0'), '[^0-9]*' ,'0')::integer
+WHERE bq_sp_500_indicator IS NOT NULL;
+ALTER TABLE data_20180806.all_data ALTER COLUMN bq_sp_500_indicator TYPE INTEGER USING (bq_sp_500_indicator::smallint);
+``` 
+
+### Division 
+
+``` sql
+SELECT (5 / 10) AS percent_3;
+  ##>  percent_3
+  ##> -----------
+  ##>          0
+``` 
+
+Cause: This is integer division. You need to cast to decimal.
+
+### LIKE ILIKE
+
+``` sql
+SELECT * FROM data_20190203.all_data 
+WHERE bq_company_name ILIKE '%scryer%' 
+``` 
+
+### to_char string/number formatting
+
+``` sql
+    , to_char((b.bq_revenue::numeric - a.bq_revenue) / NULLIF(a.bq_revenue, 0) * 100, 'FM999999999.00') AS percent_change_revenue
+``` 
+
+### CREATE MATERIALIZED VIEW
+
+``` sql
+DROP MATERIALIZED VIEW IF EXISTS twosigma.universe_20180702_florida CASCADE;
+CREATE MATERIALIZED VIEW twosigma.universe_20180702_florida AS (
+``` 
+
+### string_agg for numeric
+
+``` sql
+SELECT count(DISTINCT bq_ticker), bq_company_sec_name, string_agg(DISTINCT bq_ticker, ', '), string_agg(DISTINCT company_ein::text, ', ')
+FROM backtest.oct11_oct18
+WHERE bq_company_sec_name <> ''
+GROUP BY bq_company_sec_name
+HAVING count(DISTINCT bq_ticker) > 1 ;
+``` 
+
+## Using generate_series
+
+``` sql
+SELECT *
+FROM generate_series(0,3);
+  ##>                0
+  ##>                1
+  ##>                2
+  ##>                3
+SELECT *
+FROM generate_series(1,5,2);
+  ##> generate_series
+  ##> 1
+  ##> 3
+  ##> 5
+``` 
+
+## Using VALUES
+
+VALUES
+
+``` sql
+SELECT r_min::text || '-' || r_max::text AS range,
+	r_min, r_max
+FROM (VALUES (0,29),(30,59)) AS t(r_min, r_max);
+  ##>  range | r_min | r_max
+  ##> -------+-------+-------
+  ##>  0-29  |     0 |    29
+  ##>  30-59 |    30 |    59
+``` 
+
+## BETWEEN
+
+``` sql
+  LEFT JOIN test t ON t.b BETWEEN r.r_min AND r.r_max
+``` 
+
+Equivalent to:
+
+``` sql
+LEFT JOIN test t ON t.b >= r.r_min AND t.b <= r.r_max;
+``` 
+
+## RANDOM
+
+``` sql
+SELECT bq_company_id, a.bq_company_name_short, b.bq_company_name_short, a.company_ein, b.company_ein
+FROM twosigma.universe_20180702_florida a
+INNER JOIN twosigma.universe_20170818_florida b USING (bq_company_id)
+ORDER BY RANDOM()
+LIMIT 30;
+``` 
+
+## other
+
+### connect with psql
+
+``` bash
+psql -h <host> -p <port> -U <username> -W <password> <database>
+PGPASSWORD=bqdata psql -h localhost -U bqdata bizqualify
+``` 
+
+Connect with superuser:
+
+``` bash
+sudo -u bqdata psql bizqualify
+``` 
+
+### bq
+
+``` bash
+bq query 'select count(*) from `bigquery-public-data.samples.shakespeare`'
+bq query 'select count(*) from bigquery-public-data.samples.shakespeare'
+``` 
+

@@ -1,0 +1,104 @@
+---
+title: "Study Rstudio"
+date: 2019-02-18T16:08:19+03:00 
+draft: true
+description: ""
+tags:
+categories: rstudio
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/r/study_rstudio.Rmd
+state: wip
+---
+
+# Setup Rstudio Server
+
+## opt01: Install natively (has some issues)
+
+I couldn't make this run properly. Use docker instead.
+
+``` bash
+sudo apt-get install gdebi-core
+cd tmp
+wget https://download2.rstudio.org/rstudio-server-1.1.463-amd64.deb
+sudo gdebi rstudio-server-1.1.463-amd64.deb
+``` 
+
+``` bash
+sudo rstudio-server start
+sudo rstudio-server status
+``` 
+
+Open http://ec2-....us-west-2.compute.amazonaws.com:8787
+
+Edit `sudo vim /etc/rstudio/rserver.conf`
+
+``` text
+admin-enabled=1
+admin-group=rstudio-admins
+``` 
+
+``` bash
+sudo rstudio-server restart
+sudo rstudio-server stop
+sudo rstudio-server status
+``` 
+
+## opt02: Use docker (better)
+
+Result:
+
+``` bash
+docker pull rocker/rstudio
+``` 
+
+Edit `~/projects/bizqualify/BQ-data-run/datarun/rstudio/docker-compose.yml`
+
+``` yml
+  rstudio:
+    image: rocker/rstudio
+    ports:
+      - "8787:8787"
+    environment:
+      - PASSWORD=...
+
+    volumes:
+      - /home/ubuntu:/home/rstudio
+      - /home/ubuntu/BQ-data-run/datarun/rstudio/.Rprofile:/home/rstudio/.Rprofile
+      - /data/home:/data/home
+``` 
+
+Edit `~/projects/bizqualify/BQ-data-run/datarun/rstudio/.Rprofile`
+
+``` R
+.libPaths( "/home/rstudio/rlib" ) 
+``` 
+
+Run docker
+
+``` sql
+cd ~/BQ-data-run/datarun/rstudio
+docker-compose up
+``` 
+
+Install R packages
+
+``` bash
+sudo apt-get update
+sudo apt-get install -y libxml2-dev libcurl4-openssl-dev libssl-dev
+sudo apt-get -y install libpq-dev
+sudo apt-get -y install pandoc
+``` 
+
+``` R
+install.packages(c("RPostgreSQL","doMC","data.table","scales","tidyverse", "rmarkdown"), dep=TRUE)
+``` 
+
+

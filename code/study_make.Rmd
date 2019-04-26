@@ -1,0 +1,151 @@
+---
+title: "Study make"
+date: 2019-03-26T10:17:04+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/study_make.Rmd
+state: wip
+---
+
+## Article 01: Minimal Make
+
+https://kbroman.org/minimal_make/
+
+Most important tool for reproducible research: GNU make.
+
+Why? Because it runs all the other tools and prepares the end product.
+
+### A simple example
+
+Preparing a pdf output from latex:
+
+``` make
+mypaper.pdf: mypaper.bib mypaper.tex Figs/fig1.pdf Figs/fig2.pdf
+    pdflatex mypaper
+    bibtex mypaper
+    pdflatex mypaper
+    pdflatex mypaper
+
+Figs/fig1.pdf: R/fig1.R
+    cd R;R CMD BATCH fig1.R
+
+Figs/fig2.pdf: R/fig2.R
+    cd R;R CMD BATCH fig2.R
+``` 
+
+Each paragraph (batch of lines) consists of:
+
+- file to be created (target): `Figs/fig1.pdf`
+- files it depends on (prerequisites): `R/fig1.R`
+- commands to construct target: `cd R; R CMD BATCH fig1.R`
+
+Start lines with **TAB**
+
+Incremental builds: Make builds only `fig1.pdf` when `fig1.R` is changed
+
+Dependencies propagate. If you change `fig.R` then `mypaper.pdf` will be rebuilt.
+
+Oddity: run `cd` on the same line as the related command
+
+Use `\ ` for continuation line
+
+``` make
+### this works ###
+Figs/fig1.pdf: R/fig1.R
+    cd R;\
+    R CMD BATCH fig1.R
+``` 
+
+### Using GNU make
+
+#### Variables
+
+Define `R_OPTS` variable
+
+``` make
+#R_OPTS=--vanilla
+R_OPTS=--no-save --no-restore --no-init-file --no-site-file
+``` 
+
+Use it:
+
+``` make
+cd R;R CMD BATCH $(R_OPTS) fig1.R
+``` 
+
+#### Automatic variables
+
+		$@    the file name of the target
+		$<    the name of the first prerequisite (i.e., dependency)
+		$^    the names of all prerequisites (i.e., dependencies)
+		$(@D)    the directory part of the target
+		$(@F)    the file part of the target
+		$(<D)    the directory part of the first prerequisite (i.e., dependency)
+		$(<F)    the file part of the first prerequisite (i.e., dependency)
+
+
+For example, we can simplify the lines:
+
+``` bash
+Figs/fig1.pdf: R/fig1.R
+    cd R;R CMD BATCH fig1.R
+``` 
+
+We could instead write:
+
+``` bash
+Figs/fig1.pdf: R/fig1.R
+    cd $(<D);R CMD BATCH $(<F)
+``` 
+
+#### Pattern rules
+
+`%` is wildcard symbol. Above lines can be rewritten as:
+
+``` bash
+Figs/%.pdf: R/%.R
+    cd $(<D);R CMD BATCH $(<F)
+``` 
+
+So, this will cover all pdf files inside `Figs/`
+
+## Article02: Automation and Make: Running Make
+
+https://swcarpentry.github.io/make-novice/reference.html
+
+### Running Make
+
+``` bash
+make
+``` 
+
+Default target: first target in the Makefile
+
+``` bash
+make clean
+``` 
+
+Runs a specific target `clean`
+
+### Makefiles
+
+Rules
+
+``` bash
+target : dependency1 dependency2 ...
+	action1
+	action2
+        ...
+``` 
+

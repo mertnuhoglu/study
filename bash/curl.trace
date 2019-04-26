@@ -1,0 +1,269 @@
+== Info:   Trying 172.217.23.132...
+== Info: Connected to www.google.com (172.217.23.132) port 443 (#0)
+== Info: TLS 1.2 connection using TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+== Info: Server certificate: www.google.com
+== Info: Server certificate: Google Internet Authority G3
+== Info: Server certificate: GlobalSign
+=> Send header, 78 bytes (0x4e)
+0000: GET / HTTP/1.1
+0010: Host: www.google.com
+0026: User-Agent: curl/7.43.0
+003f: Accept: */*
+004c: 
+<= Recv header, 17 bytes (0x11)
+0000: HTTP/1.1 200 OK
+<= Recv header, 37 bytes (0x25)
+0000: Date: Mon, 21 Jan 2019 08:26:12 GMT
+<= Recv header, 13 bytes (0xd)
+0000: Expires: -1
+<= Recv header, 35 bytes (0x23)
+0000: Cache-Control: private, max-age=0
+<= Recv header, 45 bytes (0x2d)
+0000: Content-Type: text/html; charset=ISO-8859-1
+<= Recv header, 69 bytes (0x45)
+0000: P3P: CP="This is not a P3P policy! See g.co/p3phelp for more inf
+0040: o."
+<= Recv header, 13 bytes (0xd)
+0000: Server: gws
+<= Recv header, 33 bytes (0x21)
+0000: X-XSS-Protection: 1; mode=block
+<= Recv header, 29 bytes (0x1d)
+0000: X-Frame-Options: SAMEORIGIN
+<= Recv header, 101 bytes (0x65)
+0000: Set-Cookie: 1P_JAR=2019-01-21-08; expires=Wed, 20-Feb-2019 08:26
+0040: :12 GMT; path=/; domain=.google.com
+<= Recv header, 270 bytes (0x10e)
+0000: Set-Cookie: NID=156=as9sNOaeGNuRCjESveszC5mhFFKt_b-NXbgDI6ZeoPVF
+0040: 8Jf8R_TyiuSQyKevaiJX1c25DOk3X0IdBTVvflKybOvwUHH_68JeYdyppHoDzGaY
+0080: qWKGpeGLSMLCzIK0dQdMUE6d-6t8Ofl_0CmXcmhRNiyRYwxTQU8mn7QJjFeGSdE;
+00c0:  expires=Tue, 23-Jul-2019 08:26:12 GMT; path=/; domain=.google.c
+0100: om; HttpOnly
+<= Recv header, 51 bytes (0x33)
+0000: Alt-Svc: quic=":443"; ma=2592000; v="44,43,39,35"
+<= Recv header, 21 bytes (0x15)
+0000: Accept-Ranges: none
+<= Recv header, 23 bytes (0x17)
+0000: Vary: Accept-Encoding
+<= Recv header, 28 bytes (0x1c)
+0000: Transfer-Encoding: chunked
+<= Recv header, 2 bytes (0x2)
+0000: 
+<= Recv data, 566 bytes (0x236)
+0000: 3135
+0006: <!doctype html><html itemscope="" itemtype="http://schema.org/We
+0046: bPage" lang="tr"><head><meta content="text/html; charset=UTF-8" 
+0086: http-equiv="Content-Type"><meta content="/images/branding/google
+00c6: g/1x/googleg_standard_color_128dp.png" itemprop="image"><title>G
+0106: oogle</title><script nonce="0a4OeOtZJdwfiQ5OIqPJTA==">(function(
+0146: ){window.google={kEI:'JIJFXJPAF5D0kwXIjKKAAg',kEXPI:'0,762473,59
+0186: 1274,57,1957,1017,1406,697,528,730,326,1123,350,30,696,531,787,1
+01c6: 9,331,310,352,84,2335192,219,32,68,329226,1294,12383,4855,32692,
+0206: 2074,13173,867,12163,5281,11240,363,1166,2154,12
+<= Recv data, 1353 bytes (0x549)
+0000: 62,4243,1241,1195,266,1027,4080,575,835,284,2,204,375,727,2431,1
+0040: 362,3870,453,3400,1567,292,482,2115,134,2821,1924,6,1145,2,1965,
+0080: 2595,182,283,1461,1675,669,1050,464,1352,378,743,268,92,7,17,463
+00c0: ,620,29,1027,810,16,3204,361,283,3394,1209,876,412,2,554,1604,10
+0100: 30,381,286,152,796,12,1208,38,363,557,573,145,155,499,718,42,426
+0140: ,489,369,38,484,47,1080,2369,367,1,48,1010,604,781,359,261,2,363
+0180: ,265,218,778,161,1405,2,4,2,670,44,243,9,2,80,36,1148,261,408,18
+01c0: 9,160,249,247,879,373,805,695,105,369,585,547,632,447,17,87,118,
+0200: 745,44,229,77,25,556,539,20,572,2,83,324,16,211,228,178,372,354,
+0240: 552,2,432,192,10,1,2,698,170,166,7,12,178,73,88,224,15,25,2,901,
+0280: 3,326,293,5966938,2554,233,21,5997347,90,162,2799933,4,1572,549,
+02c0: 333,444,1,2,80,1,900,577,15,304,1,8,1,2,2132,1,1,1,1,1,414,1,748
+0300: ,141,59,726,3,7,443,3,117,1,2,140,302,7,7,4,6,14,5,5,9',authuser
+0340: :0,kscs:'c9c918f0_JIJFXJPAF5D0kwXIjKKAAg',kGL:'TR'};google.kHL='
+0380: tr';})();google.time=function(){return(new Date).getTime()};(fun
+03c0: ction(){google.lc=[];google.li=0;google.getEI=function(a){for(va
+0400: r b;a&&(!a.getAttribute||!(b=a.getAttribute("eid")));)a=a.parent
+0440: Node;return b||google.kEI};google.getLEI=function(a){for(var b=n
+0480: ull;a&&(!a.getAttribute||!(b=a.getAttribute("leid")));)a=a.paren
+04c0: tNode;return b};google.https=function(){return"https:"==window.l
+0500: ocation.protocol};google.ml=function(){return null};google.log=f
+0540: unction(a
+<= Recv data, 1353 bytes (0x549)
+0000: ,b,e,c,g){if(a=google.logUrl(a,b,e,c,g)){b=new Image;var d=googl
+0040: e.lc,f=google.li;d[f]=b;b.onerror=b.onload=b.onabort=function(){
+0080: delete d[f]};google.vel&&google.vel.lu&&google.vel.lu(a);b.src=a
+00c0: ;google.li=f+1}};google.logUrl=function(a,b,e,c,g){var d="",f=go
+0100: ogle.ls||"";e||-1!=b.search("&ei=")||(d="&ei="+google.getEI(c),-
+0140: 1==b.search("&lei=")&&(c=google.getLEI(c))&&(d+="&lei="+c));c=""
+0180: ;!e&&google.cshid&&-1==b.search("&cshid=")&&"slh"!=a&&(c="&cshid
+01c0: ="+google.cshid);a=e||"/"+(g||"gen_204")+"?atyp=i&ct="+a+"&cad="
+0200: +b+d+f+"&zx="+google.time()+c;/^http:/i.test(a)&&google.https()&
+0240: &(google.ml(Error("a"),!1,{src:a,glmm:1}),a="");return a};}).cal
+0280: l(this);(function(){google.y={};google.x=function(a,b){if(a)var 
+02c0: c=a.id;else{do c=Math.random();while(google.y[c])}google.y[c]=[a
+0300: ,b];return!1};google.lm=[];google.plm=function(a){google.lm.push
+0340: .apply(google.lm,a)};google.lq=[];google.load=function(a,b,c){go
+0380: ogle.lq.push([[a],b,c])};google.loadAll=function(a,b){google.lq.
+03c0: push([a,b])};}).call(this);google.f={};</script><script nonce="0
+0400: a4OeOtZJdwfiQ5OIqPJTA==">var a=window.location,b=a.href.indexOf(
+0440: "#");if(0<=b){var c=a.href.substring(b+1);/(^|&)q=/.test(c)&&-1=
+0480: =c.indexOf("#")&&a.replace("/search?"+c.replace(/(^|&)fp=[^&]*/g
+04c0: ,"")+"&cad=h")};</script><style>#gbar,#guser{font-size:13px;padd
+0500: ing-top:1px !important;}#gbar{height:22px}#guser{padding-bottom:
+0540: 7px !impo
+<= Recv data, 1353 bytes (0x549)
+0000: rtant;text-align:right}.gbh,.gbd{border-top:1px solid #c9d7f1;fo
+0040: nt-size:1px}.gbh{height:0;position:absolute;top:24px;width:100%}
+0080: @media all{.gb1{height:22px;margin-right:.5em;vertical-align:top
+00c0: }#gbar{float:left}}a.gb1,a.gb4{text-decoration:underline !import
+0100: ant}a.gb1,a.gb4{color:#00c !important}.gbi .gb4{color:#dd8e27 !i
+0140: mportant}.gbf .gb4{color:#900 !important}.</style><style>body,td
+0180: ,a,p,.h{font-family:arial,sans-serif}body{margin:0;overflow-y:sc
+01c0: roll}#gog{padding:3px 8px 0}td{line-height:.8em}.gac_m td{line-h
+0200: eight:17px}form{margin-bottom:20px}.h{color:#36c}.q{color:#00c}.
+0240: ts td{padding:0}.ts{border-collapse:collapse}em{font-weight:bold
+0280: ;font-style:normal}.lst{height:25px;width:496px}.gsfi,.lst{font:
+02c0: 18px arial,sans-serif}.gsfs{font:17px arial,sans-serif}.ds{displ
+0300: ay:inline-box;display:inline-block;margin:3px 0 4px;margin-left:
+0340: 4px}input{font-family:inherit}a.gb1,a.gb2,a.gb3,a.gb4{color:#11c
+0380:  !important}body{background:#fff;color:black}a{color:#11c;text-d
+03c0: ecoration:none}a:hover,a:active{text-decoration:underline}.fl a{
+0400: color:#36c}a:visited{color:#551a8b}a.gb1,a.gb4{text-decoration:u
+0440: nderline}a.gb3:hover{text-decoration:none}#ghead a.gb2:hover{col
+0480: or:#fff !important}.sblc{padding-top:5px}.sblc a{display:block;m
+04c0: argin:2px 0;margin-left:13px;font-size:11px}.lsbb{background:#ee
+0500: e;border:solid 1px;border-color:#ccc #999 #999 #ccc;height:30px}
+0540: .lsbb{dis
+<= Recv data, 1353 bytes (0x549)
+0000: play:block}.ftl,#fll a{display:inline-block;margin:0 12px}.lsb{b
+0040: ackground:url(/images/nav_logo229.png) 0 -261px repeat-x;border:
+0080: none;color:#000;cursor:pointer;height:30px;margin:0;outline:0;fo
+00c0: nt:15px arial,sans-serif;vertical-align:top}.lsb:active{backgrou
+0100: nd:#ccc}.lst:focus{outline:none}.tiah{width:458px}</style><scrip
+0140: t nonce="0a4OeOtZJdwfiQ5OIqPJTA=="></script></head><body bgcolor
+0180: ="#fff"><script nonce="0a4OeOtZJdwfiQ5OIqPJTA==">(function(){var
+01c0:  src='/images/nav_logo229.png';var iesg=false;document.body.onlo
+0200: ad = function(){window.n && window.n();if (document.images){new 
+0240: Image().src=src;}.if (!iesg){document.f&&document.f.q.focus();do
+0280: cument.gbqf&&document.gbqf.q.focus();}.}.})();</script><div id="
+02c0: mngb"> <div id=gbar><nobr><b class=gb1>Arama</b> <a class=gb1 hr
+0300: ef="https://www.google.com.tr/imghp?hl=tr&tab=wi">G.rseller</a> 
+0340: <a class=gb1 href="https://maps.google.com.tr/maps?hl=tr&tab=wl"
+0380: >Haritalar</a> <a class=gb1 href="https://play.google.com/?hl=tr
+03c0: &tab=w8">Play</a> <a class=gb1 href="https://www.youtube.com/?gl
+0400: =TR&tab=w1">YouTube</a> <a class=gb1 href="https://news.google.c
+0440: om.tr/nwshp?hl=tr&tab=wn">Haberler</a> <a class=gb1 href="https:
+0480: //mail.google.com/mail/?tab=wm">Gmail</a> <a class=gb1 href="htt
+04c0: ps://drive.google.com/?tab=wo">Drive</a> <a class=gb1 style="tex
+0500: t-decoration:none" href="https://www.google.com.tr/intl/tr/about
+0540: /products
+<= Recv data, 1353 bytes (0x549)
+0000: ?tab=wh"><u>Daha fazlas&#305;</u> &raquo;</a></nobr></div><div i
+0040: d=guser width=100%><nobr><span id=gbn class=gbi></span><span id=
+0080: gbf class=gbf></span><span id=gbe></span><a href="http://www.goo
+00c0: gle.com.tr/history/optout?hl=tr" class=gb4>Web Ge.mi&#351;i</a> 
+0100: | <a  href="/preferences?hl=tr" class=gb4>Ayarlar</a> | <a targe
+0140: t=_top id=gb_70 href="https://accounts.google.com/ServiceLogin?h
+0180: l=tr&passive=true&continue=https://www.google.com/" class=gb4>Ot
+01c0: urum a.&#305;n</a></nobr></div><div class=gbh style=left:0></div
+0200: ><div class=gbh style=right:0></div> </div><center><br clear="al
+0240: l" id="lgpd"><div id="lga"><img alt="Google" height="92" src="/i
+0280: mages/branding/googlelogo/1x/googlelogo_white_background_color_2
+02c0: 72x92dp.png" style="padding:28px 0 14px" width="272" id="hplogo"
+0300:  onload="window.lol&&lol()"><br><br></div><form action="/search"
+0340:  name="f"><table cellpadding="0" cellspacing="0"><tr valign="top
+0380: "><td width="25%">&nbsp;</td><td align="center" nowrap=""><input
+03c0:  name="ie" value="ISO-8859-1" type="hidden"><input value="tr" na
+0400: me="hl" type="hidden"><input name="source" type="hidden" value="
+0440: hp"><input name="biw" type="hidden"><input name="bih" type="hidd
+0480: en"><div class="ds" style="height:32px;margin:4px 0"><div style=
+04c0: "position:relative;zoom:1"><input style="color:#000;margin:0;pad
+0500: ding:5px 8px 0 6px;vertical-align:top;padding-right:38px" autoco
+0540: mplete="o
+<= Recv data, 1353 bytes (0x549)
+0000: ff" class="lst tiah" value="" title="Google'da Ara" maxlength="2
+0040: 048" name="q" size="57"><img src="/textinputassistant/tia.png" s
+0080: tyle="position:absolute;cursor:pointer;right:5px;top:4px;z-index
+00c0: :300" data-script-url="/textinputassistant/11/tr_tia.js" alt="" 
+0100: height="23" onclick="var s=document.createElement('script');s.sr
+0140: c=this.getAttribute('data-script-url');(document.getElementById(
+0180: 'xjsc')||document.body).appendChild(s);" width="27"></div></div>
+01c0: <br style="line-height:0"><span class="ds"><span class="lsbb"><i
+0200: nput class="lsb" value="Google'da Ara" name="btnG" type="submit"
+0240: ></span></span><span class="ds"><span class="lsbb"><input class=
+0280: "lsb" value="Kendimi &#350;ansl&#305; Hissediyorum" name="btnI" 
+02c0: onclick="if(this.form.q.value)this.checked=1; else top.location=
+0300: '/doodles/'" type="submit"></span></span></td><td class="fl sblc
+0340: " align="left" nowrap="" width="25%"><a href="/advanced_search?h
+0380: l=tr&amp;authuser=0">Geli&#351;mi&#351; arama</a><a href="/langu
+03c0: age_tools?hl=tr&amp;authuser=0">Dil ara.lar&#305;</a></td></tr><
+0400: /table><input id="gbv" name="gbv" type="hidden" value="1"><scrip
+0440: t nonce="0a4OeOtZJdwfiQ5OIqPJTA==">(function(){var a,b="1";if(do
+0480: cument&&document.getElementById)if("undefined"!=typeof XMLHttpRe
+04c0: quest)b="2";else if("undefined"!=typeof ActiveXObject){var c,d,e
+0500: =["MSXML2.XMLHTTP.6.0","MSXML2.XMLHTTP.3.0","MSXML2.XMLHTTP","Mi
+0540: crosoft.X
+<= Recv data, 1353 bytes (0x549)
+0000: MLHTTP"];for(c=0;d=e[c++];)try{new ActiveXObject(d),b="2"}catch(
+0040: h){}}a=b;if("2"==a&&-1==location.search.indexOf("&gbv=2")){var f
+0080: =google.gbvu,g=document.getElementById("gbv");g&&(g.value=a);f&&
+00c0: window.setTimeout(function(){location.href=f},0)};}).call(this);
+0100: </script></form><div id="gac_scont"></div><div style="font-size:
+0140: 83%;min-height:3.5em"><br><div id="prm"><style>.szppmdbYutt__mid
+0180: dle-slot-promo{font-size:small;margin-bottom:32px}.szppmdbYutt__
+01c0: middle-slot-promo a.ZIeIlb{display:inline-block;text-decoration:
+0200: none}.szppmdbYutt__middle-slot-promo img{border:none;margin-righ
+0240: t:5px;vertical-align:middle}</style><div class="szppmdbYutt__mid
+0280: dle-slot-promo" data-ved="0ahUKEwiT4r7ouf7fAhUQ-qQKHUiGCCAQnIcBC
+02c0: AQ"><a class="NKcBbd" href="https://www.google.com/url?q=https:/
+0300: /learndigital.withgoogle.com/dijitalatolye%3Futm_source%3DHPP%26
+0340: utm_medium%3Dreferral%26utm_campaign%3DTurkey_HPP&amp;source=hpp
+0380: &amp;id=19010509&amp;ct=3&amp;usg=AFQjCNEFmrnQ5iwf4pwcW2xDUu4MuD
+03c0: pgFQ&amp;sa=X&amp;ved=0ahUKEwiT4r7ouf7fAhUQ-qQKHUiGCCAQ8IcBCAU" 
+0400: rel="nofollow">2019'a Google'&#305;n .cretsiz e&#287;itimleriyle
+0440:  ba&#351;lay&#305;n</a></div></div></div><span id="footer"><div 
+0480: style="font-size:10pt"><div style="margin:19px auto;text-align:c
+04c0: enter" id="fll"><a href="/intl/tr/ads/">Google'la Reklam F&#305;
+0500: rsatlar&#305;</a><a href="http://www.google.com.tr/intl/tr/servi
+0540: ces/">&#3
+<= Recv data, 1353 bytes (0x549)
+0000: 04;&#351;letme ..z.mleri</a><a href="/intl/tr/about.html">Google
+0040:  Hakk&#305;nda</a><a href="https://www.google.com/setprefdomain?
+0080: prefdom=TR&amp;prev=https://www.google.com.tr/&amp;sig=K_FW3J1hK
+00c0: 3OAOm5FvrM2LULhAVFaQ%3D">Google.com.tr</a></div></div><p style="
+0100: color:#767676;font-size:8pt">&copy; 2019 - <a href="/intl/tr/pol
+0140: icies/privacy/">Gizlilik</a> - <a href="/intl/tr/policies/terms/
+0180: ">&#350;artlar</a></p></span></center><script nonce="0a4OeOtZJdw
+01c0: fiQ5OIqPJTA==">(function(){window.google.cdo={height:0,width:0};
+0200: (function(){var a=window.innerWidth,b=window.innerHeight;if(!a||
+0240: !b){var c=window.document,d="CSS1Compat"==c.compatMode?c.documen
+0280: tElement:c.body;a=d.clientWidth;b=d.clientHeight}a&&b&&(a!=googl
+02c0: e.cdo.width||b!=google.cdo.height)&&google.log("","","/client_20
+0300: 4?&atyp=i&biw="+a+"&bih="+b+"&ei="+google.kEI);}).call(this);})(
+0340: );(function(){var u='/xjs/_/js/k\x3dxjs.hp.en.VmhDnLmA9vs.O/m\x3
+0380: dsb_he,d/am\x3dYsAs/rt\x3dj/d\x3d1/rs\x3dACT90oGAGDePP_duforewMH
+03c0: xgtxqM1nEVw';var b={gen204:"xjsls",clearcut:31};setTimeout(funct
+0400: ion(){var a=document.createElement("script");a.src=u;google.time
+0440: rs&&google.timers.load&&google.tick&&google.tick("load",b);docum
+0480: ent.body.appendChild(a)},0);})();(function(){window.google.xjsu=
+04c0: '/xjs/_/js/k\x3dxjs.hp.en.VmhDnLmA9vs.O/m\x3dsb_he,d/am\x3dYsAs/
+0500: rt\x3dj/d\x3d1/rs\x3dACT90oGAGDePP_duforewMHxgtxqM1nEVw';})();fu
+0540: nction _D
+<= Recv data, 1215 bytes (0x4bf)
+0000: umpException(e){throw e;}.(function(){var pmc='{\x22Qnk92g\x22:{
+0040: },\x22U5B21g\x22:{},\x22YFCs/g\x22:{},\x22ZI/YVQ\x22:{},\x22d\x2
+0080: 2:{},\x22sb_he\x22:{\x22agen\x22:true,\x22cgen\x22:true,\x22clie
+00c0: nt\x22:\x22heirloom-hp\x22,\x22dh\x22:true,\x22dhqt\x22:true,\x2
+0100: 2ds\x22:\x22\x22,\x22ffql\x22:\x22en\x22,\x22fl\x22:true,\x22hos
+0140: t\x22:\x22google.com\x22,\x22isbh\x22:28,\x22jsonp\x22:true,\x22
+0180: msgs\x22:{\x22cibl\x22:\x22Aramay&#305; Temizle\x22,\x22dym\x22:
+01c0: \x22Bunu mu demek istediniz?\x22,\x22lcky\x22:\x22Kendimi &#350;
+0200: ansl&#305; Hissediyorum\x22,\x22lml\x22:\x22Daha fazla bilgi edi
+0240: nin\x22,\x22oskt\x22:\x22Harf .evirme arac&#305;\x22,\x22psrc\x2
+0280: 2:\x22Bu arama \\u003Ca href\x3d\\\x22/history\\\x22\\u003EWeb G
+02c0: e.mi&#351;inizden\\u003C/a\\u003E kald&#305;r&#305;ld&#305;\x22,
+0300: \x22psrl\x22:\x22Kald&#305;r\x22,\x22sbit\x22:\x22G.rselle ara\x
+0340: 22,\x22srch\x22:\x22Google\\u0026#39;da Ara\x22},\x22ovr\x22:{},
+0380: \x22pq\x22:\x22\x22,\x22refpd\x22:true,\x22rfs\x22:[],\x22sbpl\x
+03c0: 22:24,\x22sbpr\x22:24,\x22scd\x22:10,\x22sce\x22:5,\x22stok\x22:
+0400: \x22S75yFxT1I0SXar0LP8Cr72EXXDs\x22,\x22uhde\x22:false}}';google
+0440: .pmc=JSON.parse(pmc);})();(function(){var r=['aa','async','ipv6'
+0480: ,'mu','sf'];google.plm(r);})();</script>       </body></html>
+<= Recv data, 5 bytes (0x5)
+0000: 0
+0003: 
+== Info: Connection #0 to host www.google.com left intact

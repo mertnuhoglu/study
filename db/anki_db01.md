@@ -973,3 +973,44 @@ clozeq
 			--> {{a,d},{b,e},{c,f}}
 		select company_id, ARRAY_AGG(employee order by company_id desc)::text from tbl group  by 1;
 			--> 1 | {ali, veli} 
+
+%
+
+%
+
+clozeq
+
+---
+
+### pgr101: where are postgres conf files?
+
+		SELECT name, setting FROM {{c1::pg_settings}} WHERE category = 'File Locations';
+		##>        name        |                 setting
+		##> -------------------+------------------------------------------
+		##>  config_file       | /etc/postgresql/9.5/main/postgresql.conf
+		##>  data_directory    | /var/lib/postgresql/9.5/main
+		##>  external_pid_file | /var/run/postgresql/9.5-main.pid
+		##>  hba_file          | /etc/postgresql/9.5/main/pg_hba.conf
+		##>  ident_file        | /etc/postgresql/9.5/main/pg_ident.conf
+		##> (5 rows)
+
+%
+
+%
+
+clozeq
+
+---
+
+### pgr101: start/stop postgres
+
+		sudo {{c1::systemctl}} {{c1::start/start/status}} postgresql
+
+%
+
+%
+
+clozeq
+
+---
+

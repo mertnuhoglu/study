@@ -1,0 +1,107 @@
+---
+title: "Study xargs"
+date: 2019-04-09T11:05:39+03:00 
+draft: true
+description: ""
+tags:
+categories: xargs, curl
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/study_xargs.Rmd
+state: wip
+
+---
+
+## Article01: GNU xargs Manual
+
+http://man7.org/linux/man-pages/man1/xargs.1.html
+
+### Description
+
+xargs reads items delimited by blanks 
+
+But many filenames contain blanks. Thus default behaviour is often problematic. In this case, use `-0` option. But you need to ensure that the input also uses null character as seperator.
+
+### Options
+
+`-0, --null`
+
+`-a file, --arg-file=file`
+
+Read items from file.
+
+`--delimiter=delim, -d delim`
+
+`-L max-lines`
+
+Use at most `max-lines input lines`
+
+### Examples
+
+``` bash
+find /tmp -name core -type f -print | xargs /bin/rm -f
+find /tmp -name core -type f -print0 | xargs -0 /bin/rm -f
+cut -d: -f1 < /etc/passwd | sort | xargs echo
+``` 
+
+## Article02: xargs command tutorial with examples
+
+https://shapeshed.com/unix-xargs/
+
+Print commands `-t`
+
+``` bash
+echo 'one two three' | xargs -t rm
+  ##> rm one two three
+``` 
+
+Prompt the user to run the command `-p`
+
+``` bash
+echo 'one two three' | xargs -p touch
+touch one two three ?...
+``` 
+
+Run multiple commands `-I`
+
+``` bash
+cat foo.txt | xargs -I % sh -c 'echo %; mkdir %'
+``` 
+
+## Article03: 12 Practical Examples of Linux Xargs Command for Beginners
+
+https://www.tecmint.com/xargs-command-examples/
+
+``` bash
+find Pictures/tecmint/ -name "*.png" -type f -print0 | xargs -0 tar -cvzf images.tar.gz
+``` 
+
+# Examples
+
+## Ex01
+
+``` bash
+cd /Users/mertnuhoglu/projects/study/bash/ex/study_xargs/ex01
+xargs -a files01.txt -n 1 head -n 1
+  ##> head: ~/projects/itr/vrp/data/jtn/instance/20170103/order.tsv: No such file or directory
+xargs -a files02.txt -n 1 head -n 1
+  ##> head: ~/projects/itr/vrp/data/jtn/instance/20170103/order.tsv: No such file or directory
+xargs -a files02.txt head -n 1
+  ##> head: ~/projects/itr/vrp/data/jtn/instance/20170103/order.tsv: No such file or directory
+xargs -a files03.txt head -n 1
+  ##> head: $HOME/projects/itr/vrp/data/jtn/instance/20170103/order.tsv: No such file or directory
+xargs -a files04.txt head -n 1
+  ##> works
+xargs -a files05.txt head -n 1
+  ##> works
+``` 
+
+
+

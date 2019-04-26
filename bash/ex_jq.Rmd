@@ -192,3 +192,19 @@ cat ./data/ex_jq_github.json | jq '[.[] | {parents: [.parents[].html_url]}]' | h
 ```
 
 hello
+
+## Article: Cookbook jq
+
+https://github.com/stedolan/jq/wiki/Cookbook
+
+Filter objects based on the contents of a key
+E.g., I only want objects whose genre key contains "house".
+
+``` bash
+json='[{"genre":"deep house"}, {"genre": "progressive house"}, {"genre": "dubstep"}]'
+echo "$json" | jq -c '.[] | select(.genre | contains("house"))'
+  ##> {"genre":"deep house"}
+  ##> {"genre":"progressive house"}
+``` 
+
+

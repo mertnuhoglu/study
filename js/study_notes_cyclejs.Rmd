@@ -818,13 +818,13 @@ Executing the web page prints on Console:
 
 ## ref04: HTTP Request
 
-Based on /Users/mertnuhoglu/codes/js/cyclejs/examples/basic/http-random-user
+Based on `/Users/mertnuhoglu/codes/js/cyclejs/examples/basic/http-random-user`
 
 Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref04/index.js`
 
 ## ref05: Multiple HTTP Requests
 
-Based on ~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/index_04.js
+Based on `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p03/index_04.js`
 
 Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref05/index.js`
 
@@ -838,11 +838,11 @@ Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref06/index.js`
 
 Based on `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex01.js`
 
-		p16: onion with one subcomponent and lens <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10221>
+		refblc: p16: onion with one subcomponent and lens <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10221>
 
 ## ref08: Full CycleJs App:
 
-		articles - cyclejs <url:file:///~/pCloud Drive/mynotes/content/code/cjs/cjs.md#r=g_10585>
+		refblc: cyclejs ex15_10_05 <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g_10585>
 
 # Article: Handling lists in Cyclejs
 
@@ -872,6 +872,17 @@ https://github.com/cyclejs/todomvc-cycle/tree/onionify
 ``` bash
 mkdir -p ex/study_notes_cyclejs && cd $_ && npm init -y && pnpm i parcel-bundler --save-dev && npm i xstream @cycle/run @cycle/dom @cycle/http cycle-onionify cycle-storageify @cycle/storage typestyle bootstrap jquery jquery-ui-dist popper.js handsontable
 node ex/study_functional_programming_in_javascript_learnrx/ex01.js
+``` 
+
+## Common For Some Subprojects:
+
+Start database server and postgrest:
+
+``` bash
+export PROJECT_DIR=$HOME/projects/itr
+export VRP_PSK_DIR=$PROJECT_DIR/vrp_psk01
+cd $VRP_PSK_DIR
+docker-compose up 
 ``` 
 
 ## p01: Multiple HTML Elements As vdom 
@@ -1031,7 +1042,7 @@ Opt09: use `isolate` for nested component
 
 Opt01: Move files into sandbox
 
-ex/study_notes_cyclejs/src/problems/p02/v01
+`ex/study_notes_cyclejs/src/problems/p02/v01`
 
 Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p02/v01/src/components/plan_panel/index.js`
 
@@ -1093,7 +1104,7 @@ __proto__ : Array(0)
 
 ### Opt04_01: Reproduce the error with static data
 
-Edit ~/projects/study/js/ex/study_notes_cyclejs/src/problems/p02/v04/index_01.js
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p02/v04/index_01.js`
 
 ``` js
 ...
@@ -1124,7 +1135,7 @@ Console:
 
 ### Opt04_02: Fix the error
 
-Edit ~/projects/study/js/ex/study_notes_cyclejs/src/problems/p02/v04/index_02.js
+Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p02/v04/index_02.js`
 
 ``` js
 ...
@@ -1211,7 +1222,8 @@ Or toHTML()
     } )
     // "<div><div></div></div>"
 
-## p03: Multiple HTTP Requests
+## p03: Multiple HTTP Requests id=g_10764
+
 
 Opt01: Multiple Buttons
 
@@ -2162,6 +2174,14 @@ const plans$ = httpSource.select('plan')
 // s1 completed
 ``` 
 
+Run 
+
+``` js
+cd ~/projects/study/js/ex/study_notes_cyclejs/
+node src/problems/p13/ex01.js
+'# result: [{"plan_id":1,"usr":"usr_5_5_5_5_","depot_id":3},{"plan_id":2,"usr":"usr_1_1_1_1_1_1","depot_id":1},{"plan_id":3,"usr":"usr_5_5_5_5_","depot_id":1},{"plan_id":4,"usr":"usr_5_5_5_5_","depot_id":1},{"plan_id":5,"usr":"usr_4_4_4_4_4_4","depot_id":2}]
+``` 
+
 ## p14: Converting state returning model() function to reducer returning function
 
 From `<url:/Users/mertnuhoglu/projects/study/js/vrp/cyclejs_vrp.Rmd#tn=### v15.09_02 Return reducers from model()>`
@@ -2215,8 +2235,8 @@ const reducer$ = xs.merge(planReducer$, purchaseOrderReducer$)
 const state$ = reducer$
   .fold((prevState, reducer) => reducer(prevState), initialState);
 // result: {"plans":[],"purchase_orders":[]}
-// result: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[]}
-// result: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[{"purchase_order_id":1,"company_id":2,"order_extid":"order_extid_2","company_extid":"company_e"},{"purchase_order_id":2,"company_id":5,"order_extid":"order_extid_2","company_extid":"company_e"},{"purchase_order_id":3,"company_id":3,"order_extid":"order_extid_2","company_extid":"company_e"},{"purchase_order_id":4,"company_id":1,"order_extid":"order_extid_2","company_extid":"company_e"},{"purchase_order_id":5,"company_id":1,"order_extid":"order_extid_2","company_extid":"company_e"}]}
+// result: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"...
+// result: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr"...
 ``` 
 
 Note that, we deleted `xs.combine` expression completely. `fold` replaces the need for `combine`. At each folding iteration, the `prevState` is combined with current `reducer`'s response. 
@@ -2398,8 +2418,6 @@ function model(httpSource) {
 ``` 
 
 ## p16: onion with one subcomponent and lens id=g_10221
-
-		p16: onion with one subcomponent and lens <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10221>
 
 I want to mimic a web app that has a parent component and a subcomponent where the subcomponent accesses the global state using a lens object. 
 

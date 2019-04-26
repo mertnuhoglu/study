@@ -1,0 +1,910 @@
+---
+title: "Tutorial Postgrest"
+date: 2018-12-27T12:02:28+03:00 
+draft: true
+description: ""
+tags:
+categories: database, postgresql
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/db/tutorial_postgrest.Rmd
+state: wip
+---
+
+Summarized in `~/projects/study/db/tutorial_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g_10765>`
+
+# 01. Postgrest Official Tutorial 
+
+Following http://postgrest.org/en/v5.0/tutorials/tut0.html
+
+## Install Postgrest
+
+Visit https://github.com/PostgREST/postgrest/releases/tag/v5.2.0
+
+Check the latest version and download:
+
+``` bash
+mkdir -p tmp
+cd tmp
+wget https://github.com/PostgREST/postgrest/releases/download/v5.2.0/postgrest-v5.2.0-ubuntu.tar.xz
+tar xfJ postgrest-v.5.2.0-ubuntu.tar.xz
+sudo mv postgrest /usr/local/bin
+``` 
+
+Check if it runs:
+
+``` bash
+postgrest
+``` 
+
+## Create API Schema
+
+``` bash
+psql
+``` 
+
+``` sql
+CREATE SCHEMA api;
+``` 
+
+``` sql
+CREATE TABLE api.todos (
+  id SERIAL PRIMARY KEY,
+  done BOOLEAN NOT NULL DEFAULT FALSE,
+  task TEXT NOT NULL,
+  due TIMESTAMPTZ
+);
+
+INSERT INTO api.todos (task) VALUES
+  ('finish tutorial 0'), ('pat self on back');
+``` 
+
+I don't have `postgres` as superuser. So create it first:
+
+``` sql
+CREATE USER postgres SUPERUSER;
+``` 
+
+``` sql
+CREATE role web_anon nologin;
+GRANT web_anon to postgres;
+
+GRANT USAGE ON schema api to web_anon;
+GRANT SELECT ON api.todos to web_anon;
+``` 
+
+Edit `tutorial.conf`
+
+``` text
+db-uri = "postgres://superuser:superuserpass@localhost/bizqualify"
+db-schema = "api"
+db-anon-role = "web_anon"
+``` 
+
+``` bash
+postgrest tutorial.conf
+``` 
+
+### Error: Remote call 
+
+``` bash
+curl http://localhost:3000/todos
+``` 
+
+This worked. But remote call from my local computer didn't return any response:
+
+``` bash
+curl http://34.215.116.149:3000/todos
+``` 
+
+		curl: (7) Failed to connect to 34.215.116.149 port 3000: Connection refused
+
+Check if port 3000 is listened:
+
+``` bash
+ubuntu@ip-172-31-5-223:~$ netstat -lntp | grep 3000
+  ##> tcp        0      0 127.0.0.1:3000          0.0.0.0:*               LISTEN      128145/postgrest
+``` 
+
+So, postgrest only listens requests from localhost.
+
+In the page https://unix.stackexchange.com/questions/139938/meaning-of-netstat-local-address-column it says:
+
+		127.0.0.1 means local interface or loopback address. Only accessible from your localhost.
+
+		0.0.0.0 is a wildcard address for every interface.
+
+		According to the manual page for the Linux IPv4 protocol:
+
+		There are several special addresses: INADDR_LOOPBACK (127.0.0.1) always refers to the local host via the loopback device; INADDR_ANY (0.0.0.0) means any address for binding; INADDR_BROADCAST (255.255.255.255) means any host and has the same effect on bind as INADDR_ANY for historical reasons.
+
+https://superuser.com/questions/661188/what-is-in-the-local-address-of-netstat-output/871898 says:
+
+		In the case of netstat, :: (in IPv6) or 0.0.0.0 (in IPv4) basically means "any".
+
+		In some cases, 0.0.0.0 or :: basically means the "unspecified" address, as specified by RFC 4291 section 2.5.2 which says "It indicates the absence of an address." 
+
+# 02. PSK (Postgrest Starter Kit) Official Tutorial
+
+Following https://docs.subzero.cloud/tutorial/
+
+Install npm first:
+
+``` bash
+sudo apt-get -y install nodejs npm
+nodejs -v
+  ##> v4.2.6
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+``` 
+
+This didn't install latest version of node. To install latest version follow https://github.com/nodesource/distributions/blob/master/README.md#deb
+
+``` bash
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get -y install nodejs 
+nodejs -v
+  ##> v10.15.0
+npm -v
+  ##> 6.4.1
+``` 
+
+``` bash
+docker pull subzerocloud/subzero-cli-tools # install the helper docker image
+sudo npm install -g subzero-cli # install the cli
+subzero --help # check it was installed
+``` 
+
+Create a new project
+
+``` bash
+subzero base-project
+  ##> user inputs
+	##> choose database migration Y
+cd psk01
+``` 
+
+Edit `.env`
+
+``` bash
+COMPOSE_PROJECT_NAME=psk01
+``` 
+
+``` bash
+docker-compose up
+``` 
+
+This gave an error due to database. The database in psk didn't run. 
+
+opt02: Let's run the database separately:
+
+``` bash
+cd ~/psk01
+docker-compose stop
+docker-compose rm
+``` 
+
+``` bash
+cd ~/db4
+docker-compose up
+``` 
+
+``` bash
+subzero base-project
+  ##> user inputs
+	##> choose database migration n
+cd psk02
+``` 
+
+Edit `~/psk02/.env`
+
+``` text
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=bizqualify
+DB_USER=bqdata
+DB_PASS=bqdata
+DB_ANON_ROLE=readonly
+DB_ANON_PASS=readonly
+
+SUPER_USER=superuser
+SUPER_USER_PASSWORD=superuserpass
+``` 
+
+Edit `~/psk02/docker-compose.yml`. Remove container `db` and links to it
+
+``` bash
+cd ~/psk02
+docker-compose up
+``` 
+
+Still, it doesn't connect to database:
+
+		postgrest_1       | {"details":"could not connect to server: Connection refused\n\tIs the server running on host \"localhost\" (127.0.0.1) and accepting\n\tTCP/IP connections on port 5432?\ncould not connect to server: Cannot assign requested address\n\tIs the server running on host \"localhost\" (::1) and accepting\n\tTCP/IP connections on port 5432?\n","code":"","message":"Database connection error"}
+
+But I can connect to the database using psql:
+
+``` bash
+psql -h localhost -p 5432 -U bqdata -W bizqualify
+``` 
+
+Why doesn't this connect to postgres:
+
+	 - PGRST_DB_URI=postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+ 
+Check tutorial.conf
+
+		db-uri = "postgres://superuser:superuserpass@localhost/bizqualify"
+
+Try with these settings then:
+
+	 - PGRST_DB_URI=postgres://superuser:superuserpass@localhost:5432/bizqualify
+
+Still, I get the same error:
+
+		postgrest_1       | {"details":"could not connect to server: Connection refused\n\tIs the server running on host \"localhost\" (127.0.0.1) and accepting\n\tTCP/IP connections on port 5432?\ncould not connect to server: Cannot assign requested address\n\tIs the server running on host \"localhost\" (::1) and accepting\n\tTCP/IP connections on port 5432?\n","code":"","message":"Database connection error"}
+
+opt02.b: Fix .env and try again:
+
+``` bash
+cp -R ~/psk01 ~/psk03
+``` 
+
+Edit `~/psk03/.env`
+
+``` text
+DB_HOST=db
+DB_PORT=5432
+DB_NAME=bizqualify
+DB_USER=bqdata
+DB_PASS=bqdata
+
+SUPER_USER=superuser
+SUPER_USER_PASSWORD=superuserpass
+DB_SCHEMA=api
+``` 
+
+opt02.c: Try from start again:
+
+``` bash
+subzero base-project
+  ##> user inputs
+	##> choose database migration y
+cd psk04
+``` 
+
+Database doesn't run:
+
+		db_1              | ERROR:  role "anonymous" does not exist
+		db_1              | STATEMENT:  grant usage on schema api to anonymous, webuser;
+		db_1              | psql:/docker-entrypoint-initdb.d/authorization/privileges.sql:11: ERROR:  role "anonymous" does not exist
+		postgreststarterkit_db_1 exited with code 3
+
+Why does this error occur in awsbzq but not in awsbzq4?
+
+opt03: Start a new EC2 Instance
+
+Now, it works. 
+
+``` bash
+curl http://localhost:8080/rest/todos?select=id
+``` 
+
+### 02.01. Change Credentials of Postgres 
+
+Stop and remove existing dockers
+
+``` bash
+cd ~/psk01
+docker-compose stop
+docker-compose rm
+``` 
+
+``` bash
+cp -R ~/psk01 ~/psk02
+``` 
+
+Edit `~/psk02/.env`
+
+``` text
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=bizqualify
+DB_USER=bqdata
+DB_PASS=bqdata
+DB_ANON_ROLE=readonly
+DB_ANON_PASS=readonly
+
+SUPER_USER=superuser
+SUPER_USER_PASSWORD=superuserpass
+``` 
+
+``` bash
+cd ~/psk02
+docker-compose up
+``` 
+
+#### Error: database connection:
+
+I got this error again:
+
+		postgrest_1       | {"details":"could not connect to server: Connection refused\n\tIs the server running on host \"localhost\" (127.0.0.1) and accepting\n\tTCP/IP connections on port 5432?\ncould not connect to server: Cannot assign requested address\n\tIs the server running on host \"localhost\" (::1) and accepting\n\tTCP/IP connections on port 5432?\n","code":"","message":"Database connection error"}
+
+Options:
+
+		Check docker-compose.yml
+		Try psql independently
+		volumes olmadan çalıştır
+		Stop this and try running psk01 again
+		Change credentials one by one
+
+opt02: Try psql independently
+
+``` bash
+psql -h localhost -p 5432 -U bqdata -W bizqualify
+``` 
+
+This works. 
+
+Try with superuser:
+
+``` bash
+psql -h localhost -p 5432 -U superuser -W bizqualify
+``` 
+
+This works too.
+
+opt04: Stop this and try running psk01 again
+
+``` bash
+cd ~/psk02
+docker-compose stop
+docker-compose rm
+``` 
+
+``` bash
+cd ~/psk01
+docker-compose up
+``` 
+
+This works. 
+
+opt05: Change credentials one by one
+
+``` bash
+cd ~/psk01
+docker-compose stop
+docker-compose rm
+``` 
+
+``` bash
+cp -R ~/psk01 ~/psk03
+``` 
+
+Test it first without changing anything
+
+``` bash
+cd ~/psk03
+docker-compose up
+``` 
+
+It works. 
+
+``` bash
+docker-compose stop
+docker-compose rm
+``` 
+
+Now, change only one credential info:
+
+Edit `~/psk03/.env`
+
+``` text
+DB_NAME=bizqualify
+``` 
+
+``` bash
+docker-compose up
+``` 
+
+It works, still. 
+
+``` bash
+docker-compose stop
+docker-compose rm
+``` 
+
+Edit `~/psk03/.env`
+
+``` text
+DB_USER=bqdata
+``` 
+
+It works, still. 
+
+Edit `~/psk03/.env`
+
+``` text
+DB_PASS=bqdata
+``` 
+
+It works, still. 
+
+Edit `~/psk03/.env`
+
+``` text
+DB_HOST=db
+DB_PORT=5432
+DB_NAME=bizqualify
+DB_USER=bqdata
+DB_PASS=bqdata
+
+SUPER_USER=superuser
+SUPER_USER_PASSWORD=superuserpass
+DB_SCHEMA=api
+``` 
+
+It works, still
+
+##### Cause of the Connection Error
+
+The following key-value pairs were wrong before:
+
+		DB_HOST=localhost
+		DB_SCHEMA=api
+
+### 02.02. Run the database separately
+
+``` bash
+cp -R ~/psk03 ~/psk04
+cd ~/psk04
+``` 
+
+Edit `~/psk04/docker-compose.yml`
+
+``` text
+    volumes:
+      - ~/bizqualify_data:$HOME/bizqualify_data
+      - ~/postgresql:/var/lib/postgresql/data
+
+volumes:
+  data: {}
+``` 
+
+``` bash
+docker-compose up
+``` 
+
+``` bash
+curl http://localhost:8080/rest/todos?select=id
+curl http://34.221.238.13:8080/rest/todos?select=id
+``` 
+
+Now, it works.
+
+### 02.03. Restore Database
+
+First setup psql environment variables:
+
+Edit `~/.bashrc`
+
+``` text
+export DB_HOST=localhost
+export DB_PORT=5432
+export DB_NAME=bizqualify
+export DB_SCHEMA=api
+export DB_USER=bqdata
+export DB_PASS=bqdata
+export DB_ANON_ROLE=readonly
+export DB_ANON_PASS=readonly
+export SUPER_USER=superuser
+export SUPER_USER_PASSWORD=superuserpass
+export PGHOST=localhost
+export PGPORT=5432
+export PGUSER=superuser
+export PGDATABASE=bizqualify
+export PGPASSWORD=superuserpass
+``` 
+
+``` bash
+source ~/.bashrc
+``` 
+
+Install software as in `install_software.md`
+
+Restore data as in `~/projects/bizqualify/BQ-data-run/datarun/process_restoring_datasets.md`
+
+### 02.04. Setup API for our data
+
+#### 02.04.01. Grant access rights
+
+First run subzero:
+
+``` bash
+subzero dashboard
+``` 
+
+Edit `db/src/authorization/privileges.sql`
+
+``` bash
+vim db/src/authorization/privileges.sql
+``` 
+
+``` sql
+GRANT USAGE ON SCHEMA data_20181220 TO anonymous, webuser;
+GRANT SELECT ON data_20181220.all_data TO anonymous, webuser;
+``` 
+
+##### Error: schema data_20181220 does not exist
+
+I got an error:
+
+		db_1              | ERROR:  schema "data_20181220" does not exist
+	
+Check psql
+
+``` bash
+\dn
+  ##>   List of schemas
+  ##>   Name  |   Owner
+  ##> --------+-----------
+  ##>  public | superuser
+  ##> (1 row)
+``` 
+
+Hypothesis01: psk probably resets everything after each file change. Thus schema data_20181220 must be dropped.
+
+Check reset.sql files of psk. 
+
+``` bash
+cd ~/codes/pg/study_psk01/db/src/
+rg "drop database"
+``` 
+
+Nothing with respect to complete database. 
+
+Check log messages of db:
+
+		db_1              | LOG:  statement: SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'bizqualify';
+		db_1              | FATAL:  terminating connection due to administrator command
+		db_1              | FATAL:  terminating connection due to administrator command
+		db_1              | FATAL:  terminating connection due to administrator command
+		db_1              | FATAL:  terminating connection due to administrator command
+		db_1              | FATAL:  terminating connection due to administrator command
+		db_1              | FATAL:  terminating connection due to administrator command
+		db_1              | FATAL:  terminating connection due to administrator command
+		db_1              | FATAL:  terminating connection due to administrator command
+		db_1              | FATAL:  terminating connection due to administrator command
+		db_1              | FATAL:  terminating connection due to administrator command
+		db_1              | LOG:  statement: DROP DATABASE if exists bizqualify;
+		pg_amqp_bridge_1  | Attempting to connect to PostgreSQL..
+		db_1              | FATAL:  database "bizqualify" does not exist
+		db_1              | DETAIL:  It seems to have just been dropped or renamed.
+
+Where are these log messages called?
+
+``` bash
+rg pg_terminate_backend
+  ##> empty
+rg "drop database"
+  ##> empty
+rg destroy_test_db
+``` 
+
+###### opt01: Systematic elimination method for debugging
+
+First reset the psk. Undo my last changes. And make the server work as expected. 
+
+Now, create some toy data.
+
+``` sql
+CREATE SCHEMA test;
+``` 
+
+Now, delete all files in db/
+
+``` bash
+mv db/src db/src0
+``` 
+
+``` bash
+curl http://localhost:8080/rest/todos?select=id
+``` 
+
+This still works.
+
+Copy files back:
+
+``` bash
+cp -R db/src0 db/src
+``` 
+
+Now, delete folders one by one
+
+``` bash
+rm -rf db/src/api
+``` 
+
+curl still works.
+
+Let's edit some file.
+
+``` bash
+vim db/src/authorization/privileges.sql
+``` 
+
+Nothing changes. Probably, we need to restart subzero after restarting.
+
+###### opt02: Don't use subzero
+
+Reset db folder:
+
+``` bash
+rm -rf db/src 
+cp -R db/src0 db/src
+docker-compose up
+``` 
+
+Now, create some toy data.
+
+``` sql
+CREATE SCHEMA test;
+CREATE TABLE test.t01 (
+	id bigint,
+	title text
+);
+DELETE FROM test.t01;
+COPY test.t01 (id,title) FROM STDIN (ENCODING 'utf-8');
+101	t101
+101	t201
+\.
+``` 
+
+``` sql
+GRANT USAGE ON SCHEMA test TO anonymous, webuser;
+GRANT SELECT ON test.t01 TO anonymous, webuser;
+``` 
+
+``` bash
+curl http://localhost:8080/rest/t01?select=id
+  ##> {"hint":null,"details":null,"code":"42P01","message":"relation \"api.t01\" does not exist"}
+``` 
+
+We should create some view in the schema api:
+
+``` bash
+CREATE VIEW api.t01 AS
+SELECT id, title FROM test.t01;
+ALTER VIEW api.t01 OWNER TO api;
+``` 
+
+``` bash
+curl http://localhost:8080/rest/t01?select=id
+  ##> {"hint":null,"details":null,"code":"42501","message":"permission denied for relation t01"}
+``` 
+
+Try again but this time don't give the ownership:
+
+``` bash
+CREATE VIEW api.t01b AS
+SELECT id, title FROM test.t01;
+``` 
+
+``` bash
+curl http://localhost:8080/rest/t01b?select=id
+  ##> {"hint":null,"details":null,"code":"42501","message":"permission denied for relation t01"}
+``` 
+
+Grant access for api.t01:
+
+``` sql
+GRANT SELECT ON api.t01 TO anonymous, webuser;
+``` 
+
+Same permission error.
+
+Grant access for api.t01b:
+
+``` sql
+GRANT SELECT ON api.t01b TO anonymous, webuser;
+``` 
+
+This works.
+
+``` bash
+curl http://localhost:8080/rest/t01b?select=id
+  ##> [{"id":101},
+  ##>  {"id":101}]
+``` 
+
+#### 02.04.02. Create a new schema and define an api for it id=g_10769
+
+    ref canonical: Toy Data <url:file:///~/projects/study/db/study_postgrest.Rmd#r=g_10771>
+
+Now, try with another schema and table from scratch:
+
+``` sql
+CREATE SCHEMA test2;
+CREATE TABLE test2.t03 (
+	id bigint,
+	title text
+);
+DELETE FROM test2.t03;
+COPY test2.t03 (id,title) FROM STDIN (ENCODING 'utf-8');
+101	t101
+101	t201
+\.
+GRANT USAGE ON SCHEMA test2 TO anonymous, webuser;
+CREATE VIEW api.t03 AS
+SELECT id, title FROM test2.t03;
+GRANT SELECT ON api.t03 TO anonymous, webuser;
+``` 
+
+``` bash
+curl http://localhost:8080/rest/t03?select=id
+  ##> [{"id":101},
+  ##>  {"id":101}]
+``` 
+
+### 02.05. Restarting the docker containers
+
+By default, psk resets all the data in the database. We don't want this to occur. 
+
+Thus we need to move the db initialization files to outside.
+
+``` bash
+docker-compose stop
+docker-compose rm
+mv db/src db/src1
+docker-compose up
+curl http://localhost:8080/rest/t03?select=id
+``` 
+
+#### Error: Database connection error
+
+I get database connection error again:
+
+		postgrest_1       | {"details":"could not connect to server: Connection refused\n\tIs the server running on host \"localhost\" (127.0.0.1) and accepting\n\tTCP/IP connections on port 5432?\ncould not connect to server: Cannot assign requested address\n\tIs the server running on host \"localhost\" (::1) and accepting\n\tTCP/IP connections on port 5432?\n","code":"","message":"Database connection error"}
+
+But I can connect to the database with psql and see our existing data.
+
+opt01: Move db/src back and retry it
+
+``` bash
+rm -rf db/src
+mv db/src1 db/src
+docker-compose stop
+docker-compose up
+``` 
+
+Still cannot connect to the database. Remove containers and start again.
+
+``` bash
+docker-compose stop
+docker-compose rm
+docker-compose up
+``` 
+
+Still cannot connect to the database. This is very weird.
+
+Interesting observation: It didn't reset the database this time. 
+
+opt01b: Start subzero.
+
+This reset the database. But the connection is still lost. 
+
+Restart the containers again.
+
+opt02: Start a new psk from scratch
+
+``` bash
+cd ~/psk01
+docker-compose up
+``` 
+
+Same problem. 
+
+opt03: Create a new project:
+
+``` bash
+subzero base-project
+  ##> user inputs
+	##> choose database migration Y
+cd psk05
+docker-compose up
+``` 
+
+		db_1              | ERROR:  role "anonymous" does not exist
+		db_1              | STATEMENT:  grant usage on schema api to anonymous, webuser;
+		db_1              | psql:/docker-entrypoint-initdb.d/authorization/privileges.sql:11: ERROR:  role "anonymous" does not exist
+
+opt05: Retry psk01
+
+``` bash
+cd ~/psk01
+docker-compose up
+``` 
+
+Now, it works. 
+
+Super weird. Why did it give "anonymous" error before?
+
+opt04: Try postgrest with another docker
+
+``` bash
+git clone https://github.com/PostgREST/postgrest
+``` 
+
+#### How is the role anonymous created?
+
+Connect to the database with default settings:
+
+``` bash
+PGPASSWORD=superuserpass psql -h localhost -U superuser app
+``` 
+
+List all existing roles and user:
+
+``` sql
+\du
+  ##>      Role name     |                         Attributes                         |      Member of
+  ##> -------------------+------------------------------------------------------------+---------------------
+  ##>  anonymous         | Cannot login                                               | {}
+  ##>  api               | Cannot login                                               | {}
+  ##>  authenticator     |                                                            | {anonymous,webuser}
+  ##>  pg_signal_backend | Cannot login                                               | {}
+  ##>  superuser         | Superuser, Create role, Create DB, Replication, Bypass RLS | {api}
+  ##>  webuser           | Cannot login                                               | {}
+``` 
+
+Where is `anonymous` created?
+
+``` bash
+rg --hidden anonymous
+  ##> db/src/init.sql
+  ##> 9:\set anonymous `echo $DB_ANON_ROLE`
+  ##> 
+  ##> tests/db/rls.sql
+  ##> 10:-- switch to a anonymous application user
+  ##> 11:set local role anonymous;
+  ##> 12:set request.jwt.claim.role = 'anonymous';
+  ##> 17:    'only public todos are visible to anonymous users'
+  ##> 
+  ##> .env
+  ##> 23:DB_ANON_ROLE=anonymous
+  ##> 
+  ##> db/src/authorization/roles.sql
+  ##> 15:drop role if exists :"anonymous";
+  ##> 16:create role :"anonymous";
+  ##> 17:grant :"anonymous" to :"authenticator";
+  ##> 
+  ##> db/src/authorization/privileges.sql
+  ##> 7:select auth.set_auth_endpoints_privileges('api', :'anonymous', enum_range(null::data.user_role)::text[]);
+  ##> 11:grant usage on schema api to anonymous, webuser;
+  ##> 46:-- anonymous users can only request specific columns from this view
+  ##> 47:grant select (id, todo) on api.todos to anonymous;
+  ##> 
+  ##> db/src/libs/auth/schema.sql
+  ##> 38:create or replace function set_auth_endpoints_privileges("schema" text, "anonymous" text, "roles" text[]) returns void as $$
+  ##> 41:  execute 'grant execute on function ' || quote_ident(schema) || '.login(text,text) to ' || quote_ident(anonymous);
+  ##> 42:  execute 'grant execute on function ' || quote_ident(schema) || '.signup(text,text,text) to ' || quote_ident(anonymous);
+
+rg --hidden DB_ANON_ROLE
+  ##> .env
+  ##> 23:DB_ANON_ROLE=anonymous
+  ##> 
+  ##> docker-compose.yml
+  ##> 25:      - DB_ANON_ROLE=${DB_ANON_ROLE}
+  ##> 47:      - PGRST_DB_ANON_ROLE=${DB_ANON_ROLE}
+  ##> 
+  ##> db/src/init.sql
+  ##> 9:\set anonymous `echo $DB_ANON_ROLE`
+
+``` 
+

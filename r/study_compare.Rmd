@@ -1,0 +1,53 @@
+---
+title: "Study Compare"
+date: 2018-11-30T13:43:49+03:00 
+draft: true
+description: ""
+tags:
+categories: r 
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+## Study Compare
+
+Following tutorials in: 
+
+		https://cran.r-project.org/web/packages/compare/vignettes/compare-intro.pdf
+
+``` {r}
+identical(0.3 - 0.2, 0.1)
+  ##> FALSE
+all.equal(0.3 - 0.2, 0.1)
+  ##> TRUE
+all.equal(c("a", "b", "c"), c("a", "B"))
+  ##> "Lengths (3, 2) differ (string compare on first 2)" "1 string mismatch" 
+``` 
+
+``` {r}
+obj1 = c("a", "a", "b", "c")
+obj1 
+  ##> [1] "a" "a" "b" "c"
+obj2 = factor(obj1)
+obj2
+  ##> [1] a a b c
+  ##> Levels: a b c
+all.equal(obj1, obj2)
+  ##> [1] "Modes: character, numeric"                       "Attributes: < target is NULL, current is list >"
+  ##> [3] "target is character, current is factor"      
+``` 
+
+``` {r}
+library(compare)
+compare(obj1, obj2, allowAll=TRUE)
+  ##> TRUE
+  ##>   coerced from <factor> to <character>
+
+``` 
+
+

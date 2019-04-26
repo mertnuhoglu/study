@@ -1,0 +1,150 @@
+---
+title: "Study JMESPath"
+date: 2019-03-09T08:28:02+03:00 
+draft: true
+description: ""
+tags:
+categories: examples bash
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+## Article: JMESPath Specification
+
+http://jmespath.org/specification.html
+
+
+## Ex01: AWS EC2 
+
+Json:
+
+``` json
+{
+    "Volumes": [
+        {
+            "AvailabilityZone": "us-east-1a",
+            "Attachments": [
+                {
+                    "AttachTime": "2013-12-18T22:35:00.000Z",
+                    "InstanceId": "i-1234567890abcdef0",
+                    "VolumeId": "vol-049df61146c4d7901",
+ 
+``` 
+
+``` bash
+aws ec2 describe-volumes > ex/study_jmespath/ec2_describe_volumes.json
+``` 
+
+JMESPath:
+
+``` bash
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[*]" > ex/study_jmespath/ex01a.json
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[*].Attachments" > ex/study_jmespath/ex01b.json
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[*].[Attachments]" > ex/study_jmespath/ex01c.json
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[*].[Attachments[0].InstanceId]" > ex/study_jmespath/ex01d.json
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[*].[Attachments[*].InstanceId]" > ex/study_jmespath/ex01e.json
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[*].Attachments[*].InstanceId" > ex/study_jmespath/ex01f.json
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[*].Attachments[*].InstanceId" > ex/study_jmespath/ex01f.json
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[].Attachments[].InstanceId" > ex/study_jmespath/ex01g.json
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[].Attachments[?InstanceId=='i-049331178df9037d8'].InstanceId" > ex/study_jmespath/ex01h.json
+``` 
+
+#### Errors
+
+``` bash
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[*].[Attachments[0].[InstanceId]" > ex/study_jmespath/ex01d.json
+  ##> SyntaxError: Expected tComma, received: tEOF
+  ##> Volumes[*].[Attachments[0].[InstanceId]
+  ##>                                        ^
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[*].[Attachments[0].?InstanceId==`i-049331178df9037d8`]" > ex/study_jmespath/ex01e.json
+  ##> SyntaxError: Unknown char: '?'
+  ##> Volumes[*].[Attachments[0].?InstanceId==]
+  ##>                            ^
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[].Attachments[].[?InstanceId==`i-049331178df9037d8`]" > ex/study_jmespath/ex01h.json
+  ##> SyntaxError: Expected identifier, lbracket, or lbrace
+  ##> Volumes[].Attachments[].[?InstanceId==]
+  ##>                         ^
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[?Attachments[].InstanceId=='i-049331178df9037d8'].Attachments[]" > ex/study_jmespath/ex01h.json
+  ##> []
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[?Attachments[InstanceId=='i-049331178df9037d8']].Attachments" > ex/study_jmespath/ex01j.json
+  ##> Volumes[?Attachments[InstanceId=='i-049331178df9037d8']].Attachments
+  ##>                      ^
+jp -f ex/study_jmespath/ec2_describe_volumes.json "Volumes[?Attachments[].InstanceId=='i-049331178df9037d8']" > ex/study_jmespath/ex01j.json
+  ##> []
+
+``` 
+
+## Article: jp tool
+
+https://github.com/jmespath/jp
+
+Install
+
+``` bash
+brew install jmespath/jmespath/jp
+``` 
+
+``` bash
+alias jjp=/Users/mertnuhoglu/codes/go/jp/jp
+alias jp=/Users/mertnuhoglu/codes/go/jp/jp
+echo '{"foo": {"bar": ["a", "b", "c"]}}' | /Users/mertnuhoglu/codes/go/jp/jp foo.bar
+echo '{"foo": {"bar": ["a", "b", "c"]}}' | jjp foo.bar
+echo '{"foo": {"bar": ["a", "b", "c"]}}' | jp foo.bar
+echo '{"foo": {"bar": ["a", "b", "c"]}}' | jp foo.bar[1]
+  ##> "b"
+``` 
+
+Input from a file
+
+``` bash
+$ echo '{"foo": {"bar": "baz"}}' > /tmp/input.json
+$ jp -f /tmp/input.json foo.bar
+"baz"
+``` 
+
+Unquoted output
+
+``` bash
+$ curl -s https://api.github.com/repos/golang/go/events | jp --unquoted [0].actor.url
+https://api.github.com/users/robpike
+``` 
+
+Make it default
+
+``` bash
+$ export JP_UNQUOTED=true
+``` 
+
+For loop templating
+
+``` bash
+$ for name in $(echo '{"foo": {"bar": ["a", "b", "c"]}}' | \
+  jp -u 'join(`"\n"`, foo.bar)');
+  do
+      echo "Processing: $name";
+  done
+Processing: a
+Processing: b
+Processing: c
+
+``` 
+
+## Tool: jmespath-terminal
+
+https://pypi.org/project/jmespath-terminal/
+
+``` bash
+pip3 install jmespath-terminal
+``` 
+
+``` bash
+jpterm ex/study_jmespath/ec2_describe_volumes.json
+``` 
+
+
+

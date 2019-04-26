@@ -1,1 +1,1 @@
-Moved to ~/Dropbox/mynotes/content/code/cdb.md
+Moved to ~/gdrive/mynotes/content/code/cdb.md

@@ -1,0 +1,1 @@
+{"formContents":{"foo":["bar"],"upload":{"filename":["e01.R"],"tempfile":["/var/folders/f9/d201s84j0gb95830cjhp09_m0000gq/T//RtmpYb5stc/Multipartecc67ff13125"],"content_type":["application/octet-stream"],"head":["Content-Disposition: form-data; name=\"upload\"; filename=\"e01.R\"\r\nContent-Type: application/octet-stream"]}}}

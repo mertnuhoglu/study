@@ -1,0 +1,44 @@
+---
+title: "Study Sanctuary"
+date: 2018-10-16T20:16:49+03:00 
+draft: false
+description: ""
+tags: ramdajs
+categories: js, fp
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+path: ~/projects/study/js/study_sanctuary.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+Source code in https://github.com/mertnuhoglu/study/js/ex/study_sanctuary/
+
+``` bash
+mkdir -p ex/study_sanctuary && cd $_ && npm init -y && pnpm i parcel-bundler ramda sanctuary
+pnpm i -D babel-cli babel-preset-env
+``` 
+
+## Article: Egghead: Use Traverse & the Maybe Monad to Safely Process Lists of Data with Sanctuary
+
+https://github.com/eggheadio-projects/traverse-maybe-process-lists-sanctuary/blob/master/traverse-maybe.js
+
+Edit `~/projects/study/js/ex/study_sanctuary/ex/study_sanctuary/ex01/v01a.js`
+
+``` bash
+npm run ex01a
+yarn babel-node --presets env ex01/v01a.js
+'## before traversal: 
+'## [ [ Just (2), Just (4), Just (10) ],
+'##  [ Just (12), Nothing, Just (14) ],
+'##  [ Just (1), Just (3), Just (16) ] ] 
+``` 
+

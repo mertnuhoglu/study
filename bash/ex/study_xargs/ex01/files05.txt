@@ -1,0 +1,3 @@
+/Users/mertnuhoglu/projects/itr/vrp/data/jtn/master/default/rate.tsv
+/Users/mertnuhoglu/projects/itr/vrp/data/jtn/master/default/product.tsv
+/Users/mertnuhoglu/projects/itr/vrp/data/jtn/master/default/merkez_ilce.tsv

@@ -61,6 +61,9 @@
     "jquery": "^3.3.1",
     "jquery-ui-dist": "^1.12.1",
     "popper.js": "^1.14.3",
+    "ramda": "^0.25.0",
+    "ramda-fantasy": "^0.8.0",
+    "sanctuary": "^0.15.0",
     "snabbdom-to-html": "^5.1.0",
     "typestyle": "^1.7.2",
     "xstream": "^11.2.0"

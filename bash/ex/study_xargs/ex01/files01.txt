@@ -1,0 +1,11 @@
+~/projects/itr/vrp/data/jtn/master/default/rate.tsv
+~/projects/itr/vrp/data/jtn/master/default/product.tsv
+~/projects/itr/vrp/data/jtn/master/default/merkez_ilce.tsv
+~/projects/itr/vrp/data/jtn/master/default/location.tsv
+~/projects/itr/vrp/data/jtn/master/default/company.tsv
+~/projects/itr/vrp/data/jtn/master/default/audit.tsv
+~/projects/itr/vrp/data/jtn/master/default/administrative_location.tsv
+~/projects/itr/vrp/data/jtn/master/default/address_variant.tsv
+~/projects/itr/vrp/data/jtn/master/default/address.tsv
+~/projects/itr/vrp/data/jtn/instance/20170103/order_line.tsv
+~/projects/itr/vrp/data/jtn/instance/20170103/order.tsv

@@ -1,0 +1,43 @@
+---
+title: "Study wasabi CLI"
+date: 2019-03-28T18:38:29+03:00 
+draft: false
+description: ""
+tags:
+categories: aws
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/code/study_wasabi_cli.Rmd
+---
+
+## Install Rclone
+
+https://www.tecmint.com/rclone-sync-files-from-cloud-storage/
+
+``` bash
+curl https://rclone.org/install.sh | sudo bash
+rclone config
+``` 
+
+### List remote directory
+
+``` bash
+rclone lsd wasabi:
+  ##> -1 2019-03-28 15:11:14        -1 mertnuhoglu-test
+``` 
+
+### Sync data with rclone
+
+``` bash
+rclone sync source:path dest:path [flags]
+``` 
+
+## Rclone Wasabi
+
+https://rclone.org/s3/#wasabi
+

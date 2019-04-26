@@ -1,0 +1,2 @@
+<img src="344.jpg">; bar baz; baz quux
+apple; banana; grape

@@ -46,6 +46,7 @@ const data = [
 ];
 const getId = R.map(R.prop('id'));
 console.log(getId(data));
+// [ 1, 2 ]
 ``` 
 
 ``` {bash}
@@ -61,6 +62,7 @@ const data = [
 ];
 const getId = R.map(R.compose(R.prop('id'), R.prop('sub')));
 console.log(getId(data));
+// [ 1, 2 ]
 ``` 
 
 ``` {bash}
@@ -83,7 +85,7 @@ This looks simpler than previous expression.
 node ex/study_ramda/ex03.js
 ``` 
 
-### Tutorial by Andrew Burgess
+### Article: Tutorial by Andrew Burgess
 
 Here, I follow the tutorial in [Ramda By Example](https://www.youtube.com/watch?v=tN4wyJ9DdtM&t=14s&list=PL_L_J_Lv0U2qJepM0FMF73BHGZsNNu-nk) made by Andrew Burgess and the revised code written by [Francisco Neto](https://www.youtube.com/user/tartaneto)
 
@@ -121,6 +123,8 @@ console.log(fn(data));
  
 ``` {bash}
 node ex/study_ramda/ab01.js
+// [ [ 'group1-perm1', true ],
+//   [ 'group1-perm2', false ], ...
 ``` 
 
 #### v02: append an element
@@ -139,6 +143,8 @@ console.log(fn(data));
 
 ``` {bash}
 node ex/study_ramda/ab02.js
+// [ { value: 'group1-perm1', checked: true, label: 'group1-perm1' },
+//   { value: 'group1-perm2', checked: false, label: 'group1-perm2' }, ...
 ``` 
 
 The second way is to use `chain` function:
@@ -155,6 +161,8 @@ This code produces the following data structure which needs one more step:
 
 ``` {bash}
 node ex/study_ramda/ab02b.js
+// [ [ 'group1-perm1', true, 'group1-perm1' ],
+//   [ 'group1-perm2', false, 'group1-perm2' ], ...
 ``` 
 
 The first version is easier to understand. Let's keep that one.
@@ -227,4 +235,314 @@ const fn = pipe(
 ``` {bash}
 node ex/study_ramda/ab06.js
 ``` 
+
+### v04: Typescript with Ramda
+
+``` js
+import * as R from "ramda";
+
+const data = [
+  {'id': 1, 'title': "a"},
+  {'id': 2, 'title': "b"},
+];
+const getId = R.map(R.prop('id'));
+console.log(getId(data));
+``` 
+
+``` {bash}
+node ex/study_ramda/ex04.ts
+``` 
+
+### v05: Null handling with prop
+
+Edit `~/projects/study/js/ex/study_ramda/ex05.ts`
+
+``` js
+const data = [
+  {'id': 1, 'title': "a"},
+  {},
+];
+const getId = R.map(R.prop('id'));
+console.log(getId(data));
+// [ 1, undefined ]
+``` 
+
+## Article: Ramda Documentation
+
+http://ramdajs.com/docs/
+
+`__`
+
+placeholder value to specify gaps within curried functions
+
+    g(1,2,3)
+    g(_,2,3)(1)
+
+    var greet = R.replace('{name}', R.__, 'Hello, {name}!');
+    greet('Alice'); //=> 'Hello, Alice!'
+
+`add`
+
+    R.add(2,3)
+    R.add(7)(10)
+
+`addIndex`
+
+`adjust`
+
+`all`
+
+    var equals3 = R.equals(3);
+    R.all(equals3)([3,2,3]); //=> false
+
+`allPass`
+
+    var isQueen = R.propEq('rank', 'Q');
+    var isSpade = R.propEq('suit', 'S');
+    var isQueenOfSpades = R.allPass([isQueen, isSpade]);
+    isQueenOfSpades({rank: 'Q', suit: 'M'}); //=> false
+
+`always`
+
+    var t = R.always('Tee')
+    t(); //=> 'Tee'
+
+`and`
+
+    R.and(true, true); //=> true
+
+`any`
+
+    var lessThan0 = R.flip(R.lt)(0);
+    var lessThan2 = R.flip(R.lt)(2);
+    R.any(lessThan0)([1,2]); //=> false
+
+`ap`
+
+applies a list of functions to a list of values
+
+    R.ap([R.multiply(2), R.add(3)], [1,2,3]); 
+    //=> [2, 4, 6, 4, 5, 6]
+
+`append`
+
+    R.append('tests', ['write', 'more']);
+    //=> ['write', 'more', 'tests']
+
+`apply`
+
+    R.apply(Math.max, [1,42]); //=> 42
+
+`applyTo`
+
+    var t42 = R.applyTo(42);
+    t42(R.add(1)); //=> 43
+
+`ascend`
+
+    var byAge = R.ascend(R.prop('age'));
+    var peopleByAge = R.sort(byAge, people);
+    
+`pluck`
+
+    R.pluck('a')([{a: 1}, {a: 2}]); //=> [1,2]
+    R.pluck(0)([[1, 2], [3, 4]]); //=> [1,3]
+
+## Article: Introducing Ramda
+
+https://buzzdecafe.github.io/code/2014/05/16/introducing-ramda
+
+Differences from lodash and underscore:
+
+- Ramda takes function first, data last
+
+Why? Because of currying and composing easily. Supports point-free style
+before finally passing in the data
+
+    var validUsersNamedBuzz = R.filter(R.where({name: 'Buzz', errors: R.isEmpty}));
+
+- Ramda functions are automatically curried
+
+``` js
+var moo = R.prop('moo');
+var value = moo({moo: 'cow'}); 
+``` 
+
+Makes composing easy. You can continue composing until dropping the data.
+
+``` js
+var amtAdd1Mod7 = R.compose(R.moduloBy(7), R.add(1), R.prop('amount'));
+
+amtAdd1Mod7({amount: 17}); // => 4
+amtAdd1Mod7({amount: 987}); // => 1
+
+var amountObjects = [
+  {amount: 903}, {amount: 2875654}, {amount: 6}
+]
+R.map(amtAdd1Mod7, amountObjects); // => [1, 6, 0]
+
+var amountsToValue = map(amtAdd1Mod7);
+amountsToValue(amountObjects); // => [1, 6, 0]
+``` 
+
+## Article: Writing Elegant Code With React, Redux and Ramda
+
+https://medium.com/javascript-inside/the-elegance-of-react-ebc21a2dcd19
+
+### Compose Components
+
+    const comp = (f,g) => x => f(g(x))
+
+Components implement this as:
+
+    const TodoList = (List, mapItems) => s => List(mapItems(s))
+    const List = c => <ul>{c}</ul>
+    const Item = todo => <li key={todo.id}>{todo.name}</li>
+    const TodoList = compose(List, map(Item))
+    const result = TodoList([{id:1, name: 'foo'}])
+
+Note:
+
+    const App = state => List(map(Item, state))
+
+Full example:
+
+    import React from 'react'
+    import {render} from 'react-dom'
+    import {compose, map, prop} from 'ramda'
+    const List = items => <ul>{items}</ul>
+    const Item = todo => <li key={todo.id}>{todo.text}</li>
+    const getTodos = prop('todos')
+    const TodoList = compose(List, map(Item), getTodos)
+    const props = {todos: [{id:1, text: 'foo'}, {id:2, text: 'bar'}]}
+    render(<TodoList {...props} />, document.getElementById('root'))
+
+Ex:
+
+    const Header = title => <h1>A Todo List: {title}</h1>
+    const List = items => <ul>{items}</ul>
+    const Item = todo => <li key={todo.id}>{todo.text}</li>
+
+    const mapStateToProps = curry((f, g) => compose(g, f))
+    const combine = curry((c, o) => x => (<div>{c(x)} {o(x)}</div>))
+    const TodoHeader = mapStateToProps(s => s.title, Header)
+    const TodoList = mapStateToProps(getTodos, compose(List, map(Item)))
+    const App = combine(TodoHeader, TodoList)
+    render(<App {...state} />, document.getElementById('root'))
+
+## Article: Functional Programming In JavaScript — With Practical Examples (Part 1)
+
+https://medium.freecodecamp.org/functional-programming-in-js-with-practical-examples-part-1-87c2b0dbc276
+
+### sub: FP Challenges:
+
+1. how to handle if-else: Either monad
+
+2. how to handle null exceptions: Maybe monad
+
+3. How to ensure reusable functions: pure functions, referential transparency
+
+4. How to ensure unchanged data: pure functions, immutability
+
+5. Functions with multiple args. How to chain with a single value: currying, higher order functions
+
+### sub: Fantasy Land Specs
+
+Fantasyland specs provide Functors, Monads etc.
+
+Dependencies of specs:
+
+    Functor
+      Alt
+        Plus
+          Alternative
+      Apply
+        Applicative
+          Alternative
+          Monad
+        Chain
+          Monad
+          ChainRec
+      Bifunctor
+      Extend
+        Comonad
+      Profunctor
+      Traversable
+    Foldable
+      Traversable
+    Semigroup
+      Monoid
+    Setoid
+
+A JS class is a Functor if it implements a `map` method. And `map` must work as per spec.
+
+Fantasyland compliant libraries: monetjs, ramda-fantasy, ...
+
+What Libraries Should I Use?
+
+ramdajs don't provide key mathematical concepts like Monads, Functors.
+
+### sub: Ex 1: Dealing With Null Checks
+
+    //Imperative:
+    //Too many if-else and null checks; relying on global indexURLs; decided that "en" urls are default for any country
+    const getUrlForUser = (user) => {
+      if (user == null) { //not logged in
+        return indexURLs['en']; //return default page
+      }
+      if (user.prefs.languages.primary && user.prefs.languages.primary != 'undefined') {
+        if (indexURLs[user.prefs.languages.primary]) {//if translation exists,
+          return indexURLs[user.prefs.languages.primary];
+        } else {
+          return indexURLs['en'];
+        }
+      }
+    }
+    showIndexPage(getUrlForUser(joeUser));
+    --->>>
+    const R = require('ramda');
+    const prop = R.prop;
+    const path = R.path;
+    const curry = R.curry;
+    const Maybe = require('ramda-fantasy').Maybe;
+    const getURLForUser = (user) => {
+        return Maybe(user)
+            .map(path(['prefs', 'languages', 'primary'])) 
+            .chain(maybeGetUrl); 
+    }
+
+    const maybeGetUrl = R.curry(function(allUrls, language) {
+        return Maybe(allUrls[language]); 
+    })(indexURLs);
+
+
+    function boot(user, defaultURL) {
+       showIndexPage(getURLForUser(user).getOrElse(defaultURL));
+    }
+
+    boot(joeUser, 'http://site.com/en'); //'http://site.com/sp'
+
+Step by step
+
+    user.prefs.languages.primary && user.prefs.languages.primary != 'undefined'
+    --->>>
+    .map(path(['prefs', 'languages', 'primary'])) 
+
+    --->>>
+    const maybeGetUrl = R.curry(function(allUrls, language) {
+        return Maybe(allUrls[language]); 
+    })(indexURLs);
+
+#### sub: Functors
+
+Any class that has a value and implements `map` is a Functor.
+
+Ex: An array is a Functor. Because it can store values and has `map` that maps a function to the stored valueds.
+
+``` js
+const add1 = (a) => a+1;
+let myArray = new Array(1, 2, 3, 4); //store values
+myArray.map(add1) // -> [2,3,4,5] //applies functions
+``` 
+
 

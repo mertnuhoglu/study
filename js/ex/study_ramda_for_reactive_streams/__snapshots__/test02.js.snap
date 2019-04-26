@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`isEven snapshot 1`] = `
+Array [
+  true,
+  true,
+  false,
+  false,
+]
+`;

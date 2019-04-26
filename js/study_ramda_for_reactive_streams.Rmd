@@ -1,0 +1,243 @@
+---
+title: "Study Ramda for Reactive Streams"
+date: 2018-10-16T09:15:22+03:00 
+draft: true 
+description: ""
+tags:
+categories: js, fp
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/js/study_ramda_for_reactive_streams.Rmd
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+This post is my study document for the great article [Ramda for Reactive Streams](https://glebbahmutov.com/blog/ramda-for-reactive-streams/) that is written by Gleb Bahmutov.
+
+.
+
+## Init Project
+
+``` bash
+mkdir -p ex/study_ramda_for_reactive_streams && cd $_ && npm init -y && npm i parcel-bundler --save-dev && npm i xstream @cycle/run @cycle/dom @cycle/http
+pnpm i -D babel-cli babel-preset-env
+``` 
+
+## Use Observable
+
+Edit `~/projects/study/js/ex/study_ramda_for_reactive_streams/index01.js`
+
+``` js
+var stream = xs.periodic(1000)
+  .filter(i => i % 2 === 0)
+  .map(i => i * i)
+  .endWhen(xs.periodic(5000).take(1))
+
+stream.addListener({
+  next: i => console.log(i),
+  error: err => console.error(err),
+  complete: () => console.log('completed'),
+})
+``` 
+
+Edit `package.json`
+
+		"scripts": {
+			"index01": "babel-node --presets env index01.js"
+		},
+
+``` bash
+npm run index01
+
+'## > babel-node --presets env index01.js
+'## 
+'## 0
+'## 4
+'## completed
+``` 
+
+## Named Callbacks
+
+Name and separate callback functions
+
+Edit `~/projects/study/js/ex/study_ramda_for_reactive_streams/utils02.js`
+
+``` js
+export const isEven = i => i % 2 === 0
+export const square = i => i * i
+``` 
+
+Edit `~/projects/study/js/ex/study_ramda_for_reactive_streams/index02.js`
+
+``` js
+const after5 = xs.periodic(5000).take(1)
+var stream = xs.periodic(1000)
+  .filter(isEven)
+  .map(square)
+  .endWhen(after5)
+``` 
+
+Install Ava
+
+``` bash
+npm i -D ava@0.19.1
+``` 
+
+Configure Ava: `package.json`
+
+``` js
+  "scripts": {
+		"test02": "ava",
+  },
+  "ava": {
+    "require": ["babel-register"]
+  },
+  "babel": {
+    "presets": ["@ava/stage-4"]
+  }
+``` 
+
+Edit `~/projects/study/js/ex/study_ramda_for_reactive_streams/test02.js`
+
+``` js
+import test from 'ava'
+import {isEven, square} from './utils02'
+test('isEven', t => {
+  t.true(isEven(2))
+  t.true(isEven(4))
+  t.false(isEven(1))
+  t.false(isEven(11))
+})
+
+``` 
+
+Run test
+
+``` bash
+npm run test02
+``` 
+
+Check snapshot file `~/projects/study/js/ex/study_ramda_for_reactive_streams/__snapshots__/test.js.snap`
+
+``` bash
+$ cat __snapshots__/test.js.snap
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`isEven snapshot 1`] = `
+Array [
+  true,
+  true,
+  false,
+  false,
+]
+`;
+``` 
+
+Install snap-shot:
+
+``` bash
+npm i -D snap-shot
+``` 
+
+We need named functions. Convert arrow expressions into named functions:
+
+Edit `~/projects/study/js/ex/study_ramda_for_reactive_streams/utils03.js`
+
+``` js
+export function isEven (i) {
+  return  i % 2 === 0
+}
+export function square (i) {
+  return  i * i
+}
+``` 
+
+Edit `~/projects/study/js/ex/study_ramda_for_reactive_streams/test03.js`
+
+``` js
+import snapshot from 'snap-shot'
+test('Data-driven isEven', t => {
+  snapshot(isEven, 2, 4, 1, 11)
+})
+``` 
+
+``` bash
+npm run test02
+``` 
+
+## Ramda instead of Observable
+
+Edit `~/projects/study/js/ex/study_ramda_for_reactive_streams/index03.js`
+
+``` js
+import {filter, map} from 'ramda'
+
+const after5 = xs.periodic(5000).take(1)
+const stream = map(square, filter(isEven, xs.periodic(1000)))
+``` 
+
+``` bash
+npm i -S ramda
+npm run index03
+``` 
+
+Edit `~/projects/study/js/ex/study_ramda_for_reactive_streams/index04.js`
+
+``` js
+const evenSquares = pipe(
+  filter(isEven),
+  map(square)
+)
+const after5 = xs.periodic(5000).take(1)
+const stream = evenSquares(xs.periodic(1000))
+  .endWhen(after5)
+``` 
+
+Move `evenSquares` to `utils05.js`
+
+Edit `~/projects/study/js/ex/study_ramda_for_reactive_streams/utils05.js`
+
+``` js
+export const evenSquares = pipe(
+  filter(isEven),
+  map(square)
+)
+``` 
+
+Run node
+
+``` bash
+npm run index05
+``` 
+
+Edit `~/projects/study/js/ex/study_ramda_for_reactive_streams/test05.js`
+
+``` js
+import {isEven, square, evenSquares} from './utils05'
+test('even squares', t => {
+  snapshot(evenSquares([0, 1, 2, 3]))
+})
+``` 
+
+Run test
+
+``` bash
+npm run test05
+``` 
+
+Show output:
+
+``` bash
+$ SHOW=1 npm t
+npm run test05
+``` 
+

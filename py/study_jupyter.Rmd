@@ -1,0 +1,80 @@
+---
+title: "Study Jupyter"
+date: 2019-02-18T16:02:38+03:00 
+draft: true
+description: ""
+tags:
+categories: jupyter
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/py/study_jupyter.Rmd
+state: wip
+---
+
+
+## Setup Jupyter
+
+Following https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04
+
+``` bash
+mkdir ~/tmp
+cd ~/tmp
+curl -O https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
+bash Anaconda3-2018.12-Linux-x86_64.sh
+source ~/.bashrc
+``` 
+
+Securing server with password
+
+``` bash
+jupyter notebook --generate-config
+  ##> creates a file: /home/ubuntu/.jupyter/jupyter_notebook_config.py
+jupyter notebook password
+  ##> creates a password for server
+``` 
+
+Allow all origins to access: Edit `/home/ubuntu/.jupyter/jupyter_notebook_config.py`
+
+``` sql
+c.NotebookApp.allow_origin = '*' #allow all origins
+c.NotebookApp.ip = '0.0.0.0' # listen on all IPs
+``` 
+
+Setup R Kernel:
+
+``` R
+install.packages('IRkernel')
+IRkernel::installspec(user = TRUE)
+``` 
+
+Run 
+
+``` bash
+cd ~/BQ-data-run/datarun
+jupyter notebook
+  ##>   ec2....us-west-2.compute.amazonaws.com
+  ##> 	http://localhost:8888/?token=30c19ba7df8b09f064eb64da2236663a32c5ea4547259006
+  ##> 	http://ec2....us-west-2.compute.amazonaws.com:8888/?token=30c19ba7df8b09f064eb64da2236663a32c5ea4547259006
+``` 
+
+Open http://ec2....us-west-2.compute.amazonaws.com:8888/
+
+### Reverse proxying on SSL
+
+https://michaelgoerz.net/notes/accessing-a-jupyter-notebook-server-through-reverse-port-forwarding.html
+https://jupyter-notebook.readthedocs.io/en/stable/public_server.html#notebook-public-server
+
+### SSH Tunneling
+
+``` bash
+ssh -L 8888:localhost:8888 awsbzq
+http://localhost:8888/?token=12e3c1e093b1d8bda1fc87c09c52975df6cb6f659353793c
+``` 
+

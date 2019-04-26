@@ -1,0 +1,7 @@
+version: '2'
+services:
+
+  openresty:
+    image: openresty/openresty:jessie
+    ports:
+      - "80:80"

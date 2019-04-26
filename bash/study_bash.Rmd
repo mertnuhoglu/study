@@ -1,0 +1,173 @@
+---
+title: "Study bash"
+date: 2019-02-18T22:04:58+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, curl
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/study_bash.Rmd
+state: wip
+---
+
+# Examples
+
+## ex01: string manipulation / text processing
+
+https://stackoverflow.com/questions/428109/extract-substring-in-bash
+
+``` bash
+var="someletters_12345_moreletters.ext"
+digits=$( echo $var | sed "s/.*_\([0-9]\+\).*/\1/p" -n )
+echo $digits
+  ##> 12345
+``` 
+
+## Connect to a ftp server with ssh key pair
+
+### opt01: Use Filezilla 
+
+Filezilla works.
+
+### opt02: Use lftp 
+
+Following https://unix.stackexchange.com/questions/181781/using-lftp-with-ssh-agent
+
+``` bash
+eval `ssh-agent -s`
+ssh-add ~/.ssh/id_rsa_twosigma
+ssh bizqualify@sftp.twosigmaiq.com
+``` 
+
+``` bash
+lftp sftp://bizqualify:DUMMY@sftp.twosigmaiq.com -e 'set sftp:connect-program "ssh -a -x -i /home/ubuntu/.ssh/id_rsa_twosigma"'
+``` 
+
+``` bash
+put florida_universe_twosigma_20180702.csv
+put florida_universe_twosigma_20170818.csv
+``` 
+
+## Giving FTP Access in your Server
+
+### opt01: Setup SFTP
+
+Following https://www.digitalocean.com/community/tutorials/how-to-enable-sftp-without-shell-access-on-ubuntu-16-04
+
+``` sql
+sudo adduser <user>
+  ##> assign a password
+sudo mkdir -p /data/sftp/<user>/uploads
+sudo chown root:root /data/sftp/<user>
+sudo chmod 755 /data/sftp/<user>
+sudo chown <user>:<user> /data/sftp/<user>/uploads
+``` 
+
+Restricting Access to One Directory:
+
+Disallow terminal access for `<user>` but allow file transfer access:
+
+``` sql
+sudo vim /etc/ssh/sshd_config
+``` 
+
+Append this snippet:
+
+``` sql
+Match User <user>
+ForceCommand internal-sftp
+PasswordAuthentication yes
+ChrootDirectory /data/sftp/<user>
+PermitTunnel no
+AllowAgentForwarding no
+AllowTcpForwarding no
+X11Forwarding no
+``` 
+
+Restart the service
+
+``` sql
+sudo systemctl restart sshd
+ssh <user>@localhost
+  ##> connection closed
+sftp <user>@localhost
+	##> ok
+``` 
+
+# Articles
+
+## Article01: The Many Uses of Rsync
+
+https://mediatemple.net/blog/tips/many-uses-rsync/
+
+### why rsync instead of cp?
+
+- rsync only copies the delta (difference)
+
+- possible to compress the data 
+
+### Examples
+
+``` bash
+rsync -av /path/to/directory1/ path/to/directory2/
+``` 
+
+Important: final slash `/` in the file paths. `directory1` will not be created in `directory2`
+
+``` bash
+rsync -av /path/to/directory1 path/to/directory2/
+``` 
+
+Now, `directory1` will be created in `directory2`
+
+Flags:
+
+- `-a` copies files recursively, preserves attributes
+- `-v` verbose output
+- `--delete` deletes any files in the destination that aren't at the source
+- `-h` `--help`
+
+### rsync with cron to create scheduled backups
+
+Create a new job
+
+``` bash
+crontab -e
+``` 
+
+Scheduling format:
+
+		* * * * * command
+
+Asterisks:
+
+		minute 0-59
+		hour 0-24
+		day 1-7
+		month 1-12
+		weekday 0-6
+
+``` bash
+15 23 * * 1 rsync -av path1/ path2/
+``` 
+
+15th minute of 23rd hour of the first day of each week.
+
+cron schedule expressions tool: https://crontab.guru
+
+### Sending data to remote host
+
+``` bash
+rsync -avz path/to/local/directory1 user@123.456.789.234:/path/to/remote/directory2/ 
+``` 
+
+
+

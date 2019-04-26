@@ -1,3 +1,10 @@
 shrinkwrap.yml
 shrinkwrap.yaml
 package.json
+
+js/rx_book/src/rx.lite.js
+problem/datatables_in_cyclejs/ex/ex06/src/handsontable.js
+problem/datatables_in_cyclejs/ex/ex06/src/handsontable.full.min.036.js
+problem/datatables_in_cyclejs/ex/ex06/src/handsontable.full.min.js
+js/ex/study_notes_cyclejs/src/problems/p07/ex02/dom/EventDelegator.ts
+js/ex/study_notes_cyclejs/src/problems/p07/ex02/dom/EventDelegator.js

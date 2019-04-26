@@ -1,0 +1,49 @@
+---
+title: "Study: ssh keygen key pair authentication"
+date: 2019-02-12T11:31:08+03:00 
+draft: true
+description: ""
+tags:
+categories: bash
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/ssh_keygen_key_pair.Rmd
+state: wip
+---
+
+## Creating a password protected private key 
+
+Following https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#platform-linux and https://www.ssh.com/ssh/keygen/
+
+``` bash
+ssh-keygen -t rsa -m PEM -b 2048
+``` 
+
+## Adding key to ssh agent
+
+Adding keys to ssh agent lets the need for passwords to be supplied only once.
+
+``` sql
+chmod 644 ~/.ssh/id_rsa.pub
+chmod 600 ~/.ssh/id_rsa
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+``` 
+
+## Password protect (encrypt/dercypt) file
+
+This is only needed if you want the public key to be secured as well.
+
+Following https://www.techrepublic.com/article/how-to-easily-encryptdecrypt-a-file-in-linux-with-gpg/
+
+``` bash
+gpg -c id_rsa.pub
+``` 
+

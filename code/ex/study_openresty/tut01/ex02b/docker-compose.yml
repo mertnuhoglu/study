@@ -1,0 +1,11 @@
+version: '2'
+services:
+
+  openresty:
+    image: openresty/openresty:jessie
+    ports:
+      - "80:80"
+    volumes:
+      - ./conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - ./lua:/usr/local/openresty/nginx/conf/lua
+

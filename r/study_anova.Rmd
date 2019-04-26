@@ -1,0 +1,98 @@
+---
+title: "Study Anova in R"
+date: 2019-02-15T14:10:17+03:00 
+draft: true
+description: ""
+tags:
+categories: r statistics
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## ex01: Generate toy data
+
+``` {r}
+x1 = rep(1, 100)
+x2 = rep(2, 100)
+x3 = rep(3, 100)
+``` 
+
+``` {r}
+d0 = data_frame(x1 = x1, x2 = x2, x3 = x3)
+d0_aov = aov(x3 ~ x1 * x2, data = d0)
+tidy(d0_aov)
+  ##>   term         df    sumsq   meansq statistic p.value
+  ##>   <chr>     <dbl>    <dbl>    <dbl>     <dbl>   <dbl>
+  ##> 1 Residuals    99 1.25e-27 1.26e-29        NA      NA
+``` 
+
+``` {r}
+set.seed(1)
+x4 = runif(100)
+x5 = runif(100) + 1
+x6 = runif(100) + 2
+``` 
+
+``` {r}
+d1 = data_frame(x4 = x4, x5 = x5, x6 = x6)
+d1_aov = aov(x6 ~ x4 * x5, data = d1)
+tidy(d1_aov)
+  ##>   term         df    sumsq   meansq statistic p.value
+  ##>   <chr>     <dbl>    <dbl>    <dbl>     <dbl>   <dbl>
+  ##> 1 x4            1 0.161    0.161      2.17     0.144
+  ##> 2 x5            1 0.000401 0.000401   0.00542  0.941
+  ##> 3 x4:x5         1 0.433    0.433      5.86     0.0174
+  ##> 4 Residuals    96 7.10     0.0739    NA       NA
+``` 
+
+``` {r}
+x7 = rep(c(1,2), each = 50)
+x8 = c(x4[1:50], x6[1:50])
+``` 
+
+``` {r}
+d2 = data_frame(x7 = x7, x8 = x8)
+d2_aov = aov(x8 ~ x7, data = d2)
+tidy(d2_aov)
+  ##>   term         df sumsq  meansq statistic   p.value
+  ##>   <chr>     <dbl> <dbl>   <dbl>     <dbl>     <dbl>
+  ##> 1 x7            1 94.7  94.7        1285.  3.84e-58
+  ##> 2 Residuals    98  7.22  0.0736       NA  NA
+``` 
+
+``` {r}
+x9 = rep(c(1,2), each = 50)
+``` 
+
+``` {r}
+d3 = data_frame(x7 = x7, x8 = x8, x9 = x9)
+d3_aov = aov(x8 ~ x7 * x9, data = d3)
+tidy(d3_aov)
+  ##>   term         df sumsq  meansq statistic   p.value
+  ##>   <chr>     <dbl> <dbl>   <dbl>     <dbl>     <dbl>
+  ##> 1 x7            1 94.7  94.7        1285.  3.84e-58
+  ##> 2 Residuals    98  7.22  0.0736       NA  NA
+``` 
+
+``` {r}
+x10 = rep(c(1,2), each = 50)
+``` 
+
+
+

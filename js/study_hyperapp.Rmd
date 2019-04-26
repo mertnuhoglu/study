@@ -32,17 +32,17 @@ Major points:
 - Hyperapp: minimalist frontend framework
 - inspired by Elm architecture
 
-## v01: Basic Setup
+### v01: Basic Setup
 
 Source code in https://github.com/mertnuhoglu/study/js/ex/study_hyperparcel/
 
 ``` bash
-mkdir study_hyperparcel && cd $_ && npm init -y && pnpm i hyperapp parcel-bundler 
+mkdir study_hyperparcel && cd $_ && npm init -y && pnpm i hyperapp parcel-bundler debounce-promise babel-preset-es2015 babel-plugin-transform-react-jsx
 ``` 
 
 The original tutorial uses jsx. I don't like jsx because of additional mental burden and no benefit over hyperscript as explained by Andre Staltz in https://staltz.com/nothing-new-in-react-and-flux-except-one-thing.html
 
-`ex/study_hyperparcel/index.html` is very basic:
+`ex/study_hyperparcel/src/article01/01/index.html` is very basic:
 
 ``` html
 <html>
@@ -52,7 +52,7 @@ The original tutorial uses jsx. I don't like jsx because of additional mental bu
 </html>
 ``` 
 
-`ex/study_hyperparcel/index.js` is very basic:
+`~/projects/study/js/ex/study_hyperparcel/src/article01/01/index.js` is very basic:
 
 ``` js
 console.log('hello parcel')
@@ -61,36 +61,27 @@ console.log('hello parcel')
 `package.json`
 
     ...
-    "start": "parcel index.html",
-    "build": "parcel build index.html --public-url ./",
+    "a01_01": "parcel src/article01/01/index.html",
 
-Run `npm start`
+Run `npm run a01_01`
  
 Open http://localhost:1234
 
 The speed of bundling and running server is amazing in comparison to webpack. 
 
 ``` bash
-❯ npm start
-
 > study_hyperparcel@1.0.0 start /Users/mertnuhoglu/projects/study/js/ex/study_hyperparcel
-> parcel index.html
+> parcel src/article01/01/index.html
 
 Server running at http://localhost:1234
 ✨  Built in1.2s.
 ``` 
 
-## v02: Using Hyperscript in Frontend View
+### v02: Using Hyperscript in Frontend View
 
-Source code in https://github.com/mertnuhoglu/study/js/ex/study_hyperparcel02/
+`src/article01/02/index.html` and `package.json` are the same.
 
-``` bash
-mkdir study_hyperparcel02 && cd $_ && npm init -y && npm i hyperapp parcel-bundler 
-``` 
-
-`index.html` and `package.json` are the same.
-
-Add hyperscript code to `ex/study_hyperparcel02/index.js`:
+Add hyperscript code to `ex/study_hyperparcel02/src/article01/02/index.js`:
 
 ``` js
 var { h, app } = require('hyperapp');
@@ -100,7 +91,77 @@ const view = (state, actions) =>
 app({}, {}, view, document.body)
 ``` 
 
-## v03
+Run `npm run a01_02`
+ 
+### v03: State
 
-@tbd
+Edit `~/projects/study/js/ex/study_hyperparcel/src/article01/03/index.js`
 
+``` js
+const state = {
+  username: '',
+  userData: null,
+}
+const getUserDataFn = username => {
+  return fetch(`https://api.github.com/users/${username}`)
+    .then(res => res.json())
+}
+const getUserData = debounce(getUserDataFn, 700)
+const actions = {
+  updateUsername: (username) => (state, actions) => {
+    getUserData(username).then(actions.setUserData)
+    return { username }
+  },
+  setUserData: userData => state => ({ userData })
+}
+
+const view = (state, actions) =>
+  <main>
+    <div>Search github users:</div>
+    <input
+      type='text'
+      className='searchInput'
+      value={state.username}
+      oninput={e => actions.updateUsername(e.target.value)}
+    />
+    <br/>
+    <div className='userCard'>
+      {state.userData ? (
+        <div>
+          <img class='userCard__img' src={state.userData.avatar_url} />
+          <div class='userCard__name'>{state.userData.name}</div>
+          <div class='userCard__location'>{state.userData.location}</div>
+        </div>
+      ) : (
+        <div>👆 search 'em</div>
+      )}
+    </div>
+  </main>
+app(state, actions, view, document.body)
+``` 
+
+Run `npm run a01_03`
+ 
+# Pure programming with Hyper App - Gleb Bahmutov
+
+Tutorial from: https://glebbahmutov.com/blog/pure-programming-with-hyper-app/
+
+``` bash
+mkdir -p ex/study_hyperparcel/src/article02/v01/ 
+``` 
+
+# Getting Started - Github
+
+Tutorial from: https://github.com/jorgebucaran/hyperapp
+
+``` bash
+mkdir -p ex/study_hyperparcel/src/article03/v01/ 
+``` 
+
+# Router Examples
+
+Tutorial from: https://github.com/jorgebucaran/hyperapp
+
+``` bash
+mkdir -p ex/study_hyperparcel/src/article04/v01/ 
+``` 

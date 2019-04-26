@@ -93,27 +93,27 @@ app('cats');
 This code prints the result of `trace('response', url('cats'))`
 
 ``` 
-## response {
-##   "title": "Recent Uploads tagged cats",
-##   "link": "https://www.flickr.com/photos/tags/cats/",
-##   "description": "",
-##   "modified": "2018-03-08T19:13:09Z",
-##   "generator": "https://www.flickr.com",
-##   "items": [
-##     {
-##       "title": "Watch high quality movies at http://ImovieSh.com/",
-##       "link": "https://www.flickr.com/photos/imoviesh/39985324204/",
-##       "media": {
-##         "m": "https://farm5.staticflickr.com/4785/39985324204_0124bb7b0b_m.jpg"
-##       },
-##       "date_taken": "2018-03-08T11:13:09-08:00",
-##       "description": " <p><a href=\"https://www.flickr.com/people/imoviesh/\">ImovieSh</a> posted a photo:</p> <p><a href=\"https://www.flickr.com/photos/imoviesh/39985324204/\" title=\"Watch high quality movies at http://ImovieSh.com/\"><img src=\"https://farm5.staticflickr.com/4785/39985324204_0124bb7b0b_m.jpg\" width=\"185\" height=\"240\" alt=\"Watch high quality movies at http://ImovieSh.com/\" /></a></p> <p>Watch high quality movies at <a href=\"http://ImovieSh.com/\" rel=\"nofollow\">ImovieSh.com/</a></p>",
-##       "published": "2018-03-08T19:13:09Z",
-##       "author": "nobody@flickr.com (\"ImovieSh\")",
-##       "author_id": "160658215@N07",
-##       "tags": "cute dogs animals aww cats love girls movie animal images baby birds adorable"
-##     },
-##  ...
+'## response {
+'##   "title": "Recent Uploads tagged cats",
+'##   "link": "https://www.flickr.com/photos/tags/cats/",
+'##   "description": "",
+'##   "modified": "2018-03-08T19:13:09Z",
+'##   "generator": "https://www.flickr.com",
+'##   "items": [
+'##     {
+'##       "title": "Watch high quality movies at http://ImovieSh.com/",
+'##       "link": "https://www.flickr.com/photos/imoviesh/39985324204/",
+'##       "media": {
+'##         "m": "https://farm5.staticflickr.com/4785/39985324204_0124bb7b0b_m.jpg"
+'##       },
+'##       "date_taken": "2018-03-08T11:13:09-08:00",
+'##       "description": " <p><a href=\"https://www.flickr.com/people/imoviesh/\">ImovieSh</a> posted a photo:</p> <p><a href=\"https://www.flickr.com/photos/imoviesh/39985324204/\" title=\"Watch high quality movies at http://ImovieSh.com/\"><img src=\"https://farm5.staticflickr.com/4785/39985324204_0124bb7b0b_m.jpg\" width=\"185\" height=\"240\" alt=\"Watch high quality movies at http://ImovieSh.com/\" /></a></p> <p>Watch high quality movies at <a href=\"http://ImovieSh.com/\" rel=\"nofollow\">ImovieSh.com/</a></p>",
+ ##       "published": "2018-03-08T19:13:09Z",
+ ##       "author": "nobody@flickr.com (\"ImovieSh\")",
+ ##       "author_id": "160658215@N07",
+ ##       "tags": "cute dogs animals aww cats love girls movie animal images baby birds adorable"
+ ##     },
+ ##  ...
 ``` 
 
 Result in:

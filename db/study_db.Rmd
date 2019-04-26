@@ -29,5 +29,198 @@ options(width = 150)
 options(max.print = 30)
 ``` 
 
+## Ex01: Count Distinct Values in a Column
 
+<url:/Users/mertnuhoglu/projects/bizqualify/BQ-data-run/datarun/fix_hbk_non-time_series_variables_20181217.md#tn=07.02. Verify that there is no duplicate data before concatenation>
+
+``` sql
+SELECT DISTINCT count(*) OVER() AS unique_rows FROM test_timeseries_original;
+SELECT count(*) FROM test_timeseries_original GROUP BY company_ein, bq_year;
+SELECT count(DISTINCT company_ein, bq_year) FROM test_timeseries_original;
+SELECT count(DISTINCT company_ein) FROM test_timeseries_original;
+SELECT count(DISTINCT ON (company_ein, bq_year)) FROM test_timeseries_original;
+
+``` 
+
+
+``` sql
+WITH a AS (
+	SELECT count(*) FROM test_timeseries_original GROUP BY company_ein, bq_year
+)
+SELECT count(*) FROM a;
+``` 
+
+
+# New Materials
+
+## how-to-round-an-average-to-2-decimal-places-in-postgresql
+
+https://stackoverflow.com/questions/13113096/how-to-round-an-average-to-2-decimal-places-in-postgresql
+
+PostgreSQL does not define round(double precision, integer). For reasons @Catcall explains in the comments, the version of round that takes a precision is only available for numeric
+
+``` sql
+regress=> \df *round*
+	 Schema   |  Name  | Result data type | Argument data types |  Type  
+------------+--------+------------------+---------------------+--------
+ pg_catalog | dround | double precision | double precision    | normal
+ pg_catalog | round  | double precision | double precision    | normal
+ pg_catalog | round  | numeric          | numeric             | normal
+ pg_catalog | round  | numeric          | numeric, integer    | normal
+(4 rows)
+
+regress=> SELECT round( CAST(float8 '3.1415927' as numeric), 2);
+ round 
+-------
+	3.14
+(1 row)
+``` 
+
+note that float8 is just a shorthand alias for double precision
+
+If you're formatting for display to the user, don't use round. Use to_char (see: data type formatting functions in the manual)
+
+``` sql
+regress=> SELECT to_char(float8 '3.1415927', 'FM999999999.00');
+    to_char    
+---------------
+ 3.14
+(1 row)
+``` 
+
+to_char will round numbers for you as part of formatting. The FM prefix tells to_char that you don't want any padding with leading spaces
+
+## Using generate_series
+
+``` sql
+SELECT *
+FROM generate_series(0,3);
+  ##>                0
+  ##>                1
+  ##>                2
+  ##>                3
+SELECT *
+FROM generate_series(1,5,2);
+  ##> generate_series
+  ##> 1
+  ##> 3
+  ##> 5
+``` 
+
+## Using VALUES
+
+VALUES
+
+``` sql
+SELECT r_min::text || '-' || r_max::text AS range,
+	r_min, r_max
+FROM (VALUES (0,29),(30,59)) AS t(r_min, r_max);
+  ##>  range | r_min | r_max
+  ##> -------+-------+-------
+  ##>  0-29  |     0 |    29
+  ##>  30-59 |    30 |    59
+``` 
+
+## Group by numeric ranges
+
+### Toy data
+
+``` sql
+CREATE TEMP TABLE test (
+  a int,
+  b int
+);
+DELETE FROM test;
+COPY test (a, b) FROM STDIN (ENCODING 'utf-8');
+101	10
+102	20
+103	30
+104	40
+105	50
+\.
+``` 
+
+From https://stackoverflow.com/questions/10605762/sql-group-by-in-ranges-to-include-ranges-without-values
+
+``` sql
+WITH ranges AS (
+    SELECT (ten)::text||'-'||(ten+29)::text AS range,
+           ten r_min, ten+29 AS r_max
+      FROM generate_series(0,60,30) AS t(ten))
+SELECT r.range, count(t.*)
+  FROM ranges r
+  LEFT JOIN test t ON t.b BETWEEN r.r_min AND r.r_max
+ GROUP BY r.range
+ ORDER BY r.range;
+  ##>  range | count
+  ##> -------+-------
+  ##>  0-29  |     2
+  ##>  30-59 |     3
+  ##>  60-89 |     0
+``` 
+
+opt02: VALUES
+
+``` sql
+SELECT r_min::text || '-' || r_max::text AS range,
+	r_min, r_max
+FROM (VALUES (0,29),(30,59)) AS t(r_min, r_max);
+  ##>  range | r_min | r_max
+  ##> -------+-------+-------
+  ##>  0-29  |     0 |    29
+  ##>  30-59 |    30 |    59
+``` 
+
+``` sql
+WITH ranges AS (
+	SELECT r_min::text || '-' || r_max::text AS range,
+		r_min, r_max
+	FROM (VALUES (0,29),(30,59)) AS t(r_min, r_max)
+)
+SELECT r.range, count(t.*)
+FROM ranges r
+LEFT JOIN test t ON t.b BETWEEN r.r_min AND r.r_max
+GROUP BY r.range
+ORDER BY r.range;
+  ##>  range | count
+  ##> -------+-------
+  ##>  0-29  |     2
+  ##>  30-59 |     3
+``` 
+
+``` sql
+WITH ranges AS (
+	SELECT r_min::text || '-' || r_max::text AS range,
+		r_min, r_max
+	FROM (VALUES (0,29),(30,59)) AS t(r_min, r_max)
+)
+SELECT r.range, t.a, t.b
+FROM ranges r
+LEFT JOIN test t ON t.b BETWEEN r.r_min AND r.r_max;
+  ##>  range |  a  | b
+  ##> -------+-----+----
+  ##>  0-29  | 101 | 10
+  ##>  0-29  | 102 | 20
+  ##>  30-59 | 103 | 30
+  ##>  30-59 | 104 | 40
+  ##>  30-59 | 105 | 50
+``` 
+
+``` sql
+WITH ranges AS (
+	SELECT r_min::text || '-' || r_max::text AS range,
+		r_min, r_max
+	FROM (VALUES (0,29),(30,59)) AS t(r_min, r_max)
+)
+SELECT r.range, t.a, t.b
+FROM ranges r
+LEFT JOIN test t ON t.b >= r.r_min AND t.b < r.r_max;
+  ##>  range |  a  | b
+  ##> -------+-----+----
+  ##>  0-29  | 101 | 10
+  ##>  0-29  | 102 | 20
+  ##>  30-59 | 103 | 30
+  ##>  30-59 | 104 | 40
+  ##>  30-59 | 105 | 50
+``` 
 

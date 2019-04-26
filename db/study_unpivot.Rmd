@@ -1,0 +1,282 @@
+---
+title: "Study Unpivot: Wide to Long Format"
+date: 2018-12-10T13:16:33+03:00 
+draft: true
+description: ""
+tags:
+categories: database, postgresql
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/db/study_unpivot.Rmd
+state: wip
+---
+
+## Tutorial 01:
+
+From: https://rextester.com/VPDDN96018
+	
+		https://dba.stackexchange.com/questions/210916/unpivot-a-table-in-postgresql
+
+``` sql
+create temp table state1(state text, city text, item1 text, item2 text, item3 text);
+
+insert into state1 values('tx','dallas','5','3','7');
+insert into state1 values('tx','fortworth','4','9','0');
+
+select * from state1;
+  ##>  state |   city    | item1 | item2 | item3
+  ##> -------+-----------+-------+-------+-------
+  ##>  tx    | dallas    | 5     | 3     | 7
+  ##>  tx    | fortworth | 4     | 9     | 0
+
+select s.state, s.city, 'item'||t.i as items, t.item
+from state1 s
+  cross join lateral unnest(array[item1, item2, item3]) with ordinality as t(item,i);
+  ##>  state |   city    | items | item
+  ##> -------+-----------+-------+------
+  ##>  tx    | dallas    | item1 | 5
+  ##>  tx    | dallas    | item2 | 3
+  ##>  tx    | dallas    | item3 | 7
+  ##>  tx    | fortworth | item1 | 4
+  ##>  tx    | fortworth | item2 | 9
+  ##>  tx    | fortworth | item3 | 0
+``` 
+
+## Tutorial 02:
+
+From: http://cowbertdev.blogspot.com/2015/02/postgresql-unpivot.html
+
+``` sql
+  ##> iso4127_code	Jan	Feb	Mar	Apr	May	Jun	Jul	Aug	Sep	Oct	Nov	Dec
+  ##> JPY	0.009613	0.009792	0.009778	0.009757	0.009827	0.009790	0.009829	0.009717	0.009346	0.009262	0.008606	0.008375
+
+select iso4127_code, 
+unnest(array[1,2,3,4,5,6,7,8,9,10,11,12]) as month,
+unnest(array[jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]) as rate
+from table
+  ##> iso4127_code	month	rate
+  ##> JPY	1	0.009613
+  ##> JPY	2	0.009792
+  ##> ...	
+``` 
+
+## Tutorial 03
+
+From: https://dzone.com/articles/impress-your-coworkers-by-using-sql-unpivot
+
+``` sql
+CREATE TABLE employees (
+  id NUMBER(18)     NOT NULL PRIMARY KEY,
+  sal NUMBER(18, 2) NOT NULL,
+  dept NUMBER(18)   NOT NULL,
+  hiredate DATE     NOT NULL,
+  grade NUMBER(18)  NOT NULL
+);
+INSERT INTO employees 
+      VALUES (1, 10000,  1, SYSDATE     , 1);
+INSERT INTO employees 
+      VALUES (2,  9000,  5, SYSDATE - 10, 1);
+INSERT INTO employees 
+      VALUES (3, 11000, 13, SYSDATE - 30, 2);
+INSERT INTO employees 
+      VALUES (4, 10000, 12, SYSDATE - 80, 2);
+INSERT INTO employees 
+      VALUES (5,  8000,  7, SYSDATE - 90, 1);
+``` 
+
+### Calculate total count values
+
+opt01: 
+
+``` sql
+SELECT
+  (SELECT COUNT(*) FROM employees 
+      WHERE sal < 10000) AS test1,
+  (SELECT COUNT(*) FROM employees 
+      WHERE dept > 10) AS test2,
+  (SELECT COUNT(*) FROM employees 
+      WHERE hiredate > (SYSDATE - 60)) AS test3,
+  (SELECT COUNT(*) FROM employees 
+      WHERE grade = 1) AS test4
+FROM dual;
+``` 
+
+opt02:
+
+``` R
+SELECT
+  COUNT(CASE WHEN sal < 10000 THEN 1 END)
+      AS test1,
+  COUNT(CASE WHEN dept > 10 THEN 1 END)
+      AS test2,
+  COUNT(CASE WHEN hiredate > (SYSDATE-60) THEN 1 END)
+      AS test3,
+  COUNT(CASE WHEN grade = 1 THEN 1 END)
+      AS test4
+FROM employees;
+``` 
+
+opt03: FILTER() instead of CASE
+
+``` sql
+SELECT
+  COUNT(*) FILTER (WHERE sal < 10000)
+      AS test1,
+  COUNT(*) FILTER (WHERE dept > 10)
+      AS test2,
+  COUNT(*) FILTER (WHERE hiredate > (SYSDATE - 60))
+      AS test3,
+  COUNT(*) FILTER (WHERE grade = 1)
+      AS test4
+FROM employees;
+``` 
+
+### Wide to Long Format
+
+opt01: UNION ALL
+
+``` R
+SELECT 
+  'TEST1' AS Description, 
+  COUNT(*) AS COUNT 
+FROM employees WHERE sal < 10000
+UNION ALL
+SELECT 
+  'TEST2', 
+  COUNT(*)
+FROM employees WHERE dept > 10
+UNION ALL
+SELECT 
+  'TEST3', 
+  COUNT(*) 
+FROM employees WHERE hiredate > (SYSDATE - 60)
+UNION ALL
+SELECT 
+  'TEST4', 
+  COUNT(*) 
+FROM employees WHERE grade = 1
+``` 
+
+opt02: transposition = unpivoting
+
+in sql server or oracle
+
+``` R
+SELECT *
+FROM (
+  SELECT
+    COUNT(CASE WHEN sal < 10000 THEN 1 END)
+      AS test1,
+    COUNT(CASE WHEN dept > 10 THEN 1 END)
+      AS test2,
+    COUNT(CASE WHEN hiredate > (SYSDATE-60) THEN 1 END)
+      AS test3,
+    COUNT(CASE WHEN grade = 1 THEN 1 END)
+      AS test4
+  FROM employees
+) t
+UNPIVOT (
+  count FOR description IN (
+    "TEST1", "TEST2", "TEST3", "TEST4"
+  )
+)
+``` 
+
+## Tutorial 03
+
+From https://www.periscopedata.com/blog/using-row-numbering-and-full-joins-to-transpose-wide-tables
+
+We’ll start with a simple list of numbers:
+
+``` R
+with numbers as (
+  select row_number() over (order by true) i from survey_responses
+)
+``` 
+
+Now, for every row in our row-based table, we’ll create a row per question:
+
+``` R
+expanded_responses as (
+  select * from survey_responses join numbers on true
+)
+``` 
+
+This is a full join. 
+
+``` R
+select 
+  user_id,
+  'question ' || i as question,
+  case
+    when i = 1 then question_1_response
+    when i = 2 then question_2_response
+    when i = 3 then question_3_response
+    when i = 4 then question_4_response
+    when i = 5 then question_5_response
+  end as response
+from expanded_responses
+``` 
+
+Full sql
+
+``` R
+with numbers as (
+  select row_number() over (order by true) i from survey_responses
+),
+expanded_responses as (
+  select * from survey_responses join numbers on true
+)
+select 
+  user_id,
+  'question ' || i as question
+  case
+    when i = 1 then question_1_response
+    when i = 2 then question_2_response
+    when i = 3 then question_3_response
+    when i = 4 then question_4_response
+    when i = 5 then question_5_response
+  end as response
+from expanded_responses
+``` 
+
+## Tutorial 04
+
+From https://stackoverflow.com/questions/1128737/unpivot-and-postgresql
+
+``` sql
+CREATE TEMP TABLE foo (id int, a text, b text, c text);
+INSERT INTO foo VALUES (1, 'ant', 'cat', 'chimp'), (2, 'grape', 'mint', 'basil');
+SELECT * FROM foo;
+  ##>  id |   a   |  b   |   c
+  ##> ----+-------+------+-------
+  ##>   1 | ant   | cat  | chimp
+  ##>   2 | grape | mint | basil
+``` 
+
+``` sql
+SELECT id,
+       unnest(array['a', 'b', 'c']) AS colname,
+       unnest(array[a, b, c]) AS thing
+FROM foo
+ORDER BY id;
+  ##>  id | colname | thing
+  ##> ----+---------+-------
+  ##>   1 | a       | ant
+  ##>   1 | b       | cat
+  ##>   1 | c       | chimp
+  ##>   2 | a       | grape
+  ##>   2 | b       | mint
+  ##>   2 | c       | basil
+``` 
+
+
+
+

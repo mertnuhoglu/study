@@ -1,0 +1,25 @@
+---
+title: "Study gsutil"
+date: 2019-02-28T10:47:20+03:00 
+draft: true
+description: ""
+tags:
+categories: gcloud
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+
+---
+
+### du: file/bucket sizes
+
+Sizes of all buckets:
+
+``` bash
+gsutil du -shc
+gsutil -o GSUtil:default_project_id=project-id du -shc
+``` 
+
+

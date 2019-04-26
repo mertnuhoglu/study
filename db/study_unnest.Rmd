@@ -1,0 +1,48 @@
+---
+title: "Study unnest"
+date: 2018-12-10T13:22:30+03:00 
+draft: true
+description: ""
+tags:
+categories: database, postgresql
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/db/study_unnest.Rmd
+state: wip
+---
+
+## Ex01
+
+``` sql
+select '{Alex,Sonia}'::text[] As name;
+  ##>  name
+  ##> -------
+  ##>  Alex
+  ##>  Sonia
+
+select unnest('{Alex,Sonia}'::text[]) As name;
+  ##>  name
+  ##> -------
+  ##>  Alex
+  ##>  Sonia
+
+SELECT unnest(string_to_array('split.this', '.')) As x;
+  ##>    x
+  ##> -------
+  ##>  split
+  ##>  this
+
+SELECT unnest(regexp_matches('100 hats 200', '\d+', 'g'));
+  ##>  unnest
+  ##> --------
+  ##>  100
+  ##>  200
+``` 
+

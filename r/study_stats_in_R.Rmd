@@ -1,0 +1,415 @@
+---
+title: "Study Statistics in R"
+date: 2019-02-14T13:51:35+03:00 
+draft: true
+description: ""
+tags:
+categories: r statistics
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## Descriptive Statistics
+
+``` r
+library(tidyverse)
+descriptive = function(df, vars) {
+	df2 = df %>%
+		dplyr::select(vars) 
+	g01 = df2 %>%
+		tidyr::gather("var", "value") 
+	g02 = g01 %>%
+		dplyr::count(var, value) %>%
+		dplyr::group_by(var) %>%
+		dplyr::filter(!is.na(value)) %>%
+		dplyr::mutate(yuzde = prop.table(n) * 100) 
+	s01 = g02 %>%
+		dplyr::select(-n) %>%
+		tidyr::spread(value, yuzde)
+	gs = g01 %>%
+		dplyr::group_by(var) %>%
+		dplyr::summarize(
+			ort = mean(value, na.rm=T)
+			, sd = sd(value, na.rm=T)
+			, eksik = sum(is.na(value))
+			, n = dplyr::n() - eksik
+		)
+	s01 %>%
+		dplyr::inner_join(gs, by = "var") %>%
+		dplyr::arrange(var)
+}
+``` 
+
+``` r
+descriptive(dc, c("ws1","ws2","ws3","ws4","ws5","ws6"))
+  ##>   var     `1`   `2`   `3`   `4`   `5`   ort    sd eksik     n
+  ##>   <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <int> <int>
+  ##> 1 ws1   34.6  28.0  22.2   11.3  3.89  2.22  1.15     5   257
+  ##> 2 ws2   13.4  21.3  30.3   27.2  7.87  2.95  1.16     8   254
+  ##> 3 ws3   17.4  13.8  22.5   28.5 17.8   3.15  1.35     9   253
+  ##> 4 ws4    3.92  5.10 16.1   40   34.9   3.97  1.03     7   255
+  ##> 5 ws5    3.53  7.06  7.84  27.1 54.5   4.22  1.09     7   255
+  ##> 6 ws6   19.6  11.5  20.8   21.2 26.9   3.24  1.46     2   260
+``` 
+
+## Article: A gentle introduction to Tidy statistics in R - Thomas Mock
+
+Reading https://rpubs.com/jtmock/tidy-stats-in-R
+
+Load libraries
+
+```{r, message=F, warning = F, error = F}
+# Load for ggplot, dplyr, tidyr, readxl
+library(tidyverse)
+library(readxl)
+library(broom)
+library(knitr)
+```
+
+Read excel file
+
+```{r}
+# read excel file
+raw_df <- readxl::read_xlsx("ex/study_stats_in_R/ad_treatment.xlsx")
+
+dplyr::glimpse(raw_df)
+  ##> Observations: 600
+  ##> Variables: 5
+  ##> $ age            <dbl> 80, 85, 82, 80, 83, 79, 82, 79, 80, 79, 80, 79, 81, 83, 85, 81, 83, 85, 80, 80, 80, 85, 80, 83, 80, 82, 82, 84, 81, 81, 80, …
+  ##> $ sex            <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1…
+  ##> $ health_status  <chr> "Healthy", "Healthy", "Healthy", "Healthy", "Healthy", "Healthy", "Healthy", "Healthy", "Healthy", "Healthy", "Healthy", "He…
+  ##> $ drug_treatment <chr> "Placebo", "Placebo", "Placebo", "Placebo", "Placebo", "Placebo", "Placebo", "Placebo", "Placebo", "Placebo", "Placebo", "Pl…
+  ##> $ mmse           <dbl> 24.78988, 24.88192, 25.10903, 24.92636, 23.38845, 24.11390, 28.20327, 26.93959, 27.07407, 24.40350, 25.50462, 26.14665, 24.7…
+```
+
+Check distribution 
+
+```{r}
+# density plot
+
+g2 <- ggplot(raw_df, aes(x = age)) +
+  geom_density(fill = "blue")
+g2
+```
+
+```{r}
+# tidyverse way for range
+raw_df %>% summarize(min = min(age),
+                     max = max(age))
+  ##>     min   max
+  ##>   <dbl> <dbl>
+  ##> 1    79    85
+```
+
+```{r}
+# base way for range, note use of the $ to select column
+range(raw_df$age)
+  ##> [1] 79 85
+```
+
+Data cleaning:
+
+```{r}
+# check for NAs
+raw_df %>% 
+  summarize(na_count = sum(is.na(mmse)))
+  ##>   na_count
+  ##>      <int>
+  ##> 1        0
+```
+  
+Check experimental variables levels:
+
+```{r}
+# check Ns and levels for our variables
+table(raw_df$drug_treatment, raw_df$health_status)
+  ##>             Alzheimer's Healthy
+  ##>   High Dose         100     100
+  ##>   Low dose          100     100
+  ##>   Placebo           100     100
+table(raw_df$drug_treatment, raw_df$health_status, raw_df$sex)
+  ##> , ,  = 0
+  ##> 
+  ##> 
+  ##>             Alzheimer's Healthy
+  ##>   High Dose          48      51
+  ##>   Low dose           51      51
+  ##>   Placebo            52      53
+  ##> 
+  ##> , ,  = 1
+  ##> 
+  ##> 
+  ##>             Alzheimer's Healthy
+  ##>   High Dose          52      49
+  ##>   Low dose           49      49
+  ##>   Placebo            48      47
+```
+
+Alternative way to check number of patients in each group:
+
+```{r}
+# tidy way of looking at variables
+raw_df %>% 
+  dplyr::group_by(drug_treatment, health_status, sex) %>% 
+  dplyr::count()
+  ##> # Groups:   drug_treatment, health_status, sex [12]
+  ##>    drug_treatment health_status   sex     n
+  ##>    <chr>          <chr>         <dbl> <int>
+  ##>  1 High Dose      Alzheimer's       0    48
+  ##>  2 High Dose      Alzheimer's       1    52
+  ##>  3 High Dose      Healthy           0    51
+  ##>  4 High Dose      Healthy           1    49
+  ##>  5 Low dose       Alzheimer's       0    51
+  ##>  6 Low dose       Alzheimer's       1    49
+  ##>  7 Low dose       Healthy           0    51
+  ##>  8 Low dose       Healthy           1    49
+  ##>  9 Placebo        Alzheimer's       0    52
+  ##> 10 Placebo        Alzheimer's       1    48
+  ##> 11 Placebo        Healthy           0    53
+  ##> 12 Placebo        Healthy           1    47
+```
+
+Visual exploratory data analysis:
+
+```{r}
+ggplot(data = raw_df, # add the data
+       aes(x = drug_treatment, y = mmse, # set x, y coordinates
+           color = drug_treatment)) +    # color by treatment
+  geom_boxplot() +
+  facet_grid(~health_status) # create panes base on health status
+```
+
+Summary statistics:
+
+```{r}
+sum_df <- raw_df %>% 
+	dplyr::mutate(
+		sex = factor(sex, labels = c("Male", "Female")),
+		drug_treatment =  factor(drug_treatment, levels = c("Placebo", "Low dose", "High Dose")),
+		health_status = factor(health_status, levels = c("Healthy", "Alzheimer's"))
+	) %>% 
+	dplyr::group_by(sex, health_status, drug_treatment ) %>%  # group by categorical variables
+	dplyr::summarize(
+		mmse_mean = mean(mmse),      # calc mean
+		mmse_se = sd(mmse)/sqrt(dplyr::n()) # calc standard error
+	) %>%  
+	dplyr::ungroup() # ungrouping variable is a good habit to prevent errors
+kable(sum_df)
+  ##> |sex    |health_status |drug_treatment | mmse_mean|   mmse_se|
+  ##> |:------|:-------------|:--------------|---------:|---------:|
+  ##> |Male   |Healthy       |Placebo        |  24.93184| 0.2026394|
+  ##> |Male   |Healthy       |Low dose       |  24.93751| 0.1961946|
+  ##> |Male   |Healthy       |High Dose      |  25.70808| 0.1485297|
+  ##> |Male   |Alzheimer's   |Placebo        |  12.12782| 0.2410401|
+  ##> |Male   |Alzheimer's   |Low dose       |  14.65215| 0.2163392|
+  ##> |Male   |Alzheimer's   |High Dose      |  23.13629| 0.1664349|
+  ##> |Female |Healthy       |Placebo        |  24.94295| 0.2253879|
+  ##> |Female |Healthy       |Low dose       |  24.97216| 0.2138110|
+  ##> |Female |Healthy       |High Dose      |  25.36790| 0.1348688|
+  ##> |Female |Alzheimer's   |Placebo        |  11.92192| 0.2565803|
+  ##> |Female |Alzheimer's   |Low dose       |  15.32380| 0.1883008|
+  ##> |Female |Alzheimer's   |High Dose      |  22.83295| 0.1611861|
+```
+
+```{r}
+# save to excel
+write.csv(sum_df, "ex/study_stats_in_R/adx37_sum_stats.csv")
+```
+
+Plotting summary statistics:
+
+```{r}
+g <- ggplot(data = sum_df, # add the data
+       aes(x = drug_treatment,  #set x, y coordinates
+           y = mmse_mean,
+           group = drug_treatment,  # group by treatment
+           color = drug_treatment)) +    # color by treatment
+  geom_point(size = 3) + # set size of the dots
+  facet_grid(sex~health_status) # create facets by sex and status
+g
+```
+
+Statistics
+
+```{r}
+# set up the statistics df
+stats_df <- raw_df %>% # start with data
+   dplyr::mutate(drug_treatment = factor(drug_treatment, levels = c("Placebo", "Low dose", "High Dose")),
+         sex = factor(sex, labels = c("Male", "Female")),
+         health_status = factor(health_status, levels = c("Healthy", "Alzheimer's")))
+
+dplyr::glimpse(stats_df)
+  ##> Observations: 600
+  ##> Variables: 5
+  ##> $ age            <dbl> 80, 85, 82, 80, 83, 79, 82, 79, 80, 79, 80, 79, 81, 83…
+  ##> $ sex            <fct> Male, Male, Male, Male, Male, Male, Male, Male, Female…
+  ##> $ health_status  <fct> Healthy, Healthy, Healthy, Healthy, Healthy, Healthy, …
+  ##> $ drug_treatment <fct> Placebo, Placebo, Placebo, Placebo, Placebo, Placebo, …
+  ##> $ mmse           <dbl> 24.78988, 24.88192, 25.10903, 24.92636, 23.38845, 24.1…
+```
+
+Anova:
+
+```{r}
+# this gives main effects AND interactions
+ad_aov <- aov(mmse ~ sex * drug_treatment * health_status, 
+        data = stats_df)
+```
+
+```{r}
+# look at effects and interactions
+summary(ad_aov)
+  ##>                                   Df Sum Sq Mean Sq  F value Pr(>F)
+  ##> sex                                1      0       0    0.047  0.828
+  ##> drug_treatment                     2   3601    1801  909.213 <2e-16 ***
+  ##> health_status                      1  10789   10789 5447.953 <2e-16 ***
+  ##> sex:drug_treatment                 2      8       4    2.070  0.127
+  ##> sex:health_status                  1      5       5    2.448  0.118
+  ##> drug_treatment:health_status       2   2842    1421  717.584 <2e-16 ***
+  ##> sex:drug_treatment:health_status   2      5       2    1.213  0.298
+  ##> Residuals                        588   1164       2
+  ##> ---
+  ##> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+```
+
+```{r}
+# this extracts ANOVA output into a nice tidy dataframe
+tidy_ad_aov <- tidy(ad_aov)
+tidy_ad_aov
+  ##> # A tibble: 8 x 6
+  ##>   term                              df      sumsq    meansq statistic    p.value
+  ##>   <chr>                          <dbl>      <dbl>     <dbl>     <dbl>      <dbl>
+  ##> 1 sex                                1     0.0937   9.37e-2    0.0473  8.28e-  1
+  ##> 2 drug_treatment                     2  3601.       1.80e+3  909.      1.18e-180
+  ##> 3 health_status                      1 10789.       1.08e+4 5448.      1.57e-299
+  ##> 4 sex:drug_treatment                 2     8.20     4.10e+0    2.07    1.27e-  1
+  ##> 5 sex:health_status                  1     4.85     4.85e+0    2.45    1.18e-  1
+  ##> 6 drug_treatment:health_status       2  2842.       1.42e+3  718.      1.67e-158
+  ##> 7 sex:drug_treatment:health_sta…     2     4.80     2.40e+0    1.21    2.98e-  1
+  ##> 8 Residuals                        588  1164.       1.98e+0   NA      NA
+
+# which we can save to Excel
+write.csv(tidy_ad_aov, "ex/study_stats_in_R/ad_aov.csv")
+```
+
+Pairwise unadjusted t tests:
+
+```{r}
+# pairwise t.tests
+ad_pairwise <- pairwise.t.test(stats_df$mmse,
+	stats_df$sex:stats_df$drug_treatment:stats_df$health_status, 
+	p.adj = "none")
+# look at the posthoc p.values in a tidy dataframe
+kable(head(tidy(ad_pairwise)))
+  ##> |group1                     |group2               |   p.value|
+  ##> |:--------------------------|:--------------------|---------:|
+  ##> |Male:Placebo:Alzheimer's   |Male:Placebo:Healthy | 0.0000000|
+  ##> |Male:Low dose:Healthy      |Male:Placebo:Healthy | 0.9836212|
+  ##> |Male:Low dose:Alzheimer's  |Male:Placebo:Healthy | 0.0000000|
+  ##> |Male:High Dose:Healthy     |Male:Placebo:Healthy | 0.0050862|
+  ##> |Male:High Dose:Alzheimer's |Male:Placebo:Healthy | 0.0000000|
+  ##> |Female:Placebo:Healthy     |Male:Placebo:Healthy | 0.9685778|
+
+# tidy
+tidy_ad_pairwise <- tidy(ad_pairwise)
+
+# save to excel
+write.csv(tidy_ad_pairwise, "ex/study_stats_in_R/tidy_ad_pairwise.csv")
+```
+
+Pairwise Tukey post-hoc
+
+```{r}
+# call and tidy the tukey posthoc
+tidy_ad_tukey <- tidy( TukeyHSD(ad_aov, 
+	which = 'sex:drug_treatment:health_status')
+)
+write.csv(tidy_ad_tukey, "ex/study_stats_in_R/tukey_ad.csv")
+kable(head(tidy_ad_tukey))
+  ##> |term                             |comparison                                    |    estimate|    conf.low|   conf.high| adj.p.value|
+  ##> |:--------------------------------|:---------------------------------------------|-----------:|-----------:|-----------:|-----------:|
+  ##> |sex:drug_treatment:health_status |Female:Placebo:Healthy-Male:Placebo:Healthy   |   0.0111117|  -0.9140819|   0.9363052|   1.0000000|
+  ##> |sex:drug_treatment:health_status |Male:Low dose:Healthy-Male:Placebo:Healthy    |   0.0056692|  -0.9000907|   0.9114291|   1.0000000|
+  ##> |sex:drug_treatment:health_status |Female:Low dose:Healthy-Male:Placebo:Healthy  |   0.0403184|  -0.8748132|   0.9554500|   1.0000000|
+  ##> |sex:drug_treatment:health_status |Male:High Dose:Healthy-Male:Placebo:Healthy   |   0.7762410|  -0.1295189|   1.6820009|   0.1775310|
+  ##> |sex:drug_treatment:health_status |Female:High Dose:Healthy-Male:Placebo:Healthy |   0.4360609|  -0.4790707|   1.3511925|   0.9213646|
+  ##> |sex:drug_treatment:health_status |Male:Placebo:Alzheimer's-Male:Placebo:Healthy | -12.8040144| -13.7053250| -11.9027038|   0.0000000|
+```
+
+```{r, eval = F}
+write.csv(tidy_ad_pairwise, "ex/study_stats_in_R/tidy_ad_pairwise.csv")
+write.csv(tidy_ad_tukey, "ex/study_stats_in_R/tidy_ad_tukey.csv")
+```
+  
+Publication plot:
+
+```{r}
+sig_df <- tribble(
+  ~drug_treatment, ~ health_status, ~sex, ~mmse_mean,
+  "Low dose", "Alzheimer's", "Male", 17,
+  "High Dose", "Alzheimer's", "Male", 25,
+  "Low dose", "Alzheimer's", "Female", 18, 
+  "High Dose", "Alzheimer's", "Female", 24
+  )
+
+sig_df <- sig_df %>% 
+  dplyr::mutate(drug_treatment = factor(drug_treatment, levels = c("Placebo", "Low dose", "High Dose")),
+         sex = factor(sex, levels = c("Male", "Female")),
+         health_status = factor(health_status, levels = c("Healthy", "Alzheimer's")))
+sig_df
+  ##> # A tibble: 4 x 4
+  ##>   drug_treatment health_status sex    mmse_mean
+  ##>   <fct>          <fct>         <fct>      <dbl>
+  ##> 1 Low dose       Alzheimer's   Male          17
+  ##> 2 High Dose      Alzheimer's   Male          25
+  ##> 3 Low dose       Alzheimer's   Female        18
+  ##> 4 High Dose      Alzheimer's   Female        24
+```
+
+```{r}
+# plot of cognitive function health and drug treatment
+g1 <- ggplot(data = sum_df, 
+       aes(x = drug_treatment, y = mmse_mean, fill = drug_treatment,  
+           group = drug_treatment)) +
+  geom_errorbar(aes(ymin = mmse_mean - mmse_se, 
+                    ymax = mmse_mean + mmse_se), width = 0.5) +
+  geom_bar(color = "black", stat = "identity", width = 0.7) +
+  
+  facet_grid(sex~health_status) +
+  theme_bw() +
+  scale_fill_manual(values = c("white", "grey", "black")) +
+  theme(legend.position = "NULL",
+        legend.title = element_blank(),
+        axis.title = element_text(size = 20),
+        legend.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        axis.text = element_text(size = 12)) +
+  geom_text(data = sig_df, label = "*", size = 8) +
+  labs(x = "\nDrug Treatment", 
+       y = "Cognitive Function (MMSE)\n",
+       caption = "\nFigure 1. Effect of novel drug treatment AD-x37 on cognitive function in healthy and demented elderly adults. \nn = 100/treatment group (total n = 600), * indicates significance at p < 0.001")
+g1
+
+```
+
+```{r, eval = F}
+# save the graph!
+ggsave("ex/study_stats_in_R/ad_publication_graph.png", g1, height = 7, width = 8, units = "in")
+```

@@ -1,0 +1,22 @@
+exports['Data-driven isEven 1'] = {
+  "name": "isEven",
+  "behavior": [
+    {
+      "given": 2,
+      "expect": true
+    },
+    {
+      "given": 4,
+      "expect": true
+    },
+    {
+      "given": 1,
+      "expect": false
+    },
+    {
+      "given": 11,
+      "expect": false
+    }
+  ]
+}
+

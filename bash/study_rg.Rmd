@@ -1,0 +1,39 @@
+---
+title: "Study rg"
+date: 2019-02-21T19:02:51+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, rg
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/bash/study_rg.Rmd
+state: wip
+---
+
+## Exclude file types using glob patterns
+
+Without exclusion:
+
+``` bash
+$ rg -l lftp
+bash/ex_bash_array.html
+bash/examples_bash.Rmd
+bash/study_bash.Rmd
+``` 
+
+With glob pattern:
+
+``` bash
+$ rg -l -g !'*.html' lftp
+bash/examples_bash.Rmd
+bash/study_bash.Rmd
+``` 
+

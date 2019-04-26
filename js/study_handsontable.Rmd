@@ -24,13 +24,19 @@ wip: true
 
 Source code in https://github.com/mertnuhoglu/study/js/ex/study_handsontable/
 
-## ex01
+## ex01: make a static handsontable
 
 ``` bash
 mkdir -p ex/study_handsontable/ex01 && cd $_
 ``` 
 
-## ex02: render()
+Edit `~/projects/study/js/ex/study_handsontable/ex01/index.js`
+
+``` js
+open ex/study_handsontable/ex01/index.html
+``` 
+
+## ex02_01: render(): Update handsontable: data from js to handsontable
 
 ``` bash
 mkdir -p ex/study_handsontable/ex02 && cd $_
@@ -77,6 +83,8 @@ hot1.render();
 hot1.loadData(data2)
 ``` 
 
+`hot1.loadData` updates handsontable widget on browser with new data.
+
 ## ex02_04: use RxJs to feed data
 
 Edit `ex/study_handsontable/ex02/index04.js`
@@ -91,7 +99,7 @@ t$.subscribe( i => {
 })
 ``` 
 
-## ex03: read: getSourceData
+## ex03: read from handsontable to js: getSourceData
 
 ``` bash
 mkdir -p ex/study_handsontable/ex03 && cd $_
@@ -100,7 +108,16 @@ cp ../ex02/index.* .
 
 Edit `ex/study_handsontable/ex03/index.js`
 
-## ex04: get data after change: afterChange()
+``` js
+console.log(hot1.getSourceData())
+  ##> Array(2)
+  ##> 0: (7) ["", "Ford", "Nissan", "Toyota", "Honda", "Mazda", "Ford"]
+  ##> 1: (7) ["2017", 10, 11, 12, 13, 15, 16]
+console.log(JSON.stringify(hot1.getSourceData()))
+  ##> "[["","Ford","Nissan","Toyota","Honda","Mazda","Ford"],["2017",10,11,12,13,15,16]]"
+``` 
+
+## ex04: get data after each change: afterChange()
 
 React uses afterChange()
 

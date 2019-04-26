@@ -1,0 +1,318 @@
+---
+title: "Dplyr metaprogramming"
+date: 2019-02-16T13:07:58+03:00 
+draft: true
+description: ""
+tags:
+categories: r dplyr metaprogramming
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## Article01: Programming with dplyr - vignette dplyr
+
+Following https://cran.r-project.org/web/packages/dplyr/vignettes/programming.html
+
+### Warm up
+
+opt01: no parameter:
+
+``` {r}
+greet <- function(name) {
+  "How do you do, name?"
+}
+greet("Hadley")
+  ##> #> [1] "How do you do, name?"
+``` 
+
+opt02: parameterization with paste
+
+``` {r}
+greet <- function(name) {
+  paste0("How do you do, ", name, "?")
+}
+greet("Hadley")
+  ##> #> [1] "How do you do, Hadley?"
+``` 
+
+opt03: glue: unquote components
+
+``` {r}
+greet <- function(name) {
+  glue::glue("How do you do, {name}?")
+}
+greet("Hadley")
+  ##> #> How do you do, Hadley?
+``` 
+
+### Programming recipes
+
+#### Different data sets
+
+``` {r}
+df <- tibble(
+  g1 = c(1, 1, 2, 2, 2),
+  g2 = c(1, 2, 1, 2, 1),
+  a = sample(5),
+  b = sample(5)
+)
+``` 
+
+``` {r}
+df %>%
+  group_by(g1) %>%
+  summarise(a = mean(a))
+  ##> #> # A tibble: 2 x 2
+  ##> #>      g1     a
+  ##> #>   <dbl> <dbl>
+  ##> #> 1     1  2.5 
+  ##> #> 2     2  3.33
+``` 
+
+``` {r}
+df %>%
+  group_by(g2) %>%
+  summarise(a = mean(a))
+  ##> #> # A tibble: 2 x 2
+  ##> #>      g2     a
+  ##> #>   <dbl> <dbl>
+  ##> #> 1     1   2  
+  ##> #> 2     2   4.5
+``` 
+
+##### Goal: parameterize group_by arguments:
+
+We have such a function:
+
+``` r
+my_summarise <- function(df, group_var) {
+  df %>%
+    group_by(group_var) %>%
+    summarise(a = mean(a))
+}
+``` 
+
+Call it like:
+
+``` r
+  ##> my_summarise(df, g1)
+``` 
+
+opt01: pass variable symbol
+
+``` {r}
+
+  ##> my_summarise(df, g1)
+  ##> #> Error: Column `group_var` is unknown
+``` 
+
+opt02: pass string
+
+``` {r}
+  ##> my_summarise(df, "g2")
+  ##> #> Error: Column `group_var` is unknown
+``` 
+
+opt03: quote variable
+
+`quo`
+
+``` {r}
+quo(g1)
+  ##> #> <quosure>
+  ##> #> expr: ^g1
+  ##> #> env:  global
+quo(a + b + c)
+  ##> #> <quosure>
+  ##> #> expr: ^a + b + c
+  ##> #> env:  global
+quo("a")
+  ##> #> <quosure>
+  ##> #> expr: ^"a"
+  ##> #> env:  empty
+``` 
+
+``` {r}
+  ##> my_summarise(df, quo(g1))
+  ##> #> Error: Column `group_var` is unknown
+``` 
+
+opt04: quote variable + tell group_by not to unquote it
+
+``` {r}
+my_summarise <- function(df, group_var) {
+  df %>%
+    group_by(!! group_var) %>%
+    summarise(a = mean(a))
+}
+
+my_summarise(df, quo(g1))
+  ##> #> # A tibble: 2 x 2
+  ##> #>      g1     a
+  ##> #>   <dbl> <dbl>
+  ##> #> 1     1  2.5 
+  ##> #> 2     2  3.33
+``` 
+
+But this still gives error:
+
+``` {r}
+  ##> my_summarise(df, quo(g1))
+``` 
+
+opt05: quote inside function
+
+``` {r}
+my_summarise <- function(df, group_var) {
+  quo_group_var <- quo(group_var)
+  print(quo_group_var)
+
+  df %>%
+    group_by(!! quo_group_var) %>%
+    summarise(a = mean(a))
+}
+
+  ##> my_summarise(df, g1)
+  ##> #> <quosure>
+  ##> #> expr: ^group_var
+  ##> #> env:  0x7ffe16901ea8
+  ##> #> Error: Column `group_var` is unknown
+``` 
+
+`quo(group_var)` always returns `~group_var`. It is being too literal! We want it to substitute the value that the user supplied, i.e. to return `~g1`
+
+opt06: evaluate lazily (promise)
+
+By analogy to strings, we don’t want "", instead we want some function that turns an argument into a string. That’s the job of `enquo()`
+
+``` {r}
+my_summarise <- function(df, group_var) {
+  group_var <- enquo(group_var)
+  print(group_var)
+
+  df %>%
+    group_by(!! group_var) %>%
+    summarise(a = mean(a))
+}
+
+my_summarise(df, g1)
+  ##> #> <quosure>
+  ##> #> expr: ^g1
+  ##> #> env:  global
+  ##> #> # A tibble: 2 x 2
+  ##> #>      g1     a
+  ##> #>   <dbl> <dbl>
+  ##> #> 1     1  2.5 
+  ##> #> 2     2  3.33
+``` 
+
+(If you’re familiar with `quote()` and `substitute()` in base R, `quo()` is equivalent to `quote()` and `enquo()` is equivalent to `substitute()`.)
+
+#### Different input variable
+
+Goal: make this a function:
+
+``` {r}
+summarise(df, mean = mean(a), sum = sum(a), n = n())
+	#> # A tibble: 1 x 3
+	#>    mean   sum     n
+	#>   <dbl> <int> <int>
+	#> 1     3    15     5
+summarise(df, mean = mean(a * b), sum = sum(a * b), n = n())
+	#> # A tibble: 1 x 3
+	#>    mean   sum     n
+	#>   <dbl> <int> <int>
+	#> 1   9.6    48     5
+``` 
+
+opt01: `quo` the variable and unquote in dplyr with `!!`
+
+``` {r}
+my_var <- quo(a)
+summarise(df, mean = mean(!! my_var), sum = sum(!! my_var), n = n())
+	#> # A tibble: 1 x 3
+	#>    mean   sum     n
+	#>   <dbl> <int> <int>
+	#> 1     3    15     5
+``` 
+
+Debugging dplyr: wrap dplyr call with `quo()`
+
+``` {r}
+quo(summarise(df,
+  mean = mean(!! my_var),
+  sum = sum(!! my_var),
+  n = n()
+))
+	#> <quosure>
+	#> expr: ^summarise(df, mean = mean(^a), sum = sum(^a), n = n())
+	#> env:  global
+``` 
+
+opt02: `enquo` and `!!`
+
+``` {r}
+my_summarise2 <- function(df, expr) {
+  expr <- enquo(expr)
+
+  summarise(df,
+    mean = mean(!! expr),
+    sum = sum(!! expr),
+    n = n()
+  )
+}
+my_summarise2(df, a)
+	#> # A tibble: 1 x 3
+	#>    mean   sum     n
+	#>   <dbl> <int> <int>
+	#> 1     3    15     5
+my_summarise2(df, a * b)
+	#> # A tibble: 1 x 3
+	#>    mean   sum     n
+	#>   <dbl> <int> <int>
+	#> 1   9.6    48     5
+``` 
+
+#### Different input and output variable
+
+Now, the goal is to vary the name of the output variables:
+
+``` r
+mutate(df, mean_a = mean(a), sum_a = sum(a))
+mutate(df, mean_b = mean(b), sum_b = sum(b))
+``` 
+
+``` r
+my_mutate <- function(df, expr) {
+  expr <- enquo(expr)
+  mean_name <- paste0("mean_", quo_name(expr))
+  sum_name <- paste0("sum_", quo_name(expr))
+
+  mutate(df,
+    !! mean_name := mean(!! expr),
+    !! sum_name := sum(!! expr)
+  )
+}
+
+my_mutate(df, a)
+	#> # A tibble: 5 x 6
+	#>      g1    g2     a     b mean_a sum_a
+	#>   <dbl> <dbl> <int> <int>  <dbl> <int>
+``` 
+

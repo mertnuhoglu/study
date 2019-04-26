@@ -1,0 +1,198 @@
+---
+title: "Study gcloud CLI"
+date: 2019-01-01T13:42:44+03:00 
+draft: false
+description: ""
+tags:
+categories: gcloud
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/code/study_gcloud_cli.Rmd
+---
+
+### gcloud compute
+
+### Create Configuration
+
+Following https://cloud.google.com/sdk/gcloud/reference/topic/configurations
+
+Create a new configuration:
+
+``` bash
+gcloud config configurations create itrconf
+gcloud config configurations create bzqconf
+``` 
+
+Activate configuration:
+
+``` bash
+gcloud config configurations activate itrconf
+gcloud config configurations activate bzqconf
+``` 
+
+Get path of active configuration:
+
+``` bash
+gcloud info --format='get(config.paths.active_config_path)'
+  ##> /Users/mertnuhoglu/.config/gcloud/configurations/config_itrconf
+  ##> /Users/mertnuhoglu/.config/gcloud/configurations/config_bzqconfig
+``` 
+
+Edit config files `/Users/mertnuhoglu/.config/gcloud/configurations/config_bzqconfig`
+
+``` text
+[compute]
+region = us-east1
+zone = us-east1-d
+
+[core]
+account = mert.nuhoglu@gmail.com
+project = bizqualify
+``` 
+
+View/change properties of configuration:
+
+``` bash
+gcloud config list
+gcloud config set
+``` 
+
+Activate configuration for a single gcloud command:
+
+``` bash
+--configuration itrconfig
+export CLOUDSDK_ACTIVE_CONFIG_NAME=itrconfig
+export CLOUDSDK_ACTIVE_CONFIG_NAME=bzqconfig
+``` 
+
+#### Account Management
+
+List available accounts
+
+``` bash
+gcloud auth list
+  ##> ACTIVE  ACCOUNT
+  ##>         mert.nuhoglu@gmail.com
+``` 
+
+Activate an account:
+
+``` bash
+gcloud config set account mert.nuhoglu@gmail.com
+``` 
+
+#### Set default properties
+
+Following https://cloud.google.com/compute/docs/gcloud-compute/#default-properties
+
+Available properties: https://cloud.google.com/sdk/gcloud/reference/topic/configurations
+
+``` bash
+gcloud compute project-info describe
+``` 
+
+Switch between configurations:
+
+``` bash
+gcloud config configurations activate itrconfig
+``` 
+
+Set default zone, region, project
+
+``` bash
+gcloud config set compute/zone europe-west4-a
+gcloud config set compute/region <region>
+gcloud config set project iterative
+``` 
+
+Remove:
+
+``` bash
+gcloud config unset compute/region 
+``` 
+
+### Common gcloud compute commands
+
+#### Manage Instances
+
+List instances
+
+``` bash
+gcloud compute instances list
+  ##> NAME   ZONE            MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP     STATUS
+  ##> itr01  europe-west4-a  n1-standard-2               10.164.0.2   35.204.111.216  RUNNING
+gcloud compute instances list --format text
+gcloud compute instances list --format yaml
+  ##> name: itr01
+  ##> networkInterfaces:
+  ##> - accessConfigs:
+  ##>   - kind: compute#accessConfig
+gcloud compute instances list --format json
+``` 
+
+Details about an instance
+
+``` bash
+gcloud compute instances describe itr01 
+``` 
+
+#### Connect - SSH Access to GCP Compute
+
+https://cloud.google.com/compute/docs/instances/connecting-to-instance
+
+##### Connecting using gcloud
+
+``` bash
+gcloud compute ssh itr01
+gcloud compute scp ~/file-1 my-instance:~/remote-destination 
+``` 
+
+##### SSH Directly
+
+Generate an SSH configuration file
+
+``` bash
+gcloud compute config-ssh
+``` 
+
+This command puts the following lines into `~/.ssh/config`
+
+``` text
+Host itr01.europe-west4-a.iterative
+    HostName 35.204.111.216
+    IdentityFile /Users/mertnuhoglu/.ssh/google_compute_engine
+    UserKnownHostsFile=/Users/mertnuhoglu/.ssh/google_compute_known_hosts
+    HostKeyAlias=compute.7394586578000349578
+    IdentitiesOnly=yes
+    CheckHostIP=no
+``` 
+
+###### opt01:
+
+Following https://cloud.google.com/compute/docs/instances/connecting-to-instance
+
+``` bash
+gcloud compute ssh --project iterative --zone europe-west4-a itr01
+``` 
+
+###### opt02:
+
+After `config-ssh`
+
+``` bash
+ssh tr-webapp-vm.us-east1-d.bizqualify
+``` 
+
+##### opt03: using public/private ssh key pair
+
+https://medium.freecodecamp.org/how-to-create-and-connect-to-google-cloud-virtual-machine-with-ssh-81a68b8f74dd
+
+1. create an ssh key pair
+
+2. paste public ssh key into Google Cloud > Security settings
+

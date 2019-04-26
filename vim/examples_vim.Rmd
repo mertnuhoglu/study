@@ -1,0 +1,26 @@
+---
+title: "Examples Vimscript"
+date: 2019-02-22T11:42:03+03:00 
+draft: true
+description: ""
+tags:
+categories: vimscript, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+### range xnoremap
+
+``` sql
+function! CommentLines() range
+  exe a:firstline.",".a:lastline."s/^/  ##> /"
+endfunction	
+command! -nargs=* -range CommentLines <line1>,<line2>call CommentLines()
+xnoremap <Leader>cl :call CommentLines()<CR>
+``` 
+

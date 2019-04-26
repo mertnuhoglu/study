@@ -1,0 +1,73 @@
+---
+title: "Study wasabi CLI"
+date: 2019-03-28T18:38:29+03:00 
+draft: false
+description: ""
+tags:
+categories: aws
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/code/study_wasabi_cli.Rmd
+---
+
+## How to use AWS CLI with Wasabi
+
+https://wasabi-support.zendesk.com/hc/en-us/articles/115001910791-How-do-I-use-AWS-CLI-with-Wasabi-
+
+``` bash
+aws configure --profile wasabi
+``` 
+
+``` bash
+aws s3 ls --profile wasabi --endpoint-url=https://s3.wasabisys.com
+  ##> 2019-03-28 15:11:14 mertnuhoglu-test
+``` 
+
+Change the profile for the current session:
+
+``` bash
+export AWS_PROFILE=wasabi
+``` 
+
+### opt02: Setup endpoint plugin
+
+Follow https://github.com/wbingli/awscli-plugin-endpoint
+
+``` bash
+sudo apt update
+#sudo apt install python3-pip
+sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
+python3 -m pip --version
+python3 -m pip install --upgrade pip
+pip3 install awscli-plugin-endpoint
+``` 
+
+Enable plugin:
+
+``` bash
+aws configure set plugins.endpoint awscli_plugin_endpoint
+``` 
+
+Now set endpoint for some profile
+
+``` bash
+aws configure --profile wasabi set s3.endpoint_url https://s3.wasabisys.com
+``` 
+
+Test
+
+``` bash
+aws s3 ls --profile wasabi
+``` 
+
+``` bash
+export AWS_PROFILE=wasabi
+aws s3 ls
+``` 
+
+

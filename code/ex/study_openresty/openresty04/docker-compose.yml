@@ -1,0 +1,10 @@
+version: '2'
+services:
+
+  openresty:
+    image: openresty/openresty:jessie
+    ports:
+      - "80:80"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./html:/usr/local/openresty/nginx/html

@@ -3,6 +3,7 @@ import xs from 'xstream';
 import { Reducer, Sources, ActionPayload, SoHTTP, DictStream } from '../../interfaces';
 import { addListenerStream } from '../../interfaces';
 import { State } from '.';
+import * as R from "ramda";
 
 export default function model(sources: Sources & SoHTTP): xs<Reducer<State>> {
   const initReducer$: Stream<Reducer<State>> = xs.of(
@@ -19,10 +20,17 @@ export default function model(sources: Sources & SoHTTP): xs<Reducer<State>> {
   addListenerStream(poraw, "poraw$")
   const purchaseOrderReducer$: xs<Reducer<State>> = sources.HTTP.select('purchase_order')
     .flatten()
-    .map(res => function purchaseOrderReducer(prevState: State) {
-      return {
-        ...prevState,
-        purchase_orders: res.body
+		.map(response => response.body)
+    .map(plans => function purchaseOrderReducer(prevState: State) {
+			//console.log("por01: "); console.log(JSON.stringify(plans))
+			let pos = R.pipe(
+				R.map(a => R.prop('order_line', a).map(R.prop('purchase_order'))),
+				//R.map(a => a.order_line.map(b => b.purchase_order)),
+				R.unnest
+			)(plans)
+			return { 
+				...prevState,
+        purchase_orders: pos
       }
     })
   // addListenerStream(purchaseOrderReducer$, "purchaseOrderReducer$")
