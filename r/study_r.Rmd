@@ -199,13 +199,13 @@ sprintf("distinct(cnt, company_ein, %s) %>% nrow()", v)
 x = letters[1:5]
 set.seed(1)
 sample(x)
-#> [1] "b" "e" "d" "c" "a"
+  #> [1] "b" "e" "d" "c" "a"
 sample(x, replace = F)
-#> [1] "e" "d" "b" "c" "a"
+  #> [1] "e" "d" "b" "c" "a"
 sample(x, replace = T)
-#> [1] "b" "a" "d" "b" "d"
+  #> [1] "b" "a" "d" "b" "d"
 sample(x, size = 3, replace = T)
-#> [1] "c" "d" "e"
+  #> [1] "c" "d" "e"
 ```
 
 ## Ex08: probability distributions
@@ -293,16 +293,16 @@ seq(1, 7, by = pi)
 https://labs.uswitch.com/generating-data-in-r/
 
 ```{r}
-#generate 5 samples 
+  #generate 5 samples 
 runif(5, min = 0, max = 10) 
 ```
 
 ```{r}
-#We can extend the runif() function like this:
+  #We can extend the runif() function like this:
 runif_vec_proto <- function(min, max) {return(runif(1, min = min, max = max))}  
 runif_vec <- Vectorize(runif_vec_proto); runif_vec_proto <- NULL
 
-# uniform dists 0-5 3-6 3-6 7-10. take one sample from each
+  # uniform dists 0-5 3-6 3-6 7-10. take one sample from each
 runif_vec(min = c(0, 3, 3, 7), max = c(5 , 6, 6, 10))  
 ```
 
@@ -316,52 +316,52 @@ successes_in_A/observations_in_A;successes_in_B/observations_in_B;
 ```
 
 ```{r}
-#fails calculations for beta distribution
+  #fails calculations for beta distribution
 fails_in_A <- observations_in_A - successes_in_A  
 fails_in_B <- observations_in_B - successes_in_B
 
-#Sample from the posterior distribution for each variant, assuming uninformative prior:
+  #Sample from the posterior distribution for each variant, assuming uninformative prior:
 samples <- 1000000  
 sampled_true_success_rates_A <- rbeta(samples, successes_in_A+1, fails_in_A+1)  
 sampled_true_success_rates_B <- rbeta(samples, successes_in_B+1, fails_in_B+1)  
 sampled_absolute_increase_in_BvsA <- sampled_true_success_rates_B-sampled_true_success_rates_A
 
-#Look at the quantiles, for interest
+  #Look at the quantiles, for interest
 quantile(sampled_absolute_increase_in_BvsA, seq(0,1, 0.05))
 
-#Estimate the chance that the true success rate of B is greater than that of A
+  #Estimate the chance that the true success rate of B is greater than that of A
 mean(sampled_absolute_increase_in_BvsA>0)  
 ```
 
 ### Ex03: Compare Logistic regression with Neural Network
 
 ```{r}
-#install.packages(c(‘dplyr’, ‘nnet’, ‘ggplot2’, 'reshape2'))
+  #install.packages(c(‘dplyr’, ‘nnet’, ‘ggplot2’, 'reshape2'))
 require(dplyr); require(nnet); require(ggplot2); require(reshape2)
 
-#generate independent variable samples
+  #generate independent variable samples
 x <- runif(1000, 0, 1000)
 
-#generate success/fail observations, which has a probability which follows 
-#a logistic curve which is close to 0 around x = 0, 
-#close to 0.6 around x=1000, and close to 0.3 around x=500
+  #generate success/fail observations, which has a probability which follows 
+  #a logistic curve which is close to 0 around x = 0, 
+  #close to 0.6 around x=1000, and close to 0.3 around x=500
 d <- 0.6*plogis(x, location = 500, scale = 30)  
 rbinom_vec_proto <- function(p, size = 1) {return(rbinom(1, size, p))}  
 rbinom_vec <- Vectorize(rbinom_vec_proto); rbinom_vec_proto <- NULL  
 y <- rbinom_vec(d)
 
-#Add data to data frame
+  #Add data to data frame
 data <- data.frame(x = x,  y = y)
 
-#Add the fitted values from standard logistic regression and from a single neuron neural network to the data frame
+  #Add the fitted values from standard logistic regression and from a single neuron neural network to the data frame
 m <- glm(y~x, data, family = binomial())  
 f <- m$fitted.values  
 m2 <- nnet(y~x, data, size = 1, entropy = TRUE, abstol = 1.0e-7, reltol = 1.0e-10)  
 f2 <- m2$fitted.values  
 data  <- data.frame(x = x, y = y, p = d, logistic = f, nnet = f2)
 
-#Plot the original outcome probability, the binary outcome data, 
-#and the fitted values from our two models for each x:
+  #Plot the original outcome probability, the binary outcome data, 
+  #and the fitted values from our two models for each x:
 data %>% melt('x') %>% ggplot(aes(x, value, color = variable)) + geom_point()  
 ```
 

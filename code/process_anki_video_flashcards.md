@@ -41,7 +41,6 @@ TAG=book_kidnap
 rename "s/^/${TAG}_/" *.mp4
 ``` 
 
-
 03. tüm resimlerin boyutlarını küçült
 
 ``` bash
