@@ -208,6 +208,7 @@ ANKI_FILE=${ANKI_DIR}/anki_english02.txt
 ANKI_FILE=${ANKI_DIR}/anki_eyes_open_words.txt
 ANKI_FILE=${ANKI_DIR}/anki_eyes_open_test.txt
 ANKI_FILE=${ANKI_DIR}/anki_eyes_open_cloze.txt
+ANKI_FILE=${ANKI_DIR}/anki_jokes.txt
 ANKI_FILE=${ANKI_DIR}/anki_kitten.txt
 ANKI_FILE=${ANKI_DIR}/anki_lego02_repeat_basic.txt
 ANKI_FILE=${ANKI_DIR}/anki_lego03_repeat.txt
@@ -267,6 +268,7 @@ rename 's/.mp4.jpg/.jpg/g' *.jpg
 
 ``` bash
 s/\[sound:\([^.]\+\)\.mp4\]/<img src="\1.jpg">/
+s/\(\w\+\)/<img src="word_\1.jpg"> <br>/
 ``` 
 
 opt03b: cloze ifadelerini eski haline çevir
@@ -310,15 +312,55 @@ opt05: cloze sorularını oluştur:
 v/<img\>/ s/\(\w\+\.jpg\)\>/<img src="\1">/
 ``` 
 
+## Concat audio files
+
+``` bash
+ls *.jpg | sed -e 's/\(word_\)\?\(\w\+\)/\2/' | sed -e 's/^lego_//' | sed -e 's/.jpg$//' | sed -e 's/_/ /g' | sed -e 's/^to //' | sed -e 's/ /\n/g' | sed -e 's#\w\+#https://ssl.gstatic.com/dictionary/static/sounds/oxford/\0--_us_1.mp3#' > links2
+wget -i links2
+rename 's/--_us_1//' *.mp3
+``` 
+
+``` bash
+ffmpeg -f concat -i mylist.txt -c copy output.mkv
+ffmpeg -f concat -safe 0 -i <(printf "file '$PWD/%s'\n" ./*.mp3) -c copy output.wav
+ffmpeg -i "concat:icy.mp3|road.mp3" -c copy output.mp3
+``` 
+
+Iterate over lines of `links`
+
+Edit `~/gdrive/mynotes/stuff/ozgur_emin/english/anki/eyes_open/ch05/links_2_ffmpeg_concat.sh`
+
+``` bash
+while read -r line; do
+  # if the line has more than three fields, `field3` will get all the values, including the third field plus the delimiter(s)
+	echo $line
+	echo $line > tmp
+	sed -e 's/ /\n/' tmp | sed -e "s/^\(\w\+\)$/file '\1.mp3'/" > concat_mp3_files
+	filename="${line// /_}"
+	ffmpeg -y -f concat -i concat_mp3_files -c copy $filename.mp3
+done < links
+``` 
+
+Run it:
+
+``` bash
+bash links_2_ffmpeg_concat.sh
+``` 
+
 ## Complete process
 
 ``` bash
 anki_resize_images
-anki_jpg_2_words
+anki_jpg_2_words 
+# sheets 3
+# =GOOGLETRANSLATE(C1, "en", "tr") 
+# sheets 2
 anki_jpg_2_mp3_links
+vim links
+sed -e 's#\w\+#https://ssl.gstatic.com/dictionary/static/sounds/oxford/\0--_us_1.mp3#'
 anki_mp3_links_2_mp3_files
 anki_jpg_2_images
-tags="eyes_open ch06 word"
+tags="exam multiple_choice"
 pbpaste > sheets
 anki_sheets_2_anki_txt "${tags}"
 anki_mv_media_files_2_collection
