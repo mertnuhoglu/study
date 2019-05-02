@@ -81,9 +81,19 @@ Fix translations manually in sheets.
 
 ### 02: wget için mp3 linklerini oluştur
 
-#### opt01: jpg dosyalardan kelime listesini oluştur
+Edit `~/projects/anki_english/scripts/anki_jpg_2_mp3`
 
-Edit `~/projects/anki_english/scripts/anki_jpg_2_mp3_links`
+``` bash
+anki_jpg_2_mp3
+``` 
+
+Verify that all files are downloaded
+
+#### Logs
+
+##### opt01: jpg dosyalardan kelime listesini oluştur
+
+Edit `~/projects/anki_english/scripts/anki_jpg_2_mp3`
 
 ``` bash
 ls *.jpg | sed -e 's/\(word_\)\?\(\w\+\)/\2/' | sed -e 's/.jpg$//' | sed -e 's/_/ /g' | sed -e 's/^to //' | tee >(pbcopy) > links
@@ -92,7 +102,7 @@ ls *.jpg | sed -e 's/\(word_\)\?\(\w\+\)/\2/' | sed -e 's/.jpg$//' | sed -e 's/_
 Run:
 
 ``` bash
-anki_jpg_2_mp3_links
+anki_jpg_2_mp3
 ``` 
 
 manually fix words and make them single words
@@ -101,7 +111,7 @@ manually fix words and make them single words
 s#\w\+#https://ssl.gstatic.com/dictionary/static/sounds/oxford/\0--_us_1.mp3#
 ``` 
 
-#### opt02: from text
+##### opt02: from text
 
 ``` bash
 s#; \(to \)\?\(\w\+\)\(.*\)#; \1\2\3 <br> [sound:\2--_us_1.mp3]#
@@ -115,7 +125,7 @@ s#\w\+#https://ssl.gstatic.com/dictionary/static/sounds/oxford/\0--_us_1.mp3#
 
 Put into `links`
 
-### 03. mp3 dosyalarını indir
+##### 03. mp3 dosyalarını indir
 
 Edit `~/projects/anki_english/scripts/anki_mp3_links_2_mp3_files`
 
@@ -314,6 +324,14 @@ v/<img\>/ s/\(\w\+\.jpg\)\>/<img src="\1">/
 
 ## Concat audio files
 
+Run `~/projects/anki_english/scripts/anki_mp3_2_concatted_mp3`
+
+``` bash
+anki_mp3_2_concatted_mp3
+``` 
+
+### Logs
+
 ``` bash
 ls *.jpg | sed -e 's/\(word_\)\?\(\w\+\)/\2/' | sed -e 's/^lego_//' | sed -e 's/.jpg$//' | sed -e 's/_/ /g' | sed -e 's/^to //' | sed -e 's/ /\n/g' | sed -e 's#\w\+#https://ssl.gstatic.com/dictionary/static/sounds/oxford/\0--_us_1.mp3#' > links2
 wget -i links2
@@ -344,23 +362,48 @@ done < links
 Run it:
 
 ``` bash
+anki_jpg_2_mp3
 bash links_2_ffmpeg_concat.sh
+``` 
+
+### Error:
+
+``` bash
+while read -r line; do
+  # if the line has more than three fields, `field3` will get all the values, including the third field plus the delimiter(s)
+	echo $line
+	echo $line > tmp
+	sed -e 's/ /\n/' tmp | sed -e "s/^\(\w\+\)$/file '\1.mp3'/" > concat_mp3_files
+	filename="${line// /_}"
+	ffmpeg -y -loglevel error -f concat -i concat_mp3_files -c copy $filename.mp3 
+	echo "OUTPUT: $filename.mp3"
+done < links
+``` 
+
+When ffmpeg is called, then while read reads file wrongly.
+
+Solution:
+
+https://unix.stackexchange.com/questions/241535/problem-with-ffmpeg-in-bash-loop
+
+``` bash
+ffmpeg -y -loglevel error -f concat -i concat_mp3_files -c copy $filename.mp3 < /dev/null
 ``` 
 
 ## Complete process
 
 ``` bash
 anki_resize_images
+anki_jpg_2_images
+# sheets 1
 anki_jpg_2_words 
 # sheets 3
 # =GOOGLETRANSLATE(C1, "en", "tr") 
 # sheets 2
-anki_jpg_2_mp3_links
-vim links
-sed -e 's#\w\+#https://ssl.gstatic.com/dictionary/static/sounds/oxford/\0--_us_1.mp3#'
-anki_mp3_links_2_mp3_files
-anki_jpg_2_images
-tags="exam multiple_choice"
+anki_jpg_2_mp3
+anki_mp3_2_concatted_mp3
+# sheets 4
+tags="eyes_open ch05"
 pbpaste > sheets
 anki_sheets_2_anki_txt "${tags}"
 anki_mv_media_files_2_collection
