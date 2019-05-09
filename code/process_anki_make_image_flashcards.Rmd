@@ -216,7 +216,7 @@ ANKI_FILE=${ANKI_DIR}/anki_book01_repeat.txt
 ANKI_FILE=${ANKI_DIR}/anki_book01_words.txt
 ANKI_FILE=${ANKI_DIR}/anki_english02.txt
 ANKI_FILE=${ANKI_DIR}/anki_eyes_open_words.txt
-ANKI_FILE=${ANKI_DIR}/anki_eyes_open_test.txt
+ANKI_FILE=${ANKI_DIR}/anki_eyes_open_choice.txt
 ANKI_FILE=${ANKI_DIR}/anki_eyes_open_cloze.txt
 ANKI_FILE=${ANKI_DIR}/anki_jokes.txt
 ANKI_FILE=${ANKI_DIR}/anki_kitten.txt
@@ -390,22 +390,56 @@ https://unix.stackexchange.com/questions/241535/problem-with-ffmpeg-in-bash-loop
 ffmpeg -y -loglevel error -f concat -i concat_mp3_files -c copy $filename.mp3 < /dev/null
 ``` 
 
-## Complete process
+## Complete process image + sound
 
 ``` bash
 anki_resize_images
+anki_rename_jpg word_
 anki_jpg_2_images
-# sheets 1
-anki_jpg_2_words 
-# sheets 3
-# =GOOGLETRANSLATE(C1, "en", "tr") 
-# sheets 2
-anki_jpg_2_mp3
-anki_mp3_2_concatted_mp3
-# sheets 4
+anki_jpg_2_google_sheets_mp3
+  # paste clipboard into google sheets
+  # =GOOGLETRANSLATE(C1, "en", "tr") 
+  # sheets 2
 tags="eyes_open ch05"
 pbpaste > sheets
 anki_sheets_2_anki_txt "${tags}"
+anki_mv_media_files_2_collection
+``` 
+
+# Multiple Choice
+
+## Logs
+
+``` vim
+s//@@@/
+$s/$/@@@/
+g/^\s*$/d
+v/@@@/ s/$/ <br> /
+g/<br> $/ ,/@@@/j
+``` 
+
+
+## Complete process multiple choice
+
+Edit: `~/projects/anki_english/scripts/paste_files.R`
+
+``` bash
+anki_questions_choices_2_anki_txt
+anki_resize_images
+anki_rename_jpg word_
+``` 
+
+## Complete process image: kittens
+
+``` bash
+cd /Users/mertnuhoglu/Downloads/english/kitten/
+anki_resize_images
+anki_rename_jpg kitten_
+anki_jpg_2_images
+sed -e 's/$/;/' images > tmp_images
+paste tmp_images turkish > tmp_02
+TAGS="kitten"
+sed -e 's/$/; '"$TAGS"'/' tmp_02 > anki.txt
 anki_mv_media_files_2_collection
 ``` 
 

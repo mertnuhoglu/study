@@ -1,0 +1,38 @@
+---
+title: "Process Anki: Make Top Word Flashcards 20190509"
+date: 2019-05-09T13:06:23+03:00 
+draft: true
+description: ""
+tags:
+categories: anki
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/code/process_anki_top_word.Rmd
+state: wip
+---
+
+## Process
+
+``` bash
+cd ~/Downloads/english/top_words_100/
+words_2_sedgrep
+  ##> ~/Downloads/english/top_words_100/gen/sedgrep
+cd gen
+bash sedgrep
+  ##> ~/Downloads/english/top_words_100/gen/because.txt
+	##> ...
+anki_sheets_top_words_2_anki_txt.R
+  ##> ~/Downloads/english/top_words_100/anki.tsv
+	##> ~/Downloads/english/top_words_100/mp3_url
+wget -i mp3_url
+anki_mv_media_files_2_collection
+``` 
+
+Import `~/Downloads/english/top_words_100/anki.tsv`
