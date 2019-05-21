@@ -1,0 +1,21 @@
+---
+title: "Study Emacs"
+author: "Mert Nuhoglu"
+output:
+  html_document: default
+    toc: true
+    toc_float: true
+---
+
+## Spacemacs
+
+### Install Spacemacs
+
+https://github.com/syl20bnr/spacemacs#macos
+
+``` bash
+brew tap d12frosted/emacs-plus
+brew install emacs-plus
+brew linkapps emacs-plus
+``` 
+

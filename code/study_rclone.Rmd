@@ -29,6 +29,7 @@ rclone config
 ``` bash
 rclone lsd wasabi:
   ##> -1 2019-03-28 15:11:14        -1 mertnuhoglu-test
+rclone ls wasabi:path
 ``` 
 
 ### Sync data with rclone

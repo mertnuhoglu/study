@@ -1105,6 +1105,7 @@ LIMIT 30;
 ``` bash
 psql -h <host> -p <port> -U <username> -W <password> <database>
 PGPASSWORD=bqdata psql -h localhost -U bqdata bizqualify
+PGPASSWORD=$SUPER_USER_PASSWORD psql -h localhost -p 5432 -U $SUPER_USER $DB_NAME
 ``` 
 
 Connect with superuser:

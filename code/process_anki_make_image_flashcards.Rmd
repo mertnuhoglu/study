@@ -390,6 +390,21 @@ https://unix.stackexchange.com/questions/241535/problem-with-ffmpeg-in-bash-loop
 ffmpeg -y -loglevel error -f concat -i concat_mp3_files -c copy $filename.mp3 < /dev/null
 ``` 
 
+# Multiple Choice
+
+## Logs
+
+``` vim
+s//@@@/
+$s/$/@@@/
+g/^\s*$/d
+v/@@@/ s/$/ <br> /
+g/<br> $/ ,/@@@/j
+``` 
+
+
+# Complete Processes
+
 ## Complete process image + sound
 
 ``` bash
@@ -404,18 +419,6 @@ tags="eyes_open ch05"
 pbpaste > sheets
 anki_sheets_2_anki_txt "${tags}"
 anki_mv_media_files_2_collection
-``` 
-
-# Multiple Choice
-
-## Logs
-
-``` vim
-s//@@@/
-$s/$/@@@/
-g/^\s*$/d
-v/@@@/ s/$/ <br> /
-g/<br> $/ ,/@@@/j
 ``` 
 
 
@@ -443,4 +446,17 @@ sed -e 's/$/; '"$TAGS"'/' tmp_02 > anki.txt
 anki_mv_media_files_2_collection
 ``` 
 
+## Complete process cloze questions
+
+``` bash
+anki_clozes_images_2_anki_txt
+anki_resize_images
+anki_rename_jpg word_
+``` 
+
+## Complete process for comics
+
+anki > .comics deck > browse > add > add image occlusion
+change note type: image occlusion multiple choices
+choices: opt01 / opt02 / opt03
 

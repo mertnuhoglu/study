@@ -563,3 +563,9 @@ c.NotebookApp.ip = '0.0.0.0' # listen on all IPs
 echo "$__text" >> /home/ubuntu/.jupyter/jupyter_notebook_config.py
 ``` 
 
+### docker exec
+
+``` bash
+docker exec -it dentas_mongo_1 bash
+``` 
+

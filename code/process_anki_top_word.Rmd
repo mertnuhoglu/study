@@ -20,6 +20,8 @@ state: wip
 
 ## Process
 
+Prerequisite:
+
 ``` bash
 cd ~/Downloads/english/top_words_100/
 words_2_sedgrep
@@ -28,6 +30,20 @@ cd gen
 bash sedgrep
   ##> ~/Downloads/english/top_words_100/gen/because.txt
 	##> ...
+``` 
+
+1. Prepare words 
+	 
+Open https://docs.google.com/spreadsheets/d/1Wg5xSR7-7ER-fUUM7b2h5wyV9A9cgRvE88Dkxy6MD-0/edit#gid=481148464
+
+Open sentence pairs, for example: `~/Downloads/english/top_words_100/gen/could.txt`
+
+Paste google sheets into `sheets_top_words`
+
+``` bash
+cd /Users/mertnuhoglu/Downloads/english/top_words_100
+anki_sheets_top_words_2_anki_txt
+anki_sheets_top_words_2_anki_txt.sh
 anki_sheets_top_words_2_anki_txt.R
   ##> ~/Downloads/english/top_words_100/anki.tsv
 	##> ~/Downloads/english/top_words_100/mp3_url
@@ -36,3 +52,11 @@ anki_mv_media_files_2_collection
 ``` 
 
 Import `~/Downloads/english/top_words_100/anki.tsv`
+
+``` bash
+ANKI_FILE=/Users/mertnuhoglu/projects/anki_english/decks/anki_top_100_words.tsv
+cat anki.tsv >> $ANKI_FILE
+echo $ANKI_FILE | pbcopy
+``` 
+
+Anki > Import > .Card Type = Top Words 101
