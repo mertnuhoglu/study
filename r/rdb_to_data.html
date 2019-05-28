@@ -187,7 +187,7 @@ yumltordbschema::read_data_field() %&gt;% dplyr::as_data_frame() %&gt;% datapast
     build_sql(df, entity, id_column, den)
 }</code></pre>
 <p>This will be called by the following lines in actual program:</p>
-<pre class="r"><code>data_model_dir = &quot;/Users/mertnuhoglu/projects/itr/itr_documentation/data_model/&quot;
+<pre class="r"><code>data_model_dir = &quot;/Users/mertnuhoglu/projects/itr/vrp_doc/data_model/&quot;
 r_entity = function(entity, data_model_dir = env_data_model_dir()) {
   rio::import(sprintf(&quot;%s/../rdb/%s.xlsx&quot;, data_model_dir, entity))
 }

@@ -29,7 +29,7 @@ options(max.print = 30)
 
 ```{r}
 library(dplyr, warn.conflicts = F)
-data_model_dir = "/Users/mertnuhoglu/projects/itr/itr_documentation/data_model/"
+data_model_dir = "/Users/mertnuhoglu/projects/itr/vrp_doc/data_model/"
 ```
 
 # Implementation of `yumltordbschema::yuml_to_rdb()` function
@@ -78,7 +78,7 @@ yuml_to_rdb = function(data_model_dir) {
 Calling `yuml_to_rdb` requires the parameter `data_model_dir` which is the path of the `yuml` files.
 
 ``` r
-data_model_dir =  "/Users/mertnuhoglu/projects/itr/itr_documentation/data_model/"
+data_model_dir =  "/Users/mertnuhoglu/projects/itr/vrp_doc/data_model/"
 rdt = yuml_to_rdb(data_model_dir)
 ``` 
 

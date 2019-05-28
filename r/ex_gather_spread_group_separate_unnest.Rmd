@@ -36,7 +36,7 @@ gather, spread, separate, unite are different. They reshape data that is they wo
 
 There is a great [visual cheatsheet on data wrangling by RStudio](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 
-## gather: gather columns into key-value pairs
+## gather: gather columns into key-value pairs: longer
 
 **Usage**
 
@@ -254,7 +254,7 @@ gathered_iris
 #> 4 versicolor  Sepal.Width         3.2
 ```
 
-## spread: ungather key-value pair across multiple columns
+## spread: ungather key-value pair across multiple columns: wider
 
 ``` r
 gathered_iris %>%

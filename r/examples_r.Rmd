@@ -258,6 +258,7 @@ Running R script from terminal
 Rscript --verbose --vanilla backtesting/backtesting.R
 R --vanilla 
 R --no-save --no-restore-data
+R --no-save --no-restore-data -e "source('~/projects/itr/vrp_doc/study/ex/peyman_data_relations_20190522/prepare_od_table.R'); test_origin_destination_json()"
 ``` 
 
 ### Rmarkdown code blocks

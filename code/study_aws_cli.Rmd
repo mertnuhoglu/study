@@ -20,6 +20,46 @@ Related documents:
 		~/projects/bizqualify/BQ-data-run/datarun/restore_snapshot_on_aws_ec2_20181220.md
 		aws # aws # amazon <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10640>
 
+# config and credentials
+
+https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
+
+Edit `~/projects/private_dotfiles/.aws/config`
+
+``` bash
+[profile iterative]
+region = eu-west-1
+output = json
+
+[default]
+region = us-west-2
+output = json
+``` 
+
+Access keys are in `credentials`
+
+Edit `~/projects/private_dotfiles/.aws/credentials`
+
+``` bash
+[default]
+aws_access_key_id = ...
+aws_secret_access_key = ...
+``` 
+
+You can configure by:
+
+``` bash
+aws configure
+``` 
+
+## Using multiple accounts
+
+``` bash
+aws ec2 describe-instances --profile user1
+aws ram list-resources --profile bzq --resource-owner SELF 
+aws ram list-resources --profile bzq --region eu-west-2 --resource-owner SELF 
+``` 
+
 # S3
 
 ``` bash
@@ -774,6 +814,66 @@ https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-spot-fleet-request
 
 ``` bash
 aws ec2 describe-spot-fleet-request-history --spot-fleet-request-id sfr-78b469dc-b644-4f09-93c3-8c7c277393a9 --start-time 2015-05-26T00:00:00Z
+``` 
+
+## Tag Management
+
+## Regions
+
+### describe-regions
+
+https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-regions.html
+
+``` bash
+aws ec2 describe-regions
+``` 
+
+List all regions
+
+``` bash
+aws ec2 describe-regions | jq '.Regions[].RegionName'
+  ##> "eu-north-1"
+  ##> "ap-south-1"
+  ##> "eu-west-3"
+  ##> "eu-west-2"
+  ##> "eu-west-1"
+  ##> "ap-northeast-2"
+  ##> "ap-northeast-1"
+  ##> "sa-east-1"
+  ##> "ca-central-1"
+  ##> "ap-southeast-1"
+  ##> "ap-southeast-2"
+  ##> "eu-central-1"
+  ##> "us-east-1"
+  ##> "us-east-2"
+  ##> "us-west-1"
+  ##> "us-west-2"
+``` 
+
+# Resource Access Manager ram
+
+https://docs.aws.amazon.com/cli/latest/reference/ram/index.html#cli-aws-ram
+
+## list-resources
+
+https://docs.aws.amazon.com/cli/latest/reference/ram/list-resources.html
+
+``` bash
+aws ram list-resources --resource-owner SELF
+aws ram list-resources --resource-owner OTHER-ACCOUNTS
+``` 
+
+List all resources in all regions
+
+``` bash
+aws ram list-resources --profile mertnuhoglu --region "eu-west-3" --resource-owner SELF 
+aws ram list-resources --profile mertnuhoglu --region "eu-west-2" --resource-owner SELF 
+aws ram list-resources --profile mertnuhoglu --region "eu-west-1" --resource-owner SELF 
+aws ram list-resources --profile mertnuhoglu --region "eu-central-1" --resource-owner SELF 
+aws ram list-resources --profile mertnuhoglu --region "us-east-1" --resource-owner SELF 
+aws ram list-resources --profile mertnuhoglu --region "us-east-2" --resource-owner SELF 
+aws ram list-resources --profile mertnuhoglu --region "us-west-1" --resource-owner SELF 
+aws ram list-resources --profile mertnuhoglu --region "us-west-2" --resource-owner SELF 
 ``` 
 
 

@@ -99,9 +99,9 @@ source ~/.bashrc
 
 ### vrp postgrest server
 
-ref: `walkthrough vrp_psk01 <url:file:///~/projects/itr/itr_documentation/doc_itr.md#r=g_10551>`
+ref: `walkthrough vrp_psk01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g_10551>`
 
-First prepare the data: `walkthrough yuml2data01 <url:file:///~/projects/itr/itr_documentation/doc_itr.md#r=g_10550>`
+First prepare the data: `walkthrough yuml2data01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g_10550>`
 
 Starting database and postgrest with `~/projects/itr/vrp_psk01/docker-compose.yml`
 
@@ -187,7 +187,7 @@ curl http://localhost:8080/rest/todos?select=id,todo
 
 opt02: vrp data
 
-ref: `walkthrough vrp_psk01 <url:file:///~/projects/itr/itr_documentation/doc_itr.md#r=g_10551>`
+ref: `walkthrough vrp_psk01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g_10551>`
 
 ``` bash
 curl -H "Authorization: Bearer $JWT_TOKEN" http://localhost:8080/rest/address

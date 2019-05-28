@@ -101,7 +101,7 @@ rdb_to_data = function(entity, data_entities, dfl, den) {
 This will be called by the following lines in actual program:
 
 ``` r
-data_model_dir = "/Users/mertnuhoglu/projects/itr/itr_documentation/data_model/"
+data_model_dir = "/Users/mertnuhoglu/projects/itr/vrp_doc/data_model/"
 r_entity = function(entity, data_model_dir = env_data_model_dir()) {
   rio::import(sprintf("%s/../rdb/%s.xlsx", data_model_dir, entity))
 }

@@ -39,7 +39,7 @@ options(max.print = 30)
 Start database server and postgrest:
 
 ``` bash
-dmd=~/projects/itr/itr_documentation/data_model
+dmd=~/projects/itr/vrp_doc/data_model
 psk=~/codes/pg/khumbuicefall
 cd $psk
 docker-compose up -d
