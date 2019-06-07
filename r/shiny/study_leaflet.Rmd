@@ -1,0 +1,69 @@
+---
+title: "Study Leaflet in Shiny"
+date: 2019-06-07T00:04:39+03:00 
+draft: true
+description: ""
+tags:
+categories: r, shiny
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/r/shiny/study_shiny.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## addAwesomeMarkers icons
+
+### 01: basic use
+
+Run `~/projects/study/r/shiny/ex/study_shiny/ex01/01.R`
+
+### 02: icon from a gallery
+
+Use an icon from the page https://fontawesome.com/icons?d=gallery&c=vehicles&m=free
+
+Run `~/projects/study/r/shiny/ex/study_shiny/ex01/02.R`
+
+``` r
+icon.fa <- makeAwesomeIcon(icon = "bicycle", markerColor = "red", library = "vehicles",
+                           iconColor = "black")
+``` 
+
+This doesn't work. 
+
+We can only use the following library values: glphicon, fa (fontawesome), ion (ionicons)
+
+### 03: text inside marker
+
+Use text inside marker:
+
+Run `~/projects/study/r/shiny/ex/study_shiny/ex01/03.R`
+
+``` r
+icon.fa <- makeAwesomeIcon(text = "1")
+``` 
+
+### 04: use numeric values
+
+Run `~/projects/study/r/shiny/ex/study_shiny/ex01/04.R`
+
+``` r
+icon.fa <- makeAwesomeIcon(text = 1)
+``` 
+
+

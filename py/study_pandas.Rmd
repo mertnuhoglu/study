@@ -1,0 +1,274 @@
+---
+title: "Study Pandas"
+date: 2019-05-23T09:53:31+03:00 
+draft: true
+description: ""
+tags:
+categories: pandas
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/py/study_pandas.Rmd
+state: wip
+---
+
+## Article: 10 Minutes to pandas
+
+https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html#min
+
+``` python
+import numpy as np
+
+import pandas as pd
+``` 
+
+### Object Creation
+
+`Series`
+
+``` python
+s = pd.Series([1, 3, 5, np.nan, 6, 8])
+
+s
+Out[4]: 
+0    1.0
+1    3.0
+2    5.0
+3    NaN
+4    6.0
+5    8.0
+dtype: float64
+``` 
+
+`DataFrame` with datetime index
+
+``` python
+dates = pd.date_range('20130101', periods=6)
+
+dates
+Out[6]: 
+DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
+               '2013-01-05', '2013-01-06'],
+              dtype='datetime64[ns]', freq='D')
+
+df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list('ABCD'))
+
+df
+Out[8]: 
+                   A         B         C         D
+2013-01-01  0.469112 -0.282863 -1.509059 -1.135632
+2013-01-02  1.212112 -0.173215  0.119209 -1.044236
+2013-01-03 -0.861849 -2.104569 -0.494929  1.071804
+2013-01-04  0.721555 -0.706771 -1.039575  0.271860
+2013-01-05 -0.424972  0.567020  0.276232 -1.087401
+2013-01-06 -0.673690  0.113648 -1.478427  0.524988
+``` 
+
+`DataFrame` with a dict of objects
+
+``` python
+df2 = pd.DataFrame({'A': 1.,
+   ...:                     'B': pd.Timestamp('20130102'),
+   ...:                     'C': pd.Series(1, index=list(range(4)), dtype='float32'),
+   ...:                     'D': np.array([3] * 4, dtype='int32'),
+   ...:                     'E': pd.Categorical(["test", "train", "test", "train"]),
+   ...:                     'F': 'foo'})
+   ...: 
+
+df2
+Out[10]: 
+     A          B    C  D      E    F
+0  1.0 2013-01-02  1.0  3   test  foo
+1  1.0 2013-01-02  1.0  3  train  foo
+2  1.0 2013-01-02  1.0  3   test  foo
+3  1.0 2013-01-02  1.0  3  train  foo
+``` 
+
+ipython: tab completion for column names
+
+### Viewing Data
+
+``` python
+df.head()
+df.tail(3)
+df.index
+df.columns
+df.describe()
+``` 
+
+``` python
+  # transposing
+	df.T
+	# sorting by an axis
+	df.sort_index(axis=1, ascending=False)
+	# sorting by values
+	df.sort_values(by='B')
+``` 
+
+### Selection
+
+#### Getting
+
+``` python
+df['A']
+df[0:3]
+df['20130102':'20130104'] # by datetime axis indexes
+``` 
+
+#### Selection by Label
+
+``` python
+df.loc[dates[0]] # dates[0] is first axis value
+df.loc[:, ['A', 'B']]
+``` 
+
+#### Selection by Position
+
+``` python
+df.iloc[3]
+df.iloc[3:5, 0:2]
+df.iloc[3:5, :]
+``` 
+
+#### Boolean Indexing
+
+``` python
+df[df.A > 0]
+``` 
+
+### Missing Data
+
+``` python
+pd.isna(df1)
+``` 
+
+### Operations
+
+#### Stats
+
+``` python
+df.mean()
+df.mean(1)
+``` 
+
+#### Apply
+
+``` python
+df.apply(np.cumsum)
+df.apply(lambda x: x.max() - x.min())
+``` 
+
+### Getting Data
+
+``` python
+df.to_csv('foo.csv')
+pd.read_csv('foo.csv')
+pd.read_csv('c:/~/trainSetRel3.txt', sep='\t')
+df.to_excel('foo.xlsx', sheet_name='Sheet1')
+pd.read_excel('foo.xlsx', 'Sheet1', index_col=None, na_values=['NA'])
+``` 
+
+# Examples
+
+## Ex01: Convert to dict
+
+``` python
+list(range(10))
+df = pd.DataFrame({'a': list(range(1,5)), 'b': list(range(11,15))})
+``` 
+
+``` python
+d1 = df.to_dict('series')
+d1['a'][1]
+  ##> 2
+d2 = df.to_dict()
+d2['a'][1]
+  ##> 2
+d1['b'][1]
+  ##> 12
+d2['b'][1]
+  ##> 12
+d2['b']
+  ##> {0: 11, 1: 12, 2: 13, 3: 14}
+d1['b']
+  ##> 0    11
+  ##> 1    12
+  ##> 2    13
+  ##> 3    14
+  ##> Name: b, dtype: int64
+``` 
+
+``` python
+type(d2['b'])
+  ##> dict
+type(d1['b'])
+  ##> pandas.core.series.Series
+``` 
+
+## Ex02: Test with od_table
+
+``` python
+file = "~/projects/itr/peyman/pvrp/doc/study/ex/peyman_pandas_read_od_table_20190523/od_table.tsv"
+od = pd.read_csv(file, sep='\t')
+  ##>    from_point_id  to_point_id  duration  distance
+  ##> 0              1            2    1108.8   13930.8
+  ##> 1              1            3     886.0   17223.0
+  ##> 2              2            1    1065.1   14694.0
+  ##> 3              2            3    1168.6   17839.6
+  ##> 4              3            1    1030.6   17342.7
+  ##> 5              3            2    1089.2   20146.4
+d0 = od.to_dict()
+d0['distance']
+  ##> {0: 13930.8, 1: 17223.0, 2: 14694.0, 3: 17839.6, 4: 17342.7, 5: 20146.4}
+``` 
+
+### Convert to dict grouped by point_id
+
+## Ex03: groupby
+
+``` python
+file = "~/projects/itr/peyman/pvrp/doc/study/ex/peyman_pandas_read_od_table_20190523/od_table.tsv"
+od = pd.read_csv(file, sep='\t')
+  ##>    from_point_id  to_point_id  duration  distance
+  ##> 0              1            2    1108.8   13930.8
+  ##> 1              1            3     886.0   17223.0
+  ##> 2              2            1    1065.1   14694.0
+  ##> 3              2            3    1168.6   17839.6
+  ##> 4              3            1    1030.6   17342.7
+  ##> 5              3            2    1089.2   20146.4
+od.groupby('from_point_id').aggregate(sum)
+  ##>                to_point_id  duration  distance
+  ##> from_point_id
+  ##> 1                        5    1994.8   31153.8
+  ##> 2                        4    2233.7   32533.6
+  ##> 3                        3    2119.8   37489.1
+``` 
+
+## Ex04: groupby then to_dict
+
+``` python
+od.groupby('from_point_id').to_dict()
+  ##> AttributeError: Cannot access callable attribute 'to_dict' of 'DataFrameGroupBy' objects, try using the 'apply' method
+``` 
+
+Use apply:
+
+``` python
+dur = od.groupby('from_point_id').apply(lambda x: dict(zip(x['to_point_id'], x['duration']))).to_dict()
+dur
+  ##> {1: {2: 1108.8, 3: 886.0},
+  ##>  2: {1: 1065.1, 3: 1168.6},
+  ##>  3: {1: 1030.6, 2: 1089.2}}
+dur[1]
+  ##> {2: 1108.8, 3: 886.0}
+dur[1][2]
+  ##> 1108.8
+``` 
+
+

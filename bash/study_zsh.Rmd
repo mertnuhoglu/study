@@ -1,0 +1,122 @@
+---
+title: "Study zsh"
+date: 2019-05-28T12:28:03+03:00 
+draft: true
+description: ""
+tags:
+categories: zsh, curl
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+- 
+path: ~/projects/study/zsh/study_zsh.Rmd
+state: wip
+---
+
+## Article: 5 tips to improve productivity with zsh
+
+https://opensource.com/article/18/9/tips-productivity-zsh
+
+### Themes and plugins
+
+theme: predefined prompt configuration
+
+plugin: a set of useful aliases and functions
+
+oh-my-zsh: theme and plugin
+
+aliases:
+
+``` bash
+alias | grep -i git
+  ##> g=git
+  ##> glg='git log --stat'
+``` 
+
+### Clever aliases
+
+suffix alias:
+
+``` bash
+alias -s {yml,yaml}=nvim
+playbook.yml
+	##> opens the file with nvim
+``` 
+
+global alias: expands anywhere in the line
+
+``` bash
+alias -g G='| grep -i'
+ls -l G readme
+  ##> -rwxr-xr-x   1 mertnuhoglu  staff     1329 Nov 23  2017 readme.md
+``` 
+
+### Easy directory navigation
+
+``` bash
+setopt autocd autopushd \ pushdignoredups
+``` 
+
+Now you can `cd` without typing `cd`
+
+``` bash
+ls
+  ##> _less       content     layouts     static
+
+content
+  ##> ~/projects/jekyll/mertnuhoglu.com/content
+
+``` 
+
+To move back: `-`
+
+History of directories visited:
+
+``` bash
+dirs -v
+  ##> 0       ~/projects/jekyll/mertnuhoglu.com/content
+  ##> 1       ~/projects/jekyll/mertnuhoglu.com
+  ##> 2       ~/projects/jekyll
+  ##> 3       ~/projects/yuml2data
+  ##> 4       ~/projects/itr/yuml2data_wt
+  ##> 5       ~
+``` 
+
+Move back n steps: `~n`
+
+``` bash
+~3
+  ##> ~/projects/yuml2data master*
+``` 
+
+``` bash
+alias d='dirs -v | head -10'
+``` 
+
+Expand by first letters
+
+``` bash
+cd p/i <TAB>
+cd projects/itr
+  ##> ~/projects/itr
+``` 
+
+### Advanced TAB completion
+
+Enable: (enabled by default)
+
+``` bash
+autoload -U compinit
+compinit
+``` 
+
+Filtering of autocomplete arguments:
+
+- git add: files that can be added
+- git commit - <TAB>: git commit arguments only
+

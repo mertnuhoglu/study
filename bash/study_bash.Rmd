@@ -169,5 +169,30 @@ cron schedule expressions tool: https://crontab.guru
 rsync -avz path/to/local/directory1 user@123.456.789.234:/path/to/remote/directory2/ 
 ``` 
 
+## Article: Supercharge your Terminal with Zsh
 
+https://blog.callstack.io/supercharge-your-terminal-with-zsh-8b369d689770?gi=85beeac366c3
+
+## Article: Oh-my-zsh is the Disease and Antigen is the Vaccine
+
+https://joshldavis.com/2014/07/26/oh-my-zsh-is-a-disease-antigen-is-the-vaccine/
+
+Antigen:
+
+Essentially what you do is list plugins in your .zshrc and it will automatically download them
+
+## Article:
+
+https://amitd.co/blog/managing-oh-my-zsh-using-antigen
+
+``` bash
+antigen use oh-my-zsh
+
+# Set theme
+antigen theme robbyrussell
+
+# Set plugins (plugins not part of Oh-My-Zsh can be installed using githubusername/repo)
+antigen bundle git
+antigen bundle zsh-users/zsh-autosuggestions
+``` 
 

@@ -297,6 +297,35 @@ s2 = tibble::tribble(
 #>      ^
 ```
 
+### Error: spread fails when there is no id column
+
+``` r
+  ##>    saat   durum
+  ##>    <drtn> <chr>
+  ##>  1 09:19  G
+  ##>  2 10:38  C
+  ##>  3 10:43  G
+d0 %>%
+	tidyr::spread(durum, saat)
+``` 
+
+		Error: Each row of output must be identified by a unique combination of keys.
+		Keys are shared for 81 rows:
+		Do you need to create unique ID with tibble::rowid_to_column()?
+		Call `rlang::last_error()` to see a backtrace
+
+Fix:
+
+``` r
+d0 %>%
+	dplyr::mutate(rowno = (1 + dplyr::row_number()) %/% 2) %>%
+	tidyr::spread(durum, saat)
+  ##>    rowno C      G
+  ##>    <dbl> <drtn> <drtn>
+  ##>  1     1 10:38  09:19
+  ##>  2     2 12:51  10:43
+``` 
+
 ## separate: separate one column into several
 
 **Usage**

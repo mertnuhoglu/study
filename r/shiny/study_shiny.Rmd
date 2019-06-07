@@ -1,0 +1,285 @@
+---
+title: "Study Shiny"
+date: 2019-06-01T19:51:58+03:00 
+draft: true
+description: ""
+tags:
+categories: r, shiny
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/r/shiny/shiny_and_rmarkdown.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## shiny-examples nasıl çalıştırılıyor?
+
+https://github.com/rstudio/shiny-examples
+
+opt01: `runGitHub`
+
+``` r
+if (!require('shiny')) install.packages("shiny")
+shiny::runGitHub("shiny-examples", "rstudio", subdir = "001-hello")
+``` 
+
+opt02: `runApp`
+
+``` bash
+cd /Users/mertnuhoglu/codes/rr/shiny-examples/086-bus-dashboard
+``` 
+
+``` r
+shiny::runApp(".")
+``` 
+
+opt03: `runApp(shinyApp(ui, server))` 
+
+``` r
+runApp(shinyApp(ui, server), host="0.0.0.0",port=5050)
+``` 
+
+## Article: Written Shiny Tutorial
+
+https://shiny.rstudio.com/tutorial/written-tutorial/
+
+### Lesson 3: Add Control Widgets
+
+https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/
+
+		actionButton
+		checkboxGroupInput
+		checkboxInput
+		dateInput
+		dateRangeInput
+		fileInput
+		helpText
+		numericInput
+		radioButtons
+		selectInput
+		sliderInput
+		submitButton
+		textInput
+
+First two arguments:
+
+- name for the widget
+- label
+
+`actionButton("action", label = "Action")`
+
+`fluidRow`:
+
+``` r
+ui <- fluidPage(
+  titlePanel("Basic widgets"),
+  
+  fluidRow(
+    
+    column(3,
+           h3("Buttons"),
+           actionButton("action", "Action"),
+           br(),
+           br(), 
+           submitButton("Submit")),
+    
+    column(3,
+           h3("Single checkbox"),
+           checkboxInput("checkbox", "Choice A", value = TRUE)),
+...
+    
+``` 
+
+### Lesson 4: Display Reactive Output
+
+Turn R objects into output:
+
+		Output function	Creates
+		dataTableOutput	DataTable
+		htmlOutput	raw HTML
+		imageOutput	image
+		plotOutput	plot
+		tableOutput	table
+		textOutput	text
+		uiOutput	raw HTML
+		verbatimTextOutput	text
+
+``` r
+ui <- fluidPage(
+  titlePanel("censusVis"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      helpText("Create demographic maps with 
+               information from the 2010 US Census."),
+      
+      selectInput("var", 
+                  label = "Choose a variable to display",
+                  choices = c("Percent White", 
+                              "Percent Black",
+                              "Percent Hispanic", 
+                              "Percent Asian"),
+                  selected = "Percent White"),
+      
+      sliderInput("range", 
+                  label = "Range of interest:",
+                  min = 0, max = 100, value = c(0, 100))
+    ),
+    
+    mainPanel(
+      textOutput("selected_var")
+    )
+  )
+)
+``` 
+
+``` r
+server <- function(input, output) {
+  
+  output$selected_var <- renderText({ 
+    "You have selected this"
+  })
+  
+}
+``` 
+
+render functions:
+
+		render function	creates
+		renderDataTable	DataTable
+		renderImage	images (saved as a link to a source file)
+		renderPlot	plots
+		renderPrint	any printed output
+		renderTable	data frame, matrix, other table like structures
+		renderText	character strings
+		renderUI	a Shiny tag object or HTML
+
+Make it reactive using widget values:
+
+``` r
+server <- function(input, output) {
+  
+  output$selected_var <- renderText({ 
+    paste("You have selected", input$var)
+  })
+  
+}
+``` 
+
+#### Execution:
+
+Run once when app is launched: the code outside `ui` and `server`
+
+Run once when a user visits the app: the code inside `server`
+
+Run once when a user changes a widget: the code inside `render*`
+
+### Lesson 6: Use Reactive Expressions
+
+``` r
+dataInput <- reactive({
+  getSymbols(input$symb, src = "yahoo",
+    from = input$dates[1],
+    to = input$dates[2],
+    auto.assign = FALSE)
+})
+
+output$plot <- renderPlot({    
+  chartSeries(dataInput(), theme = chartTheme("white"),
+    type = "line", log.scale = input$log, TA = NULL)
+})
+
+``` 
+
+## Article: Reactivity - An overview
+
+https://shiny.rstudio.com/articles/reactivity-overview.html
+
+3 kinds of objects:
+
+- reactive sources
+- reactive conductors
+- reactive endpoints
+
+### Reactive sources and endpoints
+
+endpoint: output widget
+
+source: input widget
+
+``` r
+server <- function(input, output) {
+  output$distPlot <- renderPlot({
+    hist(rnorm(input$obs))
+  })
+}
+``` 
+
+### Reactive conductors
+
+Example with source and endpoint only:
+
+``` r
+# Calculate nth number in Fibonacci sequence
+fib <- function(n) ifelse(n<3, 1, fib(n-1)+fib(n-2))
+
+server <- function(input, output) {
+  output$nthValue    <- renderText({ fib(as.numeric(input$n)) })
+  output$nthValueInv <- renderText({ 1 / fib(as.numeric(input$n)) })
+}
+``` 
+
+Put conductor in between:
+
+``` r
+server <- function(input, output) {
+  currentFib         <- reactive({ fib(as.numeric(input$n)) })
+
+  output$nthValue    <- renderText({ currentFib() })
+  output$nthValueInv <- renderText({ 1 / currentFib() })
+}
+``` 
+
+Reactive functions can access and change non-reactive values. But not vice versa.
+
+### Implementations:
+
+- Reactive value: reactive source
+- Reactive expression: conductor
+- Observer: endpoint
+
+### Reactive values
+
+`input` is a `ReactiveValues`
+
+### Reactive expressions
+
+They cache their return values.
+
+### Observers
+
+They can access reactive values and reactive expressions. However, they don't return any values.
+
+They have side effects.
+
+### Differences 
+
+- Observers respond to reactive flush events. Expressions do not.
+
+If you want a reactive expression to execute, it must have an observer as a child (descendant in the dependency graph)
+

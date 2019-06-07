@@ -42,6 +42,7 @@ Paste google sheets into `sheets_top_words`
 
 ``` bash
 cd /Users/mertnuhoglu/Downloads/english/top_words_100
+pbpaste > sheets_top_words
 anki_sheets_top_words_2_anki_txt
 anki_sheets_top_words_2_anki_txt.sh
 anki_sheets_top_words_2_anki_txt.R

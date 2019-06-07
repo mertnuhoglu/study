@@ -499,5 +499,45 @@ unique(d0$xindustry) %>% sort
   ##>   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  15  16  17  18  19
 ``` 
 
+### Environment variable:
+
+``` r
+dbhost = Sys.getenv("DB_HOST")
+``` 
+
+### Read text into dataframe
+
+https://stackoverflow.com/questions/3936285/is-there-a-way-to-use-read-csv-to-read-from-a-string-value-rather-than-a-file-in
+
+
+``` r
+lines <- "
++ flim,flam
++ 1.2,2.2
++ 77.1,3.14
++ "
+``` 
+
+opt01: `read.csv`
+
+``` r
+data <- read.csv(text=lines)
+data
+  ##>   flim flam
+  ##> 1  1.2 2.20
+  ##> 2 77.1 3.14
+``` 
+
+opt02: `textConnection`
+
+``` r
+con <- textConnection(lines)
+data <- read.csv(con)
+close(con)
+data
+  ##>   flim flam
+  ##> 1  1.2 2.20
+  ##> 2 77.1 3.14
+``` 
 
 
