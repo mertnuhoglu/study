@@ -569,3 +569,52 @@ echo "$__text" >> /home/ubuntu/.jupyter/jupyter_notebook_config.py
 docker exec -it dentas_mongo_1 bash
 ``` 
 
+### nginx
+
+Restart
+
+opt01: service
+
+``` bash
+service nginx start
+service nginx stop
+service nginx restart
+service nginx reload
+``` 
+
+opt02: systemctl
+
+``` bash
+systemctl nginx start
+systemctl nginx stop
+``` 
+
+### date put a timestamp 
+
+``` bash
+backup_file=${file}_$(date +%Y%m%d_%H%M%S).tar.gz
+``` 
+
+### for loop
+
+``` bash
+#!/bin/bash
+for i in {1..5}
+do
+	echo "Welcome $i times"
+done
+``` 
+
+### time elapsed 
+
+https://stackoverflow.com/questions/16908084/bash-script-to-calculate-time-elapsed
+
+``` bash
+	SECONDS=0
+	...
+	echo "Time seconds: $SECONDS"
+``` 
+
+
+
+

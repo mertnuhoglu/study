@@ -66,4 +66,9 @@ Run `~/projects/study/r/shiny/ex/study_shiny/ex01/04.R`
 icon.fa <- makeAwesomeIcon(text = 1)
 ``` 
 
+### 05: make icons smaller
+
+Run `~/projects/study/r/shiny/ex/study_shiny/ex01/05.R`
+
+It doesn't work.
 

@@ -540,4 +540,48 @@ data
   ##> 2 77.1 3.14
 ``` 
 
+## Use seq_along and seq_len in for loops
+
+Use `seq_along` instead of `1:length(vec)`. This won't run the loop when vector is empty.
+
+``` r
+	for (gr in seq_along(route_groups)) {
+	  print(gr)
+	}
+	##> no looping
+``` 
+
+Use `seq_len` for dataframes. This won't run the loop when there is no rows:
+
+``` r
+	for (sqn in seq_len(nrow(df))) {
+		print(sqn)
+	}
+``` 
+
+### replace_na
+
+``` r
+twc3 = twc %>%
+	left_join(c0, by = "customer_id") %>%
+	dplyr::mutate_at("customer_name", tidyr::replace_na, "Depo")
+``` 
+
+### mkdir dir.create
+
+``` r
+dir.create(path = ... ) # mkdir
+dir.create(path = ..., recursive = T) # mkdir -p
+``` 
+
+### excel read/write
+
+``` r
+d0 = dplyr::tibble(a = 1:3, b = 10:12)
+WriteXLS::WriteXLS(d0, "file01.xlsx", SheetNames = "d0")
+
+d1 = readxl::read_excel("file01.xlsx", sheet = "d0")
+``` 
+
+
 

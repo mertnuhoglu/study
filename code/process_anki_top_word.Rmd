@@ -42,7 +42,8 @@ Paste google sheets into `sheets_top_words`
 
 ``` bash
 cd /Users/mertnuhoglu/Downloads/english/top_words_100
-pbpaste > sheets_top_words
+echo "word_id	english	turkish	explain	example_en	example_tr" > sheets_top_words
+pbpaste >> sheets_top_words
 anki_sheets_top_words_2_anki_txt
 anki_sheets_top_words_2_anki_txt.sh
 anki_sheets_top_words_2_anki_txt.R
@@ -55,7 +56,7 @@ anki_mv_media_files_2_collection
 Import `~/Downloads/english/top_words_100/anki.tsv`
 
 ``` bash
-ANKI_FILE=/Users/mertnuhoglu/projects/anki_english/decks/anki_top_100_words.tsv
+ANKI_FILE=~/projects/anki_english/decks/anki_top_100_words.tsv
 cat anki.tsv >> $ANKI_FILE
 echo $ANKI_FILE | pbcopy
 ``` 
