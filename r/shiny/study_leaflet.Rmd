@@ -72,3 +72,6 @@ Run `~/projects/study/r/shiny/ex/study_shiny/ex01/05.R`
 
 It doesn't work.
 
+## removeMarker
+
+### 06: basic use
