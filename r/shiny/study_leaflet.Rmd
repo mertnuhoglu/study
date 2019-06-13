@@ -27,17 +27,17 @@ options(width = 150)
 options(max.print = 30)
 ``` 
 
-## addAwesomeMarkers icons
+## ex01: addAwesomeMarkers icons
 
 ### 01: basic use
 
-Run `~/projects/study/r/shiny/ex/study_shiny/ex01/01.R`
+Run `~/projects/study/r/shiny/ex/study_leaflet/ex01/01.R`
 
 ### 02: icon from a gallery
 
 Use an icon from the page https://fontawesome.com/icons?d=gallery&c=vehicles&m=free
 
-Run `~/projects/study/r/shiny/ex/study_shiny/ex01/02.R`
+Run `~/projects/study/r/shiny/ex/study_leaflet/ex01/02.R`
 
 ``` r
 icon.fa <- makeAwesomeIcon(icon = "bicycle", markerColor = "red", library = "vehicles",
@@ -52,7 +52,7 @@ We can only use the following library values: glphicon, fa (fontawesome), ion (i
 
 Use text inside marker:
 
-Run `~/projects/study/r/shiny/ex/study_shiny/ex01/03.R`
+Run `~/projects/study/r/shiny/ex/study_leaflet/ex01/03.R`
 
 ``` r
 icon.fa <- makeAwesomeIcon(text = "1")
@@ -60,7 +60,7 @@ icon.fa <- makeAwesomeIcon(text = "1")
 
 ### 04: use numeric values
 
-Run `~/projects/study/r/shiny/ex/study_shiny/ex01/04.R`
+Run `~/projects/study/r/shiny/ex/study_leaflet/ex01/04.R`
 
 ``` r
 icon.fa <- makeAwesomeIcon(text = 1)
@@ -68,7 +68,7 @@ icon.fa <- makeAwesomeIcon(text = 1)
 
 ### 05: make icons smaller
 
-Run `~/projects/study/r/shiny/ex/study_shiny/ex01/05.R`
+Run `~/projects/study/r/shiny/ex/study_leaflet/ex01/05.R`
 
 It doesn't work.
 
@@ -76,9 +76,26 @@ It doesn't work.
 
 ### 06: basic use
 
-Run `~/projects/study/r/shiny/ex/study_shiny/ex01/06.R`
+Run `~/projects/study/r/shiny/ex/study_leaflet/ex01/06.R`
 
 ### 07: use with awesome markers
 
-Run `~/projects/study/r/shiny/ex/study_shiny/ex01/07.R`
+Run `~/projects/study/r/shiny/ex/study_leaflet/ex01/07.R`
+
+## ex02: use leafletProxy() instead of leaflet()
+
+Rationale: https://github.com/rstudio/leaflet/issues/496#issuecomment-369710833
+
+Example code: https://github.com/cenuno/shiny/blob/master/Interactive_UI/Dynamic_Legend/server.R
+
+Run `/Users/mertnuhoglu/projects/study/r/shiny/ex/study_leaflet/ex02/01.R`
+
+### 02: Official leafletProxy() documentation example code:
+
+Run `/Users/mertnuhoglu/projects/study/r/shiny/ex/study_leaflet/ex02/02.R`
+
+### 03: use state$map and a local map
+
+Run `/Users/mertnuhoglu/projects/study/r/shiny/ex/study_leaflet/ex02/03.R`
+
 
