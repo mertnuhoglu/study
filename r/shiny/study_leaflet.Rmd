@@ -75,3 +75,10 @@ It doesn't work.
 ## removeMarker
 
 ### 06: basic use
+
+Run `~/projects/study/r/shiny/ex/study_shiny/ex01/06.R`
+
+### 07: use with awesome markers
+
+Run `~/projects/study/r/shiny/ex/study_shiny/ex01/07.R`
+
