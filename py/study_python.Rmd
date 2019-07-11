@@ -70,4 +70,15 @@ anaconda-clean
 rm -rf anaconda3
 ``` 
 
+# Examples
+
+## ex01: Convert list of objects to dict of object.id
+
+https://stackoverflow.com/questions/3070242/reduce-list-of-python-objects-to-dict-of-object-id-object
+
+``` py
+object_dict = {x.id: x for x in object_list}
+``` 
+
+
 

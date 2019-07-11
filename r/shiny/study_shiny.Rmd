@@ -48,10 +48,17 @@ cd /Users/mertnuhoglu/codes/rr/shiny-examples/086-bus-dashboard
 shiny::runApp(".")
 ``` 
 
-opt03: `runApp(shinyApp(ui, server))` 
+opt03: shinyApp and runApp
+
+`runApp(shinyApp(ui, server))` 
 
 ``` r
 runApp(shinyApp(ui, server), host="0.0.0.0",port=5050)
+``` 
+
+``` r
+app = shiny::shinyApp(ui, server)
+runApp(app)
 ``` 
 
 ## Article: Written Shiny Tutorial

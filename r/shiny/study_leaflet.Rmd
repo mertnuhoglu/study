@@ -98,4 +98,371 @@ Run `/Users/mertnuhoglu/projects/study/r/shiny/ex/study_leaflet/ex02/02.R`
 
 Run `/Users/mertnuhoglu/projects/study/r/shiny/ex/study_leaflet/ex02/03.R`
 
+# Articles
+
+## Article: Routing in R using the open source routing machine (OSRM)
+
+https://cmhh.github.io/post/routing/
+
+``` r
+install.packages("rjson")
+install.packages("bitops")
+install.packages("sp")
+``` 
+
+``` r
+o <- origin$results[[1]]$geometry$location
+d <- destination$results[[1]]$geometry$location
+(url <- paste0("http://router.project-osrm.org/route/v1/driving/", 
+   o$lng,",",o$lat,";",d$lng,",",d$lat,"?overview=full"))
+[1] "http://router.project-osrm.org/route/v1/driving/175.0845498,-41.1250097;174.7811653,-41.2756572?overview=full"
+route <- fromJSON(file=url)
+``` 
+
+Response:
+
+``` r
+route$routes[[1]]$duration
+[1] 1728.5
+route$routes[[1]]$distance
+[1] 34267
+route$routes[[1]]$geometry
+[1] "hf_zFufsk`@M?O?QCoAKC\\GV..."
+``` 
+
+The route geomertry is stored in [encoded polyline algorithm format](https://developers.google.com/maps/documentation/utilities/polylinealgorithm).
+
+Convert the encoded route to a SpatialLines object:
+
+``` r
+decode <- function(str, multiplier=1e5){
+   
+   if (!require(bitops)) stop("Package: bitops required.")
+   if (!require(sp)) stop("Package: sp required.")
+   
+   truck <- 0
+   trucks <- c()
+   carriage_q <- 0
+   
+   for (i in 0:(nchar(str)-1)){
+      ch <- substr(str, (i+1), (i+1))
+      x <- as.numeric(charToRaw(ch)) - 63
+      x5 <- bitShiftR(bitShiftL(x, 32-5), 32-5)
+      truck <- bitOr(truck, bitShiftL(x5, carriage_q))
+      carriage_q <- carriage_q + 5
+      islast <- bitAnd(x, 32) == 0
+      if (islast){
+         negative <- bitAnd(truck, 1) == 1
+         if (negative) truck <- -bitShiftR(-bitFlip(truck), 1)/multiplier
+         else truck <- bitShiftR(truck, 1)/multiplier
+         trucks <- c(trucks, truck)
+         carriage_q <- 0
+         truck <- 0
+      }
+   }
+   lat <- trucks[c(T,F)][-1]
+   lng <- trucks[c(F,T)][-1]
+   res <- data.frame(lat=c(trucks[1],cumsum(lat)+trucks[1]), 
+                     lng=c(trucks[2],cumsum(lng)+trucks[2]))
+
+   coordinates(res) <- ~lng+lat
+   proj4string(res) <- CRS("+init=epsg:4326")
+   return(SpatialLines(list(Lines(Line(res), 1)), CRS("+init=epsg:4326")))
+}
+par(mar=par()$mar-c(1,0,2.5,0), cex=0.8)
+path <- decode(route$routes[[1]]$geometry, multiplier=1e5)
+plot(path); axis(1); axis(2); box()
+``` 
+
+Make a leaflet map:
+
+``` r
+  #make a string to nicely label the route
+s <- route$routes[[1]]$duration
+kms <- round(route$routes[[1]]$distance/1000, 1)
+routelabel <- paste0(s%/%60, "m ", s%%60, "s , ", kms, "kms")
+
+  #create a basic map
+library(leaflet)
+m <- leaflet(width="100%") %>% 
+  addTiles()  %>% 
+  addPolylines(data=path, popup=routelabel, color = "#000000", opacity=1, weight = 3) %>%
+  addMarkers(lng=o$lng, lat=o$lat, popup=origin$results[[1]]$formatted_address) %>%
+  addMarkers(lng=d$lng, lat=d$lat, popup=destination$results[[1]]$formatted_address)
+m
+``` 
+
+### ex01: makaledeki uygulamayı yapma
+
+Edit `~/projects/itr/peyman/pmap/doc/study/ex/leaflet_rota_cizimi_20190530/ex01.R`
+
+### ex04: Kendi noktalarımızla rota çizimi
+
+Edit `~/projects/itr/peyman/pmap/doc/study/ex/leaflet_rota_cizimi_20190530/ex04.R`
+
+Best solution so far.
+
+## Article: rCarto/osrm
+
+https://github.com/rCarto/osrm
+
+https://rgeomatic.hypotheses.org/854
+
+https://cran.r-project.org/web/packages/osrm/osrm.pdf
+
+``` r
+install.packages("osrm")
+install.packages("cartography")
+``` 
+
+### Setup OSRM Settings
+
+Put `OSRM_SERVER` into `.bashrc`
+
+``` bash
+export OSRM_SERVER=35.204.111.216:5000
+``` 
+
+``` r
+library(osrm)
+library(sf)
+library(cartography)
+  ##> osrm_server = 35.204.111.216:5000
+osrm_server = Sys.getenv("OSRM_SERVER")
+options(osrm.server = glue::glue("http://{osrm_server}/"), osrm.profile = "driving")
+``` 
+
+``` r
+ps = "
+lng,lat
+29.208498,40.890795
+29.24633,40.9894
+29.08812,40.99462
+29.233,40.87585
+"
+cs <- read.csv(text=ps, header = T)
+``` 
+
+``` r
+  # Travel path between points - output a SpatialLinesDataFrame
+route <- osrmRoute(src=c("Depo", cs$lng[1], cs$lat[1]),
+                    dst = c("Market 01", cs$lng[2], cs$lat[2]),
+                    sp = TRUE, overview = "full")
+``` 
+
+opt01:
+
+``` r
+osm <- getTiles(x = route, crop = TRUE, type = "osm", zoom = 13)
+tilesLayer(osm)
+plot(st_geometry(route), lwd = 4, add = TRUE)
+plot(st_geometry(route), lwd = 1, col = "white", add = TRUE)
+``` 
+
+Error:
+
+opt02:
+
+``` r
+  # Display the path
+plot(com[c(1,4),3:4], asp =1, col = "red", pch = 20, cex = 1.5)
+plot(route, lty = 1,lwd = 4, add = TRUE)
+plot(route, lty = 1, lwd = 1, col = "white", add=TRUE)
+text(com[c(1,4),3:4], labels = com[c(1,4),2], pos = 2)
+``` 
+
+## Article: Introduction to GIS with R
+
+https://www.jessesadler.com/post/gis-with-r-intro/
+
+Code: https://github.com/jessesadler/intro-to-r
+
+Ref: `/Users/mertnuhoglu/codes/rr/intro-to-r`
+
+Check `/Users/mertnuhoglu/codes/rr/intro-to-r/gis-with-r-intro.R`
+
+### Preparing the data
+
+``` r
+library(tidyverse)
+library(sp)
+library(sf)
+library(rnaturalearth)
+
+letters <- read_csv("data/correspondence-data-1585.csv")
+locations <- read_csv("data/locations.csv")
+``` 
+
+``` r
+geo_data
+  ## # A tibble: 14 x 5
+  ##    place          n type          lon   lat
+  ##    <chr>      <int> <fctr>      <dbl> <dbl>
+  ##  1 Amsterdam      1 source       4.90  52.4
+  ##  2 Antwerp       76 source       4.40  51.2
+  ##  3 Dordrecht      1 source       4.69  51.8
+``` 
+
+### Spatial data with `sf`
+
+`sf` is a dataframe like object. 
+
+It contains a geometry column of class `sfc`
+
+This column stores spatial data such as CRS, coordinates, type of geometric object.
+
+Create `sf` object:
+
+``` r
+points_sf <- st_as_sf(geo_data, coords = c("lon", "lat"), crs = 4326)
+``` 
+
+``` r
+class(points_sf)
+  ## [1] "sf"         "tbl_df"     "tbl"        "data.frame"
+points_sf
+  ## Simple feature collection with 14 features and 3 fields
+  ## geometry type:  POINT
+  ## dimension:      XY
+  ## bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
+  ## epsg (SRID):    4326
+  ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+  ## # A tibble: 14 x 4
+  ##    place          n type        geometry                 
+  ##    <chr>      <int> <fctr>      <simple_feature>         
+  ##  1 Amsterdam      1 source      c(4.8951679, 52.3702157) 
+  ##  2 Antwerp       76 source      c(4.4024643, 51.2194475) 
+  ##  3 Dordrecht      1 source      c(4.6900929, 51.8132979) 
+  ##  4 Emden          1 source      c(7.2060095, 53.3594029) 
+``` 
+
+Access `geometry` with `st_geometry()` function
+
+``` r
+class(points_sf$geometry)
+  ## [1] "sfc_POINT" "sfc"
+st_geometry(points_sf)
+  ## Geometry set for 14 features 
+  ## geometry type:  POINT
+  ## dimension:      XY
+  ## bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
+  ## epsg (SRID):    4326
+  ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+  ## First 5 geometries:
+  ## POINT (4.895168 52.37022)
+  ## POINT (4.402464 51.21945)
+  ## POINT (4.690093 51.8133)
+  ## POINT (7.20601 53.3594)
+  ## POINT (4.646219 52.38739)
+``` 
+
+``` r
+coast_sf <- ne_coastline(scale = "medium", returnclass = "sf")
+countries_sf <- ne_countries(scale = "medium", returnclass = "sf")
+``` 
+
+``` r
+View(coast_sf)
+  ##> geometry type:  MULTILINESTRING
+	##> ...
+  ##> First 10 features:
+  ##>   scalerank featurecla min_zoom                       geometry
+  ##> 0         0  Coastline      1.5 MULTILINESTRING ((180 -16.1...
+  ##> 1         0  Coastline      4.0 MULTILINESTRING ((177.2575 ...
+points_sf
+  ##> geometry type:  POINT
+  ##> # A tibble: 14 x 4
+  ##>    place          n type                   geometry
+  ##>    <chr>      <int> <fct>               <POINT [°]>
+  ##>  1 Amsterdam      1 source      (4.895168 52.37022)
+  ##>  2 Antwerp       76 source      (4.402464 51.21945)
+  ##>  3 Dordrecht      1 source       (4.690093 51.8133)
+``` 
+
+Note difference in geometry type.
+
+Use dplyr data wrangling functions:
+
+``` r
+filter(points_sf, n > 10)
+``` 
+
+``` r
+countries_sf %>% 
+  filter(continent == "South America") %>% 
+  select(name) %>% 
+  st_transform(crs = "+proj=moll +datum=WGS84")
+``` 
+
+## Article: An Exploration of Simple Features for R
+
+https://www.jessesadler.com/post/simple-feature-objects/
+
+Ref: `~/codes/rr/intro-to-r/gis-with-r-intro.R`
+
+`sf` is a collection of simple features that includes attributes and geometries in the form of a data frame.
+
+So, it is a data frame with rows of features, columns of attributes, and a special geometry column that contains spatial aspects of the features.
+
+Geometry column is a list of class `sfc` which is made up of individual objects of class `sfg`
+
+- sf object: collection of simple features represented by a data frame
+- attributes: non-geometry columns
+- feature: a simple feature with attributes and geometry represented by a row in the data frame
+- `sfg` object: geometry of a single feature
+- `sfc` object: geometry column with spatial attributes of the object printed above the data frame
+
+What I understand:
+
+- `sf` object contains `sfc` object and a dataframe.
+- `sfc` object contains properties such as crs, and other meta data
+- dataframe consists of attributes (verbal columns) and a geometry column.
+- geometry column is of type `sfg`
+- each row of the dataframe is called a feature.
+
+### `sfg` objects
+
+Geometry types: point, multipoint, linestring, multilinestring, polygon, multipolygon, geometrycollection
+
+The geometry can be represented using WKB (well known binary), WKT (well known text), or `sfg`
+
+`sfg` objects are stored in R as vectors, matrices or lists of matrices:
+
+		point: a vector
+		multipoint and linestring: a matrix where each row is a point
+		multilinestring and polygon: a list of matrices
+		multipolygon: a list of lists of matrices
+		geometrycollection: list that combines any of the above
+
+`sfg` object can be created through these functions:
+
+		st_point(), st_multipoint, st_linestring(), ...
+
+They take two arguments:
+
+		an R object of the proper class
+		identification of dimensions
+
+``` r
+la_sfg <- st_point(c(-118.2615805, 34.1168926))
+amsterdam_sfg <- st_point(c(4.8979755, 52.3745403))
+``` 
+
+### Summary
+
+We can summarize the role of sfg, sfc, and sf objects in the following fashion:
+
+		sfg: geometry
+			geometry of a single feature
+			vector, matrix, or list of matrices of coordinates with defined dimension and type of geometry
+			seven main geometry types
+		sfc: geospatial geometry
+			list of sfg objects
+			coordinate reference system through crs attribute
+			seven subclasses based on geometries
+		sf: geospatial geometry with attributes
+			data frame with geometry column of class sfc
+			sticky geometry column through sf_column attribute
+
+
 

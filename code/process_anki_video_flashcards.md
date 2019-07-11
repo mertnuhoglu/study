@@ -105,7 +105,7 @@ s#\(-[^;]*\)#\1; \1 <br>#
 
 Ex: `~/Downloads/english/book_kidnap/clips/phrases.txt`
 
-02. Call the script:
+02. Call the script: `~/projects/stuff/bash/mp4_extract_clips`
 
 ``` bash
 mp4_extract_clips /Users/mertnuhoglu/gdrive/shared/ozguremin/Kidnap.mp4 phrases.txt

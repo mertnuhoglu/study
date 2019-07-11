@@ -1,0 +1,130 @@
+---
+title: "Study testthat unit tests"
+date: 2019-06-27T15:09:26+03:00 
+draft: true
+description: ""
+tags:
+categories: r statistics
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## Article01: 
+
+https://kbroman.org/pkg_primer/pages/tests.html
+
+## Article02: 
+
+http://r-pkgs.had.co.nz/tests.html
+
+First create a project
+
+``` r
+library(usethis)
+
+create_package("ex02")
+``` 
+
+``` r
+usethis::use_testthat()
+usethis::use_test("test01")
+  ##> ~/projects/study/r/ex/study_testthat_unit_tests/ex02/tests/testthat/test-test01.R
+``` 
+
+Run tests
+
+``` r
+devtools::test()
+``` 
+
+## Article03: 
+
+https://www.r-bloggers.com/unit-testing-shiny-apps-using-testthat/
+
+``` bash
+cd ~/projects/study/r/ex/study_testthat_unit_tests
+R
+``` 
+
+``` r
+library(usethis)
+
+create_package("art03")
+usethis::use_testthat()
+use_package("shiny")
+``` 
+
+Edit `~/projects/study/r/ex/study_testthat_unit_tests/art03/R/app.R`
+
+``` r
+source("R/app.R")
+app = shiny::shinyApp(ui, server)
+runApp(app)
+``` 
+
+# Examples
+
+## ex03: use package functions in test script
+
+``` bash
+cd ~/projects/study/r/ex/study_testthat_unit_tests
+R
+``` 
+
+``` r
+library(usethis)
+
+create_package("ex03")
+``` 
+
+``` r
+usethis::use_testthat()
+usethis::use_test("test01")
+  ##> ~/projects/study/r/ex/study_testthat_unit_tests/ex03/tests/testthat/test-test01.R
+``` 
+
+Edit `~/projects/study/r/ex/study_testthat_unit_tests/ex03/R/funs.R`
+
+``` r
+ex03_fun = function() {
+	print("hello")
+}
+``` 
+
+Edit `~/projects/study/r/ex/study_testthat_unit_tests/ex03/tests/testthat/test-test01.R`
+
+``` r
+test_that("can use library functions", {
+	ex03_fun()
+  expect_equal(1, 1)
+})
+``` 
+
+Run tests
+
+``` r
+devtools::test()
+``` 
+
+All tests pass.
+
+## ex03: use package functions in test script
+
+
+

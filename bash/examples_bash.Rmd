@@ -549,8 +549,19 @@ put florida_universe_twosigma_20170818.csv
 ### tee
 
 ``` bash
-# pipe output to pbcopy and to stdout
+  # pipe output to pbcopy and to stdout
 echo 'hello' | tee >(pbcopy)
+  ##> pipe error&output to output & file
+sh datarun03.sh 2>&1 | tee datarun03.sh.log
+  ##> pipe output to pbcopy and to stdout
+echo 'hello' | tee >(pbcopy)
+  ##> > hello
+``` 
+
+`tee` with `python`: use `-u`
+
+``` bash
+python3 -u main.py 2>&1 | tee ${log_file}
 ``` 
 
 ### multiline echo 
@@ -605,6 +616,18 @@ do
 done
 ``` 
 
+to use command line arguments use `seq`
+
+``` bash
+for ip in $(seq $2 $3)
+``` 
+
+### default value
+
+``` bash
+value=${1:-the default value}
+``` 
+
 ### time elapsed 
 
 https://stackoverflow.com/questions/16908084/bash-script-to-calculate-time-elapsed
@@ -614,6 +637,108 @@ https://stackoverflow.com/questions/16908084/bash-script-to-calculate-time-elaps
 	...
 	echo "Time seconds: $SECONDS"
 ``` 
+
+### ssh key
+
+step 01: generate a ssh key:
+
+``` bash
+# ssh key
+ssh-keygen -t rsa -b 4096 -C "mert.nuhoglu@gmail.com"
+  ##> /home/ubuntu/.ssh/id_rsa_bitbucket
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa_bitbucket
+``` 
+
+step 02: add this key to repository: 
+
+opt01: github
+
+Follow https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+
+
+``` bash
+vim ~/.ssh/id_rsa.pub
+  ##> copy paste public key here:
+  ##> github > avatar > settings > ssh keys > paste id_rsa.pub
+``` 
+
+opt02: bitbucket
+
+``` bash
+  ##> https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#SetupanSSHkey-ssh2
+  ##> copy public key
+vim ~/.ssh/id_rsa_bitbucket.pub
+  ##> avatar > bitbucket settings > ssh keys > add
+
+``` 
+
+test it:
+
+``` bash
+ssh -T git@github.com
+ssh -T git@bitbucket.org
+  ##> Permission denied (publickey).
+ssh -T -i ~/.ssh/id_rsa_bitbucket git@bitbucket.org
+``` 
+
+#### multiple ssh keys
+
+check saved keys:
+
+``` bash
+ssh-add -l
+``` 
+
+edit ssh config
+
+``` bash
+Host bitbucket.org-mertnuhoglu
+	HostName bitbucket.org
+	User git
+	IdentityFile ~/.ssh/id_rsa_bitbucket
+	IdentitiesOnly yes
+``` 
+
+``` bash
+git clone git@bitbucket.org-mertnuhoglu:mertnuhoglu/pvrp_data.git
+``` 
+
+### install conda
+
+https://docs.conda.io/en/latest/miniconda.html
+
+``` bash
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh 
+bash Miniconda3-latest-Linux-x86_64.sh
+  ##> relogin
+conda
+python --version
+``` 
+
+### download from google drive
+
+Follow https://www.matthuisman.nz/2019/01/download-google-drive-files-wget-curl.html
+
+install gdrivedl
+
+``` bash
+  ##> into /usr/sbin
+sudo wget -O /usr/sbin/gdrivedl 'https://f.mjh.nz/gdrivedl'
+sudo chmod +x /usr/sbin/gdrivedl
+  ##> into ~/bin
+sudo wget -O ~/bin/gdrivedl 'https://f.mjh.nz/gdrivedl'
+sudo chmod +x ~/bin/gdrivedl
+``` 
+
+use it 
+
+``` bash
+gdrivedl https://drive.google.com/open?id=1sNhrr2u6n48vb5xuOe8P9pTayojQoOc_
+gdrivedl https://drive.google.com/file/d/1sNhrr2u6n48vb5xuOe8P9pTayojQoOc_/view?usp=sharing
+gdrivedl 1sNhrr2u6n48vb5xuOe8P9pTayojQoOc_
+``` 
+
 
 
 
