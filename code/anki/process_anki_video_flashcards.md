@@ -65,10 +65,18 @@ cat marks.txt >> marks.tsv
 
 ``` r
 library(dplyr)
-m0 = readr::read_tsv("marks.tsv") %>%
+offset_clip_id = 40
+specs = readr::cols(
+  start_time = readr::col_time(format = "%H:%M:%OS"),
+  end_time = readr::col_time(format = "%H:%M:%OS"),
+  text = readr::col_character()
+)
+m0 = readr::read_tsv("marks.tsv", col_types = specs) %>%
 	dplyr::mutate(
-		duration = end_time - start_time
-		, clip_id = dplyr::row_number()
+		start_time = hms::as_hms(start_time)
+		, end_time = hms::as_hms(end_time)
+		, duration = end_time - start_time
+		, clip_id = dplyr::row_number() + offset_clip_id
 		, filename = glue::glue("secret_life_of_pets_{sprintf('%04d', clip_id)}.mp4")
 	) %>%
 	dplyr::mutate(cmd = glue::glue("ffmpeg -i secret_life_of_pets.mp4 -ss {start_time} -to {end_time} -c:v libx264 -c:a libfaac clips/{filename}")) %>%
@@ -115,7 +123,8 @@ Import `~/Downloads/english/top_words_100/anki.tsv`
 
 ``` bash
 ANKI_FILE=~/projects/anki_english/decks/anki_secret_life_of_pets_repeat_basic.txt
-cat ~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/anki_secret_life_of_pets_repeat_basic.txt >> $ANKI_FILE
+NEW_FILE=~/gdrive/mynotes/stuff/ozgur_emin/english/anki/secret_life_of_pets/anki_secret_life_of_pets_repeat_basic.txt
+cat ${NEW_FILE} >> $ANKI_FILE
 echo $ANKI_FILE | pbcopy
 ``` 
 
