@@ -14,7 +14,7 @@ output:
 blog: mertnuhoglu.com
 resource_files:
 - 
-path: ~/projects/study/code/process_anki_make_image_flashcards.Rmd
+path: ~/projects/study/code/anki/process_anki_make_image_flashcards.Rmd
 state: wip
 ---
 

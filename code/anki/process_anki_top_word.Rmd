@@ -14,7 +14,7 @@ output:
 blog: mertnuhoglu.com
 resource_files:
 - 
-path: ~/projects/study/code/process_anki_top_word.Rmd
+path: ~/projects/study/code/anki/process_anki_top_word.Rmd
 state: wip
 ---
 
