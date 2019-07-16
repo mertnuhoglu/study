@@ -739,6 +739,17 @@ gdrivedl https://drive.google.com/file/d/1sNhrr2u6n48vb5xuOe8P9pTayojQoOc_/view?
 gdrivedl 1sNhrr2u6n48vb5xuOe8P9pTayojQoOc_
 ``` 
 
+### printf current directory
+ 
+``` bash
+printf %"s" $PWD "/test"
+  ##> /Users/mertnuhoglu/projects/study/r/test
+printf %"s " hello world
+  ##> hello world
+printf %"s2" hello world
+  ##> hello2world2
+``` 
+
 
 
 
