@@ -20,7 +20,7 @@ state: wip
 
 ---
 
-## Ex03: Extract clips from movie videos with subtitles 20190712 
+## Ex03: Extract clips from movie fideos with subtitles 20190712 
 
 Ref: cut video clips 20190711 <url:/Users/mertnuhoglu/projects/study/logbook/log_20190710.md#tn=cut video clips 20190711>
 
@@ -63,26 +63,19 @@ cat marks.txt >> marks.tsv
 
 03. Data processing: add id and generate ffmpeg commands
 
+ref: `~/projects/study/r/one.video.to.multiple.clips/R/generate_ffmpeg_cmd_for_splitting_videos.R`
+
 ``` r
-library(dplyr)
-offset_clip_id = 40
-specs = readr::cols(
-  start_time = readr::col_time(format = "%H:%M:%OS"),
-  end_time = readr::col_time(format = "%H:%M:%OS"),
-  text = readr::col_character()
-)
-m0 = readr::read_tsv("marks.tsv", col_types = specs) %>%
-	dplyr::mutate(
-		start_time = hms::as_hms(start_time)
-		, end_time = hms::as_hms(end_time)
-		, duration = end_time - start_time
-		, clip_id = dplyr::row_number() + offset_clip_id
-		, filename = glue::glue("secret_life_of_pets_{sprintf('%04d', clip_id)}.mp4")
-	) %>%
-	dplyr::mutate(cmd = glue::glue("ffmpeg -i secret_life_of_pets.mp4 -ss {start_time} -to {end_time} -c:v libx264 -c:a libfaac clips/{filename}")) %>%
-	dplyr::select(clip_id, text, dplyr::everything())
-writeLines(m0$cmd, "cmd.sh")
-readr::write_tsv(m0, "clips.tsv")
+	specs = readr::cols(
+		start_time = readr::col_time(format = "%H:%M:%OS"),
+		end_time = readr::col_time(format = "%H:%M:%OS"),
+		text = readr::col_character()
+	)
+	m0 = readr::read_tsv("marks.tsv", col_types = specs) %>%
+		generate_ffmpeg_cmd_for_splitting_videos(offset_clip_id = 0, original_video = "movie.mp4", clip_name = "movie")
+	writeLines(m0$cmd, "cmd.sh")
+	writeLines(m0$cmd_concat_silence, "cmd_concat_silence.sh")
+	readr::write_tsv(m0, "clips.tsv")
 ``` 
 
 Output: 
