@@ -19,20 +19,30 @@ generate_ffmpeg_cmd_for_splitting_videos = function(marks, offset_clip_id = 0, o
 		dplyr::select(clip_id, text, dplyr::everything())
 }
 
-main_generate_ffmpeg_cmd_for_splitting_videos = function() {
+write_files = function(marks) {
+	dir.create(path = "clips/with_silence", recursive = T)
+	writeLines(marks$cmd, "cmd.sh")
+	writeLines(marks$cmd_concat_silence, "cmd_concat_silence.sh")
+	readr::write_tsv(marks, "clips.tsv")
+	for (i in seq_len(nrow(marks))) {
+		row = marks[i, ]
+		writeLines(row$video_files_for_concat_silence, glue::glue("clips/video_files{row$clip_id}.in"))
+	}
+}
+
+read_marks_tsv = function(path) {
 	specs = readr::cols(
 		start_time = readr::col_time(format = "%H:%M:%OS"),
 		end_time = readr::col_time(format = "%H:%M:%OS"),
 		text = readr::col_character()
 	)
-	m0 = readr::read_tsv("marks.tsv", col_types = specs) %>%
-		generate_ffmpeg_cmd_for_splitting_videos(offset_clip_id = 0, original_video = "movie.mp4", clip_name = "movie")
-	writeLines(m0$cmd, "cmd.sh")
-	writeLines(m0$cmd_concat_silence, "cmd_concat_silence.sh")
-	readr::write_tsv(m0, "clips.tsv")
+	marks = readr::read_tsv("marks.tsv", col_types = specs)
+	return(marks)
+}
 
-	for (i in seq_len(nrow(m0))) {
-		row = m0[i, ]
-		writeLines(row$video_files_for_concat_silence, glue::glue("clips/video_files{row$clip_id}.in"))
-	}
+#' @export
+main_generate_ffmpeg_cmd_for_splitting_videos = function(path = "marks.tsv") {
+	m0 = read_marks_tsv(path) %>%
+		generate_ffmpeg_cmd_for_splitting_videos(offset_clip_id = 0, original_video = "movie.mp4", clip_name = "movie")
+	write_files(m0)
 }
