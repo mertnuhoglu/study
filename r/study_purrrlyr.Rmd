@@ -1,0 +1,52 @@
+---
+title: "Study purrrlyr"
+date: 2019-07-16T15:15:02+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+path: ~/projects/study/bash/study_purrrlyr.Rmd
+state: wip
+
+---
+
+# Examples
+
+## by_row
+
+``` r
+library(purrrlyr)
+mtcars[1:2] 
+  ##>                      mpg cyl
+  ##> Mazda RX4           21.0   6
+  ##> Mazda RX4 Wag       21.0   6
+mtcars[1:2] %>% by_row(function(x) 1:5)
+  ##> # A tibble: 32 x 3
+  ##>      mpg   cyl .out
+  ##>    <dbl> <dbl> <list>
+  ##>  1  21       6 <int [5]>
+  ##>  2  21       6 <int [5]>
+mtcars[1:2] %>% by_row(function(x) 1:5, .collate = "rows")
+  ##> # A tibble: 160 x 4
+  ##>      mpg   cyl  .row  .out
+  ##>    <dbl> <dbl> <int> <int>
+  ##>  1    21     6     1     1
+  ##>  2    21     6     1     2
+mtcars[1:2] %>% by_row(function(x) 1:5, .collate = "cols")
+  ##> # A tibble: 32 x 7
+  ##>      mpg   cyl .out1 .out2 .out3 .out4 .out5
+  ##>    <dbl> <dbl> <int> <int> <int> <int> <int>
+  ##>  1  21       6     1     2     3     4     5
+  ##>  2  21       6     1     2     3     4     5
+``` 
+
+
+

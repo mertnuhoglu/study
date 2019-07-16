@@ -750,7 +750,3 @@ printf %"s2" hello world
   ##> hello2world2
 ``` 
 
-
-
-
-

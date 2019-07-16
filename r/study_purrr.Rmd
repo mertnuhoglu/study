@@ -1,0 +1,52 @@
+---
+title: "Study purrr"
+date: 2019-07-16T15:15:02+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+path: ~/projects/study/bash/study_purrr
+state: wip
+
+---
+
+# Examples
+
+## transpose
+
+``` r
+library(purrr)
+mtcars[1:2] %>% transpose() %>% str()
+  ##> List of 32
+  ##>  $ :List of 2
+  ##>   ..$ mpg: num 21
+  ##>   ..$ cyl: num 6
+  ##>  $ :List of 2
+  ##>   ..$ mpg: num 21
+  ##>   ..$ cyl: num 6
+``` 
+
+## map
+
+``` r
+mtcars %>% map(sum)
+  ##> $mpg
+  ##> [1] 642.9
+  ##> 
+  ##> $cyl
+  ##> [1] 198
+mtcars %>% map_dbl(sum)
+  ##>      mpg      cyl     
+  ##>  642.900  198.000 
+``` 
+
+
+

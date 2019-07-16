@@ -1,5 +1,19 @@
 ## ffmpeg video compression 20190711 
 
+### Result
+
+Birden çok audio stream varken, sadece 2 nolu audio stream ve 0 nolu video stream ile kayıt yap
+
+``` bash
+ffmpeg -i "${input}" \
+	-map 0:0 -map 0:2 \
+	-c:v libx264 -crf 28 -vf "scale=320:240" \
+	-c:a libfaac -q:a 32 \
+	"${output}" 
+``` 
+
+### Logs
+
 https://trac.ffmpeg.org/wiki/Encode/AAC
 
 Compress 90 min video into 700 MB
@@ -213,4 +227,6 @@ Install Moments Tracker:
 ``` bash
 mv 168031-moments_tracker_V1.lua /Applications/VLC.app/Contents/MacOS/share/lua/extensions/
 ``` 
+
+Çok iyi çalışmıyor. bookmarkları kullanma. onun yerine `Ex03: Extract clips from movie videos with subtitles 20190712 <url:/Users/mertnuhoglu/projects/study/code/anki/process_anki_video_flashcards.md#tn=Ex03: Extract clips from movie videos with subtitles 20190712>` içindeki gibi doğrudan altyazıların zamanlamalarını marker olarak kullan.
 
