@@ -41,7 +41,7 @@ read_marks_tsv = function(path) {
 }
 
 #' @export
-main_generate_ffmpeg_cmd_for_splitting_videos = function(path = "marks.tsv") {
+main_generate_ffmpeg_cmd_for_splitting_videos = function(path = "marks.tsv", offset_clip_id = 0, original_video = "movie.mp4", clip_name = "movie") {
 	m0 = read_marks_tsv(path) %>%
 		generate_ffmpeg_cmd_for_splitting_videos(offset_clip_id = 0, original_video = "movie.mp4", clip_name = "movie")
 	write_files(m0)
