@@ -1,0 +1,68 @@
+---
+title: "Study Mongo"
+date: 2019-07-23T11:42:34+03:00 
+draft: true
+description: ""
+tags:
+categories: database, mongo
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+path: ~/projects/study/db/study_mongo.Rmd
+state: wip
+
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+## Connect to mongo 
+
+Robomongo ref: `robomongo client <url:/Users/mertnuhoglu/projects/itr/vrp_doc/doc_itr.md#tn=robomongo client>`
+
+Terminal client:
+
+``` bash
+docker exec -it dentas_mongo_1 mongo --port 27017 -u "${username}" -p "${pass}" ${database}
+``` 
+
+## Query examples
+ 
+https://docs.mongodb.com/manual/reference/sql-comparison/
+
+``` bash
+db.plan_jobs.find()
+  ##> { "_id" : ObjectId("592d2a834eb11bdcb734a26c"), ...} ...
+db.getCollection('plan_jobs').find()
+  ##> { "_id" : ObjectId("592d2a834eb11bdcb734a26c"), ...} ...
+``` 
+
+``` bash
+db.plan_jobs.find(
+    {},
+    { depot: 1, submitDate: 1, status: 1, _id: 0 }
+)
+  ##> { "depot" : "CORLU", "status" : "TAMAMLANDI", "submitDate" : "2017-05-30 11:12:37" }
+  ##> { "depot" : "CORLU", "status" : "TAMAMLANDI", "submitDate" : "2017-05-24 14:20:04" }
+``` 
+
+## Export a table/collection
+
+``` bash
+mongoexport -h $host -u $username -p $pass -d $database -c $collection -o $collection.json --jsonArray 
+``` 
+
+
