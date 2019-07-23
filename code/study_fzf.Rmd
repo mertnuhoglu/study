@@ -1,0 +1,76 @@
+---
+title: "Study fzf"
+date: 2019-07-17T14:53:13+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+path: ~/projects/study/bash/study_fzf.Rmd
+state: wip
+---
+
+# Articles
+
+## Article01: Turn your fzf into a live REPL
+
+https://paweldu.dev/posts/fzf-live-repl/
+
+### ex01: awk
+
+``` bash
+echo '' | fzf --print-query --preview 'echo "a\nb\nc\nd" | awk {q}'
+fzf --print-query --preview 'echo "a\nb\nc\nd" | awk {print}'
+echo '' | fzf --print-query --preview 'echo {q}'
+``` 
+
+``` bash
+echo "a\nb\nc\nd" | awk {print}
+  ##> a
+  ##> b
+  ##> c
+  ##> d
+``` 
+
+### ex02
+
+``` bash
+echo '' | fzf --preview 'ls {q}'
+``` 
+
+## Article02: 
+
+https://news.ycombinator.com/item?id=20455857
+
+### alien1993
+
+``` bash
+# from https://github.com/silvanocerza/dotfiles/blob/master/zsh/zshrc#L44-L55
+FZF_CTRL_T_OPTS="--preview-window wrap --preview '
+if [[ -f {} ]]; then
+    file --mime {} | grep -q \"text\/.*;\" && bat --color \"always\" {} || (tput setaf 1; file --mime {})
+elif [[ -d {} ]]; then
+    exa -l --color always {}
+else;
+    tput setaf 1; echo YOU ARE NOT SUPPOSED TO SEE THIS!
+fi'"
+``` 
+
+## Tool01: up
+
+https://asciinema.org/a/208538
+
+interactive repl for bash tools
+
+``` bash
+cat file
+``` 
+
+
