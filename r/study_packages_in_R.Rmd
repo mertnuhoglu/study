@@ -18,6 +18,47 @@ path: ~/projects/study/bash/study_packages_in_R.Rmd
 state: wip
 ---
 
+# Use Cases
+
+## Create a new package
+
+opt01: `usethis::create_package`
+
+https://usethis.r-lib.org/
+
+``` r
+path <- file.path(tempdir(), "mypkg")
+usethis::create_package(path)
+``` 
+
+## Export functions
+
+``` r
+#' @export
+foo <- function(..)
+``` 
+
+## Build and install
+
+opt01: Makefile
+
+`Makefile`
+
+``` txt
+build:
+	R -e 'devtools::document(); devtools::build_vignettes(); devtools::build(); devtools::install()'
+``` 
+
+``` bash
+make build
+``` 
+
+# Articles
+
+## Article02: Writing an R package from scratch
+
+https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
+
 ## Article01: R Package Primer
 
 http://kbroman.org/pkg_primer/pages/docs.html
@@ -35,3 +76,4 @@ Makefile
 ``` 
 
 So, `R CMD build` will not include that file in `.tar.gz` file
+
