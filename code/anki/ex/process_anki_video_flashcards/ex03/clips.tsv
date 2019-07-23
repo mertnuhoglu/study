@@ -1,0 +1,41 @@
+clip_id	text	start_time	end_time	duration	filename	cmd
+1	MAX: I've lived in this city all my life.	00:01:26	00:01:28	2	secret_life_of_pets_0001.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:01:26 -to 00:01:28 -c:v libx264 -c:a libfaac secret_life_of_pets_0001.mp4
+2	I'm Max. <br> And I'm the luckiest dog in New York	00:01:29	00:01:32	3	secret_life_of_pets_0002.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:01:29 -to 00:01:32 -c:v libx264 -c:a libfaac secret_life_of_pets_0002.mp4
+3	That's Katie.	00:01:34	00:01:36	2	secret_life_of_pets_0003.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:01:34 -to 00:01:36 -c:v libx264 -c:a libfaac secret_life_of_pets_0003.mp4
+4	Katie and I... <br> Well, we have the perfect relationship.	00:01:36	00:01:39	3	secret_life_of_pets_0004.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:01:36 -to 00:01:39 -c:v libx264 -c:a libfaac secret_life_of_pets_0004.mp4
+5	We met a few years ago.	00:01:40	00:01:41	1	secret_life_of_pets_0005.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:01:40 -to 00:01:41 -c:v libx264 -c:a libfaac secret_life_of_pets_0005.mp4
+6	And, boy, let me tell ya, <br> - we got along right away.	00:01:42	00:01:46	4	secret_life_of_pets_0006.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:01:42 -to 00:01:46 -c:v libx264 -c:a libfaac secret_life_of_pets_0006.mp4
+7	It was one of those relationships <br> - where you just know.	00:01:46	00:01:49	3	secret_life_of_pets_0007.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:01:46 -to 00:01:49 -c:v libx264 -c:a libfaac secret_life_of_pets_0007.mp4
+8	And get this!	00:01:51	00:01:52	1	secret_life_of_pets_0008.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:01:51 -to 00:01:52 -c:v libx264 -c:a libfaac secret_life_of_pets_0008.mp4
+9	She was looking for a roommate. <br> And so was I!	00:01:52	00:01:55	3	secret_life_of_pets_0009.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:01:52 -to 00:01:55 -c:v libx264 -c:a libfaac secret_life_of_pets_0009.mp4
+10	So I just moved in that same day.	00:01:56	00:01:59	3	secret_life_of_pets_0010.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:01:56 -to 00:01:59 -c:v libx264 -c:a libfaac secret_life_of_pets_0010.mp4
+11	- It was perfect.	00:01:59	00:02:00	1	secret_life_of_pets_0011.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:01:59 -to 00:02:00 -c:v libx264 -c:a libfaac secret_life_of_pets_0011.mp4
+12	- We've been together ever since.	00:02:01	00:02:03	2	secret_life_of_pets_0012.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:02:01 -to 00:02:03 -c:v libx264 -c:a libfaac secret_life_of_pets_0012.mp4
+13	Katie would do anything for me.	00:02:05	00:02:07	2	secret_life_of_pets_0013.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:02:05 -to 00:02:07 -c:v libx264 -c:a libfaac secret_life_of_pets_0013.mp4
+14	- And I'm her loyal protector.	00:02:07	00:02:14	7	secret_life_of_pets_0014.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:02:07 -to 00:02:14 -c:v libx264 -c:a libfaac secret_life_of_pets_0014.mp4
+15	Our love is stronger than words. <br> Or shoes.	00:02:19	00:02:23	4	secret_life_of_pets_0015.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:02:19 -to 00:02:23 -c:v libx264 -c:a libfaac secret_life_of_pets_0015.mp4
+16	Us against the world.	00:02:31	00:02:34	3	secret_life_of_pets_0016.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:02:31 -to 00:02:34 -c:v libx264 -c:a libfaac secret_life_of_pets_0016.mp4
+17	There's just one little problem.	00:03:02	00:03:04	2	secret_life_of_pets_0017.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:03:02 -to 00:03:04 -c:v libx264 -c:a libfaac secret_life_of_pets_0017.mp4
+18	- Pretty much every day... <br> Come on, Max. <br> ...she leaves.	00:03:04	00:03:09	5	secret_life_of_pets_0018.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:03:04 -to 00:03:09 -c:v libx264 -c:a libfaac secret_life_of_pets_0018.mp4
+19	I'll see you tonight.	00:03:10	00:03:11	1	secret_life_of_pets_0019.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:03:10 -to 00:03:11 -c:v libx264 -c:a libfaac secret_life_of_pets_0019.mp4
+20	Okay. That's a good boy. <br> MAX: But it never works.	00:03:22	00:03:26	4	secret_life_of_pets_0020.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:03:22 -to 00:03:26 -c:v libx264 -c:a libfaac secret_life_of_pets_0020.mp4
+21	Where is she going?	00:03:27	00:03:29	2	secret_life_of_pets_0021.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:03:27 -to 00:03:29 -c:v libx264 -c:a libfaac secret_life_of_pets_0021.mp4
+22	What could she possibly be doing?	00:03:31	00:03:33	2	secret_life_of_pets_0022.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:03:31 -to 00:03:33 -c:v libx264 -c:a libfaac secret_life_of_pets_0022.mp4
+23	Oh, I miss her so much.	00:03:35	00:03:38	3	secret_life_of_pets_0023.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:03:35 -to 00:03:38 -c:v libx264 -c:a libfaac secret_life_of_pets_0023.mp4
+24	Oh my! She's back!	00:03:40	00:03:42	2	secret_life_of_pets_0024.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:03:40 -to 00:03:42 -c:v libx264 -c:a libfaac secret_life_of_pets_0024.mp4
+25	-  <br> - Forgot my phone.	00:03:43	00:03:44	1	secret_life_of_pets_0025.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:03:43 -to 00:03:44 -c:v libx264 -c:a libfaac secret_life_of_pets_0025.mp4
+26	I miss her so much.	00:03:51	00:03:53	2	secret_life_of_pets_0026.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:03:51 -to 00:03:53 -c:v libx264 -c:a libfaac secret_life_of_pets_0026.mp4
+27	Any plans today?	00:04:06	00:04:07	1	secret_life_of_pets_0027.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:04:06 -to 00:04:07 -c:v libx264 -c:a libfaac secret_life_of_pets_0027.mp4
+28	Uh, yes. <br> Big, big stuff today, <br> Gidget. I got big plans.	00:04:07	00:04:10	3	secret_life_of_pets_0028.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:04:07 -to 00:04:10 -c:v libx264 -c:a libfaac secret_life_of_pets_0028.mp4
+29	I'm gonna sit here, and I'm gonna <br> wait for Katie to come back.	00:04:10	00:04:14	4	secret_life_of_pets_0029.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:04:10 -to 00:04:14 -c:v libx264 -c:a libfaac secret_life_of_pets_0029.mp4
+30	Oh, that sounds exciting.	00:04:14	00:04:15	1	secret_life_of_pets_0030.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:04:14 -to 00:04:15 -c:v libx264 -c:a libfaac secret_life_of_pets_0030.mp4
+31	I've got a very busy day, too.	00:04:17	00:04:20	3	secret_life_of_pets_0031.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:04:17 -to 00:04:20 -c:v libx264 -c:a libfaac secret_life_of_pets_0031.mp4
+32	Hey, Chloe, do you ever wonder <br> where they go during the day?	00:07:12	00:07:15	3	secret_life_of_pets_0032.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:07:12 -to 00:07:15 -c:v libx264 -c:a libfaac secret_life_of_pets_0032.mp4
+33	Do you know what? I just...	00:07:15	00:07:17	2	secret_life_of_pets_0033.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:07:15 -to 00:07:17 -c:v libx264 -c:a libfaac secret_life_of_pets_0033.mp4
+34	I don't really care.	00:07:17	00:07:19	2	secret_life_of_pets_0034.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:07:17 -to 00:07:19 -c:v libx264 -c:a libfaac secret_life_of_pets_0034.mp4
+35	Maybe that's what it's like for you,	00:07:19	00:07:20	1	secret_life_of_pets_0035.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:07:19 -to 00:07:20 -c:v libx264 -c:a libfaac secret_life_of_pets_0035.mp4
+36	but Katie and I have <br> a different relationship.	00:07:21	00:07:22	1	secret_life_of_pets_0036.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:07:21 -to 00:07:22 -c:v libx264 -c:a libfaac secret_life_of_pets_0036.mp4
+37	You're a cat. So maybe that's why.	00:07:22	00:07:25	3	secret_life_of_pets_0037.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:07:22 -to 00:07:25 -c:v libx264 -c:a libfaac secret_life_of_pets_0037.mp4
+38	Because nobody could ever love <br> a cat the way they love a dog.	00:07:25	00:07:27	2	secret_life_of_pets_0038.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:07:25 -to 00:07:27 -c:v libx264 -c:a libfaac secret_life_of_pets_0038.mp4
+39	I'm just saying. Maybe that's why.	00:07:27	00:07:29	2	secret_life_of_pets_0039.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:07:27 -to 00:07:29 -c:v libx264 -c:a libfaac secret_life_of_pets_0039.mp4
+40	Whatever you need to tell yourself.	00:07:29	00:07:32	3	secret_life_of_pets_0040.mp4	ffmpeg -i secret_life_of_pets.mp4 -ss 00:07:29 -to 00:07:32 -c:v libx264 -c:a libfaac secret_life_of_pets_0040.mp4
