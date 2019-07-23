@@ -5,10 +5,30 @@
 Birden çok audio stream varken, sadece 2 nolu audio stream ve 0 nolu video stream ile kayıt yap
 
 ``` bash
+input=Spotlight\ 2015\ 1080p\ DUAL.mkv
+clip_name=spotlight
+output="${clip_name}.mp4"
+ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
+  ##>     Stream #0:2(eng): Audio: dts (DTS), 48000 Hz, 5.1(side), fltp, 1536 kb/s
+stream=2
+VOLUME_INCREASE=2
+``` 
+
+``` bash
 ffmpeg -i "${input}" \
-	-map 0:0 -map 0:2 \
+	-map 0:0 -map 0:${stream} \
 	-c:v libx264 -crf 28 -vf "scale=320:240" \
-	-c:a libfaac -q:a 32 \
+	-c:a aac -q:a 32 -filter:a "volume=${VOLUME_INCREASE}" \
+	"${output}" 
+``` 
+
+opt01: copy audio (no compression). don't use this. synchronization problems between audio and video
+
+``` bash
+ffmpeg -i "${input}" \
+	-map 0:0 -map 0:${stream} \
+	-c:v libx264 -crf 28 -vf "scale=320:240" \
+	-c:a copy \
 	"${output}" 
 ``` 
 

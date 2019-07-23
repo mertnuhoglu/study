@@ -27,20 +27,47 @@ Follow: Ex03: Extract clips from movie fideos with subtitles 20190712 <url:/User
 cp "~/Movies/mozjobrani/A Saudi, an Indian and an Iranian walk into a Qatari bar ... _ Maz Jobrani-9kxL9Cf46VM.en.srt" "~/Movies/mozjobrani/saudi_indian_iranian_walk_into_a_qatari_bar_moz_jobrani/marks0.txt"
 cd /Users/mertnuhoglu/Movies/mozjobrani/saudi_indian_iranian_walk_into_a_qatari_bar_moz_jobrani
 cp marks0.txt marks.txt
+echo "start_time\tend_time\ttext" > marks.tsv
 ``` 
 
 Convert `^M` into new line
 
 ``` bash
 :ConvertMarksTxt2MarksTsv
+:w
+``` 
+
+``` bash
+echo "start_time\tend_time\ttext" > marks.tsv
+cat marks.txt >> marks.tsv
 ``` 
 
 #### 02: generate silence.mp4
 
 ``` bash
-mkdir -p with_silence
-ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -t 3 silence.ac3
-ffmpeg -i img001.jpg -i silence.ac3 -acodec libfaac -vcodec libx264 silence.mp4
+mkdir -p clips
+ffprobe -i about_time.mp4
+  ##>     Stream #0:1(eng): Audio: aac (mp4a / 0x6134706D), 48000 Hz, 5.1, fltp, 117 kb/s (default)
+SAMPLE_RATE=48000
+  # SAMPLE_RATE=44100
+  # CHANNEL_LAYOUT=stereo
+CHANNEL_LAYOUT=5.1
+``` 
+
+``` bash
+ffmpeg -f lavfi -i anullsrc=channel_layout=${CHANNEL_LAYOUT}:sample_rate=${SAMPLE_RATE} -t 3 clips/silence.ac3
+ffmpeg -i img001.jpg -i clips/silence.ac3 -acodec libfaac -vcodec libx264 clips/silence.mp4
+``` 
+
+Test silence.mp4 file. Edit `~/Movies/about_time/video_files_test.in`
+
+``` txt
+file 'clips/about_time_0005.mp4'
+file 'clips/silence.mp4'
+``` 
+
+``` bash
+ffmpeg -f concat -i video_files_test.in -c:v libx264 -crf 28 -vf "scale=320:240" -c:a libfaac -q:a 32 test.mp4
 ``` 
 
 #### 03: split video into multiple clips
@@ -61,7 +88,13 @@ one.video.to.multiple.clips::main_generate_ffmpeg_cmd_for_splitting_videos("mark
 
 ``` bash
 bash cmd.sh
-bash cmd_concat_silence.sh
+VOLUME_INCREASE='-filter:a "volume=3.5"' 
+CLIP_NAME="about_time_02"
+MERGE_FILE="clips/video_files_merge.in"
+ffmpeg -f concat -i ${MERGE_FILE} \
+	-c:v libx264 -crf 28 -vf "scale=320:240" \
+	-c:a libfaac -q:a 32 "${VOLUME_INCREASE}" \
+	clips/${CLIP_NAME}_silence.mp4
 ``` 
 
 ### Logs
@@ -422,5 +455,11 @@ bash cmd.sh
 ``` bash
 cd clips
 bash cmd_concat_silence.sh
+``` 
+
+#### merge all videos
+
+``` bash
+ffmpeg -f concat -i clips/video_files_merge2.in -c:v libx264 -c:a libfaac clips/moz_jobrani_01_silence.mp4
 ``` 
 

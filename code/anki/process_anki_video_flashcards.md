@@ -22,73 +22,58 @@ state: wip
 
 ## Ex03: Extract clips from movie fideos with subtitles 20190712 
 
-Ref: cut video clips 20190711 <url:/Users/mertnuhoglu/projects/study/logbook/log_20190710.md#tn=cut video clips 20190711>
+Ref: 
 
-Code in: `/Users/mertnuhoglu/projects/study/code/anki/ex/process_anki_video_flashcards/ex03`
+		cut video clips 20190711 <url:/Users/mertnuhoglu/projects/study/logbook/log_20190710.md#tn=cut video clips 20190711>
+		~/projects/study/logbook/make_shadowing_videos_20190719.md
+		~/projects/study/logbook/log_20190722.md
 
-01. Manually copy scenes from `~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/subtitles.srt` into `~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/marks.txt`
+01: compress video. ref: `~/projects/study/logbook/ffmpeg_video_compression_20190711.md`
 
-02. Convert marks.txt into tsv file: 
+02: split video into parts
 
-``` bash
-cd /Users/mertnuhoglu/projects/study/code/anki/ex/process_anki_video_flashcards/ex03
-cp marks0.txt marks.txt
-``` 
-
-Edit in vim: `~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/marks.txt`
-
-input
-
-		00:01:26,720 --> 00:01:28,324
-		MAX: I've lived in this city all my life.
-
-		00:01:29,000 --> 00:01:32,886
-		I'm Max.
-		And I'm the luckiest dog in New York
-
-output
-
-		00:01:26,720	00:01:28,324	"MAX: I've lived in this city all my life."
-		00:01:29,000	00:01:32,886	"I'm Max.
-		And I'm the luckiest dog in New York"
-
-``` vim
-:ConvertMarksTxt2MarksTsv
-``` 
+Generate `marks.tsv`
 
 ``` bash
-echo "start_time\tend_time\ttext" > marks.tsv
-cat marks.txt >> marks.tsv
-``` 
-
-03. Data processing: add id and generate ffmpeg commands
-
-ref: `~/projects/study/r/one.video.to.multiple.clips/R/generate_ffmpeg_cmd_for_splitting_videos.R`
-
-``` r
-	specs = readr::cols(
-		start_time = readr::col_time(format = "%H:%M:%OS"),
-		end_time = readr::col_time(format = "%H:%M:%OS"),
-		text = readr::col_character()
-	)
-	m0 = readr::read_tsv("marks.tsv", col_types = specs) %>%
-		generate_ffmpeg_cmd_for_splitting_videos(offset_clip_id = 0, original_video = "movie.mp4", clip_name = "movie")
-	writeLines(m0$cmd, "cmd.sh")
-	writeLines(m0$cmd_concat_silence, "cmd_concat_silence.sh")
-	readr::write_tsv(m0, "clips.tsv")
-``` 
-
-Output: 
-
-		~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/clips.tsv
-		~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/cmd.sh
-
-04. Run ffmpeg commands to cut video clips
-
-``` bash
-cd /Users/mertnuhoglu/Movies/secret_life_of_pets/
 mkdir -p clips
-bash ~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/cmd.sh
+cp "${clip_name}.srt" clips/marks.txt
+nvim -c ":ConvertMarksTxt2MarksTsv" -c ":wq" clips/marks.txt
+echo "start_time\tend_time\ttext" > clips/marks.tsv
+cat clips/marks.txt >> clips/marks.tsv
+``` 
+
+``` bash
+offset_clip_id=0
+  ##> input="spotlight.mp4"
+  ##> clip_name="spotlight"
+R --vanilla -e "one.video.to.multiple.clips::main_generate_ffmpeg_cmd_for_splitting_videos(path = 'clips/marks.tsv', offset_clip_id = ${offset_clip_id}, original_video = '${input}', clip_name = '${clip_name}')"
+``` 
+
+split into parts
+
+``` bash
+bash clips/split01.sh
+bash clips/split02.sh
+``` 
+
+03: Generate silence video file
+
+``` bash
+  ##> input=spotlight.mp4
+silence01=clips/silence01.mp4
+VOLUME_INCREASE=0.1
+ffmpeg -ss 00:00 -to 00:03 -i ${input} -c:v libx264 -crf 23 -c:a aac -filter:a "volume=${VOLUME_INCREASE}" $silence01
+out_silence=clips/silence.mp4
+ffmpeg -i ${silence01} -t 00:03 -c:v copy -c:a copy $out_silence
+ffprobe -i $out_silence 2>&1 | rg Duration 
+  ##>   Duration: 00:00:03.02, start: 0.000000, bitrate: 497 kb/s
+``` 
+
+04: merge into shadowing video
+
+``` bash
+clip_name=spotlight
+ffmpeg -f concat -i clips/fixed/video_files_merge.in -c copy clips/${clip_name}_silence.mp4
 ``` 
 
 05. Prepare anki file
