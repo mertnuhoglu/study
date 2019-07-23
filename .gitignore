@@ -37,4 +37,4 @@ Makefile
 
 **/package-lock.json
 *.map
-
+*.tar.gz

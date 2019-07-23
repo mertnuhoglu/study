@@ -750,3 +750,9 @@ printf %"s2" hello world
   ##> hello2world2
 ``` 
 
+### ffmpeg
+
+``` bash
+ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
+``` 
+

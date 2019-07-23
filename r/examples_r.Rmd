@@ -585,6 +585,7 @@ list.files(path = glue::glue("{PEYMAN_PROJECT_DIR}/pvrp_data/out"), include.dirs
 ``` r
 d0 = dplyr::tibble(a = 1:3, b = 10:12)
 WriteXLS::WriteXLS(d0, "file01.xlsx", SheetNames = "d0")
+rio::export(d0, "file.xlsx")
 
 d1 = readxl::read_excel("file01.xlsx", sheet = "d0")
 ``` 
@@ -620,5 +621,100 @@ sf::st_geometry(r0) <- NULL
 r0
 ``` 
 
+### convert secs to hours
 
+https://stackoverflow.com/questions/27312292/convert-seconds-to-days-hoursminutesseconds
+
+``` r
+library(lubridate)
+seconds_to_period(86400)
+  ##> #[1] "1d 0H 0M 0S"
+
+seconds_to_period(48000)
+  ##> #[1] "13H 20M 0S"
+  ##> If you need to format
+
+td <- seconds_to_period(86400)
+sprintf('%02d %02d:%02d:%02d', day(td), td@hour, minute(td), second(td))
+  ##> #[1] "01 00:00:00"
+  ##> If it spans for >99 days,
+
+td <- seconds_to_period(1e7)
+sprintf('%03d %02d:%02d:%02d', day(td), td@hour, minute(td), second(td))
+  ##> #[1] "115 17:46:40"
+
+
+``` 
+
+Print as hours
+
+``` r
+lubridate::seconds_to_period(sum(d2$sure, na.rm=T)) %>%
+	lubridate::as.duration() %>%
+	as.numeric("hours")
+``` 
+
+### create a package and use a library inside
+
+``` r
+library(usethis)
+usethis::create_package("ex01")
+usethis::use_package("MASS", "Suggests")
+usethis::use_package("dplyr")
+``` 
+
+### json jsonr examples
+
+``` r
+pj0 = rjson::fromJSON(file="logs/plan_jobs.json")
+  ##>  $ :List of 11
+  ##>   ..$ _id              :List of 1
+  ##>   .. ..$ $oid: chr "591e95424eb11b0a51ac8712"
+  ##>   ..$ depot            : chr "CORLU"
+  ##>   ..$ status           : chr "TAMAMLANDI"
+  ##>   ..$ submitDate       : chr "2017-05-19 09:48:33"
+  ##>   ..$ user             : chr "plan_corlu"
+  ##>  $ :List of 11
+  ##>   ..$ _id              :List of 1
+  ##>   .. ..$ $oid: chr "591ea8ba4eb11b0a51ac87ef"
+  ##>   ..$ depot            : chr "ADANA"
+length(pj0)
+  ##> [1] 2432
+``` 
+
+Read as dataframe
+
+``` r
+pl0 = jsonlite::fromJSON("logs/plan_jobs.json", simplifyDataFrame = T) %>%
+	as_tibble()
+str(pl0)
+  ##> 'data.frame':   2432 obs. of  12 variables:
+pl0
+  ##> # A tibble: 2,432 x 12
+  ##>    `_id`$`$oid`   depot  shortStatus status  submitDate 
+  ##>    <chr>          <chr>  <chr>       <chr>   <chr>      
+  ##>  1 59259c9b4eb11… ADANA  G           TAMAML… 2017-05-2… 
+  ##>  2 5926703e4eb11… CORLU  G           TAMAML… 2017-05-2… 
+``` 
+
+### group_by then count tally 
+
+``` r
+pl1 %>%
+	count(depot)
+  ##>   depot         n
+  ##>   <chr>     <int>
+  ##> 1 ADANA         7
+  ##> 2 CORLU       136
+  ##> 3 DENIZLI      65
+  ##> 4 ESKISEHIR   137
+``` 
+
+Equivalent to:
+
+``` r
+pl1 %>%
+	group_by(depot) %>%
+	tally()
+``` 
 
