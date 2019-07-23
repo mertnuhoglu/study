@@ -1,0 +1,29 @@
+---
+title: "Study code"
+date: 2019-07-17T16:02:24+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+path: ~/projects/study/bash/study_code.Rmd
+state: wip
+---
+
+# Tools
+
+## nmap: network scanner
+
+https://isc.sans.edu/diary/How+to+Find+Hidden+Cameras+in+your+AirBNB/24834
+
+``` bash
+nmap -Ap 80,8000,8080,443,8443,7443,7070,7000,22,23,21 10.5.1.0/24
+``` 
+
