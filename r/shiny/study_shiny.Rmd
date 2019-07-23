@@ -11,9 +11,9 @@ author: "Mert Nuhoglu"
 output: html_document
 blog: mertnuhoglu.com
 resource_files:
--
 path: ~/projects/study/r/shiny/shiny_and_rmarkdown.Rmd
 state: wip
+
 ---
 
 <style>
@@ -242,7 +242,7 @@ server <- function(input, output) {
 Example with source and endpoint only:
 
 ``` r
-# Calculate nth number in Fibonacci sequence
+  # Calculate nth number in Fibonacci sequence
 fib <- function(n) ifelse(n<3, 1, fib(n-1)+fib(n-2))
 
 server <- function(input, output) {
@@ -289,4 +289,47 @@ They have side effects.
 - Observers respond to reactive flush events. Expressions do not.
 
 If you want a reactive expression to execute, it must have an observer as a child (descendant in the dependency graph)
+
+## Article: Stop reactions with isolate()
+
+https://shiny.rstudio.com/articles/isolation.html
+
+> Sometimes it’s useful for an observer/endpoint to access a reactive value or expression, but not to take a dependency on it. For example, if the observer performs a long calculation or downloads large data set, you might want it to execute only when a button is clicked
+
+Example: https://shiny.rstudio.com/gallery/actionbutton-demo.html
+
+Check `/Users/mertnuhoglu/codes/rr/shiny-examples/028-actionbutton-demo/server.r`
+
+``` r
+function(input, output) {
+  
+  # builds a reactive expression that only invalidates 
+  # when the value of input$goButton becomes out of date 
+  # (i.e., when the button is pressed)
+  ntext <- eventReactive(input$goButton, {
+    input$n
+  })
+  
+  output$nText <- renderText({
+    ntext()
+  })
+}
+``` 
+
+Example:
+
+``` r
+server <- function(input, output) {
+  output$distPlot <- renderPlot({
+    
+    # Take a dependency on input$goButton
+    input$goButton
+
+    # Use isolate() to avoid dependency on input$obs
+    dist <- isolate(rnorm(input$obs))
+    hist(dist)
+  })
+}
+``` 
+
 
