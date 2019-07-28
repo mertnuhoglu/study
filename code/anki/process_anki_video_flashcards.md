@@ -28,7 +28,39 @@ Ref:
 		~/projects/study/logbook/make_shadowing_videos_20190719.md
 		~/projects/study/logbook/log_20190722.md
 
+### opt01: nearly full automatic
+
+01: download english srt
+
+02: 
+
+``` bash
+clip_name=spotlight
+input="${clip_name}".mkv
+output_mp4="${clip_name}.mp4"
+ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
+  ##>     Stream #0:2(eng): Audio: dts (DTS), 48000 Hz, 5.1(side), fltp, 1536 kb/s
+stream=2
+VOLUME_INCREASE=3
+``` 
+
+``` bash
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh $clip_name $VOLUME_INCREASE $stream
+``` 
+
+### opt02: semi automatic
+
 01: compress video. ref: `~/projects/study/logbook/ffmpeg_video_compression_20190711.md`
+
+``` bash
+clip_name=spotlight
+input="${clip_name}".mkv
+output_mp4="${clip_name}.mp4"
+ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
+  ##>     Stream #0:2(eng): Audio: dts (DTS), 48000 Hz, 5.1(side), fltp, 1536 kb/s
+stream=2
+VOLUME_INCREASE=2
+``` 
 
 02: split video into parts
 
@@ -44,9 +76,11 @@ cat clips/marks.txt >> clips/marks.tsv
 
 ``` bash
 offset_clip_id=0
-  ##> input="spotlight.mp4"
   ##> clip_name="spotlight"
-R --vanilla -e "one.video.to.multiple.clips::main_generate_ffmpeg_cmd_for_splitting_videos(path = 'clips/marks.tsv', offset_clip_id = ${offset_clip_id}, original_video = '${input}', clip_name = '${clip_name}')"
+output_mp4="${clip_name}.mp4"
+R --vanilla -e "one.video.to.multiple.clips::main_generate_ffmpeg_cmd_for_splitting_videos(path = 'clips/marks.tsv', offset_clip_id = ${offset_clip_id}, original_video = '${output_mp4}', clip_name = '${clip_name}')"
+rg "\bNA\b" clips/marks.tsv
+rg "\bNA\b" clips/clips.tsv
 ``` 
 
 split into parts
@@ -59,10 +93,9 @@ bash clips/split02.sh
 03: Generate silence video file
 
 ``` bash
-  ##> input=spotlight.mp4
 silence01=clips/silence01.mp4
 VOLUME_INCREASE=0.1
-ffmpeg -ss 00:00 -to 00:03 -i ${input} -c:v libx264 -crf 23 -c:a aac -filter:a "volume=${VOLUME_INCREASE}" $silence01
+ffmpeg -ss 00:00 -to 00:03 -i ${output_mp4} -c:v libx264 -crf 23 -c:a aac -filter:a "volume=${VOLUME_INCREASE}" $silence01
 out_silence=clips/silence.mp4
 ffmpeg -i ${silence01} -t 00:03 -c:v copy -c:a copy $out_silence
 ffprobe -i $out_silence 2>&1 | rg Duration 
@@ -72,38 +105,36 @@ ffprobe -i $out_silence 2>&1 | rg Duration
 04: merge into shadowing video
 
 ``` bash
-clip_name=spotlight
-ffmpeg -f concat -i clips/fixed/video_files_merge.in -c copy clips/${clip_name}_silence.mp4
+  ##> clip_name=spotlight
+ffmpeg -f concat -i clips/video_files_merge.in -c copy clips/${clip_name}_silence.mp4
 ``` 
 
-05. Prepare anki file
+05. Edit anki file
 
-``` r
-library(dplyr)
-m1 = m0 %>%
-	dplyr::select(clip_id, text, filename) %>%
-	dplyr::mutate(line = glue::glue("[sound:{filename}] <br> {text} ; {text}; secret_life_of_pets"))
-writeLines(m1$line, "anki_secret_life_of_pets_repeat_basic.txt")
-``` 
+Check `clips/anki_${clip_name}.txt`
+
+Ex: `~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/anki_secret_life_of_pets_repeat_basic.txt`
+
+Put `[...]` with vim commands:
 
 06. mv files
 
 ``` bash
-cd /Users/mertnuhoglu/Movies/secret_life_of_pets/clips
+cd /Users/mertnuhoglu/Movies/${clip_name}/clips
 mv *.mp4 "/Users/mertnuhoglu/Library/Application Support/Anki2/ozgureminnuhoglu/collection.media/"
 ``` 
-
-07. Edit anki file: `~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/anki_secret_life_of_pets_repeat_basic.txt`
 
 08. Import into anki app
 
 Import `~/Downloads/english/top_words_100/anki.tsv`
 
 ``` bash
-ANKI_FILE=~/projects/anki_english/decks/anki_secret_life_of_pets_repeat_basic.txt
-NEW_FILE=~/gdrive/mynotes/stuff/ozgur_emin/english/anki/secret_life_of_pets/anki_secret_life_of_pets_repeat_basic.txt
+ANKI_FILE=~/projects/anki_english/decks/anki_${clip_name}_repeat_basic.txt
+  ##> NEW_FILE=~/gdrive/mynotes/stuff/ozgur_emin/english/anki/${clip_name}/anki_${clip_name}_repeat_basic.txt
+NEW_FILE=clips/anki_${clip_name}02.txt
 cat ${NEW_FILE} >> $ANKI_FILE
 echo $ANKI_FILE | pbcopy
+	/Users/mertnuhoglu/projects/anki_english/decks/anki_ice_age_repeat_basic.txt
 ``` 
 
 ## Example: Prepare "kitten memes" flashcards from video files

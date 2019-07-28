@@ -19,16 +19,18 @@ generate_ffmpeg_cmd_for_splitting_videos = function(marks, offset_clip_id = 0, o
 			, split02 = glue::glue(split02)
 			, video_files_merge = glue::glue("file 'split02/{filename}'\nfile 'silence.mp4'")
 		) %>%
+		dplyr::mutate(anki_line = glue::glue("[sound:{filename}] <br> {text} ; {text} <br> {text_tr}; {clip_name}")) %>%
 		dplyr::select(clip_id, text, dplyr::everything())
 }
 
-write_files = function(marks) {
+write_files = function(marks, clip_name) {
 	dir.create(path = "clips/split01", recursive = T)
 	dir.create(path = "clips/split02", recursive = T)
 	writeLines(marks$split01, "clips/split01.sh")
 	writeLines(marks$split02, "clips/split02.sh")
 	readr::write_tsv(marks, "clips/clips.tsv")
 	writeLines(marks$video_files_merge, "clips/video_files_merge.in")
+	writeLines(marks$anki_line, glue::glue("clips/anki_{clip_name}.txt"))
 }
 
 read_marks_tsv = function(path) {
@@ -37,16 +39,27 @@ read_marks_tsv = function(path) {
 		end_time = readr::col_time(format = "%H:%M:%OS"),
 		text = readr::col_character()
 	)
-	marks = readr::read_tsv(path, col_types = specs) %>%
+	marks = readr::read_tsv(path, col_types = specs, col_names = c("start_time", "end_time", "text")) %>%
 		dplyr::filter(!is.na(start_time)) %>%
-		dplyr::filter(!is.na(end_time))
+		dplyr::filter(!is.na(end_time)) %>%
+		dplyr::filter(!is.na(text)) %>%
+		dplyr::filter(!text == '') %>%
+		dplyr::filter(!stringr::str_detect(text, "^\\(.*\\)$")) 
 	return(marks)
 }
 
+convert_marks_txt_2_marks_tsv = function(marks_txt = "clips/marks.txt") {
+	m0 = readLines(marks_txt)
+
+}
+
 #' @export
-main_generate_ffmpeg_cmd_for_splitting_videos = function(path = "marks.tsv", offset_clip_id = 0, original_video = "movie.mp4", clip_name = "movie") {
+main_generate_ffmpeg_cmd_for_splitting_videos = function(path = "clips/marks.tsv", offset_clip_id = 0, original_video = "movie.mp4", clip_name = "movie") {
+	mtr = read_marks_tsv(path = "clips/marks.tr.tsv") %>%
+		dplyr::rename(text_tr = text)
 	m0 = read_marks_tsv(path) %>%
+		dplyr::left_join(mtr, by = c("start_time", "end_time")) %>%
 		generate_ffmpeg_cmd_for_splitting_videos(offset_clip_id = offset_clip_id, original_video = original_video, clip_name = clip_name)
-	write_files(m0)
+	write_files(m0, clip_name)
 }
 

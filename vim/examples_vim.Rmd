@@ -24,3 +24,12 @@ command! -nargs=* -range CommentLines <line1>,<line2>call CommentLines()
 xnoremap <Leader>cl :call CommentLines()<CR>
 ``` 
 
+### run script non-interactively
+
+``` bash
+nvim -s e01.vim clips/marks.txt
+nvim -s ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/ConvertMarksTxt2MarksTsv.vim clips/marks.txt
+``` 
+
+Dikkat: " ile başlayan comment lineları scriptleri bozuyor
+
