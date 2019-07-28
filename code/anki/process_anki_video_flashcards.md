@@ -109,6 +109,8 @@ ffprobe -i $out_silence 2>&1 | rg Duration
 ffmpeg -f concat -i clips/video_files_merge.in -c copy clips/${clip_name}_silence.mp4
 ``` 
 
+### Common steps
+
 05. Edit anki file
 
 Check `clips/anki_${clip_name}.txt`
@@ -120,8 +122,9 @@ Put `[...]` with vim commands:
 06. mv files
 
 ``` bash
-cd /Users/mertnuhoglu/Movies/${clip_name}/clips
-mv *.mp4 "/Users/mertnuhoglu/Library/Application Support/Anki2/ozgureminnuhoglu/collection.media/"
+anki_media="/Users/mertnuhoglu/Library/Application Support/Anki2/ozgureminnuhoglu/collection.media/"
+mv clips/split02/*.mp4 "${anki_media}"
+  ##> mv clips/split02/${clip_name}_{0002..0211}.mp4 "${anki_media}"
 ``` 
 
 08. Import into anki app
@@ -131,10 +134,11 @@ Import `~/Downloads/english/top_words_100/anki.tsv`
 ``` bash
 ANKI_FILE=~/projects/anki_english/decks/anki_${clip_name}_repeat_basic.txt
   ##> NEW_FILE=~/gdrive/mynotes/stuff/ozgur_emin/english/anki/${clip_name}/anki_${clip_name}_repeat_basic.txt
-NEW_FILE=clips/anki_${clip_name}02.txt
+NEW_FILE=clips/anki_${clip_name}01.txt
 cat ${NEW_FILE} >> $ANKI_FILE
 echo $ANKI_FILE | pbcopy
-	/Users/mertnuhoglu/projects/anki_english/decks/anki_ice_age_repeat_basic.txt
+  ##> /Users/mertnuhoglu/projects/anki_english/decks/anki_sing_repeat_basic.txt
+  ##> /Users/mertnuhoglu/projects/anki_english/decks/anki_ice_age_repeat_basic.txt
 ``` 
 
 ## Example: Prepare "kitten memes" flashcards from video files
