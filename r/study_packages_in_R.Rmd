@@ -38,6 +38,13 @@ usethis::create_package(path)
 foo <- function(..)
 ``` 
 
+Add symbols:
+
+``` r
+#' @importFrom magrittr "%>%"
+NULL
+``` 
+
 ## Build and install
 
 opt01: Makefile

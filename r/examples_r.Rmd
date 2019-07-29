@@ -252,15 +252,6 @@ drive_browse(iris_ss)
 layout <- read.csv(paste0(raw_data_dir, file), stringsAsFactors = FALSE)
 ``` 
 
-Running R script from terminal
-
-``` bash
-Rscript --verbose --vanilla backtesting/backtesting.R
-R --vanilla 
-R --no-save --no-restore-data
-R --no-save --no-restore-data -e "source('~/projects/itr/vrp_doc/study/ex/peyman_data_relations_20190522/prepare_od_table.R'); test_origin_destination_json()"
-``` 
-
 ### Rmarkdown code blocks
 
 ``` {R include=F}
@@ -567,17 +558,49 @@ twc3 = twc %>%
 	dplyr::mutate_at("customer_name", tidyr::replace_na, "Depo")
 ``` 
 
-### mkdir dir.create
+### mkdir mv ls directory commands
+
+``` r
+     file.create(..., showWarnings = TRUE)
+     file.exists(...)
+     file.remove(...)
+     file.rename(from, to)
+     file.append(file1, file2)
+     file.copy(from, to, overwrite = recursive, recursive = FALSE,
+               copy.mode = TRUE, copy.date = FALSE)
+     file.symlink(from, to)
+     file.link(from, to)
+``` 
+
+mkdir dir.create
 
 ``` r
 dir.create(path = ... ) # mkdir
 dir.create(path = ..., recursive = T) # mkdir -p
 ``` 
 
-### ls list.files
+ls list.files
 
 ``` r
 list.files(path = glue::glue("{PEYMAN_PROJECT_DIR}/pvrp_data/out"), include.dirs = T, pattern = "^report_\\d+.*")
+``` 
+
+mv move move_files rename files and directories
+
+``` bash
+file.rename(
+	glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp/out")
+  , glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp/out_{format(Sys.time(), '%Y%m%d_%H%M%S')}")
+)
+``` 
+
+``` r
+install.packages("filesstrings")
+install.packages("processx")
+filesstrings::move_files(
+	glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp_data/out")
+  , glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp_data/out_{format(Sys.time(), '%Y%m%d_%H%M%S')}")
+)
 ``` 
 
 ### excel read/write
@@ -663,6 +686,33 @@ usethis::use_package("MASS", "Suggests")
 usethis::use_package("dplyr")
 ``` 
 
+### package: export functions
+
+``` r
+#' @export
+foo <- function(..)
+``` 
+
+Add symbols:
+
+``` r
+#' @importFrom magrittr "%>%"
+NULL
+``` 
+
+## package: build and install
+
+`Makefile`
+
+``` txt
+build:
+	R -e 'devtools::document(); devtools::build_vignettes(); devtools::build(); devtools::install()'
+``` 
+
+``` bash
+make build
+``` 
+
 ### json jsonr examples
 
 ``` r
@@ -716,5 +766,34 @@ Equivalent to:
 pl1 %>%
 	group_by(depot) %>%
 	tally()
+``` 
+
+### grepl str_detect
+
+``` r
+"(ali)" %>% stringr::str_detect("^\\(.*\\)$")
+  ##> [1] TRUE
+``` 
+
+### run r script from terminal
+
+``` bash
+Rscript --verbose --vanilla backtesting/backtesting.R
+R CMD ... # deprecated
+R --vanilla -e "source('~/projects/itr/vrp_doc/study/ex/peyman_data_relations_20190522/prepare_od_table.R'); test_origin_destination_json()"
+R --no-save --no-restore-data
+R --no-save --no-restore-data -e "source('~/projects/itr/vrp_doc/study/ex/peyman_data_relations_20190522/prepare_od_table.R'); test_origin_destination_json()"
+``` 
+
+### get version of a package
+
+``` r
+packageVersion("stringr")
+``` 
+
+### print/show all rows of a df
+
+``` r
+state$routes %>% print(n = 20)
 ``` 
 

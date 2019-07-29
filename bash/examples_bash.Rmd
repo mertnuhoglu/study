@@ -756,3 +756,43 @@ printf %"s2" hello world
 ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
 ``` 
 
+### git init project from local non-empty directory
+
+01: create a new repo in github
+
+``` bash
+git init
+git remote add origin git@bitbucket.org:mertnuhoglu/pvrpr.git
+...
+git pull origin master
+git push --set-upstream origin master
+``` 
+
+### shebang
+
+``` bash
+#!/bin/bash
+#!/bin/sh
+#!/usr/bin/env Rscript
+#!/usr/bin/env python3
+``` 
+
+### range of numbers
+
+``` bash
+mv clips/split02/${clip_name}_{0002..0200}.mp4 "${anki_media}"
+``` 
+
+### test conditionals: file exists
+
+http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html
+
+file exists:
+
+``` bash
+if [ ! -f /tmp/foo.txt  ]; then
+	echo "File not found!"
+fi
+``` 
+
+
