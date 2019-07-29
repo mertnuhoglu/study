@@ -40,12 +40,44 @@ input="${clip_name}".mkv
 output_mp4="${clip_name}.mp4"
 ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
   ##>     Stream #0:2(eng): Audio: dts (DTS), 48000 Hz, 5.1(side), fltp, 1536 kb/s
-stream=2
+stream=1
 VOLUME_INCREASE=3
 ``` 
 
 ``` bash
 bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh $clip_name $VOLUME_INCREASE $stream
+``` 
+
+05. Edit anki file
+
+Check `clips/anki_${clip_name}.txt`
+
+Ex: `~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/anki_secret_life_of_pets_repeat_basic.txt`
+
+Put `[...]` with vim commands:
+
+06. mv files
+
+``` bash
+anki_media="/Users/mertnuhoglu/Library/Application Support/Anki2/ozgureminnuhoglu/collection.media/"
+mv clips/split02/*.mp4 "${anki_media}"
+  ##> mv clips/split02/${clip_name}_{0002..0200}.mp4 "${anki_media}"
+``` 
+
+08. Import into anki app
+
+Import `~/Downloads/english/top_words_100/anki.tsv`
+
+``` bash
+ANKI_FILE=~/projects/anki_english/decks/anki_${clip_name}_repeat_basic.txt
+  ##> NEW_FILE=~/gdrive/mynotes/stuff/ozgur_emin/english/anki/${clip_name}/anki_${clip_name}_repeat_basic.txt
+NEW_FILE=clips/anki_${clip_name}01.txt
+cat ${NEW_FILE} >> $ANKI_FILE
+echo $ANKI_FILE | pbcopy
+  ##> /Users/mertnuhoglu/projects/anki_english/decks/anki_sherlock_yack_01_repeat_basic.txt
+	##> /Users/mertnuhoglu/projects/anki_english/decks/anki_rock_dog_repeat_basic.txt
+  ##> /Users/mertnuhoglu/projects/anki_english/decks/anki_sing_repeat_basic.txt
+  ##> /Users/mertnuhoglu/projects/anki_english/decks/anki_ice_age_repeat_basic.txt
 ``` 
 
 ### opt02: semi automatic
@@ -69,9 +101,9 @@ Generate `marks.tsv`
 ``` bash
 mkdir -p clips
 cp "${clip_name}.srt" clips/marks.txt
-nvim -c ":ConvertMarksTxt2MarksTsv" -c ":wq" clips/marks.txt
-echo "start_time\tend_time\ttext" > clips/marks.tsv
-cat clips/marks.txt >> clips/marks.tsv
+nvim -s "${DIR}/ConvertMarksTxt2MarksTsv.vim" clips/marks.txt 
+cp "${clip_name}.tr.srt" clips/marks.tr.txt 
+nvim -s "${DIR}/ConvertMarksTxt2MarksTsvTr.vim" clips/marks.tr.txt 
 ``` 
 
 ``` bash
@@ -109,37 +141,7 @@ ffprobe -i $out_silence 2>&1 | rg Duration
 ffmpeg -f concat -i clips/video_files_merge.in -c copy clips/${clip_name}_silence.mp4
 ``` 
 
-### Common steps
-
-05. Edit anki file
-
-Check `clips/anki_${clip_name}.txt`
-
-Ex: `~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/anki_secret_life_of_pets_repeat_basic.txt`
-
-Put `[...]` with vim commands:
-
-06. mv files
-
-``` bash
-anki_media="/Users/mertnuhoglu/Library/Application Support/Anki2/ozgureminnuhoglu/collection.media/"
-mv clips/split02/*.mp4 "${anki_media}"
-  ##> mv clips/split02/${clip_name}_{0002..0211}.mp4 "${anki_media}"
-``` 
-
-08. Import into anki app
-
-Import `~/Downloads/english/top_words_100/anki.tsv`
-
-``` bash
-ANKI_FILE=~/projects/anki_english/decks/anki_${clip_name}_repeat_basic.txt
-  ##> NEW_FILE=~/gdrive/mynotes/stuff/ozgur_emin/english/anki/${clip_name}/anki_${clip_name}_repeat_basic.txt
-NEW_FILE=clips/anki_${clip_name}01.txt
-cat ${NEW_FILE} >> $ANKI_FILE
-echo $ANKI_FILE | pbcopy
-  ##> /Users/mertnuhoglu/projects/anki_english/decks/anki_sing_repeat_basic.txt
-  ##> /Users/mertnuhoglu/projects/anki_english/decks/anki_ice_age_repeat_basic.txt
-``` 
+05: Follow normal path
 
 ## Example: Prepare "kitten memes" flashcards from video files
 

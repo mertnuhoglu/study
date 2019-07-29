@@ -56,10 +56,16 @@ convert_marks_txt_2_marks_tsv = function(marks_txt = "clips/marks.txt") {
 #' @export
 main_generate_ffmpeg_cmd_for_splitting_videos = function(path = "clips/marks.tsv", offset_clip_id = 0, original_video = "movie.mp4", clip_name = "movie") {
 	mtr = read_marks_tsv(path = "clips/marks.tr.tsv") %>%
-		dplyr::rename(text_tr = text)
+		dplyr::rename(text_tr = text) %>%
+		dplyr::select(-end_time)
 	m0 = read_marks_tsv(path) %>%
-		dplyr::left_join(mtr, by = c("start_time", "end_time")) %>%
+		dplyr::left_join(mtr, by = c("start_time")) %>%
+		#dplyr::left_join(mtr, by = c("start_time", "end_time")) %>%
 		generate_ffmpeg_cmd_for_splitting_videos(offset_clip_id = offset_clip_id, original_video = original_video, clip_name = clip_name)
 	write_files(m0, clip_name)
 }
 
+main_write_anki_again = function(clips_tsv = "clips/clips.tsv", clip_name = "movie") {
+	marks = readr::read_tsv(clips_tsv)
+	writeLines(marks$anki_line, glue::glue("clips/anki_{clip_name}.txt"))
+}
