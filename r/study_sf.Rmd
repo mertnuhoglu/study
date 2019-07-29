@@ -1,0 +1,247 @@
+---
+title: "Study sf"
+date: 2019-07-29T19:20:51+03:00 
+draft: true
+description: ""
+tags:
+categories: r, shiny
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/r/study_sf.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+Ref
+
+		~/projects/study/r/shiny/study_leaflet.Rmd
+
+# Examples
+
+## e01: Remove geometry / convert sf to dataframe
+
+https://gis.stackexchange.com/questions/224915/extracting-data-frame-from-simple-features-object-in-r
+
+``` r
+library(sf)
+nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+class(nc)
+  ## [1] "sf"         "data.frame"
+st_geometry(nc) <- NULL
+class(nc)
+  ## [1] "data.frame"
+``` 
+
+# Articles
+
+## Article: Introduction to GIS with R
+
+https://www.jessesadler.com/post/gis-with-r-intro/
+
+Code: https://github.com/jessesadler/intro-to-r
+
+Ref: `/Users/mertnuhoglu/codes/rr/intro-to-r`
+
+Check `/Users/mertnuhoglu/codes/rr/intro-to-r/gis-with-r-intro.R`
+
+### Preparing the data
+
+``` r
+library(tidyverse)
+library(sp)
+library(sf)
+library(rnaturalearth)
+
+letters <- read_csv("data/correspondence-data-1585.csv")
+locations <- read_csv("data/locations.csv")
+``` 
+
+``` r
+geo_data
+  ## # A tibble: 14 x 5
+  ##    place          n type          lon   lat
+  ##    <chr>      <int> <fctr>      <dbl> <dbl>
+  ##  1 Amsterdam      1 source       4.90  52.4
+  ##  2 Antwerp       76 source       4.40  51.2
+  ##  3 Dordrecht      1 source       4.69  51.8
+``` 
+
+### Spatial data with `sf`
+
+`sf` is a dataframe like object. 
+
+It contains a geometry column of class `sfc`
+
+This column stores spatial data such as CRS, coordinates, type of geometric object.
+
+Create `sf` object:
+
+``` r
+points_sf <- st_as_sf(geo_data, coords = c("lon", "lat"), crs = 4326)
+``` 
+
+``` r
+class(points_sf)
+  ## [1] "sf"         "tbl_df"     "tbl"        "data.frame"
+points_sf
+  ## Simple feature collection with 14 features and 3 fields
+  ## geometry type:  POINT
+  ## dimension:      XY
+  ## bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
+  ## epsg (SRID):    4326
+  ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+  ## # A tibble: 14 x 4
+  ##    place          n type        geometry                 
+  ##    <chr>      <int> <fctr>      <simple_feature>         
+  ##  1 Amsterdam      1 source      c(4.8951679, 52.3702157) 
+  ##  2 Antwerp       76 source      c(4.4024643, 51.2194475) 
+  ##  3 Dordrecht      1 source      c(4.6900929, 51.8132979) 
+  ##  4 Emden          1 source      c(7.2060095, 53.3594029) 
+``` 
+
+Access `geometry` with `st_geometry()` function
+
+``` r
+class(points_sf$geometry)
+  ## [1] "sfc_POINT" "sfc"
+st_geometry(points_sf)
+  ## Geometry set for 14 features 
+  ## geometry type:  POINT
+  ## dimension:      XY
+  ## bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
+  ## epsg (SRID):    4326
+  ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+  ## First 5 geometries:
+  ## POINT (4.895168 52.37022)
+  ## POINT (4.402464 51.21945)
+  ## POINT (4.690093 51.8133)
+  ## POINT (7.20601 53.3594)
+  ## POINT (4.646219 52.38739)
+``` 
+
+``` r
+coast_sf <- ne_coastline(scale = "medium", returnclass = "sf")
+countries_sf <- ne_countries(scale = "medium", returnclass = "sf")
+``` 
+
+``` r
+View(coast_sf)
+  ##> geometry type:  MULTILINESTRING
+	##> ...
+  ##> First 10 features:
+  ##>   scalerank featurecla min_zoom                       geometry
+  ##> 0         0  Coastline      1.5 MULTILINESTRING ((180 -16.1...
+  ##> 1         0  Coastline      4.0 MULTILINESTRING ((177.2575 ...
+points_sf
+  ##> geometry type:  POINT
+  ##> # A tibble: 14 x 4
+  ##>    place          n type                   geometry
+  ##>    <chr>      <int> <fct>               <POINT [°]>
+  ##>  1 Amsterdam      1 source      (4.895168 52.37022)
+  ##>  2 Antwerp       76 source      (4.402464 51.21945)
+  ##>  3 Dordrecht      1 source       (4.690093 51.8133)
+``` 
+
+Note difference in geometry type.
+
+Use dplyr data wrangling functions:
+
+``` r
+filter(points_sf, n > 10)
+``` 
+
+``` r
+countries_sf %>% 
+  filter(continent == "South America") %>% 
+  select(name) %>% 
+  st_transform(crs = "+proj=moll +datum=WGS84")
+``` 
+
+## Article: An Exploration of Simple Features for R
+
+https://www.jessesadler.com/post/simple-feature-objects/
+
+Ref: `~/codes/rr/intro-to-r/gis-with-r-intro.R`
+
+`sf` is a collection of simple features that includes attributes and geometries in the form of a data frame.
+
+So, it is a data frame with rows of features, columns of attributes, and a special geometry column that contains spatial aspects of the features.
+
+Geometry column is a list of class `sfc` which is made up of individual objects of class `sfg`
+
+- sf object: collection of simple features represented by a data frame
+- attributes: non-geometry columns
+- feature: a simple feature with attributes and geometry represented by a row in the data frame
+- `sfg` object: geometry of a single feature
+- `sfc` object: geometry column with spatial attributes of the object printed above the data frame
+
+What I understand:
+
+- `sf` object contains `sfc` object and a dataframe.
+- `sfc` object contains properties such as crs, and other meta data
+- dataframe consists of attributes (verbal columns) and a geometry column.
+- geometry column is of type `sfg`
+- each row of the dataframe is called a feature.
+
+### `sfg` objects
+
+Geometry types: point, multipoint, linestring, multilinestring, polygon, multipolygon, geometrycollection
+
+The geometry can be represented using WKB (well known binary), WKT (well known text), or `sfg`
+
+`sfg` objects are stored in R as vectors, matrices or lists of matrices:
+
+		point: a vector
+		multipoint and linestring: a matrix where each row is a point
+		multilinestring and polygon: a list of matrices
+		multipolygon: a list of lists of matrices
+		geometrycollection: list that combines any of the above
+
+`sfg` object can be created through these functions:
+
+		st_point(), st_multipoint, st_linestring(), ...
+
+They take two arguments:
+
+		an R object of the proper class
+		identification of dimensions
+
+``` r
+la_sfg <- st_point(c(-118.2615805, 34.1168926))
+amsterdam_sfg <- st_point(c(4.8979755, 52.3745403))
+``` 
+
+### Summary
+
+We can summarize the role of sfg, sfc, and sf objects in the following fashion:
+
+		sfg: geometry
+			geometry of a single feature
+			vector, matrix, or list of matrices of coordinates with defined dimension and type of geometry
+			seven main geometry types
+		sfc: geospatial geometry
+			list of sfg objects
+			coordinate reference system through crs attribute
+			seven subclasses based on geometries
+		sf: geospatial geometry with attributes
+			data frame with geometry column of class sfc
+			sticky geometry column through sf_column attribute
+
+
+
+

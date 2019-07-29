@@ -1,0 +1,206 @@
+---
+title: "Study GIS in R"
+date: 2019-07-29T19:09:28+03:00 
+draft: true
+description: ""
+tags:
+categories: r, shiny
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+blog: mertnuhoglu.com
+resource_files:
+-
+path: ~/projects/study/r/study_gis_r.Rmd
+state: wip
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+Ref
+
+		~/projects/study/r/shiny/study_leaflet.Rmd
+
+# Articles
+
+## Article: Routing in R using the open source routing machine (OSRM)
+
+https://cmhh.github.io/post/routing/
+
+``` r
+install.packages("rjson")
+install.packages("bitops")
+install.packages("sp")
+``` 
+
+``` r
+o <- origin$results[[1]]$geometry$location
+d <- destination$results[[1]]$geometry$location
+(url <- paste0("http://router.project-osrm.org/route/v1/driving/", 
+   o$lng,",",o$lat,";",d$lng,",",d$lat,"?overview=full"))
+[1] "http://router.project-osrm.org/route/v1/driving/175.0845498,-41.1250097;174.7811653,-41.2756572?overview=full"
+route <- fromJSON(file=url)
+``` 
+
+Response:
+
+``` r
+route$routes[[1]]$duration
+[1] 1728.5
+route$routes[[1]]$distance
+[1] 34267
+route$routes[[1]]$geometry
+[1] "hf_zFufsk`@M?O?QCoAKC\\GV..."
+``` 
+
+The route geomertry is stored in [encoded polyline algorithm format](https://developers.google.com/maps/documentation/utilities/polylinealgorithm).
+
+Convert the encoded route to a SpatialLines object:
+
+``` r
+decode <- function(str, multiplier=1e5){
+   
+   if (!require(bitops)) stop("Package: bitops required.")
+   if (!require(sp)) stop("Package: sp required.")
+   
+   truck <- 0
+   trucks <- c()
+   carriage_q <- 0
+   
+   for (i in 0:(nchar(str)-1)){
+      ch <- substr(str, (i+1), (i+1))
+      x <- as.numeric(charToRaw(ch)) - 63
+      x5 <- bitShiftR(bitShiftL(x, 32-5), 32-5)
+      truck <- bitOr(truck, bitShiftL(x5, carriage_q))
+      carriage_q <- carriage_q + 5
+      islast <- bitAnd(x, 32) == 0
+      if (islast){
+         negative <- bitAnd(truck, 1) == 1
+         if (negative) truck <- -bitShiftR(-bitFlip(truck), 1)/multiplier
+         else truck <- bitShiftR(truck, 1)/multiplier
+         trucks <- c(trucks, truck)
+         carriage_q <- 0
+         truck <- 0
+      }
+   }
+   lat <- trucks[c(T,F)][-1]
+   lng <- trucks[c(F,T)][-1]
+   res <- data.frame(lat=c(trucks[1],cumsum(lat)+trucks[1]), 
+                     lng=c(trucks[2],cumsum(lng)+trucks[2]))
+
+   coordinates(res) <- ~lng+lat
+   proj4string(res) <- CRS("+init=epsg:4326")
+   return(SpatialLines(list(Lines(Line(res), 1)), CRS("+init=epsg:4326")))
+}
+par(mar=par()$mar-c(1,0,2.5,0), cex=0.8)
+path <- decode(route$routes[[1]]$geometry, multiplier=1e5)
+plot(path); axis(1); axis(2); box()
+``` 
+
+Make a leaflet map:
+
+``` r
+  #make a string to nicely label the route
+s <- route$routes[[1]]$duration
+kms <- round(route$routes[[1]]$distance/1000, 1)
+routelabel <- paste0(s%/%60, "m ", s%%60, "s , ", kms, "kms")
+
+  #create a basic map
+library(leaflet)
+m <- leaflet(width="100%") %>% 
+  addTiles()  %>% 
+  addPolylines(data=path, popup=routelabel, color = "#000000", opacity=1, weight = 3) %>%
+  addMarkers(lng=o$lng, lat=o$lat, popup=origin$results[[1]]$formatted_address) %>%
+  addMarkers(lng=d$lng, lat=d$lat, popup=destination$results[[1]]$formatted_address)
+m
+``` 
+
+### ex01: makaledeki uygulamayı yapma
+
+Edit `~/projects/itr/peyman/pmap/doc/study/ex/leaflet_rota_cizimi_20190530/ex01.R`
+
+### ex04: Kendi noktalarımızla rota çizimi
+
+Edit `~/projects/itr/peyman/pmap/doc/study/ex/leaflet_rota_cizimi_20190530/ex04.R`
+
+Best solution so far.
+
+## Article: rCarto/osrm
+
+https://github.com/rCarto/osrm
+
+https://rgeomatic.hypotheses.org/854
+
+https://cran.r-project.org/web/packages/osrm/osrm.pdf
+
+``` r
+install.packages("osrm")
+install.packages("cartography")
+``` 
+
+### Setup OSRM Settings
+
+Put `OSRM_SERVER` into `.bashrc`
+
+``` bash
+export OSRM_SERVER=35.204.111.216:5000
+``` 
+
+``` r
+library(osrm)
+library(sf)
+library(cartography)
+  ##> osrm_server = 35.204.111.216:5000
+osrm_server = Sys.getenv("OSRM_SERVER")
+options(osrm.server = glue::glue("http://{osrm_server}/"), osrm.profile = "driving")
+``` 
+
+``` r
+ps = "
+lng,lat
+29.208498,40.890795
+29.24633,40.9894
+29.08812,40.99462
+29.233,40.87585
+"
+cs <- read.csv(text=ps, header = T)
+``` 
+
+``` r
+  # Travel path between points - output a SpatialLinesDataFrame
+route <- osrmRoute(src=c("Depo", cs$lng[1], cs$lat[1]),
+                    dst = c("Market 01", cs$lng[2], cs$lat[2]),
+                    sp = TRUE, overview = "full")
+``` 
+
+opt01:
+
+``` r
+osm <- getTiles(x = route, crop = TRUE, type = "osm", zoom = 13)
+tilesLayer(osm)
+plot(st_geometry(route), lwd = 4, add = TRUE)
+plot(st_geometry(route), lwd = 1, col = "white", add = TRUE)
+``` 
+
+Error:
+
+opt02:
+
+``` r
+  # Display the path
+plot(com[c(1,4),3:4], asp =1, col = "red", pch = 20, cex = 1.5)
+plot(route, lty = 1,lwd = 4, add = TRUE)
+plot(route, lty = 1, lwd = 1, col = "white", add=TRUE)
+text(com[c(1,4),3:4], labels = com[c(1,4),2], pos = 2)
+``` 
+
