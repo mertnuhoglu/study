@@ -18,53 +18,7 @@ path: ~/projects/study/db/examples_db.Rmd
 state: wip
 ---
 
-## 02. Filter Companies by Zip Code
-
-Filter companies by zip code:
-
-``` sql
-SELECT company_ein, bq_company_address1_zip5 
-FROM data_20181217.all_data 
-WHERE bq_company_address1_zip5 IN ('94303', '10010', '02451')
-LIMIT 3;
-``` 
-
-Export the results into csv file:
-
-``` sql
-\COPY ( SELECT * FROM client.altdg ORDER BY RANDOM() ) TO '~/bizqualify_data/altdg_test_data.csv' WITH CSV HEADER;
-``` 
-
-Import csv file into database:
-
-``` sql
-\COPY data_20181001.all_data FROM '~/bizqualify_data/data_20181001_ts.csv' DELIMITER ',' CSV HEADER;
-``` 
-
-Export from bash:
-
-``` sql
-echo "\copy  ( SELECT ... ) To '${schema}_ts.csv' With CSV HEADER" | psql -d bizqualify
-``` 
-
-Rename a schema
-
-``` sql
-ALTER SCHEMA data_20181202 RENAME TO data_20181219;
-``` 
-
-``` sql
-CREATE SCHEMA raw_data_20181219;
-GRANT USAGE ON SCHEMA raw_data_20181219 TO readonly;
-ALTER DEFAULT PRIVILEGES IN SCHEMA raw_data_20181219
-GRANT SELECT ON TABLES TO readonly;
-``` 
-
-Run a SQL script:
-
-``` bash
-psql -f ./concatenate_sep_data_20181220.sql
-``` 
+## SQL
 
 ### UNION and LIMIT
 
@@ -115,15 +69,25 @@ LIMIT 100;
 
 This works
 
-### Get rows with multiple/duplicate bq_company_sec_name for the same bq_ticker
+### UPDATE
+
+We need to run update statements for all columns and for each company_ein:
 
 ``` sql
-SELECT count(DISTINCT bq_company_sec_name), bq_ticker
-FROM backtest.oct11_oct18
-GROUP BY bq_ticker
-HAVING count(DISTINCT bq_company_sec_name) > 1;
-  ##>      3 | AA
-  ##>      2 | ACI
+UPDATE data_20181204.all_data 
+SET bq_company_legal_name = ...
+WHERE company_ein = '202133699';
+``` 
+
+### WHERE .. IN
+
+Filter companies by zip code:
+
+``` sql
+SELECT company_ein, bq_company_address1_zip5 
+FROM data_20181217.all_data 
+WHERE bq_company_address1_zip5 IN ('94303', '10010', '02451')
+LIMIT 3;
 ``` 
 
 ### Are there any rows with duplicate company_ein values?
@@ -222,7 +186,7 @@ SELECT bq_cusip, company_ein FROM b;
   ##> 69354M108,260566203
 ``` 
 
-#### 07.04.03. Error: ambiguous company_ein
+#### Error: ambiguous company_ein
 
 Error
 
@@ -238,17 +202,7 @@ Cause:
 
 lhs.* and rhs.* both contain company_ein.
 
-## 07. Update Non Time Series Variables From Original Dataset
-
-We need to run update statements for all columns and for each company_ein:
-
-``` sql
-UPDATE data_20181204.all_data 
-SET bq_company_legal_name = ...
-WHERE company_ein = '202133699';
-``` 
-
-### 07.01. Create a Toy Problem
+### Create a Toy Problem
 
 ``` sql
 CREATE TEMP TABLE test_timeseries_original (
@@ -308,7 +262,18 @@ SELECT * FROM test_timeseries_concatenated ORDER BY company_ein, bq_year;
   ##>  102         |    2018 | a02 | b02
 ``` 
 
-### 07.02. Verify that there is no duplicate data before concatenation
+### Find duplicate bq_company_sec_name for the same bq_ticker
+
+``` sql
+SELECT count(DISTINCT bq_company_sec_name), bq_ticker
+FROM backtest.oct11_oct18
+GROUP BY bq_ticker
+HAVING count(DISTINCT bq_company_sec_name) > 1;
+  ##>      3 | AA
+  ##>      2 | ACI
+``` 
+
+### Verify that there is no duplicate data before concatenation
 
 We should be sure that test_timeseries_original doesn't contain any duplicate company_ein rows. Else concatenation will add new rows due to joining operation. 
 
@@ -330,7 +295,7 @@ SELECT count(*) FROM a;
   ##>      3
 ``` 
 
-### 07.03. Test Verification in Real Data
+### Test Verification in Real Data
 
 ``` sql
 WITH a AS (
@@ -347,111 +312,6 @@ SELECT count(*) FROM data_20181202.all_data;
 ``` 
 
 So, all rows are unique by company_ein and bq_year.
-
-# Backup and Restore a Postgres Database
-
-Where is postgres database?
-
-``` sql
-SELECT name, setting FROM pg_settings WHERE category = 'File Locations';
-  ##>        name        |                 setting
-  ##> -------------------+------------------------------------------
-  ##>  config_file       | /etc/postgresql/9.5/main/postgresql.conf
-  ##>  data_directory    | /var/lib/postgresql/9.5/main
-  ##>  external_pid_file | /var/run/postgresql/9.5-main.pid
-  ##>  hba_file          | /etc/postgresql/9.5/main/pg_hba.conf
-  ##>  ident_file        | /etc/postgresql/9.5/main/pg_ident.conf
-  ##> (5 rows)
-``` 
-
-``` bash
-sudo -u postgres psql -c "SHOW data_directory;"   
-  ##>         data_directory
-  ##> ------------------------------
-  ##>  /var/lib/postgresql/9.5/main
-  ##> (1 row)
-``` 
-
-Stop postgres before changing data directory:
-
-``` bash
-sudo systemctl stop postgresql
-sudo systemctl status postgresql
-  ##> Dec 21 13:30:45 ip-172-31-5-223 systemd[1]: Stopped PostgreSQL RDBMS.
-``` 
-
-Edit postgres conf file:
-
-``` bash
-sudo vim /etc/postgresql/9.5/main/postgresql.conf
-``` 
-
-Update the following line:
-
-``` txt
-data_directory = '/mnt/var/lib/postgresql/9.5/main'
-``` 
-
-Copy postgres data directory:
-
-``` bash
-sudo rsync -aP /var/lib/postgresql/9.5/main /data/postgresql/
-``` 
-
-Start postgres again:
-
-``` bash
-sudo systemctl start postgresql
-sudo systemctl status postgresql
-  ##> Dec 21 13:35:04 ip-172-31-5-223 systemd[1]: Started PostgreSQL RDBMS.
-``` 
-
-## dump and restore postgres
-
-``` bash
-# dumping pg database
-# https://www.postgresql.org/docs/9.1/static/backup-dump.html#BACKUP-DUMP-RESTORE
-# dumping
-pg_dumpall -U $SUPER_USER > ~/bizqualify_data/pgbackup01
-# restoring
-psql -f ~/bizqualify_data/pgbackup01 postgres
-``` 
-
-## pg_restore
-
-``` bash
-pg_restore -d bizqualify ~/backup/data_20181115_v4b.dump
-``` 
-
-## schema export
-
-``` bash
-# only ddl -s
-pg_dump --schema=data_20181217 -s bizqualify > schema_data_20181217.sql
-
-# data and ddl
-pg_dump bizqualify -Fc --schema data_20181217 > database.dump
-``` 
-
-# postgres environment variables
-
-``` bash
-export PGHOST=localhost
-export PGPORT=5432
-export PGUSER=$DB_USER
-export PGDATABASE=$DB_NAME
-export PGPASSWORD=$DB_PASS
-``` 
-
-# postgres setup initial database
-
-``` bash
-sudo -u postgres psql -c "CREATE DATABASE $DB_NAME;"   # this is automatically done when postgres server starts
-psql -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASS';"
-psql -c "GRANT ALL PRIVILEGES ON DATABASE $DB_NAME TO $DB_USER;"
-sudo -u postgres psql -c "ALTER ROLE $DB_USER WITH SUPERUSER"
-psql -c "CREATE USER $DB_ANON_ROLE WITH LOGIN NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION password '$DB_ANON_PASS'"
-``` 
 
 # 01.03. Find the differences for some indicator variable
 
@@ -693,6 +553,41 @@ WHERE a.ind_value != b.ind_value;
   ##>  102         |    2017 | b_ind        |          0 |         1
 ``` 
 
+## Export Import
+
+### Export the results into csv file:
+
+``` sql
+\COPY ( SELECT * FROM client.altdg ORDER BY RANDOM() ) TO '~/bizqualify_data/altdg_test_data.csv' WITH CSV HEADER;
+``` 
+
+### Import csv file into database:
+
+``` sql
+\COPY data_20181001.all_data FROM '~/bizqualify_data/data_20181001_ts.csv' DELIMITER ',' CSV HEADER;
+``` 
+
+### Export from bash:
+
+``` sql
+echo "\copy  ( SELECT ... ) To '${schema}_ts.csv' With CSV HEADER" | psql -d bizqualify
+``` 
+
+## Schemas
+
+### Rename a schema
+
+``` sql
+ALTER SCHEMA data_20181202 RENAME TO data_20181219;
+``` 
+
+``` sql
+CREATE SCHEMA raw_data_20181219;
+GRANT USAGE ON SCHEMA raw_data_20181219 TO readonly;
+ALTER DEFAULT PRIVILEGES IN SCHEMA raw_data_20181219
+GRANT SELECT ON TABLES TO readonly;
+``` 
+
 # DROP and CREATE SCHEMA
 
 ``` sql
@@ -707,6 +602,142 @@ GRANT SELECT ON TABLES TO readonly;
 
 ``` sql
 CREATE TABLE data_20181212.clean_variables AS (SELECT * FROM data_20181202.clean_variables);
+``` 
+
+## psql commands
+
+### Run a SQL script:
+
+``` bash
+psql -f ./concatenate_sep_data_20181220.sql
+``` 
+
+### connect with psql
+
+``` bash
+psql -h <host> -p <port> -U <username> -W <password> <database>
+PGPASSWORD=bqdata psql -h localhost -U bqdata bizqualify
+PGPASSWORD=$SUPER_USER_PASSWORD psql -h localhost -p 5432 -U $SUPER_USER $DB_NAME
+``` 
+
+Connect with superuser:
+
+``` bash
+sudo -u bqdata psql bizqualify
+``` 
+
+### Backup and Restore a Postgres Database
+
+Where is postgres database?
+
+``` sql
+SELECT name, setting FROM pg_settings WHERE category = 'File Locations';
+  ##>        name        |                 setting
+  ##> -------------------+------------------------------------------
+  ##>  config_file       | /etc/postgresql/9.5/main/postgresql.conf
+  ##>  data_directory    | /var/lib/postgresql/9.5/main
+  ##>  external_pid_file | /var/run/postgresql/9.5-main.pid
+  ##>  hba_file          | /etc/postgresql/9.5/main/pg_hba.conf
+  ##>  ident_file        | /etc/postgresql/9.5/main/pg_ident.conf
+  ##> (5 rows)
+``` 
+
+``` bash
+sudo -u postgres psql -c "SHOW data_directory;"   
+  ##>         data_directory
+  ##> ------------------------------
+  ##>  /var/lib/postgresql/9.5/main
+  ##> (1 row)
+``` 
+
+Stop postgres before changing data directory:
+
+``` bash
+sudo systemctl stop postgresql
+sudo systemctl status postgresql
+  ##> Dec 21 13:30:45 ip-172-31-5-223 systemd[1]: Stopped PostgreSQL RDBMS.
+``` 
+
+Edit postgres conf file:
+
+``` bash
+sudo vim /etc/postgresql/9.5/main/postgresql.conf
+``` 
+
+Update the following line:
+
+``` txt
+data_directory = '/mnt/var/lib/postgresql/9.5/main'
+``` 
+
+Copy postgres data directory:
+
+``` bash
+sudo rsync -aP /var/lib/postgresql/9.5/main /data/postgresql/
+``` 
+
+Start postgres again:
+
+``` bash
+sudo systemctl start postgresql
+sudo systemctl status postgresql
+  ##> Dec 21 13:35:04 ip-172-31-5-223 systemd[1]: Started PostgreSQL RDBMS.
+``` 
+
+#### dump and restore postgres
+
+``` bash
+  # dumping pg database
+  # https://www.postgresql.org/docs/9.1/static/backup-dump.html#BACKUP-DUMP-RESTORE
+  # dumping
+pg_dumpall -U $SUPER_USER > ~/bizqualify_data/pgbackup01
+  # restoring
+psql -f ~/bizqualify_data/pgbackup01 postgres
+``` 
+
+#### pg_restore
+
+``` bash
+pg_restore -d bizqualify ~/backup/data_20181115_v4b.dump
+``` 
+
+##### pg_restore certain tables only 
+
+Create list contents of the archive:
+
+``` bash
+previous_data_run_date=data_20190505b
+pg_restore -l ~/bizqualify_data/data_${previous_data_run_date}.dump > toc.txt
+``` 
+
+#### schema export
+
+``` bash
+  # only ddl -s
+pg_dump --schema=data_20181217 -s bizqualify > schema_data_20181217.sql
+
+  # data and ddl
+pg_dump bizqualify -Fc --schema data_20181217 > database.dump
+``` 
+
+### postgres environment variables
+
+``` bash
+export PGHOST=localhost
+export PGPORT=5432
+export PGUSER=$DB_USER
+export PGDATABASE=$DB_NAME
+export PGPASSWORD=$DB_PASS
+``` 
+
+### postgres setup initial database
+
+``` bash
+sudo -u postgres psql -c "CREATE DATABASE $DB_NAME;"   # this is automatically done when postgres server starts
+psql -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASS';"
+psql -c "GRANT ALL PRIVILEGES ON DATABASE $DB_NAME TO $DB_USER;"
+sudo -u postgres psql -c "ALTER ROLE $DB_USER WITH SUPERUSER"
+psql -c "CREATE USER $DB_ANON_ROLE WITH LOGIN NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION password '$DB_ANON_PASS'"
 ``` 
 
 # LIKE
@@ -966,7 +997,7 @@ LIMIT 10;
   ##>      8 | 010022450
 ``` 
 
-## 02.01. Verify that no Nov or Dec filing exists
+### 02.01. Verify that no Nov or Dec filing exists
 
 ``` sql
 SELECT count(*)
@@ -978,7 +1009,7 @@ AND extract(YEAR from bq_comp_most_recent_filing_date) IN (2018);
   ##> 0
 ``` 
 
-# 20190118
+### 20190118
 
 ``` sql
 DROP TABLE IF EXISTS <original_data>concat.companies_non_ts;
@@ -1099,20 +1130,6 @@ LIMIT 30;
 ``` 
 
 ## other
-
-### connect with psql
-
-``` bash
-psql -h <host> -p <port> -U <username> -W <password> <database>
-PGPASSWORD=bqdata psql -h localhost -U bqdata bizqualify
-PGPASSWORD=$SUPER_USER_PASSWORD psql -h localhost -p 5432 -U $SUPER_USER $DB_NAME
-``` 
-
-Connect with superuser:
-
-``` bash
-sudo -u bqdata psql bizqualify
-``` 
 
 ### bq
 

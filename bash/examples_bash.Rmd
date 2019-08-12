@@ -574,6 +574,18 @@ c.NotebookApp.ip = '0.0.0.0' # listen on all IPs
 echo "$__text" >> /home/ubuntu/.jupyter/jupyter_notebook_config.py
 ``` 
 
+#### multiline heredoc
+
+https://stackoverflow.com/questions/23929235/multi-line-string-with-extra-space-preserved-indentation/36240082
+
+``` bash
+cat << EndOfMessage
+This is line 1.
+This is line 2.
+Line 3.
+EndOfMessage
+``` 
+
 ### docker exec
 
 ``` bash
@@ -795,4 +807,30 @@ if [ ! -f /tmp/foo.txt  ]; then
 fi
 ``` 
 
+
+### check linux distro version
+
+https://www.cyberciti.biz/faq/find-linux-distribution-name-version-number/
+
+``` bash
+cat /etc/*-release
+``` 
+
+### rename with sprintf
+
+https://unix.stackexchange.com/questions/400983/how-to-use-rename-command-with-printf
+
+use `e` flag
+
+``` bash
+rename 's/([0-9]+)/sprintf "%02d", $1/e' *
+``` 
+
+### rename files to lowercase
+
+osx: https://stackoverflow.com/questions/7787029/how-do-i-rename-all-files-to-lowercase
+
+``` bash
+for f in *.mp4; do mv "$f" "$f.tmp"; mv "$f.tmp" "`echo $f | tr "[:upper:]" "[:lower:]"`"; done
+``` 
 
