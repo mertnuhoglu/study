@@ -34,6 +34,22 @@ Ref:
 
 02: 
 
+optional: youtube playlist
+
+rename youtube playlist files:
+
+``` bash
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/rename_youtube_playlist_files.sh
+``` 
+
+move files to own directories:
+
+``` bash
+R --vanilla -e 'source("~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/move_youtube_playlist_files_to_their_own_dirs.R")'
+``` 
+
+normal path:
+
 ``` bash
 clip_name=spotlight
 input="${clip_name}".mkv
@@ -41,7 +57,7 @@ output_mp4="${clip_name}.mp4"
 ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
   ##>     Stream #0:2(eng): Audio: dts (DTS), 48000 Hz, 5.1(side), fltp, 1536 kb/s
 stream=1
-VOLUME_INCREASE=3
+VOLUME_INCREASE=2
 ``` 
 
 ``` bash

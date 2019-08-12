@@ -14,6 +14,7 @@ generate_ffmpeg_cmd_for_splitting_videos = function(marks, offset_clip_id = 0, o
 			, clip_id = dplyr::row_number() + offset_clip_id
 			, filename = glue::glue("{clip_name}_{sprintf('%04d', clip_id)}.mp4")
 		) %>%
+		dplyr::filter(duration > 0.1) %>%
 		dplyr::mutate(
 			split01 = glue::glue(split01)
 			, split02 = glue::glue(split02)

@@ -8,10 +8,12 @@ Birden çok audio stream varken, sadece 2 nolu audio stream ve 0 nolu video stre
 clip_name=ice_age
 input=${clip_name}.mkv
 output_mp4="${clip_name}.mp4"
+ffprobe -i ${input} 2>&1 | rg Video
+  ##>     Stream #0:0(und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(tv, bt709), 1280x720 [SAR 1:1 DAR 16:9], 477 kb/s, 25 fps, 25 tbr, 90k tbn, 50 tbc (default)
 ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
   ##>     Stream #0:2(eng): Audio: dts (DTS), 48000 Hz, 5.1(side), fltp, 1536 kb/s
 stream=2
-VOLUME_INCREASE=1.5
+VOLUME_INCREASE=2
 ``` 
 
 ``` bash
