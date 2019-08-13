@@ -801,3 +801,12 @@ state$routes %>% print(n = 20)
 
 https://stackoverflow.com/questions/11488174/how-to-select-a-cran-mirror-in-r
 
+### loop through each directory one by one:
+
+``` bash
+for d in */
+do
+    ( cd "$d" && your-command-here )
+done
+``` 
+

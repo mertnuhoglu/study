@@ -34,7 +34,7 @@ Ref:
 
 02: 
 
-optional: youtube playlist
+#### optional: youtube playlist
 
 rename youtube playlist files:
 
@@ -48,7 +48,9 @@ move files to own directories:
 R --vanilla -e 'source("~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/move_youtube_playlist_files_to_their_own_dirs.R")'
 ``` 
 
-normal path:
+---
+
+#### normal path:
 
 ``` bash
 clip_name=spotlight
@@ -62,6 +64,12 @@ VOLUME_INCREASE=2
 
 ``` bash
 bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh $clip_name $VOLUME_INCREASE $stream
+``` 
+
+#### optional: youtube playlist: bütün klasörlerdeki dosyaları topla
+
+``` bash
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/collect_youtube_playlist_results_into_sep_dir.sh
 ``` 
 
 05. Edit anki file
