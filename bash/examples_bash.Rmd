@@ -634,6 +634,16 @@ to use command line arguments use `seq`
 for ip in $(seq $2 $3)
 ``` 
 
+loop over directories:
+
+``` bash
+for d in */
+do
+	clip_name=${d%/*}
+	mv ${clip_name}/clips/${clip_name}_silence.mp4 ./collected
+done
+``` 
+
 ### default value
 
 ``` bash
@@ -832,5 +842,11 @@ osx: https://stackoverflow.com/questions/7787029/how-do-i-rename-all-files-to-lo
 
 ``` bash
 for f in *.mp4; do mv "$f" "$f.tmp"; mv "$f.tmp" "`echo $f | tr "[:upper:]" "[:lower:]"`"; done
+``` 
+
+### what is my linux version
+
+``` bash
+cat /etc/os-release
 ``` 
 

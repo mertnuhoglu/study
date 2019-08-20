@@ -34,23 +34,11 @@ Ref:
 
 02: 
 
-#### optional: youtube playlist
+optional steps:
 
-rename youtube playlist files:
+		optional: youtube playlist <url:/Users/mertnuhoglu/projects/study/code/anki/process_anki_video_flashcards.md#tp=optional: youtube playlist>
 
-``` bash
-bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/rename_youtube_playlist_files.sh
-``` 
-
-move files to own directories:
-
-``` bash
-R --vanilla -e 'source("~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/move_youtube_playlist_files_to_their_own_dirs.R")'
-``` 
-
----
-
-#### normal path:
+normal path:
 
 ``` bash
 clip_name=spotlight
@@ -66,19 +54,17 @@ VOLUME_INCREASE=2
 bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh $clip_name $VOLUME_INCREASE $stream
 ``` 
 
-#### optional: youtube playlist: bütün klasörlerdeki dosyaları topla
-
-``` bash
-bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/collect_youtube_playlist_results_into_sep_dir.sh
-``` 
-
 05. Edit anki file
 
 Check `clips/anki_${clip_name}.txt`
 
 Ex: `~/projects/study/code/anki/ex/process_anki_video_flashcards/ex03/anki_secret_life_of_pets_repeat_basic.txt`
 
-Put `[...]` with vim commands:
+Put `[...]` with vim commands: `ürt` or `:ReplaceWithCloze2`
+
+optional steps:
+
+		optional: youtube srt correction <url:/Users/mertnuhoglu/projects/study/code/anki/process_anki_video_flashcards.md#tp=optional: youtube srt correction>
 
 06. mv files
 
@@ -102,6 +88,14 @@ echo $ANKI_FILE | pbcopy
 	##> /Users/mertnuhoglu/projects/anki_english/decks/anki_rock_dog_repeat_basic.txt
   ##> /Users/mertnuhoglu/projects/anki_english/decks/anki_sing_repeat_basic.txt
   ##> /Users/mertnuhoglu/projects/anki_english/decks/anki_ice_age_repeat_basic.txt
+	##> /Users/mertnuhoglu/projects/anki_english/decks/anki_sherlock_yack_20_who_robbed_the_baboon_repeat_basic.txt
+``` 
+
+New deck:
+
+``` bash
+echo $clip_name | pbcopy
+  ##> sherlock_yack_20_who_robbed_the_baboon
 ``` 
 
 ### opt02: semi automatic
@@ -280,5 +274,44 @@ paste links questions.txt > anki.txt
 
 ``` bash
 mv *.mp4 "/Users/mertnuhoglu/Library/Application Support/Anki2/ozgureminnuhoglu/collection.media/"
+``` 
+
+#### optional: youtube playlist
+
+rename youtube playlist files:
+
+``` bash
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/rename_youtube_playlist_files.sh
+``` 
+
+move files to own directories:
+
+``` bash
+R --vanilla -e 'source("~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/move_youtube_playlist_files_to_their_own_dirs.R")'
+``` 
+
+loop through all directories and process videos:
+
+``` bash
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/loop_dirs_and_make_shadowing_video_clips.sh
+``` 
+
+bütün klasörlerdeki sonuç (silence) dosyaları topla
+
+``` bash
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/collect_youtube_playlist_results_into_sep_dir.sh
+``` 
+
+bütün klasörlerdeki orjinal dosyaları topla:
+
+``` bash
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/collect_youtube_playlist_originals_into_sep_dir.sh
+``` 
+
+#### optional: youtube srt correction
+
+``` vim
+%s/<br>[^<]*//
+%s#;[^<]*#; #
 ``` 
 
