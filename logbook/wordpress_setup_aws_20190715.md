@@ -15,8 +15,7 @@ sudo usermod -a -G docker ec2-user
   # log out and log in to pickup the added group
 
   # Also install some common sense stuff
-sudo yum install -y git &&
-sudo yum -y groupinstall "Development Tools"
+sudo yum install -y git && sudo yum -y groupinstall "Development Tools"
 ``` 
 
 ``` bash
@@ -45,8 +44,37 @@ alias dc='docker-compose'
 Follow https://github.com/mjstealey/wordpress-nginx-docker
 
 ``` bash
+git clone https://github.com/mjstealey/wordpress-nginx-docker
+tmux new -s t0
+tmux attach -d -t t0
+cd wordpress-nginx-docker
+``` 
+
+``` bash
 mkdir -p certs/ certs-data/ logs/nginx/ mysql/ wordpress/
 docker-compose up -d
 ``` 
 
 http://18.196.1.112
+
+### SSL setup
+
+``` bash
+cp nginx/default_https.conf.template nginx/default.conf
+``` 
+
+``` bash
+vim nginx/default.conf
+``` 
+
+``` bash
+%s/FQDN_OR_IP/b2metric.com/g
+``` 
+
+``` bash
+FQDN_OR_IP=b2metric.com
+letsencrypt/letsencrypt-init.sh $FQDN_OR_IP
+``` 
+
+contact@b2metric.com
+
