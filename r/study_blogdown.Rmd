@@ -1,0 +1,41 @@
+---
+title: "Study blogdown"
+date: 2019-09-02T14:44:34+03:00 
+draft: true
+description: ""
+tags:
+categories: r, hugo, blogdown
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+resource_files:
+path: ~/projects/study/r/study_blogdown
+state: wip
+
+---
+
+```{r load_packages, include=FALSE}
+    source("utils_study.R")
+    ss()
+```
+
+## Official Documentation
+
+https://bookdown.org/yihui/blogdown/a-quick-example.html
+
+### Get Started
+
+``` bash
+mkdir testnetlify03
+cd $_
+``` 
+
+``` r
+blogdown::new_site()
+``` 
+
+
