@@ -810,3 +810,61 @@ do
 done
 ``` 
 
+### error: using scalar function in dataframe
+
+Check `~/projects/itr/itr_scripts/dentas/geocoding_20190824/ex/e05.R`
+
+``` r
+d0 = rio::import("/Users/mertnuhoglu/projects/itr/itr_scripts/dentas/geocoding_20190824/data/addresses.xlsx") %>%
+	dplyr::mutate(
+		url = glue::glue("https://maps.googleapis.com/maps/api/geocode/json?&address={URLencode(adres)}&key={KEY}")
+		, file_name = glue::glue("{musteri_kodu}.json")
+		, curl_cmd = glue::glue("curl '{url}' > {GEOCODING_DIR}/out/json/{file_name}")
+		, adres2 = adres
+		, adres3 = glue::glue("{adres}")
+		, adres4 = glue::glue("{URLencode(adres)}")
+		, adres5 = URLencode(glue::glue("{adres}"))
+		, adres6 = URLencode(glue::glue("{adres3}"))
+		, adres7 = URLencode(adres3)
+	)
+d0$adres8 = URLencode(d0$adres)
+vURLencode = Vectorize(URLencode)
+d0$adres9 = vURLencode(d0$adres)
+``` 
+
+### convert list to dataframe
+
+https://stackoverflow.com/questions/4227223/r-list-to-data-frame
+
+``` r
+j0
+  ##> $results
+  ##> $results[[1]]
+  ##> $results[[1]]$address_components
+  ##> $results[[1]]$address_components[[1]]
+  ##> $results[[1]]$address_components[[1]]$long_name
+  ##> [1] "Denizli"
+  ##> 
+  ##> $results[[1]]$address_components[[1]]$short_name
+  ##> [1] "Denizli"
+  ##> 
+  ##> $results[[1]]$address_components[[1]]$types
+  ##> [1] "locality"  "political"
+  ##> 
+  ##> 
+  ##> $results[[1]]$address_components[[2]]
+  ##> $results[[1]]$address_components[[2]]$long_name
+  ##> [1] "Kumkısık"
+  ##> 
+  ##> $results[[1]]$address_components[[2]]$short_name
+  ##> [1] "Kumkısık"
+  ##> 
+  ##> $results[[1]]$address_components[[2]]$types
+  ##> [1] "administrative_area_level_4" "political"
+j1 = j0$results[[1]]$address_components 
+df = data.frame(matrix(unlist(j1), nrow=length(j1), byrow=T))
+
+
+
+``` 
+
