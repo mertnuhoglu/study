@@ -23,6 +23,8 @@ https://wasabi-support.zendesk.com/hc/en-us/articles/115001910791-How-do-I-use-A
 aws configure --profile wasabi
 ``` 
 
+Check `~/projects/private_dotfiles/.aws/config`
+
 ``` bash
 aws s3 ls --profile wasabi --endpoint-url=https://s3.wasabisys.com
   ##> 2019-03-28 15:11:14 mertnuhoglu-test
