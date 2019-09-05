@@ -13,8 +13,9 @@ output:
     css: styles.css
 blog: mertnuhoglu.com
 resource_files:
-path: ~/projects/study/bash/study_code.Rmd
+path: ~/projects/study/code/study_code.Rmd
 state: wip
+
 ---
 
 # Tools
@@ -26,4 +27,26 @@ https://isc.sans.edu/diary/How+to+Find+Hidden+Cameras+in+your+AirBNB/24834
 ``` bash
 nmap -Ap 80,8000,8080,443,8443,7443,7070,7000,22,23,21 10.5.1.0/24
 ``` 
+
+## hub: github cli
+
+https://hub.github.com/
+
+Authorization:
+
+Create a github token and put it into environment variable: `GITHUB_TOKEN`
+
+Debug a command:
+
+``` bash
+env HUB_VERBOSE=1 hub ...
+``` 
+
+Create a new repo:
+
+``` bash
+hub create
+``` 
+
+
 
