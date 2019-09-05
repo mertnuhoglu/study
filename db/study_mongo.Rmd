@@ -65,4 +65,42 @@ db.plan_jobs.find(
 mongoexport -h $host -u $username -p $pass -d $database -c $collection -o $collection.json --jsonArray 
 ``` 
 
+## Update documents
+
+https://docs.mongodb.com/manual/reference/method/db.collection.update/
+
+``` bash
+db.collection.update(
+   <query>,
+   { $set: { status: "D" }, $inc: { quantity: 2 } },
+   ...
+)
+``` 
+
+``` bash
+db.books.update(
+   { _id: 1 },
+   {
+     $inc: { stock: 5 },
+     $set: {
+       item: "ABC123",
+       "info.publisher": "2222",
+       tags: [ "software" ],
+       "ratings.1": { by: "xyz", rating: 3 }
+     }
+   }
+)
+``` 
+
+https://docs.mongodb.com/manual/tutorial/update-documents/
+
+``` bash
+db.inventory.updateOne(
+   { item: "paper" },
+   {
+     $set: { "size.uom": "cm", status: "P" },
+     $currentDate: { lastModified: true }
+   }
+)
+``` 
 
