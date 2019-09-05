@@ -55,12 +55,13 @@ mkdir -p certs/ certs-data/ logs/nginx/ mysql/ wordpress/
 docker-compose up -d
 ``` 
 
-http://18.196.1.112
+http://54.93.105.87
 
 ### SSL setup
 
 ``` bash
 cp nginx/default_https.conf.template nginx/default.conf
+#cp nginx/default_http.conf.template nginx/default.conf
 ``` 
 
 ``` bash
@@ -72,9 +73,32 @@ vim nginx/default.conf
 ``` 
 
 ``` bash
+cp .env_example .env
 FQDN_OR_IP=b2metric.com
+letsencrypt/letsencrypt-init.sh $FQDN_OR_IP
+FQDN_OR_IP=new.b2metric.com
 letsencrypt/letsencrypt-init.sh $FQDN_OR_IP
 ``` 
 
 contact@b2metric.com
+
+### wp-cli setup
+
+``` bash
+docker exec -it wordpress bash
+``` 
+
+Follow https://wp-cli.org/#installing
+
+``` bash
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+php wp-cli.phar --info
+chmod +x wp-cli.phar
+mv wp-cli.phar /usr/local/bin/wp
+wp --info
+``` 
+
+``` bash
+alias wp="docker exec -it wordpress wp --allow-root"
+``` 
 
