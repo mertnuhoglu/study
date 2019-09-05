@@ -308,6 +308,19 @@ bütün klasörlerdeki orjinal dosyaları topla:
 bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/collect_youtube_playlist_originals_into_sep_dir.sh
 ``` 
 
+3 veya 5 saniyelik boşluklarla videoları birleştir: (klasördeki tüm filmler için)
+
+``` bash
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/loop_dirs_and_merge_silenced_clips02.sh
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/collect_youtube_playlist_results_into_sep_dir.sh
+``` 
+
+(sherlock yack için)
+
+``` bash
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/loop_dirs_and_merge_silenced_clips.sh 05
+``` 
+
 #### optional: youtube srt correction
 
 ``` vim
