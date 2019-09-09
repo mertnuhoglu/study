@@ -117,6 +117,26 @@ hugo new tech/yuml_to_uml.md
 
 http://localhost:1313/tech/yuml_to_uml/
 
+## Content Management
+
+### Summary
+
+https://gohugo.io/content-management/summaries/
+
+opt01: automatic summary
+
+`.Summary` page variable
+
+`summaryLength` config parameter
+
+opt02: specify summary manually
+
+``` bash
+<!--more-->
+
+<!-- toc -->
+``` 
+
 ## Templates 
 
 ### Templates Overview
@@ -419,6 +439,12 @@ newparam:
 {{ index .Params "font" | default "Roboto" }}
 {{ default "Roboto" (index .Params "font") }}
 ``` 
+
+### render function
+
+Takes a view to apply when rendering content.
+
+.Render LAYOUT
 
 ### after function
 

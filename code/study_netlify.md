@@ -20,7 +20,7 @@ state: wip
 
 ## Deploy hugo on netlify
 
-ref: `Deploy on Netlify <url:/Users/mertnuhoglu/projects/study/code/study_hugo.Rmd#tn=Deploy on Netlify>`
+ref: `Deploy on Netlify <url:/Users/mertnuhoglu/projects/study/code/study_hugo.md#tn=Deploy on Netlify>`
 
 ``` bash
 netlify sites:list

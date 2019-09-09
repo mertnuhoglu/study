@@ -918,31 +918,420 @@ hugo new tech/yuml_to_uml.md
 
 http://localhost:1313/tech/yuml_to_uml/
 
-### bir yazıyı aktarma 20190904 
+### tüm yazıları aktarma 20190905 
+
+#### Result
 
 2. copy md content
 
+https://mertnuhoglu.com/tech/study_http_requests_in_nodejs/
+https://mertnuhoglu.com/tech/study_js_promises/
+https://mertnuhoglu.com/tech/study_http_requests_in_js/
+https://mertnuhoglu.com/tech/study_parcel_jquery/
+https://mertnuhoglu.com/tech/study_parceljs/
+https://mertnuhoglu.com/tech/study_hyperapp/
+https://mertnuhoglu.com/tech/ecmascript_modules/
+https://mertnuhoglu.com/tech/using_js_in_rmd/
+https://mertnuhoglu.com/tech/mockup_rest_api_jsonserver/
+https://mertnuhoglu.com/tech/study_notes_cyclejs/
+https://mertnuhoglu.com/tech/study_postgrest_starter_kit/
+https://mertnuhoglu.com/tech/refcard_css_selectors/
+https://mertnuhoglu.com/tech/cssgrid/
+https://mertnuhoglu.com/tech/mongodb_import_export_dump_restore_commands/
+https://mertnuhoglu.com/tech/read_json/
+https://mertnuhoglu.com/tech/mongodb_import_export_dump_restore_commands/
+https://mertnuhoglu.com/tech/ekstra_zaman_harcamadan_blog_yazmak/
+https://mertnuhoglu.com/tech/rdb_to_data/
+https://mertnuhoglu.com/tech/yuml_to_data_process/
+https://mertnuhoglu.com/tech/ex_viml_file_expansion/
+https://mertnuhoglu.com/tech/rdb_to_ddl/
+https://mertnuhoglu.com/tech/ddl_to_data/
+https://mertnuhoglu.com/tech/yuml_to_rdb/
+https://mertnuhoglu.com/tech/what_is_rdb/
+https://mertnuhoglu.com/tech/article_introduction_to_association_rules_in_r_by_yosuke_yasuda/
+https://mertnuhoglu.com/tech/vim_ex_fzf_fuzzy_file_finder/
+https://mertnuhoglu.com/tech/debug_r_isna_all_checks_column_inside_dplyr_mutate/
+https://mertnuhoglu.com/tech/debug_datatable_bracket_in_own_package/
+https://mertnuhoglu.com/tech/ex_r_rmarkdown/
+https://mertnuhoglu.com/tech/ex_r_time_date/
+https://mertnuhoglu.com/tech/refcard_datapasta/
+https://mertnuhoglu.com/tech/refcard_loops/
+https://mertnuhoglu.com/tech/ex_sql_data_generator_datafiller/
+https://mertnuhoglu.com/tech/ex_bash_array/
+https://mertnuhoglu.com/tech/ex_bash_loop/
+https://mertnuhoglu.com/tech/ex_jq/
+https://mertnuhoglu.com/tech/study_r/
+https://mertnuhoglu.com/tech/book_javascript_allonge/
+https://mertnuhoglu.com/tech/book_egghead_learn_js_ecmascript_6/
+https://mertnuhoglu.com/tech/rxjs_reactive_cyclejs_egghead/
+https://mertnuhoglu.com/tech/introduction_to_functional_programming_wadler/
+https://mertnuhoglu.com/tech/frisby_intro_to_fp_egghead/
+https://mertnuhoglu.com/tech/conceptual_mathematics_a_first_introduction_to_categories_lawvere/
+https://mertnuhoglu.com/tech/book_frisby_adequate_guide_to_functional_programming/
+https://mertnuhoglu.com/tech/book_category_theory_for_sciences/
+
 ``` bash
-cp /Users/mertnuhoglu/projects/jekyll/mertnuhoglu.com/content/tech/study_ramda.Rmd /Users/mertnuhoglu/projects/jekyll/testnetlify08/content/tech/study_ramda.md
+filename=study_http_requests_in_nodejs
+section=tech
+``` 
+
+``` bash
+src=/Users/mertnuhoglu/projects/jekyll/mertnuhoglu.com
+dest=/Users/mertnuhoglu/projects/jekyll/testnetlify08
+src_dir=$src/content
+dest_dir=$dest/content
+function MigrateRmdToHugo() {
+	source=$src_dir/$section/$filename.Rmd
+	dest=$dest_dir/$section/$filename.md
+	cp $source $dest
+	cp $src_dir/$section/$filename.md $dest
+	echo $dest | pbcopy
+}
+	##> /Users/mertnuhoglu/projects/jekyll/testnetlify08/content/tech/using_js_in_rmd.md
+  ##> /Users/mertnuhoglu/projects/jekyll/testnetlify08/content/tech/ecmascript_modules.md
+	##> /Users/mertnuhoglu/projects/jekyll/testnetlify08/content/tech/study_http_requests_in_nodejs.md
+	##> /Users/mertnuhoglu/projects/jekyll/testnetlify08/content/tech/study_js_promises.md
+	##> /Users/mertnuhoglu/projects/jekyll/testnetlify08/content/tech/study_http_requests_in_js.md
+	##> /Users/mertnuhoglu/projects/jekyll/testnetlify08/content/tech/study_parcel_jquery.md
+	##> /Users/mertnuhoglu/projects/jekyll/testnetlify08/content/tech/study_parceljs.md
+	##> /Users/mertnuhoglu/projects/jekyll/testnetlify08/content/tech/study_hyperapp.md
 ``` 
 
 3. copy executed code blocks from https://mertnuhoglu.com/tech/study_ramda/
 
+``` bash
+{\w\+\}\|\(png\|jpg\)
+{\(bash\|js\)}
+{\w\+\}
+``` 
+
+5. resimler
+
+``` bash
+cp $src/content/tech/img/*.png $dest/static/images
+cp $src/content/tech/data/*.png $dest/static/images
+cp $src/content/tech/data/img/*.png $dest/static/images
+``` 
+
+4. Fixes
+
+``` vim
+function! MigrateRmdToHugo()
+	%s/{\<\(bash\|js\)\>}/\1/
+	g/^tags:/ s/\(^tags: \)\@<=\(.*\)/[\2]/
+	%s#github.com/mertnuhoglu/study/js#github.com/mertnuhoglu/study/tree/master/js#
+	g/^<style>/ .,/^<\/style>$/ d
+	g/^path:/ s/Rmd$/md/
+endfunction
+command! MigrateRmdToHugo call MigrateRmdToHugo()
+``` 
+
+#### Logs: Fixes
+
 4. code block headers
 
 ``` bash
-%s/{\<bash\>}/bash/
-%s/{\<js\>}/js/
+%s/{\<\(bash\|js\)\>}/\1/
 g/^tags:/ s/\(^tags: \)\@<=\(.*\)/[\2]/
 ``` 
 
 5. resimler
 
+``` bash
+png\|jpg
+``` 
+
 6. dosyalar
+
+Fix: reference to files: Source code in https://github.com/mertnuhoglu/study/js/ex/study_ramda/
+
+``` bash
+%s#github.com/mertnuhoglu/study/js#github.com/mertnuhoglu/study/tree/master/js#
+``` 
 
 7. delete <style> tag
 
 ``` bash
 g/^<style>/ .,/^<\/style>$/ d
+g/^path:/ s/Rmd$/md/
 ``` 
+
+Functions:
+
+### bir yazıyı daha aktarma 20190905
+
+``` bash
+filename=study_http_requests_in_nodejs
+section=tech
+``` 
+
+``` bash
+src_dir=/Users/mertnuhoglu/projects/jekyll/mertnuhoglu.com/content
+dest_dir=/Users/mertnuhoglu/projects/jekyll/testnetlify08/content
+source=$src_dir/$section/$filename.Rmd
+dest=$dest_dir/$section/$filename.md
+cp $source $dest
+echo $dest | pbcopy
+	##> /Users/mertnuhoglu/projects/jekyll/testnetlify08/content/tech/study_http_requests_in_nodejs.md
+	##> /Users/mertnuhoglu/projects/jekyll/testnetlify08/content/tech/study_js_promises.md
+
+``` 
+### diğer yazıları otomatik aktar 20190905 
+
+``` bash
+cp -R $src_dir/blog $dest_dir
+cp -R $src_dir/essays $dest_dir
+cp -R $src_dir/management $dest_dir
+cp -R $src_dir/misc $dest_dir
+cp -R $src_dir/post $dest_dir
+cp -R $src_dir/short-stories $dest_dir
+``` 
+
+`_index.md` oluştur
+
+``` bash
+cp $dest_dir/tech/_index.md $dest_dir/blog
+cp $dest_dir/tech/_index.md $dest_dir/essays
+cp $dest_dir/tech/_index.md $dest_dir/management
+cp $dest_dir/tech/_index.md $dest_dir/misc
+cp $dest_dir/tech/_index.md $dest_dir/short-stories
+``` 
+
+### categories ve tags düzeltme
+
+``` bash
+rg "categories: .+" | rg -v '"' | sed 's/:.*//' | uniq | pbcopy
+rg "tags: .+" | rg -v '"' | sed 's/:.*//' | uniq | pbcopy
+``` 
+
+### post sectionını sil
+
+### summary kısımları daha sade olsun
+
+Summary bu template tarafından üretiliyor: `~/projects/jekyll/testnetlify08/themes/ananke/layouts/post/summary.html`
+
+``` bash
+mkdir -p layouts/post
+cp themes/ananke/layouts/post/summary.html layouts/post
+``` 
+
+opt03:
+
+			{{ .Summary | plainify | safeHTML }}
+
+opt04:
+
+			{{ if .Description }}
+					{{ .Description }}
+			{{ else }}
+					{{ .Summary | plainify | safeHTML }}
+			{{ end }}
+
+Now use front matter:
+
+``` bash
+description: "ramdajs hints"
+``` 
+
+### emoji
+
+		enableEmoji = true
+
+``` bash
+I :heart: Hugo!
+``` 
+
+## tranquilpeak teması 20190906 
+
+``` bash
+hugo new site testnetlify11
+cd $_
+git init
+git submodule add https://github.com/kakawait/hugo-tranquilpeak-theme themes/tranquilpeak
+echo 'theme = "tranquilpeak"' >> config.toml
+``` 
+
+``` bash
+sed 's/hugo-tranquilpeak-theme/tranquilpeak/' themes/tranquilpeak/exampleSite/config.toml > config.toml
+cp -R /Users/mertnuhoglu/projects/jekyll/testnetlify08/content .
+cp -R /Users/mertnuhoglu/projects/jekyll/testnetlify08/static .
+rm content/contact.md
+``` 
+
+``` bash
+mkdir -p ./content/datascience
+cp -R /Users/mertnuhoglu/projects/jekyll/blog_veribilimi/content/post/ ./content/datascience
+cp -R /Users/mertnuhoglu/projects/jekyll/blog_datascience/content/post/ ./content/datascience
+``` 
+
+### tüm sectionları blog altında birleştir 20190908 
+
+kategorileri ona göre düzelt
+
+mevcut kategorileri taglere taşı. sectionları kategorilere.
+
+kategoriler: "software", 
+
+## deploy 20190908 
+
+``` bash
+netlify init
+  ##> Admin URL: https://app.netlify.com/sites/mertnuhoglu
+  ##> URL:       https://mertnuhoglu.netlify.com
+  ##> Site ID:   1c25050c-43e0-4f7b-a17d-abc4b5b39a18
+``` 
+
+### error: module "tranquilpeak" not found
+
+		Error: module "tranquilpeak" not found; either add it as a Hugo Module or store it in "/opt/build/repo/themes".: module does not exist
+
+opt01: https://www.burntfen.com/2017-04-16/getting-hugo-running-on-netlify
+
+``` bash
+touch archetypes/.gitkeep
+touch content/.gitkeep
+touch layouts/.gitkeep
+touch static/.gitkeep
+touch data/.gitkeep
+git ca -m 'Adding folders'
+``` 
+
+Git submodules
+
+
+``` bash
+cat .git/config
+cat .gitmodules
+``` 
+
+### error: layout bozuk
+
+#### yeni repoda dene
+
+``` bash
+mkdir testnetlify12
+git init
+hub create
+src=/Users/mertnuhoglu/projects/jekyll/testnetlify11
+dest=/Users/mertnuhoglu/projects/jekyll/testnetlify12
+cp -R $src/static $dest/static
+cp -R $src/resources $dest/resources
+cp -R $src/layouts $dest/layouts
+cp -R $src/data $dest/data
+cp -R $src/content $dest/content
+cp -R $src/archetypes $dest/archetypes
+cp $src/config.toml $dest/config.toml
+src=/Users/mertnuhoglu/projects/jekyll/testnetlify11/themes/tranquilpeak
+dest=/Users/mertnuhoglu/projects/jekyll/testnetlify12/themes/layouts/tranquilpeak
+cp -R $src $dest
+git add .
+git commit -m ".."
+git push
+``` 
+
+``` bash
+netlify init
+  ##> Admin URL: https://app.netlify.com/sites/optimistic-volhard-1f3e5a
+  ##> URL:       https://optimistic-volhard-1f3e5a.netlify.com
+  ##> Site ID:   4b4e57ab-a8f0-4aca-a6cc-c79777086a08
+  ##> ? Your build command (hugo build/yarn run build/etc): hugo --gc --mini
+  ##> fy
+  ##> ? Directory to deploy (blank for current dir): public
+  ##> ? No netlify.toml detected. Would you like to create one with these build settings? Yes
+  ##>   git push       Push to your git repository to trigger new site builds
+  ##>   netlify open   Open the Netlify admin URL of your site
+``` 
+
+opt03: kendin build et
+
+Edit `~/projects/jekyll/testnetlify12/netlify.toml`
+
+``` bash
+  command = ""
+``` 
+
+Yine public/index.html çıktısında layout bozuk.
+
+opt04: testnetlify11 için de build et
+
+Yine aynı şekilde
+
+opt05: hugo serve et
+
+Düzgün bu durumda.
+
+opt06: Developer Tools > Network ile debug et
+
+404 hataları:
+
+		https://mertnuhoglu.com/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js
+
+mertnuhoglu.com sitesinden almaya çalışıyor
+
+		optimistic-volhard-1f3e5a.netlify.com/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js
+
+Fix: `~/projects/jekyll/testnetlify12/config.toml`
+
+``` bash
+baseURL = "https://optimistic-volhard-1f3e5a.netlify.com"
+``` 
+
+#### mertnuhoglu.com ile yap
+
+``` bash
+mkdir mertnuhoglu.com
+cd $_
+git init
+hub create
+src=/Users/mertnuhoglu/projects/jekyll/testnetlify12
+dest=/Users/mertnuhoglu/projects/jekyll/mertnuhoglu.com
+cp -R $src/static $dest/static
+cp -R $src/resources $dest/resources
+cp -R $src/layouts $dest/layouts
+cp -R $src/data $dest/data
+cp -R $src/content $dest/content
+cp -R $src/archetypes $dest/archetypes
+cp -R $src/themes $dest/themes
+cp $src/config.toml $dest/config.toml
+git add .
+git commit -m ".."
+git push
+``` 
+
+``` bash
+netlify init
+  ##> Admin URL: https://app.netlify.com/sites/optimistic-volhard-1f3e5a
+  ##> URL:       https://optimistic-volhard-1f3e5a.netlify.com
+  ##> Site ID:   4b4e57ab-a8f0-4aca-a6cc-c79777086a08
+  ##> ? Your build command (hugo build/yarn run build/etc): hugo --gc --mini
+  ##> fy
+  ##> ? Directory to deploy (blank for current dir): public
+  ##> ? No netlify.toml detected. Would you like to create one with these build settings? Yes
+  ##>   git push       Push to your git repository to trigger new site builds
+  ##>   netlify open   Open the Netlify admin URL of your site
+``` 
+
+Fix: `~/projects/jekyll/mertnuhoglu.com/config.toml`
+
+``` bash
+baseURL = "https://mertnuhoglu.netlify.com"
+``` 
+
+### DNS Setup
+
+opt01: ALIAS or ANAME redirection
+
+https://app.netlify.com/sites/mertnuhoglu/settings/domain#custom-domains
+
+opt02: Netlify DNS
+
+netlify > Domain management > 
+
+### SSL Setup
+
+netlify > Domain management > SSL
+
+
+
+
 

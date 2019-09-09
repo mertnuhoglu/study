@@ -850,3 +850,10 @@ for f in *.mp4; do mv "$f" "$f.tmp"; mv "$f.tmp" "`echo $f | tr "[:upper:]" "[:l
 cat /etc/os-release
 ``` 
 
+### tar compress
+
+``` bash
+tar cvzf ~/wp-content.tar.gz /home/ec2-user/wp02/wordpress/wp-content/
+``` 
+
+
