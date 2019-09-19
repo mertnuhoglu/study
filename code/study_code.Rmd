@@ -48,5 +48,26 @@ Create a new repo:
 hub create
 ``` 
 
+### surfingkeys: vim emulation for chrome 
+
+ref: `~/gdrive/mynotes/content/fork/surfingkeys_help.md`
+
+``` bash
+git clone http://github.com/b0o/surfingkeys-conf
+``` 
+
+``` bash
+gulp install
+cp build/surfingkeys.js ~/.config
+``` 
+
+
+#### hint characters
+
+https://github.com/brookhong/surfingkeys
+
+``` bash
+Hints.characters = "fgouieajvc"
+``` 
 
 

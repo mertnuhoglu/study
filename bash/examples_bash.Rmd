@@ -778,6 +778,14 @@ printf %"s2" hello world
 ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
 ``` 
 
+``` bash
+	ffmpeg -i "${input}" \
+		-map 0:0 -map 0:${stream} \
+		-c:v libx264 -crf 23 -vf "scale=320:240" \
+		-c:a aac -q:a 32 -filter:a "volume=${VOLUME_INCREASE}" \
+		"${output_mp4}" 
+``` 
+
 ### git init project from local non-empty directory
 
 01: create a new repo in github
@@ -856,4 +864,24 @@ cat /etc/os-release
 tar cvzf ~/wp-content.tar.gz /home/ec2-user/wp02/wordpress/wp-content/
 ``` 
 
+### rclone
+
+``` bash
+rclone config
+  ##> Name                 Type
+  ##> ====                 ====
+  ##> aws                  s3
+  ##> wasabi               s3
+``` 
+
+``` bash
+rclone mkdir wasabi:mn_bizqualify_schema_backup
+rclone lsd wasabi:
+``` 
+
+``` bash
+rclone sync google:bizqualify_schema_backup wasabi:mn_bizqualify_schema_backup --dry-run 
+rclone sync google:bizqualify_schema_backup wasabi:mn_bizqualify_schema_backup -v --log-file=log.txt
+rclone lsd wasabi:mn_bizqualify_schema_backup
+``` 
 
