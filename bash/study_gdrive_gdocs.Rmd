@@ -35,34 +35,34 @@ googledrive::drive_auth()
 ``` r
 install.packages("googledrive")
 library(googledrive)
-drive_find(q = "name contains 'Antifragile'")
-drive_find(n_max = 50)
-drive_find(pattern = "Antifragile")
-drive_find(type = "")
+googledrive::drive_find(q = "name contains 'Antifragile'")
+googledrive::drive_find(n_max = 50)
+googledrive::drive_find(pattern = "Antifragile")
+googledrive::drive_find(type = "")
 ``` 
 
 ``` r
-drive_find(type = "folder")
-drive_find(q = "mimeType = 'application/vnd.google-apps.folder'")
+googledrive::drive_find(type = "folder")
+googledrive::drive_find(q = "mimeType = 'application/vnd.google-apps.folder'")
 ``` 
 
 ls root folder
 
 ``` r
-drive_find(q = "'root' in parents")
+googledrive::drive_find(q = "'root' in parents")
   ##>    name                                                                                   id                                            drive_resource
   ##>  * <chr>                                                                                  <chr>                                         <list>
   ##>  1 Entire Sales                                                                           1KMZv7Mi1Ty-x2HrMr7ncgj_S_n5qfWJb49Lza4xLMMw  <list [34]>
   ##>  2 Entire Sales.pptx                                                                      0B84FICJAFTpKR080SndxaFgxbDl0MjluSXZvVjNIV09… <list [39]>
   ##>  3 VC funds at / below $200M in size (new funds raised since 2011)                        1ebGZ6-ivf_3woBGC4Kz_3217DhjGsefoRu_5iP3nuFQ  <list [32]>
 ## FYI: this is equivalent to
-drive_ls("~/")
-drive_ls("~/Play Books Notes/")
+googledrive::drive_ls("~/")
+googledrive::drive_ls("~/Play Books Notes/")
   ##>    name                                                                                      id                                         drive_resource
   ##>  * <chr>                                                                                     <chr>                                      <list>
   ##>  1 "Notes from \"Antifragile: Things That Gain from Disorder\""                              1b3_1uRZmS9LxiBdfpCQxmin_WhEocDoIJ-4j2G_r… <list [34]>
   ##>  2 "Notes from \"The Will to Meaning\""                                                      1uw90kQBhG9D_Uf2jkU0yKbEawIBdEQufBnYs538D… <list [34]>
-af0 = drive_ls("~/Play Books Notes/", q = "name contains 'Antifragile'")
+af0 = googledrive::drive_ls("~/Play Books Notes/", q = "name contains 'Antifragile'")
 af0
   ##>   name                                                         id                                           drive_resource
   ##> * <chr>                                                        <chr>                                        <list>
