@@ -119,6 +119,29 @@ http://localhost:1313/tech/yuml_to_uml/
 
 ## Content Management
 
+### Menus
+
+#### Nested Menus
+
+Example from https://github.com/devcows/hugo-universal-theme/issues/148
+
+``` toml
+[[menu.main]]
+    identifier = "brand"
+    name = "brand"
+    url = "/brands/"
+    
+[[menu.main]]
+    parent = "brand"
+    name = "nike"
+    url = "/brands/nike/"
+
+[[menu.main]]
+    parent = "brand"
+    name = "adidas"
+    url = "/brands/adidas/"
+``` 
+
 ### Summary
 
 https://gohugo.io/content-management/summaries/

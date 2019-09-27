@@ -3,6 +3,7 @@
 
 ### mevcut eski notlarım
 
+		~/projects/myrepo/general/process_website_hugo.md
     Publishing Web Site and Blog <url:file:///~/gdrive/mynotes/general/processes.md#r=g_10033>
 		hugo <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10167>
 		/Users/mertnuhoglu/projects/jekyll/mertnuhoglu.com/deploy.sh
