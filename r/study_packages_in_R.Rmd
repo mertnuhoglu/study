@@ -60,6 +60,14 @@ build:
 make build
 ``` 
 
+## use external data
+
+Put data into `~/projects/itr/palet/dentas_palet/inst/extdata/formulas02.txt`
+
+``` r
+f01 = readLines(system.file("extdata", "formulas02.txt", package = "dentaspalet")) 
+``` 
+
 # Articles
 
 ## Article02: Writing an R package from scratch
