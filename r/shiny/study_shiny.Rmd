@@ -27,6 +27,10 @@ options(width = 150)
 options(max.print = 30)
 ``` 
 
+## Summary Ref
+
+		Article: Reactivity - An overview <url:/Users/mertnuhoglu/projects/study/r/shiny/study_shiny.Rmd#tn=Article: Reactivity - An overview>
+
 ## shiny-examples nasıl çalıştırılıyor?
 
 https://github.com/rstudio/shiny-examples
@@ -41,11 +45,11 @@ shiny::runGitHub("shiny-examples", "rstudio", subdir = "001-hello")
 opt02: `runApp`
 
 ``` bash
-cd /Users/mertnuhoglu/codes/rr/shiny-examples/086-bus-dashboard
+cd /Users/mertnuhoglu/codes/rr/shiny-examples
 ``` 
 
 ``` r
-shiny::runApp(".")
+shiny::runApp("086-bus-dashboard")
 ``` 
 
 opt03: shinyApp and runApp
@@ -60,6 +64,229 @@ runApp(shinyApp(ui, server), host="0.0.0.0",port=5050)
 app = shiny::shinyApp(ui, server)
 runApp(app)
 ``` 
+
+## ref: shiny examples
+
+		shiny::runApp("001-hello")
+		~/codes/rr/shiny-examples/001-hello/server.R
+		shiny::runApp("002-text")
+		~/codes/rr/shiny-examples/002-text/server.R
+		shiny::runApp("003-reactivity")
+		~/codes/rr/shiny-examples/003-reactivity/server.R
+		shiny::runApp("004-mpg")
+		~/codes/rr/shiny-examples/004-mpg/server.R
+		shiny::runApp("005-sliders")
+		~/codes/rr/shiny-examples/005-sliders/server.R
+		shiny::runApp("006-tabsets")
+		~/codes/rr/shiny-examples/006-tabsets/server.R
+		shiny::runApp("007-widgets")
+		~/codes/rr/shiny-examples/007-widgets/server.R
+		shiny::runApp("008-html")
+		~/codes/rr/shiny-examples/008-html/server.R
+		shiny::runApp("009-upload")
+		~/codes/rr/shiny-examples/009-upload/server.R
+		shiny::runApp("010-download")
+		~/codes/rr/shiny-examples/010-download/server.R
+		shiny::runApp("011-timer")
+		~/codes/rr/shiny-examples/011-timer/server.R
+		shiny::runApp("012-datatables")
+		~/codes/rr/shiny-examples/012-datatables/server.R
+		shiny::runApp("013-selectize")
+		~/codes/rr/shiny-examples/013-selectize/server.R
+		shiny::runApp("014-onflushed")
+		~/codes/rr/shiny-examples/014-onflushed/server.R
+		shiny::runApp("015-layout-navbar")
+		~/codes/rr/shiny-examples/015-layout-navbar/server.R
+		shiny::runApp("015-layout-sidebar")
+		~/codes/rr/shiny-examples/015-layout-sidebar/server.R
+		shiny::runApp("016-knitr-pdf")
+		~/codes/rr/shiny-examples/016-knitr-pdf/server.R
+		shiny::runApp("017-select-vs-selectize")
+		~/codes/rr/shiny-examples/017-select-vs-selectize/server.R
+		shiny::runApp("018-datatable-options")
+		~/codes/rr/shiny-examples/018-datatable-options/server.R
+		shiny::runApp("019-mathjax")
+		~/codes/rr/shiny-examples/019-mathjax/server.R
+		shiny::runApp("020-knit-html")
+		~/codes/rr/shiny-examples/020-knit-html/server.R
+		shiny::runApp("021-selectize-plot")
+		~/codes/rr/shiny-examples/021-selectize-plot/server.R
+		shiny::runApp("022-unicode-chinese")
+		~/codes/rr/shiny-examples/022-unicode-chinese/server.R
+		shiny::runApp("023-optgroup-server")
+		~/codes/rr/shiny-examples/023-optgroup-server/server.R
+		shiny::runApp("024-optgroup-selectize")
+		~/codes/rr/shiny-examples/024-optgroup-selectize/server.R
+		shiny::runApp("025-loop-ui")
+		~/codes/rr/shiny-examples/025-loop-ui/server.R
+		shiny::runApp("026-shiny-inline")
+		~/codes/rr/shiny-examples/026-shiny-inline/server.R
+		shiny::runApp("027-absolutely-positioned-panels")
+		~/codes/rr/shiny-examples/027-absolutely-positioned-panels/server.R
+		shiny::runApp("028-actionbutton-demo")
+		~/codes/rr/shiny-examples/028-actionbutton-demo/server.R
+		shiny::runApp("030-basic-datatable")
+		~/codes/rr/shiny-examples/030-basic-datatable/server.R
+		shiny::runApp("032-client-data-and-query-string")
+		~/codes/rr/shiny-examples/032-client-data-and-query-string/server.R
+		shiny::runApp("033-conditionalpanel-demo")
+		~/codes/rr/shiny-examples/033-conditionalpanel-demo/server.R
+		shiny::runApp("034-current-time")
+		~/codes/rr/shiny-examples/034-current-time/server.R
+		shiny::runApp("035-custom-input-bindings")
+		~/codes/rr/shiny-examples/035-custom-input-bindings/server.R
+		shiny::runApp("036-custom-input-control")
+		~/codes/rr/shiny-examples/036-custom-input-control/server.R
+		shiny::runApp("037-date-and-date-range")
+		~/codes/rr/shiny-examples/037-date-and-date-range/server.R
+		shiny::runApp("039-download-file")
+		~/codes/rr/shiny-examples/039-download-file/server.R
+		shiny::runApp("040-dynamic-clustering")
+		~/codes/rr/shiny-examples/040-dynamic-clustering/server.R
+		shiny::runApp("041-dynamic-ui")
+		~/codes/rr/shiny-examples/041-dynamic-ui/server.R
+		shiny::runApp("047-image-output")
+		~/codes/rr/shiny-examples/047-image-output/server.R
+		shiny::runApp("048-including-html-text-and-markdown-files")
+		~/codes/rr/shiny-examples/048-including-html-text-and-markdown-files/server.R
+		shiny::runApp("049-isolate-demo")
+		~/codes/rr/shiny-examples/049-isolate-demo/server.R
+		shiny::runApp("050-kmeans-example")
+		~/codes/rr/shiny-examples/050-kmeans-example/server.R
+		shiny::runApp("051-movie-explorer")
+		~/codes/rr/shiny-examples/051-movie-explorer/server.R
+		shiny::runApp("052-navbar-example")
+		~/codes/rr/shiny-examples/052-navbar-example/server.R
+		shiny::runApp("053-navlistpanel-example")
+		~/codes/rr/shiny-examples/053-navlistpanel-example/server.R
+		shiny::runApp("054-nvd3-line-chart-output")
+		~/codes/rr/shiny-examples/054-nvd3-line-chart-output/server.R
+		shiny::runApp("055-observer-demo")
+		~/codes/rr/shiny-examples/055-observer-demo/server.R
+		shiny::runApp("057-plot-plus-three-columns")
+		~/codes/rr/shiny-examples/057-plot-plus-three-columns/server.R
+		shiny::runApp("059-reactive-poll-and-file-reader")
+		~/codes/rr/shiny-examples/059-reactive-poll-and-file-reader/server.R
+		shiny::runApp("060-retirement-simulation")
+		~/codes/rr/shiny-examples/060-retirement-simulation/server.R
+		shiny::runApp("061-server-to-client-custom-messages")
+		~/codes/rr/shiny-examples/061-server-to-client-custom-messages/server.R
+		shiny::runApp("062-submitbutton-demo")
+		~/codes/rr/shiny-examples/062-submitbutton-demo/server.R
+		shiny::runApp("063-superzip-example")
+		~/codes/rr/shiny-examples/063-superzip-example/server.R
+		shiny::runApp("064-telephones-by-region")
+		~/codes/rr/shiny-examples/064-telephones-by-region/server.R
+		shiny::runApp("065-update-input-demo")
+		~/codes/rr/shiny-examples/065-update-input-demo/server.R
+		shiny::runApp("066-upload-file")
+		~/codes/rr/shiny-examples/066-upload-file/server.R
+		shiny::runApp("067-vertical-layout")
+		~/codes/rr/shiny-examples/067-vertical-layout/server.R
+		shiny::runApp("068-widget-action-button")
+		~/codes/rr/shiny-examples/068-widget-action-button/server.R
+		shiny::runApp("069-widget-check-group")
+		~/codes/rr/shiny-examples/069-widget-check-group/server.R
+		shiny::runApp("070-widget-checkbox")
+		~/codes/rr/shiny-examples/070-widget-checkbox/server.R
+		shiny::runApp("071-widget-date")
+		~/codes/rr/shiny-examples/071-widget-date/server.R
+		shiny::runApp("072-widget-date-range")
+		~/codes/rr/shiny-examples/072-widget-date-range/server.R
+		shiny::runApp("073-widget-file")
+		~/codes/rr/shiny-examples/073-widget-file/server.R
+		shiny::runApp("074-widget-numeric")
+		~/codes/rr/shiny-examples/074-widget-numeric/server.R
+		shiny::runApp("075-widget-radio")
+		~/codes/rr/shiny-examples/075-widget-radio/server.R
+		shiny::runApp("076-widget-select")
+		~/codes/rr/shiny-examples/076-widget-select/server.R
+		shiny::runApp("077-widget-slider")
+		~/codes/rr/shiny-examples/077-widget-slider/server.R
+		shiny::runApp("078-widget-slider-range")
+		~/codes/rr/shiny-examples/078-widget-slider-range/server.R
+		shiny::runApp("079-widget-submit")
+		~/codes/rr/shiny-examples/079-widget-submit/server.R
+		shiny::runApp("080-widget-text")
+		~/codes/rr/shiny-examples/080-widget-text/server.R
+		shiny::runApp("081-widgets-gallery")
+		~/codes/rr/shiny-examples/081-widgets-gallery/server.R
+		shiny::runApp("082-word-cloud")
+		~/codes/rr/shiny-examples/082-word-cloud/server.R
+		shiny::runApp("083-front-page")
+		~/codes/rr/shiny-examples/083-front-page/server.R
+		shiny::runApp("084-single-file")
+		~/codes/rr/shiny-examples/084-single-file/app.R
+		shiny::runApp("085-progress")
+		~/codes/rr/shiny-examples/085-progress/server.R
+		shiny::runApp("086-bus-dashboard")
+		~/codes/rr/shiny-examples/086-bus-dashboard/server.R
+		shiny::runApp("087-crandash")
+		~/codes/rr/shiny-examples/087-crandash/server.R
+		shiny::runApp("088-action-pattern1")
+		~/codes/rr/shiny-examples/088-action-pattern1/server.R
+		shiny::runApp("089-action-pattern2")
+		~/codes/rr/shiny-examples/089-action-pattern2/server.R
+		shiny::runApp("090-action-pattern3")
+		~/codes/rr/shiny-examples/090-action-pattern3/server.R
+		shiny::runApp("091-action-pattern4")
+		~/codes/rr/shiny-examples/091-action-pattern4/server.R
+		shiny::runApp("092-action-pattern5")
+		~/codes/rr/shiny-examples/092-action-pattern5/server.R
+		shiny::runApp("093-plot-interaction-basic")
+		~/codes/rr/shiny-examples/093-plot-interaction-basic/server.R
+		shiny::runApp("094-image-interaction-basic")
+		~/codes/rr/shiny-examples/094-image-interaction-basic/server.R
+		shiny::runApp("095-plot-interaction-advanced")
+		~/codes/rr/shiny-examples/095-plot-interaction-advanced/server.R
+		shiny::runApp("096-plot-interaction-article-1")
+		~/codes/rr/shiny-examples/096-plot-interaction-article-1/server.R
+		shiny::runApp("097-plot-interaction-article-2")
+		~/codes/rr/shiny-examples/097-plot-interaction-article-2/server.R
+		shiny::runApp("098-plot-interaction-article-3")
+		~/codes/rr/shiny-examples/098-plot-interaction-article-3/server.R
+		shiny::runApp("099-plot-interaction-article-4")
+		~/codes/rr/shiny-examples/099-plot-interaction-article-4/server.R
+		shiny::runApp("100-plot-interaction-article-5")
+		~/codes/rr/shiny-examples/100-plot-interaction-article-5/server.R
+		shiny::runApp("101-plot-interaction-article-6")
+		~/codes/rr/shiny-examples/101-plot-interaction-article-6/server.R
+		shiny::runApp("102-plot-interaction-article-7")
+		~/codes/rr/shiny-examples/102-plot-interaction-article-7/server.R
+		shiny::runApp("103-plot-interaction-article-8")
+		~/codes/rr/shiny-examples/103-plot-interaction-article-8/server.R
+		shiny::runApp("104-plot-interaction-select")
+		~/codes/rr/shiny-examples/104-plot-interaction-select/server.R
+		shiny::runApp("105-plot-interaction-zoom")
+		~/codes/rr/shiny-examples/105-plot-interaction-zoom/server.R
+		shiny::runApp("106-plot-interaction-exclude")
+		~/codes/rr/shiny-examples/106-plot-interaction-exclude/server.R
+		shiny::runApp("107-events")
+		~/codes/rr/shiny-examples/107-events/server.R
+		shiny::runApp("108-module-output")
+		~/codes/rr/shiny-examples/108-module-output/server.R
+		shiny::runApp("109-render-table")
+		~/codes/rr/shiny-examples/109-render-table/server.R
+		shiny::runApp("110-error-sanitization")
+		~/codes/rr/shiny-examples/110-error-sanitization/server.R
+		shiny::runApp("111-insert-ui")
+		~/codes/rr/shiny-examples/111-insert-ui/server.R
+		shiny::runApp("112-generate-report")
+		~/codes/rr/shiny-examples/112-generate-report/server.R
+		shiny::runApp("113-bookmarking-url")
+		~/codes/rr/shiny-examples/113-bookmarking-url/server.R
+		shiny::runApp("114-modal-dialog")
+		~/codes/rr/shiny-examples/114-modal-dialog/server.R
+		shiny::runApp("115-bookmarking-updatequerystring")
+		~/codes/rr/shiny-examples/115-bookmarking-updatequerystring/server.R
+		shiny::runApp("116-notifications")
+		~/codes/rr/shiny-examples/116-notifications/server.R
+		shiny::runApp("117-shinythemes")
+		~/codes/rr/shiny-examples/117-shinythemes/server.R
+		shiny::runApp("118-highcharter-births")
+		~/codes/rr/shiny-examples/118-highcharter-births/server.R
+
+
 
 ## Article: Written Shiny Tutorial
 
@@ -242,12 +469,11 @@ server <- function(input, output) {
 Example with source and endpoint only:
 
 ``` r
-  # Calculate nth number in Fibonacci sequence
+  # normal function
 fib <- function(n) ifelse(n<3, 1, fib(n-1)+fib(n-2))
 
 server <- function(input, output) {
-  output$nthValue    <- renderText({ fib(as.numeric(input$n)) })
-  output$nthValueInv <- renderText({ 1 / fib(as.numeric(input$n)) })
+  output$val = renderText({ fib(as.numeric(input$n)) })
 }
 ``` 
 
@@ -257,8 +483,7 @@ Put conductor in between:
 server <- function(input, output) {
   currentFib         <- reactive({ fib(as.numeric(input$n)) })
 
-  output$nthValue    <- renderText({ currentFib() })
-  output$nthValueInv <- renderText({ 1 / currentFib() })
+  output$val    <- renderText({ currentFib() })
 }
 ``` 
 
