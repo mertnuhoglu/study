@@ -885,3 +885,17 @@ rclone sync google:bizqualify_schema_backup wasabi:mn_bizqualify_schema_backup -
 rclone lsd wasabi:mn_bizqualify_schema_backup
 ``` 
 
+### open image in terminal with sixel
+
+``` bash
+./converters/img2sixel images/snake.png 
+sixel photo.png
+``` 
+
+### browse files very fast: fff
+
+``` bash
+fff
+f
+``` 
+
