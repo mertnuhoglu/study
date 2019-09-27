@@ -36,6 +36,31 @@ gather, spread, separate, unite are different. They reshape data that is they wo
 
 There is a great [visual cheatsheet on data wrangling by RStudio](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 
+## gather = pivot_longer
+
+https://rdrr.io/github/tidyverse/tidyr/man/pivot_longer.html
+
+``` r
+vignette("pivot")
+``` 
+
+``` bash
+relig_income
+  ##> # A tibble: 18 x 11
+  ##>    religion `<$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k`
+  ##>    <chr>      <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+  ##>  1 Agnostic      27        34        60        81        76       137
+  ##>  2 Atheist       12        27        37        52        35        70
+  ##>  3 Buddhist      27        21        30        34        33        58
+relig_income %>% 
+  pivot_longer(-religion, names_to = "income", values_to = "count")
+  ##> # A tibble: 180 x 3
+  ##>    religion income             count
+  ##>    <chr>    <chr>              <dbl>
+  ##>  1 Agnostic <$10k                 27
+  ##>  2 Agnostic $10-20k               34
+``` 
+
 ## gather: gather columns into key-value pairs: longer
 
 **Usage**
@@ -203,18 +228,18 @@ stocks <- data.frame(
   Y = rnorm(2, 0, 2)
 )
 stocks
-#>         time          X         Y
-#> 1 2009-01-01 -0.6264538 -1.671257
-#> 2 2009-01-02  0.1836433  3.190562
+  ##>         time          X         Y
+  ##> 1 2009-01-01 -0.6264538 -1.671257
+  ##> 2 2009-01-02  0.1836433  3.190562
 ```
 
 ``` r
 stocks %>% gather(stock, price, -time)
-#>         time stock      price
-#> 1 2009-01-01     X -0.6264538
-#> 2 2009-01-02     X  0.1836433
-#> 3 2009-01-01     Y -1.6712572
-#> 4 2009-01-02     Y  3.1905616
+  ##>         time stock      price
+  ##> 1 2009-01-01     X -0.6264538
+  ##> 2 2009-01-02     X  0.1836433
+  ##> 3 2009-01-01     Y -1.6712572
+  ##> 4 2009-01-02     Y  3.1905616
 ```
 
 `stock` and `price` are `key` - `value` pairs.
@@ -226,9 +251,9 @@ Note that, `X` and `Y` are actually not variables. `stock` is the variable.
 ``` r
 mini_iris <- iris[c(1, 51), c(1,2,5)]
 mini_iris
-#>    Sepal.Length Sepal.Width    Species
-#> 1           5.1         3.5     setosa
-#> 51          7.0         3.2 versicolor
+  ##>    Sepal.Length Sepal.Width    Species
+  ##> 1           5.1         3.5     setosa
+  ##> 51          7.0         3.2 versicolor
 ``` 
 
 `Sepal.Length` and `Sepal.Width` are not variables. They are `key` values. `values` for these keys are `5.1`, `3.5` etc.
@@ -236,22 +261,22 @@ mini_iris
 ``` r
 tidyr::gather(mini_iris, key = flower_att, value = measurement,
               Sepal.Length, Sepal.Width)
-#>      Species   flower_att measurement
-#> 1     setosa Sepal.Length         5.1
-#> 2 versicolor Sepal.Length         7.0
-#> 3     setosa  Sepal.Width         3.5
-#> 4 versicolor  Sepal.Width         3.2
+  ##>      Species   flower_att measurement
+  ##> 1     setosa Sepal.Length         5.1
+  ##> 2 versicolor Sepal.Length         7.0
+  ##> 3     setosa  Sepal.Width         3.5
+  ##> 4 versicolor  Sepal.Width         3.2
 ```
 
 ``` r
 gathered_iris = mini_iris %>% 
   tidyr::gather(key = flower_att, value = measurement, -Species)
 gathered_iris
-#>      Species   flower_att measurement
-#> 1     setosa Sepal.Length         5.1
-#> 2 versicolor Sepal.Length         7.0
-#> 3     setosa  Sepal.Width         3.5
-#> 4 versicolor  Sepal.Width         3.2
+  ##>      Species   flower_att measurement
+  ##> 1     setosa Sepal.Length         5.1
+  ##> 2 versicolor Sepal.Length         7.0
+  ##> 3     setosa  Sepal.Width         3.5
+  ##> 4 versicolor  Sepal.Width         3.2
 ```
 
 ## spread: ungather key-value pair across multiple columns: wider
@@ -259,9 +284,9 @@ gathered_iris
 ``` r
 gathered_iris %>%
   tidyr::spread(flower_att, measurement)
-#>      Species Sepal.Length Sepal.Width
-#> 1     setosa          5.1         3.5
-#> 2 versicolor          7.0         3.2
+  ##>      Species Sepal.Length Sepal.Width
+  ##> 1     setosa          5.1         3.5
+  ##> 2 versicolor          7.0         3.2
 ```
 
 ### Error: spread fails when there are redundant columns
@@ -275,11 +300,11 @@ s1 = tibble::tribble(
   ) %>%
   tidyr::spread(key, value)
 s1
-#> # A tibble: 2 x 3
-#>      id     a     b
-#> * <dbl> <dbl> <dbl>
-#> 1     1     2     3
-#> 2     2     2    NA
+  ##> # A tibble: 2 x 3
+  ##>      id     a     b
+  ##> * <dbl> <dbl> <dbl>
+  ##> 1     1     2     3
+  ##> 2     2     2    NA
 ```
 
 ``` r
@@ -291,10 +316,10 @@ s2 = tibble::tribble(
   2,   "a",  2, 15
   ) %>%
   tidyr::spread(key, value)
-#> Error: <text>:4:3: unexpected numeric constant
-#> 3:   ~id,   ~key, ~value, ~amount
-#> 4:   1
-#>      ^
+  ##> Error: <text>:4:3: unexpected numeric constant
+  ##> 3:   ~id,   ~key, ~value, ~amount
+  ##> 4:   1
+  ##>      ^
 ```
 
 ### Error: spread fails when there is no id column
@@ -343,13 +368,13 @@ tb = tibble::tribble(
 sep_tb = tb %>%
   tidyr::separate(demo, c("sex", "age"), 1)
 sep_tb
-#> # A tibble: 4 x 4
-#>    year   sex   age     n
-#> * <dbl> <chr> <chr> <dbl>
-#> 1  2015     m    04     2
-#> 2  2015     f    04     3
-#> 3  2015     m    05     1
-#> 4  2015     f    05     0
+  ##> # A tibble: 4 x 4
+  ##>    year   sex   age     n
+  ##> * <dbl> <chr> <chr> <dbl>
+  ##> 1  2015     m    04     2
+  ##> 2  2015     f    04     3
+  ##> 3  2015     m    05     1
+  ##> 4  2015     f    05     0
 ```
 
 Note: `spread` is similar to `separate` because both reshape one column into multiple columns. But `spread` takes as input two columns: `key-value` whereas `separate` takes as input only one column.
@@ -363,13 +388,13 @@ Note: `spread` is similar to `separate` because both reshape one column into mul
 ``` r
 sep_tb %>%
   tidyr::unite(demo, sex, age, sep = "")
-#> # A tibble: 4 x 3
-#>    year  demo     n
-#> * <dbl> <chr> <dbl>
-#> 1  2015   m04     2
-#> 2  2015   f04     3
-#> 3  2015   m05     1
-#> 4  2015   f05     0
+  ##> # A tibble: 4 x 3
+  ##>    year  demo     n
+  ##> * <dbl> <chr> <dbl>
+  ##> 1  2015   m04     2
+  ##> 2  2015   f04     3
+  ##> 3  2015   m05     1
+  ##> 4  2015   f05     0
 ```
 
 ### unnest: unnest a list column
@@ -445,25 +470,25 @@ ef2 = ef1 %>%
   tidyr::unnest(b) %>%
   dplyr::group_by(a) 
 ef2
-#> # A tibble: 4 x 2
-#> # Groups:   a [2]
-#>          a     b
-#>     <fctr> <chr>
-#> 1 ali,veli   ali
-#> 2 ali,veli  veli
-#> 3  can,cin   can
-#> 4  can,cin   cin
+  ##> # A tibble: 4 x 2
+  ##> # Groups:   a [2]
+  ##>          a     b
+  ##>     <fctr> <chr>
+  ##> 1 ali,veli   ali
+  ##> 2 ali,veli  veli
+  ##> 3  can,cin   can
+  ##> 4  can,cin   cin
 ``` 
 
 ``` r
 ef2 %>%
   dplyr::filter(row_number()==n())
-#> # A tibble: 2 x 2
-#> # Groups:   a [2]
-#>          a     b
-#>     <fctr> <chr>
-#> 1 ali,veli  veli
-#> 2  can,cin   cin
+  ##> # A tibble: 2 x 2
+  ##> # Groups:   a [2]
+  ##>          a     b
+  ##>     <fctr> <chr>
+  ##> 1 ali,veli  veli
+  ##> 2  can,cin   cin
 ``` 
 
 What does `row_number()==n()` mean? Let's check what `row_number()` and `n()` produce by themselves?
@@ -471,24 +496,24 @@ What does `row_number()==n()` mean? Let's check what `row_number()` and `n()` pr
 ``` r
 ef2 %>%
   dplyr::mutate(row = row_number())
-#> # A tibble: 4 x 3
-#> # Groups:   a [2]
-#>          a     b   row
-#>     <fctr> <chr> <int>
-#> 1 ali,veli   ali     1
-#> 2 ali,veli  veli     2
-#> 3  can,cin   can     1
-#> 4  can,cin   cin     2
+  ##> # A tibble: 4 x 3
+  ##> # Groups:   a [2]
+  ##>          a     b   row
+  ##>     <fctr> <chr> <int>
+  ##> 1 ali,veli   ali     1
+  ##> 2 ali,veli  veli     2
+  ##> 3  can,cin   can     1
+  ##> 4  can,cin   cin     2
 
 ef2 %>%
   dplyr::mutate(row = n())
-#> # A tibble: 4 x 3
-#> # Groups:   a [2]
-#>          a     b   row
-#>     <fctr> <chr> <int>
-#> 1 ali,veli   ali     2
-#> 2 ali,veli  veli     2
-#> 3  can,cin   can     2
-#> 4  can,cin   cin     2
+  ##> # A tibble: 4 x 3
+  ##> # Groups:   a [2]
+  ##>          a     b   row
+  ##>     <fctr> <chr> <int>
+  ##> 1 ali,veli   ali     2
+  ##> 2 ali,veli  veli     2
+  ##> 3  can,cin   can     2
+  ##> 4  can,cin   cin     2
 ```
 
