@@ -8,6 +8,13 @@
 # 01-A Story About IQ Tests-17T3fZIpT8I.mp4
 # A Story About IQ Tests-17T3fZIpT8I.mp4
 # 
+rename 's/ /_/g' *.mp4
+rename 's/ /_/g' *.srt
+rename 's/["(),’!]//g' *.mp4
+rename 's/["(),’!]//g' *.srt
+rename "s/'//g" *.mp4
+rename "s/'//g" *.srt
+
 rename 's/ - Episode ([0-9]+) - /sprintf "_%02d_", $1/ge' *.mp4
 rename 's/\d+-//' *.mp4
 rename 's/-\w+\././' *.mp4

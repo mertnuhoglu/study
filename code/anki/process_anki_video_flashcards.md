@@ -321,6 +321,14 @@ bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/
 bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/loop_dirs_and_merge_silenced_clips.sh 05
 ``` 
 
+(ted videoları için)
+
+``` bash
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/rename_youtube_playlist_files.sh
+R --vanilla -e 'source("~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/move_youtube_playlist_files_to_their_own_dirs.R")'
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/loop_dirs_and_make_shadowing_video_clips.sh
+``` 
+
 #### optional: youtube srt correction
 
 ``` vim
