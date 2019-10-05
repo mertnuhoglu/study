@@ -564,6 +564,15 @@ twc3 = twc %>%
 	dplyr::mutate_at("customer_name", tidyr::replace_na, "Depo")
 ``` 
 
+### dplyr join
+
+``` bash
+left_join(kmbg, by = "kombin_id")
+inner_join( child_df, by = fk_name )
+left_join( org2, by = c("parent_id" = "organization_id") )
+inner_join(xcr, by = c("filename", "contextRef"))
+``` 
+
 ### mkdir mv ls directory commands
 
 ``` r
@@ -692,7 +701,7 @@ usethis::use_package("MASS", "Suggests")
 usethis::use_package("dplyr")
 usethis::use_package("stringr")
 usethis::use_package("tidyr")
-use_test("my-test")
+usethis::use_test("my-test")
 usethis::use_dev_package("paulc91/shinyauthr")
 ``` 
 
