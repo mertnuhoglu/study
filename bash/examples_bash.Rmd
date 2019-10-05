@@ -352,6 +352,10 @@ tmux new -s t0
 tmux attach -d -t t0
 ``` 
 
+send current pane to window 1
+
+		join-pane -t :1
+
 ## logs
 
 ``` bash
@@ -898,4 +902,20 @@ sixel photo.png
 fff
 f
 ``` 
+
+### increment integer
+
+``` bash
+id=0
+id=$((id+1))
+``` 
+
+### string formatting printf
+
+``` bash
+id=12
+printf "%03d" "$id"
+name=$(printf "%03d" "$id")
+``` 
+
 
