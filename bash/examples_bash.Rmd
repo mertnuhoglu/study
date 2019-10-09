@@ -809,6 +809,7 @@ git push --set-upstream origin master
 #!/bin/sh
 #!/usr/bin/env Rscript
 #!/usr/bin/env python3
+#!/usr/local/bin/awk -f
 ``` 
 
 ### range of numbers
