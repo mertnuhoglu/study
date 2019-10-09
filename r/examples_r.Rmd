@@ -955,6 +955,20 @@ str_detect("aecfg", letters)
 
 
 
+## bind_rows
+
+``` bash
+bind_rows(data.frame(x = 1:3), data.frame(y = 1:4))
+  ##>    x  y
+  ##> 1  1 NA
+  ##> 2  2 NA
+  ##> 3  3 NA
+  ##> 4 NA  1
+  ##> 5 NA  2
+  ##> 6 NA  3
+  ##> 7 NA  4
+``` 
+
 
 
 
