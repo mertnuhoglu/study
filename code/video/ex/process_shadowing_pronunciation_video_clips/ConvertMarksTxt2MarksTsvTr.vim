@@ -1,4 +1,4 @@
-:sav! clips/marks.tr.tsv
+:sav! marks.tr.tsv
 :g/^\d\+$/d
 :%s/<\/\?\w\+>//g
 :%s/"/'/g
