@@ -587,6 +587,32 @@ inner_join(xcr, by = c("filename", "contextRef"))
      file.link(from, to)
 ``` 
 
+cp file.copy
+
+``` bash
+file.copy(from = "/Users/mertnuhoglu/projects/itr/vrp/vrps/data/jtn/input/default/rate_optimization.xlsx", to = glue::glue( "/Users/mertnuhoglu/projects/itr/vrp/vrps/data/jtn/input/{folder_name}"), overwrite = T)
+``` 
+
+Warning: If the destination file name and source file name differ, it doesn't copy the file.
+
+There are two ways that it works:
+
+1. Don't specify the file name in `to`
+2. Give the same file name in `to`
+
+safe way of file copying: first copy to some directory, then rename (move)
+
+``` bash
+	folder_name = format(Sys.time(), "%y%m%d_%H%M")
+	sem_src = formContents$sevk_emri_file$tempfile
+	sem_dest = sprintf("%s/input/%s/sevk_emri.xlsx", data_dir(), folder_name)
+	sem_src_name = basename(sem_src)
+	dir.create("out", recursive = T)
+	dir.create(path = sprintf("%s/input/%s", data_dir(), folder_name), recursive = T)
+	file.copy(sem_src, "out")
+	file.rename(glue::glue("out/{sem_src_name}"), sem_dest)
+``` 
+
 mkdir dir.create
 
 ``` r
@@ -616,6 +642,15 @@ filesstrings::move_files(
 	glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp_data/out")
   , glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp_data/out_{format(Sys.time(), '%Y%m%d_%H%M%S')}")
 )
+``` 
+
+### basedir basename dirname
+
+``` bash
+basename("C:/some_dir/a")
+> [1]  "a"
+dirname("C:/some_dir/a")
+>[1] "C:/some_dir"
 ``` 
 
 ### excel read/write
@@ -967,6 +1002,14 @@ bind_rows(data.frame(x = 1:3), data.frame(y = 1:4))
   ##> 5 NA  2
   ##> 6 NA  3
   ##> 7 NA  4
+``` 
+
+## round and format decimals
+
+https://stackoverflow.com/questions/3443687/formatting-decimal-places-in-r
+
+``` bash
+format(round(carea / parea, 2), nsmall = 2)
 ``` 
 
 
