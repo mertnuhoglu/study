@@ -208,6 +208,25 @@ printf("%s%s%s%c\n", "\"", "\x22", "\42", 34);
 printf("string\n") > "/tmp/le"
 ``` 
 
+## Article02: text processing - Replace spaces with comma but not in the whole line - Unix & Linux Stack Exchange
+
+https://unix.stackexchange.com/questions/546083/replace-spaces-with-comma-but-not-in-the-whole-line?atw=1
+
+Problem:
+
+		some name;another thing; random; value value value value value
+
+> I'm trying to replace the spaces that occur after the random; using sed. It's important to keep the spaces that is in some name for example
+
+Solution:
+
+> Using gsub() in awk on the last ;-delimited field:
+
+``` bash
+$ awk -F ';' 'BEGIN { OFS=FS } { gsub(" ", ",", $NF); print }' file
+some name;another thing; random;,value,value,value,value,value
+``` 
+
 # Examples
 
 ## getline
