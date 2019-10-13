@@ -41,7 +41,7 @@ optional steps:
 normal path:
 
 ``` bash
-clip_name=spotlight
+clip_name="spotlight"
 input="${clip_name}".mkv
 output_mp4="${clip_name}.mp4"
 ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
