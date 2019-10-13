@@ -25,7 +25,7 @@ bash ./$OUT_DIR/split01.sh &&
 bash ./$OUT_DIR/split02.sh &&
 silence01=$OUT_DIR/silence01.mp4 && 
 VOLUME_INCREASE=0.01 && 
-SILENCE_DURATION=01 &&
+SILENCE_DURATION=02 &&
 ffmpeg -ss 00:00 -to 00:$SILENCE_DURATION -i ${output_mp4} -c:v libx264 -crf 23 -c:a aac -filter:a "volume=${VOLUME_INCREASE}" $silence01 && 
 out_silence=$OUT_DIR/silence.mp4 && 
 ffmpeg -i ${silence01} -t 00:$SILENCE_DURATION -c:v copy -c:a copy $out_silence && 
