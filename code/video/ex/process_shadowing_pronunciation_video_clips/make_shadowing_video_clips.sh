@@ -2,9 +2,6 @@
 clip_name=""
 VOLUME_INCREASE=1
 stream=2
-input="${clip_name}.mkv"
-output_mp4="${clip_name}.mp4"
-offset_clip_id=0
 usage() {
   echo "Usage: $0 [ -c clip_name ] [ -v VOLUME_INCREASE ] [ -s stream ] [ -i input ] [ -o output_mp4 ]" 1>&2 
 }
@@ -46,6 +43,12 @@ while getopts "c:v:s:S" options; do
   esac
 done
 echo -c $clip_name -v $VOLUME_INCREASE -s $stream
+input="${clip_name}.mkv"
+output_mp4="${clip_name}.mp4"
+offset_clip_id=0
+echo input: $input
+echo output_mp4: $output_mp4
+echo offset_clip_id: $offset_clip_id
 
 if [ ! -f ${output_mp4}  ]; then
 	ffmpeg -i "${input}" \
@@ -55,6 +58,7 @@ if [ ! -f ${output_mp4}  ]; then
 		"${output_mp4}" 
 fi
 
+echo bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh -c $clip_name -v $VOLUME_INCREASE -o $output_mp4 clips_nosub &&
 bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh $clip_name $VOLUME_INCREASE $output_mp4 clips_nosub &&
 
 if [ $SUB_VIDEO = 1 ]; then
@@ -62,7 +66,7 @@ if [ $SUB_VIDEO = 1 ]; then
 	sed -e 's/^Style: Default.*/Style: Default,Arial,28,\&H0000FFFF,\&H0077FF00,\&H00000000,\&H00000000,0,0,0,0,100,100,0,0,1,2,2,2,10,10,10,1/' ${clip_name}0.ass | tr -d $'\r' > ${clip_name}.ass &&
 	output_sub=${clip_name}_sub.mp4 &&
 	ffmpeg -i ${output_mp4} -c:v libx264 -crf 12 -vf "ass=${clip_name}.ass" $output_sub &&
-	bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh $clip_name $VOLUME_INCREASE $output_sub clips_sub 
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh $clip_name $VOLUME_INCREASE $output_mp4 clips_sub 
 else
 	echo "no subbed video is requested" 
 fi
