@@ -420,4 +420,19 @@ server <- function(input, output) {
 }
 ``` 
 
+## Article: Shiny - Build a dynamic UI that reacts to user input
+
+https://github.com/PaulC91/shinyauthr/blob/master/inst/shiny-examples/shinyauthr_example/app.R
+
+### Dynamic UI
+
+Inputs may need to be shown or hidden depending on the state.
+
+4 alternative ways:
+
+- `conditionalPanel()` used in `ui.R`: show/hide UI elements dynamically
+- `renderUI()` used in `server.R`: make UI results appear in predetermined place in UI
+- `insertUI` and `removeUI()`: used in `server.R`: add/remove any UI code anywhere
+- use javascript
+
 
