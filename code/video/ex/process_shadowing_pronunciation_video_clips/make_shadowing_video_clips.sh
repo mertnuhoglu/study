@@ -55,7 +55,7 @@ if [ ! -f ${output_mp4}  ]; then
 		"${output_mp4}" 
 fi
 
-bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh $clip_name $VOLUME_INCREASE output_mp4 clips_nosub &&
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh $clip_name $VOLUME_INCREASE $output_mp4 clips_nosub &&
 
 if [ $SUB_VIDEO = 1 ]; then
 	ffmpeg -i "${clip_name}.srt" "${clip_name}0.ass" &&
