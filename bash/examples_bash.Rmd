@@ -818,7 +818,9 @@ git push --set-upstream origin master
 mv clips/split02/${clip_name}_{0002..0200}.mp4 "${anki_media}"
 ``` 
 
-### test conditionals: file exists
+### test conditionals if then else: 
+
+#### conditional: file exists
 
 http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html
 
@@ -828,6 +830,33 @@ file exists:
 if [ ! -f /tmp/foo.txt  ]; then
 	echo "File not found!"
 fi
+``` 
+
+regex match
+
+``` bash
+      re_isanum='^[0-9]+$'                     # Regex: match whole numbers only
+      if ! [[ $TIMES =~ $re_isanum ]] ; then   # if $TIMES not a whole number:
+``` 
+
+string comparison
+
+``` bash
+if [ "$NAME" = "" ]; then                      # If $NAME is an empty string,
+  STRING="Hi!"                                 # our greeting is just "Hi!"
+else                                           # Otherwise,
+  STRING="Hi, $NAME!"                          # it is "Hi, (name)!"
+fi
+``` 
+
+conditional in while
+
+``` bash
+while [ $COUNT -le $TIMES ]; do                # While counter is less than
+                                               # or equal to $TIMES,
+  echo $STRING                                 # print a greeting,
+  let COUNT+=1                                 # then increment the counter.
+done
 ``` 
 
 
