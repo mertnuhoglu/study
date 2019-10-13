@@ -948,4 +948,31 @@ printf "%03d" "$id"
 name=$(printf "%03d" "$id")
 ``` 
 
+### getopts: options/arguments/parameters for shell scripts
+
+Ref: 
+
+		~/projects/study/bash/study_bash_getopts.md
+		~/projects/study/bash/ex/study_bash_getopts/ex01/e01.sh
+
+``` bash
+while getopts ":n:t:" options; do
+  case "${options}" in
+    n)
+      NAME=${OPTARG}
+      ;;
+    t)
+      TIMES=${OPTARG}
+      ;;
+    :)
+      echo "Error: -${OPTARG} requires an argument."
+      exit_abnormal
+      ;;
+    *)
+      exit_abnormal
+      ;;
+  esac
+done
+``` 
+
 
