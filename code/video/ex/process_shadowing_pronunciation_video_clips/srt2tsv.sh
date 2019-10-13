@@ -1,54 +1,12 @@
 #!/bin/bash
-NAME=""                                        # Name of person to greet.
-TIMES=1                                        # Number of greetings to give. 
-usage() {                                      # Function: Print a help message.
-  echo "Usage: $0 [ -n NAME ] [ -t TIMES ]" 1>&2 
-}
-exit_abnormal() {                              # Function: Exit with error.
-  usage
-  exit 1
-}
-while getopts ":n:t:" options; do              # Loop: Get the next option;
-                                               # use silent error checking;
-                                               # options n and t take arguments.
-  case "${options}" in                         # 
-    n)                                         # If the option is n,
-      NAME=${OPTARG}                           # set $NAME to specified value.
-      ;;
-    t)                                         # If the option is t,
-      TIMES=${OPTARG}                          # Set $TIMES to specified value.
-      re_isanum='^[0-9]+$'                     # Regex: match whole numbers only
-      if ! [[ $TIMES =~ $re_isanum ]] ; then   # if $TIMES not a whole number:
-        echo "Error: TIMES must be a positive, whole number."
-        exit_abnormally
-        exit 1
-      elif [ $TIMES -eq "0" ]; then            # If it's zero:
-        echo "Error: TIMES must be greater than zero."
-        exit_abnormal                          # Exit abnormally.
-      fi
-      ;;
-    :)                                         # If expected argument omitted:
-      echo "Error: -${OPTARG} requires an argument."
-      exit_abnormal                            # Exit abnormally.
-      ;;
-    *)                                         # If unknown (any other) option:
-      exit_abnormal                            # Exit abnormally.
-      ;;
-  esac
-done
-if [ "$NAME" = "" ]; then                      # If $NAME is an empty string,
-  STRING="Hi!"                                 # our greeting is just "Hi!"
-else                                           # Otherwise,
-  STRING="Hi, $NAME!"                          # it is "Hi, (name)!"
-fi
-COUNT=1                                        # A counter.
-while [ $COUNT -le $TIMES ]; do                # While counter is less than
-                                               # or equal to $TIMES,
-  echo $STRING                                 # print a greeting,
-  let COUNT+=1                                 # then increment the counter.
-done
-exit 0                                         # Exit normally.
-
-perl -0777 -pe 's/\n([^\n])/\t$1/g; s/ --> /\t/g' input.srt | \
-perl -ne 's/^\t//; print unless /^$/' > output.csv
-
+INPUT_SRT=$1
+OUTPUT_TSV=$2
+# script taken from: https://stackoverflow.com/questions/31684194/how-to-create-a-shell-script-to-copy-srt-content-into-corresponding-excel-col
+# replaces newlines and arrows with tabs (keeping double newline as one newline).
+perl -0777 -pe 's/\n([^\n])/\t$1/g; s/ --> /\t/g' $INPUT_SRT | \
+# removes tabs from line beginnings and removes redundant empty lines.
+perl -ne 's/^\t//; print unless /^$/' | \
+# replace 4. tab letter with <br>
+perl -pe 's/(^[^\t]*(\t[^\t]*){3})\t/$1<br> /g' | \
+# replace commas with dots in time digits
+perl -pe 's/(\d\d),(\d\d\d)/$1.$2/g' > $OUTPUT_TSV

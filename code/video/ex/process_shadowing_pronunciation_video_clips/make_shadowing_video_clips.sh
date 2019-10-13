@@ -45,9 +45,6 @@ while getopts "c:v:s:S" options; do
       ;;
   esac
 done
-input="${clip_name}.mkv"
-output_mp4="${clip_name}.mp4"
-offset_clip_id=0
 echo -c $clip_name -v $VOLUME_INCREASE -s $stream
 
 if [ ! -f ${output_mp4}  ]; then
