@@ -19,8 +19,6 @@ test satırı
 fi
 ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/srt2tsv.sh "${clip_name}.tr.srt" "${OUT_DIR}/marks.tr.tsv" &&
 R --vanilla -e "one.video.to.multiple.clips::main_generate_ffmpeg_cmd_for_splitting_videos(path = '$OUT_DIR/marks.tsv', offset_clip_id = ${offset_clip_id}, original_video = '${output_mp4}', clip_name = '${clip_name}')" &&
-#rg "\bNA\b" $OUT_DIR/marks.tsv &&
-#rg "\bNA\b" $OUT_DIR/$OUT_DIR.tsv &&
 bash ./$OUT_DIR/split01.sh &&
 bash ./$OUT_DIR/split02.sh &&
 silence01=$OUT_DIR/silence01.mp4 && 
