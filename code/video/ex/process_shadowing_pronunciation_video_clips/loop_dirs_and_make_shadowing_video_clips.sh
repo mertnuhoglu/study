@@ -1,6 +1,14 @@
 
 VOLUME_INCREASE=2
 stream=2
+NOSUB_VIDEO="a"
+SUB_VIDEO=1
+if [ $NOSUB_VIDEO = 1 ]; then
+	echo bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -s $stream -N
+fi
+if [ $SUB_VIDEO = 1 ]; then
+	echo bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -s $stream -S
+fi
 usage() {
   echo "Usage: $0 [ -v VOLUME_INCREASE ] [ -s stream ] [ -S ] [ -N ]" 1>&2 
 }
