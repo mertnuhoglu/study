@@ -435,4 +435,24 @@ Inputs may need to be shown or hidden depending on the state.
 - `insertUI` and `removeUI()`: used in `server.R`: add/remove any UI code anywhere
 - use javascript
 
+### conditionalPanel
+
+``` bash
+cd ~/codes/rr/shiny-examples/
+``` 
+
+Check `~/codes/rr/shiny-examples/063-superzip-example/ui.R`
+
+``` bash
+shiny::runApp("063-superzip-example")
+``` 
+
+``` bash
+        conditionalPanel("input.color == 'superzip' || input.size == 'superzip'",
+          numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
+        ),
+``` 
+
+### renderUI
+
 
