@@ -204,3 +204,4 @@ body içine doğrudan herhangi bir objeyi koyamıyor muyuz?
 `~/projects/itr/peyman/pmap/doc/study/leaflet_rota_cizimi_20190530.md`
 
 Ref: `Article: Shiny - Build a dynamic UI that reacts to user input <url:/Users/mertnuhoglu/projects/study/r/shiny/study_shiny.Rmd#tn=Article: Shiny - Build a dynamic UI that reacts to user input>`
+
