@@ -294,68 +294,68 @@ https://stat.ethz.ch/R-manual/R-devel/RHOME/library/base/html/paste.html
 
 ``` r
 paste0(1:12)
-#>  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12"
+  ##>  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12"
 paste(1:12)        # same
-#>  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12"
+  ##>  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12"
 as.character(1:12) # same
-#>  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12"
+  ##>  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12"
 
   ## If you pass several vectors to paste0, they are concatenated in a
   ## vectorized way.
 (nth <- paste0(1:12, c("st", "nd", "rd", rep("th", 9))))
-#>  [1] "1st"  "2nd"  "3rd"  "4th"  "5th"  "6th"  "7th"  "8th"  "9th"  "10th"
-#> [11] "11th" "12th"
+  ##>  [1] "1st"  "2nd"  "3rd"  "4th"  "5th"  "6th"  "7th"  "8th"  "9th"  "10th"
+  ##> [11] "11th" "12th"
 
   ## paste works the same, but separates each input with a space.
   ## Notice that the recycling rules make every input as long as the longest input.
 paste(month.abb, "is the", nth, "month of the year.")
-#>  [1] "Jan is the 1st month of the year." 
-#>  [2] "Feb is the 2nd month of the year." 
-#>  [3] "Mar is the 3rd month of the year." 
-#>  [4] "Apr is the 4th month of the year." 
-#>  [5] "May is the 5th month of the year." 
-#>  [6] "Jun is the 6th month of the year." 
-#>  [7] "Jul is the 7th month of the year." 
-#>  [8] "Aug is the 8th month of the year." 
-#>  [9] "Sep is the 9th month of the year." 
-#> [10] "Oct is the 10th month of the year."
-#> [11] "Nov is the 11th month of the year."
-#> [12] "Dec is the 12th month of the year."
+  ##>  [1] "Jan is the 1st month of the year." 
+  ##>  [2] "Feb is the 2nd month of the year." 
+  ##>  [3] "Mar is the 3rd month of the year." 
+  ##>  [4] "Apr is the 4th month of the year." 
+  ##>  [5] "May is the 5th month of the year." 
+  ##>  [6] "Jun is the 6th month of the year." 
+  ##>  [7] "Jul is the 7th month of the year." 
+  ##>  [8] "Aug is the 8th month of the year." 
+  ##>  [9] "Sep is the 9th month of the year." 
+  ##> [10] "Oct is the 10th month of the year."
+  ##> [11] "Nov is the 11th month of the year."
+  ##> [12] "Dec is the 12th month of the year."
 paste(month.abb, letters)
-#>  [1] "Jan a" "Feb b" "Mar c" "Apr d" "May e" "Jun f" "Jul g" "Aug h"
-#>  [9] "Sep i" "Oct j" "Nov k" "Dec l" "Jan m" "Feb n" "Mar o" "Apr p"
-#> [17] "May q" "Jun r" "Jul s" "Aug t" "Sep u" "Oct v" "Nov w" "Dec x"
-#> [25] "Jan y" "Feb z"
+  ##>  [1] "Jan a" "Feb b" "Mar c" "Apr d" "May e" "Jun f" "Jul g" "Aug h"
+  ##>  [9] "Sep i" "Oct j" "Nov k" "Dec l" "Jan m" "Feb n" "Mar o" "Apr p"
+  ##> [17] "May q" "Jun r" "Jul s" "Aug t" "Sep u" "Oct v" "Nov w" "Dec x"
+  ##> [25] "Jan y" "Feb z"
 
   ## You can change the separator by passing a sep argument
   ## which can be multiple characters.
 paste(month.abb, "is the", nth, "month of the year.", sep = "_*_")
-#>  [1] "Jan_*_is the_*_1st_*_month of the year." 
-#>  [2] "Feb_*_is the_*_2nd_*_month of the year." 
-#>  [3] "Mar_*_is the_*_3rd_*_month of the year." 
-#>  [4] "Apr_*_is the_*_4th_*_month of the year." 
-#>  [5] "May_*_is the_*_5th_*_month of the year." 
-#>  [6] "Jun_*_is the_*_6th_*_month of the year." 
-#>  [7] "Jul_*_is the_*_7th_*_month of the year." 
-#>  [8] "Aug_*_is the_*_8th_*_month of the year." 
-#>  [9] "Sep_*_is the_*_9th_*_month of the year." 
-#> [10] "Oct_*_is the_*_10th_*_month of the year."
-#> [11] "Nov_*_is the_*_11th_*_month of the year."
-#> [12] "Dec_*_is the_*_12th_*_month of the year."
+  ##>  [1] "Jan_*_is the_*_1st_*_month of the year." 
+  ##>  [2] "Feb_*_is the_*_2nd_*_month of the year." 
+  ##>  [3] "Mar_*_is the_*_3rd_*_month of the year." 
+  ##>  [4] "Apr_*_is the_*_4th_*_month of the year." 
+  ##>  [5] "May_*_is the_*_5th_*_month of the year." 
+  ##>  [6] "Jun_*_is the_*_6th_*_month of the year." 
+  ##>  [7] "Jul_*_is the_*_7th_*_month of the year." 
+  ##>  [8] "Aug_*_is the_*_8th_*_month of the year." 
+  ##>  [9] "Sep_*_is the_*_9th_*_month of the year." 
+  ##> [10] "Oct_*_is the_*_10th_*_month of the year."
+  ##> [11] "Nov_*_is the_*_11th_*_month of the year."
+  ##> [12] "Dec_*_is the_*_12th_*_month of the year."
 
   ## To collapse the output into a single string, pass a collapse argument.
 paste0(nth, collapse = ", ")
-#> [1] "1st, 2nd, 3rd, 4th, 5th, 6th, 7th, 8th, 9th, 10th, 11th, 12th"
+  ##> [1] "1st, 2nd, 3rd, 4th, 5th, 6th, 7th, 8th, 9th, 10th, 11th, 12th"
 
   ## For inputs of length 1, use the sep argument rather than collapse
 paste("1st", "2nd", "3rd", collapse = ", ") # probably not what you wanted
-#> [1] "1st 2nd 3rd"
+  ##> [1] "1st 2nd 3rd"
 paste("1st", "2nd", "3rd", sep = ", ")
-#> [1] "1st, 2nd, 3rd"
+  ##> [1] "1st, 2nd, 3rd"
 
   ## You can combine the sep and collapse arguments together.
 paste(month.abb, nth, sep = ": ", collapse = "; ")
-#> [1] "Jan: 1st; Feb: 2nd; Mar: 3rd; Apr: 4th; May: 5th; Jun: 6th; Jul: 7th; Aug: 8th; Sep: 9th; Oct: 10th; Nov: 11th; Dec: 12th"
+  ##> [1] "Jan: 1st; Feb: 2nd; Mar: 3rd; Apr: 4th; May: 5th; Jun: 6th; Jul: 7th; Aug: 8th; Sep: 9th; Oct: 10th; Nov: 11th; Dec: 12th"
 Created on 2019-07-28 by the reprex package (v0.2.1)
 ``` 
 

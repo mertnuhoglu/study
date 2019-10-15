@@ -12,6 +12,7 @@ output: rmarkdown::html_document
 blog: mertnuhoglu.com
 resource_files:
 -
+
 ---
 
 ``` r
