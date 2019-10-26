@@ -460,3 +460,13 @@ anki > .comics deck > browse > add > add image occlusion
 change note type: image occlusion multiple choices
 choices: opt01 / opt02 / opt03
 
+## Process for SSE 4000 Words
+
+Anki > SSE 4000 > Book x > Export > Card
+Open txt file > copy paste into:
+	https://docs.google.com/spreadsheets/d/1Wg5xSR7-7ER-fUUM7b2h5wyV9A9cgRvE88Dkxy6MD-0/edit#gid=1198583766
+Replace Russian translations with Turkish
+Copy paste into: `~/projects/anki_english/decks/sse_4000_tr.tsv`
+Anki > SSE 4000 tr >
+	Note Type: 4000 EEC Cloze
+
