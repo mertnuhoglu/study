@@ -3,13 +3,13 @@ clip_name=""
 VOLUME_INCREASE=1
 stream=2
 usage() {
-  echo "Usage: $0 [ -c clip_name ] [ -v VOLUME_INCREASE ] [ -s stream ] [ -i input ] [ -o output_mp4 ]" 1>&2 
+  echo "Usage: $0 [ -c clip_name ] [ -v VOLUME_INCREASE ] [ -i input ] [ -o output_mp4 ]" 1>&2 
 }
 exit_abnormal() {
   usage
   exit 1
 }
-while getopts "c:v:s:NS" options; do
+while getopts "c:v:NS" options; do
 
   case "${options}" in
     c)
@@ -27,9 +27,6 @@ while getopts "c:v:s:NS" options; do
         exit_abnormal
       fi
       ;;
-    s)
-      stream=${OPTARG}
-      ;;
 		N)
 			NOSUB_VIDEO=1
 			;;
@@ -46,7 +43,7 @@ while getopts "c:v:s:NS" options; do
   esac
 done
 echo called make_shadowing_video_clips.sh with:
-echo -c $clip_name -v $VOLUME_INCREASE -s $stream NOSUB_VIDEO $NOSUB_VIDEO SUB_VIDEO $SUB_VIDEO
+echo -c $clip_name -v $VOLUME_INCREASE NOSUB_VIDEO $NOSUB_VIDEO SUB_VIDEO $SUB_VIDEO
 input="${clip_name}.mkv"
 output_mp4="${clip_name}.mp4"
 offset_clip_id=0

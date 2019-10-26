@@ -1,12 +1,12 @@
 
 usage() {
-  echo "Usage: $0 [ -v VOLUME_INCREASE ] [ -s stream ] [ -S ] [ -N ]" 1>&2 
+  echo "Usage: $0 [ -v VOLUME_INCREASE ] [ -S ] [ -N ]" 1>&2 
 }
 exit_abnormal() {
   usage
   exit 1
 }
-while getopts "v:s:NS" options; do
+while getopts "v:NS" options; do
 
   case "${options}" in
     v)
@@ -20,9 +20,6 @@ while getopts "v:s:NS" options; do
         echo "Error: VOLUME_INCREASE must be greater than zero."
         exit_abnormal
       fi
-      ;;
-    s)
-      stream=${OPTARG}
       ;;
 		N)
 			NOSUB_VIDEO=1
@@ -40,17 +37,19 @@ while getopts "v:s:NS" options; do
   esac
 done
 echo called loop_dirs_and_make_shadowing_video_clips.sh with:
-echo -v $VOLUME_INCREASE -s $stream NOSUB_VIDEO $NOSUB_VIDEO SUB_VIDEO $SUB_VIDEO
+echo -v $VOLUME_INCREASE stream NOSUB_VIDEO $NOSUB_VIDEO SUB_VIDEO $SUB_VIDEO
 for d in */
 do
 	cd "$d"
 	clip_name=${d%/*}
 	echo "clip_name: $clip_name"
 	if [ $NOSUB_VIDEO = 1 ]; then
-		bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -s $stream -N
+		echo calling: bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -N
+		bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -N
 	fi
 	if [ $SUB_VIDEO = 1 ]; then
-		bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -s $stream -S
+		echo calling: bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -S
+		bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -S
 	fi
 	cd ..
 done
