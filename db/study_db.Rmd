@@ -224,3 +224,88 @@ LEFT JOIN test t ON t.b >= r.r_min AND t.b < r.r_max;
   ##>  30-59 | 105 | 50
 ``` 
 
+# Articles
+
+## Article01: PostgreSQL: Documentation: 9.1: Database File Layout
+
+https://www.postgresql.org/docs/9.1/storage-file-layout.html
+
+Configuration and data files are stored in `PGDATA`
+
+`PGDATA` is the name of the environment variable.
+
+Common location: `/var/lib/pgsql/data`
+
+It also contains configuration files: 
+
+		postgresql.conf
+		pg_hba.conf
+		pg_ident.conf
+
+My Notes: Check `/etc/postgresql/9.5/main/postgresql.conf` in `awsbzq`
+
+		##> # The default values of these variables are driven from the -D command-line
+		##> # option or PGDATA environment variable, represented here as ConfigDir.
+		##> 
+		##> data_directory = '/var/lib/postgresql/9.5/main'         # use data in another directory
+
+Contents of `PGDATA`
+
+		PG_VERSION	file	major version number
+		base	dir	per-database directories
+		global	dir	cluster-wide tables such as `pg_database`
+		pg_commit_ts	dir transaction commit timestamp data
+		pg_notify	dir	LISTEN/NOTIFY data
+		pg_snapshots	dir	exported snapshots
+		pg_stat	dir	statistics
+		base	dir	files for each database
+
+## Article02: postgres and setting the environment for PGDATA
+
+Find data dir
+
+``` bash
+find / -name data
+``` 
+
+``` bash
+PGDATA="/var/lib/pgsql/data"
+PGHOST="localhost"
+PGPORT="5432"
+PGLOG="/var/log/pgsql"
+``` 
+
+Find log dir:
+
+``` bash
+find / -name pgsql
+``` 
+
+## Article03: Creating and running a database with PostgreSQL
+
+``` bash
+export PATH=$PATH:/usr/local/pgsql/bin
+export PGDATA=/home/postgres/data
+``` 
+
+Create a database cluster (many databases)
+
+``` bash
+bash-2.05a$ initdb
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale C.
+
+creating directory /home/postgres/data... ok
+creating directory /home/postgres/data/base... ok
+creating
+``` 
+
+Start:
+
+``` bash
+bash-2.05a$ pg_ctl start -l /home/postgres/logfile -o "-i -h 192.168.1.1"
+postmaster successfully started
+``` 
+

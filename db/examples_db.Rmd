@@ -686,6 +686,8 @@ sudo systemctl status postgresql
 
 #### dump and restore postgres
 
+> pg_dump dumps only a single database at a time, and it does not dump information about roles or tablespaces (because those are cluster-wide rather than per-database). To support convenient dumping of the entire contents of a database cluster, the pg_dumpall program is provided
+
 ``` bash
   # dumping pg database
   # https://www.postgresql.org/docs/9.1/static/backup-dump.html#BACKUP-DUMP-RESTORE

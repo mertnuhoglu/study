@@ -61,3 +61,32 @@ getopts "a:pZ:" optname
 ``` 
 
 `p` doesn't take argument. `a` and `Z` take arguments.
+
+##  Article02: Getopts - Shell Scripting Tips
+
+https://www.shellscript.sh/tips/getopts/
+
+### Example:
+
+``` bash
+while getopts 'srd:f:' c
+do
+  case $c in
+    s) ACTION=SAVE ;;
+    r) ACTION=RESTORE ;;
+    d) DB_DUMP=$OPTARG ;;
+    f) TARBALL=$OPTARG ;;
+  esac
+done
+``` 
+
+``` bash
+if [ -n "$DB_DUMP" ]; then
+  case $ACTION in
+    SAVE)    save_database $DB_DUMP    ;;
+    RESTORE) restore_database $DB_DUMP ;;
+  esac
+fi
+
+``` 
+
