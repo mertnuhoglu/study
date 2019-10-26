@@ -51,7 +51,7 @@ VOLUME_INCREASE=2
 ``` 
 
 ``` bash
-bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh $clip_name $VOLUME_INCREASE $stream
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -s $stream -N
 ``` 
 
 05. Edit anki file
@@ -335,14 +335,9 @@ make shadowing for all videos inside a folder
 
 ``` bash
 function loop_streams() {
-	cd /Volumes/Elements/arsivden/cocuk/stream02/
-	stream=2
+	cd /Volumes/Elements/arsivden/cocuk/sub/wip/
 	VOLUME_INCREASE=2
-	bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/loop_dirs_and_make_shadowing_video_clips.sh $VOLUME_INCREASE $stream
-	cd /Volumes/Elements/arsivden/cocuk/sub/stream01/
-	stream=1
-	VOLUME_INCREASE=2
-	bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/loop_dirs_and_make_shadowing_video_clips.sh $VOLUME_INCREASE $stream
+	bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/loop_dirs_and_make_shadowing_video_clips.sh -v $VOLUME_INCREASE -S
 }
 loop_streams
 ``` 

@@ -19,7 +19,7 @@ while getopts "c:v:s:NS" options; do
       VOLUME_INCREASE=${OPTARG}
       re_isanum='^[1-9]$'
       if ! [[ $VOLUME_INCREASE =~ $re_isanum ]] ; then
-        echo "Error: VOLUME_INCREASE must be a positive, whole number."
+        echo "Error: VOLUME_INCREASE must be a positive, whole number. Input: $VOLUME_INCREASE"
         exit_abnormally
         exit 1
       elif [ $VOLUME_INCREASE -eq "0" ]; then
@@ -45,7 +45,8 @@ while getopts "c:v:s:NS" options; do
       ;;
   esac
 done
-echo -c $clip_name -v $VOLUME_INCREASE -s $stream
+echo called make_shadowing_video_clips.sh with:
+echo -c $clip_name -v $VOLUME_INCREASE -s $stream NOSUB_VIDEO $NOSUB_VIDEO SUB_VIDEO $SUB_VIDEO
 input="${clip_name}.mkv"
 output_mp4="${clip_name}.mp4"
 offset_clip_id=0
@@ -54,6 +55,12 @@ echo output_mp4: $output_mp4
 echo offset_clip_id: $offset_clip_id
 
 if [ ! -f ${output_mp4}  ]; then
+	stream_line=$(ffprobe -i "${input}" 2>&1 | rg eng | rg Stream | rg Audio)
+	pat='Stream #0:([0-9])'
+	[[ $stream_line =~ $pat ]]
+	stream="${BASH_REMATCH[1]}"
+	echo $stream_line
+	echo matched: $stream
 	ffmpeg -i "${input}" \
 		-map 0:0 -map 0:${stream} \
 		-c:v libx264 -crf 23 -vf "scale=320:240" \

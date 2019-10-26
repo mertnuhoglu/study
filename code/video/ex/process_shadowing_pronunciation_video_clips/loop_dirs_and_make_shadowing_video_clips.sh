@@ -1,14 +1,4 @@
 
-VOLUME_INCREASE=2
-stream=2
-NOSUB_VIDEO="a"
-SUB_VIDEO=1
-if [ $NOSUB_VIDEO = 1 ]; then
-	echo bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -s $stream -N
-fi
-if [ $SUB_VIDEO = 1 ]; then
-	echo bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -s $stream -S
-fi
 usage() {
   echo "Usage: $0 [ -v VOLUME_INCREASE ] [ -s stream ] [ -S ] [ -N ]" 1>&2 
 }
@@ -49,13 +39,13 @@ while getopts "v:s:NS" options; do
       ;;
   esac
 done
-echo -c $clip_name -v $VOLUME_INCREASE -s $stream
-VOLUME_INCREASE=${1:-2}
-stream=${2:-2}
+echo called loop_dirs_and_make_shadowing_video_clips.sh with:
+echo -v $VOLUME_INCREASE -s $stream NOSUB_VIDEO $NOSUB_VIDEO SUB_VIDEO $SUB_VIDEO
 for d in */
 do
 	cd "$d"
 	clip_name=${d%/*}
+	echo "clip_name: $clip_name"
 	if [ $NOSUB_VIDEO = 1 ]; then
 		bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -s $stream -N
 	fi
