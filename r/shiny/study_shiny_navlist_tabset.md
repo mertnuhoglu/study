@@ -353,9 +353,10 @@ tabsetPanel(id = "Header", tabPanel("Master"))
 tabsetPanel(tabPanel("Master"))
 ``` 
 
-Bu hata veriyor:
+Bu ise hata veriyor:
 
 ``` bash
 tabsetPanel("Header", tabPanel("Master"))
 ``` 
 
+Dokümantasyonunda aslında bu mesele açık anlatılıyordu.
