@@ -3,8 +3,8 @@ NULL
 
 #' @export
 generate_ffmpeg_cmd_for_splitting_videos = function(marks, offset_clip_id = 0, original_video = "movie.mp4", clip_name = "movie", dir = "clips") {
-	split01 = "ffmpeg -ss {start_time} -to {end_time} -i '{original_video}' -c:v libx264 -crf 23 -c:a aac {dir}/split01/'{filename}'"
-	split02 = "ffmpeg -i {dir}/split01/{filename} -t 00:00:{duration} -c:v copy -c:a copy {dir}/split02/{filename}"
+	split01 = "ffmpeg -ss {start_time} -to {end_time} -i '{original_video}' -c:v libx264 -crf 23 -c:a aac '{dir}/split01/{filename}'"
+	split02 = "ffmpeg -i '{dir}/split01/{filename}' -t 00:00:{duration} -c:v copy -c:a copy '{dir}/split02/{filename}'"
 	#slow_splitting = "ffmpeg -i '{original_video}' -ss {start_time} -to {end_time} -c:v libx264 -c:a aac clips/'{filename}'"
 	marks %>%
 		dplyr::mutate(
@@ -35,13 +35,9 @@ write_files = function(marks, clip_name, dir) {
 }
 
 read_marks_tsv = function(path) {
-	specs = readr::cols(
-		subtitle_id = readr::col_integer(),
-		start_time = readr::col_time(format = "%H:%M:%OS"),
-		end_time = readr::col_time(format = "%H:%M:%OS"),
-		text = readr::col_character()
-	)
-	marks = readr::read_tsv(path, col_types = specs, col_names = c("subtitle_id", "start_time", "end_time", "text")) %>%
+	marks = read.csv(path, sep = "\t", col.names = c("subtitle_id", "start_time", "end_time", "text"), stringsAsFactors = F) %>%
+		dplyr::mutate( start_time = hms::as_hms(start_time)
+			, end_time = hms::as_hms(end_time)) %>%
 		dplyr::filter(!is.na(start_time)) %>%
 		dplyr::filter(!is.na(end_time)) %>%
 		dplyr::filter(!is.na(text)) %>%
