@@ -975,4 +975,29 @@ while getopts ":n:t:" options; do
 done
 ``` 
 
+### shell - Get current directory name (without full path) in a Bash script - Stack Overflow
+
+https://stackoverflow.com/questions/1371261/get-current-directory-name-without-full-path-in-a-bash-script
+
+``` bash
+result=${PWD##*/}          # to assign to a variable
+
+printf '%s\n' "${PWD##*/}" # to print to stdout
+                           # ...more robust than echo for unusual names
+                           #    (consider a directory named -e or -n)
+
+printf '%q\n' "${PWD##*/}" # to print to stdout, quoted for use as shell input
+                           # ...useful to make hidden characters readable.
+``` 
+
+### function
+
+``` bash
+function convert2anki() {
+	echo "generated: anki_$deck.apkg"
+}
+
+``` 
+
+
 
