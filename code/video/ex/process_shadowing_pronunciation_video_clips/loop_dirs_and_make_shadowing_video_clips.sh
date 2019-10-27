@@ -45,11 +45,11 @@ do
 	echo "clip_name: $clip_name"
 	if [ $NOSUB_VIDEO = 1 ]; then
 		echo calling: bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -N
-		bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -N
+		bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c "${clip_name}" -v $VOLUME_INCREASE -N
 	fi
 	if [ $SUB_VIDEO = 1 ]; then
 		echo calling: bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -S
-		bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c $clip_name -v $VOLUME_INCREASE -S
+		bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c "${clip_name}" -v $VOLUME_INCREASE -S
 	fi
 	cd ..
 done

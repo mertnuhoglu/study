@@ -51,7 +51,7 @@ echo input: $input
 echo output_mp4: $output_mp4
 echo offset_clip_id: $offset_clip_id
 
-if [ ! -f ${output_mp4}  ]; then
+if [ ! -f "${output_mp4}"  ]; then
 	stream_line=$(ffprobe -i "${input}" 2>&1 | rg eng | rg Stream | rg Audio)
 	pat='Stream #0:([0-9])'
 	[[ $stream_line =~ $pat ]]
@@ -65,17 +65,17 @@ if [ ! -f ${output_mp4}  ]; then
 		"${output_mp4}" 
 fi
 
-echo bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh -c $clip_name -v $VOLUME_INCREASE -o $output_mp4 clips_nosub &&
+echo bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh -c "${clip_name}" -v $VOLUME_INCREASE -o "${output_mp4}" clips_nosub &&
 if [ $NOSUB_VIDEO = 1 ]; then
-	bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh $clip_name $VOLUME_INCREASE $output_mp4 clips_nosub 
+	bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh "${clip_name}" $VOLUME_INCREASE "${output_mp4}" clips_nosub 
 fi
 
 if [ $SUB_VIDEO = 1 ]; then
 	ffmpeg -i "${clip_name}.srt" "${clip_name}0.ass" &&
-	sed -e 's/^Style: Default.*/Style: Default,Arial,28,\&H0000FFFF,\&H0077FF00,\&H00000000,\&H00000000,0,0,0,0,100,100,0,0,1,2,2,2,10,10,10,1/' ${clip_name}0.ass | tr -d $'\r' > ${clip_name}.ass &&
-	output_sub=${clip_name}_sub.mp4 &&
-	ffmpeg -i ${output_mp4} -c:v libx264 -crf 12 -vf "ass=${clip_name}.ass" $output_sub &&
-	bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh $clip_name $VOLUME_INCREASE $output_sub clips_sub 
+	sed -e 's/^Style: Default.*/Style: Default,Arial,28,\&H0000FFFF,\&H0077FF00,\&H00000000,\&H00000000,0,0,0,0,100,100,0,0,1,2,2,2,10,10,10,1/' "${clip_name}0.ass" | tr -d $'\r' > "${clip_name}.ass" &&
+	output_sub="${clip_name}_sub.mp4" &&
+	ffmpeg -i "${output_mp4}" -c:v libx264 -crf 12 -vf "ass=${clip_name}.ass" "${output_sub}" &&
+	bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh "${clip_name}" $VOLUME_INCREASE "${output_sub}" clips_sub 
 else
 	echo "no subbed video is requested" 
 fi

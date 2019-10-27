@@ -299,7 +299,7 @@ bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/
 bütün klasörlerdeki sonuç (silence) dosyaları topla
 
 ``` bash
-bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/collect_youtube_playlist_results_into_sep_dir.sh
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/collect_youtube_playlist_results_into_sep_dir.sh clips_sub
 ``` 
 
 bütün klasörlerdeki orjinal dosyaları topla:
@@ -335,7 +335,6 @@ make shadowing for all videos inside a folder
 
 ``` bash
 function loop_streams() {
-	cd /Volumes/Elements/arsivden/cocuk/sub/wip/
 	VOLUME_INCREASE=2
 	bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/loop_dirs_and_make_shadowing_video_clips.sh -v $VOLUME_INCREASE -S
 }

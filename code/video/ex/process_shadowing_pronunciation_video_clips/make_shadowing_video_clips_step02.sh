@@ -6,7 +6,7 @@ OUT_DIR=$4
 echo $clip_name $VOLUME_INCREASE $output_mp4 $OUT_DIR
 offset_clip_id=0
 
-mkdir -p $OUT_DIR &&
+mkdir -p "${OUT_DIR}" &&
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" &&
 ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/srt2tsv.sh "${clip_name}.srt" "${OUT_DIR}/marks.tsv" &&
 if [ ! -f "${clip_name}.tr.srt" ]; then
@@ -24,9 +24,9 @@ bash ./$OUT_DIR/split02.sh &&
 silence01=$OUT_DIR/silence01.mp4 && 
 VOLUME_INCREASE=0.01 && 
 SILENCE_DURATION=02 &&
-ffmpeg -ss 00:00 -to 00:$SILENCE_DURATION -i ${output_mp4} -c:v libx264 -crf 23 -c:a aac -filter:a "volume=${VOLUME_INCREASE}" $silence01 && 
+ffmpeg -ss 00:00 -to 00:$SILENCE_DURATION -i "${output_mp4}" -c:v libx264 -crf 23 -c:a aac -filter:a "volume=${VOLUME_INCREASE}" $silence01 && 
 out_silence=$OUT_DIR/silence.mp4 && 
 ffmpeg -i ${silence01} -t 00:$SILENCE_DURATION -c:v copy -c:a copy $out_silence && 
-ffmpeg -f concat -i $OUT_DIR/video_files_merge.in -c copy $OUT_DIR/${clip_name}_silence.mp4
+ffmpeg -f concat -safe 0 -i $OUT_DIR/video_files_merge.in -c copy "$OUT_DIR/${clip_name}_silence.mp4"
 echo "done"
 
