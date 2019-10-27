@@ -35,7 +35,7 @@ write_files = function(marks, clip_name, dir) {
 }
 
 read_marks_tsv = function(path) {
-	marks = read.csv(path, sep = "\t", col.names = c("subtitle_id", "start_time", "end_time", "text"), stringsAsFactors = F) %>%
+	marks = read.csv(path, sep = "\t", col.names = c("subtitle_id", "start_time", "end_time", "text"), stringsAsFactors = F, header = F) %>%
 		dplyr::mutate( start_time = hms::as_hms(start_time)
 			, end_time = hms::as_hms(end_time)) %>%
 		dplyr::filter(!is.na(start_time)) %>%
