@@ -407,6 +407,10 @@ g/<br> $/ ,/@@@/j
 
 ## Complete process image + sound
 
+Bu süreç, tek kelimelik listeler için dizayn edildi. Tek kelime, hem resim dosyasının ismi, hem de İngilizce kelime olarak kullanılıyor. Bu sayede, resim dosyalarıyla kelimeler arasında eşleştirme için ekstra bir şey yapmak gerekmiyor. 
+
+İlk adım resim dosyalarını indirip, onların isimlerini öğrenilecek ingilizce ifadelerle adlandırmak. 
+
 ``` bash
 anki_resize_images
 anki_rename_jpg word_
