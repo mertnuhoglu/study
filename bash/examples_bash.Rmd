@@ -996,7 +996,6 @@ printf '%q\n' "${PWD##*/}" # to print to stdout, quoted for use as shell input
 function convert2anki() {
 	echo "generated: anki_$deck.apkg"
 }
-
 ``` 
 
 
