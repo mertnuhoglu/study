@@ -14,7 +14,7 @@ Maybe: one role, one task, one concept
 
 But not: one instance, operation
 
-It is about lack of interleaving (objective), not cardinaLity
+It is about lack of interleaving (objective), not cardinality
 
 ## Easy: near, at hand
 
@@ -72,7 +72,7 @@ Neye odaklanmalıyız? Yaptığımız şeye.
 
 Programlamak yerine, havuzda yüzebilirdik. Ama bu bir iş değil. 
 
-Programın kalitesine, doğruluğuna, değiştirilebilirliğine odaklanmalıyız. "Ben bunu seviyorum, çünkü şu an benim için iyi bir şey" demememiliyiz, sırf bu şimdi kolay geldiğinden. Şu an için rahatsın, ama sonra ne olacak.
+Programın kalitesine, doğruluğuna, değiştirilebilirliğine odaklanmalıyız. "Ben bunu seviyorum, çünkü şu an benim için iyi bir şey" dememeliyiz, sırf bu şimdi kolay geldiğinden. Şu an için rahatsın, ama sonra ne olacak.
 
 ## Complect
 
@@ -104,23 +104,24 @@ We can make same exact software today with dramatically simpler stuff. Radically
 
 ## What's in your Toolkit?
 
-Complexity	Simplicity
-Objects, State	Value
-Methods	Functions, Namespaces
-variables	managed references
-Inheritance, switch, matching	polymorphism a la carte
-syntax	data
+		| Complexity                    | Simplicity              |
+		|-------------------------------|-------------------------|
+		| Objects, State                | Value                   |
+		| Methods                       | Functions, Namespaces   |
+		| variables                     | managed references      |
+		| Inheritance, switch, matching | polymorphism a la carte |
+		| syntax                        | data                    |
 
-syntax is inherently complex. Because it has associated with order. This is adding complexity. We need to choose.
+syntax is inherently complex. Because it has associated with order. This is adding complexity. We need to make choices constantly.
 
-looping, fold	set functions
-actors	queues
-orm	declarative data manipulation
+		| looping, fold | set functions                 |
+		| actors        | queues                        |
+		| orm           | declarative data manipulation |
 
 orm is one of the most complex things.
 
-conditionals	rules
-inconsistency	consistency
+		| conditionals  | rules       |
+		| inconsistency | consistency |
 
 Eventual inconsistency is incredibly complex.
 
@@ -173,19 +174,19 @@ Named arguments or map is simple.
 
 Syntax is essentially complex.
 
-Complex	Simple
-Product types	Associative records
+		| Complex       | Simple              |
+		| Product types | Associative records |
 
 Maps or hashes can do that.
 
-Complex	Simple
-Imperative programs	Declarative programs
+		| Complex             | Simple               |
+		| Imperative programs | Declarative programs |
 
 Change the order of statements, it is broken. 
 
-Complex	Simple
-Prolog	Datalog
-Call chains	Queues
+		| Complex     | Simple  |
+		| Prolog      | Datalog |
+		| Call chains | Queues  |
 
 Call chains: A calls B calls C. This is ordered list where the order matters. 
 
@@ -193,8 +194,8 @@ Bunu değiştirmek şundan daha zor: A puts its result into queue. B reads from 
 
 Queues are really important.
 
-Complex	Simple
-XML	json, clojure literals
+		| Complex | Simple                 |
+		| XML     | json, clojure literals |
 
 XML was designed to support text files where order matters. But is this good for data? No that is terrible. Intuitively people choose json over xml, when they have a map it is inherently simpler. It says what it is. It is data describing protocol.
 
@@ -212,9 +213,9 @@ This is a problem we create ourselves. We ruin it. We wrap it in stupid classes.
 
 One excuse: encapsulation
 
-Encapsulation is for implementaiton details. Information doesn't have implementation. There is nothing to hide. Because you are not gonna change this aspect of information.
+Encapsulation is for implementation details. Information doesn't have implementation. There is nothing to hide. Because you are not gonna change this aspect of information.
 
-All information has t o have some representation. Direct representation or accessors. You have to expose its representation. You don't do encapsulation actually.
+All information has to have some representation. Direct representation or accessors. You have to expose its representation. You don't do encapsulation actually.
 
 ### What happens when we wrap information in classes?
 
@@ -277,7 +278,7 @@ There is a reason we do PLOP. We had small RAM and disks.
 
 Those limitations are long gone. But we are retaining the rules of that era.
 
-Why PlOPs still rule?
+Why PLOPs still rule?
 
 Memory and records had meaning before computers. 
 
@@ -516,13 +517,13 @@ Git is a purely functional data structure. Learning how to use git requires lear
 
 A functional data structure is immutable. But it supports operations like insertion or delition, they are just not in-place.
 
-A list: [3,2,1]
+A list: `[3,2,1]`
 
-If the list is mutable: inserting 4 at the head: [4,3,2,1]
+If the list is mutable: inserting 4 at the head: `[4,3,2,1]`
 
-Now the old value [3,2,1] is lost to us.
+Now the old value `[3,2,1]` is lost to us.
 
-In the functional model, it creates a new value: [4,3,2,1] without modifying original list.
+In the functional model, it creates a new value: `[4,3,2,1]` without modifying original list.
 
 Both values exist now. 
 
@@ -541,6 +542,38 @@ In git, the numbers above are commits. Each commit is acopy of your entire worki
 # Introduction of B+ Tree - GeeksforGeeks
 
 https://www.geeksforgeeks.org/introduction-of-b-tree/
+
+# (30) Data Structures: Heaps - YouTube
+
+https://www.youtube.com/watch?v=t0Cq6tVNRBA
+
+In min heap, the elements are smaller in upper levels.
+
+		2 -> 4, 8
+		4 -> 9, 7
+		8 -> 10, 9
+
+## Insertion
+
+Two steps:
+
+1. Put the element to the next place
+
+/Users/mertnuhoglu/Pictures/screenshots/Screen Shot 2019-10-29 at 4.38.33 AM.png
+
+2. Bubble it up to the upper levels
+
+/Users/mertnuhoglu/Pictures/screenshots/Screen Shot 2019-10-29 at 4.39.29 AM.png
+
+/Users/mertnuhoglu/Pictures/screenshots/Screen Shot 2019-10-29 at 4.39.55 AM.png
+
+## Removing the minimum element
+
+## Implementation
+
+Note that there are no gaps in the heap. We can use an array to store these values.
+
+/Users/mertnuhoglu/Pictures/screenshots/Screen Shot 2019-10-29 at 4.43.01 AM.png
 
 # (30) 5. Binary Search Trees, BST Sort - YouTube
 
@@ -568,7 +601,7 @@ Time is part of the system. Everytime you have a plane that is landing you will 
 
 Remove from set R after plane lands. 
 
-|R| = n
+		|R| = n
 
 O(log n) time
 
@@ -578,7 +611,7 @@ Example:
 
 Now we are at time 37.
 
-41.2, 49, 56.3 are existing landings.
+`41.2, 49, 56.3` are existing landings.
 
 A new request for 53 comes. 
 
@@ -598,7 +631,7 @@ Insert in O(1) without check. But check takes O(n) time.
 
 ### opt02: Sorted array:
 
-[20 32 37 45]
+		[20 32 37 45]
 
 Particular time to search: 34. 
 
@@ -616,7 +649,7 @@ Right now, indices are 1 2 3 4.
 
 When you do insertion, you shift every index to the right.
 
-Find the smallest i such that R[i] >= t in O(log n) time.
+Find the smallest i such that `R[i] >= t` in O(log n) time.
 
 Compare R[i] and R[i-1] against t is in O(1) time.
 
@@ -636,38 +669,164 @@ They are arrays but you can visualize as trees.
 
 min/max heaps. They have fairly weak invariant. Binary search trees are similar to heaps. Heaps are weak in variant. Look at the min element. If you 
 
-element that is <= k or >= k from t: O(n) time
+element that is `<= k` or `>= k` from t: O(n) time
 
-# (30) Data Structures: Heaps - YouTube
+What is a heap?
 
-https://www.youtube.com/watch?v=t0Cq6tVNRBA
+### opt05: Binary search tree (BST): fast insertion into a sorted array
 
-In min heap, the elements are smaller in upper levels.
+		30 -> 17 40
+		17 -> 14 20
 
-2 -> 4, 8
-4 -> 9, 7
-8 -> 10, 9
+node x has key(x)
+
+30 is the key of first node.
+
+Unlike in a heap, the data structure is a little more complicated. Heap is an array visualized as a tree. BST is actually a tree that has pointers unlike a heap. 
+
+Pointers: 
+
+- parent(x)
+- left(x)
+- right(x)
+
+You have an ordering of key values that satisfy the invariant: 
+
+For all nodes x, if y is in the left subtree of x then `key(y) <= key(x)`
+
+For all nodes x, if y is in the right subtree of x then `key(y) >= key(x)`
+
+#### Insert
+
+Insert 49 
+
+Make a node with key value 49
+
+Insert 79
+
+		Compare 49 to 79. 79 > 49. Go to right.
+
+		49 -> . 79
+
+Insert 46
+
+		49 -> 46 79
+
+Insert 41
+
+		41 < 49. Left. 41 < 46. Left. 
+
+		46 -> 41 .
+
+Insert 42
+
+		42 < 49 . Left. 42 < 46. Left. 42 > 41. 
+
+If you didn't have the k = 3 check, then you would put it there. 
+
+h: height of tree
+
+Insertions with check is in O(h) time.
+
+#### find min()
+
+Keep going to the left till you hit a leaf. O(h) complexity
+
+next_larger(x): next larger value than x: O(h)
+
+### New Requirement
+
+Rank(t): how many planes are scheduled to land at times `<= t`?
+
+Augment the BST structure
+
+		49 -> 46 79
+		79 -> 64 83
+
+Insert or delete modify "size" numbers. 
+
+"size" numbers correspond to subtree sizes.
+
+		49,5 -> 46,1 79,3
+		79 -> 64,1 83,1
+
+Insert 43
+
+You will increment sizes by one in the path.
+
+		49,6 -> 46,2 79,3
+		46 -> 43,1 .
+		79 -> 64,1 83,1
+
+How do we calculate Rank(t) now?
+
+What lands before t?
+
+1. Walk down tree to find the desired time.
+
+2. Add in the nodes that are smaller.
+
+3. Add in subtree sizes to the left.
+
+Ex: t = 79
+
+What lands before 79?
+
+		49 < 79. 
+		add 1
+		since i move to the right, add 2 (corresponding to subtree 46)
+
+		79 <= 79
+		add 1
+		add f (corresponding to subtree 64)
+
+So you have 5.
+
+Bad news: We haven't quite solved the problem because h can be O(n)
+
+		43 -> . 46
+		46 -> . 48
+		48 -> . 50
+
+But this looks like a list.
+
+# (30) 6. AVL Trees, AVL Sort - YouTube
+
+https://www.youtube.com/watch?v=FNeL18KsWPc&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&index=6
+
+# (30) 10.1 AVL Tree - Insertion and Rotations - YouTube
+
+https://www.youtube.com/watch?v=jDM6_TnYIqE&t=1916s
+
+# B-tree - Wikipedia
+
+https://www.wikizeroo.org/index.php?q=aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvQl90cmVl
+
+B-tree is a self-balancing tree data structure. Search, access, insertion, deletions are in logarithmic time. It is a generalization of binary search tree because a node can have more than two children.
+
+It is commonly used in databases and file systems.
+
+/Users/mertnuhoglu/Pictures/screenshots/20191030154536.png
+
+Internal (non-leaf) nodes can have a variable number of child nodes. This makes B-trees not need rebalancing too much. 
+
+Ex: 2-3 B-tree: an internal node may have 2 or 3 child nodes.
+
+Each internal node contins a number of keys. Keys act as separation values dividing its subtrees. 
+
+Ex: An internal node has 3 child nodes. Then it has 2 keys: a1 and a2. All values in the leftmost subtree will be less than a1. 
 
 ## Insertion
 
-Two steps:
+Ex: B-tree insertion example:
 
-1. Put the element to the next place
+/Users/mertnuhoglu/Pictures/screenshots/20191030155102.png
 
-/Users/mertnuhoglu/Pictures/screenshots/Screen Shot 2019-10-29 at 4.38.33 AM.png
+1. If the node has space, insert the new element in the node.
 
-2. Bubble it up to the upper levels
-
-/Users/mertnuhoglu/Pictures/screenshots/Screen Shot 2019-10-29 at 4.39.29 AM.png
-
-/Users/mertnuhoglu/Pictures/screenshots/Screen Shot 2019-10-29 at 4.39.55 AM.png
-
-## Removing the minimum element
-
-## Implementation
-
-Note that there are no gaps in the heap. We can use an array to store these values.
-
-/Users/mertnuhoglu/Pictures/screenshots/Screen Shot 2019-10-29 at 4.43.01 AM.png
+2. Other wise the node is full, evenly split it into two nodes so:
+  1. A single median is chosen
+	2. Values less than the median are put in the new left node. Greater than the median put in right.
+	3. Separation value (median) is inserted in the node's parent.
 
 

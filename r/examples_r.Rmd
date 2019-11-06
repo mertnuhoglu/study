@@ -324,6 +324,13 @@ file=twosigma/report_twosigma_florida_20190211.Rmd
 R -e 'rmarkdown::render("'"$file"'", "md_document")'
 ``` 
 
+Run it from inside vim:
+
+``` bash
+command! Rmarkdown :!R -e 'rmarkdown::render("%")'
+:Rmarkdown
+``` 
+
 ### other
 
 show_query id=g_10794
@@ -655,12 +662,16 @@ dirname("C:/some_dir/a")
 
 ### excel read/write
 
+opt01: tidyverse readxl
+
+``` bash
+d1 = readxl::read_excel("file01.xlsx", sheet = "d0")
+``` 
+
 ``` r
 d0 = dplyr::tibble(a = 1:3, b = 10:12)
 WriteXLS::WriteXLS(d0, "file01.xlsx", SheetNames = "d0")
 rio::export(d0, "file.xlsx")
-
-d1 = readxl::read_excel("file01.xlsx", sheet = "d0")
 ``` 
 
 ### run shinyApp
@@ -1010,6 +1021,13 @@ https://stackoverflow.com/questions/3443687/formatting-decimal-places-in-r
 
 ``` bash
 format(round(carea / parea, 2), nsmall = 2)
+``` 
+
+## ifelse
+
+``` bash
+	f05 = f04b %>%
+		dplyr::mutate( axis = ifelse(cpl == 0, "ver", "hor") )
 ``` 
 
 

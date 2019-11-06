@@ -592,3 +592,13 @@ prop.table(table(a0))
   ##> 0.5000000 0.3333333 0.1666667
 ``` 
 
+### read excel files
+
+opt01: readxl read sheet by sheet
+
+``` bash
+readxl::read_excel("my-spreadsheet.xls", sheet = "data")
+readxl::read_excel(path = sevk_emri_file, col_types = c("text", "date", "text", "text", "text", "text", "text", "text", "text", "numeric", "text", "text", "text", "text"))
+``` 
+
+

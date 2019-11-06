@@ -1,0 +1,111 @@
+﻿---
+title: "İstatistik Analizi yande bifo Hasret 20191106"
+date: 2019-11-06T11:35:12+03:00 
+draft: true
+description: ""
+tags:
+categories: r statistics
+type: post
+url:
+author: "Mert Nuhoglu"
+output: rmarkdown::html_document
+blog: mertnuhoglu.com
+resource_files:
+
+---
+
+<style>
+  .main-container {
+    max-width: 1600px !important;
+  }
+</style>
+
+``` {r set-options}
+options(width = 150)
+options(max.print = 30)
+``` 
+
+Önce kolon isimlerini düzeltelim:
+
+``` bash
+%s/Yande \(\d\+\)/y\1/g
+%s/Bifo \(\d\+\)/b\1/g
+%s/\t\(\d\+\)/\tk\1/g
+  ##> student_no	k1	k2	k3	k4	k5	k6	k7	k8	k9	k10	k11	k12	k13	y1	y2	y3	y4	y5	 y6	y7	y8	y9	y10	y11	y12	y13	y14	y15	y16	y17	y18	y19	y20	y21	y22	y23	y24	y25	y26	y27	y28	y29	y30	y31	y32	y33	y34	y35	b1	b2	b3	b4	b5	b6	b7	b8	b9	b10	 b11	b12	b13	b14	b15
+``` 
+
+Sayfaları isimlendir: `data` ve `negativity`
+
+`negativity`: hangi soru pozitif hangisi negatif? Negatif olan sorularda 5 puan -> 1'e düşürülecek yande için.
+
+Önce verileri okuyalım
+
+``` bash
+cd /Users/mertnuhoglu/projects/study/r/ex/stats_yande_bifo_hasret_20191106
+R --vanilla
+``` 
+
+Rapor üreticisi burada:
+
+ref: `~/projects/study/r/ex/stats_yande_bifo_hasret_20191106/report.Rmd`
+
+``` bash
+file=~/projects/study/r/ex/stats_yande_bifo_hasret_20191106/report.Rmd
+R -e 'rmarkdown::render("'"$file"'", "html_document")'
+``` 
+
+## yande sorularına verilen yanıtların toplamını bul
+
+opt
+
+		opt01: kolonları satırlara çevirip yap
+		opt02: kolon halindeyken topla
+
+opt02: kolon halindeyken topla
+
+https://intellipaat.com/community/23830/sum-across-multiple-columns-with-dplyr
+
+``` bash
+df %>% replace(is.na(.), 0) %>% mutate(sum = rowSums(.[1:5]))
+  ##>    x1 x2 x3 x4 x5 sum
+  ##> 1   1  1  0  1  1   4
+  ##> 2   0  1  1  0  1   3
+``` 
+
+https://stackoverflow.com/questions/28873057/sum-across-multiple-columns-with-dplyr
+
+``` bash
+df %>%
+  replace(is.na(.), 0) %>%
+  mutate(sum = rowSums(.[1:5]))
+``` 
+
+``` bash
+df <- df %>% mutate(sum1 = rowSums(.[grep("x[3-5]", names(.))], na.rm = TRUE),
+	sum_all = rowSums(.[grep("x", names(.))], na.rm = TRUE))
+``` 
+
+## how to do linear regression with R?
+
+opt01:
+
+https://broom.tidyverse.org/reference/tidy.lm.html
+
+``` bash
+cd ~/projects/study/r/ex/stats_yande_bifo_hasret_20191106/ex01
+rmarkdown e01.Rmd
+``` 
+
+Open `~/projects/study/r/ex/stats_yande_bifo_hasret_20191106/ex01/e01.html`
+
+opt02:
+
+https://sejohnston.com/2012/08/09/a-quick-and-easy-function-to-plot-lm-results-in-r/
+
+``` bash
+cd ~/projects/study/r/ex/stats_yande_bifo_hasret_20191106/ex01
+rmarkdown e02.Rmd
+``` 
+
+Open `~/projects/study/r/ex/stats_yande_bifo_hasret_20191106/ex01/e02.html`
+
