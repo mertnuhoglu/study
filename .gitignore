@@ -64,3 +64,6 @@ tags
 
 # End of https://www.gitignore.io/api/vim
 **/*.vim.swp
+
+**/gen/*
+gen/
