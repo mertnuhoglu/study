@@ -109,3 +109,87 @@ rmarkdown e02.Rmd
 
 Open `~/projects/study/r/ex/stats_yande_bifo_hasret_20191106/ex01/e02.html`
 
+## descriptive statistics summary tables
+
+opt01: summarytools
+
+https://cran.r-project.org/web/packages/summarytools/index.html
+
+``` bash
+install.packages("summarytools")
+``` 
+
+``` bash
+dfSummary(tobacco, plain.ascii = FALSE, style = "grid", 
+          graph.magnif = 0.75, valid.col = FALSE, tmp.img.dir = "/tmp")
+``` 
+
+### Error
+
+``` bash
+> library(summarytools)
+Error: package or namespace load failed for ‘summarytools’:
+ .onLoad failed in loadNamespace() for 'tcltk', details:
+  call: dyn.load(file, DLLpath = DLLpath, ...)
+  error: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.5/Resources/library/tcltk/libs/tcltk.so':
+  dlopen(/Library/Frameworks/R.framework/Versions/3.5/Resources/library/tcltk/libs/tcltk.so, 10): Library not loaded: /opt/X11/lib/libfontconfig.1.dylib
+  Referenced from: /usr/local/lib/libtk8.6.dylib
+  Reason: Incompatible library version: libtk8.6.dylib requires version 11.0.0 or later, but libfontconfig.1.dylib provides version 10.0.0
+``` 
+
+opt01: https://stackoverflow.com/questions/25212800/error-onload-failed-in-loadnamespace-for-tcltk
+
+``` bash
+capabilities("tcltk")
+system("ls -ld /usr/local /usr/local/lib /usr/local/lib/libtcl*")
+``` 
+
+opt02: Reinstall XQuartz
+
+opt03: Rstudio içinde dene
+
+rstudio içinde Rmarkdown nasıl çalıştırılıyordu?
+
+### Error: rmarkdown içine gömmeyi başaramadım
+
+Kişisel bilgilere dair betimsel istatistikler
+
+``` r
+d0k = d0 %>%
+	dplyr::select(dplyr::starts_with("k"))
+d0s = summarytools::dfSummary(d0k, plain.ascii = FALSE, style = "grid", 
+          graph.magnif = 0.75, valid.col = FALSE, tmp.img.dir = "/tmp")
+view(d0s)
+``` 
+
+Bu şekilde gösterim yapıyor. Ama html dosyasını rmarkdown içine koyamıyor.
+
+### Error: freq
+
+``` bash
+> desc1 = d0k %>% summarytools::freq(d0k, style = "rmarkdown") %>% tb()
+Error in summarytools::freq(., d0k, style = "rmarkdown") :
+  NULL is either NULL or does not exist
+21: stop(sprintf("Wrong number of parameters (%s instead of *%s*) passed: justify",
+        nchar(justify), length(t.width)))
+desc1 = d0k %>% summarytools::freq(d0k, style = "rmarkdown") %>% tb()
+desc1 = d0k %>% summarytools::freq(d0k[ , c("k1", "k3") ]) %>% tb()
+desc1 = d0k %>% summarytools::freq(d0k, style = "rmarkdown") 
+desc1 = d0k %>% summarytools::freq(d0k[ , c("k1", "k3") ]) 
+desc1 = d0k %>% summarytools::freq(d0k$k1) %>% tb()
+desc1 = d0k %>% summarytools::freq(d0k, style = "rmarkdown", plain.ascii = F)
+desc1 = d0k %>% summarytools::freq(d0k$k1, style = "rmarkdown", plain.ascii = F)
+knitr::kable(desc1)
+``` 
+
+Sebep: d0k'yi iki defa pass etmişim.
+
+### betimsel istatistiklerle negatiflik durumunu kıyasla
+
+yande puanları yüksek olan tüm sorular negatif, düşük tüm sorular pozitif. Bu demek oluyor ki, negatif pozitif dönüşümü önceden yapılmış.
+
+d0'ı dikkate aldığımdan öyle oldu. d2'yi dikkate almalıydım.
+
+## Korelasyon katsayısı hesaplama
+
+

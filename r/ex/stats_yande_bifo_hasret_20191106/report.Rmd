@@ -8,7 +8,10 @@ categories: r statistics
 type: post
 url:
 author: "Mert Nuhoglu"
-output: rmarkdown::html_document
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
 
 ---
 
@@ -34,6 +37,7 @@ library(rio)
 library(knitr)
 library(broom)
 library(haven)
+library(summarytools)
 ``` 
 
 Verileri okuyalım:
@@ -88,6 +92,7 @@ y1 = y0 %>%
 ``` {r}
 y2 = y1 %>%
 	dplyr::left_join(n0, by = "yande_question_no") %>%
+	#dplyr::mutate(score_norm = ifelse(is_positive == 1, score, score ))
 	dplyr::mutate(score_norm = ifelse(is_positive == 1, score, (6 - score) ))
 ``` 
 
@@ -126,7 +131,7 @@ y4 = y3 %>%
 bifo puanlarının da tamamını alalım.
 
 ``` {r}
-b1 = d0 %>%
+b1 = d2 %>%
 	dplyr::select(student_no, starts_with("b"))
 b2 = b1 %>%
   replace(is.na(.), 3) %>%
@@ -149,13 +154,22 @@ aov(sum_yande ~ sum_bifo, data = a0) %>%
 
 Linear regression:
 
+Görselleştirme için scatter plot:
+
+http://r-statistics.co/Linear-Regression.html#Graphical%20Analysis
+
+``` {r}
+scatter.smooth(x = a0$sum_bifo, y = a0$sum_yande, main = "Yande ~ Bifo")
+``` 
+
+## Lineer regresyon
+
 https://broom.tidyverse.org/articles/broom.html
 
 ``` {r}
 lmfit = lm(sum_yande ~ sum_bifo, a0)
-lmfit
-summary(lmfit)
 lm0 = broom::tidy(lmfit)
+knitr::kable(lm0)
 ``` 
 
 Fitted values and residuals for each student:
@@ -164,18 +178,11 @@ Fitted values and residuals for each student:
 lm1 = broom::augment(lmfit)
 ``` 
 
-R squared, F-statistic:
+R squared, p value:
 
 ``` {r}
 lm2 = broom::glance(lmfit)
-``` 
-
-Görselleştirme için scatter plot:
-
-http://r-statistics.co/Linear-Regression.html#Graphical%20Analysis
-
-``` {r}
-scatter.smooth(x = a0$sum_bifo, y = a0$sum_yande, main = "Yande ~ Bifo")
+knitr::kable(lm2)
 ``` 
 
 ggplot ile görselleştirme:
@@ -188,45 +195,74 @@ ggplot(a0, aes(x = sum_bifo, y = sum_yande)) +
   stat_smooth(method = "lm", col = "red")
 ``` 
 
-Descriptive statistics:
+## Betimsel istatistikler
+
+Kişisel bilgilere dair betimsel istatistikler
 
 ``` {r}
-desc_num = function(df, vars) {
-	df2 = df %>%
-		dplyr::select(vars) 
-	g01 = df2 %>%
-		tidyr::pivot_longer(
-			cols = dplyr::everything()
-			, names_to = "var"
-			, values_to = "value") 
-	gs = g01 %>%
-		dplyr::group_by(var) %>%
-		dplyr::summarize(
-			avg = mean(value, na.rm=T)
-			, sd = sd(value, na.rm=T)
-			, missing = sum(is.na(value))
-			, n = dplyr::n() - missing
-			, min = min(value, na.rm=T)
-			, med = median(value, na.rm=T)
-			, max = max(value, na.rm=T)
-		)
-	return(gs)
-}
-desc_num(d0, dplyr::everything())
+d0k = d2 %>%
+	dplyr::select(dplyr::starts_with("k"))
+d0k %>%
+	summarytools::freq()
 ``` 
 
-kable ile tablo formatla:
+BIFO ve YANDE puan toplamlarına dair betimsel istatistikler:
 
 ``` {r}
-knitr::kable(lm0)
-knitr::kable(lm2)
+desc2 = a0 %>% summarytools::descr(stats = "common") %>% tb()
+knitr::kable(desc2)
 ``` 
+
+Tek tek her bir YANDE sorusuna ait betimsel istatistikler:
+
+``` {r}
+desc3 = d2 %>%
+	dplyr::select(dplyr::starts_with("y")) %>%
+	summarytools::descr(stats = "common") %>% tb()
+knitr::kable(desc3)
+``` 
+
+Tek tek her bir BIFO sorusuna ait betimsel istatistikler:
+
+``` {r}
+desc4 = d2 %>% 
+	dplyr::select(dplyr::starts_with("b")) %>%
+	summarytools::descr(stats = "common") %>% tb()
+knitr::kable(desc4)
+``` 
+
+## Correlation
+
+https://paulvanderlaken.com/2018/09/10/simpler-correlation-analysis-in-r-using-tidyverse-principles/
+
+``` {r}
+library(corrr)
+library(here)
+
+dir.create(here::here("gen/img")) # create an images directory
+
+a0 %>%
+  corrr::correlate() %>%
+  # use mirror = TRUE to not only select columns but also filter rows
+  corrr::focus(sum_yande:sum_bifo, mirror = TRUE) 
+	%>% 
+  corrr::network_plot(colors = c("red", "green")) %>%
+  ggplot2::ggsave(
+    filename = here::here("gen/img", "correlations.png"),
+    width = 5,
+    height = 5
+    )
+cor.test(a0$sum_yande,a0$sum_bifo)
+
+``` 
+
+## Outputs
 
 Tüm ara hesap verilerini bir excel dosyasına koyuyorum sonradan kolayca debug edebilmek için:
 
 ``` {r}
-output = list(d0, n0, y0, y1, y2, y3, y4, d1, d2, b1, b2, a0, lm0, lm1, lm2)
-sheets = c("d0", "n0", "y0", "y1", "y2", "y3", "y4", "d1", "d2", "b1", "b2", "a0", "lm0", "lm1", "lm2")
+output = list(d0, n0, y0, y1, y2, y3, y4, d1, d2, b1, b2, a0, lm0, lm1, lm2, desc2, desc3, desc4)
+sheets = c("d0", "n0", "y0", "y1", "y2", "y3", "y4", "d1", "d2", "b1", "b2", "a0", "lm0", "lm1", "lm2", "desc2", "desc3", "desc4")
 WriteXLS::WriteXLS(output, "gen/debug.xlsx", SheetNames = sheets)
 ``` 
 
@@ -304,4 +340,77 @@ y0 %>%
 ``` 
 
 Tamam bu çalışıyor düzgün.
+
+### descriptive stats (deprecated)
+
+``` r
+desc_num = function(df, vars) {
+	df2 = df %>%
+		dplyr::select(vars) 
+	g01 = df2 %>%
+		tidyr::pivot_longer(
+			cols = dplyr::everything()
+			, names_to = "var"
+			, values_to = "value") 
+	gs = g01 %>%
+		dplyr::group_by(var) %>%
+		dplyr::summarize(
+			avg = mean(value, na.rm=T)
+			, sd = sd(value, na.rm=T)
+			, missing = sum(is.na(value))
+			, n = dplyr::n() - missing
+			, min = min(value, na.rm=T)
+			, med = median(value, na.rm=T)
+			, max = max(value, na.rm=T)
+		)
+	return(gs)
+}
+desc_cat = function(df, vars) {
+	df2 = df %>%
+		dplyr::select(vars) 
+	g01 = df2 %>%
+		tidyr::pivot_longer(
+			cols = dplyr::everything()
+			, names_to = "var"
+			, values_to = "value") 
+	g02 = g01 %>%
+		dplyr::count(var, value) %>%
+		dplyr::group_by(var) %>%
+		dplyr::filter(!is.na(value)) %>%
+		dplyr::mutate(percentage = prop.table(n) * 100) 
+	s01 = g02 %>%
+		dplyr::select(-n) %>%
+		tidyr::spread(value, percentage)
+	gs = g01 %>%
+		dplyr::group_by(var) %>%
+		dplyr::summarize(
+			avg = mean(value, na.rm=T)
+			, sd = sd(value, na.rm=T)
+			, missing = sum(is.na(value))
+			, n = dplyr::n() - missing
+		)
+	s01 %>%
+		dplyr::inner_join(gs, by = "var") %>%
+		dplyr::arrange(var)
+}
+``` 
+
+``` r
+desc1 = d0 %>%
+	dplyr::select(-k2) %>%
+	desc_cat(dplyr::starts_with("k"))
+knitr::kable(desc1)
+desc2 = desc_num(a0, c("sum_yande", "sum_bifo"))
+``` 
+
+### dfSummary
+
+``` {r}
+d0k = d0 %>%
+	dplyr::select(dplyr::starts_with("k"))
+desc2 = a0 %>% summarytools::descr(stats = "common") %>% tb()
+d0s = summarytools::dfSummary(d0k, plain.ascii = FALSE, style = "grid", 
+          graph.magnif = 0.75, valid.col = FALSE, tmp.img.dir = "/tmp")
+view(d0s)
+``` 
 
