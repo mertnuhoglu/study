@@ -30,7 +30,6 @@ https://stackoverflow.com/questions/1527548/why-does-clojure-have-keywords-in-ad
 
 > Keywords are generally used as lightweight "constant strings", e.g. for the keys of a hash-map or the dispatch values of a multimethod. Symbols are generally used to name variable and functions and it's less common to manipulate them as objects
 
-
 ## mapv function
 
 > Returns a vector consisting of the result of applying f to the
@@ -1212,3 +1211,226 @@ Abstract set of functions
 ``` 
 
 `Foo` protocol specifies two methods: `bar` and `baz`
+
+# edn-format/edn: Extensible Data Notation
+
+https://github.com/edn-format/edn
+
+edn: extensible dat anotation
+
+Superset of edn is clojure programs. 
+
+edn is for values. It is not a type system. It has no schemas. It is not for representing object since there are no reference types. 
+
+There is no enclosing element at the top level. Thus it is suitable for streaming.
+
+Base set of elements covers basic set of data structures. 
+
+## General Considerations
+
+`#` dispatch character: Tokens beginning with `#` are reserved. 
+
+## Built-in elements
+
+`nil`: nil, null or nothing.
+
+`booleans`: `true` and `false`
+
+`strings` are enclosed in `"double quotes"`. Multiple lines +. `\t \r \n \\ \"`
+
+`characters` are preceded by a backslash `\c, \newline \return \space \tab \uNNNN`
+
+`symbols`: represent identifiers.
+
+`/`: `namespace/foo`
+
+`keywords`: identifiers that designate themselves. `:fred :my/fred`. correspond to enumeration values.
+
+`integers`
+
+`floating point numbers`
+
+`M` suffix exact precision is desired
+
+`lists` (a b 42)
+
+`vectors` like lists but supports random access. `[a b 42]`
+
+`maps` associations between keys and values. `{:a 1, "foo" :bar, [1 2 3] four}`
+
+keys and values can of any type.o
+
+commas are parsed as whitespace
+
+`sets`: `#{a b [1 2 3]}`
+
+## tagged elements
+
+`tagged elements`
+
+``` bash
+#myapp/Person {:first "Fred" :last "Mertz"}
+``` 
+
+### built-in tagged elements
+
+Instant in time
+
+``` bash
+#inst "1985-04-12T23:20:50.52Z"
+``` 
+
+UUID
+
+---
+
+commens: `;`
+
+# Book: Programming in Clojure - Alex Miller, Stuart Halloway, Aaron Bedra
+
+## Chapter 1 - Getting Started
+
+### Clojure is Elegant
+
+``` bash
+(defn blank? [str]
+  (every? #(Character/isWhitespace %) str))
+``` 
+
+No for loop. No if branching. No mutable state.
+
+``` bash
+user=> (defrecord Person [first-name last-name])
+  ##> user.Person
+user=> (def foo (->Person "Aaron" "Bedra"))
+  ##> #'user/foo
+user=> (:first-name foo)
+  ##> "Aaron"
+``` 
+
+### Clojure is Lisp Reloaded
+
+Clojure itself is built out of macros such as `defrecord`
+
+``` bash
+(defrecord name [arg1 arg2 arg3])
+``` 
+
+If you need different semantics, write your own macro.
+
+Lisp is homoiconic. That is, Lisp code is Lisp data. Therefore programs can easily write new programs.
+
+The whole language is there. 
+
+Clojure generalizes Lisp's list into a sequence. This extends that power to other data structures.
+
+Symbol resolution and syntax quoting makes writing macros easier.
+
+Function parameters are in a vector `[]` not a list `()`
+
+Commas to separate elements are optional: `[1 2 3]`
+
+No parantheses more than necessary.
+
+Clojure avoids extra parantheses:
+
+``` bash
+(cond (= x 10) "equal"
+      (> x 10) "more")
+``` 
+
+### Clojure is a functional language.
+
+But it is not pure functional like haskell.
+
+- functions as first-class objects
+- Data is immutable
+- Functions are pure
+
+Ex: 
+
+``` bash
+(for [c compositions :when (= (:name c) "Requiem")] (:composer c))
+``` 
+
+`for` makes a list comprehension read as: "For each `c` in `compositions`, where the name of `c` is `Requiem`, yield the `composer` of `c`"
+
+- Simple: no loops, variables, mutable state
+- Thread safe: no locking needed
+- Parallelizable: without changing code
+- Generic: `compositions` can be set, XML, database.
+
+Why has fp not taken over? Clojure gives new benefits:
+
+- Pure fp makes modelling state awkward.
+- Dynamic typing is easier. Specs let describe data and functions with better expression power than static types.
+
+### Clojure simplifies concurrent programming
+
+1. Immutable data
+
+2. Software transactional memory
+
+Ex:
+
+``` bash
+(def accounts (ref #{}))
+(defrecord Account [id balance])
+(dosync
+  (alter accounts conj (->Account "CLJ" 100.00)))
+``` 
+
+`ref`: creates a reference to the database
+
+`dosync` updates database in a transaction.
+
+Transaction guarantees thread safety.
+
+### Clojure embraces the JVM
+
+``` bash
+(System/getProperties)
+``` 
+
+``` java
+"hello".getClass().getProtectionDomain()
+``` 
+
+``` bash
+(.. "hello" getClass getProtectionDomain)
+``` 
+
+All clojure functions implement `Callable` and `Runnable`
+
+``` bash
+(.start (new Thread (fn [] (println "Hello" (Thread/currentThread)))))
+``` 
+
+## Clojure Coding Quick Start
+
+``` bash
+(println "hello world")
+(defn hello [name] (str "Hello, " name))
+(hello "Stu")
+``` 
+
+### Special Variables
+
+`*1 *2 ...`: result of most recent evaluation
+
+``` bash
+(str *1 " and " *2)
+``` 
+
+`(pst)` print stack trace
+
+Load file from REPL:
+
+``` bash
+(load-file "file.clj")
+``` 
+
+### Adding Shared State
+
+ 
+

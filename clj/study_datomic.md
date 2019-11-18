@@ -18,7 +18,9 @@ state: wip
 
 ---
 
-# Setup Datomic
+# Articles
+
+## Setup Datomic
 
 https://docs.datomic.com/on-prem/get-datomic.html
 
@@ -531,6 +533,324 @@ First, get the latest value of the database:
 => [["SKU-25"] ["SKU-26"]]
 ``` 
 
+## The Architecture of Datomic, Rich Hickey
 
+https://www.infoq.com/articles/Architecture-Datomic/
+
+### Motivations
+
+A database system has a point of view about the data model.
+
+RDBMS support relational model and world-update semantic.
+
+NoSQL knows nothing of the information it contains. 
+
+Datomic considers a database to be an information system. 
+
+Information is a set of facts. 
+
+Facts are things that have happened.
+
+Facts cannot be updated in place.
+
+Amazon Dynamo: A highly available, redundant, scalable storage system. Datomic seeks to support these systems directly.
+
+RDBMS provides powerful language for manipulating data. But its power is trapped in servers. Once the data reaches the application, we need to use a lot of for loops and imperative manipulation. 
+
+Datomic provides fundamentally a distributed index. It allows declarative query to work in the application server tier.
+
+### Overarching Concerns
+
+- Data as interface
+
+The system is programmable. Therefore, the interfaces are data-driven, not syntax based. 
+
+Schema, transactions, queries, and query results are all defined terms of ordinary data structures such as lists and maps.
+
+### Logical Model 
+
+Services:
+
+- Storage
+- Transaction
+- Indexing
+- Application data model and query
+- Caching
+
+### Physical Model
+
+- Storage services
+
+Supported storages are: 
+
+- in-process memory
+- SQL
+- Key/value such as DynamoDB
+- Memory grid
+
+Storage is taken as a service. This brings a lot of flexibility.
+
+- The Transactor
+
+- The Peer Library
+
+It runs in the datomic client application.
+
+Programming at the peer level is different from client-server database programming. The database feels like an object in memory. 
+
+Queries run within the context of a database. Databases become arguments to queries.
+
+Datalog is the query engine. 
+
+- memcache
+
+### The REST API and clients
+
+## The Datomic Information Model by Rich Hickey
+
+https://www.infoq.com/articles/Datomic-Information-Model/
+
+### Motivations
+
+Goals of datomic
+
+- No update-in-place
+- Scalable storage
+- ACID transactions
+- Declarative data programming
+
+Datomic considers a database to be an information system. Information is a set of facts. Facts are things that have happened.
+
+We cannot change the past. Thus database should accumulate facts. There cannot be any updates. 
+
+Immutability leads to important benefits.
+
+Existing database focus on "now". "Now" is the set of facts that are currently true. 
+
+They lose historical information. Historical information can support decision making.
+
+A database provides leverage over the data. Otherwise, it is just a storage system.
+
+The leverage comes from organizing the data (via indexes) and query systems.
+
+### Structure and Representation
+
+The fundamental unit is atomic fact, or datom.
+
+It has the following parts:
+
+- Entity
+- Attribute
+- Value
+- Transaction (database time)
+- Add/retract
+
+This model is similar to RDF Subject/Predicate/Object data model. But this model has also temporal notion and retraction notion.
+
+Datomic adopts closed-world assumption.
+
+Atomic unit ensures that novelty representations are only as big as the new facts themselves. Contrast this with document updates or delta schemes.
+
+Datoms constitute a single, flat, universal relation. There is no other structural component in Datomic.
+
+Contrast this to relational databases. They have relations, fields, tables, join tables. 
+
+### Schemas
+
+Attributes are entities themselves with the following attributes:
+
+- name
+- data type of values
+- cardinality
+- uniqueness
+- indexing properties
+- component nature (whole part)
+- documentation
+
+``` bash
+{:db/ident       :person/name,
+ :db/valueType   :db.type/string,
+ :db/cardinality :db.cardinality/one,
+ :db/doc         "A person's name"}
+``` 
+
+Schema is represented by data. This is a map in edn format
+
+### Transactions
+
+A transaction is a list of datoms:
+
+``` bash
+[[:db/add entity-id attribute value]
+ [:db/add entity-id attribute value]...]
+``` 
+
+All data manipulation is represented by data. 
+
+Each vector representing a datom in:
+
+``` bash
+[op entity attribute value]
+``` 
+
+To submit several facts about the same entity, you can use a map instead:
+
+``` bash
+[{:db/id entity-id,
+  attribute value,
+	attribute value}
+	...]
+``` 
+
+Transactions are ordinary data structures (java.util.List, java.util.Map, arrays etc). 
+
+The primary interface to datomic is data, not strings.
+
+Note that, you don't specify transaction part of the datoms. It will be filled in by the transactor.
+
+A transaction can assert facts about the transaction itself, such as metada. 
+
+#### database functions
+
+Example:
+
+``` bash
+[[:db/add entity-id attribute value]
+ [:my/giveRaise sally-id 100]
+ ...]
+``` 
+
+Database functions are installed into the database. Once installed, it can be part of a transaction. 
+
+Onca it is part of a transaction, it is called a transaction function. It gets passed a first argument which is the in-transaction value of the database itself. 
+
+Transaction function returns simple facts. This fact replaces the transaction function then. Thus transaction becomes like:
+
+``` bash
+[[:db/add entity-id attribute value]
+ [:db/add sally-id :employee/salary 45100]
+ ...]
+``` 
+
+### Connections and Database Values
+
+Write side:
+
+You have a connection. Connection connects you to the current transactor.
+
+Calling transact function on the connection issues transactions.
+
+Read side:
+
+In a traditional database, reading is also a function of the connection. 
+
+In Datomic, there is only one read operation of connection: `db()`
+
+The connection is fed information. It can deliver the value of the database as an immutable object.
+
+Querying happens locally.
+
+### Query
+
+Query is a stand-alone function that takes database as argument. 
+
+Thus datomic frees query from running within the context of a database.
+
+Peer library comes with a query engine based upon datalog.
+
+Datalog is a declarative query language with pattern-matching.
+
+The basic form of query is:
+
+``` bash
+{:find [variables...] :where [clauses...]}
+[:find variables... :where clauses...]
+``` 
+
+Ex:
+
+``` bash
+[[sally :age 21]
+ [fred :age 42]
+ [ethel :age 42]
+ [fred :likes pizza]
+ [sally :likes opera]
+ [ethel :likes sushi]]
+``` 
+
+``` bash
+[:find ?e :where [?e :age 42]]
+  ##> [[fred], [ethel]]
+``` 
+
+`?variable` are avariables. 
+
+Joins are implicit and occur whenever you use a variable more than once:
+
+``` bash
+[:find ?e ?x
+ :where [?e :age 42]
+        [?e :likes ?x]
+  ##> [[fred pizza], [ethel sushi]]
+``` 
+
+API for query is a function `q`
+
+``` bash
+Peer.q(query, inputs...)
+``` 
+
+`inputs` can be database, collection etc.
+
+``` bash
+//connect
+Connection conn = Peer.connect("a-db-URI");
+//grab the current value of the database
+Database db = conn.db();
+//a string for now, because Java doesn't have collection literals
+String query = "[:find ?e :where [?e :likes pizza]]";
+//who likes pizza?
+Collection result = Peer.q(query, db);
+``` 
+
+### Same query, different basis
+
+`db` has all the historical information:
+
+Ex:
+
+``` bash
+//who liked pizza last week?
+Peer.q(query, db.asOf(lastTuesday));
+``` 
+
+Note that, we didn't use the connection and we didn't change the `query`. 
+
+Ex: 
+
+We can add a new collection and rerun a query:
+
+``` bash
+Peer.q(query, db.with(everyoneFromBrookly))
+``` 
+
+So, you can do speculative, what-if queries.
+
+Ex:
+
+We can test a query without any database too:
+
+``` bash
+Peer.q(query, aCollection)
+``` 
+
+Ex: Query historical data
+
+``` bash
+// who has ever liked pizza?
+Peer.q(query, db.history())
+``` 
+
+### Different queries
 
 
