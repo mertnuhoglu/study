@@ -1,7 +1,7 @@
 ---
 title: "Study anki"
 date: 2019-02-21T13:52:38+03:00 
-draft: true
+raft: true
 description: ""
 tags:
 categories: bash, 
@@ -13,10 +13,34 @@ output:
     css: styles.css
 blog: mertnuhoglu.com
 resource_files:
-- 
 path: ~/projects/study/bash/study_anki.Rmd
 state: wip
+
 ---
+
+# Articles
+
+## Anki Manual
+
+https://apps.ankiweb.net/docs/manual.html
+
+### The Basics
+
+#### Cards
+
+A question and answer pair is a card
+
+#### Decks
+
+A group of cards is a deck.
+
+Putting decks into a tree:
+
+opt01: Name them with "::" between each level.
+
+opt02: drag and drop
+
+# Tasks
 
 ## Customize Settings for Cloze Card Type
 
@@ -125,4 +149,5 @@ ankdown -p <file>.apkg -d db01 -i <file>.md
 ``` vimscript
 vnoremap <Leader>e s{{c1::<c-r>"}}<esc>
 ``` 
+
 
