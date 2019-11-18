@@ -407,6 +407,8 @@ g/<br> $/ ,/@@@/j
 
 ## Complete process image + sound
 
+### opt01:
+
 Bu süreç, tek kelimelik listeler için dizayn edildi. Tek kelime, hem resim dosyasının ismi, hem de İngilizce kelime olarak kullanılıyor. Bu sayede, resim dosyalarıyla kelimeler arasında eşleştirme için ekstra bir şey yapmak gerekmiyor. 
 
 İlk adım resim dosyalarını indirip, onların isimlerini öğrenilecek ingilizce ifadelerle adlandırmak. 
@@ -425,6 +427,29 @@ anki_sheets_2_anki_txt "${tags}"
 anki_mv_media_files_2_collection
 ``` 
 
+### opt02: complete process eng_word,tur_word,image id=g_10821
+
+Kelimeleri önce bir dosyada tablo içinde listeleyelim. Sonra resimleri bu tabloda ekleyelim.
+
+Örnek: `~/gdrive/mynotes/stuff/ozgur_emin/english/anki/exam_20191024/words_20191110.tsv`
+
+3 kolon: ingilizce kelime, türkçesi, resim dosyasının ismi
+
+		president	başkan	word_president.jpg
+
+``` bash
+anki_resize_images
+anki_rename_jpg word_
+anki_jpg_2_images_2 words_20191110.tsv
+anki_merge_images words_20191110.tsv
+tags="exam201911"
+anki_sheets_2_anki_txt "${tags}"
+anki_mv_media_files_2_collection
+``` 
+
+#### alt: anki_jpg_2_images
+
+Önce son kolonu çekmeliyim
 
 ## Complete process multiple choice
 

@@ -45,7 +45,7 @@ done
 echo called make_shadowing_video_clips.sh with:
 echo -c $clip_name -v $VOLUME_INCREASE NOSUB_VIDEO $NOSUB_VIDEO SUB_VIDEO $SUB_VIDEO
 input="${clip_name}.mkv"
-output_mp4="${clip_name}.mp4"
+output_mp4="${clip_name}_320.mkv"
 offset_clip_id=0
 echo input: $input
 echo output_mp4: $output_mp4
@@ -55,11 +55,17 @@ if [ ! -f "${output_mp4}"  ]; then
 	stream_line=$(ffprobe -i "${input}" 2>&1 | rg eng | rg Stream | rg Audio)
 	pat='Stream #0:([0-9])'
 	[[ $stream_line =~ $pat ]]
-	stream="${BASH_REMATCH[1]}"
+	stream_eng="${BASH_REMATCH[1]}"
 	echo $stream_line
-	echo matched: $stream
+	echo matched: $stream_eng
+	stream_line=$(ffprobe -i "${input}" 2>&1 | rg tur | rg Stream | rg Audio)
+	pat='Stream #0:([0-9])'
+	[[ $stream_line =~ $pat ]]
+	stream_tur="${BASH_REMATCH[1]}"
+	echo $stream_line
+	echo matched: $stream_tur
 	ffmpeg -i "${input}" \
-		-map 0:0 -map 0:${stream} \
+		-map 0:0 -map 0:${stream_eng} -map 0:${stream_tur} \
 		-c:v libx264 -crf 23 -vf "scale=320:240" \
 		-c:a aac -q:a 32 -filter:a "volume=${VOLUME_INCREASE}" \
 		"${output_mp4}" 
@@ -73,9 +79,12 @@ fi
 if [ $SUB_VIDEO = 1 ]; then
 	ffmpeg -i "${clip_name}.srt" "${clip_name}0.ass" &&
 	sed -e 's/^Style: Default.*/Style: Default,Arial,28,\&H0000FFFF,\&H0077FF00,\&H00000000,\&H00000000,0,0,0,0,100,100,0,0,1,2,2,2,10,10,10,1/' "${clip_name}0.ass" | tr -d $'\r' > "${clip_name}.ass" &&
-	output_sub="${clip_name}_sub.mp4" &&
-	ffmpeg -i "${output_mp4}" -c:v libx264 -crf 12 -vf "ass=${clip_name}.ass" "${output_sub}" &&
-	bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh "${clip_name}" $VOLUME_INCREASE "${output_sub}" clips_sub 
+	output_sub="${clip_name}_sub.mkv" &&
+	ffmpeg -i "${output_mp4}" \
+		-map 0:0 -map 0:1 -map 0:2 \
+		-c:v libx264 -crf 12 -vf "ass=${clip_name}.ass" "${output_sub}" &&
+	echo "skipping clips"
+	#bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips_step02.sh "${clip_name}" $VOLUME_INCREASE "${output_sub}" clips_sub 
 else
 	echo "no subbed video is requested" 
 fi
