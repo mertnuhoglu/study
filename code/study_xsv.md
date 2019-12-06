@@ -46,6 +46,11 @@ https://github.com/BurntSushi/xsv
 		stats
 		table: show any csv table with elastic tabs
 
+		Common options:
+				-h, --help             Display this message
+				-o, --output <file>    Write output to <file> instead of stdout.
+				-d, --delimiter <arg>  The field delimiter for reading CSV data.
+                           Must be a single character. (default: ,)
 ### Help
 
 ``` bash

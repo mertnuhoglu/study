@@ -18,6 +18,8 @@ path: ~/projects/study/bash/study_csvcut.Rmd
 state: wip
 ---
 
+Better alternative to `csvcut`: `xsv` explained in `~/projects/study/code/study_xsv.md`
+
 ## Article01: Official Tutorial
 
 Follow https://csvkit.readthedocs.io/en/1.0.3/tutorial/1_getting_started.html#getting-the-data

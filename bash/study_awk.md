@@ -235,4 +235,12 @@ some name;another thing; random;,value,value,value,value,value
 
 https://www.gnu.org/software/gawk/manual/html_node/Getline_002fVariable_002fFile.html#Getline_002fVariable_002fFile
 
+## tsv file templating with awk 
+
+Check `~/projects/study/bash/ex/study_awk/ex02/e01.sh`
+
+## variables
+
+Check `~/projects/study/bash/ex/study_awk/ex02/e02.sh`
+
 
