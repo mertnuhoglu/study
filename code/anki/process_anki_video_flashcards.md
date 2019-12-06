@@ -28,6 +28,14 @@ Ref:
 		~/projects/study/logbook/make_shadowing_videos_20190719.md
 		~/projects/study/logbook/log_20190722.md
 
+### opt03: generate sub video only (no silence clips)
+
+``` bash
+VOLUME_INCREASE=2
+clip_name="Incredibles 2 - İnanılmaz Aile 2 - 2018 - 1080p - Dual - Altyazısız"
+bash ~/projects/study/code/video/ex/process_shadowing_pronunciation_video_clips/make_shadowing_video_clips.sh -c "${clip_name}" -v $VOLUME_INCREASE -S
+``` 
+
 ### opt01: nearly full automatic
 
 01: download english srt

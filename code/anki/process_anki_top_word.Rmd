@@ -38,15 +38,15 @@ Open https://docs.google.com/spreadsheets/d/1Wg5xSR7-7ER-fUUM7b2h5wyV9A9cgRvE88D
 
 Open sentence pairs, for example: `~/Downloads/english/top_words_100/gen/could.txt`
 
-Paste google sheets into `sheets_top_words`
+Choose some pairs and copy paste them google sheets into `sheets_top_words`
+
+Check `~/Downloads/english/top_words_100/sheets_top_words`
 
 ``` bash
 cd /Users/mertnuhoglu/Downloads/english/top_words_100
 echo "word_id	english	turkish	explain	example_en	example_tr" > sheets_top_words
 pbpaste >> sheets_top_words
 anki_sheets_top_words_2_anki_txt
-anki_sheets_top_words_2_anki_txt.sh
-anki_sheets_top_words_2_anki_txt.R
   ##> ~/Downloads/english/top_words_100/anki.tsv
 	##> ~/Downloads/english/top_words_100/mp3_url
 wget -i mp3_url
