@@ -1,0 +1,9 @@
+load file in REPL	`(load-file "file.clj")`	clojure
+print stack trace	`(pst)`	clojure
+repl: most recent evaluations	`*1 *2 *3`	clojure
+empty set	`#{}`	clojure
+`(conj #{} "Ali")`	-> #{"Ali"}	clojure
+check value of ref	`(deref x)` or `@x`	clojure
+create an atom with name x	`(def x (atom #{}))`	clojure
+import a namespace	`(require 'some-namespace)`	clojure
+create a literal list	'(1 2 3)	clojure

@@ -1,0 +1,57 @@
+
+* Tables
+
+| seperate columns
+--- horizontal lines ^c -
+
+| ID |   | x | comments |
+| B  |   | 3 | good     |
+|    |   |   |          |
+|    |   |   |          |
+| A  |   | 2 | fine     |
+|    |   |   |          |
+|    |   |   |          |
+
+1. Write the first line in verbatim
+2. TAB: make next line
+3. !arrow: move rows/columns
+4. !+arrow: add/delete rows/columns
+
+** Creating table
+
+   SPC SPC 
+   org-table-create
+   , t n
+   ^c |
+
+
+| id | col1 | col2    |
+|----+------+---------|
+|  1 | ai   | bdelete |
+|  2 | work | hard    |
+
+Convert existing lines into a table:
+
+ID x y
+a 2 3
+b 4 5
+
+Select lines
+^c |
+
+** Exporting table
+
+Put cursor inside table
+
+    !x org-table-export
+    ,tE
+
+** Formula
+
+    ^c +
+| col1 | col2 |
+|------+------|
+|   10 |   20 |
+|   30 |   40 |
+|      |      |
+

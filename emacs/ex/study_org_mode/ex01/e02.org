@@ -1,0 +1,29 @@
+
+* org-mode structure
+This is text
+
+** a subheading
+** navigation
+jump to headings: ^c ^n, ^c ^p
+** move headings: !up !dn
+** indent headings: !right !left
+** lists
+*** bullet lists
+ - item 1: space then -
+   - item 2
+ - item 3: indent and move like headings
+*** numbered lists
+ 1. list 1: space then 1
+ 2. item 2
+    1. subitem 1
+*** checklists
+ - [ ] check 01
+ - [X] check 02
+ - [0/0]
+
+*** TODO 
+*** TODO !+RET
+*** 
+*** 
+*** TODO 
+**** TODO 

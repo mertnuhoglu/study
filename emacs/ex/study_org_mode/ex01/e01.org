@@ -1,0 +1,21 @@
+* Tasks
+** DONE start new org file
+   CLOSED: [2019-11-27 Wed 15:59]
+** TODO outline document
+** TODO write intro
+
+* Introduction
+
+Org-mode is an information management tool for emacs.
+
+** Obtaining org-mode
+
+Download from [[https://google.com][app page]]
+
+Go to [[[[file:~/projects/study/emacs/study_org_mode.md][file:~/projects/study/emacs/study_org_mode.md]]][markdown]]
+
+** Installation
+* The basics 
+** Creating a new file
+** Simple task list
+

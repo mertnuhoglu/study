@@ -1,0 +1,45 @@
+#+BEGIN_SRC emacs-lisp
+  (message "Yeah!")
+#+END_SRC
+
+#+RESULTS:
+: Yeah!
+
+#+begin_src clojure :results silent
+  (+ 1 4)
+#+end_src
+
+#+begin_src clojure :results value
+  [ 1 2 3 4]
+#+end_src
+
+#+RESULTS:
+: nil[1 2 3 4]
+
+#+begin_src clojure
+  (use '(incanter core charts pdf))
+  ;;; Create the x and y data:
+  (def x-data [0.0 1.0 2.0 3.0 4.0 5.0])
+  (def y-data [2.3 9.0 2.6 3.1 8.1 4.5])
+  (def xy-line (xy-plot x-data y-data))
+  (view xy-line)
+  (save-pdf xy-line "incanter-xy-line.pdf")
+  (save xy-line "incanter-xy-line.png")
+#+end_src
+
+#+RESULTS:
+#+begin_example
+nil#'ex04.core/x-data#'ex04.core/y-dataclass java.io.FileNotFoundExceptionclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionclass java.io.FileNotFoundExceptionclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionExecution error (FileNotFoundException) at ex04.core/eval12662 (form-init15208894309382293620.clj:2).
+Could not locate incanter/core__init.class, incanter/core.clj or incanter/core.cljc on classpath.
+Syntax error compiling at (ex04:localhost:56058(clj)*:6:14).
+Unable to resolve symbol: xy-plot in this context
+Syntax error compiling at (ex04:localhost:56058(clj)*:7:1).
+Unable to resolve symbol: view in this context
+Syntax error compiling at (ex04:localhost:56058(clj)*:8:1).
+Unable to resolve symbol: save-pdf in this context
+Syntax error compiling at (ex04:localhost:56058(clj)*:9:1).
+Unable to resolve symbol: save in this context
+#+end_example
+
+
+
