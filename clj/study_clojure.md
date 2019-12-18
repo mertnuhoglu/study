@@ -4785,4 +4785,178 @@ ns1/f
 
 # Book: [Luke_VanderHart,_Ryan_Neufeld]_Clojure_Cookbook.pdf
 
+# Article: Macros by Example - Stepan Parunashvili 
+
+https://m.stopa.io/macros-by-example-6ddbc8f3d93b
+
+## Example 1: nullthrows
+
+### in js
+
+``` bash
+function nullthrows(result) {
+  if (result === null || result === undefined) {
+    throw new Error("uh oh");
+  } 
+  return result;
+}
+nullthrows(getUser(db, 'billy'))
+// if it's null, throw Exception
+  ##> index.html:700 Uncaught Error: uh oh
+  ##>     at nullthrows (index.html:700)
+  ##>     at someStuff (index.html:1325)
+  ##>     ...
+``` 
+
+### in clojure
+
+``` bash
+(nil-throws (get-user "billy"))
+``` 
+
+something like:
+
+``` bash
+(defn nil-throws [res]
+  (if (nil? res)
+    (throw "uh oh")
+    res))
+``` 
+
+### macro:
+
+macro:
+
+``` bash
+(defmacro nil-throws [form]
+  `(let [result# ~form] ;; assign the evaluation of form to result#
+    (if (nil? result#)
+      (throw
+        (ex-info "uh oh, we got nil!" {:form '~form})) ;; save form for inspection
+      result#)))
+``` 
+
+`\`` don't eval it this is the code to return
+
+`~` is like interpolation `${}` in js but for lists
+
+`#` generate some symbol that doesn't interfere with any other in different scope
+
+`'` treat it as list, don't evaluate
+
+``` bash
+(nil-throws (get-user "billy"))
+``` 
+
+will be replaced with:
+
+``` bash
+(let [result# (get-user db "billy")]
+  (if (nil? result#)
+    (throw (ex-info "uh oh, we got nil!" {:form '(get-user db "billy")})) 
+    result#))
+``` 
+
+## Example 2: pipe
+
+### in js
+
+``` bash
+createBill(addToCart(cart, updatePrice(item, 100)))
+``` 
+
+convert to:
+
+``` bash
+item |> updatePrice($$, 100) |> addToCart(cart, $$) |> createBill
+``` 
+
+or this:
+
+``` bash
+|> [
+  item, 
+  updatePrice($$, 100), // updatePrice(item, 100)
+  addToCart(cart, $$), // addToCart(cart, updatePrice(item, 100))
+  createBill, // createbill(addToCart(cart, updatePrice(item, 100)))
+]
+``` 
+
+#### opt01: a pipe function
+
+``` bash
+pipe(item, (item) => updatePrice(item, 100))
+``` 
+
+Problem: needs anonymous functions
+
+### in clojure
+
+goal:
+
+``` bash
+(|> item
+    (update-price $$ 100)
+    (add-to-cart cart $$)
+    create-bill)
+``` 
+
+macro:
+
+``` bash
+(defmacro |> [form & forms]
+  (reduce
+    (fn [last-v form]
+      (if (seq? form) ;; am I being called: (update-price $$ 100)
+        `(let [~(symbol "$$") ~last-v]
+           ~form)
+        `(~form ~last-v))) ;; or am I just a function: create-bill
+    form
+    forms))
+``` 
+
+
+# Book: Clojure for the Brave and True
+
+## Introduction 
+
+https://www.braveclojure.com/introduction/
+
+## Chapter 1: Building, Running, and the REPL | Clojure for the Brave and True
+
+``` bash
+cd /Users/mertnuhoglu/projects/study/clj/ex/study_clojure/book_clojure_brave
+``` 
+
+``` bash
+lein new app clojure-boob
+``` 
+
+Edit `~/projects/study/clj/ex/study_clojure/book_clojure_brave/clojure-noob/src/clojure_noob/core.clj`
+
+``` bash
+(ns clojure-noob.core
+  (:gen-class))
+
+(defn -main
+  "I don't do a whole lot ... yet."
+  [& args]
+  (println "Teapot"))
+``` 
+
+``` bash
+cd clojure-noob
+lein run
+  ##> Teapot
+``` 
+
+`lein run` executes `-main` function.
+
+### Building the Clojure Project
+
+``` bash
+lein uberjar
+``` 
+
+
 
