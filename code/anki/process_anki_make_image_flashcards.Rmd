@@ -440,11 +440,11 @@ Kelimeleri önce bir dosyada tablo içinde listeleyelim. Sonra resimleri bu tabl
 ``` bash
 ~/projects/anki_english/scripts/anki_resize_images
 ~/projects/anki_english/scripts/anki_rename_jpg word_
-file="words_20191202.tsv"
+file="words_20191218.tsv"
 ~/projects/anki_english/scripts/anki_jpg_2_images_2 $file
 ~/projects/anki_english/scripts/anki_merge_images $file
 tags="exam201912"
-~/projects/anki_english/scripts/anki_sheets_2_anki_txt_2 "${tags}"
+~/projects/anki_english/scripts/anki_sheets_2_anki_txt_2 "$file" "${tags}"
 ~/projects/anki_english/scripts/anki_mv_media_files_2_collection
 ``` 
 
