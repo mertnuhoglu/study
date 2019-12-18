@@ -63,17 +63,49 @@ Restart: SPC q r
 
 ## Custom keybindings for emacs
 
-opt01: SPC h SPC > Spacemacs > Binding keys
+ref: `Binding keys - Spacemacs <url:/Users/mertnuhoglu/projects/study/emacs/study_emacs.md#tp=Binding keys - Spacemacs>`
 
-		(global-set-key (kbd "C-]") 'forward-char)
+## Enable smartparens keybindings
 
-opt02: vim editing style
+İlk kurulumda smartparens kısayolları çalışmıyordu. Bunu öğrenmek için:
 
-		(define-key evil-insert-state-map (kbd "C-]") 'forward-char)
+`C-h k` `C-M-a` 
 
-opt03: behind a leader key
+Çözüm: opt08 etkin minor modes neler?
 
-		(spacemacs/set-leader-keys "C-]" 'forward-char)
+Ref: `Fakat bende bu komut aktif değil. Neden? <url:/Users/mertnuhoglu/projects/study/logbook/log_20191205.md#tn=Fakat bende bu komut aktif değil. Neden?>`
+
+https://emacs.stackexchange.com/questions/10785/get-list-of-active-minor-modes-in-buffer
+
+Get list of active minor modes in buffer - Emacs Stack Exchange
+
+``` bash
+M-x describe-mode
+``` 
+
+.Smartparens
+
+> You can enable pre-set bindings by customizing
+> ‘sp-base-key-bindings’ variable.  The current content of
+> ‘smartparens-mode-map’ is:
+
+`C-h v` `sp-base-key-bindings` > customize > "Use smartparens set of bindings"
+
+Bu şekilde kısayollar aktifleşti.
+
+## Use non-unicode chars in mode line
+
+``` bash
+   dotspacemacs-mode-line-unicode-symbols nil
+``` 
+
+## Other 
+
+### 20191213 
+
+`SPC 2` 2 numaralı windowa geçiş yap
+
+`SPC l w` workspace transient state `2` 2 numaralı workspace'e geçiş yap
 
 # Tools
 
@@ -374,15 +406,106 @@ states:
 		^z	emacs state
 			,		repl commands
 
-# Spacemacs DOCUMENTATION
+# Spacemacs DOCUMENTATION Manual
 
-https://www.spacemacs.org/doc/DOCUMENTATION#editing-styles
+https://www.spacemacs.org/doc/DOCUMENTATION.org
 
-## 8 Concepts
+## Core Pillars
 
-### 8.1 Editing Styles
+Mnemonic: 
 
-### 8.2 States
+		b	buffer
+		p	project
+		s	search
+		h help
+		a applications
+		e errors
+		f files
+		g git
+		j	jump/join/split
+		m major-mode-cmd
+		T UI toggles
+		w windows
+		z zoom
+
+Discoverable: displays key bindings, query system
+
+Consistent
+
+Crowd-configured
+
+## Highlighted feature
+
+Modal editing like vim
+
+Integrate with evil (vim) states
+
+Helpful community: gitter and irc
+
+## Update and Rollback
+
+Automatic updates: every startup
+
+Update packages: `RET` on `Update Packages` in startup page. 
+
+# Configuration layers
+
+Ex: `python` layer provides auto-completion, syntax checking packages.
+
+## Binding keys - Spacemacs
+
+ref: `Custom keybindings for emacs <url:/Users/mertnuhoglu/projects/study/emacs/study_emacs.md#tn=Custom keybindings for emacs>`
+
+https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#binding-keys
+
+opt01: SPC h SPC > Spacemacs > Binding keys
+
+		(global-set-key (kbd "C-]") 'forward-char)
+
+opt02: vim editing style
+
+		(define-key evil-insert-state-map (kbd "C-]") 'forward-char)
+
+opt03: behind a leader key (after SPC)
+
+		(spacemacs/set-leader-keys "C-]" 'forward-char)
+
+opt04: behind a leader key + in a major mode
+
+		(spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode "C-]" 'forward-char)
+
+opt05: nested keys (after SPC)
+
+		(spacemacs/declare-prefix "]" "bracket-prefix")
+		(spacemacs/set-leader-keys "]]" 'double-bracket-command)
+
+That is: `SPC ] ]`
+
+## 6. Configuration layers
+
+### 6.3 Configure packages
+
+#### 6.3.2 Without a layer
+
+https://www.spacemacs.org/doc/DOCUMENTATION.html#orgheadline21
+
+Edit `~/.spacemacs` under `dotspacemacs-additional-packages`
+
+``` bash
+(defun dotspacemacs/layers ()
+  "Configuration Layers declaration..."
+  (setq-default
+   ;; ...
+   dotspacemacs-additional-packages '(llvm-mode dts-mode)
+   ;; ...
+   ))
+``` 
+
+### 8 Concepts
+
+#### 8.1 Editing Styles
+
+#### 8.2 States
 
 10 states
 
@@ -398,14 +521,14 @@ https://www.spacemacs.org/doc/DOCUMENTATION#editing-styles
 		iedit	red
 		iedit-insert	red
 
-## 14 Commands
+### 14 Commands
 
-### 14.1.2 Executing Vim and Emacs ex/M-x commands
+#### 14.1.2 Executing Vim and Emacs ex/M-x commands
 
 		ex command	:
 		Emacs M-x		SPC SPC
 
-### 14.2 Reserved for user
+#### 14.2 Reserved for user
 
 		SPC o
 		SPC m o
@@ -418,7 +541,7 @@ Ex:
 
 This binds `SPC o c` to run org mode capture 
 
-### 14.3 Completion
+#### 14.3 Completion
 
 Helm:
 
@@ -428,7 +551,7 @@ Helm transient state: like vim unite/fzf
 
 		s-M-SPC
 
-### 14.4 Discovering
+#### 14.4 Discovering
 
 Which-key:
 
@@ -476,7 +599,7 @@ Textual GUI system for setting user preferences.
 
 		M-x customize
 
-Ref: `49.1 Easy Customization Interface <url:/Users/mertnuhoglu/projects/study/emacs/study_emacs.Rmd#tn=49.1 Easy Customization Interface>`
+Ref: `49.1 Easy Customization Interface <url:/Users/mertnuhoglu/projects/study/emacs/study_emacs.md#tn=49.1 Easy Customization Interface>`
 
 # Article: Emacs Manual
 
@@ -821,6 +944,64 @@ Mnemonics:
 
 https://ebzzry.io/en/emacs-pairs/
 
+
+## Navigation
+
+`C-M-a` runs `sp-beginning-of-sexp`
+
+starts and ends
+
+		sp-beginning-of-sexp
+		sp-end-of-sexp
+
+traversing lists
+
+		sp-down-sexp
+		sp-up-sexp
+		sp-backward-down-sexp
+		sp-backward-up-sexp
+
+block movements
+
+		sp-forward-sexp
+		sp-backward-sexp
+
+top-level traversal
+
+		sp-next-sexp
+		sp-previous-sexp
+
+free-form movements
+
+		sp-backward-symbol
+		sp-forward-symbol
+
+wrapping
+
+		sp-wrap-round
+		sp-wrap-curly
+		sp-wrap-cancle
+		sp-wrap-square
+		sp-unwrap-sexp
+		sp-backward-unwrap-sexp
+
+slurp (expand) and barf (contract)
+
+		sp-forward-slurp-sexp
+		sp-forward-barf-sexp
+		sp-backward-slurp-sexp
+		sp-backward-barf-sexp
+		
+swapping
+
+		sp-transpose-sexp
+
+killing
+
+		sp-kill-sexp
+		sp-kill-hybrid-sexp
+		sp-backward-kill-sexp
+
 # Article: Spacemacs + Clojure
 
 https://joyheron.com/post/sketchnote/clojure-meetup/2017/08/17/spacemacs.html
@@ -860,5 +1041,207 @@ Evaluating
 
 `C-c C-p` evaluates and prints 
 
+# Book: GNU Emacs Manual
 
+### 23.2 Minor Modes
+
+https://www.gnu.org/software/emacs/manual/html_node/emacs/Minor-Modes.html
+
+Multiple minor modes can be active. 
+
+Some are enabled in certain buffers. Some are global.
+
+### 1.3 Mode Line
+
+https://www.gnu.org/software/emacs/manual/html_node/emacs/Mode-Line.html#Mode-Line
+
+### 14.6 View mode
+
+https://www.gnu.org/software/emacs/manual/html_node/emacs/View-Mode.html
+
+A minor mode. Scan buffer by sequential screenfuls.
+
+`M-x view-buffer`
+
+# Topic: smartparens
+
+## Article: smartparens wiki
+
+### Home · Fuco1/smartparens Wiki
+
+https://github.com/Fuco1/smartparens/wiki
+
+It is minor mode.
+
+### Installation
+
+``` bash
+(smartparens-global-mode 1)
+``` 
+
+### Default configuration
+
+`M-x customize-group`
+
+### Quick tour · Fuco1/smartparens Wiki
+
+https://github.com/Fuco1/smartparens/wiki/Quick-tour
+
+## Article: smartparens manual
+
+### Automatic escaping — Smartparens 1.10.1 documentation
+
+https://smartparens.readthedocs.io/en/latest/automatic-escaping.html
+
+### Pair management — Smartparens 1.10.1 documentation
+
+To define a new pair
+
+### Permissions — Smartparens 1.10.1 documentation
+
+#### Pre and post action hooks
+
+pre-handlers: before action
+
+post-handler: after action
+
+# Book: Practical Emacs Tutorial
+
+http://ergoemacs.org/emacs/emacs.html
+
+## Article: Emacs: Run Shell in Emacs
+
+http://ergoemacs.org/emacs/emacs_unix.html
+
+`M-x shell`
+
+## Emacs Keys Basics
+
+		C-x C-f						| find-file
+		C-x C-s						| save-buffer
+		C-x k  						| kill-buffer
+
+Finding commands and shortcuts
+
+		M-x describe-function
+		M-x describe-key
+
+## Emacs: How to Define Keys
+
+Normal yolu:
+
+``` bash
+(global-set-key (kbd "M-a") 'backward-char)
+``` 
+
+Fakat her seferinde restart etmemek için deneme yapma yolu:
+
+``` bash
+M-x eval-last-sexp
+``` 
+
+Unset (remove) a keybinding
+
+``` bash
+(global-set-key (kbd "C-b") nil)
+``` 
+
+List current major mode's keys:
+
+		M-x describe-mode
+
+List all keybindings
+
+		M-x describe-bindings
+
+Keys to avoid
+
+		C-?
+		F1
+		C-h
+		ESC
+		C-[
+		C-S-letter
+		C-m
+		C-i
+
+Good key choices
+
+## A Curious Look at Emacs's One Thousand Keybindings
+
+`C-h` help related
+
+`C-x 8` non-ascii input
+
+`C-x prefix` frequent global commands
+
+`C-c prefix` frequent mode-specific commands
+
+`view-mode` 
+
+`C-M` to navigate/edit lisp code
+
+## Emacs Advanced Tips
+
+Search text
+
+## Emacs Less-known Tips
+
+list lines containing a string
+
+		M-x list-matching-lines
+		M-x delete-matching-lines
+
+sort lines
+
+		M-x sort-lines
+		M-x reverse-region
+
+multiple clipboards
+
+no restarting emacs when add to init file
+
+		.select code > M-x eval-region
+		M-x eval-buffer
+		M-x load-file
+
+apps
+
+		M-x calendar
+		M-x calc
+		M-x dired
+		M-x list-colors-display
+		M-x shell
+		q
+
+lisp inline
+
+		.select line
+		M-x eval-region
+
+irc
+
+		M-x irc
+
+## Emacs: File Manager, dired
+
+`M-x dired`
+
+# Article: Lisp editing - WikEmacs
+
+http://wikemacs.org/wiki/Lisp_editing#With_evil-mode
+
+## With evil-mode
+
+`=ip`				Indent an s-expression
+
+evil-smartparens
+
+`dd`		delete an sexp
+
+evil-cleverparens
+
+expand-region
+
+`SPC v` or `er/expand-region`
 
