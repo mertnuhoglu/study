@@ -1,0 +1,39 @@
+
+* anki: bir tablo içinde boşluk doldurma yapalım zaman çekimleri için 20191221
+
+Tablo formatı nasıl oluşturulur?
+
+** opt01: (95) Anki Add-on Guide: Formatting Fields (lists, tables, etc.) - YouTube
+
+https://www.youtube.com/watch?v=e6HMD32hngQ
+
+** opt02: markdown txt dosyası olsun
+
+her bir kart için ayrı bir header olacak
+
+html ile veya md table formatıyla tabloyu oluşturabilirim
+
+** opt03: markdown code block şeklinde olsun
+
+** opt05: şimdilik anki içinden oluştur, sonra text oluşturmayı düşünürsün
+
+** opt04: doğrudan anki içinde soruları oluşturabilirim
+
+formatı nasıl olacak?
+
+*** opt01: Simple Present vs. koy
+
+    SP | I did | yaptım
+    PP | I have done | yaptım
+
+zaman çekimlerinin isimleri nelerdi?
+
+*** opt02: I do vs. koy
+
+    I do | I make | yaparım
+    I am doing | I am making | yapıyorum
+    I did | I made | yaptım
+
+** opt06: metinleri txt içinde oluştur ama kopyala yapıştır ile aktar tablolara
+
+
