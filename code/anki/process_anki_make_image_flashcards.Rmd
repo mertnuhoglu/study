@@ -439,16 +439,27 @@ Kelimeleri önce bir dosyada tablo içinde listeleyelim. Sonra resimleri bu tabl
 
 ``` bash
 ~/projects/anki_english/scripts/anki_resize_images
-~/projects/anki_english/scripts/anki_rename_jpg word_
-file="words_20191218.tsv"
+~/projects/anki_english/scripts/anki_rename_jpg 
+file="raz_words_20191222.tsv"
 ~/projects/anki_english/scripts/anki_jpg_2_images_2 $file
 ~/projects/anki_english/scripts/anki_merge_images $file
-tags="exam201912"
+  #tags="exam201912"
+tags="raz201912"
 ~/projects/anki_english/scripts/anki_sheets_2_anki_txt_2 "$file" "${tags}"
 ~/projects/anki_english/scripts/anki_mv_media_files_2_collection
 ``` 
 
 Ref: working on: `work 20191122 <url:/Users/mertnuhoglu/projects/myrepo/logbook/ingilizce_yeni_kelimeler_anki_20191027.md#tn=work 20191122>`
+
+``` bash
+cp anki_${file}.txt /Users/mertnuhoglu/projects/anki_english/decks
+ANKI_FILE=~/projects/anki_english/decks/anki_${file}.txt
+echo ${ANKI_FILE} | pbcopy
+``` 
+
+Import Anki:
+
+		Type: Basic (and reversed)
 
 #### alt: anki_jpg_2_images
 

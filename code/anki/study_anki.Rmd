@@ -134,6 +134,8 @@ Usage:
 
 1. Call `:ConvertAnkiMd` on a md file in vim. Save it as similar to: `anki_<something>.md`
 
+Ex: `/Users/mertnuhoglu/projects/study/js/anki_js.md`
+
 2. Convert to apkg
 
 ``` bash
@@ -149,5 +151,22 @@ ankdown -p <file>.apkg -d db01 -i <file>.md
 ``` vimscript
 vnoremap <Leader>e s{{c1::<c-r>"}}<esc>
 ``` 
+
+## Çoktan seçmeli sorular hazırlama
+
+### 20191220 
+
+Örnek:
+
+eyes_open_test deck in Anki
+
+ref: `~/projects/anki_english/decks/anki_eyes_open_choice.txt`
+
+Note Type: English Grammar in Use Exercises
+
+### Logs 20191220 
+
+Edit `~/gdrive/mynotes/stuff/ozgur_emin/english/anki/exam_20191024/cloze_choice_20191220.tsv`
+
 
 
