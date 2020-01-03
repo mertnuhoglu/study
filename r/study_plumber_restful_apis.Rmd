@@ -32,7 +32,7 @@ Open an R console and run:
 
 ``` r
 pr <- plumber::plumb("e01.R")
-pr$run(port=4500)
+pr$run(host="0.0.0.0", port=4500)
 ``` 
 
 Run:
@@ -122,7 +122,7 @@ Run server:
 
 ``` r
 pr <- plumber::plumb("e02.R")
-pr$run(port=4500)
+pr$run(host="0.0.0.0", port=4500)
 ``` 
 
 ### Test with curl:
@@ -209,4 +209,133 @@ node src/problems/p13/ex03.js
 '# result: {"formContents":{"upload":{"filename":["e01.R"],"tempfile":["/var/folders/f9/d201s84j0gb95830cjhp09_m0000gq/T//Rtmpl9bWKT/Multipartdf8062e3f36d"],"content_type":["application/octet-stream"],"head":["Content-Disposition: form-data; name=\"upload\"; filename=\"e01.R\"\r\nContent-Type: application/octet-stream"]}}}
 ``` 
 
-## e03: 
+## e03: Uploading Multiple Files with Plumber
+
+Check `~/projects/study/r/ex/study_plumber_restful_apis/e03.R`
+
+``` r
+pr <- plumber::plumb("e03.R")
+pr$run(host="0.0.0.0", port=4500)
+``` 
+
+``` bash
+cd /Users/mertnuhoglu/projects/study/r/ex/study_plumber_restful_apis
+curl -v -F foo=bar -F file01=@e01.R -F file02=@e02.R http://localhost:4500/echo3
+  ##> {
+  ##>   "formContents": {
+  ##>     "foo": [
+  ##>       "bar"
+  ##>     ],
+  ##>     "file01": {
+  ##>       "filename": [
+  ##>         "e01.R"
+  ##>       ],
+  ##>       "tempfile": [
+  ##>         "/var/folders/f9/d201s84j0gb95830cjhp09_m0000gq/T//RtmptMhakA/Multipart1063466d8239f"
+  ##>       ],
+  ##>       "content_type": [
+  ##>         "application/octet-stream"
+  ##>       ],
+  ##>       "head": [
+  ##>         "Content-Disposition: form-data; name=\"file01\"; filename=\"e01.R\"\r\nContent-Type: application/octet-stream"
+  ##>       ]
+  ##>     },
+  ##>     "file02": {
+  ##>       "filename": [
+  ##>         "e02.R"
+  ##>       ],
+  ##>       "tempfile": [
+  ##>         "/var/folders/f9/d201s84j0gb95830cjhp09_m0000gq/T//RtmptMhakA/Multipart10634780ad078"
+  ##>       ],
+  ##>       "content_type": [
+  ##>         "application/octet-stream"
+  ##>       ],
+  ##>       "head": [
+  ##>         "Content-Disposition: form-data; name=\"file02\"; filename=\"e02.R\"\r\nContent-Type: application/octet-stream"
+  ##>       ]
+  ##>     }
+  ##>   }
+  ##> }
+``` 
+
+## e04: Read Excel File
+
+Check `~/projects/study/r/ex/study_plumber_restful_apis/e04.R`
+
+``` r
+pr <- plumber::plumb("e04.R")
+pr$run(host="0.0.0.0", port=4500)
+``` 
+
+``` bash
+curl -v -F file=@files/sample.xlsx http://localhost:4500/readexcel
+``` 
+
+Output:
+
+``` bash
+Classes ‘tbl_df’, ‘tbl’ and 'data.frame':       3 obs. of  2 variables:
+ $ id  : num  101 102 103
+ $ col1: chr  "a" "b" "c"
+``` 
+
+### opt: using absolute paths
+
+opt01:
+
+``` bash
+curl -v -F file=@~/projects/study/r/ex/study_plumber_restful_apis/files/sample.xlsx http://localhost:4500/readexcel
+  ##> curl: (26) couldn't open file "~/projects/study/r/ex/study_plumber_restful_apis/files/sample.xlsx"
+``` 
+
+opt02:
+
+``` bash
+curl -v -F file=@/Users/mertnuhoglu/projects/study/r/ex/study_plumber_restful_apis/files/sample.xlsx http://localhost:4500/readexcel
+``` 
+
+This works.
+
+opt03:
+
+``` bash
+sample="/Users/mertnuhoglu/projects/study/r/ex/study_plumber_restful_apis/files/sample.xlsx"
+curl -v -F file=@"${sample}" http://localhost:4500/readexcel
+``` 
+
+This works.
+
+## e05: file serving
+
+https://github.com/rstudio/plumber/blob/master/inst/examples/05-static/plumber.R
+
+Check `~/projects/study/r/ex/study_plumber_restful_apis/e05.R`
+
+opt01: Programmatically
+
+``` bash
+library(plumber)
+pr <- plumber::plumb("e05a.R")
+stat = PlumberStatic$new("./files")
+pr$mount("/files", stat)
+pr$routes
+pr$run(host="0.0.0.0", port=4500)
+``` 
+
+Put `~/projects/study/r/ex/study_plumber_restful_apis/files/sample.xlsx`
+
+Open http://localhost:4500/files/sample.xlsx
+
+``` bash
+wget http://localhost:4500/files/sample.xlsx
+``` 
+
+opt02: Declaratively
+
+``` bash
+library(plumber)
+pr <- plumber::plumb("e05a.R")
+pr$routes
+pr$run(host="0.0.0.0", port=4500)
+``` 
+
