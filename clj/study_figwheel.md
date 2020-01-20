@@ -143,8 +143,7 @@ dev:cljs.user=> (+ 1 2)
 REPL can affect browser:
 
 ``` bash
-=> (js/alert "Am I connected to Figwheel?")
-nil
+(js/alert "Am I connected to Figwheel?")
 ``` 
 
 Open browser's dev tools
@@ -166,4 +165,137 @@ Check logs:
 ``` bash
 tail -f figwheel_server.log
 ``` 
+
+### Creating React counter
+
+``` bash
+cp -R hello_seymore hello_seymore2
+cd hello_seymore2
+lein clean
+``` 
+
+Edit `~/projects/study/clj/ex/study_figwheel/hello_seymore2/project.clj`
+
+``` bash
+                  [cljsjs/react "15.2.1-1"]
+                  [cljsjs/react-dom "15.2.1-1"]
+                  [sablono "0.7.4"]
+``` 
+
+Edit `~/projects/study/clj/ex/study_figwheel/hello_seymore2/index.html`
+
+``` bash
+    <div id="app"></div> <!-- add this line -->
+``` 
+
+Edit `~/projects/study/clj/ex/study_figwheel/hello_seymore2/src/hello_seymore/core.cljs`
+
+Run 
+
+``` bash
+lein figwheel
+``` 
+
+#### Resetting atom state
+
+``` bash
+(def app-state (atom { :likes 0 }))
+``` 
+
+This will be reset to 0 everytime the code is reloaded.
+
+``` bash
+(defonce app-state (atom { :likes 0 }))
+``` 
+
+This will keep the state during reloads.
+
+### Reloadable side-effect
+
+``` bash
+(add-watch app-state :on-change (fn [_ _ _ _] (render!)))
+``` 
+
+`on-change` listener is reloaded side-effect.
+
+### Refactor components
+
+Edit `~/projects/study/clj/ex/study_figwheel/hello_seymore2/src/hello_seymore/components.cljs`
+
+Move `like-seymore` to this new file.
+
+Changes will be updated in browser.
+
+### Auto-reloading CSS
+
+Edit `~/projects/study/clj/ex/study_figwheel/hello_seymore2/project.clj`
+
+``` bash
+   :figwheel { ;; <-- add server level config here
+     :css-dirs ["css"]
+   }
+``` 
+
+Edit `~/projects/study/clj/ex/study_figwheel/hello_seymore2/index.html`
+
+``` bash
+    <link href="css/style.css" rel="stylesheet" type="text/css"> 
+``` 
+
+Restart figwheel
+
+#### Error
+
+``` bash
+lein figwheel
+``` 
+
+``` bash
+Figwheel: Starting CSS Watcher for paths  ["css"]
+clojure.lang.ExceptionInfo: Error in component :css-watcher in system com.stuartsierra.component.SystemMap calling #'com.stuartsierra.component/start {:reason :com.stuartsierra.component/component-function-threw-exception, :function #'com.stuartsierra.component/start, :
+``` 
+
+Solution:
+
+Create the file `css/style.css`
+
+---
+
+Edit `~/projects/study/clj/ex/study_figwheel/hello_seymore2/css/style.css`
+
+``` bash
+  background-color: red;
+``` 
+
+Change css file. The browser will be updated automatically.
+
+### Using the REPL
+
+Better repl: `rlwrap` from https://github.com/hanslub42/rlwrap
+
+``` bash
+rlwrap lein figwheel
+``` 
+
+``` bash
+(in-ns 'hello-seymore.core)
+(reset! app-state {:likes 10000})
+``` 
+
+#### Error
+
+``` bash
+(in-ns 'hello-seymore.core')
+(reset! app-state {:likes 10000})
+``` 
+
+``` bash
+#object[Error Error: No protocol method IReset.-reset! defined for type undefined: ]
+Error: No protocol method IReset.-reset! defined for type undefined:
+``` 
+
+Sebep: Yanlış namespace yazmışım.
+
+---
+
 

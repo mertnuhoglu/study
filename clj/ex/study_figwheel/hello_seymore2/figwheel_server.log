@@ -6,3 +6,52 @@ notifying browser that file changed:  out/hello_seymore/core.js
 [0mCompiling "main.js" from ["src"]...[0m
 [32mSuccessfully compiled "main.js" in 0.895 seconds.[0m
 notifying browser that file changed:  out/hello_seymore/core.js
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.972 seconds.[0m
+notifying browser that file changed:  out/goog/deps.js
+notifying browser that file changed:  out/cljs_deps.js
+notifying browser that file changed:  out/hello_seymore/core.js
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.996 seconds.[0m
+[0mCompiling "main.js" from ["src"]...[0m
+[31mFailed to compile "main.js" in 0.016 seconds.[0m
+[36m----  Could not Analyze  src/hello_seymore/core.cljs   line:1  column:1  ----[0m
+
+  [1mOnly one :require form is allowed per namespace definition at line 1 src/hello_seymore/core.cljs[0m
+
+  [33m1[0m  [1m(ns hello-seymore.core[0m
+  [0m [0m  [33m^--- Only one :require form is allowed per namespace definition at line 1 src/hello_seymore/core.cljs[0m
+  [36m2[0m  [36m  (:require [sablono.core :as sab])[0m
+  [36m3[0m  [36m  (:require [hello-seymore.components :refer [like-seymore]]))[0m
+
+[36m----  Analysis Error : Please see src/hello_seymore/core.cljs  ----[0m
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.722 seconds.[0m
+notifying browser that file changed:  out/hello_seymore/core.js
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.404 seconds.[0m
+notifying browser that file changed:  out/hello_seymore/core.js
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.403 seconds.[0m
+notifying browser that file changed:  out/hello_seymore/core.js
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.278 seconds.[0m
+notifying browser that file changed:  out/hello_seymore/core.js
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.422 seconds.[0m
+notifying browser that file changed:  out/hello_seymore/core.js
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.32 seconds.[0m
+notifying browser that file changed:  out/hello_seymore/core.js
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.35 seconds.[0m
+notifying browser that file changed:  out/cljs_deps.js
+notifying browser that file changed:  out/hello_seymore/core.js
+notifying browser that file changed:  out/hello_seymore/components.js
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.262 seconds.[0m
+notifying browser that file changed:  out/hello_seymore/components.js
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.257 seconds.[0m
+notifying browser that file changed:  out/hello_seymore/components.js
+Notifyng browser that CSS file changed: css/style.css
