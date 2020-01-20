@@ -1,0 +1,8 @@
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 1.056 seconds.[0m
+notifying browser that file changed:  out/goog/deps.js
+notifying browser that file changed:  out/cljs_deps.js
+notifying browser that file changed:  out/hello_seymore/core.js
+[0mCompiling "main.js" from ["src"]...[0m
+[32mSuccessfully compiled "main.js" in 0.895 seconds.[0m
+notifying browser that file changed:  out/hello_seymore/core.js
