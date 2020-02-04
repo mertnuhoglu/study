@@ -70,4 +70,117 @@ https://github.com/brookhong/surfingkeys
 Hints.characters = "fgouieajvc"
 ``` 
 
+## broot: cli replacement for ls and tree
+
+https://dystroy.org/broot/documentation/installation/
+
+``` bash
+cargo install broot
+``` 
+
+### Verbs
+
+`Space` then `verb`
+
+		edit
+		create
+		view
+
+
+### Customizing Configuration
+
+https://dystroy.org/broot/documentation/configuration/
+
+`/Users/mertnuhoglu/Library/Preferences/org.dystroy.broot/conf.toml`
+
+``` bash
+mkdir -p /Users/mertnuhoglu/projects/private_dotfiles/broot
+mv /Users/mertnuhoglu/Library/Preferences/org.dystroy.broot/conf.toml /Users/mertnuhoglu/projects/private_dotfiles/broot
+ln -s /Users/mertnuhoglu/projects/private_dotfiles/broot/conf.toml /Users/mertnuhoglu/Library/Preferences/org.dystroy.broot/conf.toml
+``` 
+
+### Tricks
+
+Deep fuzzy cd
+
+``` bash
+~/projects/study master*
+$ dcd brave
+
+~/projects/study/clj/ex/study_clojure/book_clojure_brave master*
+``` 
+
+### Usage
+
+Regex
+
+``` bash
+/pattern
+/pattern/i
+``` 
+
+Toggles
+
+``` bash
+:sizes
+:perm
+:h # hidden files
+:gi # use .gitignore
+:files # just folders
+``` 
+
+Quitting
+
+``` bash
+^q
+:q
+``` 
+
+## dust: replace du
+
+https://github.com/bootandy/dust
+
+``` bash
+cargo install du-dust
+``` 
+
+``` bash
+dust
+  ##>   66M ─┬ .
+  ##>   57M  ├─┬ .config
+  ##>   50M  │ ├─┬ yarn
+  ##>   50M  │ │ └─┬ global
+``` 
+
+
+## httpie: curl alternative
+
+``` bash
+$ tldr http
+http
+
+HTTPie: HTTP client, a user-friendly cURL replacement.
+More information: <https://httpie.org>.
+
+- Download a URL to a file:
+  http -d example.org
+
+- Send form-encoded data:
+  http -f example.org name='bob' profile_picture@'bob.png'
+
+- Send JSON object:
+  http example.org name='bob'
+
+- Specify an HTTP method:
+  http HEAD example.org
+
+- Include an extra header:
+  http example.org X-MyHeader:123
+
+- Pass a user name and password for server authentication:
+  http -a username:password example.org
+
+- Specify raw request body via `stdin`:
+  cat data.txt | http PUT example.org
+``` 
 
