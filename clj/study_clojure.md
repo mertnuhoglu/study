@@ -22,6 +22,15 @@ Ref:
 
 # Questions
 
+## printing a map
+
+``` bash
+(print {:a 1 :b 2})
+  ##> {:a 1, :b 2}nil
+(clojure.pprint/pprint {:a 1 :b 2})
+  ##> {:a 1, :b 2}
+``` 
+
 ## lisp - Why does Clojure have "keywords" in addition to "symbols"? - Stack Overflow
 
 https://stackoverflow.com/questions/1527548/why-does-clojure-have-keywords-in-addition-to-symbols
