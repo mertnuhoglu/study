@@ -876,6 +876,16 @@ aws ram list-resources --profile mertnuhoglu --region "us-west-1" --resource-own
 aws ram list-resources --profile mertnuhoglu --region "us-west-2" --resource-owner SELF 
 ``` 
 
+# Billing
+
+Hangi servislere ne kadar ücret ediyorsun
+
+Dashboard > Billing > Cost & Usage Reports > Usage Report
+
+https://console.aws.amazon.com/billing/home#/reports/usage
+
+Check `~/Downloads/report.csv`
+
 
 
 
