@@ -73,6 +73,10 @@ runApp(app)
 
 Ref: `ref_shiny_examples.txt`
 
+``` bash
+cd ~/projects/study/r/shiny
+``` 
+
 ### ref: my shiny codes
 
 		~/projects/itr/peyman/pmap/R/route_navigator.R
@@ -101,6 +105,12 @@ server = function(input, output) {}
 shinyApp(ui = ui, server = server)
 ``` 
 
+Running it:
+
+``` bash
+source("app.R")
+``` 
+
 ### Share your app
 
 ``` bash
@@ -125,6 +135,8 @@ Outputs: "/Users/mertnuhoglu/Pictures/screenshots/Screen Shot 2019-10-05 at 12.3
 
 ### Reactivity
 
+Check: `~/projects/itr/peyman/pmap/R/route_navigator.R`
+
 create: reactiveValues(), xxxInput()
 
 arbitrary code: observeEvent(), observe()
@@ -143,7 +155,13 @@ Check `~/projects/study/r/shiny/ex/study_shiny/reactivity/render01.R`
 
 Check `~/projects/study/r/shiny/ex/study_shiny/reactivity/reactive01.R`
 
+isolate: 
+
 Check `~/projects/study/r/shiny/ex/study_shiny/reactivity/isolate01.R`
+
+`~/codes/rr/shiny-examples/049-isolate-demo/server.R`
+
+observe:
 
 Check `~/projects/study/r/shiny/ex/study_shiny/reactivity/observe01.R`
 

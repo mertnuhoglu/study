@@ -601,4 +601,10 @@ readxl::read_excel("my-spreadsheet.xls", sheet = "data")
 readxl::read_excel(path = sevk_emri_file, col_types = c("text", "date", "text", "text", "text", "text", "text", "text", "text", "numeric", "text", "text", "text", "text"))
 ``` 
 
+### static web server
+
+``` bash
+Rscript -e 'servr::httd()' -p8000
+``` 
+
 

@@ -397,11 +397,11 @@ s1 = tibble::tribble(
   ) %>%
   tidyr::spread(key, value)
 s1
-#> # A tibble: 2 x 3
-#>      id     a     b
-#> * <dbl> <dbl> <dbl>
-#> 1     1     2     3
-#> 2     2     2    NA
+  #> # A tibble: 2 x 3
+  #>      id     a     b
+  #> * <dbl> <dbl> <dbl>
+  #> 1     1     2     3
+  #> 2     2     2    NA
 ```
 
 ### building R packages id=g_10799
@@ -754,14 +754,14 @@ usethis::use_dev_package("paulc91/shinyauthr")
 ### package: export functions
 
 ``` r
-#' @export
+  #' @export
 foo <- function(..)
 ``` 
 
 Add symbols:
 
 ``` r
-#' @importFrom magrittr "%>%"
+  #' @importFrom magrittr "%>%"
 NULL
 ``` 
 

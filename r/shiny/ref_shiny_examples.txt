@@ -165,55 +165,55 @@
 		shiny::runApp("092-action-pattern5")
 		~/codes/rr/shiny-examples/092-action-pattern5/server.R
 		shiny::runApp("093-plot-interaction-basic")
-		~/codes/rr/shiny-examples/093-plot-interaction-basic/server.R
+		~/codes/rr/shiny-examples/093-plot-interaction-basic/app.R
 		shiny::runApp("094-image-interaction-basic")
-		~/codes/rr/shiny-examples/094-image-interaction-basic/server.R
+		~/codes/rr/shiny-examples/094-image-interaction-basic/app.R
 		shiny::runApp("095-plot-interaction-advanced")
-		~/codes/rr/shiny-examples/095-plot-interaction-advanced/server.R
+		~/codes/rr/shiny-examples/095-plot-interaction-advanced/app.R
 		shiny::runApp("096-plot-interaction-article-1")
-		~/codes/rr/shiny-examples/096-plot-interaction-article-1/server.R
+		~/codes/rr/shiny-examples/096-plot-interaction-article-1/app.R
 		shiny::runApp("097-plot-interaction-article-2")
-		~/codes/rr/shiny-examples/097-plot-interaction-article-2/server.R
+		~/codes/rr/shiny-examples/097-plot-interaction-article-2/app.R
 		shiny::runApp("098-plot-interaction-article-3")
-		~/codes/rr/shiny-examples/098-plot-interaction-article-3/server.R
+		~/codes/rr/shiny-examples/098-plot-interaction-article-3/app.R
 		shiny::runApp("099-plot-interaction-article-4")
-		~/codes/rr/shiny-examples/099-plot-interaction-article-4/server.R
+		~/codes/rr/shiny-examples/099-plot-interaction-article-4/app.R
 		shiny::runApp("100-plot-interaction-article-5")
-		~/codes/rr/shiny-examples/100-plot-interaction-article-5/server.R
+		~/codes/rr/shiny-examples/100-plot-interaction-article-5/app.R
 		shiny::runApp("101-plot-interaction-article-6")
-		~/codes/rr/shiny-examples/101-plot-interaction-article-6/server.R
+		~/codes/rr/shiny-examples/101-plot-interaction-article-6/app.R
 		shiny::runApp("102-plot-interaction-article-7")
-		~/codes/rr/shiny-examples/102-plot-interaction-article-7/server.R
+		~/codes/rr/shiny-examples/102-plot-interaction-article-7/app.R
 		shiny::runApp("103-plot-interaction-article-8")
-		~/codes/rr/shiny-examples/103-plot-interaction-article-8/server.R
+		~/codes/rr/shiny-examples/103-plot-interaction-article-8/app.R
 		shiny::runApp("104-plot-interaction-select")
-		~/codes/rr/shiny-examples/104-plot-interaction-select/server.R
+		~/codes/rr/shiny-examples/104-plot-interaction-select/app.R
 		shiny::runApp("105-plot-interaction-zoom")
-		~/codes/rr/shiny-examples/105-plot-interaction-zoom/server.R
+		~/codes/rr/shiny-examples/105-plot-interaction-zoom/app.R
 		shiny::runApp("106-plot-interaction-exclude")
-		~/codes/rr/shiny-examples/106-plot-interaction-exclude/server.R
+		~/codes/rr/shiny-examples/106-plot-interaction-exclude/app.R
 		shiny::runApp("107-events")
-		~/codes/rr/shiny-examples/107-events/server.R
+		~/codes/rr/shiny-examples/107-events/app.R
 		shiny::runApp("108-module-output")
-		~/codes/rr/shiny-examples/108-module-output/server.R
+		~/codes/rr/shiny-examples/108-module-output/app.R
 		shiny::runApp("109-render-table")
 		~/codes/rr/shiny-examples/109-render-table/server.R
 		shiny::runApp("110-error-sanitization")
-		~/codes/rr/shiny-examples/110-error-sanitization/server.R
+		~/codes/rr/shiny-examples/110-error-sanitization/app.R
 		shiny::runApp("111-insert-ui")
-		~/codes/rr/shiny-examples/111-insert-ui/server.R
+		~/codes/rr/shiny-examples/111-insert-ui/app.R
 		shiny::runApp("112-generate-report")
-		~/codes/rr/shiny-examples/112-generate-report/server.R
+		~/codes/rr/shiny-examples/112-generate-report/app.R
 		shiny::runApp("113-bookmarking-url")
-		~/codes/rr/shiny-examples/113-bookmarking-url/server.R
+		~/codes/rr/shiny-examples/113-bookmarking-url/app.R
 		shiny::runApp("114-modal-dialog")
-		~/codes/rr/shiny-examples/114-modal-dialog/server.R
+		~/codes/rr/shiny-examples/114-modal-dialog/app.R
 		shiny::runApp("115-bookmarking-updatequerystring")
-		~/codes/rr/shiny-examples/115-bookmarking-updatequerystring/server.R
+		~/codes/rr/shiny-examples/115-bookmarking-updatequerystring/app.R
 		shiny::runApp("116-notifications")
-		~/codes/rr/shiny-examples/116-notifications/server.R
+		~/codes/rr/shiny-examples/116-notifications/app.R
 		shiny::runApp("117-shinythemes")
-		~/codes/rr/shiny-examples/117-shinythemes/server.R
+		~/codes/rr/shiny-examples/117-shinythemes/app.R
 		shiny::runApp("118-highcharter-births")
-		~/codes/rr/shiny-examples/118-highcharter-births/server.R
+		~/codes/rr/shiny-examples/118-highcharter-births/app.R
 
