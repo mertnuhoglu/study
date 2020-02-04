@@ -439,8 +439,11 @@ Kelimeleri önce bir dosyada tablo içinde listeleyelim. Sonra resimleri bu tabl
 
 ``` bash
 tags="yagmur_words_20191230"
+file="${tags}.tsv"
 ~/projects/anki_english/scripts/anki_process_3 "${tags}"
 ``` 
+
+Path in clipboard 
 
 Ref: working on: `work 20191122 <url:/Users/mertnuhoglu/projects/myrepo/logbook/ingilizce_yeni_kelimeler_anki_20191027.md#tn=work 20191122>`
 
