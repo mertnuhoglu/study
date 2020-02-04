@@ -1062,6 +1062,73 @@ Edit `~/projects/study/clj/ex/book_web_development_with_clojure/ex02/project.clj
 lein run
 ``` 
 
+#### Farklı denemeler yap
+
+Check `~/projects/study/clj/ex/book_web_development_with_clojure/ex02/src/ex02/handler.clj`
+
+opt01: `:form-params`
+
+``` bash
+  (POST "/e02" request (str (:form-params request)))
+``` 
+
+``` bash
+http -f localhost:3000/e02 name='ali' 
+  ##> {"name" "ali"}
+``` 
+
+opt02: `:params`
+
+``` bash
+  (POST "/e03" request (str (:params request)))
+``` 
+
+``` bash
+http -f localhost:3000/e03 name='ali' 
+  ##> {"name" "ali"}
+``` 
+
+opt03: destructuring
+
+``` bash
+  (POST "/e04" {{value :name} :form-params} (str "My name is: " value))
+``` 
+
+``` bash
+http -f localhost:3000/e04 name='ali' 
+  ##> My name is:
+``` 
+
+opt04: destructuring 2
+
+``` bash
+  (POST "/e05" {value :name} (str "My name is: " value))
+``` 
+
+``` bash
+http -f localhost:3000/e05 name='ali' 
+  ##> My name is:
+``` 
+
+#### Final
+
+Check `~/projects/study/clj/ex/book_web_development_with_clojure/ex02/src/ex02/handler.clj`
+
+``` bash
+(defroutes app-routes
+  (GET "/" [] "Hello World")
+  (POST "/e01" [name] (str name " loves coderanch.com"))
+
+(def app
+  (wrap-defaults app-routes api-defaults))
+``` 
+
+``` bash
+curl -d name=ali localhost:3000/e01
+http -f localhost:3000/e01 name='ali' 
+  ##> ali loves coderanch.com
+``` 
+
 ---
 
 Destructure some of form parameters and create a map from the rest:
