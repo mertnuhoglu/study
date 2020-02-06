@@ -8,3 +8,5 @@
 				https://clojure.org/guides/weird_characters
 			cookbook examples
 				https://github.com/clojure-cookbook/clojure-cookbook
+				https://learnxinyminutes.com/docs/compojure/
+				https://learnxinyminutes.com/docs/clojure/
