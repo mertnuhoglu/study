@@ -5,10 +5,22 @@
    [hiccup.page :refer [include-js include-css html5]]
    [config.core :refer [env]]))
 
+(defn hello-component [name]
+  [:p "Hello, " name "!"])
+
+(defn simple-component []
+  [:div
+   (hello-component "mert")
+   [:p "I am a component!"]
+   [:p.someclass
+    "I have " [:strong "bold"]
+    [:span {:style {:color "red"}} " and red "] "text."]])
+
 (def mount-target
   [:div#app
    [:h2 "Welcome to ex01"]
    [:p "please wait while Figwheel is waking up ..."]
+   (simple-component)
    [:p "(Check the js console for hints if nothing exciting happens.)"]])
 
 (defn head []
