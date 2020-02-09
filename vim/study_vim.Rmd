@@ -45,3 +45,41 @@ nnoremap <Leader>cl :<c-u>call CommentLines()<CR>
 xnoremap <Leader>cl :call CommentLines()<CR>
 ``` 
 
+# Issues
+
+## Function Arguments
+
+``` bash
+function! CreateExFile(name)
+	" Create an example code file for the current md (documentation) file
+	let filename = expand("%:t:r")
+	let path = expand("%:p")
+	lcd %:h
+	exe '!mkdir -p ' . 'ex/' . filename . '/' . a:name
+	split
+	ene
+	exe 'cd ex/' . filename . '/' . a:name
+endfunction
+command! -nargs=1 CreateExFile call CreateExFile(<f-args>)
+``` 
+
+https://stackoverflow.com/questions/25057287/passing-and-using-arguments-to-command-in-vim-script
+
+``` bash
+command! -nargs=1 FW echo <q-args>
+``` 
+
+https://learnvimscriptthehardway.stevelosh.com/chapters/24.html
+
+``` bash
+:function DisplayName(name)
+:  echom "Hello!  My name is:"
+:  echom a:name
+:endfunction
+``` 
+
+``` bash
+:call DisplayName("Your Name")
+``` 
+
+ 

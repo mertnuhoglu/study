@@ -20,6 +20,14 @@ state: wip
 
 # Tools
 
+## Tool: mosh ssh replacement
+
+https://mosh.org/
+
+``` bash
+brew install mosh
+``` 
+
 ## nmap: network scanner
 
 https://isc.sans.edu/diary/How+to+Find+Hidden+Cameras+in+your+AirBNB/24834
@@ -182,5 +190,225 @@ More information: <https://httpie.org>.
 
 - Specify raw request body via `stdin`:
   cat data.txt | http PUT example.org
+``` 
+
+# Articles
+
+## Article: A Surprisingly Common Mistake Involving Wildcards & The Find Command
+
+https://blog.robertelder.org/find-command-wildcard-globbing/
+
+Check `~/projects/study/logbook/ex/log_20200209/ex01/main.c`
+
+``` bash
+gcc main.c
+``` 
+
+``` bash
+./a.out *.py
+``` 
+
+``` bash
+touch foo.py
+./a.out *.py
+  ##> argc=2
+  ##> Arg 0 is: './a.out'
+  ##> Arg 1 is: 'foo.py'
+``` 
+
+Shell first expands wildcard pattern. Then it passes these expanded names to the program. This is `globbing`
+
+``` bash
+man glob
+``` 
+
+Lesson: Always quote wildcard chars when used as options for a command:
+
+``` bash
+find . -name '*.jpg'
+``` 
+
+## Article: An Introduction To Data Science On The Linux Command Line
+
+An Introduction To Data Science On The Linux Command Line
+
+### awk
+
+``` bash
+temp,unit
+26.1,C
+78.1,F
+23.1,C
+``` 
+
+Convert F to C:
+
+``` bash
+cat temps.txt | awk -F',' '{if($2=="F")print (($1-32)*5/9)",C";else print $1","$2}'
+``` 
+
+``` bash
+temp,unit
+26.1,C
+25.6111,C
+23.1,C
+2
+``` 
+
+### comm
+
+Common or different lines.
+
+Check `/Users/mertnuhoglu/projects/study/logbook/ex/log_20200209/ex02/a.txt`
+
+``` bash
+line0
+line1
+line3
+``` 
+
+Check `/Users/mertnuhoglu/projects/study/logbook/ex/log_20200209/ex02/b.txt`
+
+``` bash
+line1
+line2
+line0
+``` 
+
+``` bash
+comm -12 a.txt b.txt
+  ##> line1
+comm -23 a.txt b.txt
+  ##> line0
+  ##> line3
+comm -13 a.txt b.txt
+  ##> line2
+  ##> line0
+``` 
+
+It assumes that input is sorted first.
+
+``` bash
+comm -23 <(sort a.txt) <(sort b.txt)
+  ##> line3
+``` 
+
+### uniq
+
+Check `/Users/mertnuhoglu/projects/study/logbook/ex/log_20200209/ex02/c.csv`
+
+``` bash
+Shoes,19.00
+Shoes,28.00
+Pants,77.00
+Socks,12.00
+Shirt,22.00
+Socks,12.00
+Socks,12.00
+Boots,82.00
+``` 
+
+``` bash
+cat c.csv | awk -F',' '{print $1}' | sort | uniq
+  ##> Boots
+  ##> Pants
+  ##> Shirt
+  ##> Shoes
+  ##> Socks
+``` 
+
+Counts of items?
+
+``` bash
+cat c.csv | awk -F',' '{print $1}' | sort | uniq -c
+  ##>    1 Boots
+  ##>    1 Pants
+  ##>    1 Shirt
+  ##>    2 Shoes
+  ##>    3 Socks
+``` 
+
+Which are duplicates?
+
+``` bash
+cat c.csv | awk -F',' '{print $1}' | sort | uniq -d
+  ##> Shoes
+  ##> Socks
+``` 
+
+### find
+
+Total count of lines in all files:
+
+``` bash
+find . -type f -exec cat {} \; | wc -l
+``` 
+
+Replace all files:
+
+``` bash
+find . -type f -exec sed -i 's/dog/cat/g' {} \;
+``` 
+
+### tsort
+
+Topological sort
+
+Check `~/projects/study/logbook/ex/log_20200209/ex02/d.txt`
+
+``` bash
+cat d.txt | tsort
+  ##> a
+  ##> b
+  ##> d
+  ##> c
+  ##> e
+cat d.txt | sort -R | tsort
+  ##> a
+  ##> b
+  ##> c
+  ##> d
+  ##> e
+``` 
+
+## Article: Don Libes' Expect: A Surprisingly Underappreciated Unix Automation Tool
+
+https://blog.robertelder.org/don-libes-expect-unix-automation-tool/
+
+### Ex: ls
+
+``` bash
+expect -c '
+spawn bash
+sleep 0.3
+send "ls"
+interact
+exit
+'
+``` 
+
+#### Logs
+
+##### error: bash spawn edince garip karakterler çıkıyor
+
+``` bash
+$ bashNo manual entry for slogin
+
+%}%F{blue}%~%f %F{242}%f %F{cyan}%f %F{yellow}%f
+``` 
+
+opt01: prompt customization
+
+``` bash
+export PS1=" "
+export PS1="$ "
+``` 
+
+Çözüm:
+
+`~/.bashrc` dosyasına şunu ekle:
+
+``` bash
+export PS1="$ "
 ``` 
 
