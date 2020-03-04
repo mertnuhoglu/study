@@ -868,6 +868,13 @@ https://www.cyberciti.biz/faq/find-linux-distribution-name-version-number/
 cat /etc/*-release
 ``` 
 
+### rename files from z-lib
+
+``` bash
+rename 's/ \(z-lib.org\)//' *.*
+rename 's/--\d+-\(z-lib.org\)//' *.*
+``` 
+
 ### rename with sprintf
 
 https://unix.stackexchange.com/questions/400983/how-to-use-rename-command-with-printf
@@ -998,5 +1005,34 @@ function convert2anki() {
 }
 ``` 
 
+### list installed software apps and commands
 
+opt01: built-in
+
+https://stackoverflow.com/questions/948008/linux-command-to-list-all-available-commands-and-aliases
+
+``` bash
+compgen -c | fzf
+``` 
+
+opt02: brew cargo condo installed commands
+
+``` bash
+brew list
+condo list
+cargo install --list
+``` 
+
+### unalias run original command that aliased with same name
+
+https://askubuntu.com/questions/525231/how-can-i-run-original-command-that-aliased-with-same-name
+
+``` bash
+\ls
+'ls'
+"ls"
+command ls
+/bin/ls
+$(which ls)
+``` 
 
