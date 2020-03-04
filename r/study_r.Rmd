@@ -607,4 +607,9 @@ readxl::read_excel(path = sevk_emri_file, col_types = c("text", "date", "text", 
 Rscript -e 'servr::httd()' -p8000
 ``` 
 
+### check version of a package
+
+``` bash
+packageVersion("stringr")
+``` 
 
