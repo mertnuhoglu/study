@@ -1,5 +1,4 @@
----
-title: "Study clojure"
+--- title: "Study clojure"
 date: 2019-11-01T14:35:49+03:00 
 draft: false
 description: ""
@@ -22,9 +21,391 @@ Ref:
 
 # Questions
 
+## map doc
+
+https://clojuredocs.org/clojure.core/map
+
+``` clojure
+(map f)
+(map f coll)
+(map f c1 c2)
+(map f c1 c2 c3)
+(map f c1 c2 c3 & colls)
+``` 
+
+``` clojure
+(map inc [1 2 3 4 5])
+;;=> (2 3 4 5 6)
+
+
+;; map can be used with multiple collections. Collections will be consumed
+;; and passed to the mapping function in parallel:
+(map + [1 2 3] [4 5 6])
+;;=> (5 7 9)
+
+
+;; When map is passed more than one collection, the mapping function will
+;; be applied until one of the collections runs out:
+(map + [1 2 3] (iterate inc 1))
+;;=> (2 4 6)
+``` 
+
+``` clojure
+;; A useful idiom to pull "columns" out of a collection of collections. 
+;; Note, it is equivalent to:
+;; user=> (map vector [:a :b :c] [:d :e :f] [:g :h :i])
+
+(apply map vector [[:a :b :c]
+                   [:d :e :f]
+                   [:g :h :i]])
+
+;;=> ([:a :d :g] [:b :e :h] [:c :f :i])
+
+``` 
+
+## partial doc
+
+https://clojuredocs.org/clojure.core/partial
+
+``` clojure
+(partial f)
+(partial f arg1)
+(partial f arg1 arg2)
+(partial f arg1 arg2 arg3)
+(partial f arg1 arg2 arg3 & more)
+``` 
+
+``` clojure
+user=> (def hundred-times (partial * 100))
+#'user/hundred-times
+
+user=> (hundred-times 5)
+500
+
+user=> (hundred-times 4 5 6)
+12000
+
+``` 
+
+
+## apply doc
+
+https://clojuredocs.org/clojure.core/apply
+
+``` clojure
+(apply f args)
+(apply f x args)
+(apply f x y args)
+(apply f x y z args)
+(apply f a b c d & args)
+``` 
+
+Applies fn f to the argument list formed by prepending intervening arguments to args.
+
+``` clojure
+;; If you were to try
+(max [1 2 3])
+;;=> [1 2 3]
+
+;; You would get '[1 2 3]' for the result. In this case, 'max' has received one
+;; vector argument, and the largest of its arguments is that single vector.
+
+;; If you would like to find the largest item **within** the vector, you would need
+;; to use `apply`
+
+(apply max [1 2 3])
+;;=> 3
+
+;; which is the same as 
+(max 1 2 3)
+;;=> 3
+``` 
+
+## comp doc
+
+https://clojuredocs.org/clojure.core/comp
+
+``` clojure
+(comp)(comp f)(comp f g)(comp f g & fs)
+``` 
+
+Takes a set of functions and returns a fn that is the composition of those fns. (right-to-left)
+
+``` clojure
+; Get 2nd to last element from a list
+( (comp second reverse) '("a" 2 7 "b"))   
+;;=> 7
+
+(filter (comp not zero?) [0 1 0 2 0 3 0 4])
+;;=> (1 2 3 4)
+
+((comp str +) 8 8 8)   
+;;=> "24"
+
+(def negative-quotient (comp - /))
+;; #'user/negative-quotient
+
+(negative-quotient 8 3)  ;;=> -8/3
+``` 
+
+## juxt doc
+
+https://clojuredocs.org/clojure.core/juxt
+
+``` clojure
+(juxt f)(juxt f g)(juxt f g h)(juxt f g h & fs)
+``` 
+
+Takes a set of functions and returns a fn that is the juxtaposition
+of those fns.
+
+((juxt a b c) x) => [(a x) (b x) (c x)]
+
+``` clojure
+((juxt :a :b) {:a 1 :b 2 :c 3 :d 4})
+;;=> [1 2]
+``` 
+
+``` clojure
+;; "Explode" a value.
+
+((juxt identity name) :keyword)
+;;=> [:keyword "keyword"]
+
+(juxt identity name)
+...is the same as:
+(fn [x] [(identity x) (name x)])
+
+;; eg. to create a map:
+
+(into {} (map (juxt identity name) [:a :b :c :d]))
+;;=> {:a "a" :b "b" :c "c" :d "d"}
+``` 
+
+## identity doc
+
+``` clojure
+user=> (identity 4)
+4
+``` 
+
+## name doc
+
+https://clojuredocs.org/clojure.core/name
+
+Returns the name String of a string, symbol or keyword.
+
+``` clojure
+;; the name of the keyword is without the ':'
+;; "str" will retain the ':'.
+(name :x)
+;;=> "x"
+
+(name "x")
+;;=> "x"
+
+;; returns the symbol name as a string without the namespace.
+(name 'x)
+;;=> "x"
+
+(name 'user/x)
+;;=> "x"
+``` 
+
+## pr-str doc
+
+https://clojuredocs.org/clojure.core/pr-str
+
+``` clojure
+(pr-str & xs)
+``` 
+
+pr to a string, returning it
+
+``` clojure
+user=> x
+[1 2 3 4 5]
+
+
+;; Turn that data into a string...
+user=> (pr-str x)
+"[1 2 3 4 5]"
+
+
+;; ...and turn that string back into data!
+user=> (read-string (pr-str x))
+[1 2 3 4 5]
+``` 
+
+## repeat doc
+
+https://clojuredocs.org/clojure.core/repeat
+
+``` clojure
+(repeat x)(repeat n x)
+``` 
+
+Returns a lazy (infinite!, or length n if supplied) sequence of xs.
+
+``` clojure
+user=> (take 5 (repeat "x"))
+("x" "x" "x" "x" "x")
+
+;; which is the same as:
+user=> (repeat 5 "x")
+("x" "x" "x" "x" "x")
+
+``` 
+
+## into doc
+
+https://clojuredocs.org/clojure.core/into
+
+``` clojure
+; Items are conj'ed one at a time, which puts them at the head of 
+; the destination list
+user=> (into () '(1 2 3))
+(3 2 1)
+
+; This does not happen for a vector, however, due to the behavior of conj:
+user=> (into [1 2 3] '(4 5 6))
+[1 2 3 4 5 6]
+``` 
+
+``` clojure
+user=> (into (sorted-map) [ [:a 1] [:c 3] [:b 2] ] )
+{:a 1, :b 2, :c 3}
+; When maps are the input source, they convert into an unordered sequence 
+; of key-value pairs, encoded as 2-vectors
+user=> (into [] {1 2, 3 4})
+[[1 2] [3 4]]
+``` 
+
+## remove doc
+
+https://clojuredocs.org/clojure.core/remove
+
+``` clojure
+;; compare to filter
+
+(remove even? (range 10))
+;;=> (1 3 5 7 9)
+
+; When coll is a map, pred is called with key/value pairs.
+(remove #(> (second %) 100)
+       {:a 1
+        :b 2
+        :c 101
+        :d 102
+        :e -1})
+;;=> ([:a 1] [:b 2] [:e -1])
+``` 
+
+### Logs
+
+Nasıl çalışıyor bu:
+
+``` clojure
+(remove #(> (second %) 100)
+       {:a 1
+        :b 2
+        :c 101
+        :d 102
+        :e -1})
+;;=> ([:a 1] [:b 2] [:e -1])
+``` 
+
+`second` fonksiyonuna argüman olarak {:a 1} {:b 2} gibi key-value pairları paslanıyor olmalı. Fakat bunları tek başına gönderdiğimde `nil` alıyorum:
+
+``` clojure
+(second {:a 1})
+  ##> nil
+``` 
+
+`map` ile çağıralım
+
+``` clojure
+(map #(> (second %) 100) {:a 1 :c 101})
+  ##> (false true)
+``` 
+
+Evet, bu durumda, tek tek gönderiliyor. O zaman, item değil de vector olarak mı gönderiliyor?
+
+``` clojure
+(second [:a 1])
+  ##> 1
+``` 
+
+Evet, map'in öğeleri `{:a 1}` gibi map değil, `[:a 1]` gibi vector.
+
+## update-in
+
+https://clojuredocs.org/clojure.core/update-in
+
+``` clojure
+(def p {:name "James" :age 26})
+;;=> #'user/p
+
+(update-in p [:age] inc)
+;;=> {:name "James", :age 27}
+``` 
+
+## assoc-in
+
+https://clojuredocs.org/clojure.core/assoc-in
+
+``` clojure
+(assoc-in {:person {:name "Mike"}} [:person :name] "Violet")
+; => {:person {:name "Violet"}}
+
+(assoc-in {:person {:name "Mike"}} [:person] "Violet")
+; => {:person "Violet"}
+``` 
+
+## swap! amap assoc akey nasıl çalışıyor?
+
+``` clojure
+(def m (atom {:a 1}))
+@m
+  ##> {:a 1}
+(swap! m assoc :b 2)
+  ##> {:a 1, :b 2}
+``` 
+
+Acaba sıralama değişince ne oluyor?
+
+``` clojure
+(def n {:a 1})
+(assoc n :b 2)
+  ##> {:a 1, :b 2}
+(assoc :b 2 n)
+  ##> Error
+``` 
+
+`assoc` 2 argüman alıyor. Bu yüzden, `swap!` ile kullanımda ilk argüman otomatikman mevcut atom oluyor. 
+
+## defonce
+
+Like def, but you cannot overwrite it.
+
+``` clojure
+user> (defonce foo 5)
+  #'user/foo
+
+user> foo
+5
+
+;; defonce does nothing the second time
+user> (defonce foo 10)
+nil
+
+user> foo
+5
+``` 
+
 ## printing a map
 
-``` bash
+``` clojure
 (print {:a 1 :b 2})
   ##> {:a 1, :b 2}nil
 (clojure.pprint/pprint {:a 1 :b 2})
@@ -50,13 +431,13 @@ https://stackoverflow.com/questions/1527548/why-does-clojure-have-keywords-in-ad
 
 Usage:
 
-``` bash
+``` clojure
 (mapv f coll)
        (mapv f c1 c2)
        (mapv f c1 c2 c3)
 ``` 
 
-``` bash
+``` clojure
 (mapv + [1 2] [3 4])
   ##> [4 6]
 ``` 
@@ -65,7 +446,7 @@ Usage:
 
 https://clojuredocs.org/clojure.core/hash-map
 
-``` bash
+``` clojure
 (hash-map)
   ##> {}
 {}
@@ -78,7 +459,7 @@ https://clojuredocs.org/clojure.core/hash-map
   ##> {[:compound :key] nil} 
 ``` 
 
-``` bash
+``` clojure
 (map #(hash-map % 0) (seq "abcdefgh"))
   ##> ({\a 0} {\b 0} {\c 0} {\d 0} {\e 0} {\f 0} {\g 0} {\h 0}) 
 (apply hash-map (.split "a 1 b 2 c 3" " "))
@@ -87,7 +468,7 @@ https://clojuredocs.org/clojure.core/hash-map
 
 ## namespaced keyword notations
 
-``` bash
+``` clojure
 user=> #:a{:b :c}
   ##> #:a{:b :c}
 user=> {:a/b :c}
@@ -96,7 +477,7 @@ user=> {:a/b :c}
 
 ## map-indexed function
 
-``` bash
+``` clojure
 user=> (map-indexed (fn [idx itm] [idx itm]) "foobar")
 ([0 \f] [1 \o] [2 \o] [3 \b] [4 \a] [5 \r])
 user=> (map-indexed hash-map "foobar")
@@ -105,7 +486,7 @@ user=> (map-indexed hash-map "foobar")
 
 ## vec function
 
-``` bash
+``` clojure
 user=> (vec '(1 2 3))
 [1 2 3]
 
@@ -135,21 +516,21 @@ Two ways to construct:
 
 1. constructor function
 
-``` bash
+``` clojure
 (hash-map :a 1 :b 2)
   ##> {:b 2, :a 1}
 ``` 
 
 2. hashmap literal `{}`
 
-``` bash
+``` clojure
 {:a 1 :b 2}
   ##> {:a 1, :b 2}
 ``` 
 
 ### Converting other collections to hashmaps
 
-``` bash
+``` clojure
 (hash-map [:a 1 :b 2 :c 3])
   ##> ; => IllegalArgumentException No value supplied for key: [:a 1 :b 2 :c 3]
 ``` 
@@ -158,7 +539,7 @@ We need to use `apply`
 
 It destructures a collection before applying a function to it:
 
-``` bash
+``` clojure
 (apply + [1 2 3])
   ##> 6
 (apply hash-map [:a 1 :b 2 :c 3])
@@ -169,23 +550,23 @@ It destructures a collection before applying a function to it:
 
 https://clojure.org/guides/deps_and_cli
 
-``` bash
+``` clojure
 brew install clojure
 clj
 ``` 
 
-``` bash
+``` clojure
 (+ 2 3)
 ``` 
 
 Create a deps.edn file to declare the dependency: `~/projects/study/clj/ex/study_clojure/ex01/deps.edn`
 
-``` bash
+``` clojure
 cd ~/projects/study/clj/ex/study_clojure/ex01
 clj
 ``` 
 
-``` bash
+``` clojure
 (require '[clj-time.core :as t])
 (str (t/now))
   ##> "2019-11-01T11:53:40.214Z"
@@ -195,7 +576,7 @@ clj
 
 Edit `~/projects/study/clj/ex/study_clojure/ex01/src/hello.clj`
 
-``` bash
+``` clojure
 clj -m hello
   ##> Hello world, the time is 02:57 PM
 ``` 
@@ -204,21 +585,40 @@ clj -m hello
 
 https://leiningen.org/
 
-``` bash
+``` clojure
 wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 mv lein ~/lein
 chmod a+x ~/bin/lein
 lein
 ``` 
 
-``` bash
+``` clojure
 lein help tutorial
 ``` 
 
 unset $CLASSPATH variable
 
-``` bash
+``` clojure
 unset CLASSPATH
+``` 
+
+# Clojure Reference
+
+## Clojure - Vars and the Global Environment
+
+https://clojure.org/reference/vars
+
+Persistent reference to a changing value. 4 ways: Vars, Refs, Agents, Atoms.
+
+`def` creates (and interns) a Var.
+
+If no initial value is supplied, the var is unbound:
+
+``` clojure
+user=> (def x)
+#'user/x
+user=> x
+#object[clojure.lang.Var$Unbound 0x14008db3 "Unbound: #'user/x"]
 ``` 
 
 # Clojure - Learn Clojure 
@@ -229,7 +629,7 @@ https://clojure.org/guides/learn/syntax
 
 ### Strings (character types)
 
-``` bash
+``` clojure
 "hello"         ; string
 \e              ; character
   #"[0-9]+"       ; regular expression
@@ -237,7 +637,7 @@ https://clojure.org/guides/learn/syntax
 
 ### Symbols and idents:
 
-``` bash
+``` clojure
 map             ; symbol
 +               ; symbol - most punctuation allowed
 clojure.core/+  ; namespaced symbol
@@ -249,7 +649,7 @@ true false      ; booleans
 
 Literal collections:
 
-``` bash
+``` clojure
 '(1 2 3)     ; list
 [1 2 3]      ; vector
   #{1 2 3}     ; set
@@ -284,13 +684,13 @@ Some languages have both statements and expressions. Statements have stateful ef
 
 Sometimes, symbols should just be a symbol without looking up what it refers to. Then we suspend evaluation with quoting:
 
-``` bash
+``` clojure
 'x
 ``` 
 
 Sometimes, a list should just be a list of data values:
 
-``` bash
+``` clojure
 '(1 2 3)
 ``` 
 
@@ -300,7 +700,7 @@ Clojure is always compiled to JVM bytecode. There is no clojure interpreter.
 
 History of values of last expressions: `*1` `*2`...
 
-``` bash
+``` clojure
 user=> (+ 3 4)
 7
 user=> (+ 10 *1)
@@ -311,14 +711,14 @@ user=> (+ 10 *1)
 
 Helper functions: `doc`, `find-doc`, `apropos`, `source`, `dir`
 
-``` bash
+``` clojure
 (require '[clojure.repl :refer :all])
 user=> (doc +)
 ``` 
 
 You can use the `apropos` command to find functions that match a particular string or regular expression.
 
-``` bash
+``` clojure
 user=> (apropos "+")
 (clojure.core/+ clojure.core/+')
 ``` 
@@ -327,7 +727,7 @@ user=> (apropos "+")
 
 `dir` list all functions in a namespace
 
-``` bash
+``` clojure
 (dir clojure.repl)
 ``` 
 
@@ -335,7 +735,7 @@ user=> (apropos "+")
 
 #### def var
 
-``` bash
+``` clojure
 (def x 7)
   ##> #'user/x
 ``` 
@@ -350,7 +750,7 @@ This association is called a `var`
 
 Symbols are evaluated by looking up what they refer to:
 
-``` bash
+``` clojure
 (+ x x)
   ##> 14
 ``` 
@@ -361,7 +761,7 @@ Symbols are evaluated by looking up what they refer to:
 
 `prn` and `pr` for machine-readable printing. It puts quotes around strings.
 
-``` bash
+``` clojure
 user=> (println "What is this:" (+ 1 2))
 What is this: 3
 ``` 
@@ -372,7 +772,7 @@ What is this: 3
 
 `defn` defines a named function:
 
-``` bash
+``` clojure
 ;;    name   params         body
 ;;    -----  ------  -------------------
 (defn greet  [name]  (str "Hello, " name) )
@@ -382,7 +782,7 @@ What is this: 3
 
 A function can take different numbers of parameters:
 
-``` bash
+``` clojure
 (defn messenger
   ([]     (messenger "Hello world!"))
   ([msg]  (println msg)))
@@ -394,21 +794,21 @@ A function can define a variable number of parameters.
 
 The variable parameters must occur at the end of the parameter list.
 
-``` bash
+``` clojure
 (defn hello [greeting & who]
   (println greeting who))
 ``` 
 
 Additional parameters are collected in a list `who`
 
-``` bash
+``` clojure
 user=> (hello "Hello" "world" "class")
 Hello (world class)
 ``` 
 
 ### Anonymous Functions
 
-``` bash
+``` clojure
 ;;    params         body
 ;;   ---------  -----------------
 (fn  [message]  (println message) )
@@ -420,7 +820,7 @@ Usually it is passed to another function.
 
 `defn` is both `def` and `fn`. `fn` defines the function. `def` binds it to a name
 
-``` bash
+``` clojure
 (defn greet [name] (str "Hello, " name))
 
 (def greet (fn [name] (str "Hello, " name)))
@@ -428,7 +828,7 @@ Usually it is passed to another function.
 
 ### Anonymous function syntax
 
-``` bash
+``` clojure
 ;; Equivalent to: (fn [x] (+ 6 x))
   #(+ 6 %)
 
@@ -445,7 +845,7 @@ How to define an anonymous function that takes an element and wrapsi it in a vec
 
 3 options:
 
-``` bash
+``` clojure
   #(vector %)
 (fn [x] [x])
 vector
@@ -457,14 +857,14 @@ vector
 
 For example, you can use apply to avoid writing this:
 
-``` bash
+``` clojure
 (defn plot [shape coords]   ;; coords is [x y]
   (plotxy shape (first coords) (second coords)))
 ``` 
 
 Instead you can simply write:
 
-``` bash
+``` clojure
 (defn plot [shape coords]
   (apply plotxy shape coords))
 ``` 
@@ -475,13 +875,13 @@ Instead you can simply write:
 
 `let` binds symbols to values in a lexical scope.
 
-``` bash
+``` clojure
 ;;      bindings     name is defined here
 ;;    ------------  ----------------------
 (let  [name value]  (code that uses name))
 ``` 
 
-``` bash
+``` clojure
 (let [x 1
       y 2]
   (+ x y))
@@ -489,7 +889,7 @@ Instead you can simply write:
 
 #### Closures
 
-``` bash
+``` clojure
 (defn messenger-builder [greeting]
   (fn [who] (println greeting who))) ; closes over greeting
 
@@ -505,7 +905,7 @@ Instead you can simply write:
 
 #### Invoking java code
 
-``` bash
+``` clojure
 	| Task            | Java              | Clojure          |
 	| Instantiation   | new Widget("foo") | (Widget. "foo")  |
 	| Instance method | rnd.nextInt()     | (.nextInt rnd)   |
@@ -520,7 +920,7 @@ https://clojure.org/guides/learn/sequential_colls
 
 ### Vectors
 
-``` bash
+``` clojure
 [1 2 3]
 user=> (get ["abc" false 99] 0)
   ##> "abc"
@@ -538,7 +938,7 @@ user=> (conj [1 2 3] 4 5 6)
 
 Quote a list to prevent evaluation.
 
-``` bash
+``` clojure
 (def cards '(10 :ace :jack 9))
 (first cards)
   ##> 10
@@ -561,34 +961,34 @@ https://clojure.org/guides/learn/hashed_colls
 
 ### Sets
 
-``` bash
+``` clojure
 (def players #{"Alice", "Bob", "Kelly"})
 ``` 
 
 Adding to a set: `conj`
 
-``` bash
+``` clojure
 (conj players "Fred")
   ##> #{"Alice", "Bob", "Kelly", "Fred"}
 ``` 
 
 Removing from a set: `disj`
 
-``` bash
+``` clojure
 (disj players "Fred")
   ##> #{"Alice", "Bob", "Kelly"}
 ``` 
 
 Checking containment: `contains?`
 
-``` bash
+``` clojure
 (contains? players "Fred")
   ##> true
 ``` 
 
 Concatenate two collections: `into`
 
-``` bash
+``` clojure
 (into players new-players)
 ``` 
 
@@ -601,20 +1001,20 @@ Two uses:
 
 Creating a literal map:
 
-``` bash
+``` clojure
 (def scores {"Fred" 1400
   "Bob" 1240})
 ``` 
 
 Adding new key-value pairs: `assoc`
 
-``` bash
+``` clojure
 (assoc scores "Sally" 0)
 ``` 
 
 Removing: `dissoc`
 
-``` bash
+``` clojure
 (dissoc scores "Bob")
 ``` 
 
@@ -622,14 +1022,14 @@ Removing: `dissoc`
 
 opt01: `get`
 
-``` bash
+``` clojure
 (get scores "Fred")
   ##> 1400
 ``` 
 
 opt02: invoke map itself like a function
 
-``` bash
+``` clojure
 (def directions {:north 0
                         :east 1
                         :south 2
@@ -641,14 +1041,14 @@ directions :north)
 
 Default value:
 
-``` bash
+``` clojure
 (get scores "Sam" 0)
   ##> 0
 ``` 
 
 Checking contains:
 
-``` bash
+``` clojure
 (contains? scores "Fred")
   ##> true
 (find scores "Fred")
@@ -657,7 +1057,7 @@ Checking contains:
 
 Get keys or values:
 
-``` bash
+``` clojure
 (keys scores)
   ##> ("Fred" "Bob" "Angela")
 (vals scores)
@@ -668,7 +1068,7 @@ Get keys or values:
 
 Map with keyword keys:
 
-``` bash
+``` clojure
 (def person
 	{:first-name "Kelly"
 	 :last-name "Keen"
@@ -679,7 +1079,7 @@ Map with keyword keys:
 
 Looking up by key:
 
-``` bash
+``` clojure
 (get person :age)
   ##> 32
 (person :age)
@@ -700,7 +1100,7 @@ Removing fields: `dissoc`
 
 #### Nested entities
 
-``` bash
+``` clojure
 (def company
   {:name "WidgetCo"
    :address {:street "123 Main St"
@@ -710,7 +1110,7 @@ Removing fields: `dissoc`
 
 Access using `get-in`
 
-``` bash
+``` clojure
 (get-in company [:address :city])
 ``` 
 
@@ -723,7 +1123,7 @@ Removing: `dissoc-in`
 
 https://clojure.org/guides/learn/flow
 
-``` bash
+``` clojure
 (str "2 is " (if (even? 2) "even" "odd"))
   ##> 2 is even
 
@@ -735,7 +1135,7 @@ Only false values are `false` and `nil`
 
 Use `do` if there are multiple expressions.
 
-``` bash
+``` clojure
 (if (even? 5)
   (do (println "even")
       true)
@@ -745,14 +1145,14 @@ Use `do` if there are multiple expressions.
 
 `when` is an `if` with only a `then` branch:
 
-``` bash
+``` clojure
 (when (neg? x)
   (throw (RuntimeException. (str "x must be positive: " x))))
 ``` 
 
 `cond` is multiple if:
 
-``` bash
+``` clojure
 (let [x 5]
   (cond
     (< x 2) "x is less than 2"
@@ -761,7 +1161,7 @@ Use `do` if there are multiple expressions.
 
 `case` is switch:
 
-``` bash
+``` clojure
 user=> (defn foo [x]
          (case x
            5 "x is 5"
@@ -777,7 +1177,7 @@ x is 10
 
 `dotimes`
 
-``` bash
+``` clojure
 user=> (dotimes [i 3]
          (println i))
 0
@@ -788,7 +1188,7 @@ nil
 
 `for` is list comprehension
 
-``` bash
+``` clojure
 user=> (for [letter [:a :b]
              number (range 3)] ; list of 0, 1, 2
          [letter number])
@@ -803,19 +1203,19 @@ http://clojure-doc.org/articles/content.html#essentials
 
 ### Trying out the REPL
 
-``` bash
+``` clojure
 lein repl
 ``` 
 
 ### Your first project
 
-``` bash
+``` clojure
 lein new app proj01
 ``` 
 
 Check `~/projects/study/clj/ex/study_clojure/ex02/proj01`
 
-``` bash
+``` clojure
 cd proj01
 lein run
   ##> Retrieving org/clojure/clojure/1.10.0/clojure-1.10.0.pom from central
@@ -825,7 +1225,7 @@ lein run
 
 ### Interactive Development
 
-``` bash
+``` clojure
 cd ~/projects/study/clj/ex/study_clojure/ex02/proj01
 lein repl
 (-main)
@@ -837,7 +1237,7 @@ Edit `~/projects/study/clj/ex/study_clojure/ex02/proj01/src/proj01/core.clj`
 
 Reload the code:
 
-``` bash
+``` clojure
 (require 'proj01.core :reload)
 (-main)
   ##> Hello, World!2
@@ -847,7 +1247,7 @@ Reload the code:
 
 http://clojure-doc.org/articles/tutorials/introduction.html
 
-``` bash
+``` clojure
 5
 "hi"
 [1 2 3]
@@ -858,13 +1258,57 @@ http://clojure-doc.org/articles/tutorials/introduction.html
 
 Sub-expressions:
 
-``` bash
+``` clojure
 (+ 1
 	(* 2 3)
 	(/ 10 2)
 )
   ##> 12
 ``` 
+
+## Weird Characters
+
+https://clojure.org/guides/weird_characters
+
+``` clojure
+  ( … ) - List
+  [ … ] - Vector
+  { … } - Map
+  # - Dispatch character
+  #{ … } - Set
+  #_ - Discard
+  #"…" - Regular Expression
+  #(…) - Anonymous function
+  #' - Var quote
+  ## - Symbolic values
+  #inst, #uuid, and #js etc. - tagged literals
+  %, %n, %& - Anonymous function arguments
+  @ - Deref
+  ^ (and #^) - Metadata
+  ' - Quote
+  ; - Comment
+  : - Keyword
+  :: - Auto-resolved keyword
+  #: and #:: - Namespace Map Syntax
+  / - Namespace separator
+  \ - Character literal
+  $ - Inner class reference
+  ->, ->>, some->, cond->, as-> etc. - Threading macros
+  ` - Syntax quote
+  ~ - Unquote
+  ~@ - Unquote splicing
+  <symbol># - Gensym
+  #? - Reader conditional
+  #?@ - Splicing Reader conditional
+  *var-name* - "Earmuffs"
+  >!!, <!!, >!, and <! - core.async channel macros
+  <symbol>? - Predicate Suffix
+  <symbol>! - Unsafe Operations
+  _ - Unused argument
+  , - Whitespace character
+  #= Reader eval
+``` 
+
 
 # Clojure Distilled
 
@@ -899,7 +1343,7 @@ Code is data and data is code.
 
 ## Functions
 
-``` bash
+``` clojure
 (function-name param1 param2)
 ``` 
 
@@ -907,7 +1351,7 @@ The function call is simply a list containing the function name and its paramete
 
 Creating a list:
 
-``` bash
+``` clojure
 (list 1 2 3)
 ``` 
 
@@ -915,20 +1359,20 @@ Creating a list:
 
 Functions that aren't bound to a name.
 
-``` bash
+``` clojure
 (fn [arg] (println arg))
 ``` 
 
 We can call this function by settings it as a first item in a list and its argument as the second.
 
-``` bash
+``` clojure
 ((fn [arg] (println arg)) "hello")
   ##> hello
 ``` 
 
 Syntactic sugar for defining anonymous functions using the `#` notation
 
-``` bash
+``` clojure
   #(println %)
 ``` 
 
@@ -936,7 +1380,7 @@ Syntactic sugar for defining anonymous functions using the `#` notation
 
 If multiple arguments exist:
 
-``` bash
+``` clojure
   #(println %1 %2 %3)
 ``` 
 
@@ -944,7 +1388,7 @@ If multiple arguments exist:
 
 Creating global variables using `def`
 
-``` bash
+``` clojure
 (def double
   (fn [x] (* 2 x)))
 ``` 
@@ -953,14 +1397,14 @@ It accepts a name and the body.
 
 Syntactic sugar for this: `defn`
 
-``` bash
+``` clojure
 (defn square [x]
   (* x x))
 ``` 
 
 The body can consist of multiple expressions:
 
-``` bash
+``` clojure
 (defn bmi [height weight]
   (println "height:" height)
   (println "weight:" weight)
@@ -969,7 +1413,7 @@ The body can consist of multiple expressions:
 
 Clojure uses a single pass compiler. So, the functions must be declared before they are used.
 
-``` bash
+``` clojure
 (declare down)
 
 (defn up [n]
@@ -982,7 +1426,7 @@ Clojure uses a single pass compiler. So, the functions must be declared before t
 
 ### Higher-Order Functions
 
-``` bash
+``` clojure
 (map #(* % %) [1 2 3 4 5]) => (1 4 9 16 25)
 (filter even? [1 2 3 4 5]) => (2 4)
 (filter even?
@@ -1000,7 +1444,7 @@ Functions that return other functions as their result.
 
 One use is to mimic constructors in oop languages.
 
-``` bash
+``` clojure
 (defn greeting [greeting-string]
   (fn [guest]
     (println greeting-string guest)))
@@ -1018,13 +1462,13 @@ One use is to mimic constructors in oop languages.
 
 Reading nested expressions is difficult. 
 
-``` bash
+``` clojure
 (reduce + (interpose 5 (map inc (range 10))))
 ``` 
 
 We want to read them in linear form:
 
-``` bash
+``` clojure
 (->> (range 10) (map inc) (interpose 5) (reduce +))
 ``` 
 
@@ -1036,7 +1480,7 @@ We want to read them in linear form:
 
 ## Code Structure
 
-``` bash
+``` clojure
 (println
   (filter #(= (mod % 2) 0)
     (map #(* % %) (range 1 6))))
@@ -1044,7 +1488,7 @@ We want to read them in linear form:
 
 Flattened steps:
 
-``` bash
+``` clojure
 (->> (range 1 6)
      (map #(* % %))
      (filter #(= (mod % 2) 0))
@@ -1057,7 +1501,7 @@ Clojure uses persistent data structures that create in-memory revisions of the d
 
 ### Destructuring
 
-``` bash
+``` clojure
 (let [[smaller bigger] (split-with #(< % 5) (range 10))]
     (println smaller bigger))
 
@@ -1066,7 +1510,7 @@ Clojure uses persistent data structures that create in-memory revisions of the d
 
 `split-with` returns two elements: numbers less than 5 and greater than 5. They are bound to `smaller` and `bigger` variables.
 
-``` bash
+``` clojure
 (defn print-user [[name address phone]]
   (println name "-" address phone))
 
@@ -1076,7 +1520,7 @@ Clojure uses persistent data structures that create in-memory revisions of the d
 
 `print-user` takes 3 arguments: `name`, `address`, and `phone`
 
-``` bash
+``` clojure
 (defn print-args [& args]
   (println args))
 
@@ -1087,7 +1531,7 @@ Clojure uses persistent data structures that create in-memory revisions of the d
 
 Variable arguments can be destructured too:
 
-``` bash
+``` clojure
 (defn print-args [arg1 & [arg2]]
   (println
     (if arg2
@@ -1103,13 +1547,13 @@ Variable arguments can be destructured too:
 
 Destructuring maps. Supply the names for the local bindings pointing to the keys of the original map:
 
-``` bash
+``` clojure
 (let [{foo :foo bar :bar} {:foo "foo" :bar "bar"}]
   (println foo bar))
   ##> foo bar
 ``` 
 
-``` bash
+``` clojure
 (let [{f :foo b :bar} {:foo "hello" :bar "world"}]
   (println f b))
   ##> hello world
@@ -1117,24 +1561,69 @@ Destructuring maps. Supply the names for the local bindings pointing to the keys
 
 Destructuring nested maps:
 
-``` bash
+``` clojure
 (let [{[a b c] :items id :id} {:id "foo" :items [1 2 3]}]
   (println id "->" a b c))
   ##> foo -> 1 2 3
 ``` 
 
-Syntactic sugar for extracting keys from maps:
+`:keys` Syntactic sugar for extracting keys from maps:
 
-``` bash
+ex01: long form
+
+``` clojure
+(let [{foo :foo bar :bar} {:foo "foo" :bar "bar"}]
+  (println foo bar))
+  ##> foo bar
+``` 
+
+ex05: :keys short form
+
+``` clojure
+(let [{:keys [foo bar]} {:foo "foo" :bar "bar"}]
+  (println foo bar))
+  ##> foo bar
+``` 
+
+Error:
+
+``` clojure
+(let [:keys [foo bar] {:foo "foo" :bar "bar"}]
+  (println foo bar))
+  ##> [:keys [foo bar] {:foo "foo", :bar "bar"}] - failed: even-number-of-forms? at: [:bindings] spec: :clojure.core.specs.alpha/bindings
+``` 
+
+ex02:
+
+``` clojure
+(defn announce-treasure-location
+  [{lat :lat lng :lng}]
+  (println (str "Treasure lat: " lat))
+  (println (str "Treasure lng: " lng)))
+(announce-treasure-location {:lat 28.22 :lng 81.33})
+; => Treasure lat: 100
+; => Treasure lng: 50
+
+(defn announce-treasure-location
+  [{:keys [lat lng]}]
+  (println (str "Treasure lat: " lat))
+  (println (str "Treasure lng: " lng)))
+``` 
+
+ex03:
+
+``` clojure
 (defn login [{:keys [user pass]}]
  (and (= user "bob") (= pass "secret")))
 
 (login {:user "bob" :pass "secret"})
 ``` 
 
-Another useful destructuring option allows us to extract some keys while preserving the original map:
+`:as` Another useful destructuring option allows us to extract some keys while preserving the original map:
 
-``` bash
+ex01:
+
+``` clojure
 (defn register [{:keys [id pass repeat-pass] :as user}]
   (cond
     (nil? id) "user id is required"
@@ -1142,9 +1631,17 @@ Another useful destructuring option allows us to extract some keys while preserv
     :else user))
 ``` 
 
+ex02:
+
+``` clojure
+(let [{:keys [a b], :as all} {:a 1, :b 2, :c 3}]
+  (println a b all))
+  ##> 1 2 {:a 1, :b 2, :c 3}
+``` 
+
 ### Namespaces
 
-``` bash
+``` clojure
 (ns colors)
 
 (defn hex->rgb [[_ & rgb]]
@@ -1154,7 +1651,7 @@ Another useful destructuring option allows us to extract some keys while preserv
 
 Calling a function from another namespace: `:use` or `require`
 
-``` bash
+``` clojure
 (ns myns
   (:use colors))
 
@@ -1165,14 +1662,14 @@ Calling a function from another namespace: `:use` or `require`
 
 `:only` restricts imported variables:
 
-``` bash
+``` clojure
 (ns myns
   (:use [colors :only [rgb->hex]]))
 ``` 
 
 `:require` requires variables to be prefixed:
 
-``` bash
+``` clojure
 (ns myns (:require colors))
 
 (colors/hex->rgb "#324a9b")
@@ -1180,7 +1677,7 @@ Calling a function from another namespace: `:use` or `require`
 
 `:as` alias for imported variables.
 
-``` bash
+``` clojure
 (ns myotherns
   (:require [colors :as c]))
 
@@ -1193,7 +1690,7 @@ Calling a function from another namespace: `:use` or `require`
 
 #### Multimethods
 
-``` bash
+``` clojure
 (defmulti area :shape)
 
 (defmethod area :circle [{:keys [r]}]
@@ -1216,7 +1713,7 @@ Calling a function from another namespace: `:use` or `require`
 
 Abstract set of functions
 
-``` bash
+``` clojure
 (defprotocol Foo
   "Foo doc string"
   (bar [this b] "bar doc string")
@@ -1281,7 +1778,7 @@ commas are parsed as whitespace
 
 `tagged elements`
 
-``` bash
+``` clojure
 #myapp/Person {:first "Fred" :last "Mertz"}
 ``` 
 
@@ -1289,7 +1786,7 @@ commas are parsed as whitespace
 
 Instant in time
 
-``` bash
+``` clojure
 #inst "1985-04-12T23:20:50.52Z"
 ``` 
 
@@ -1305,14 +1802,14 @@ commens: `;`
 
 ### Clojure is Elegant
 
-``` bash
+``` clojure
 (defn blank? [str]
   (every? #(Character/isWhitespace %) str))
 ``` 
 
 No for loop. No if branching. No mutable state.
 
-``` bash
+``` clojure
 user=> (defrecord Person [first-name last-name])
   ##> user.Person
 user=> (def foo (->Person "Aaron" "Bedra"))
@@ -1325,7 +1822,7 @@ user=> (:first-name foo)
 
 Clojure itself is built out of macros such as `defrecord`
 
-``` bash
+``` clojure
 (defrecord name [arg1 arg2 arg3])
 ``` 
 
@@ -1347,7 +1844,7 @@ No parantheses more than necessary.
 
 Clojure avoids extra parantheses:
 
-``` bash
+``` clojure
 (cond (= x 10) "equal"
       (> x 10) "more")
 ``` 
@@ -1362,7 +1859,7 @@ But it is not pure functional like haskell.
 
 Ex: 
 
-``` bash
+``` clojure
 (for [c compositions :when (= (:name c) "Requiem")] (:composer c))
 ``` 
 
@@ -1386,7 +1883,7 @@ Why has fp not taken over? Clojure gives new benefits:
 
 Ex:
 
-``` bash
+``` clojure
 (def accounts (ref #{}))
 (defrecord Account [id balance])
 (dosync
@@ -1401,7 +1898,7 @@ Transaction guarantees thread safety.
 
 ### Clojure embraces the JVM
 
-``` bash
+``` clojure
 (System/getProperties)
 ``` 
 
@@ -1409,19 +1906,19 @@ Transaction guarantees thread safety.
 "hello".getClass().getProtectionDomain()
 ``` 
 
-``` bash
+``` clojure
 (.. "hello" getClass getProtectionDomain)
 ``` 
 
 All clojure functions implement `Callable` and `Runnable`
 
-``` bash
+``` clojure
 (.start (new Thread (fn [] (println "Hello" (Thread/currentThread)))))
 ``` 
 
 ### Clojure Coding Quick Start
 
-``` bash
+``` clojure
 (println "hello world")
 (defn hello [name] (str "Hello, " name))
 (hello "Stu")
@@ -1431,7 +1928,7 @@ All clojure functions implement `Callable` and `Runnable`
 
 `*1 *2 ...`: result of most recent evaluation
 
-``` bash
+``` clojure
 (str *1 " and " *2)
 ``` 
 
@@ -1439,7 +1936,7 @@ All clojure functions implement `Callable` and `Runnable`
 
 Load file from REPL:
 
-``` bash
+``` clojure
 (load-file "file.clj")
 ``` 
 
@@ -1449,7 +1946,7 @@ Empty set: `#{}`
 
 `conj`: conjoin = add new item = concatenate
  
-``` bash
+``` clojure
 (conj #{} "Ali")
   ##> -> #{"Ali"}
 ``` 
@@ -1458,13 +1955,13 @@ Reference types (refs):
 
 - atom
 
-``` bash
+``` clojure
 (atom initial-state)
 ``` 
 
 Name using `def`
 
-``` bash
+``` clojure
 (def symbol initial-value?)
 ``` 
 
@@ -1474,27 +1971,27 @@ Name using `def`
 
 `atom` creates an atom
 
-``` bash
+``` clojure
 (def visitors (atom #{}))
   ##> #'user/visitors
 ``` 
 
 Update reference using `swap!` function
 
-``` bash
+``` clojure
 (swap! r update-fn & args)
 ``` 
 
 `swap!` applies `update-fn` to reference `r` with optional `args`
 
-``` bash
+``` clojure
 (swap! visitors conj "Stu")
   ##> #{"Stu"}
 ``` 
 
 Check the ref with `deref` or `@`
 
-``` bash
+``` clojure
 (deref visitors)
   ##> #{"Stu"}
 @visitors
@@ -1503,7 +2000,7 @@ Check the ref with `deref` or `@`
 
 Check `~/codes/clojure/programming_in_clojure/code/test01/src/examples/introduction.clj`
 
-``` bash
+``` clojure
 (defn hello 
   "Writes hello message to *out*. Calls you by username.
   Knows if you have been here before."
@@ -1512,7 +2009,7 @@ Check `~/codes/clojure/programming_in_clojure/code/test01/src/examples/introduct
   (str "Hello, " username))
 ``` 
 
-``` bash
+``` clojure
 (hello "Rich")
 @visitors
   ##> #{"Stu" "Rich"}
@@ -1522,33 +2019,33 @@ Check `~/codes/clojure/programming_in_clojure/code/test01/src/examples/introduct
 
 import a namespace (package)
 
-``` bash
+``` clojure
 (require 'some-namespace)
 (require 'clojure.java.io)
 ``` 
 
 Leading single quote `'`: it quotes library name
 
-``` bash
+``` clojure
 (require 'examples.introduction)
 ``` 
 
 #### Error: classpath
 
-``` bash
+``` clojure
 (require 'examples.introduction)
   ##> Could not locate examples/introduction__init.class, examples/introduction.clj or examples/introduction.cljc on classpath.
 ``` 
 
 opt01: leiningen
 
-``` bash
+``` clojure
 lein new app test01
 cd test01
 lein repl
 ``` 
 
-``` bash
+``` clojure
 (require 'examples.introduction)
 ``` 
 
@@ -1557,14 +2054,14 @@ Now, it works
 ---
 
 
-``` bash
+``` clojure
 (take 10 examples.introduction/fibs)
   ##> (0 1 1 2 3 5 8 13 21 34)
 ``` 
 
 `doc`:
 
-``` bash
+``` clojure
 ### test01.core=> (doc str)
 clojure.core/str
 ([] [x] [x & ys])
@@ -1574,7 +2071,7 @@ clojure.core/str
 nil
 ``` 
 
-``` bash
+``` clojure
 (defn hello
 	"This is doc string"
 	[username]
@@ -1584,13 +2081,13 @@ nil
 
 `find-doc`: search for anything
 
-``` bash
+``` clojure
 (find-doc "reduce")
 ``` 
 
 `clojure.repl/source`: source code 
 
-``` bash
+``` clojure
 (require '[clojure.repl :refer [source]])
 (source identity)
   ##> (defn identity
@@ -1601,7 +2098,7 @@ nil
   ##> nil
 ``` 
 
-``` bash
+``` clojure
 (instance? java.util.Collection [1 2 3])
   ##> true
 ``` 
@@ -1614,7 +2111,7 @@ Don't use a function's name as parameter name or the function will be shadowed.
 
 ### Reading Clojure
 
-``` bash
+``` clojure
 test01.core=> (+ 2 3)
 5
 test01.core=> (+ 1 2 3)
@@ -1625,7 +2122,7 @@ test01.core=> (+)
 
 Arbitrary-precision numbers: `BigDecimal`: append `M` to a number
 
-``` bash
+``` clojure
 (+ 1 0.0001M)
   ##> 1.0001M
 ``` 
@@ -1661,11 +2158,11 @@ We can't create a literal list as we can with vectors. Function calls are repres
 
 To make a list we need to `quote`: 
 
-``` bash
+``` clojure
 (quote (1 2 3))
 ``` 
 
-``` bash
+``` clojure
 test01.core=> (quote (1 2 3))
 (1 2 3)
 test01.core=> (1 2 3)
@@ -1675,7 +2172,7 @@ java.lang.Long incompatible with clojure.lang.IFn
 
 Short form of `quote`
 
-``` bash
+``` clojure
 '(1 2 3)
 ``` 
 
@@ -1687,7 +2184,7 @@ Sets: unordered collections
 
 Maps: collections of key/value pairs
 
-``` bash
+``` clojure
 {"a" 1 "b" 2}
 ``` 
 
@@ -1697,19 +2194,19 @@ Most common key type is the clojure keyword.
 
 Keyword: begin with colon. They resolve to themselves.
 
-``` bash
+``` clojure
 :foo
 ``` 
 
 If several maps have keys in common, create a record:
 
-``` bash
+``` clojure
 (defrecord Book [title author])
 ``` 
 
 Instantiate that record with `->Book` constructor function:
 
-``` bash
+``` clojure
 (->Book "title01" "author01")
   ##> #test01.core.Book{:title "title01", :author "author01"}
 ``` 
@@ -1718,7 +2215,7 @@ Instantiate that record with `->Book` constructor function:
 
 `str`: takes any objects, converts them to strings and concatenates them
 
-``` bash
+``` clojure
 (str 1 2 nil 3)
   ##> "123"
 ``` 
@@ -1735,7 +2232,7 @@ Predicate: a function that returns true or false.
 
 Naming convention: trailing question mark for predicates:
 
-``` bash
+``` clojure
 (true? expr)
 (false? expr)
 (nil? expr)
@@ -1744,7 +2241,7 @@ Naming convention: trailing question mark for predicates:
 
 Only `nil` is `nil?`, only `true` is `true?`
 
-``` bash
+``` clojure
 (true? true)
   ##> true
 (true? "foo")
@@ -1753,7 +2250,7 @@ Only `nil` is `nil?`, only `true` is `true?`
 
 Find other predicate functions:
 
-``` bash
+``` clojure
 (find-doc #"\?$")
 ``` 
 
@@ -1761,7 +2258,7 @@ Find other predicate functions:
 
 ### Functions
 
-``` bash
+``` clojure
 (str "hello" " " "world")
   ##> "hello world"
 ``` 
@@ -1772,7 +2269,7 @@ Function names are usually hyphenated.
 
 Predicate functions end with a question mark.
 
-``` bash
+``` clojure
 (string? "hello")
 (keyword? :hello)
 (symbol? 'hello)
@@ -1780,7 +2277,7 @@ Predicate functions end with a question mark.
 
 To define functions: `defn`
 
-``` bash
+``` clojure
 (defn name doc-string? attr-map? [params*] prepost-map? body)
 ``` 
 
@@ -1790,7 +2287,7 @@ To define functions: `defn`
 
 `&`: variable arity
 
-``` bash
+``` clojure
 (defn date [person-1 person-2 & chaperones]
   (println person-1 "and" person-2 
 	   "went out with" (count chaperones) "chaperones."))
@@ -1808,7 +2305,7 @@ Ex: filter words longer than 2 letters
 
 opt01: Using `fn`
 
-``` bash
+``` clojure
 (filter (fn [w] (> (count w) 2)) (str/split "A fine day" #"\W+"))
   ##> ("fine" "day")
 ``` 
@@ -1817,7 +2314,7 @@ opt02: Using `#(body)`
 
 `#(body)`: shorter form for anonymous functions
 
-``` bash
+``` clojure
 (filter #(> (count %) 2) (str/split "A fine day" #"\W+"))
 ``` 
 
@@ -1827,7 +2324,7 @@ Parameters named: `%1 %2` final `%&` collects the rest
 
 opt03: Using `let`
 
-``` bash
+``` clojure
 (defn indexable-words [text]
   (let [indexable-word? (fn [w] (> (count w) 2))
 		(filter indexable-word? (str/split text #"\W+"))]))
@@ -1837,20 +2334,20 @@ opt03: Using `let`
 
 opt04: create a function dynamically 
 
-``` bash
+``` clojure
 (defn make-greeter [greeting-prefix]
   (fn [username] (str greeting-prefix ", " username)))
 ``` 
 
 You can use `def` to name functions created by `make-greeter`
 
-``` bash
+``` clojure
 (def hello-greeting (make-greeter "Hello"))
 ``` 
 
 Or 
 
-``` bash
+``` clojure
 ((make-greeter "Howdy") "pardner")
 ``` 
 
@@ -1866,7 +2363,7 @@ Each var is bound to a value.
 
 `def` and `defn` defines an object that is stored in var. 
 
-``` bash
+``` clojure
 (def foo 10)
   ##> #'test01.core/foo
 ``` 
@@ -1879,7 +2376,7 @@ root binding: The initial value of a var
 
 Referring to a var directly: `var`
 
-``` bash
+``` clojure
 (var a-symbol)
 (var foo)
   ##> #'test01.core/foo
@@ -1887,7 +2384,7 @@ Referring to a var directly: `var`
 
 `var`: equivalent reader macro `#'`
 
-``` bash
+``` clojure
  #'foo
   ##> #'test01.core/foo
 ``` 
@@ -1896,7 +2393,7 @@ Why refer to a var directly?
 
 #### Bindings
 
-``` bash
+``` clojure
 (defn triple [number] (* 3 number))
 (triple 10)
   ##> 30
@@ -1904,7 +2401,7 @@ Why refer to a var directly?
 
 `let` creates a set of lexical bindings
 
-``` bash
+``` clojure
 (let [bindings*] exprs*)
 ``` 
 
@@ -1912,7 +2409,7 @@ Why refer to a var directly?
 
 Value of `let` expression is the value of last `exprs`
 
-``` bash
+``` clojure
 (defn square-corners [bottom left size]
   (let [top (+ bottom size)
 	right (+ left size)]
@@ -1923,26 +2420,26 @@ Value of `let` expression is the value of last `exprs`
 
 opt01: binding the complete data structure 
 
-``` bash
+``` clojure
 (defn greet-author-1 [author]
   (println "Hello," (:first-name author)))
 ``` 
 
 Calling it:
 
-``` bash
+``` clojure
 (greet-author-1 {:last-name "X" :first-name "Ali"})
   ##> Hello, Ali
 ``` 
 
 opt02: binding only part of the collection
 
-``` bash
+``` clojure
 (defn greet-author-2 [{fname :first-name}]
   (println "Hello," fname))
 ``` 
 
-``` bash
+``` clojure
 (greet-author-2 {:last-name "X" :first-name "Ali"})
   ##> Hello, Ali
 ``` 
@@ -1951,7 +2448,7 @@ opt02: binding only part of the collection
 
 Ex: bind only the first two vars in a binding:
 
-``` bash
+``` clojure
 (let [[x y] [1 2 3]]
   [x y])
   ##> [1 2]
@@ -1959,7 +2456,7 @@ Ex: bind only the first two vars in a binding:
 
 Ex: skip elements
 
-``` bash
+``` clojure
 (let [[_ _ z] [1 2 3]]
   z)
 	##> 3
@@ -1967,7 +2464,7 @@ Ex: skip elements
 
 Ex: bind both a collection and elements
 
-``` bash
+``` clojure
 (let [[x y :as coords] [1 2 3 4]]
   (str "x " x ", y " y " total coords " (count coords)))
   ##> "x 1, y 2 total coords 4"
@@ -1975,14 +2472,14 @@ Ex: bind both a collection and elements
 
 Ex: take a string and return first three words
 
-``` bash
+``` clojure
 (require '[clojure.string :as str])
 (defn ellipsize [words]
   (let [[w1 w2 w3] (str/split words #"\s+")]
     (str/join " " [w1 w2 w3 "..."])))
 ``` 
 
-``` bash
+``` clojure
 (ellipsize "The quick brown fox jumps")
   ##> "The quick brown ..."
 ``` 
@@ -1993,33 +2490,33 @@ Root bindings live in a namespace.
 
 `resolve`: returns var that a symbol will resolve to in the current namespace
 
-``` bash
+``` clojure
 (resolve 'foo)
   ##> #'test01.core/foo
 ``` 
 
 `in-ns`: create/switch namespace
 
-``` bash
+``` clojure
 (in-ns 'myapp)
 ``` 
 
 You should `use` `clojre.core` namespace when you move to a new namespace.
 
-``` bash
+``` clojure
 (clojure.core/use 'clojure.core)
 ``` 
 
 Class names outside `java.lang` must be fully qualified:
 
-``` bash
+``` clojure
 java.io.File/separator
   ##> "/"
 ``` 
 
 `import` allows using short names:
 
-``` bash
+``` clojure
 (import '(java.io InputStream File))
   ##> java.io.File
 ``` 
@@ -2028,7 +2525,7 @@ java.io.File/separator
 
 `require` and `:as` is for clojure functions
 
-``` bash
+``` clojure
 (require 'clojure.string)
 (clojure.string/split "Ali,Veli,Ayse" #",")
   ##> ["Ali" "Veli" "Ayse"]
@@ -2041,13 +2538,13 @@ java.io.File/separator
 
 `ns` macro: sets current namespace and imports other namespaces
 
-``` bash
+``` clojure
 (ns name & references)
 ``` 
 
 `references` can include `:import` `:require` and `:use`
 
-``` bash
+``` clojure
 (ns examples.exploring
   (:require [clojure.string :as str])
 	(:import (java.io File)))
@@ -2057,36 +2554,36 @@ java.io.File/separator
 
 Metadata is data that is orthogonal to the logical value of an object. 
 
-``` bash
+``` clojure
 (meta #'str)
   ##> {:added "1.0", :ns #object[clojure.lang.Namespace 0x1caefa76 "clojure.core"], :name str, :file "clojure/core.clj", :static true, :column 1, :line 544, :tag java.lang.String, :arglists ([] [x] [x & ys]), :doc "With no args, returns the empty string. With one arg x, returns\n  x.toString().  (str nil) returns the empty string. With more than\n  one arg, returns the concatenation of the str values of the args."}
 ``` 
 
 Common metadata keys:
 
-``` bash
+``` clojure
 :ns	Namespace
 ...
 ``` 
 
 Add your own key/value pairs:
 
-``` bash
+``` clojure
 ^metadata form
 ``` 
 
-``` bash
+``` clojure
 (defn ^{:tag String} shout [^{:tag String} s] (clojure.string/upper-case s))
 ``` 
 
-``` bash
+``` clojure
 (meta #'shout)
   ##> {:tag java.lang.String, :arglists ([s]), :line 1, :column 1, :file "/private/var/folders/f9/d201s84j0gb95830cjhp09_m0000gq/T/form-init4977993031106662145.clj", :name shout, :ns #object[clojure.lang.Namespace 0x463928b7 "user"]}
 ``` 
 
 `^Classname`: short form for `^{:tag Classname}`
 
-``` bash
+``` clojure
 (defn ^String shout [^String s] (clojure.string/upper-case s))
 ``` 
 
@@ -2094,21 +2591,21 @@ Add your own key/value pairs:
 
 ##### trailing dot for new
 
-``` bash
+``` clojure
 (new classname)
 ``` 
 
-``` bash
+``` clojure
 (new java.util.Random)
 ``` 
 
 `.`: trailing dot. short form for `new`
 
-``` bash
+``` clojure
 (java.util.Random.)
 ``` 
 
-``` bash
+``` clojure
 (def rnd (java.util.Random.))
 ``` 
 
@@ -2116,12 +2613,12 @@ Add your own key/value pairs:
 
 Call methods: using dot special form
 
-``` bash
+``` clojure
 (. class-or-instance member-symbol & args)
 (. class-or-instance (member-symbol & args))
 ``` 
 
-``` bash
+``` clojure
 (. rnd nextInt)
   ##> -981148039
 (. rnd nextInt 10)
@@ -2139,14 +2636,32 @@ Call methods: using dot special form
 
 `-`: prefix for fields only
 
-``` bash
+``` clojure
 (. p -x)
   ##> 10
 ``` 
 
+###### dot dot syntax
+
+https://clojure.org/reference/java_interop#dot
+
+> Macro. Expands into a member access (.) of the first member on the first argument, followed by the next member on the result, etc. For instance:
+
+``` clojure
+(.. System (getProperties) (get "os.name"))
+;; expands to:
+(. (. System (getProperties)) (get "os.name"))
+``` 
+
+> but is easier to write, read, and understand. See also the -> macro which can be used similarly:
+
+``` clojure
+(-> (System/getProperties) (.get "os.name"))
+``` 
+
 ##### short form for dot syntax
 
-``` bash
+``` clojure
 (.method instance & args)
 (.field instance)
 (.-field instance)
@@ -2154,7 +2669,7 @@ Call methods: using dot special form
 Class/field
 ``` 
 
-``` bash
+``` clojure
 (.nextInt rnd 10)
   ##> 10
 (.x p)
@@ -2169,11 +2684,11 @@ Math/PI
 
 ##### import
 
-``` bash
+``` clojure
 (import (package-symbol & class-name-symbols)*)
 ``` 
 
-``` bash
+``` clojure
 (import '(java.util Random Locale)
   '(java.text MessageFormat))
 Random
@@ -2184,7 +2699,7 @@ Locale
 
 `javadoc`
 
-``` bash
+``` clojure
 (require '[clojure.java.javadoc :as jdoc])
 (jdoc/javadoc java.net.URL)
 ``` 
@@ -2193,13 +2708,13 @@ Locale
 
 `;`: create comment
 
-``` bash
+``` clojure
 ;; this is a comment
 ``` 
 
 `#_`: ignore line
 
-``` bash
+``` clojure
  #_(println "hello")
 ``` 
 
@@ -2207,19 +2722,19 @@ Locale
 
 #### if
 
-``` bash
+``` clojure
 (defn is-small? [number]
   (if (< number 100) "yes"))
 ``` 
 
-``` bash
+``` clojure
 (is-small? 50)
   ##> "yes"
 ``` 
 
 `else` is third argument
 
-``` bash
+``` clojure
 (defn is-small? [number]
   (if (< number 100) "yes" "no"))
 (is-small? 500)
@@ -2230,7 +2745,7 @@ Locale
 
 `do` is for side effects
 
-``` bash
+``` clojure
 (defn is-small? [number]
   (if (< number 100)
     "yes"
@@ -2239,7 +2754,7 @@ Locale
       "no")))
 ``` 
 
-``` bash
+``` clojure
 (is-small? 500)
   ##> Saw a big number 500
   ##> "no"
@@ -2249,17 +2764,17 @@ Locale
 
 opt01: use `loop` and `recur`
 
-``` bash
+``` clojure
 (loop [bindings*] exprs*)
 ``` 
 
 `loop` sets a recursion point, which is targeted by `recur`
 
-``` bash
+``` clojure
 (recur exprs*)
 ``` 
 
-``` bash
+``` clojure
 (loop [result [] x 5]
 	(if (zero? x)
 		result
@@ -2272,21 +2787,21 @@ opt01: use `loop` and `recur`
 
 opt02: use function and `recur`
 
-``` bash
+``` clojure
 (defn countdown [result x]
   (if (zero? x)
     result
     (recur (conj result x) (dec x))))
 ``` 
 
-``` bash
+``` clojure
 (countdown [] 5)
   ##> [5 4 3 2 1]
 ``` 
 
 opt03: use sequence library
 
-``` bash
+``` clojure
 (into [] (take 5 (iterate dec 5)))
   ##> [5 4 3 2 1]
 (into [] (drop-last (reverse (range 6))))
@@ -2301,7 +2816,7 @@ There is no `for` loop.
 
 `StringUtils.indexOfAny` implementation in clojure:
 
-``` bash
+``` clojure
 (defn indexed [coll] (map-indexed vector coll))
 (indexed "abcde")
   ##> ([0 \a] [1 \b] [2 \c] [3 \d] [4 \e])
@@ -2344,19 +2859,19 @@ Every aggregate data structure is a sequence.
 
 `first` item in a sequence
 
-``` bash
+``` clojure
 (first aseq)
 ``` 
 
 `rest` everything after first item
 
-``` bash
+``` clojure
 (rest aseq)
 ``` 
 
 `cons` construct a new sequence by adding an item to the front:
 
-``` bash
+``` clojure
 (cons elem aseq)
 ``` 
 
@@ -2364,19 +2879,19 @@ They are declared in interface: `clojure.lang.ISeq`
 
 `seq` return a seq an any seq-able collection:
 
-``` bash
+``` clojure
 (seq coll)
 ``` 
 
 `next`: return seq of item after the first
 
-``` bash
+``` clojure
 (next aseq)
 ``` 
 
 Equivalent to: `(seq (rest aseq))`
 
-``` bash
+``` clojure
 (first '(1 2 3))
   ##> 1
 (rest '(1 2 3))
@@ -2407,14 +2922,14 @@ seqs printed like lists.
 
 Check the returned type by `seq?` predicate
 
-``` bash
+``` clojure
 (seq? (rest [1 2 3]))
   ##> true
 ``` 
 
 maps as seqs:
 
-``` bash
+``` clojure
 (first {:fname "Ali" :lname "Ak"})
   ##> [:fname "Ali"]
 (rest {:fname "Ali" :lname "Ak"})
@@ -2425,7 +2940,7 @@ maps as seqs:
 
 sets as seqs:
 
-``` bash
+``` clojure
 (first #{:the :quick :brown})
   ##> :the
 (rest #{:the :quick :brown})
@@ -2436,18 +2951,18 @@ sets as seqs:
 
 To get a reliable order in sets use:
 
-``` bash
+``` clojure
 (sorted-set & elements)
 ``` 
 
-``` bash
+``` clojure
 (sorted-set :the :quick :brown)
   ##> #{:brown :quick :the}
 ``` 
 
 To get a reliable order in maps use:
 
-``` bash
+``` clojure
 (sorted-map & elements)
 ``` 
 
@@ -2455,12 +2970,12 @@ To get a reliable order in maps use:
 
 `into`: adds items in a collection to another
 
-``` bash
+``` clojure
 (conj coll element & elements)
 (into to-coll from-coll)
 ``` 
 
-``` bash
+``` clojure
 (conj '(1 2 3) :a)
   ##> (:a 1 2 3)
 (cons :a '(1 2 3))
@@ -2471,7 +2986,7 @@ To get a reliable order in maps use:
 
 The sequence functions always return a seq. 
 
-``` bash
+``` clojure
 (list? (rest [1 2 3]))
   ##> false
 (seq? (rest [1 2 3]))
@@ -2496,11 +3011,11 @@ Sequences are
 
 `range`
 
-``` bash
+``` clojure
 (range start? end? step?)
 ``` 
 
-``` bash
+``` clojure
 (range 10)
 (range 10 20)
 (range 1 25 2)
@@ -2510,7 +3025,7 @@ Sequences are
 
 `repeat n x`
 
-``` bash
+``` clojure
 (repeat 5 1)
   ##> (1 1 1 1 1)
 (repeat 3 "x")
@@ -2519,85 +3034,85 @@ Sequences are
 
 `iterate`: continues forever.
 
-``` bash
+``` clojure
 (iterate f x)
 ``` 
 
-``` bash
+``` clojure
 (take 3 (iterate inc 1))
   ##> (1 2 3)
 ``` 
 
 `take`: first n items 
 
-``` bash
+``` clojure
 (take n sequence)
 ``` 
 
 use case: finite view onto an infinite collection
 
-``` bash
+``` clojure
 (def whole-numbers (iterate inc 1))
 ``` 
 
 `repeat`: lazy, infinite sequence
 
-``` bash
+``` clojure
 (repeat x)
 ``` 
 
-``` bash
+``` clojure
 (take 3 (repeat 1))
   ##> (1 1 1)
 ``` 
 
 `cycle`: cycles a collection infinitely
 
-``` bash
+``` clojure
 (cycle coll)
 ``` 
 
-``` bash
+``` clojure
 (take 5 (cycle (range 2)))
   ##> (0 1 0 1 0)
 ``` 
 
 `interleave`: takes multiple collections. interleaves values from each collection until one of the collections is exhausted.
 
-``` bash
+``` clojure
 (interleave & colls)
 ``` 
 
-``` bash
+``` clojure
 (interleave whole-numbers ["a" "b" "c"])
   ##> (1 "a" 2 "b" 3 "c")
 ``` 
 
 `interpose`: like `interleave` but elements separated by a separator
 
-``` bash
+``` clojure
 (interpose separator coll)
 ``` 
 
-``` bash
+``` clojure
 (interpose "," ["a" "b" "c"])
   ##> ("a" "," "b" "," "c")
 ``` 
 
 use case: to produce output strings with `apply str`
 
-``` bash
+``` clojure
 (apply str (interpose "," ["a" "b" "c"]))
   ##> "a,b,c"
 ``` 
 
 This idiom is done by: `clojure.string/join`
 
-``` bash
+``` clojure
 (join separator sequence)
 ``` 
 
-``` bash
+``` clojure
 (require '[clojure.string :refer [join]])
 (join \, ["a" "b" "c"])
   ##> "a,b,c"
@@ -2605,7 +3120,7 @@ This idiom is done by: `clojure.string/join`
 
 Create a collection of that type:
 
-``` bash
+``` clojure
 (list & elements)
 (vector & elements)
 (hash-set & elements)
@@ -2614,19 +3129,19 @@ Create a collection of that type:
 
 `set`: similar to `hash-set`. This expects a collection
 
-``` bash
+``` clojure
 (set [1 2 3])
   ##> #{1 3 2}
 ``` 
 
-``` bash
+``` clojure
 (hash-set 1 2 3)
   ##> #{1 3 2}
 ``` 
 
 `vec`: similar to `vector`. It takes a collection
 
-``` bash
+``` clojure
 (vec (range 3))
   ##> [0 1 2]
 ``` 
@@ -2635,22 +3150,22 @@ Create a collection of that type:
 
 `filter`
 
-``` bash
+``` clojure
 (filter pred coll)
 ``` 
 
-``` bash
+``` clojure
 (take 3 (filter even? whole-numbers))
   ##> (2 4 6)
 ``` 
 
 `take-while`
 
-``` bash
+``` clojure
 (take-while pred coll)
 ``` 
 
-``` bash
+``` clojure
  #{\a\e\i\o\u}
   ##> #{\a \e \i \o \u}
 (def vowel? #{\a\e\i\o\u})
@@ -2665,7 +3180,7 @@ Create a collection of that type:
 
 `complement`: reverses the behavior. 
 
-``` bash
+``` clojure
 (#{\a\e} "ali")
   ##> nil
 (vowel? "ali")
@@ -2682,11 +3197,11 @@ Create a collection of that type:
 
 `drop-while`: opposite of `take-while`
 
-``` bash
+``` clojure
 (drop-while pred coll)
 ``` 
 
-``` bash
+``` clojure
 (drop-while consonant? "ali-veli")
   ##> (\a \l \i \- \v \e \l \i)
 (drop-while consonant? "grass")
@@ -2695,12 +3210,12 @@ Create a collection of that type:
 
 `split-at`: split a collection into two
 
-``` bash
+``` clojure
 (split-at index coll)
 (split-with pred coll)
 ``` 
 
-``` bash
+``` clojure
 (split-at 3 (range 4))
   ##> [(0 1 2) (3)]
 (split-with #(<= % 2) (range 4))
@@ -2711,7 +3226,7 @@ Create a collection of that type:
 
 `every?`
 
-``` bash
+``` clojure
 (every? pred coll)
 (every? odd? [1 3 5])
   ##> true
@@ -2719,7 +3234,7 @@ Create a collection of that type:
 
 `some`: returns actual value of the first match
 
-``` bash
+``` clojure
 (some pred coll)
 (some even? [1 2 3])
   ##> true
@@ -2731,12 +3246,12 @@ Create a collection of that type:
 
 Check if a sequence contains the value 3:
 
-``` bash
+``` clojure
 (some #{3} (range 5))
   ##> 3
 ``` 
 
-``` bash
+``` clojure
 (not-every? pred coll)
 (not-any? pred coll)
 ``` 
@@ -2745,31 +3260,31 @@ Check if a sequence contains the value 3:
 
 `map`
 
-``` bash
+``` clojure
 (map f coll)
 ``` 
 
-``` bash
+``` clojure
 (map #(format "<p>%s</p>" %) ["ali" "veli"])
   ##> ("<p>ali</p>" "<p>veli</p>")
 ``` 
 
 if map takes multiple collections, then f must be a function of multiple arguments too.
 
-``` bash
+``` clojure
 (map #(format "<%s>%s</%s>" %1 %2 %1) ["h1" "h2"] ["ali" "veli"])
   ##> ("<h1>ali</h1>" "<h2>veli</h2>")
 ``` 
 
 `reduce`
 
-``` bash
+``` clojure
 (reduce f coll)
 ``` 
 
 `reduce` applies `f` on the first two elements in `coll` and then to the result and the third element.
 
-``` bash
+``` clojure
 (reduce + (range 1 5))
   ##> 10
 (reduce * (range 1 5))
@@ -2778,14 +3293,14 @@ if map takes multiple collections, then f must be a function of multiple argumen
 
 `sort`
 
-``` bash
+``` clojure
 (sort comp? coll)
 (sort-by a-fn comp? coll)
 ``` 
 
 `sort-by` sorts by the result of calling `a-fn` on each element
 
-``` bash
+``` clojure
 (sort [5 1 3])
   ##> (1 3 5)
 (sort-by #(.toString %) [15 1 3])
@@ -2794,7 +3309,7 @@ if map takes multiple collections, then f must be a function of multiple argumen
 
 `comp` specifies comparison function
 
-``` bash
+``` clojure
 (sort > [3 15])
   ##> (15 3)
 (sort-by :grade > [{:grade 20} {:grade 15}])
@@ -2808,13 +3323,13 @@ List comprehension: granddaddy of all filters and transformations. consists of:
 - Predicates on the elements 
 - Output form
 
-``` bash
+``` clojure
 (for [binding-form coll-expr filter-expr? ...] expr)
 ``` 
 
 this is more general than `map` and `filter`
 
-``` bash
+``` clojure
 (for [word ["ali" "veli"]]
   (format "<p>%s</p>" word))
   ##> ("<p>ali</p>" "<p>veli</p>")
@@ -2822,21 +3337,21 @@ this is more general than `map` and `filter`
 
 Comprehensions use `:when` clause to emulate `filter`
 
-``` bash
+``` clojure
 (take 5 (for [n whole-numbers :when (even? n)] n))
   ##> (2 4 6 8 10)
 ``` 
 
 `:while` clause continues only while its predicate holds true:
 
-``` bash
+``` clojure
 (for [n whole-numbers :while (even? n)] n)
   ##> ()
 ``` 
 
 Multiple bindings:
 
-``` bash
+``` clojure
 (for [file "ABCDEFGH"
       rank (range 1 9)]
   (format "%c%d" file rank))
@@ -2853,7 +3368,7 @@ Lazy seqs has benefits:
 
 `doall` force lazy sequence to evaluate
 
-``` bash
+``` clojure
 (def x (for [i (range 1 3)] (do (println i) i)))
 (doall x)
   ##> 1
@@ -2866,7 +3381,7 @@ Lazy seqs has benefits:
 
 `dorun`
 
-``` bash
+``` clojure
 (def x (for [i (range 1 3)] (do (println i) i)))
 (dorun x)
   ##> 1
@@ -2882,7 +3397,7 @@ Collections, regex, file system traversal, xml, relational database results.
 
 #### Java Collections
 
-``` bash
+``` clojure
 (first (.getBytes "hello"))
   ##> 104
 (rest (.getBytes "hello"))
@@ -2891,13 +3406,13 @@ Collections, regex, file system traversal, xml, relational database results.
 
 Hastables and Maps:
 
-``` bash
+``` clojure
 (first (System/getProperties))
 ``` 
 
 Strings:
 
-``` bash
+``` clojure
 (first "Hello")
   ##> \H
 (rest "Hello")
@@ -2906,37 +3421,37 @@ Strings:
 
 To convert it back to string: use `(apply str seq)`
 
-``` bash
+``` clojure
 (apply str (reverse "hello"))
   ##> "olleh"
 ``` 
 
 #### Seq-ing Regular Expressions
 
-``` bash
+``` clojure
 (re-matcher regexp string)
 ``` 
 
 Don't use this. Better: `re-seq`
 
-``` bash
+``` clojure
 (re-seq regexp string)
 ``` 
 
-``` bash
+``` clojure
 (re-seq #"\w+" "ali veli")
   ##> ("ali" "veli")
 ``` 
 
 #### Seq-ing the File System
 
-``` bash
+``` clojure
 (import 'java.io.File)
 (.listFiles (File. "."))
 (seq (.listFiles (File. ".")))
 ``` 
 
-``` bash
+``` clojure
 (map #(.getName %) (seq (.listFiles (File. "."))))
 (map #(.getName %) (.listFiles (File. ".")))
   ##> ("project.clj" "LICENSE" "test" ...)
@@ -2944,7 +3459,7 @@ Don't use this. Better: `re-seq`
 
 #### Seq-ing a Stream
 
-``` bash
+``` clojure
 (require '[clojure.java.io :refer [reader]])
 (take 2 (line-seq (reader "src/examples/utils.clj")))
   ##> (";---" "; Excerpted from \"Programming Clojure, Third Edition\",")
@@ -2952,14 +3467,14 @@ Don't use this. Better: `re-seq`
 
 `with-open`: close the resource after using
 
-``` bash
+``` clojure
 (with-open [rdr (reader "src/examples/utils.clj")]
 	(count (line-seq rdr)))
 ``` 
 
 Ex: count clojure loc
 
-``` bash
+``` clojure
 (use '[clojure.java.io :only (reader)])
 (use '[clojure.string :only (blank?)])
 (defn non-blank? [line] (not (blank? line)))
@@ -2977,7 +3492,7 @@ Ex: count clojure loc
        (count (filter non-blank? (line-seq rdr)))))))
 ``` 
 
-``` bash
+``` clojure
 (clojure-loc (java.io.File. "/Users/mertnuhoglu/codes/clojure/programming_in_clojure/code/test01"))
   ##> 1991
 ``` 
@@ -2990,7 +3505,7 @@ Ex: count clojure loc
 
 `pop` get the remainder
 
-``` bash
+``` clojure
 (peek '(1 2 3))
   ##> 1
 (pop '(1 2 3))
@@ -2999,39 +3514,39 @@ Ex: count clojure loc
 
 `get` value at index
 
-``` bash
+``` clojure
 (get [:a :b :c] 1)
   ##> :b
 ``` 
 
 Vectors are functions as well. They work like `get`
 
-``` bash
+``` clojure
 ([1 2 3] 1)
   ##> 2
 ``` 
 
 `assoc` associates a new value with an index
 
-``` bash
+``` clojure
 (assoc [0 1 2] 1 :two)
   ##> [0 :two 2]
 ``` 
 
 `subvec` returns a subvector
 
-``` bash
+``` clojure
 (subvec avec start end?)
 ``` 
 
-``` bash
+``` clojure
 (subvec [1 2 3 4] 1 4)
   ##> [2 3 4]
 ``` 
 
 You can simulate it with `drop` and `take`
 
-``` bash
+``` clojure
 (take 3 (drop 1 [1 2 3 4]))
   ##> (2 3 4)
 ``` 
@@ -3040,12 +3555,12 @@ Vector specific functions are faster.
 
 #### Functions on Maps
 
-``` bash
+``` clojure
 (keys map)
 (vals map)
 ``` 
 
-``` bash
+``` clojure
 (keys {:a 1, :b 2})
   ##> (:a :b)
 (vals {:a 1, :b 2})
@@ -3054,36 +3569,36 @@ Vector specific functions are faster.
 
 `get` return value for a key
 
-``` bash
+``` clojure
 (get map key default?)
 ``` 
 
-``` bash
+``` clojure
 (get {:a 1, :b 2} :a)
   ##> 1
 ``` 
 
 You can use map directly too:
 
-``` bash
+``` clojure
 ({:a 1, :b 2} :a)
   ##> 1
 ``` 
 
 Keywords are also functions
 
-``` bash
+``` clojure
 (:a {:a 1, :b 2})
   ##> 1
 ``` 
 
 `contains?`
 
-``` bash
+``` clojure
 (contains? map key)
 ``` 
 
-``` bash
+``` clojure
 (def score {:stu nil :joey 100})
 (:stu score)
   ##> nil
@@ -3098,7 +3613,7 @@ Building new maps:
 - `select-keys`
 - `merge`
 
-``` bash
+``` clojure
 (def song {:name "Agnus Dei"
 	   :artist "Krzysztof Penderecki"
 	   :album "Polish Requiem"
@@ -3115,7 +3630,7 @@ song
 
 `merge-with` like merge but when two maps have the same key, you can specify how to combine the values
 
-``` bash
+``` clojure
 (merge-with 
  concat 
  {:flintstone, ["Fred"], :rubble ["Barney"]}
@@ -3126,7 +3641,7 @@ song
 
 #### Functions on Sets
 
-``` bash
+``` clojure
 (require '[clojure.set :refer :all])
 (def languages #{"java" "c" "d" "clojure"})
 (def beverages #{"java" "chai" "pop"})
@@ -3140,7 +3655,7 @@ song
 
 `select` subset matching a predicate
 
-``` bash
+``` clojure
 (union languages beverages)
   ##> #{"d" "clojure" "pop" "java" "chai" "c"}
 (difference languages beverages)
@@ -3161,7 +3676,7 @@ set: table
 
 map: rows in a table
 
-``` bash
+``` clojure
 (def compositions 
   #{{:name "The Art of the Fugue" :composer "J. S. Bach"}
     {:name "Musical Offering" :composer "J. S. Bach"}
@@ -3177,63 +3692,63 @@ map: rows in a table
     {:nation "Italy" :language "Italian"}})
 ``` 
 
-``` bash
+``` clojure
 (rename relation rename-map)
 ``` 
 
-``` bash
+``` clojure
 (rename compositions {:name :title})
   ##> #{{:composer "Giuseppe Verdi", :title "Requiem"} {:composer "W. A. Mozart", :title "Requiem"} {:composer "J. S. Bach", :title "The Art of the Fugue"} {:composer "J. S. Bach", :title "Musical Offering"}}
 ``` 
 
 `select` similar to WHERE in SQL
 
-``` bash
+``` clojure
 (select pred relation)
 ``` 
 
-``` bash
+``` clojure
 (select #(= (:name %) "Requiem") compositions)
   ##> #{{:name "Requiem", :composer "Giuseppe Verdi"} {:name "Requiem", :composer "W. A. Mozart"}}
 ``` 
 
 `project` similar to SELECT in SQL
 
-``` bash
+``` clojure
 (project relation keys)
 ``` 
 
-``` bash
+``` clojure
 (project compositions [:name])
   ##> #{{:name "The Art of the Fugue"} {:name "Musical Offering"} {:name "Requiem"}}
 ``` 
 
 List comprehension for cross product in SQL
 
-``` bash
+``` clojure
 (for [m compositions c composers] (concat m c))
   ##> (([:name "Musical Offering"] [:composer "J. S. Bach"] [:composer "Giuseppe Verdi"] [:country "Italy"]) ([:name "Musical Offering"] [:composer "J. S. Bach"] [:composer "J. S. Bach"] [:country "Germany"]) ...
 ``` 
 
 `join`: Subset of full cross product based on shared keys
 
-``` bash
+``` clojure
 (join relation-1 relation-2 keymap?)
 ``` 
 
-``` bash
+``` clojure
 (join compositions composers)
   ##> #{{:composer "W. A. Mozart", :country "Austria", :name "Requiem"} {:composer "J. S. Bach", :country "Germany", :name "Musical Offering"} {:composer "Giuseppe Verdi", :country "Italy", :name "Requiem"} {:composer "J. S. Bach", :country "Germany", :name "The Art of the Fugue"}}
 ``` 
 
-``` bash
+``` clojure
 (join composers nations {:country :nation})
   ##> #{{:composer "W. A. Mozart", :country "Austria", :nation "Austria", :language "German"} 
   ##> {:composer "J. S. Bach", :country "Germany", :nation "Germany", :language "German"} 
   ##> {:composer "Giuseppe Verdi", :country "Italy", :nation "Italy", :language "Italian"}}
 ``` 
 
-``` bash
+``` clojure
 (project
   (join
 	  (select #(= (:name %) "Requiem") compositions)
@@ -3254,7 +3769,7 @@ Program output is impure.
 
 Pure functions and immutable data go hand in hand.
 
-``` bash
+``` clojure
 (defn mystery [input]
   (if input data-1 data-2))
 ``` 
@@ -3273,12 +3788,12 @@ Clojure doesn't do naive "copy everything". All data structures are persistent.
 
 Persistent: Data structures preserve old copies of themselves by sharing structure between older and newer versions.
 
-``` bash
+``` clojure
 (def a '(1 2))
 (def b (cons 0 a))
 ``` 
 
-``` bash
+``` clojure
 0 -> 1 -> 2
 ^    ^
 b    a
@@ -3337,7 +3852,7 @@ Recursion must come at the tail, that is, at an expression that is a return valu
 
 To make `fibo` tail recursive you mustn't do any extra work after calling recursed function.
 
-``` bash
+``` clojure
 (defn tail-fibo [n]
   (letfn [(fib 
 	   [current next n] 
@@ -3353,7 +3868,7 @@ Workarounds: explicit recursion with `recur`, lazy sequences
 
 #### Self-recursion with recur
 
-``` bash
+``` clojure
 (defn recur-fibo [n]
   (letfn [(fib 
             [current next n]
@@ -3365,7 +3880,7 @@ Workarounds: explicit recursion with `recur`, lazy sequences
 
 We use `recur` instead of `fib` direct call.
 
-``` bash
+``` clojure
 (recur-fibo 10)
 ``` 
 
@@ -3373,13 +3888,13 @@ We use `recur` instead of `fib` direct call.
 
 `lazy-seq` macro constructs lazy sequences
 
-``` bash
+``` clojure
 (lazy-seq & body)
 ``` 
 
 It invokes its body when needed. It caches the result. 
 
-``` bash
+``` clojure
 (defn lazy-seq-fibo 
   ([] 
      (concat [0 1] (lazy-seq-fibo 0N 1N))) 
@@ -3389,7 +3904,7 @@ It invokes its body when needed. It caches the result.
 	(cons n (lazy-seq-fibo b n)))))) 
 ``` 
 
-``` bash
+``` clojure
 (take 10 (lazy-seq-fibo))
   ##> (0 1 1N 2N 3N 5N 8N 13N 21N 34N)
 (rem (nth (lazy-seq-fibo) 1000000) 1000)
@@ -3397,7 +3912,7 @@ It invokes its body when needed. It caches the result.
 
 opt: use sequence library to make lazy sequences
 
-``` bash
+``` clojure
 (take 5 (iterate (fn [[a b]] [b (+ a b)]) [0 1]))
   ##> ([0 1] [1 1] [1 2] [2 3] [3 5])
 (defn fibo []
@@ -3410,7 +3925,7 @@ opt: use sequence library to make lazy sequences
 
 `*print-length*` Configure how many items printer will print
 
-``` bash
+``` clojure
 (set! *print-length* 10)
 (take 50 (fibo))
   ##> (0N 1N 1N 2N 3N 5N 8N 13N 21N 34N ...)
@@ -3424,7 +3939,7 @@ What happens if you hold a reference to a part of the sequence?
 
 Then all sequence will be realized. To prevent it use: `lazy-cat`
 
-``` bash
+``` clojure
 (def head-fibo (lazy-cat [0N 1N] (map + head-fibo (rest head-fibo))))
 ``` 
 
@@ -3432,7 +3947,7 @@ Losing head of a lazy sequence is a good idea.
 
 ### Lazier Than Lazy
 
-``` bash
+``` clojure
 (defn count-heads-pairs [coll]
   (loop [cnt 0 coll coll] 
     (if (empty? coll) 
@@ -3445,7 +3960,7 @@ Losing head of a lazy sequence is a good idea.
 	      (rest coll)))))
 ``` 
 
-``` bash
+``` clojure
 (count-heads-pairs [:h :h :h :t :h])
   ##> 2
 ``` 
@@ -3456,7 +3971,7 @@ opt01:
 
 Transform the sequence to 2-tuples:
 
-``` bash
+``` clojure
 (defn by-pairs [coll]
   (let 
     [take-pair 
@@ -3468,12 +3983,12 @@ Transform the sequence to 2-tuples:
     ))     
 ``` 
 
-``` bash
+``` clojure
 (by-pairs [:h :h :h :t :h])
   ##> ((:h :h) (:h :h) (:h :t) (:t :h))
 ``` 
 
-``` bash
+``` clojure
 (defn count-heads-pairs [coll]
   (count 
     (filter 
@@ -3484,61 +3999,61 @@ Transform the sequence to 2-tuples:
 
 opt02: use sequence library
 
-``` bash
+``` clojure
 (partition size step? coll)
 ``` 
 
-``` bash
+``` clojure
 (partition 2 1 [:h :h :h :t :h])
   ##> ((:h :h) (:h :h) (:h :t) (:t :h))
 ``` 
 
 `count-if`
 
-``` bash
+``` clojure
 (def ^{:doc "Count items matching a filter"}
   count-if (comp count filter))
 ``` 
 
 `comp` composes multiple functions
 
-``` bash
+``` clojure
 (comp f & fs)
 ``` 
 
-``` bash
+``` clojure
 (defn count-runs
   "Count runs of length n where pred is true in coll."
   [n pred coll]
   (count-if #(every? pred %) (partition n 1 coll)))
 ``` 
 
-``` bash
+``` clojure
 (count-runs 2 #(= % :h) [:h :h :h :t :h])
   ##> 2
 ``` 
 
 #### Currying and Partial Application
 
-``` bash
+``` clojure
 (def ^{:doc "Count runs of length two that are both heads"}
   count-heads-pairs (partial count-runs 2 #(= % :h)))
 ``` 
 
 `partial`
 
-``` bash
+``` clojure
 (partial f & partial-args)
 ``` 
 
-``` bash
+``` clojure
 (partial count-runs 1 #(= % :h))
 (fn [coll] (count-runs 1 #(= % :h) coll)) ; equivalent
 ``` 
 
 ### Recursion Revisited
 
-``` bash
+``` clojure
 (declare my-odd? my-even?)
 
 (defn my-odd? [n]
@@ -3552,12 +4067,12 @@ opt02: use sequence library
     (my-odd? (dec n))))
 ``` 
 
-``` bash
+``` clojure
 (map my-even? (range 4))
   ##> (true false true false)
 ``` 
 
-``` bash
+``` clojure
 (bit-and 3 1)
   ##> 1
 (bit-and 3 2)
@@ -3572,7 +4087,7 @@ opt02: use sequence library
 
 `parity`: return 0 for even numbers and 1 for odd numbers
 
-``` bash
+``` clojure
 (defn parity [n]
   (loop 
     [n n par 0]
@@ -3582,30 +4097,30 @@ opt02: use sequence library
       (recur (dec n) (- 1 par)))))
 ``` 
 
-``` bash
+``` clojure
 (map parity (range 5))
   ##> (0 1 0 1 0)
 ``` 
 
-``` bash
+``` clojure
 (defn my-even? [n] (= 0 (parity n)))
 (defn my-odd? [n] (= 1 (parity n)))
 ``` 
 
 #### Trampolining Mutual Recursion
 
-``` bash
+``` clojure
 (trampoline f & partial-args)
 ``` 
 
-``` bash
+``` clojure
 (trampoline list)
   ##> ()
 (trampoline + 1 2)
   ##> 3
 ``` 
 
-``` bash
+``` clojure
 (defn my-odd? [n]
   (if (= n 0)
     false
@@ -3617,7 +4132,7 @@ opt02: use sequence library
     #(my-odd? (dec n)))) 
 ``` 
 
-``` bash
+``` clojure
 (trampoline my-even? 10000)
   ##> true
 ``` 
@@ -3626,7 +4141,7 @@ opt02: use sequence library
 
 Laziness is the most used technique for elimination recursion.
 
-``` bash
+``` clojure
 (defn deeply-nested [n]
   (loop 
     [n n result '(bottom)]
@@ -3635,21 +4150,21 @@ Laziness is the most used technique for elimination recursion.
       (recur (dec n) (list result)))))
 ``` 
 
-``` bash
+``` clojure
 (deeply-nested 3)
   ##> ((((bottom))))
 ``` 
 
 ### Eager Transformations
 
-``` bash
+``` clojure
 (defn square [x] (* x x))
 
 (defn sum-squares-seq [n]
   (vec (map square (range n))))
 ``` 
 
-``` bash
+``` clojure
 (defn sum-squares
   [n]
   (into [] (map square) (range n)))
@@ -3661,11 +4176,11 @@ Laziness is the most used technique for elimination recursion.
 
 ### Defining Specs
 
-``` bash
+``` clojure
 (require '[clojure.spec.alpha :as s])
 ``` 
 
-``` bash
+``` clojure
 (s/def name spec)
 ``` 
 
@@ -3675,7 +4190,7 @@ Laziness is the most used technique for elimination recursion.
 
 ### Validating Data
 
-``` bash
+``` clojure
 (s/def :my.app/company-name string?)
 (s/valid? :my.app/company-name "Acme") 
   ##> true
@@ -3683,30 +4198,30 @@ Laziness is the most used technique for elimination recursion.
 
 #### Enumerated values
 
-``` bash
+``` clojure
 (s/def :marble/color #{:red :green :blue})
 ``` 
 
-``` bash
+``` clojure
 (s/def ::bowling/ranged-roll (s/int-in 0 11))
 ``` 
 
 #### Handling nil
 
-``` bash
+``` clojure
 (s/def ::bowling/company-name-2 (s/nilable string?))
 ``` 
 
 #### Logical Specs
 
-``` bash
+``` clojure
 (s/def ::odd-int (s/and int? odd?))
 (s/def ::odd-or-42 (s/or :odd ::odd-int :42 #{42}))
 ``` 
 
 `s/conform` how a value matched a spec
 
-``` bash
+``` clojure
 (s/conform ::odd-or-42 42)
   ##> [:42 42]
 (s/conform ::odd-or-42 19)
@@ -3715,7 +4230,7 @@ Laziness is the most used technique for elimination recursion.
 
 `s/explain` why an invalid value didn't match
 
-``` bash
+``` clojure
 (s/explain ::odd-or-42 0)
   ##> 0 - failed: odd? at: [:odd] spec: :test01.core/odd-int
   ##> 0 - failed: #{42} at: [:42] spec: :test01.core/odd-or-42
@@ -3725,7 +4240,7 @@ Laziness is the most used technique for elimination recursion.
 
 `s/coll-of`
 
-``` bash
+``` clojure
 (s/def ::names (s/coll-of string?))
 (s/valid? ::names ["Alex" "Stu"])
   ##> true
@@ -3745,14 +4260,14 @@ Options for `s/coll-of`
 
 `distinct`
 
-``` bash
+``` clojure
 (s/def ::my-set (s/coll-of int? :kind set? :min-count 2))
 (s/valid? ::my-set #{10 20})
 ``` 
 
 `s-map-of`: keys and values follow a spec
 
-``` bash
+``` clojure
 (s/def ::scores (s/map-of string? int?))
 (s/valid? ::scores {"Stu" 100 "Alex" 200})
   ##> true
@@ -3764,28 +4279,28 @@ Options for `s/coll-of`
 
 #### Tuples
 
-``` bash
+``` clojure
 (s/def ::point (s/tuple float? float?))
 (s/conform ::point [1.3 2.7])
 ``` 
 
 #### Information Maps
 
-``` bash
+``` clojure
 {::music/id #uuid ".."
  ::music/artist "Rush"
  ::music/title "Moving"
  ::music/date #inst "1981-02-12"}
 ``` 
 
-``` bash
+``` clojure
 (s/def ::music/id uuid?)
 (s/def ::music/artist string?)
 (s/def ::music/title string?)
 (s/def ::music/date inst?)
 ``` 
 
-``` bash
+``` clojure
 (s/def ::music/release
   (s/keys :req [::music/id]
 	        :opt [::music/artist
@@ -3801,7 +4316,7 @@ Like regex
 
 `s/cat` concatenation of elements
 
-``` bash
+``` clojure
 (s/def ::cat-example (s/cat :s string? :i int?))
 (s/valid? ::cat-example ["abc" 100])
 (s/conform ::cat-example ["abc" 100])
@@ -3810,7 +4325,7 @@ Like regex
 
 `s/alt` alternatives within sequential structure
 
-``` bash
+``` clojure
 (s/def ::alt-example (s/alt :i int? :k keyword?))
 (s/valid? ::alt-example [100])
   ##> true
@@ -3826,7 +4341,7 @@ Like regex
 
 `s/+` 1 or more
 
-``` bash
+``` clojure
 (s/def ::oe (s/cat :odds (s/+ odd?) :even (s/? even?)))
 (s/conform ::oe [1 3 5 100])
   ##> {:odds [1 3 5], :even 100}
@@ -3836,18 +4351,18 @@ Like regex
 
 Zero or more arguments:
 
-``` bash
+``` clojure
 (s/def ::println-args (s/* any?))
 ``` 
 
 Some fixed arguments and a variable argument at the end
 
-``` bash
+``` clojure
 (clojure.set/intersection #{1 2} #{2 3} #{2 5})
   ##> #{2}
 ``` 
 
-``` bash
+``` clojure
 (s/def ::intersection-args 
   (s/cat :s1 set?
 	       :sets (s/* set?)))
@@ -3855,7 +4370,7 @@ Some fixed arguments and a variable argument at the end
   ##> {:s1 #{1 2}, :sets [#{3 2} #{2 5}]}
 ``` 
 
-``` bash
+``` clojure
 (s/def ::meta map?)
 (s/def ::validator ifn?)
 (s/def ::atom-args 
@@ -3868,7 +4383,7 @@ Some fixed arguments and a variable argument at the end
 
 ### Specifying Functions
 
-``` bash
+``` clojure
 (s/def ::rand-args (s/cat :n (s/? number?)))
 (s/def ::rand-ret double?)
 ``` 
@@ -3890,7 +4405,7 @@ Another feature that differentiates special forms is that you can’t use them a
 
 Functions also support arity overloading. This means that you can define a function so a different function body will run depending on the arity
 
-``` bash
+``` clojure
 (defn multi-arity
   ;; 3-arity arguments and body
   ([first-arg second-arg third-arg]
@@ -3905,7 +4420,7 @@ Functions also support arity overloading. This means that you can define a funct
 
 Arity overloading is one way to provide default values for arguments
 
-``` bash
+``` clojure
 (defn x-chop
   "Describe the kind of chop you're inflicting on someone"
   ([name chop-type]
@@ -3922,7 +4437,7 @@ By including a `rest` parameter.
 
 `&` is the rest parameter
 
-``` bash
+``` clojure
 (defn favorite-things
   [name & things]
   (str "Hi, " name ", here are my favorite things: "
@@ -3936,7 +4451,7 @@ By including a `rest` parameter.
 
 Binding names to values within a collection.
 
-``` bash
+``` clojure
 ;; Return the first element of a collection
 (defn my-first
   [[first-thing]] ; Notice that first-thing is within a vector
@@ -3950,7 +4465,7 @@ Destructuring maps:
 
 opt01:
 
-``` bash
+``` clojure
 (defn announce-treasure-location
   [{lat :lat lng :lng}]
   (println (str "Treasure lat: " lat))
@@ -3963,7 +4478,7 @@ opt01:
 
 opt02: short form
 
-``` bash
+``` clojure
 (defn announce-treasure-location
   [{:keys [lat lng]}]
   (println (str "Treasure lat: " lat))
@@ -3972,7 +4487,7 @@ opt02: short form
 
 `:as` keep access to original map argument:
 
-``` bash
+``` clojure
 (defn receive-treasure-location
   [{:keys [lat lng] :as treasure-location}]
   (println (str "Treasure lat: " lat))
@@ -3986,7 +4501,7 @@ opt02: short form
 
 `%&`: Rest parameter
 
-``` bash
+``` clojure
 (#(identity %&) 1 "blarg" :yip)
 ; => (1 "blarg" :yip)
 ``` 
@@ -3995,7 +4510,7 @@ opt02: short form
 
 Returned functions are closures
 
-``` bash
+``` clojure
 (defn inc-maker
   "Create a custom incrementor"
   [inc-by]
@@ -4009,7 +4524,7 @@ Returned functions are closures
 
 ## Ex: symmetrizer function
 
-``` bash
+``` clojure
 (def asym-hobbit-body-parts [{:name "head" :size 3}
                              {:name "left-eye" :size 1}
                              {:name "left-ear" :size 1}
@@ -4051,7 +4566,7 @@ Returned functions are closures
 
 Rest parameters in `let`
 
-``` bash
+``` clojure
 (def dalmatian-list
   ["Pongo" "Perdita" "Puppy 1" "Puppy 2"])
 (let [dalmatians (take 2 dalmatian-list)]
@@ -4064,7 +4579,7 @@ Rest parameters in `let`
 
 ## loop
 
-``` bash
+``` clojure
 (loop [iteration 0]
   (println (str "Iteration " iteration))
   (if (> iteration 3)
@@ -4080,7 +4595,7 @@ Rest parameters in `let`
 
 You can do the same thing by recursive functions but this is more verbose:
 
-``` bash
+``` clojure
 (defn recursive-printer
   ([]
      (recursive-printer 0))
@@ -4104,7 +4619,7 @@ Process each element in a sequence and build a result.
 
 Implementation:
 
-``` bash
+``` clojure
 (defn my-reduce
   ([f initial coll]
    (loop [result initial
@@ -4118,7 +4633,7 @@ Implementation:
 
 ### Ex: symmetrizer with reduce
 
-``` bash
+``` clojure
 (defn better-symmetrize-body-parts
   "Expects a seq of maps that have a :name and :size"
   [asym-body-parts]
@@ -4155,7 +4670,7 @@ Navigators can be composed.
 
 This allows to manipulate any data of arbitrary complexity.
 
-``` bash
+``` clojure
 (def world
   {:people [{:money 129827 :name "Alice Brown"}
             {:money 100 :name "John Smith"}
@@ -4215,28 +4730,28 @@ Activities:
 
 ### Whats my environment
 
-``` bash
+``` clojure
 *clojure-version*
   ##> {:major 1, :minor 9, :incremental 0, :qualifier nil}
 ``` 
 
 Class path:
 
-``` bash
+``` clojure
 *compile-path*
   ##> "/Users/mertnuhoglu/codes/clojure/clojure-through-code/target/classes"
 ``` 
 
 Current namespace:
 
-``` bash
+``` clojure
 *ns*
   ##> #object[clojure.lang.Namespace 0x209a5cf "user"]
 ``` 
 
 Last 3 values:
 
-``` bash
+``` clojure
 (+ 1 2 3)
 (+ 1 2 3 4)
 (+ 1 2 3 5)
@@ -4246,21 +4761,21 @@ Last 3 values:
 
 ### Reading your Project configuration
 
-``` bash
+``` clojure
 (slurp "project.clj")
   ##> "(defproject clojure-through-code \"20.1.5-SNAPSHOT\"\n  :description \"Learning Clojure by evaluating code on the fly\"\n  :url \"...
 ``` 
 
 Tidy up the result:
 
-``` bash
+``` clojure
 (read-string (slurp "project.clj"))
   ##> (defproject clojure-through-code "20.1.5-SNAPSHOT" :description "Learning Clojure by evaluating code on the fly" :url "
 ``` 
 
 `nth` nth element
 
-``` bash
+``` clojure
 (nth (read-string (slurp "project.clj")) 1)
   ##> clojure-through-code
 ``` 
@@ -4269,7 +4784,7 @@ Tidy up the result:
 
 Read from left-to-right instead of inside-out.
 
-``` bash
+``` clojure
 (->
  "./project.clj"
  slurp
@@ -4280,7 +4795,7 @@ Read from left-to-right instead of inside-out.
 
 Thread-last macro:
 
-``` bash
+``` clojure
 (->>
  (str " This")
  (str " is")
@@ -4292,7 +4807,7 @@ Thread-last macro:
 
 doc string
 
-``` bash
+``` clojure
 (defn fn01
 	"this is docstring"
 	[] (1))
@@ -4306,7 +4821,7 @@ Or switch back `(ns 'user)`
 
 Or `(use 'cloujure.repl)`
 
-``` bash
+``` clojure
 (doc doc)
 (doc map)
 (doc filter)
@@ -4321,7 +4836,7 @@ When you assign a name to a value, that name is called a symbol.
 
 Using a function from another namespace:
 
-``` bash
+``` clojure
 (ns my-namespace.core :require [clojure.java.io])
 (defn read-the-file [filename]
   (line-seq (clojure.java.io/reader filename)))
@@ -4330,7 +4845,7 @@ Using a function from another namespace:
 
 Use alias:
 
-``` bash
+``` clojure
 (ns my-namespace.core :require [clojure.java.io :as java-io])
 (defn read-the-file [filename]
   (line-seq (java-io/reader filename)))
@@ -4338,7 +4853,7 @@ Use alias:
 
 No qualifier:
 
-``` bash
+``` clojure
 (ns my-namespace.core :require [clojure.java.io :refer [reader]])
 (defn read-the-file [filename]
   (line-seq (reader filename)))
@@ -4346,7 +4861,7 @@ No qualifier:
 
 Multiple namespaces:
 
-``` bash
+``` clojure
 (ns duct-test.main
   (:require [clojure.java.io :as io]
             [com.stuartsierra.component :as component]
@@ -4356,7 +4871,7 @@ Multiple namespaces:
 
 External libraries: put into project file:
 
-``` bash
+``` clojure
 (defproject duct-test "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
@@ -4373,7 +4888,7 @@ External libraries: put into project file:
 
 If:
 
-``` bash
+``` clojure
 (if (> 3 2)
   "Higher"
   "Lower")
@@ -4381,14 +4896,14 @@ If:
 
 When: no else expression
 
-``` bash
+``` clojure
     (when (> 3 2)
       "Higher")
 ``` 
 
 Case: multiple conditions:
 
-``` bash
+``` clojure
 (case (inc 3)
   1 "Not even close"
   2 "I wish I was that young"
@@ -4401,7 +4916,7 @@ Case: multiple conditions:
 
 cond: multiple conditions
 
-``` bash
+``` clojure
 (cond
   (= 7 (inc 2)) "(inc 2) is not 7, so this condition is false"
   (= 16 (* 8 2)) "This is the first correct condition so its associated expression is returned"
@@ -4413,7 +4928,7 @@ cond: multiple conditions
 
 for comprehension: `:when` or `:while`
 
-``` bash
+``` clojure
 (for [x (range 10) :when (odd? x)] x)
 
 (for [x (range 10) :while (even? x)] x)
@@ -4425,7 +4940,7 @@ for comprehension: `:when` or `:while`
 
 while
 
-``` bash
+``` clojure
 (while (condition) 
   (do something))
 ``` 
@@ -4436,7 +4951,7 @@ Common features: immutable, persistent, shared memory, dynamically typed
 
 #### List
 
-``` bash
+``` clojure
 (list 1 2 3 4)
 (list :cat 1 "fish" 22/7 (str "fish" "n" "chips"))
 (list 1 2 "three" [4] five '(6 7 8 9))
@@ -4455,13 +4970,13 @@ Common features: immutable, persistent, shared memory, dynamically typed
 
 Binding to a name:
 
-``` bash
+``` clojure
 (def my-list (list 1 2 3))
 ``` 
 
 #### Map
 
-``` bash
+``` clojure
 {:key "value"}
 (:key 42)
 {:key :value}
@@ -4471,7 +4986,7 @@ Binding to a name:
 {:monday 1 :tuesday 2 :wednesday 3 :thursday 4 :friday 5 :saturday 6 :sunday 7}
 ``` 
 
-``` bash
+``` clojure
 (def starwars-characters
    {:luke   {:fullname "Luke Skywarker" :skill "Targeting Swamp Rats"}
     :vader  {:fullname "Darth Vader"    :skill "Crank phone calls"}
@@ -4480,14 +4995,14 @@ Binding to a name:
 
 `get` returns all information
 
-``` bash
+``` clojure
 (get starwars-characters :luke)
 (get (get starwars-characters :luke) :fullname)
 ``` 
 
 `get-in` returns a specific information
 
-``` bash
+``` clojure
 (get-in starwars-characters [:luke :fullname])
 (get-in starwars-characters [:vader :fullname])
 
@@ -4495,7 +5010,7 @@ Binding to a name:
 
 Use map directly:
 
-``` bash
+``` clojure
 (starwars-characters :luke)
 (:fullname (:luke starwars-characters))
 (:skill (:luke starwars-characters))
@@ -4507,7 +5022,7 @@ Use map directly:
 
 Threading macro to shorten code:
 
-``` bash
+``` clojure
 (-> starwars-characters
     :luke)
 
@@ -4524,7 +5039,7 @@ This is called destructuring
 
 ### Vector
 
-``` bash
+``` clojure
 (vector? [5 10 15])
 (= [] [])
 (= [] [1])
@@ -4539,13 +5054,13 @@ This is called destructuring
 
 Lookup:
 
-``` bash
+``` clojure
 ([1 2 3] 1)
 ``` 
 
 ### Set
 
-``` bash
+``` clojure
 (set `(1 2 3 4))
 (set `(1 2 1 2 3 4))
 
@@ -4557,7 +5072,7 @@ Lookup:
 
 Lookup
 
-``` bash
+``` clojure
 (#{:a :b :c} :c)
 (#{:a :b :c} :z)
 (contains?  #{"Palpatine" "Darth Vader" "Boba Fett" "Darth Tyranus"} "Darth Vader")
@@ -4565,13 +5080,13 @@ Lookup
 
 ### Naming data structures
 
-``` bash
+``` clojure
 (def people ["Jane Doe" "Samuel Peeps"])
 ``` 
 
 Data structures are immutable names are mutable
 
-``` bash
+``` clojure
 (def a 2)
 (def a 3)
 ``` 
@@ -4580,7 +5095,7 @@ Data structures are immutable names are mutable
 
 `concat` concats lists/vectors
 
-``` bash
+``` clojure
 (concat [1 2] '(3 4))
 ``` 
 
@@ -4603,14 +5118,14 @@ Common functions:
 
 ### Lazy sequences
 
-``` bash
+``` clojure
 (range 4)
 (take 4 (range))
 ``` 
 
 ### Destructuring
 
-``` bash
+``` clojure
 (let [[a b c & d :as e] [1 2 3 4 5 6 7]]
   [a b c d e])
   ##> [1 2 3 (4 5 6 7) [1 2 3 4 5 6 7]]
@@ -4623,7 +5138,7 @@ Common functions:
   ##> [1 2 3 4 5 6 7]
 ``` 
 
-``` bash
+``` clojure
 (let [[[x1 y1][x2 y2]] [[1 2] [3 4]]]
   [x1 y1 x2 y2])
   ##> [1 2 3 4]
@@ -4639,7 +5154,7 @@ Common functions:
   ##> [5 3 6 {:a 5, :c 6}]
 ``` 
 
-``` bash
+``` clojure
 (let [{a :a, c :c}  {:a 5 :c 6}]
   [a c])
   ##> [5 6]
@@ -4651,7 +5166,7 @@ Common functions:
 
 ### Mapping functions
 
-``` bash
+``` clojure
 (map + [1 2 3] [1 2 3])
 ;; => (2 4 6)
 (map + [1 2 3] [1 2])
@@ -4666,7 +5181,7 @@ Common functions:
 
 # Book: Living Clojure - Carin Meier
 
-``` bash
+``` clojure
 '(1 2 "jam")
 (first '(:rabbit :b))
 (rest '(:rabbit :b))
@@ -4680,7 +5195,7 @@ Common functions:
 
 Vectors
 
-``` bash
+``` clojure
 (first [1 2])
 (rest [1 2])
 (nth [1 2] 0)
@@ -4689,34 +5204,34 @@ Vectors
 
 Collections in Common
 
-``` bash
+``` clojure
 (count [1 2 3])
 (conj [1 2 3] 5)
 ``` 
 
 Maps
 
-``` bash
+``` clojure
 (merge {:a 1 :b 2} {:a 3})
   ##> {:a 3, :b 2}
 ``` 
 
 Sets
 
-``` bash
+``` clojure
 (clojure.set/union #{1 2} #{2 3})
   ##> #{1 3 2}
 (clojure.set/difference #{1 2} #{2 3})
 (clojure.set/intersection #{1 2} #{2 3})
 ``` 
 
-``` bash
+``` clojure
 (1 #{1 2})
   ##> Exception
 (:a #{:a :b})
 ``` 
 
-``` bash
+``` clojure
 conj
 disj
 contains?
@@ -4730,7 +5245,7 @@ contains?
 
 ## Functions
 
-``` bash
+``` clojure
 defn
 fn
 #()
@@ -4740,7 +5255,7 @@ fn
 
 ## Namespaces
 
-``` bash
+``` clojure
 (ns ns1)
 (def f "hello")
 f
@@ -4749,7 +5264,7 @@ ns1/f
 
 ## Flow
 
-``` bash
+``` clojure
 (class true)
 (not true)
 (= 2 3)
@@ -4760,7 +5275,7 @@ ns1/f
 
 ## The Power of Laziness
 
-``` bash
+``` clojure
 (take 5 (range))
 (class (range 5))
 (count (take 5 (range)))
@@ -4775,7 +5290,7 @@ ns1/f
 
 ## Recursion
 
-``` bash
+``` clojure
 (defn alice-is [input]
 	(loop [in input
 	       out []]
@@ -4787,7 +5302,7 @@ ns1/f
 
 ## Data Transformations
 
-``` bash
+``` clojure
 (take 3 (map #(str %) (range)))
 (def animal-print (doall (map #(println %) animals)))
 ``` 
@@ -4800,7 +5315,7 @@ https://m.stopa.io/macros-by-example-6ddbc8f3d93b
 
 ### in js
 
-``` bash
+``` clojure
 function nullthrows(result) {
   if (result === null || result === undefined) {
     throw new Error("uh oh");
@@ -4817,13 +5332,13 @@ nullthrows(getUser(db, 'billy'))
 
 ### in clojure
 
-``` bash
+``` clojure
 (nil-throws (get-user "billy"))
 ``` 
 
 something like:
 
-``` bash
+``` clojure
 (defn nil-throws [res]
   (if (nil? res)
     (throw "uh oh")
@@ -4834,7 +5349,7 @@ something like:
 
 macro:
 
-``` bash
+``` clojure
 (defmacro nil-throws [form]
   `(let [result# ~form] ;; assign the evaluation of form to result#
     (if (nil? result#)
@@ -4851,13 +5366,13 @@ macro:
 
 `'` treat it as list, don't evaluate
 
-``` bash
+``` clojure
 (nil-throws (get-user "billy"))
 ``` 
 
 will be replaced with:
 
-``` bash
+``` clojure
 (let [result# (get-user db "billy")]
   (if (nil? result#)
     (throw (ex-info "uh oh, we got nil!" {:form '(get-user db "billy")})) 
@@ -4868,19 +5383,19 @@ will be replaced with:
 
 ### in js
 
-``` bash
+``` clojure
 createBill(addToCart(cart, updatePrice(item, 100)))
 ``` 
 
 convert to:
 
-``` bash
+``` clojure
 item |> updatePrice($$, 100) |> addToCart(cart, $$) |> createBill
 ``` 
 
 or this:
 
-``` bash
+``` clojure
 |> [
   item, 
   updatePrice($$, 100), // updatePrice(item, 100)
@@ -4891,7 +5406,7 @@ or this:
 
 #### opt01: a pipe function
 
-``` bash
+``` clojure
 pipe(item, (item) => updatePrice(item, 100))
 ``` 
 
@@ -4901,7 +5416,7 @@ Problem: needs anonymous functions
 
 goal:
 
-``` bash
+``` clojure
 (|> item
     (update-price $$ 100)
     (add-to-cart cart $$)
@@ -4910,7 +5425,7 @@ goal:
 
 macro:
 
-``` bash
+``` clojure
 (defmacro |> [form & forms]
   (reduce
     (fn [last-v form]
@@ -4931,17 +5446,17 @@ https://www.braveclojure.com/introduction/
 
 ## Chapter 1: Building, Running, and the REPL | Clojure for the Brave and True
 
-``` bash
+``` clojure
 cd /Users/mertnuhoglu/projects/study/clj/ex/study_clojure/book_clojure_brave
 ``` 
 
-``` bash
+``` clojure
 lein new app clojure-boob
 ``` 
 
 Edit `~/projects/study/clj/ex/study_clojure/book_clojure_brave/clojure-noob/src/clojure_noob/core.clj`
 
-``` bash
+``` clojure
 (ns clojure-noob.core
   (:gen-class))
 
@@ -4951,7 +5466,7 @@ Edit `~/projects/study/clj/ex/study_clojure/book_clojure_brave/clojure-noob/src/
   (println "Teapot"))
 ``` 
 
-``` bash
+``` clojure
 cd clojure-noob
 lein run
   ##> Teapot
@@ -4961,7 +5476,7 @@ lein run
 
 ### Building the Clojure Project
 
-``` bash
+``` clojure
 lein uberjar
   ##> Created /Users/mertnuhoglu/projects/study/clj/ex/study_clojure/book_clojure_brave/clojure-noob/target/uberjar/clojure-noob-0.1.0-SNAPSHOT-standalone.jar
 java -jar target/uberjar/clojure-noob-0.1.0-SNAPSHOT-standalone.jar
@@ -4970,11 +5485,11 @@ java -jar target/uberjar/clojure-noob-0.1.0-SNAPSHOT-standalone.jar
 
 ### Using the REPL
 
-``` bash
+``` clojure
 lein repl
 ``` 
 
-``` bash
+``` clojure
 clojure-noob.core=> (-main)
 Teapot
 ``` 
@@ -5006,7 +5521,7 @@ Clojure `evaluates` every form to produce a value.
 
 Operations: how you do things. They take the form: `opening paranthesis`, `operator`, `operands`, `closing paranthesis`
 
-``` bash
+``` clojure
 (operator operand1 operand2 ... operandn)
 ``` 
 
@@ -5016,7 +5531,7 @@ There are no commas.
 
 `if`
 
-``` bash
+``` clojure
 (if boolean-form
   then-form
 	optional-else-form)
@@ -5024,14 +5539,14 @@ There are no commas.
 
 `do`: wrap up multiple forms in parantheses
 
-``` bash
+``` clojure
 (if true
 	(do (form1) "value"))
 ``` 
 
 `when`: combination of `if` and `do` with no `else`
 
-``` bash
+``` clojure
 (when true
 	(form1)
 	(form2))
@@ -5041,7 +5556,7 @@ There are no commas.
 
 `or` and `and`
 
-``` bash
+``` clojure
 (or nil)
 (or (= 0 1) (= "yes" "no"))
 ``` 
@@ -5056,7 +5571,7 @@ Other languages have assignment of a value to a variable.
 
 ### Functions
 
-``` bash
+``` clojure
 ((or + -) 1 2 3)
   ##> 6
 ((and (= 1 1) +) 1 2 3)
@@ -5067,7 +5582,7 @@ Other languages have assignment of a value to a variable.
 
 Higher-order functions: Clojure supports first-class functions.
 
-``` bash
+``` clojure
 (map inc [0 1 2])
   ##> (1 2 3)
 ``` 
@@ -5093,7 +5608,7 @@ Macros: They evaluate their operands differently too. They also can't be passed 
 
 Arity overloading:
 
-``` bash
+``` clojure
 (defn multi-arity
   ;; 3-arity arguments and body
   ([first-arg second-arg third-arg]
@@ -5110,7 +5625,7 @@ Rest parameter: `& rest`
 
 Destructuring: bind names to values within a collection
 
-``` bash
+``` clojure
 ;; Return the first element of a collection
 (defn my-first
   [[first-thing]] ; Notice that first-thing is within a vector
@@ -5120,7 +5635,7 @@ Destructuring: bind names to values within a collection
 ; => "oven"
 ``` 
 
-``` bash
+``` clojure
 (defn announce-treasure-location
   [{lat :lat lng :lng}]
   (println (str "Treasure lat: " lat))
@@ -5133,7 +5648,7 @@ Destructuring: bind names to values within a collection
 
 short way with `:keys`
 
-``` bash
+``` clojure
 (defn announce-treasure-location
   [{:keys [lat lng]}]
   (println (str "Treasure lat: " lat))
@@ -5142,7 +5657,7 @@ short way with `:keys`
 
 retain original map using `:as`
 
-``` bash
+``` clojure
 (defn receive-treasure-location
   [{:keys [lat lng] :as treasure-location}]
   (println (str "Treasure lat: " lat))
@@ -5154,19 +5669,19 @@ retain original map using `:as`
 
 #### Anonymous Functions
 
-``` bash
+``` clojure
 (fn [params] body)
 ``` 
 
 short way:
 
-``` bash
+``` clojure
   #(* % 3)
 ``` 
 
 calling:
 
-``` bash
+``` clojure
 (#(* % 3) 8)
 ``` 
 
@@ -5180,7 +5695,7 @@ multiple args: `%1 %2 %&`
 
 `map` is implemented in terms of `cons`, `first`, and `rest`.
 
-``` bash
+``` clojure
 (seq '(1 2 3))
 ; => (1 2 3)
 
@@ -5200,28 +5715,28 @@ multiple args: `%1 %2 %&`
 
 `into` convert seq back into a map
 
-``` bash
+``` clojure
 (into {} (seq {:a 1 :b 2 :c 3}))
 ; => {:a 1, :c 3, :b 2}
 ``` 
 
 ### map
 
-``` bash
+``` clojure
 (map inc [1 2 3])
 ; => (2 3 4)
 ``` 
 
 multiple collections:
 
-``` bash
+``` clojure
 (map str ["a" "b" "c"] ["A" "B" "C"])
 ; => ("aA" "bB" "cC")
 ``` 
 
 ### reduce
 
-``` bash
+``` clojure
 (reduce (fn [new-map [key val]]
           (assoc new-map key (inc val)))
         {}
@@ -5231,7 +5746,7 @@ multiple collections:
 
 this is equivalent to:
 
-``` bash
+``` clojure
 (assoc (assoc {} :max (inc 30))
        :min (inc 10))
 ``` 
@@ -5247,7 +5762,7 @@ Ref
 
 ### Capitalization of a String
 
-``` bash
+``` clojure
 (clojure.string/capitalize "this is a proper sentence.")
 ;; -> "This is a proper sentence."
 (clojure.string/upper-case "loud noises!") 
@@ -5258,7 +5773,7 @@ Ref
 
 ### Clean Whitespace in a String
 
-``` bash
+``` clojure
 (clojure.string/trim " \tBacon ipsum dolor sit.\n") 
 ;; -> "Bacon ipsum dolor sit."
 
@@ -5274,13 +5789,13 @@ Ref
 
 shorter:
 
-``` bash
+``` clojure
 (require '[clojure.string :as str])
 ``` 
 
 ### Combine/Join a String
 
-``` bash
+``` clojure
 (str "John" " " "Doe")
 ;; -> "John Doe"
 
@@ -5291,7 +5806,7 @@ shorter:
 
 Better: `join`
 
-``` bash
+``` clojure
 (def food-items ["milk" "butter" "flour" "eggs"]) (clojure.string/join ", " food-items)
 ;; -> "milk, butter, flour, eggs"
 (clojure.string/join [1 2 3 4]) ;; -> "1234"
@@ -5299,7 +5814,7 @@ Better: `join`
 
 Worse alternative: `str` and `interpose`
 
-``` bash
+``` clojure
 ;; Constructing a CSV from a header string and vector of rows
 (def header "first_name,last_name,employee_number\n") (def rows ["luke,vanderhart,1","ryan,neufeld,2"])
 (apply str header (interpose "\n" rows))
@@ -5309,19 +5824,19 @@ Worse alternative: `str` and `interpose`
 
 ### String to Character
 
-``` bash
+``` clojure
 (seq "ali")
   ##> (\a \l \i)
 ``` 
 
 Any function taking a seq converts a string into characters.
 
-``` bash
+``` clojure
 (frequencies (clojure.string/lower-case "ali veli"))
   ##> {\a 1, \l 2, \i 2, \space 1, \v 1, \e 1}
 ``` 
 
-``` bash
+``` clojure
 ;; Is every letter in a string capitalized?
 (defn yelling? [s]
 (every? #(or (not (Character/isLetter %))
@@ -5335,14 +5850,14 @@ Any function taking a seq converts a string into characters.
 
 Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-05_integer-to-character-conversions.asciidoc`
 
-``` bash
+``` clojure
 (int \a)
 ;; -> 97
 (map int "Hello, world!")
 ;; -> (72 101 108 108 111 44 32 119 111 114 108 100 33)
 ``` 
 
-``` bash
+``` clojure
 (char 97)
 ;; -> \a
 ``` 
@@ -5351,7 +5866,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-05_integer-to-charac
 
 `str`
 
-``` bash
+``` clojure
 (def me {:first-name "Ryan", :favorite-language "Clojure"})
 (str "My name is " (:first-name me)
      ", and I really like to program in " (:favorite-language me))
@@ -5365,7 +5880,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-05_integer-to-charac
 
 `%03d`: pad a digit with three zeros
 
-``` bash
+``` clojure
 (defn filename [name i]
   (format "%03d-%s" i name)) ; <1>
 
@@ -5375,7 +5890,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-05_integer-to-charac
 
 `%-20s`: left justify string. total width of 20 chars.
 
-``` bash
+``` clojure
 ;; Create a table using justification
 (defn tableify [row]
   (apply format "%-20s | %-20s | %-20s" row)) ; <2>
@@ -5399,14 +5914,14 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-07_regexp-matching.a
 
 `re-find`
 
-``` bash
+``` clojure
 (re-find #"\d+" "I've just finished reading Fahrenheit 451")
 ;; -> "451"
 ``` 
 
 `re-matches` matches complete string
 
-``` bash
+``` clojure
 (re-matches #"\w+" "my-param")
 ;; -> nil
 ``` 
@@ -5417,14 +5932,14 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-08_matching-strings.
 
 `re-seq`
 
-``` bash
+``` clojure
 (re-seq #"\w+" "My Favorite Things")
 ;; -> ("My" "Favorite" "Things")
 ``` 
 
 Matching groups (parantheses): return a vector for each match
 
-``` bash
+``` clojure
 (defn mentions [tweet]
   (re-seq #"(@|#)(\w+)" tweet))
 
@@ -5434,7 +5949,7 @@ Matching groups (parantheses): return a vector for each match
 
 ### Regex Replace
 
-``` bash
+``` clojure
 (def about-me "My favorite color is green!")
 (clojure.string/replace about-me "green" "red")
 ;; -> "My favorite color is red!"
@@ -5444,7 +5959,7 @@ Matching groups (parantheses): return a vector for each match
 
 Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-10_tokenizing-strings.asciidoc`
 
-``` bash
+``` clojure
 (clojure.string/split "HEADER1,HEADER2,HEADER3" #",")
 ;; -> ["HEADER1" "HEADER2" "HEADER3"]
 ``` 
@@ -5453,7 +5968,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-10_tokenizing-string
 
 Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-11_inflecting-strings.asciidoc`
 
-``` bash
+``` clojure
 (require '[inflections.core :as inf])
 
 (inf/pluralize 1 "monkey")
@@ -5469,21 +5984,21 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-12_converting-string
 
 string to symbol
 
-``` bash
+``` clojure
 (symbol "valid?")
 ;; -> valid?
 ``` 
 
 symbol to string
 
-``` bash
+``` clojure
 (str 'valid?)
 ;; -> "valid?"
 ``` 
 
 keyword to string
 
-``` bash
+``` clojure
 (name :triumph)
 ;; -> "triumph"
 
@@ -5494,7 +6009,7 @@ keyword to string
 
 symbol/string to keyword
 
-``` bash
+``` clojure
 (keyword "fantastic")
 ;; -> :fantastic
 
@@ -5504,7 +6019,7 @@ symbol/string to keyword
 
 keyword to symbol
 
-``` bash
+``` clojure
 (symbol (name :wonderful))
 ;; -> wonderful
 ``` 
@@ -5517,7 +6032,7 @@ primary conversion functions
 
 namespace included:
 
-``` bash
+``` clojure
 ;; If you only want the name part of a keyword
 (name :user/valid?)
 ;; -> "valid?"
@@ -5533,7 +6048,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-13_absolute-precisio
 
 exponents
 
-``` bash
+``` clojure
 ;; Avogadro's number
 6.0221413e23
 ;; -> 6.0221413E23
@@ -5545,7 +6060,7 @@ exponents
 
 quote promotes numbers to Big types
 
-``` bash
+``` clojure
 (* 9999 9999 9999 9999 9999)
 ;; ArithmeticException integer overflow  clojure.lang.Numbers.throwIntOverflow
 
@@ -5557,7 +6072,7 @@ quote promotes numbers to Big types
 
 Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-14_working-with-rational-numbers.asciidoc`
 
-``` bash
+``` clojure
 (/ 1 3)
 ;; -> 1/3
 
@@ -5570,7 +6085,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-14_working-with-rati
 
 `rationalize`: converts decimals to rationals
 
-``` bash
+``` clojure
 (+ (/ 1 3) 0.3)
 ;; -> 0.6333333333333333
 
@@ -5583,7 +6098,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-14_working-with-rati
 
 ### Parsing Numbers
 
-``` bash
+``` clojure
 (Integer/parseInt "-42")
 ;; -> -42
 
@@ -5595,7 +6110,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-14_working-with-rati
 
 Truncate using `int`
 
-``` bash
+``` clojure
 (int 2.0001)
 ;; -> 2
 
@@ -5605,7 +6120,7 @@ Truncate using `int`
 
 Round
 
-``` bash
+``` clojure
 (Math/round 2.0001)
 ;; -> 2
 
@@ -5620,7 +6135,7 @@ Round
 
 ### Fuzzy Comparison
 
-``` bash
+``` clojure
 (defn fuzzy= [tolerance x y]
   (let [diff (Math/abs (- x y))]
     (< diff tolerance)))
@@ -5634,7 +6149,7 @@ Round
 
 ### Trigonometry
 
-``` bash
+``` clojure
 ;; Calculating sin(a + b). The formula for this is
 ;; sin(a + b) = sin a * cos b + sin b cos a
 (defn sin-plus [a b]
@@ -5649,7 +6164,7 @@ Round
 
 `2r101`: `101` in `2` radix
 
-``` bash
+``` clojure
 2r101010
 ;; -> 42
 
@@ -5665,7 +6180,7 @@ Round
 
 Output:
 
-``` bash
+``` clojure
 (Integer/toString 13 2)
 ;; -> "1101"
 
@@ -5678,7 +6193,7 @@ Output:
 
 Partially applying: Change order of args
 
-``` bash
+``` clojure
 (defn to-base [radix n]
   (Integer/toString n radix))
 
@@ -5693,7 +6208,7 @@ Partially applying: Change order of args
 
 Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-20_simple-statistics.asciidoc`
 
-``` bash
+``` clojure
 (defn mean [coll]
   (let [sum (apply + coll)
         count (count coll)]
@@ -5711,7 +6226,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-20_simple-statistics
 ;; -> 0
 ``` 
 
-``` bash
+``` clojure
 (defn median [coll]
   (let [sorted (sort coll)
         cnt (count sorted)
@@ -5732,7 +6247,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-20_simple-statistics
 
 ### Random Numbers
 
-``` bash
+``` clojure
 (rand)
 ;; -> 0.0249306187447903
 
@@ -5742,7 +6257,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-20_simple-statistics
 
 `rand-int` integers
 
-``` bash
+``` clojure
 ;; Emulating a six-sided die
 (defn roll-d6 []
   (inc (rand-int 6)))
@@ -5756,7 +6271,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-20_simple-statistics
 
 `rand-nth` take nth element
 
-``` bash
+``` clojure
 (rand-nth [1 2 3])
 ;; -> 1
 
@@ -5766,25 +6281,25 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-20_simple-statistics
 
 For nonsequential collections:
 
-``` bash
+``` clojure
 (rand-nth (seq #{:heads :tails}))
 ;; -> :heads
 ``` 
 
 `shuffle`: randomly sort
 
-``` bash
+``` clojure
 (shuffle [1 2 3 4 5 6])
 ;; -> [3 1 4 5 2 6]
 ``` 
 
 ### Currency
 
-``` bash
+``` clojure
 $ lein try clojurewerkz/money
 ``` 
 
-``` bash
+``` clojure
 (require '[clojurewerkz.money.amounts    :as ma])
 (require '[clojurewerkz.money.currencies :as mc])
 
@@ -5809,14 +6324,14 @@ two
 
 IEEE 754 standard carry a certain imprecision by design
 
-``` bash
+``` clojure
 (- 0.23 0.24)
 ;; -> -0.009999999999999981
 ``` 
 
 ### UUID Unique IDs
 
-``` bash
+``` clojure
 (java.util.UUID/randomUUID)
 ;; -> #uuid "5358e6e3-7f81-40f0-84e5-750e29e6ee05"
 
@@ -5826,7 +6341,7 @@ IEEE 754 standard carry a certain imprecision by design
 
 `squuid`: sortable and unique uuid
 
-``` bash
+``` clojure
 (def u1 (squuid))
 u1
 ;; -> #uuid "527bf210-dfae-4c73-8b7a-302d3b511f41"
@@ -5840,7 +6355,7 @@ u2
 
 Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-25_current-date.asciidoc`
 
-``` bash
+``` clojure
 (defn now []
   (java.util.Date.))
 
@@ -5854,7 +6369,7 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-25_current-date.asci
 
 unix timestamp
 
-``` bash
+``` clojure
 (System/currentTimeMillis)
 ;; -> 1365260110635
 ``` 
@@ -5863,7 +6378,7 @@ unix timestamp
 
 `#inst`
 
-``` bash
+``` clojure
 (def ryans-birthday #inst "1987-02-18T18:00:00.000-00:00")
 
 (println ryans-birthday)
@@ -5877,11 +6392,11 @@ Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-28_formatting-dates.
 
 wrapper over joda
 
-``` bash
+``` clojure
 $ lein try clj-time
 ``` 
 
-``` bash
+``` clojure
 (require '[clj-time.format :as tf])
 
 ;; To parse dates like "02/18/87"
@@ -5901,7 +6416,7 @@ $ lein try clj-time
 
 ### Formatting Dates
 
-``` bash
+``` clojure
 (require '[clj-time.format :as tf])
 (require '[clj-time.core :as t])
 
@@ -5917,7 +6432,7 @@ $ lein try clj-time
 
 java to joda
 
-``` bash
+``` clojure
 (require '[clj-time.coerce :as tc])
 
 (tc/from-date (java.util.Date.))
@@ -5926,7 +6441,7 @@ java to joda
 
 joda to java
 
-``` bash
+``` clojure
 (tc/to-date (t/now))
 ;; -> #inst "2013-04-06T17:03:57.239-00:00"
 
@@ -5938,7 +6453,7 @@ joda to java
 
 Check `~/codes/clojure/clojure-cookbook/01_primitive-data/1-29_comparing-dates.asciidoc`
 
-``` bash
+``` clojure
 (defn now [] (java.util.Date.))
 (def one-second-ago (now))
 (Thread/sleep 1000)
@@ -5962,7 +6477,7 @@ They work with numbers.
 
 `sort` uses `compare`
 
-``` bash
+``` clojure
 (def occurrences
   [#inst "2013-04-06T17:40:57.688-00:00"
    #inst "2002-12-25T00:40:57.688-00:00"
@@ -5978,7 +6493,7 @@ They work with numbers.
 
 `interval` from `clj-time`
 
-``` bash
+``` clojure
 (require '[clj-time.core :as t])
 
 ;; The first step is to capture two dates as an interval
@@ -6013,7 +6528,7 @@ since-april-first
 
 ### Create List
 
-``` bash
+``` clojure
 '(1 :2 "3")
 (list 1 :2 "3")
 ``` 
@@ -6026,14 +6541,14 @@ https://8thlight.com/blog/colin-jones/2010/12/05/clojure-libs-and-namespaces-req
 
 ## The baseline: require
 
-``` bash
+``` clojure
 user=> (clojure.string/split "name,address,city,state,zip,email,phone" #",")
 java.lang.ClassNotFoundException: clojure.string (NO_SOURCE_FILE:0)
 ``` 
 
 Fix: require namespace:
 
-``` bash
+``` clojure
 user=> (require 'clojure.string)
 ``` 
 
@@ -6041,7 +6556,7 @@ user=> (require 'clojure.string)
 
 Alias:
 
-``` bash
+``` clojure
 user=> (require '[clojure.string :as string])
 nil
 user=> (string/capitalize "foo")
@@ -6050,13 +6565,13 @@ user=> (string/capitalize "foo")
 
 Quoted vector is shorthand for quoting every individual symbol:
 
-``` bash
+``` clojure
 (require ['clojure.string :as 'string])
 ``` 
 
 Several libraries with same prefix:
 
-``` bash
+``` clojure
 (require '(clojure string test))
 ``` 
 
@@ -6064,7 +6579,7 @@ Several libraries with same prefix:
 
 [Phil Hagelberg's](http://p.hagelb.org/import-indent.html) Advice:
 
-``` bash
+``` clojure
 ;; brackets imply that all entries should be indented as peers:
   (:import [java.io File]
            [org.apache.maven.artifact.ant
@@ -6081,7 +6596,7 @@ Generated by Phil Hagelberg using scpaste at Wed Nov 24 20:58:39 2010. PST. (raw
 
 Append `:verbose` to see what happens:
 
-``` bash
+``` clojure
  user=> (require '[clojure.string :as string] :verbose)
 (clojure.core/load "/clojure/string")
 (clojure.core/in-ns 'user)
@@ -6095,7 +6610,7 @@ Namespace information is too verbose.
 
 Refer to `vars` as if they were ours.
 
-``` bash
+``` clojure
 user=> (refer '[clojure.string :refer [split]])
 nil
 user=> (split "a,b,c" #",")
@@ -6104,7 +6619,7 @@ user=> (split "a,b,c" #",")
 
 ## Bringing it all together: ns
 
-``` bash
+``` clojure
 (ns my-great-project.core
   "This namespace is CRAZY!"
   (:use [clojure.string :only [split join]] :reload)
@@ -6119,10 +6634,224 @@ Note:
 - we use `:` keys
 - no symbol quotes
 
-``` bash
+``` clojure
 (ns my-great-project.core
   (:require clojure.stacktrace
             clojure.walk))
 ``` 
+
+# Article: Clojure By Example
+
+http://kimh.github.io/clojure-by-example/
+
+## Control Flow
+
+### If
+
+Note: `[]` is `truthy`
+
+``` clojure
+user=> (if (not-empty []) 1 2)
+2
+user=> (if [] 1 2)
+1
+``` 
+
+### If-Let
+
+``` clojure
+user=> (defn positive-number [numbers]
+         (if-let [pos-nums (not-empty (filter pos? numbers))]
+           pos-nums
+           "no positive numbers"))
+
+user=> (positive-number [-1 -2 1 2])
+(1 2)
+``` 
+
+### when
+
+There is no `else` branch. Multiple expressions ok.
+
+``` clojure
+user=> (when true
+         (println "one")
+         (println "two"))
+one
+two
+nil
+``` 
+
+### condp
+
+``` clojure
+user=> (contains? #{1 2} 1)
+true
+user=> (defn condp-test-2
+         [n]
+         (condp contains? n
+           #{1 2 3} "n is either 1 or 2 or 3"
+           "n is not 1 or 2 or 3"))
+  #'user/condp-test-2
+
+user=> (println (condp-test-2 2))
+n is either 1 or 2 or 3
+nil
+``` 
+
+### boolean
+
+``` clojure
+user> (boolean nil)
+false
+
+user> (boolean 0)
+true
+
+``` 
+
+## Strings
+
+### str
+
+concatenate:
+
+``` clojure
+user=> (str "Good " "morning")
+"Good morning"
+``` 
+
+instead of string interpolation: use str
+
+``` clojure
+user> (let [first "Hirokuni"
+            last "Kim"]
+            (str "My name is " first " " last))
+"My name is Hirokuni Kim"
+``` 
+
+### format
+
+``` clojure
+user=> (format "My name is %s %s" "Hirokuni" "Kim")
+"My name is Hirokuni Kim"
+``` 
+
+## Macros
+
+### Defmacro
+
+``` clojure
+user=> (defmacro unless [test then]
+           "Evaluates then when test evaluates to be falsey"
+           (list 'if (list 'not test)
+            then))
+
+user=> (unless false (println "false!!"))
+false!!
+nil
+``` 
+
+### macroexpand
+
+``` clojure
+user=> (macroexpand '(unless false (println "hi")))
+(if (not false) (println "hi"))
+``` 
+
+### Syntax-quotes
+
+Fully qualified names
+
+``` clojure
+user=> '(dec (inc 1))
+(dec (inc 1))
+
+user=> `(dec (inc 1))
+(clojure.core/dec (clojure.core/inc 1))
+``` 
+
+### Unquotes
+
+``` clojure
+user=> '(+ 1 ~(inc 1))
+(+ 1 (clojure.core/unquote (inc 1)))
+
+user=> `(+ 1 ~(inc 1))
+(clojure.core/+ 1 2)
+``` 
+
+### Unquote-Splice
+
+``` clojure
+user=> `(+ ~(list 1 2 3))
+(clojure.core/+ (1 2 3))
+
+user=> `(+ ~@(list 1 2 3))
+(clojure.core/+ 1 2 3)
+``` 
+
+## Threading Macros
+
+`->` thread-first. First argument
+
+`->>` thread-last. Last argument
+
+``` clojure
+user> (->> ["Japan" "China" "Korea"]
+           (map clojure.string/upper-case)
+           (map #(str "Hello " %)))
+("Hello JAPAN!" "Hello CHINA!" "Hello KOREA!")
+``` 
+
+## Atoms
+
+``` clojure
+user> (def atom-int (atom 53))
+  #'user/atom-int
+
+user> (deref atom-int)
+53
+
+user> @atom-int
+53
+
+``` 
+
+Set value:
+
+``` clojure
+user> (reset! atom-int 35)
+35
+
+user> @atom-int
+35
+
+user> (reset! atom-int 100)
+100
+
+user> @atom-int
+100
+``` 
+
+Set value using a function:
+
+``` clojure
+user> (swap! atom-int
+        (fn [current-atom]
+            (inc current-atom)))
+1
+
+user> (swap! atom-int
+        (fn [_]
+            "not int"))
+"not int"
+
+user> @atom-int
+"not int"
+
+``` 
+
+> You can pass a function that takes multiple arguments. The first argument of the function is the current atom.
 
 

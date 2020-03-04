@@ -36,12 +36,23 @@
     "I have " [:strong "bold"]
     [:span {:style {:color "red"}} " and red "] "text."]])
 
+(defn lister [items]
+  [:ul
+   (for [item items]
+     ^{:key item} [:li "Item " item])])
+
+(defn lister-user []
+  [:div
+   "Here is a list:"
+   [lister (range 3)]])
+
 (defn simple-example []
   [:div
    [greeting "Hello world2, it is now"]
    [clock]
    [color-input]
-   [simple-component]])
+   [simple-component]
+   [lister-user]])
 
 (defn ^:export run []
   (rdom/render [simple-example] (js/document.getElementById "app")))
