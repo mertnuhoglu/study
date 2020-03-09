@@ -407,7 +407,7 @@ g/<br> $/ ,/@@@/j
 
 ## Complete process image + sound
 
-### opt01:
+### opt01: deprecated for opt02
 
 Bu süreç, tek kelimelik listeler için dizayn edildi. Tek kelime, hem resim dosyasının ismi, hem de İngilizce kelime olarak kullanılıyor. Bu sayede, resim dosyalarıyla kelimeler arasında eşleştirme için ekstra bir şey yapmak gerekmiyor. 
 
@@ -429,13 +429,17 @@ anki_mv_media_files_2_collection
 
 ### opt02: complete process eng_word,tur_word,image id=g_10821 id=g_10823
 
+Script: `~/projects/anki_english/scripts/anki_process_3`
+
 Kelimeleri önce bir dosyada tablo içinde listeleyelim. Sonra resimleri bu tabloda ekleyelim.
 
-Örnek: `~/gdrive/mynotes/stuff/ozgur_emin/english/anki/exam_20191024/words_20191110.tsv`
+Örnek: `~/gdrive/mynotes/stuff/ozgur_emin/english/anki/exam_20191024/words_20200307.tsv`
 
-3 kolon: ingilizce kelime, türkçesi, resim dosyasının ismi
+5 kolon: `note_id	english	turkish	image	example_en`
 
-		president	başkan	word_president.jpg
+			01	Where	Nerede?	where.jpg	Where is the door?
+
+Çıktı: `~/gdrive/mynotes/stuff/ozgur_emin/english/anki/exam_20191024/anki_words_20200307.tsv`
 
 ``` bash
 tags="yagmur_words_20191230"
