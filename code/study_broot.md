@@ -40,9 +40,9 @@ https://dystroy.org/broot/documentation/configuration/
 `/Users/mertnuhoglu/Library/Preferences/org.dystroy.broot/conf.toml`
 
 ``` bash
-mkdir -p /Users/mertnuhoglu/projects/private_dotfiles/broot
-mv /Users/mertnuhoglu/Library/Preferences/org.dystroy.broot/conf.toml /Users/mertnuhoglu/projects/private_dotfiles/broot
-ln -s /Users/mertnuhoglu/projects/private_dotfiles/broot/conf.toml /Users/mertnuhoglu/Library/Preferences/org.dystroy.broot/conf.toml
+mkdir -p /Users/mertnuhoglu/broot
+mv /Users/mertnuhoglu/Library/Preferences/org.dystroy.broot/conf.toml /Users/mertnuhoglu/broot
+ln -s /Users/mertnuhoglu/broot/conf.toml /Users/mertnuhoglu/Library/Preferences/org.dystroy.broot/conf.toml
 ``` 
 
 ### Tricks

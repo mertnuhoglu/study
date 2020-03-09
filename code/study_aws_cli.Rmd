@@ -24,7 +24,7 @@ Related documents:
 
 https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
 
-Edit `~/projects/private_dotfiles/.aws/config`
+Edit `~/.aws/config`
 
 ``` bash
 [profile iterative]
@@ -38,7 +38,7 @@ output = json
 
 Access keys are in `credentials`
 
-Edit `~/projects/private_dotfiles/.aws/credentials`
+Edit `~/.aws/credentials`
 
 ``` bash
 [default]
