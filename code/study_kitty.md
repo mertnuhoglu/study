@@ -1,0 +1,214 @@
+---
+title: "Study kitty"
+date: 2020-03-05T14:31:58+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+
+---
+
+# Issues
+
+### window tiling: horizontal/vertical split
+
+Ref: `#: Window management {{{ <url:/Users/mertnuhoglu/projects/private_dotfiles/.config/kitty/kitty.conf#tn=#: Window management {{{>`
+
+split komutu yok. Onun yerine layout ile çalışmak gerekiyor.
+
+Window oluşturma: `#enter`
+
+		# enter
+		^+enter
+
+Layouts:
+
+		Fat
+		Grid
+		Horizontal
+		Tall: benim hep kullandığım stil
+		Stack: only one window
+
+		^+l		switch layout
+
+## image viewer: icat
+
+``` bash
+kitty +kitten icat image.jpeg
+alias icat="kitty +kitten icat"
+``` 
+
+## command mode line
+
+tmux'taki gibi command mode yok. Ancak command line interface var. Böylece programlanabilir.
+
+https://sw.kovidgoyal.net/kitty/remote-control.html
+
+Bu komutla kitty shell açılır. Bunun içinden kitty'yi yönetebilirsin.
+
+``` bash
+kitty @ 
+``` 
+
+### başka bir kitty terminaline komut göndermek
+
+Bunun için kitty'yi `listen-on` ile başlatmalısın.
+
+``` bash
+kitty --listen-on xxx
+``` 
+
+Daha sonra shelle bağlanmak için:
+
+``` bash
+kitty @ --to xxx
+``` 
+
+### error: cmd+m hide ediyor (minimize)
+
+https://superuser.com/questions/1043596/mac-osx-remove-hide-window-keyboard-shortcut
+
+Ancak kitty Application olarak görünmüyor listede. Neden?
+
+Yeri burası: `/Users/mertnuhoglu/Applications/kitty.app/`
+
+## Setup kitty for ranger
+
+https://github.com/ranger/ranger/pull/1077
+
+``` bash
+man ranger
+``` 
+
+Edit `~/.config/ranger/rc.conf`
+
+``` bash
+set preview_images_method kitty
+``` 
+
+## kitty config ile başlatma
+
+Edit `~/.config/kitty/kitty.conf`
+
+``` bash
+kitty --config ~/.config/kitty/kitty.conf
+``` 
+
+https://sw.kovidgoyal.net/kitty/#configuring-kitty
+
+``` bash
+layout tall
+cd ~
+title Testing
+launch zsh
+title Testing 2
+map f2 pipe @ansi overlay less +G -R
+``` 
+
+## Debug keyboard shortcuts
+
+``` bash
+kitty --debug-keyboard
+``` 
+
+## Text selection with keyboard
+
+``` bash
+map cmd+x launch --stdin-source=@screen_scrollback --type=overlay /usr/local/bin/nvim -Rmn -
+``` 
+
+Note: Kendi ayarlarımda `#!+ı` kullanıyorum.
+
+# Articles
+
+## Kitty – a fast, featureful, GPU based terminal emulator | Hacker News
+
+https://news.ycombinator.com/item?id=17915829
+
+> 2 important features it had over Alacritty: proper underline rendering (Alacritty just draws underscores) and text selection with Shift+Mouse
+
+
+## Documentation: kitty - the fast, featureful, GPU based terminal emulator — kitty 0.16.0 documentation
+
+https://sw.kovidgoyal.net/kitty/#quickstart
+
+### startup sessions
+
+https://sw.kovidgoyal.net/kitty/#startup-sessions
+
+opt01: başlangıçta parametre ver
+
+``` bash
+kitty --session <SESSION_FILE>
+``` 
+
+``` bash
+kitty --session ~/projects/private_dotfiles/.config/kitty/kitty_session.conf
+``` 
+
+opt02: conf dosyasında belirt session dosyasını
+
+``` bash
+startup_session ~/projects/private_dotfiles/.config/kitty/kitty_session.conf
+``` 
+
+### Hints
+
+			^+e				choose any urls to open 
+			^+p f			choose any file path
+
+### Tabs and Windows
+
+https://sw.kovidgoyal.net/kitty/#windows
+
+		[Tab] 1-n [Window]
+
+shortcuts
+
+		^+ up/dn			scroll up/dn
+		# up/dn				scroll up/dn
+		^+h						scroll pager
+		#t						new tab
+		#w						close tab
+		^+ rg/lf			next/prev tab
+
+### Multiple copy/paste buffers
+
+https://sw.kovidgoyal.net/kitty/#multiple-copy-paste-buffers
+
+``` bash
+map f1 copy_to_buffer a
+map f2 paste_from_buffer a
+``` 
+
+### Marks
+
+https://sw.kovidgoyal.net/kitty/marks.html
+
+Mark text based on regex.
+
+Ex: highlight the word ERROR
+
+``` bash
+map f3 toggle_marker text 1 ERROR
+``` 
+
+Dynamically create markers
+
+``` bash
+map f4 create_marker
+map f5 remove_marker
+``` 
+
+### Fonts
+
+https://sw.kovidgoyal.net/kitty/conf.html#conf-kitty-fonts
+
+
+		
