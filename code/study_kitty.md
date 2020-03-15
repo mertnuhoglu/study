@@ -16,6 +16,18 @@ output:
 
 # Issues
 
+## pencere boyutlarını ayarla: sol kolon geniş, sağ kolon dar
+
+https://sw.kovidgoyal.net/kitty/#layouts
+
+Edit `~/projects/private_dotfiles/.config/kitty/kitty_session.conf`
+
+``` bash
+enabled_layouts tall:bias=70;full_size=2
+``` 
+
+> This will have 2 instead of a single tall window, that occupy 70% instead of 50% of available width. bias can be any number between 10 and 90.
+
 ## using option key in kitty
 
 https://stackoverflow.com/questions/11876485/how-to-disable-typing-special-characters-when-pressing-option-key-in-mac-os-x
@@ -182,6 +194,46 @@ kitty shell içinde:
 
 ``` bash
 launch /usr/local/bin/nvim
+``` 
+
+#### Article: Controlling kitty from scripts or the shell — kitty 0.16.0 documentation
+
+https://sw.kovidgoyal.net/kitty/remote-control.html
+
+opt01: only works in the same kitty terminal
+
+``` bash
+kitty -o allow_remote_control=yes -o enabled_layouts=tall
+``` 
+
+Add to `kitty.conf`
+
+``` bash
+allow_remote_control yes
+``` 
+
+Now, in the new kitty window, enter the command:
+
+``` bash
+kitty @ new-window --title Output --keep-focus cat
+``` 
+
+> More usefully, you can pipe the output of a command running in one window to another window, for example:
+
+``` bash
+ls | kitty @ send-text --match title:Output --stdin
+``` 
+
+> This will show the output of ls in the output window instead of the current window. You can use this technique to, for example, show the output of running make in your editor in a different window
+
+opt02: works from anywhere:
+
+``` bash
+kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty
+``` 
+
+``` bash
+kitty @ --to unix:/tmp/mykitty ls
 ``` 
 
 ### startup sessions
