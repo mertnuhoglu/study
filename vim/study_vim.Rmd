@@ -82,4 +82,31 @@ https://learnvimscriptthehardway.stevelosh.com/chapters/24.html
 :call DisplayName("Your Name")
 ``` 
 
+## start vim without plugins or vimrc
+
+``` bash
+time nvim -u NONE +q
+time nvim --clean +q
+time nvim --noplugin +q
+``` 
+
+## error: shift-f3 not working
+
+ref: error: shift+f3 vim içinde niye çalışmıyor? <url:/Users/mertnuhoglu/projects/study/logbook/log_20200305.md#tn=error: shift+f3 vim içinde niye çalışmıyor?>
+
+opt04c: F15 için test et
+
+``` bash
+" noremap <S-F3> :VoomToggle markdown<CR>
+noremap <F15> :VoomToggle markdown<CR>
+``` 
+
+### insert moddayken nasıl normal mod komutu verilir?
+
+<ESC> yap önce
+
+``` bash
+inoremap <M-BS>	<ESC>db
+``` 
+
  

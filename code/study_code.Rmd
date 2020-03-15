@@ -78,6 +78,22 @@ https://github.com/brookhong/surfingkeys
 Hints.characters = "fgouieajvc"
 ``` 
 
+## kitty: terminal emulator, alternative to iterm
+
+https://sw.kovidgoyal.net/kitty/
+
+Ref: `~/projects/study/code/study_kitty.md`
+
+## ranger: file manager/navigator with preview
+
+https://github.com/ranger/ranger
+
+Ref: `~/projects/study/code/study_ranger.md`
+
+``` bash
+pip install ranger-fm
+``` 
+
 ## broot: cli replacement for ls and tree
 
 Ref: `~/projects/study/code/study_broot.md`
@@ -349,4 +365,5 @@ export PS1="$ "
 ``` bash
 export PS1="$ "
 ``` 
+
 

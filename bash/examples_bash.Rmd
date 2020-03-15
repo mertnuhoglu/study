@@ -1019,6 +1019,7 @@ opt02: brew cargo condo installed commands
 
 ``` bash
 brew list
+brew cask list
 condo list
 cargo install --list
 ``` 
@@ -1035,4 +1036,47 @@ command ls
 /bin/ls
 $(which ls)
 ``` 
+
+### xargs delimiter newline
+
+Ex: get info for all brew packages:
+
+``` bash
+brew list | xargs -d '\n' brew info 
+``` 
+
+``` bash
+xargs -n1 -d '\n' zip "temp.zip"
+  ##> 	-d delimiter is \n
+  ##> 	-n1 use only one argument
+``` 
+
+### pipe after piped xargs command
+
+Ex: I want to print only top 2 lines of brew info for each argument:
+
+``` bash
+brew list | xargs -d '\n' brew info | head -n 2
+``` 
+
+https://unix.stackexchange.com/questions/209249/piping-commands-after-a-piped-xargs
+
+Solution:
+
+``` bash
+brew list | xargs -I {} -d '\n' sh -c "brew info {} | head -n 2"
+``` 
+
+### Which shell and terminal am I using?
+
+https://osxdaily.com/2009/09/25/what-shell-am-i-using/
+
+``` bash
+echo $SHELL
+  ##> /bin/bash
+
+echo $TERM
+  ##> xterm-kitty
+``` 
+
 

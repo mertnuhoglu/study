@@ -20,6 +20,130 @@ state: wip
 
 # Examples
 
+## zsh zle - List of zsh bindkey commands - Stack Overflow
+
+https://stackoverflow.com/questions/18042685/list-of-zsh-bindkey-commands
+
+> The standard widgets are listed in the zshzle manpage in the STANDARD WIDGETS section
+
+[man page](http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets)
+
+> bindkey -l will give you a list of existing keymap names.
+
+> bindkey -M <keymap> will list all the bindings in a given keymap.
+
+> If you use the zsh command line in emacs mode, then the emacs keymap is likely to be most important for you
+
+`zle -al` used for list all registered zle commands
+
+## infocmp: keybindings for home end and similar key glyphs
+
+https://unix.stackexchange.com/questions/116562/key-bindings-table
+
+> if there was just some way of translating the key glyphs into 'regular' terms:
+
+		bindkey "Home" beginning-of-line
+
+> There is infocmp utility for describing terminfo entries. This is especially useful with -L option aka long C variable names:
+
+$ infocmp -cL
+
+``` bash
+key_home= '\EOH'.
+key_up= '\EOA'.
+``` 
+Comparing this to the bindkey output
+
+``` bash
+"^[OH" beginning-of-line
+"^[OA" up-line-or-history
+``` 
+
+## keybindings: option/meta tuşuyla binding
+
+``` bash
+bindkey '\eq' autosuggest-accept
+``` 
+
+Bu `Esc q` tuşunu bağlıyor. Ama `Alt q` çalışmıyor hala.
+
+## zsh keybindings bindkey
+
+Ref: zsh-autosuggestions <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10557>
+
+``` bash
+bindkey '^[ ' autosuggest-accept
+``` 
+
+`^[ ` means: control sequence of `ctrl+space.` note that `[` is a separator.
+
+How to find out `^[ ` like control sequences (keybindings)?
+
+Use `cat` or `od` or `ctrl-v`
+
+Ref: error: shift+f3 vim içinde niye çalışmıyor? <url:/Users/mertnuhoglu/projects/study/logbook/log_20200305.md#tn=error: shift+f3 vim içinde niye çalışmıyor?>
+
+## How to find out control sequences (keybindings)?
+
+Ref: `custom tmux keybindings with # Cmd @mine <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10536>`
+
+Use `cat` or `od` or `ctrl-v`
+
+opt01: `od`
+
+``` bash
+od -t x1
+  ##> `z 60 7a
+  ##> ^D ile enter yap (bazen iki kez)
+``` 
+
+Here, `\x60` and `\x7a` are hex codes to use in `bindkey`
+
+opt02: `ctrl-v`
+
+``` bash
+echo "CtrlVFnDelete" | od -c
+``` 
+
+opt03: `cat`
+
+``` bash
+cat
+  ##> Press `ctrl+shift+right`
+  ##> 	^[[1;6C
+``` 
+
+Example: `~/projects/private_dotfiles/.config/kitty/kitty.conf`
+
+``` bash
+map ctrl+shift+right send_text all \x1b\x5b\x31\x3b\x36\x43
+``` 
+
+## which shortcut is bound?
+
+``` bash
+bindkey | rg autosuggest-accept
+``` 
+
+#### tmux ve kitty'ye özel binding tanımlama
+
+https://unix.stackexchange.com/questions/10689/how-can-i-tell-if-im-in-a-tmux-session-from-a-bash-script
+
+``` bash
+if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
+  PS1="@$HOSTNAME $PS1"
+fi
+if { [ "$TERM" = "xterm-kitty" ] ; } then
+	bindkey '^[ ' autosuggest-accept
+fi
+``` 
+
+## startup files: zshenv zshrc
+
+zshrc: for functions, aliases etc.
+
+zshenv: only for environment variables
+
 ## ex01: string manipulation / text processing
 
 https://stackoverflow.com/questions/428109/extract-substring-in-bash
@@ -195,5 +319,77 @@ antigen theme robbyrussell
 antigen bundle git
 antigen bundle zsh-users/zsh-autosuggestions
 ``` 
+
+## Article: A User's Guide to the Z-Shell
+
+http://zsh.sourceforge.net/Guide/zshguide04.html
+
+### Introducing zle
+
+zsh line editor: zle
+
+You configure it in `.zshrc`
+
+Ex: Move back a word: `ESC b` which is written as `\eb`
+
+`^` is `control` key.
+
+two modes: emacs (better), vi
+
+		bindkey -e
+		bindkey -v
+
+meta keys: `ALT`
+
+They are like in emacs: `\M-b` or `\C-x` But `^x` is shorter.
+
+unbind/remove key:
+
+		bindkey -r <key_combination>
+
+## Article: Everything you never wanted to know about ANSI escape codes
+
+https://notes.burke.libbey.me/ansi-escape-codes/
+
+`\x1b`: escape. also: `\e` or `\033` or `0x1b` or `ESC` or byte 27 in [ascii table](http://www.asciitable.com/)
+
+ansi escapes always start with `\x1b`
+
+### Control sequences
+
+Most escape codes start with `\x1b[]`
+
+This pair of bytes is called `CSI` (Control Sequence Introducer)
+
+A control sequence:
+
+``` bash
+0x1B + "[" + <zero or more numbers, separated by ";"> + <a letter>
+``` 
+
+Ex:
+
+If you see `\x1b[0;1;34m`, you can read it like this:
+
+``` bash
+\x1b[  # call a function
+0;1;34 # function arguments (0, 1, 34)
+m      # function name
+``` 
+
+Equivalent to: `m(0, 1, 34)`
+
+Similarly, `\x1b[A` is just `A()`.
+
+### Available functions
+
+So, escape sequences are function invocations. 
+
+Here is shortened standard library:
+
+		| symbol | name        | signature | description           |
+		| A   | Cursor Up   | (n=1)     | Move cursor up by n   |
+		| B   | Cursor Down | (n=1)     | Move cursor down by n |
+
 
 

@@ -16,6 +16,42 @@ output:
 
 # Issues
 
+## using option key in kitty
+
+https://stackoverflow.com/questions/11876485/how-to-disable-typing-special-characters-when-pressing-option-key-in-mac-os-x
+
+In Terminal.app, with "Use Option as meta key" enabled, alt+o sends ESC + o.
+
+https://github.com/kovidgoyal/kitty/issues/123
+
+Alt most definitely does send escape. Try running
+
+		cat
+
+in the terminal and typing
+
+		alt+s
+
+You get
+
+		^[s
+
+Or if you are on OS X, IIRC the OS converts Alt + key into unicode characters. A bit of googling will show you how to get OS X to stop doing that
+
+Fix:
+
+``` bash
+macos_option_as_alt right
+``` 
+
+Şimdi bu bindkey çalışıyor:
+
+``` bash
+bindkey '^[ ' autosuggest-accept
+``` 
+
+Note: right option key is used above.
+
 ### window tiling: horizontal/vertical split
 
 Ref: `#: Window management {{{ <url:/Users/mertnuhoglu/projects/private_dotfiles/.config/kitty/kitty.conf#tn=#: Window management {{{>`
@@ -137,6 +173,16 @@ https://news.ycombinator.com/item?id=17915829
 ## Documentation: kitty - the fast, featureful, GPU based terminal emulator — kitty 0.16.0 documentation
 
 https://sw.kovidgoyal.net/kitty/#quickstart
+
+### Article: Launching programs in new windows/tabs — kitty 0.16.0 documentation
+
+https://sw.kovidgoyal.net/kitty/launch.html
+
+kitty shell içinde:
+
+``` bash
+launch /usr/local/bin/nvim
+``` 
 
 ### startup sessions
 
