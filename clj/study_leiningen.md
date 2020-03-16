@@ -15,6 +15,47 @@ state: wip
 
 ---
 
+# Setup Leiningen
+
+https://leiningen.org/
+
+``` clojure
+wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+mv lein ~/lein
+chmod a+x ~/bin/lein
+lein
+``` 
+
+``` clojure
+lein help tutorial
+``` 
+
+unset $CLASSPATH variable
+
+``` clojure
+unset CLASSPATH
+``` 
+
+# Clojure Reference
+
+## Clojure - Vars and the Global Environment
+
+https://clojure.org/reference/vars
+
+Persistent reference to a changing value. 4 ways: Vars, Refs, Agents, Atoms.
+
+`def` creates (and interns) a Var.
+
+If no initial value is supplied, the var is unbound:
+
+``` clojure
+user=> (def x)
+  #'user/x
+user=> x
+  #object[clojure.lang.Var$Unbound 0x14008db3 "Unbound: #'user/x"]
+``` 
+
+
 # Article: leiningen/TUTORIAL.md at stable · technomancy/leiningen
 
 https://github.com/technomancy/leiningen/blob/stable/doc/TUTORIAL.md
