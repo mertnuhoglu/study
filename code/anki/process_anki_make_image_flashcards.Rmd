@@ -18,6 +18,10 @@ path: ~/projects/study/code/anki/process_anki_make_image_flashcards.Rmd
 state: wip
 ---
 
+# TOC
+
+		opt02: complete process eng_word,tur_word,image  <url:file:///~/projects/study/code/anki/process_anki_make_image_flashcards.Rmd#r=g_10823>
+
 ## 01. Resimleri topla
 
 ### opt01:

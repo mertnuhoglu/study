@@ -1,16 +1,44 @@
 
-	code
-		clojure
-			cheatsheets - clojure
-				https://cljs.info/cheatsheet/
-				https://clojure.org/api/cheatsheet
-				https://kimh.github.io/clojure-by-example/
-				https://clojure.org/guides/weird_characters
-			cookbook examples
-				http://clojuredocs.org/
-				https://github.com/clojure-cookbook/clojure-cookbook
-				https://learnxinyminutes.com/docs/compojure/
-				https://learnxinyminutes.com/docs/clojure/
-				http://clojuredocs.org/quickref
-			links
-				http://www.clojurenewbieguide.com/
+		code
+			clojure
+				cheatsheets - clojure
+					https://cljs.info/cheatsheet/
+						/Users/mertnuhoglu/codes/clojure/cljs-cheatsheet
+					https://jafingerhut.github.io/
+						http://jafingerhut.github.io/cheatsheet/clojuredocs/cheatsheet-tiptip-cdocs-summary.html
+						https://clojure.org/api/cheatsheet
+						/Users/mertnuhoglu/Downloads/cheatsheet-usletter-color.pdf
+					http://clojuredocs.org/quickref
+					https://clojure.org/guides/weird_characters
+				tutorials
+					https://yogthos.net/ClojureDistilled.html
+				cookbook examples
+					http://kimh.github.io/clojure-by-example/#about
+						/Users/mertnuhoglu/codes/clojure/clojure-by-example
+					https://learnxinyminutes.com/docs/clojure/
+						~/projects/study/clj/ex/study_clojure/learnclojure.clj
+					http://clojuredocs.org/
+						http://clojuredocs.org/quickref
+					https://github.com/clojure-cookbook/clojure-cookbook
+						/Users/mertnuhoglu/codes/clojure/clojure-cookbook
+					https://learnxinyminutes.com/docs/clojure/
+				api doc
+					devdocs.io
+					http://clojuredocs.org/
+					https://cljdoc.org/
+						/Users/mertnuhoglu/codes/clojure/reagent-0.8.1/api
+					https://clojure.github.io/
+						/Users/mertnuhoglu/codes/clojure/clojure/branch-master
+				links
+					http://www.clojurenewbieguide.com/
+				exercises
+					https://github.com/gigasquid/wonderland-clojure-katas
+				videos
+					https://changelog.com/posts/rich-hickeys-greatest-hits
+				collections
+					http://clojure-doc.org/articles/language/collections_and_sequences.html
+					https://clojure.org/api/cheatsheet
+					https://clojure.org/guides/learn/sequential_colls
+
+
+
