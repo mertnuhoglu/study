@@ -19,7 +19,6 @@ Ref:
 
 		~/projects/study/clj/anki_clojure.md
 
-
 # Questions
 
 ## map doc
@@ -61,7 +60,6 @@ https://clojuredocs.org/clojure.core/map
                    [:g :h :i]])
 
 ;;=> ([:a :d :g] [:b :e :h] [:c :f :i])
-
 ``` 
 
 ## partial doc
@@ -1117,4 +1115,10 @@ Note:
   (:require clojure.stacktrace
             clojure.walk))
 ``` 
+
+## Article: Learn X in Y minutes clojure
+
+https://learnxinyminutes.com/docs/clojure/
+
+Check `~/projects/study/clj/ex/study_clojure/learnclojure.clj`
 

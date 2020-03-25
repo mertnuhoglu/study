@@ -127,8 +127,8 @@ https://clojure.org/guides/weird_characters
   _ - Unused argument
   , - Whitespace character
   #= Reader eval
+	& rest parameters
 ``` 
-
 
 # edn-format/edn: Extensible Data Notation
 
