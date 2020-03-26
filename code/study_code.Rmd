@@ -1,3 +1,4 @@
+
 ---
 title: "Study code"
 date: 2019-07-17T16:02:24+03:00 
@@ -18,7 +19,61 @@ state: wip
 
 ---
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Tools](#tools)
+  - [Tool: doctoc](#tool-doctoc)
+  - [Tool: mosh ssh replacement](#tool-mosh-ssh-replacement)
+  - [nmap: network scanner](#nmap-network-scanner)
+  - [hub: github cli](#hub-github-cli)
+    - [surfingkeys: vim emulation for chrome](#surfingkeys-vim-emulation-for-chrome)
+      - [hint characters](#hint-characters)
+  - [kitty: terminal emulator, alternative to iterm](#kitty-terminal-emulator-alternative-to-iterm)
+  - [ranger: file manager/navigator with preview](#ranger-file-managernavigator-with-preview)
+  - [broot: cli replacement for ls and tree](#broot-cli-replacement-for-ls-and-tree)
+  - [dust: replace du](#dust-replace-du)
+  - [httpie: curl alternative](#httpie-curl-alternative)
+- [Articles](#articles)
+  - [Article: A Surprisingly Common Mistake Involving Wildcards & The Find Command](#article-a-surprisingly-common-mistake-involving-wildcards--the-find-command)
+  - [Article: An Introduction To Data Science On The Linux Command Line](#article-an-introduction-to-data-science-on-the-linux-command-line)
+    - [awk](#awk)
+    - [comm](#comm)
+    - [uniq](#uniq)
+    - [find](#find)
+    - [tsort](#tsort)
+  - [Article: Don Libes' Expect: A Surprisingly Underappreciated Unix Automation Tool](#article-don-libes-expect-a-surprisingly-underappreciated-unix-automation-tool)
+    - [Ex: ls](#ex-ls)
+      - [Logs](#logs)
+        - [error: bash spawn edince garip karakterler çıkıyor](#error-bash-spawn-edince-garip-karakterler-%C3%A7%C4%B1k%C4%B1yor)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Tools
+
+## Tool: doctoc
+
+https://github.com/thlorenz/doctoc
+
+Generates table of contents for markdown files inside local git repository
+
+``` bash
+npm install -g doctoc
+``` 
+
+All files:
+
+``` bash
+doctoc .
+``` 
+
+Specific file
+
+``` bash
+doctoc file.md
+``` 
+
 
 ## Tool: mosh ssh replacement
 
