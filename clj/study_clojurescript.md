@@ -62,6 +62,8 @@ Edit `ex/study_clojurescript/cljs_hello/src/cljs_hello/core.cljs`
 clj --main cljs.main --compile cljs_hello.core --repl
 ``` 
 
+`--main` invokes a clojure function
+
 On repl:
 
 ``` bash
@@ -74,7 +76,7 @@ Step 02:
 
 Update `core.cljs`
 
-on REPL:
+To reload: on REPL:
 
 ``` bash
 (require '[cljs_hello.core :as hello] :reload)
@@ -88,6 +90,14 @@ Make an error:
 (ffirst [1])
 ``` 
 
+Learn options:
+
+``` bash
+clj -m cljs.main --help
+``` 
+
+### Production Builds
+
 Make an optimized build:
 
 ``` bash
@@ -95,20 +105,77 @@ clj -m cljs.main --optimizations advanced -c cljs_hello.core
 
 ``` 
 
-Check build file:
+Check build file: `~/projects/study/clj/ex/study_clojurescript/cljs_hello/main.js`
 
 ``` bash
 $ ls -l out
 .rw-r--r--  95k mertnuhoglu 20 Jan 10:12 main.js
 ``` 
 
-Run web server
+Run web server (no repl)
 
 ``` bash
 clj -m cljs.main --serve
 ``` 
 
 Open localhost:9000
+
+### Running ClojureScript on Node.js
+
+Enable source mapping:
+
+``` bash
+npm install source-map-support
+``` 
+
+Build node project:
+
+``` bash
+clj -m cljs.main --target node --output-to main.js -c cljs_hello.core
+``` 
+
+Run:
+
+``` bash
+node main.js
+  ##> Hello world2!
+``` 
+
+### Node.js REPL
+
+This is similar to browser REPL.
+
+``` bash
+clj -m cljs.main --repl-env node
+``` 
+
+### Dependencies
+
+Ex: React
+
+Edit `~/projects/study/clj/ex/study_clojurescript/cljs_hello/deps.edn`
+
+``` bash
+{:deps {org.clojure/clojurescript {:mvn/version "1.10.520"}
+        cljsjs/react-dom {:mvn/version "16.2.0-3"}}}
+``` 
+
+Edit `~/projects/study/clj/ex/study_clojurescript/cljs_hello/src/cljs_hello/core.cljs`
+
+``` bash
+(ns hello-world.core
+  (:require react-dom))
+
+(.render js/ReactDOM
+  (.createElement js/React "h2" nil "Hello, React!")
+  (.getElementById js/document "app"))
+``` 
+
+Build and run:
+
+``` bash
+clj -m cljs.main -c cljs_hello.core -r
+``` 
 
 ### Running ClojureScript on Node.js
 

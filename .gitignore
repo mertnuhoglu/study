@@ -67,3 +67,7 @@ tags
 
 **/gen/*
 gen/
+
+# cljs project outputs
+**/resources/public/js/compiled/
+
