@@ -49,3 +49,60 @@ Benefits:
 
 - reference document: how to use code
 
+# Article: Official README
+
+https://github.com/bhauman/devcards
+
+## Quick Start
+
+``` bash
+cd ~/projects/study/clj/ex/study_devcards/e01
+lein new devcards hello-world
+cd hello-world
+lein figwheel
+``` 
+
+Open http://localhost:3449/cards.html
+
+Edit `~/projects/study/clj/ex/study_devcards/e01/hello-world/src/hello_world/core.cljs`
+
+## Examples - devcards
+
+``` bash
+git clone https://github.com/bhauman/devcards.git
+cd devcards
+lein figwheel
+``` 
+
+Open http://localhost:3449/devcards/index.html
+
+Check `/Users/mertnuhoglu/codes/clojure/devcards/project.clj`
+
+## Usage
+
+Step 1: Add `:dependencies` into `project.clj`
+
+``` bash
+[org.clojure/clojurescript "1.10.238"]
+[devcards "0.2.5"]
+``` 
+
+Step 2: Make an HTML file to host devcards
+
+Ex: `resources/public/cards.html` such as `~/projects/study/clj/ex/study_devcards/e01/hello-world/resources/public/cards.html`
+
+``` bash
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <link href="/css/example.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <script src="/js/compiled/example.js" type="text/javascript"></script>
+  </body>
+</html>
+``` 
+
+

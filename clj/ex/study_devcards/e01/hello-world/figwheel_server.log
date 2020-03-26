@@ -1,0 +1,8 @@
+[0mCompiling "resources/public/js/compiled/hello_world_devcards.js" from ["src"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/hello_world_devcards.js" in 1.725 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/devcards_out/goog/deps.js
+notifying browser that file changed:  resources/public/js/compiled/devcards_out/cljs_deps.js
+notifying browser that file changed:  resources/public/js/compiled/devcards_out/hello_world/core.js
+[0mCompiling "resources/public/js/compiled/hello_world_devcards.js" from ["src"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/hello_world_devcards.js" in 0.668 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/devcards_out/hello_world/core.js
