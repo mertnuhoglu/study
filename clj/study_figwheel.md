@@ -15,6 +15,23 @@ state: wip
 
 ---
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Article: Quick Start · bhauman/lein-figwheel Wiki](#article-quick-start-%C2%B7-bhaumanlein-figwheel-wiki)
+  - [Error:](#error)
+  - [Creating React counter](#creating-react-counter)
+    - [Resetting atom state](#resetting-atom-state)
+  - [Reloadable side-effect](#reloadable-side-effect)
+  - [Refactor components](#refactor-components)
+  - [Auto-reloading CSS](#auto-reloading-css)
+    - [Error](#error)
+  - [Using the REPL](#using-the-repl)
+    - [Error](#error-1)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Article: Quick Start · bhauman/lein-figwheel Wiki
 
 https://github.com/bhauman/lein-figwheel/wiki/Quick-Start
@@ -98,6 +115,8 @@ https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api/2.3.0
 
 ---
 
+### Continue After Error
+
 ``` bash
 $ ls
 out  target               index.html  project.clj
@@ -131,7 +150,7 @@ lein figwheel
 
 Now open from filesystem: `file:///Users/mertnuhoglu/projects/study/clj/ex/study_figwheel/hello_seymore/index.html`
 
-Now, repl is enabled too in terminal.
+After opening `index.html`, repl is enabled too in terminal.
 
 ``` bash
 Prompt will show when Figwheel connects to your application
@@ -149,6 +168,8 @@ REPL can affect browser:
 Open browser's dev tools
 
 Update `~/projects/study/clj/ex/study_figwheel/hello_seymore/src/hello_seymore/core.cljs`
+
+![Browser console logs updated](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200326222514.png)
 
 Browser console is updated immediately:
 
@@ -195,6 +216,22 @@ Run
 ``` bash
 lein figwheel
 ``` 
+
+Note 01: We use `defonce` for state variables:
+
+``` bash
+(defonce app-state (atom { :likes 0}))
+``` 
+
+This keeps the state after reloading the web page.
+
+Note 02: We use `add-watch` to reload after any updates in `app-state`
+
+``` bash
+(add-watch app-state :on-change (fn [_ _ _ _] (render!)))
+``` 
+
+See https://clojuredocs.org/clojure.core/add-watch
 
 #### Resetting atom state
 
@@ -269,6 +306,46 @@ Edit `~/projects/study/clj/ex/study_figwheel/hello_seymore2/css/style.css`
 
 Change css file. The browser will be updated automatically.
 
+### Serving assets with Figwheel's built-in webserver
+
+Move assets into `resources/public`
+
+``` bash
+cp -R hello_seymore2 hello_seymore3
+cd hello_seymore3
+lein clean
+``` 
+
+``` bash
+mkdir -p resources/public
+mv index.html css resources/public
+``` 
+
+Edit `~/projects/study/clj/ex/study_figwheel/hello_seymore3/project.clj`
+
+Put output compiled cljs into `resources/public`
+
+``` bash
+:clean-targets ^{:protect false} [:target-path "out" "resources/public/cljs"] 
+:cljsbuild {
+						:builds [{:id "dev"
+											:source-paths ["src"]
+											:figwheel true
+											:compiler {:main hello-seymore.core 
+																 ;; add the following 
+																 :asset-path "cljs/out"
+																 :output-to  "resources/public/cljs/main.js"
+																 :output-dir "resources/public/cljs/out"}}]} 
+``` 
+
+Now, edit `~/projects/study/clj/ex/study_figwheel/hello_seymore3/resources/public/index.html`
+
+``` bash
+<script src="cljs/main.js" type="text/javascript"></script>
+``` 
+
+Open http://localhost:3449/index.html
+
 ### Using the REPL
 
 Better repl: `rlwrap` from https://github.com/hanslub42/rlwrap
@@ -297,5 +374,31 @@ Error: No protocol method IReset.-reset! defined for type undefined:
 Sebep: Yanlış namespace yazmışım.
 
 ---
+
+## Article: Interactive Programming in ClojureScript
+
+https://rigsomelight.com/2014/05/01/interactive-programming-flappy-bird-clojurescript.html
+
+### Ex01
+
+``` bash
+git clone https://github.com/bhauman/flappy-bird-demo.git
+cd flappy-bird-demo
+lein figwheel
+``` 
+
+http://localhost:3449/index.html
+
+Edit `/Users/mertnuhoglu/codes/clojure/flappy-bird-demo/src/flappy_bird_demo/core.cljs`
+
+### Ex02: 
+
+``` bash
+lein new figwheel hello-world
+cd hello-world
+lein figwheel
+``` 
+
+http://localhost:3449/index.html
 
 

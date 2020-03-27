@@ -8,13 +8,16 @@
   :plugins [[lein-figwheel "0.5.7"]]
   :clean-targets [:target-path "out"]
   :cljsbuild {
-    :builds [{:id "dev"
-              :source-paths ["src"]
-              :figwheel true
-              :compiler {:main hello-seymore.core } 
-             }]
-   }
-   :figwheel { ;; <-- add server level config here
-     :css-dirs ["css"]
-   }
-)
+              :builds [{
+                        :id "dev"
+                        :source-paths ["src"]
+                        :figwheel true
+                        :compiler {:main hello-seymore.core}}]} 
+   
+   :figwheel {
+              :css-dirs ["css"]})
+     
+   
+
+   
+

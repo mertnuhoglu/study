@@ -233,7 +233,7 @@ cd /Users/mertnuhoglu/projects/study/clj/ex/study_clojurescript/cljs_react01
 clj -m cljs.main -c cljs_react01.core -r
 ``` 
 
-### Project Templates
+## Project Templates
 
 https://clojurescript.org/guides/project-templates
 
@@ -248,32 +248,6 @@ http://clojurescriptmadeeasy.com/
 Quick Start · bhauman/lein-figwheel Wiki
 
 https://github.com/bhauman/lein-figwheel/wiki/Quick-Start
-
-## Article: Interactive Programming in ClojureScript
-
-https://rigsomelight.com/2014/05/01/interactive-programming-flappy-bird-clojurescript.html
-
-### Ex01
-
-``` bash
-git clone https://github.com/bhauman/flappy-bird-demo.git
-cd flappy-bird-demo
-lein figwheel
-``` 
-
-http://localhost:3449/index.html
-
-Edit `/Users/mertnuhoglu/codes/clojure/flappy-bird-demo/src/flappy_bird_demo/core.cljs`
-
-### Ex02: 
-
-``` bash
-lein new figwheel hello-world
-cd hello-world
-lein figwheel
-``` 
-
-http://localhost:3449/index.html
 
 ## Article: Reagent Readme
 

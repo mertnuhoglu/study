@@ -2539,12 +2539,37 @@ Now, we define the event handlers:
      :db (update-in (:db cofx) [:likes post-id] begin-load true)}))
 ``` 
 
+# Article: A new Hiccup compiler for Clojurescript - Andre Rauh - Medium
 
+https://medium.com/@rauh/a-new-hiccup-compiler-for-clojurescript-8a7b63dc5128
 
+> Javascript has JSX, which looks like HTML:
 
+``` bash
+<div id=”foo”>
+  <img src={src} />
+</div>
+``` 
 
+> This would get transpiled to roughly the following Javascript code:
 
+``` bash
+React.createElement("div", {id: "foo"}, 
+         React.createElement("img", {src: src}));
+``` 
 
+> Sablono also ships with an interpreter in case the user forgot to apply the macro to some hiccup.
 
+> We can see it in action by calling macroexpand on the html macro of sablono:
 
+``` bash
+(macroexpand-1 '(html [:a {} (foo)]))
+=> (js/React.createElement "a" nil (sablono.interpreter/interpret (foo)))
+``` 
+
+## Hicada
+
+> You can’t easily refactor
+> If the library offers a new functionality, it’s hard to “opt-in” or “opt-out” of it globally.
+> You cannot easily opt-in for optimizations in production builds (more on that later)
 
