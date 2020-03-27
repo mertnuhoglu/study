@@ -66,17 +66,72 @@ Open http://localhost:3449/cards.html
 
 Edit `~/projects/study/clj/ex/study_devcards/e01/hello-world/src/hello_world/core.cljs`
 
-## Examples - devcards
+## Examples - devcards (Quick Trial)
 
 ``` bash
 git clone https://github.com/bhauman/devcards.git
-cd devcards
+``` 
+
+``` bash
+cd ~/codes/clojure/devcards
 lein figwheel
 ``` 
 
 Open http://localhost:3449/devcards/index.html
 
 Check `/Users/mertnuhoglu/codes/clojure/devcards/project.clj`
+
+### Testing examples
+
+Ex: `devdemos.core`
+
+Check: `~/codes/clojure/devcards/example_src/devdemos/core.cljs`
+
+#### API Documentation
+
+Check `~/codes/clojure/devcards/example_src/devdemos/defcard_api.cljs`
+
+React element:
+
+``` bash
+(defcard react-example (sab/html [:h3 "Example: Rendering a ReactElement"]))
+``` 
+
+Atoms:
+
+``` bash
+(defonce observed-atom
+  (let [a (atom {:time 0})]
+    (js/setInterval (fn [] (swap! observed-atom update-in [:time] inc)) 1000)
+    a))
+
+(defcard atom-observing-card observed-atom {} {:history false})
+``` 
+
+React element with state:
+
+``` bash
+(defonce first-example-state (atom {:count 55}))
+
+(defcard example-counter
+  (fn [data-atom owner]
+    (sab/html [:h3 "Example Counter w/Shared Initial Atom: " (:count @data-atom)]))
+  first-example-state)
+
+(defcard example-incrementer
+  (fn [data-atom owner]
+    (sab/html [:button {:onClick (fn [] (swap! data-atom update-in [:count] inc)) } "increment"]))
+  first-example-state)
+
+``` 
+
+##### Devcard Options
+
+Inspect data:
+
+``` bash
+    :inspect-data false ;; whether to display the data in the card atom
+``` 
 
 ## Usage
 

@@ -367,7 +367,7 @@ rlwrap lein figwheel
 ``` 
 
 ``` bash
-#object[Error Error: No protocol method IReset.-reset! defined for type undefined: ]
+  #object[Error Error: No protocol method IReset.-reset! defined for type undefined: ]
 Error: No protocol method IReset.-reset! defined for type undefined:
 ``` 
 
@@ -401,4 +401,44 @@ lein figwheel
 
 http://localhost:3449/index.html
 
+## Article: Official figwheel README
+
+https://github.com/bhauman/lein-figwheel
+
+### Learning ClojureScript
+
+> If you are brand new to ClojureScript it is highly recommended that you do the ClojureScript Quick Start first. If you skip this you will probably suffer.
+
+> There is a lot to learn when you are first learning ClojureScript, I recommend that you bite off very small pieces at first. Smaller bites than you would take when learning other languages like JavaScript and Ruby.
+
+> Please don't invest too much time trying to set up a sweet development environment, there is a diverse set of tools that is constantly in flux and it's very difficult to suss out which ones will actually help you. If you spend a lot of time evaluating all these options it can become very frustrating. If you wait a while, and use simple tools you will have much more fun actually using the language itself
+
+### Usage
+
+`:dependencies` into `project.clj`
+
+``` bash
+[org.clojure/clojure "1.9.0"]
+[org.clojure/clojurescript "1.10.238"]
+``` 
+
+`:plugins`
+
+``` bash
+[lein-figwheel "0.5.18"]
+``` 
+
+`:cljsbuild`
+
+``` bash
+:cljsbuild {
+	:builds [ { :id "example" 
+							:source-paths ["src/"]
+							:figwheel true
+							:compiler {  :main "example.core"
+													 :asset-path "js/out"
+													 :output-to "resources/public/js/example.js"
+													 :output-dir "resources/public/js/out" } } ]
+}
+``` 
 

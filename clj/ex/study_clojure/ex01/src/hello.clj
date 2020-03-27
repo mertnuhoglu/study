@@ -12,3 +12,14 @@
 (defn -main []
   (println "Hello world, the time is" (time-str (t/now))))
 
+(defn test []
+  "ali veli
+   neler")
+
+(defn test 
+  [:key val
+
+            :key2 val2
+
+            ]
+  )
