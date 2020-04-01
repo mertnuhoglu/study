@@ -10,10 +10,9 @@ url:
 author: "Mert Nuhoglu"
 output: html_document
 blog: mertnuhoglu.com
-resource_files:
-- 
 path: ~/projects/study/git/study_git_tags.Rmd
 wip: true
+
 ---
 
 <style>
