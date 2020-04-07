@@ -70,4 +70,4 @@ gen/
 
 # cljs project outputs
 **/resources/public/js/compiled/
-
+**/figwheel_server.log

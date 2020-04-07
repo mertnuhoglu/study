@@ -13,11 +13,9 @@
                  
                  ;; need to specify this for sablono
                  ;; when not using devcards
-                 [cljsjs/react "15.3.1-0"]
-                 [cljsjs/react-dom "15.3.1-0"]
-                 #_[org.omcljs/om "1.0.0-alpha46"]
-                 #_[reagent "0.6.0"]]
-                 
+                 [cljsjs/react "16.4.1-0"]
+                 [cljsjs/react-dom "16.4.1-0"]
+                 [reagent "0.8.1"]]
 
   :plugins [[lein-figwheel "0.5.9"]
             [lein-cljsbuild "1.1.5" :exclusions [org.clojure/clojure]]]
@@ -57,6 +55,8 @@
                                    :optimizations :advanced}}]}
 
   :figwheel { :css-dirs ["resources/public/css"]}
+              ;:server-port 3449}
+              ;:server-port 3452}
 
   :profiles {:dev {:dependencies [[binaryage/devtools "0.9.2"]
                                   [figwheel-sidecar "0.5.9"]

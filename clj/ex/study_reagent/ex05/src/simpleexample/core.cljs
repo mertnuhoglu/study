@@ -41,8 +41,8 @@
 
 (defn app []
   [:div
-   [bmi-component]
-   ])
+   [bmi-component]])
+   
 
 (defn ^:export run []
   (rdom/render [app] (js/document.getElementById "app")))

@@ -1,11 +1,18 @@
 (ns devcards_official_examples.core
   (:require
    [devcards_official_examples.headings]
+   [devcards_official_examples.bmi]
+   [devcards_official_examples.testing]
+
    [sablono.core :as sab :include-macros true])
   (:require-macros
    [devcards.core :as dc :refer [defcard deftest]]))
 
 (enable-console-print!)
+
+(defcard first-card
+  (sab/html [:div
+             [:h1 "This is your first devcard!"]]))
 
 (defn main []
   ;; conditionally start the app based on whether the #main-app-area
