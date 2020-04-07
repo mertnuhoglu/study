@@ -431,7 +431,7 @@ anki_sheets_2_anki_txt "${tags}"
 anki_mv_media_files_2_collection
 ``` 
 
-### opt02: complete process eng_word,tur_word,image id=g_10821 id=g_10823
+### opt02: complete process eng_word,tur_word,image id=g_10823
 
 Script: `~/projects/anki_english/scripts/anki_process_3`
 

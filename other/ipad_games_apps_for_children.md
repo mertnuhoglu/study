@@ -11,7 +11,7 @@ algodoo: fiziksel cisimlerin simülasyonu
 
 Nonogram: sudoku tarzı mantıksal bulmacalar
 
-Minecraft: sandbox world building
+Minecraft: sandbox dünya inşası
 
 Plague Inc: güzel bir hastalık salgını simülasyonu
 
@@ -31,10 +31,6 @@ Magic Tiles: bir müzik çalma oyunu
 
 ### Eğlencelik Oyunlar
 
-Stickman Hook: çubuk adam oyunu
-
-Bowmasters: ok atma oyunu. robota karşı.
-
 Stampede: hayvandan hayvana atlama ve hayvan keşfi
 
 Polytopia: strateji oyunu (civilization tarzı)
@@ -53,9 +49,13 @@ Stencil Art: sprey boya ile resim çizimi
 
 Stickfight: Çubuk adam kavgası
 
-Paper.io: Top olarak doğuyorsun, kendi alanını büyütmeye çalışıyorsun, agar.io tarzı
-
 The Archers: ok atma oyunu. bir sürü adama karşı.
+
+Stickman Hook: çubuk adam oyunu
+
+Bowmasters: ok atma oyunu. robota karşı.
+
+Paper.io: Top olarak doğuyorsun, kendi alanını büyütmeye çalışıyorsun, agar.io tarzı
 
 slither.io: agar.io tarzı kurt yemece
 
@@ -79,6 +79,14 @@ Alphabet Tracing: harf çizmece
 
 ### Eğlencelik Oyunlar
 
+Little Police: polisiye, hırsız kim dedektiflik
+
+Hoopa City: dondurma yapmaca, küçük şehir yapmaca, doktorculuk vs.
+
+Dr. Panda: Hoopa City benzeri meslek oyunları
+
+Pango: hayvanat bahçesi, tren şehri, oyun parkı, lunapark vs.
+
 Pepi: köpek banyosu, dotor, araba sürmece, ağaç vs. 
 
 Color Number: sayılarla boyamaca
@@ -87,15 +95,7 @@ wooow kız oyunları: kurabiye yapma, eksik parça bulma, sınıflandırma, sakl
 
 Bimi Boo: resim boyamaca
 
-Hoopa City: dondurma yapmaca, küçük şehir yapmaca, doktorculuk vs.
-
-Dr. Panda: Hoopa City benzeri meslek oyunları
-
-Pango: hayvanat bahçesi, tren şehri, oyun parkı, lunapark vs.
-
 Lego Duplo: lego duplo oyuncakları
-
-Little Police: polisiye, hırsız takibi
 
 Creationary: lego birleştirmece
 
