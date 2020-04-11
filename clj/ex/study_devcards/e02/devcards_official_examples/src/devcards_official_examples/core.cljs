@@ -1,7 +1,18 @@
 (ns devcards_official_examples.core
   (:require
    [devcards_official_examples.headings]
+   [devcards_official_examples.mkdn-pprint-source]
    [devcards_official_examples.bmi]
+   [devcards_official_examples.bmi01]
+   [devcards_official_examples.bmi02]
+   [devcards_official_examples.bmi03]
+   [devcards_official_examples.bmi04]
+   [devcards_official_examples.bmi04b]
+   [devcards_official_examples.bmi04c]
+   [devcards_official_examples.bmi04d]
+   [devcards_official_examples.bmi04e]
+   [devcards_official_examples.bmi04f]
+   [devcards_official_examples.bmi04g]
    [devcards_official_examples.testing]
 
    [sablono.core :as sab :include-macros true])

@@ -1602,6 +1602,12 @@ https://github.com/day8/re-frame/blob/master/docs/CodeWalkthrough.md
 
 Follow `~/codes/clojure/re-frame/examples/simple/README.md`
 
+``` bash
+lein do clean, shadow watch client
+``` 
+
+Open `http://localhost:8280/example.html`
+
 Check `~/codes/clojure/re-frame/examples/simple/src/simple/core.cljs`
 
 # Article: Todomvc reframe

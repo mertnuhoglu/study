@@ -4,6 +4,7 @@
 (defn foo
   "I don't do a whole lot."
   [x]
+  (println "Testing")
   (println x "Hello, World!"))
 
 (def m {:a 1 :b 2})

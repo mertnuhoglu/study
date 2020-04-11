@@ -1,4 +1,4 @@
-(defproject devcards_official_examples "0.1.0-SNAPSHOT"
+(defproject lein01 "0.1.0-SNAPSHOT"
   :description "FIXME: write this!"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -13,10 +13,11 @@
                  
                  ;; need to specify this for sablono
                  ;; when not using devcards
-                 [cljsjs/react "16.4.1-0"]
-                 [cljsjs/react-dom "16.4.1-0"]
-                 [reagent "0.8.1"]]
-                 
+                 [cljsjs/react "15.3.1-0"]
+                 [cljsjs/react-dom "15.3.1-0"]
+                 #_[org.omcljs/om "1.0.0-alpha46"]
+                 #_[reagent "0.6.0"]]
+
 
   :plugins [[lein-figwheel "0.5.9"]
             [lein-cljsbuild "1.1.5" :exclusions [org.clojure/clojure]]]
@@ -35,24 +36,24 @@
                                    ;; started and complied your application.
                                    ;; Comment this out once it no longer serves you.
                                    :open-urls ["http://localhost:3449/cards.html"]}
-                        :compiler { :main       "devcards_official_examples.core"
+                        :compiler { :main       "lein01.core"
                                     :asset-path "js/compiled/devcards_out"
-                                    :output-to  "resources/public/js/compiled/devcards_official_examples_devcards.js"
+                                    :output-to  "resources/public/js/compiled/lein01_devcards.js"
                                     :output-dir "resources/public/js/compiled/devcards_out"
                                     :source-map-timestamp true}}
                        {:id "dev"
                         :source-paths ["src"]
                         :figwheel true
-                        :compiler {:main       "devcards_official_examples.core"
+                        :compiler {:main       "lein01.core"
                                    :asset-path "js/compiled/out"
-                                   :output-to  "resources/public/js/compiled/devcards_official_examples.js"
+                                   :output-to  "resources/public/js/compiled/lein01.js"
                                    :output-dir "resources/public/js/compiled/out"
                                    :source-map-timestamp true}}
                        {:id "prod"
                         :source-paths ["src"]
-                        :compiler {:main       "devcards_official_examples.core"
+                        :compiler {:main       "lein01.core"
                                    :asset-path "js/compiled/out"
-                                   :output-to  "resources/public/js/compiled/devcards_official_examples.js"
+                                   :output-to  "resources/public/js/compiled/lein01.js"
                                    :optimizations :advanced}}]}
 
   :figwheel { :css-dirs ["resources/public/css"]}

@@ -1,0 +1,6 @@
+{:deps
+ {org.clojure/clojure {:mvn/version "1.10.0"}
+  org.clojure/tools.deps.alpha
+                      {:git/url "https://github.com/clojure/tools.deps.alpha.git"
+                       :sha "f6c080bd0049211021ea59e516d1785b08302515"}
+  juxt/crux-core {:mvn/version "RELEASE"}}}
