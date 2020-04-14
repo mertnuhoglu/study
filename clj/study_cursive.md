@@ -94,6 +94,54 @@ Quick documentation `F1`
 
 ![quick documentation](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200413124352.png)
 
+## Structural editing (paredit)
+
+Add shortcut for: `Structural Editing` as `#+s`
+
+Surrounding:
+
+![surround selection on typing quote or brace](https://cursive-ide.com/userguide/images/paredit/wrapping-things.png)
+
+Alternative: `Wrap with...`
+
+`Close ... and newline`: 
+
+``` bash
+(let [x 10^
+			y 20])
+``` 
+
+Press `#+0`, cursor goes to:
+
+``` bash
+(let [x 10
+			y 20]
+	 ^)
+``` 
+
+		slurp		grow the list
+		barf		shrink the list
+		raise		move up the list
+		splice	insert the list to parent
+		split		split the list
+		join		unsplit the list
+
+### Getting around
+
+Navigate > Structural Movement
+
+![structural movement](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200413133600.png)
+
+![structural movement gif](https://cursive-ide.com/userguide/images/paredit/getting-around.png)
+
+Commands:
+
+		Move Forward		#right
+		Move Backward		#left
+		Out of Sexp     #+ arrow
+		Into Sexp
+		Form Down/Up
+
 # Video: Colin Fleming - Cursive - A different type of IDE
 
 ![keywords and their usages in destructurings](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200413094135.png)
@@ -101,10 +149,4 @@ Quick documentation `F1`
 ![autocompletion](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200413103557.png)
 
 Note that, str was not in the current namespace yet.
-
-# Video: Introduction to Clojure - Lecture 1 - Part 2
-
-Send current line to REPL: `#+P`
-
-![repl context menu](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200413122801.png)
 

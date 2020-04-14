@@ -15,5 +15,27 @@ blog: mertnuhoglu.com
 
 # Issues
 
-Search Everywhere: `++` `Shift+Shift`
+## Most important commands:
+
+01. Search Everywhere: `++` `Shift+Shift`
+
+02. Find Action: `#a`
+
+It is like Osx Spotlight.
+
+03. Navigating Tool Windows
+
+`#a `> Tool Windows
+
+Add shortcut for REPL: Preferences > Keymap > Tool Windows > REPL > .`#0`
+
+04. Extend Selection `!up`
+
+Shring Selection `!down`
+
+05. Define a shortcut for a command inside `Find Actions` dialog by `!enter`
+
+## Get used to these commands:
+
+Switcher `#s`
 
