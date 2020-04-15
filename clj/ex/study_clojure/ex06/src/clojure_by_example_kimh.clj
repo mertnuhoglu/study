@@ -37,7 +37,7 @@ true
       b 20]
   (+ 10 20))
 
-(def def-bindings "are global")
+(d f def-bindings "are global")
 
 (defn a-function
   [name]
@@ -51,6 +51,8 @@ true
 (meta (var documented))
 (meta #'documented)
 
+;; Anonymous functions
+
 (fn [] (str ""))
 (def anon-function (fn [] (str "")))
 (anon-function)
@@ -61,7 +63,91 @@ true
 (let [multiple-args #(+ %1 %2)]
   (multiple-args 50 20))
 
+;; Higher-order-functions
+
 (defn higher-order-function [fun]
   (fun 10))
 (higher-order-function inc)
+
+(defn closure [outer-arg] #(inc outer-arg))
+(def outer (closure 20))
+(outer)
+
+;; Namespaces
+
+(in-ns 'user)
+(outer) ; unable to resolve symbol
+
+(in-ns 'clojure_by_example_kimh)
+(outer)
+
+(in-ns 'user)
+(require 'clojure_by_example_kimh)
+(clojure_by_example_kimh/outer)
+
+(require '[clojure_by_example_kimh :as cbe])
+(cbe/outer)
+
+;; Control Flow
+
+(if (< 3 5)
+  "then"
+  "else")
+
+(if-let [a nil]
+  "then"
+  "else")
+
+(if-let [a 0]
+  "then"
+  "else")
+
+(when true "10")
+(when-let [a []] "then")
+(when-let [a false] "then")
+
+(let [n 2]
+  (case n
+    1 "a"
+    2 "b"
+    "other"))
+
+(let [n 3]
+  (cond
+    (< n 3) "a"
+    (< n 5) "b"
+    :else "other"))
+
+(let [n 2]
+  (condp < n
+    1 "a"
+    3 "b"
+    "else"))
+
+;; Boolean
+
+(boolean false)
+(boolean nil)
+(boolean 0)
+(boolean [])
+(boolean :a)
+
+;; Strings
+
+(str "join " "strings")
+(str "there is no " "string interpolation")
+
+(format "%s %s" "this is" "me")
+
+;; Numbers
+
+(/ 4 3)
+(* (/ 4 3) 3)
+(max 1 2 3)
+(mod 3 2)
+
+;; Lists
+
+'(1 2 3)
+(conj '(1 2) 3)
 
