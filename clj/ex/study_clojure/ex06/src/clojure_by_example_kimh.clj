@@ -1,7 +1,7 @@
 (ns clojure_by_example_kimh
   (:require [clojure.string :as str]))
 
-; Most codes taken from https://github.com/kimh/clojure-by-example/blob/master/source/index.html.md
+; Most codes taken or adapted from https://github.com/kimh/clojure-by-example/blob/master/source/index.html.md
 
 (println "merhaba")
 
@@ -19,7 +19,7 @@ true
 
 (type 'quoted-symbols-are-not-evaluated)
 
-(unresolved-symbol-error)
+(unresolved-symbol-error) ;; error
 
 (let [binds "a value to a local name"] (str binds))
 
@@ -37,7 +37,7 @@ true
       b 20]
   (+ 10 20))
 
-(d f def-bindings "are global")
+(def def-bindings "are global")
 
 (defn a-function
   [name]
@@ -120,23 +120,22 @@ true
 
 (let [n 2]
   (condp < n
-    1 "a"
-    3 "b"
+    3 "a"
+    5 "b"
     "else"))
 
 ;; Boolean
 
 (boolean false)
 (boolean nil)
-(boolean 0)
-(boolean [])
+(boolean 0) ; truthy
+(boolean []) ; truthy
 (boolean :a)
 
 ;; Strings
 
 (str "join " "strings")
-(str "there is no " "string interpolation")
-
+(str "no " "string interpolation" " like ${message}")
 (format "%s %s" "this is" "me")
 
 ;; Numbers

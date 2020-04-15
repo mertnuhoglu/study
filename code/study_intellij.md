@@ -39,3 +39,7 @@ Shring Selection `!down`
 
 Switcher `#s`
 
+# Tool: Intellimacs: spacemacs like keybindings
+
+Ref: `~/projects/study/code/study_intellij_ideavim.md`
+
