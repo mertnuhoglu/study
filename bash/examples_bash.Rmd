@@ -1085,4 +1085,15 @@ echo $TERM
 mv photo/2020/01/01/{IMG,img}0001.jpeg
 ``` 
 
+### vidir: batch rename with vim
+
+``` bash
+❯ touch a b c   
+
+❯ vidir
+
+❯ ls                
+a  d  e
+``` 
+
 
