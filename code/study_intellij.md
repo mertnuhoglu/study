@@ -15,6 +15,10 @@ blog: mertnuhoglu.com
 
 # Issues
 
+## Commands
+
+		! SPC		Quick definition
+
 ## Most important commands:
 
 01. Search Everywhere: `++` `Shift+Shift`
@@ -34,6 +38,13 @@ Add shortcut for REPL: Preferences > Keymap > Tool Windows > REPL > .`#0`
 Shring Selection `!down`
 
 05. Define a shortcut for a command inside `Find Actions` dialog by `!enter`
+
+https://www.jetbrains.com/help/idea/mastering-keyboard-shortcuts.html
+
+		++		Search Everywhere
+		!Enter		intention actions
+		#+enter		complete current statement
+		!Up/dn		extend/shrink selection
 
 ## Get used to these commands:
 

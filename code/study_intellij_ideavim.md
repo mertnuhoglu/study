@@ -25,6 +25,8 @@ Action list: https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
 :actionlist [pattern]
 ``` 
 
+Check `~/gdrive/mynotes/content/fork/intellij_actionlist.txt`
+
 ## Tool: Intellimacs
 
 Spacemacs key bindings for IntelliJ
@@ -69,24 +71,25 @@ https://github.com/MarcoIeni/intellimacs/blob/master/docs/KEYBINDINGS.org
 
 SPC: prefix
 
-		b b		Recent files
-		b d		Buffer delete (close tab)
+		b b		Recent files	Recent files	#e
+		b d		Buffer delete (close tab)	Close	#w
 		b n		Next tab
 		b p		Prev tab
-		b x		Close window
+		b x		Close window	Close Active Tab	^+f4
 
-		c p		Comment paragraph
-		c l		Comment line
+		c p		Comment paragraph	comment with block comment
+		c l		Comment line	Comment with Line Comment	#/	cc
 
 		e l		List errors
-		e n		next error
+		e n		next error	Next Highlighted Error	F2
+		e p		prev error	Previous Highlighted Error	+F2
 
 		f e d		Settings
 		f e R		reload ideavimrc
-		f b			show bookmarks
-		f F			Find files
-		f r			Recent files
-		f y y		Copy file path
+		f b			show bookmarks	Show Bookmarks	#F3
+		f F			Find files	Go to File	#+o
+		f r			Recent files	Recent files	#e
+		f y y		Copy file path	Copy Paths	#+c
 
 		i s			insert snippet
 
@@ -123,7 +126,7 @@ SPC: prefix
 
 		R c			run class
 		R k			kill application
-		R s			seect configuration and run
+		R s			select configuration and run	Run...	^!r
 
 		s E			search everywhere
 		s f			search in current file

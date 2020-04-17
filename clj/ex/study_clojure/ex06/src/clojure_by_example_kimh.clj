@@ -149,4 +149,19 @@ true
 
 '(1 2 3)
 (conj '(1 2) 3)
+(nth '(3 5 2) 1)
+(count '(5 3))
 
+;; Vectors
+
+[3 2 5]
+(conj [4 1] 7)
+(nth [3 2] 0)
+(first [5 2])
+(second [5 2])
+(last [2 7 1])
+(.indexOf [3 5 7] 5)
+
+;; Sets
+
+#{1 2 3}
