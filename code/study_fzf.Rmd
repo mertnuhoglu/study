@@ -17,6 +17,12 @@ path: ~/projects/study/bash/study_fzf.Rmd
 state: wip
 ---
 
+# Issues
+
+`/` shortcut:
+
+cd ile klasörleri dolaşırken `/` tuşuna basınca, otomatik olarak o klasörü tamamlayıp içindeki klasörleri listeler.
+
 # Articles
 
 ## Article01: Turn your fzf into a live REPL
