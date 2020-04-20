@@ -109,4 +109,17 @@ noremap <F15> :VoomToggle markdown<CR>
 inoremap <M-BS>	<ESC>db
 ``` 
 
- 
+### session oluşturma
+
+``` vim
+:mks ~/.vim/sessions/rooster.vim
+``` 
+
+``` vim
+:source ~/.vim/sessions/rooster.vim
+``` 
+
+``` bash
+vim -S ~/.vim/sessions/rooster.vim
+``` 
+

@@ -15,9 +15,14 @@ blog: mertnuhoglu.com
 
 # Issues
 
-## Commands
+## Quickstart
 
-		! SPC		Quick definition
+Ref: `compatible keybindings: my vim and intellij <url:/Users/mertnuhoglu/.ideavimrc#tn=compatible keybindings: my vim and intellij >`
+
+## Refcard Commands
+
+		| ! SPC | Quick definition |
+		| ^^    | Run anything     |
 
 ## Most important commands:
 
@@ -49,6 +54,14 @@ https://www.jetbrains.com/help/idea/mastering-keyboard-shortcuts.html
 ## Get used to these commands:
 
 Switcher `#s`
+
+## Select Popups
+
+		| Tool Windows        |
+		| Editor Color Scheme |
+		| Recent Files        |
+		| Recent Locations    |
+		| Quick Switch Scheme |
 
 # Tool: Intellimacs: spacemacs like keybindings
 
