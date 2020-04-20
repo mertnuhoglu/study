@@ -790,6 +790,12 @@ ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
 		"${output_mp4}" 
 ``` 
 
+#### trim audio/video file
+
+``` bash
+ffmpeg -i file.mkv -ss 00:00:20 -to 00:00:40 -c copy file-2.mkv
+``` 
+
 ### git init project from local non-empty directory
 
 01: create a new repo in github
