@@ -1,0 +1,2556 @@
+{
+	"div": {
+		"div": {
+			"div": [
+				{
+					"div": [
+						{
+							"button": {
+								"i": {
+									"_class": "fa fa-download download-icon"
+								},
+								"span": {
+									"_class": "tooltiptext",
+									"__text": "Download"
+								},
+								"_type": "button",
+								"_class": "btn btn-default",
+								"__text": "Download Full Model PDF"
+							},
+							"_class": "tooltip download-model"
+						},
+						{
+							"div": [
+								{
+									"button": {
+										"_type": "button",
+										"_class": "btn btn-default",
+										"__text": "Overview"
+									},
+									"_class": "download-model"
+								},
+								{
+									"button": {
+										"_type": "button",
+										"_class": "btn btn-default",
+										"__text": "Appendices"
+									},
+									"_class": "download-model"
+								},
+								{
+									"button": {
+										"_type": "button",
+										"_class": "btn btn-default",
+										"__text": "Release Notes"
+									},
+									"_class": "download-model"
+								}
+							],
+							"_class": "view-group-matter-button-area"
+						}
+					],
+					"_class": "view-group-matter-button-area"
+				},
+				{
+					"div": {
+						"div": {
+							"svg": {
+								"path": {
+									"_d": "M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"
+								},
+								"_xmlns": "http://www.w3.org/2000/svg",
+								"_viewBox": "0 0 448 512"
+							},
+							"_class": "search-description",
+							"__text": "Development\n Level \n3\n (\nNo context-specific information added\n)"
+						},
+						"_class": "search-filter-row"
+					},
+					"_class": "search-filter-bar current-filters"
+				},
+				{
+					"div": [
+						{
+							"div": [
+								{
+									"button": {
+										"i": {
+											"_class": "fa fa-download"
+										},
+										"_type": "button",
+										"_class": "button btn btn-default",
+										"__text": "Download Domain View PDF"
+									},
+									"_class": "button-container"
+								},
+								{
+									"div": [
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Causal Analysis and Resolution",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-8"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-0-9"
+										},
+										{
+											"div": {
+												"span": "CAR 1.1 Identify and address causes of selected outcomes.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-1-117"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-0-10"
+										},
+										{
+											"div": {
+												"span": "CAR 2.1 Select outcomes for analysis.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-3-118"
+										},
+										{
+											"div": {
+												"span": "CAR 2.2 Analyze and address causes of outcomes.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-3-119"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-0-11"
+										},
+										{
+											"div": {
+												"span": "CAR 3.1 Determine root causes of selected outcomes by following an organizational process.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-6-120"
+										},
+										{
+											"div": {
+												"span": "CAR 3.2 Propose actions to address identified root causes.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-6-121"
+										},
+										{
+											"div": {
+												"span": "CAR 3.3 Implement selected action proposals.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-6-122"
+										},
+										{
+											"div": {
+												"span": "CAR 3.4 Record root cause analysis and resolution data.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-6-123"
+										},
+										{
+											"div": {
+												"span": "CAR 3.5 Submit improvement proposals for changes proven to be effective.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-6-124"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Configuration Management",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-3"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-12-7"
+										},
+										{
+											"div": {
+												"span": "CM 1.1 Perform version control.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-13-10"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-12-8"
+										},
+										{
+											"div": {
+												"span": "CM 2.1 Identify items to be placed under configuration management.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-15-136"
+										},
+										{
+											"div": {
+												"span": "CM 2.2 Develop, keep updated, and use a configuration and change management system.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-15-137"
+										},
+										{
+											"div": {
+												"span": "CM 2.3 Develop or release baselines for internal use or for delivery to the customer.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-15-138"
+										},
+										{
+											"div": {
+												"span": "CM 2.4 Manage changes to the items under configuration management.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-15-139"
+										},
+										{
+											"div": {
+												"span": "CM 2.5 Develop, keep updated, and use records describing items under configuration management.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-15-140"
+										},
+										{
+											"div": {
+												"span": "CM 2.6 Perform configuration audits to maintain the integrity of configuration baselines, changes, and content of the configuration management system.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-15-141"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Decision Analysis and Resolution",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-9"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-22-14"
+										},
+										{
+											"div": {
+												"span": "DAR 1.1 Define and record the alternatives.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-23-128"
+										},
+										{
+											"div": {
+												"span": "DAR 1.2 Make and record the decision.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-23-129"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-22-15"
+										},
+										{
+											"div": {
+												"span": "DAR 2.1 Develop, keep updated, and use rules to determine when to follow a recorded process for criteria-based decisions.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-26-130"
+										},
+										{
+											"div": {
+												"span": "DAR 2.2 Develop criteria for evaluating alternatives.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-26-131"
+										},
+										{
+											"div": {
+												"span": "DAR 2.3 Identify alternative solutions.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-26-132"
+										},
+										{
+											"div": {
+												"span": "DAR 2.4 Select evaluation methods.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-26-133"
+										},
+										{
+											"div": {
+												"span": "DAR 2.5 Evaluate and select solutions using criteria and methods.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-26-134"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-22-16"
+										},
+										{
+											"div": {
+												"span": "DAR 3.1 Develop, keep updated, and use a description of role-based decision authority.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-32-135"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Estimating",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-1"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-34-1"
+										},
+										{
+											"div": {
+												"span": "EST 1.1 Develop high-level estimates to perform the work.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-35-1"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-34-2"
+										},
+										{
+											"div": {
+												"span": "EST 2.1 Develop, keep updated, and use the scope of what is being estimated.",
+												"_class": "clickable tree-item indent3 selected"
+											},
+											"_name": "Practice-37-2"
+										},
+										{
+											"div": {
+												"span": "EST 2.2 Develop and keep updated estimates for the size of the solution.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-37-3"
+										},
+										{
+											"div": {
+												"span": "EST 2.3 Based on size estimates, develop and record effort, duration, and cost estimates and their rationale for the solution.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-37-4"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-34-3"
+										},
+										{
+											"div": {
+												"span": "EST 3.1 Develop and keep updated a recorded estimation method.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-41-6"
+										},
+										{
+											"div": {
+												"span": "EST 3.2 Use the organizational measurement repository and process assets for estimating work.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-41-74"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Governance",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-23"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-44-55"
+										},
+										{
+											"div": {
+												"span": "GOV 1.1 Senior management identifies what is important for doing the work and defines the approach needed to accomplish the objectives of the organization.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-45-188"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-44-56"
+										},
+										{
+											"div": {
+												"span": "GOV 2.1 Senior management defines, keeps updated, and communicates organizational directives for process implementation and improvement based on organization needs and objectives.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-47-189"
+										},
+										{
+											"div": {
+												"span": "GOV 2.2 Senior management ensures resources and training are provided for developing, supporting, performing, improving, and evaluating adherence to expected processes.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-47-190"
+										},
+										{
+											"div": {
+												"span": "GOV 2.3 Senior management identifies their information needs, and uses the collected information to provide governance and oversight of effective process implementation and improvement.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-47-191"
+										},
+										{
+											"div": {
+												"span": "GOV 2.4 Senior management holds people accountable for adhering to organization directives and achieving process implementation and improvement objectives.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-47-192"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-44-57"
+										},
+										{
+											"div": {
+												"span": "GOV 3.1 Senior management ensures that measures supporting objectives throughout the organization are collected, analyzed, and used.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-52-193"
+										},
+										{
+											"div": {
+												"span": "GOV 3.2 Senior management ensures that competencies and processes are aligned with the objectives of the organization.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-52-194"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Implementation Infrastructure",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-24"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-55-59"
+										},
+										{
+											"div": {
+												"span": "II 1.1 Perform processes that address the intent of the Level 1 practices.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-56-196"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-55-60"
+										},
+										{
+											"div": {
+												"span": "II 2.1 Provide sufficient resources, funding, and training for developing and performing processes.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-58-197"
+										},
+										{
+											"div": {
+												"span": "II 2.2 Develop and keep processes updated, and verify they are being followed.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-58-198"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-55-61"
+										},
+										{
+											"div": {
+												"span": "II 3.1 Use organizational processes and process assets to plan, manage, and perform the work.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-61-199"
+										},
+										{
+											"div": {
+												"span": "II 3.2 Evaluate the adherence to and effectiveness of the organizational processes.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-61-200"
+										},
+										{
+											"div": {
+												"span": "II 3.3 Contribute process-related information or process assets to the organization.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-61-201"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Managing Performance and Measurement",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-7"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-65-41"
+										},
+										{
+											"div": {
+												"span": "MPM 1.1 Collect measures and record performance.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-66-165"
+										},
+										{
+											"div": {
+												"span": "MPM 1.2 Identify and address performance issues.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-66-166"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-65-42"
+										},
+										{
+											"div": {
+												"span": "MPM 2.1 Derive and record measurement and performance objectives from selected business needs and objectives and keep them updated.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-69-167"
+										},
+										{
+											"div": {
+												"span": "MPM 2.2  Develop, keep updated, and use operational definitions for measures.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-69-168"
+										},
+										{
+											"div": {
+												"span": "MPM 2.3  Obtain specified measurement data according to the operational definitions.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-69-169"
+										},
+										{
+											"div": {
+												"span": "MPM 2.4  Analyze performance and measurement data according to the operational definitions.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-69-170"
+										},
+										{
+											"div": {
+												"span": "MPM 2.5  Store measurement data, measurement specifications, and analysis results according to the operational definitions.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-69-171"
+										},
+										{
+											"div": {
+												"span": "MPM 2.6 Take actions to address identified issues with meeting measurement and performance objectives.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-69-172"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-65-43"
+										},
+										{
+											"div": {
+												"span": "MPM 3.1  Develop, keep updated, and use organizational measurement and performance objectives traceable to business objectives.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-76-174"
+										},
+										{
+											"div": {
+												"span": "MPM 3.2  Follow organizational processes and standards to develop and use operational definitions for measures and keep them updated.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-76-175"
+										},
+										{
+											"div": {
+												"span": "MPM 3.3  Develop, keep updated, and follow a data quality process.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-76-176"
+										},
+										{
+											"div": {
+												"span": "MPM 3.4 Develop, keep updated, and use the organization's measurement repository.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-76-177"
+										},
+										{
+											"div": {
+												"span": "MPM 3.5 Analyze organizational performance using measurement and performance data to determine performance improvement needs.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-76-178"
+										},
+										{
+											"div": {
+												"span": "MPM 3.6  Periodically communicate performance results to the organization.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-76-179"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Monitor and Control",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-22"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-83-49"
+										},
+										{
+											"div": {
+												"span": "MC 1.1 Record task completions.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-84-90"
+										},
+										{
+											"div": {
+												"span": "MC 1.2 Identify and resolve issues.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-84-91"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-83-50"
+										},
+										{
+											"div": {
+												"span": "MC 2.1  Track actual results against estimates for size, effort, schedule, resources, knowledge and skills, and budget.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-87-92"
+										},
+										{
+											"div": {
+												"span": "MC 2.2  Track the involvement of identified stakeholders and commitments.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-87-93"
+										},
+										{
+											"div": {
+												"span": "MC 2.3  Monitor the transition to operations and support.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-87-94"
+										},
+										{
+											"div": {
+												"span": "MC 2.4  Take corrective actions when actual results differ significantly from planned results and manage to closure.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-87-95"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-83-51"
+										},
+										{
+											"div": {
+												"span": "MC 3.1  Manage the project using the project plan and the project process.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-92-96"
+										},
+										{
+											"div": {
+												"span": "MC 3.2  Manage critical dependencies and activities.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-92-97"
+										},
+										{
+											"div": {
+												"span": "MC 3.3  Monitor the work environment to identify issues.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-92-98"
+										},
+										{
+											"div": {
+												"span": "MC 3.4  Manage and resolve issues with affected stakeholders.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-92-99"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Organizational Training",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-10"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-97-20"
+										},
+										{
+											"div": {
+												"span": "OT 1.1 Train people.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-98-108"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-97-21"
+										},
+										{
+											"div": {
+												"span": "OT 2.1 Identify training needs.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-100-109"
+										},
+										{
+											"div": {
+												"span": "OT 2.2 Train personnel and keep records.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-100-110"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-97-22"
+										},
+										{
+											"div": {
+												"span": "OT 3.1 Develop and keep updated the organization's strategic and short-term training needs.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-103-111"
+										},
+										{
+											"div": {
+												"span": "OT 3.2 Coordinate training needs and delivery between the projects and the organization.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-103-112"
+										},
+										{
+											"div": {
+												"span": "OT 3.3 Develop, keep updated, and follow organizational strategic and short-term training plans.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-103-113"
+										},
+										{
+											"div": {
+												"span": "OT 3.4 Develop, keep updated, and use a training capability to address organizational training needs.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-103-114"
+										},
+										{
+											"div": {
+												"span": "OT 3.5 Assess the effectiveness of the organization's training program.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-103-115"
+										},
+										{
+											"div": {
+												"span": "OT 3.6 Record, keep updated, and use the set of organizational training records.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-103-116"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Peer Reviews",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-13"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-110-29"
+										},
+										{
+											"div": {
+												"span": "PR 1.1  Perform reviews of work products and record issues.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-111-38"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-110-30"
+										},
+										{
+											"div": {
+												"span": "PR 2.1  Develop and keep updated procedures and supporting materials used to prepare for and perform peer reviews.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-113-39"
+										},
+										{
+											"div": {
+												"span": "PR 2.2  Select work products to be peer reviewed.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-113-40"
+										},
+										{
+											"div": {
+												"span": "PR 2.3  Prepare and perform peer reviews on selected work products using established procedures.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-113-41"
+										},
+										{
+											"div": {
+												"span": "PR 2.4  Resolve issues identified in peer reviews.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-113-42"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-110-31"
+										},
+										{
+											"div": {
+												"span": "PR 3.1  Analyze results and data from peer reviews.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-118-43"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Planning",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-2"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-120-4"
+										},
+										{
+											"div": {
+												"span": "PLAN 1.1  Develop a list of tasks.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-121-75"
+										},
+										{
+											"div": {
+												"span": "PLAN 1.2  Assign people to tasks.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-121-76"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-120-5"
+										},
+										{
+											"div": {
+												"span": "PLAN 2.1  Develop and keep updated the approach for accomplishing the work.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-124-77"
+										},
+										{
+											"div": {
+												"span": "PLAN 2.2  Plan for the knowledge and skills needed to perform the work.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-124-78"
+										},
+										{
+											"div": {
+												"span": "PLAN 2.3  Based on recorded estimates, develop and keep the budget and schedule updated.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-124-79"
+										},
+										{
+											"div": {
+												"span": "PLAN 2.4  Plan the involvement of identified stakeholders.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-124-80"
+										},
+										{
+											"div": {
+												"span": "PLAN 2.5  Plan transition to operations and support.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-124-81"
+										},
+										{
+											"div": {
+												"span": "PLAN 2.6  Ensure plans are feasible by reconciling available and estimated resources.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-124-82"
+										},
+										{
+											"div": {
+												"span": "PLAN 2.7  Develop the project plan, ensure consistency among its elements, and keep it updated.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-124-83"
+										},
+										{
+											"div": {
+												"span": "PLAN 2.8  Review plans and obtain commitments from affected stakeholders.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-124-84"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-120-6"
+										},
+										{
+											"div": {
+												"span": "PLAN 3.1  Use  the organization's set of standard processes and tailoring guidelines to develop, keep updated, and follow the project process.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-133-85"
+										},
+										{
+											"div": {
+												"span": "PLAN 3.2  Develop a plan and keep it updated, using the project process, the organization's process assets, and the measurement repository.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-133-86"
+										},
+										{
+											"div": {
+												"span": "PLAN 3.3  Identify and negotiate critical dependencies.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-133-87"
+										},
+										{
+											"div": {
+												"span": "PLAN 3.4  Plan for the project environment and keep it updated based on the organization's standards.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-133-88"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Process Asset Development",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-12"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-138-26"
+										},
+										{
+											"div": {
+												"span": "PAD 1.1 Develop process assets to perform the work.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-139-154"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-138-27"
+										},
+										{
+											"div": {
+												"span": "PAD 2.1 Determine what process assets will be needed to perform the work.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-141-155"
+										},
+										{
+											"div": {
+												"span": "PAD 2.2 Develop, buy, or reuse process assets.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-141-156"
+										},
+										{
+											"div": {
+												"span": "PAD 2.3 Make processes and assets available.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-141-157"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-138-28"
+										},
+										{
+											"div": {
+												"span": "PAD 3.1 Develop, keep updated, and follow a strategy for building and updating process assets.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-145-158"
+										},
+										{
+											"div": {
+												"span": "PAD 3.2 Develop, record, and keep updated a process architecture that describes the structure of the organization's processes and process assets.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-145-159"
+										},
+										{
+											"div": {
+												"span": "PAD 3.3 Develop, keep updated, and make processes and assets available for use.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-145-160"
+										},
+										{
+											"div": {
+												"span": "PAD 3.4 Develop, keep updated, and use tailoring criteria and guidelines for the set of standard processes and assets.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-145-161"
+										},
+										{
+											"div": {
+												"span": "PAD 3.5 Develop, keep updated, and make the organization's process asset library available for use.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-145-162"
+										},
+										{
+											"div": {
+												"span": "PAD 3.6 Develop, keep updated, and make work environment standards available for use.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-145-163"
+										},
+										{
+											"div": {
+												"span": "PAD 3.7 Develop, keep updated, and make organizational measurement and analysis standards available for use.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-145-164"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Process Management",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-4"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-153-23"
+										},
+										{
+											"div": {
+												"span": "PCM 1.1  Develop a support structure to provide process guidance, identify and fix process problems, and continuously improve processes.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-154-142"
+										},
+										{
+											"div": {
+												"span": "PCM 1.2  Appraise the current process implementation and identify strengths and weaknesses.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-154-143"
+										},
+										{
+											"div": {
+												"span": "PCM 1.3  Address improvement opportunities or process issues.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-154-144"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-153-24"
+										},
+										{
+											"div": {
+												"span": "PCM 2.1  Identify improvements to the processes and process assets.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-158-145"
+										},
+										{
+											"div": {
+												"span": "PCM 2.2  Develop, keep updated, and follow plans for implementing selected process improvements.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-158-146"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-153-25"
+										},
+										{
+											"div": {
+												"span": "PCM 3.1  Develop, keep updated, and use process improvement objectives traceable to the business objectives.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-161-147"
+										},
+										{
+											"div": {
+												"span": "PCM 3.2  Identify processes that are the largest contributors to meeting business objectives.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-161-148"
+										},
+										{
+											"div": {
+												"span": "PCM 3.3  Explore and evaluate potential new processes, techniques, methods, and tools to identify improvement opportunities.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-161-149"
+										},
+										{
+											"div": {
+												"span": "PCM 3.4  Provide support for implementing, deploying, and sustaining process improvements.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-161-150"
+										},
+										{
+											"div": {
+												"span": "PCM 3.5  Deploy organizational standard processes and process assets.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-161-151"
+										},
+										{
+											"div": {
+												"span": "PCM 3.6  Evaluate the effectiveness of deployed improvements in achieving process improvement objectives.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-161-152"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Process Quality Assurance",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-5"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-168-46"
+										},
+										{
+											"div": {
+												"span": "PQA 1.1 Identify and address process and work product issues.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-169-25"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-168-47"
+										},
+										{
+											"div": {
+												"span": "PQA 2.1  Develop, keep updated, and follow a quality assurance approach and plan based on historical quality data.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-171-26"
+										},
+										{
+											"div": {
+												"span": "PQA 2.2  Throughout the project, objectively evaluate selected performed processes and work products against the recorded process and applicable standards.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-171-27"
+										},
+										{
+											"div": {
+												"span": "PQA 2.3  Communicate quality and non-compliance issues and ensure their resolution.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-171-28"
+										},
+										{
+											"div": {
+												"span": "PQA 2.4  Record and use results of quality assurance activities.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-171-29"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-168-48"
+										},
+										{
+											"div": {
+												"span": "PQA 3.1  Identify and record opportunities for improvement during quality assurance activities.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-176-30"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Product Integration",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-25"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-178-38"
+										},
+										{
+											"div": {
+												"span": "PI 1.1  Assemble solutions and deliver to the customer.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-179-54"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-178-39"
+										},
+										{
+											"div": {
+												"span": "PI 2.1  Develop, keep updated, and follow an integration strategy.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-181-55"
+										},
+										{
+											"div": {
+												"span": "PI 2.2  Develop, keep updated, and use the integration environment.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-181-56"
+										},
+										{
+											"div": {
+												"span": "PI 2.3  Develop, keep updated, and follow procedures and criteria for integrating solutions and components.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-181-57"
+										},
+										{
+											"div": {
+												"span": "PI 2.4  Confirm, prior to integration, that each component has been properly identified and operates according to its requirements and design.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-181-58"
+										},
+										{
+											"div": {
+												"span": "PI 2.5  Evaluate integrated components to ensure conformance to the solution's requirements and design.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-181-59"
+										},
+										{
+											"div": {
+												"span": "PI 2.6  Integrate solutions and components according to the integration strategy.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-181-60"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-178-40"
+										},
+										{
+											"div": {
+												"span": "PI 3.1  Review and keep updated interface or connection descriptions for coverage, completeness, and consistency throughout the solution's life.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-188-61"
+										},
+										{
+											"div": {
+												"span": "PI 3.2  Confirm, prior to integration, that component interfaces or connections comply with interface or connection descriptions.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-188-62"
+										},
+										{
+											"div": {
+												"span": "PI 3.3  Evaluate integrated components for interface or connection compatibility.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-188-63"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Requirements Development and Management",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-27"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-192-52"
+										},
+										{
+											"div": {
+												"span": "RDM 1.1 Record requirements.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-193-11"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-192-53"
+										},
+										{
+											"div": {
+												"span": "RDM 2.1  Elicit stakeholder needs, expectations, constraints, and interfaces or connections.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-195-12"
+										},
+										{
+											"div": {
+												"span": "RDM 2.2  Transform stakeholder needs, expectations, constraints, and interfaces or connections into prioritized customer requirements.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-195-13"
+										},
+										{
+											"div": {
+												"span": "RDM 2.3  Develop an understanding with the requirements providers on the meaning of the requirements.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-195-14"
+										},
+										{
+											"div": {
+												"span": "RDM 2.4  Obtain commitment from project participants that they can implement the requirements.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-195-15"
+										},
+										{
+											"div": {
+												"span": "RDM 2.5  Develop, record, and maintain bidirectional traceability among requirements and activities or work products.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-195-16"
+										},
+										{
+											"div": {
+												"span": "RDM 2.6  Ensure that plans and activities or work products remain consistent with requirements.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-195-17"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-192-54"
+										},
+										{
+											"div": {
+												"span": "RDM 3.1  Develop and keep requirements updated for the solution and its components.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-202-18"
+										},
+										{
+											"div": {
+												"span": "RDM 3.2  Develop operational concepts and scenarios.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-202-19"
+										},
+										{
+											"div": {
+												"span": "RDM 3.3  Allocate the requirements to be implemented.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-202-20"
+										},
+										{
+											"div": {
+												"span": "RDM 3.4  Identify, develop, and keep updated interface or connection requirements.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-202-21"
+										},
+										{
+											"div": {
+												"span": "RDM 3.5  Ensure that requirements are necessary and sufficient.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-202-22"
+										},
+										{
+											"div": {
+												"span": "RDM 3.6  Balance stakeholder needs and constraints.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-202-23"
+										},
+										{
+											"div": {
+												"span": "RDM 3.7  Validate requirements to ensure the resulting solution will perform as intended in the target environment.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-202-24"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Risk and Opportunity Management",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-6"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-210-17"
+										},
+										{
+											"div": {
+												"span": "RSK 1.1  Identify and record risks or opportunities and keep them updated.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-211-100"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-210-18"
+										},
+										{
+											"div": {
+												"span": "RSK 2.1  Analyze identified risks or opportunities.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-213-101"
+										},
+										{
+											"div": {
+												"span": "RSK 2.2  Monitor identified risks or opportunities and communicate status to affected stakeholders.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-213-102"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-210-19"
+										},
+										{
+											"div": {
+												"span": "RSK 3.1  Identify and use risk or opportunity categories.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-216-103"
+										},
+										{
+											"div": {
+												"span": "RSK 3.2  Define and use parameters for risk or opportunity analysis and handling.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-216-104"
+										},
+										{
+											"div": {
+												"span": "RSK 3.3  Develop and keep updated a risk or opportunity management strategy.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-216-105"
+										},
+										{
+											"div": {
+												"span": "RSK 3.4  Develop and keep updated risk or opportunity management plans.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-216-106"
+										},
+										{
+											"div": {
+												"span": "RSK 3.5  Manage risks or opportunities by implementing planned risk or opportunity management activities.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-216-107"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Supplier Agreement Management",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-20"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-222-62"
+										},
+										{
+											"div": {
+												"span": "SAM 1.1 Develop and record the supplier agreement.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-223-64"
+										},
+										{
+											"div": {
+												"span": "SAM 1.2  Accept or reject the supplier deliverables.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-223-65"
+										},
+										{
+											"div": {
+												"span": "SAM 1.3  Process supplier invoices.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-223-66"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-222-63"
+										},
+										{
+											"div": {
+												"span": "SAM 2.1 Monitor supplier as specified in the supplier agreement and keep agreement updated.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-227-67"
+										},
+										{
+											"div": {
+												"span": "SAM 2.2  Perform activities as specified in the supplier agreement.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-227-68"
+										},
+										{
+											"div": {
+												"span": "SAM 2.3  Verify that the supplier agreement is satisfied before accepting the acquired supplier deliverable.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-227-69"
+										},
+										{
+											"div": {
+												"span": "SAM 2.4  Manage invoices submitted by the supplier according to the supplier agreements.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-227-70"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-222-64"
+										},
+										{
+											"div": {
+												"span": "SAM 3.1  Select technical supplier deliverables for analysis and conduct technical reviews.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-232-71"
+										},
+										{
+											"div": {
+												"span": "SAM 3.2  Select and monitor supplier processes and deliverables based on criteria in the supplier agreement.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-232-72"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Technical Solution",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-26"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-235-35"
+										},
+										{
+											"div": {
+												"span": "TS 1.1 Build solution to meet requirements.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-236-44"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-235-36"
+										},
+										{
+											"div": {
+												"span": "TS 2.1  Design and build a solution to meet requirements.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-238-45"
+										},
+										{
+											"div": {
+												"span": "TS 2.2  Evaluate the design and address identified issues.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-238-46"
+										},
+										{
+											"div": {
+												"span": "TS 2.3  Provide guidance on use of the solution.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-238-47"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-235-37"
+										},
+										{
+											"div": {
+												"span": "TS 3.1  Develop criteria for design decisions.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-242-48"
+										},
+										{
+											"div": {
+												"span": "TS 3.2  Develop alternative solutions for selected components.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-242-49"
+										},
+										{
+											"div": {
+												"span": "TS 3.3  Perform a build, buy, or reuse analysis.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-242-50"
+										},
+										{
+											"div": {
+												"span": "TS 3.4  Select solutions based on design criteria.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-242-51"
+										},
+										{
+											"div": {
+												"span": "TS 3.5  Develop, keep updated, and use information needed to implement the design.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-242-52"
+										},
+										{
+											"div": {
+												"span": "TS 3.6  Design solution interfaces or connections using established criteria.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-242-53"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Verification and Validation",
+												"div": {
+													"i": {
+														"_class": "fa fa-download download-icon"
+													},
+													"span": {
+														"_class": "tooltiptext",
+														"__text": "Download"
+													},
+													"_class": "tooltip"
+												},
+												"_class": "clickable tree-item indent1"
+											},
+											"_name": "PracticeArea-null-14"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 1",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-249-32"
+										},
+										{
+											"div": {
+												"span": "VV 1.1  Perform verification to ensure the requirements are implemented and record and communicate results.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-250-31"
+										},
+										{
+											"div": {
+												"span": "VV 1.2  Perform validation to ensure the solution will function as intended in its target environment and record and communicate results.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-250-32"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 2",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-249-33"
+										},
+										{
+											"div": {
+												"span": "VV 2.1  Select components and methods for verification and validation.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-253-33"
+										},
+										{
+											"div": {
+												"span": "VV 2.2  Develop, keep updated, and use the environment needed to support verification and validation.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-253-34"
+										},
+										{
+											"div": {
+												"span": "VV 2.3  Develop, keep updated, and follow procedures for verification and validation.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-253-35"
+										},
+										{
+											"div": {
+												"i": {
+													"_class": "fa fa-folder-open"
+												},
+												"span": "Level 3",
+												"_class": "clickable tree-item indent2"
+											},
+											"_name": "PracticeGroup-249-34"
+										},
+										{
+											"div": {
+												"span": "VV 3.1  Develop, keep updated, and use criteria for verification and validation.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-257-36"
+										},
+										{
+											"div": {
+												"span": "VV 3.2  Analyze and communicate verification and validation results.",
+												"_class": "clickable tree-item indent3"
+											},
+											"_name": "Practice-257-37"
+										}
+									],
+									"_class": "tree-container"
+								}
+							],
+							"_id": "treeSidebar",
+							"_class": "content-sidebar",
+							"_data-hint_scrollable": "true"
+						},
+						{
+							"div": {
+								"div": {
+									"h3": [
+										"EST 2.1",
+										{
+											"_class": "core-information",
+											"__text": "Required Practice Information"
+										},
+										{
+											"_class": "core-information",
+											"__text": "Explanatory Practice Information"
+										}
+									],
+									"span": [
+										{
+											"h4": "Practice Statement",
+											"p": {
+												"_class": "practice-statement",
+												"__text": "Develop, keep updated, and use the scope of what is being estimated."
+											},
+											"_class": "content-section"
+										},
+										{
+											"h4": "Value",
+											"p": {
+												"_class": "practice-value",
+												"__text": "Ensures the entire solution is addressed which increases the likelihood of meeting objectives and avoiding rework."
+											},
+											"_class": "content-section"
+										},
+										{
+											"h4": "Additional Required Information",
+											"p": {
+												"em": "This section left blank for future content.",
+												"_class": "additional-information"
+											},
+											"_class": "content-section"
+										},
+										{
+											"h4": "Additional Explanatory Information",
+											"p": {
+												"p": [
+													"The scope:",
+													"Use an initial set of requirements and work objectives to form the basis for establishing the scope. Defining and using the scope can help uncover missing or misunderstood requirements, identify risks, and develop more detailed estimates. Inaccurate estimation is often the result of not understanding the scope of the work. Update the scope as the project progresses to address changes."
+												],
+												"ul": {
+													"li": [
+														"Includes the work effort",
+														"Defines the solution to be developed, delivered, or acquired",
+														"Results in the information needed to estimate the size, effort, cost, and duration",
+														"Addresses any resources that must be acquired or will be consumed during the project",
+														"Establishes the work constraints, e.g., what is included and what is not included"
+													],
+													"_type": "disc"
+												},
+												"_class": "practice-additional-explantory-information"
+											},
+											"_class": "content-section"
+										},
+										{
+											"h4": "Example Activities",
+											"p": {
+												"table": {
+													"thead": {
+														"tr": [
+															{
+																"td": [
+																	{
+																		"p": {
+																			"strong": "Example Activities"
+																		}
+																	},
+																	{
+																		"p": {
+																			"strong": "Further Explanation"
+																		}
+																	}
+																]
+															},
+															{
+																"td": [
+																	{
+																		"p": "Review requirements and objectives with stakeholders to determine scope."
+																	},
+																	{
+																		"p": {
+																			"em": ""
+																		}
+																	}
+																]
+															}
+														]
+													},
+													"_cellspacing": "0",
+													"_cellpadding": "0"
+												},
+												"_class": "practice-example-work-products"
+											},
+											"_class": "content-section"
+										},
+										{
+											"h4": "Example Work Products",
+											"p": {
+												"table": {
+													"thead": {
+														"tr": [
+															{
+																"td": [
+																	{
+																		"p": {
+																			"strong": "Example Work Products"
+																		}
+																	},
+																	{
+																		"p": {
+																			"strong": "Further Explanation"
+																		}
+																	}
+																]
+															},
+															{
+																"td": [
+																	{
+																		"p": "List of tasks and activities or Work Breakdown Structure (WBS)"
+																	},
+																	{
+																		"p": "To more accurately estimate costs, include identified resources for tasks and durations."
+																	}
+																]
+															},
+															{
+																"td": [
+																	{
+																		"p": "List of needed resources"
+																	},
+																	{
+																		"p": "Includes not just staff, but also other resources needed to accomplish the work, e.g., facilities, acquired solutions, tools."
+																	}
+																]
+															},
+															{
+																"td": [
+																	{
+																		"p": "Work flow diagram"
+																	},
+																	{
+																		"p": "Visualizes how tasks will flow between resources and what conditions allow the sequence to move forward."
+																	}
+																]
+															}
+														]
+													},
+													"_cellspacing": "0",
+													"_cellpadding": "0"
+												},
+												"_class": "practice-example-work-products"
+											},
+											"_class": "content-section"
+										},
+										{
+											"h4": "Related Practice Areas",
+											"ul": {
+												"li": {
+													"span": {
+														"a": {
+															"_class": "clickable related-practice-area-link",
+															"__text": "Requirements Development and Management\n (\nRDM\n)"
+														}
+													}
+												}
+											}
+										}
+									],
+									"_class": "practice-content"
+								},
+								"_class": "content-display dynamic-content"
+							},
+							"_id": "treeContentDisplay",
+							"_class": "content-display-container",
+							"_data-hint_scrollable": "true",
+							"_style": ""
+						}
+					],
+					"_class": "content-container"
+				},
+				{
+					"p": {
+						"span": {
+							"sup": "®",
+							"_class": "no-break",
+							"__text": "CMMI\n Institute"
+						},
+						"__text": "User may not reproduce, duplicate, copy, sell, resell, assign, transfer, create derivative works of, incorporate in any software or tool, or commercially exploit any portion of the CMMI Content, without express written permission by \n."
+					},
+					"_class": "legal-footer"
+				},
+				""
+			],
+			"_class": "page-content-narrow"
+		},
+		"_class": "page-content "
+	}
+}
