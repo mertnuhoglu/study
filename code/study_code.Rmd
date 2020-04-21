@@ -52,6 +52,54 @@ state: wip
 
 # Tools
 
+## tool: dplyr-cli 
+
+https://github.com/coolbutuseless/dplyr-cli
+
+``` bash
+cd /Users/mertnuhoglu/codes/rr
+git clone https://github.com/coolbutuseless/dplyr-cli
+export PATH="$PATH:$HOME/codes/rr/dplyr-cli"
+``` 
+
+Check `~/codes/rr/dplyr-cli/dplyr`
+
+``` r
+install.packages('docopt')   # CLI description language
+``` 
+
+Check `~/projects/study/logbook/ex/log_20200421/e01/dplyr01.sh`
+
+``` bash
+cat mtcars.csv | dplyr filter -c "mpg == 21"
+  ##> 21,6,160,110,3.9,2.62,16.46,0,1,4,4
+  ##> 21,6,160,110,3.9,2.875,17.02,0,1,4,4
+cat mtcars.csv | dplyr filter -c "mpg < 11"
+``` 
+
+## shell pipe
+
+``` bash
+cat mtcars.csv | \
+   dplyr mutate "cyl2 = 2 * cyl"  | \
+   dplyr filter "cyl == 8" | \
+   dplyr kable
+  ##> |  mpg| cyl|  disp|  hp| drat|    wt|  qsec| vs| am| gear| carb| cyl2|
+  ##> |----:|---:|-----:|---:|----:|-----:|-----:|--:|--:|----:|----:|----:|
+  ##> | 18.7|   8| 360.0| 175| 3.15| 3.440| 17.02|  0|  0|    3|    2|   16|
+``` 
+
+alias'larla kullanım:
+
+``` bash
+cat mtcars.csv | group_by cyl | summarise "mpg = mean(mpg)" | kable
+  ##> | cyl|      mpg|
+  ##> |---:|--------:|
+  ##> |   4| 26.66364|
+  ##> |   6| 19.74286|
+  ##> |   8| 15.10000|
+``` 
+
 ## Tool: doctoc
 
 https://github.com/thlorenz/doctoc
