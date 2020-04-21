@@ -34,6 +34,20 @@ Causal Analysis and Resolution
 			Description
 			Activities
 			Work Products
+	Level 4
+		CAR 4.1 Perform root cause analysis of selected outcomes using statistical and other quantitative techniques.
+			Description
+			Activities
+			Work Products
+		CAR 4.2 Evaluate the effect of implemented actions on process performance using statistical and other quantitative techniques.
+			Description
+			Activities
+			Work Products
+	Level 5
+		CAR 5.1 Use statistical and other quantitative techniques to evaluate other solutions and processes to determine if the resolution should be applied on a broader scale.
+			Description
+			Activities
+			Work Products
 Configuration Management
 	Level 1
 		CM 1.1 Perform version control.
@@ -161,6 +175,11 @@ Governance
 			Description
 			Activities
 			Work Products
+	Level 4
+		GOV 4.1 Senior management ensures that selected decisions are driven by statistical and quantitative analysis related to performance and achievement of quality and process performance objectives.
+			Description
+			Activities
+			Work Products
 Implementation Infrastructure
 	Level 1
 		II 1.1 Perform processes that address the intent of the Level 1 practices.
@@ -246,6 +265,40 @@ Managing Performance and Measurement
 			Activities
 			Work Products
 		MPM 3.6  Periodically communicate performance results to the organization.
+			Description
+			Activities
+			Work Products
+	Level 4
+		MPM 4.1  Use statistical and other quantitative techniques to develop, keep updated, and communicate quality and process performance objectives that are traceable to business objectives.
+			Description
+			Activities
+			Work Products
+		MPM 4.2  Select measures and analytic techniques to quantitatively manage performance to achieve quality and process performance objectives.
+			Description
+			Activities
+			Work Products
+		MPM 4.3  Use statistical and other quantitative techniques to develop and analyze process performance baselines and keep them updated.
+			Description
+			Activities
+			Work Products
+		MPM 4.4  Use statistical and other quantitative techniques to develop and analyze process performance models and keep them updated.
+			Description
+			Activities
+			Work Products
+		MPM 4.5  Use statistical and other quantitative techniques to determine or predict achievement of quality and process performance objectives.
+			Description
+			Activities
+			Work Products
+	Level 5
+		MPM 5.1  Use statistical and other quantitative techniques to ensure that business objectives are aligned with business strategy and performance.
+			Description
+			Activities
+			Work Products
+		MPM 5.2  Analyze performance data using statistical and other quantitative techniques to determine the organization's ability to satisfy selected business objectives and identify potential areas for performance improvement.
+			Description
+			Activities
+			Work Products
+		MPM 5.3  Select and implement improvement proposals, based on the statistical and quantitative analysis of the expected effect of proposed improvements on meeting business, quality, and process performance objectives.
 			Description
 			Activities
 			Work Products
@@ -421,6 +474,11 @@ Planning
 			Description
 			Activities
 			Work Products
+	Level 4
+		PLAN 4.1  Use statistical and other quantitative techniques to develop and keep the project processes updated to enable achievement of the quality and process performance objectives.
+			Description
+			Activities
+			Work Products
 Process Asset Development
 	Level 1
 		PAD 1.1 Develop process assets to perform the work.
@@ -514,6 +572,11 @@ Process Management
 			Activities
 			Work Products
 		PCM 3.6  Evaluate the effectiveness of deployed improvements in achieving process improvement objectives.
+			Description
+			Activities
+			Work Products
+	Level 4
+		PCM 4.1  Use statistical and other quantitative techniques to validate selected performance improvements against proposed improvement expectations, business objectives, or quality and process performance objectives.
 			Description
 			Activities
 			Work Products
@@ -725,6 +788,11 @@ Supplier Agreement Management
 			Description
 			Activities
 			Work Products
+	Level 4
+		SAM 4.1  Select measures and apply analytical techniques to quantitatively manage supplier performance to achieve quality and process performance objectives.
+			Description
+			Activities
+			Work Products
 Technical Solution
 	Level 1
 		TS 1.1 Build solution to meet requirements.
@@ -801,3 +869,4 @@ Verification and Validation
 			Description
 			Activities
 			Work Products
+
