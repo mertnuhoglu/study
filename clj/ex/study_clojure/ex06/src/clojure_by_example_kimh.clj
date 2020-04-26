@@ -411,3 +411,4 @@ g
       d2 (java.util.Date.)]
   (.equals d1 d2))
 
+;; yeni3
