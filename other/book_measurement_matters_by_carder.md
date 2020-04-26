@@ -15,6 +15,8 @@ state: wip
 
 ---
 
+Below are my highlights from the book.
+
 # Book: Measurement matters by Carder.pdf
 
 ## Preface
@@ -378,4 +380,67 @@ On reflection, the site management began to understand that they had always look
 
 ### PROPER USE OF ACCIDENT STATISTICS
 
+It is critical that normal fluctuations of the measure, within the control limits, not be treated as signs that the process has changed. Acting on these random fluctuations as though they represent process changes is called tam- pering. Tampering not only wastes resources but usually makes the perfor- mance of the system worse.
 
+#### Examples of the Use of Control Charts for Recordable Accidents
+
+However, it is not useful to instruct employees to work safely. It is clearly a violation of Dr. Deming’s point 10: Eliminate slogans, exhortations, and targets asking for zero defects or new levels of productivity. Such communications are insulting to workers. The appropriate vehicles for management’s demonstration of sup- port are allocating resources to safety and personal involvement in the improvement process. Telling others to make improvements is not an effec- tive form of personal involvement.
+
+A point fell beyond the upper con- trol limit of the process, or more than 3 standard deviations from the mean. Whenever this occurs, it is very important to try to determine the cause. In Deming’s terminology, this is a special cause; in Shewhart’s, this is an assignable cause.
+
+## Chapter 05: Incident Investigation
+
+The particular approach one takes to incident investigation depends in part on one’s theory of incident causation. Investigations based on Heinrich’s domino theory would seek to find the culprit or circumstance that tipped the first domino. In our experience, a culprit can usually found. The majority of investigations that we have reviewed point to an error, usually an error made by an operator. The prevalence of such findings often leads managers to assert that if they could just get better workers, there would be fewer acci- dents. These findings, in turn, lead them to create motivational programs
+
+A better approach would be to understand the systemic causes of acci- dents. Deming asserted that at least 85 percent of defects, including acci- dents, derive from the system not from individuals.
+
+In our experience, methods like the causal-tree analysis, management oversight and risk tree (MORT), and the fishbone diagram are all suitable for
+
+### Reliability
+
+One of us has trained over 100 groups in the causal-tree investigation process. The final step in the training is to break the group into two or three teams and provide them with the same set of facts. Our estimate is that over 90 percent of the teams develop the same basic logic diagram.
+
+#### Who Should Investigate
+
+#### How to Investigate
+
+Type 1: Traditional, informal investigation performed by immediate supervisor
+Type 2: Committee-based investigation using expert judgment to find a credible solution of cause and remedy
+Type 3: Multiple-cause, systems-oriented investigation that focuses on root-cause determination, integrated with an overall process safety-management program
+
+The investigation-system style we prefer is one that uses free-flow logic that documents the relationships among the facts of an event. These are usu- ally referred to as causal-tree diagrams.
+
+Causal tree methods begin with listing facts, followed by constructing a diagram (tree) of the facts following specific logic steps or queries.
+
+The facilitator leads an investigation team to establish a list of facts related to the incident. The team then iden- tifies the end result, the accident, and asks, which of the facts were directly necessary for the end result to have occurred? Then they ask whether that fact was, in and of itself, sufficient to have caused the end result? If the answer to the second question is yes, that fact then becomes the next end result to be analyzed. If the answer is no, that fact was not by itself suffi- cient to have caused the end result.
+
+### Validity
+
+## Chapter 06: Systematic Observation of Behavior
+
+In 1980, Thomas Krause and his associates began the application of applied behavioral analysis to industrial safety.
+
+THE FIRST STEP IN THE OBSERVATION OF BEHAVIOR IS TO DEVELOP
+A LIST OF BEHAVIORS THAT ARE CRITICAL TO SAFE WORK.
+
+The first step is to identify critical behaviors. These are behaviors that are critical to safety. Krause (1997) lists four ways to iden- tify these behaviors: (1) behavioral analysis of injury reports, (2) worker interviews, (3) observation of the work process, and (4) review of work rules, job safety analysis, procedures, and so on. Krause feels that 1 is most impor- tant but is not simple
+
+Krause, like Deming, points out the importance of **operational definitions** as key to any systematic measurement. An operational definition of a behavior is a definition that would allow many different observers to make the same decision as to whether the behavior occurred. For example, if a critical behavior is the wearing of eye protection, you might define it as “wearing eye protection whenever a hazard is present.” This is not a good operational definition. It does not define eye protection. Are glasses enough? Are safety glasses enough? Are side shields required? Nor does it define what it means for a hazard to be present. A better definition would be, “wears safety glasses with side shields whenever present on the factory floor.”
+
+### RELIABILITY
+
+WITH PROPER ATTENTION TO OPERATIONAL DEFINITIONS AND TRAINING OF
+OBSERVERS, THE OBSERVATION CAN BE MADE VERY RELIABLE.
+
+### VALIDITY 
+
+#### Content-Related Validity
+
+THE MANNER IN WHICH THE LIST OF CRITICAL BEHAVIORS IS DEVELOPED
+ENSURES A DEGREE OF CONTENT-BASED VALIDITY.
+
+#### Construct-Related Validity
+
+Here is where the issues become quite complex. A construct is part of a the- ory. Hunger is a construct. It cannot be measured directly.
+
+Krause does not take this position (Skinner's theory rejection position). In his 1996 book, Krause argues that “Deming has overshadowed Skinner.” Whereas Skinner asserted that theories of behavior were scientifically inappropriate, Deming argued that there is no knowledge without theory. According to Deming, the reason for theory is to enable prediction. Although Skinner also sought prediction, he did so in a much more limited sense.
