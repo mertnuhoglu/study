@@ -339,16 +339,16 @@ https://www.spacemacs.org/doc/DOCUMENTATION.org
 
 Mnemonic: 
 
-		b	buffer
-		p	project
-		s	search
-		h help
 		a applications
+		b	buffer
 		e errors
 		f files
 		g git
+		h help
 		j	jump/join/split
 		m major-mode-cmd
+		p	project
+		s	search
 		T UI toggles
 		w windows
 		z zoom
@@ -766,4 +766,7 @@ Toggles
 
 		SPC h t				| helm-spacemacs-help-toggles
 
+# Article: A Package in a league of its own: Helm
+
+http://tuhdo.github.io/helm-intro.html
 

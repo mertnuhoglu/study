@@ -1326,6 +1326,8 @@ https://app.netlify.com/sites/mertnuhoglu/settings/domain#custom-domains
 
 opt02: Netlify DNS
 
+Nameserverları netlify'a yönlendir
+
 netlify > Domain management > 
 
 ### SSL Setup

@@ -1102,4 +1102,12 @@ mv photo/2020/01/01/{IMG,img}0001.jpeg
 a  d  e
 ``` 
 
+### rsync
+
+``` 
+SRC="/Users/mertnuhoglu/d/Dropbox/SHARE-CMMI-Wayne/"
+DEST="/Volumes/Seagate7/dropbox_btg/"
+rsync -nPavz ${SRC} ${DEST}
+rsync -Pavz "${SRC}" "${DEST}"
+``` 
 
