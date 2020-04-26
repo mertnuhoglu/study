@@ -28,6 +28,7 @@ Yapısal geçerlilik: (Ref: `Criterion-Related Validity of Incident-Based Measur
 				Tasnif kalitesi
 					ref: `kms: hiyerarşi manipülasyonu becerisi 20200426 <url:/Users/mertnuhoglu/projects/myrepo/nx/nproduct/nidea/nidea.md#tn=kms: hiyerarşi manipülasyonu becerisi 20200426>`
 			Basit tasarım
+				DRY ilkesi uygulanıyor mu?
 
 Mantık: Süreçin kalitesi ürünün kalitesini belirler. O zaman sürecin kalitesini ölçelim.
 
@@ -35,3 +36,14 @@ Incident Investigation: Bir tane iyi/kötü örneği ele alıp, derinlemesine an
 
 		Mantığını anlamak öncelikli olmalı
 			Amaç şu bu diyagramı çizmek veya insanlardan bilgi toplamak değil
+
+Basit vs kolay farkı:
+
+		Basit: nesnenin bir özelliği
+		Kolay: failin bir özelliği
+		Örnek: Bir program benim için kolaydır, ama kendi iç yapısı karmakarışıktır.
+		
+Fazlandırma
+
+		1. Faz: Nitel olarak bu kriterlere göre ölçüm yaparız
+		2. Faz: Bunları nicel tanımlanabilir hale getiririz
