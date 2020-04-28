@@ -35,5 +35,7 @@ Beğendiğim temalar:
 			bold-light
 			PapayaWhip
 			oceanicnextlight
+			newton-light
+			hub-light
 
 

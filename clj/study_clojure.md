@@ -4,7 +4,7 @@ date: 2019-11-01T14:35:49+03:00
 draft: false
 description: ""
 tags:
-categories: datomic, datalog
+categories: clojure
 type: post
 url:
 author: "Mert Nuhoglu"
