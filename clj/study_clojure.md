@@ -1122,3 +1122,133 @@ https://learnxinyminutes.com/docs/clojure/
 
 Check `~/projects/study/clj/ex/study_clojure/learnclojure.clj`
 
+## Article: Clojure - Datatypes: deftype, defrecord and reify
+
+https://clojure.org/reference/datatypes
+
+### Basics
+
+datatype features: `deftype` `defrecord` `reify`
+
+Used for defining implementations
+
+`reify`: use for instances of the implementations
+
+Abstractions defined by `protocols` or interfaces.
+
+datatype provides 
+
+- a host type (anonymous in `reify`)
+- some structure (implicit closure in `reify`)
+- optional in-type implementations
+
+### deftype and defrecord
+
+They generate compiled bytecode dynamically.
+
+Similar to `defstruct`. Differences:
+
+- unique class
+- proper type
+
+`deftype` vs `defrecord`:
+
+- `deftype` has only constructor as function
+- `defrecord`: implementation of a persisten map
+- `deftype` supports mutable fields
+
+### Why have both deftype and defrecord?
+
+OO programs fall into two distinct categories:
+
+- classes of programming domain such as String, collections
+- classes of application domain such as Employee, Student
+
+For example, `employee.getName()`. You cannot take a generic approach to information processing. 
+
+It results in an explosion of needless specificity.
+
+Information is hidden behind class-specific micro-langauges.
+
+By using defrecord:
+
+- generically manipulable information
+- type-driven polymorphism
+- structural efficiencies of fields
+
+### reify
+
+`reify` :
+
+- defines an anonymous type
+- creates an instance of that type
+- Similar to anonymous inner classes in java
+
+## Article: Clojure - Clojure 1.7 is now available
+
+https://clojure.org/news/2015/06/30/clojure-17
+
+### Transducers:
+
+- into: collect results of transformation
+- sequence: incrementally compute
+- transduce: immediaetly compute
+- eduction: delay computation
+- core.async: through a channel
+
+Existing sequence functions now have a new arity (one fewer argument).
+
+## Article: Clojure - Clojure Governance and How It Got That Way
+
+## Article: Clojure - Clojure core.async Channels
+
+https://clojure.org/news/2013/06/28/clojure-clore-async-channels
+
+Good programs stop communicating with one another. 
+
+This is done via queues: between producers and consumers/processors.
+
+In JVM: 
+
+- thread per queue -> limited queues
+- no block waiting
+
+In JS:
+
+- no threads and no queues
+
+People run away from threads to events/callbacks.
+
+Events complect flow of control. FRP, Rx don't change their fundamental nature.
+
+Objectives of core.async
+
+- Independent threads: via queue-like channels
+- Support both threads and thread pools
+
+### History
+
+Hoare's Communicating Sequential Processes (CSP) -> occam, java csp, go language
+
+@idea: queues ~ stocks. channels ~ flows.
+
+### go blocks and IOC threads
+
+`go` is a macro
+
+Actors?
+
+-  Couple producer with consumer
+
+## Article: Getting Started · clojure/core.async Wiki
+
+https://github.com/clojure/core.async/wiki/Getting-Started
+
+Check `/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/channel01/deps.edn`
+
+Check `~/projects/study/clj/ex/study_clojure/channel01/src/async01.clj`
+
+https://github.com/clojure/core.async/wiki/Pub-Sub
+
+
+

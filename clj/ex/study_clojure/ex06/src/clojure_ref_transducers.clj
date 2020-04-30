@@ -1,7 +1,7 @@
 (ns clojure_ref_transducers
   (:require [clojure.string :as str]))
 
-(filter odd?)
+filter odd?
 
 (def xf
   (comp
@@ -25,4 +25,6 @@
 ;; sequence
 
 (sequence xf (range 5)) ; (2 4)
+
+(reify)
 

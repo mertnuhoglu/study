@@ -55,7 +55,7 @@ seq vs foreach:
 
 Seq interface:
 
-``` 
+``` clojure
 (first coll)
 (rest coll)
 (cons item seq)
@@ -83,7 +83,7 @@ It takes an accumulated result and a new input.
 
 It returns a new accumulated result.
 
-``` 
+``` clojure
 ;; reducing 
 acc, input -> acc
 ;; transducer
@@ -92,7 +92,7 @@ acc, input -> acc
 
 Examples:
 
-``` 
+``` clojure
 (filter odd?)
 (map inc)
 (take 5)
@@ -100,7 +100,7 @@ Examples:
 
 Compose with `comp`
 
-``` 
+``` clojure
 (def xf
   (comp
 	  (filter odd?)
@@ -112,7 +112,7 @@ Compose with `comp`
 
 `transduce` function:
 
-``` 
+``` clojure
 (transduce xform f coll)
 ``` 
 
@@ -120,7 +120,7 @@ Compose with `comp`
 
 `f`: reducing function
 
-``` 
+``` clojure
 (def xf (comp (filter odd?) (map inc)))
 (transduce xf + (range 5))
 ;; => 6
@@ -142,7 +142,7 @@ Based upon `reduce` and `fold`
 
 Core of map looks:
 
-``` 
+``` clojure
 (fn [f1]
   (fn [ret v]
     (f1 ret (f v))))
@@ -156,7 +156,7 @@ Examples:
 
 Reduce:
 
-``` 
+``` clojure
 ;;red is a reducer awaiting a collection
 (def red (comp (r/filter even?) (r/map inc)))
 (reduce + (red [1 1 1 2]))
@@ -165,7 +165,7 @@ Reduce:
 
 Collection result. `into` is a reducer too:
 
-``` 
+``` clojure
 (into [] (r/filter even? (r/map inc [1 1 1 2])))
 ;=> [2 2 2]
 ``` 
@@ -174,21 +174,126 @@ Collection result. `into` is a reducer too:
 
 Reducing function:
 
-``` 
+``` clojure
 (f acc input) -> acc
 ``` 
 
+### Transforming Reducing Functions
+
 A function xf that transforms a reducing fn:
 
-``` 
+``` clojure
 (xf reducing) -> reducing
+``` 
+
+Core collection functions can be expressed such a transformation. 
+
+For example, core of `map`:
+
+``` clojure
+(defn mapping [f]
+  (fn [f1]
+    (fn [result input]
+      (f1 result (f input)))))
+``` 
+
+Note, `f` is `inc` and `f1` is `reducing` function in example:
+
+`(mapping inc)` is an `xf`
+
+`(xf +)` is another reducing function `+'`
+
+``` clojure
+(reduce + 0 (map inc [1 2 3 4]))
+;;becomes
+(reduce ((mapping inc) +) 0 [1 2 3 4])
+``` 
+
+`((mapping inc) +)` Here we operate on the reducing operation rather than the collection.
+
+### Reducers
+
+`map` should take and return logical collections. 
+
+A collection is something that is reducible.
+
+`reduce` uses a protocol `CollReduce` to ask the collection to reduce itself.
+
+``` clojure
+(reduce + 0 (map inc [1 2 3 4]))
+;;becomes
+(reduce + 0 (reducer [1 2 3 4] (mapping inc)))
+``` 
+
+Objective: reducer based code should have same shape as seq based code.
+
+``` clojure
+(defn rmap [f coll]
+  (reducer coll (mapping f)))
+
+(defn rfilter [pred coll]
+  (reducer coll (filtering pred)))
+
+(defn rmapcat [f coll]
+  (reducer coll (mapcatting f)))
+
+(reduce + 0 (rmap inc [1 2 3 4]))
+;=> 14
+
+(reduce + 0 (rfilter even? [1 2 3 4]))
+;=> 6
+
+(reduce + 0 (rmapcat range [1 2 3 4 5]))
+;=> 20
 ``` 
 
 ## Article: Transducers are Coming
 
-https://blog.cognitect.com/blog/2014/8/6/transducers-are-coming
+https://clojure.org/news/2014/08/06/transducers-are-coming
 
 Reducing function transformers: transducers
 
-clojure.com/blog/2012/05/15/anatomy-of-reducer.html
+``` 
+;;reducing function signature
+whatever, input -> whatever
+;;transducer signature
+(whatever, input -> whatever) -> (whatever, input -> whatever)
+``` 
+
+``` 
+;;look Ma, no collection!
+(map f)
+``` 
+
+returns a 'mapping' transducer. 
+
+You can build a 'stack' of transducers using ordinary function composition (comp):
+
+``` 
+(def xform (comp (map inc) (filter even?)))
+(->> aseq (map inc) (filter even?))
+``` 
+
+`comp` is similar to `->>` but independent of source of inputs
+
+### Transducers in action
+
+``` 
+(sequence xform data) ; lazy and only one sequence
+(transduce xform + 0 data) ; a loop
+(into [] xform data) 
+(iteration xform data)
+(chan 1 xform) ; through a core.async channel
+``` 
+
+## Article: Clojure - Higher Order Functions
+
+https://clojure.org/guides/higher_order_functions
+
+Check `/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/clj_higher_order_funs.clj`
+
+## Docs: Partial
+
+https://clojuredocs.org/clojure.core/partial
+
 

@@ -1,0 +1,1 @@
+(ns doc_partial)
