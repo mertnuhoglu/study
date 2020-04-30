@@ -14,6 +14,8 @@ Plug 'rainglow/vim'
 Beğendiğim temalar:
 
 		dark
+			oceanicnext
+			sierra
 			gloom-contrast
 			allure-contrast
 			monokai
@@ -21,11 +23,7 @@ Beğendiğim temalar:
 			one
 			onedark
 			nordisk
-			oceanicnext
-			papayawhip
 			pyte
-			sierra
-			papercolor
 			lightning
 			termschool
 			nord
