@@ -296,4 +296,9 @@ Check `/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/clj_highe
 
 https://clojuredocs.org/clojure.core/partial
 
+## cljs and js comparison
+
+https://gist.github.com/jacekschae/ddffcdcd981ecf80dbe66fbef8b54719
+
+Check `/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/cljs_js_comparison.cljs`
 

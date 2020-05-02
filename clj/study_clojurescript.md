@@ -15,18 +15,20 @@ state: wip
 
 ---
 
-<!-- START doctoc -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
   - [Article: ClojureScript - Quick Start](#article-clojurescript---quick-start)
+    - [Production Builds](#production-builds)
     - [Running ClojureScript on Node.js](#running-clojurescript-on-nodejs)
     - [Node.js REPL](#nodejs-repl)
     - [Dependencies](#dependencies)
-    - [Project Templates](#project-templates)
+    - [Running ClojureScript on Node.js](#running-clojurescript-on-nodejs-1)
+    - [Node.js REPL](#nodejs-repl-1)
+    - [Dependencies](#dependencies-1)
+  - [Project Templates](#project-templates)
     - [Community Resources](#community-resources)
-  - [Article: Interactive Programming in ClojureScript](#article-interactive-programming-in-clojurescript)
-    - [Ex01](#ex01)
-    - [Ex02:](#ex02)
   - [Article: Reagent Readme](#article-reagent-readme)
   - [Article: Shadow CLJS User’s Guide](#article-shadow-cljs-users-guide)
     - [3. Usage](#3-usage)
@@ -38,9 +40,9 @@ state: wip
     - [05 Displaying Gigs](#05-displaying-gigs)
     - [06 List Comprehension](#06-list-comprehension)
     - [07 Add to Order](#07-add-to-order)
-- [Tool: mount 2](#tool-mount-2)
+- [Tool: mount](#tool-mount)
 
-<!-- END doctoc -->
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Article: ClojureScript - Quick Start
 

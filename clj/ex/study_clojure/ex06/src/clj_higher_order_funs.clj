@@ -41,4 +41,5 @@ rock-bands
 
 (defn adder [x]
   (fn [a] (+ x a)))
-(def add-five (adder 5))
+(def add-five (adder 5)) ; adder is closure
+(add-five 100)
