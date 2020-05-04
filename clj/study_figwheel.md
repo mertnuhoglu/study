@@ -442,3 +442,38 @@ https://github.com/bhauman/lein-figwheel
 }
 ``` 
 
+# Article: Running figwheel in a Cursive Clojure REPL
+
+https://github.com/bhauman/lein-figwheel/wiki/Running-figwheel-in-a-Cursive-Clojure-REPL
+
+``` 
+cd ~/projects/study/clj/ex/study_figwheel/figwheel_cursive
+lein new figwheel figwheel-test
+cd $_
+``` 
+
+Check `~/projects/study/clj/ex/study_figwheel/figwheel_cursive/figwheel-test/project.clj`
+
+``` 
+  :dependencies [[org.clojure/clojure "1.10.0"]
+                 [org.clojure/clojurescript "1.10.520"]
+                 [org.clojure/core.async  "0.4.500"]
+                 [figwheel-sidecar "0.5.18"]]
+
+
+  :plugins [
+            [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]]
+
+  :source-paths ["src" "script"]
+``` 
+
+Check `~/projects/study/clj/ex/study_figwheel/figwheel_cursive/figwheel-test/script/repl.clj`
+
+Intellij: Create a repl configuration:
+
+Run > Edit configurations > + > Clojure REPL > Local REPL > .name `repl` > select `use clojure.main` > .parameters: `script/repl.clj`
+
+Run `repl`
+
+
+
