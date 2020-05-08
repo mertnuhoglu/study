@@ -360,3 +360,8 @@ tabsetPanel("Header", tabPanel("Master"))
 ``` 
 
 Dokümantasyonunda aslında bu mesele açık anlatılıyordu.
+
+### e11.R: tabs > panel
+
+Check `~/projects/study/r/shiny/ex/study_shiny_navlist_tabset/ex01/e11.R`
+
