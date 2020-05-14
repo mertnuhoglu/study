@@ -1102,7 +1102,8 @@ mv photo/2020/01/01/{IMG,img}0001.jpeg
 a  d  e
 ``` 
 
-### rsync
+### rsync id=g_10931
+	rsync <url:file:///~/projects/study/bash/examples_bash.Rmd#r=g_10931>
 
 ``` 
 SRC="/Users/mertnuhoglu/d/Dropbox/SHARE-CMMI-Wayne/"
@@ -1110,4 +1111,41 @@ DEST="/Volumes/Seagate7/dropbox_btg/"
 rsync -nPavz ${SRC} ${DEST}
 rsync -Pavz "${SRC}" "${DEST}"
 ``` 
+
+If trailing slash in source, then it creates source dir in target:
+
+``` 
+rsync -av d01 d05 # creates d01/ inside d05/
+  ##> d05/d01/f.txt
+rsync -av d01/ d06 # copies d01/*
+  ##> d06/f.txt
+``` 
+
+Trailing slash in dest makes no difference.
+
+Ref: `~/projects/study/bash/trailing_slash_on_directory.md`
+
+Ref: `rsync --delete <url:file:///~/projects/study/code/study_rsync.md#r=g_10932>`
+
+### pandoc convert word docx to markdown
+
+``` 
+FILE="SCAMPI Appraisal Plan template v0.1"
+DOCX="${FILE}.docx"
+MD="${FILE}.md"
+pandoc -f docx -t markdown_mmd "${DOCX}" -o "${MD}"
+``` 
+
+### libreoffice convert xls to xlsx
+
+``` 
+FILE="SCAMPI Appraisal Plan template v0.1"
+XLS="${FILE}.xls"
+soffice --headless --convert-to xlsx --outdir . "${XLS}"
+``` 
+
+``` 
+soffice --headless --convert-to xlsx --outdir ./xlsx *.xls
+``` 
+
 
