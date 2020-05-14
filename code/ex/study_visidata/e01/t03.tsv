@@ -1,0 +1,10 @@
+col1	col2
+100	"single line"
+101	"multi 
+line"
+102	"multi \nline"
+103	"single line very long single line very long single line very long single line very long "
+104	'multi 
+line'
+105	'multi \nline'
+106	'multi Þline'
