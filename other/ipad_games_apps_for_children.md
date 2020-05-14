@@ -7,6 +7,8 @@
 
 GarageBand: enstrümanlarla müzik besteleme
 
+House Design: ev mimari tasarımı
+
 algodoo: fiziksel cisimlerin simülasyonu
 
 Nonogram: sudoku tarzı mantıksal bulmacalar
@@ -70,6 +72,8 @@ Fiete Match: hafıza kartı oyunları
 100 in 1: sırayla sayı bulma bulmacası
 
 Monkey Math: toplama çıkarma oyunu
+
+GiggleUp Learn & Play Pack: Matematik, nota, çiftlik, vs oyunları
 
 Rhyme Time: ingilizce kelime bulmacası
 

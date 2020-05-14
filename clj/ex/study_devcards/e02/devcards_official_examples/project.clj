@@ -10,7 +10,8 @@
                  [org.clojure/clojurescript "1.9.229"]
                  [devcards "0.2.3"]
                  [sablono "0.7.4"]
-                 
+                 [figwheel-sidecar "0.5.18"] ; cursive
+
                  ;; need to specify this for sablono
                  ;; when not using devcards
                  [cljsjs/react "16.4.1-0"]
@@ -18,13 +19,14 @@
                  [reagent "0.8.1"]]
                  
 
-  :plugins [[lein-figwheel "0.5.9"]
+  :plugins [
+            ;[lein-figwheel "0.5.9"] ; cursive
             [lein-cljsbuild "1.1.5" :exclusions [org.clojure/clojure]]]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled"
                                     "target"]
   
-  :source-paths ["src"]
+  :source-paths ["src" "script"]
 
   :cljsbuild {
               :builds [{:id "devcards"
