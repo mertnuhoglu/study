@@ -55,7 +55,7 @@ Check `~/projects/study/r/shiny/ex/study_panel_page/ex01/e02e.R`
 
 Removed `mainPanel`. 
 
-### e03.R: fluidPage > tabsetPanel > tabsetPanel > tabPanel
+### e03.R: nested tabsetPanel: tabsetPanel > tabPanel > tabsetPanel > tabPanel
 
 Check `~/projects/study/r/shiny/ex/study_panel_page/ex01/e03.R`
 

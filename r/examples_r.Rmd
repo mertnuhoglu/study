@@ -1031,6 +1031,59 @@ format(round(carea / parea, 2), nsmall = 2)
 		dplyr::mutate( axis = ifelse(cpl == 0, "ver", "hor") )
 ``` 
 
+## filter
+
+match by regex
+
+``` 
+	leg = scr %>%
+		filter( grepl( ".*legenda.*", screen_name ) )
+``` 
+
+## dplyr: access by column no
+
+``` 
+s2 %>%
+	filter(grepl("Subpractices.*", .[[2]]) )
+``` 
+
+## string length
+
+`nchar` or `str_length`: preserves NA
+
+``` 
+nchar("ali")
+  ##> 3
+``` 
+
+`length` gives number of elements in list
+
+## head: delete first few rows
+
+``` 
+df(-1, ) # delete first row
+df[-c(1:3), ] # delete first 3 rows
+``` 
+
+`dplyr::slice`
+
+``` 
+df %>% slice(6:n())
+df %>% slice(-1:-5)
+``` 
+
+
+## select columns by position number
+
+``` 
+			select(c(1,2,4))
+``` 
+
+## truncate / trim string by length
+
+``` 
+			mutate(`...2` = stringr::str_trunc(stringr::str_replace_all(`...2`, "\\n", "Þ"), 75, "right")) %>%
+``` 
 
 
 
