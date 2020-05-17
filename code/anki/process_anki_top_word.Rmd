@@ -16,6 +16,7 @@ resource_files:
 - 
 path: ~/projects/study/code/anki/process_anki_top_word.Rmd
 state: wip
+
 ---
 
 ## Process
