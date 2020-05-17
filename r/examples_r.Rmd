@@ -1085,5 +1085,28 @@ df %>% slice(-1:-5)
 			mutate(`...2` = stringr::str_trunc(stringr::str_replace_all(`...2`, "\\n", "Þ"), 75, "right")) %>%
 ``` 
 
+## arguments to Rscript 
+
+Ref: `arguments to Rscript  <url:file:///~/projects/study/r/study_r.Rmd#r=g_10954>`
+
+``` 
+args <- commandArgs(trailingOnly = TRUE)
+``` 
+
+## dplyr: select all remaining columns:
+
+at the end:
+
+``` 
+col <- c("carrier", "tailnum", "year", "month", "day")
+select(flights, one_of(col), everything())
+``` 
+
+at the start:
+
+``` 
+col <- c("carrier", "tailnum", "year", "month", "day")
+select(flights, -one_of(col), one_of(col))
+``` 
 
 

@@ -621,3 +621,18 @@ Rscript -e 'servr::httd()' -p8000
 packageVersion("stringr")
 ``` 
 
+### arguments to Rscript  id=g_10954
+
+Check `~/projects/study/r/ex/study_r/argument_to_rscript/e01.sh`
+
+``` bash
+Rscript e01.R some_arg
+``` 
+
+Check `~/projects/study/r/ex/study_r/argument_to_rscript/e01.R`
+
+``` r
+args <- commandArgs(trailingOnly = TRUE)
+print(sprintf("args: %s", args[1]))
+``` 
+
