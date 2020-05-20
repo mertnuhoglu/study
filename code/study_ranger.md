@@ -14,6 +14,13 @@ output:
 
 ---
 
+# Index
+
+		| ~/.config/ranger/rc.conf | configuration of keybindings |
+		| ?k                       | help for keybindings         |
+		| yp                       | yank path                    |
+		| m<any>                   | bookmark <any>               |
+
 # Official User Guide · ranger/ranger Wiki
 
 https://github.com/ranger/ranger/wiki/Official-user-guide

@@ -52,7 +52,60 @@ state: wip
 
 # Tools
 
-## tool: dplyr-cli 
+## tool: howdoi id=g_10994
+
+[gleitz/howdoi: instant coding answers via the command line](https://github.com/gleitz/howdoi)
+
+``` 
+❯ howdoi check linux version                
+$ lsb_release -a
+ No LSB modules are available.
+ Distributor ID: Ubuntu
+ Description:    Ubuntu 8.04.4 LTS
+ Release:        8.04
+ Codename:       hardy
+
+
+ $ lsb_release -a
+ LSB Version:    :core-3.1-amd64:core-3.1-ia32:core-3.1-noarch:graphics-3.1-amd64:graphics-3.1-ia32:graphics-3.1-noarch
+ Distributor ID: CentOS
+ Description:    CentOS release 5.5 (Final)
+ Release:        5.5
+ Codename:       Final
+
+~/codes/clojure/devcards master* ⇣
+❯ howdoi install ruby in macos
+brew update
+brew install ruby
+
+  # If you use bash
+echo 'export PATH=/usr/local/Cellar/ruby/2.4.1_1/bin:$PATH' >> ~/.bash_profile 
+
+  # If you use ZSH:
+echo 'export PATH=/usr/local/Cellar/ruby/2.4.1_1/bin:$PATH' >> ~/.zprofile
+ 
+``` 
+
+
+## tool: curl cheat.sh id=g_10993
+
+``` 
+❯ curl cheat.sh/tar
+  # tar
+  # Archiving utility.
+  # Often combined with a compression method, such as gzip or bzip.
+  # More information: <https://www.gnu.org/software/tar>.
+  
+  # Create an archive from files:
+tar cf target.tar file1 file2 file3
+
+  # Create a gzipped archive:
+tar czf target.tar.gz file1 file2 file3
+``` 
+
+
+
+### tool: dplyr-cli
 
 https://github.com/coolbutuseless/dplyr-cli
 
@@ -77,7 +130,7 @@ cat mtcars.csv | dplyr filter -c "mpg == 21"
 cat mtcars.csv | dplyr filter -c "mpg < 11"
 ``` 
 
-## shell pipe
+### shell pipe
 
 ``` bash
 cat mtcars.csv | \
@@ -100,7 +153,7 @@ cat mtcars.csv | group_by cyl | summarise "mpg = mean(mpg)" | kable
   ##> |   8| 15.10000|
 ``` 
 
-## Tool: doctoc
+### Tool: doctoc
 
 https://github.com/thlorenz/doctoc
 
@@ -123,7 +176,7 @@ doctoc file.md
 ``` 
 
 
-## Tool: mosh ssh replacement
+### Tool: mosh ssh replacement
 
 https://mosh.org/
 
@@ -131,7 +184,7 @@ https://mosh.org/
 brew install mosh
 ``` 
 
-## nmap: network scanner
+### nmap: network scanner
 
 https://isc.sans.edu/diary/How+to+Find+Hidden+Cameras+in+your+AirBNB/24834
 
@@ -139,7 +192,7 @@ https://isc.sans.edu/diary/How+to+Find+Hidden+Cameras+in+your+AirBNB/24834
 nmap -Ap 80,8000,8080,443,8443,7443,7070,7000,22,23,21 10.5.1.0/24
 ``` 
 
-## hub: github cli
+### hub: github cli
 
 https://hub.github.com/
 
@@ -159,7 +212,7 @@ Create a new repo:
 hub create
 ``` 
 
-### surfingkeys: vim emulation for chrome 
+#### surfingkeys: vim emulation for chrome
 
 ref: `~/gdrive/mynotes/content/fork/surfingkeys_help.md`
 
@@ -173,7 +226,7 @@ cp build/surfingkeys.js ~/.config
 ``` 
 
 
-#### hint characters
+##### hint characters
 
 https://github.com/brookhong/surfingkeys
 
@@ -181,13 +234,13 @@ https://github.com/brookhong/surfingkeys
 Hints.characters = "fgouieajvc"
 ``` 
 
-## kitty: terminal emulator, alternative to iterm
+### kitty: terminal emulator, alternative to iterm
 
 https://sw.kovidgoyal.net/kitty/
 
 Ref: `~/projects/study/code/study_kitty.md`
 
-## ranger: file manager/navigator with preview
+### ranger: file manager/navigator with preview
 
 https://github.com/ranger/ranger
 
@@ -197,11 +250,11 @@ Ref: `~/projects/study/code/study_ranger.md`
 pip install ranger-fm
 ``` 
 
-## broot: cli replacement for ls and tree
+### broot: cli replacement for ls and tree
 
 Ref: `~/projects/study/code/study_broot.md`
 
-## dust: replace du
+### dust: replace du
 
 https://github.com/bootandy/dust
 
@@ -218,7 +271,7 @@ dust
 ``` 
 
 
-## httpie: curl alternative
+### httpie: curl alternative
 
 ``` bash
 $ tldr http

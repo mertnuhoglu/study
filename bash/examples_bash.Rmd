@@ -214,11 +214,30 @@ aws ec2 associate-address --instance-id i-03317e7025b6e7aaf --public-ip 34.215.1
   ##> }
 ``` 
 
-### 04.10. symlink `bzq03` home dir to `bzqdb` dirs
+### symlink
+
+opt01: absolute paths
+
+symlink `bzq03` home dir to `bzqdb` dirs
 
 ``` bash
 ln -s /data/home/bizqualify_data/ /home/ubuntu/bizqualify_data
 ln -s /data/home/backup/ /home/ubuntu/backup
+``` 
+
+opt02: relative paths id=g_10956
+
+run `ln` in same dir as target `symlink`
+
+``` 
+cd /Users/mertnuhoglu/projects/study/logbook/ex/log_20200517/e01
+mkdir -p c
+cd c
+ln -s ../a/f1 f1
+readlink -f f1   
+  ##> /Users/mertnuhoglu/projects/study/logbook/ex/log_20200517/e01/a/f1
+cat f1
+  ##> test
 ``` 
 
 ### 04.15. change .ssh config settings
@@ -776,11 +795,13 @@ printf %"s2" hello world
   ##> hello2world2
 ``` 
 
-### ffmpeg
+### ffmpeg: video encoding id=g_11000
 
 ``` bash
 ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
 ``` 
+
+filter stream:
 
 ``` bash
 	ffmpeg -i "${input}" \
@@ -788,6 +809,15 @@ ffprobe -i ${input} 2>&1 | rg eng | rg Stream | rg Audio
 		-c:v libx264 -crf 23 -vf "scale=320:240" \
 		-c:a aac -q:a 32 -filter:a "volume=${VOLUME_INCREASE}" \
 		"${output_mp4}" 
+``` 
+
+simpler: all streams:
+
+``` bash
+ffmpeg -i "${input}" \
+	-c:v libx264 -crf 23 \
+	-c:a aac -q:a 32 \
+	"${output_mp4}" 
 ``` 
 
 #### trim audio/video file
