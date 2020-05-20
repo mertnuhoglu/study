@@ -1,5 +1,6 @@
 (ns clojure_by_example_kimh
   (:require [clojure.string :as str]))
+;; => nil
 
 ; Most codes taken or adapted from https://github.com/kimh/clojure-by-example/blob/master/source/index.html.md
 
@@ -28,9 +29,9 @@ true
 
 ; narrow indentation
 (let
-  [a 10
-   b 20]
-  (+ 10 20))
+ [a 10
+  b 20]
+ (+ 10 20))
 
 ; clojure style convention
 (let [a 10
@@ -248,9 +249,9 @@ true
   y)
 (for [x (range 3) :while (< x 2)] x)
 (for
-  [x ['a 'b]
-   y [1 2]]
-  [x y])
+ [x ['a 'b]
+  y [1 2]]
+ [x y])
 
 ;; recursion
 
@@ -287,9 +288,9 @@ true
 
 (defmacro unless [cond then]
   (list
-    'if
-    (list 'not cond)
-    then))
+   'if
+   (list 'not cond)
+   then))
 (unless false 1)
 
 (macroexpand '(unless false 1))
@@ -309,11 +310,11 @@ true
 
 (conj (conj [] 1) 2)
 (-> []
-  (conj 1)
-  (conj 2))
+    (conj 1)
+    (conj 2))
 (->> [1 2]
-  (map inc)
-  (map #(* 2 %)))
+     (map inc)
+     (map #(* 2 %)))
 
 ;; delay
 
@@ -356,17 +357,17 @@ true
 
 (def g 0)
 (repeatedly 10
-  #(def g (inc g)))
+            #(def g (inc g)))
 g
 
 (def g 0)
 (repeatedly 10
-  (fn [] (future (def g (inc g)))))
+            (fn [] (future (def g (inc g)))))
 g
 
 (def g (atom 0))
 (repeatedly 10
-  (fn [] (future (swap! g inc))))
+            (fn [] (future (swap! g inc))))
 @g
 
 ;; ref
@@ -378,20 +379,20 @@ g
 ;; transaction
 
 (dosync
-  (ref-set r 1)
-  (ref-set r 2))
+ (ref-set r 1)
+ (ref-set r 2))
 @r
 
 (dosync
-  (alter r
-    (fn [a-ref]
-      (inc a-ref))))
+ (alter r
+        (fn [a-ref]
+          (inc a-ref))))
 
 (def rec (ref {}))
 (dosync
-  (alter rec merge {:name "ali"})
-  (throw (Exception. "wrong"))
-  (alter rec merge {:age 40}))
+ (alter rec merge {:name "ali"})
+ (throw (Exception. "wrong"))
+ (alter rec merge {:age 40}))
 @rec
 
 ;; java

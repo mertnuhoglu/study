@@ -150,3 +150,11 @@ Commands:
 
 Note that, str was not in the current namespace yet.
 
+# Features
+
+	| action     | description        |
+	|------------|--------------------|
+	| Keywords   | usages of keywords |
+	| Namespaces | go to namespace    |
+
+

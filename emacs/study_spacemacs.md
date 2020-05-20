@@ -27,6 +27,17 @@ Ref: Bind Command key to Meta and Alt key to itself: <url:/Users/mertnuhoglu/pro
 
 Paste: ^y
 
+### my keybindings
+
+Ref: `~/.spacemacs` > `dotspacemacs/user-config`
+
+		| ı kmly   | evil-window-left/down/up/right  |
+		| ıc ıs ıv | evil-window-delete/split/vsplit |
+		| ıo       | maximize-buffer                 |
+		| çç       | evil-yank-line                  |
+		| üa       | balance-windows                 |
+		| üüs      | evil-write-all                  |
+
 # Tasks
 
 		SPC T n			| switch to next theme listed in dotspacemacs-themes
@@ -627,11 +638,11 @@ buffers: same in vim and emacs.
 
 Ex: `python` layer provides auto-completion, syntax checking packages.
 
-## Binding keys - Spacemacs
+## Binding keys - Spacemacs id=g_10998
 
 ref: `Custom keybindings for emacs <url:/Users/mertnuhoglu/projects/study/emacs/study_emacs.md#tn=Custom keybindings for emacs>`
 
-https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#binding-keys
+`https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#binding-keys`
 
 opt01: SPC h SPC > Spacemacs > Binding keys
 

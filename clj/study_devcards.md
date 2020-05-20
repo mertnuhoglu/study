@@ -19,7 +19,6 @@ state: wip
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [örnek rnek](#%C3%B6rnek-rnek)
 - [Video: Literate interactive coding - Devcards' by Bruce Hauman-G7Z_g2fnEDg](#video-literate-interactive-coding---devcards-by-bruce-hauman-g7z_g2fnedg)
   - [Devcards: it is like rmarkdown notebook](#devcards-it-is-like-rmarkdown-notebook)
 - [Article: Official README](#article-official-readme)
@@ -201,6 +200,15 @@ Ex: `resources/public/cards.html` such as `~/projects/study/clj/ex/study_devcard
 ``` 
 
 # Examples
+
+## sıfır proje 
+
+``` 
+cd ~/projects/study/clj/ex/study_devcards
+lein new devcards e03
+cd e03
+lein figwheel
+``` 
 
 ## devcards'ın örneklerini yeniden üretme id=g_10843
 

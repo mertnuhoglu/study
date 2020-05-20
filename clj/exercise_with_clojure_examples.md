@@ -22,7 +22,7 @@ New project in Cursive:
 
 Check `/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/deps.edn`
 
-## Exercises: Clojure By Example - kimh
+## Exercises: Clojure By Example - kimh id=g_10990
 
 https://github.com/kimh/clojure-by-example
 
