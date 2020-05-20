@@ -57,11 +57,44 @@ Switcher `#s`
 
 ## Select Popups
 
-		| Tool Windows        |
-		| Editor Color Scheme |
-		| Recent Files        |
-		| Recent Locations    |
-		| Quick Switch Scheme |
+		| tool windows               |
+		| switcher                   |
+		| editor color scheme        |
+		| recent files               |
+		| recent locations           |
+		| quick switch scheme        |
+		| menus: file edit window... |
+		| quick definition           |
+		| file structure             |
+		| show context menu          |
+		| show context actions       |
+		| insert live template       |
+		| refactor this              |
+		| navigate to                |
+		| generate                   |
+		| vcs operations             |
+		| inspect this               |
+		| action list                |
+
+## custom popup menus:
+
+Quick List > .add frequent commands
+
+# my keybindings and customizations
+
+## my quick lists id=g_10995
+
+		| popups  | !+space |
+		| clojure | +L C    |
+
+## my customizations id=g_10996
+
+		| window menu popup  | !m w |
+		| edit menu popup    | !m e |
+		| context menu popup | !m o |
+
+		| activate next window | +c r |
+		| activate prev window | +c e |
 
 # Tool: Intellimacs: spacemacs like keybindings
 
