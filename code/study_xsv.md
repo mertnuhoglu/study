@@ -230,3 +230,15 @@ ls -la
   ##> -rw-r--r--  1 mertnuhoglu  staff   56 Oct  9 10:11 iris.csv.idx
 ``` 
 
+# xsv examples
+
+## count distinct values in a column  id=g_10957
+
+``` 
+cd /Users/mertnuhoglu/projects/study/problem/sample_data
+xsv select Species iris.csv | uniq | wc -l
+  ##> 3
+``` 
+
+
+
