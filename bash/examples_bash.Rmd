@@ -1211,3 +1211,15 @@ sort -k 2nr ~/projects/study/problem/sample_data/t03.txt
   ##> peon     4500
 ``` 
 
+### zip a directory
+
+``` 
+zip -r myfiles.zip mydir
+``` 
+
+### count files in directories id=g_11012
+
+``` 
+find . -type d -exec sh -c "fc=\$(find '{}' -type f | wc -l); echo -e \"\$fc\t{}\"" \; | sort --k 2nr
+``` 
+
