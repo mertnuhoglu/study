@@ -8,6 +8,44 @@ vim
 			ref: spacemacs compatible keybindings for reference management <url:file:///~/projects/vim_repos/vim-infoman/plugin/vim-infoman.vim#r=g_11006>
 		my-vim-custom.vim
 			ref: compatible keybindings: vim vs spacemacs vim-which-key <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11007>
+cli
+	howdoi
+	ffmpeg
+		convert mp4 to mp3
+			ffmpeg -i filename.mp4 filename.mp3
+			ffmpeg -i video.mp4 -b:a 192K -vn music.mp3
+			for f in ./*.mp4; ffmpeg -i "$f" -b:a 192K -vn "${f%.*}.mp3"
+			for f in ./*.webm; ffmpeg -i "$f" -b:a 192K -vn "${f%.*}.mp3"
+		convert wmv to mp4
+			ffmpeg -i input.wmv -c:v libx264 -crf 23 -c:a libfaac -q:a 100 output.mp4
+		concat videos with same codecs
+			ffmpeg -f concat -i video_files.in -c copy output.mp4
+			video_files.in
+				file 'slide001.mp4'
+				file 'slide002.mp4'
+				for f in ./*.wav; do echo "file '$f'" >> mylist.txt; done
+		get information about video
+			ffprobe -i ice_age_28.mp4 2>&1 | rg Duration
+			ffmpeg -i video.mp4
+		change dimensions size resolution
+			ffmpeg -i input.avi -vf scale=320:240 output.avi
+				constant dimensions: 320x240
+			ffmpeg -i input.jpg -vf scale=320:-1 output_320.png
+				make width 320 and scale proportionally
+		cut/split video
+			ffmpeg -ss 00:01:28 -i secret_life_of_pets.mp4 -t 00:00:04 -c:v libx264 -c:a libfaac 02b.mp4
+				ffmpeg -ss 01:30:40.436 -i "${input}" -to 01:30:42.355 -map 0:0 -map 0:${stream} -c:v libx264 -crf 28 -vf "scale=320:240" -c:a libfaac -q:a 32 -filter:a "volume=${VOLUME_INCREASE}" -copyts clips/${output}_1520d.mp4
+				-ss starttime
+				-t duration
+				-to endtime 
+				-i input
+				ffmpeg -ss 01:12:30 -i erdem_demo_of_refactored_code_20160204_long.mp4 -t 00:51:00 -vcodec copy -acodec copy discussion_mustafa_erdem_20160204.mp4
+				ffmpeg -ss 00:22:56 -i ahmet_teuis_data_model_development_meeting_02_20160207.mp4 -t 00:27:24 -vcodec copy -acodec copy emre_data_model_20160207.mp4
+		compress to h264 and 320x240 and aac 32kb
+			file="Ice Age   Buz Devri   2002   1080P   DUAL(ALTYAZILI).mkv"
+			convert2mp4_h264_size320 ${file} ice_age.mp4
+			function
+				ffmpeg -i "${input}" -vcodec libx264 -crf 28 -vf "scale=320:240" -c:a libfaac -q:a 32  "${output}"
 osx
 	keybindings for editing text fields
 		ref: osx keybindings for editing text <url:file:///~/projects/study/osx/study_macos_osx.md#r=g_11010>
