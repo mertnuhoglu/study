@@ -50,15 +50,10 @@ example_en="~/projects/study/nt/ozgur_emin/english/${tags}/example_en.tsv"
 
 # other sentence patterns: id=g_10955
 
-I hope you will do it
-I though you could swim.
 I go where I like most
 I like how you swim
-I think that we should move
-I wish you were here
 I thought you didn't like it
 I liked you eating that way
-I wrote that we missed him 
 
 I think I want you to stay.	Sanırım kalmanı istiyorum.
 I told Tom we were friends.	Tom'a bizim arkadaş olduğumuzu söyledim.

@@ -4,3 +4,14 @@ vim
 	mine
 		Emvc
 		ERef
+		vim-infoman.vim
+			ref: spacemacs compatible keybindings for reference management <url:file:///~/projects/vim_repos/vim-infoman/plugin/vim-infoman.vim#r=g_11006>
+		my-vim-custom.vim
+			ref: compatible keybindings: vim vs spacemacs vim-which-key <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11007>
+osx
+	keybindings for editing text fields
+		ref: osx keybindings for editing text <url:file:///~/projects/study/osx/study_macos_osx.md#r=g_11010>
+			#<- #->	beginning/end of line
+			^a ^e	beginning/end of line
+			| ^k            | kill/cut line          |
+			| ^y            | yank/paste line        |
