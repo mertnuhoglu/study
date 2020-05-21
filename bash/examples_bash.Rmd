@@ -1178,4 +1178,36 @@ soffice --headless --convert-to xlsx --outdir . "${XLS}"
 soffice --headless --convert-to xlsx --outdir ./xlsx *.xls
 ``` 
 
+### remove node_modules files recursively id=g_11003
+
+Otomatik bir şekilde bunları silelim:
+
+[](https://stackoverflow.com/questions/42950501/delete-node-modules-folder-recursively-from-a-specified-path-using-command-line)
+
+
+``` bash
+  ##> Print out a list of directories to be deleted:
+find . -name 'node_modules' -type d -prune
+  ##> Delete directories from the current working directory:
+find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +
+find . -name '.cache' -type d -prune
+find . -name '.cache' -type d -prune -exec rm -rf '{}' +
+find . -name 'dist' -type d -prune
+find . -name 'dist' -type d -prune -exec rm -rf '{}' +
+``` 
+
+### sort numeric columns (numbers)
+
+ref: `sort examples <url:file:///~/projects/study/logbook/log_20200520.md#r=g_11005>`
+
+``` 
+sort -k 2n ~/projects/study/problem/sample_data/t03.txt
+  ##> employee  600
+  ##> guard     3000
+  ##> clerk    4000
+sort -k 2nr ~/projects/study/problem/sample_data/t03.txt
+  ##> director 9000
+  ##> manager  5000
+  ##> peon     4500
+``` 
 

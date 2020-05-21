@@ -52,6 +52,15 @@ state: wip
 
 # Tools
 
+# tool: transferwee: wetransfer cli id=g_11002
+
+[iamleot/transferwee: Download/upload files via wetransfer.com](https://github.com/iamleot/transferwee)
+
+``` 
+~/codes/python/transferwee/transferwee.py upload -m 'test' log_20200520.md 
+  ##> https://we.tl/t-WK9VSkw5DI
+``` 
+
 ## tool: howdoi id=g_10994
 
 [gleitz/howdoi: instant coding answers via the command line](https://github.com/gleitz/howdoi)
