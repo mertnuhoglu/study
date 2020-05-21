@@ -21,6 +21,10 @@ state: wip
 
 Ref: `Spacemacs Lvl01 20200418 <url:/Users/mertnuhoglu/projects/study/lvlbook/lvl_20200418.md#tn=Spacemacs Lvl01 20200418>`
 
+## my refcard: 
+
+		| SPC h d f       | help on function   | describe-function |
+
 ## My Customizations
 
 Ref: Bind Command key to Meta and Alt key to itself: <url:/Users/mertnuhoglu/projects/study/emacs/study_spacemacs.md#tp=Bind Command key to Meta and Alt key to itself:>
@@ -191,10 +195,10 @@ Space bar - main menu: `SPC SPC`
 
 Spacemacs Help system
 
-		Prefix: SPC
-		h SPC		| help documents
-		h d f		| help on function
-		h d k		| help on keybinding
+		| Prefix: SPC |                    |                   |
+		| h d f       | help on function   | describe-function |
+		| h SPC       | help documents     |                   |
+		| h d k       | help on keybinding |                   |
 
 ### Emacs Basics
 
