@@ -480,7 +480,7 @@ ref
 					8.15.5. Searching in Arrays
 					8.15.6. Array Input and Output Syntax
         8.16. Composite Types id=g_10737
-					8.16. Composite Types <url:file:///~/gdrive/mynotes/content/articles/articles_db.md#r=g_10737>
+					8.16. Composite Types <url:file:///~/projects/study/db/articles_db.md#r=g_10737>
 						https://www.postgresql.org/docs/9.6/rowtypes.html
 						composite type models structure of a row/record
 							it is a list of field names and their data types
@@ -1174,7 +1174,7 @@ ref
         35.63. view_table_usage
         35.64. views
 			Chapter 36. Extending SQL id=g_10736
-				Chapter 36. Extending SQL <url:file:///~/gdrive/mynotes/content/articles/articles_db.md#r=g_10736>
+				Chapter 36. Extending SQL <url:file:///~/projects/study/db/articles_db.md#r=g_10736>
 				https://www.postgresql.org/
 				36.1. How Extensibility Works
 					extensible because its operation is catalog-driven

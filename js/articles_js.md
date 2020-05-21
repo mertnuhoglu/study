@@ -3755,12 +3755,12 @@ Multiple classes:
 
 # Testing JS id=g_10611
 
-	Testing JS <url:file:///~/gdrive/mynotes/content/articles/articles_js.md#r=g_10611>
+	Testing JS <url:file:///~/projects/study/js/articles_js.md#r=g_10611>
 		Picking snapshot library id=g_10613
-			Picking snapshot library <url:file:///~/gdrive/mynotes/content/articles/articles_js.md#r=g_10613>
+			Picking snapshot library <url:file:///~/projects/study/js/articles_js.md#r=g_10613>
 			https://glebbahmutov.com/blog/picking-snapshot-library/
 		Jest 14.0: React Tree Snapshot Testing id=g_10612
-			Jest 14.0: React Tree Snapshot Testing <url:file:///~/gdrive/mynotes/content/articles/articles_js.md#r=g_10612>
+			Jest 14.0: React Tree Snapshot Testing <url:file:///~/projects/study/js/articles_js.md#r=g_10612>
 			https://jestjs.io/blog/2016/07/27/jest-14.html
 			intro
 				jest: zero-configuration testing
