@@ -22,7 +22,9 @@ https://dystroy.org/broot/documentation/installation/
 
 ``` bash
 cargo install broot
+brew install broot
 ``` 
+
 
 ### Verbs
 
