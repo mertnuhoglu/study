@@ -55,10 +55,10 @@ example_en="example_en.tsv"
 ex with actual datasets:
 
 ``` 
-cd ~/projects/myrepo/logbook/ozgur_emin/english/sentence_20200516
+cd ~/projects/study/nt/ozgur_emin/english/sentence_20200516
 tags="sentence_20200516"
 sentence_ids_eng="~/Downloads/anki/tatoeba_sentences/sentence_ids_eng.tsv"
-example_en="~/projects/myrepo/logbook/ozgur_emin/english/sentence_20200516/example_en.tsv"
+example_en="~/projects/study/nt/ozgur_emin/english/sentence_20200516/example_en.tsv"
 ~/projects/anki_english/scripts/anki_process_tatoeba_sentences "${tags}" "${sentence_ids_eng}" "${example_en}"
 ``` 
 
