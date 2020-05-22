@@ -53,3 +53,15 @@ osx
 			^a ^e	beginning/end of line
 			| ^k            | kill/cut line          |
 			| ^y            | yank/paste line        |
+webapps
+	gdrive google drive
+		error: too slow sync
+			cause: too many files are deleted
+				fix: delete files both from web and local
+		error: shared folder is not downloaded to other person's local
+			fix: 
+				user A creates dir a and share it
+				user B creates dir b and share it
+				user A moves dir b inside dir a
+				A and B put their files into dir b
+
