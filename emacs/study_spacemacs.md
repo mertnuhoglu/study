@@ -23,7 +23,26 @@ Ref: `Spacemacs Lvl01 20200418 <url:/Users/mertnuhoglu/projects/study/lvlbook/lv
 
 ## my refcard: 
 
-		| SPC h d f       | help on function   | describe-function |
+		| SPC h d f | help on function            | describe-function         |
+		| SPC h SPC | list layers      |
+		| SPC f e d | open ~/.spacemacs           |
+		| SPC f e R | reload .spacemacs           |
+		| SPC f r | file recent  |
+		| SPC q r   | restart emacs               |
+		| SPC w d | buffer kill     |
+		| SPC m     | cider menu                  | ,                         |
+		| '         | start REPL                  | cider-jack-in             |
+		| e         | eval menu                   |                           |
+		| e f       | eval expression inline      | cider-eval-defun-at-point |
+		| e ;       | eval expression as comment  |                           |
+		| s s       | cider-switch-to-repl-buffer |                           |
+
+vim compatible commands: 
+
+``` 
+:g//norm ..
+.
+``` 
 
 ## My Customizations
 
@@ -44,18 +63,18 @@ Ref: `~/.spacemacs` > `dotspacemacs/user-config`
 
 # Tasks
 
-		SPC T n			| switch to next theme listed in dotspacemacs-themes
-		SPC f e d		| open ~/.spacemacs
-		SPC ?				| search for key bindings
-		SPC SPC			| list and search all commands
-		SPC f				| file related commands
-		SPC f t			| neotree file browser
-		SPC q r			| restart emacs
-		SPC f s			| save file
-		SPC f S			| save file all
-		SPC f e R		| reload .spacemacs
-		RET					| jump/goto link
-		SPC TAB			| switch to other buffer
+		| SPC T n   | switch to next theme listed in dotspacemacs-themes |
+		| SPC f e d | open ~/.spacemacs                                  |
+		| SPC ?     | search for key bindings                            |
+		| SPC SPC   | list and search all commands                       |
+		| SPC f     | file related commands                              |
+		| SPC f t   | neotree file browser                               |
+		| SPC q r   | restart emacs                                      |
+		| SPC f s   | save file                                          |
+		| SPC f S   | save file all                                      |
+		| SPC f e R | reload .spacemacs                                  |
+		| RET       | jump/goto link                                     |
+		| SPC TAB   | switch to other buffer                             |
 
 Bind Command key to Meta and Alt key to itself:
 
@@ -82,15 +101,16 @@ Restart: SPC q r
 
 Prefix: `SPC m` or `,`
 
-		'				start REPL	cider-jack-in
-		s i			start REPL	cider-jack-in
-		e				eval menu
-		e f			eval expression inline	cider-eval-defun-at-point
-		e ;			eval expression as comment
-		s				repl menu (send)
-		s n			send ns form to repl	cider-send-ns-form-to-repl
-		s f			cider-send-function-to-repl
-		s s			cider-switch-to-repl-buffer
+		| SPC m | cider menu                  | ,                          |
+		| '     | start REPL                  | cider-jack-in              |
+		| s i   | start REPL                  | cider-jack-in              |
+		| e     | eval menu                   |                            |
+		| e f   | eval expression inline      | cider-eval-defun-at-point  |
+		| e ;   | eval expression as comment  |                            |
+		| s     | repl menu (send)            |                            |
+		| s n   | send ns form to repl        | cider-send-ns-form-to-repl |
+		| s f   | cider-send-function-to-repl |                            |
+		| s s   | cider-switch-to-repl-buffer |                            |
 
 Ref: `The REPL <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_10828>`
 
@@ -226,21 +246,21 @@ Golden ration
 
 ### File menu
 
-		SPC f	  		| file menu
-		SPC f	f 		| open file anywhere
-			TAB				| complete filename
-			^h				| parent dir
-			^y				| paste kill ring
-			^j ^k			| down/up
-		SPC f	f 		| create file
+		| SPC f   | file menu          |
+		| SPC f	f | open file anywhere |
+		| TAB     | complete filename  |
+		| ^h      | parent dir         |
+		| ^y      | paste kill ring    |
+		| ^j ^k   | down/up            |
+		| SPC f	f | create file        |
 
 ### Buffer management
 
-		SPC b	b 		| list open buffers
-		SPC b	. 		| buffer transient state
-			n					| cycle next
-			N / p			| cycle prev
-			k					| kill current buffer
+		| SPC b	b | list open buffers      |
+		| SPC b	. | buffer transient state |
+		| n       | cycle next             |
+		| N / p   | cycle prev             |
+		| k       | kill current buffer    |
 
 ### Projectile menu
 
@@ -456,28 +476,28 @@ https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org
 
 ^W komutlarının karşılıkları:
 
-		SPC w s				| window split 
-		SPC w j				| window navigate
-		SPC w d				| buffer kill
+		| SPC w s | window split    |
+		| SPC w j | window navigate |
+		| SPC w d | buffer kill     |
 
 ---
 
 Files
 
-		SPC f f				| file open
-		SPC f r				| file recent
-		SPC f s				| file save :w
+		| SPC f f | file open    |
+		| SPC f r | file recent  |
+		| SPC f s | file save :w |
 
 Help
 
-		SPC h d f				| doc function 
-		SPC h d k				| doc keybinding
-		SPC <F1>				| search doc
+		| SPC h d f | doc function   |
+		| SPC h d k | doc keybinding |
+		| SPC <F1>  | search doc     |
 
 Exploring
 
-		SPC h SPC				| list layers
-		SPC ?    				| list keybindings
+		| SPC h SPC | list layers      |
+		| SPC ?     | list keybindings |
 		
 ## Customization
 

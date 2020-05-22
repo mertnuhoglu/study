@@ -1,6 +1,5 @@
 (ns clojure_by_example_kimh
   (:require [clojure.string :as str]))
-;; => nil
 
 ; Most codes taken or adapted from https://github.com/kimh/clojure-by-example/blob/master/source/index.html.md
 
@@ -9,11 +8,11 @@
 "h"
 
 true
-
+;; => true
 (str "each " "line " "is a" " form")
-
+;; => "each line is a form"
 (str "forms are " "expressions")
-
+;; => "forms are expressions"
 (def a-binding "is an assignment in other languages")
 
 (def bindings "map a name to a value")
@@ -23,21 +22,21 @@ true
 (unresolved-symbol-error) ;; error
 
 (let [binds "a value to a local name"] (str binds))
-
+;; => "a value to a local name"
 (let [a 10
       b 20] (+ 10 20))
-
+;; => 30
 ; narrow indentation
 (let
  [a 10
   b 20]
  (+ 10 20))
-
+;; => 30
 ; clojure style convention
 (let [a 10
       b 20]
   (+ 10 20))
-
+;; => 30
 (def def-bindings "are global")
 
 (defn a-function
