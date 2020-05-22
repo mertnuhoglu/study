@@ -19,10 +19,14 @@ blog: mertnuhoglu.com
 
 Ref: `compatible keybindings: my vim and intellij <url:/Users/mertnuhoglu/.ideavimrc#tn=compatible keybindings: my vim and intellij >`
 
-## Refcard Commands
+## intellij refcard id=g_11014
 
-		| ! SPC | Quick definition |
-		| ^^    | Run anything     |
+		| #a / SPC SPC | find action       |
+		| ++           | search everywhere |
+		| !+ SPC       | quicklist: popups |
+		| ! SPC        | Quick definition  |
+		| ^^           | Run anything      |
+
 
 ## Most important commands:
 
@@ -84,17 +88,17 @@ Quick List > .add frequent commands
 
 ## my quick lists id=g_10995
 
-		| popups  | !+space |
-		| clojure | +L C    |
+		| !+space |popups  | 
+		| +L C    |clojure | 
 
 ## my customizations id=g_10996
 
-		| window menu popup  | !m w |
-		| edit menu popup    | !m e |
-		| context menu popup | !m o |
+		| !m w | window menu popup  |
+		| !m e | edit menu popup    |
+		| !m o | context menu popup |
 
-		| activate next window | +c r |
-		| activate prev window | +c e |
+		| +c r | activate next window |
+		| +c e | activate prev window |
 
 # Tool: Intellimacs: spacemacs like keybindings
 

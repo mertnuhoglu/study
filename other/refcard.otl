@@ -64,4 +64,12 @@ webapps
 				user B creates dir b and share it
 				user A moves dir b inside dir a
 				A and B put their files into dir b
+apps
+	intellij
+		#a	action menu
+		SPC SPC	action menu
+		intellij refcard <url:file:///~/projects/study/code/study_intellij.md#r=g_11014>
+		my customizations <url:file:///~/projects/study/code/study_intellij.md#r=g_10996>
+		my quick lists <url:file:///~/projects/study/code/study_intellij.md#r=g_10995>
+		study_intellij_ideavim.md <url:file:///~/projects/study/code/study_intellij_ideavim.md>
 
