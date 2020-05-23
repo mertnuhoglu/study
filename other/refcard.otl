@@ -1,5 +1,11 @@
 
 emacs
+	spacemacs refcard <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11015>
+	| SPC f e d | open ~/.spacemacs            | find-dotfile              |
+	| SPC ?     | search for key bindings      | show keybindings          |
+	| SPC SPC   | list and search all commands | M-x                       |
+	my keybindings <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11016>
+	important tasks <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11017>
 vim
 	mine
 		Emvc
@@ -68,8 +74,10 @@ apps
 	intellij
 		#a	action menu
 		SPC SPC	action menu
+		| !+ SPC       | quicklist: popups |
 		intellij refcard <url:file:///~/projects/study/code/study_intellij.md#r=g_11014>
 		my customizations <url:file:///~/projects/study/code/study_intellij.md#r=g_10996>
 		my quick lists <url:file:///~/projects/study/code/study_intellij.md#r=g_10995>
 		study_intellij_ideavim.md <url:file:///~/projects/study/code/study_intellij_ideavim.md>
+	
 

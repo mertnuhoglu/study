@@ -21,21 +21,24 @@ state: wip
 
 Ref: `Spacemacs Lvl01 20200418 <url:/Users/mertnuhoglu/projects/study/lvlbook/lvl_20200418.md#tn=Spacemacs Lvl01 20200418>`
 
-## my refcard: 
+## spacemacs refcard id=g_11015
 
-		| SPC h d f | help on function            | describe-function         |
-		| SPC h SPC | list layers      |
-		| SPC f e d | open ~/.spacemacs           |
-		| SPC f e R | reload .spacemacs           |
-		| SPC f r | file recent  |
-		| SPC q r   | restart emacs               |
-		| SPC w d | buffer kill     |
-		| SPC m     | cider menu                  | ,                         |
-		| '         | start REPL                  | cider-jack-in             |
-		| e         | eval menu                   |                           |
-		| e f       | eval expression inline      | cider-eval-defun-at-point |
-		| e ;       | eval expression as comment  |                           |
-		| s s       | cider-switch-to-repl-buffer |                           |
+		| SPC SPC   | list and search all commands | M-x                       |
+		| SPC ?     | search for key bindings      | show keybindings          |
+		| SPC h d f | help on function             | describe-function         |
+		| SPC h SPC | list layers                  |
+		| SPC f e d | open ~/.spacemacs            | find-dotfile              |
+		| SPC f e R | reload .spacemacs            |
+		| SPC f r   | file recent                  |
+		| SPC q r   | restart emacs                |
+		| SPC w d   | buffer kill                  |
+		| SPC m     | cider menu                   | ,                         |
+		| '         | start REPL                   | cider-jack-in             |
+		| e         | eval menu                    |                           |
+		| e f       | eval expression inline       | cider-eval-defun-at-point |
+		| e ;       | eval expression as comment   |                           |
+		| s s       | cider-switch-to-repl-buffer  |                           |
+		| SPC a	r   | open ranger                  |
 
 vim compatible commands: 
 
@@ -44,13 +47,16 @@ vim compatible commands:
 .
 ``` 
 
+		my keybindings <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11016>
+		important tasks <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11017>
+
 ## My Customizations
 
 Ref: Bind Command key to Meta and Alt key to itself: <url:/Users/mertnuhoglu/projects/study/emacs/study_spacemacs.md#tp=Bind Command key to Meta and Alt key to itself:>
 
 Paste: ^y
 
-### my keybindings
+### my keybindings id=g_11016
 
 Ref: `~/.spacemacs` > `dotspacemacs/user-config`
 
@@ -61,12 +67,12 @@ Ref: `~/.spacemacs` > `dotspacemacs/user-config`
 		| üa       | balance-windows                 |
 		| üüs      | evil-write-all                  |
 
-# Tasks
+# important tasks id=g_11017
 
 		| SPC T n   | switch to next theme listed in dotspacemacs-themes |
-		| SPC f e d | open ~/.spacemacs                                  |
-		| SPC ?     | search for key bindings                            |
-		| SPC SPC   | list and search all commands                       |
+		| SPC f e d | open ~/.spacemacs                                  | find-dotfile     |
+		| SPC ?     | search for key bindings                            | show keybindings |
+		| SPC SPC   | list and search all commands                       | M-x              |
 		| SPC f     | file related commands                              |
 		| SPC f t   | neotree file browser                               |
 		| SPC q r   | restart emacs                                      |
@@ -286,10 +292,10 @@ A project can be:
 
 #### Ranger
 
-		SPC a	r 		| open ranger
-			j/k
-			h/l				| parent/child
-			q					| quit
+		| SPC a	r | open ranger  |
+		| j/k     |              |
+		| h/l     | parent/child |
+		| q       | quit         |
 
 ## Create a Clojure Project
 

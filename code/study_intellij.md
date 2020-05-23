@@ -27,6 +27,9 @@ Ref: `compatible keybindings: my vim and intellij <url:/Users/mertnuhoglu/.ideav
 		| ! SPC        | Quick definition  |
 		| ^^           | Run anything      |
 
+		my customizations <url:file:///~/projects/study/code/study_intellij.md#r=g_10996>
+		my quick lists <url:file:///~/projects/study/code/study_intellij.md#r=g_10995>
+		quicklist: select popups <url:file:///~/projects/study/code/study_intellij.md#r=quicklist: select popups>
 
 ## Most important commands:
 
@@ -59,7 +62,7 @@ https://www.jetbrains.com/help/idea/mastering-keyboard-shortcuts.html
 
 Switcher `#s`
 
-## Select Popups
+## quicklist: select popups
 
 		| tool windows               |
 		| switcher                   |

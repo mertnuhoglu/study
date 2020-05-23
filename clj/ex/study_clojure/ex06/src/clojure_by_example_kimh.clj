@@ -1,6 +1,7 @@
 (ns clojure_by_example_kimh
   (:require [clojure.string :as str]))
 
+; autosaved
 ; Most codes taken or adapted from https://github.com/kimh/clojure-by-example/blob/master/source/index.html.md
 
 (println "merhaba")
@@ -8,35 +9,36 @@
 "h"
 
 true
-;; => true
+
 (str "each " "line " "is a" " form")
-;; => "each line is a form"
+
 (str "forms are " "expressions")
-;; => "forms are expressions"
+
 (def a-binding "is an assignment in other languages")
 
 (def bindings "map a name to a value")
 
 (type 'quoted-symbols-are-not-evaluated)
 
-(unresolved-symbol-error) ;; error
+(unresolved-symbol-error)                                   ;; error
 
 (let [binds "a value to a local name"] (str binds))
-;; => "a value to a local name"
+
 (let [a 10
       b 20] (+ 10 20))
-;; => 30
+
 ; narrow indentation
 (let
- [a 10
-  b 20]
- (+ 10 20))
+  [a 10
+   b 20]
+  (+ 10 20))
 ;; => 30
+
 ; clojure style convention
 (let [a 10
       b 20]
   (+ 10 20))
-;; => 30
+
 (def def-bindings "are global")
 
 (defn a-function
@@ -53,6 +55,7 @@ true
 
 ;; Anonymous functions
 
+
 (fn [] (str ""))
 (def anon-function (fn [] (str "")))
 (anon-function)
@@ -65,6 +68,7 @@ true
 
 ;; Higher-order-functions
 
+
 (defn higher-order-function [fun]
   (fun 10))
 (higher-order-function inc)
@@ -75,8 +79,9 @@ true
 
 ;; Namespaces
 
+
 (in-ns 'user)
-(outer) ; unable to resolve symbol
+(outer)                                                     ; unable to resolve symbol
 
 (in-ns 'clojure_by_example_kimh)
 (outer)
@@ -89,6 +94,7 @@ true
 (cbe/outer)
 
 ;; Control Flow
+
 
 (if (< 3 5)
   "then"
@@ -126,19 +132,22 @@ true
 
 ;; Boolean
 
+
 (boolean false)
 (boolean nil)
-(boolean 0) ; truthy
-(boolean []) ; truthy
+(boolean 0)                                                 ; truthy
+(boolean [])                                                ; truthy
 (boolean :a)
 
 ;; Strings
+
 
 (str "join " "strings")
 (str "no " "string interpolation" " like ${message}")
 (format "%s %s" "this is" "me")
 
 ;; Numbers
+
 
 (/ 4 3)
 (* (/ 4 3) 3)
@@ -147,12 +156,14 @@ true
 
 ;; Lists
 
+
 '(1 2 3)
 (conj '(1 2) 3)
 (nth '(3 5 2) 1)
 (count '(5 3))
 
 ;; Vectors
+
 
 [3 2 5]
 (conj [4 1] 7)
@@ -161,6 +172,7 @@ true
 (.indexOf [3 5 7] 5)
 
 ;; Sets
+
 
 #{1 2 3}
 (conj #{1 2 3} 4)
@@ -171,6 +183,7 @@ true
 (clojure.set/superset? #{1 2 3} #{1 2})
 
 ;; Maps
+
 {:a 1 :b 2}
 (get {:a 1 :b 2} :a)
 ({:a 1 :b 2} :a)
@@ -182,6 +195,7 @@ true
 (vals {:a 1 :b 2})
 
 ;; Sequences
+
 
 (seq '(1 2))
 (seq [1 2])
@@ -216,12 +230,14 @@ true
 
 ;; iterations
 
+
 (take 3 (iterate inc 3))
 (range 1 3)
 (repeatedly 3 #(println "hi"))
 (doseq [a [1 2 3]] (println a))
 
 ;; take
+
 
 (take 5 (range 0 100))
 (take-while pos? [1 2 -3 4])
@@ -230,29 +246,33 @@ true
 
 ;; filter
 
+
 (filter pos? [1 2 -3 4])
 (remove pos? [1 2 -3 4])
 
 ;; grouping
+
 
 (partition-by pos? [1 2 -3])
 (group-by pos? [1 2 -3])
 
 ;; list comprehension
 
+
 (for [x [1 2 3]] (+ 5 x))
-(for [x [-1 2 3] :when (< 0 x)] x)  ;; {x | x > 0}
+(for [x [-1 2 3] :when (< 0 x)] x)                          ;; {x | x > 0}
 (for [x [1 2 3]
       :let [y (+ x 1)]
       :when (even? y)]
   y)
 (for [x (range 3) :while (< x 2)] x)
 (for
- [x ['a 'b]
-  y [1 2]]
- [x y])
+  [x ['a 'b]
+   y [1 2]]
+  [x y])
 
 ;; recursion
+
 
 ; https://practicalli.github.io/clojure/thinking-functionally/recursion.html
 (defn length [xs]
@@ -276,6 +296,7 @@ true
 
 ;; loop
 
+
 (loop [i 0]
   (if (= i 3)
     (println "done!")
@@ -285,37 +306,41 @@ true
 
 ;; macros
 
+
 (defmacro unless [cond then]
   (list
-   'if
-   (list 'not cond)
-   then))
+    'if
+    (list 'not cond)
+    then))
 (unless false 1)
 
 (macroexpand '(unless false 1))
 
 ;; quotes
 
+
 (+ 1 2)
 (quote (+ 1 2))
 '(+ 1 2)
 
-`(+ 1 2) ; syntax-quoting
-`(+ 1 ~(inc 1)) ; syntax-quoting allows unquoting to evaluate its expression
+`(+ 1 2)                                                    ; syntax-quoting
+`(+ 1 ~(inc 1))                                             ; syntax-quoting allows unquoting to evaluate its expression
 `(+ ~(list 1 2))
-`(+ ~@(list 1 2)) ; unqoute splice `~@` expands a seq
+`(+ ~@(list 1 2))                                           ; unqoute splice `~@` expands a seq
 
 ;; threading macros
 
+
 (conj (conj [] 1) 2)
 (-> []
-    (conj 1)
-    (conj 2))
+  (conj 1)
+  (conj 2))
 (->> [1 2]
-     (map inc)
-     (map #(* 2 %)))
+  (map inc)
+  (map #(* 2 %)))
 
 ;; delay
+
 
 (def later (do [] (prn "Adding") (+ 1 2)))
 (def later (delay [] (prn "Adding") (+ 1 2)))
@@ -337,15 +362,15 @@ true
 (defn job []
   (Thread/sleep 3000)
   (deliver p "value"))
-(listen) (job)
+(listen)
+(job)
 
 ;; atom
 
+
 (def a (atom 1))
 (deref a)
-@a
 (reset! a 2)
-@a
 
 (swap! a #(inc %))
 
@@ -354,47 +379,45 @@ true
 
 ;; thread safety
 
-(def g 0)
-(repeatedly 10
-            #(def g (inc g)))
-g
 
 (def g 0)
 (repeatedly 10
-            (fn [] (future (def g (inc g)))))
-g
+  #(def g (inc g)))
+
+(def g 0)
+(repeatedly 10
+  (fn [] (future (def g (inc g)))))
 
 (def g (atom 0))
 (repeatedly 10
-            (fn [] (future (swap! g inc))))
-@g
+  (fn [] (future (swap! g inc))))
 
 ;; ref
 
+
 (def r (ref 0))
 (deref r)
-@r
 
 ;; transaction
 
-(dosync
- (ref-set r 1)
- (ref-set r 2))
-@r
 
 (dosync
- (alter r
-        (fn [a-ref]
-          (inc a-ref))))
+  (ref-set r 1)
+  (ref-set r 2))
+
+(dosync
+  (alter r
+     (fn [a-ref]
+      (inc a-ref))))
 
 (def rec (ref {}))
 (dosync
- (alter rec merge {:name "ali"})
- (throw (Exception. "wrong"))
- (alter rec merge {:age 40}))
-@rec
+  (alter rec merge {:name "ali"})
+  (throw (Exception. "wrong"))
+  (alter rec merge {:age 40}))
 
 ;; java
+
 
 (new java.util.Date)
 (java.util.Date. "2016/2/19")
@@ -412,3 +435,4 @@ g
   (.equals d1 d2))
 
 ;; yeni3
+
