@@ -1110,3 +1110,24 @@ select(flights, -one_of(col), one_of(col))
 ``` 
 
 
+## lapply all rows of a dataframe
+
+ex01:
+
+``` r
+files = googledrive::drive_ls("~/IFTTT/Spotify")
+names(files)
+  ##> [1] "name"           "id"             "drive_resource"
+lapply(seq(nrow(files)), 
+	function(row) {
+		googledrive::drive_download(
+			googledrive::as_id(files[row, ]$id)
+			, type = "txt"
+			, path = glue::glue("/Users/mertnuhoglu/gdrive/IFTTT/Spotify/{files[row, ]$name}.txt")
+			, overwrite = T
+		)
+	}
+)
+``` 
+
+

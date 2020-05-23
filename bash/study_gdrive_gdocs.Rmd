@@ -122,6 +122,26 @@ write.csv(iris, iris_tempfile, row.names = FALSE)
 drive_browse(iris_ss)
 ``` 
 
+## examples
+
+### ex01: download all files in a folder id=g_11018
+
+``` r
+files = googledrive::drive_ls("~/IFTTT/Spotify")
+lapply(seq(nrow(files)), 
+	function(row) {
+		googledrive::drive_download(
+			googledrive::as_id(files[row, ]$id)
+			, type = "txt"
+			, path = glue::glue("/Users/mertnuhoglu/gdrive/IFTTT/Spotify/{files[row, ]$name}.txt")
+			, overwrite = T
+		)
+	}
+)
+``` 
+
+
+
 # prasmussen/gdrive deprecated
 
 ## Setup Google Drive Access using gdrive
