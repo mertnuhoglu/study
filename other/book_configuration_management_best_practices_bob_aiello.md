@@ -19,7 +19,7 @@ state: wip
 
 ## Terminology
 
-### 14.3.1 Configuration Item
+### 14.3.1 Configuration Item id=g_11198
 
 Possible choices:
 
@@ -32,7 +32,7 @@ Possible choices:
 
 Anything required in a release is a configuration item.
 
-### 14.3.2 Configuration Identification
+### 14.3.2 Configuration Identification id=g_11199
 
 Select and identify correct CIs. This includes:
 
@@ -44,7 +44,7 @@ Select and identify correct CIs. This includes:
 
 This enables you to identify exact version of a CI regardless of whether it is SCM (like git).
 
-### 14.3.3 Configuration Control
+### 14.3.3 Configuration Control id=g_11200
 
 Configuration control is used to control all changes to CIs, including:
 
@@ -73,7 +73,7 @@ components have interface dependencies such as:
 
 configuration status accounting (csa): tracing a CI through its complete lifecycle
 
-### 14.3.6 Configuration Audit
+### 14.3.6 Configuration Audit id=g_11201
 
 verifying physical and functional characteristics of any CI
 
@@ -121,7 +121,7 @@ alternative flow for emergencies: emergency change control process
 
 2. a very senior manager approves them 
 
-### 1.3.1 Creating Baselines and Time Machines
+### 1.3.1 Creating Baselines and Time Machines id=g_11202
 
 checking in source code to VCS is not sufficient as a CM process.
 

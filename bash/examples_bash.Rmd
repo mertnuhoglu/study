@@ -1223,3 +1223,9 @@ zip -r myfiles.zip mydir
 find . -type d -exec sh -c "fc=\$(find '{}' -type f | wc -l); echo -e \"\$fc\t{}\"" \; | sort --k 2nr
 ``` 
 
+### convert resize images imagemagick
+
+``` 
+mogrify -quality 90 -resize 1280x720 *.jpg
+``` 
+
