@@ -21,7 +21,7 @@ state: wip
 
 https://clojure.org/guides/learn/syntax
 
-### Strings (character types)
+### Strings (character types) id=g_11315
 
 ``` clojure
 "hello"         ; string
@@ -29,7 +29,7 @@ https://clojure.org/guides/learn/syntax
   #"[0-9]+"       ; regular expression
 ``` 
 
-### Symbols and idents:
+### Symbols and idents: id=g_11316
 
 		map             ; symbol
 		+               ; symbol - most punctuation allowed
@@ -72,7 +72,7 @@ Lists are evaluated as invocation.
 
 Some languages have both statements and expressions. Statements have stateful effect but don't return a value. In clojure, everything is an expression that evaluates to a value.
 
-### Delaying evaluation with quoting
+### Delaying evaluation with quoting id=g_11317
 
 Sometimes, symbols should just be a symbol without looking up what it refers to. Then we suspend evaluation with quoting:
 
@@ -86,33 +86,33 @@ Sometimes, a list should just be a list of data values:
 '(1 2 3)
 ``` 
 
-### REPL
+### REPL id=g_11318
 
 Clojure is always compiled to JVM bytecode. There is no clojure interpreter.
 
 History of values of last expressions: `*1` `*2`...
 
 ``` clojure
-user=> (+ 3 4)
-7
-user=> (+ 10 *1)
-17
+(+ 3 4)
+;; => 7
+(+ 10 *1)
+;; => 17
 ``` 
 
-#### Helper functions
+#### Helper functions id=g_11313
 
 Helper functions: `doc`, `find-doc`, `apropos`, `source`, `dir`
 
 ``` clojure
 (require '[clojure.repl :refer :all])
-user=> (doc +)
+;; => (doc +)
 ``` 
 
 You can use the `apropos` command to find functions that match a particular string or regular expression.
 
 ``` clojure
-user=> (apropos "+")
-(clojure.core/+ clojure.core/+')
+(apropos "+")
+;; => (clojure.core/+ clojure.core/+')
 ``` 
 
 `find-doc` search inside documentation 
@@ -147,15 +147,15 @@ Symbols are evaluated by looking up what they refer to:
   ##> 14
 ``` 
 
-#### Printing
+#### Printing id=g_11319
 
 `println` and `print` for human-readable printing.
 
 `prn` and `pr` for machine-readable printing. It puts quotes around strings.
 
 ``` clojure
-user=> (println "What is this:" (+ 1 2))
-What is this: 3
+(println "What is this:" (+ 1 2))
+;; => What is this: 3
 ``` 
 
 `print` and `println` functions have side-effects and returns nil as result.
@@ -295,7 +295,7 @@ Instead you can simply write:
 
 ### Java Interop
 
-#### Invoking java code
+#### invoking java code id=g_11324
 
 ``` clojure
 	| Task            | Java              | Clojure          |
@@ -570,21 +570,21 @@ x is 10
 `dotimes`
 
 ``` clojure
-user=> (dotimes [i 3]
+(dotimes [i 3]
          (println i))
-0
-1
-2
-nil
+;; 0
+;; 1
+;; 2
+;; => nil
 ``` 
 
 `for` is list comprehension
 
 ``` clojure
-user=> (for [letter [:a :b]
+(for [letter [:a :b]
              number (range 3)] ; list of 0, 1, 2
          [letter number])
-([:a 0] [:a 1] [:a 2] [:b 0] [:b 1] [:b 2])
+;; => ([:a 0] [:a 1] [:a 2] [:b 0] [:b 1] [:b 2])
 ``` 
 
 

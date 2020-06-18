@@ -15,9 +15,11 @@ blog: mertnuhoglu.com
 
 # Issues
 
-## Quickstart
+## quickstart intellij
 
 Ref: `compatible keybindings: my vim and intellij <url:/Users/mertnuhoglu/.ideavimrc#tn=compatible keybindings: my vim and intellij >`
+
+ref: `compatible keybindings: spacemacs and intellij <url:file:///~/.ideavimrc#r=g_10991>`
 
 ## intellij refcard id=g_11014
 
@@ -29,7 +31,7 @@ Ref: `compatible keybindings: my vim and intellij <url:/Users/mertnuhoglu/.ideav
 
 		my customizations <url:file:///~/projects/study/code/study_intellij.md#r=g_10996>
 		my quick lists <url:file:///~/projects/study/code/study_intellij.md#r=g_10995>
-		quicklist: select popups <url:file:///~/projects/study/code/study_intellij.md#r=quicklist: select popups>
+		quicklist: select popups <url:file:///~/projects/study/code/study_intellij.md#r=g_11320>
 
 ## Most important commands:
 
@@ -62,7 +64,9 @@ https://www.jetbrains.com/help/idea/mastering-keyboard-shortcuts.html
 
 Switcher `#s`
 
-## quicklist: select popups
+## quicklist: select popups id=g_11320
+
+`!+SPC`
 
 		| tool windows               |
 		| switcher                   |

@@ -55,56 +55,55 @@ Activities:
 
 ## Basic Clojure
 
-### Whats my environment
+### Whats my environment id=g_11403
 
 ``` clojure
 *clojure-version*
-  ##> {:major 1, :minor 9, :incremental 0, :qualifier nil}
+  ;; {:major 1, :minor 9, :incremental 0, :qualifier nil}
 ``` 
 
 Class path:
 
 ``` clojure
 *compile-path*
-  ##> "/Users/mertnuhoglu/codes/clojure/clojure-through-code/target/classes"
+  ;; "/Users/mertnuhoglu/codes/clojure/clojure-through-code/target/classes"
 ``` 
 
 Current namespace:
 
 ``` clojure
 *ns*
-  ##> #object[clojure.lang.Namespace 0x209a5cf "user"]
+  ;; #object[clojure.lang.Namespace 0x209a5cf "user"]
 ``` 
 
 Last 3 values:
 
 ``` clojure
-(+ 1 2 3)
-(+ 1 2 3 4)
-(+ 1 2 3 5)
-(str *1 *2 *3)
-"11106"
+(+ 1 2)
+(+ 1 3)
+(str *1 *2)
+"43"
 ``` 
 
 ### Reading your Project configuration
 
 ``` clojure
 (slurp "project.clj")
-  ##> "(defproject clojure-through-code \"20.1.5-SNAPSHOT\"\n  :description \"Learning Clojure by evaluating code on the fly\"\n  :url \"...
+  ;; "(defproject clojure-through-code \"20.1.5-SNAPSHOT\"\n  :description \"Learning Clojure by evaluating code on the fly\"\n  :url \"...
 ``` 
 
 Tidy up the result:
 
 ``` clojure
 (read-string (slurp "project.clj"))
-  ##> (defproject clojure-through-code "20.1.5-SNAPSHOT" :description "Learning Clojure by evaluating code on the fly" :url "
+  ;; (defproject clojure-through-code "20.1.5-SNAPSHOT" :description "Learning Clojure by evaluating code on the fly" :url "
 ``` 
 
 `nth` nth element
 
 ``` clojure
 (nth (read-string (slurp "project.clj")) 1)
-  ##> clojure-through-code
+  ;; clojure-through-code
 ``` 
 
 ### Threading macros
@@ -117,7 +116,7 @@ Read from left-to-right instead of inside-out.
  slurp
  read-string
  (nth 2))
-  ##> "20.1.5-SNAPSHOT"
+  ;; "20.1.5-SNAPSHOT"
 ``` 
 
 Thread-last macro:
@@ -159,7 +158,7 @@ Or `(use 'cloujure.repl)`
 
 When you assign a name to a value, that name is called a symbol.
 
-### Namespace
+### Namespace id=g_11405
 
 Using a function from another namespace:
 
@@ -347,7 +346,7 @@ Use map directly:
 (:fullname (:vader starwars-characters))
 ``` 
 
-Threading macro to shorten code:
+Threading macro to shorten code: id=g_11406
 
 ``` clojure
 (-> starwars-characters
@@ -450,45 +449,44 @@ Common functions:
 (take 4 (range))
 ``` 
 
-### Destructuring
+### Destructuring id=g_11407
 
 ``` clojure
 (let [[a b c & d :as e] [1 2 3 4 5 6 7]]
   [a b c d e])
-  ##> [1 2 3 (4 5 6 7) [1 2 3 4 5 6 7]]
+  ;; [1 2 3 (4 5 6 7) [1 2 3 4 5 6 7]]
 [1 2 3 (4 5 6 7) [1 2 3 4 5 6 7]]
 (let [[a b c & d :as e] [1 2 3 4 5 6 7]]
   d)
-  ##> (4 5 6 7)
+  ;; (4 5 6 7)
 (let [[a b c & d :as e] [1 2 3 4 5 6 7]]
   e)
-  ##> [1 2 3 4 5 6 7]
+  ;; [1 2 3 4 5 6 7]
 ``` 
 
 ``` clojure
 (let [[[x1 y1][x2 y2]] [[1 2] [3 4]]]
   [x1 y1 x2 y2])
-  ##> [1 2 3 4]
+  ;; [1 2 3 4]
 
 ;; with strings
 (let [[a b & c :as str] "asdjhhfdas"]
   [a b c str])
-  ##> [\a \s (\d \j \h \h \f \d \a \s) "asdjhhfdas"]
+  ;; [\a \s (\d \j \h \h \f \d \a \s) "asdjhhfdas"]
 
 ;; with maps
 (let [{a :a, b :b, c :c, :as m :or {a 2 b 3}}  {:a 5 :c 6}]
   [a b c m])
-  ##> [5 3 6 {:a 5, :c 6}]
+  ;; [5 3 6 {:a 5, :c 6}]
 ``` 
 
 ``` clojure
 (let [{a :a, c :c}  {:a 5 :c 6}]
   [a c])
-  ##> [5 6]
+  ;; [5 6]
 (let [{:keys [a c]}  {:a 5 :c 6}]
   [a c])
-  ##> [5 6]
-
+  ;; [5 6]
 ``` 
 
 ### Mapping functions

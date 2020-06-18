@@ -15,6 +15,10 @@ state: wip
 
 ---
 
+# quickstart cursive
+
+		|^^ repl | run repl|
+
 # Book: User Guide 
 
 https://cursive-ide.com/userguide/first-repl.html

@@ -21,7 +21,19 @@ Ref:
 
 # Questions
 
-## map doc
+## complement id=g_11433
+
+[complement - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/complement)
+
+``` 
+(def not-empty? (complement empty?))
+;; #'user/not-empty?
+
+(not-empty? [])    ;;=> false
+(not-empty? [1 2]) ;;=> true
+``` 
+
+## map doc id=g_11276
 
 https://clojuredocs.org/clojure.core/map
 
@@ -62,7 +74,7 @@ https://clojuredocs.org/clojure.core/map
 ;;=> ([:a :d :g] [:b :e :h] [:c :f :i])
 ``` 
 
-## partial doc
+## partial doc id=g_11277
 
 https://clojuredocs.org/clojure.core/partial
 
@@ -76,7 +88,7 @@ https://clojuredocs.org/clojure.core/partial
 
 ``` clojure
 user=> (def hundred-times (partial * 100))
-#'user/hundred-times
+  #'user/hundred-times
 
 user=> (hundred-times 5)
 500
@@ -87,7 +99,7 @@ user=> (hundred-times 4 5 6)
 ``` 
 
 
-## apply doc
+## apply doc id=g_11278
 
 https://clojuredocs.org/clojure.core/apply
 
@@ -120,12 +132,15 @@ Applies fn f to the argument list formed by prepending intervening arguments to 
 ;;=> 3
 ``` 
 
-## comp doc
+## comp doc id=g_11279
 
 https://clojuredocs.org/clojure.core/comp
 
 ``` clojure
-(comp)(comp f)(comp f g)(comp f g & fs)
+(comp)
+(comp f)
+(comp f g)
+(comp f g & fs)
 ``` 
 
 Takes a set of functions and returns a fn that is the composition of those fns. (right-to-left)
@@ -147,12 +162,15 @@ Takes a set of functions and returns a fn that is the composition of those fns. 
 (negative-quotient 8 3)  ;;=> -8/3
 ``` 
 
-## juxt doc
+## juxt doc id=g_11280
 
 https://clojuredocs.org/clojure.core/juxt
 
 ``` clojure
-(juxt f)(juxt f g)(juxt f g h)(juxt f g h & fs)
+(juxt f)
+(juxt f g)
+(juxt f g h)
+(juxt f g h & fs)
 ``` 
 
 Takes a set of functions and returns a fn that is the juxtaposition
@@ -181,14 +199,14 @@ of those fns.
 ;;=> {:a "a" :b "b" :c "c" :d "d"}
 ``` 
 
-## identity doc
+## identity doc id=g_11281
 
 ``` clojure
 user=> (identity 4)
 4
 ``` 
 
-## name doc
+## name doc id=g_11282
 
 https://clojuredocs.org/clojure.core/name
 
@@ -211,7 +229,7 @@ Returns the name String of a string, symbol or keyword.
 ;;=> "x"
 ``` 
 
-## pr-str doc
+## pr-str doc id=g_11283
 
 https://clojuredocs.org/clojure.core/pr-str
 
@@ -227,60 +245,61 @@ user=> x
 
 
 ;; Turn that data into a string...
-user=> (pr-str x)
-"[1 2 3 4 5]"
+(pr-str x)
+;; => "[1 2 3 4 5]"
 
 
 ;; ...and turn that string back into data!
-user=> (read-string (pr-str x))
-[1 2 3 4 5]
+(read-string (pr-str x))
+;; => [1 2 3 4 5]
 ``` 
 
-## repeat doc
+## repeat doc id=g_11284
 
 https://clojuredocs.org/clojure.core/repeat
 
 ``` clojure
-(repeat x)(repeat n x)
+(repeat x)
+(repeat n x)
 ``` 
 
 Returns a lazy (infinite!, or length n if supplied) sequence of xs.
 
 ``` clojure
-user=> (take 5 (repeat "x"))
-("x" "x" "x" "x" "x")
+(take 5 (repeat "x"))
+;; => ("x" "x" "x" "x" "x")
 
 ;; which is the same as:
-user=> (repeat 5 "x")
-("x" "x" "x" "x" "x")
+(repeat 5 "x")
+;; => ("x" "x" "x" "x" "x")
 
 ``` 
 
-## into doc
+## into doc id=g_11285
 
 https://clojuredocs.org/clojure.core/into
 
 ``` clojure
 ; Items are conj'ed one at a time, which puts them at the head of 
 ; the destination list
-user=> (into () '(1 2 3))
-(3 2 1)
+(into () '(1 2 3))
+;; => (3 2 1)
 
 ; This does not happen for a vector, however, due to the behavior of conj:
-user=> (into [1 2 3] '(4 5 6))
-[1 2 3 4 5 6]
+(into [1 2 3] '(4 5 6))
+;; => [1 2 3 4 5 6]
 ``` 
 
 ``` clojure
-user=> (into (sorted-map) [ [:a 1] [:c 3] [:b 2] ] )
-{:a 1, :b 2, :c 3}
+(into (sorted-map) [ [:a 1] [:c 3] [:b 2] ] )
+;; => {:a 1, :b 2, :c 3}
 ; When maps are the input source, they convert into an unordered sequence 
 ; of key-value pairs, encoded as 2-vectors
-user=> (into [] {1 2, 3 4})
-[[1 2] [3 4]]
+(into [] {1 2, 3 4})
+;; => [[1 2] [3 4]]
 ``` 
 
-## remove doc
+## remove doc id=g_11286
 
 https://clojuredocs.org/clojure.core/remove
 
@@ -293,11 +312,8 @@ https://clojuredocs.org/clojure.core/remove
 ; When coll is a map, pred is called with key/value pairs.
 (remove #(> (second %) 100)
        {:a 1
-        :b 2
-        :c 101
-        :d 102
-        :e -1})
-;;=> ([:a 1] [:b 2] [:e -1])
+        :c 101 })
+;;=> ([:a 1] )
 ``` 
 
 ### Logs
@@ -318,26 +334,26 @@ Nasıl çalışıyor bu:
 
 ``` clojure
 (second {:a 1})
-  ##> nil
+;; => nil
 ``` 
 
 `map` ile çağıralım
 
 ``` clojure
 (map #(> (second %) 100) {:a 1 :c 101})
-  ##> (false true)
+;; => (false true)
 ``` 
 
 Evet, bu durumda, tek tek gönderiliyor. O zaman, item değil de vector olarak mı gönderiliyor?
 
 ``` clojure
 (second [:a 1])
-  ##> 1
+;; => 1
 ``` 
 
 Evet, map'in öğeleri `{:a 1}` gibi map değil, `[:a 1]` gibi vector.
 
-## update-in
+## update-in id=g_11287
 
 https://clojuredocs.org/clojure.core/update-in
 
@@ -349,7 +365,7 @@ https://clojuredocs.org/clojure.core/update-in
 ;;=> {:name "James", :age 27}
 ``` 
 
-## assoc-in
+## assoc-in id=g_11288
 
 https://clojuredocs.org/clojure.core/assoc-in
 
@@ -361,14 +377,14 @@ https://clojuredocs.org/clojure.core/assoc-in
 ; => {:person "Violet"}
 ``` 
 
-## swap! amap assoc akey nasıl çalışıyor?
+## swap! amap assoc akey nasıl çalışıyor? id=g_11289
 
 ``` clojure
 (def m (atom {:a 1}))
 @m
-  ##> {:a 1}
+;; => {:a 1}
 (swap! m assoc :b 2)
-  ##> {:a 1, :b 2}
+;; => {:a 1, :b 2}
 ``` 
 
 Acaba sıralama değişince ne oluyor?
@@ -376,39 +392,39 @@ Acaba sıralama değişince ne oluyor?
 ``` clojure
 (def n {:a 1})
 (assoc n :b 2)
-  ##> {:a 1, :b 2}
+;; => {:a 1, :b 2}
 (assoc :b 2 n)
-  ##> Error
+;; => Error
 ``` 
 
 `assoc` 2 argüman alıyor. Bu yüzden, `swap!` ile kullanımda ilk argüman otomatikman mevcut atom oluyor. 
 
-## defonce
+## defonce id=g_11290
 
 Like def, but you cannot overwrite it.
 
 ``` clojure
-user> (defonce foo 5)
-  #'user/foo
+(defonce foo 5)
+;; => #'user/foo
 
-user> foo
-5
+foo
+;; => 5
 
 ;; defonce does nothing the second time
-user> (defonce foo 10)
-nil
+(defonce foo 10)
+;; => nil
 
-user> foo
-5
+foo
+;; => 5
 ``` 
 
-## printing a map
+## printing a map id=g_11291
 
 ``` clojure
 (print {:a 1 :b 2})
-  ##> {:a 1, :b 2}nil
+;; => {:a 1, :b 2}nil
 (clojure.pprint/pprint {:a 1 :b 2})
-  ##> {:a 1, :b 2}
+;; => {:a 1, :b 2}
 ``` 
 
 ## lisp - Why does Clojure have "keywords" in addition to "symbols"? - Stack Overflow
@@ -421,7 +437,7 @@ https://stackoverflow.com/questions/1527548/why-does-clojure-have-keywords-in-ad
 
 > Keywords are generally used as lightweight "constant strings", e.g. for the keys of a hash-map or the dispatch values of a multimethod. Symbols are generally used to name variable and functions and it's less common to manipulate them as objects
 
-## mapv function
+## mapv function id=g_11292
 
 > Returns a vector consisting of the result of applying f to the
 > set of first items of each coll, followed by applying f to the set
@@ -432,77 +448,77 @@ Usage:
 
 ``` clojure
 (mapv f coll)
-       (mapv f c1 c2)
-       (mapv f c1 c2 c3)
+(mapv f c1 c2)
+(mapv f c1 c2 c3)
 ``` 
 
 ``` clojure
 (mapv + [1 2] [3 4])
-  ##> [4 6]
+;; => [4 6]
 ``` 
 
-## hash-map function
+## hash-map function id=g_11293
 
 https://clojuredocs.org/clojure.core/hash-map
 
 ``` clojure
 (hash-map)
-  ##> {}
+;; => {}
 {}
-  ##> {}
+;; => {}
 (hash-map :key1 1, :key1 2) ; overwrites repeated keys
-  ##> {:key1 2}
+;; => {:key1 2}
 (hash-map :key1 'val1)
-  ##> {:key1 val1}
+;; => {:key1 val1}
 (hash-map [:compound :key] nil) ; compound key
-  ##> {[:compound :key] nil} 
+;; => {[:compound :key] nil} 
 ``` 
 
 ``` clojure
 (map #(hash-map % 0) (seq "abcdefgh"))
-  ##> ({\a 0} {\b 0} {\c 0} {\d 0} {\e 0} {\f 0} {\g 0} {\h 0}) 
+;; => ({\a 0} {\b 0} {\c 0} {\d 0} {\e 0} {\f 0} {\g 0} {\h 0}) 
 (apply hash-map (.split "a 1 b 2 c 3" " "))
-  ##> {"a" "1", "b" "2", "c" "3"}
+;; => {"a" "1", "b" "2", "c" "3"}
 ``` 
 
-## namespaced keyword notations
+## namespaced keyword notations id=g_11294
 
 ``` clojure
-user=> #:a{:b :c}
-  ##> #:a{:b :c}
-user=> {:a/b :c}
-  ##> #:a{:b :c}
+  #:a{:b :c}
+;; => #:a{:b :c}
+{:a/b :c}
+;; => #:a{:b :c}
 ``` 
 
-## map-indexed function
+## map-indexed function id=g_11295
 
 ``` clojure
-user=> (map-indexed (fn [idx itm] [idx itm]) "foobar")
-([0 \f] [1 \o] [2 \o] [3 \b] [4 \a] [5 \r])
-user=> (map-indexed hash-map "foobar")
-({0 "f"} {1 "o"} {2 "o"} {3 "b"} {4 "a"} {5 "r"})
+(map-indexed (fn [idx itm] [idx itm]) "foobar")
+;; => ([0 \f] [1 \o] [2 \o] [3 \b] [4 \a] [5 \r])
+(map-indexed hash-map "foobar")
+;; => ({0 "f"} {1 "o"} {2 "o"} {3 "b"} {4 "a"} {5 "r"})
 ``` 
 
-## vec function
+## vec function id=g_11296
 
 ``` clojure
-user=> (vec '(1 2 3))
-[1 2 3]
+(vec '(1 2 3))
+;; => [1 2 3]
 
-user=> (vec [1 2 3])
-[1 2 3]
+(vec [1 2 3])
+;; => [1 2 3]
 
-user=> (vec #{1 2 3})
-[1 3 2]
+(vec #{1 2 3})
+;; => [1 3 2]
 
-user=> (vec {:a 1 :b 2 :c 3})
-[[:c 3] [:b 2] [:a 1]]
+(vec {:a 1 :b 2 :c 3})
+;; => [[:c 3] [:b 2] [:a 1]]
 
-user=> (vec '())
-[]
+(vec '())
+;; => []
 
-user=> (vec nil)
-[]
+(vec nil)
+;; => []
 ``` 
 
 
@@ -529,23 +545,23 @@ clj
 ``` clojure
 (require '[clj-time.core :as t])
 (str (t/now))
-  ##> "2019-11-01T11:53:40.214Z"
+;; => "2019-11-01T11:53:40.214Z"
 ``` 
 
-## Writing a program
+## Writing a program id=g_11297
 
 Edit `~/projects/study/clj/ex/study_clojure/ex01/src/hello.clj`
 
 ``` clojure
 clj -m hello
-  ##> Hello world, the time is 02:57 PM
+;; => Hello world, the time is 02:57 PM
 ``` 
 
 # Articles
 
 ## Article: Freecodecamp Clojure
 
-### Hashmaps
+### Hashmaps id=g_11298
 
 https://guide.freecodecamp.org/clojure/hashmaps/
 
@@ -555,21 +571,21 @@ Two ways to construct:
 
 ``` clojure
 (hash-map :a 1 :b 2)
-  ##> {:b 2, :a 1}
+;; => {:b 2, :a 1}
 ``` 
 
 2. hashmap literal `{}`
 
 ``` clojure
 {:a 1 :b 2}
-  ##> {:a 1, :b 2}
+;; => {:a 1, :b 2}
 ``` 
 
-#### Converting other collections to hashmaps
+#### Converting other collections to hashmaps id=g_11299
 
 ``` clojure
 (hash-map [:a 1 :b 2 :c 3])
-  ##> ; => IllegalArgumentException No value supplied for key: [:a 1 :b 2 :c 3]
+;; => ; => IllegalArgumentException No value supplied for key: [:a 1 :b 2 :c 3]
 ``` 
 
 We need to use `apply`
@@ -578,16 +594,16 @@ It destructures a collection before applying a function to it:
 
 ``` clojure
 (apply + [1 2 3])
-  ##> 6
+;; => 6
 (apply hash-map [:a 1 :b 2 :c 3])
-  ##> ; => {:c 3, :b 2, :a 1}
+;; => ; => {:c 3, :b 2, :a 1}
 ``` 
 
 ## Article: Do Things: A Clojure Crash Course | Clojure for the Brave and True
 
 https://www.braveclojure.com/do-things/
 
-### Special Forms
+### Special Forms id=g_11300
 
 In the previous section, you learned that function calls are expressions that have a function expression as the operator. The two other kinds of expressions are macro calls and special forms
 
@@ -595,7 +611,7 @@ the main feature that makes special forms “special” is that, unlike function
 
 Another feature that differentiates special forms is that you can’t use them as arguments to functions
 
-### Multi-arity
+### Multi-arity id=g_11301
 
 Functions also support arity overloading. This means that you can define a function so a different function body will run depending on the arity
 
@@ -625,7 +641,7 @@ Arity overloading is one way to provide default values for arguments
 
 "karate" is the default value.
 
-### Variable-arity
+### Variable-arity id=g_11302
 
 By including a `rest` parameter. 
 
@@ -641,7 +657,7 @@ By including a `rest` parameter.
 ; => "Hi, Doreen, here are my favorite things: gum, shoes, kara-te"
 ``` 
 
-### Destructuring
+### Destructuring id=g_11303
 
 Binding names to values within a collection.
 
@@ -691,7 +707,7 @@ opt02: short form
   (steer-ship! treasure-location))
 ``` 
 
-### Anonymous Functions
+### anonymous functions id=g_11304
 
 `%&`: Rest parameter
 
@@ -700,7 +716,7 @@ opt02: short form
 ; => (1 "blarg" :yip)
 ``` 
 
-### Returning Functions
+### returning functions id=g_11305
 
 Returned functions are closures
 
@@ -756,7 +772,7 @@ Returned functions are closures
                      (set [part (matching-part part)])))))))
 ``` 
 
-### let
+### let id=g_11307
 
 Rest parameters in `let`
 
@@ -771,7 +787,7 @@ Rest parameters in `let`
 ; => ["Pongo" ("Perdita" "Puppy 1" "Puppy 2")]
 ``` 
 
-### loop
+### loop id=g_11308
 
 ``` clojure
 (loop [iteration 0]
@@ -792,12 +808,12 @@ You can do the same thing by recursive functions but this is more verbose:
 ``` clojure
 (defn recursive-printer
   ([]
-     (recursive-printer 0))
+    (recursive-printer 0))
   ([iteration]
-     (println iteration)
-     (if (> iteration 3)
-       (println "Goodbye!")
-       (recursive-printer (inc iteration)))))
+    (println iteration)
+    (if (> iteration 3)
+      (println "Goodbye!")
+      (recursive-printer (inc iteration)))))
 (recursive-printer)
 ; => Iteration 0
 ; => Iteration 1
@@ -807,7 +823,7 @@ You can do the same thing by recursive functions but this is more verbose:
 ; => Goodbye!
 ``` 
 
-### reduce
+### reduce id=g_11306
 
 Process each element in a sequence and build a result.
 
@@ -848,7 +864,7 @@ With `reduce` you know that you are processing elements of collection.
 
 https://github.com/stuarthalloway/presentations/blob/master/ClojureInTenBigIdeas-Jun-2017.pdf?raw=true
 
-## Article: Functional-navigational programming in Clojure(Script) with Specter
+## Article: Functional-navigational programming in Clojure(Script) with Specter id=g_11311
 
 http://nathanmarz.com/blog/functional-navigational-programming-in-clojurescript-with-sp.html
 
@@ -899,10 +915,10 @@ function nullthrows(result) {
 }
 nullthrows(getUser(db, 'billy'))
 // if it's null, throw Exception
-  ##> index.html:700 Uncaught Error: uh oh
-  ##>     at nullthrows (index.html:700)
-  ##>     at someStuff (index.html:1325)
-  ##>     ...
+;; => index.html:700 Uncaught Error: uh oh
+;; =>     at nullthrows (index.html:700)
+;; =>     at someStuff (index.html:1325)
+;; =>     ...
 ``` 
 
 #### in clojure
@@ -986,6 +1002,7 @@ pipe(item, (item) => updatePrice(item, 100))
 ``` 
 
 Problem: needs anonymous functions
+
 #### in clojure
 
 goal:
@@ -1192,7 +1209,7 @@ https://clojure.org/news/2015/06/30/clojure-17
 
 - into: collect results of transformation
 - sequence: incrementally compute
-- transduce: immediaetly compute
+- transduce: immediately compute
 - eduction: delay computation
 - core.async: through a channel
 

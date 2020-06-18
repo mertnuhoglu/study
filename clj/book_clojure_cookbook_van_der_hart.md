@@ -24,7 +24,7 @@ Ref
 
 ## Chapter 01: Primitive Data
 
-### Capitalization of a String
+### Capitalization of a String id=g_11370
 
 ``` clojure
 (clojure.string/capitalize "this is a proper sentence.")
@@ -35,7 +35,7 @@ Ref
 ;; -> "column_header_one"
 ``` 
 
-### Clean Whitespace in a String
+### Clean Whitespace in a String id=g_11371
 
 ``` clojure
 (clojure.string/trim " \tBacon ipsum dolor sit.\n") 

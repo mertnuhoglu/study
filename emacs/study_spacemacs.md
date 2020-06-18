@@ -23,21 +23,21 @@ Ref: `Spacemacs Lvl01 20200418 <url:/Users/mertnuhoglu/projects/study/lvlbook/lv
 
 ## spacemacs refcard id=g_11015
 
-		| SPC SPC   | list and search all commands | M-x                       |
-		| SPC ?     | search for key bindings      | show keybindings          |
-		| SPC h d f | help on function             | describe-function         |
+		| SPC SPC   | list and search all commands | M-x                         |
+		| SPC ?     | search for key bindings      | show keybindings            |
+		| SPC h d f | help on function             | describe-function           |
 		| SPC h SPC | list layers                  |
-		| SPC f e d | open ~/.spacemacs            | find-dotfile              |
+		| SPC f e d | open ~/.spacemacs            | find-dotfile                |
 		| SPC f e R | reload .spacemacs            |
-		| SPC f r   | file recent                  |
-		| SPC q r   | restart emacs                |
-		| SPC w d   | buffer kill                  |
-		| SPC m     | cider menu                   | ,                         |
-		| '         | start REPL                   | cider-jack-in             |
-		| e         | eval menu                    |                           |
-		| e f       | eval expression inline       | cider-eval-defun-at-point |
-		| e ;       | eval expression as comment   |                           |
-		| s s       | cider-switch-to-repl-buffer  |                           |
+		| SPC f r   | file recent                  | counsel-recentf             |
+		| SPC q r   | restart emacs                | restart-emacs               |
+		| SPC w d   | buffer kill                  | delete-window               |
+		| SPC m     | cider menu                   | ,                           |
+		| '         | start REPL                   | cider-jack-in               |
+		| e         | eval menu                    |                             |
+		| e f       | eval expression inline       | cider-eval-defun-at-point   |
+		| e c       | eval expression as comment   | cider-eval-defun-to-comment |
+		| s s       | cider-switch-to-repl-buffer  |                             |
 		| SPC a	r   | open ranger                  |
 
 vim compatible commands: 
@@ -490,9 +490,9 @@ https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org
 
 Files
 
-		| SPC f f | file open    |
-		| SPC f r | file recent  |
-		| SPC f s | file save :w |
+		| SPC f f | file open    | counsel-find-file |
+		| SPC f r | file recent  | counsel-recentf   |
+		| SPC f s | file save :w | save-buffer       |
 
 Help
 

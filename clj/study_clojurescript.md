@@ -289,9 +289,7 @@ https://www.jacekschae.com/courses/learn-reagent-free/21667-setup/61162-01-dev-s
 
 Shadow CLJS as build tool:
 
-https://shadow-cljs.github.io/docs/UsersGuide.html#_installation
-
-``` bash
+``` 
 npm install --save-dev shadow-cljs
 npm install -g shadow-cljs
 ``` 

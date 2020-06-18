@@ -1,4 +1,6 @@
 
+clojure id=g_11314
+	clojure refcard <url:/Users/mertnuhoglu/projects/study/clj/refcard_clojure.otl#tn=>
 emacs
 	spacemacs refcard <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11015>
 	| SPC f e d | open ~/.spacemacs            | find-dotfile              |

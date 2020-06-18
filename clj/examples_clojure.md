@@ -18,9 +18,17 @@ state: wip
 
 # Index
 
-## Helper functions <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tn=Helper functions>
+## repl id=g_11312
 
-``` bash
+``` clojure
+(str *1 " result of most recent evaluation")
+(pst) ; stack trace
+(load-file "file.clj")
+``` 
+
+ref: `Helper functions <url:file:///~/projects/study/clj/book_learn_clojure.md#r=g_11313>`
+
+``` clojure
 (doc +)
 (apropos "+")
 (find-doc something)
@@ -29,23 +37,15 @@ state: wip
 (source something)
 ``` 
 
-## repl
-
-``` bash
-(str *1 " result of most recent evaluation")
-(pst) ; stack trace
-(load-file "file.clj")
-``` 
-
 ## def var <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tn=def var>
 
-``` bash
+``` clojure
 (def a-symbol 7)
 ``` 
 
 ## println
 
-``` bash
+``` clojure
 print
 prn 
 pr
@@ -53,13 +53,13 @@ pr
 
 ## Functions <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tp=Clojure - Learn Clojure - Functions>
 
-``` bash
+``` clojure
 (defn a-function [params] (str "body"))
 ``` 
 
 Multi-arity functions 
 
-``` bash
+``` clojure
 (defn f 
 	([] ..)
 	([param] ..))
@@ -67,13 +67,13 @@ Multi-arity functions
 
 variadic functions
 
-``` bash
+``` clojure
 (defn f [p0 & rest] ..)
 ``` 
 
 anonymous functions
 
-``` bash
+``` clojure
 (fn [p] (..))
 	#(+ 6 %)
 	#(+ 6 %1 %2)
@@ -81,27 +81,27 @@ anonymous functions
 
 defn vs fn
 
-``` bash
+``` clojure
 (defn f [] (..))
 (def f (fn [] (..)))
 ``` 
 
 single pass compiler: 
 
-``` bash
+``` clojure
 (declare down)
 ``` 
 
 Applying Functions <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tp=Applying Functions>
 
-``` bash
+``` clojure
 (plotxy shape (first coords) (second coords)))
 (apply plotxy shape coords))
 ``` 
 
 let
 
-``` bash
+``` clojure
 (let [sym value] (body))
 (let [[_ _ z] [1 2 3]]
   z)
@@ -110,7 +110,7 @@ let
 
 Java Interop <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tp=Java Interop>
 
-``` bash
+``` clojure
 (Constructor. "arg")
 (.method instance args)
 (.-field instance)
@@ -119,14 +119,14 @@ Java Interop <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tp=Java
 
 Regex
 
-``` bash
+``` clojure
 ; #"\?$"
 (re-seq #"\w+" "ali veli")
 ``` 
 
 Vectors
 
-``` bash
+``` clojure
 ([1 2 3] 1)
 (get vec 0)
 (count vec)
@@ -138,7 +138,7 @@ Vectors
 
 Lists
 
-``` bash
+``` clojure
 '(1 2 3)
 (quote (1 2 3))
 (first xs)
@@ -151,7 +151,7 @@ Lists
 
 Sets
 
-``` bash
+``` clojure
 (conj xs :elem)
 (disj xs :elem)
 (contains? xs :elem)
@@ -163,7 +163,7 @@ Sets
 
 Maps
 
-``` bash
+``` clojure
 (assoc m :key 0)
 (dissoc m :key)
 (get m :key)
@@ -184,13 +184,13 @@ Maps
 
 nested maps
 
-``` bash
+``` clojure
 (get-in m [:parent :child])
 ``` 
 
 relational algebra
 
-``` bash
+``` clojure
 (rename compositions {:name :title})
 (select #(= (:name %) "Requiem") compositions)
 (project compositions [:name])
@@ -201,7 +201,7 @@ relational algebra
 
 flow control
 
-``` bash
+``` clojure
 (if (true? x) exp-then exp-else)
 (do side-eff1 side-eff2 return-exp)
 (when (true? x) exp-then)
@@ -213,7 +213,7 @@ flow control
 
 lein
 
-``` bash
+``` clojure
 lein repl
 lein new app project01
 lein run
@@ -221,7 +221,7 @@ lein run
 
 higher-order functions
 
-``` bash
+``` clojure
 map
 filter
 reduce
@@ -231,7 +231,7 @@ reduce
 
 destructuring
 
-``` bash
+``` clojure
 (let [[smaller bigger] (split-with #(< % 5) (range 10))])
 (defn print-user [[name address phone]])
 (let [{f :foo} {:foo "val"}] (println f))
@@ -242,7 +242,7 @@ destructuring
 
 ## namespaces
 
-``` bash
+``` clojure
 (ns colors)
 (ns myns (:use colors))
 (f ..)
@@ -256,7 +256,7 @@ destructuring
 
 resolve
 
-``` bash
+``` clojure
 (resolve 'foo)	; returns var that foo resolves 
 (in-ns 'myapp)	; create/switch namespace
 (clojure.core/use 'clojure.core)		; import it after switching
@@ -264,7 +264,7 @@ resolve
 
 require clojure import java
 
-``` bash
+``` clojure
 (require 'a-namespace)
 (a-namespace/f ..)
 (require '[clojure.string :as str])
@@ -272,19 +272,19 @@ require clojure import java
 (import '(java.io InputStream File))
 ``` 
 
-``` bash
+``` clojure
 (ns examples.exploring
   (:require [clojure.string :as str])
 	(:import (java.io File)))
 ``` 
 
-``` bash
+``` clojure
 java.io.File/separator		; fully qualified class name
 ``` 
 
 edn
 
-``` bash
+``` clojure
 \c \newline
 "string in double quotes with \n \t"
 true false
@@ -298,7 +298,7 @@ namespace/foo
 
 record
 
-``` bash
+``` clojure
 (defrecord Person [a b])
 (def f (->Person "ali" "veli"))
 (:a f)
@@ -306,7 +306,7 @@ record
 
 for comprehension 
 
-``` bash
+``` clojure
 (for [c compositions :when (= (:name c) "Requiem"] (:composer c))])
 ``` 
 
@@ -314,7 +314,7 @@ for comprehension
 
 atom
 
-``` bash
+``` clojure
 (atom initial-state)
 (def visitors (atom #{}))
 (swap! visitors conj "Ali")
@@ -324,7 +324,7 @@ atom
 
 misc
 
-``` bash
+``` clojure
 (every? #(Character/isWhitespace %) str))
 (instance? java.util.Collection [1 2 3])
 (str 1 2 nil 3)
@@ -339,13 +339,13 @@ misc
 
 meta
 
-``` bash
+``` clojure
 (meta #'str)
 ``` 
 
 ## loop recur
 
-``` bash
+``` clojure
 (loop [result [] x 5]
 	(if (zero? x)
 		result
@@ -358,7 +358,7 @@ meta
 
 ## sequence library
 
-``` bash
+``` clojure
 (into [] (take 5 (iterate dec 5)))
   ##> [5 4 3 2 1]
 (into [] (drop-last (reverse (range 6))))
@@ -367,7 +367,7 @@ meta
   ##> [5 4 3 2 1]
 ``` 
 
-``` bash
+``` clojure
 (first aseq)
 (rest aseq)
 (cons elem aseq)
@@ -378,7 +378,7 @@ meta
 (into to-coll from-coll)
 ``` 
 
-``` bash
+``` clojure
 (range 10)
 (range 10 20)
 (repeat 3 "x")
@@ -392,7 +392,7 @@ meta
 (join \, ["a" "b" "c"])
 ``` 
 
-``` bash
+``` clojure
 take-while
 drop-while
 split-at
@@ -404,7 +404,7 @@ not-every?
 not-any?
 ``` 
 
-``` bash
+``` clojure
 map
 reduce
 sort
@@ -413,7 +413,7 @@ sort-by
 
 for :when :while
 
-``` bash
+``` clojure
 (for [word ["ali" "veli"]]
   (format "<p>%s</p>" word))
 (take 5 (for [n whole-numbers :when (even? n)] n))
@@ -422,7 +422,7 @@ for :when :while
 
 doall dorun
 
-``` bash
+``` clojure
 (def x (for [i (range 1 3)] (do (println i) i)))
 (doall x)
 (dorun x)
@@ -430,7 +430,7 @@ doall dorun
 
 seqing file system
 
-``` bash
+``` clojure
 (import 'java.io.File)
 (seq (.listFiles (File. ".")))
 (map #(.getName %) (.listFiles (File. ".")))
@@ -438,7 +438,7 @@ seqing file system
 
 seqing a stream
 
-``` bash
+``` clojure
 (require '[clojure.java.io :refer [reader]])
 (take 2 (line-seq (reader "src/examples/utils.clj")))
 (with-open [rdr (reader "src/examples/utils.clj")]
@@ -447,7 +447,7 @@ seqing a stream
 
 functional transformations
 
-``` bash
+``` clojure
 (partition 2 1 [:h :h :h :t :h])
 (comp f & fs)
 (partial f & partial-args)
@@ -455,14 +455,14 @@ functional transformations
 
 ## Specs
 
-``` bash
+``` clojure
 (require '[clojure.spec.alpha :as s])
 (s/def name spec)
 ``` 
 
 ## environment
 
-``` bash
+``` clojure
 *clojure-version*
 *compile-path*
 *ns*
@@ -470,7 +470,7 @@ functional transformations
 
 project configuration
 
-``` bash
+``` clojure
 (slurp "project.clj")
 (read-string (slurp "project.clj"))
 (nth (read-string (slurp "project.clj")) 1)
