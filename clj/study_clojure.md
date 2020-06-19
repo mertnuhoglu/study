@@ -21,6 +21,26 @@ Ref:
 
 # Questions
 
+## keep  id=g_11435
+
+[keep - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/keep)
+
+``` 
+;; comparisons among keep, filter, map and for.
+
+(keep #(if (odd? %) %) (range 10))
+;;=> (1 3 5 7 9)
+
+(map #(if (odd? %) %) (range 10))
+;;=> (nil 1 nil 3 nil 5 nil 7 nil 9)
+
+(for [ x (range 10) :when (odd? x)] x)
+;;=> (1 3 5 7 9)
+
+(filter odd? (range 10))
+;;=> (1 3 5 7 9)
+``` 
+
 ## complement id=g_11433
 
 [complement - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/complement)

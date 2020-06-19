@@ -153,7 +153,10 @@ iteration01
 				(not-every? even? [1 2]) ;; => true
 				(not-any? even? [1 2]) ;; => false
 				(empty? [1 2]) ;; => false
-	standard library
+	core
+		keep
+			; keep  <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g_11436>
+			(keep #(if (odd? %) %) (range 4)) ;;=> (1 3 5 7 9)
 		literals
 			Strings (character types) <url:book_learn_clojure.md#r=g_11315>
 			Symbols and idents: <url:book_learn_clojure.md#r=g_11316>
@@ -165,7 +168,7 @@ iteration01
 			#{1 2 3}     ; set
 			{:a 1, :b 2} ; map
 		complement
-			; complement <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11434>
+			; complement <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g_11434>
 			(def not-empty? (complement empty?))
 			(not-empty? [1 2]) ;;=> true
 		map
@@ -301,10 +304,18 @@ iteration01
 			#:a{:b :c} ;; => #:a{:b :c}
 			{:a/b :c} ;; => #:a{:b :c}
 		file read
-			; slurp: read file url id=g_11404
+			; slurp: read file url <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g_11404>
 			(spit "tmp.txt" "test")
 			(slurp "tmp.txt") ;; => "test"
 	libraries
+		specter id=g_11443
+			; ex: Increment every even number nested within map of vector of maps <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g_11441>
+				(def data {:a [{:aa 1 :bb 2} {:cc 3}] b [{:dd 4}]})
+				(transform [MAP-VALS ALL MAP-VALS even?] inc data) ;; => {:a [{:aa 1, :bb 3} {:cc 3}], :b [{:dd 5}]}
+			; ex: Append a sequence of elements to a nested vector <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g_11440>
+				(def data {:a [1 2 3]})
+				(setval [:a END] [4 5] data) ;; => {:a [1 2 3 4 5]}
+			; ex: Increment the last odd number in a sequence <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g_11442>
 		string
 			; capitalization of a string <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11372>
 				(str/capitalize "a b. c d.") ;; => "A b. c d."
@@ -485,14 +496,14 @@ iteration01
 					[name & things]
 					(str name (clojure.string/join ", " things)))
 		variadic
-			; variadic function <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11358>
+			; variadic function <url:ex/study_clojure/ex06/src/core01.clj#r=g_11358>
 			(defn f [x & xs] (str x xs))
 			(f 1 2 3) ;; => "1(2 3)"
 		destructuring
 			; Destructuring <url:study_clojure.md#r=g_11303>
 				(defn fn1 [[a]] a)
 				(fn1 [1 2 3]) ;; => 1
-			; destructuring <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11408>
+			; destructuring <url:ex/study_clojure/ex06/src/core01.clj#r=g_11408>
 				(let [[a b & c :as d] [1 2 3 4]] [a b]) ;; => [1 2]
 				(let [[a b & c :as d] [1 2 3 4]] [c]) ;; => [(3 4)]
 				(let [[a b & c :as d] [1 2 3 4]] [d]) ;; => [[1 2 3 4]]
@@ -718,7 +729,7 @@ iteration01
 		print
 			; Printing <url:book_learn_clojure.md#r=g_11319>
 			(println "What is this:" (+ 1 2))
-			; printing https://clojuredocs.org/clojure.core/pr <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11321>
+			; printing https://clojuredocs.org/clojure.core/pr <url:ex/study_clojure/ex06/src/core01.clj#r=g_11321>
 				(pr ['a :b "\n" \space "c"]) ;; [a :b "\n" \space "c"]nil
 				(print ['a :b "\n" \space "c"])
 				;; [a :b
@@ -751,7 +762,7 @@ iteration01
 					| +L C    | quicklist: clojure |
 	other
 		(instance? java.util.Collection [1 2 3]) ;; true
-		; record <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11410>
+		; record <url:ex/study_clojure/ex06/src/core01.clj#r=g_11410>
 			(defrecord Book [title author])
 			(->Book "title01" "author01") ;; => #user.Book{:title "title01", :author "author01"}
 		Characters: `\{letter} \space \n \r \t`
