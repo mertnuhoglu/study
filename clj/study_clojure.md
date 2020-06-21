@@ -21,6 +21,36 @@ Ref:
 
 # Questions
 
+## reduce-kv id=g_11444
+
+[reduce-kv - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/reduce-kv)
+
+Reduces an associative collection. f should be a function of 3
+arguments. Returns the result of applying f to init, the first key
+and the first value in coll, then applying f to that result and the
+2nd key and value, etc
+
+``` 
+(reduce-kv f init coll)
+``` 
+
+``` 
+;; Swap keys and values in a map
+(reduce-kv #(assoc %1 %3 %2) {} {:a 1 :b 2 :c 3})
+;; => {1 :a, 2 :b, 3 :c}
+``` 
+
+ex: all vals are incremented by 1.
+
+``` 
+(def vector-of-maps [{:a 1 :b 2} {:a 3 :b 4}])
+(defn update-map [m f] 
+  (reduce-kv (fn [m k v] 
+    (assoc m k (f v))) {} m))
+
+(map #(update-map % inc) vector-of-maps)
+``` 
+
 ## keep  id=g_11435
 
 [keep - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/keep)

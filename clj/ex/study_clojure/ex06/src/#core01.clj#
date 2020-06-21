@@ -102,46 +102,7 @@
     {} m))
 
 (map #(update-map % inc) data)
-;; => ({:a 2, :b 3} {:a 4})
 
-(reduce-kv 
-  (fn [m k v] 
-    (assoc m k (inc v))) 
-  {} {:a 1 :b 2})
-;; => {:a 2, :b 3}
+(reduce-kv (fn [m k v]) 
+    (assoc m k (inc v)) {} data)
 
-; find the last odd number's index
-; note: acc is the last odd number's index
-(reduce-kv (fn [acc i v] (if (odd? v) i acc)) nil {2 3})
-;; => 2
-(reduce-kv (fn [acc i v] (if (odd? v) i acc)) nil {1 2, 2 3})
-;; => 2
-(reduce-kv (fn [acc i v] (if (odd? v) i acc)) nil {1 2, 2 3, 3 4})
-;; => 2
-(reduce-kv (fn [acc i v] (if (odd? v) i acc)) nil {1 2, 2 3, 3 4, 4 5})
-;; => 4
-(reduce-kv (fn [acc i v] (if (odd? v) i acc)) [] {2 3})
-;; => 2
-(reduce-kv (fn [acc i v] (if (odd? v) i acc)) [] {1 2, 2 3, 3 4})
-;; => 2
-(reduce-kv (fn [acc i v] (if (odd? v) i {})) [] {2 3})
-;; => 2
-(reduce-kv (fn [acc i v] (if (odd? v) i {})) [] {2 3, 3 4})
-;; => {}
-(reduce-kv (fn [acc i v] (if (odd? v) acc i)) [] {2 3, 3 4})
-;; => 3
-(reduce-kv (fn [acc i v] (if (odd? v) i acc)) [] {2 3, 3 4})
-;; => 2
-(reduce-kv (fn [acc i v] (if (odd? v) i acc)) nil {2 4})
-;; => nil
-
-
-; for
-
-; apply a function to hashmap entries:
-(def data [{:a 1 :b 2} {:c 3}])
-(for [[k v] data ] [k (inc v)])
-
-; https://clojuredocs.org/clojure.core/for
-
- 

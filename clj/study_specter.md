@@ -169,53 +169,129 @@ increment the last odd number in a sequence:
 
 Check `~/projects/study/clj/ex/study_specter/e01/src/specter01.clj`
 
-## ex: Increment every even number nested within map of vector of maps
+# Video: Understanding Specter - Clojure's missing piece - rh5J4vacG98 id=g_11448
 
-``` 
-(def data {:a [{:aa 1 :bb 2}
-               {:cc 3}]
-           :b [{:dd 4}]})
+ref: `; Video: Understanding Specter - Clojure's missing piece - rh5J4vacG98  <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g_11449>`
 
-;; Manual Clojure
-(defn map-vals [m afn]
-  (->> m (map (fn [[k v]] [k (afn v)])) (into (empty m))))
+Clojure's weaknesses:
 
-(map-vals data
-  (fn [v]
-    (mapv
-      (fn [m]
-        (map-vals
-          m
-          (fn [v] (if (even? v) (inc v) v))))
-      v)))
+Weakness 01. maintaining data structure tight
 
-;; Specter
-(transform [MAP-VALS ALL MAP-VALS even?] inc data)
-``` 
+```clojure
+(map inc [1 2 3])
+;; => (2 3 4)
+```
 
-## ex: Append a sequence of elements to a nested vector
+Returned type is sequence not vector.
 
-``` 
-(def data {:a [1 2 3]})
+opt01: use `mapv`
 
-;; Manual Clojure
-(update data :a (fn [v] (into (if v v []) [4 5])))
+```clojure
+(mapv inc [1 2 3])
+;; => [2 3 4]
+```
 
-;; Specter
-(setval [:a END] [4 5] data)
-``` 
+But this doesn't work with sets.
 
-## ex: Increment the last odd number in a sequence
+opt02: use specter
 
-``` 
-(def data [1 2 3 4 5 6 7 8])
+```clojure
+(transform ALL inc #{1 2 3})
+;; => #{2 3 4}
+```
 
-;; Manual Clojure
-(let [idx (reduce-kv (fn [res i v] (if (odd? v) i res)) nil data)]
-  (if idx (update data idx inc) data))
+Weakness 02. manipulating nested data structures
 
-;; Specter
-(transform [(filterer odd?) LAST] inc data)
-``` 
+```clojure
+(def data [{:a 1 :b 2} {:c 3}])
+```
 
+common way:
+
+```clojure
+(defn apply-fn-to-hashmap [f m]
+  (into {} (for [[k v] m ] [k (f v)])))
+(map #(apply-fn-to-hashmap inc %) data)
+(defn inc-even [n]
+  (if (even? n) (inc n) n))
+(mapv #(apply-fn-to-hashmap inc-even %) data)
+```
+
+specter:
+
+```clojure
+(transform [ALL MAP-VALS even?] inc data)
+```
+
+`get-in` is a navigator example
+
+```clojure
+(get-in [:a {:b 1}] [:a :b])
+(get-in [:a {:b 1}] [1 :b])
+```
+
+explanation: `[ALL MAP-VALS even?]`
+
+```clojure
+; START
+[{:a 1 :b 2} {:c 3}]
+
+; ALL
+{:a 1 :b 2}
+{:c 3}
+
+; MAP-VALS
+1
+2
+3
+
+; even?
+2
+
+; <navigation complete>
+
+; inc
+3
+
+; <reconstruct>
+
+; replay even?
+1
+3
+3
+
+; replay MAP-VALS
+{:a 1 :b 3}
+{:c 3}
+
+; replay ALL
+[{:a 1 :b 3} {:c 3}]
+```
+
+use01: query deep data with `select`
+
+# Video: Specter  Powerful and Simple Data Structure Manipulation - Nathan Marz - VTCy_DkAJGk 
+
+Ref: `Video: Specter  Powerful and Simple Data Structure Manipulation - Nathan Marz - VTCy_DkAJGk <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g_11450>`
+
+Check `transfer` function in `http://nathanmarz.com/blog/functional-navigational-programming-in-clojurescript-with-sp.html`
+
+```clojure
+(defn transfer
+  [world from-path to-path amt]
+  (let [
+        givers (select from-path world)
+        receivers (select to-path world)
+        total-receive (* amt (count givers))
+        total-give (* amt (count receivers))]
+    (if (every? #(>= % total-give) givers)
+      (->> world
+           (transform from-path #(- % total-give))
+           (transform to-path #(+ % total-receive))
+           )
+      (throw (IllegalArgumentException. "Not enough funds!"))
+      )))
+```
+
+- completely orthogonal to the details of the data structure
 
