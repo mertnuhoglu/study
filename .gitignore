@@ -73,3 +73,9 @@ gen/
 **/figwheel_server.log
 
 **/tmp/
+
+# fulcro shadow-cljs
+**/resources/public/js/main/
+**/#*#
+**/.#*
+**/.shadow-cljs

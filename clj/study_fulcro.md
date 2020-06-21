@@ -15,4 +15,34 @@ state: wip
 
 ---
 
+# Article: Fulcro Developers Guide Getting Started
+
+[Fulcro Developers Guide Getting Started](http://book.fulcrologic.com/#_getting_started)
+
+```clojure
+mkdir app
+cd app
+mkdir -p src/main src/dev resources/public src/app
+npm init
+npm install shadow-cljs react react-dom --save
+```
+
+Check `ex/study_fulcro/app/deps.edn`
+
+Check `ex/study_fulcro/app/shadow-cljs.edn`
+
+Check `ex/study_fulcro/app/resources/public/index.html`
+
+Check `ex/study_fulcro/app/src/main/app/client.cljs`
+
+```bash
+npx shadow-cljs server
+```
+
+opt02:
+
+```bash
+npx shadow-cljs start
+```
+
 
