@@ -27,6 +27,11 @@ Action list: https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
 
 Check `~/gdrive/mynotes/content/fork/intellij_actionlist.txt`
 
+```vim
+source ~/.ideavimrc
+```
+
+
 ## Tool: Intellimacs id=g_10992
 
 Spacemacs key bindings for IntelliJ

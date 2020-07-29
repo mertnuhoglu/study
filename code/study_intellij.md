@@ -21,13 +21,17 @@ Ref: `compatible keybindings: my vim and intellij <url:/Users/mertnuhoglu/.ideav
 
 ref: `compatible keybindings: spacemacs and intellij <url:file:///~/.ideavimrc#r=g_10991>`
 
+ref: `compatible keybindings: custom intellij  {{{ <url:file:///~/.ideavimrc#r=g_11485>`
+
 ## intellij refcard id=g_11014
 
 		| #a / SPC SPC | find action       |
 		| ++           | search everywhere |
 		| !+ SPC       | quicklist: popups |
 		| ! SPC        | Quick definition  |
+		| f1           | quickdocs         |
 		| ^^           | Run anything      |
+		| #! SPC, ...  | menus             |
 
 		my customizations <url:file:///~/projects/study/code/study_intellij.md#r=g_10996>
 		my quick lists <url:file:///~/projects/study/code/study_intellij.md#r=g_10995>
@@ -64,6 +68,8 @@ https://www.jetbrains.com/help/idea/mastering-keyboard-shortcuts.html
 
 Switcher `#s`
 
+		| ^+ up/dn | next/prev method |
+
 ## quicklist: select popups id=g_11320
 
 `!+SPC`
@@ -95,19 +101,33 @@ Quick List > .add frequent commands
 
 ## my quick lists id=g_10995
 
-		| !+space |popups  | 
-		| +L C    |clojure | 
+		| !+space | popups  |
+		| !u p    | popups  |
+		| !u c    | clojure |
 
 ## my customizations id=g_10996
+
+ref: `": compatible keybindings: custom intellij  {{{ <url:file:///~/.ideavimrc#r=g_11485>`
 
 		| !m w | window menu popup  |
 		| !m e | edit menu popup    |
 		| !m o | context menu popup |
 
-		| +c r | activate next window |
-		| +c e | activate prev window |
+		| !g r | activate next window |
+		| !g e | activate prev window |
+
+		| !f f | go to file   |
+		| !f s | go to symbol |
+
+## my REPL commands
+
+`Edit REPL Commands`
+
+		| !s r | restart user ns |
 
 # Tool: Intellimacs: spacemacs like keybindings
 
 Ref: `~/projects/study/code/study_intellij_ideavim.md`
+
+		| ^w o | restore default layout |
 

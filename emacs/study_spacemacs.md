@@ -608,16 +608,16 @@ Evaluating
 
 `C-c C-p` evaluates and prints 
 
-# Article: Spacemacs (Vim mode) Cheatsheet
+# article: spacemacs (vim mode) cheatsheet
 
-https://simpletutorials.com/c/3036/Spacemacs
+https://simpletutorials.com/c/3036/spacemacs
 
-		SPC q q					| quit
-		SPC z x					| font size
-		SPC f f					| open file
-		SPC f f					| create file
-		SPC f s					| save file
-		SPC b b					| reopen file
+		spc q q					| quit
+		spc z x					| font size
+		spc f f					| open file
+		spc f f					| create file
+		spc f s					| save file
+		spc b b					| reopen file
 
 		g c							| comment out 
 

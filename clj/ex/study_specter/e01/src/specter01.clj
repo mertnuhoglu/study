@@ -569,6 +569,17 @@
 (select [:a (regex-nav #"t")] {:a "tx"})
 ;; => ["t"]
 
+                                        ; selected?
+
+(select [ALL (selected? even?)] (range 3))
+;; => [0 2]
+(select [ALL (selected? [(must :a) even?])] [{:a 0} {:a 1} {:a 2} {:a 3}])
+;; => [{:a 0} {:a 2}]
+(select [ALL
+         (selected? :money #(>= % 10))]
+        [{:id 1 :money 15} {:id 2 :money 5}])
+;; => [{:id 1, :money 15}]
+
                                         ; set-elements
 (select [(set-elem 3)] #{3 4 5})
 ;; => [3]

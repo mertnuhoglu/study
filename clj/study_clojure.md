@@ -736,7 +736,7 @@ opt01:
 ; => Treasure lng: 50
 ``` 
 
-opt02: short form
+opt02: short form id=g_11487
 
 ``` clojure
 (defn announce-treasure-location
