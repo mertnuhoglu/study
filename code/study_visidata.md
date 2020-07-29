@@ -78,22 +78,22 @@ Frequency Table (Histogram): `+F`
 
 Help/manual: `F1` or `^h`
 
-		q	| quit
-		^c	| abort
-		^q	| force quit
-		^h	| help
+		| q  | quit       |
+		| ^c | abort      |
+		| ^q | force quit |
+		| ^h | help       |
 
 Cheatsheet: `https://jsvine.github.io/visidata-cheat-sheet/en/`
 
 Move
 
-		g		| global (mnemonics)
-		gj	| last row
-		gk	| first row
-		gh	| last col
-		gl	| first col
-		^f	| page forward
-		^b	| page backward
+		| g  | global (mnemonics) |
+		| gj | last row           |
+		| gk | first row          |
+		| gh | last col           |
+		| gl | first col          |
+		| ^f | page forward       |
+		| ^b | page backward      |
 
 Search
 

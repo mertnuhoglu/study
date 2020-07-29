@@ -3227,6 +3227,8 @@ current maybe
 				unicode math
 					UnicodeMath_UTN28-PlainTextMath-v3.1.pdf
 			global commands
+				join multiple blank lines into a single blank line
+					g/^$/,/./-j
 				for bash scripts:
 					prefer grep for d -v
 					prefer ed for moving
@@ -3240,8 +3242,6 @@ current maybe
 					g/pattern/ s /old/new/
 				put a new line when a bullet line is succeeded with a normal line
 					g/^\s*-\_[^-]*\_^\w/ s/$/\r/
-				join multiple blank lines into a single blank line
-					g/^$/,/./-j
 				ex
 					g/<url:/ s/<url:file:...// | s/>$//
 					g/<br>/left
