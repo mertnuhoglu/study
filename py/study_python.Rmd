@@ -16,59 +16,14 @@ resource_files:
 - 
 path: ~/projects/study/py/study_python.Rmd
 state: wip
+
 ---
 
-## Setting up python environments 
+# topic: managing python versions id=g_11468
 
-``` bash
-conda search "^python$"
-conda create --name py3 python=3
-``` 
+return: requires python 3.6+ <url:/Users/mertnuhoglu/projects/study/logbook/log_20200523.md#tn=requires python 3.6+>
 
-``` bash
-conda activate py3
-python --version
-  ##> Python 3.7.2
-conda deactivate 
-python --version
-  ##> Python 3.7.1
-exit
-python --version
-  ##> Python 2.7.12
-conda info --envs
-  ##> # conda environments:
-  ##> #
-  ##> base                  *  /home/ubuntu/anaconda3
-  ##> py3                      /home/ubuntu/anaconda3/envs/py3
-
-``` 
-
-Install new package into an environment
-
-``` bash
-conda install --name py3 numpy
-``` 
-
-Remove environment
-
-``` bash
-conda remove --name py3 --all
-``` 
-
-## Updating conda
-
-``` bash
-conda update conda
-conda update anaconda
-``` 
-
-Uninstall
-
-``` bash
-conda install anaconda-clean
-anaconda-clean
-rm -rf anaconda3
-``` 
+ref: `pyenv  <url:/Users/mertnuhoglu/projects/study/py/study_pyenv.md>`
 
 # Examples
 
