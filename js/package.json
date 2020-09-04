@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@cycle/time": "^0.13.0",
-    "mongodb": "^2.2.29"
+    "mongodb": "^3.6.1"
   },
   "devDependencies": {}
 }
