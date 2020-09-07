@@ -2915,6 +2915,20 @@ current maybe
 					./deploy.sh
 	vim
 		howto
+			append insert character string
+				opt01:
+					call append(0,"a")
+						yeni satır olarak ekler "a" stringini 0 satırına
+					call setline(1, "b")
+					call setline(line('$'), "c")
+					call setline(line('.'), "c")
+						replace ediyor belirtilen satırı
+					call appendbufline("%", line('.'), "d")
+						yine append ediyor fakat ilk arg hangi buffer olduğunu belirtiyor
+				opt02: normal
+					https://vi.stackexchange.com/questions/21825/how-to-insert-text-from-a-variable-at-current-cursor-position
+					let text = "Lorem ipsum sit dolor amet ..."
+					exe "normal! a" . text . "\<Esc>"
 			folding for js/typescript etc
 				set foldmethod=syntax
 			keybinding to run current script with node
@@ -2988,9 +3002,6 @@ current maybe
 					set no expandtab
 			variable parameter values
 				set tabstop? 
-			unicode
-				set bomb | set fileencoding=utf-8 
-				set nobomb | set fileencoding=utf-8 
 			list all mappings
 				nmap, vmap, imap
 			current date
@@ -3180,52 +3191,6 @@ current maybe
 				reset position of match
 					%s/\v(regex).*\zs/ \1
 						http://stackoverflow.com/questions/34965210/how-to-put-regex-match-to-the-end-of-line-in-vim
-			digraph symbols
-				cheatsheet
-					http://sheet.shiar.nl/digraphs
-					http://sheet.shiar.nl/unicode
-				finding symbol
-					searching:
-						:h digraph-table
-						:SearchUnicode <word>
-					browsing all
-						:Digraphs
-						:UnicodeTable
-					identify a character under the cursor
-						:UnicodeName
-				using/typing symbols
-					1. define iab and use:
-						:iab %s* σ
-						%s*
-					2. define InoreabBSlash and use
-						:InoreabBSlash jn ⨝ 
-						\jn
-					3. using defined digraphs
-						Ctrl-K {char1} {char2}
-					4. with digraph option
-						ex: 
-							a <BS> :
-							is the same as
-							^K a:
-				defining new digraphs for unicode chars
-					digraphs Jn 10781
-						defines for unicode char 10781 the digraph: Jn
-						Ctrl-K J n
-						c ⊂ 
-				UnicodeTable
-					⊂    U+2282 &sub;  SUBSET OF((C)
-						(C  existing digraph
-				writing unicode char with code
-					http://vim.wikia.com/wiki/Entering_special_characters
-					^vunnnnnn                    
-						n: hex number
-						ex: ^vu27d5
-					^vnxxxx
-						x: dec number
-				osx sembolleri
-					menu > keyboard > show emoji and symbols
-				unicode math
-					UnicodeMath_UTN28-PlainTextMath-v3.1.pdf
 			global commands
 				join multiple blank lines into a single blank line
 					g/^$/,/./-j

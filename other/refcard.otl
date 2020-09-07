@@ -16,6 +16,63 @@ vim
 			ref: spacemacs compatible keybindings for reference management <url:file:///~/projects/vim_repos/vim-infoman/plugin/vim-infoman.vim#r=g_11006>
 		my-vim-custom.vim
 			ref: compatible keybindings: vim vs spacemacs vim-which-key <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11007>
+	digraph unicode symbols
+		mine
+			ref
+				mathematical symbols digraph <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11564>
+			:FUnicode
+				Space czu
+			:FDigraph
+				Space czd
+		cheatsheet
+			http://sheet.shiar.nl/digraphs
+			http://sheet.shiar.nl/unicode
+		finding symbol
+			searching:
+				:h digraph-table
+				:SearchUnicode <word>
+			browsing all
+				:Digraphs
+				:UnicodeTable
+			identify a character under the cursor
+				:UnicodeName
+		using/typing symbols
+			1. define iab and use:
+				:iab %s* σ
+				%s*
+			2. define InoreabBSlash and use
+				:InoreabBSlash jn ⨝ 
+				\jn
+			3. using defined digraphs
+				Ctrl-K {char1} {char2}
+			4. with digraph option
+				ex: 
+					a <BS> :
+					is the same as
+					^K a:
+		defining new digraphs for unicode chars
+			digraphs Jn 10781
+				defines for unicode char 10781 the digraph: Jn
+				Ctrl-K J n
+				c ⊂ 
+		UnicodeTable
+			⊂    U+2282 &sub;  SUBSET OF((C)
+				(C  existing digraph
+		writing unicode char with code
+			http://vim.wikia.com/wiki/Entering_special_characters
+			^vunnnnnn                    
+				n: hex number
+				ex: ^vu27d5
+			^vnxxxx
+				x: dec number
+		osx sembolleri
+			menu > keyboard > show emoji and symbols 
+				#^Space
+		unicode math
+			UnicodeMath_UTN28-PlainTextMath-v3.1.pdf
+	unicode conversion
+		set bomb | set fileencoding=utf-8 
+		set nobomb | set fileencoding=utf-8 
 cli
 	howdoi
 	ffmpeg
@@ -73,6 +130,12 @@ webapps
 				user A moves dir b inside dir a
 				A and B put their files into dir b
 apps
+	hammerspoon
+		find name of application <url:file:///~/projects/study/logbook/log_20200717.md#r=g_11480>
+			Find name in `Applications` directory: `zoom.us.app`
+			osascript -e 'id of app "zoom.us"'
+				##> us.zoom.xos
+			hs.application.launchOrFocus("zoom.us")
 	intellij
 		#a	action menu
 		SPC SPC	action menu

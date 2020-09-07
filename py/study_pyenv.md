@@ -226,3 +226,6 @@ anaconda-clean
 rm -rf anaconda3
 ``` 
 
+# pyenv
+
+

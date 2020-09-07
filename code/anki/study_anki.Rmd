@@ -18,6 +18,15 @@ state: wip
 
 ---
 
+# refcard
+
+		Card Templates  <url:file:///~/projects/study/code/anki/study_anki.Rmd#r=g_11563>
+			Card Type: Cloze: Text -> Text+Extra
+				anki > browse > 
+					din
+					eyez_open_cloze
+
+
 # Articles
 
 ## Anki Manual
@@ -50,37 +59,11 @@ I usually use anki for code blocks. To format them in an easy to read style, I c
 
 3. Select `Cloze` > Cards
 
-Front Template
-
-``` sql
-{{cloze:Text}}
-``` 
-
-Styling
-
-``` sql
-.card {
- font-family: Inconsolata;
- font-size: 16px;
- text-align: left;
- color: black;
- background-color: rgb(249, 245, 141);
-}
-
-.cloze {
- font-weight: bold;
- color: red;
-}
-``` 
-
-Back Template
-
-``` sql
-{{cloze:Text}}<br>
-{{Extra}}
-``` 
+### Card Templates  id=g_11563
 
 4. Cards
+
+ref: `~/projects/study/code/anki/ex/study_anki/card_templates/cloze.md`
 
 ## How to convert markdown to anki?
 
