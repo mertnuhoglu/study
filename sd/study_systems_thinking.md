@@ -33,7 +33,9 @@ option 02: Root cause improvements
 
 ![better leverages](https://docs.google.com/drawings/d/e/2PACX-1vTYb_5YSh62zf2QPxQQ_9Zf0WH8AeOkw1spwTU0rZuYZHPAe-2wxw7dnaOszdohL6uABbPE9KYY1kVI/pub?w=1613&h=1079)
 
-![Simplified systems leverage map](https://blog.kumu.io/introducing-radar-plots-b46fc4c6e61e)
+![Simplified systems leverage map](https://docs.google.com/drawings/d/e/2PACX-1vSquB5jcRZvVdcN4dYMrSQ62PAM7zAcczFbP0EKmwXs5xMWvEaz13lq9j83KW17PPNtZ2FcR5ZF1h2c/pub?w=1613&h=1079)
+
+4 Groups for Leverage Points:
 
 - Changing the ‘paradigm’
 The values, goals and mindsets of actors who are shaping the direction of a system.
@@ -54,5 +56,33 @@ The interactions between elements in the system.
 The basic numbers and ‘parameters’ of the system.
 
 (e.g. changing spending, making staff changes, increasing incentives, increasing resource capacity relative to potential demand, setting standards). 
+
+Mappings between 4 Groups and 12 Leverage Points:
+
+1. Parameters:
+
+- 12 Parameters
+- 11 Size of buffers
+- 10 Structure of material stocks and flows
+
+2. Feedbacks:
+
+- 9 Length of delays
+- 8 Strength of negative feedback loops
+- 7 Gain around positive feedback loops
+
+3. Design:
+
+- 6 Structure of information flows
+- 5 Rules of the system (incentives, constraints)
+- 4 Power to change or self-organize system structure
+
+4. Intent:
+
+- 3 Goals of the system
+- 2 Mindset out of which the system arises
+- 1 Power to transcend paradigms
+
+
 
 
