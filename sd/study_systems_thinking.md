@@ -22,3 +22,5 @@ state: wip
 ![systems leverage map 2](https://miro.medium.com/max/700/1*yKWrUp13XdD0U_DCUIjuUw.jpeg)
 
 ![map 1](https://docs.google.com/drawings/d/e/2PACX-1vRKbh5bUKoHdrqxxfmC9aWGWJ2hPM_Cz5rxelIiZObR__havvzH9RQZrbtvRasz5YX8TDS-ThJvy20Q/pub?w=1613&amp;h=1079)
+
+![map 1b](https://docs.google.com/drawings/d/e/2PACX-1vRKbh5bUKoHdrqxxfmC9aWGWJ2hPM_Cz5rxelIiZObR__havvzH9RQZrbtvRasz5YX8TDS-ThJvy20Q/pub?w=1613&h=1079)
