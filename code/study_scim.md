@@ -15,6 +15,15 @@ blog: mertnuhoglu.com
 
 ---
 
+# FINAL:
+
+Use `visidata` instead of scim. 
+
+`visidata` çok daha kullanışlı:
+
+- excel desteği
+- düzenleme ve kaydetme özelliği
+
 # tool: sc-im
 
 https://github.com/andmarti1424/sc-im
@@ -73,5 +82,35 @@ Check `/Users/mertnuhoglu/projects/study/problem/sample_data/t01.tsv`
 :e xlsx t01.xlsx
 ``` 
 
+### Article: Ubuntu with XLSX import & export · andmarti1424/sc-im Wiki
+
+[Ubuntu with XLSX import & export · andmarti1424/sc-im Wiki](https://github.com/andmarti1424/sc-im/wiki/Ubuntu-with-XLSX-import-&-export)
+
+```clojure
+$ sudo apt-get install bison libncurses5-dev libncursesw5-dev libxml2-dev libzip-dev
+
+$ git clone https://github.com/jmcnamara/libxlsxwriter.git
+$ cd libxlsxwriter/
+$ make
+$ sudo make install
+```
+
+mac uyarlaması:
+
+https://stackoverflow.com/questions/31805431/how-to-install-bison-on-mac-osx
+
+```bash
+brew install bison
+brew link bison --force
+libncurses5-dev libncursesw5-dev libxml2-dev libzip-dev
+brew install ncurses
+  ##> brew install homebrew/dupes/ncurses
+```
+
+```clojure
+sudo update_dyld_shared_cache
+
+
+```
 
 

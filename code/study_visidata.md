@@ -22,9 +22,44 @@ state: wip
 
 https://github.com/saulpw/visidata
 
+## refcard visidata id=g_11578
+
+		cheatsheet	https://jsvine.github.io/visidata-cheat-sheet/en/
+		Help/quit <url:file:///~/projects/study/code/study_visidata.md#r=g_11570>
+		Move <url:file:///~/projects/study/code/study_visidata.md#r=g_11568>
+		Search <url:file:///~/projects/study/code/study_visidata.md#r=g_11569>
+		Sheets: <url:file:///~/projects/study/code/study_visidata.md#r=g_11571>
+		Row selection <url:file:///~/projects/study/code/study_visidata.md#r=g_11572>
+		Move rows: <url:file:///~/projects/study/code/study_visidata.md#r=g_11573>
+		column types: <url:file:///~/projects/study/code/study_visidata.md#r=g_11574>
+		Column width: <url:file:///~/projects/study/code/study_visidata.md#r=g_11575>
+		Move columns and rows: <url:file:///~/projects/study/code/study_visidata.md#r=g_11576>
+		Sorting and Filtering <url:file:///~/projects/study/code/study_visidata.md#r=g_11577>
+
+		VisiData Cheat Sheet <url:file:///~/projects/study/code/study_visidata.md#r=g_11582>
+		Editing cells <url:file:///~/projects/study/code/study_visidata.md#r=g_11579>
+		Summarizing data <url:file:///~/projects/study/code/study_visidata.md#r=g_11580>
+		Creating new columns <url:file:///~/projects/study/code/study_visidata.md#r=g_11581>
+
+		| ^h     | help                          |
+		| e      | edit cell                     |
+		| +S     | all sheets (sheets sheet)     |
+		| ^f     | page forward                  |
+		| ^b     | page backward                 |
+		| /regex | search in column              |
+		| s      | select row                    |
+		| #      | integer                       |
+		| _      | expand to fit in visible rows |
+		| +J +K  | move rows                     |
+		| +H +L  | move cols                     |
+		| !      | toggle "key" column           |
+		| [      | sort ascending                |
+
 ## Install
 
 https://visidata.org/install/
+
+opt01:
 
 ``` bash
 pip3 install visidata
@@ -37,6 +72,19 @@ pip3 install openpyxl
 pip3 install xlrd
 pip3 install lxml
 ``` 
+
+opt02:
+
+```clojure
+pipx install visidata
+```
+
+opt03:
+
+```clojure
+brew tap saulpw/vd
+brew install visidata
+```
 
 
 ## Usage
@@ -76,16 +124,17 @@ Frequency Table (Histogram): `+F`
  BUSINESS           ‖    5868 |      7.99 | ************                                       ‖
 ``` 
 
-Help/manual: `F1` or `^h`
+Help/quit id=g_11570
 
 		| q  | quit       |
 		| ^c | abort      |
 		| ^q | force quit |
 		| ^h | help       |
+		| F1 | help       |
 
 Cheatsheet: `https://jsvine.github.io/visidata-cheat-sheet/en/`
 
-Move
+Move id=g_11568
 
 		| g  | global (mnemonics) |
 		| gj | last row           |
@@ -95,7 +144,7 @@ Move
 		| ^f | page forward       |
 		| ^b | page backward      |
 
-Search
+Search id=g_11569
 
 		| /regex  | search in column      |
 		| ?regex  | search backwards      |
@@ -106,7 +155,7 @@ Search
 		| zr 99   | row 99                |
 		| zc 99   | col 99                |
 
-## Sheets:
+## Sheets: id=g_11571
 
 https://jsvine.github.io/intro-to-visidata/basics/understanding-sheets/
 
@@ -116,6 +165,7 @@ https://jsvine.github.io/intro-to-visidata/basics/understanding-sheets/
 
 Sheets Sheet: Lists all open sheets: `+s`
 
+		| +S    | all sheets (sheets sheet)   |
 		| d     | delete sheet                |
 		| enter | goto sheet                  |
 		| e     | editing mode (rename sheet) |
@@ -128,7 +178,7 @@ Sheets Sheet: Lists all open sheets: `+s`
 		| gS  | goto sheets trash |
 		| c-^ | goto last sheet   |
 
-## Rows
+## Rows id=g_11572
 
 		| s        | select row                           |
 		| u        | unselect                             |
@@ -139,6 +189,8 @@ Sheets Sheet: Lists all open sheets: `+s`
 		| g..      | all                                  |
 		| ,        | select if matches current rows value |
 		| g,       | all                                  |
+
+Move rows: id=g_11573
 
 ex: col: STATE > `|` > .TX 
 
@@ -160,7 +212,7 @@ Properties:
 
 Columns sheet (view all columns): `+c`
 
-Set column types:
+Set column types: id=g_11574
 
 		| # | integer  |
 		| % | float    |
@@ -170,7 +222,7 @@ Set column types:
 
 Rename columns: `^`
 
-Width:
+Column width: id=g_11575
 
 		| _     | expand to fit in visible rows       |
 		| g_    | all rows                            |
@@ -180,7 +232,7 @@ Width:
 		| z-    | half width                          |
 		| z     | general: narrow scope of the action |
 
-Move columns and rows:
+Move columns and rows: id=g_11576
 	
 		| +H +L | move cols |
 		| +J +K | move rows |
@@ -198,11 +250,12 @@ Manipulating inside Columns sheet:
 		| g$    | selected: set col types to $ |
 		| ge 99 | selected: set width to 99    |
 
-## Sorting and Filtering
+## Sorting and Filtering id=g_11577
 
-		| [               | sort ascending              |
-		| ]               | sort descending             |
-		| g]              | selected key cols: sort all |
+		| !  | toggle "key" column    |
+		| [  | sort ascending              |
+		| ]  | sort descending             |
+		| g] | selected key cols: sort all |
 
 Filtering:
 
@@ -417,4 +470,115 @@ vd ~/projects/study/code/ex/study_visidata/e01/t01.tsv
 ``` 
 
 `F1` `^h`: manual
+
+## A VisiData Cheat Sheet id=g_11582
+
+[A VisiData Cheat Sheet](https://jsvine.github.io/visidata-cheat-sheet/en/)
+
+Help
+	| Ctrl-c     | Abort the current command                               |
+	| Ctrl-q     | Force-quit VisiData entirely                            |
+	| q          | Quit the current VisiData "sheet"                       |
+	| Ctrl-h     | Display the "Quick Reference Guide"                     |
+	| z + Ctrl-h | Display list of commands available on the current sheet |
+Input / output
+	| o + filename          | Open a file                                            |
+	| Ctrl-s + filename     | Save current sheet to filename                         |
+	| g + Ctrl-s + filename | Save all sheets to filename                            |
+	| gY                    | Copy sheet (or selected rows) to clipboard             |
+	| gzY                   | Copy column (or selected rows for column) to clipboard |
+Metasheets
+	| S  | Sheets Sheet             |
+	| gS | Sheets Graveyard         |
+	| C  | Columns Sheet            |
+	| O  | Gobal options sheet      |
+	| zO | This-sheet options sheet |
+Move cursor ...
+	| gj     | to the last row         |
+	| gk     | to the first row        |
+	| gh     | to the leftmost column  |
+	| gl     | to the rightmost column |
+	| Ctrl-F | one page down (forward) |
+	| Ctrl-B | one page up (backward)  |
+Moving via search
+	| / + regex  | Search forward in current column  |
+	| ? + regex  | Search backward in current column |
+	| g/ + regex | Search forward in all columns     |
+	| g? + regex | Search backward in all columns    |
+	| n          | Move to next matching row         |
+	| N          | Move to previous matching row     |
+Basic row selection
+	| s  | Select the current row                               |
+	| u  | Unselect the current row                             |
+	| t  | Toggle the current row between selected / unselected |
+	| gs | Select all rows                                      |
+	| gu | Unselect all rows                                    |
+	| gt | Toggle all rows between selected / unselected        |
+Advanced row selection
+	| bar + regex | Select all rows where regex matches the current column            |
+	| \ + regex   | Unselect all rows where regex matches the current column          |
+	| g + regex   | Select all rows where regex matches any column                    |
+	| g\ + regex  | Unselect all rows where regex matches any column                  |
+	| ,           | Select all rows where the current column matches the current cell |
+	| g,          | Select all rows where any column matches the current cell         |
+	| z  + expr   | Select all rows where expr evaluates to True                      |
+	| z\ + expr   | Unselect all rows where expr evaluates to True                    |
+Shifting rows / columns
+	| J | Move row up       |
+	| K | Move row down     |
+	| H | Move column left  |
+	| L | Move column right |
+Setting column types
+	|# | Integer |
+	|% | Float |
+	|$ | Currency |
+	|@ | Date |
+	|~ | Text |
+Renaming columns
+	| ^   | Rename current column                                                            |
+	| g^  | Set names of all unnamed columns to the values in the current or selected row(s) |
+	| gz^ | Set names of all visible columns to the values in the current or selected row(s) |
+Resizing columns
+	| _      | Adjust the width of current column to fit text in all visible rows |
+	| g_     | Adjust the width of all columns to fit text in all visible rows    |
+	| z_ + n | Set the current column's width to n characters                     |
+	| -      | Hide the current column by setting its width to 0                  |
+	| gv     | Unhide all columns                                                 |
+	| z-     | Shrink the current column's width in half                          |
+Sort rows ...
+	| [  | in ascending order of current column  |
+	| ]  | in descending order of current column |
+	| g[ | in ascending order of key columns     |
+	| g] | in descending order of key columns    |
+Filtering
+	| "     | Create new sheet of selected rows                  |
+	| gz"   | Create new sheet with "deep copy" of selected rows |
+	| R + n | Create new sheet containing n randomly chosen rows |
+Summarizing data id=g_11580
+	| F         | Create frequency table of current column                      |
+	| gF        | Create frequency table of key columns                         |
+	| + + aggr  | Add aggregator to column                                      |
+	| z+ + aggr | Calculate one-time aggregation of column                      |
+	| I         | Create a "Describe Sheet," with summary stats for each column |
+Creating new columns id=g_11581
+	| = + expr  | Create a new column from a Python expr evaluated against each row   |
+	| : + regex | Create new column(s) by splitting current column on regex           |
+	| ; + regex | Create new column(s) by extracting regex groups from current column |
+	| '         | Create "frozen" copy of current column, with all cells evaluated    |
+Reshaping data
+	| W | Create pivot table sheet, with key column(s) as rows and current column as values |
+	| M | Create "melted" sheet, with key columns as non-melted values                      |
+	| T | Create a transposed sheet, where columns become rows and v.v.                     |  
+Editing cells id=g_11579
+	| e      | Begin editing current cell                           |
+	| Enter  | Finish editing                                       |
+	| Ctrl-c | Cancel editing                                       |
+	| Ctrl-a | Move to beginning of cell                            |
+	| Ctrl-e | Move to end of cell                                  |
+	| Ctrl-k | Clear contents from cursor's position to end of line |
+Misc.
+	| !      | Make current column a "key" column        |
+	| Ctrl-r | Reload sheet                              |
+	| Ctrl-^ | Toggle between current and previous sheet |
+	| Space  | Open long-name command prompt             |
 

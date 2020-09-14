@@ -25,6 +25,43 @@ return: requires python 3.6+ <url:/Users/mertnuhoglu/projects/study/logbook/log_
 
 ref: `pyenv  <url:/Users/mertnuhoglu/projects/study/py/study_pyenv.md>`
 
+## Article: The right and wrong way to set up Python 3 on MacOS | Opensource.com id=g_11567
+
+[The right and wrong way to set up Python 3 on MacOS | Opensource.com](https://opensource.com/article/19/5/python-3-default-mac#what-to-do)
+
+```clojure
+❯ where python
+/usr/local/bin/python
+/usr/bin/python
+
+~
+❯ which python
+/usr/local/bin/python
+
+~
+❯ /usr/bin/python --version
+Python 2.7.10
+
+~
+❯ /usr/local/bin/python --version
+Python 2.7.16
+ 
+```
+
+Edit `~/.zshrc`
+
+```clojure
+alias python=/usr/local/bin/python3
+alias pip=/usr/local/bin/pip3
+alias pip3=/usr/local/bin/pip3
+```
+
+```clojure
+❯ python --version
+Python 3.8.5
+```
+
+
 # Examples
 
 ## ex01: Convert list of objects to dict of object.id
@@ -34,6 +71,7 @@ https://stackoverflow.com/questions/3070242/reduce-list-of-python-objects-to-dic
 ``` py
 object_dict = {x.id: x for x in object_list}
 ``` 
+
 
 
 

@@ -16,6 +16,14 @@ state: wip
 
 ---
 
+# FINAL
+
+pyenv kurulumu için çok uğraştım. 
+
+Şu hatayı bir türlü düzeltemedim: `Error: ModuleNotFoundError: No module named 'pyexpat' <url:file:///~/projects/study/py/study_pyenv.md#r=g_11566>`
+
+Son kararım: `pyenv` kullanma. Eski usul brew ile yönet. Upgrade edeceğin vakit, eski usul manuel ilerle.
+
 # Issues
 
 ## install latest python
@@ -31,7 +39,7 @@ pyenv install --list | rg " 3\."
 pyenv install 3.8.3
 ```
 
-### Error: ModuleNotFoundError: No module named 'pyexpat'
+### Error: ModuleNotFoundError: No module named 'pyexpat' id=g_11566
 
 Çözüm: `symlink to brew python  <url:file:///~/projects/study/py/study_pyenv.md#r=g_11478>`
 
