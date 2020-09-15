@@ -20,6 +20,7 @@ output:
 		| ?k                       | help for keybindings         |
 		| yp                       | yank path                    |
 		| m<any>                   | bookmark <any>               |
+		| ^f                       | fzf search                   |
 
 # Official User Guide · ranger/ranger Wiki
 
@@ -51,4 +52,8 @@ other shortcuts
 
 			~/.config/ranger/rc.conf
 			~/.config/ranger/commands.py
+
+# fzf integration
+
+ref: `fzf integration <url:file:///~/.config/ranger/rc.conf#r=g_11592>`
 

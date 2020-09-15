@@ -1,4 +1,16 @@
 
+mine
+	study_docs
+		~/projects/study/code/study_visidata.md
+		~/projects/study/code/study_fzf.Rmd
+		~/projects/study/code/study_intellij.md
+		~/projects/study/code/study_kitty.md
+		~/projects/study/code/study_ranger.md
+		~/projects/study/code/study_xsv.md
+	vim commands
+		file
+			Emvc
+			Cdstudy
 clojure id=g_11314
 	clojure refcard <url:/Users/mertnuhoglu/projects/study/clj/refcard_clojure.otl#tn=>
 emacs
