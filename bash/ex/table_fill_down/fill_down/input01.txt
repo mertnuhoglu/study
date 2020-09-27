@@ -1,0 +1,16 @@
+20                        0 ABC          1   N   DEFABC       0     CHARGE      
+                          1 ABC          1   N   GHIABC       0     CHARGE      
+                          2 ABC          1   N   JKLABC       0     CHARGE      
+                          3 ABC          1   N   MNOABC       0     CHARGE      
+                          4 ABC          1   N   PQRABC       0     CHARGE      
+210&&-2                   0 ABC          1   N   DEFABC       0     CHARGE      
+                          1 ABC          1   N   GHIABC       0     CHARGE      
+                          2 ABC          1   N   JKLABC       0     CHARGE      
+                          3 ABC          1   N   MNOABC       0     CHARGE      
+                          4 ABC          1   N   PQRABC       0     CHARGE      
+2130&&-4&-6&&-9           0 ABC          1   N   DEFABC       0     CHARGE      
+                          1 ABC          1   N   GHIABC       0     CHARGE      
+                          2 ABC          1   N   JKLABC       0     CHARGE      
+                          3 ABC          1   N   MNOABC       0     CHARGE      
+                          4 ABC          1   N   PQRABC       0     CHARGE 
+
