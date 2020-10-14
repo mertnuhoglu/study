@@ -1,14 +1,19 @@
 
 ## kişisel web sitemi düzeltme 20190827 
 
-### mevcut eski notlarım
+ref: 
 
-		~/projects/myrepo/general/process_website_hugo.md
-    Publishing Web Site and Blog <url:file:///~/gdrive/mynotes/general/processes.md#r=g_10033>
-		hugo <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10167>
-		/Users/mertnuhoglu/projects/jekyll/mertnuhoglu.com/deploy.sh
+`~/projects/study/logbook/hugo_universal_theme_customization_nuhogluvakfi_20190913.md`
 
-### basit bir hugo sitesi oluştur 
+`~/projects/myrepo/general/process_website_hugo.md`
+
+`hugo <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10167>`
+
+`hugo <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10167>`
+
+### basit bir hugo sitesi oluştur  id=g_11634
+
+opt01:
 
 ``` bash
 cd ~/codes/hugo
@@ -28,6 +33,10 @@ hugo server -D
 ``` 
 
 http://localhost:1313/posts/my-first-post/
+
+opt02: custom layout
+
+`nuhoğlu vakfı web sitesi hugo 20190910  <url:file:///~/projects/study/logbook/hugo_universal_theme_customization_nuhogluvakfi_20190913.md#r=g_11632>`
 
 
 ### price comparison
@@ -641,7 +650,7 @@ debug10: $mainSections <br>
 
 ##### debug: $section debug
 
-``` bash
+```bash
 debug02: $section <br>
 {{ printf "%#v" $section }} <br>
 {{ range $section }}
@@ -659,7 +668,7 @@ debug02: $section <br>
   ##> "Chapter III: Monsieur the Cardinal" "/post/chapter-3/" 
   ##> "Chapter II: Pierre Gringoire" "/post/chapter-2/" 
   ##> "Chapter I: The Grand Hall" "/post/chapter-1/"
-``` 
+```
 
 ##### ana sayfada tüm sectionları listeleyelim
 
@@ -1277,7 +1286,7 @@ Fix: `~/projects/jekyll/testnetlify12/config.toml`
 baseURL = "https://optimistic-volhard-1f3e5a.netlify.com"
 ``` 
 
-#### mertnuhoglu.com ile yap
+#### Final: mertnuhoglu.com ile yap id=g_11639
 
 ``` bash
 mkdir mertnuhoglu.com
@@ -1333,6 +1342,46 @@ netlify > Domain management >
 ### SSL Setup
 
 netlify > Domain management > SSL
+
+
+# customizations
+
+## features kısmında ikonları kaldır
+
+Edit `~/projects/jekyll/nuhogluvakfi01/themes/hugo-universal-theme/layouts/partials/features.html`
+
+```html
+                            <!--<div class="icon">-->
+                                <!--<i class="{{ .icon }}"></i>-->
+                            <!--</div>-->
+```
+
+# issues
+
+## blog yazısı yayınlama
+
+```bash
+hugo new blog/daha_iyi_bir_dunya_icin_sanata_evet.md
+cd /Users/mertnuhoglu/projects/jekyll/nuhogluvakfi01/static/img/blog
+mogrify -quality 100 -density 300x300 -resize 800x480 *.jpg
+```
+
+## deploy et
+
+```bash
+git add .
+git commit -m ".."
+git push
+```
+
+Deployment takibi:
+
+https://app.netlify.com/sites/nuhogluvakfi/deploys
+
+
+
+
+
 
 
 

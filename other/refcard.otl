@@ -15,9 +15,9 @@ clojure id=g_11314
 	clojure refcard <url:/Users/mertnuhoglu/projects/study/clj/refcard_clojure.otl#tn=>
 emacs
 	spacemacs refcard <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11015>
-	| SPC f e d | open ~/.spacemacs            | find-dotfile              |
-	| SPC ?     | search for key bindings      | show keybindings          |
-	| SPC SPC   | list and search all commands | M-x                       |
+		| SPC f e d | open ~/.spacemacs            | find-dotfile              |
+		| SPC ?     | search for key bindings      | show keybindings          |
+		| SPC SPC   | list and search all commands | M-x                       |
 	my keybindings <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11016>
 	important tasks <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11017>
 vim
@@ -123,6 +123,12 @@ cli
 			convert2mp4_h264_size320 ${file} ice_age.mp4
 			function
 				ffmpeg -i "${input}" -vcodec libx264 -crf 28 -vf "scale=320:240" -c:a libfaac -q:a 32  "${output}"
+hugo refcard id=g_11654
+	universal theme: sıfırdan oluşturma <url:file:///~/projects/study/logbook/hugo_universal_theme_customization_nuhogluvakfi_20190913.md#r=g_11635>
+	index
+		Migrate burakpehlivan.org from wordrpress to hugo <url:file:///~/projects/study/logbook/hugo_burakpehlivan_org_20201011.md#r=g_11640>
+		hugo: nuhoglu.org.tr taşıma 20201010  <url:file:///~/projects/study/logbook/log_20201009.md#r=g_11633>
+		~/projects/study/code/study_hugo.md
 osx
 	keybindings for editing text fields
 		ref: osx keybindings for editing text <url:file:///~/projects/study/osx/study_macos_osx.md#r=g_11010>

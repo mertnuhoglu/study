@@ -1,8 +1,34 @@
 
 
-## nuhoğlu vakfı web sitesi hugo 20190910 
+## nuhoğlu vakfı web sitesi hugo 20190910  id=g_11632
 
 Tema: https://github.com/devcows/hugo-universal-theme
+
+### universal theme: sıfırdan oluşturma id=g_11635
+
+opt01: düz site
+
+``` bash
+mkdir test03
+cd $_
+src=/Users/mertnuhoglu/projects/jekyll/hugo-universal-theme
+dest=/Users/mertnuhoglu/projects/jekyll/test03
+cp $src/exampleSite/config.toml $dest
+cp -R $src/exampleSite/static $dest/static
+cp -R $src/exampleSite/resources $dest/resources
+cp -R $src/exampleSite/data $dest/data
+cp -R $src/exampleSite/content $dest/content
+mkdir -p $dest/themes
+cp -R $src $dest/themes
+``` 
+
+Edit `~/projects/jekyll/test03/config.toml`
+
+Delete: 
+
+		themesDir = "../.."
+
+opt02: netlify deploy
 
 https://nuhogluvakfi.netlify.com
 

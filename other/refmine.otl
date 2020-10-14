@@ -1,0 +1,21 @@
+
+projects
+backup
+	vivaldi notes
+		TODAY=$(date +"%Y%m%d")
+		rsync "/Users/mertnuhoglu/Library/Application Support/Vivaldi/Default/Notes" /Users/mertnuhoglu/gdrive/notes/Diger/ayarlar/vivaldi/${TODAY}_notes.json
+		rsync "/Users/mertnuhoglu/Library/Application Support/Vivaldi/Default/Bookmarks" /Users/mertnuhoglu/gdrive/notes/Diger/ayarlar/vivaldi/${TODAY}_bookmarks.json
+websites
+	nuhogluvakfi id=g_11629
+		doc
+			~/projects/study/logbook/hugo_universal_theme_customization_nuhogluvakfi_20190913.md
+		theme
+			https://github.com/devcows/hugo-universal-theme
+		hosting
+			https://app.netlify.com/sites/nuhogluvakfi/overview
+			https://github.com/mertnuhoglu/nuhogluvakfi01
+		website
+			https://nuhogluvakfi.netlify.app/
+		cd /Users/mertnuhoglu/projects/jekyll/nuhogluvakfi01
+		hugo new  blog/haber.md
+apps

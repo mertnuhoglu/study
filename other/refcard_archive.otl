@@ -25,6 +25,12 @@ current maybe
 					classify_books.sh /Users/mertnuhoglu/Documents/yayin/kitap/
 			acksed -n "match" "replace"
 		bash
+			date time formatting
+				ref
+					bash: current date time printing 20201010  <url:file:///~/projects/study/logbook/log_20201010.md#r=g_11637>
+					date +"%Y%m%d"
+						20201010
+					NOW=$(date +"%Y%m%d")
 			tee
 				pipe error&output to output & file
 					sh datarun03.sh 2>&1 | tee datarun03.sh.log
@@ -3787,6 +3793,16 @@ current maybe
 			tools/ideas to try
 					http://www.buildingwidgets.com/blog/2015/9/5/week-35-gifrecorder
 						gif recorder from text
+	other
+		zoomapp
+			share screen	#^s	
+			mute/unmute	#+a
+			video	#+v
+			view speaker/gallery	#+w
+			next/prev page	^n ^p
+			toggle users	#u
+			toggle chat	#+h
+			toggle hand	!y
 archived
 	Android
 		transfer files from android to osx

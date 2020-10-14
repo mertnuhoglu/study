@@ -18,6 +18,10 @@ state: wip
 
 ---
 
+# References
+
+		hugo refcard <url:file:///~/projects/study/other/refcard.otl#r=g_11654>
+
 # Documentation
 
 ## Quickstart
