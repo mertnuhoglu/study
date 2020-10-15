@@ -1,0 +1,40 @@
+
+# Emacs
+
+	emacs id=g_10728
+		emacs <url:file:///~/gdrive/mynotes/content/code/cemacs.md#r=g_10728>
+		points
+			Cx Cc		exiting
+		evil mode
+			ref
+				https://www.emacswiki.org/emacs/Evil
+			vim inside emacs
+		color theme
+			steps
+				dl http://www.nongnu.org/color-theme/#sec5
+				copy files to /Users/mertnuhoglu/.emacs.d/plugins/
+					themes
+					color-theme-autoloads.el
+					color-theme.el
+				.emacs
+					(add-to-list 'load-path "~/.emacs.d/plugins/")
+					(require 'color-theme)
+					(eval-after-load "color-theme"
+						'(progn
+							 (color-theme-initialize)
+							 (color-theme-hober)))
+				command
+					M-x color-theme-<TAB> RET
+		spacemacs
+			prior
+				mv .emacs.d .emacs.d.bak
+				mv .emacs .emacs.bak
+			install
+				brew tap d12frosted/emacs-plus
+				brew install emacs-plus
+				brew linkapps emacs-plus
+				git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+		next
+			http://spacemacs.org/#
+
+

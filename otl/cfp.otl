@@ -1,0 +1,111 @@
+	<url:file:///~/Dropbox/mynotes/content/code/cfp/cfp.md>
+
+	articles fp
+		~/Dropbox/mynotes/content/articles/articles_fp.md
+		articles fp <url:file:///~/Dropbox/mynotes/content/articles/articles_fp.md#r=g_10608>
+
+## Javascript FP 
+
+	jsfp id=g_10606
+		jsfp <url:file:///~/Dropbox/mynotes/content/code/cfp/cfp.md#r=g_10606>
+		index jsfp
+			index articles jsfp id=g_10607
+				index articles jsfp <url:file:///~/Dropbox/mynotes/content/code/cfp/cfp.md#r=g_10607>
+				brian lonsdorf
+					frisby - brian lonsdorf
+						~/Dropbox/mynotes/content/books/fp/frisby_intro_to_fp_egghead.md
+						~/Dropbox/mynotes/content/books/fp/book_frisby_adequate_guide_to_functional_programming.md
+						~/Dropbox/mynotes/content/books/fp/anki_frisby_intro_to_fp_egghead.md
+						~/projects/study/js/study_frisby_flickr_app.Rmd
+						~/projects/study/js/study_frisby_book_adequate_guide_to_fp.Rmd
+			cyclejs
+				ref
+					cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10248>
+			ramdajs
+				ref
+					ramdajs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10246>
+					~/projects/study/js/study_ramda_for_reactive_streams.Rmd
+			ramdajs fantasy
+				ref
+					ramdajs fantasy <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10604>
+			rxjs
+				ref
+					rxjs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10247>
+			xstream
+				ref
+					xstream <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10605>
+					~/projects/study/js/study_ramda_for_reactive_streams.Rmd
+		articles jsfp
+			If Else vs Either Monad vs FRP id=g_10609
+				If Else vs Either Monad vs FRP <url:file:///~/gdrive/mynotes/content/code/cfp/cfp.md#r=g_10609>
+				https://glebbahmutov.com/blog/if-else-vs-either-monad-vs-frp/
+				goal
+					const condition = true
+					if (condition) {
+						console.log('it is true')
+					} else {
+						console.log('nope')
+					}
+				imperative refactoring
+					const condition = true
+					const f = () => console.log('it is true')
+					const g = () => console.log('nope')
+					// now execute the condition and one of the functions
+					if (condition) {
+						f()
+					} else {
+						g()
+					}
+				Either monad (folktale)
+					ex: construct Either monad
+						const Either = require('data.either')
+						const f = () => console.log('it is true')
+						const g = () => console.log('nope')
+						const condition = true
+						function truthyEither(c) {
+							return c ? Either.Right() : Either.Left()
+						}
+					ex: usage of Either
+						truthyEither(condition)
+							.fold(g, f)
+					ex: more steps in branches:
+						truthyEither(condition)
+							.map(h)
+							.fold(g, f)
+					ex: instead of truthyEither()
+						var o = ... // could be undefined or null
+						Either.fromNullable(o)
+							.fold(invalidO, goodO)
+				Either monad (ramda fantasy)
+					ex: construct either monad same
+					ex: usage of Either
+						Either.either(g, f, truthyEither(condition))
+					ex: alt02
+						const whatToDo = Either.either(g, f)
+						const cond = truthyEither(condition)
+						whatToDo(cond)
+				Functional reactive programming (xstream)
+					ex
+						import xs from 'xstream'
+						const f = () => console.log('it is true')
+						const g = () => console.log('nope')
+						const truthy$ = s$.filter(c => c)
+						const falsy$ = s$.filter(c => !c)
+						truthy$.addListener({
+							next: f
+						})
+						falsy$.addListener({
+							next: g
+						})
+			Ramda for reactive streams id=g_10610
+				Ramda for reactive streams <url:file:///~/gdrive/mynotes/content/code/cfp/cfp.md#r=g_10610>
+				https://glebbahmutov.com/blog/ramda-for-reactive-streams/
+				ref
+					~/projects/study/js/study_ramda_for_reactive_streams.Rmd
+
+
+### Unclassified
+
+	online course - haskell
+		CSCI 360: Programming Languages (Fall 2016)
+			http://ozark.hendrix.edu/~yorgey/360/f16/

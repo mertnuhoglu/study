@@ -1,0 +1,12 @@
+
+	wp
+		ref
+			<url:file:///~/Dropbox/mynotes/nx/keynote/kodlar/wordpress.md>
+		wp cli
+			help
+				wp help <command>
+			export
+				options
+					--dir=<dirname>
+				@mine
+					wp export --dir=$HOME/files/backup/wp_xhr/

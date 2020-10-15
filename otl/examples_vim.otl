@@ -1,0 +1,26 @@
+---
+title: "Examples Vim"
+date: 2020-03-05T10:29:40+03:00 
+draft: true
+description: ""
+tags:
+categories: vim
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+blog: mertnuhoglu.com
+
+---
+
+## Open Current File in System Default Application
+
+For example, open current markdown file in a markdown viewer such as `Marked 2`
+
+``` vimscript
+!open %
+``` 
+
+

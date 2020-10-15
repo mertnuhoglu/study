@@ -1,0 +1,72 @@
+
+		bash
+			bash scripting language
+				functions
+					ex
+						function_name () {
+							<commands>
+						}
+					note: () is for decoration only, no argument is specified inside
+					passing arguments
+						ex
+							print_something() { 
+								echo hello $1 
+								return 5
+							}
+					ex
+						lines_in_file () {
+							cat $1 | wc -l
+						}
+						num_lines=$( lines_in_file $1 )
+			Backwards search ctrl-r
+				If you feel the command will be used frequently, you could add a tag
+						command #useful
+				Then
+						ctrl+r #useful
+		/usr/bin/env
+			http://unix.stackexchange.com/questions/12736/how-does-usr-bin-env-know-which-program-to-use
+			shebang
+				#!/usr/bin/env python
+				#!/usr/bin/env ruby
+			provides full path of python 
+			similar to
+				#!/usr/local/bin/python
+					but this is non portable
+					python can be in another location too
+			#!/usr/bin/env python
+				where python is first located in PATH
+		linux user administration
+			To list all users you can use:
+				cut -d: -f1 /etc/passwd
+			To add a new user you can use:
+				sudo adduser new_username
+			To add a new user to sudoer:
+				sudo adduser new_username sudo
+			or:
+				sudo useradd new_username
+		rclone
+			s3 
+				https://rclone.org/s3/
+				setup
+					rclone config
+				usage
+					rclone lsd remote:
+						list buckets
+					rclone mkdir remote:bucket
+						make new bucket
+					rclone ls remote:path
+						list a bucket
+						rclone lsd remote:bucket
+							list directories only
+						rclone ls --max-depth 1 remote:bucket
+					rclone sync /source/local_path remote:bucket/path
+						sync a directory (deletes excess files)
+						(doesn't create local_path directory)
+					rclone copy /source/local_path remote:bucket/path
+						copies local files to dest (doesn't delete anything)
+					rclone purge remote:path
+						remove path and its contents
+						rclone purge remote:mert01/20160430
+					rclone size remote:path
+						prints total size and number of objects 
+
