@@ -1130,4 +1130,30 @@ lapply(seq(nrow(files)),
 )
 ``` 
 
+## sample data id=g_11655
+
+```r
+sample_data = tibble::tribble(
+  ~id,   ~key, ~value,
+  1,   "a",  2,
+  2,   "b",  3,
+  3,   "a",  2
+  ) 
+```
+
+Check `~/projects/study/problem/sample_data/t01.tsv`
+
+```r
+s01 = readr::read_tsv("~/projects/study/problem/sample_data/t01.tsv")
+```
+
+```r
+s01 = tibble::tribble(
+	~id,	~title,
+	101.00, a,
+	102.00, b,
+	104.00, c
+)
+```
+
 

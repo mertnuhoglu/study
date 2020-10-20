@@ -26,9 +26,13 @@ Check `/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/deps.edn`
 
 https://github.com/kimh/clojure-by-example
 
+Test it:
+
+Cursive > Manage Projects: `!+ Space` > Project: `ex06` > Run `repl` > clojure popup: `!u c` > Send top form to repl `SPC s f`
+
 Check `~/codes/clojure/clojure-by-example/source/index.html.md`
 
-Check `/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj`
+Check `~/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj`
 
 ## Exercises: Sequences from Reference Doc id=g_11270
 

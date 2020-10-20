@@ -16,6 +16,12 @@ output:
 
 # Issues
 
+## kitty refcard id=g_11648
+
+		https://sw.kovidgoyal.net/kitty/#other-keyboard-shortcuts
+		/Users/mertnuhoglu/projects/private_dotfiles/.config/kitty/kitty.conf
+		Layout management <url:file:///~/projects/private_dotfiles/.config/kitty/kitty.conf#r=g_11649>
+
 ## pencere boyutlarını ayarla: sol kolon geniş, sağ kolon dar
 
 https://sw.kovidgoyal.net/kitty/#layouts

@@ -19,6 +19,9 @@ state: wip
 
 # Issues
 
+## refcard fzf id=g_11666
+
+
 `/` shortcut:
 
 cd ile klasörleri dolaşırken `/` tuşuna basınca, otomatik olarak o klasörü tamamlayıp içindeki klasörleri listeler.

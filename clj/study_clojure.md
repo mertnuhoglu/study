@@ -15,6 +15,20 @@ state: wip
 
 ---
 
+# Issues 
+
+## Quickstart Clojure id=g_11627
+
+Exercises: Clojure By Example - kimh <url:file:///~/projects/study/clj/exercise_with_clojure_examples.md#r=g_10990>
+
+Exercises: Sequences from Reference Doc <url:file:///~/projects/study/clj/exercise_with_clojure_examples.md#r=g_11270>
+
+
+			~/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj
+			~/projects/study/clj/study_fulcro_tutorial.md
+			~/projects/study/code/study_intellij_ideavim.md
+			~/projects/study/code/study_intellij.md
+
 Ref:
 
 		~/projects/study/clj/anki_clojure.md

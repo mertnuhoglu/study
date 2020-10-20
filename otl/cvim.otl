@@ -472,6 +472,9 @@ _ id=r_lastid cvim_002
 				command completion works
 					:Utl <Tab>
 				visual selection
+					ex:
+						select line with ex command:
+						:ls
 					:Utl openLink visual
 					:Utl o v
 				vimscript scheme (ex commands)
@@ -1205,6 +1208,5 @@ _ id=r_lastid cvim_002
 						function myplugin#somefile#Hello()
 	how to
 		:messages # show error messages
-
 
 

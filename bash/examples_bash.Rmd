@@ -1229,3 +1229,16 @@ find . -type d -exec sh -c "fc=\$(find '{}' -type f | wc -l); echo -e \"\$fc\t{}
 mogrify -quality 90 -resize 1280x720 *.jpg
 ``` 
 
+### navigate recursively subdirectories and execute command id=g_11663
+
+```bash
+DIR=/Users/mertnuhoglu/gdrive/mynotes/nx/keynote/
+for d in $(find "${DIR}" -maxdepth 5 -type d)
+do
+	echo "${d}"
+	cd "${d}"
+	rename 's/md$/txt/' *.md
+done 
+```
+
+

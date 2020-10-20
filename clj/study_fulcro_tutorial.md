@@ -65,7 +65,7 @@ npx shadow-cljs server
 
 Start compiling with watcher: `http://localhost:9630/build/main` > `start-watch`
 
-Open: `http://localhost:8002/`
+Open: `http://localhost:8000/`
 
 03. Connect to nREPL server 
 

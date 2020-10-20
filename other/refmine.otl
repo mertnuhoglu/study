@@ -5,6 +5,41 @@ backup
 		TODAY=$(date +"%Y%m%d")
 		rsync "/Users/mertnuhoglu/Library/Application Support/Vivaldi/Default/Notes" /Users/mertnuhoglu/gdrive/notes/Diger/ayarlar/vivaldi/${TODAY}_notes.json
 		rsync "/Users/mertnuhoglu/Library/Application Support/Vivaldi/Default/Bookmarks" /Users/mertnuhoglu/gdrive/notes/Diger/ayarlar/vivaldi/${TODAY}_bookmarks.json
+methods_and_rules
+	kms id=g_11660
+		ref: knowledge management system (kms) <url:file:///~/projects/study/otl/names.otl#r=g_11659>
+		refkartlar
+			<url:vimscript:Erefmine>
+			<url:vimscript:Erefcard>
+			<url:vimscript:Erefbookmarks>
+		meta süreç varlıkları
+			<url:vimscript:Ecnotes>
+			<url:vimscript:Egrules>
+		genel bilgi depoları
+			<url:vimscript:Ecstuff>
+			<url:vimscript:Eccode>
+		logbook
+			<url:vimscript:Elogbook>
+			<url:vimscript:Enotesanki>
+	bilgi tasnif şablonu id=g_11662
+		kms <url:file:///~/projects/study/other/refmine.otl#r=g_11660>
+		genel
+			Ecstuff e /Users/mertnuhoglu/projects/myrepo/cstuff.otl
+			Eccode e ~/projects/study/otl/ccode.otl
+		otl
+			Ecoder e ~/projects/study/otl/cr.otl
+			Ecvim e ~/projects/study/otl/cvim.otl
+		examples
+			Eexamplesdb e ~/projects/study/db/examples_db.Rmd
+			Eexamplesvim e ~/projects/study/vim/examples_vim.Rmd
+			Eexamplesbash e ~/projects/study/bash/examples_bash.Rmd
+			Eexamplesr e ~/projects/study/r/examples_r.Rmd
+		study
+			Estudyr e ~/projects/study/r/study_r.Rmd
+			Estudyintellij e ~/projects/study/code/study_intellij.md
+			Estudyspacemacs e ~/projects/study/emacs/study_spacemacs.md
+		layermark
+			~/projects/myrepo/prj/lym/logbook
 websites
 	nuhogluvakfi id=g_11629
 		doc

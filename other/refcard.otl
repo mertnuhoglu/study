@@ -148,6 +148,8 @@ webapps
 				user A moves dir b inside dir a
 				A and B put their files into dir b
 apps
+	visidata vd
+		refcard visidata <url:file:///~/projects/study/code/study_visidata.md#r=g_11578>
 	hammerspoon
 		find name of application <url:file:///~/projects/study/logbook/log_20200717.md#r=g_11480>
 			Find name in `Applications` directory: `zoom.us.app`

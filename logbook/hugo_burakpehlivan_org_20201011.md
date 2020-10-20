@@ -165,6 +165,10 @@ do
 done 
 ```
 
+```bash
+mogrify -quality 90 -density 300x300 -resize 800x480\> *.jpg
+```
+
 ## Copy md files
 
 Copy all md files that are generated from wordpress xml export file:

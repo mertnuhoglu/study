@@ -1,6 +1,33 @@
 
 names
+	problem solving methods
+		standart isim verme
+		knowledge management system (kms) id=g_11659
+			refkartlar
+				Erefmine Erefcard Erefbookmarks
+			meta süreç varlıkları
+				Ecnotes Egrules
+			genel bilgi depoları
+				Ecstuff Eccode
+			logbook
+				Elogbook Enotesanki
+		ref: sıfırdan tekrarlama yöntemi <url:file:///~/projects/myrepo/general/rules.md#r=g_11631>
+		ref: sistematik kaydetme yöntemi <url:file:///~/projects/myrepo/general/rules.otl#r=g_11661>
+tools
+	bash
+		navigate recursively subdirectories and execute command
+	vim
+		vim keybindings
+			compatible keybindings: vim vs spacemacs vim-which-key  <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11007>
 	R names
+		join parts then bind rows
+			parçala join et birleştir
+			steps
+				step01: join one part of a table with sth
+				step02: join another part of the table with sth
+				step03: bind rows of the both joined tables
+				step04: remove duplicate rows
 	unclassified
 		rdb
+
 		
