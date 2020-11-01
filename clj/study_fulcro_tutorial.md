@@ -447,7 +447,7 @@ Add new repl command to run with a shortcut shuch as:
 
 `Restart user ns`. Command: `(restart)`
 
-[repl command](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200717120519.jpg)
+[repl command](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200717_120519.jpg)
 
 Assign keyboard shortcut to it: `!s r`
 
@@ -562,14 +562,14 @@ open: `chrome > fulcro inspect`
 
 `click grey button > it turns to green`
 
-[autocompleted keywords](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200717160804.jpg)
+[autocompleted keywords](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200717_160804.jpg)
 
 ```clojure
 [{[:car/id 1] [:car/make :car/model]}]
   ##> {[:car/id 1] {:car/model "Accord", :car/make "Honda"}}
 ```
 
-[query result](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200717160920.jpg)
+[query result](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200717_160920.jpg)
 
 This works because of the `car-resolver`:
 
@@ -672,13 +672,13 @@ ex: put time on query results:
 
 Open `http://localhost:3000/index.html`
 
-![result](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200720113232.jpg)
+![result](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200720_113232.jpg)
 
 Q: `:target` ne işe yarıyor? `::person-list` ne işe yarıyor?
 
 Önce mevcut app durumunu kontrol et: `Chrome > Fulcro Inspect > DB > :component/id`
 
-![Check state](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200720122952.jpg)
+![Check state](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200720_122952.jpg)
 
 Neden `person-list` ile başlıyor buradaki veri?
 
@@ -736,7 +736,7 @@ state:
 
 Check `Fulcro Inspect > Network`
 
-![Network Request](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200720133656.jpg)
+![Network Request](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200720_133656.jpg)
 
 Network requestinde gönderdiği sorgu, komponentin query parametresinde tanımlanıyor:
 
@@ -745,15 +745,15 @@ Network requestinde gönderdiği sorgu, komponentin query parametresinde tanıml
   {:query [:person/id :person/name :person/age {:person/cars (comp/get-query Car)}]
 ```
 
-![Network Request Details](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200720134052.jpg)
+![Network Request Details](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200720_134052.jpg)
 
 `Send Request` yaparak, bunu test edebilirsin:
 
-![Send Request](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200720134133.jpg)
+![Send Request](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200720_134133.jpg)
 
 ### s: updating data in backend
 
-![Make Older Network Request](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200720140428.jpg)
+![Make Older Network Request](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200720_140428.jpg)
 
 `client.cljs`
 
@@ -799,9 +799,9 @@ Ayrıca frontend tarafında da `remote` fonksiyonunu çağırıyoruz:
   (remote [env] true))
 ```
 
-![Transaction](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200720174642.jpg)
+![Transaction](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200720_174642.jpg)
 
-![Transaction Diff](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200720174712.jpg)
+![Transaction Diff](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200720_174712.jpg)
 
 ## 07-Fulcro – Part 7  - Full Stack Operations Over Time-wuOnP5yufxU.mp4
 

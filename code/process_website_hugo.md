@@ -119,6 +119,10 @@ git push
 ## nuhogluvakfi
 
 ```bash
+rename 's/'
+```
+
+```bash
 mogrify -quality 90 -density 300x300 -resize 800x480\> ./*.jpeg
 mogrify -quality 90 -density 300x300 -resize 800x480\> ./*.jpg
 mogrify -quality 90 -density 300x300 -resize 800x480\> ./*.png

@@ -464,6 +464,7 @@ echo ${ANKI_FILE} | pbcopy
 Import Anki:
 
 		Type: Basic (and reversed)
+		Type: Basic with example and reversed
 
 #### alt: anki_jpg_2_images
 

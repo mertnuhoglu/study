@@ -173,11 +173,11 @@ view_n = f_n(state_n)
 
 Problem: state pools overlap
 
-[state explosion](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200624094637.jpg)
+[state explosion](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200624_094637.jpg)
 
 Example: data pools
 
-[data pools](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200624094844.jpg)
+[data pools](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200624_094844.jpg)
 
 Account information and People information overlap.
 
@@ -264,9 +264,9 @@ We need to:
 
 Ex: Data Normalization:
 
-[data normalization](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200624122400.jpg)
+[data normalization](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200624_122400.jpg)
 
-[data normalization](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200624122427.jpg)
+[data normalization](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200624_122427.jpg)
 
 It eliminates overlapping data pool issues.
 
@@ -280,7 +280,7 @@ Convert json tree to database
 
 How 01: co-locate query and identity (ident)
 
-[co-located query and identity](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200624122635.jpg)
+[co-located query and identity](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200624_122635.jpg)
 
 app state = client database
 
@@ -288,7 +288,7 @@ decorate ui components with identity and query information.
 
 How 02: Queries composed just like UI components
 
-[explicit load](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200624122922.jpg)
+[explicit load](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200624_122922.jpg)
 
 This lets us unify 
 
@@ -328,7 +328,7 @@ Thus we opted for Pathom.
 - Flattening results
 - Fan out flat data
 
-[eql and pathom](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200624123848.jpg)
+[eql and pathom](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200624_123848.jpg)
 
 ## Pathom Synergy
 
@@ -556,7 +556,7 @@ Eliminates sources of complexity like Controllers, library event systems (signal
 
 ## cursive support for fulcro macros id=g_11481
 
-![resolve defresolver as defn](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200717163411.jpg)
+![resolve defresolver as defn](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200717_163411.jpg)
 
 [custom macros](https://cursive-ide.com/userguide/macros.html)
 

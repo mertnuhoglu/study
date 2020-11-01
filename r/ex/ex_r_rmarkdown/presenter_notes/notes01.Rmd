@@ -1,0 +1,43 @@
+---
+title: "Presentation"
+subtitle: ""
+author: "Mert Nuhoglu"
+date: "2020/10/27"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+## Title
+
+- Mert Nuhoglu
+
+---
+
+## Scenario: Summary
+
+- Services: Consultancy and training 
+One slide.
+
+---
+
+## Another slide with notes
+
+???
+
+_if not asked to lend money_.
+
+--- Mark Twain
+
+## Slide02
+
+| col01 | col02 |
+|-------|-------|
+| row01 | val02 |
+| row02 | val03 |
+
+---
+

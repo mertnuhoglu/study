@@ -582,3 +582,220 @@ Misc.
 	| Ctrl-^ | Toggle between current and previous sheet |
 	| Space  | Open long-name command prompt             |
 
+## Examples
+
+ex: Read directory:
+
+```bash
+vd .
+```
+
+ex: Read json array:
+
+```bash
+vd ~/projects/study/problem/sample_data/j01.json
+```
+
+ex: Read html tables:
+
+```bash
+vd https://developer.mozilla.org/en-US/docs/Learn/HTML/Tables/Basics
+```
+
+ex: Read directory of csv files:
+
+```bash
+vd ~/projects/study/problem/sample_data
+```
+
+Select rows: `s`
+
+Open selected files as sheets: `g<enter>`
+
+# Articles
+
+## Saul Pwanson Visidata Videos id=g_11693
+
+[VisiData demo 2: Graphs - YouTube](https://www.youtube.com/watch?v=Ozap_numsjI)
+
+Make columns float `%` or numeric `#`
+
+Select key column `!`
+
+Select y column `.`
+
+[(7) Saul Pwanson - YouTube](https://www.youtube.com/channel/UCDw36yB-ZXJ_FnqEH7o2HfQ)
+
+###
+
+```bash
+cd ~/codes/data
+wget https://simplemaps.com/static/data/us-cities/1.7/basic/simplemaps_uscities_basicv1.7.zip
+unzip simplemaps_uscities_basicv1.7.zip
+```
+
+```bash
+vd /Users/mertnuhoglu/codes/data/uscities.csv
+```
+
+### Drawing Graphs id=g_11694
+
+[/graph](https://www.visidata.org/docs/graph/)
+
+```bash
+wget https://raw.githubusercontent.com/saulpw/visidata/stable/sample_data/StatusPR.csv
+vd StatusPR.csv
+```
+
+Scenario:
+
+```bash
+=Month+Day | Insert a new column with this formula
+-          | Hide Month column
+-          | Hide Day column
+@          | Format "Month+Day" column as Date
+^Date      | Rename "Month+Day" column as "Date"
+!          | Set it as independent variable (x-axis)
+!          | Set "Resource" column as independent variable too
+,          | "Location" column "Puerto Rico" value. Select all such values
+\number    | "Unit" column. Unselect "number" values.
+"          | Filter selected rows
+%          | Format "Value" column as float
+.          | Plot "Value" column
+```
+
+Commands:
+
+```bash
+!	set column as x-axis
+!	set categorical key column as independent variable
+.	dot=plot
+```
+
+Interaction with graphs
+
+```bash
+| Command(s)     | Operation                                   |
+| 1 - 9          | toggles display of each scatterplot layer   |
+| h  j  k  l     | moves the cursor                            |
+| H  J  K  L     | expands and shrinks the cursor              |
+| +  -           | increases/decreases the zoomlevel, centere… |
+| zz             | zooms into the cursor                       |
+| _ (underscore) | zooms to fit the full extent                |
+| s  t  u        | selects/toggles/unselects rows on the sour… |
+| gs  gt  gu     | selects/toggles/unselects rows visible as … |
+| d              | deletes rows on the source sheet contained… |
+| gd             | deletes all rows visible as points on the … |
+| Enter          | opens sheet of source rows contained withi… |
+| gEnter         | opens sheet of source rows which are visib… |
+| v              | toggles the visibility of graph labels      |
+```
+
+## Opening Google Sheets in Visidata id=g_11695
+
+Ref: [User Manual](https://readthedocs.org/projects/sphinx-visidata/downloads/pdf/latest/)
+
+Step01: Python client:
+
+```bash
+pip3 install google-api-python-client 
+```
+
+Step02: Set up OAuth Credentials
+
+[API Python Quickstart](https://developers.google.com/sheets/api/quickstart/python)
+
+```bash
+pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+```
+
+Step03: Set up the sample
+
+Check `~/projects/study/code/ex/study_visidata/googlesheets01/quickstart.py`
+
+```bash
+mv /Users/mertnuhoglu/Downloads/credentials.json ~/projects/study/code/ex/study_visidata/googlesheets01
+cd ~/projects/study/code/ex/study_visidata/googlesheets01
+python3 quickstart.py
+```
+
+### Open Sheets From Visidata
+
+```bash
+vd https://docs.google.com/spreadsheets/d/1Wg5xSR7-7ER-fUUM7b2h5wyV9A9cgRvE88Dkxy6MD-0/edit#gid=1729711358
+```
+
+## Open R data frame with VisiData
+
+[/loading](https://www.visidata.org/docs/loading/#opening-an-r-data-frame-with-visidata)
+
+```bash
+library(rvisidata)
+vd(iris)
+```
+
+## Convert dataset format
+
+```bash
+cd /Users/mertnuhoglu/projects/study/problem/sample_data
+vd -b t01.tsv -o t01.csv
+```
+
+## How to save and replay a VisiData session
+
+[How to save and replay a VisiData session](https://www.visidata.org/docs/save-restore/)
+
+```bash
+01a  | ^D          | save command log to a fn.vd file
+01b  | +D          | view CommandLog sheet
+01b2 | ^S          | save as .vd file
+02   | gq          | quit
+03   | vd -p fn.vd | replay
+```
+
+## Customizing Visidata
+
+[Customizing Visidata](https://www.visidata.org/docs/customize/)
+
+```bash
+| +O   | Options sheet (global) |
+| ^H   | manual                 |
+| z ^H | Commands sheet         |
+```
+
+```bash
+vd --skip 2 # global option as argument
+```
+
+Persist configuration:
+
+Edit `~/.visidatarc`
+
+```bash
+options.num_burgers = 13
+```
+
+Add global keybinding:
+
+Edit `~/.visidatarc`
+
+```bash
+bindkey(keystroke, longname)
+```
+
+Example:
+
+```bash
+bindkey('i', 'edit-cell')
+```
+
+## Extending VisiData With Plugins 
+
+[Extending VisiData With Plugins — An Introduction to VisiData](https://jsvine.github.io/intro-to-visidata/advanced/extending-visidata/)
+
+Open plugins:
+
+`Space` > `open-plugins` > select plugins > `a` to activate
+
+
+

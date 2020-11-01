@@ -1,7 +1,66 @@
 
+kısaltmalar id=g_11677
+	standart kısaltmalar
+		kısaltmalarım kslt
+		idm: idiom 
+		infop: information project
+		artnts: article notes
+		blgfkr: blog fikir
+		isfkr: iş fikri
+		oyn: oyun
+		trt: tartışma trtş
+		tlg: telegram
+		twt: twit
+		blg: blog
+		fkr: fikir
+		fkri: fikr-i inovasyon, fikr-i iş
+		fkrp: fikir_projesi
+		brk: burak
+		gtd
+		htr: hatıra
+		rfr: referans
+		tfk: tefekkür
+		gnl: günlük
+		tpl: toplantı
+		@mine: not alırken, kendime ait fikirlerimi not düşmek için
+		@video
+		@next
+		@podcast
+		@agenda
+		listp: list project
+	adaylar
+		işfikri: isf isfkr 
+		kısaltma: ksl
+		sürekli çalışılan işler: blgp
+		sci uzn devam çlş continue keepworking project smallproject fikir_projesi fprj fkrp
+		ntp docp dcp
+		arşv kllk stk infp blgp
+		boş zaman aktivitesi: frt (free time), brk
+		tkp (takip)
+		okuduğum izlediğim şeylere dair notlar: mnt
+		art rd trd mrd ird 
+		not mnt mynote
+		hgh highlighted
+		alnt alıntı
+		cpt caption
+	vivaldi bookmarks:
+		watch#n
+		read#n
+		tkp$x
+		gd$x
+	work logbook
+		stp## s##: step
+			ex: stp03
+		plan##
+		trg: target
+		src: source
+		return: 
+		b#n: bullet #n
+		opt: IMPR WARN NT VINT
 names
 	problem solving methods
 		standart isim verme
+			ref: isimlendirme ve tasnif yöntemleri <url:file:///~/projects/myrepo/general/rules.otl#r=g_11676>
 		knowledge management system (kms) id=g_11659
 			refkartlar
 				Erefmine Erefcard Erefbookmarks
@@ -27,6 +86,7 @@ tools
 				step02: join another part of the table with sth
 				step03: bind rows of the both joined tables
 				step04: remove duplicate rows
+		text templates
 	unclassified
 		rdb
 

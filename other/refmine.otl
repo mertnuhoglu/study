@@ -13,9 +13,11 @@ methods_and_rules
 			<url:vimscript:Erefcard>
 			<url:vimscript:Erefbookmarks>
 		meta süreç varlıkları
-			<url:vimscript:Ecnotes>
 			<url:vimscript:Egrules>
+			<url:vimscript:Ecnames>
 		genel bilgi depoları
+			<url:vimscript:Eninfop>
+			<url:vimscript:Enidea>
 			<url:vimscript:Ecstuff>
 			<url:vimscript:Eccode>
 		logbook
@@ -40,6 +42,10 @@ methods_and_rules
 			Estudyspacemacs e ~/projects/study/emacs/study_spacemacs.md
 		layermark
 			~/projects/myrepo/prj/lym/logbook
+	templates
+		quickstart and refcard template for documents
+			ref
+				Issues rmarkdown <url:file:///~/projects/study/r/shiny/shiny_and_rmarkdown.Rmd#r=g_11692>
 websites
 	nuhogluvakfi id=g_11629
 		doc

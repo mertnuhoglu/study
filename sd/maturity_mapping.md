@@ -21,14 +21,14 @@ state: wip
 
 boşluk analizinde değerlendirme yaparken wardley'in evrim seviyelerini kullan:
 
-/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200905224758.jpg
+/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200905_224758.jpg
 
 Genesis, Custom, Product, Commodity
 Novel, Emerging, Good, Best
 
-/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200905224947.jpg
+/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200905_224947.jpg
 
-/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200905225419.jpg
+/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200905_225419.jpg
 
 3 perspektiften bir amacı inceleyebiliriz:
 
@@ -40,7 +40,7 @@ bu şekilde bir yazılım firmasının becerilerini nasıl haritalardım?
 
 hareketleri ne tarafa doğru olmalı?
 
-/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200905230009.jpg
+/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200905_230009.jpg
 
 hangi praktisler bizim için kompleks, zahmetli, basit, kaotik?
 
@@ -63,9 +63,9 @@ Bir praktis üç şeyden oluşur:
 
 Normal Wardley haritaları, materyal yönüne ağırlık verir.
 
-Maturity haritaları ise beceri tarafına ağırlık verir.
+Maturity haritaları ise beceri tarafına ağırlık verir.     
 
-![example](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200906091136.jpg)
+![example](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200906_091136.jpg)
 
 Bu örnekte, anlam, materyal ve beceri üçü bir arada haritalanmış.
 

@@ -19,14 +19,39 @@ state: wip
 
 # Issues
 
+## Quickstart FZF
+
+
 ## refcard fzf id=g_11666
 
+[Search syntax](https://github.com/junegunn/fzf#search-syntax)
+
+    | 'exact-match        |
+    | ^prefix-exact-match |
+    | .mp3$               |
+    | !inverse-match      |
+    | !^inverse-prefix    |
+    | !.mp3$              |
+
+Shortcuts
+
+		| !c|cd into selected directory|
 
 `/` shortcut:
 
 cd ile klasörleri dolaşırken `/` tuşuna basınca, otomatik olarak o klasörü tamamlayıp içindeki klasörleri listeler.
 
 # Articles
+
+## Article03: Boost Your Command-Line Productivity With Fuzzy Finder 
+
+[Boost Your Command-Line Productivity With Fuzzy Finder | by Vinicius De Antoni | Better Programming | Medium](https://medium.com/better-programming/boost-your-command-line-productivity-with-fuzzy-finder-985aa162ba5d)
+
+### Preview Directory Contents
+
+```bash
+```
+
 
 ## Article01: Turn your fzf into a live REPL
 

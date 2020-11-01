@@ -25,6 +25,15 @@ return: requires python 3.6+ <url:/Users/mertnuhoglu/projects/study/logbook/log_
 
 ref: `pyenv  <url:/Users/mertnuhoglu/projects/study/py/study_pyenv.md>`
 
+## Final 20201030 
+
+```bash
+cd /usr/local/bin
+ln -s /usr/local/opt/python@3/bin/python3 python3 
+ln -s /usr/local/opt/python@3/bin/python3 python
+```
+
+
 ## Article: The right and wrong way to set up Python 3 on MacOS | Opensource.com id=g_11567
 
 [The right and wrong way to set up Python 3 on MacOS | Opensource.com](https://opensource.com/article/19/5/python-3-default-mac#what-to-do)

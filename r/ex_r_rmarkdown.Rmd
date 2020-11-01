@@ -14,6 +14,35 @@ resource_files:
 - ./globals.R
 ---
 
+## xaringan slides
+
+### Basic example with xaringan id=g_11691
+
+Check `~/projects/study/r/ex/ex_r_rmarkdown/xaringan01/x01.Rmd`
+
+Run:
+
+```bash
+make
+```
+
+Check `~/projects/study/r/ex/ex_r_rmarkdown/xaringan01/Makefile`
+
+```bash
+build:
+	R -e 'rmarkdown::render("x01.Rmd")'
+```
+
+Open:
+
+```bash
+open x01.html
+```
+
+### Presenter notes
+
+Check `~/projects/study/r/ex/ex_r_rmarkdown/presenter_notes/notes01.Rmd`
+
 ## Read yaml header parameters
 
 ``` r

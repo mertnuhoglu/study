@@ -133,6 +133,25 @@ _ id=r_lastid cvim_002
 			nnoremap cnf :NERDTreeFind<cr>
 	viml vimscript id=g_10491
 		viml vimscript <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10491>
+		refcard - komut listesi
+			expand
+				let word = expand('<cword>')
+			getline
+				let lines = getline(lnum1, lnum2)
+			getpos
+				let [lnum1, col1] = getpos("'<")[1:2]
+			input
+				let name = input('Enter name: ')
+			matchstr
+				let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+			printf
+				let result = printf("<url:file:///%s#r=%s>", filename3, id)
+			readfile
+				let line = readfile(global_refid, 1)[0]
+			strftime
+				let date = strftime("%Y%m%d")
+			substitute
+				let url = substitute(url, ">\s*", "", "")
 		visual range to a command as its argument
 			https://vi.stackexchange.com/questions/11025/passing-visual-range-to-a-command-as-its-argument
 				function! PrintGivenRange() range
@@ -645,6 +664,13 @@ _ id=r_lastid cvim_002
 			put new line
 			open nvim
 				:PlugInstall
+		tabular: align
+			ref
+				tabular align text <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11680>
+		spacemacs - vim-which-key
+			ref
+				vim-which-key spacemacs emacs-which-key port {{{ <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11679>
+				<url:vimhelp:vim-which-key>
 		deoplete - autocomplete
 		easymotion - quick move chars
 			m: my leader

@@ -779,7 +779,24 @@ build:
 make build
 ``` 
 
-### json jsonr examples
+### json jsonlite jsonr examples
+
+Read as dataframe with `jsonlite`
+
+``` r
+pl0 = jsonlite::fromJSON("logs/plan_jobs.json", simplifyDataFrame = T) %>%
+	as_tibble()
+str(pl0)
+  ##> 'data.frame':   2432 obs. of  12 variables:
+pl0
+  ##> # A tibble: 2,432 x 12
+  ##>    `_id`$`$oid`   depot  shortStatus status  submitDate 
+  ##>    <chr>          <chr>  <chr>       <chr>   <chr>      
+  ##>  1 59259c9b4eb11… ADANA  G           TAMAML… 2017-05-2… 
+  ##>  2 5926703e4eb11… CORLU  G           TAMAML… 2017-05-2… 
+``` 
+
+Read as `list` with `rjson`
 
 ``` r
 pj0 = rjson::fromJSON(file="logs/plan_jobs.json")
@@ -798,20 +815,18 @@ length(pj0)
   ##> [1] 2432
 ``` 
 
-Read as dataframe
+### toJSON fromJSON
 
-``` r
-pl0 = jsonlite::fromJSON("logs/plan_jobs.json", simplifyDataFrame = T) %>%
-	as_tibble()
-str(pl0)
-  ##> 'data.frame':   2432 obs. of  12 variables:
-pl0
-  ##> # A tibble: 2,432 x 12
-  ##>    `_id`$`$oid`   depot  shortStatus status  submitDate 
-  ##>    <chr>          <chr>  <chr>       <chr>   <chr>      
-  ##>  1 59259c9b4eb11… ADANA  G           TAMAML… 2017-05-2… 
-  ##>  2 5926703e4eb11… CORLU  G           TAMAML… 2017-05-2… 
-``` 
+```bash
+t01 = readr::read_tsv("~/projects/study/problem/sample_data/t01.tsv")
+j01 = jsonlite::toJSON(t01, pretty = T)
+t02 = jsonlite::fromJSON(j01)
+writeLines(j01, "~/projects/study/problem/sample_data/j01.json")
+```
+
+```bash
+vd ~/projects/study/problem/sample_data/j01.json
+```
 
 ### group_by then count tally 
 
@@ -1154,6 +1169,15 @@ s01 = tibble::tribble(
 	102.00, b,
 	104.00, c
 )
+```
+
+## text templates
+
+ref: `~/projects/study/logbook/ex/hugo_burakpehlivan_org_20201011/c_wordpress_export_xml_to_csv/c_wordpress_export_xml_to_csv.R`
+
+```bash
+ba2 = ba1 %>%
+	dplyr::mutate(link = glue::glue("/blog/{page_name}"))
 ```
 
 
