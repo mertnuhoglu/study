@@ -1,0 +1,2 @@
+{:aliases {:klipse {:extra-deps {viebel/klipse-repl {:mvn/version "0.2.3"}}
+                    :main-opts ["-m" "klipse-repl.main"]}}}

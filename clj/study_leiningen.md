@@ -30,7 +30,7 @@ lein
 lein help tutorial
 ``` 
 
-unset $CLASSPATH variable
+unset `$CLASSPATH` variable
 
 ``` clojure
 unset CLASSPATH

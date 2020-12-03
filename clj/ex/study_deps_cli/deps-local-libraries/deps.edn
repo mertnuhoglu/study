@@ -1,0 +1,3 @@
+{:deps
+ {time-lib/time-lib {:local/root "../time-lib"}}}
+

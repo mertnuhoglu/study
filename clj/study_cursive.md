@@ -17,7 +17,9 @@ state: wip
 
 # quickstart cursive
 
-		|^^ repl | run repl|
+		| ^^ repl | run repl          |
+		| !u c    | clojure           |
+		| !s f    | send form to repl |
 
 # Book: User Guide 
 

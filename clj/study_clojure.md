@@ -15,9 +15,7 @@ state: wip
 
 ---
 
-# Issues 
-
-## Quickstart Clojure id=g_11627
+# Quickstart Clojure id=g_11627
 
 Exercises: Clojure By Example - kimh <url:file:///~/projects/study/clj/exercise_with_clojure_examples.md#r=g_10990>
 
@@ -29,9 +27,29 @@ Exercises: Sequences from Reference Doc <url:file:///~/projects/study/clj/exerci
 			~/projects/study/code/study_intellij_ideavim.md
 			~/projects/study/code/study_intellij.md
 
-Ref:
+`~/projects/study/clj/anki_clojure.md`
 
-		~/projects/study/clj/anki_clojure.md
+Repl:
+
+```bash
+~/projects/study/clj/study_deps_cli.md
+~/projects/study/clj/study_reveal_repl.md
+~/projects/study/clj/practicalli_deps_edn.md
+~/projects/study/clj/study_babashka_interpreter.md
+~/projects/study/clj/study_portal.md
+~/projects/study/clj/study_jet.md
+~/projects/study/clj/study_klipse_repl.md
+~/projects/study/clj/study_lumo_repl.md
+~/projects/study/clj/study_closh_shell.md
+~/projects/study/clj/study_deep_diff.md
+~/projects/study/clj/study_nrepl.md
+```
+
+`Quickstart deps.edn <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11724>`
+
+# Articles
+
+		`~/projects/study/clj/study_deps_cli.md`
 
 # Questions
 

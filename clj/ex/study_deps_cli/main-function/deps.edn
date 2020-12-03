@@ -1,0 +1,11 @@
+{:paths ["src"],
+ :aliases
+ {:find-deps
+  {:extra-deps
+   {find-deps/find-deps
+    {:git/url "https://github.com/hagmonk/find-deps",
+     :sha "6fc73813aafdd2288260abb2160ce0d4cdbac8be"}},
+   :main-opts ["-m" "find-deps.core"]}},
+ :deps
+ {org.clojure/clojure {:mvn/version "1.10.1"},
+  clojure.java-time/clojure.java-time {:mvn/version "0.3.2"}}}

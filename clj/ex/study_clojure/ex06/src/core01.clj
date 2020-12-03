@@ -170,3 +170,159 @@
   (into {} (for [[k v] m] [k (inc-even v)])))
 (mapv #(apply-fn-to-hashmap inc-even %) data)
 ;; => [{:a 1, :b 3} {:c 3}]
+
+;; # Collections
+
+;; ## Generic ops
+
+(count [1 2 3])
+;; => 3
+(empty [1])
+;; => []
+(not-empty [1])
+;; => [1]
+(not-empty [])
+;; => nil
+(into [] #{1 2})
+;; => [1 2]
+(into (sorted-map) [[1 2] [3 4]])
+;; => {1 2, 3 4}
+(conj [1 2] 3)
+;; => [1 2 3]
+
+;; ## Content tests
+
+(distinct? 1 2 2)
+;; => false
+(empty? ())
+;; => true
+(every? even? [1 2])
+;; => false
+(not-every? even? [1 2])
+;; => true
+(some even? [1 2])
+;; => true
+(not-any? even? [1 2])
+;; => false
+
+;; ## Capabilities
+
+(sequential? [1])
+;; => true
+(associative? [1])
+;; => true
+(sorted? [])
+;; => false
+(counted? "a")
+;; => false
+(reversible? {})
+;; => false
+
+;; ## Type tests
+
+(coll? [])
+;; => true
+(list? [])
+;; => false
+(vector? [])
+;; => true
+(set? #{})
+;; => true
+(map? {})
+;; => true
+(seq? [])
+;; => false
+(record? [])
+;; => false
+(map-entry? (first {:a 1}))
+;; => true
+
+;; # Lists (conj, pop, peek at beginning)
+
+;; ## Create
+
+'(1 2)
+;; => (1 2)
+(list 1 2)
+;; => (1 2)
+(list* 1 [2 3])
+;; => (1 2 3)
+(list 1 [2 3])
+;; => (1 [2 3])
+
+;; ## Examine
+
+(first '(1 2))
+;; => 1
+(nth '(1 2) 1)
+;; => 2
+(peek '(1 2))
+;; => 1
+(.indexOf "ali" "a")
+;; => 0
+(.lastIndexOf "aba" "a")
+;; => 2
+
+;; ## Change
+
+(cons 1 '(2 3))
+;; => (1 2 3)
+(conj '(1 2) 3)
+;; => (3 1 2)
+(rest '(1 2))
+;; => (2)
+(pop '(1 2))
+;; => (2)
+
+;; ## Vectors (conj, pop, peek at end)
+
+;; # Sets
+
+;; ## Set ops
+
+(clojure.set/select odd? #{1 2})
+;; => #{1}
+
+;; # Maps
+
+;; ## Change
+
+(assoc {} :k 1)
+;; => {:k 1}
+(dissoc {:k 1} :k)
+;; => {}
+(merge {} {})
+;; => {}
+
+;; # Sequences
+
+;; ## Creating
+
+(take 3 (range))
+;; => (0 1 2)
+(range 10)
+;; => (0 1 2 3 4 5 6 7 8 9)
+(range -5 5)
+;; => (-5 -4 -3 -2 -1 0 1 2 3 4)
+(range 100 0 -10)
+;; => (100 90 80 70 60 50 40 30 20 10)
+
+(repeat 5 "a")
+;; => ("a" "a" "a" "a" "a")
+(take 5 (repeat "a"))
+;; => ("a" "a" "a" "a" "a")
+
+(repeatedly 5 rand)
+;; => (0.16775666879239537 0.012787920336573722 0.9320162884691133 0.9435585564351228 0.5306635736994048)
+
+(take 5 (cycle [1 2]))
+;; => (1 2 1 2 1)
+
+(take 5 ( iterate dec 5))
+;; => (5 4 3 2 1)
+
+(lazy-seq inc 1)
+
+;; ## Using a Seq
+
+(apply str ["a" "b"])

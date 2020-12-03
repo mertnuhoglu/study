@@ -17,7 +17,7 @@ state: wip
 
 ---
 
-# Index Spacemacs
+ Index Spacemacs
 
 Ref: `Spacemacs Lvl01 20200418 <url:/Users/mertnuhoglu/projects/study/lvlbook/lvl_20200418.md#tn=Spacemacs Lvl01 20200418>`
 
@@ -84,7 +84,7 @@ Ref: `~/.spacemacs` > `dotspacemacs/user-config`
 
 Bind Command key to Meta and Alt key to itself:
 
-		M-x customize-group ns > Ns Command Modifier = meta
+		M-x customize-group > ns > Ns Command Modifier = meta
 
 		Alt -> none
 		Command -> meta
@@ -100,6 +100,16 @@ opt01: Edit `~/.spacemacs`
 Add: `clojure` to `dotspacemacs-configuration-layers`
 
 Restart: SPC q r
+
+# Problems
+
+## How to navigate functions in elisp files?
+
+How to navigate to next defun in `.spacemacs`?
+
+    | SPC s j | counsel-imenu |
+
+![counsel-imenu](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20201126_214953.jpg)
 
 # Quickstart Cider
 
