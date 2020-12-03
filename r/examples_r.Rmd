@@ -1175,7 +1175,7 @@ s01 = tibble::tribble(
 
 ref: `~/projects/study/logbook/ex/hugo_burakpehlivan_org_20201011/c_wordpress_export_xml_to_csv/c_wordpress_export_xml_to_csv.R`
 
-```bash
+```r
 ba2 = ba1 %>%
 	dplyr::mutate(link = glue::glue("/blog/{page_name}"))
 ```

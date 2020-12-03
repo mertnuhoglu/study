@@ -1,4 +1,6 @@
 _ id=r_lastid ccd_0010
+parent
+	refmine kms <url:file:///~/projects/myrepo/general/refmine.otl#r=g_11660>
 index
 	bash <url:file:///~/projects/study/otl/ccode.otl#r=g_11687>
 	awk <url:file:///~/projects/study/otl/ccode.otl#r=g_11686>
@@ -1232,7 +1234,7 @@ development practices and methods
 						./28_backup_and_load_to_production_02.sh data_${data_run_date} 
 					solution:
 						./28_backup_and_load_to_production.sh data_${data_run_date} 
-git id=g_10500
+git git2 id=g_10500
 	git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10500>
 		revert a file to a commit
 			git checkout c5f567 -- file1/to/restore

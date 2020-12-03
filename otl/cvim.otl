@@ -659,6 +659,11 @@ _ id=r_lastid cvim_002
 				pumvisible()
 				projects/study/problem/datatables_in_cyclejs/ex/ex0
 	plugins 
+		surround
+			<vimhelp:*surround-mappings*>
+			ys[object]
+				ysw	surround word
+				ysa'	surround quoted text
 		install plugins
 			vim-plug plugin manager
 			put new line

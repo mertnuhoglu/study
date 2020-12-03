@@ -16,6 +16,30 @@ output:
 
 # Issues
 
+## hammerspoon: find name of application id=g_11480
+
+use bundle id:
+
+For example: 
+
+Take zoom.
+
+Find name in `Applications` directory: `zoom.us.app`
+
+Then use: `zoom.us`
+
+```bash
+osascript -e 'id of app "zoom.us"'
+  ##> us.zoom.xos
+osascript -e 'id of app "Microsoft Excel"'
+```
+
+in hammerspoon:
+
+```lua
+hs.application.launchOrFocus("zoom.us")
+```
+
 ## Install Spoons
 
 Ref: `Article: dot-hammerspoon/init.org at master · zzamboni/dot-hammerspoon <url:/Users/mertnuhoglu/projects/study/code/study_hammerspoon.md#tn=Article: dot-hammerspoon/init.org at master · zzamboni/dot-hammerspoon>`

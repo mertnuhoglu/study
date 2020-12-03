@@ -1,4 +1,41 @@
 
+parent
+	refmine kms <url:file:///~/projects/myrepo/general/refmine.otl#r=g_11660>
+names
+	problem solving methods
+		standart isim verme
+			ref: isimlendirme ve tasnif yöntemleri <url:file:///~/projects/myrepo/general/rules.otl#r=g_11676>
+		knowledge management system (kms) id=g_11659
+			refkartlar
+				Erefmine Erefcard Erefbookmarks
+			meta süreç varlıkları
+				Ecnotes Egrules
+			genel bilgi depoları
+				Ecstuff Eccode
+			logbook
+				Elogbook Enotesanki
+		ref: sıfırdan tekrarlama yöntemi <url:file:///~/projects/myrepo/general/rules.md#r=g_11631>
+		ref: sistematik kaydetme yöntemi <url:file:///~/projects/myrepo/general/rules.otl#r=g_11661>
+		özfarkındalık
+			ref: Kaygının sebebini araştır ve yazıya dök 20201130  <url:file:///~/projects/myrepo/nx/nproduct/nidea/nidea.otl#r=g_11777>
+
+tools
+	bash
+		navigate recursively subdirectories and execute command
+	vim
+		vim keybindings
+			compatible keybindings: vim vs spacemacs vim-which-key  <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11007>
+	R names
+		join parts then bind rows
+			parçala join et birleştir
+			steps
+				step01: join one part of a table with sth
+				step02: join another part of the table with sth
+				step03: bind rows of the both joined tables
+				step04: remove duplicate rows
+		text templates
+	unclassified
+		rdb
 kısaltmalar id=g_11677
 	standart kısaltmalar
 		kısaltmalarım kslt
@@ -57,37 +94,5 @@ kısaltmalar id=g_11677
 		return: 
 		b#n: bullet #n
 		opt: IMPR WARN NT VINT
-names
-	problem solving methods
-		standart isim verme
-			ref: isimlendirme ve tasnif yöntemleri <url:file:///~/projects/myrepo/general/rules.otl#r=g_11676>
-		knowledge management system (kms) id=g_11659
-			refkartlar
-				Erefmine Erefcard Erefbookmarks
-			meta süreç varlıkları
-				Ecnotes Egrules
-			genel bilgi depoları
-				Ecstuff Eccode
-			logbook
-				Elogbook Enotesanki
-		ref: sıfırdan tekrarlama yöntemi <url:file:///~/projects/myrepo/general/rules.md#r=g_11631>
-		ref: sistematik kaydetme yöntemi <url:file:///~/projects/myrepo/general/rules.otl#r=g_11661>
-tools
-	bash
-		navigate recursively subdirectories and execute command
-	vim
-		vim keybindings
-			compatible keybindings: vim vs spacemacs vim-which-key  <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11007>
-	R names
-		join parts then bind rows
-			parçala join et birleştir
-			steps
-				step01: join one part of a table with sth
-				step02: join another part of the table with sth
-				step03: bind rows of the both joined tables
-				step04: remove duplicate rows
-		text templates
-	unclassified
-		rdb
 
 		

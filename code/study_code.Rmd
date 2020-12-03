@@ -1,4 +1,3 @@
-
 ---
 title: "Study code"
 date: 2019-07-17T16:02:24+03:00 
@@ -28,8 +27,6 @@ state: wip
   - [Tool: mosh ssh replacement](#tool-mosh-ssh-replacement)
   - [nmap: network scanner](#nmap-network-scanner)
   - [hub: github cli](#hub-github-cli)
-    - [surfingkeys: vim emulation for chrome](#surfingkeys-vim-emulation-for-chrome)
-      - [hint characters](#hint-characters)
   - [kitty: terminal emulator, alternative to iterm](#kitty-terminal-emulator-alternative-to-iterm)
   - [ranger: file manager/navigator with preview](#ranger-file-managernavigator-with-preview)
   - [broot: cli replacement for ls and tree](#broot-cli-replacement-for-ls-and-tree)
@@ -219,28 +216,6 @@ Create a new repo:
 
 ``` bash
 hub create
-``` 
-
-#### surfingkeys: vim emulation for chrome
-
-ref: `~/gdrive/mynotes/content/fork/surfingkeys_help.md`
-
-``` bash
-git clone http://github.com/b0o/surfingkeys-conf
-``` 
-
-``` bash
-gulp install
-cp build/surfingkeys.js ~/.config
-``` 
-
-
-##### hint characters
-
-https://github.com/brookhong/surfingkeys
-
-``` bash
-Hints.characters = "fgouieajvc"
 ``` 
 
 ### kitty: terminal emulator, alternative to iterm

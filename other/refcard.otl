@@ -1,4 +1,6 @@
 
+parent
+	refmine kms <url:file:///~/projects/study/other/refmine.otl#r=g_11660>
 mine
 	study_docs
 		~/projects/study/code/study_visidata.md
@@ -137,17 +139,20 @@ osx
 			| ^k            | kill/cut line          |
 			| ^y            | yank/paste line        |
 webapps
-	gdrive google drive
+	gdrive google drive id=g_11799
 		error: too slow sync
 			cause: too many files are deleted
 				fix: delete files both from web and local
 		error: shared folder is not downloaded to other person's local
+			fix:
+				shift+z
 			fix: 
 				user A creates dir a and share it
 				user B creates dir b and share it
 				user A moves dir b inside dir a
 				A and B put their files into dir b
 apps
+	dbdiagram.io
 	visidata vd
 		refcard visidata <url:file:///~/projects/study/code/study_visidata.md#r=g_11578>
 	hammerspoon
