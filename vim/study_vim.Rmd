@@ -123,3 +123,10 @@ inoremap <M-BS>	<ESC>db
 vim -S ~/.vim/sessions/rooster.vim
 ``` 
 
+### global command testing
+
+Example: `:g/^#/` Press `<enter>`
+
+![Exampla for global command testing](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20201209_115456.jpg)
+
+It presents the list of all matched lines

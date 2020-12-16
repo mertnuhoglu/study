@@ -15,11 +15,47 @@ state: wip
 
 ---
 
+# Index babashka  id=g_11812
+
+## CLI Arguments/Options
+
+	| -i | bind *input* to a seq of lines      |
+	| -I | bind *input* to a seq of EDN values |
+	| -e | eval expr                           |
+	| -f | eval file                           |
+
+## run portal browser on any edn file
+
+`- Inspect Data Files With Portal On Babashka <url:file:///~/projects/study/clj/study_babashka_interpreter.md#r=g_11752>`
+
+```bash
+portal.clj ~/.clojure/deps.edn
+```
+
+## inline script
+
+`Ex01: inline scripts <url:file:///~/projects/study/clj/study_babashka_interpreter.md#r=g_11814>`
+
+```bash
+$ ls | bb -i '(filter #(-> % io/file .isDirectory) *input*)'
+("doc" "resources" "sci" "script" "src" "target" "test")
+```
+
+## clj script
+
+`Ex02: Execute clj script <url:file:///~/projects/study/clj/study_babashka_interpreter.md#r=g_11813>`
+
+shebang:
+
+```bash
+!/usr/bin/env bb
+```
+
 # Article: README
 
 [borkdude/babashka: A Clojure babushka for the grey areas of Bash (native fast-starting Clojure scripting environment)](https://github.com/borkdude/babashka)
 
-## Ex01:
+## Ex01: inline scripts id=g_11814
 
 Check `~/projects/study/clj/ex/study_babashka_interpreter/bb-01/run.sh`
 
@@ -40,7 +76,7 @@ $ bb '(vec (dedupe *input*))' <<< '[1 1 1 1 2]'
 
 ```
 
-## Ex02: Execute clj script
+## Ex02: Execute clj script id=g_11813
 
 Check `~/projects/study/clj/ex/study_babashka_interpreter/bb-01/pst.clj`
 
@@ -81,15 +117,15 @@ brew upgrade babashka
 
 [http server](https://github.com/borkdude/babashka/blob/master/examples/http_server.clj)
 
-[sql examples]([babashka/babashka-sql-pods: Babashka pods for SQL databases](https://github.com/babashka/babashka-sql-pods))
+[sql examples > babashka/babashka-sql-pods: Babashka pods for SQL databases](https://github.com/babashka/babashka-sql-pods)
 
 - Inspect Data Files With Portal On Babashka id=g_11752
 
 [portal](https://github.com/borkdude/babashka/blob/master/examples/README.md#portal)
 
 ```bash
-cd /Users/mertnuhoglu/codes/clj/babashka
-examples/portal.clj ~/.clojure/deps.edn
+/Users/mertnuhoglu/codes/clj/babashka/examples/portal.clj ~/.clojure/deps.edn
+portal.clj ~/.clojure/deps.edn
 ```
 
 [fzf](https://github.com/borkdude/babashka/blob/master/examples/README.md#fzf)

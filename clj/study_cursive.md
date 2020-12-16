@@ -15,11 +15,17 @@ state: wip
 
 ---
 
-# quickstart cursive
+# quickstart cursive id=g_11816
 
 		| ^^ repl | run repl          |
 		| !u c    | clojure           |
 		| !s f    | send form to repl |
+
+# Index cursive id=g_11817
+
+`Getting around: Structural movement <url:file:///~/projects/study/clj/study_cursive.md#r=g_11818>`
+
+`Structural editing (paredit) <url:file:///~/projects/study/clj/study_cursive.md#r=g_11819>`
 
 # Book: User Guide 
 
@@ -47,6 +53,8 @@ Search action by name: #a
 Suggested settings:
 
 Bind tab key to `Emacs Tab` action: Settings > Keymap > ."tab" > .Remove `Tab` binding to tab key > Select `Emacs Tab` > Add Keyboard Shortcut > .Tab
+
+`Emacs Tab` indents current line.
 
 ## Working with Leiningen
 
@@ -100,7 +108,7 @@ Quick documentation `F1`
 
 ![quick documentation](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200413124352.png)
 
-## Structural editing (paredit)
+## Structural editing (paredit) id=g_11819
 
 Add shortcut for: `Structural Editing` as `#+s`
 
@@ -132,7 +140,7 @@ Press `#+0`, cursor goes to:
 		split		split the list
 		join		unsplit the list
 
-### Getting around
+### Getting around: Structural movement id=g_11818
 
 Navigate > Structural Movement
 

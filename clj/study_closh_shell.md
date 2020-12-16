@@ -15,6 +15,10 @@ state: wip
 
 ---
 
+# Index closh
+
+@mine: Don't use this. bb and other tools are better.
+
 # Shell Scripting Made Simple with Clojure - Jakub Dundalek
 
 [clojureD 2020: "Shell Scripting Made Simple with Clojure" by Jakub Dundalek - YouTube](https://www.youtube.com/watch?v=1it_wBCYBf8&t=1606s)

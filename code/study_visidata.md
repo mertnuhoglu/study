@@ -32,7 +32,7 @@ https://github.com/saulpw/visidata
 		Row selection <url:file:///~/projects/study/code/study_visidata.md#r=g_11572>
 		Move rows: <url:file:///~/projects/study/code/study_visidata.md#r=g_11573>
 		column types: <url:file:///~/projects/study/code/study_visidata.md#r=g_11574>
-		Column width: <url:file:///~/projects/study/code/study_visidata.md#r=g_11575>
+		Column width size: <url:file:///~/projects/study/code/study_visidata.md#r=g_11575>
 		Move columns and rows: <url:file:///~/projects/study/code/study_visidata.md#r=g_11576>
 		Sorting and Filtering <url:file:///~/projects/study/code/study_visidata.md#r=g_11577>
 
@@ -222,7 +222,7 @@ Set column types: id=g_11574
 
 Rename columns: `^`
 
-Column width: id=g_11575
+Column width size: id=g_11575
 
 		| _     | expand to fit in visible rows       |
 		| g_    | all rows                            |

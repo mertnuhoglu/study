@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+!/usr/bin/env bb
 
 (def now (java.time.ZonedDateTime/now))
 (def LA-timezone (java.time.ZoneId/of "America/Los_Angeles"))

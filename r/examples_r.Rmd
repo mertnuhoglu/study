@@ -675,6 +675,23 @@ WriteXLS::WriteXLS(d0, "file01.xlsx", SheetNames = "d0")
 rio::export(d0, "file.xlsx")
 ``` 
 
+opt02: convert all excel sheets to separate tsv files
+
+Check `Extract Process Area From Excel Sheet Names <url:file:///~/projects/btg/btg_cmmi/logbook/convert_cmmi_pir_v13_to_v20.md#r=g_11807>`
+
+```r
+sheet_names = readxl::excel_sheets(piid)
+out = "/Users/mertnuhoglu/gdrive/btg/cmmi/simsoft/gen"
+for (sheet in 2:19) {
+	d00 = readxl::read_excel(piid, sheet=sheet) 
+	pa = sheet_names[sheet]
+	d01 = d00[-c(1:3), 2:6] %>%
+		setNames(c("practice_row", "practice_title", "source_oe", "document", "link")) %>%
+		dplyr::mutate(process_area_v13 = pa)
+	rio::export(d01, glue::glue("{out}/sheet_{sheet}.tsv"))
+}
+```
+
 ### run shinyApp
 
 opt01: runApp from directory
