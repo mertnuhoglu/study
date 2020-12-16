@@ -1,0 +1,71 @@
+---
+title: "Study lf"
+date: 2020-12-10T11:41:52+03:00 
+draft: true
+description: ""
+tags:
+categories: bash, 
+type: post
+url:
+author: "Mert Nuhoglu"
+output:
+  html_document:
+    css: styles.css
+
+---
+
+# Issues
+
+## toggle preview kısayolu oluştur id=g_11823
+
+```bash
+map zp set preview!
+```
+
+# My Customizations
+
+Check: `zshrc: lf <url:file:///~/.zshrc#r=g_11820>`
+
+# Official Tutorial
+
+[Tutorial · gokcehan/lf Wiki](https://github.com/gokcehan/lf/wiki/Tutorial)
+
+  | j/k       | down/up                           |
+  | ^u/^d     | half-up/half-down                 |
+  | ^b/^f     | page-up/page-down                 |
+  | h/l       | updir/open                        |
+  | gg/G      | top/bottom                        |
+  | space/v/u | toggle/invert/unmark selection    |
+  | y/d/p/c   | copy/cut/paste/clear              |
+  | :         | read builtin command              |
+  | $         | shell                             |
+  | %         | shell-pipe run cmd and pipe input |
+  | !         | shell-wait wait before returning  |
+  | &         | shell-async run in background     |
+  | / ?       | search/search-back                |
+  | n/N       | search-next/search-prev           |
+  | z         | toggle options                    |
+  | s         | change sortby/info options        |
+  | e/i/w     | launch editor/pager/shell         |
+
+## Configuration
+
+Check `~/.config/lf/lfrc`
+
+# Official Documentation
+
+[lf - GoDoc](https://godoc.org/github.com/gokcehan/lf)
+
+	|r|rename|
+	|f|find (with starting letter)|
+	|F/;/,|find-back/find-next/find-prev|
+	|m/'/"|mark-save/mark-load/mark-remove|
+
+## Previewer
+
+```bash
+set previewer ~/go/bin/pistol
+```
+
+
+

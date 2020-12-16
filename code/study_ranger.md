@@ -14,13 +14,19 @@ output:
 
 ---
 
-# Index
+# Index id=g_11809
 
 		| ~/.config/ranger/rc.conf | configuration of keybindings |
 		| ?k                       | help for keybindings         |
 		| yp                       | yank path                    |
-		| m<any>                   | bookmark <any>               |
+		| m<any>                   | mark bookmark                |
+		| '<any>                   | goto bookmark                |
 		| ^f                       | fzf search                   |
+		| zp                       | toggle preview               |
+		| yy/dd                    | put file into reg            |
+		| pp                       | move/copy file to            |
+		| space                    | select file                  |
+		| o abc...                 | order/sort by basename,...   |
 
 # Official User Guide · ranger/ranger Wiki
 

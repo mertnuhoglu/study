@@ -125,6 +125,12 @@ cli
 			convert2mp4_h264_size320 ${file} ice_age.mp4
 			function
 				ffmpeg -i "${input}" -vcodec libx264 -crf 28 -vf "scale=320:240" -c:a libfaac -q:a 32  "${output}"
+	lf
+		ref
+			~/projects/study/code/study_lf.md
+		i	pager
+		e	editor
+		$	shell
 hugo refcard id=g_11654
 	universal theme: sıfırdan oluşturma <url:file:///~/projects/study/logbook/hugo_universal_theme_customization_nuhogluvakfi_20190913.md#r=g_11635>
 	index
@@ -139,6 +145,9 @@ osx
 			| ^k            | kill/cut line          |
 			| ^y            | yank/paste line        |
 webapps
+	googlesheets google sheets sheets2
+		!up/dn	next/prev sheet
+		#/	help keyboard shortcuts	
 	gdrive google drive id=g_11799
 		error: too slow sync
 			cause: too many files are deleted
@@ -152,7 +161,22 @@ webapps
 				user A moves dir b inside dir a
 				A and B put their files into dir b
 apps
+	monosnap
+		screenshot and screen recording
+	macsy
+		clipboard manager and history
+	nnn
+		terminal file manager, very fast
+	numi
+		text calculator
 	dbdiagram.io
+	lf
+		file manager
+		similar to ranger
+	ranger
+		terminal file manager
+		previews
+		lots of customization
 	visidata vd
 		refcard visidata <url:file:///~/projects/study/code/study_visidata.md#r=g_11578>
 	hammerspoon

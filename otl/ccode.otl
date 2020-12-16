@@ -1957,30 +1957,36 @@ bash
 	diff
 			diff-so-fancy
 				https://github.com/so-fancy/diff-so-fancy
-	fd: find replacement
-			https://github.com/sharkdp/fd
-			ref
-				<url:file:///~/projects/study/vim/vim_ex_fzf_fuzzy_file_finder.Rmd> 
-			mantıksal hatırlatıcı @mine
-				fd <pattern> <paths>
-				sed <pattern> <files>
-				grep # aynı
-				ls <path>
-				find . -iname <pattern>
-				ls ve sed gibi
-				neden <paths> pattern'dan sonra?
-					çünkü paths birden çok olabilir
-			brew install fd
-			fd '[0-9]\.jpg$' ~
-				list jpg files in home
-			fd <pattern>
-			fd . ~
-				list all files in home
-			fd . -d 1 -t f .
-				sadece mevcut klasördeki tüm dosyaları (no directory) listeler
-			options
-				-H		# hidden files (.git vs.)
-				-I --no-ignore
+	fd: find replacement fd2
+		help:
+			fd --help
+				örneklerle çok güzel dokümante edilmiş
+		examples:
+			fd --change-newer-than  '2020-12-07 06:00:00' --change-older-than  '2020-12-08 10:00:00'
+				ref: Belli bir tarihte update edilen dosyaları nasıl bulurum? <url:file:///~/projects/study/bash/study_fd.md#r=g_11822>
+		https://github.com/sharkdp/fd
+		ref
+			<url:file:///~/projects/study/vim/vim_ex_fzf_fuzzy_file_finder.Rmd> 
+		mantıksal hatırlatıcı @mine
+			fd <pattern> <paths>
+			sed <pattern> <files>
+			grep # aynı
+			ls <path>
+			find . -iname <pattern>
+			ls ve sed gibi
+			neden <paths> pattern'dan sonra?
+				çünkü paths birden çok olabilir
+		brew install fd
+		fd '[0-9]\.jpg$' ~
+			list jpg files in home
+		fd <pattern>
+		fd . ~
+			list all files in home
+		fd . -d 1 -t f .
+			sadece mevcut klasördeki tüm dosyaları (no directory) listeler
+		options
+			-H		# hidden files (.git vs.)
+			-I --no-ignore
 	fzf: fuzzy file finder id=g_10242
 		fzf: fuzzy file finder <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10242>
 			https://github.com/junegunn/fzf
@@ -6767,6 +6773,14 @@ tools
 				mucommander
 				phiewer: image viewer
 				fork: git client
+	ranger
+		ref
+			Index <url:file:///~/projects/study/code/study_ranger.md#r=g_11809>
+		| m<any>                   | mark bookmark                |
+		| '<any>                   | goto bookmark                |
+		| ?k                       | help for keybindings         |
+		| yp                       | yank path                    |
+		| zp                       | toggle preview               |
 	scim - spreadsheet on terminal
 			basics
 				in normal mode
