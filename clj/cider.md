@@ -17,6 +17,9 @@ state: wip
 
 # Index cider id=g_11815
 
+  | SPC m | cider menu        |
+  | d d   | cider-clojuredocs |
+
 # Article: Cider README
 
 [clojure-emacs/cider: The Clojure Interactive Development Environment that Rocks for Emacs](https://github.com/clojure-emacs/cider)

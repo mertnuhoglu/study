@@ -17,11 +17,11 @@ state: wip
 
 # index fulcro
 
-Başlangıç için örnek alınacak proje: `Tutorial: video-series <url:file:///~/projects/study/clj/study_fulcro_tutorial.md#r=g_11458>`
+Başlangıç için örnek alınacak proje: `Tutorial: video-series <url:file:///~/projects/study/clj/fulcro_tutorial.md#r=g_11458>`
 
-Video anlatımı: `Tutorial video-series  <url:file:///~/projects/study/clj/study_fulcro_tutorial.md#r=g_11484>`
+Video anlatımı: `Tutorial video-series  <url:file:///~/projects/study/clj/fulcro_tutorial.md#r=g_11484>`
 
-Başlangıç kılavuzu: `Article: Fulcro Developers Guide Getting Started <url:file:///~/projects/study/clj/study_fulcro.md#r=g_11472>`
+Başlangıç kılavuzu: `Article: Fulcro Developers Guide Getting Started <url:file:///~/projects/study/clj/fulcro.md#r=g_11472>`
 
 ## fulcro refcard
 

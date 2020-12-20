@@ -238,7 +238,7 @@ Open file:///Users/mertnuhoglu/projects/study/clj/ex/study_reagent/ex03/example.
 
 Error: Bracket ile çalışmıyor, hata veriyor. Parantez yapmam gerekiyor. 
 
-Fix: Project: ex03 copied from simple <url:/Users/mertnuhoglu/projects/study/clj/study_reagent.md#tn=Project: ex03 copied from simple>
+Fix: Project: ex03 copied from simple <url:/Users/mertnuhoglu/projects/study/clj/reagent.md#tn=Project: ex03 copied from simple>
 
 ## list component
 
@@ -401,11 +401,11 @@ https://github.com/bhauman/lein-figwheel/wiki/Configuration-Options
 
 `:keys` ne yapıyor?
 
-Ref: :keys Syntactic sugar for extracting keys from maps: <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tn=:keys Syntactic sugar for extracting keys from maps:>
+Ref: :keys Syntactic sugar for extracting keys from maps: <url:/Users/mertnuhoglu/projects/study/clj/clojure.md#tn=:keys Syntactic sugar for extracting keys from maps:>
 
 `:as` ne işe yarıyor?
 
-Ref: :as Another useful destructuring option allows us to extract some keys while preserving the original map: <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tn=:as Another useful destructuring option allows us to extract some keys while preserving the original map:>
+Ref: :as Another useful destructuring option allows us to extract some keys while preserving the original map: <url:/Users/mertnuhoglu/projects/study/clj/clojure.md#tn=:as Another useful destructuring option allows us to extract some keys while preserving the original map:>
 
 ##### bmi-component function
 
@@ -478,7 +478,7 @@ assoc bmi-data :weight e.-target.-value
 
 `..` fonksiyonunun doku nerede?
 
-Ref: dot dot syntax <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tn=dot dot syntax>
+Ref: dot dot syntax <url:/Users/mertnuhoglu/projects/study/clj/clojure.md#tn=dot dot syntax>
 
 ## Todo MVC
 
@@ -731,7 +731,7 @@ Argümanlar:
     (fn [{:keys [id class placeholder]}]
 ``` 
 
-Ref: Note: This component returns a function that does the actual rendering. It is called with the same arguments as the first one. <url:/Users/mertnuhoglu/projects/study/clj/study_reagent.md#tn=Note: This component returns a function that does the actual rendering. It is called with the same arguments as the first one.>
+Ref: Note: This component returns a function that does the actual rendering. It is called with the same arguments as the first one. <url:/Users/mertnuhoglu/projects/study/clj/reagent.md#tn=Note: This component returns a function that does the actual rendering. It is called with the same arguments as the first one.>
 
 Muhtemelen, her ikisi de çalışıyor. Yani hangi argümanlar paslanmışsa, yukarıdaki tanımların ikisini de kullanıp içine alıyor.
 
@@ -875,7 +875,7 @@ Sometimes we need to perform actions at specific moments in a component's lifeti
 
 [React's lifecycle methods](https://reactjs.org/docs/react-component.html#lifecycle-methods)
 
-Ref: Article: React's lifecycle methods <url:/Users/mertnuhoglu/projects/study/clj/study_reagent.md#tn=Article: React's lifecycle methods>
+Ref: Article: React's lifecycle methods <url:/Users/mertnuhoglu/projects/study/clj/reagent.md#tn=Article: React's lifecycle methods>
 
 # Article: Hiccup
 

@@ -45,7 +45,7 @@ List all modes
 
 ## Custom keybindings for emacs
 
-ref: `Binding keys - Spacemacs <url:/Users/mertnuhoglu/projects/study/emacs/study_spacemacs.md#tp=Binding keys - Spacemacs>`
+ref: `Binding keys - Spacemacs <url:/Users/mertnuhoglu/projects/study/emacs/spacemacs.md#tp=Binding keys - Spacemacs>`
 
 ## Enable smartparens keybindings
 
@@ -144,7 +144,7 @@ Textual GUI system for setting user preferences.
 
 		M-x customize
 
-Ref: `49.1 Easy Customization Interface <url:/Users/mertnuhoglu/projects/study/emacs/study_emacs.md#tn=49.1 Easy Customization Interface>`
+Ref: `49.1 Easy Customization Interface <url:/Users/mertnuhoglu/projects/study/emacs/emacs.md#tn=49.1 Easy Customization Interface>`
 
 # Article: Emacs Manual
 

@@ -17,7 +17,7 @@ state: wip
 
 # Quickstart deps.edn id=g_11724
 
-`Index deps.edn <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11723>`
+`Index deps.edn <url:file:///~/projects/study/clj/deps_cli.md#r=g_11723>`
 
   | man clj                   | clj help                       |
   | clj -A:alias              | run alias                      |
@@ -41,12 +41,11 @@ refs:
 ~/projects/study/clj/practicalli_deps_edn.md
 ```
 
-
 # Index deps.edn id=g_11723
 
 ## Run main function
 
-`Run main function: <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11745>`
+`Run main function: <url:file:///~/projects/study/clj/deps_cli.md#r=g_11745>`
 
 ```bash
 clj -M -m clj-new-01.clj-new-01
@@ -60,7 +59,7 @@ opt01: rebel-readline support
 clj -A:rebel
 ```
 
-ref: `Article: rebel-readline README <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11718>`
+ref: `Article: rebel-readline README <url:file:///~/projects/study/clj/deps_cli.md#r=g_11718>`
 
   | ^x ^d      | show doc           |
   | ^x ^s      | show source        |
@@ -77,15 +76,15 @@ clj -Sdescribe
 
 ## Running functions
 
-opt01a: `Executing a function <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11721>`
+opt01a: `Executing a function <url:file:///~/projects/study/clj/deps_cli.md#r=g_11721>`
 
 ```bash
 clj -X:my-fn
 ```
 
-opt01b: `Run any function as alias: <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11746>`
+opt01b: `Run any function as alias: <url:file:///~/projects/study/clj/deps_cli.md#r=g_11746>`
 
-opt02: `Running a main or script <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11722>`
+opt02: `Running a main or script <url:file:///~/projects/study/clj/deps_cli.md#r=g_11722>`
 
 ```bash
 clojure -M -m clj-new-01.clj-new-01
@@ -93,14 +92,14 @@ clojure -M -m clj-new-01.clj-new-01
 
 ## Using libraries
 
-opt01: ref: `Using local libraries <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11719>`
+opt01: ref: `Using local libraries <url:file:///~/projects/study/clj/deps_cli.md#r=g_11719>`
 
 ```clojure
 {:deps
  {time-lib/time-lib {:local/root "../time-lib"}}}
 ```
 
-opt02: ref: `Using git libraries <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11720>`
+opt02: ref: `Using git libraries <url:file:///~/projects/study/clj/deps_cli.md#r=g_11720>`
 
 ```clojure
 {:deps
@@ -126,7 +125,7 @@ clj -A:find-deps java-time
 clj -A:find-deps -F:save priority-map
 ```
 
-ref: `find-deps <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11716>`
+ref: `find-deps <url:file:///~/projects/study/clj/deps_cli.md#r=g_11716>`
 
 ## Create a new project: clj-new
 
@@ -134,7 +133,7 @@ ref: `find-deps <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11716>`
 clojure -X:new create :name clj-new-01/clj-new-01
 ```
 
-ref: `clj-new: Generate new projects based on templates  <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11717>`
+ref: `clj-new: Generate new projects based on templates  <url:file:///~/projects/study/clj/deps_cli.md#r=g_11717>`
 
 # Article: Clojure - Deps and CLI Guide
 
@@ -331,7 +330,7 @@ clj -X my.qualified/fn :config 789
 clojure [clj-opt*] -M[:aliases] [main-opts]
 ```
 
-ref: `clj-new: Generate new projects based on templates  <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11717>`
+ref: `clj-new: Generate new projects based on templates  <url:file:///~/projects/study/clj/deps_cli.md#r=g_11717>`
 
 ```bash
 clojure -M -m clj-new-01.clj-new-01

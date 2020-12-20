@@ -13,7 +13,7 @@ output:
     css: styles.css
 blog: mertnuhoglu.com
 resource_files:
-path: ~/projects/study/clj/study_hyperfiddle.md
+path: ~/projects/study/clj/hyperfiddle.md
 state: wip
 
 ---

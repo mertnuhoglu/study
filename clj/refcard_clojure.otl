@@ -177,7 +177,7 @@ iteration01
 			(def not-empty? (complement empty?))
 			(not-empty? [1 2]) ;;=> true
 		map
-			; map doc <url:study_clojure.md#r=g_11276>
+			; map doc <url:clojure.md#r=g_11276>
 			(map f coll)
 			(map + [1 2 3] [4 5 6]) ;;=> (5 7 9)
 			; map <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11338>
@@ -185,7 +185,7 @@ iteration01
 			(map inc [1 2]) ;; => (2 3)
 			(map key {:a 1 :b 2}) ;; => (:a :b)
 		reduce id=g_11310
-			; reduce <url:study_clojure.md#r=g_11306>
+			; reduce <url:clojure.md#r=g_11306>
 			; reduce <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11337>
 			(reduce + [1 2 3]) ;; => 6
 			(reduce (fn [rst x] (+ rst x)) [1 2 3]) ;; => 6
@@ -197,22 +197,22 @@ iteration01
 			(into {} [[:a 1] [:b 2]]) ;; => {:a 1, :b 2}
 			(into [] {:a 1 :b 2}) ;; => [[:a 1] [:b 2]]
 		mapv
-			; mapv function <url:study_clojure.md#r=g_11292>
+			; mapv function <url:clojure.md#r=g_11292>
 			(mapv + [1 2] [3 4]) ;; => [4 6]
 		hash-map
-			; hash-map function <url:study_clojure.md#r=g_11293>
+			; hash-map function <url:clojure.md#r=g_11293>
 				(hash-map :key1 'val1) ;; => {:key1 val1}
 				(hash-map [:compound :key] nil) ; compound key ;; => {[:compound :key] nil} 
-			; Hashmaps <url:study_clojure.md#r=g_11298>
+			; Hashmaps <url:clojure.md#r=g_11298>
 				constructor function
 					(hash-map :a 1 :b 2) ;; => {:b 2, :a 1}
 				hashmap literal
 					{:a 1 :b 2} ;; => {:a 1, :b 2}
-			; Converting collections to hashmaps <url:study_clojure.md#r=g_11299>
+			; Converting collections to hashmaps <url:clojure.md#r=g_11299>
 				(hash-map [:a 1 :b 2 :c 3]) ;; => IllegalArgumentException 
 				(apply hash-map [:a 1 :b 2 :c 3]) ;; => {:c 3, :b 2, :a 1}
 		map-indexed
-			; map-indexed function <url:study_clojure.md#r=g_11295>
+			; map-indexed function <url:clojure.md#r=g_11295>
 			(map-indexed hash-map "foobar") ;; => ({0 "f"} {1 "o"} {2 "o"} {3 "b"} {4 "a"} {5 "r"})
 		iterations
 			; iterations <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11340>
@@ -242,70 +242,70 @@ iteration01
 			(for [x [1 2 3] :let [y (+ x 1)] when (even? y)] y) ;; => (2 4)
 			(for [x (range 3) :while (< x 2)] x) ;; => (0 1)
 		vec
-			; vec function <url:study_clojure.md#r=g_11296>
+			; vec function <url:clojure.md#r=g_11296>
 			(vec '(1 2 3)) ;; => [1 2 3]
 		partial
-			; partial doc <url:study_clojure.md#r=g_11277>
+			; partial doc <url:clojure.md#r=g_11277>
 			(partial f arg1)
 			(def hundred-times (partial * 100))
 		apply
-			; apply doc <url:study_clojure.md#r=g_11278>
+			; apply doc <url:clojure.md#r=g_11278>
 			(apply f args)
 			(apply max [1 2 3])
 			(apply + [1 2 3]) ;; => 6
 			(apply hash-map [:a 1 :b 2 :c 3]) ;; => {:c 3, :b 2, :a 1}
 		comp
-			; comp doc <url:study_clojure.md#r=g_11279>
+			; comp doc <url:clojure.md#r=g_11279>
 			(comp f g)
 			((comp str +) 8 8 8)   
 		juxt
-			; juxt doc <url:study_clojure.md#r=g_11280>
+			; juxt doc <url:clojure.md#r=g_11280>
 			((juxt a b c) x) => [(a x) (b x) (c x)]
 			((juxt :a :b) {:a 1 :b 2 :c 3 :d 4}) ;;=> [1 2]
 			((juxt identity name) :keyword) ;;=> [:keyword "keyword"]
 		identity
-			; identity doc <url:study_clojure.md#r=g_11281>
+			; identity doc <url:clojure.md#r=g_11281>
 			(identity 4) ;; => 4
 		name
-			; name doc <url:study_clojure.md#r=g_11282>
+			; name doc <url:clojure.md#r=g_11282>
 			(name :x) ;;=> "x"
 		pr-str
-			; pr-str doc <url:study_clojure.md#r=g_11283>
+			; pr-str doc <url:clojure.md#r=g_11283>
 			(pr-str x) ;; => "[1 2 3 4 5]"
 			(read-string (pr-str x)) ;; => [1 2 3 4 5]
 		repeat
-			; repeat doc <url:study_clojure.md#r=g_11284>
+			; repeat doc <url:clojure.md#r=g_11284>
 			(take 5 (repeat "x")) ;; => ("x" "x" "x" "x" "x")
 			(repeat 5 "x")
 		into
-			; into doc <url:study_clojure.md#r=g_11285>
+			; into doc <url:clojure.md#r=g_11285>
 			(into () '(1 2 3)) ;; => (3 2 1)
 			(into [1 2 3] '(4 5 6)) ;; => [1 2 3 4 5 6]
 			(into (sorted-map) [ [:a 1] [:c 3] [:b 2] ] ) ;; => {:a 1, :b 2, :c 3}
 			(into [] {1 2, 3 4}) ;; => [[1 2] [3 4]]
 		remove
-			; remove doc <url:study_clojure.md#r=g_11286>
+			; remove doc <url:clojure.md#r=g_11286>
 			(remove even? (range 10)) ;;=> (1 3 5 7 9)
 			(remove #(> (second %) 100) {:a 1 c 101 }) ;;=> ([:a 1] )
 			(map #(> (second %) 100) {:a 1 :c 101}) ;; => (false true)
 		update-in
-			; update-in <url:study_clojure.md#r=g_11287>
+			; update-in <url:clojure.md#r=g_11287>
 			(def p {:name "James" :age 26})
 			(update-in p [:age] inc) ;;=> {:name "James", :age 27}
 		assoc-in
-			; assoc-in <url:study_clojure.md#r=g_11288>
+			; assoc-in <url:clojure.md#r=g_11288>
 			(assoc-in {:person {:name "Mike"}} [:person :name] "Violet") ; => {:person {:name "Violet"}}
 			(assoc-in {:person {:name "Mike"}} [:person] "Violet") ; => {:person "Violet"}
 		swap!
-			; swap! amap assoc akey nasıl çalışıyor? <url:study_clojure.md#r=g_11289>
+			; swap! amap assoc akey nasıl çalışıyor? <url:clojure.md#r=g_11289>
 			(def m (atom {:a 1}))
 			(swap! m assoc :b 2) ;; => {:a 1, :b 2}
 		defonce
-			; defonce <url:study_clojure.md#r=g_11290>
+			; defonce <url:clojure.md#r=g_11290>
 			(defonce foo 5)
 			(defonce foo 10) ;; => nil
 		namespaced keyword
-			; namespaced keyword notations <url:study_clojure.md#r=g_11294>
+			; namespaced keyword notations <url:clojure.md#r=g_11294>
 			#:a{:b :c} ;; => #:a{:b :c}
 			{:a/b :c} ;; => #:a{:b :c}
 		file read
@@ -481,7 +481,7 @@ iteration01
 				'x
 				'(1 2 3)
 		special forms
-			; Special Forms <url:study_clojure.md#r=g_11300>
+			; Special Forms <url:clojure.md#r=g_11300>
 				unlike function calls, they don’t always evaluate all of their operands
 				you can’t use them as arguments to functions
 				; var and reader macro  <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11325>
@@ -489,7 +489,7 @@ iteration01
 					(meta #'documented)
 					;; => {:arglists ([]), :doc "This is documentation", :line 65, :column 1, :file "/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj", :name documented, :ns #namespace[clojure_by_example_kimh]}
 		multi-arity
-			; Multi-arity <url:study_clojure.md#r=g_11301>
+			; Multi-arity <url:clojure.md#r=g_11301>
 				(defn plus
 					([a b] (+ a b))
 					([a] (+ a)))
@@ -498,7 +498,7 @@ iteration01
 						([a b] (str a b))
 						([a] (fn1 a "karate")))
 		variable-arity
-			; Variable-arity <url:study_clojure.md#r=g_11302>
+			; Variable-arity <url:clojure.md#r=g_11302>
 				(defn fn1
 					[name & things]
 					(str name (clojure.string/join ", " things)))
@@ -507,7 +507,7 @@ iteration01
 			(defn f [x & xs] (str x xs))
 			(f 1 2 3) ;; => "1(2 3)"
 		destructuring
-			; Destructuring <url:study_clojure.md#r=g_11303>
+			; Destructuring <url:clojure.md#r=g_11303>
 				(defn fn1 [[a]] a)
 				(fn1 [1 2 3]) ;; => 1
 			; destructuring <url:ex/study_clojure/ex06/src/core01.clj#r=g_11408>
@@ -517,7 +517,7 @@ iteration01
 				(let [{a :a, c :c}  {:a 5 :c 6}] [a c]) ;; [5 6]
 				(let [{a :a, :as m} {:a 2 :b 3}] [a m]) ;; => [2 {:a 2, :b 3}]
 		anonymous functions
-			; anonymous functions <url:study_clojure.md#r=g_11304>
+			; anonymous functions <url:clojure.md#r=g_11304>
 				(#(identity %&) 1 "blarg" :yip) ;; => (1 "blarg" :yip)
 			; anonymous functions <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11322>
 				((fn [x] (+ 6 x)) 3) ;; => 9
@@ -528,7 +528,7 @@ iteration01
 				(defn h [fun] (fun 10))
 				(h inc) ;; => 11
 		closures
-			; returning functions <url:study_clojure.md#r=g_11305>
+			; returning functions <url:clojure.md#r=g_11305>
 				(defn inc-maker [inc-by] #(+ % inc-by))
 				(def inc3 (inc-maker 3))
 				(inc3 7) ;; => 10
@@ -584,10 +584,10 @@ iteration01
 				(when true "10") ;; => "10"
 				(let [n 2] (case n 1 "a" 2 "b" "other")) ;; => "b"
 		let
-			; let <url:study_clojure.md#r=g_11307>
+			; let <url:clojure.md#r=g_11307>
 				(let [[a & b] [1 2 3]] [a b]) ;; => [1 (2 3)]
 		loop id=g_11309
-			; loop <url:study_clojure.md#r=g_11308>
+			; loop <url:clojure.md#r=g_11308>
 				(loop [i 0]
 					(println (str i))
 					(if (> i 1)
@@ -705,14 +705,14 @@ iteration01
 		install
 			brew install clojure
 		run
-			; Writing a program <url:study_clojure.md#r=g_11297>
+			; Writing a program <url:clojure.md#r=g_11297>
 			clj -m hello ;; => Hello world, the time is 02:57 PM
 		new project <url:book_clojure_documentation.md#r=g_11399>
 			lein new app proj01
 			cd proj01
 			lein run
 	articles
-		; Article: Functional-navigational programming in Clojure(Script) with Specter <url:study_clojure.md#r=g_11311>
+		; Article: Functional-navigational programming in Clojure(Script) with Specter <url:clojure.md#r=g_11311>
 	repl
 		start repl
 			lein repl
@@ -755,7 +755,7 @@ iteration01
 	tools
 		ides
 			spacemacs
-				; spacemacs refcard <url:~/projects/study/emacs/study_spacemacs.md#r=g_11015>
+				; spacemacs refcard <url:~/projects/study/emacs/spacemacs.md#r=g_11015>
 					| SPC SPC   | list and search all commands | M-x                         |
 					| SPC m     | cider menu                   | ,                           |
 					| '         | start REPL                   | cider-jack-in               |

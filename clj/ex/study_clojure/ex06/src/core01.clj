@@ -67,14 +67,14 @@
 ;; => #user.Book{:title "title01", :author "author01"}
 
 ; complement id=g_11434
-; ref: complement <url:file:///~/projects/study/clj/study_clojure.md#r=g_11433>)
+; ref: complement <url:file:///~/projects/study/clj/clojure.md#r=g_11433>)
 
 (def not-empty? (complement empty?))
 (not-empty? [])    ;;=> false
 (not-empty? [1 2]) ;;=> true
 
 ; keep  id=g_11436
-; ref: 	keep  <url:file:///~/projects/study/clj/study_clojure.md#r=g_11435>
+; ref: 	keep  <url:file:///~/projects/study/clj/clojure.md#r=g_11435>
 
 (keep #(if (odd? %) %) (range 4))
 ;;=> (1 3 5 7 9)
@@ -89,7 +89,7 @@
 ;;=> (1 3 5 7 9)
 
 ; reduce-kv
-; ref: reduce-kv <url:file:///~/projects/study/clj/study_clojure.md#r=g_11444>
+; ref: reduce-kv <url:file:///~/projects/study/clj/clojure.md#r=g_11444>
 
 (reduce-kv #(assoc %1 %3 %2) {} {:a 1 :b 2})
 ;; => {1 :a, 2 :b}

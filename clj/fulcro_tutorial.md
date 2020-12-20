@@ -881,5 +881,5 @@ Check React [documentation](https://reactjs.org/docs/lists-and-keys.html#keys) o
 
 But how does `[keyfn qualifier]` destructure the given arguments?
 
-ref: `opt02: short form <url:file:///~/projects/study/clj/study_clojure.md#r=g_11487>`
+ref: `opt02: short form <url:file:///~/projects/study/clj/clojure.md#r=g_11487>`
 

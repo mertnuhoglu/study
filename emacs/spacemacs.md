@@ -39,7 +39,7 @@ ref: `Book: Clojure Development with Spacemacs & Cider - Practicalli <url:file:/
 		| e         | eval menu                    |                             |
 		| e f       | eval expression inline       | cider-eval-defun-at-point   |
 		| e c       | eval expression as comment   | cider-eval-defun-to-comment |
-		| s s       | cider-switch-to-repl-buffer  |                             |
+		| s a       | cider-switch-to-repl-buffer  |                             |
 		| SPC a	r   | open ranger                  |
 
 vim compatible commands: 
@@ -49,12 +49,13 @@ vim compatible commands:
 .
 ``` 
 
-		my keybindings <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11016>
-		important tasks <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11017>
+		my keybindings <url:file:///~/projects/study/emacs/spacemacs.md#r=g_11016>
+		Custom Keybindings Binding keys - Spacemacs <url:file:///~/projects/study/emacs/spacemacs.md#r=g_10998>
+		important tasks <url:file:///~/projects/study/emacs/spacemacs.md#r=g_11017>
 
 ## My Customizations
 
-Ref: Bind Command key to Meta and Alt key to itself: <url:/Users/mertnuhoglu/projects/study/emacs/study_spacemacs.md#tp=Bind Command key to Meta and Alt key to itself:>
+Ref: Bind Command key to Meta and Alt key to itself: <url:/Users/mertnuhoglu/projects/study/emacs/spacemacs.md#tp=Bind Command key to Meta and Alt key to itself:>
 
 Paste: ^y
 
@@ -128,13 +129,13 @@ Prefix: `SPC m` or `,`
 		| s     | repl menu (send)            |                            |
 		| s n   | send ns form to repl        | cider-send-ns-form-to-repl |
 		| s f   | cider-send-function-to-repl |                            |
-		| s s   | cider-switch-to-repl-buffer |                            |
+		| s a   | cider-switch-to-repl-buffer |                            |
 
-Ref: `The REPL <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_10828>`
+Ref: `The REPL <url:file:///~/projects/study/emacs/spacemacs.md#r=g_10828>`
 
 # Cider REPL
 
-		, s s			switch between REPL and file
+		, s a			switch between REPL and file
 
 # Spacemacs
 
@@ -481,9 +482,9 @@ buffers: same in vim and emacs.
 
 Ex: `python` layer provides auto-completion, syntax checking packages.
 
-## Binding keys - Spacemacs id=g_10998
+## Custom Keybindings Binding keys - Spacemacs id=g_10998
 
-ref: `Custom keybindings for emacs <url:/Users/mertnuhoglu/projects/study/emacs/study_emacs.md#tn=Custom keybindings for emacs>`
+ref: `Custom keybindings for emacs <url:/Users/mertnuhoglu/projects/study/emacs/emacs.md#tn=Custom keybindings for emacs>`
 
 `https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#binding-keys`
 
@@ -497,7 +498,13 @@ opt02: vim editing style
 
 opt03: behind a leader key (after SPC)
 
+Most keybindings are defined this way
+
 		(spacemacs/set-leader-keys "C-]" 'forward-char)
+
+		(spacemacs/set-leader-keys "ar" 'ranger)
+
+Bu durumda `SPC a r` tuşuna bağlanıyor komut.
 
 opt04: behind a leader key + in a major mode
 

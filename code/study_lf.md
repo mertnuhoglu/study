@@ -67,5 +67,23 @@ Check `~/.config/lf/lfrc`
 set previewer ~/go/bin/pistol
 ```
 
+## Icons
+
+Install [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
+
+```bash
+brew tap homebrew/cask-fonts &&
+brew cask install font-<FONT NAME>-nerd-font
+
+```
+
+```bash
+brew install --cask font-fira-code-nerd-font
+brew install --cask font-fira-mono-nerd-font
+brew install --cask font-jetbrains-mono-nerd-nerd-font
+brew install --cask font-inconsolata-nerd-font
+```
+
+
 
 

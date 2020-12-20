@@ -17,7 +17,7 @@ state: wip
 
 # Quickstart deep-diff2 id=g_11739
 
-- `Ex01: diff <url:file:///~/projects/study/clj/study_deep_diff.md#r=g_11747>`
+- `Ex01: diff <url:file:///~/projects/study/clj/deep_diff.md#r=g_11747>`
 
 `(ddiff/diff {:a 1 :b 2} {:a 1 :c 3})`
 

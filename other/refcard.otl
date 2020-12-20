@@ -144,6 +144,8 @@ osx
 			^a ^e	beginning/end of line
 			| ^k            | kill/cut line          |
 			| ^y            | yank/paste line        |
+	keyboard layout
+		ref: Quickstart Ukulele <url:file:///~/projects/study/osx/ukelele.md#r=g_11829>
 webapps
 	googlesheets google sheets sheets2
 		!up/dn	next/prev sheet

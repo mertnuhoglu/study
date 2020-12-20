@@ -19,7 +19,7 @@ state: wip
 
 # Index reveal repl
 
-`rebel-readline with reveal <url:file:///~/projects/study/clj/study_reveal_repl.md#r=g_11749>`
+`rebel-readline with reveal <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11749>`
 
 ```bash
 clojure -M:inspect/reveal:repl/rebel
@@ -30,16 +30,16 @@ clojure -M:inspect/reveal:repl/rebel
 (tap> {:a 1 :b 2})
 ```
 
-`Ex01: reveal repl on terminal <url:file:///~/projects/study/clj/study_reveal_repl.md#r=g_11734>`
+`Ex01: reveal repl on terminal <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11734>`
 
 ```bash
 clj -X:reveal
 clj -Sdeps '{:deps {vlaaad/reveal {:mvn/version "1.1.163"}}}' -m vlaaad.reveal repl
 ```
 
-`Ex01: reveal repl on cursive <url:file:///~/projects/study/clj/study_reveal_repl.md#r=g_11735>`
+`Ex01: reveal repl on cursive <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11735>`
 
-`Remote connection <url:file:///~/projects/study/clj/study_reveal_repl.md#r=g_11737>`
+`Remote connection <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11737>`
 
 # Article:
 

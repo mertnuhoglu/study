@@ -13,7 +13,7 @@ output:
     css: styles.css
 blog: mertnuhoglu.com
 resource_files:
-path: ~/projects/study/emacs/study_org_mode.md
+path: ~/projects/study/emacs/org_mode.md
 state: wip
 
 ---

@@ -37,7 +37,7 @@ ref: `Helper functions <url:file:///~/projects/study/clj/book_learn_clojure.md#r
 (source something)
 ``` 
 
-## def var <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tn=def var>
+## def var <url:/Users/mertnuhoglu/projects/study/clj/clojure.md#tn=def var>
 
 ``` clojure
 (def a-symbol 7)
@@ -51,7 +51,7 @@ prn
 pr
 ``` 
 
-## Functions <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tp=Clojure - Learn Clojure - Functions>
+## Functions <url:/Users/mertnuhoglu/projects/study/clj/clojure.md#tp=Clojure - Learn Clojure - Functions>
 
 ``` clojure
 (defn a-function [params] (str "body"))
@@ -92,7 +92,7 @@ single pass compiler:
 (declare down)
 ``` 
 
-Applying Functions <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tp=Applying Functions>
+Applying Functions <url:/Users/mertnuhoglu/projects/study/clj/clojure.md#tp=Applying Functions>
 
 ``` clojure
 (plotxy shape (first coords) (second coords)))
@@ -108,7 +108,7 @@ let
 (let [[x y :as coords] [1 2 3 4]]
 ``` 
 
-Java Interop <url:/Users/mertnuhoglu/projects/study/clj/study_clojure.md#tp=Java Interop>
+Java Interop <url:/Users/mertnuhoglu/projects/study/clj/clojure.md#tp=Java Interop>
 
 ``` clojure
 (Constructor. "arg")

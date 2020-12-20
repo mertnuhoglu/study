@@ -23,7 +23,7 @@ Exercises: Sequences from Reference Doc <url:file:///~/projects/study/clj/exerci
 
 
 			~/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj
-			~/projects/study/clj/study_fulcro_tutorial.md
+			~/projects/study/clj/fulcro_tutorial.md
 			~/projects/study/code/study_intellij_ideavim.md
 			~/projects/study/code/study_intellij.md
 
@@ -31,25 +31,28 @@ Exercises: Sequences from Reference Doc <url:file:///~/projects/study/clj/exerci
 
 Repl:
 
+`Quickstart deps.edn <url:file:///~/projects/study/clj/deps_cli.md#r=g_11724>`
+`Index babashka  <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g_11812>`
+
 ```bash
-~/projects/study/clj/study_deps_cli.md
-~/projects/study/clj/study_reveal_repl.md
+~/projects/study/clj/deps_cli.md
+~/projects/study/clj/reveal_repl.md
 ~/projects/study/clj/practicalli_deps_edn.md
-~/projects/study/clj/study_babashka_interpreter.md
-~/projects/study/clj/study_portal.md
-~/projects/study/clj/study_jet.md
-~/projects/study/clj/study_klipse_repl.md
-~/projects/study/clj/study_lumo_repl.md
-~/projects/study/clj/study_closh_shell.md
-~/projects/study/clj/study_deep_diff.md
-~/projects/study/clj/study_nrepl.md
+~/projects/study/clj/babashka_interpreter.md
+~/projects/study/clj/portal.md
+~/projects/study/clj/jet.md
+~/projects/study/clj/klipse_repl.md
+~/projects/study/clj/lumo_repl.md
+~/projects/study/clj/closh_shell.md
+~/projects/study/clj/deep_diff.md
+~/projects/study/clj/nrepl.md
 ```
 
-`Quickstart deps.edn <url:file:///~/projects/study/clj/study_deps_cli.md#r=g_11724>`
+`Quickstart deps.edn <url:file:///~/projects/study/clj/deps_cli.md#r=g_11724>`
 
 # Articles
 
-		`~/projects/study/clj/study_deps_cli.md`
+		`~/projects/study/clj/deps_cli.md`
 
 # Questions
 

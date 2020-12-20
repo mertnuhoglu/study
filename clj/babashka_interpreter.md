@@ -26,7 +26,7 @@ state: wip
 
 ## run portal browser on any edn file
 
-`- Inspect Data Files With Portal On Babashka <url:file:///~/projects/study/clj/study_babashka_interpreter.md#r=g_11752>`
+`- Inspect Data Files With Portal On Babashka <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g_11752>`
 
 ```bash
 portal.clj ~/.clojure/deps.edn
@@ -34,16 +34,17 @@ portal.clj ~/.clojure/deps.edn
 
 ## inline script
 
-`Ex01: inline scripts <url:file:///~/projects/study/clj/study_babashka_interpreter.md#r=g_11814>`
+`Ex01: inline scripts <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g_11814>`
 
 ```bash
+$ ls | bb -i '(prn *input*)'
 $ ls | bb -i '(filter #(-> % io/file .isDirectory) *input*)'
 ("doc" "resources" "sci" "script" "src" "target" "test")
 ```
 
 ## clj script
 
-`Ex02: Execute clj script <url:file:///~/projects/study/clj/study_babashka_interpreter.md#r=g_11813>`
+`Ex02: Execute clj script <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g_11813>`
 
 shebang:
 

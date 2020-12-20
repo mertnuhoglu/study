@@ -23,9 +23,9 @@ state: wip
 
 # Index cursive id=g_11817
 
-`Getting around: Structural movement <url:file:///~/projects/study/clj/study_cursive.md#r=g_11818>`
+`Getting around: Structural movement <url:file:///~/projects/study/clj/cursive.md#r=g_11818>`
 
-`Structural editing (paredit) <url:file:///~/projects/study/clj/study_cursive.md#r=g_11819>`
+`Structural editing (paredit) <url:file:///~/projects/study/clj/cursive.md#r=g_11819>`
 
 # Book: User Guide 
 

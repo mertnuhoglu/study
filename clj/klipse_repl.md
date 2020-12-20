@@ -3,13 +3,13 @@
 
 # Index klipse repl
 
-`Ex01: Run klipse repl anywhere <url:file:///~/projects/study/clj/study_klipse_repl.md#r=g_11733>`
+`Ex01: Run klipse repl anywhere <url:file:///~/projects/study/clj/klipse_repl.md#r=g_11733>`
 
 ```bash
 clj -A:klipse
 ```
 
-`Remote connection <url:file:///~/projects/study/clj/study_klipse_repl.md#r=g_11736>`
+`Remote connection <url:file:///~/projects/study/clj/klipse_repl.md#r=g_11736>`
 
 ```bash
 clojure -A:klipse --port 9876

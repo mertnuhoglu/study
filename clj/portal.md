@@ -19,7 +19,7 @@ state: wip
 
 `Run portal data repl: <url:file:///~/projects/study/clj/practicalli_deps_edn.md#r=g_11751>`
 
-`Inspect Data Files With Portal On Babashka <url:file:///~/projects/study/clj/study_babashka_interpreter.md#r=g_11752>`
+`Inspect Data Files With Portal On Babashka <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g_11752>`
 
 # Index
 

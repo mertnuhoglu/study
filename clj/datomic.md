@@ -13,7 +13,7 @@ output:
     css: styles.css
 blog: mertnuhoglu.com
 resource_files:
-path: ~/projects/study/clj/study_datomic.md
+path: ~/projects/study/clj/datomic.md
 state: wip
 
 ---

@@ -12,7 +12,7 @@ Org-mode is an information management tool for emacs.
 
 Download from [[https://google.com][app page]]
 
-Go to [[[[file:~/projects/study/emacs/study_org_mode.md][file:~/projects/study/emacs/study_org_mode.md]]][markdown]]
+Go to [[[[file:~/projects/study/emacs/org_mode.md][file:~/projects/study/emacs/org_mode.md]]][markdown]]
 
 ** Installation
 * The basics 
