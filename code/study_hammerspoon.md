@@ -1,10 +1,10 @@
 ---
 title: "Study hammerspoon"
-date: 2020-03-11T18:54:32+03:00 
+date: 2020-03-11T18:54:32+03:00
 draft: true
 description: ""
 tags:
-categories: bash, 
+categories: bash,
 type: post
 url:
 author: "Mert Nuhoglu"
@@ -20,7 +20,7 @@ output:
 
 use bundle id:
 
-For example: 
+For example:
 
 Take zoom.
 
@@ -51,7 +51,7 @@ Define once:
 ``` bash
 hs.loadSpoon("SpoonInstall")
 Install=spoon.SpoonInstall
-``` 
+```
 
 Install any Spoons declaratively:
 
@@ -66,7 +66,7 @@ Install:andUse("MouseCircle",
                  }
                }
 )
-``` 
+```
 
 `SpoonInstall` automatically downloads and installs the spoon.
 
@@ -94,7 +94,7 @@ Ex:
 
 ``` bash
 hs.hotkey.bindSpec({ { "ctrl", "cmd", "alt" }, "y" }, hs.toggleConsole)
-``` 
+```
 
 # Article: zzamboni.org | Using Spoons in Hammerspoon
 
@@ -129,6 +129,10 @@ Spectacle shortcuts:
 ``` bash
 #!+a			Fullscreen
 !+>			Fullscreen
-``` 
+```
 
+# Tool: Spacehammer
 
+Hammerspoon scripting with Fennel (lisp)
+
+ref: `~/projects/study/code/spacehammer.md`

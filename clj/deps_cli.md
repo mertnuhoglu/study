@@ -19,21 +19,21 @@ state: wip
 
 `Index deps.edn <url:file:///~/projects/study/clj/deps_cli.md#r=g_11723>`
 
-  | man clj                   | clj help                       |
-  | clj -A:alias              | run alias                      |
-  | clj -A:rebel              | run repl with rebel-readline   |
-  | clj -Sdescribe            | print version and environment  |
-  | clj -X:fct                | run (eXecute) function         |
-  | clj -M -m qualified_main  | run main/script                |
-  | ^x ^d/s/a/e               | rebel: doc/source/apropos/eval |
-	| :deps                     | deps.edn dependencies          |
-	| :local/root               | local deps                     |
-	| :git/url                  | github deps                    |
-	| -A:find-deps -h           | find deps help                 |
-	| -A:find-deps <dep>        | find dep spec                  |
-	| -F:save                   | save dep into deps.edn         |
-	| -F:table "text"           | apropos search                 |
-	| -X:new create :name <prj> | create new app from template   |
+  | man clj                           | clj help                       |
+  | clj -A:alias                      | run alias                      |
+  | clj -A:rebel                      | run repl with rebel-readline   |
+  | clj -Sdescribe                    | print version and environment  |
+  | clj -X:fct                        | run (eXecute) function         |
+  | clj -M -m qualified_main          | run main/script                |
+  | ^x ^d/s/a/e                       | rebel: doc/source/apropos/eval |
+	| :deps                             | deps.edn dependencies          |
+	| :local/root                       | local deps                     |
+	| :git/url                          | github deps                    |
+	| -A:find-deps -h                   | find deps help                 |
+	| -A:find-deps <dep>                | find dep spec                  |
+	| -F:save                           | save dep into deps.edn         |
+	| -F:table "text"                   | apropos search                 |
+	| -X:project/new create :name <prj> | create new app from template   |
 
 refs:
 

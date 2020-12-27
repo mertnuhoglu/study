@@ -2702,6 +2702,10 @@ bash
 						# make iterm2 send '[[AS' when !space is pressed
 					which shortcut is bound?
 						bindkey | rg autosuggest-accept
+clojure2 id=g_11835
+	clojure2 <url:file:///~/projects/study/otl/ccode.otl#r=g_11835>
+	ref
+		~/projects/study/clj/clojure.otl
 networking
 	http protocol id=g_10631
 		http protocol <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10631>
@@ -5583,6 +5587,7 @@ tools
 	imagemagick
 			split pdf into pages
 				convert file.pdf image.png
+					mogrify -format pct *.jpg
 					convert -quality 100 -density 300x300 -resize 1280x720 index.pdf slide%03d.jpg
 					mogrify -quality 100 -density 300x300 -resize 1280x720\! *.jpg 
 						forces resize to fixed dimensions

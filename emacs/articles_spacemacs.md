@@ -49,31 +49,32 @@ clojure-mode
 
 `SPC b` prefix
 
-	| SPC b .| buffer trainsient-state|
-	|SPC b d | kill current buffer|
-	|SPC b b|search buffers|
+  | SPC b .   | buffer trainsient-state |
+  | SPC b d   | kill current buffer     |
+  | SPC b b   | search buffers          |
 	
 Special buffers: `*Messages*`
 
 ### Windows
 
-	| SPC w .| window transient-state|
+  | SPC w .   | window transient-state  |
 
 ### Files
 
-	| SPC f s | save|
+  | SPC f s   | save                    |
+  | SPC f f   | create new file         |
 
 ## The Help System
 
-	| SPC h d | prefix|
-	| SPC h d f| function doc|
-	| SPC h d k| keybinding doc|
-	| SPC <f1> | search doc|
+  | SPC h d   | prefix                  |
+  | SPC h d f | function doc            |
+  | SPC h d k | keybinding doc          |
+  | SPC <f1>  | search doc              |
 
 ## Exploring
 
-	| SPC h SPC | all layers|
-	| SPC ? | all keybindings|
+  | SPC h SPC | all layers              |
+  | SPC ?     | all keybindings         |
 
 ## Customization
 

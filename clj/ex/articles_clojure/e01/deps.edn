@@ -1,0 +1,32 @@
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.10.1"}}
+ :aliases
+ {
+  :nREPL
+  {:extra-deps {nrepl/nrepl                {:mvn/version "0.8.3"}
+                cider/cider-nrepl          {:mvn/version "0.25.4"}
+                com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
+   :main-opts  ["-m" "nrepl.cmdline"
+                "--middleware" "[cider.nrepl/cider-middleware]"
+                "-p" "55555"
+                "-i"
+                "-f" "rebel-readline.main/-main"]}
+
+  :test {:extra-paths ["test"]
+         :extra-deps {org.clojure/test.check {:mvn/version "1.0.0"}}}
+
+  :runner
+  {:extra-deps {com.cognitect/test-runner
+                {:git/url "https://github.com/cognitect-labs/test-runner"
+                 :sha "b6b3193fcc42659d7e46ecd1884a228993441182"}}
+   :main-opts ["-m" "cognitect.test-runner"
+               "-d" "test"]}
+
+  :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.1.126"}}
+        :main-opts ["-m" "hf.depstar.jar" "e01.jar"]}
+
+  :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.1"}}
+            :main-opts ["-m" "deps-deploy.deps-deploy" "install" "e01.jar"]}
+
+  :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.1"}}
+           :main-opts ["-m" "deps-deploy.deps-deploy" "deploy" "e01.jar"]}}}

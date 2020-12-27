@@ -212,7 +212,7 @@ Prefix: `,` or `SPC m`
 e f			eval expression	cider-eval-defun-at-point
 ``` 
 
-### Start a REPL
+#### Start a REPL
 
 ``` bash
 Prefix: `,` or `SPC m`
@@ -220,6 +220,12 @@ Prefix: `,` or `SPC m`
 s				start REPL menu, selecting type
 s I			cljs REPL	cider-jack-in-cljs
 ``` 
+
+	| , m s | cider-jack-in|
+
+#### Restart REPL
+
+	| , m q r | sesman-restart |
 
 ### Evaluating Clojure
 
@@ -244,6 +250,39 @@ REPL Buffer:
 s s			switch between repl buffer and source code buffer
 ``` 
 
-## Using Spacemacs
+	| , d v   | cider-inspector     |
+	| , e p f | pretty print result |
+	| , e e   | eval prev expr      |
 
+#### Evaluating individual Expressions
+
+  | , e f   | eval top level expr                     |
+  | , e e   | eval prev expr                          |
+  | SPC v v | select nested expr                      |
+  | , e ;   | eval expr and print as comment          |
+  | , e w   | replace prev expr with its return value |
+
+#### Macro-expand
+
+	| , e m | cider-macroexpand-1 |
+	| , e M | cider-macroexpand-all |
+
+#### Showing Intermediary values - Enlighten mode id=g_11847
+
+`enlighten` minor mode: shows intermediary values during evaluation
+
+	| , T e | cider-enlighten-mode |
+
+Önce `, T e` ile modu aktifleştir. Sonra `, e f` ile eval et.
+
+![enlighten-mode inspection](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20201220_163018.jpg)
+
+#### Inspect Clojure values
+
+	| TAB S-TAB | navigate forward/backward               |
+	| TAB S-TAB | cider-inspector-next-inspectable-object |
+	| RET       | inspect current value                   |
+	| RET       | cider-inspector-operate-on-point        |
+	| L         | back to parent of nested element        |
+	| L         | cider-inspector-pop                     |
 

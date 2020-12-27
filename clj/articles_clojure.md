@@ -166,4 +166,13 @@ Pretty print result:
 
 ![cider-pprint-eval-defun-at-point](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20201220_114414.jpg)
 
+Expand selected region: `SPC v v`
+
+![er/expand-region](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20201220_161445.jpg)
+
+![er/expand-region](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20201220_161519.jpg)
+
+Switch to namespace: `,` in evil insert mode in REPL buffer: `ns`
+
+[Namespaces · Clojure development with Spacemacs & Cider](https://practicalli.github.io/spacemacs/navigating-code/namespaces.html)
 
