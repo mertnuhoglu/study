@@ -27,10 +27,11 @@ ref: `Book: Clojure Development with Spacemacs & Cider - Practicalli <url:file:/
 
 		| SPC SPC   | list and search all commands | M-x                         |
 		| SPC ?     | search for key bindings      | show keybindings            |
+		| C-h k     | search for key binding       | describe-key                |
 		| SPC h d f | help on function             | describe-function           |
-		| SPC h SPC | list layers                  |
+		| SPC h SPC | list layers                  |                             |
 		| SPC f e d | open ~/.spacemacs            | find-dotfile                |
-		| SPC f e R | reload .spacemacs            |
+		| SPC f e R | reload .spacemacs            |                             |
 		| SPC f r   | file recent                  | counsel-recentf             |
 		| SPC q r   | restart emacs                | restart-emacs               |
 		| SPC w d   | buffer kill                  | delete-window               |
@@ -105,6 +106,17 @@ Add: `clojure` to `dotspacemacs-configuration-layers`
 Restart: SPC q r
 
 # Problems
+
+## Help komutları
+
+		| SPC SPC   | list and search all commands | M-x                         |
+		| SPC ?     | search for key bindings      | show keybindings            |
+		| C-h k     | search for key binding       | describe-key                |
+		| SPC h d f | help on function             | describe-function           |
+
+01: `describe-key` = `C-h k`
+
+Örneğin: `C-h k (`: Bu vim'deki `:verbose map (` komutuna karşılık gelir.
 
 ## How to navigate functions in elisp files? id=g_11810
 

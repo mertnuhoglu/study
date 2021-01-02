@@ -1963,7 +1963,7 @@ bash
 				örneklerle çok güzel dokümante edilmiş
 		examples:
 			fd --change-newer-than  '2020-12-07 06:00:00' --change-older-than  '2020-12-08 10:00:00'
-				ref: Belli bir tarihte update edilen dosyaları nasıl bulurum? <url:file:///~/projects/study/bash/study_fd.md#r=g_11822>
+				ref: Belli bir date tarihte update edilen dosyaları nasıl bulurum? <url:file:///~/projects/study/bash/study_fd.md#r=g_11822>
 		https://github.com/sharkdp/fd
 		ref
 			<url:file:///~/projects/study/vim/vim_ex_fzf_fuzzy_file_finder.Rmd> 
@@ -6847,6 +6847,9 @@ tools
 					soxi -D *.aiff | paste -sd+ - | bc
 			manipulating audio files
 				merge audio files <url:#r=dat_064>
+	teams
+		^+m		mute
+		^+o		video
 	vlc
 			subscribe to podcast
 				window > playlist > podcasts > subscribe

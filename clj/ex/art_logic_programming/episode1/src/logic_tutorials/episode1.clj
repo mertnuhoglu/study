@@ -42,9 +42,10 @@
  (unify {} (lvar "s") 42)
 ;; => {s_5751 42}
 
- (let [state (unify {} (lvar "s") 42)]
-  (walk state (lvar "s")))
-;; => s_14420
+ (let [state (unify {} (lvar "s") 42)
+       v (lvar "s")]
+  (walk state v))
+;; => s_12714
 
  (let [s (lvar "s")]
    (walk s {s 42}))
