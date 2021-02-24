@@ -17,15 +17,15 @@ true
 ;; => "forms are expressions"
 
 (def a-binding "is an assignment in other languages")
-;; => #'clojure_by_example_kimh/a-binding
+;; => #'ex_kimh/a-binding
 
 (def bindings "map a name to a value")
-;; => #'clojure_by_example_kimh/bindings
+;; => #'ex_kimh/bindings
 
 (type 'quoted-symbols-are-not-evaluated)
 ;; => clojure.lang.Symbol
 
-(unresolved-symbol-error)                                   ;; error
+;; (unresolved-symbol-error)                                   ;; error
 
 (let [binds "a value to a local name"] (str binds))
 ;; => "a value to a local name"
@@ -50,30 +50,30 @@ true
 ; global bindings: defn vs def id=g_11323
 
 (defn f [a] a)
-;; => #'clojure_by_example_kimh/f
+;; => #'ex_kimh/f
 (def g (fn [a] a))
-;; => #'clojure_by_example_kimh/g
+;; => #'ex_kimh/g
 
 (def def-bindings "are global")
-;; => #'clojure_by_example_kimh/def-bindings
+;; => #'ex_kimh/def-bindings
 
 (defn a-function
   [name]
   (str name))
-;; => #'clojure_by_example_kimh/a-function
+;; => #'ex_kimh/a-function
 
 (defn documented
   "This is documentation"
   []
   (str ""))
-;; => #'clojure_by_example_kimh/documented
+;; => #'ex_kimh/documented
 
 ; var and reader macro  id=g_11325
 
 (meta (var documented))
-;; => {:arglists ([]), :doc "This is documentation", :line 65, :column 1, :file "/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj", :name documented, :ns #namespace[clojure_by_example_kimh]}
+;; => {:arglists ([]), :doc "This is documentation", :line 65, :column 1, :file "/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj", :name documented, :ns #namespace[ex_kimh]}
 (meta #'documented)
-;; => {:arglists ([]), :doc "This is documentation", :line 65, :column 1, :file "/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj", :name documented, :ns #namespace[clojure_by_example_kimh]}
+;; => {:arglists ([]), :doc "This is documentation", :line 65, :column 1, :file "/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj", :name documented, :ns #namespace[ex_kimh]}
 
 ;; anonymous functions id=g_11322
 
@@ -99,37 +99,37 @@ true
 
 (defn h [fun]
   (fun 10))
-;; => #'clojure_by_example_kimh/h
+;; => #'ex_kimh/h
 (h inc)
 ;; => 11
 
 ;; closure  id=g_11327
 (defn closure [a] #(inc a))
-;; => #'clojure_by_example_kimh/closure
+;; => #'ex_kimh/closure
 (def outer (closure 20))
-;; => #'clojure_by_example_kimh/outer
-(outer)
+;; => #'ex_kimh/outer
+outer
 ;; => 21
 
 ;; Namespaces id=g_11328
 
 (in-ns 'user)
 ;; => #namespace[user]
-(outer)                                                     ; unable to resolve symbol
+; outer                                                     ; unable to resolve symbol
 
-(in-ns 'clojure_by_example_kimh)
-(outer)
+(in-ns 'ex_kimh)
+outer
 
 (in-ns 'user)
 ;; => #namespace[user]
-(require 'clojure_by_example_kimh)
+(require 'ex_kimh)
 ;; => nil
-(clojure_by_example_kimh/outer)
+ex_kimh/outer
 ;; => 21
 
-(require '[clojure_by_example_kimh :as cbe])
+(require '[ex_kimh :as cbe])
 ;; => nil
-(cbe/outer)
+cbe/outer
 ;; => 21
 
 ;; control clow id=g_11329
@@ -602,7 +602,7 @@ true
 ;; => #'user/rec
 (dosync
   (alter rec merge {:name "ali"})
-  (throw (Exception. "wrong"))
+  ;(throw (Exception. "wrong"))
   (alter rec merge {:age 40}))
 
 ; java id=g_11357

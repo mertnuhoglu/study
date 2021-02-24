@@ -678,3 +678,7 @@ ex: `range`
 
 Here the dot context is defined by `range`
 
+# Netlify CMS
+
+[Hugo | Netlify CMS | Open-Source Content Management System](https://www.netlifycms.org/docs/hugo/)
+

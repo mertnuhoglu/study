@@ -19,6 +19,12 @@ state: wip
 
 # Index reveal repl
 
+`reveal with emacs cider <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11949>`
+
+```bash
+clojure -M:inspect/reveal-nrepl
+```
+
 `rebel-readline with reveal <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11749>`
 
 ```bash
@@ -27,8 +33,11 @@ clojure -M:inspect/reveal:repl/rebel
 
 ```clj
 (add-tap ((requiring-resolve 'vlaaad.reveal/ui)))
-(tap> {:a 1 :b 2})
+{:a 1 :b 2}
+(tap> *1)
 ```
+
+`Navigation <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11918>`
 
 `Ex01: reveal repl on terminal <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11734>`
 
@@ -41,7 +50,7 @@ clj -Sdeps '{:deps {vlaaad/reveal {:mvn/version "1.1.163"}}}' -m vlaaad.reveal r
 
 `Remote connection <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11737>`
 
-# Article:
+# Article: README: Reveal: Read Eval Visualize Loop for Clojure
 
 [Reveal: Read Eval Visualize Loop for Clojure](https://vlaaad.github.io/reveal/)
 
@@ -75,6 +84,8 @@ Oklar ve return tuşlarıyla objeleri inceleyebilirsin.
 
 ### Cursive
 
+[Reveal: Read Eval Visualize Loop for Clojure](https://vlaaad.github.io/reveal/#cursive)
+
 #### Ex01: reveal repl on cursive id=g_11735
 
 Edit `~/projects/study/clj/ex/study_reveal_repl/reveal-repl-01/deps.edn`
@@ -82,7 +93,8 @@ Edit `~/projects/study/clj/ex/study_reveal_repl/reveal-repl-01/deps.edn`
 Edit `~/projects/study/clj/ex/study_reveal_repl/reveal-repl-01/Makefile`
 
 ```bash
-clj -A:reveal
+clj -A:reveal -J-Dclojure.server.repl='{:port 5555 :accept vlaaad.reveal/repl}'
+make reveal
 ```
 
 Cursive > Run Configuration > New > Clojure REPL Local
@@ -235,6 +247,19 @@ nc localhost 5555
   ##> reveal window appears
 ```
 
+## Navigation id=g_11918
+
+  | space enter           | open context menu                 |
+  | tab                   | switch between output and results |
+  | results panel         |                                   |
+  | #-> #<-               | switch tabs                       |
+  | #up                   | tree view                         |
+	| esc                   | close tab                         |
+	| structural navigation |                                   |
+	| !<-                   | up in tree                        |
+	| !up !dn               | next/prev                         |
+	| !Home !End            | first/last                        |
+
 # rebel-readline with reveal id=g_11749
 
 [Reveal · Practicalli Clojure](http://practicalli.github.io/clojure/clojure-tools/data-browsers/reveal.html)
@@ -249,6 +274,8 @@ clojure -M:inspect/reveal:repl/rebel
 (add-tap ((requiring-resolve 'vlaaad.reveal/ui)))
 (tap> [1 2 3])
 (tap> {:a 1 :b 2})
+{:a 1 :b 2}
+(tap> *1)
 ```
 
 # next
@@ -258,4 +285,49 @@ clojure -M:inspect/reveal:repl/rebel
 02. ui: check values without window
 
 03. nrepl-based editors
+
+# reveal by itself 
+
+[Reveal · Practicalli Clojure](https://practicalli.github.io/clojure/clojure-tools/data-browsers/reveal.html)
+
+```bash
+clojure -M:inspect/reveal
+```
+
+# reveal with emacs cider id=g_11949
+
+[Using Reveal with nrepl Editors](https://practicalli.github.io/clojure/clojure-tools/data-browsers/reveal.html#using-reveal-with-nrepl-editors)
+
+```bash
+clojure -M:inspect/reveal-nrepl
+```
+
+Emacs: `cider-connect`
+
+# Video: Reveal REPL and data browser for Clojure by practicalli - YouTube id=g_11917
+
+[Reveal REPL and data browser for Clojure - YouTube](https://www.youtube.com/watch?v=1jy09_16EeY)
+
+```bash
+cd ~/codes/clj/banking-on-clojure-spec
+clojure -A:test:repl-reveal
+```
+
+Emacs: 
+
+```emacs
+:e ~/codes/clj/banking-on-clojure-spec/deps.edn
+cider-connect
+```
+
+Repl:
+
+```clj
+(require 'practicalli.banking-specifications)
+(in-ns 'practicalli.banking-specifications)
+(spec-gen/sample (spec/gen ::customer-details))
+```
+
+![Reveal data browser loads the generated data:](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210119_112458.jpg)
+
 

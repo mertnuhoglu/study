@@ -17,11 +17,13 @@ state: wip
 
 # Quickstart deps.edn id=g_11724
 
-`Index deps.edn <url:file:///~/projects/study/clj/deps_cli.md#r=g_11723>`
+`New Project <url:file:///~/projects/study/clj/deps_cli.md#r=g_11941>`
+
+`Index deps.edn <url:#r=g_11723>`
 
   | man clj                           | clj help                       |
   | clj -A:alias                      | run alias                      |
-  | clj -A:rebel                      | run repl with rebel-readline   |
+  | clj -M:repl/rebel                 | run repl with rebel-readline   |
   | clj -Sdescribe                    | print version and environment  |
   | clj -X:fct                        | run (eXecute) function         |
   | clj -M -m qualified_main          | run main/script                |
@@ -35,13 +37,30 @@ state: wip
 	| -F:table "text"                   | apropos search                 |
 	| -X:project/new create :name <prj> | create new app from template   |
 
-refs:
+`Article: What are the Clojure Tools? <url:clojure_cli_tools.md#r=g_11929>`
 
-```
-~/projects/study/clj/practicalli_deps_edn.md
-```
+Practicalli deps.edn: `~/projects/study/clj/practicalli_deps_edn.md`
+
+`REPL functions: <url:clojure_cli_tools.md#r=g_11930>`
+
+`Socket REPL <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g_11931>`
 
 # Index deps.edn id=g_11723
+
+# Issues CLI Tools  id=g_11940
+
+## New Project id=g_11941
+
+```bash
+clojure -X:project/new :name mertnuhoglu/datawalk-01
+clojure -M:project/find-deps datawalk
+cd datawalk-01
+clojure -M::datawalk:repl/rebel
+```
+
+# Deps and CLI Reference
+
+> -A (for REPL invocation), -X (for function execution), or -M (for clojure.main execution). 
 
 ## Run main function
 
@@ -57,16 +76,18 @@ opt01: rebel-readline support
 
 ```bash
 clj -A:rebel
+clj -M:repl/rebel ;; practicalli/deps.edn
 ```
 
 ref: `Article: rebel-readline README <url:file:///~/projects/study/clj/deps_cli.md#r=g_11718>`
 
-  | ^x ^d      | show doc           |
-  | ^x ^s      | show source        |
-  | ^x ^a      | show apropos       |
-  | ^x ^e      | inline eval        |
-	| :repl/help | help               |
-	| :repl<tab> | available commands |
+  | ^x ^d             | show doc           |
+  | ^x ^s             | show source        |
+  | ^x ^a             | show apropos       |
+  | ^x ^e             | inline eval        |
+	| :repl/help        | help               |
+	| :repl/keybindings | keybindings        |
+	| :repl<tab>        | available commands |
 
 ## Check version
 
@@ -427,6 +448,12 @@ clj -A:rebel
 	| :repl/help | help                           |
 	| :repl<tab> | available commands             |
 
+Note: `doc` `apropos` functions don't work with rebel. You need to require `clojure.repl` for them to work.
+
+```clj
+(require '[clojure.repl :refer :all])
+```
+
 ## Help rebel-readline
 
 # Article: New Clojure REPL Experience With Clj Tools and Rebel Readline | jr0cket
@@ -526,6 +553,27 @@ clojure -m practicalli.what-time-is-it
 ```
 
 # clj-new: Generate new projects based on templates  id=g_11717
+
+Using practicalli deps:
+
+```bash
+clojure -X:project/new :name e01/rebl-examples
+rebl-examples
+├── CHANGELOG.md
+├── LICENSE
+├── README.md
+├── deps.edn
+├── doc
+│   └── intro.md
+├── pom.xml
+├── resources
+├── src
+│   └── e01
+│       └── rebl_examples.clj
+└── test
+    └── e01
+        └── rebl_examples_test.clj
+```
 
 [seancorfield/clj-new: Generate new projects based on clj, Boot, or Leiningen Templates!](https://github.com/seancorfield/clj-new)
 

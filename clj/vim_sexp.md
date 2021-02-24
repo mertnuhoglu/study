@@ -47,8 +47,8 @@ motions (tpope):
 
 indent:
 
-	| ==| compound form|
-	| =-| top compound form|
+  | == | compound form     |
+  | =- | top compound form |
 
 <mark>list<mark> manipulation (tpope): 
 
@@ -71,3 +71,29 @@ wrap:
 	| ,e[ ,e] | element [] |
 	| ,e{ ,e} | element {} |
 
+# sexp cheatsheet id=g_11971
+
+`sexp_mappings_for_regular_people`: `~/.vim/bundle/vim-sexp-mappings-for-regular-people/plugin/sexp_mappings_for_regular_people.vim`
+
+  | motions   |                                |
+  | B         | sexp_move_to_prev_element_head |
+  | W         | sexp_move_to_next_element_head |
+  | gE        | sexp_move_to_prev_element_tail |
+  | E         | sexp_move_to_next_element_tail |
+  | flow      |                                |
+  | M-]       | <Plug>(sexp_flow_to_next_open) |
+  | insertion |                                |
+  | <I        | sexp_insert_at_list_head       |
+  | >I        | sexp_insert_at_list_tail       |
+  | moving    |                                |
+  | <f        | sexp_swap_list_backward        |
+  | >f        | sexp_swap_list_forward         |
+  | <e        | sexp_swap_element_backward     |
+  | >e        | sexp_swap_element_forward      |
+  | >(        | sexp_emit_head_element         |
+  | <)        | sexp_emit_tail_element         |
+  | <(        | sexp_capture_prev_element      |
+  | >)        | sexp_capture_next_element      |
+  | wrapping  |                                |
+  | cse       | map_sexp_wrap                  |
+  | dsf       | sexp_splice_list               |

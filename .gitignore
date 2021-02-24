@@ -80,3 +80,15 @@ gen/
 **/#*#
 **/.#*
 **/.shadow-cljs
+
+*.clj.html
+**/conjure-log*.cljc
+**/.rebel_readline_history
+**/.lsp
+**/tmp.txt
+**/.rebl
+tmp.txt
+.lsp
+.rebel_readline_history
+conjure-log*.cljc
+.rebl

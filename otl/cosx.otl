@@ -9,6 +9,10 @@
 			to enable it:
 				https://www.simplified.guide/macos/bash-completion
 				brew install bash-completion
+		spotlight
+			dictionary lookup in spotlight id=g_11938
+				<word> def
+					shows the dictionary definition on top
 
 ## System
 

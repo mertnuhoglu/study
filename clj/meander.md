@@ -23,7 +23,7 @@ state: wip
 
 Goal: 
 
-- All valid player\weapon combinations
+- All valid player/weapon combinations
 - name, weapon, class, attack power, and all upgrades
 - no third party weapons
 

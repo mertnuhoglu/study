@@ -241,3 +241,47 @@ We need to generate all such redirection pages.
 Here is the R script that generates these redirection pages:
 
 `ex/hugo_burakpehlivan_org_20201011/c_wordpress_export_xml_to_csv/c_wordpress_export_xml_to_csv.R`
+
+# Fix 20210110 
+
+## 02: tuid.org.ua resimleri
+
+```bash
+rg "tuid.org.ua.images"
+rg "tuid.org.ua.wp-content"
+```
+
+```bash
+/http:..tuid.org.ua.images[^)]*
+:MatchesOnly
+/http:..tuid.org.ua.wp-content[^)]*
+:MatchesOnly
+%s#\/tuid.org.ua#\/arsiv.tuid.org.ua#
+sort u
+```
+
+Save to file: `~/projects/jekyll/burakpehlivan_org/other/tuid_org_ua_images.txt`
+
+```bash
+acksed "tuid.org.ua.images" "arsiv.tuid.org.ua/images"
+acksed "tuid.org.ua.wp-content" "arsiv.tuid.org.ua/wp-content"
+```
+
+Tüm resimleri indir
+
+```bash
+wget -i ~/projects/jekyll/burakpehlivan_org/other/tuid_org_ua_images.txt
+```
+
+Resimleri yeni bir klasöre aktar
+
+```bash
+mv /Users/mertnuhoglu/projects/jekyll/burakpehlivan_org/other/tuid_images /Users/mertnuhoglu/projects/jekyll/burakpehlivan_org/burakpehlivan_org/static
+```
+
+```bash
+sed -n -e 's#http:..arsiv.tuid.org.ua.*\/\([^/]*.jpg\)#https://burakpehlivan.org/tuid_images/\1#p' *.md
+sed -i -e 's#http:..arsiv.tuid.org.ua.*\/\([^/]*.jpg\)#https://burakpehlivan.org/tuid_images/\1#g' *.md
+```
+
+

@@ -320,34 +320,42 @@ bar
 (foo ,baz quux)
 
 (a (b ,c) d)
-(a (b (,c)) d) ;; M-()
-(a ((b ),c) d) ;; M-)
-(a (b [,c]) d) ;; M-[]
-(a d (b ,c)) ;; M-j
-((b ,c) a d) ;; M-k
-(a (,c b) d) ;; M-t
+(a (b ,c d)) ;; > | >)
+(a (b) ,c d) ;; < | <)
+(a (b (,c)) d) ;; M-( | ,w
+(a ((b ),c) d) ;; M-) | b ,W
+(a (b [,c]) d) ;; M-[ | ,e]
+(a d (b ,c)) ;; M-j | >f = M-j
+((b ,c) a d) ;; M-k | <f = M-k
+(a (,c b) d) ;; M-t | <e
 (b (a ,c d)) ;; M-v
-(a ,c d) ;; M-r
-(b ,c) ;; M-R
-(a (,,b ,c) d) ;; M-i
-(a (b ,c,,) d) ;; M-a
+(a ,c d) ;; M-r | ,O
+(b ,c) ;; M-R | ,o
+(a (,,b ,c) d) ;; M-i | <I = ,h
+(a (b ,c,,) d) ;; M-a | >I = ,l
 (a (b ,c)
-   ,,d) ;; M-o
+   ,,d) ;; M-o | wwo
 (a ,,
- (b ,c) d) ;; M-O
-(,,a (b ,c) d) ;; _
-,,(a (b ,c) d) ;; ^
-(a (,,b ,c) d) ;; H
-(a (b ,c,,) d) ;; L
-,,(a (b ,c) d) ;; M-h
-(a (b ,c) d),, ;; M-l
-(a ,,(b ,c) d) ;; ()
-(a ,,(b ,c) d) ;; []
-(a (b ,c) d),, ;; {}
+ (b ,c) d) ;; M-O | (<Enter><Up>
+(a (b ,c) d)
+(,,a (b ,c) d) ;; _ | [[w
+,,(a (b ,c) d) ;; ^ | [[
+(a (,,b ,c) d) ;; H | B
+(a (b ,c,,) d) ;; L | )
+,,(a (b ,c) d) ;; M-h | (
+(a (b ,c) d),, ;; M-l | 
+(a ,,(b ,c) d) ;; ( | (
+(a ,,(b ,c) d) ;; [ | (
+(a (b ,c) d),, ;; { | ]]
 (a (b ,c)
-   (b ,c) d) ;; M-w
+   (b ,c) d) ;; M-w | yaf <Enter> p
 (a (b ) d) ;; M-d
 (a (b ) d) ;; D
-(a b ,c d) ;; M-s
+(a b ,c d) ;; M-s | ,@
 (a (b c) d) ;; M-J
 (a (b) (,c) d) ;; M-S
+
+(a) ,(b)
+(a b) ;; M-J
+(a) ,((b)) ;; 01 M-(
+(a (b)) ;; 02 M-J

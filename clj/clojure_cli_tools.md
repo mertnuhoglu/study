@@ -15,9 +15,21 @@ state: wip
 
 ---
 
-# Article: What are the Clojure Tools?
+# Index cli tools
+
+## Import source, doc, apropos and other REPL functions id=g_11947
+
+If your repl doesn't have above functions such as `source` or `apropos`, require them:
+
+```clj
+(require '[clojure.repl :refer :all])
+```
+
+# Article: What are the Clojure Tools? id=g_11929
 
 [What are the Clojure Tools?](https://betweentwoparens.com/what-are-the-clojure-tools)
+
+> When I start learning a new language I like to begin by understanding the tooling ecosystem. For me, understanding the tools enables me to confidently focus on learning the language itself
 
 Three tools under `clj`:
 
@@ -43,7 +55,7 @@ Why? Because it wraps `clojure` with `rlwrap` tool.
 
 ## tools.deps.alpha
 
-Responsible for understanding which depedencies your project needs.
+Responsible for understanding which dependencies your project needs.
 
 - Reads in `deps.edn`
 - Resolves deps and their transitive deps
@@ -73,7 +85,7 @@ Built-in repl: `clojure.main/repl`
 java -jar clojure-1.8.0.jar
 ```
 
-## REPL functions:
+## REPL functions: id=g_11930
 
 	| `clojure.repl`   |                                              |
 	| source           | `(source clojure.main/repl)`                 |
@@ -90,13 +102,15 @@ java -jar clojure-1.8.0.jar
 	| *1 *2 *3         | last eval                                    |
 	| *e               | last uncaught exception                      |
 
+ref: `Import source, doc, apropos and other REPL functions <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g_11947>`
+
 ## Line Editing and History Support with rlwrap
 
 ```bash
 rlwrap java -jar clojure-1.8.0.jar
 ```
 
-## Socket REPL
+## Socket REPL id=g_11931
 
 Where does a REPL read from or print to?
 
@@ -228,3 +242,4 @@ Session middleware adds three ops:
 
 Each messsage carries a `session-id`
 
+# 

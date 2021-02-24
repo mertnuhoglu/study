@@ -4,6 +4,12 @@ parent
 index
 	bash <url:file:///~/projects/study/otl/ccode.otl#r=g_11687>
 	awk <url:file:///~/projects/study/otl/ccode.otl#r=g_11686>
+issues
+	Print documents with syntax coloring
+		source code:
+			ref: :TOhtml <url:file:///~/projects/study/otl/cvim.otl#r=g_11899>
+		markdown docs:
+			ref: pandoc2 <url:file:///~/projects/study/otl/ccode.otl#r=g_11900>
 stuff
 	quotes: single-quoted double-quoted 
 		https://stackoverflow.com/questions/3446216/what-is-the-difference-between-single-quoted-and-double-quoted-strings-in-php
@@ -1865,7 +1871,7 @@ firebug
         console > enable
         console > persist
 bash
-	bash id=g_11687
+	bash2 id=g_11687
 		points
 			list files with absolute paths
 				ls -d "$PWD"/* 
@@ -2361,6 +2367,12 @@ bash
 				(press ^D)
 				# output: 
 				60 7a
+	pandoc2 id=g_11900
+		FILE=valve_usecase_shut_work_order
+		find . -maxdepth 1 -type f -iname "*.md" -print0 | xargs --null -I{} pandoc --output {}.docx --standalone {} | echo
+		pandoc --output $FILE.docx --standalone $FILE.md
+		pandoc --from gfm --output README.html --standalone README.md
+			gfm: github flavored markdown
 	rm
 		rm
 			prevent rm from -rf /
@@ -5446,7 +5458,6 @@ tools
 			spreadsheet
 				shortcuts
 					!/			quick command
-				
 	htop
 			usage
 				use mouse
@@ -5587,14 +5598,16 @@ tools
 	imagemagick
 			split pdf into pages
 				convert file.pdf image.png
-					mogrify -format pct *.jpg
-					convert -quality 100 -density 300x300 -resize 1280x720 index.pdf slide%03d.jpg
-					mogrify -quality 100 -density 300x300 -resize 1280x720\! *.jpg 
-						forces resize to fixed dimensions
-					mogrify -quality 100 -density 300x300 -resize 1280x720\> *.jpg 
-						only shrink, never enlarge: >
-				use pdftk (better quality)
-					http://unix.stackexchange.com/questions/14640/use-convert-to-grab-a-specific-page-from-a-pdf-file
+			mogrify -format jpg *.pdf
+			mogrify -format png *.pdf
+			mogrify -format pct *.jpg
+			convert -quality 100 -density 300x300 -resize 1280x720 index.pdf slide%03d.jpg
+			mogrify -quality 100 -density 300x300 -resize 1280x720\! *.jpg 
+				forces resize to fixed dimensions
+			mogrify -quality 100 -density 300x300 -resize 1280x720\> *.jpg 
+				only shrink, never enlarge: >
+			use pdftk (better quality)
+				http://unix.stackexchange.com/questions/14640/use-convert-to-grab-a-specific-page-from-a-pdf-file
 			ghostscript
 				gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dFirstPage=3 -dLastPage=5 -sOUTPUTFILE=input.3_5.pdf index.pdf
 				convert *.png -gravity South -annotate 0 '%f' all.pdf
@@ -5802,7 +5815,11 @@ tools
 			description
 				using Moa clustering from R
 				
-	mongodb
+	mongo2 mongodb
+			list all databases
+				show dbs
+				use <db>
+				db.getCollectionNames()
 			export/import
 				dump all db
 					mongodump -d <database_name> -o <directory_backup>

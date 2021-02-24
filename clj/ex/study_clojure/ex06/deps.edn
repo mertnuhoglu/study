@@ -1,2 +1,27 @@
-{:deps 
- {}}
+{:aliases
+   {:deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.1"}},
+             :main-opts ["-m" "deps-deploy.deps-deploy" "deploy" "e01.jar"]},
+    :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.1"}},
+              :main-opts ["-m" "deps-deploy.deps-deploy" "install" "e01.jar"]},
+    :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.1.126"}},
+          :main-opts ["-m" "hf.depstar.jar" "e01.jar"]},
+    :nREPL {:extra-deps {cider/cider-nrepl {:mvn/version "0.25.4"},
+                         com.bhauman/rebel-readline {:mvn/version "0.1.4"},
+                         nrepl/nrepl {:mvn/version "0.8.3"}},
+            :main-opts ["-m" "nrepl.cmdline" "--middleware"
+                        "[cider.nrepl/cider-middleware]" "-i" "-f"
+                        "rebel-readline.main/-main"]},
+    :runner {:extra-deps {com.cognitect/test-runner
+                            {:git/url
+                               "https://github.com/cognitect-labs/test-runner",
+                             :sha "b6b3193fcc42659d7e46ecd1884a228993441182"}},
+             :main-opts ["-m" "cognitect.test-runner" "-d" "test"]},
+    :test {:extra-deps {org.clojure/test.check {:mvn/version "1.0.0"}},
+           :extra-paths ["test"]},
+    :trace {:extra-deps {hashp/hashp {:mvn/version "0.2.0"},
+                         org.clojure/tools.trace {:mvn/version "0.7.10"},
+                         spyscope/spyscope {:mvn/version "0.1.6"}},
+                         junegunn/clj-inspector {:git/url "https://github.com/junegunn/clj-inspector" :sha "d0de58df92e52a8de233fda187b516a1cad777c7"}}}
+ :deps {org.clojure/clojure {:mvn/version "1.10.1"}},
+ :paths ["src"]}
+

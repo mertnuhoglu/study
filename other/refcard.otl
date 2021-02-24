@@ -138,6 +138,16 @@ hugo refcard id=g_11654
 		hugo: nuhoglu.org.tr taşıma 20201010  <url:file:///~/projects/study/logbook/log_20201009.md#r=g_11633>
 		~/projects/study/code/study_hugo.md
 osx
+	print photo
+		vesikalık resimleri basma
+			opt01: LibreOffice Writer + fotoğraf kağıdı
+				change page size: Format > Page 
+					Width: 3.93" 5.9"
+					fotoğraf kağıdı için 10x15 cm
+				Resimleri yerleştir sayfaya
+				File > Export as > pdf
+				Open in Skim pdf viewer
+				File > Print > Paper Size > Postcard 3.94 5.83
 	keybindings for editing text fields
 		ref: osx keybindings for editing text <url:file:///~/projects/study/osx/study_macos_osx.md#r=g_11010>
 			#<- #->	beginning/end of line

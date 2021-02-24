@@ -21,6 +21,8 @@ state: wip
 
     | p  | PassThrough mode - temporarily disable |
     | !s | disable                                |
+		| >> | move tab to right                      |
+		| << | move tab to left                       |
 
 # surfingkeys: vim emulation for chrome
 

@@ -38,6 +38,38 @@ Launch an nREPL server and client:
 
 [CIDER :: CIDER Docs](https://docs.cider.mx/cider/index.html)
 
+## Debugging cider id=g_11969
+
+[Debugger :: CIDER Docs](https://docs.cider.mx/cider/debugging/debugger.html)
+
+01: Set breakpoint: `,db`
+
+02: Execute function: `, e f`
+
+	| , d b | cider-debug-defun-at-point |
+	| , e f | cider-eval-defun-at-point  |
+
+Check: `cider debugging example <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g_11970>`
+
+[Cider debug · Clojure development with Spacemacs & Cider](https://practicalli.github.io/spacemacs/debug-clojure/cider-debug.html)
+
+	| C-z | toggle evil mode during debugging |
+
+Example: `cider debugging example <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g_11970>`
+
+![Debugger commands](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210203_222836.jpg)
+
+![lj locals](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210203_221626.jpg)
+
+### Errors
+
+					error: yeni fonksiyonu neden debug edemiyorum?
+						opt01: başka bir fonksiyonla deneme yap
+							aynı dosyada yapabildim, ama farklı bir clj dosyasında izin vermedi
+						opt02: yeniden başlatıp deneyelim
+						sebep: o dosyanın kendi repl'ı olması gerekiyor
+						fix: `cider-jack-in` yapınca çalışıyor.
+
 # Video: F(by) 2016 - Bozhidar Batsov - Speech 1 - CIDER: Inside the Brewery - YouTube id=g_11762
 
 [F(by) 2016 - Bozhidar Batsov - Speech 1 - CIDER: Inside the Brewery - YouTube](https://www.youtube.com/watch?v=E0rDMM2EEu0)

@@ -277,6 +277,10 @@ s s			switch between repl buffer and source code buffer
 
 ![enlighten-mode inspection](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20201220_163018.jpg)
 
+Use intermediary values for debugging: See which branch is evaluated:
+
+![Use intermediary values for debugging](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210102_211802.jpg)
+
 #### Inspect Clojure values
 
 	| TAB S-TAB | navigate forward/backward               |

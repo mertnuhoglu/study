@@ -29,6 +29,48 @@ options(width = 150)
 options(max.print = 30)
 ``` 
 
+## Install mongo
+
+[Install MongoDB Community Edition on macOS — MongoDB Manual](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+
+```bash
+brew tap mongodb/brew
+brew install mongodb-community@4.4
+brew install mongodb-database-tools
+brew link mongodb-database-tools
+```
+
+## Run mongo 
+
+opt01: Run manually:
+
+```bash
+mongod --config /usr/local/etc/mongod.conf --fork
+```
+
+Shutdown:
+
+opt01:
+
+```bash
+killall mongod
+```
+
+opt02:
+
+```bash
+mongo
+```
+
+```bash
+use admin
+db.shutdownServer()
+```
+
+## Configuration mongo
+
+Check `/usr/local/etc/mongod.conf`
+
 ## Connect to mongo 
 
 Robomongo ref: `robomongo client <url:/Users/mertnuhoglu/projects/itr/vrp_doc/doc_itr.md#tn=robomongo client>`
@@ -38,6 +80,27 @@ Terminal client:
 ``` bash
 docker exec -it dentas_mongo_1 mongo --port 27017 -u "${username}" -p "${pass}" ${database}
 ``` 
+
+## Basic usage mongo
+
+```bash
+mongo
+```
+
+```bash
+show dbs
+use <db>
+db.getCollectionNames()
+  ##> 	"example-histories",
+  ##> 	"examples",
+```
+
+Export as json
+
+```bash
+mongoexport -d clojuredocs -c users -o users.json --jsonArray 
+```
+
 
 ## Query examples
  

@@ -1,563 +1,809 @@
 _ id=r_lastid cvim_002
 
-	points
-		delete up to matched line
-			g/Notlar/,/Bulgular/ d
-				delete from line "Notlar" upto line "Bulgular"
-			g/Notlar/,/Bulgular/-1 d
-				delete from line "Notlar" upto one line before line "Bulgular"
-		:make command
-			:make
-				runs make build
-			:cn
-				next error
-		:marks
-			lists all marks
-		smart case - case insensitive search
-			opt01: \c
-				/\c<keyword>
-				https://stackoverflow.com/questions/2287440/how-to-do-case-insensitive-search-in-vim
-			opt02: 
-				set ignorecase
-				set smartcase
-			opt03: 
-				set ignorecase
-		highlight specific words
-			https://stackoverflow.com/questions/27686440/in-vim-editor-how-can-some-specific-words-be-always-highlighted
-				<vimhelp:highlight>
-				<vimhelp:match>
-				ex
-					hi! Important ctermbg=red guibg=red
-					match Important /!Important!/
-				ex
-				ex: see active highlight-groups
-					:so $VIMRUNTIME/syntax/hitest.vim
-				ex: add to existing groups
-					match Title /\<fromNullable\>/
-		make current window full screen
-			üt: opens a new tab with current window
-			^W T: same but closes current window
-		open a repl inside vim
-			gQ
-		getting file path
-			help filename-modifiers
-			ex
-				expand("%:p:h")
-					full path of directory of current file
-				expand("%:p")
-					full path of current file
-					p: full path
-				expand("%:r")
-					root of file name: file extension removed
-				let file_name = expand('%:t:r')
-					get file name
-				cd %:p:h
-			<vimhelp:filename-modifiers>
-				:p
-					make file_name a full path
-				:~
-					reduce file name to be relative to home dir
-				:.
-					reduce file name to be relative to current directory
-				:h
-					head of file name (last component)
-			ex: from help
-				Examples, when the file name is "src/version.c", current dir
-				"/home/mool/vim": >
-					:p			/home/mool/vim/src/version.c
-					:p:.				       src/version.c
-					:p:~				 ~/vim/src/version.c
-					:h				       src
-					:p:h			/home/mool/vim/src
-					:p:h:h		/home/mool/vim
-					:t					   version.c
-					:p:t					   version.c
-					:r				       src/version
-					:p:r			/home/mool/vim/src/version
-					:t:r					   version
-					:e						   c
-					:s?version?main?		       src/main.c
-					:s?version?main?:p	/home/mool/vim/src/main.c
-					:p:gs?/?\\?		\home\mool\vim\src\version.c
-				Examples, when the file name is "src/version.c.gz": >
-					:p			/home/mool/vim/src/version.c.gz
-					:e						     gz
-					:e:e						   c.gz
-					:e:e:e					   c.gz
-					:e:e:r					   c
-					:r				       src/version.c
-					:r:e						   c
-					:r:r				       src/version
-					:r:r:r			       src/version
-		tab colors
-			lightline gibi tabline eklentisi kullanıyorsan, oradan değiştirmelisin
-				ref
-					lightline: statusline/tabline  <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10570>
-			https://stackoverflow.com/questions/7238113/customising-the-colours-of-vims-tab-bar
-				:hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
-				:hi TabLine ctermfg=Blue ctermbg=Yellow
-				:hi TabLineSel ctermfg=Red ctermbg=Yellow
-				This line affects the window counter per tab:
-				:hi Title ctermfg=LightBlue ctermbg=Magenta
-	error: indent kendi kendine bozuluyor otl dosyalarında
-		solution
-			https://vi.stackexchange.com/questions/11023/auto-indent-turns-off-itself-automatically-on-php-files
-				autocmd FileType php setlocal autoindent
-				autocmd FileType votl setlocal autoindent
-		set autoindent
-		set ai
-		set smartindent
-		set si
-	ftdetect ftplugin: filetype specific scripts
-		https://stackoverflow.com/questions/6133341/can-you-have-file-type-specific-key-bindings-in-vim
-			ref
-				~/.vim/ftplugin/typescript.vim
-			/Users/mertnuhoglu/.vim/ftplugin
-			typescript.vim
-				nmap <buffer> Ü <Plug>(ale_go_to_definition)
-			:set ft?
-	set/use environment variables in vim
-		let $VRP_PSK_DIR = '/Users/mertnuhoglu/projects/itr/vrp_psk01'
-		echo $VRP_PSK_DIR
-	vim slides presentation tool
-	my keybindings
-		c commands
-			mnemonics
-				c = command
-			nnoremap cm :Commands<cr>
-				c command, m mand
-			nnoremap cl :Files<cr>
-				c command, l ls
-			nnoremap cnt :NERDTreeToggle<cr>
-				c command, nt nerdtree
-			nnoremap cnf :NERDTreeFind<cr>
-	viml vimscript id=g_10491
-		viml vimscript <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10491>
-		refcard - komut listesi
-			expand
-				let word = expand('<cword>')
-			getline
-				let lines = getline(lnum1, lnum2)
-			getpos
-				let [lnum1, col1] = getpos("'<")[1:2]
-			input
-				let name = input('Enter name: ')
-			matchstr
-				let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
-			printf
-				let result = printf("<url:file:///%s#r=%s>", filename3, id)
-			readfile
-				let line = readfile(global_refid, 1)[0]
-			strftime
-				let date = strftime("%Y%m%d")
-			substitute
-				let url = substitute(url, ">\s*", "", "")
-		visual range to a command as its argument
-			https://vi.stackexchange.com/questions/11025/passing-visual-range-to-a-command-as-its-argument
-				function! PrintGivenRange() range
-					echo "firstline ".a:firstline." lastline ".a:lastline
-					" Do some more things
-				endfunction
-				command! -range PassRange <line1>,<line2>call PrintGivenRange()
-			ex
-				function! SurroundMdImage() range
-					exe a:firstline.",".a:lastline."g/\\(\\.jpg\\>\\)\\|\\(\\.png\\)/ s#\\(^\\)\\(.*/\\)\\([^/]\\+\\)\\(\\..*$\\)#![\\3](\\2\\3\\4)#"
-				endfunction
-				command! -nargs=* -range=% SurroundMdImage <line1>,<line2>call SurroundMdImage()
-		window/buffer navigation: goto some window/buffer id=g_10490
-			window/buffer navigation: goto some window/buffer <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10490>
-			echo bufnr("%")
-			win_findbuf(6)
-			win_gotoid(win_id)
-			win_id2tabwin({expr}
-			:echo "The file in the current window is " . bufname(winbufnr(0))
-			win_getid([{win}
-			window-ID
-				each window has a window ID
-			win_getid(winnr)
-				winnr -> win_id
-			win_id2tabwin()
-				win_id -> win/tab number
-			winnr()
-				window number that may change
-				for current window only
-			:<winnr> wincmd w
-				go to winnr
-			win_id2win(win_id)
-				win_id -> winnr
-			bufnr("name")
-				name -> buf id
-			bufname(id)
-				buf id -> name
-			ex:
-				" <url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=function! CollectLine()>
-				" <url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=function! SwitchToNerdTree()>
-		substitute replace with regex
-			<vimhelp:substitute()>
-			ex
-				echo substitute("testing", ".*", "\\U\\0", "")
-				echo substitute('   a', '^\s*\(.\{-}\)\s*$', '\1', '')
-		insert string (result of a command) into text
-			https://unix.stackexchange.com/questions/8101/how-to-insert-the-result-of-a-command-into-the-text-in-vim
-			opt1: use expression register "=
-				with P in normal 
-				with <C-R> in insert mode
-				ex: normal
-					"=strftime('%c')<C-M>p
-				<C-M>: enter
-				ex: insert
-					<C-R>=strftime('%c')<C-M>
-				ex: mapping to keys
-					nmap <F2> "=strftime('%c')<C-M>p
-			opt2: use :put command
-				ex: any expression or variable
-					put =a:refid
-				ex: inline
-					put =a:refid
-					normal! kJ
-		<bang>	(See the '-bang' attribute) Expands to a ! if the
-			command was executed with a ! modifier, otherwise
-			expands to nothing.
-			<vimhelp:bang>
-		-bang
-			-bang	    The command can take a ! modifier (like :q or :w)
-			<vimhelp:command-bang>
-		let args = {}
-			{} is empty object
-			this is declaring an object
-			args[key] = elem
-				this adds elem to key property of args object
-		List
-			<vimhelp:List>
-			:let mylist = [1, two, 3, "four"]
-			:let emptylist = []
-			:let nestlist = [[11, 12], [21, 22], [31, 32]]
-		Ampersand in front of variable &var
-			referring to the option, not a variable
-				http://learnvimscriptthehardway.stevelosh.com/chapters/19.html
-		*a:0* *a:1* *a:000* *E740* *...*
-			<vimhelp:a:000>
-			Up to 20 arguments can be given, separated by commas.  After the named arguments an argument "..." can be specified
-			"a:000" is set to a |List| that contains these arguments
-	mark marks marking bookmarking
-		<vimhelp:mark>
-		'>  `>			To the last line or character of the last selected
-			Visual area in the current buffer. 
-		'<  `<			To the first line or character of the last selected
-			Visual area in the current buffer.  For block mode it
-	plugins
-		vim-markdown
-			https://github.com/plasticboy/vim-markdown
-			shortcuts
-				jump/navigate
-					]]    next
-		tsuquyomi: typescript
-			TsuDefinition
-			TsuReferences
-			TsuImplementation
-		lightline: statusline/tabline  id=g_10570
-			lightline: statusline/tabline  <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10570>
-			let g:lightline = {
-						\ 'colorscheme': 'solarized',
-			tema tanımları:
-				~/.vim/bundle/lightline.vim/autoload/lightline/colorscheme/solarized.vim
-			tabların rengi temadan belirlenir
-		votl
-			outline navigation in tree
-				click    move
-				i I    beginning of node
-				space    toggle node
-				left/right    to parent/child
-			voomgrep
-				very sophisticated search tool
-			moving
-				^^  ^up  üu
-				--  ^dn  üd
-				<<  ^lf  ül
-				>>  ^rg  ür
-				yy  "+ register
-				dd
-				pp
-		ale: LSP Language Server Protocol Client id=g_10563
-			ale: LSP Language Server Protocol Client <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10563>
-			typescript
-				let b:ale_fixers = { 'typescript': ['eslint', 'prettier'] }
-			<vimhelp:ale-typescript-options>
-			<vimhelp:ale-javascript-eslint>
-			<vimhelp:*ale-completion>
-			<vimhelp:*ALEGoToDefinition>
-			<vimhelp:ALEHover>
-			articles
-				https://dmerej.info/blog/post/lets-have-a-pint-of-vim-ale/
-					intro
-						edit lint.sh
-							pycodestyle . 
-							python bin/run-pyflakes.py
-					shortcomings of the makeprg
-						finding binaries to run
-							when in node_modules/.bin
-						forgetting to run :make
-						parsing errorformat
-					switching to vim-ale
-						runs `eslint` with zero configuration
-						runs in background
-					customization
-						run only after saving the file
-							let g:ale_lint_on_text_changed = 'never'
-						don't run right after opening a file
-							let g:ale_lint_on_enter = 0
-					location list
-						like quickfix window
-							:lprevious :lnext 
-					custom mappings
-						nnoremap <space>l :lnext<CR>
-						nnoremap <space>p :lprevious<CR>
-						nnoremap <space>r :lrewind<CR>
-					back to python
-				https://dmerej.info/blog/post/how-i-lint/
-					running linters from vim
-						set makeprg=ci/lint.sh
-						:make
-		fugitive.vim id=g_10519
-			fugitive.vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10519>
-			ref
-				http://vimcasts.org/categories/git/
-			use cases
-				ex01: mevcut dosyayı commit et
-					Gwrite
-					Gcommit %
-			.gitconfig
-			Gwrite
-				Git add %
-			Gread
-				Git checkout %
-			Gremove
-				:Git rm %
-				:bwipeout
-			Gmove dest/path
-				:Git mv original/path dest/path
-				:bwipeout original/path
-				:edit dest/path
-				# relative/absolute
-					relative to current file
-					absolute: relative to git repo
-			Gcommit
-				git commit
-				# auto completion
-					:help 'complete'
-			Gblame
-				# shows last updates by whom
-				# vertical split
-			Glog
-				# loads previous revisions into quickfix
-				Glog -10
-				:cnext # go to prev version
-					unimpaired.vim to 
-						[q ]q
-						[Q ]q
-				Gedit # return to current revision
-				:copen
-				Glog -10 --reverse
-				Glog -1 --until=yesterday
-				Glog --
-					loads logs into current buffer
-		unimpaired.vim id=g_10520
-			unimpaired.vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10520>
-			<vimhelp:unimpaired-next>
-			*[q*     |:cprevious|
-			*]q*     |:cnext|
-			*[Q*     |:cfirst|
-			*]Q*     |:clast|
-		fuzzy finders
-			fzf: fuzzy file finder <url:/Users/mertnuhoglu/Dropbox/mynotes/content/code/ccode.md#tn=vim plugin: fzf.vim>
-		file explorers
-			netrw - builtin explorer
-				https://shapeshed.com/vim-netrw/
-				<url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=" NERDtree like setup>
-					:Vexplorer
-			vimfiler
-				help
-					:VimFiler # run
-					:let g:vimfiler_as_default_explorer = 1  # default explorer
-					:VimFilerExplorer # sidebar
-					:VimFilerDouble # double pane
-					:VimFilerCurrentdir
-				default keymappings
-					problem/does not work
-						<Enter>     <Plug>(vimfiler_cd_or_edit)
-					basic
-						<BS>      <Plug>(vimfiler_switch_to_parent_directory)
-						a cd  change current directory 
-						t     <Plug>(vimfiler_expand_tree)
-						gs      <Plug>(vimfiler_toggle_safe_mode)
-						e     <Plug>(vimfiler_edit_file)
-						T     <Plug>(vimfiler_expand_tree_recursive)
-						o     <Plug>(vimfiler_expand_or_edit)
-						a     <Plug>(vimfiler_choose_action)
-						<Space>     <Plug>(vimfiler_toggle_mark_current_line)
-					file commands
-						yy      <Plug>(vimfiler_yank_full_path)
-						c     <Plug>(vimfiler_copy_file)
-						m     <Plug>(vimfiler_move_file)
-						d     <Plug>(vimfiler_delete_file)
-						r     <Plug>(vimfiler_rename_file)
-						K     <Plug>(vimfiler_make_directory)
-						N     <Plug>(vimfiler_new_file)
-					directories
-						gc      <Plug>(vimfiler_cd_vim_current_dir)
-						L     <Plug>(vimfiler_switch_to_drive)
-						<url:file:///~      <Plug>(vimfiler_switch_to_home_directory)>
-						\     <Plug>(vimfiler_switch_to_root_directory)
-						&     <Plug>(vimfiler_switch_to_project_directory)
-						<C-j>     <Plug>(vimfiler_switch_to_history_directory)
-					switch windows
-						<Tab> (default)
-									<Plug>(vimfiler_switch_to_another_vimfiler)
-						<Tab> (enabled "no-quit" and "split" options)
-									<Plug>(vimfiler_switch_to_other_window)
-						q     <Plug>(vimfiler_hide)
-						Q     <Plug>(vimfiler_exit)
-						-     <Plug>(vimfiler_close)
-						g?      <Plug>(vimfiler_help)
-					system-shell
-						v     <Plug>(vimfiler_preview_file)
-						ge      <Plug>(vimfiler_execute_external_filer)
-						H     <Plug>(vimfiler_popup_shell)
-						!     <Plug>(vimfiler_execute_shell_command)
-						gr      <Plug>(vimfiler_grep)
-						gf      <Plug>(vimfiler_find)
-						Y     <Plug>(vimfiler_pushd)
-						P     <Plug>(vimfiler_popd)
-				steps
-					plug keymappings nerede tanımlanıyor?
-						vimfiler_cd_input_directory
-						nnoremap <buffer><silent> <Plug>(vimfiler_cd_input_directory)
-									\ :<C-u>call <SID>cd_input_directory()<CR>
-					utl ile help url'lerine nasıl link veriliyordu?
-						<url:vimhelp:vimfiler-default-key-mappings>
-			nerdtree - file explorer
-				keybindings
-					<vimhelp:NERDTreeMappings>
-					my customizations
-						e  preview file 
-					open
-						o/enter		open file
-						go  preview file
-						t/T		tab/silently
-						i/gi	split/silently
-						s/gs	vsplit/silently
-					tree navigation
-						x/X		close dir/recursively
-						P		jump to root
-						p		jump to parent
-						K/J		top/tail of branch
-						^K/J	up/dn sibling of dir
-					change dirs
-						C		change root to selected dir
-						u		up one dir
-							U		keep old root open
-						r/R		refresh/all
-						cd	change cwd to node
-						CD	change root to cwd
-					toggles
-						m		menu
-						I		hidden files
-						B		toggle bookmarks
-						q		quit
-						A		maximize window
-						?		help
-					bookmarks
-						D		delete
-						:Bookmark <name>		new bookmark
-		swoop: search globally with preview
-			https://github.com/pelodelfuego/vim-swoop
-			<url:file:///~/.vim/bundle/vim-swoop/README.md>
-			direct command	
-				:Swoop <pattern>
-					single buffer search
-					ül
-				:Swoop! <pattern>
-					all buffers
-					üml
-			:q	quit
-			:w  save
-		Utl: universal text links
+plugins
+	vinegar
+		bookmarking a directory
+			mb        mark bookmark
+			{cnt}gb   go back to bookmarked dir
+			mB        delete bookmark
+		shortcuts
+			I   help
+			i   file information
+			-   open explorer
+			enter     open file
+			o         open horizontal split
+			v         open vertical split
+			.         prepopulate command line
+			!         prepop with bang
+			cg cl     add to cd lcd
+			:Ntree    change path
+			a         switch appearance of files
+			d         new dir
+			%         new file
+			file copying
+				mt      mark target dir
+				mf      mark files
+				mc      copy files
+	TableMode
+		https://github.com/dhruvasagar/vim-table-mode
+		start using
+			:TableModeToggle
+				ütm
+		table mode
+			enter first line
+				| col1 | col2 |
+			second line
+				||
+			body lines
+				| content 1 |
+			last line
+				||
+		convert existing content into a table
+			:Tableize
+				ütt
+			default separator: ,
+				g:table_mode_tableize_map
+			:Tableize/;
+				separator: ;
+				üT
+					take input from cmd line
+		examples
+			can be indented too
+			| col 1 | col 2  |
+			|-------|--------|
+			| pg1   | pg 2   |
+			| cl15  | cl35_a |
+			|-------|--------|
+	voom
+		outline navigation
+		outline navigation in tree
+			click    move
+			i I    beginning of node
+			space    toggle node
+			left/right    to parent/child
+		voomgrep
+			very sophisticated search tool
+		moving
+			^^  ^up  üu
+			--  ^dn  üd
+			<<  ^lf  ül
+			>>  ^rg  ür
+			yy  "+ register
+			dd
+			pp
+	surround
+		<vimhelp:*surround-mappings*>
+		ys[object]
+			ysw	surround word
+			ysa'	surround quoted text
+	install plugins
+		vim-plug plugin manager
+		put new line
+		open nvim
+			:PlugInstall
+	tabular: align
+		ref
+			tabular align text <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11680>
+	spacemacs - vim-which-key
+		ref
+			vim-which-key spacemacs emacs-which-key port {{{ <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11679>
+			<url:vimhelp:vim-which-key>
+	deoplete - autocomplete
+	easymotion - quick move chars
+		m: my leader
+		mmw		move by word
+		mmf		search by letter
+		mmj/k		up/down lines
+		mmn/N		by / search
+	vim-markdown
+		https://github.com/plasticboy/vim-markdown
+		shortcuts
+			jump/navigate
+				]]    next
+	tsuquyomi: typescript
+		TsuDefinition
+		TsuReferences
+		TsuImplementation
+	lightline: statusline/tabline  id=g_10570
+		lightline: statusline/tabline  <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10570>
+		let g:lightline = {
+					\ 'colorscheme': 'solarized',
+		tema tanımları:
+			~/.vim/bundle/lightline.vim/autoload/lightline/colorscheme/solarized.vim
+		tabların rengi temadan belirlenir
+	votl
+		outline navigation in tree
+			click    move
+			i I    beginning of node
+			space    toggle node
+			left/right    to parent/child
+		voomgrep
+			very sophisticated search tool
+		moving
+			^^  ^up  üu
+			--  ^dn  üd
+			<<  ^lf  ül
+			>>  ^rg  ür
+			yy  "+ register
+			dd
+			pp
+	ale: LSP Language Server Protocol Client id=g_10563
+		ale: LSP Language Server Protocol Client <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10563>
+		typescript
+			let b:ale_fixers = { 'typescript': ['eslint', 'prettier'] }
+		<vimhelp:ale-typescript-options>
+		<vimhelp:ale-javascript-eslint>
+		<vimhelp:*ale-completion>
+		<vimhelp:*ALEGoToDefinition>
+		<vimhelp:ALEHover>
+		articles
+			https://dmerej.info/blog/post/lets-have-a-pint-of-vim-ale/
+				intro
+					edit lint.sh
+						pycodestyle . 
+						python bin/run-pyflakes.py
+				shortcomings of the makeprg
+					finding binaries to run
+						when in node_modules/.bin
+					forgetting to run :make
+					parsing errorformat
+				switching to vim-ale
+					runs `eslint` with zero configuration
+					runs in background
+				customization
+					run only after saving the file
+						let g:ale_lint_on_text_changed = 'never'
+					don't run right after opening a file
+						let g:ale_lint_on_enter = 0
+				location list
+					like quickfix window
+						:lprevious :lnext 
+				custom mappings
+					nnoremap <space>l :lnext<CR>
+					nnoremap <space>p :lprevious<CR>
+					nnoremap <space>r :lrewind<CR>
+				back to python
+			https://dmerej.info/blog/post/how-i-lint/
+				running linters from vim
+					set makeprg=ci/lint.sh
+					:make
+	fugitive.vim id=g_10519
+		fugitive.vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10519>
+		ref
+			http://vimcasts.org/categories/git/
+		use cases
+			ex01: mevcut dosyayı commit et
+				Gwrite
+				Gcommit %
+		.gitconfig
+		Gwrite
+			Git add %
+		Gread
+			Git checkout %
+		Gremove
+			:Git rm %
+			:bwipeout
+		Gmove dest/path
+			:Git mv original/path dest/path
+			:bwipeout original/path
+			:edit dest/path
+			# relative/absolute
+				relative to current file
+				absolute: relative to git repo
+		Gcommit
+			git commit
+			# auto completion
+				:help 'complete'
+		Gblame
+			# shows last updates by whom
+			# vertical split
+		Glog
+			# loads previous revisions into quickfix
+			Glog -10
+			:cnext # go to prev version
+				unimpaired.vim to 
+					[q ]q
+					[Q ]q
+			Gedit # return to current revision
+			:copen
+			Glog -10 --reverse
+			Glog -1 --until=yesterday
+			Glog --
+				loads logs into current buffer
+	unimpaired.vim id=g_10520
+		unimpaired.vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10520>
+		<vimhelp:unimpaired-next>
+		*[q*     |:cprevious|
+		*]q*     |:cnext|
+		*[Q*     |:cfirst|
+		*]Q*     |:clast|
+	fuzzy finders
+		fzf: fuzzy file finder <url:/Users/mertnuhoglu/Dropbox/mynotes/content/code/ccode.md#tn=vim plugin: fzf.vim>
+	file explorers
+		netrw - builtin explorer
+			https://shapeshed.com/vim-netrw/
+			<url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=" NERDtree like setup>
+				:Vexplorer
+		vimfiler
 			help
-				<vimhelp:utl-tutUI>
-				:Utl <command> <operand> <mode>
-					:Utl openLink underCursor edit  " default
-					:Utl openLink underCursor split " Open link in split window
-					:Utl openLink underCursor tabe  " Open link in new tab
-				command completion works
-					:Utl <Tab>
-				visual selection
-					ex:
-						select line with ex command:
-						:ls
-					:Utl openLink visual
-					:Utl o v
-				vimscript scheme (ex commands)
-					<url:vimscript:ls>
-					<url:vimscript:split|call input('I will open a new window now!')>
-					<url:vimscript:call input('Hit %3creturn%3e to continue')>
-						hex value for < %3c > %3e
-					global variables must be prefixed with g
-					smart samples <vimhelp:utl-smartSamples>
-						lookup word
-							nmap ,l :exe ":Utl ol http://dict.leo.org/?search=" . expand("<cword>")
-						jump to an open window/tab
-							:set switchbuf=usetab
-						backup a file
-							<url:vimscript::let dt=strftime('%Y%m%d_%H%M') | exe ':w /tmp/'.dt.'_%:t'>
-			linking and references
-				<url:vimhelp:%5cM>
-				<url:vimhelp:vimfiler-default-key-mappings>
-			id
-				<url:#r=come-here>
-				id=come-here
-			text next
-				<url:#tn=some text>
-				here will come some text
-				or
-				<url:#some text>
-			file links
-				<url:../plugin/utl.vim>
-				<url:../plugin/utl.vim#tn=thanks for>
-				<url:../problem_data_model_20160305.md#r=come-here>
-			url
-				<url:http//www.vim.org>
-			embedding-less links
-				filename.txt
-			custom utl links
-				ex
+				:VimFiler # run
+				:let g:vimfiler_as_default_explorer = 1  # default explorer
+				:VimFilerExplorer # sidebar
+				:VimFilerDouble # double pane
+				:VimFilerCurrentdir
+			default keymappings
+				problem/does not work
+					<Enter>     <Plug>(vimfiler_cd_or_edit)
+				basic
+					<BS>      <Plug>(vimfiler_switch_to_parent_directory)
+					a cd  change current directory 
+					t     <Plug>(vimfiler_expand_tree)
+					gs      <Plug>(vimfiler_toggle_safe_mode)
+					e     <Plug>(vimfiler_edit_file)
+					T     <Plug>(vimfiler_expand_tree_recursive)
+					o     <Plug>(vimfiler_expand_or_edit)
+					a     <Plug>(vimfiler_choose_action)
+					<Space>     <Plug>(vimfiler_toggle_mark_current_line)
+				file commands
+					yy      <Plug>(vimfiler_yank_full_path)
+					c     <Plug>(vimfiler_copy_file)
+					m     <Plug>(vimfiler_move_file)
+					d     <Plug>(vimfiler_delete_file)
+					r     <Plug>(vimfiler_rename_file)
+					K     <Plug>(vimfiler_make_directory)
+					N     <Plug>(vimfiler_new_file)
+				directories
+					gc      <Plug>(vimfiler_cd_vim_current_dir)
+					L     <Plug>(vimfiler_switch_to_drive)
+					<url:file:///~      <Plug>(vimfiler_switch_to_home_directory)>
+					\     <Plug>(vimfiler_switch_to_root_directory)
+					&     <Plug>(vimfiler_switch_to_project_directory)
+					<C-j>     <Plug>(vimfiler_switch_to_history_directory)
+				switch windows
+					<Tab> (default)
+								<Plug>(vimfiler_switch_to_another_vimfiler)
+					<Tab> (enabled "no-quit" and "split" options)
+								<Plug>(vimfiler_switch_to_other_window)
+					q     <Plug>(vimfiler_hide)
+					Q     <Plug>(vimfiler_exit)
+					-     <Plug>(vimfiler_close)
+					g?      <Plug>(vimfiler_help)
+				system-shell
+					v     <Plug>(vimfiler_preview_file)
+					ge      <Plug>(vimfiler_execute_external_filer)
+					H     <Plug>(vimfiler_popup_shell)
+					!     <Plug>(vimfiler_execute_shell_command)
+					gr      <Plug>(vimfiler_grep)
+					gf      <Plug>(vimfiler_find)
+					Y     <Plug>(vimfiler_pushd)
+					P     <Plug>(vimfiler_popd)
+			steps
+				plug keymappings nerede tanımlanıyor?
+					vimfiler_cd_input_directory
+					nnoremap <buffer><silent> <Plug>(vimfiler_cd_input_directory)
+								\ :<C-u>call <SID>cd_input_directory()<CR>
+				utl ile help url'lerine nasıl link veriliyordu?
+					<url:vimhelp:vimfiler-default-key-mappings>
+		nerdtree - file explorer
+			keybindings
+				<vimhelp:NERDTreeMappings>
+				my customizations
+					e  preview file 
+				open
+					o/enter		open file
+					go  preview file
+					t/T		tab/silently
+					i/gi	split/silently
+					s/gs	vsplit/silently
+				tree navigation
+					x/X		close dir/recursively
+					P		jump to root
+					p		jump to parent
+					K/J		top/tail of branch
+					^K/J	up/dn sibling of dir
+				change dirs
+					C		change root to selected dir
+					u		up one dir
+						U		keep old root open
+					r/R		refresh/all
+					cd	change cwd to node
+					CD	change root to cwd
+				toggles
+					m		menu
+					I		hidden files
+					B		toggle bookmarks
+					q		quit
+					A		maximize window
+					?		help
+				bookmarks
+					D		delete
+					:Bookmark <name>		new bookmark
+	swoop: search globally with preview
+		https://github.com/pelodelfuego/vim-swoop
+		<url:file:///~/.vim/bundle/vim-swoop/README.md>
+		direct command	
+			:Swoop <pattern>
+				single buffer search
+				ül
+			:Swoop! <pattern>
+				all buffers
+				üml
+		:q	quit
+		:w  save
+	Utl: universal text links
+		help
+			<vimhelp:utl-tutUI>
+			:Utl <command> <operand> <mode>
+				:Utl openLink underCursor edit  " default
+				:Utl openLink underCursor split " Open link in split window
+				:Utl openLink underCursor tabe  " Open link in new tab
+			command completion works
+				:Utl <Tab>
+			visual selection
+				ex:
+					select line with ex command:
+					:ls
+				:Utl openLink visual
+				:Utl o v
+			vimscript scheme (ex commands)
+				<url:vimscript:ls>
+				<url:vimscript:split|call input('I will open a new window now!')>
+				<url:vimscript:call input('Hit %3creturn%3e to continue')>
+					hex value for < %3c > %3e
+				global variables must be prefixed with g
+				smart samples <vimhelp:utl-smartSamples>
+					lookup word
+						nmap ,l :exe ":Utl ol http://dict.leo.org/?search=" . expand("<cword>")
+					jump to an open window/tab
+						:set switchbuf=usetab
+					backup a file
+						<url:vimscript::let dt=strftime('%Y%m%d_%H%M') | exe ':w /tmp/'.dt.'_%:t'>
+		linking and references
+			<url:vimhelp:%5cM>
+			<url:vimhelp:vimfiler-default-key-mappings>
+		id
+			<url:#r=come-here>
+			id=come-here
+		text next
+			<url:#tn=some text>
+			here will come some text
+			or
+			<url:#some text>
+		file links
+			<url:../plugin/utl.vim>
+			<url:../plugin/utl.vim#tn=thanks for>
+			<url:../problem_data_model_20160305.md#r=come-here>
+		url
+			<url:http//www.vim.org>
+		embedding-less links
+			filename.txt
+		custom utl links
+			ex
+				" open <url:yt:T-1265>
+				" opens: http://yt.teuis.net/issue/T-1265
+				let btId = UtlUri_unescape( UtlUri_opaque(a:url) )
+				" btId = T-1265
+			ex: <url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=function! Utl_AddressScheme_f>
+			ex
+				<url:/Users/mertnuhoglu/.vim/bundle/my-vim-baku-project/plugin/my-vim-baku-project.vim#tn=fu! Utl_AddressScheme_yt(url, fragment, dispMode)>
+				fu! Utl_AddressScheme_yt(url, fragment, dispMode)		
 					" open <url:yt:T-1265>
 					" opens: http://yt.teuis.net/issue/T-1265
 					let btId = UtlUri_unescape( UtlUri_opaque(a:url) )
-					" btId = T-1265
-				ex: <url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=function! Utl_AddressScheme_f>
+					let btUrl = 'http://yt.teuis.net/issue/'.btId
+					return  Utl_AddressScheme_http(btUrl, a:fragment, a:dispMode)
+				endfu
+			ex
+				<url:/Users/mertnuhoglu/.vim/bundle/my-vim-baku-project/plugin/my-vim-baku-project.vim#tn=fu! Utl_AddressScheme_p(url, fragment, dispMode)>
+				fu! Utl_AddressScheme_p(url, fragment, dispMode)		
+					" p:#p01
+					" opens: /~/Dropbox (BTG)/TEUIS PROJECT 00-BTG TEAM FOLDER/problems/problem_rdb_review/problem_rdb_review_tracking.md#p01
+					let btId = UtlUri_unescape( UtlUri_opaque(a:url) )
+					echo btId
+					let filepath = '/~/Dropbox (BTG)/TEUIS PROJECT 00-BTG TEAM FOLDER/problems/problem_rdb_review/problem_rdb_review_tracking.md#r='
+					let btUrl = filepath . btId
+					echom btUrl
+					let result = Utl_AddressScheme_file(btUrl, a:fragment, a:dispMode)
+					return result
+				endfu
+	vim-polyglot
+		collection of language packs
+		https://github.com/sheerun/vim-polyglot
+	vim-db database client
+		https://github.com/tpope/vim-db
+		:DB postgresql:///<dbname> <sql>
+		DB postgresql:///app select * from data.client
+			sql query 
+		DB postgresql:///<dbname> < <sql_file>
+			import external sql file
+		DB g:prod = postgresql://superuser:superuserpass@localhost/app
+			DB g:prod select * from data.client
+			# global variable: g:prod
+		DB postgresql:///$PGDATABASE select * from data.client
+			environment var: $PGDATABASE
+	vimproc
+		install
+			$ make
+				from vimproc repo
+		examples  
+			let file = vimproc#fopen("./meta.R", "O_RDONLY", 0)
+			let res = file.read()
+			call file.close()
+			new
+			call append(0, split(res, '\r\n\|\r\|\n'))
+	ctags
+		http://andrewradev.com/2011/06/08/vim-and-ctags/
+			static tags
 				ex
-					<url:/Users/mertnuhoglu/.vim/bundle/my-vim-baku-project/plugin/my-vim-baku-project.vim#tn=fu! Utl_AddressScheme_yt(url, fragment, dispMode)>
-					fu! Utl_AddressScheme_yt(url, fragment, dispMode)		
-						" open <url:yt:T-1265>
-						" opens: http://yt.teuis.net/issue/T-1265
-						let btId = UtlUri_unescape( UtlUri_opaque(a:url) )
-						let btUrl = 'http://yt.teuis.net/issue/'.btId
-						return  Utl_AddressScheme_http(btUrl, a:fragment, a:dispMode)
-					endfu
+					set tags+=~/tags/rails.tags
+			taglist: for using tag data in your own functions
 				ex
-					<url:/Users/mertnuhoglu/.vim/bundle/my-vim-baku-project/plugin/my-vim-baku-project.vim#tn=fu! Utl_AddressScheme_p(url, fragment, dispMode)>
-					fu! Utl_AddressScheme_p(url, fragment, dispMode)		
-						" p:#p01
-						" opens: /~/Dropbox (BTG)/TEUIS PROJECT 00-BTG TEAM FOLDER/problems/problem_rdb_review/problem_rdb_review_tracking.md#p01
-						let btId = UtlUri_unescape( UtlUri_opaque(a:url) )
-						echo btId
-						let filepath = '/~/Dropbox (BTG)/TEUIS PROJECT 00-BTG TEAM FOLDER/problems/problem_rdb_review/problem_rdb_review_tracking.md#r='
-						let btUrl = filepath . btId
-						echom btUrl
-						let result = Utl_AddressScheme_file(btUrl, a:fragment, a:dispMode)
-						return result
-					endfu
+					let tags = taglist('^'.a:name)
+					let tags = filter(tags, 'v:val["kind"] == "f"')
+		multiple tags file
+			opt01
+				set tags=./tags
+			check which tags file is used
+				let tagfiles = tagfiles()
+				echo tagfiles
+			set tags=./tags,./../tags,./../../tags,./../../../tags,tags
+			<vimhelp:tagfiles()>
+			<vimhelp:'tags'>
+		universal-ctags
+			https://github.com/universal-ctags/ctags
+				manual
+					Universal-ctags doesn't load ~/.ctags and ./.ctags at starting up time. 
+					it loads ~/.ctags.d/*.ctags and ./.ctags.d/*.ctags. 
+			http://docs.ctags.io/en/latest/
+				official documentation
+			debugging
+				ctags --verbose -R .
+					# shows what config options are loaded
+			error: --exclude patterns are ignored
+				cause: ~/.ctags.d/.ctags file is ignored
+				put options into ~/.ctags.d/js.ctags 
+			how does gutentags find the project root to create "tags" file?
+				<url:vimhelp:gutentags_add_default_project_roots>
+				checks for project markers:
+					.git .hg _FOSSIL_
+			pattern for js
+				https://github.com/romainl/ctags-patterns-for-javascript
+					fix: replace F with f
+						--regex-javascript=/^[ \t]*const[ \t]\{1,\}\([a-z][A-Za-z0-9_$]\{1,\}\)[ \t]*=[ \t]*([^\*]/\1/F,Function,Functions/b
+		https://medium.com/@kuiro5/best-way-to-set-up-ctags-with-neovim-37be99c1bd11
+			install universal-ctags
+				brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+			install vim-gutentags
+				async updates tag file on save
+		error: E257: cstag: tag not found
+			https://stackoverflow.com/questions/4137359/vim-ctags-setup
+			opt1
+				:set tags?
+				tags=~/.vim/vimoutliner/vo_tags.tag,./tags
+			opt2
+				cstag is wrong command
+					verb map <c-]> 
+					verb map Ü
+					verb set cst? 
+					#> cscopetag
+					remove cscope from .vimrc
+			disable cscope in vim
+		https://andrew.stwrt.ca/posts/vim-ctags/
+			41 languages supported
+			using ctags
+				ctags -R .
+				ctags -R -f ./.git/tags .
+					put tags file into .git
+			using in vim
+				:tag function_name
+			vim commands
+				:tag /^asserts_*
+					find all tags that start with asserts_
+				:ts :tselect
+				: show list
+				:tn :tnext
+				:tp
+				:tf :tfirst
+				:tl :tlast
+				:tags
+					show tags you've traversed
+			vim+ctags+ctrlp
+				:CtrlPTag
+				nnoremap <leader>.. :CtrlPTag<cr>
+			vim+ctags+tagbar
+				nnoremap <silent> <Leader>b :TagbarToggle<cr>
+					pops up in sidebar
+					show tags organized
+			<url:file:///.ctags>
+				<url:file:///~/.ctags>
+				configuration
+			help
+				:help exuberant-ctags
+		https://github.com/ludovicchabant/vim-gutentags
+			<url:~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=gutentags>
+		http://andrewradev.com/2011/06/08/vim-and-ctags/
+			:Function foo
+				list functions that start with foo in quickfix
+	ctrlp
+		CtrlP Help
+			:CtrlP
+				starting dir: g:ctrlp_working_path_mode
+				let g:ctrlp_working_path_mode = 'ra'
+					c: current file's dir
+					a: when cwd isn't ancestor of dir of current file
+					r: ancestor dir containing: .git
+					0: disable
+		Basic commands
+			Once CtrlP is open:
+				F5  refresh cache
+				<c-f> and <c-b> 
+					to cycle between modes.
+				<c-j>, <c-k> or the arrow keys 
+					to navigate the result list.
+				search modes
+					<c-d> 
+						to switch to filename only search instead of full path.
+					<c-r> 
+						to switch to regexp mode.
+				<c-t> or <c-v>, <c-x> 
+					to open a new tab or in a new split.
+				<c-n>, <c-p> 
+					next/previous string in history.
+				<c-y> 
+					to create a new file and its parent directories.
+				<c-z> 
+					to mark/unmark multiple files and <c-o> to open them.
+			:help ctrlp-mappings or submit ? in CtrlP for more mapping help.
+				<url:file:///.. >
+					go up the directory tree by one or multiple levels.
+				:command at the end of input
+					Use :25 to jump to line 25. Use :diffthis when opening multiple files to run :diffthis on the first 4 files.
+points
+	check localleader and leader
+		:echo mapleader
+		:let mapleader = "\<Space>"
+	colorscheme themes id=g_11968
+		dark
+			rigel
+			oceanicnext
+			Monokai
+			parsec
+			MountainDew
+				yeşil arka fonlu
+			SlateDark
+				bir tek which-key menüsünün arka fonu ve comment satırları düzgün okunmuyor
+			sierra
+			gloom-contrast
+			allure-contrast
+			one
+			onedark
+			nordisk
+			pyte
+			lightning
+			termschool
+			nord
+			northsky: lacivert
+			norwaytoday
+			obsidian2
+		light
+			papercolor
+			lightning
+			bold-light
+			PapayaWhip
+			oceanicnextlight
+			newton-light
+			hub-light
+			nuvola
+	delete up to matched line
+		g/Notlar/,/Bulgular/ d
+			delete from line "Notlar" upto line "Bulgular"
+		g/Notlar/,/Bulgular/-1 d
+			delete from line "Notlar" upto one line before line "Bulgular"
+	:make command
+		:make
+			runs make build
+		:cn
+			next error
+	:marks
+		lists all marks
+	smart case - case insensitive search
+		opt01: \c
+			/\c<keyword>
+			https://stackoverflow.com/questions/2287440/how-to-do-case-insensitive-search-in-vim
+		opt02: 
+			set ignorecase
+			set smartcase
+		opt03: 
+			set ignorecase
+	highlight specific words
+		https://stackoverflow.com/questions/27686440/in-vim-editor-how-can-some-specific-words-be-always-highlighted
+			<vimhelp:highlight>
+			<vimhelp:match>
+			ex
+				hi! Important ctermbg=red guibg=red
+				match Important /!Important!/
+			ex
+			ex: see active highlight-groups
+				:so $VIMRUNTIME/syntax/hitest.vim
+			ex: add to existing groups
+				match Title /\<fromNullable\>/
+	make current window full screen
+		üt: opens a new tab with current window
+		^W T: same but closes current window
+	open a repl inside vim
+		gQ
+	getting file path
+		help filename-modifiers
+		ex
+			expand("%:p:h")
+				full path of directory of current file
+			expand("%:p")
+				full path of current file
+				p: full path
+			expand("%:r")
+				root of file name: file extension removed
+			let file_name = expand('%:t:r')
+				get file name
+			cd %:p:h
+		<vimhelp:filename-modifiers>
+			:p
+				make file_name a full path
+			:~
+				reduce file name to be relative to home dir
+			:.
+				reduce file name to be relative to current directory
+			:h
+				head of file name (last component)
+		ex: from help
+			Examples, when the file name is "src/version.c", current dir
+			"/home/mool/vim": >
+				:p			/home/mool/vim/src/version.c
+				:p:.				       src/version.c
+				:p:~				 ~/vim/src/version.c
+				:h				       src
+				:p:h			/home/mool/vim/src
+				:p:h:h		/home/mool/vim
+				:t					   version.c
+				:p:t					   version.c
+				:r				       src/version
+				:p:r			/home/mool/vim/src/version
+				:t:r					   version
+				:e						   c
+				:s?version?main?		       src/main.c
+				:s?version?main?:p	/home/mool/vim/src/main.c
+				:p:gs?/?\\?		\home\mool\vim\src\version.c
+			Examples, when the file name is "src/version.c.gz": >
+				:p			/home/mool/vim/src/version.c.gz
+				:e						     gz
+				:e:e						   c.gz
+				:e:e:e					   c.gz
+				:e:e:r					   c
+				:r				       src/version.c
+				:r:e						   c
+				:r:r				       src/version
+				:r:r:r			       src/version
+	tab colors
+		lightline gibi tabline eklentisi kullanıyorsan, oradan değiştirmelisin
+			ref
+				lightline: statusline/tabline  <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10570>
+		https://stackoverflow.com/questions/7238113/customising-the-colours-of-vims-tab-bar
+			:hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
+			:hi TabLine ctermfg=Blue ctermbg=Yellow
+			:hi TabLineSel ctermfg=Red ctermbg=Yellow
+			This line affects the window counter per tab:
+			:hi Title ctermfg=LightBlue ctermbg=Magenta
+viml vimscript id=g_10491
+	viml vimscript <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10491>
+	refcard - komut listesi
+		expand
+			let word = expand('<cword>')
+		getline
+			let lines = getline(lnum1, lnum2)
+		getpos
+			let [lnum1, col1] = getpos("'<")[1:2]
+		input
+			let name = input('Enter name: ')
+		matchstr
+			let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+		printf
+			let result = printf("<url:file:///%s#r=%s>", filename3, id)
+		readfile
+			let line = readfile(global_refid, 1)[0]
+		strftime
+			let date = strftime("%Y%m%d")
+		substitute
+			let url = substitute(url, ">\s*", "", "")
+	visual range to a command as its argument
+		https://vi.stackexchange.com/questions/11025/passing-visual-range-to-a-command-as-its-argument
+			function! PrintGivenRange() range
+				echo "firstline ".a:firstline." lastline ".a:lastline
+				" Do some more things
+			endfunction
+			command! -range PassRange <line1>,<line2>call PrintGivenRange()
+		ex
+			function! SurroundMdImage() range
+				exe a:firstline.",".a:lastline."g/\\(\\.jpg\\>\\)\\|\\(\\.png\\)/ s#\\(^\\)\\(.*/\\)\\([^/]\\+\\)\\(\\..*$\\)#![\\3](\\2\\3\\4)#"
+			endfunction
+			command! -nargs=* -range=% SurroundMdImage <line1>,<line2>call SurroundMdImage()
+	window/buffer navigation: goto some window/buffer id=g_10490
+		window/buffer navigation: goto some window/buffer <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10490>
+		echo bufnr("%")
+		win_findbuf(6)
+		win_gotoid(win_id)
+		win_id2tabwin({expr}
+		:echo "The file in the current window is " . bufname(winbufnr(0))
+		win_getid([{win}
+		window-ID
+			each window has a window ID
+		win_getid(winnr)
+			winnr -> win_id
+		win_id2tabwin()
+			win_id -> win/tab number
+		winnr()
+			window number that may change
+			for current window only
+		:<winnr> wincmd w
+			go to winnr
+		win_id2win(win_id)
+			win_id -> winnr
+		bufnr("name")
+			name -> buf id
+		bufname(id)
+			buf id -> name
+		ex:
+			" <url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=function! CollectLine()>
+			" <url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=function! SwitchToNerdTree()>
+	substitute replace with regex
+		<vimhelp:substitute()>
+		ex
+			echo substitute("testing", ".*", "\\U\\0", "")
+			echo substitute('   a', '^\s*\(.\{-}\)\s*$', '\1', '')
+	insert string (result of a command) into text
+		https://unix.stackexchange.com/questions/8101/how-to-insert-the-result-of-a-command-into-the-text-in-vim
+		opt1: use expression register "=
+			with P in normal 
+			with <C-R> in insert mode
+			ex: normal
+				"=strftime('%c')<C-M>p
+			<C-M>: enter
+			ex: insert
+				<C-R>=strftime('%c')<C-M>
+			ex: mapping to keys
+				nmap <F2> "=strftime('%c')<C-M>p
+		opt2: use :put command
+			ex: any expression or variable
+				put =a:refid
+			ex: inline
+				put =a:refid
+				normal! kJ
+	<bang>	(See the '-bang' attribute) Expands to a ! if the
+		command was executed with a ! modifier, otherwise
+		expands to nothing.
+		<vimhelp:bang>
+	-bang
+		-bang	    The command can take a ! modifier (like :q or :w)
+		<vimhelp:command-bang>
+	let args = {}
+		{} is empty object
+		this is declaring an object
+		args[key] = elem
+			this adds elem to key property of args object
+	List
+		<vimhelp:List>
+		:let mylist = [1, two, 3, "four"]
+		:let emptylist = []
+		:let nestlist = [[11, 12], [21, 22], [31, 32]]
+	Ampersand in front of variable &var
+		referring to the option, not a variable
+			http://learnvimscriptthehardway.stevelosh.com/chapters/19.html
+	*a:0* *a:1* *a:000* *E740* *...*
+		<vimhelp:a:000>
+		Up to 20 arguments can be given, separated by commas.  After the named arguments an argument "..." can be specified
+		"a:000" is set to a |List| that contains these arguments
+vim documentation
 	neovim
+		:TOhtml id=g_11899
+			syntax highlighted html output as seen in neovim
 		<vimhelp:nvim-intro>
 			differences between vim and nvim
 				<vimhelp:vim-differences>
@@ -658,31 +904,98 @@ _ id=r_lastid cvim_002
 				pumvisible()
 				pumvisible()
 				projects/study/problem/datatables_in_cyclejs/ex/ex0
-	plugins 
-		surround
-			<vimhelp:*surround-mappings*>
-			ys[object]
-				ysw	surround word
-				ysa'	surround quoted text
-		install plugins
-			vim-plug plugin manager
-			put new line
-			open nvim
-				:PlugInstall
-		tabular: align
+	vim-plug plug.vim: plugin manager
+		https://github.com/junegunn/vim-plug
+		use
+			reload .vimrc
+			:PlugInstall
+		Plug 'junegunn/vim-easy-align'
+		after opening nvim:
+			:PlugClean
+				remove unused plugins
+			:PlugUpgrade
+				upgrade vim-plug
+			:PlugInstall
+				install plugins
+			:PlugUpdate
+				install/update plugins
+my keybindings
+	c commands
+		mnemonics
+			c = command
+		nnoremap cm :Commands<cr>
+			c command, m mand
+		nnoremap cl :Files<cr>
+			c command, l ls
+		nnoremap cnt :NERDTreeToggle<cr>
+			c command, nt nerdtree
+		nnoremap cnf :NERDTreeFind<cr>
+articles-books
+	javascript in vim id=g_10197
+		javascript in vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10197>
+		https://davidosomething.com/blog/vim-for-javascript/
+			https://github.com/sheerun/vim-polyglot
+			https://github.com/pangloss/vim-javascript
+			https://github.com/junegunn/vim-plug
+			https://github.com/othree/javascript-libraries-syntax.vim
+			https://github.com/ternjs/tern_for_vim
+				Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+			https://github.com/othree/jspc.vim
+			https://github.com/ramitos/jsctags
+			https://github.com/benekastah/neomake
+			https://github.com/davidosomething/dotfiles/tree/master/vim
+		http://www.panozzaj.com/blog/2015/08/28/must-have-vim-javascript-setup/
+			https://github.com/moll/vim-node
+			https://github.com/groenewege/vim-less
+			https://github.com/tpope/vim-projectionist
+			https://github.com/SirVer/ultisnips
+	Learn Vimscript the Hard Way
+		Autoloading
+			http://learnvimscriptthehardway.stevelosh.com/chapters/53.html
+			How Autoload Works
+				For large plugins, loading all of code takes a lot of time
+				Solution: autoload
+				It delays loading code until it is needed
+				ex
+					:call somefile#Hello()
+				vim looks for a file: `autolad/somefile.vim` inside bundles
+				definition inside somefile.vim
+					function somefile#Hello()
+				multiple slash # characters represent subdirectories
+					usage:
+						:call myplugin#somefile#Hello()
+					looks for:
+						autoload/myplugin/somfile.vim
+					definition:
+						function myplugin#somefile#Hello()
+all
+	error: indent kendi kendine bozuluyor otl dosyalarında
+		solution
+			https://vi.stackexchange.com/questions/11023/auto-indent-turns-off-itself-automatically-on-php-files
+				autocmd FileType php setlocal autoindent
+				autocmd FileType votl setlocal autoindent
+		set autoindent
+		set ai
+		set smartindent
+		set si
+	ftdetect ftplugin: filetype specific scripts
+		https://stackoverflow.com/questions/6133341/can-you-have-file-type-specific-key-bindings-in-vim
 			ref
-				tabular align text <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11680>
-		spacemacs - vim-which-key
-			ref
-				vim-which-key spacemacs emacs-which-key port {{{ <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11679>
-				<url:vimhelp:vim-which-key>
-		deoplete - autocomplete
-		easymotion - quick move chars
-			m: my leader
-			mmw		move by word
-			mmf		search by letter
-			mmj/k		up/down lines
-			mmn/N		by / search
+				~/.vim/ftplugin/typescript.vim
+			/Users/mertnuhoglu/.vim/ftplugin
+			typescript.vim
+				nmap <buffer> Ü <Plug>(ale_go_to_definition)
+			:set ft?
+	set/use environment variables in vim
+		let $VRP_PSK_DIR = '/Users/mertnuhoglu/projects/itr/vrp_psk01'
+		echo $VRP_PSK_DIR
+	vim slides presentation tool
+	mark marks marking bookmarking
+		<vimhelp:mark>
+		'>  `>			To the last line or character of the last selected
+			Visual area in the current buffer. 
+		'<  `<			To the first line or character of the last selected
+			Visual area in the current buffer.  For block mode it
 	navigate help topics in vim's documentation
 		https://vi.stackexchange.com/questions/2136/how-do-i-navigate-to-topics-in-vims-documentation
 		ans1
@@ -905,76 +1218,6 @@ _ id=r_lastid cvim_002
 			`<url:file:///` yazacağıma `<url:/` yazmışım
 			düzeltmek için tek komut yetti:
 			bufdo %s#url:file:///#url:file:///# 
-	vinegar
-		bookmarking a directory
-			mb        mark bookmark
-			{cnt}gb   go back to bookmarked dir
-			mB        delete bookmark
-		shortcuts
-			I   help
-			i   file information
-			-   open explorer
-			enter     open file
-			o         open horizontal split
-			v         open vertical split
-			.         prepopulate command line
-			!         prepop with bang
-			cg cl     add to cd lcd
-			:Ntree    change path
-			a         switch appearance of files
-			d         new dir
-			%         new file
-			file copying
-				mt      mark target dir
-				mf      mark files
-				mc      copy files
-	TableMode
-		https://github.com/dhruvasagar/vim-table-mode
-		start using
-			:TableModeToggle
-				ütm
-		table mode
-			enter first line
-				| col1 | col2 |
-			second line
-				||
-			body lines
-				| content 1 |
-			last line
-				||
-		convert existing content into a table
-			:Tableize
-				ütt
-			default separator: ,
-				g:table_mode_tableize_map
-			:Tableize/;
-				separator: ;
-				üT
-					take input from cmd line
-		examples
-			can be indented too
-			| col 1 | col 2  |
-			|-------|--------|
-			| pg1   | pg 2   |
-			| cl15  | cl35_a |
-			|-------|--------|
-	voom
-		outline navigation
-		outline navigation in tree
-			click    move
-			i I    beginning of node
-			space    toggle node
-			left/right    to parent/child
-		voomgrep
-			very sophisticated search tool
-		moving
-			^^  ^up  üu
-			--  ^dn  üd
-			<<  ^lf  ül
-			>>  ^rg  ür
-			yy  "+ register
-			dd
-			pp
 	Transpose a csv file
 		:Transpose
 		:CsvTranspose
@@ -1024,143 +1267,6 @@ _ id=r_lastid cvim_002
 		running <Plug> mapping
 			http://stackoverflow.com/questions/18546533/execute-plug-commands-in-vim
 			:execute "normal \<Plug>NiceCenterCursor"
-	vimproc
-		install
-			$ make
-				from vimproc repo
-		examples  
-			let file = vimproc#fopen("./meta.R", "O_RDONLY", 0)
-			let res = file.read()
-			call file.close()
-			new
-			call append(0, split(res, '\r\n\|\r\|\n'))
-	ctags
-		http://andrewradev.com/2011/06/08/vim-and-ctags/
-			static tags
-				ex
-					set tags+=~/tags/rails.tags
-			taglist: for using tag data in your own functions
-				ex
-					let tags = taglist('^'.a:name)
-					let tags = filter(tags, 'v:val["kind"] == "f"')
-		multiple tags file
-			opt01
-				set tags=./tags
-			check which tags file is used
-				let tagfiles = tagfiles()
-				echo tagfiles
-			set tags=./tags,./../tags,./../../tags,./../../../tags,tags
-			<vimhelp:tagfiles()>
-			<vimhelp:'tags'>
-		universal-ctags
-			https://github.com/universal-ctags/ctags
-				manual
-					Universal-ctags doesn't load ~/.ctags and ./.ctags at starting up time. 
-					it loads ~/.ctags.d/*.ctags and ./.ctags.d/*.ctags. 
-			http://docs.ctags.io/en/latest/
-				official documentation
-			debugging
-				ctags --verbose -R .
-					# shows what config options are loaded
-			error: --exclude patterns are ignored
-				cause: ~/.ctags.d/.ctags file is ignored
-				put options into ~/.ctags.d/js.ctags 
-			how does gutentags find the project root to create "tags" file?
-				<url:vimhelp:gutentags_add_default_project_roots>
-				checks for project markers:
-					.git .hg _FOSSIL_
-			pattern for js
-				https://github.com/romainl/ctags-patterns-for-javascript
-					fix: replace F with f
-						--regex-javascript=/^[ \t]*const[ \t]\{1,\}\([a-z][A-Za-z0-9_$]\{1,\}\)[ \t]*=[ \t]*([^\*]/\1/F,Function,Functions/b
-		https://medium.com/@kuiro5/best-way-to-set-up-ctags-with-neovim-37be99c1bd11
-			install universal-ctags
-				brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-			install vim-gutentags
-				async updates tag file on save
-		error: E257: cstag: tag not found
-			https://stackoverflow.com/questions/4137359/vim-ctags-setup
-			opt1
-				:set tags?
-				tags=~/.vim/vimoutliner/vo_tags.tag,./tags
-			opt2
-				cstag is wrong command
-					verb map <c-]> 
-					verb map Ü
-					verb set cst? 
-					#> cscopetag
-					remove cscope from .vimrc
-			disable cscope in vim
-		https://andrew.stwrt.ca/posts/vim-ctags/
-			41 languages supported
-			using ctags
-				ctags -R .
-				ctags -R -f ./.git/tags .
-					put tags file into .git
-			using in vim
-				:tag function_name
-			vim commands
-				:tag /^asserts_*
-					find all tags that start with asserts_
-				:ts :tselect
-				: show list
-				:tn :tnext
-				:tp
-				:tf :tfirst
-				:tl :tlast
-				:tags
-					show tags you've traversed
-			vim+ctags+ctrlp
-				:CtrlPTag
-				nnoremap <leader>.. :CtrlPTag<cr>
-			vim+ctags+tagbar
-				nnoremap <silent> <Leader>b :TagbarToggle<cr>
-					pops up in sidebar
-					show tags organized
-			<url:file:///.ctags>
-				<url:file:///~/.ctags>
-				configuration
-			help
-				:help exuberant-ctags
-		https://github.com/ludovicchabant/vim-gutentags
-			<url:~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=gutentags>
-		http://andrewradev.com/2011/06/08/vim-and-ctags/
-			:Function foo
-				list functions that start with foo in quickfix
-	ctrlp
-		CtrlP Help
-			:CtrlP
-				starting dir: g:ctrlp_working_path_mode
-				let g:ctrlp_working_path_mode = 'ra'
-					c: current file's dir
-					a: when cwd isn't ancestor of dir of current file
-					r: ancestor dir containing: .git
-					0: disable
-		Basic commands
-			Once CtrlP is open:
-				F5  refresh cache
-				<c-f> and <c-b> 
-					to cycle between modes.
-				<c-j>, <c-k> or the arrow keys 
-					to navigate the result list.
-				search modes
-					<c-d> 
-						to switch to filename only search instead of full path.
-					<c-r> 
-						to switch to regexp mode.
-				<c-t> or <c-v>, <c-x> 
-					to open a new tab or in a new split.
-				<c-n>, <c-p> 
-					next/previous string in history.
-				<c-y> 
-					to create a new file and its parent directories.
-				<c-z> 
-					to mark/unmark multiple files and <c-o> to open them.
-			:help ctrlp-mappings or submit ? in CtrlP for more mapping help.
-				<url:file:///.. >
-					go up the directory tree by one or multiple levels.
-				:command at the end of input
-					Use :25 to jump to line 25. Use :diffthis when opening multiple files to run :diffthis on the first 4 files.
 	gen_tags
 		https://github.com/jsfaint/gen_tags.vim
 		ctags+gtags
@@ -1169,74 +1275,7 @@ _ id=r_lastid cvim_002
 		ctags support
 			GenCtags
 				generate ctags database
-	vim-db database client
-		https://github.com/tpope/vim-db
-		:DB postgresql:///<dbname> <sql>
-		DB postgresql:///app select * from data.client
-			sql query 
-		DB postgresql:///<dbname> < <sql_file>
-			import external sql file
-		DB g:prod = postgresql://superuser:superuserpass@localhost/app
-			DB g:prod select * from data.client
-			# global variable: g:prod
-		DB postgresql:///$PGDATABASE select * from data.client
-			environment var: $PGDATABASE
 	vim-dotenv environment variables
-	vim-plug plug.vim: plugin manager
-		https://github.com/junegunn/vim-plug
-		use
-			reload .vimrc
-			:PlugInstall
-		Plug 'junegunn/vim-easy-align'
-		after opening nvim:
-			:PlugClean
-				remove unused plugins
-			:PlugUpgrade
-				upgrade vim-plug
-			:PlugInstall
-				install plugins
-			:PlugUpdate
-				install/update plugins
-	vim-polyglot
-		collection of language packs
-		https://github.com/sheerun/vim-polyglot
-	javascript in vim id=g_10197
-		javascript in vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10197>
-		https://davidosomething.com/blog/vim-for-javascript/
-			https://github.com/sheerun/vim-polyglot
-			https://github.com/pangloss/vim-javascript
-			https://github.com/junegunn/vim-plug
-			https://github.com/othree/javascript-libraries-syntax.vim
-			https://github.com/ternjs/tern_for_vim
-				Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-			https://github.com/othree/jspc.vim
-			https://github.com/ramitos/jsctags
-			https://github.com/benekastah/neomake
-			https://github.com/davidosomething/dotfiles/tree/master/vim
-		http://www.panozzaj.com/blog/2015/08/28/must-have-vim-javascript-setup/
-			https://github.com/moll/vim-node
-			https://github.com/groenewege/vim-less
-			https://github.com/tpope/vim-projectionist
-			https://github.com/SirVer/ultisnips
-	Learn Vimscript the Hard Way
-		Autoloading
-			http://learnvimscriptthehardway.stevelosh.com/chapters/53.html
-			How Autoload Works
-				For large plugins, loading all of code takes a lot of time
-				Solution: autoload
-				It delays loading code until it is needed
-				ex
-					:call somefile#Hello()
-				vim looks for a file: `autolad/somefile.vim` inside bundles
-				definition inside somefile.vim
-					function somefile#Hello()
-				multiple slash # characters represent subdirectories
-					usage:
-						:call myplugin#somefile#Hello()
-					looks for:
-						autoload/myplugin/somfile.vim
-					definition:
-						function myplugin#somefile#Hello()
 	how to
 		:messages # show error messages
 

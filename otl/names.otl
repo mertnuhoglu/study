@@ -18,6 +18,10 @@ names
 		ref: sistematik kaydetme yöntemi <url:file:///~/projects/myrepo/general/rules.otl#r=g_11661>
 		özfarkındalık
 			ref: Kaygının sebebini araştır ve yazıya dök 20201130  <url:file:///~/projects/myrepo/nx/nproduct/nidea/nidea.otl#r=g_11777>
+		hafızaya çıpalama
+			ref
+				Hafızaya çıpalama yoluyla öğrenmeyi destekleme 20210125  <url:file:///~/projects/myrepo/general/rules.otl#r=g_11942>
+			Yeni bir bilgiyi hafızama eklemek için pek çok yere çıpa takıyorum
 
 tools
 	bash

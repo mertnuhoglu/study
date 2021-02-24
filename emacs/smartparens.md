@@ -15,9 +15,9 @@ state: wip
 
 ---
 
-# Index - smartparens
+# Index - smartparens id=g_11901
 
-`cleverparens: README <url:file:///~/projects/study/emacs/smartparens.md#r=g_11864>`
+`Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g_11961>`
 
 `Aktifleştirme: cleverparens <url:file:///~/projects/study/emacs/smartparens.md#r=g_11857>`
 
@@ -46,6 +46,8 @@ Nasıl ki dplyr ve tidyverse kütüphaneleriyle veri manipülasyonu, bulmaca ç�
 Zaten aslında altta yatan mantık da birbirine benziyor. Birisinde ilişkisel veri üzerinde transformasyon yapıyorsun, diğerinde hiyerarşik AST verisi üzerinde.
 
 Ayrıca vim'deki collapse komutları `zm zM` vs. de smartparens'ın motion komutlarına denk geliyor önemli oranda.
+
+Bir başka faydası da, paredit sayesinde AST'nin yapısını görmeye ve bunun üzerinde düşünmeye zihnini odaklıyorsun. Normalde kodlar lineer yazılan ve birbiriyle ilişkisi çok açık net olmayan yapılardır. Fakat lisp dillerinde tüm kodlar bir hiyerarşi içinde yazılıyor. Ne var ki, bu hiyerarşiyi okumak oldukça zor. paredit bu hiyerarşiyi okumaya insanı zorluyor ve bu hiyerarşiyi anlamlandırmak için de insana bir kelime dağarcığı ve gramer sağlıyor. 
 
 # Smartparens Cheatsheet
 
@@ -191,47 +193,53 @@ To enable evil-cleverparens with your favorite lispy-mode use:
 
 Part of embracing Lisp and structural editing is learning to love the parentheses. Vim/evil is optimized for moving around by units of text, but for friends of Lisp the parentheses are more than just text
 
+## Cheatsheet cleverparens vim-sexp id=g_11961
+
 ref: `~/projects/study/emacs/ex/smartparens/e01/cleverparens_commands.clj`
 
-	| slurp barf |                                     |
-	| >          | evil-cp->                           |
-	| <          | evil-cp-<                           |
-	| wrapping   |                                     |
-	| M-(        | evil-cp-wrap-next-round             |
-	| M-)        | evil-cp-wrap-previous-round         |
-	| M-[] M-{}  | similar...                          |
-	| moving     |                                     |
-  | M-j        | evil-cp-drag-forward                |
-  | M-k        | evil-cp-drag-backward               |
-  | M-t        | sp-transpose-sexp                   |
-	| M-v        | sp-convolute-sexp                   |
-	| M-q        | sp-indent-defun                     |
-	| M-r        | sp-raise-sexp                       |
-	| M-R        | evil-cp-raise-form                  |
-	| inserting  |                                     |
-  | M-i        | evil-cp-insert-at-beginning-of-form |
-  | M-a        | evil-cp-insert-at-end-of-form       |
-  | M-o        | evil-cp-open-below-form             |
-  | M-O        | evil-cp-open-above-form             |
-	| motion     |                                     |
-  | _          | evil-cp-first-non-blank-non-opening |
-  | ^          | evil-first-non-blank                |
-  | H          | evil-cp-backward-sexp               |
-  | L          | evil-cp-forward-sexp                |
-  | M-h        | evil-cp-beginning-of-defun,         |
-  | M-l        | evil-cp-end-of-defun,               |
-  | `(`        | evil-cp-backward-up-sexp            |
-  | `[`        | evil-cp-previous-opening            |
-  | `{`        | evil-cp-next-opening                |
-	| yanking    |                                     |
-	| M-w        | evil-cp-evil-copy-paste-form        |
-	| M-d        | evil-cp-delete-sexp                 |
-	| dd         | evil-cp-delete-line                 |
-	| join split |                                     |
-  | M-s        | sp-splice-sexp                      |
-  | M-J        | sp-join-sexp                        |
-  | M-s        | sp-splice-sexp                      |
-  | M-S        | sp-split-sexp                       |
+ref: `sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g_11971>`
+
+  | keybinding | function                            | vim-sexp |
+  | slurp barf |                                     |          |
+  | >          | evil-cp->                           | >) >(    |
+  | <          | evil-cp-<                           | <) <(    |
+  | wrapping   |                                     |          |
+  | M-(        | evil-cp-wrap-next-round             | ,w       |
+  | M-)        | evil-cp-wrap-previous-round         |          |
+  | M-[] M-{}  | similar...                          |          |
+  | moving     |                                     |          |
+  | M-j        | evil-cp-drag-forward                | >f M-j   |
+  | M-k        | evil-cp-drag-backward               | <f M-k   |
+  | M-t        | sp-transpose-sexp                   | <e       |
+  | M-v        | sp-convolute-sexp                   |          |
+  | M-q        | sp-indent-defun                     |          |
+  | M-r        | sp-raise-sexp                       | ,O ,R    |
+  | M-R        | evil-cp-raise-form                  | ,o ,r    |
+  | inserting  |                                     |          |
+  | M-i        | evil-cp-insert-at-beginning-of-form | <I ,h    |
+  | M-a        | evil-cp-insert-at-end-of-form       | >I ,l    |
+  | M-o        | evil-cp-open-below-form             |          |
+  | M-O        | evil-cp-open-above-form             |          |
+  | motion     |                                     |          |
+  | _          | evil-cp-first-non-blank-non-opening |          |
+  | ^          | evil-first-non-blank                | [[       |
+  | H          | evil-cp-backward-sexp               | B        |
+  | L          | evil-cp-forward-sexp                | W        |
+  | M-h        | evil-cp-beginning-of-defun,         | (        |
+  | M-l        | evil-cp-end-of-defun,               | )        |
+  | `(`        | evil-cp-backward-up-sexp            |          |
+  | `[`        | evil-cp-previous-opening            | (        |
+  | `{`        | evil-cp-next-opening                |          |
+  | yanking    |                                     |          |
+  | M-w        | evil-cp-evil-copy-paste-form        |          |
+  | M-d        | evil-cp-delete-sexp                 | daf      |
+  | dd         | evil-cp-delete-line                 |          |
+  | join split |                                     |          |
+  | M-s        | sp-splice-sexp                      | ,@       |
+  | M-J        | sp-join-sexp                        |          |
+  | M-S        | sp-split-sexp                       |          |
+  | navigating |                                     |          |
+  | C-M-f      | paredit-forward                     |          |
 
 ### 01: slurp and barf:
 

@@ -39,6 +39,28 @@
  (walk {} (lvar "s"))
 ;; => s_14420
 
+ (walk {} 42)
+;; => 42
+
+ (let [s {}
+       u (lvar "s")
+       v 42]
+   (cond
+     (and (lvar? u)
+          (lvar? v)
+          (= u v)) s
+     (lvar? u) (assoc s u v)
+     (lvar? u) (assoc s v u)
+     :else (and (= u v) s)))
+;; => {s_14168 42}
+;; ![](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210102_211802.jpg)
+
+ (let [s {}
+       u (lvar "s")
+       v 42]
+   (assoc s u v))
+;; => {s_14659 42}
+
  (unify {} (lvar "s") 42)
 ;; => {s_5751 42}
 
@@ -51,9 +73,29 @@
    (walk s {s 42}))
 ;; => {s_5757 42}
 
+ (let [s (lvar "s")]
+   (walk {s 42} {s 42}))
+;; => {s_14677 42}
+
+ (let [s (lvar "s")]
+   (walk {s 42} s))
+;; => 42
+
+ (let [s (lvar "s")]
+   (walk {s 42} {s 1}))
+;; => {s_14689 1}
+
  (let [s (lvar "s")
        v (lvar "v")]
    (walk {s v v 42} s));; => 42
+
+ (let [v (lvar "v")
+       t {v 42}] 
+   (if-let [pr (get t v)]
+     (when-not (lvar? pr)
+       pr)
+     v))
+;; => 42
 
  (unify {} (lvar "s") (lvar "v"));; => {s_14448 v_14449}
  (unify {} 1 2);; => false

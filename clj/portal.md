@@ -25,7 +25,7 @@ state: wip
 
 # Examples
 
-## Ex01:
+## Ex01: Inspect edn, json, xml files
 
 Put [portal.clj](https://github.com/borkdude/babashka/blob/master/examples/README.md#portal) into PATH:
 
@@ -33,5 +33,6 @@ Put [portal.clj](https://github.com/borkdude/babashka/blob/master/examples/READM
 portal.clj ~/.clojure/deps.edn
 ```
 
+Check script: `~/codes/clj/babashka/examples/portal.clj`
 
 

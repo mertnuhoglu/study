@@ -16,6 +16,14 @@ output:
 
 # Issues
 
+## kitty themes
+
+```bash
+cd /Users/mertnuhoglu/.config/kitty/kitty-themes/themes
+kitty @ set-colors -a /Users/mertnuhoglu/.config/kitty/kitty-themes/themes/Monokai_Pro.conf
+kitty @ set-colors -a Solarized_Dark_Higher_Contrast.conf
+```
+
 ## kitty refcard id=g_11648
 
 		https://sw.kovidgoyal.net/kitty/#other-keyboard-shortcuts

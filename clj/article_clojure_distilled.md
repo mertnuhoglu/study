@@ -204,7 +204,7 @@ Each function returns a new value instead of modifying existing data in place.
 
 Clojure uses persistent data structures that create in-memory revisions of the data.
 
-### Destructuring
+### Destructuring id=g_11903
 
 ``` clojure
 (let [[smaller bigger] (split-with #(< % 5) (range 10))]

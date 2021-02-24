@@ -50,6 +50,8 @@ Repl:
 
 `Quickstart deps.edn <url:file:///~/projects/study/clj/deps_cli.md#r=g_11724>`
 
+`New Project <url:file:///~/projects/study/clj/deps_cli.md#r=g_11941>`
+
 # Articles
 
 		`~/projects/study/clj/deps_cli.md`

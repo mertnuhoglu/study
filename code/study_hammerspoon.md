@@ -18,6 +18,8 @@ output:
 
 ## hammerspoon: find name of application id=g_11480
 
+opt01:
+
 use bundle id:
 
 For example:
@@ -38,6 +40,24 @@ in hammerspoon:
 
 ```lua
 hs.application.launchOrFocus("zoom.us")
+```
+
+opt02: Print names of all open apps
+
+[Hammerspoon FAQ](https://www.hammerspoon.org/faq/)
+
+```lua
+hs.fnutils.each(hs.application.runningApplications(), function(app) print(app:title()) end)
+hs.fnutils.each(hs.application.runningApplications(), function(app) print(app:name()) end)
+hs.fnutils.each(hs.application.runningApplications(), function(app) print(app:pid()) end)
+```
+
+opt03: Print names of all open windows
+
+```lua
+hs.fnutils.each(hs.window.allWindows(), function(win) print(win:title()) end)
+hs.window.find('Reveal')
+hs.window.find('Reveal'):focus()
 ```
 
 ## Install Spoons

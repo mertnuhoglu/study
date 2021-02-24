@@ -42,6 +42,8 @@ ref: `Book: Clojure Development with Spacemacs & Cider - Practicalli <url:file:/
 		| e c       | eval expression as comment   | cider-eval-defun-to-comment |
 		| s a       | cider-switch-to-repl-buffer  |                             |
 		| SPC a	r   | open ranger                  |
+		| C-x t 2   | tab-bar-new-tab              |
+		| gt gT     | tab-next                     |
 
 vim compatible commands: 
 
@@ -106,6 +108,18 @@ Add: `clojure` to `dotspacemacs-configuration-layers`
 Restart: SPC q r
 
 # Problems
+
+## Emacs cider içinde Ctrl-P `^P` ile önceki komutlara nasıl erişilir?
+
+`C-c M-p`
+ 
+## Create new tab id=g_11916
+
+[emacs-from-scratch/Emacs-Tips-06.org at 82f03806d90eb356b815cf514d10b6d863a2cbdc · daviwil/emacs-from-scratch](https://github.com/daviwil/emacs-from-scratch/blob/82f03806d90eb356b815cf514d10b6d863a2cbdc/show-notes/Emacs-Tips-06.org)
+
+		| tab-bar-mode | enable tab bar  |
+		| C-x t 2      | tab-bar-new-tab |
+		| gt gT        | tab-next        |
 
 ## Help komutları
 

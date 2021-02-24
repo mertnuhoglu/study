@@ -15,13 +15,47 @@ state: wip
 
 ---
 
-# Index: Clojuri in Vim id=g_11843
+# Index: Clojure in Vim id=g_11843
 
-`Connect to REPL in Conjure <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11844>`
+`Connect to REPL in Conjure <url:#r=g_11844>`
 
-`Keybindings Conjure <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11845>`
+`Keybindings Conjure <url:#r=g_11845>`
+
+	| Disable linter: #r=g_11965 | call lsp#disable_diagnostics_for_buffer() |
 
 # Issues
+
+## Linter hangi eklentilerle kontrol ediliyor?
+
+İki tane:
+
+01: `^` işaretli linter hataları: `.vim/pack`
+
+02: `>>` işareti linter hataları:
+
+```bash
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+```
+
+## Show Documentation in Conjure Floating Window id=g_11957
+
+Put in `~/.vimrc`
+
+```vim
+set keywordprg=:call\ <SID>show_documentation()
+...
+    call CocActionAsync('doHover')
+```
+
+01: `,eb` Evaluate buffer
+
+02: `K`
+
+Now, hover over any clojure function and press `K`
+
+It works on any word as well.
 
 ## Keybindings Conjure id=g_11845
 
@@ -60,7 +94,7 @@ Open `~/projects/study/clj/ex/articles_clojure/e01/src/fireplace/e01.clj`
 
 03: Evaluate lines
 
-ref: `Tool: ConjureSchool  <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11842>`
+ref: `Tool: ConjureSchool  <url:#r=g_11842>`
 
 # Article: Writing Clojure in Vim id=g_11839
 
@@ -119,5 +153,49 @@ clojure -Sdeps '{:deps {nrepl {:mvn/version "0.8.3"} cider/cider-nrepl {:mvn/ver
 
 # Tool: vim-sexp id=g_11846
 
-ref: `~/projects/study/clj/vim_sexp.Rmd`
+ref: `~/projects/study/clj/vim_sexp.md`
+
+# Tool: clojure-lsp id=g_11956
+
+[clojure-lsp/clojure-lsp: Language Server (LSP) for Clojure](https://github.com/clojure-lsp/clojure-lsp)
+
+## Clients
+
+[Clients - Clojure LSP](https://clojure-lsp.github.io/clojure-lsp/clients/)
+
+ref: `~/projects/private_dotfiles/.config/nvim/coc-settings.json`
+
+ref: `~/projects/private_dotfiles/.config/.lsp/settings.json`
+
+## Settings
+
+[Settings - Clojure LSP](https://clojure-lsp.github.io/clojure-lsp/settings/)
+
+ref: `~/.lsp/config.edn`
+
+## Issues
+
+Disable linter: id=g_11965
+
+```vim
+call lsp#disable_diagnostics_for_buffer()
+```
+
+# Tool: clj-kondo in vim id=g_11964
+
+[clj-kondo/editor-integration.md at master · clj-kondo/clj-kondo](https://github.com/clj-kondo/clj-kondo/blob/master/doc/editor-integration.md)
+
+## Vanilla way
+
+Run as vim ex command:
+
+```vim
+compiler clj-kondo
+make
+```
+
+Also check: `" automatic linting clojure files <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11963>`
+
+ref: `~/.vim/compiler/clj-kondo.vim`
+
 

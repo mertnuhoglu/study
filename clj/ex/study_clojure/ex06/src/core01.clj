@@ -3,14 +3,15 @@
 
 ;; printing https://clojuredocs.org/clojure.core/pr id=g_11321
 
-(println "ali")
-(print "ali")
-(prn "ali")
-(pr "ali")
+(println "foo")
+(print "foo")
+(prn "foo")
+(pr "foo")
 
 (println [1 2 3])
 (prn [1 2 3])
 
+; character literal syntax: \{letter}
 (pr ['a :b "\n" \space "c"])
 ;; [a :b "\n" \space "c"]nil
 
@@ -40,31 +41,15 @@
     :b)
 ;; => 3
 
-; destructuring id=g_11408
-; ref: Destructuring <url:file:///~/projects/study/clj/book_clojure_practicalli.md#r=g_11407>
-
-(let [[a b & c :as d] [1 2 3 4]] [a b])
-;; => [1 2]
-
-(let [[a b & c :as d] [1 2 3 4]] [c])
-;; => [(3 4)]
-
-(let [[a b & c :as d] [1 2 3 4]] [d])
-;; => [[1 2 3 4]]
-
-(let [{a :a, c :c}  {:a 5 :c 6}]
-  [a c])
-;; [5 6]
-(let [{a :a, :as m} {:a 2 :b 3}]
-  [a m])
-;; => [2 {:a 2, :b 3}]
-
 ; record id=g_11410
 ; ref: If several maps have keys in common, create a record: <url:file:///~/projects/study/clj/book_programming_in_clojure.md#r=g_11411>
 
 (defrecord Book [title author])
 (->Book "title01" "author01")
 ;; => #user.Book{:title "title01", :author "author01"}
+(def b (->Book "title01" "author01"))
+(:title b)
+;; "title01"
 
 ; complement id=g_11434
 ; ref: complement <url:file:///~/projects/study/clj/clojure.md#r=g_11433>)
@@ -258,7 +243,7 @@
 ;; => 2
 (peek '(1 2))
 ;; => 1
-(.indexOf "ali" "a")
+(.indexOf "foo" "a")
 ;; => 0
 (.lastIndexOf "aba" "a")
 ;; => 2
@@ -326,3 +311,236 @@
 ;; ## Using a Seq
 
 (apply str ["a" "b"])
+
+(->> "aaaabbbcca"
+     (partition-by identity)
+     (map #(vector (first %) (count %))))
+;; => ([\a 4] [\b 3] [\c 2] [\a 1])
+
+(def p {:name "James" :age 26})
+(update p :age inc)
+;;=> {:name "James", :age 27}
+(update p :age + 10)
+;;=> {:name "James", :age 36}
+
+;; Here we see that the keyed object is 
+;; the first argument in the function call.
+;; i.e. :age (- 26 10) => 16
+(update p :age - 10)
+;;=> {:name "James", :age 16}
+
+(letfn [(twice [x]
+           (* x 2))
+        (six-times [y]
+           (* (twice y) 3))]
+  (println "Twice 15 =" (twice 15))
+  (println "Six times 15 =" (six-times 15)))
+;; Twice 15 = 30
+;; Six times 15 = 90
+;;=> nil
+
+;; with-redefs: Temporarily redefines Vars while executing the body
+
+[(type []) (class [])]
+;[clojure.lang.PersistentVector clojure.lang.PersistentVector]
+
+(with-redefs [type (constantly java.lang.String)
+              class (constantly 10)]
+  [(type [])
+   (class [])])
+;[java.lang.String 10]
+
+;; assoc
+
+(assoc {} :a :v1 :b :v2)
+; {:a :v1, :b :v2}
+(assoc [1 2 3] 0 10)
+; [10 2 3]
+
+;; some
+
+; check if a coll contains some elements:
+(some #{:a} #{:a :b})
+; :a
+(some #{:a} #{:b})
+; nil
+
+;; juxt
+
+;; Extract values from a map, treating keywords as functions.
+((juxt :a :b) {:a 1 :b 2 :c 3 :d 4})
+;;=> [1 2]
+
+;; "Explode" a value.
+
+((juxt identity name) :keyword)
+;;=> [:keyword "keyword"]
+
+(juxt identity name)
+...is the same as:
+(fn [x] [(identity x) (name x)])
+
+;; eg. to create a map:
+
+(into {} (map (juxt identity name) [:a :b :c :d]))
+;;=> {:a "a" :b "b" :c "c" :d "d"}
+
+;; doall
+
+;; Nothing is printed because map returns a lazy-seq
+(def foo (map println [1 2 3]))
+;#'user/foo
+
+;; doall forces the seq to be realized
+(def foo (doall (map println [1 2 3])))
+;1
+;2
+;3
+;#'user/foo
+
+;; where
+(doall (map println [1 2 3]))
+;1
+;2
+;3
+;(nil nil nil)
+
+;; partial
+
+(def incrementer (partial + 1)) ; <1>
+(incrementer 1 1) ; <2>
+;; 3
+
+;; re-seq
+
+(re-seq #"\w+" "foo bar")
+;; ("foo" "bar")
+
+;; some->>
+
+(some->> "foo bar"
+  (re-seq #"\w+"))
+;; ("foo" "bar")
+
+(map peek '(1 2 3))
+; (err) Error printing return value (ClassCastException) at null (REPL:1).
+
+(peek '(1 2 3))
+;; 1
+
+(peek '("foo" "bar"))
+;; "foo"
+
+(def r0 
+  (some->> "foo bar"
+    (re-seq #"\w+")))
+(identity r0)
+;; ("foo" "bar")
+
+(def r0 
+  (re-seq #"\w+" "foo bar"))
+(identity r0)
+;; ("foo" "bar")
+
+(peek r0)
+; (err) Execution error (ClassCastException) at (REPL:1).
+
+(peek '("foo" "bar"))
+;; "foo"
+
+(= r0 '("foo" "bar"))
+;; true
+
+(type r0)
+;; clojure.lang.Cons
+
+(type '("foo"))
+;; clojure.lang.PersistentList
+
+(seq? r0)
+;; true
+
+(coll? r0)
+;; true
+
+(->> '("foo" "bar") peek)
+;; "foo"
+
+(->> r0 peek)
+; (err) Execution error (ClassCastException) at (REPL:1).
+
+(some->> "foo bar"
+  (re-seq #"\w+")
+  (peek))
+; (err) Error printing return value (ClassCastException) at null (REPL:1).
+
+(some->> "foo bar"
+  (re-seq #"\w+")
+  peek)
+; (err) Error printing return value (ClassCastException) at null (REPL:1).
+
+(some-> "foo bar"
+  (re-seq #"\w+")
+  peek)
+; (err) java.lang.String cannot be cast to java.util.regex.Pattern
+
+(some-> "foo bar"
+  (re-seq #"\w+")
+  (peek))
+; (err) java.lang.String cannot be cast to java.util.regex.Pattern
+
+(some->> "foo bar"
+  (re-seq #"\w+")
+  (map peek))
+; (err) Error printing return value (ClassCastException) at null (REPL:1).
+
+(def doc2 "foo bar")
+
+(some->> doc2
+  (re-seq #"\w+")
+  (map peek))
+; (err) Error printing return value (ClassCastException) at null (REPL:1).
+
+(def doc "<html><head>
+            <title>Once upon a time</title>
+            <title>Kingston upon Thames</title>
+        </head></html>")
+
+(some->> doc                        ; <2>
+  (re-seq #"<title>(.+?)</title>")  ; <3>
+  (map peek))                      ; <4>
+;; ("Once upon a time" "Kingston upon Thames")
+
+(some->> doc                        ; <2>
+  (re-seq #"<title>(.+?)</title>"))  ; <3>
+;; (["<title>Once upon a time</title>" "Once upon a time"
+;;   ["<title>Kingston upon Thames</title>" "Kingston upon Thames"]])
+
+(def r 
+  (some-> "foo bar"
+    (re-seq #"\w+")))
+(identity r)
+;; #object[clojure.lang.Var$Unbound 0x511d8c37 "Unbound: #'core01/r"]
+
+(list 1 2 3)
+
+; Predicates
+
+(true? true)
+;; true
+(true? "foo")
+;; false
+
+(nil? [])
+;; false
+(nil? nil)
+;; true
+
+(zero? 0.0)
+;; true
+(zero? (/ 22 7))
+;; false
+
+; find all predicates
+(require '[clojure.repl :refer :all])
+(find-doc #"\?$")

@@ -17,6 +17,15 @@ state: wip
 
 # Index babashka  id=g_11812
 
+## bb nrepl server id=g_11958
+
+[Quick start: Clojure (babashka) · Olical/conjure Wiki](https://github.com/Olical/conjure/wiki/Quick-start:-Clojure-(babashka))
+
+```bash
+echo "5678" > .nrepl-port
+bb --nrepl-server 5678
+```
+
 ## CLI Arguments/Options
 
 	| -i | bind *input* to a seq of lines      |
@@ -143,4 +152,5 @@ cat src/babashka/main.clj | bb examples/fzf.clj
 [babashka/io-flags.md at master · borkdude/babashka](https://github.com/borkdude/babashka/blob/master/doc/io-flags.md)
 
 Differences of inputting between `-i`, `<<<`
+
 

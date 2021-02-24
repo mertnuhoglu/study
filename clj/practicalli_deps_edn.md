@@ -39,7 +39,7 @@ clojure -M:project/outdated
 clojure -M:inspect/reveal:repl/rebel
 ```
 
-### Run cognitect rebl:
+### Run cognitect rebl: id=g_11925
 
 ```bash
 clojure -M:inspect/rebl-java8
@@ -47,6 +47,19 @@ clojure -M:inspect/rebl
 ```
 
 Error: Current version (0.9.242) throws exception.
+
+Fix:
+
+```bash
+java8
+clojure -M:inspect/rebl-java8
+```
+
+Yine hata veriyor, ama en azından çalışıyor.
+
+#### Run REBL for nREPL based editors CIDER and Calva id=g_11932
+
+ref: `Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g_11934>`
 
 ### Run portal data repl: id=g_11751
 

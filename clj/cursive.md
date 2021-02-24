@@ -171,4 +171,7 @@ Note that, str was not in the current namespace yet.
 	| Keywords   | usages of keywords |
 	| Namespaces | go to namespace    |
 
+# Video: Colin Fleming - Debugging Clojure Code Wtih Cursive - YouTube
+
+[Colin Fleming - Debugging Clojure Code Wtih Cursive - YouTube](https://www.youtube.com/watch?v=ql77RwhcCK0)
 

@@ -1,7 +1,7 @@
 
 parent
 	refmine kms <url:file:///~/projects/myrepo/general/refmine.otl#r=g_11660>
-code
+code #topics
 	clojure
 		cheatsheets - clojure
 			https://cljs.info/cheatsheet/
@@ -41,6 +41,9 @@ code
 			http://clojure-doc.org/articles/language/collections_and_sequences.html
 			https://clojure.org/api/cheatsheet
 			https://clojure.org/guides/learn/sequential_colls
+rutin takip
+	https://clojureverse.org/
+	https://news.ycombinator.com/
 
 
 

@@ -22,6 +22,13 @@ output:
 map zp set preview!
 ```
 
+## dosya silme delete file 
+
+```bash
+:delete
+y
+```
+
 # My Customizations
 
 Check: `zshrc: lf <url:file:///~/.zshrc#r=g_11820>`

@@ -13,27 +13,6 @@ Plug 'rainglow/vim'
 
 Beğendiğim temalar:
 
-		dark
-			oceanicnext
-			sierra
-			gloom-contrast
-			allure-contrast
-			monokai
-			mountaindew
-			one
-			onedark
-			nordisk
-			pyte
-			lightning
-			termschool
-			nord
-		light
-			papercolor
-			lightning
-			bold-light
-			PapayaWhip
-			oceanicnextlight
-			newton-light
-			hub-light
+`colorscheme themes <url:file:///~/projects/study/otl/cvim.otl#r=g_11968>`
 
 
