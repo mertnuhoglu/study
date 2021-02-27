@@ -1,0 +1,16 @@
+#+TITLE: E05
+
+* Plan
+
++ Link to file:[[file:e04.org][ e04.org]]
++ Link to title in a file: [[file:e04.org::*About Org Mode][About Org Mode]]
++ Link to file (edit it with `, l l`): [[file:e04.org::Chapter 1][Chapter 1]]
++ Link to line in a file: [[file:e04.org::10][line 10]]
+
+* elisp expressions
+
+expression: [[elisp:(+ 2 2)][2 + 2]]
+
+Show [[elisp:org-agenda][My Agenda]]
+
+Shell command: [[shell:ls *.org][ls]]

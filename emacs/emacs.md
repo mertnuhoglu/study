@@ -23,6 +23,83 @@ state: wip
 
 # Issues
 
+## Evaluate an elisp expression
+
+[](https://www.gnu.org/software/emacs/manual/html_node/emacs/Lisp-Interaction.html)
+
+01: `M-x lisp-interaction-mode`
+
+opt: `C-x b` select buffer `*scratch*`
+
+[Re-open *scratch* buffer - Emacs Stack Exchange](https://emacs.stackexchange.com/questions/20/re-open-scratch-buffer)
+
+02: Go to the sexp. `eval-print-last-sexp`
+
+## Multiple Emacs Setups/Installations in Osx id=g_12029
+
+https://medium.com/dev-genius/how-to-set-up-multiple-custom-emacs-configurations-for-one-user-using-chemacs-102cdd617677
+
+[plexus/chemacs2: Emacs version switcher, improved](https://github.com/plexus/chemacs2)
+
+```bash
+[ -f ~/.emacs ] && mv ~/.emacs ~/.emacs.bak
+[ -d ~/.emacs.d ] && mv ~/.emacs.d ~/.emacs.default
+git clone https://github.com/plexus/chemacs2.git ~/.emacs.d
+```
+
+Check `~/.config/chemacs/profiles.el`
+
+### Spacemacs install
+
+01: Sıfır bir spacemacs kurulumu yap bir klasöre:
+
+```bash
+git clone https://github.com/syl20bnr/spacemacs ~/spacemacs
+git clone git@github.com:practicalli/spacemacs.d.git ~/.spacemacs.practicalli.d
+```
+
+02: Edit `~/.config/chemacs/profiles.el`
+
+```clj
+ ("default" . ((user-emacs-directory . "~/spacemacs")
+               (env . (("SPACEMACSDIR" . "~/.spacemacs.practicalli.d")))))
+```
+
+Run:
+
+```clj
+emacs --with-profile default0
+emacs --with-profile default
+```
+
+### Doom installation
+
+01:
+
+[Add support to doom · Issue #5 · plexus/chemacs](https://github.com/plexus/chemacs/issues/5)
+
+```bash
+git clone https://github.com/hlissner/doom-emacs ~/doom-emacs
+mkdir ~/.config/doom
+cp ~/doom-emacs/init.example.el ~/.config/doom/init.el
+touch ~/.config/doom/config.el
+~/doom-emacs/bin/doom install
+```
+
+02: Edit `~/.config/chemacs/profiles.el`
+
+```clj
+("doom" . ((user-emacs-directory . "~/doom-emacs")
+           (env . (("DOOMDIR" . "~/.config/doom")))))
+```
+
+Run:
+
+```clj
+emacs --with-profile doom
+emacs --with-profile default
+```
+
 ## Escape to evil normal mode
 
 `C-g C-z` quit
