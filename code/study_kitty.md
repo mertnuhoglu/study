@@ -31,6 +31,8 @@ kitty @ set-colors -a Solarized_Dark_Higher_Contrast.conf
 		Layout management <url:file:///~/projects/private_dotfiles/.config/kitty/kitty.conf#r=g_11649>
 
 		^+u	unicode
+		^+f	move window forward
+		^+b	move window backward
 
 ## pencere boyutlarını ayarla: sol kolon geniş, sağ kolon dar
 

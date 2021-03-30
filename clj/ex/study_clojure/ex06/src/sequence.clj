@@ -10,7 +10,7 @@
 ;;=> 1
 
 (rest aseq)
-;;=> 1
+;;=> (2 3)
 
 (cons 4 aseq)
 ;;=> (2 3)
@@ -269,7 +269,7 @@
 ;;=> ("a1" "a2" "b1" "b2" "c1" "c2")
 
 (for [rank (range 1 3)
-      file "abc"] 
+      file "abc"]
   (format "%c%d" file rank))
 ;;=> ("a1" "b1" "c1" "a2" "b2" "c2")
 
@@ -278,8 +278,8 @@
 ; 09.01 (doall coll)
 ; walk sequences with side-effects
 
-(def x 
-  (for [i (range 1 3)] 
+(def x
+  (for [i (range 1 3)]
     (do (println i) i)))
 (doall x)
 ;;=> (1 2)
@@ -353,7 +353,7 @@
 (defn minutes-to-millis [mins] (* mins 1000 60))
 
 (defn recently-modified? [file]
-  (> (.lastModified file) 
+  (> (.lastModified file)
      (- (System/currentTimeMillis) (minutes-to-millis 30))))
 
 (filter recently-modified? (file-seq (File. ".")))
@@ -364,7 +364,7 @@
 ; ex13.01: read a file
 
 (require '[clojure.java.io :refer [reader]])
-(take 2 
+(take 2
       (line-seq
         (reader "deps.edn")))
 ;;=> ("{:aliases"
@@ -392,9 +392,9 @@
 (defn clojure-source? [file] (.endsWith (.toString file) ".clj"))
 
 (defn clojure-loc [base-file]
-  (reduce 
+  (reduce
    +
-   (for [file (file-seq base-file) 
+   (for [file (file-seq base-file)
          :when (and (clojure-source? file) (non-svn? file))]
      (with-open [rdr (reader file)]
        (count (filter non-blank? (line-seq rdr)))))))
@@ -422,10 +422,10 @@
 (pop '(1 2 3))
 ;;=> (2 3)
 
-(rest ())
+(rest '())
 ;;=> ()
 
-(pop ())
+;; (pop ())
 ; (err) Can't pop empty list
 
 ; 15 Functions on Vectors
@@ -452,7 +452,7 @@
 ([:a :b :c] 1)
 ;;=> :b
 
-([:a :b :c] 5)
+;; ([:a :b :c] 5)
 ; (err) Execution error (IndexOutOfBoundsException) at sequence/eval8965 (REPL:455).
 
 ; 15.05 assoc
@@ -589,12 +589,12 @@
 
 ; 17.04 (select f set)
 
-(select #(= 1 (count %)) languages) 
+(select #(= 1 (count %)) languages)
 ;;=> #{"d" "c"}
 
 ; Ex: relational algebra
 
-(def compositions 
+(def compositions
   #{{:name "The Art of the Fugue" :composer "J. S. Bach"}
     {:name "Musical Offering" :composer "J. S. Bach"}
     {:name "Requiem" :composer "Giuseppe Verdi"}
@@ -640,26 +640,26 @@
 
 ; 17.09 (join relation-1 relation-2 keymap?)
 
-(join compositions composers)
+(clojure.set/join compositions composers)
 ;;=> #{{:composer "W. A. Mozart", :country "Austria", :name "Requiem"}
   ;; {:composer "J. S. Bach", :country "Germany", :name "Musical Offering"}
   ;; {:composer "Giuseppe Verdi", :country "Italy", :name "Requiem"}
   ;; {:composer "J. S. Bach", :country "Germany", :name "The Art of the Fugue"})
 
-(join composers nations {:country :nation})
+(clojure.set/join composers nations {:country :nation})
 ;;=> #{{:composer "W. A. Mozart", :country "Austria", :nation "Austria", :language "German"
   ;; {:composer "J. S. Bach", :country "Germany", :nation "Germany", :language "German"}
   ;; {:composer "Giuseppe Verdi", :country "Italy", :nation "Italy", :language "Italian"})
 
 (project
-  (join
+  (clojure.set/join
     (select #(= (:name %) "Requiem") compositions)
     composers)
   [:country])
 ;;=> #{{:country "Italy"} {:country "Austria"}}
 
 (as-> composers x
-     join (select #(= (:name %) "Requiem") compositions) x
+     clojure.set/join (select #(= (:name %) "Requiem") compositions) x
      project x [:country])
 ;;=> [:country]
 
@@ -672,6 +672,6 @@
 ;;=> #{{:composer "Giuseppe Verdi", :country "Italy"} {:composer "J. S. Bach", :country "Germany"} {:composer "W. A. Mozart", :country "Austria"})
 
 (as-> composers x
-     (join (select #(= (:name %) "Requiem") compositions) x)
+     (clojure.set/join (select #(= (:name %) "Requiem") compositions) x)
      (project x [:country]))
 ;;=> #{{:country "Italy"} {:country "Austria"}}

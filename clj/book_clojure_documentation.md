@@ -94,40 +94,75 @@ https://clojure.org/guides/weird_characters
   ( … ) - List
   [ … ] - Vector
   { … } - Map
-  # - Dispatch character
-  #{ … } - Set
-  #_ - Discard
-  #"…" - Regular Expression
-  #(…) - Anonymous function
-  #' - Var quote
-  ## - Symbolic values
-  #inst, #uuid, and #js etc. - tagged literals
+  # - Dispatch character: interpret the next character using a read table
+		short for gensym (at the end of a symbol): x#
+		#{set} - Set
+		#_ - Discard
+		#"re" - Regular Expression
+		#(…) - Anonymous function
+		#' - Var quote
+		## - Symbolic values
+			##Inf ##NaN ##-Inf
+		#inst #uuid #js etc. - tagged literals
   %, %n, %& - Anonymous function arguments
   @ - Deref
   ^ (and #^) - Metadata
-  ' - Quote
+		(def ^{:debug true} five 5)
+		(meta #'five)
+		(def ^:debug five 5) ; bc single value
+		(def ^Integer ^:debug ^:private five 5) ; stack shorthand notations
+		#^ deprecated in favor of ^
+  ' - Quote: read but not evaluate
   ; - Comment
   : - Keyword
-  :: - Auto-resolved keyword
+  :: - Auto-resolve keyword in current ns
   #: and #:: - Namespace Map Syntax
+		ex: equivalent:
+			#:person{:first "Han"}
+			{:person/first "Han"}
+		ex: equivalent:
+			(keys {:user/a 1, :user/b 2})
+			(keys #::{:a 1, :b 2})
+		ex: equivalent:
+			(ns rebel.core (:require [rebel.person :as p]))
+			#::p{:first "Han"}
+			{:rebel.person/first "Han"}
   / - Namespace separator
   \ - Character literal
   $ - Inner class reference
+		BaseXClient$EventNotifier
   ->, ->>, some->, cond->, as-> etc. - Threading macros
   ` - Syntax quote
+		symbols used within a syntax quote are fully resolved with respect to the current namespace
   ~ - Unquote
+		(def five 5)
+		`five ; => user/five
+		`~five ; => 5
+		`[inc ~(+ 1 five)] ; => [clojure.core/inc 6]
   ~@ - Unquote splicing
+		(def a (list 3 4))
+		`(1 ~a) ; => (1 (3 4))
+		`(1 ~@a) ; => (1 3 4)
   <symbol># - Gensym
   #? - Reader conditional
+     #?(:clj  (Clojure expression)
+			 :cljs (ClojureScript expression))
   #?@ - Splicing Reader conditional
-  *var-name* - "Earmuffs"
+  *var-name* - "Earmuffs" = special vars ~ dynamic vars
+		convention, not a rule
+	  *out* *in*
   >!!, <!!, >!, and <! - core.async channel macros
   <symbol>? - Predicate Suffix
+		convention
+		empty? list?
   <symbol>! - Unsafe Operations
+		convention: mutate state
+		set! swap!
   _ - Unused argument
+		(fn [_ _ arg3] ...)
   , - Whitespace character
   #= Reader eval
-	& rest parameters
+		deprecated
 ``` 
 
 # edn-format/edn: Extensible Data Notation id=g_11402

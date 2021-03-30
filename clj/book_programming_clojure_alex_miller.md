@@ -163,7 +163,7 @@ You need to import `clojure.core` when you move to a new namespace with `in-ns`:
 
 ### Metadata
 
-Metadata: Data that i orthogonal to the logical value of an object.
+Metadata: Data that is orthogonal to the logical value of an object.
 
 All vars have a metadata map: documentation, type, source etc.
 
@@ -208,7 +208,7 @@ Note: args are shifted and `^` is removed
 
 ### Calling Java
 
-Check: `(new java.util.Random) <url:/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/java_interoperability.clj#tn=(new java.util.Random)>`
+Check: `~/projects/study/clj/ex/study_clojure/ex06/src/java_interoperability.clj`
 
 `(. class-or-instance member-symbol & args)`
 

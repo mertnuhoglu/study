@@ -169,4 +169,29 @@ Inspect expression:
 
 Drill down elements
 
+# CIDER Functions
+
+  | spm | function                     | doom |
+  |     | d: debug                     |      |
+  | b   | cider-debug-defun-at-point   | d    |
+  |     | v: inspect values            |
+  |     | e: eval                      |
+  | ;   | cider-eval-defun-to-comment  |      | C-c M-; |
+  | b   | cider-eval-buffer            | b    |
+  | e   | cider-eval-last-sexp         | e    |
+  | f   | cider-eval-defun-at-point    | d    |
+  | m   | cider-eval-macroexpand-1     |
+  |     | s: send to repl              | r    |
+  | a   | cider-switch-to-repl-buffer  | b    |
+  | b   | cider-load-buffer            |
+  | e   | cider-send-last-sexp-to-repl |
+  | f   | cider-send-function-to-repl  |
+  | n   | cider-send-ns-form-to-repl   |
+
+Note: Some of these functions are specific to spacemacs such as `spacemacs/cider-send-last-sexp-to-repl`
+
+# CIDER REPL in Doom
+
+  | C-h f cider-repl-mode | list all commands | 
+
 

@@ -2827,6 +2827,7 @@ refcard
 		all.equal(ev, ev2, check.attributes = F)
 		convert("data/enum_value.csv", "data/enum_value.tsv")
 		# Rscript -e "rio::convert('data/enum_value.csv', 'data/enum_value.tsv')"
+		Rscript -e "rio::convert('$FILE', '$FILE.xlsx')"
 	pryr
 		install.packages("pryr")
 		library("pryr")

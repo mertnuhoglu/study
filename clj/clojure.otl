@@ -31,29 +31,37 @@ clojure
 				Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g_11961>
 			Disable linter: <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11965>
 				call lsp#disable_diagnostics_for_buffer()
-		spacemacs
-			spacemacs refcard <url:file:///~/projects/study/emacs/spacemacs.md#r=g_11015>
-				| SPC SPC   | list and search all commands | M-x                         |
-				| SPC ?     | search for key bindings      | show keybindings            |
-				| C-h k     | search for key binding       | describe-key                |
-				| SPC h d f | help on function             | describe-function           |
-				| SPC h SPC | list layers                  |                             |
-				| SPC f e d | open ~/.spacemacs            | find-dotfile                |
-				| SPC f e R | reload .spacemacs            |                             |
-				| SPC f r   | file recent                  | counsel-recentf             |
-				| SPC q r   | restart emacs                | restart-emacs               |
-				| SPC w d   | buffer kill                  | delete-window               |
-				| SPC m     | cider menu                   | ,                           |
-				| '         | start REPL                   | cider-jack-in               |
-				| e         | eval menu                    |                             |
-				| e f       | eval expression inline       | cider-eval-defun-at-point   |
-				| e c       | eval expression as comment   | cider-eval-defun-to-comment |
-				| s a       | cider-switch-to-repl-buffer  |                             |
-				| SPC a	r   | open ranger                  |
-				| C-x t 2   | tab-bar-new-tab              |
-				| gt gT     | tab-next                     |
-			Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g_11961>
-				ref_ex: ~/projects/study/emacs/ex/smartparens/e01/cleverparens_commands.clj
+		emacs
+			doom
+				Doom Refcard  <url:file:///~/projects/study/emacs/doom.md#r=g_12039>
+				Doom Cider Refcard <url:file:///~/projects/study/emacs/doom.md#r=g_12074>
+			spacemacs
+				spacemacs refcard <url:file:///~/projects/study/emacs/spacemacs.md#r=g_11015>
+					| SPC SPC   | list and search all commands | M-x                         |
+					| SPC ?     | search for key bindings      | show keybindings            |
+					| C-h k     | search for key binding       | describe-key                |
+					| SPC h d f | help on function             | describe-function           |
+					| SPC h SPC | list layers                  |                             |
+					| SPC f e d | open ~/.spacemacs            | find-dotfile                |
+					| SPC f e R | reload .spacemacs            |                             |
+					| SPC f r   | file recent                  | counsel-recentf             |
+					| SPC q r   | restart emacs                | restart-emacs               |
+					| SPC w d   | buffer kill                  | delete-window               |
+					| SPC m     | cider menu                   | ,                           |
+					| '         | start REPL                   | cider-jack-in               |
+					| e         | eval menu                    |                             |
+					| e f       | eval expression inline       | cider-eval-defun-at-point   |
+					| e c       | eval expression as comment   | cider-eval-defun-to-comment |
+					| s a       | cider-switch-to-repl-buffer  |                             |
+					| SPC a	r   | open ranger                  |
+					| C-x t 2   | tab-bar-new-tab              |
+					| gt gT     | tab-next                     |
+				Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g_11961>
+					ref_ex: ~/projects/study/emacs/ex/smartparens/e01/cleverparens_commands.clj
+			multiple emacs: chemacs
+				Multiple Emacs Setups/Installations in Osx <url:file:///~/projects/study/emacs/emacs.md#r=g_12029>
+				~/projects/private_dotfiles/.config/chemacs/profiles.el
+				emacs --with-profile default
 	trainings
 		https://lambdaisland.com/episodes
 		https://purelyfunctional.tv/browse/
@@ -90,7 +98,7 @@ howto
 		New Clojure Project <url:deps_cli.md#r=g_11941>
 			clojure -X:project/new :name mertnuhoglu/project-01
 			cd project-01
-	Run REPL
+	Run REPL id=g_12068
 		REBL
 			Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g_11934>
 				java15
@@ -120,6 +128,12 @@ howto
 				clojure -M:inspect/reveal:repl/rebel
 				(add-tap ((requiring-resolve 'vlaaad.reveal/ui)))
 				(tap> {:a 1 :b 2})
+	Run a clojure script/function
+		Run main function <url:file:///~/projects/study/clj/deps_cli.md#r=g_12070>
+			clj -M -m clj-new-01.clj-new-01
+			clojure src/cards/core.clj
+		Running functions <url:file:///~/projects/study/clj/deps_cli.md#r=g_12071>
+			clj -X:my-fn
 	require import libraries
 		ref: ~/projects/study/clj/ex/study_clojure/ex06/src/require_functions.clj
 		(require '[clojure.tools.trace :refer [trace, dotrace]])
@@ -900,6 +914,8 @@ topics
 			(source identity)
 	tools
 		ides
+			doom
+				Bir projeyi REPL ile incelemek <url:file:///~/projects/study/emacs/doom.md#r=g_12073>
 			spacemacs
 				; spacemacs refcard <url:~/projects/study/emacs/spacemacs.md#r=g_11015>
 					| SPC SPC   | list and search all commands | M-x                         |
@@ -907,6 +923,7 @@ topics
 					| '         | start REPL                   | cider-jack-in               |
 					| e c       | eval expression as comment   | cider-eval-defun-to-comment |
 			cursive intellij
+				Bir projeyi REPL ile incelemek  <url:file:///~/projects/study/clj/cursive.md#r=g_12072>
 				; intellij refcard <url:~/projects/study/code/study_intellij.md#r=g_11014>
 				; compatible keybindings: spacemacs and intellij <url:~/.ideavimrc#r=g_10991>
 					| ^^ repl | run repl           |
@@ -985,6 +1002,89 @@ topics
 		reduce loop için daha sade örnekler
 			; loop <url:refcard_clojure.otl#r=g_11309>
 			; reduce <url:refcard_clojure.otl#r=g_11310>
+flashcards id=g_12065
+	~/projects/study/clj/book_essential_reference_borgatti.md
+		Book: Essential Reference, Borgatti
+		-X:project/new :name mertnuhoglu/conjure01
+		-X:project/new :name <namespace>/<folder>
+		-M:trace:inspect/reveal-nrepl
+		rich comment
+			(comment ... ,)
+	~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj
+		(clojure.pprint/print-table [{:a 1 :b 2 :c 3}{:a 4 :b 5 :c 6}])
+		(all-ns)
+		(require '[clojure.repl])
+		(ns-publics 'clojure.java.io)
+		(clojure.repl/source map)
+		(clojure.repl/doc map)
+		(clojure.repl/find-doc "create-context")
+		(clojure.repl/apropos "unmount-renderer")
+		(clojure.repl/apropos "map")
+		*ns*
+	~/projects/study/clj/ex/study_clojure/ex06/src/require_functions.clj
+		(use '[clojure.string :only (split)])
+		(require '[clojure.tools.trace :refer [trace, dotrace]])
+		(require '[clojure.repl])
+		(require '[clojure.pprint :as pp])
+	~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj
+		(require 'hashp.core)
+		(take 3 (repeat #p (+ 1 2)))
+		cider debugging: ; put break point: `,db`
+		cider debugger: locals:
+		#break
+	Function Definition
+		(macroexpand  ; <1>
+			'(defn hello [person]
+					(str "hello " person)))
+		Metadata Placement
+			:doc :tag :pre :post
+			(meta #'foo) ; <4>
+			(defn ^:bench profile-me [ms]
+			~/projects/csl-book-examples/Creatingandmanipulatingfunctions/Functiondefinition/defnanddefn-/6.clj
+				(defn- tagged-by [tag nsname]
+					(->> (ns-publics nsname)
+							 vals
+							 (filter #(get (meta %) tag))))
+		Documenting
+			(clojure.repl/doc hello)
+		pre post conditions
+			(defn save! [item]
+				{:pre [(are [x] x                             ; <1>
+								 (map? item)                          ; <2>
+								 (integer? (:mult item))              ; <3>
+								 (#{:double :triple} (:width item)))] ; <4>
+				 :post [(clojure.test/is (= 10 (:id %)))]}    ; <5>
+				(assoc item :id (* (:mult item) 2)))
+		fn
+			Reader macro for function literal: `#()`
+			(fn <name>? arities)
+			`name` is optional. Used for recursion.
+			Multiple arities are used to make `fibo` tail-recursive.
+			((fn fibo ; <1>
+				([n] (fibo 1 0 n))
+				([a b cnt]
+				 (if (zero? cnt)
+					 b
+					 (recur (+ a b) a (dec cnt)))))
+			 10)
+		Fn and Destructuring
+		fnil
+			(update {:a 1 :b 2} :c (fnil inc 0)) ; <2>
+			(defn say-hello [name] (str "Hello " name))
+			(def say-hello-with-defaults (fnil say-hello "World"))
+			(defn say-hello [first other] (str "Hello " first " and " other))
+			(def say-hello-with-defaults (fnil say-hello "World" "People"))
+		comp
+			((comp inc +) 2 2) ; <1>
+		complement
+			({:a 1} :c)
+			; nil
+			((complement {:a 1}) :c)
+			; true
+			(filter (complement #{:a}) [:a :b])
+		constantly
+			((constantly 10) nil)
+			; 10
 inbox
 	20210204 
 		debugging cursive: error:

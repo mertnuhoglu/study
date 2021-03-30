@@ -17,15 +17,35 @@ state: wip
 
 # quickstart cursive id=g_11816
 
-		| ^^ repl | run repl          |
-		| !u c    | clojure           |
-		| !s f    | send form to repl |
+    | ^^ repl | run anything: repl             |
+    | !u c    | clojure popup menu             |
+    | !e b    | load file in repl              | ,eb |
+    | !e d    | send top form to repl          | ,ed |
+    | !e e    | send form before caret to repl | ,ee |
+    | !e n    | send repl ns to current file   | ,en |
+    | !r b    | jump to repl editor            | ,rb |
 
 # Index cursive id=g_11817
 
 `Getting around: Structural movement <url:file:///~/projects/study/clj/cursive.md#r=g_11818>`
 
 `Structural editing (paredit) <url:file:///~/projects/study/clj/cursive.md#r=g_11819>`
+
+`Bir projeyi REPL ile incelemek  <url:file:///~/projects/study/clj/cursive.md#r=g_12072>`
+
+# Issues
+
+## Bir projeyi REPL ile incelemek  id=g_12072
+
+File > New > Project from existing sources > .select: `~/codes/clj/ataraxy/project.clj`
+
+Edit Configurations > Clojure REPL Local > Run with Leiningen
+
+Run 'REPL'
+
+REPL > Load File in REPL
+
+REPL > Switch REPL ns to current file
 
 # Book: User Guide 
 

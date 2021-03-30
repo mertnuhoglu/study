@@ -18,10 +18,15 @@ output:
 
 ## Refcard conjure keybindings
 
-  | ,ee | eval current form |
-  | ,ef | eval root form    |
-  | ,eb | eval buffer       |
-	| ,E | eval visual selection|
+  | ConjureConnect [port] | bir nrepla bağlan                 |
+  | ,ee                   | eval current form                 |
+  | ,eb                   | eval buffer                       |
+  | ,em[mark]             | eval form under given `mark`      |
+  | ,ew                   | eval word under cursor (peek var) |
+  | ,E                    | eval visual selection             |
+  | ,lv                   | open log buffer vertical          |
+  | K                     | look up documentation             |
+  | gd                    | go to definition                  |
 
 # Issues
 

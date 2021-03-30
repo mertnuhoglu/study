@@ -1,5 +1,145 @@
 _ id=r_lastid cvim_002
 
+points
+	indent reformat lines
+		== current line
+		=4j
+	bir syntax highlight renginin ne olduğu nasıl debug edilir? 
+		[how to find out where a vim highlighting is defined? - Stack Overflow](https://stackoverflow.com/questions/4245171/how-to-find-out-where-a-vim-highlighting-is-defined)
+		:verbose hi CursorLine
+	check localleader and leader
+		:echo mapleader
+		:let mapleader = "\<Space>"
+	colorscheme themes id=g_11968
+		dark
+			rigel
+			oceanicnext
+			Monokai
+			parsec
+			MountainDew
+				yeşil arka fonlu
+			SlateDark
+				bir tek which-key menüsünün arka fonu ve comment satırları düzgün okunmuyor
+			sierra
+			gloom-contrast
+			allure-contrast
+			one
+			onedark
+			nordisk
+			pyte
+			lightning
+			termschool
+			nord
+			northsky: lacivert
+			norwaytoday
+			obsidian2
+		light
+			papercolor
+			lightning
+			bold-light
+			PapayaWhip
+			oceanicnextlight
+			newton-light
+			hub-light
+			nuvola
+	delete up to matched line
+		g/Notlar/,/Bulgular/ d
+			delete from line "Notlar" upto line "Bulgular"
+		g/Notlar/,/Bulgular/-1 d
+			delete from line "Notlar" upto one line before line "Bulgular"
+	:make command
+		:make
+			runs make build
+		:cn
+			next error
+	:marks
+		lists all marks
+	smart case - case insensitive search
+		opt01: \c
+			/\c<keyword>
+			https://stackoverflow.com/questions/2287440/how-to-do-case-insensitive-search-in-vim
+		opt02: 
+			set ignorecase
+			set smartcase
+		opt03: 
+			set ignorecase
+	highlight specific words
+		https://stackoverflow.com/questions/27686440/in-vim-editor-how-can-some-specific-words-be-always-highlighted
+			<vimhelp:highlight>
+			<vimhelp:match>
+			ex
+				hi! Important ctermbg=red guibg=red
+				match Important /!Important!/
+			ex
+			ex: see active highlight-groups
+				:so $VIMRUNTIME/syntax/hitest.vim
+			ex: add to existing groups
+				match Title /\<fromNullable\>/
+	make current window full screen
+		üt: opens a new tab with current window
+		^W T: same but closes current window
+	open a repl inside vim
+		gQ
+	getting file path
+		help filename-modifiers
+		ex
+			expand("%:p:h")
+				full path of directory of current file
+			expand("%:p")
+				full path of current file
+				p: full path
+			expand("%:r")
+				root of file name: file extension removed
+			let file_name = expand('%:t:r')
+				get file name
+			cd %:p:h
+		<vimhelp:filename-modifiers>
+			:p
+				make file_name a full path
+			:~
+				reduce file name to be relative to home dir
+			:.
+				reduce file name to be relative to current directory
+			:h
+				head of file name (last component)
+		ex: from help
+			Examples, when the file name is "src/version.c", current dir
+			"/home/mool/vim": >
+				:p			/home/mool/vim/src/version.c
+				:p:.				       src/version.c
+				:p:~				 ~/vim/src/version.c
+				:h				       src
+				:p:h			/home/mool/vim/src
+				:p:h:h		/home/mool/vim
+				:t					   version.c
+				:p:t					   version.c
+				:r				       src/version
+				:p:r			/home/mool/vim/src/version
+				:t:r					   version
+				:e						   c
+				:s?version?main?		       src/main.c
+				:s?version?main?:p	/home/mool/vim/src/main.c
+				:p:gs?/?\\?		\home\mool\vim\src\version.c
+			Examples, when the file name is "src/version.c.gz": >
+				:p			/home/mool/vim/src/version.c.gz
+				:e						     gz
+				:e:e						   c.gz
+				:e:e:e					   c.gz
+				:e:e:r					   c
+				:r				       src/version.c
+				:r:e						   c
+				:r:r				       src/version
+				:r:r:r			       src/version
+	tab colors
+		lightline gibi tabline eklentisi kullanıyorsan, oradan değiştirmelisin
+			ref
+				lightline: statusline/tabline  <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10570>
+		https://stackoverflow.com/questions/7238113/customising-the-colours-of-vims-tab-bar
+			:hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
+			:hi TabLine ctermfg=Blue ctermbg=Yellow
+			:hi TabLineSel ctermfg=Red ctermbg=Yellow
+			This line affects the window counter per tab:
+			:hi Title ctermfg=LightBlue ctermbg=Magenta
 plugins
 	vinegar
 		bookmarking a directory
@@ -558,140 +698,6 @@ plugins
 					go up the directory tree by one or multiple levels.
 				:command at the end of input
 					Use :25 to jump to line 25. Use :diffthis when opening multiple files to run :diffthis on the first 4 files.
-points
-	check localleader and leader
-		:echo mapleader
-		:let mapleader = "\<Space>"
-	colorscheme themes id=g_11968
-		dark
-			rigel
-			oceanicnext
-			Monokai
-			parsec
-			MountainDew
-				yeşil arka fonlu
-			SlateDark
-				bir tek which-key menüsünün arka fonu ve comment satırları düzgün okunmuyor
-			sierra
-			gloom-contrast
-			allure-contrast
-			one
-			onedark
-			nordisk
-			pyte
-			lightning
-			termschool
-			nord
-			northsky: lacivert
-			norwaytoday
-			obsidian2
-		light
-			papercolor
-			lightning
-			bold-light
-			PapayaWhip
-			oceanicnextlight
-			newton-light
-			hub-light
-			nuvola
-	delete up to matched line
-		g/Notlar/,/Bulgular/ d
-			delete from line "Notlar" upto line "Bulgular"
-		g/Notlar/,/Bulgular/-1 d
-			delete from line "Notlar" upto one line before line "Bulgular"
-	:make command
-		:make
-			runs make build
-		:cn
-			next error
-	:marks
-		lists all marks
-	smart case - case insensitive search
-		opt01: \c
-			/\c<keyword>
-			https://stackoverflow.com/questions/2287440/how-to-do-case-insensitive-search-in-vim
-		opt02: 
-			set ignorecase
-			set smartcase
-		opt03: 
-			set ignorecase
-	highlight specific words
-		https://stackoverflow.com/questions/27686440/in-vim-editor-how-can-some-specific-words-be-always-highlighted
-			<vimhelp:highlight>
-			<vimhelp:match>
-			ex
-				hi! Important ctermbg=red guibg=red
-				match Important /!Important!/
-			ex
-			ex: see active highlight-groups
-				:so $VIMRUNTIME/syntax/hitest.vim
-			ex: add to existing groups
-				match Title /\<fromNullable\>/
-	make current window full screen
-		üt: opens a new tab with current window
-		^W T: same but closes current window
-	open a repl inside vim
-		gQ
-	getting file path
-		help filename-modifiers
-		ex
-			expand("%:p:h")
-				full path of directory of current file
-			expand("%:p")
-				full path of current file
-				p: full path
-			expand("%:r")
-				root of file name: file extension removed
-			let file_name = expand('%:t:r')
-				get file name
-			cd %:p:h
-		<vimhelp:filename-modifiers>
-			:p
-				make file_name a full path
-			:~
-				reduce file name to be relative to home dir
-			:.
-				reduce file name to be relative to current directory
-			:h
-				head of file name (last component)
-		ex: from help
-			Examples, when the file name is "src/version.c", current dir
-			"/home/mool/vim": >
-				:p			/home/mool/vim/src/version.c
-				:p:.				       src/version.c
-				:p:~				 ~/vim/src/version.c
-				:h				       src
-				:p:h			/home/mool/vim/src
-				:p:h:h		/home/mool/vim
-				:t					   version.c
-				:p:t					   version.c
-				:r				       src/version
-				:p:r			/home/mool/vim/src/version
-				:t:r					   version
-				:e						   c
-				:s?version?main?		       src/main.c
-				:s?version?main?:p	/home/mool/vim/src/main.c
-				:p:gs?/?\\?		\home\mool\vim\src\version.c
-			Examples, when the file name is "src/version.c.gz": >
-				:p			/home/mool/vim/src/version.c.gz
-				:e						     gz
-				:e:e						   c.gz
-				:e:e:e					   c.gz
-				:e:e:r					   c
-				:r				       src/version.c
-				:r:e						   c
-				:r:r				       src/version
-				:r:r:r			       src/version
-	tab colors
-		lightline gibi tabline eklentisi kullanıyorsan, oradan değiştirmelisin
-			ref
-				lightline: statusline/tabline  <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10570>
-		https://stackoverflow.com/questions/7238113/customising-the-colours-of-vims-tab-bar
-			:hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
-			:hi TabLine ctermfg=Blue ctermbg=Yellow
-			:hi TabLineSel ctermfg=Red ctermbg=Yellow
-			This line affects the window counter per tab:
-			:hi Title ctermfg=LightBlue ctermbg=Magenta
 viml vimscript id=g_10491
 	viml vimscript <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10491>
 	refcard - komut listesi

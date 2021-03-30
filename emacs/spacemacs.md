@@ -25,11 +25,11 @@ ref: `Book: Clojure Development with Spacemacs & Cider - Practicalli <url:file:/
 
 ## spacemacs doom emacs refcard id=g_11015
 
-    | spacemacs | description                  | command                     | doom |
-    | SPC SPC   | list and search all commands | M-x                         |      |
+    | spacemacs | description                  | command                     | doom  |
+    | SPC SPC   | list and search all commands | M-x                         | SPC : |
     | SPC ?     | search for key bindings      | show keybindings            |
-    | C-h k     | search for key binding       | describe-key                | h k  |
-    | SPC h d f | help on function             | describe-function           | h f |
+    | C-h k     | search for key binding       | describe-key                | h k   |
+    | SPC h d f | help on function             | describe-function           | h f   |
     | SPC h SPC | list layers                  |                             |
     | SPC f e d | open ~/.spacemacs            | find-dotfile                |
     | SPC f e R | reload .spacemacs            |                             |

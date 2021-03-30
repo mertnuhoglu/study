@@ -23,7 +23,72 @@ state: wip
 
 ref: `spacemacs doom emacs refcard <url:file:///~/projects/study/emacs/spacemacs.md#r=g_11015>`
 
+    | spacemacs | description                  | command                     | doom  |
+    | SPC SPC   | list and search all commands | M-x                         | SPC : |
+    | SPC ?     | search for key bindings      | show keybindings            |
+    | C-h k     | search for key binding       | describe-key                | h k   |
+    | SPC h d f | help on function             | describe-function           | h f   |
+
+  | SPC h r r | reload config                   | doom/reload                       |
+  | SPC p p   | open project                    | counsel-projectile-switch-project |
+  | SPC f f   | open file in current file's dir | counsel-find-file                 |
+  | SPC f p   | open doom config files          | doom/find-file-in-private-config  |
+  | SPC o p   | toggle sidebar file explorer    | +treemacs/toggle                  |
+  | g s SPC   | match any chars (sneak gibi)    |                                   |
+
+cider - clojure
+
+  | SPC p p | open project                           | counsel-projectile-switch-project                  |
+  | ,'      | start REPL                             | cider-jack-in                                      |
+  | ,rB     | switch ns                              | +clojure/cider-switch-to-repl-buffer-and-switch-ns |
+  | ,h      | help menu                              |
+  | ,hc     | cider-clojuredocs                      |
+  | ,pP     | cider-pprint-eval-last-sexp-to-comment |
+
+ref: `Dired  <url:file:///~/projects/study/emacs/doom.md#r=g_12041>`
+
+  | +     | create a directory        |
+  | d     | mark to delete a file     |
+  | m     | mark a file               |
+  | U     | unselect                  |
+
+ref: `org mode <url:file:///~/projects/study/emacs/doom.md#r=g_12042>`
+
+  | TAB                | collapse/expand fold              |
+  | !k/j               | move headlines up/dn (same level) |
+  | !h !l              | move up/down (raise/nest) level   |
+  | [[Headline Title]] | link to headline title            |
+  | file::Title        | link to title                     |
+
+ref: `Magit <url:file:///~/projects/study/emacs/doom.md#r=g_12043>`
+
+  | SPC g g | status of repository    | magit-status         |
+  | ?       | context help in magit   |                      |
+  | z a     | git diff                | magit-section-toggle |
+  | s       | stage changes           | magit-stage          |
+  | c       | commit                  | magit-commit         |
+
 # Issues
+
+## Bir projeyi REPL ile incelemek id=g_12073
+
+01: open project: `SPC p p`
+
+  | SPC p p   | open project                    | counsel-projectile-switch-project |
+
+02: start repl: `,'`
+
+    | '         | start REPL                   | cider-jack-in               |
+
+03: switch to ns: `,rB`
+
+		| rB | switch ns | +clojure/cider-switch-to-repl-buffer-and-switch-ns |
+
+## cider help fonksiyonlarını kullanmak
+
+01: Önce mevcut dosyanın ns'sini eval et
+
+02: Sonra `cider-clojuredocs` veya `cider-doc` fonksiyonları bulunduğun sembol üzerinde çalışır hale gelir.
 
 ## Word wrapping
 
@@ -105,6 +170,8 @@ Edit `~/.config/doom/init.el`
 doom sync
 ```
 
+Then on doom: `SPC h r r` = `doom/reload`
+
 ```bash
 doom doctor
 ```
@@ -170,25 +237,25 @@ doom sync
 
 Open `dired` with `SPC .` and select a directory.
 
-  | +     | create a directory    |
-  | d     | mark to delete a file |
-  | x     | execute (delete marked) |
-  | U | unselect |
-  | -     | upper dir             |
-  | ENTER | inner dir             |
-  | SPC . | create a file         |
-  | o | order by name/date|
-  | M | modify file modes | 
-  | O | change owner |
-  | `*/` | select all dirs |
-  | t | toggle selection |
-  | U | unselect all | 
-  | m | mark a file |
-  | ^W v | split vertical |
-  | ^W w | switch windows |
-  | C | copy file to other window | 
-  | R | move file to other window |
-  | i | insert mode |
+  | +     | create a directory        |
+  | d     | mark to delete a file     |
+  | x     | execute (delete marked)   |
+  | U     | unselect                  |
+  | -     | upper dir                 |
+  | ENTER | inner dir                 |
+  | SPC . | create a file             |
+  | o     | order by name/date        |
+  | M     | modify file modes         |
+  | O     | change owner              |
+  | `*/`  | select all dirs           |
+  | t     | toggle selection          |
+  | U     | unselect all              |
+  | m     | mark a file               |
+  | ^W v  | split vertical            |
+  | ^W w  | switch windows            |
+  | C     | copy file to other window |
+  | R     | move file to other window |
+  | i     | insert mode               |
 
 ## evil-snipe
 
@@ -223,7 +290,7 @@ p04: yank a word:
 
 [(245) Emacs Doom E08: Multiple cursor in Emacs with evil-multiedit - YouTube](https://www.youtube.com/watch?v=zXdT5jY_ui0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8)
 
-## org mode
+## org mode id=g_12042
 
 [(245) Emacs Doom E09: Org Mode, Basic Outlines - YouTube](https://www.youtube.com/watch?v=CV2IFpSW2sE&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=9)
 
@@ -257,15 +324,53 @@ Show [[elisp:org-agenda][My Agenda]]
 Shell command: [[shell:ls *.org][ls]]
 ```
 
-## Magit
+## Magit id=g_12043
 
 [(245) Emacs Magit - Getting Started - Emacs Doom 18 - YouTube](https://www.youtube.com/watch?v=7ywEgcbaiys&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=18)
 
-  | SPC g g | status of repository  | magit-status         |
-  | ?       | context help in magit |                      |
-  | TAB     | git diff              | magit-section-toggle |
-  | z a     | git diff              | magit-section-toggle |
-  | s | stage changes | magit-stage |
+  | SPC g g | status of repository    | magit-status         |
+  | ?       | context help in magit   |                      |
+  | TAB     | git diff                | magit-section-toggle |
+  | z a     | git diff                | magit-section-toggle |
+  | s       | stage changes           | magit-stage          |
+  | c       | commit                  | magit-commit         |
+  | C-c C-c | save and commit changes | with-editor-finish   |
 
+## Deft mode
  
+# Doom Cider Refcard id=g_12074
 
+  | ,dd | cider-debug-defun-at-point                        |
+  | ,e  | eval menu                                         |
+  | ,eb | cider-eval-buffer                                 |
+  | ,ed | cider-eval-defun-at-point                         |
+  | ,ee | cider-eval-last-sexp                              |
+  | ,ef | cider-eval-defun-at-point                         |
+  | ,c  | cider-connect-clj                                 |
+  | ,g  | goto menu
+  | ,gb | cider-pop-back                                    | return to your pre-jump location |
+  | ,gg | cider-find-var                                    | go to symbol definition          |
+  | ,gn | cider-find-ns                                     | go to namespace                  |
+  | ,h  | help menu                                         |
+  | ,ha | cider-apropos                                     |
+  | ,hc | cider-clojuredocs                                 |
+  | ,hd | cider-doc                                         |
+  | ,hn | cider-find-ns                                     |
+  | ,i  | inspect menu                                      |
+  | ,ie | cider-enlighten-mode                              | display values of locals         |
+  | ,ii | cider-inspect                                     |
+  | ,p  | print menu                                        |
+  | ,pP | cider-pprint-eval-last-sexp-to-comment            |
+  | ,r  | repl menu                                         |
+  | ,rb | cider-swith-to-repl-buffer                        |
+  | ,rB | clojure/cider-switch-to-repl-buffer-and-switch-ns |
+  | ,rl | cider-load-buffer                                 |
+  | ,rn | cider-repl-set-ns                                 |
+
+Tüm cider-mode komutlarını görmek için `C-c` kullan. Ayrıca menülerden `CIDER Interactions` ile de dolaşabilirsin.
+
+  | C-c       | cider menu         |
+  | C-c C-v n | cider-eval-ns-form | mevcut nsyi eval et                                    |
+  | C-c C-? r | cider-xref-fn-refs | bu sembole verilen refleri bul                         |
+  | C-c M-s   | cider-selector     | en son cider dosyasına / ilgili bufferlara gitmek için |
+  |           | cider-classpath    | classpath içindeki varlıkları dolaş                    |

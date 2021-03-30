@@ -1,5 +1,4 @@
-(ns homoiconicity)
-
+(ns homoiconicity) 
 ;; code from: [Clojure - Wikipedia](https://en.wikipedia.org/wiki/Clojure) > Code as data
 
 ;; call a function (code)

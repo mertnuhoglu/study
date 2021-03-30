@@ -23,6 +23,48 @@ state: wip
 
 # Issues
 
+## Outline
+
+		which-key
+			install
+				M-x package-install which-key
+			setup: enable
+				M-x which-key-mode
+		Install Emacs Package
+			ref
+				[Emacs: Install Package with ELPA/MELPA](http://ergoemacs.org/emacs/emacs_package_system.html)
+			doc
+				ELPA: package repository
+				MELPA: ELPA compatible repository (larger)
+				edit `~/.emacs.default/init.el`
+				M-x list-packages
+				M-x package-install
+		major mode nasıl değiştirilir?
+			M-x emacs-lisp-mode
+		mode nasıl öğrenilir?
+			describe-function kısayol doklarında yazar
+		reload config
+			[init file - How to reload .emacs.d/ configuration without restart - Emacs Stack Exchange](https://emacs.stackexchange.com/questions/41218/how-to-reload-emacs-d-configuration-without-restart)
+			M-x eval-buffer
+			, e b
+		SPC SPC mapping to M-x
+			[SPC SPC to M-X in Doom : emacs](https://www.reddit.com/r/emacs/comments/hpwlyq/spc_spc_to_mx_in_doom/)
+			(map! :leader
+						:desc "M-x" "SPC" #'counsel-M-x)
+			You don't use the :prefix because you already used :leader If you are using evil
+		menülere nasıl erişilir?
+			[How do I get to the menu in Emacs in console mode? - Stack Overflow](https://stackoverflow.com/questions/191312/how-do-i-get-to-the-menu-in-emacs-in-console-mode)
+			F10
+			M-x menu-bar-open
+			!+Enter
+		doom module vs emacs package
+			[doom-emacs/modules.org at develop · hlissner/doom-emacs](https://github.com/hlissner/doom-emacs/blob/develop/docs/modules.org)
+				Doom module = Spacemacs layer
+				module = bundle of packages, configuration, commands
+					enabled by adding into `doom!` block in `init.el`
+		doom grep nasıl yapılır?
+			SPC s p
+
 ## Evaluate an elisp expression
 
 [](https://www.gnu.org/software/emacs/manual/html_node/emacs/Lisp-Interaction.html)
@@ -709,4 +751,91 @@ evil-cleverparens
 expand-region
 
 `SPC v` or `er/expand-region`
+
+# Article: The Emacs Guru Guide to Key Bindings – Wilfred Hughes id=g_12045
+
+[The Emacs Guru Guide to Key Bindings – Wilfred Hughes::Blog](http://www.wilfred.me.uk/blog/2018/01/06/the-emacs-guru-guide-to-key-bindings/)
+
+Mnemonic Key Bindings: Remember name of function
+
+  | eXecute-extended-command | M-x |
+  | Next-line                | C-n |
+  | Previous-line            | C-p |
+  | Forward-char             | C-f |
+  | Backward-char            | C-b |
+  | iSearch-forward          | C-s |
+
+Organised Key Bindings: consistent pattern
+
+Movement by element:
+
+  | forward-char | C-f   |
+  | forward-word | M-f   |
+  | forward-sexp | C-M-f |
+
+Movement to the end:
+
+	| move-end-of-line | C-e |
+	| forward-sentence | M-e |
+	| end-of-defun | C-M-e |
+
+Transpose:
+
+	| transpose-chars | C-t |
+	| transpose-words | M-t |
+	| transpose-sexps | C-M-t |
+
+Killing text:
+
+	| kill-line | C-k |
+	| kill-sentence | M-k |
+	| kill-sexp | C-M-k |
+
+Discovering Key Bindings:
+
+	| C-h k <?> | describe-keybinding |
+	| C-h l | what command ran recently |
+
+Article: keyboard shortcuts - Learning emacs - useful mnemonics? - Stack Overflow id=g_12046
+
+[keyboard shortcuts - Learning emacs - useful mnemonics? - Stack Overflow](https://stackoverflow.com/questions/2677300/learning-emacs-useful-mnemonics/38317797)
+
+	| C-k | Kill a line |
+	| C-y | Yank a line |
+	| C-s | Search |
+	| C-h | Help |
+	| C-t | Transpose |
+	| C-p | Previous line |
+	| C-a | A of line |
+
+[(1) Are there any mnemonics to remember Emacs key-bindings? : emacs](https://www.reddit.com/r/emacs/comments/ebg42i/are_there_any_mnemonics_to_remember_emacs/)
+
+	| i | indent |
+	| o | open | 
+	| q | quote |
+	| r | reverse search |
+	| x | eXtended |
+
+eXtended commands:
+
+	| f | file |
+	| d | directory |
+	| b | buffer |
+	| r | rectangle/register |
+
+M is bigger than C (word > character). Note W ~ M, and C ~ Character. 
+
+C-M is bigger than M. 
+
+  | C-x | control frame                |
+  | C-v | moves down = v pointing down |
+  | M-v | moves up: M flips C          |
+
+[Learning Emacs Key Bindings](https://yiufung.net/post/emacs-key-binding-conventions-and-why-you-should-try-it/)
+
+  | C-x        | for essentials          |
+  | C-c        | for user and major mode |
+  | C-c char   | for user                |
+  | C-c C-char | for major mode          |
+  | C-g C-h    | reserved                |
 

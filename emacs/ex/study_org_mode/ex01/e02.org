@@ -1,4 +1,8 @@
 
+* Headline 01
+
+One morning I was here.
+
 * org-mode structure
 This is text
 

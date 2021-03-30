@@ -62,12 +62,18 @@ clojure -M::datawalk:repl/rebel
 
 > -A (for REPL invocation), -X (for function execution), or -M (for clojure.main execution). 
 
-## Run main function
+## Run main function id=g_12070
 
 `Run main function: <url:file:///~/projects/study/clj/deps_cli.md#r=g_11745>`
 
 ```bash
 clj -M -m clj-new-01.clj-new-01
+```
+
+opt02: `Run a clojure file as script  <url:file:///~/projects/study/clj/deps_cli.md#r=g_12069>`
+
+```clj
+clojure src/cards/core.clj
 ```
 
 ## Repl
@@ -95,7 +101,7 @@ ref: `Article: rebel-readline README <url:file:///~/projects/study/clj/deps_cli.
 clj -Sdescribe
 ```
 
-## Running functions
+## Running functions id=g_12071
 
 opt01a: `Executing a function <url:file:///~/projects/study/clj/deps_cli.md#r=g_11721>`
 
@@ -644,5 +650,35 @@ You can skip `:exec-args` in `:aliases`
 
 ```bash
 clj -X:my-fn2			;; ok
+```
+
+### Run a clojure file as script  id=g_12069
+
+[ubuntu - How to run a Clojure File? - Stack Overflow](https://stackoverflow.com/questions/30445590/how-to-run-a-clojure-file)
+
+[command line - How can I run a .clj Clojure file I created? - Stack Overflow](https://stackoverflow.com/questions/7656523/how-can-i-run-a-clj-clojure-file-i-created/7657016)
+
+Ex: `/Users/mertnuhoglu/projects/rafal_dittwald_solving_problems_the_clojure_way`
+
+opt01: From repl:
+
+```bash
+clj -M:repl/rebel
+```
+
+```clj
+(load "cards/core")
+```
+
+opt02: From terminal directly:
+
+```clj
+clojure src/cards/core.clj
+```
+
+opt03: Use babashka:
+
+```clj
+bb src/cards/core.clj
 ```
 

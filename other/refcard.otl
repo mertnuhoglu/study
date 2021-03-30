@@ -160,7 +160,7 @@ webapps
 	googlesheets google sheets sheets2
 		!up/dn	next/prev sheet
 		#/	help keyboard shortcuts	
-	gdrive google drive id=g_11799
+	gdrive gdrive2 google drive id=g_11799
 		error: too slow sync
 			cause: too many files are deleted
 				fix: delete files both from web and local

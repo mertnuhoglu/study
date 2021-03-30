@@ -317,7 +317,7 @@ Check `~/projects/csl-book-examples/Creatingandmanipulatingfunctions/Higherorder
 ;; (:a 1 :b 2 :c 3)
 ```
 
-02: Use `identity` to provide a function when one is required, but wit shouldn't produce any effect: `~/projects/csl-book-examples/Creatingandmanipulatingfunctions/Higherorderfunctions/identity/5.clj`
+02: Use `identity` to provide a function when one is required, but it shouldn't produce any effect: `~/projects/csl-book-examples/Creatingandmanipulatingfunctions/Higherorderfunctions/identity/5.clj`
 
 ```clj
 (filter identity [0 1 2 false 3 4 nil 5])         ; <3>
@@ -338,7 +338,7 @@ Alternative: `nil?` with `filter`
 ```clj
   (> (->> (:sentence s)
           (partition-by identity) ; <2>
-          (map count)
+					(map count))
 ```
 
 05: `constantly` accepts any number of args. `identity` accepts always one.
@@ -383,9 +383,9 @@ Alternative: `nil?` with `filter`
 Check `~/projects/csl-book-examples/Creatingandmanipulatingfunctions/Higherorderfunctions/juxt/8.clj`
 
 ```clj
-  (->> t
-    (group-by group-criteria)
-    (map (fn [[k v]] {k (map sort-criteria v)}))))
+(->> t
+	(group-by group-criteria)
+	(map (fn [[k v]] {k (map sort-criteria v)})))
 ```
 
 - `comp`: Both compose multiple function into one. 
