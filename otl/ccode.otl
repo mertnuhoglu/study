@@ -5454,6 +5454,9 @@ tools
 					 concat=n=3:v=1:a=1 [v] [a]' \
 					-map '[v]' -map '[a]' output.mp4
 	google docs / google drive / gdocs id=g_10711
+		ref: gdrive gdrive2 google drive <url:file:///~/projects/study/other/refcard.otl#r=g_11799>
+		google sheets2 gsheets
+			ref: googlesheets google sheets sheets2 <url:file:///~/projects/study/other/refcard.otl#r=g_12085>
 		google docs / google drive / gdocs <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10711>
 			spreadsheet
 				shortcuts
@@ -6759,42 +6762,43 @@ tools
 			git commit
 			git push
 	osx
-			transfer files from osx to ipad
-			image viewer
-				finder > select all > space
-			osx setup guide for development tools
-				http://sourabhbajaj.com/mac-setup/index.html
-			karabiner
-				dahili tanım dosyaları burada
-					<url:file:///Applications/Karabiner.app/Contents/Resources>
-				kendi özelleştirmelerim burada
-					<url:file:///~/Library/Application Support/Karabiner/private.xml>
-				ModifierFlag::NONE
-					http://blog.iansinnott.com/using-keyremap4macbooks-private-xml/
-					like non-recursive mapping in vim
-				mapping alt+shift to return
-					http://apple.stackexchange.com/questions/236774/how-to-map-altshiftspace-to-return-correctly-in-karabiner
-				KeyOverlaidModifier
-					--KeyOverlaidModifier--
-					KeyCode::<key we want to affect>,
-					KeyCode::<key to fire when held continuously>,
-					KeyCode::<key to fire when pressed and released quickly>
-			applications
-				iterm2
-					solarized renkleri iterm için bozuk
-						https://gitlab.com/gnachman/iterm2/issues/3989
-						https://github.com/altercation/solarized/issues/257
-						violet light ve violet dark kullan onlar yerine
-							https://github.com/mbadolato/iTerm2-Color-Schemes
-				spotify
-					limit cache size
-						https://community.spotify.com/t5/Desktop-Mac/How-to-limit-cache-size/td-p/2907725
-						cd "~/Library/Application Support/Spotify/"
-						nvim prefs
-				ukelele
-				mucommander
-				phiewer: image viewer
-				fork: git client
+		ref: shortcuts kısayollar keybindings - osx <url:file:///~/projects/study/otl/cosx.otl#r=g_12084>
+		transfer files from osx to ipad
+		image viewer
+			finder > select all > space
+		osx setup guide for development tools
+			http://sourabhbajaj.com/mac-setup/index.html
+		karabiner
+			dahili tanım dosyaları burada
+				<url:file:///Applications/Karabiner.app/Contents/Resources>
+			kendi özelleştirmelerim burada
+				<url:file:///~/Library/Application Support/Karabiner/private.xml>
+			ModifierFlag::NONE
+				http://blog.iansinnott.com/using-keyremap4macbooks-private-xml/
+				like non-recursive mapping in vim
+			mapping alt+shift to return
+				http://apple.stackexchange.com/questions/236774/how-to-map-altshiftspace-to-return-correctly-in-karabiner
+			KeyOverlaidModifier
+				--KeyOverlaidModifier--
+				KeyCode::<key we want to affect>,
+				KeyCode::<key to fire when held continuously>,
+				KeyCode::<key to fire when pressed and released quickly>
+		applications
+			iterm2
+				solarized renkleri iterm için bozuk
+					https://gitlab.com/gnachman/iterm2/issues/3989
+					https://github.com/altercation/solarized/issues/257
+					violet light ve violet dark kullan onlar yerine
+						https://github.com/mbadolato/iTerm2-Color-Schemes
+			spotify
+				limit cache size
+					https://community.spotify.com/t5/Desktop-Mac/How-to-limit-cache-size/td-p/2907725
+					cd "~/Library/Application Support/Spotify/"
+					nvim prefs
+			ukelele
+			mucommander
+			phiewer: image viewer
+			fork: git client
 	ranger
 		ref
 			Index <url:file:///~/projects/study/code/study_ranger.md#r=g_11809>

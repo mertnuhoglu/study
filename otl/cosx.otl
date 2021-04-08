@@ -1,18 +1,30 @@
 
 ## Tree
 
-		apps
-			contexts: spotlight alternative
-				switch any window (including multiple windows of one application)
-		bash completion
-			bash autocomplete is not setup by default
-			to enable it:
-				https://www.simplified.guide/macos/bash-completion
-				brew install bash-completion
-		spotlight
-			dictionary lookup in spotlight id=g_11938
-				<word> def
-					shows the dictionary definition on top
+	shortcuts kısayollar keybindings - osx id=g_12084
+		sol alt köşe: #^+
+      | r | obs: streaming           |
+      | n | obs: recording           |
+      | h | obs: pause               |
+      | t | simple recorder: start   |
+      | y | simple recorder: stop    |
+      | ş | simple recorder: pause   |
+      | s | screenshot: rectangle    |
+      | m | screenshot: screen 2     |
+      | l | screenshot: screen 1     |
+      | k | hammerspoon: window list |
+	apps
+		contexts: spotlight alternative
+			switch any window (including multiple windows of one application)
+	bash completion
+		bash autocomplete is not setup by default
+		to enable it:
+			https://www.simplified.guide/macos/bash-completion
+			brew install bash-completion
+	spotlight
+		dictionary lookup in spotlight id=g_11938
+			<word> def
+				shows the dictionary definition on top
 
 ## System
 

@@ -189,18 +189,36 @@ brian will
 				çok fazla kullanılan bir şey değildir
 			(var sym)
 			(var foo/bar)
+		class symbol access
+			Classname
+			Classname$NestedClassName
 		new
 			(new class args)
 			(new java.io.File "myfile.dat")
 		. (dot)
 			java object fieldını veya java methodunun sonucunu döndürür
+			(.instanceMember instance args*)
+			(.instanceMember Classname args*)
+			(.-instanceField instance)
+			(Classname/staticMethod args*)
+			Classname/staticField
 			(. class static_field)
 			(. instance field)
 			(. (anInstanceReturningFct) aField)
 			(. inst (method args))
+		.. (dot dot)
+			(.. instance-expr member+)
+			(.. Classname-symbol member+)
+			ex:
+				(.. System (getProperties) (get "os.name"))
+				(. (. System (getProperties)) (get "os.name"))
+				(-> (System/getProperties) (.get "os.name"))
 		set!
 			(set! dot-form expr)
 			(set! (. anInstance aField) 3)
+		doto
+			(doto (new java.util.HashMap) (.put "a" 1) (.put "b" 2))
+			-> {a=1, b=2}
 	Factorial Function
 	Fizz-Buzz Problem
 	Collections

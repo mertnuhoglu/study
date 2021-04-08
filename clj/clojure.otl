@@ -157,6 +157,31 @@ howto
 			(all-ns)
 	vim
 		Show Documentation in Conjure Floating Window <url:clojure_in_vim.md#r=g_11957> ,eb > K
+idioms - kendime göre özetler id=g_12080
+	let
+		(let [a b
+		      c a])
+		=> 
+			a = b
+			c = a
+	assoc
+		(assoc request :user user)
+		= request[[:user]] = user
+		= request.user = user
+	->
+		(-> request :session :user-id)
+		= request[[:session]][[:user-id]]
+		= request.session.user-id
+	Ring suyu id=g_12082
+		middleware fonksiyonu tanımlama:
+			(defn mw [handler]
+				(fn [request]
+					...
+					(assoc request ...)
+					(handler request)))
+		mw fonksiyonlarını kullanma:
+			(def app (-> handler (mw1) (mw2) ...))
+		handler tipi: request -> response
 topics
 	data structures
 		boolean
@@ -860,7 +885,6 @@ topics
 	conventions
 		side-effect functions
 			side-effect funs return nil as result
-	idioms
 	cli
 		install
 			brew install clojure

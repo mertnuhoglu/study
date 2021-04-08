@@ -22,7 +22,9 @@ names
 			ref
 				Hafızaya çıpalama yoluyla öğrenmeyi destekleme 20210125  <url:file:///~/projects/myrepo/general/rules.otl#r=g_11942>
 			Yeni bir bilgiyi hafızama eklemek için pek çok yere çıpa takıyorum
-
+		kendime göre özetleme
+			ref
+				özetleme yöntemi: suyunu çıkarma ve kendime göre özetleme 20210403  <url:file:///~/projects/myrepo/general/rules.otl#r=g_12081>
 tools
 	bash
 		navigate recursively subdirectories and execute command

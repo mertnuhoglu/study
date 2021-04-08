@@ -1,0 +1,174 @@
+
+articles
+	[Figma Tips & Tricks - UI Designer's Superpower - YouTube](https://www.youtube.com/watch?v=Vo0sEPqArRQ)
+		ref
+			https://www.youtube.com/watch?v=NFgqe6kVG28&list=PLK7WMaQudteWS1mhvFfjDx5NQ598Q-tp8
+		Duplicating layers 00:09
+			option drag it
+			cmd v 
+		Default layer names 00:33
+			delete layer name
+			enter
+			komponentin içinde ne yazıyorsa, onu varsayılan isim yapar
+			tab (sonraki komponente geç)
+		Fancy Circles 00:43
+			çemberi merkezden başlatmak için: option drag
+			spacebar: seçiliyken ayarlamak için
+			color picker: ^c
+			hover over shape: arc noktası görünür
+			onu çevirerek, pay oluşturabilirsin
+			aynı şekilde merkez arc noktasından da dilim oluşturabilirsin
+		Applying Opacity to Anything 01:55
+			select component
+			press 1 -> 10% opacity
+			15 -> 15%
+			0 -> 100%
+		Copy Styles 02:23
+			bir elemanın stilleri kopyalamak
+			cmd opt c
+			cmd opt v
+		Copy Selected Properties 02:34
+			propertyyi sidebardan seç
+			cmd c 
+			objeyi seç
+			cmd v
+		Superfast scrubbing 02:48
+			konumları ayarlamada
+			properties > x y vs. seç
+			yana doğru imleçi kaydır
+			sonra aşağı in imleci basılı tutup
+			sonra tekrar yana doğru kaydır
+		Smart Selection 03:27
+			çok sayıda objeyi seç
+			hepsini grupla
+			şimdi aralarındaki mesafeleri ayarlarken hepsi değişir
+			objelerin yerlerini değiştirdiğinde hepsi yeniden ayarlanır
+		Move the selection 04:03
+			bir seçim alanı oluştur
+			spacebar ile bunu sürükle
+			küçük bir seçim alanı yaparsan, detaylı inceleyebilirsin
+		Figma's Performance 04:50
+			cmd / > resource use
+		Keyboard Shortcuts Gamified 05:11
+			tablar arasında dolaşmak: #1 #2
+			page up/dn: sayfalar arasında dolaşmak
+			cmd . show/hide ui
+			keyboard shortcuts: ^+?
+			hangilerini kullandığını maviyle gösterir
+		Overlays in Prototypes 06:10
+			overlay komponenttini frame dışına taşı
+			cmd opt g: frame yapar komponentini
+			butonu seç > prototype link oluştur > overlay > manual
+		Positioning Overlays 06:59
+			arrow key, shift+arrow keys yerleşim için
+			overlay background > %55
+			> Close when clicking outside
+			böylece arka planı flulaştırır overlay gösterdiğinde
+		States for Overlays 07:43
+			multiply overlay 
+			farklı bir state oluştur 
+		Invisible Hit Targets 08:15
+			iki farklı overlay state arasında
+			prototype > overlay > swap 
+		Special Action Triggers 08:42
+			X buton koy overlay üstüne
+			prototype > trigger = on click > action = close overlay
+			buna tıklanınca overlay kapanır
+		Nudging values 09:09
+			arrow key: 1 piksel
+			+arrow key: 10 piksel
+			Komut: Nudge Amount: miktarı değiştirebilirsin
+		Selecting locked layers 09:48
+			cmd basılı tıklarsan, nested layoutları seçersin
+			ama kilitlileri seçemezsin
+			ctrl right click: kilitli layerları da seçebileceğin menü çıkar
+		Batch unlock / unhide objects 10:28
+			Komut: Unlock All Objects
+			Komut: Unhide All Objects
+		Batch importing images 10:48
+			cmd +k: birden çok resmi seç
+			sonra elementleri seç, içlerine koyar otomatik
+		Importing Images and GIF's 11:04
+			bir objeyi seç
+			bir resmi, fill property içine sürükle
+			gif resminin frameini değiştirebilirsin, fill içinden
+			fill > multiply: arka renk ile karıştırabilirsin
+		Copying & Pasting Tips 11:54
+			bir şeyi kopyaladıktan sonra, başka bir frame seçip yapıştırırsan, aynı konuma yapıştırır
+			başka bir layerı seçersen, o zaman onun üstüne yapıştırır
+		Pasting into selection 12:28
+			bir shape/layer içinde yapıştırmak için: #+v
+		Selecting with keyboard 12:42
+			bir objeyi seçtikten sonra returne bas: editing mode
+			+return: dışarı çıkar
+			gruplarda da bu işe yarar
+			return: iç öğelere girer
+			+return: dış öğelere döner
+		Adjusting color values 13:18
+			bir yazının doğru renk tonunu bulmak zordur
+			seç > fill > up/down ile renk tonu değişir
+			+up/dn ile de sıcaklık değişir
+		Pasting values from CSS 13:50
+			css kopyala
+			fill > paste
+		Changing colors in real time 14:15
+			^c color picker ile istediğin rengi seç
+			figma dışındaki renkleri de alabilirsin
+			preview etmek için: ctrl basılı tut color picker seçiliyken
+			text seçiliyken de aynı yapabililirsi
+		Changing Text Properties 15:03
+			texti single line yapmak için: text objesi seçiliyken kenarına çift tıkla
+		Batch changing the Font 15:13
+			bir text seç
+			Komut > Select All with Same Font
+			tek seferde hepsinin font özelliklerini değiştirebilirsin
+		Adjust hue and alpha with scroll 15:29
+			fill seçiliyken scroll edersen hue değişir
+			alpha seviyesi: opt basılı tut, scroll et
+		Creating multiple components 16:14
+			birden çok element seç > Create Multiple Components
+		Prefixing layers 16:32
+			birden çok kompnonent seç > #r rename 
+			prefix ekle: food/apple gibi
+			böylece namespacelerle çalışabilirsin
+		Component swapping 16:50
+			bir komponent seçiliyken > right > Swap Instance > farklı bir komponent seç
+		Finding the Master Component 17:05
+			element seç > sidebar > instance
+			> go to master component
+		Push changes to Instance to the Master 17:31
+			bir instance özelliklerini değiştir
+			sidebar: instance > push overrides to master
+			geri alabilirsin de
+			sidebar: reset overrides
+		Better asset preview 18:19
+			bir assetin önizleme resmini değiştirebilirsin
+			komponenti seç > siyah bir arka fon frame üstüne koy
+			Assets içinden görünümüne bakabilirsin
+		Project thumbnails in Figma 19:01
+			aynı şekilde bir projenin ilk sayfası projenin önizleme resmidir
+			siyah arkafon üzerine yazı yazabilirsin
+		Advanced Layers Renaming 19:38
+			birden çok layer seç > #r
+			regex kullan
+			grouping destekli
+		Removing parts of the layers' names 21:04
+		Finding layers on the canvas 21:40
+			layerdan seç > +2
+			veya: yanındaki ikonu çift tıkla
+		Grouping color styles 22:23
+			bir objeyi seç > fill > color styles > + 
+			prefix ile isim ver: brand/yellow
+			böylece bu namespace altında birikir renkler
+		Adding descriptions to Components 23:10
+			yazılımcılara da yardımcı olur bu komentler
+			element > sidebar: component = açıklamayı yaz
+			code içinde bunun css kısmında bu açıklamayı görürsün
+		Saving with description 23:52
+			!#s version history eklerken açıklama notu girer
+		Sharing specific  24:40:00
+			version history > bir kayıt seç > right > name this version
+		Sharing links from Figma 25:06
+			version history > kayıt seç > copy link to version
+		Opening Files from clipboard 25:20
+			file > open file url from clipboard

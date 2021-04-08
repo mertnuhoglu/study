@@ -157,9 +157,11 @@ osx
 	keyboard layout
 		ref: Quickstart Ukulele <url:file:///~/projects/study/osx/ukelele.md#r=g_11829>
 webapps
-	googlesheets google sheets sheets2
+	googlesheets google sheets sheets2 id=g_12085
 		!up/dn	next/prev sheet
 		#/	help keyboard shortcuts	
+		+enter	bir hücreyi editleme
+		,#enter	hücre içinde yeni satır
 	gdrive gdrive2 google drive id=g_11799
 		error: too slow sync
 			cause: too many files are deleted
