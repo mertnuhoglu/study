@@ -96,6 +96,7 @@ howto
 		repl: (in-ns 'my-namespace)
 	Setup a new project  id=g_11946
 		New Clojure Project <url:deps_cli.md#r=g_11941>
+			clojure -X:project/new :name mert/project-01
 			clojure -X:project/new :name mertnuhoglu/project-01
 			cd project-01
 	Run REPL id=g_12068
@@ -128,12 +129,23 @@ howto
 				clojure -M:inspect/reveal:repl/rebel
 				(add-tap ((requiring-resolve 'vlaaad.reveal/ui)))
 				(tap> {:a 1 :b 2})
-	Run a clojure script/function
-		Run main function <url:file:///~/projects/study/clj/deps_cli.md#r=g_12070>
-			clj -M -m clj-new-01.clj-new-01
-			clojure src/cards/core.clj
-		Running functions <url:file:///~/projects/study/clj/deps_cli.md#r=g_12071>
-			clj -X:my-fn
+	Run a clojure script/function/app id=g_12108
+		from repl:
+			ref: ~/projects/study/clj/book_practicalli_clojure_webapps.md
+			(require '[practicalli.p02] :verbose)
+			(in-ns 'practicalli.p02)
+			(def app-server-instance (-main 8888))
+		from conjure/vim:
+			ref: ~/projects/study/clj/book_practicalli_clojure_webapps.md
+			ConjureConnect
+			,eb | eval buffer
+			Eval: `(def app-server-instance (-main 8888))`
+		from cli: clj
+			Run main function <url:file:///~/projects/study/clj/deps_cli.md#r=g_12070>
+				clj -M -m clj-new-01.clj-new-01
+				clojure src/cards/core.clj
+			Running functions <url:file:///~/projects/study/clj/deps_cli.md#r=g_12071>
+				clj -X:my-fn
 	require import libraries
 		ref: ~/projects/study/clj/ex/study_clojure/ex06/src/require_functions.clj
 		(require '[clojure.tools.trace :refer [trace, dotrace]])
@@ -182,6 +194,14 @@ idioms - kendime göre özetler id=g_12080
 		mw fonksiyonlarını kullanma:
 			(def app (-> handler (mw1) (mw2) ...))
 		handler tipi: request -> response
+		default değer için or kullanma:
+			(or (.getScheme uri) "http")
+			(or query params)
+		string değerleri keyworde çevirip kullanma:
+			let [
+				scheme (keyword (or (.getScheme uri) "http"))
+				request {:scheme         scheme}
+			]
 topics
 	data structures
 		boolean

@@ -53,20 +53,26 @@ Check: `zshrc: lf <url:file:///~/.zshrc#r=g_11820>`
   | n/N       | search-next/search-prev           |
   | z         | toggle options                    |
   | s         | change sortby/info options        |
-  | e/i/w     | launch editor/pager/shell         |
+  | e         | launch editor                     |
+  | i         | launch pager                      |
+  | w         | launch shell                      |
 
-## Configuration
+## Custom Configuration
 
 Check `~/.config/lf/lfrc`
+
+  | af | fzf         |
+  | az | fasd        |
+  | Y  | $f > pbcopy |
 
 # Official Documentation
 
 [lf - GoDoc](https://godoc.org/github.com/gokcehan/lf)
 
-	|r|rename|
-	|f|find (with starting letter)|
-	|F/;/,|find-back/find-next/find-prev|
-	|m/'/"|mark-save/mark-load/mark-remove|
+  | r     | rename                                    |
+  | f     | find (with starting letter)               |
+  | F/;/, | find-back/find-next/find-prev             |
+  | m/'/" | mark-save/mark-load/mark-remove bookmarks |
 
 ## Previewer
 
@@ -91,6 +97,9 @@ brew install --cask font-jetbrains-mono-nerd-nerd-font
 brew install --cask font-inconsolata-nerd-font
 ```
 
+## Bookmarks
+
+[Bookmarks for directories · Issue #76 · gokcehan/lf](https://github.com/gokcehan/lf/issues/76)
 
 
 

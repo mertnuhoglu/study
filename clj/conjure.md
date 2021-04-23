@@ -18,6 +18,8 @@ output:
 
 ## Refcard conjure keybindings
 
+First check current prefix: `let g:conjure#mapping#prefix = " m" `
+
   | ConjureConnect [port] | bir nrepla bağlan                 |
   | ,ee                   | eval current form                 |
   | ,eb                   | eval buffer                       |

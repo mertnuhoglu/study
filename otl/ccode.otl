@@ -1209,10 +1209,11 @@ cloud
 				static website: s3/cloudfront to netlify
 				prepayment: with google possible
 databases
-    shard
-      horizontal partition of data
-      each shard is held on a separate database server instance
-      
+	postgresql postgres2 postgresql2
+		ref: ~/projects/study/otl/cdb.otl
+	shard
+		horizontal partition of data
+		each shard is held on a separate database server instance
 development practices and methods
 	development practices and methods id=g_10659
 		development practices and methods <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10659>
@@ -1242,6 +1243,10 @@ development practices and methods
 						./28_backup_and_load_to_production.sh data_${data_run_date} 
 git git2 id=g_10500
 	git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10500>
+		multiple remote locations: gitlab ve github
+			ref
+				POC uygulamalarını bitbucket'tan github'a taşı 20210412  <url:file:///~/projects/study/logbook/log_20210412.md#r=g_12089>
+				gitlab, bitbucket, github repolarını sync et 20200415  <url:file:///~/projects/study/logbook/log_20200415.md#r=g_12087>
 		revert a file to a commit
 			git checkout c5f567 -- file1/to/restore
 		git tag
@@ -1872,6 +1877,8 @@ firebug
         console > persist
 bash
 	bash2 id=g_11687
+		makefile
+			ref: Makefile for build and install <url:file:///~/projects/study/otl/cr.otl#r=g_12099>
 		points
 			list files with absolute paths
 				ls -d "$PWD"/* 
@@ -1963,7 +1970,9 @@ bash
 	diff
 			diff-so-fancy
 				https://github.com/so-fancy/diff-so-fancy
-	fd: find replacement fd2
+	fd: find replacement fd2 find2
+		batch delete files with find xargs
+			ref: xargs <url:file:///~/projects/study/otl/ccode.otl#r=g_10805>
 		help:
 			fd --help
 				örneklerle çok güzel dokümante edilmiş
@@ -2559,8 +2568,10 @@ bash
 			find files and convert them using pandoc to markdown
 				find . -type f -iname "*.docx" -print0 | xargs --null -I{} pandoc -f docx -t markdown '{}' -o '{}.md'
 			find files and remove them
+				fd '\-e' | xargs echo rm -f
 				find . -iname "tags" | rg -v ".git" | xargs ls -lh
 				find . -name "*.bak" -type f | head | xargs rm -f                                       
+				fd . -name "*.bak" -type f | head | xargs rm -f
 			spaces in the arguments
 				xargs -n1 -d '\n' zip "temp.zip"
 					-d delimiter is \n

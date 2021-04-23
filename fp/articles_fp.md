@@ -15,13 +15,14 @@
 		Purescript By Example by Phil Freeman
 			<url:file:///~/Dropbox/mynotes/content/books/js/purescript_by_example_phil_freeman.md>
 		Frisby's Mostly Adequate Guide to Functional Programming - Brian Lonsdorf
-			<url:file:///~/Dropbox/mynotes/content/books/fp/book_frisby_adequate_guide_to_functional_programming.md>
+			~/projects/study/js/study_frisby_book_adequate_guide_to_fp.Rmd
 		Javascript Allonge
 			<url:file:///~/Dropbox/mynotes/content/books/js/book_javascript_allonge.md>
 		Learn Js Ecmascript 6 - Egghead
 			<url:file:///~/Dropbox/mynotes/content/books/js/book_egghead_learn_js_ecmascript_6.md>
 		Frisby Intro to FP - egghead Brian Lonsdorf
 			<url:file:///~/Dropbox/mynotes/content/books/fp/frisby_intro_to_fp_egghead.md>
+			~/projects/jekyll/mertnuhoglu.com/content/blog/frisby_intro_to_fp_egghead.md
 
 ## articles fp
 

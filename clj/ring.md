@@ -350,6 +350,42 @@ Not: `bean` bir java objesinin propertylerini map keylerine çevirir.
 	    (status 403)))
 ```
 
+## Article: Ring Examples
 
+[Examples · ring-clojure/ring Wiki](https://github.com/ring-clojure/ring/wiki/Examples)
+
+### Hello World
+
+```bash
+clojure -X:project/new :name mert/e02
+cd e02
+clojure -M:project/find-deps ring-core
+```
+
+opt01: run as script
+
+Edit `~/projects/study/clj/ex/ring/e02/e02.clj`
+
+```bash
+clojure src/mert/e02.clj
+```
+
+Open: `http://localhost:8080/`
+
+opt02: run as main function:
+
+Edit `~/projects/study/clj/ex/ring/e02/e02b.clj`
+
+```bash
+clj -M -m mert/e02b.clj
+```
+
+Repl:
+
+Cursive: `switch repl to ns`
+
+```clj
+(-main)
+```
 
 

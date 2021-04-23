@@ -1,0 +1,12 @@
+
+refcard
+	başlangıç:
+		Simple restart <url:file:///~/projects/study/clj/book_practicalli_clojure_webapps.md#r=g_12109>
+			(require '[practicalli.p02] :verbose)
+			(in-ns 'practicalli.p02)
+			(def app-server-instance (-main 8888))
+		çalışan uygulamalar:
+			p02, p06
+			error: diğerlerinde map String cast hatası veriyor sebebini bilmiyorum
+				opt: jetty sunucusuyla ilgili olabilir
+				opt: headers {"Content-Type" "text/html"}

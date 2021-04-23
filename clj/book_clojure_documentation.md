@@ -133,8 +133,10 @@ https://clojure.org/guides/weird_characters
 		BaseXClient$EventNotifier
   ->, ->>, some->, cond->, as-> etc. - Threading macros
   ` - Syntax quote
+		backquote grave
 		symbols used within a syntax quote are fully resolved with respect to the current namespace
   ~ - Unquote
+		tilde
 		(def five 5)
 		`five ; => user/five
 		`~five ; => 5
