@@ -21,6 +21,8 @@ state: wip
 
 ## Doom Refcard  id=g_12039
 
+	| SPC h t | load-theme |
+
 ref: `spacemacs doom emacs refcard <url:file:///~/projects/study/emacs/spacemacs.md#r=g_11015>`
 
     | spacemacs | description                  | command                     | doom  |
@@ -69,6 +71,10 @@ ref: `Magit <url:file:///~/projects/study/emacs/doom.md#r=g_12043>`
   | c       | commit                  | magit-commit         |
 
 # Issues
+
+## smartparens config
+
+ref: smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g_12112>
 
 ## Bir projeyi REPL ile incelemek id=g_12073
 

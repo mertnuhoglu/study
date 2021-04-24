@@ -10,3 +10,33 @@ refcard
 			error: diğerlerinde map String cast hatası veriyor sebebini bilmiyorum
 				opt: jetty sunucusuyla ilgili olabilir
 				opt: headers {"Content-Type" "text/html"}
+	json servisi sunmak: p07
+		http://localhost:8000/player/jenny-jetpack
+		[clojure.data.json :as json]))
+		..
+		(GET "/player/:name"   [] player-score)
+		->
+		(let [player (get-in request [:route-params :name])]
+		..
+		:body    (json/write-str ..
+	json servislerini kullanmak: p08
+		[org.httpkit.client :as client]))
+		..
+		@(client/get "https://practicalli.github.io/blog/")
+		..
+		(:body
+			@(client/get "http://date.jsontest.com/" {:accept :json}))
+	veritabanı erişimi next.jdbc ile: p09
+		[next.jdbc :as jdbc]
+		..
+		(def db {:dbtype "sqlite" :dbname "db_p10.db"})
+		(def ds (jdbc/get-datasource db))
+		(jdbc/execute! ds ["select * from contacts"])
+		;[#:contacts{:contact_id 101, :first_name "ali", :last_name "veli", :email "ali@x.com", :phone "+90(555)..."}
+	veritabanı erişimi jdbc: p10
+		[clojure.java.jdbc :as j]
+		..
+		(j/query db
+			(str "select * from contacts;"))
+
+

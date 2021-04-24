@@ -67,7 +67,7 @@ foo bar, baz quux
 
 ;; ## Wrapping
 
-;; | M-(       | evil-cp-wrap-next-round     |
+;; | M-(       | evil-cp-wrap-next-round     | sp-wrap-round |
 (a, b) ;; M-( ->
 (a(, b)) ;; 2 M-( ->
 (a(, b)) ;; -1 M-( ->
@@ -83,17 +83,31 @@ foo bar, baz quux
 
 ;; | > | evil-cp-> |
 ;; | < | evil-cp-< |
+
 (,foo bar baz)
 (car)
 ;; `>` ->
+;; | sp-forward-slurp-sexp |
 (,foo bar baz
  (car))
+
+(,foo bar baz)
+(car)
 ;; `<` ->
+;; | sp-forward-barf-sexp |
 (,foo bar) baz
 (car)
 
-a ,(foo bar ,baz) ;; `<` ->
-,(a foo bar ,baz) ;; `>` ->
+(,foo bar baz
+ (car))
+;; | sp-forward-barf-sexp |
+(,foo bar baz)
+(car)
+
+a (,foo bar ,baz) ;; `<` | sp-backward-slurp-sexp |
+,(a foo bar ,baz)
+
+a (,foo bar ,baz) ;; `<` | sp-backward-barf-sexp |
 a foo ,(bar ,baz)
 
 ;; ## Motion

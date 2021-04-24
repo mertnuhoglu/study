@@ -199,6 +199,7 @@ ref: `~/projects/study/emacs/ex/smartparens/e01/cleverparens_commands.clj`
 
 ref: `sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g_11971>`
 
+)(	ıy)lınem
   | keybinding | function                            | vim-sexp |
   | slurp barf |                                     |          |
   | >          | evil-cp->                           | >) >(    |

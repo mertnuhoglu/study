@@ -87,3 +87,37 @@ Kullanımı:
 (-main :port 8888)
 ```
 
+## Practicalli: Clojure Webapp routing and APIs with JSON id=g_12110
+
+[Practicalli: Clojure Webapp routing and APIs with JSON](https://practicalli.github.io/blog/posts/webapp-routes-with-json/)
+
+Edit `~/projects/study/clj/ex/book_practicalli_clojure_webapps/p01/src/practicalli/p07.clj`
+
+		http://localhost:8000/player/jenny-jetpack
+		http://localhost:8000/scores
+
+## Practicalli: Consuming APIs from Clojure id=g_12111
+
+[Practicalli: Consuming APIs from Clojure](https://practicalli.github.io/blog/posts/consuming-apis-with-clojure/)
+
+Edit `~/projects/study/clj/ex/book_practicalli_clojure_webapps/p01/src/practicalli/p08.clj`
+
+## Getting Started — seancorfield/next.jdbc id=g_12113
+
+[Getting Started — seancorfield/next.jdbc 1.1.569](https://cljdoc.org/d/seancorfield/next.jdbc/1.1.569/doc/getting-started)
+
+Edit `~/projects/study/clj/ex/book_practicalli_clojure_webapps/p01/src/practicalli/p09.clj`
+
+## Clojure and SQLite – Yet Another Blog in Statistical Computing
+
+[Clojure and SQLite – Yet Another Blog in Statistical Computing](https://statcompute.wordpress.com/2018/03/12/clojure-and-sqlite/)
+
+Edit `~/projects/study/clj/ex/book_practicalli_clojure_webapps/p01/src/practicalli/p10.clj`
+
+## Using java.jdbc | Clojure Documentation | Clojure Docs
+
+[Using java.jdbc | Clojure Documentation | Clojure Docs](http://clojure-doc.org/articles/ecosystem/java_jdbc/home.html)
+
+## Practicalli: Bank Account
+
+[Bank Account TDD style · Practicalli Clojure](https://practicalli.github.io/clojure-staging/clojure-spec/projects/bank-account/)

@@ -3,12 +3,10 @@
   (:require [org.httpkit.server :as app-server]
             [compojure.core :refer [defroutes GET]]))
 
-
 ;; Routing
 
 (defroutes app
   (GET "/" [] {:status 200 :body "App Server Running"}))
-
 
 ;; System
 
@@ -23,7 +21,6 @@
   [& [port]]
   (let [port (Integer. (or port (System/getenv "PORT") 8888))]
     (app-server-start port)))
-
 
 ;; REPL driven develpment
 

@@ -1,5 +1,10 @@
 ref
 	~/projects/study/clj/refcard_clojure.otl
+index
+	Setup a new project  <url:file:///~/projects/study/clj/clojure.otl#r=g_11946>
+	Run REPL <url:file:///~/projects/study/clj/clojure.otl#r=g_12068>
+	Run a clojure script/function/app <url:file:///~/projects/study/clj/clojure.otl#r=g_12108>
+	idioms - kendime göre özetler <url:file:///~/projects/study/clj/clojure.otl#r=g_12080>
 clojure
 	authors id=g_11837
 		Rich Hickey - Clojure
@@ -62,6 +67,9 @@ clojure
 				Multiple Emacs Setups/Installations in Osx <url:file:///~/projects/study/emacs/emacs.md#r=g_12029>
 				~/projects/private_dotfiles/.config/chemacs/profiles.el
 				emacs --with-profile default
+		paredit
+			Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g_11961>
+			smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g_12112>
 	trainings
 		https://lambdaisland.com/episodes
 		https://purelyfunctional.tv/browse/
@@ -93,7 +101,9 @@ howto
 			clojure -M:project/find-deps http-kit
 	repl'a mevcut clj namespace'ini yüklemek
 		cursive: load-file veya Send file to REPL
-		repl: (in-ns 'my-namespace)
+		repl: 
+			(require '[my-namespace])
+			(in-ns 'my-namespace)
 	Setup a new project  id=g_11946
 		New Clojure Project <url:deps_cli.md#r=g_11941>
 			clojure -X:project/new :name mert/project-01
@@ -202,6 +212,25 @@ idioms - kendime göre özetler id=g_12080
 				scheme (keyword (or (.getScheme uri) "http"))
 				request {:scheme         scheme}
 			]
+	main default arguments
+		ref: ~/projects/study/clj/ex/book_practicalli_clojure_webapps/p01/src/practicalli/p06.clj
+		(defn -main
+			[& {:keys [ip port]
+					:or   {ip   "0.0.0.0"
+								 port 8000}}]
+		kullanımı:
+			(-main :port 8080)
+	server initialization in webapps
+		(def server (atom nil))
+		(defn -main
+			(reset! server (server/run-server #'handler {:port port})))
+		(defn stop-server []
+			(when-not (nil? @server)
+				(@server :timeout 100)
+				(reset! server nil)))
+		kullanımı:
+			(-main)
+			(stop-server)
 topics
 	data structures
 		boolean
@@ -974,6 +1003,10 @@ topics
 					| SPC sf  | eval sexp          |
 					| !+ SPC  | quicklist: popups  |
 					| +L C    | quicklist: clojure |
+	webapps
+		ref
+			~/projects/study/clj/book_practicalli_clojure_webapps.md
+				~/projects/study/clj/book_practicalli_clojure_webapps_logs.otl
 	other
 		(instance? java.util.Collection [1 2 3]) ;; true
 		; record <url:ex/study_clojure/ex06/src/core01.clj#r=g_11410>
