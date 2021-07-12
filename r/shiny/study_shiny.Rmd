@@ -90,6 +90,30 @@ cd ~/projects/study/r/shiny
 		~/Downloads/r_libraries/shiny.pdf
 		~/Downloads/r_libraries/shiny-cheatsheet.pdf
 
+# Examples
+
+## shinydashboard giriş ekranı
+
+ref: `~/projects/study/r/shiny/ex/study_shiny/shinydashboard/e01.R`
+
+Dynamic ui (sidebar ve body kısımları programatik olarak dinamik bir şekilde oluşturuluyor):
+
+ref: `~/projects/study/r/shiny/ex/study_shiny/shinydashboard/e02_dynamic_ui.R`
+
+## login ekranı id=g12312
+
+https://github.com/paulc91/shinyauthr
+
+Bağımlılık: `~/projects/study/r/shiny/ex/study_shiny/shinyauthr/returnClick.js`
+
+Düz kullanım:
+
+ref: `~/projects/study/r/shiny/ex/study_shiny/shinyauthr/e01.R`
+
+shinydashboard ile kullanımı:
+
+ref: `~/projects/study/r/shiny/ex/study_shiny/shinyauthr/e02_shinydashboard.R`
+
 ## Article: shiny cheatsheet
 
 Ref: `~/Downloads/r_libraries/shiny-cheatsheet.pdf`

@@ -61,9 +61,10 @@ Check: `zshrc: lf <url:file:///~/.zshrc#r=g_11820>`
 
 Check `~/.config/lf/lfrc`
 
-  | af | fzf         |
-  | az | fasd        |
-  | Y  | $f > pbcopy |
+  | af | fzf                    |
+  | az | fasd                   |
+  | Y  | copy path: $f > pbcopy |
+
 
 # Official Documentation
 

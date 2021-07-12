@@ -693,6 +693,26 @@ topics
 		edn
 			edn-format/edn: Extensible Data Notation <url:book_clojure_documentation.md#r=g_11402>
 	concepts
+		record defrecord
+			ref: defrecord <url:file:///~/projects/study/clj/art_clojure_language_brian_will.md#r=g_12114>
+				ex
+					(defrecord Nadine [x y z] ; fields
+						Roger ; protocol implemented
+						(foo [this]
+					(def adam (new Nadine 3 "hi" false)) ; new special form
+					(foo adam 7 2) ; instance adam: adam.foo(7, 2)
+					(. adam x) ; adam.x field access
+					(get adam :x) ; adam.x as keyword
+				defprotocol = interface
+				defrecord = class
+				map fct returns a new record
+					(assoc adam :x 5) ; new Nadine record {:x 5 :y "hi" :z false}
+			ref: create types <url:file:///~/projects/study/clj/art_clojure_language_brian_will.md#r=g_12115>
+				deftype: for data structure
+				defrecord: for domain data
+			ref: record <url:ex/study_clojure/ex06/src/core01.clj#r=g_11410>
+				(defrecord Book [title author])
+				(->Book "title01" "author01") ;; => #user.Book{:title "title01", :author "author01"}
 		global bindings
 			; bindings: defn vs def <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11323>
 				(defn f [a] a)
@@ -1009,9 +1029,6 @@ topics
 				~/projects/study/clj/book_practicalli_clojure_webapps_logs.otl
 	other
 		(instance? java.util.Collection [1 2 3]) ;; true
-		; record <url:ex/study_clojure/ex06/src/core01.clj#r=g_11410>
-			(defrecord Book [title author])
-			(->Book "title01" "author01") ;; => #user.Book{:title "title01", :author "author01"}
 		Characters: `\{letter} \space \n \r \t`
 		(str 1 2 nil 3) ;; "123"
 		(find-doc #"\?$") ; Find other predicate functions:

@@ -121,3 +121,12 @@ Edit `~/projects/study/clj/ex/book_practicalli_clojure_webapps/p01/src/practical
 ## Practicalli: Bank Account
 
 [Bank Account TDD style · Practicalli Clojure](https://practicalli.github.io/clojure-staging/clojure-spec/projects/bank-account/)
+
+Yaptığın değişiklikleri görmek için: ilgili fonksiyonları eval etmelisin yeniden repl içinde.
+
+## seancorfield/usermanager-example: A little demo web app in Clojure, using Component, Ring, Compojure, Selmer (and a database)
+
+[seancorfield/usermanager-example: A little demo web app in Clojure, using Component, Ring, Compojure, Selmer (and a database)](https://github.com/seancorfield/usermanager-example)
+
+Check `/Users/mertnuhoglu/codes/clj/prj/web/usermanager-example/README.md`
+

@@ -131,3 +131,29 @@ Ref: `~/projects/study/code/study_intellij_ideavim.md`
 
 		| ^w o | restore default layout |
 
+# doc: Intellij Kısayolları 20210408 id=g_12289
+
+ref: intelij_kisayollari_20210408.m4a
+
+		|gd | quick definition                |!k      | 
+		| !+k     | quick documentation             | !h d   |
+		| !zc     | collapse                        | zc     |
+		| !zm     | collapse recursively            | zm     |
+		| !zo     | expand                          | zo     |
+		| !zO     | expand recursively              | zO     |
+		| ^!e     | next method                     | C-M-e  | end-of-defun         | ^+dn |
+		| ^!a     | prev method                     | C-M-a  | beginning-of-defun   | ^+up |
+		| +up/dn  | move forward/backw into sexp |
+		| #!up/dn | next/prev occurrence (usage)    |
+		| !c s    | highlight current scope         | +C s   |
+		| !rq     | stop repl                       | #f2    | cider-quit           | ,rq  |
+		| !rs     | run repl                        | +f10   | cider-jack-in        | ,'   |
+		| !pf     | select in project view          | #f1    | projectile-find-file |
+		| gD  | find usages                     | gd |
+		| gd  | goto declaration/show usages    |
+		| SPC ıo | hide all windows/toggle |
+		| gcc | CommentByLineComment | !cl |
+		| !tn | run tests in current ns | ,tn | cider-test-run-ns-tests | 
+		| !mm | macro expand | ,m | cider-macroexpand-1 |
+		| SPC pp |
+

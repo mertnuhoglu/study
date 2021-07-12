@@ -1,25 +1,26 @@
+		cd ~/codes/rr/shiny-examples
 		shiny::runApp("001-hello")
-		~/codes/rr/shiny-examples/001-hello/server.R
+		~/codes/rr/shiny-examples/001-hello/app.R
 		shiny::runApp("002-text")
-		~/codes/rr/shiny-examples/002-text/server.R
+		~/codes/rr/shiny-examples/002-text/app.R
 		shiny::runApp("003-reactivity")
-		~/codes/rr/shiny-examples/003-reactivity/server.R
+		~/codes/rr/shiny-examples/003-reactivity/app.R
 		shiny::runApp("004-mpg")
-		~/codes/rr/shiny-examples/004-mpg/server.R
+		~/codes/rr/shiny-examples/004-mpg/app.R
 		shiny::runApp("005-sliders")
-		~/codes/rr/shiny-examples/005-sliders/server.R
+		~/codes/rr/shiny-examples/005-sliders/app.R
 		shiny::runApp("006-tabsets")
-		~/codes/rr/shiny-examples/006-tabsets/server.R
+		~/codes/rr/shiny-examples/006-tabsets/app.R
 		shiny::runApp("007-widgets")
-		~/codes/rr/shiny-examples/007-widgets/server.R
+		~/codes/rr/shiny-examples/007-widgets/app.R
 		shiny::runApp("008-html")
-		~/codes/rr/shiny-examples/008-html/server.R
+		~/codes/rr/shiny-examples/008-html/app.R
 		shiny::runApp("009-upload")
-		~/codes/rr/shiny-examples/009-upload/server.R
+		~/codes/rr/shiny-examples/009-upload/app.R
 		shiny::runApp("010-download")
-		~/codes/rr/shiny-examples/010-download/server.R
+		~/codes/rr/shiny-examples/010-download/app.R
 		shiny::runApp("011-timer")
-		~/codes/rr/shiny-examples/011-timer/server.R
+		~/codes/rr/shiny-examples/011-timer/app.R
 		shiny::runApp("012-datatables")
 		~/codes/rr/shiny-examples/012-datatables/server.R
 		shiny::runApp("013-selectize")

@@ -31,6 +31,73 @@ Ref:
 
 		~/projects/study/r/study_gis_r.Rmd
 
+# Documentation: Leaflet for R id=g_12293
+
+## Shiny Integration
+
+[Leaflet for R - Using Leaflet with Shiny](https://rstudio.github.io/leaflet/shiny.html)
+
+ex01: `~/projects/study/r/shiny/ex/study_leaflet/leaflet_shiny/e01.R`
+
+### Modify Existing Maps with leafletProxy
+
+`renderLeaflet` her çağrıldığında, haritanın baştan çizilmesine neden olur. Bunun yerine `leafletProxy` mevcut haritayı değiştirmeyi sağlar.
+
+- `leaflet()`: to create static aspects of the map
+- `leafletProxy()`: to manage dynamic elements
+
+ex02: `~/projects/study/r/shiny/ex/study_leaflet/leaflet_shiny/e02.R`
+
+Features:
+
+- bound box
+- layers
+
+```r
+proxy <- leafletProxy("mymap")
+
+# Fit the view to within these bounds (can also use setView)
+proxy %>% fitBounds(0, 0, 11, 11)
+
+# Create circles with layerIds of "A", "B", "C"...
+proxy %>% addCircles(1:10, 1:10, layerId = LETTERS[1:10])
+
+# Remove some of the circles
+proxy %>% removeShape(c("B", "F"))
+
+# Clear all circles (and other shapes)
+proxy %>% clearShapes()
+```
+
+### Understanding Layer IDs
+
+Used to replace or remove map elements
+
+`layerId`: tüm geometrik obje fonksiyonlarının atributu
+
+  | Category | Add functions                                     | Remove         | Clear         |
+  | tile     | addTiles addProviderTiles                         | removeTiles    | clearTiles    |
+  | marker   | addMarkers addCircleMarkers                       | removeMarker   | clearMarkers  |
+  | shape    | addPolygons addPolylines addCircles addRectangles | removeShape    | clearShapes   |
+  | geojson  | addGeoJSON                                        | removeGeoJSON  | clearGeoJSON  |
+  | topojson | addTopoJSON                                       | removeTopoJSON | clearTopoJSON |
+  | control  | addControl                                        | removeControl  | clearControls |
+
+### Inputs/Events id=g_12294
+
+`input$MAPID_OBJCATEGORY_EVENTNAME`
+
+Allowed values:
+
+  | OBJCATEGORY | marker shape geojson topojson |
+  | EVENTNAME   | click mouseover mouseout      |
+
+Returns either `NULL` or a `list()`. It includes:
+
+- `lat`: of object or mouse cursor
+- `lng`: of object or mouse cursor
+- `id`: `layerId`
+
 ## ex01: addAwesomeMarkers icons
 
 ### 01: basic use
@@ -79,6 +146,8 @@ It doesn't work.
 ## removeMarker
 
 ### 06: basic use
+
+önce layerId ile oluştur, sonra onunla sil
 
 Run `~/projects/study/r/shiny/ex/study_leaflet/ex01/06.R`
 

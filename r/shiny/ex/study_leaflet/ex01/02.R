@@ -1,8 +1,10 @@
 library(leaflet)
 
-icon.fa <- makeAwesomeIcon(icon = "bicycle", markerColor = "red", library = "vehicles",
+icon.fa <- makeAwesomeIcon(icon = "bicycle", markerColor = "red", library = "fa",
                            iconColor = "black")
 
+icon.fa <- makeAwesomeIcon(icon = "fan", markerColor = "red", library = "fa",
+                           iconColor = "black")
 
 # Marker + Label
 leaflet() %>% addTiles() %>%

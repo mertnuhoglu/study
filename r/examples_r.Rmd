@@ -19,6 +19,12 @@ state: wip
 
 ---
 
+# ref:
+
+		~/projects/study/r/rfc_convert_data.md
+
+# examples
+
 ``` R
 vars01 = rio::import("/Users/mertnuhoglu/projects/bizqualify/data_bizqualify/BizQualify_v6_4_complete data dictionary_current_with financials__Dec 2018.xlsx", which = 1) %>%
 	select(field_name) %>%
@@ -930,39 +936,6 @@ vURLencode = Vectorize(URLencode)
 d0$adres9 = vURLencode(d0$adres)
 ``` 
 
-### convert list to dataframe
-
-https://stackoverflow.com/questions/4227223/r-list-to-data-frame
-
-``` r
-j0
-  ##> $results
-  ##> $results[[1]]
-  ##> $results[[1]]$address_components
-  ##> $results[[1]]$address_components[[1]]
-  ##> $results[[1]]$address_components[[1]]$long_name
-  ##> [1] "Denizli"
-  ##> 
-  ##> $results[[1]]$address_components[[1]]$short_name
-  ##> [1] "Denizli"
-  ##> 
-  ##> $results[[1]]$address_components[[1]]$types
-  ##> [1] "locality"  "political"
-  ##> 
-  ##> 
-  ##> $results[[1]]$address_components[[2]]
-  ##> $results[[1]]$address_components[[2]]$long_name
-  ##> [1] "Kumkısık"
-  ##> 
-  ##> $results[[1]]$address_components[[2]]$short_name
-  ##> [1] "Kumkısık"
-  ##> 
-  ##> $results[[1]]$address_components[[2]]$types
-  ##> [1] "administrative_area_level_4" "political"
-j1 = j0$results[[1]]$address_components 
-df = data.frame(matrix(unlist(j1), nrow=length(j1), byrow=T))
-``` 
-
 ### regex stringr
 
 Ref: `~/projects/study/r/study_stringr.Rmd`
@@ -1027,7 +1000,7 @@ str_which(fruit, "a")
 ``` r
 str_detect(fruit, "a")
   ##> [1] TRUE TRUE TRUE TRUE
-# Also vectorised over pattern
+  # Also vectorised over pattern
 str_detect("aecfg", letters)
   ##>  [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE
 ``` 
@@ -1197,4 +1170,234 @@ ba2 = ba1 %>%
 	dplyr::mutate(link = glue::glue("/blog/{page_name}"))
 ```
 
+## cross join
+
+```clj
+band_members
+  ##> # A tibble: 3 x 2
+  ##>   name  band   
+  ##>   <chr> <chr>  
+  ##> 1 Mick  Stones 
+  ##> 2 John  Beatles
+  ##> 3 Paul  Beatles
+
+band_members %>%
+  dplyr::full_join(band_members, by = character())
+
+  ##> # A tibble: 9 x 4
+  ##>   name.x band.x  name.y band.y 
+  ##>   <chr>  <chr>   <chr>  <chr>  
+  ##> 1 Mick   Stones  Mick   Stones 
+  ##> 2 Mick   Stones  John   Beatles
+  ##> 3 Mick   Stones  Paul   Beatles
+  ##> 4 John   Beatles Mick   Stones 
+  ##> 5 John   Beatles John   Beatles
+  ##> 6 John   Beatles Paul   Beatles
+  ##> 7 Paul   Beatles Mick   Stones 
+  ##> 8 Paul   Beatles John   Beatles
+  ##> 9 Paul   Beatles Paul   Beatles
+```
+
+```clj
+band_members
+df_uppercase = data.frame( case = c("upper", "lower") )
+
+band_members %>%
+  dplyr::full_join(df_uppercase, by = character())
+
+  ##> # A tibble: 6 x 3
+  ##>   name  band    case 
+  ##>   <chr> <chr>   <chr>
+  ##> 1 Mick  Stones  upper
+  ##> 2 Mick  Stones  lower
+  ##> 3 John  Beatles upper
+  ##> 4 John  Beatles lower
+  ##> 5 Paul  Beatles upper
+  ##> 6 Paul  Beatles lower
+```
+
+## mutate case_when instead of mutate_if id=g12318
+
+```clj
+df_uppercase = data.frame( case = c("upper", "lower") )
+band_members %>%
+  dplyr::full_join(df_uppercase, by = character()) %>%
+	dplyr::mutate(
+		name = case_when( 
+			case == "lower" ~ tolower(name), 
+			case == "upper" ~ name, 
+		)
+	)
+
+  ##> # A tibble: 6 x 3
+  ##>   name  band    case 
+  ##>   <chr> <chr>   <chr>
+  ##> 1 Mick  Stones  upper
+  ##> 2 mick  Stones  lower
+  ##> 3 John  Beatles upper
+  ##> 4 john  Beatles lower
+  ##> 5 Paul  Beatles upper
+  ##> 6 paul  Beatles lower
+```
+
+## remove duplicated rows 
+
+opt01: `dplyr::distinct`
+
+```clj
+df_uppercase = data.frame( case = c("upper", "lower") )
+band_members %>%
+  dplyr::full_join(df_uppercase, by = character()) %>%
+	dplyr::distinct(name, band)
+
+  ##>  # A tibble: 3 x 2
+  ##>   name  band   
+  ##>   <chr> <chr>  
+  ##> 1 Mick  Stones 
+  ##> 2 John  Beatles
+  ##> 3 Paul  Beatles
+```
+
+## group each two consequential rows (ardışık bir şekilde satırları ikişerli gruplama)
+
+```clj
+df_uppercase = data.frame( case = c("upper", "lower") )
+d0 <- band_members %>%
+  dplyr::full_join(df_uppercase, by = character()) 
+d0$pair_index = gl(2, 1, 6)
+
+  ##>   name  band    case  pair_index
+  ##>   <chr> <chr>   <chr> <fct>     
+  ##> 1 Mick  Stones  upper 1         
+  ##> 2 Mick  Stones  lower 2         
+  ##> 3 John  Beatles upper 1         
+  ##> 4 John  Beatles lower 2         
+  ##> 5 Paul  Beatles upper 1         
+  ##> 6 Paul  Beatles lower 2         
+
+gl(2, 1, 6)
+  ##> [1] 1 2 1 2 1 2
+```
+
+## glue fonksiyonunu dinamik tanımlanmış bir şablonla kullanma
+
+```clj
+d0 <- tibble::tibble(word = "ali", template = "{word}.txt")
+
+d0 %>%
+  dplyr::mutate(path = glue::glue(template))
+
+  ##>   word  template   path   
+  ##>   <chr> <chr>      <glue> 
+  ##> 1 ali   {word}.txt ali.txt
+```
+
+Burada `glue` tek değer aldığı için çalıştı. Çok değer olunca hata verir:
+
+```clj
+d0 <- tibble::tibble(word = c("ali", "veli"), template = "{word}.txt")
+
+d0 %>%
+  dplyr::mutate(path = glue::glue(template))
+
+  ##> Error: Problem with `mutate()` input `path`.
+  ##> ✖ All unnamed arguments must be length 1
+  ##> ℹ Input `path` is `glue::glue(template)`.
+
+d0 %>%
+  dplyr::mutate(path = glue::glue_data(template))
+d0 %>%
+	glue::glue_data(d0$template)
+```
+
+## Error: names(x) must be a character vector of the same length as x
+
+ex01:
+
+```clj
+mtcars %>% str_glue_data("{rownames(.)} has {hp} hp")
+mtcars %>% 
+	mutate(info = str_glue_data("{rownames(.)} has {hp} hp"))
+
+  ##> Error: Problem with `mutate()` input `info`.
+  ##> ✖ names(x) must be a character vector of the same length as x
+```
+
+ex02:
+
+```clj
+d0 = rio::import("/Users/mertnuhoglu/projects/itr/itr_scripts/dentas/geocoding_20190824/data/addresses.xlsx") %>%
+	select(musteri_kodu) 
+d0 <- head(d0, 5)
+d0 %>%
+  dplyr::mutate(
+    file_name = glue::glue("{musteri_kodu}.json")
+  )
+	# works
+d0 %>%
+	select(musteri_kodu) %>%
+  dplyr::mutate(
+		template = "{musteri_kodu}.json", 
+    , file_name2 = glue::glue(template)
+  )
+	# Error
+```
+
+ex03: fix:
+
+works with single template argument:
+
+```clj
+glue::glue_data(d0,  "{musteri_kodu}.json")
+template <- "{musteri_kodu}.json"
+d0$file_name3 <- glue::glue_data(d0, template)
+```
+
+cause: error with multiple template values:
+
+```clj
+template <- rep("{musteri_kodu}.json", 5)
+d0$file_name4 <- glue::glue_data(d0, template)
+  ##> ✖ All unnamed arguments must be length 1
+```
+
+```clj
+d1 <- d0 %>%
+	select(musteri_kodu) %>%
+	mutate(template = "{musteri_kodu}.json") 
+glue::glue_data(d1[row, ], d1[row, ]$template)
+  ##> 53003.json
+glue::glue_data(d1, d1[row, ]$template)
+  ##> 53002.json
+  ##> 53003.json
+  ##> 53009.json
+  ##> 53306.json
+  ##> 54E70.json
+```
+
+fix:
+
+opt01: Tüm olası templatelar için ayrı ayrı denemeler yapıp hepsini sonunda birleştir
+
+```clj
+templates = c("{musteri_kodu}.json", "{musteri_kodu}.csv")
+lapply(templates, function(template) {
+	d0 %>%
+		select(musteri_kodu) %>%
+		mutate(file_name6 = glue::glue(template))
+}) %>%
+	bind_rows
+
+  ##>     musteri_kodu file_name6
+  ##> 1         53002 53002.json
+  ##> 2         53003 53003.json
+  ##> 3         53009 53009.json
+  ##> 4         53306 53306.json
+  ##> 5         54E70 54E70.json
+  ##> 6         53002  53002.csv
+  ##> 7         53003  53003.csv
+  ##> 8         53009  53009.csv
+  ##> 9         53306  53306.csv
+  ##> 10        54E70  54E70.csv
+```
 

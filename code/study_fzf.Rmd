@@ -14,7 +14,7 @@ output:
 blog: mertnuhoglu.com
 resource_files:
 path: ~/projects/study/bash/study_fzf.Rmd
-state: wip
+
 ---
 
 # Issues

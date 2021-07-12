@@ -1417,6 +1417,12 @@ git git2 id=g_10500
 							Discard everything permanently
 								git reset --hard
 					after commit
+						[version control - How do I undo the most recent local commits in Git? - Stack Overflow](https://stackoverflow.com/questions/927358/how-do-i-undo-the-most-recent-local-commits-in-git)
+							$ git commit -m "Something terribly misguided" # (0: Your Accident)
+							$ git reset HEAD~                              # (1)
+							[ edit files as necessary ]                    # (2)
+							$ git add .                                    # (3)
+							$ git commit -c ORIG_HEAD                      # (4)
 			https://www.atlassian.com/dam/jcr:8132028b-024f-4b6b-953e-e68fcce0c5fa/atlassian-git-cheatsheet.pdf
 				git revert <commit>
 					new commit that undoes all changes in <commit>
@@ -5472,6 +5478,10 @@ tools
 			spreadsheet
 				shortcuts
 					!/			quick command
+	hammerspoon
+		ref: ~/projects/study/code/study_hammerspoon.md
+		bundleid
+			osascript -e 'id of app "Microsoft Excel"'
 	htop
 			usage
 				use mouse

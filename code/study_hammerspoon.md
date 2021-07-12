@@ -47,6 +47,8 @@ opt02: Print names of all open apps
 [Hammerspoon FAQ](https://www.hammerspoon.org/faq/)
 
 ```lua
+hs.fnutils.each(hs.application.runningApplications(), function(app) print(app:title() , app:name() , app:pid(), app:bundleID()) end)
+
 hs.fnutils.each(hs.application.runningApplications(), function(app) print(app:title()) end)
 hs.fnutils.each(hs.application.runningApplications(), function(app) print(app:name()) end)
 hs.fnutils.each(hs.application.runningApplications(), function(app) print(app:pid()) end)

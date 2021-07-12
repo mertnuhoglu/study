@@ -518,7 +518,7 @@ brian will
 			defines a set of method signatures
 			equivalent to java interfaces
 			types must implement all protocol methods
-		create types
+		create types id=g_12115
 			deftype: for data structure
 				mutable fields
 			defrecord: for domain data
@@ -534,7 +534,7 @@ brian will
 				(bar [this] "sth"))
 			this: by convention
 				the object which implements the protocol
-		defrecord
+		defrecord id=g_12114
 			(defrecord name fields specs)
 			(defrecord Nadine [x y z] ; fields
 				Roger ; protocol implemented

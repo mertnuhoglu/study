@@ -93,3 +93,5 @@ tmp.txt
 conjure-log*.cljc
 .rebl
 nx
+
+**/*.db

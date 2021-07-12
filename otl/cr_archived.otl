@@ -1,0 +1,2188 @@
+
+bookmarks archived
+	read 
+		https://github.com/dgrtwo/fuzzyjoin
+		https://jangorecki.github.io/blog/2015-12-11/Solve-common-R-problems-efficiently-with-data.table.html
+		gis
+			https://blog.exploratory.io/creating-geojson-out-of-shapefile-in-r-40bc0005857d#.sogw29n1e
+	tools 
+		analytics using r and shiny on web platform like exploratory.io
+			https://radiant-rstats.github.io/docs/
+		fstrings - python style strings 
+			f('My name is {name}, my age next year is {age + 1}, my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
+		Renjin: R on JVM
+			http://www.renjin.org/
+		Shiny developer conference
+			https://www.rstudio.com/resources/webinars/shiny-developer-conference/
+		spark
+			http://spark.rstudio.com/index.html
+		tidyquant: tidyverse to financial analysis
+			http://www.mattdancho.com/code-tools/2017/01/01/tidyquant-introduction.html
+		tidy regex 
+			https://github.com/MangoTheCat/rematch2
+		DiagrammeR: graph network visualization 
+		https://github.com/ropensci/stplanr
+			functions and data access for transport research
+refcard
+	database: mongo oracle
+		mongolite
+			ref
+				https://jeroen.github.io/mongolite
+			install.packages("mongolite")
+			library(mongolite)
+			ref
+				study_dentas_mongodb.R
+			!!!tırnak meselesi
+				json ifadelerinin dış tırnağı ', iç tırnakları " olmalı, yoksa kabul etmiyor
+			connection to a database and collection
+				con <- mongo("master_rates", url = "mongodb://myUserAdmin:12345@localhost:27017/demo")
+				con$count()
+			import / export
+				import json
+					con <- mongo("temp_rates", url = "mongodb://myUserAdmin:12345@localhost:27017/demo")
+					con$import(file("/Users/mertnuhoglu/Dropbox/mynotes/prj/itr/pitr/dentas/mongo_export03_newline_delimited/master_rates.json"))
+				import df
+					con$insert(df)
+			query
+				all documents
+					mrt = con$find()
+				by date
+					library(GetoptLong)
+					datemillis <- as.integer(as.POSIXct("2015-01-01")) * 1000
+					data <- data_collection$find(qq('{"createdAt":{"$gt": { "$date" : { "$numberLong" : "@{datemillis}" } } } }'))
+					===
+					query2 = '{"validFromD" : { "$gte" : { "$date" : { "$numberLong" : "1488315600000" } }} }'
+			update
+				# single document
+					con$update('{"depotName": "CORLU"}', '{"$set":{"ratePerExtraDrop": "51"}}')
+				# multiple documents
+					con$update('{"depotName": "CORLU"}', '{"$set":{"ratePerExtraDrop": "51"}}', multiple = T)
+			aggregate
+				ex
+					stats <- flt$aggregate(
+						'[{"$group":{"_id":"$carrier", "count": {"$sum":1}, "average":{"$avg":"$distance"}}}]',
+						options = '{"allowDiskUse":true}'
+					)
+		dplyrOracle
+			install_github("tomasgreif/dplyrOracle")
+			ref
+				# <url:file:///~/Dropbox (BTG)/TEUIS PROJECT 05-ANALYSIS/working_library/requirements_database/scripts/study_oracle.R>
+	dataframe
+		subset/query
+			x %in% y
+			v[ v == logical ]
+			all(x)
+			any(x)
+			grep / filter 
+				grep(pattern, x, ignore.case = FALSE, perl = FALSE, value = FALSE, fixed = FALSE, useBytes = FALSE, invert = FALSE) 
+				grep("[a-z]", letters) # returns indexes
+					value=T  # return values
+				grepl      # returns logical
+				vgrepv
+					files = list.files( "data/" ) %>%
+						vgrepv( "\\.tsv$" )
+			get row index of subset
+				row.idx = as.numeric(rownames(rows))
+			subset and assign values
+				lfs = data.frame( from = c(NA, 'x', 'x', 'y'), to = c('x', 'y', 'p', 'z'), level = NA)
+				# from to
+				#   NA  x
+				#    x  y
+				#    x  p
+				#    y  z
+				lfs[ is.na(lfs$from), ]$level = 1
+				# from to level
+				# <NA>  x     1
+				#    x  y    NA
+				#    x  p    NA
+				#    y  z    NA
+				lfs = lfs %>%
+					filter( is.na(from) ) %>%
+					mutate( level = 1 ) 
+				# from to level
+				# <NA>  x     1
+		bug: data.frame objelerinde factor -> numeric hatası
+			data.frame numeric bir değeri factor'e çevirebilir
+			sonra bunu geri numeric'e çevirdiğinde, farklı bir değer alırsın
+			bu yüzden asla as.data.frame kullanma, as_data_frame kullan
+	datatable
+		assign a column of a subset of rows 
+			dt[idx_of_ims]$ilce = ilce
+		managing
+			tables()
+			setkey(dt, pk, name)
+			setkeyv(dt, 'pk')
+			copy(dt) # new object
+			setnames(df, old_names, new_names)    # data.table
+		accessing rows
+			dt[2] # 2. row
+			dt[ c(2,3) ] # 2,3. rows
+			df[ , 2:3 ] # in df
+			dt['b'] == dt[ key == 'b' ]
+			dt[i, j, by=..]
+				by: list of functions
+			dt[ c(F,T) ] # even rows
+		accessing columns
+			dt[ , v] == dt[ , 'v', with=F] # returns vector
+			dt[ , list(v) ] # returns dt
+			dt[ 2:3, sum(v) ] # sum(v) over 2:3
+			dt[ , c(1, 'col1'), with=F]
+		joins
+			setkey(X, key1)
+			setkey(Y, key2)
+			dt = X[Y, nomatch=0]
+				nomatch=NA # default returns NA for non-matches: right outer join
+				nomatch=0 # no rows returned for non-matches: inner join
+				Y[X] # left outer join
+				rbind(Y[X],X[Y]) # full outer join
+			cross join
+				data.table for vectors
+					ft = c('D','D/A')
+					c3 = c('1571745','1571673')
+					CJ(ft,c3) # cross join
+				merge for dataframes
+					merge(df1, df2, all = TRUE)
+			remove duplicated key value rows
+				dt[unique(dt$key), mult = "first"]
+		conditional assignment / if true
+			a[cik=='1291703']$test = 'ali'
+	df
+		recreate - reproducing dataframes - unserializing
+			recreate(df)
+			ancak şunu eklemeyi unutma: stringsAsFactors = F
+	dplyr
+		nse dplyr
+			http://www.carlboettiger.info/2015/02/06/fun-standardizing-non-standard-evaluation.html
+			https://cran.r-project.org/web/packages/dplyr/vignettes/nse.html
+			http://www.r-bloggers.com/dplyr-use-cases-non-interactive-mode/
+			mutate
+				https://stackoverflow.com/questions/26003574/r-dplyr-mutate-use-dynamic-variable-names
+				opt1
+					varname <- paste("petal", n , sep=".")
+					varval <- lazyeval::interp(~Petal.Width * n, n=n)
+					mutate_(df, .dots= setNames(list(varval), varname))
+				opt2
+					varname <- paste("petal", n, sep=".")
+					df<-mutate_(df, .dots=setNames(paste0("Petal.Width*",n), varname))
+			rename
+				rename with whitespaces
+					sip = r_Siparis_v1(file_name, "xlsx") %>%
+						rename( 
+							tesis = `İşYeri`,
+							id = `İE Lot No`,
+				# opt0
+					rename( iris, genus = Species )
+				# opt1
+					rename_( iris, "new" = "Species" )
+				# opt1
+					lhs = "new"
+					rename_( iris, lhs = "Species" )
+				# opt2
+					rhs = "Species"
+					rename_( iris, .dots = setNames(rhs, "new") )
+					# setNames(object = nm, nm)
+					# ===>
+					# setNames( "new" = x )
+			select
+				columns = c("enum_value_id", "enum_value_name", "enum_id", "value", "parent_id", "order_no")
+				entity = "EnumValue"
+				df = r_rdb(entity) %>%
+					select_(.dots = columns)
+				nse
+					df = r_rdb(entity) %>%
+						select(enum_value_id, enum_value_name, enum_id, value, parent_id, order_no) 
+			filter
+				only_if adverb
+					https://twitter.com/drob/status/785880369073500161
+				# opt0: nse
+					filter( iris, Species == "setosa" )
+				# opt1: se for value of formula expression
+					.dots = list( ~Species == "setosa" )
+					filter_( iris, .dots = .dots )
+				# opt1 application: treat arguments as variables
+					value = "setosa"
+					.dots = list( ~Species == value )
+					filter_( iris, .dots = .dots )
+				# opt2: se for column of formula expression
+					library("lazyeval")
+					value = "setosa"
+					column = "Species"
+					.dots = list( interp( ~y == x ,
+																.values = list( y = as.name(column), x = value ) ))
+					filter_( iris, .dots = .dots )
+				opt1
+					family <- 'Scaridae'
+					field <- 'Family'
+					.dots <- list(interp(~y == x, 
+						.values = list(y = as.name(field), x = family)))
+					x3 <- filter_(all_taxa, .dots=.dots)
+			group_by
+				kullanım: group_by dışı değişkenleri nasıl gösterceğiz?
+					1. önce mutate yap
+					2. summarise yap
+					3. sonra orjinal tabloyla join et
+					kmbg = kmb %>%
+						select(kombin_id, genislik) %>%
+						left_join(ism, by = "kombin_id") %>%
+						select(kombin_id, siparis_id, is_emri_id, genislik, bicak_sayisi) %>%
+						left_join(sip, by = "siparis_id") %>%
+						select(kombin_id, siparis_id, is_emri_id, genislik, bicak_sayisi, en) %>%
+						group_by(kombin_id) %>%
+						mutate(en_carpi_bicak = en * bicak_sayisi) %>%
+						summarise(toplam_en = sum(en_carpi_bicak))
+					cmp = kmb %>%
+						left_join(kmbg, by = "kombin_id") %>%
+						select(kombin_id, genislik, toplam_en) %>%
+						mutate(enden_trim = genislik - toplam_en - 30)
+				select max value in each group
+					http://stackoverflow.com/questions/24237399/how-to-select-the-rows-with-maximum-values-in-each-group-with-dplyr
+					https://stackoverflow.com/questions/21308436/dplyr-filter-get-rows-with-minimum-of-variable-but-only-the-first-if-multiple
+					df %>% group_by(A,B) %>% slice(which.max(value))
+					opt
+						filter( rank(enden_trim_m2, ties.method="first") == 1)
+				opt
+					columns = c("screen_id", "window_id")
+					.dots <- lapply(columns, as.symbol)
+					d = swn %>%
+						group_by_(.dots = .dots) %>%
+						filter( n() > 1 )
+				study_generify_group_by = function() {
+					# opt1: nse default
+					dup_wnd = wnd %>%
+						group_by(window_id) %>%
+						filter( n() > 1 )
+					# opt2: se using character vector
+						.dots <- lapply(fk_name, as.symbol)
+						have_no_children = parent_df %>%
+							inner_join( child_df, by = fk_name ) %>%
+							group_by_( .dots = .dots ) %>%
+							summarise( count = n() ) %>%
+							filter( count == 0 )
+					# opt2: se using formula
+					.dots = list(~window_id)
+					dup_wnd = wnd %>%
+						group_by_(.dots = .dots) %>%
+						filter( n() > 1 )
+					# opt3: treat arguments as variables
+					.dots = list(~window_id)
+					dup_wnd = wnd %>%
+						group_by_(.dots = .dots) %>%
+						filter( n() > 1 )
+					# opt4: treat key and values as variables
+					columns = "window_id"
+					.dots = list( interp( ~ y, .values = list(y = as.name(columns) )))
+					dup_wnd = wnd %>%
+						group_by_(.dots = .dots) %>%
+						filter( n() > 1 )
+					# opt4.2: multiple keys
+					columns = c("window_id", "window_name")
+					.dots = list( interp( ~ y, .values = list(y = as.name(columns) )))
+					dup_wnd = wnd %>%
+						group_by_(.dots = .dots) %>%
+						filter( n() > 1 )
+					# opt5: encapsulate this into a function
+					group_filter_duplicates = function(df, columns) {
+						.dots = list( interp( ~ y, .values = list(y = as.name(columns) )))
+						df %>%
+							group_by_(.dots = .dots) %>%
+							filter( n() > 1 )
+					}
+					columns = c("window_id", "window_name")
+					wnd %>%
+						group_filter_duplicates(columns)
+				}
+			join
+				opt1: setNames
+					d1 = data_frame(x = seq(1,20),y = rep(1:10,2),z = rep(1:5,4))
+					head(d1)
+					d2 = data_frame(xx = seq(1,20),yy = rep(1:10,2),zz = rep(1:2,10))
+					join_fn <-function(d_in1,d_in2,var_vec1,var_vec2){
+						d_out = d_in1 %>%
+							left_join(d_in2,setNames(var_vec2,var_vec1))
+					}
+					var_vec1 = c("x","y")
+					var_vec2 = c("xx","yy")
+					d_join_out = join_fn(d1,d2,var_vec1,var_vec2)
+					head(d_join_out)
+	exception handling - trycatch
+		non-interactive
+			opt2: quit if error and print traceback
+				options( error=function() { traceback(2); if(!interactive()) quit("no", status = 1, runLast = FALSE) } )
+				pros: 
+					quits always even in assert_that errors
+					prints tracebacks
+			opt1: quit if error
+				code
+					tryCatch({
+						prepare_csv_for_sql()
+						verify_no_dup_actual()
+						verify_organization_data()
+					}, error = function(e) {
+						print("err3")
+						quit(status=10)
+					})
+				cons: doesn't print traceback in assert_that errors
+		opt1: make_try_capture to capture traceback message
+			make_try_capture(read_excel2)(path, sheet)
+			# return value of make_try_capture
+			make_try_capture(read_excel2)(path, sheets[1])
+			# how to use in lapply
+			dfl2 = sheets[1:2] %>>%
+				lapply( function(sheet) make_try_capture(read_excel2)(path, sheet)  ) %>%
+				setNames( sheets[1:2] )
+			# how to use lapply normally?
+			dfl3 = sheets[1:2] %>>%
+				lapply( function(sheet) read_excel2(path, sheet) ) %>%
+				setNames( sheets[1:2] )
+			setequal(dfl3, dfl2)
+		make_trycatch = function(fun)
+			function(x)
+				tryCatch(
+					fun(x),
+					error = function(cond) x
+				)
+		try_root_xbrl = make_trycatch(xbrl_tester)
+		# alt
+		try_root_xbrl = make_trycatch(
+			function(x) x %>% root_xbrl %>>% (x ~ NA)
+		)
+		# testing
+		filenames %>% 
+			llply(. %>% try_root_xbrl, .progress = "text") %>%
+			unlist %>>%
+			`[`(is.na(.) %>% `!`)
+	ggplot
+		library("ggplot2")
+		equivalent scatter plots
+			plot(mtcars$wt, mtcars$mpg)
+			qplot(mtcars$wt, mtcars$mpg)
+			qplot(wt, mpg, data = mtcars)
+	graph network tree: datatree igraph
+		datatree data.tree
+			convert_parent_child_fk_into_pathString
+				ref
+					study_convert_parent_child_fk_into_pathString()
+				ex
+					get_parent_path = function( df, ids ) {
+						get_parent_pathe = function(df, id) {
+							find_parent = function(df, pid) {
+								filter(df, id == pid)$parent_id
+							}
+							id_path = id
+							pid = df[id, ]$parent_id
+							while (!is_na(pid)) {
+								id_path = c(id_path, pid)
+								pid = find_parent(df, pid)
+							}
+							paste( filter(df, id %in% rev(id_path))$name, collapse = "/" )
+						}
+						r = vector('character')
+						for (id in ids) {
+							r = c(r, get_parent_pathe(df, id))
+						}
+						return(r)
+					}
+					# input data:
+					df = data.frame(id = 1:3, name = c("asia", "iran", "tehran"), parent_id = c(NA, 1, 2), stringsAsFactors=F)
+					# id,name,parent_id
+					# 1,asia,NA
+					# 2,iran,1
+					# 3,tehran,2
+					# target data:
+					target = data.frame(id = 1:3, name = c("asia", "iran", "tehran"), parent_id = c(NA, 1L, 2L), pathString = c("asia", "asia/iran", "asia/iran/tehran"), stringsAsFactors=F)
+					# id,name,parent_id,pathString
+					# 1,asia,NA,asia
+					# 2,iran,1,asia/iran
+					# 3,tehran,2,asia/iran/tehran
+					result = df %>%
+						mutate( pathString = get_parent_path(., id) )
+					result
+					#      id   name parent_id       pathString
+					#   <int>  <chr>     <int>            <chr>
+					# 1     1   asia        NA             asia
+					# 2     2   iran         1        asia/iran
+					# 3     3 tehran         2 asia/iran/tehran
+					dt <- as.Node(result)
+					#        levelName
+					# 1 asia
+					# 2  °--iran
+					# 3      °--tehran
+		igraph
+			ex
+				library(igraph); 
+				dor = data.frame( from = c(1, 1, 2, 3, 4, 5, 6), 
+					to = c(2, 3, 4, 5, 6, 6, 7) )
+				g = graph_from_data_frame(dor)
+				plot(g)
+			dependency ordering
+				opt1: topological sorting
+					g <- graph_from_data_frame(deps)
+					t = topo_sort(g)
+					which_loop(g)
+					V(g)
+					V(g)$name
+					names(t)
+				opt2: shortest path distances
+					ex1
+						lfs = data.frame( from = c('start', 'x', 'x', 'y'), 
+															to = c('x', 'y', 'p', 'z'), 
+															level = 0)
+						# create graph from data.frame
+						g <- graph_from_data_frame(lfs)
+						# find distances from chosen node
+						distances(g, "start")
+					ex2
+						g <- graph_from_data_frame(deps)
+						d = distances(g, "EnumCategory")[1, ]
+						dst = data_frame(
+							entity_name = names(d),
+							dependency_level = d
+						)
+			plot parameters
+				http://kateto.net/network-visualization
+			interactive params
+				library(manipulate)
+				ced4 = ced3 %>%
+					mutate( ind = str_replace(ind, "_enum_id", "") ) %>%
+					mutate( dep = str_replace(dep, "_enum_id", "") ) 
+				g = graph_from_data_frame(ced4)
+				l <- layout.grid(g)
+				pdf("tmp/complex_enum_dependencies.pdf")
+				plot(g, 
+					layout = l,
+					edge.arrow.size=0.2, 
+					vertex.size = 5, 
+					vertex.shape = "none",
+					vertex.label.cex = 0.2
+				)
+				dev.off()
+				manipulate(
+					plot(g, 
+						layout = l,
+						edge.arrow.size=eas, 
+						vertex.size = vs, 
+						vertex.shape = "none",
+						vertex.label.cex = vlc
+					),
+					eas = slider(0,2,initial = 0.5, step = 0.1),
+					vs = slider(0,10,initial = 5, step = 0.1),
+					vlc = slider(0,2,initial = 1, step = 0.1)
+				)
+	knitr
+		ref
+			http://kbroman.org/knitr_knutshell/
+		what is knitr
+			dynamic documents 
+			difference to rmarkdown
+				knitr supports rmarkdown in addition to latex, lyx etc.
+		how to run
+			opt1: Rstudio
+				#+K "Knit"
+			opt2: terminal
+				rmarkdown::render("vignettes/my-vignette.Rmd")
+			opt3: bash terminal
+				rmarkdown <file>
+				R -e 'rmarkdown::render("example.Rmd")'
+				R -e 'rmarkdown::render("example.Rmd", "pdf_document")'
+		relation between knitr and rmarkdown
+			http://rmarkdown.rstudio.com/lesson-2.html
+			knitr takes Rmd as input and produces md
+			pandoc takes md as input and produces html/pdf
+			rmarkdown::render() feeds .Rmd file to knitr
+			knitr executes code chunks and creates a new .md file
+		http://kbroman.org/knitr_knutshell/
+			Knitr Overview
+				Code Chunks
+					ex:
+						We see that this is an intercross with `r nind(sug)` individuals.
+						There are `r nphe(sug)` phenotypes, and genotype data at
+						`r totmar(sug)` markers across the `r nchr(sug)` autosomes.  The genotype
+						data is quite complete.
+						Use `plot()` to get a summary plot of the data.
+						```{r summary_plot, fig.height=8}
+						plot(sug)
+						```
+					inline: `r fun()`
+					new line: ```{r}
+					different text types allowed: Rmarkdown, Latex, AsciiDoc
+				Compiling the document
+					for Rmarkdown: 
+						opt1: Rstudio > Knit button
+						opt2: rmarkdown::render(file)
+						opt3: command line (gnu make)
+							R -e 'rmarkdown::render("example.Rmd")'
+	metaprogramming
+		nse: non-standard evaluation
+			quote
+			eval
+			library("evaluate")
+		reflection-metaprogramming
+			str
+				no return
+			summary
+			toString
+				convert an object to string
+			args
+	packages2: packagesr packager id=g_12292
+		basic steps
+			ref
+				devtools for package building <url:#r=sr_0007>
+		refcard - R packages id=g_10535
+			refcard - R packages <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g_10535>
+			~/projects/rutils/Makefile
+			use RStudio to install packages
+				https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio
+				install: Rstudio > Build and Reload ^+R
+			using magrittr pipe in external package <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g_10534>
+		issues
+			how to debug package functions
+				use RStudio
+		Makefile for build and install id=g_12099
+			ref
+				~/projects/rutils/Makefile
+				~/projects/study/code/study_make.Rmd
+			code
+				build:
+					R -e 'devtools::document(); devtools::build_vignettes(); devtools::build(); devtools::install()'
+			run
+				make
+		devtools for package building id=sr_0007
+			devtools for package building <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=sr_0007>
+			devtools for package building <url:#r=sr_0007>
+			devtools::create("mypackage")
+				create a new package
+			devtools::document()
+				man/add.Rd
+				#+B   build and reload
+				updates NAMESPACE (for exported methods)
+			devtools::load_all()
+				reload your code
+				#+L
+			devtools::install()
+			devtools::build_vignettes()
+				build all vignettes
+				target dir: inst/doc
+			devtools::build()
+				create package with vignettes included
+			correct sequence
+				library("devtools")
+				devtools::document()
+				devtools::build_vignettes()
+				devtools::build()
+				devtools::install()
+				opt: encapsulate all
+					rutils::make_package()
+				git commit
+				git push
+			install/use your package
+				library("devtools")
+				devtools::install_github("username/packagename")
+		github project
+			# create R package in RStudio
+			git init
+			git add .
+			git commit -m "First commit"
+			git remote add origin https://github.com/mertnuhoglu/study_r_package01.git
+			git remote -v
+			git push -u origin master
+			devtools::install_github("mertnuhoglu/study_r_package01")
+		install path
+			library: the directory where packages are installed
+			get list of all libraries:
+				.libPaths()
+			by default R installs packages into the first directory in .libPaths()
+			overriding
+				R CMD INSTALL --library=/path/to/Rlibs
+				-l --library
+				env variable: R_LIBS R_LIBS_USER
+				.libPaths( "/Users/tex/lib/R" ) 
+					before installing or put into .Rprofile
+		installed packages
+			sessionInfo()
+			packageVersion("stringr")
+				versions of installed packages
+			installed.packages()
+				versions of all installed packages
+			check dplyr version
+				mat = installed.packages()
+				df = as_data_frame(as.table(mat))
+				filter(df, X1 == "dplyr")
+		file structure
+			DESCRIPTION
+			R/
+			man/*.Rd: automatically generated by roxygen
+			NAMESPACE: automatically generated
+			data/
+		Creating a package
+			usethis
+				ref: Create a new package <url:/Users/mertnuhoglu/projects/study/r/study_packages_in_R.Rmd#tn=Create a new package>
+			rstudio
+				file > new project > new directory > r package
+			cli
+				devtools::create("path/to/package/pkgname")
+		package files
+			pkgname.Rproj
+			.Rbuildignore
+				^.*\.Rproj$
+			bundle: .tar.gz file
+		using magrittr pipe in external package id=g_10534
+			using magrittr pipe in external package <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g_10534>
+			https://stackoverflow.com/questions/27947344/r-use-magrittr-pipe-operator-in-self-written-package#27979637
+			DESCRIPTION
+				Imports: 
+						magrittr (>= 0.7.1)
+			opt1: manually add to NAMESPACE
+				NAMESPACE
+					importFrom(magrittr,"%>%")
+			opt2: use roxygen comments for NULL (not a specific function)
+				#' @importFrom magrittr "%>%"
+				NULL
+				2. step
+					devtools::document()
+		roxygen basics
+			1. write comments
+				ex:
+					#' Add together two numbers
+					#'
+					#' @param x A number
+					#' @return The sum of \code{x} and 
+					#' @examples
+					#' add(1, 1)
+					add <- function(x, y) { x + y }
+			2. devtools::document()
+			3. ?add, example("add"), help("add")
+		library: install path
+			a directory containing installed packages
+			paths of libraries:
+				.libPaths()
+		Dependencies
+			ex
+				Imports: 
+					dplyr,
+		book: R Packages - Hadley Wickham
+			http://r-pkgs.had.co.nz/intro.html
+			content
+				r code
+					r/ directory
+					where all R code lives
+				package metadata
+					DESCRIPTION
+				documentation
+					how to use functions
+					roxygen2 to document functions
+				vignettes
+					big picture documentation
+					uses Rmarkdown and knitr
+				tests
+					testthat
+				namespace
+					NAMESPACE
+				external data
+					data/ directory
+					3 ways
+						binary data and available to user: data/
+							ex: example datasets
+						parsed data but not available to user: R/sysdata.rda
+							ex: data that your functions need
+						store raw data: inst/extdata
+					raw data
+						put original data files in:
+							inst/extdata
+						open with: system.file()
+							system.file("extdata", "2012.csv", package = "testdat")
+							## [1] "/home/travis/R/Library/testdat/extdata/2012.csv"
+						dok et
+				compiled code
+					src/ directory
+					compiled c code
+				other components
+					demo/
+					exec/
+					po/
+					tools/
+				other
+					git
+					automated checking
+						R CMD check
+					release
+			getting started
+				install.packages(c("devtools", "roxygen2", "testthat", "knitr"))
+				install.packages(c("testthat", "knitr"))
+			Package structure
+				naming your package 
+				Creating a package
+					rstudio
+						file > new project > new directory > r package
+					cli
+						devtools::create("path/to/package/pkgname")
+				RStudio Projects
+					pkgname.Rproj
+						text file like:
+							Version: 1.0
+							RestoreWorkspace: No
+							SaveWorkspace: No
+				What is a package
+					Source packages
+						directory with R/ DESCRIPTION etc.
+					Bundled package
+						.tar.gz file
+						.Rbuildignore
+							^.*\.Rproj$
+						Binary packages
+						Installed packages
+							decompressed into a package library
+							installation done with: R CMD INSTALL
+						In memory packages
+							library(x)
+				What is a library
+					a directory containing installed packages
+					note:
+						library = directory containing packages
+					paths of libraries:
+						.libPaths()
+						# osx:
+							# [1] "/Users/mertnuhoglu/Library/R/3.3/library"                       "/Library/Frameworks/R.framework/Versions/3.3/Resources/library"
+						# opencpu:
+							# [1] "/usr/local/lib/R/site-library" "/usr/lib/R/site-library"
+							# [3] "/usr/lib/R/library"
+					lapply(.libPaths(), dir)
+					When you use library(pkg) or require(pkg) to load a package, R looks through each path in .libPaths() to see if a directory called pkg exists.
+			R Code
+				reload your code
+					devtools::load_all()
+					#+L
+				organizing functions
+					extremes: 
+						all functions in one file
+						one file per function
+					file extension: .R
+					no subdirectories: use prefix
+						abc-*.R
+					split file when you can't remember where some function resides
+					jump to definition: 
+						F2
+						^. Code > Go to file/function
+					navigate back: #F9
+				Code style
+					automatic formatting (lint): formatR
+						install.packages("formatR")
+						formatR::tidy_dir("R")
+					opt lint: lintr
+						install.packages("lintr")
+						lintr::lint_package()
+					Object names
+					Spacing
+						spaces around all infix ops =+-<- etc
+							except : :: :::
+						space before left parantheses, except function call
+							if (debug)
+							plot(x, y)
+					Curly braces
+						new line after {
+						} in own line
+					Line length
+					Indentation
+						2 spaces per tab
+						second line where definition starts
+							long_function_name <- function(a = "a long argument", 
+																						 b = "another argument",
+																						 c = "another long argument") {
+					Assignment
+						use <- not =
+					Commenting guidelines
+						# space
+						# Part 1 ---------
+				Top level code
+					don't execute code at top level
+					only define functions or objects
+					ex
+						foo package contains
+							library(ggplot2)
+							show_mtcars <- function() {
+								qplot(mpg, wt, data = mtcars)
+							}
+						If someone tries to use it:
+							library(foo)
+							show_mtcars()
+						this won't work because library(ggplot2) is executed when package is built, not when it's loaded
+					The R Landscape
+						never change global R landscape
+							don't use library()
+								these modify search path
+								package requirements should be installed and sourced separately
+							don't use source()
+								it modifies current environment
+								rely on devtools::load_all()
+									it sources all files in R/
+					When you do need side effects
+						two specifal functions: .onLoad() .onAttach()
+							called when packages is loaded and attached
+							use .onLoad() in general
+						common uses of .onLoad()
+							display an informative message when package loads
+							set custom options
+								.onLoad <- function(libname, pkgname) {
+									op <- options()
+									op.devtools <- list(
+										devtools.path = "~/R-dev",
+										devtools.install.args = "",
+							connect java, c etc
+								ex
+									rJava::.jpackage()
+							register vignette engines
+						.onLoad() saved in: zzz.R
+						.onUnload()
+					S4 classes
+				CRAN notes
+			Package metadata
+				DESCRIPTION file
+				devtools::create("mypackage")
+				ex
+					Package: mypackage
+					Title: What The Package Does (one line, title case required)
+				Dependencies
+					packages needed
+					ex
+						Imports: 
+							dplyr,
+							ggvis
+						Suggests:
+							rlist
+					how to add to Imports:
+						devtools::use_package("dplyr")
+					package::function()
+						explicitly refer to external functions
+					Suggests: optional
+						check if the package is available
+							if (!requireNamespace("pkg" ...)
+				Versioning
+					Imports:
+						ggvis (>= 0.2)
+				Other dependencies
+					Depends:
+						deprecated
+					LinkingTo
+						for C code
+					Enhances
+						enhanced by your package
+						don't use
+				Title and description
+					Title: one line description
+					Description
+					Authors@R
+						r code
+						Authors@R: person("Hadley", "Wickham", email = "hadley@rstudio.com",
+							role = c("aut", "cre"))
+				License
+					MIT
+						license must always be distributed with the code
+					GPL-2 GPL-3
+						copy left
+						whole bundle should be GLP compatible
+					CC0
+						you give all your rights
+				Version
+					major.minor.patch
+						1.2.3
+					major.minor.patch.indevelopment
+						0.0.0.9000
+						first version
+				Other components
+			Object Documentation
+				intro
+					accessed by ? or help()
+					like a dictionary
+						you know the word
+						learn what that word means
+					vignette
+						what the right word is
+					man/ directory
+						.Rd files
+						loosely based on latex
+						roxygen2 generates them
+				documentation workflow
+					steps
+						1. add roxygen comments to .R files
+						2. run devtools::document()
+						3. preview doc with ?
+						4. rinse and repeat
+					roxygen comments
+						#' Add together two numbers
+						#'
+						#' @param x A number
+						#' @return The sum of \code{x} and 
+						#' @examples
+						#' add(1, 1)
+						add <- function(x, y) { x + y }
+					devtools::document() generates: 
+						man/add.Rd
+					?add, help("add", example("add")
+						generates HTML
+				Alternative documentation workflow
+					way to show links between pages
+						1. roxygen comments
+						2. "Build & Reload" or #+B
+						3. ?
+						4. rinse and repeat
+				Roxygen comment
+					lines preceding called: block
+					tags: @tagName details
+					@@: literal @
+					introduction: first sentence (must)
+						one line
+					second paragraph: description (must)
+					third and then: details
+					\code{} \link{}
+						formatting commands
+						lines less than 80 chars
+							#+/: reflow comment
+					@section
+						break details into chunks
+						#' @section Warning:
+					@seealso
+						point useful resourcs
+							\url{http://www.r-project.org}
+							\code{\link{functionname}}
+							\code{\link[packagename]{functionname}}
+						@family
+							family of related functions
+					@aliases alias1 alias2
+						?alias1
+					@keywords keyword1 keyword2
+						not useful
+				Documenting functions
+					@param name Description.
+					@param x,y Numeric vectors.
+					@examples
+						run automatically as part of R CMD check
+						code that includes error:
+							\dontrun{}
+					@return description
+				Documenting packages
+					help for package 
+						access
+							package?foo
+						@docType package
+						put into: <package-name>.R
+				Documenting classes
+					S3
+					S4
+					RC
+				Special characters
+					@: @@
+					%: \%
+					\: \\
+				Do repeat yourself
+					DRY is not valid here
+					Inheriting parameters from other functions
+						@inheritParams foo
+					Documenting multiple functions
+				Text formatting
+					Character
+						\emph{italics}
+						\strong{bold}
+						\code{..}
+						\preformatted{}
+					Links
+						\code{\link{function}}
+						\link[=dest]{name}
+						\url{..}
+						\email{..}
+					Lists
+						\enumerate{
+							\item ..
+						}
+						\itemize{ ..}
+					Mathematics
+						\eqn{a + b}
+					Tables
+						\tabular{}
+			# Vignettes
+				intro
+					browseVignettes()
+						see all installed vignettes in browser
+					browseVignettes("packagename")
+					vignette(package="dplyr")
+						list vignettes in console
+					consists of
+						source file
+						HTML/PDF
+						R code
+					vignette(x)
+						read a specific one
+					edit(vignette(x))
+						see its code
+				Vignette workflow
+					1. devtools::use_vignette("my-vignette")
+						creates vignettes/
+						Adds dependencies to DESCRIPTION
+						Drafts a vignette
+							vignettes/my-vignette.Rmd
+					2. modify file: vignettes/my-vignette.Rmd
+					3. RStudio #+K "Knit"
+						rmarkdown::render("vignettes/my-vignette.Rmd")
+				Metadata
+					first few lines
+						---
+						title: "Vignette Title"
+						author: "Vignette Author"
+						vignette: >
+							%\VignetteIndexEntry{Vignette Title}
+					written in yaml
+						>: literal text not yaml
+				Markdown
+					code
+						```{r}
+						```
+				Knitr
+					ex
+						```{r}
+						# Add two numbers together
+						add <- function(a, b) a + b
+						add(10, 20)
+						```
+						This generates the following Markdown:
+						```r
+						# Add two numbers together
+						add <- function(a, b) a + b
+						add(10, 20)
+						## [1] 30
+						```
+					tables
+						```{r, results = "asis"}
+						pander::pandoc.table(iris[1:3, 1:4])
+				Development cycle
+					run chunk
+						#!C
+					run entire document
+						#+K
+					build all vignettes
+						devtools::build_vignettes()
+					create package with vignettes included
+						devtools::build()
+				Advice
+					If you’re thinking without writing, you only think you’re thinking. — Leslie Lamport
+					Style, J. Williams
+				Organization
+				CRAN notes
+			Testing
+				intro
+					workflow upto now
+						1. write function
+						2. load it #+L or devtools::load_all()
+						3. experiment in console
+				Test workflow
+					setup
+						devtools::use_testthat()
+						this will
+							1. create tests/testthat/
+							2. Adds testthat to DESCRIPTION
+							3. create tests/testthat.R
+					workflow 
+						1. modify code
+						2. test package #+T or devtools::test()
+					testing output
+						Expectation: ....
+						Variance: ...123.45.
+						"." a passed test
+						number: failed test
+					Test structure
+						names start with "test"
+						inside: tests/testtthat/
+						ex
+							context("file name")
+							test_that("str_length is number of characters", {
+								expect_equal(str_length("a"), 1)
+								expect_equal(str_length("ab"), 2)
+								expect_equal(str_length("abc"), 3)
+							})
+					Writing tests
+					Skipping a test
+						skip("api not available")
+			Namespace
+				Motivation
+					:: operator
+					two ways to make packages self-contained:
+						imports
+						exports
+				Search path
+					search()
+						global environment
+						attached packages
+				The NAMESPACE
+					roxygen2 can generate NAMESPACE file
+				Workflow
+					1. add roxygen comments
+					2. devtools::document() or #+D
+					3. check NAMESPACE and run tests to check
+				Exports
+					to make a function usable outside of your package
+					by default: devtools::create() exports everything
+					#' @export
+					foo <- function(..)
+				Imports
+					which external functions can be used without ::
+					best to be explicit: pkg::fun()
+			Installed files (inst/)
+				intro
+					opposite of .Rbuildignore
+						.Rbuildignore: remove files
+						inst/: add files to top level
+					to find a file in `inst/`
+						system.file("extdata", "mydata.csv", package = "mypackage")
+					ex
+						system.file("bash/cat_yuml.sh", package = "yumltordbschema")
+				Other languages
+					put scripts of java, perl, bash into inst/
+						inst/python, inst/bash
+					document in: DESCRIPTION > SystemRequirements
+			External data
+			Automated checking
+				intro
+					R CMD check
+				workflow
+					run devtools::check() or #+E 
+						wraps R CMD check
+						runs devtools::document()
+						bundles package
+				Checks
+		article: R package primer - kbroman.org
+			http://kbroman.org/pkg_primer/
+			Building and installing
+				opt1: console
+					go to parent directory
+					R CMD build mypackage
+						* building ‘package01_0.0.0.9000.tar.gz’
+					R CMD INSTALL mypackage.tar.gz
+						R CMD INSTALL package01_0.0.0.9000.tar.gz
+				opt2: devtools
+					# go to package directory
+					library(devtools)
+					build()
+						builds tar.gz
+					install()
+				opt3: Makefile
+					files
+						.Rbuildignore
+							Makefile
+						Makefile
+							build:
+								R -e 'devtools::document(); devtools::build_vignettes(); devtools::build(); devtools::install()'
+					bash
+						cd ~/projects/rutils
+						make
+		article: Writing an R package from scratch - Hilary Parker
+			https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
+			0. load libraries
+				install.packages("devtools")
+				library("devtools")
+				devtools::install_github("klutometis/roxygen")
+				library(roxygen2)
+			1. create package directory
+				setwd("parent_directory")
+				create("cats")
+			2. add function files
+			3. ad documentation in roxygen comments
+			4. build documentation
+				setwd("./cats")
+				document()
+			5. install
+				# NOTE: first go to directory that contains the whole package
+				setwd("..")
+				install("cats")
+			6. push to github
+	piper magrittr alternative
+		install.packages("pipeR")
+		rules of magrittr
+			if no dot, then pipe to first arg
+			if naked, then pipe to dot
+			if dot in expression, then pipe to first arg and dot
+			if subexpression, then pipe ?
+		rules of piper
+			pipe to first argument and to . (dot)
+			pipe to . only if followed expression is enclosed within:
+				{}
+				()
+				(x ~ f(x))
+		example 
+			f <- function(x, y, z = "nothing") {
+				cat("x =", x, "\n")
+				cat("y =", y, "\n")
+				cat("z =", z, "\n")
+			}
+			> 1:10 %>% f(1, .-1)
+			x = 1 2 3 4 5 6 7 8 9 10
+			y = 1
+			z = 0 1 2 3 4 5 6 7 8 9
+			> 1:10 %>>% f(1, .)
+			x = 1 2 3 4 5 6 7 8 9 10
+			y = 1
+			z = 1 2 3 4 5 6 7 8 9 10>
+			> 1:10 %>>% ( f(min(.),max(.)) )
+			x = 1
+			y = 10
+			z = nothing
+		lambda expression
+			use (x ~ f(x))
+			> 1:10 %>>% (x ~ f(min(x), max(x)))
+			x = 1
+			y = 10
+			z = nothing
+	platform tools: roxygen colorout
+		roxygen2
+			running
+				roxygen2::roxygenise()
+				devtools::document()
+				^+D
+			ex
+				#' Add together two numbers
+				#'
+				#' @param x A number
+				#' @param y A number
+				#' @return The sum of \code{x} and \code{y}
+				#' @examples
+				#' add(1, 1)
+				#' add(10, 1)
+				add <- function(x, y) {
+					x + y
+				}
+				generated: man/add.Rd
+				accessed: ?add help("add") example("add")
+		colorout
+			https://github.com/jalvesaq/colorout
+			library(colorout)
+	rest api: opencpu plumber httr
+		rest client - httr
+			get with no args:
+				jsonlite
+				json - rest <url:#r=sr_0004>
+			post and real rest
+				httr
+			GET 
+				r <- GET("http://localhost:8080/greeting", 
+					query = list(name = "Mert")
+				)
+				str(content(r))
+				# List of 2
+				#  $ id     : int 2
+				#  $ content: chr "Hello, Mert!"
+			content(r)$content
+			# [1] "Hello, Mert!"
+			articles - httr
+				https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html
+					library(httr)
+					r <- GET("http://httpbin.org/get")
+					status_code(r)
+		plumber - rest api
+			https://www.rplumber.io/
+			ref
+				~/projects/study/r/study_plumber_restful_apis.Rmd
+			run server
+				pr <- plumber::plumb("e02.R")
+				pr$run(port=4500)
+		opencpu - rest api
+			use an external library function inside your own package
+				ex:
+					upload_run <- function(file) {
+						rio::import(file)
+					}
+				note: import() alone gives error because opencpu doesn't load packages by itself
+			install package to global library id=sr_0005
+				install package to global library <url:#r=sr_0005>
+				note: give permission first to write to global library
+					cd /usr/local/lib/R
+					sudo chmod o+w site-library
+					opt: use custom container:
+						mertnuhoglu/opencpu_libs:2
+					else: ocpu.call paths will be different
+						http://localhost:8004/ocpu/user/opencpu/library/vrpdata/R/hello
+				1. step: install into global library
+					.libPaths("/usr/local/lib/R/site-library")
+				2. create new package / open package
+					help
+						create your own functions in rstudio <url:#r=sr_0006>
+				3. rstudio > build & load
+					devtools::load_all()
+					devtools::install()
+				4. check if library is installed correctly
+			function calls
+				curl url
+					mypackage
+						fun
+					GET
+						http://localhost:8004/ocpu/library/mypackage/R/fun/print
+					POST
+						http://localhost:8004/ocpu/library/mypackage/R/fun/
+							returns several temporary urls
+						http://localhost:8004/ocpu/library/mypackage/R/fun/json
+							returns result directly
+				js calls
+					ref
+						~/projects/itr/vrp/frontend/views/test_pug/opencpu_*.pug
+					ex: 04 
+						ocpu.seturl("//localhost/ocpu/library/stats/R")
+						var req = ocpu.call("rnorm", {n: 100, mean: rnd}, function (session) {..}
+					ex: base
+						ocpu.seturl("//localhost/ocpu/library/base/R")
+						var req = ocpu.call("identity", { "x": mysnippet }, function (tmp) {
+					ex: 05
+						ocpu.seturl("//localhost/ocpu/library/utils/R")
+						var csv = $("#input").val();
+						var req = ocpu.call("read.csv", {text: csv}, function (session) {
+					ex: 06
+						ocpu.seturl("//localhost/ocpu/library/utils/R")
+						var arg = [1,2,3];
+						var req = ocpu.call("str", {object: arg}, function (session) {
+					ex: 07
+						ocpu.seturl("//localhost/ocpu/library/utils/R")
+						var arg1 = [[1,2,3], [10,20,30]];
+						var req1 = ocpu.call("str", {object: arg1}, function (session) {
+					ex: 08_df custom package
+						ocpu.seturl("//localhost/ocpu/user/opencpu/library/pmf/R")
+						var arg1 = [[1,2,3], [10,20,30]];
+						var req1 = ocpu.call("upload_data", {mat: arg1}, function (session) {
+					ex: upload01 file upload
+						<b>CSV File</b> <input type="file" id="csvfile">
+						ocpu.seturl("//localhost/ocpu/library/utils/R")
+						var myheader = $("#header").val() == "true";
+						var myfile = $("#csvfile")[0].files[0];
+						var req = ocpu.call("read.csv", { "file": myfile, "header": myheader }, function (session) {
+					ex: upload02 file upload (rio)
+						ocpu.seturl(`//${ocpu_domain}/ocpu/library/rio/R`)
+						var req = ocpu.call("import", { "file": myfile }, ..
+			run docker container
+				docker pull opencpu/rstudio
+				docker run -p 80:80 -p 8004:8004 --name ocp \
+					-v /Users/mertnuhoglu/projects/itr/plan_management_frontend/r/pkg/:/home/opencpu \
+					opencpu/rstudio 
+				hata: sigwinch signal docker container'ı kapatıyor
+					-t opsiyonunu kaldır
+					--sig-proxy=false ile çalıştır
+				hata: tüm portlar çalışmıyor
+					80, 8004 çalışıyor
+					8090, 9090 çalışmıyor
+				opt
+					docker run -t -p 80:80 -p 8004:8004 --name ocp --sig-proxy=false opencpu/rstudio 
+					docker run -t -p 80:80 -p 8004:8004 --name ocp opencpu/rstudio 
+					docker run -p 80:80 -p 8004:8004 --name ocp opencpu/rstudio 
+				docker exec -i -t ocp /bin/bash
+			test api
+				http://localhost/ocpu/test/
+					../library/stats/R/rnorm/json
+						n 3
+						mean  10
+						sd  10
+					../library/utils/R/read.csv
+						file
+					open Location
+						http://localhost/ocpu/tmp/x040cd9fda3/
+						http://localhost/ocpu/tmp/x040cd9fda3/R/.val/print
+						http://localhost/ocpu/tmp/x040cd9fda3/R/.val/json
+						http://localhost/ocpu/tmp/x040cd9fda3/R/.val/csv
+						http://localhost/ocpu/tmp/x040cd9fda3/files
+						http://localhost/ocpu/tmp/x040cd9fda3/files/siparis.csv
+						http://localhost/ocpu/tmp/x040cd9fda3/info
+					use key as argument
+						../library/ggplot2/R/qplot
+							x en
+							y boy
+							data x040cd9fda3
+						open Location
+							http://localhost/ocpu/tmp/x05680d0a35/
+							http://localhost/ocpu/tmp/x05680d0a35/graphics/1/png
+							http://localhost/ocpu/tmp/x05680d0a35/graphics/1/png?width=1200
+							http://localhost/ocpu/tmp/x05680d0a35/console/text
+								> qplot(x = en, y = boy, data = x040cd9fda3::.val)
+								[[ plot ]]
+							http://localhost/ocpu/tmp/x05680d0a35/source/text
+			nodejs
+				https://github.com/albertosantini/node-opencpu
+				npm install -S opencpu
+				ex
+					var opencpu = require("opencpu");
+					opencpu.rCall("/library/datasets/R/mtcars/json", {}, function (err, data) {
+							if (!err) {
+									console.log(data[0].mpg + data[1].mpg); // => 42
+							} else {
+									console.log("opencpu call failed.");
+							}
+					});
+			test js client
+				test R:
+					function(x, n){  return(x^n) }
+				ex:
+					http://jsfiddle.net/opencpu/7torLdk9/
+					/Users/mertnuhoglu/projects/itr/plan_management_frontend/views/test_pug/opencpu01.pug
+					copy opencpu-0.4.js to public/js/lib
+					layout.pug
+						script(src='/js/lib/opencpu-0.4.js')
+				ex02:
+					ocpu.seturl("//localhost/ocpu/library/base/R")
+				ex03: file upload 
+					http://jsfiddle.net/opencpu/hc5b9w7r/
+			docker opencpu rstudio image
+				https://hub.docker.com/r/opencpu/rstudio/
+				run
+					docker run -p 80:80 -p 8004:8004 --name ocp \
+						opencpu/rstudio 
+				apps
+					rstudio app
+						http://localhost/rstudio/
+						opencpu/opencpu
+					test app
+						http://localhost/ocpu/
+			OpenCPU presentation at useR! 2014-kAfVWxiZ-Cc.mp4
+				hello world
+					curl .../library/stats/R/rnorm/json -H "Content-Type: .." -d '{"n":3, "mean":10, "sd":10}'
+					===
+					library(jsonlite)
+					args = fromJSON('{"n":3, "mean":10, "sd":10}')
+					output = do.call(stats::rnorm, args)
+					toJSON(output)
+					===
+					rnorm(n=3, mean=10, sd=10)
+				what opencpu does
+					interoperable http api
+					rpc and object management
+					io: json, protocol buffers, csv
+					parallel/async
+					security  policies
+					client libraries: js, ruby, ...
+				keys and objects
+					/Users/mertnuhoglu/Dropbox/public/img/ss-180.png
+					curl -v http://../stocks/R/smoothplot -d 'ticker="GOOG"'
+					===
+					POST /stocks/R/smoothplot
+					Content-Type: application/x-www-form-urlencoded
+				other: curl and http content type
+					application/x-www-form-urlencoded or multipart/form-data?
+						https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+						2 ways to POST:
+							application/x-www-form-urlencoded
+							multipart/form-data
+								to upload files
+						these are two MIME types that HTML forms use
+							http has no such limitation
+						tl;dr
+							if you have binary data or big payload
+								multipart/form-data
+							otherwise
+								application/x-www-form-urlencoded
+						MIME types are 2 Content-Type headers for POST requests
+							purpose: to send a list of key/value pairs
+						application/x-www-form-urlencoded
+							body of http message: one giant query string
+							separated by &
+							key/value by =
+							non-alphanumeric characters replaced by '%HH'
+								thus triples payload for binary files
+						multipart/form-data
+							each key/value pair: a part in a MIME message
+							each part has
+								MIME headers like 
+									Content-Type
+									Content-Disposition: this gives a part is name (key)
+						other content-types:
+							application/json
+					curl examples
+						https://gist.github.com/joyrexus/524c7e811e4abf9afe56
+						ex
+							URL=https://foo.io/users/joyrexus/shoes
+							Url-encoded
+								curl -d "brand=nike" -d "color=red" -d "size=11" $URL
+								curl --data "brand=nike&color=red&size=11" $URL
+							Multipart
+								curl --form "image=@nikes.png" --form "brand=nike" --form "color=red" --form "size=11" $URL
+								curl -F "image=@nikes.png" -F "brand=nike" -F "color=red" -F "size=11" $URL
+								Change the name field of a file upload part by setting filename=:
+									curl -F "image=@nikes.png;filename={desired-name}.png" -F "brand=nike" -F "color=red" -F "size=11" $URL
+								Specify Content-Type by using type=:
+									curl -F "image=@nikes.png;filename={desired-name}.png;type=image/png" -F "brand=nike" -F "color=red" -F "size=11" $URL
+					curl post examples
+						https://gist.github.com/subfuzion/08c5d85437d5d4f00e58
+						-d, --data <data> Send specified data in POST request. Details provided below.
+						-F, --form <name=content> Submit form data.
+						-X, --request The request method to use.
+						common curl options
+							request type
+								-X POST
+								-X PUT
+							content type header
+								-H "Content-Type: application/x-www-form-urlencoded"
+								-H "Content-Type: application/json"
+							data
+								form urlencoded: -d "param1=value1&param2=value2" or -d @data.txt
+								json: -d '{"key1":"value1", "key2":"value2"}' or -d @data.json
+						common examples
+							POST application/x-www-form-urlencoded
+								application/x-www-form-urlencoded is the default:
+									curl -d "param1=value1&param2=value2" -X POST http://localhost:3000/data
+								explicit:
+									curl -d "param1=value1&param2=value2" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:3000/data
+								with a data file
+									curl -d "@data.txt" -X POST http://localhost:3000/data
+							POST application/json
+								curl -d '{"key1":"value1", "key2":"value2"}' -H "Content-Type: application/json" -X POST http://localhost:3000/data
+								with a data file
+									curl -d "@data.json" -X POST http://localhost:3000/data
+						server.js
+							var app = require('express')();
+							var bodyParser = require('body-parser');
+							app.use(bodyParser.json()); // for parsing application/json
+							app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+							app.post('/data', function (req, res) {
+								console.log(req.body);
+								res.end();
+							});
+							app.listen(3000);
+				get R function's code
+					http://../stocks/R/smoothplot/print
+				response:
+					Location: https://tmp.ocpu.io/xlklmk/
+					this contains the output
+				state in opencpu
+					difference with other R web frameworks
+					each request is stateless
+						no single, permanent R process
+					instead: "functional state"
+						each rpc stores object and returns key. no side-effects
+						use key to get stored object
+				public.opencpu.org/ocpu/test
+					/Users/mertnuhoglu/Dropbox/public/img/ss-181.png
+					read.csv with a file
+						/Users/mertnuhoglu/Dropbox/public/img/ss-182.png
+					open Location
+						/Users/mertnuhoglu/Dropbox/public/img/ss-183.png
+						get dataframe
+							/Users/mertnuhoglu/Dropbox/public/img/ss-184.png
+						get as json
+							/Users/mertnuhoglu/Dropbox/public/img/ss-186.png
+						get as csv
+							/R/.val/csv
+					you can use this Location in other function calls
+						/Users/mertnuhoglu/Dropbox/public/img/ss-187.png
+						/Users/mertnuhoglu/Dropbox/public/img/ss-189.png
+					each key is secret
+						so no authentication is needed
+				javascript client
+					/Users/mertnuhoglu/Dropbox/public/img/ss-191.png
+				create your own functions in rstudio id=sr_0006
+					create your own functions in rstudio <url:#r=sr_0006>
+					build it as a package from inside RStudio
+					rstudio
+						file > new project > new directory > r package >
+							.package name
+						rstudio > files > r > mypackage.R
+							test = function(x) {
+								..
+							}
+						rstudio > build > build & reload 
+						opencpu:
+							ocpu/user/jeroen/library
+								/mypackage/R/test
+							docker içinde
+								/ocpu/user/opencpu/library/pmf/R/hello
+						docker içindeki package'ı lokalde değiştirmek
+							lokalde değiştir
+							dockerda tekrar "build and reload" de
+							opencpu'da artık kullanılabilir
+					note: custom functions have different path than other libraries if they are not installed into global library
+						ref
+							install package to global library <url:#r=sr_0005>
+						http://localhost:8004/ocpu/user/opencpu/library/vrpdata/R/hello
+					ex
+						/Users/mertnuhoglu/Dropbox/public/img/ss-192.png
+				workflow
+					setup opencpu
+					write functions
+					make them a package
+					call them from opencpu
+				trying
+					free public server
+						public.opencpu.org/ocpu
+					single dev server
+						install.packages("opencpu")
+						library(opencpu)
+				public package/app on ocpu.io
+					github webhook
+						public.opencpu.org/ocpu/webhook
+					add this webhook to your github/webhooks
+					then everytime you push, it will be updated
+					your package
+						yourname.ocpu.io/pkgname
+			OpenCPU API
+				https://www.opencpu.org/api.html
+				default root path: /ocpu/
+				debugging:
+					/ocpu/info
+						shows sessionInfo
+					/ocpu/test
+						testing 
+				http methods
+					GET
+						to retrieve a resource
+					POST
+						for RPC
+					GET
+						object
+							/ocpu/library/MASS/R/cats/json
+						file
+							/ocpu/library/MASS/NEWS
+					POST
+						object
+							/ocpu/library/stats/R/rnorm
+						file
+							/ocpu/library/MASS/scripts/ch01.R
+				api libraries
+					/ocpu/library/{pkgname}/
+						r packages
+					/ocpu/apps/{gituser}/{reponame}/
+						packages in github
+				r package api
+					/{pkgname}/ support endpoints:
+						/info
+						/www
+							apps included
+						/R/
+							r objects
+						/data/
+						/man/
+						/man/{topic}/{format}
+							format: text, html, pdf
+						/html
+						/*
+							files
+				r object api
+					/R api: to read objects and call functions
+						/R/
+							list r objects
+						/data/
+							list data objects
+						/{R|data}/{object}
+							if object is a function, it is called using POST
+						/{R|data}/{object}/{format}
+				r session api
+					session: holds resources from a rpc call
+						/tmp/{key}/
+							list available output
+						/tmp/{key}/R
+							r objects
+						/tmp/{key}/
+							graphics/
+								graphics/{n}/{format}
+							source
+								input source code
+							stdout
+							console
+							zip
+								dl session as zip
+							files/*
+								file api in working dir
+				output formats for r objects
+					print
+					json
+					csv
+					tab
+					md
+					feather
+					png
+					pdf
+				argument formats for r function calls
+					primitives
+					json
+					r code
+					file upload
+					temp key
+				running scripts and documents
+					file.r
+					file.tex
+					file.md
+						knitr::pandoc
+					file.rmd
+						knitr::knit
+				json io rpc
+					ex
+						/ocpu/library/stats/R/rnorm/json
+							sonuç doğrudan json olur, GET request gerekmez
+					ex
+						curl http://cloud.opencpu.org/ocpu/library/stats/R/rnorm/json \
+						-H "Content-Type: application/json" -d '{"n":3, "mean": 10, "sd":10}'
+						[
+						4.9829,
+						6.3104,
+						11.411
+						]
+					equivalent to
+						library(jsonlite)
+						args <- fromJSON('{"n":3, "mean": 10, "sd":10}')
+						output <- do.call(stats::rnorm, args)
+						toJSON(output)
+				opencpu apps
+					put into /inst/www/ directory
+					interfaces with R package functions
+				github ci hook
+			OpenCPU JS Client
+				https://www.opencpu.org/jslib.html
+				cdn
+					<script src="//cdn.opencpu.org/opencpu-0.4.js"></script>
+				apps  
+					apps = r packages
+					install
+						library(devtools)
+						install_github(c("stocks", "markdownapp", "nabel"), username="opencpu")
+					web pages
+						/inst/www/
+					to use an app
+						opt1
+							library(opencpu)
+							opencpu$browse("/library/stocks/www")
+							opencpu$browse("/library/nabel/www")
+						opt2
+							https://cloud.opencpu.org/ocpu/library/stocks/www
+							https://cloud.opencpu.org/ocpu/library/markdownapp/www
+				CORS
+					opt1: include web pages in R package
+					opt2: call opencpu as web services
+						ocpu.seturl()
+							specify external opencpu server
+						must: all R functions are in a single R package
+				stateless functions
+					$("#mydiv").rplot( fun[, args][, callback])
+						r
+							smoothplot = function(arg1, arg2) {
+								..
+								plot(..)
+							}
+						js
+							$("#plotdiv").rplot("smoothplot", {arg1: val1, ..})
+					ocpu.rpc(fun[, args][, complete])
+						js
+							var mydata = [1,2,3]
+							var req = ocpu.rpc("sd", {x: mydata})
+				calls and sessions
+					state in opencpu
+						session id is return to client
+					call an r function
+						ocpu.call vs. ocpu.rpc
+							stateful equivalent of ocpu.rpc
+							difference: callback function
+							rpc: callback argument is json object
+							call: callback argument is a session object
+						ex
+							var req = ocpu.call("rnorm", {n:100}, function(session) {
+								$("#key").text(session.getKey())
+								session.getObject(function(data) {
+									console.log( data.slice(0,3) )
+								})
+							})
+					argument types
+						4 types
+							js value: converted to R via json
+							session: represents R value
+							file
+							code snippet
+					session object
+						ref: https://www.opencpu.org/jslib.html
+						methods
+							getKey():string
+							getLoc():string
+							getFileURL(path):string
+								path: path wrt working directory
+							getObject(name[, data][, success]):jqXHR
+							getConsole([success]):jqXHR
+								===
+								getStdout([success]):jqXHR
+							getFile(path[, success]):string
+								path: path wrt working directory
+						ex
+							// http://jsfiddle.net/opencpu/tmqab/
+							var req = ocpu.call("rnorm", {n: 100}, function(session){
+								$("#key").text(session.getKey());
+								// Session ID: x09ebbe143d 
+								$("#location").text(session.getLoc());
+								// http://public.opencpu.org/ocpu/tmp/x09ebbe143d/
+								session.getConsole(function(outtxt){
+									$("#output").text(outtxt);
+								});
+								// > rnorm(n = 100L, mean = 0.214583808813093)
+								// [1]  1.675699563  2.696433712 -0.371826912  1.139382581 -0.043985045
+								//retrieve the returned object async
+								session.getObject(function(data){
+									alert("Array of length " + data.length + ".\nFirst few values:" + data.slice(0,3));
+									// 100
+									// 1.67 2.69 -0.37
+								});
+							})
+			OpenCPU Server Manual
+				https://opencpu.github.io/server-manual/opencpu-server.pdf
+				1. What is OpenCPU
+					http api'leriyle R fonksiyonlarını kullanmaya izin verir
+						ex
+							curl http://localhost/ocpu/library/stats/R/rnorm/json --data n=3
+								[
+									3.05644,
+									0.38511,
+									1.11983
+								]
+					1.3 OpenCPU Apps
+						app = R package
+							+ some web pages
+						web pages inside /inst/www/
+					1.4 OpenCPU single-user server
+						bu geliştirme amaçlı
+						running
+							install.packages("opencpu")
+							library(opencpu)
+							ocpu_start_server()
+						app yüklemek için:
+							ocpu_start_app("rwebapps/markdownapp")
+								githubdan çekip yükler
+							http://localhost:5656/ocpu/apps/rwebapps/markdownapp
+						cloud server: normal sunucu, bu sadece lokalde çalışmak için
+				2. Installing OpenCPU cloud server
+				3. Managing the OpenCPU cloud server
+					3.2. Installing R packages 
+						should be installed in global library
+							opt1
+								wget https://cran.r-project.org/src/contrib/Rcpp_0.12.12.tar.gz
+								sudo R CMD INSTALL Rcpp_0.12.12.tar.gz --library=/usr/local/lib/R/site-library
+							opt2
+								install.packages("Rcpp")
+						after restarting they will be available through API
+							sudo apachectl restart
+							http://localhost:8004/ocpu/library/lubridate
+							it restarts automatically after library installation
+				4. Testing the OpenCPU API
+					4.3 Calling a function
+						general
+							1. Perform a POST 
+								curl http://your.server.com/ocpu/library/stats/R/rnorm -d "n=10&mean=100"
+							2. OpenCPU returns locations of the output data
+								/ocpu/tmp/x032a8fee/R/.val
+								/ocpu/tmp/x032a8fee/stdout
+							3. Perform a GET request
+								http://your.server.com/ocpu/tmp/x032a8fee/R/.val
+						exception: return json directly
+							add /json to POST request
+								http://../R/norm/json
+						input arguments as json
+							curl http://your.server.com/ocpu/library/stats/R/rnorm \
+							-H "Content-Type: application/json" -d '{"n":10, "mean": 10, "sd":10}'
+	rmarkdown: blogdown slidify
+		ref
+			http://rmarkdown.rstudio.com/
+			https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf
+			https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+		blogdown id=g_10179
+			blogdown <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g_10179>
+			install.packages("blogdown")
+			cmd
+				library(blogdown)
+				blogdown::serve_site()
+				blogdown::new_site()
+				blogdown::new_post()
+				blogdown::build_site()
+			hugo + blogdown
+				migrate hugo site to blogdown
+					rename config.yml as config.yaml
+				copy files to tech/ directory
+					sync_rmd_to_blog_dirs
+					deprecated:
+						rsync -a --files-from=.to_blog_tech.tsv ./ /Users/mertnuhoglu/projects/jekyll/mertnuhoglu.com/content/tech
+				yaml header
+					---
+					title: "Example: R Time and Date"
+					date: '`r strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S+03:00")`'
+					draft: false
+					description: ""
+					tags:
+					categories: examples R 
+					type: post
+					url:
+					author: "Mert Nuhoglu"
+					output: rmarkdown::html_document
+					blog: mertnuhoglu.com
+					resource_files:
+					-
+					---
+				deploy
+					./deploy.sh
+						/Users/mertnuhoglu/projects/jekyll/mertnuhoglu.com/deploy.sh
+			conventions
+				links: [ex_sql_generation.Rmd](/tech/ex_sql_generation/ "SQL Generation")
+			themes
+				blogdown::install_theme("yihui/hugo-xmin")
+		slidify
+			install
+				install_github('ramnathv/slidify')
+				install_github('ramnathv/slidifyLibraries')
+			create deck
+				library(slidify)
+				author("slidify-demo-01")
+			push to github
+				github: create a new repo "slidify-demo-01"
+				git remote add origin https://github.com/mertnuhoglu/slidify-demo-01.git
+				local: git add+commit
+			generate/update deck
+				slidify("index.Rmd")
+			publish github
+				publish(user = "mertnuhoglu", repo = "slidify-demo-01", host = "github")
+			open
+				http://mertnuhoglu.github.io/slidify-demo-01/index.html
+			publish dropbox
+				publish(user = "mydeck", host = "dropbox")
+			open
+				https://dl.dropboxusercontent.com/u/103580364/mydeck/index.html
+			extensions and themes
+				http://ramnathv.github.io/slidifyExamples/
+				http://slidify.org/style.html
+				http://stackoverflow.com/questions/19348763/how-i-can-include-the-use-of-the-extension-deck-automation-js-when-i-create-a-do
+					http://slidify.github.io/add-deck-ext/
+			deckjs framework
+				https://raw.githubusercontent.com/ramnathv/slidifyExamples/gh-pages/examples/deckjs/index.Rmd
+				put into heading part (indent with spaces)
+					framework: deckjs
+					deckjs:
+						transition: horizontal-slide
+						extensions: [goto, hash, menu, navigation, scale, status]
+				themes
+					web-2.0
+					swiss
+				shortcuts
+					m    view menu
+					g#  go to slide
+			add extensions
+				http://slidify.github.io/add-deck-ext/
+			add extension: automatic.js
+				setup
+					curl -o automatic.zip https://github.com/rchampourlier/deck.automatic.js/archive/master.zip
+					unzip -oq automatic.zip deck.automatic.js-master/automatic/ 
+					mv deck.automatic.js-master/automatic libraries/frameworks/deckjs/extensions/
+					rm automatic.zip
+					rm -r deck.automatic.js-master
+				add to heading
+					extensions: [goto, hash, menu, navigation, scale, status, automatic]
+				add snippet to libraries/frameworks/deckjs/partials/snippets.html
+					<!-- Initialize the deck -->
+					<script>
+					$(function() {
+						// required only if the automatic extension is enabled.
+						$.extend(true, $.deck.defaults, {
+						automatic: {
+							startRunning: false,  // true or false
+							cycle: false,      // true or false
+							slideDuration: 10000 // duration in milliseconds
+						}})
+						$.deck('.slide');
+					});
+					</script>
+				add play/pause buttons to libraries/frameworks/deckjs/layouts/deck.html
+					<!-- Begin slides -->
+					{{{ page.content }}}
+					<div class='deck-automatic-link' title="Play/Pause">Play/Pause</div>
+			use cases
+				impressjs
+					visually stunning
+				deckjs
+					easy to use
+				landslide
+					question answer
+				flowtime
+					hierarchical
+				
+			multiple presentations
+				subdirectory
+					author("new_slidify_project")
+					cd new_slidify_project
+				new file
+					cp index.Rmd new_slideshow.Rmd
+					slidify("new_slideshow.Rmd")
+		render("input.Rmd", "pdf_document")
+		issues
+			line width
+				put to start of document:
+				``` {r set-options}
+				options(width = 150)
+				``` 
+			css div width (page)
+				<style>
+					.main-container {
+						max-width: 1600px !important;
+					}
+				</style>
+		getting started
+			rstudio > file > new > rmarkdown > .html
+				örnek bir şablon dosya açılır
+			button bar > knit
+		install
+			library("rmarkdown")
+			install.packages("rmarkdown")
+			error: Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+		run
+			rmarkdown::render("input.Rmd")
+			render("input.Rmd")
+			render("input.Rmd", "pdf_document")
+			R -e 'rmarkdown::render("data_generation.Rmd", "html_document")'
+		notebook in rstudio
+		code chunks in rstudio
+			#!i add new chunk
+		code languages
+			bash, python, sql, js
+		parameters
+			heading içinde parametre tanımlayabilirsin
+			code  
+				---
+				params: 
+					data: "hawaii"
+				---
+				data(list = params$data)
+			setting parameters values
+				render("file.Rmd", params = list(data = "niagara"))
+		markdown format
+			inline code
+				formatting
+					`kpv['kw003']` 
+				evaluate expression
+					`r kpv['kw003']` 
+			embedding mathematical formulas
+				latex
+					$\frac{1}{n}$
+			export to pdf
+				opt
+					output: pdf_document
+					output: beamer_presentation
+				pdf_document
+					produces normal pdf doc
+					render("input.Rmd", "pdf_document")
+				beamer_presentation
+					produces slides
+					note: single heading level
+			embedding code
+				basic
+					```{r}
+					code()
+					```
+			table
+				table of figures/data using kable
+					http://yihui.name/printr/
+					http://kbroman.org/knitr_knutshell/pages/figs_tables.html
+					knitr::kable(matrix, digits = 2, caption = "A table produced by printr.")
+				inside markdown
+					ex1
+						Firs | Secont
+						-----|-------
+						conte|con2
+						cmo  | con 3
+					ex2
+						| name      | address         | phone   |
+						|-----------------|--------------------------|------------|
+						| John Adams    | 1600 Pennsylvania Avenue | 0123456789 |
+						| Sherlock Holmes | 221B Baker Street   | 0987654321 |
+					ex3
+						|-----------------|--------------------------|------------|
+						| name      | address         | phone   |
+						|-----------------|--------------------------|------------|
+						| John Adams    | 1600 Pennsylvania Avenue | 0123456789 |
+						| Sherlock Holmes | 221B Baker Street   | 0987654321 |
+						|-----------------|--------------------------|------------|
+		output formats
+			render("input.Rmd", output_format = "pdf_document")
+			opt
+				documents
+					html notebook: interactive notebooks
+					html document
+					pdf
+					word
+					rtf
+					md
+				presentations
+					ioslides
+					beamer
+			output options
+				ex: table of contens
+					---
+					output:
+						html_document:
+							toc: true
+				help on options
+					?html_document
+		notebooks
+			ref
+				http://rmarkdown.rstudio.com/r_notebooks.html
+			interactive
+				open from rstudio
+				open in browser
+					output: html_notebook
+		presentation
+			Presenter Mode
+			add this to the end of the url while starting
+				?presentme=true
+				/Users/mertnuhoglu/projects/dewey/data_analysis_presentations/istanbulcoders/input.html?presentme=true
+			adding to slides
+				<div class="notes">
+				this is notes
+				</div>
+			new slide
+				# title only
+				## title and text
+				----
+					no title
+			display modes
+				f   full
+				w   wide
+				o   overview
+				h   highlight
+				p   presenter
+		dashboards
+		websites
+			each .Rmd = page of site
+			_site.yml
+				header
+		interactive documents 
+			htmlwidgets
+			shiny
+	shiny tools
+		rhandsontable
+			install.packages("rhandsontable")
+	String
+		rematch
+			install_github("MangoTheCat/rematch")
+			match
+				re_match(text = dates, pattern = iso)
+	XML
+		xmlParse()
+			doc = xmlParse(file)
+		xmlRoot()
+			root = xmlRoot(doc)
+		navigating
+			xmlChildren(root)
+			xmlName # name of node
+		looping over nodes
+			root %>% xmlChildren %>% lapply(xmlName) # ==
+			root %>% xmlApply(xmlName)
+		xpath
+			links = xpathSApply(root, "path")
+			link_attr_vals = xpathSApply(root, "path", xmlGetAttr, "href")
+cookbook
+	when running in aws/linux docker always set encoding first
+		Sys.setlocale("LC_CTYPE", "en_US.UTF-8")
+		https://stackoverflow.com/questions/25808595/issues-with-encoding-when-using-an-rscript-through-launchd
+	open browser from R
+		browseURL(url)
+	override functions
+		filter = dplyr::filter
+	password kullanma: environment variable
+		env variable tanımla
+			.Renviron içinde
+		password = Sys.getenv("LERIS_ORACLE_BTG_MIS_PASSWORD")
+	execute a script from another directory / getting path of an executing script
+		http://stackoverflow.com/posts/1815743/
+		https://stackoverflow.com/posts/3473388/
+		#!/usr/bin/env Rscript
+		initial.options <- commandArgs(trailingOnly = FALSE)
+		file.arg.name <- "--file="
+		script.name <- sub(file.arg.name, "", initial.options[grep(file.arg.name, initial.options)])
+		script.dirname <- dirname(script.name)
+		source(file.path(script.dirname, "source_scripts.R"), chdir = T)
+	suppress disable library sourcing loading messages
+		suppressMessages(library(x))

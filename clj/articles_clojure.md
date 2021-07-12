@@ -628,4 +628,48 @@ Benefits:
     Bus factors
       is 1 = Rich Hickey
 
+# Article: In Clojure, records are wacky maps | Yehonathan Sharvit id=g_12116
+
+[In Clojure, records are wacky maps | Yehonathan Sharvit](https://blog.klipse.tech/clojurescript/2016/04/25/records-wacky-maps.html)
       
+Code: `~/projects/study/clj/ex/study_clojure/ex06/src/record.clj`
+
+3 equivalent ways to create a record: `A.`, `->A`, `map->A`
+
+```clj
+(defrecord A [x y])
+(def a (A. 1 2))
+(def aa (map->A {:x 1 :y 2}))
+(def aaa (->A 1 2))
+[a aa aaa]
+```
+
+Differences from maps:
+
+- Not callable as a function
+- dissoc: returns a map instead of a record
+
+# Article: Clojurescript defprotocol’s secret | Yehonathan Sharvit
+
+[Clojurescript defprotocol’s secret | Yehonathan Sharvit](https://blog.klipse.tech/clojurescript/2016/04/09/clojurescript-protocols-secret.html)
+
+Code: `~/projects/study/clj/ex/study_clojure/ex06/src/protocol.clj`
+
+# Article: The power and danger of deftype in clojure and clojurescript | Yehonathan Sharvit id=g_12117
+
+[The power and danger of deftype in clojure and clojurescript | Yehonathan Sharvit](https://blog.klipse.tech/clojurescript/2016/04/26/deftype-explained.html)
+
+Code: `~/projects/study/clj/ex/study_clojure/ex06/src/types.clj`
+
+persistent data structures implemented in: 
+
+- clj: java
+- cljs: clojure
+
+record: collection of fields
+
+type: simpler than record. just constructor and `getBasis`
+
+2 ways to create a type: `A.` constructor or `->A` factory function.
+
+

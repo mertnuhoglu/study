@@ -123,4 +123,32 @@ conn = get_db_emdk()
 df = sql_fk_listing(conn)
 ```
 
+# Connect to SQL Server
+
+[Connect to a Database](https://db.rstudio.com/getting-started/connect-to-database/)
+
+opt02: jdbc
+
+```r
+install.packages("RJDBC",dep=TRUE)
+
+library(RJDBC)
+drv <- JDBC("com.microsoft.sqlserver",
+           "/Users/mertnuhoglu/codes/java/jdbc/mssql-jdbc-9.2.1.jre11.jar",
+           identifier.quote="`")
+conn <- dbConnect(drv, "jdbc:sqlserver://gis.layermark.com;database=gisdbp", Sys.getenv("LAYERMARK_DB_USER"), Sys.getenv("LAYERMARK_DB_PASSWORD"))
+
+```
+
+opt01: odbc:
+
+```r
+install.packages("DBI")
+install.packages("odbc")
+```
+
+```r
+library(odbc)
+sort(unique(odbcListDrivers()[[1]]))
+```
 
