@@ -1401,3 +1401,23 @@ lapply(templates, function(template) {
   ##> 10        54E70  54E70.csv
 ```
 
+### dplyr:: group by day of the date  id=g12341
+
+opt01: [How do I group my date variable into month/year in R? - Stack Overflow](https://stackoverflow.com/questions/33221425/how-do-i-group-my-date-variable-into-month-year-in-r)
+
+```r
+library(dplyr)
+(expenses <- data_frame(
+  date=seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by=1),
+  amount=rgamma(length(date), shape = 2, scale = 20)))
+```
+
+```r
+expenses %>% group_by(month=lubridate::floor_date(date, "month")) %>%
+   summarize(amount=sum(amount))
+  ##>    month      amount
+  ##>    <date>      <dbl>
+  ##>  1 2016-01-01  1305.
+  ##>  2 2016-02-01  1168.
+```
+
