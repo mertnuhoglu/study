@@ -13,19 +13,46 @@ output:
     css: styles.css
 blog: mertnuhoglu.com
 resource_files:
-path: ~/projects/study/bash/study_anki.Rmd
+path: ~/projects/study/bash/study_anki.md
 state: wip
 
 ---
 
 # refcard
 
-		Card Templates  <url:file:///~/projects/study/code/anki/study_anki.Rmd#r=g_11563>
-			Card Type: Cloze: Text -> Text+Extra
-				anki > browse > 
-					din
-					eyez_open_cloze
+    Import tsv files into anki <url:file:///~/projects/study/code/anki/study_anki.md#r=g12334>
+		Import md files into anki  <url:file:///~/projects/study/code/anki/study_anki.md#r=g12355>
+    Card Templates  <url:file:///~/projects/study/code/anki/study_anki.md#r=g_11563>
+      Card Type: Cloze: Text -> Text+Extra
+        anki > browse > 
+          din
+          eyez_open_cloze
 
+
+# Import tsv files into anki id=g12334
+
+## Basic Cards:
+
+01: Edit `~/projects/study/code/anki/ex/study_anki/import_tsv_to_anki/basic01.tsv`
+
+02: Anki > Import > 
+
+- Type = Basic (and reversed card)
+- Import even if existing note has same first field
+- Field mapping:
+  - Field 1 = Note ID
+  - Field 2 = Front
+  - Field 3 = Back
+
+# Import md files into anki  id=g12355
+
+## Basic Cards
+
+01: Edit `~/projects/study/logbook/anki_log_20200222.md`
+
+02: `How to convert markdown to anki? <url:file:///~/projects/study/code/anki/study_anki.md#r=g12330>`
+
+## Cloze Cards:
 
 # Articles
 
@@ -65,14 +92,14 @@ I usually use anki for code blocks. To format them in an easy to read style, I c
 
 ref: `~/projects/study/code/anki/ex/study_anki/card_templates/cloze.md`
 
-## How to convert markdown to anki?
+## How to convert markdown to anki? id=g12330
 
 Edit `~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim`
 
 ``` vimscript
 function! ConvertAnkiMd()
   set expandtab
-	retab
+  retab
   g/<url:/ s/<url:file:...// | s/>$//
   " indented lines match this regex:
   " \(  \+\)\(.*\)\(<br>$\)\@!
@@ -82,11 +109,11 @@ function! ConvertAnkiMd()
   %s/^\(  \+\)\(.*\)/\1`` \2 `` <br>/
   " replace indentation spaces with center dots · because anki ignores spaces
   g/^  / s/  /··/g 
-	%s/··``/  ``/
+  %s/··``/  ``/
   " escape [..](..)
   " wrap underscore words with backquote
   v/^·/ s/](/\&#093;(/ | s/\( \)\@<=[^ `]\+_[^ `]\+/`\0`/g
-	g/<br>/left
+  g/<br>/left
 endfunction
 command! ConvertAnkiMd call ConvertAnkiMd()
 ``` 
@@ -135,7 +162,7 @@ ankdown -p <file>.apkg -d db01 -i <file>.md
 vnoremap <Leader>e s{{c1::<c-r>"}}<esc>
 ``` 
 
-## Çoktan seçmeli sorular hazırlama
+## Çoktan seçmeli sorular hazırlama id=g12332
 
 ### 20191220 
 
@@ -147,7 +174,7 @@ ref: `~/projects/anki_english/decks/anki_eyes_open_choice.txt`
 
 Note Type: English Grammar in Use Exercises
 
-### Logs 20191220 
+### Logs 20191220  id=g12331
 
 Edit `~/gdrive/mynotes/stuff/ozgur_emin/english/anki/exam_20191024/cloze_choice_20191220.tsv`
 
