@@ -1,0 +1,354 @@
+# YouTrack Documentation id=art_0005
+
+topics
+	creating and editing issues
+		attachements
+		image editor
+		urls for preset fields 
+		cloning
+		mention username
+		watching issues
+		commenting issues
+		linking issues
+		visibility
+		wiki markup
+		bookmarklet
+		screenshots
+	searching issues
+		filters
+		saved searches
+		search context
+		tags
+		search query and commands
+	navigating
+	command window
+		via jabber
+		reordering issues
+		change multiple issues
+	notifications
+	sidebar
+	mobile ui
+	integrations
+		git
+		jira
+		mailbox
+	live dashboard
+cases
+	admin
+		users
+			delete user
+				admin > users > .select > ban
+				https://confluence.jetbrains.com/display/YTD65/Deleting+User+Accounts
+				there is no user deleting, you can only ban
+			assing a role to user
+				admin > users > .select > roles > add role
+		projects
+			create project
+				projects > create project
+			assign users to projects
+				settings > project > edit > team > .select users > add to assignees
+		roles
+			Developer role is sufficient
+		states
+		create new shortcuts scheme
+			administration > global settings > keyboard shortcuts > export selected shortcuts
+shortcuts
+	general
+		esc   toggle search box
+		up/dn   move issues
+		hm/end  first/last issues
+		#->     next page
+		#+->    last page
+		->      expand/collapse
+		space     select issue
+		^!n       new subtask
+		F2        open issue
+			esc       go back to list
+		^+del     toggle sidebar
+		^+0       toggle watching
+		^/        shortcut hints
+		^n        new issue
+		#c        select id
+		^!=
+		^!-       decrease/increase detail level
+		^!c       write comment
+		^!k       command window
+		^!v       attach image
+	full issues view
+		F2        edit issue
+		#up       open issues list
+		^+c       switch comments tab
+		^+h       switch history tab
+		^+l       switch links tab
+	bookmarklets
+		create new issue
+workflows
+	what is workflow
+		https://confluence.jetbrains.com/display/YTD65/What+Is+a+Workflow+and+Why+You+Should+Care
+		workflow
+			set of states and transitions
+				an issue go through
+			set of rules addressing a task
+		rule
+			a script written in DSL
+		types of rules
+			stateless
+				when issue changed/created
+			state-machine
+				how an issue transits between states
+			scheduled
+		rule code
+			when state.changed && !state.oldValue.isResolved && state.isResolved && parent for.isNotEmpty {
+				for each subtask in parent for 
+					assert subtask.state.isResolved : "please resolve";
+	how to create
+		https://confluence.jetbrains.com/display/YTD65/How+to+create+workflows+and+rules+for+YouTrack
+		uses
+			notify teams, enforce policies, periodic tasks
+		workflow
+			rules
+				stateless
+				state-machine
+				scheduled
+	what
+gitlab integration
+	Admin > vcs integrations
+videos
+	1-YouTrack 5.0 Overview-A8sWYBe7pO8.mp4
+		searches
+			#Unassigned #{This wwek}
+			for: me #Normal .. #Show-stopper order by: Priority
+			by: me order by: summary
+		navigating
+			esc
+			->
+				leave a quick comment
+		commands
+			modifying issues
+				type: me
+					assigned to me
+				type: hadi
+					assigned to hadi
+			select multiple
+				type: in progress
+					status updated
+				tag Fix Before Lunch
+			apply last command
+				^!k
+			stack commands
+				hadi Major Bug in Progress
+					applies to last selection
+		creating issues
+			^n
+				shows potential duplicates
+			use command prompt to modify as well
+		agile board
+			swimlanes
+				states in columns
+			apply a command
+	2-Creating and Editing Issues in YouTrack-GxBXL97kWJs.mp4
+		linking issues:
+			types of links:
+				dependency, required for, relates to, parent-child, duplicates 
+		cloningn issues
+			cmd: clone
+	3-Using Commands in YouTrack-jhSTP_M7_Ns.mp4
+		modifying state
+			cmd: in progress
+		modifying tag
+			cmd: tag xxx
+		inside issue
+			change visibility
+				cmd: visible to Developers
+			time tracking
+				cmd: work today 5h scaffolding
+			delete 
+				cmd: delete
+	4-Searching for Issues in YouTrack-fzkKcG7KIhI.mp4
+		sb: denotes search bar
+		sb: project: ARB type: task
+		save search
+			"Save Search" link
+		sb: for: me #Unresolved type: Task order by: Priority created:2013-12 .. Today 
+		sb: word description: word2
+	5-Time Management in YouTrack-vwt_bJRII3M.mp4
+		Enable Time Tracking
+			Projects > edit > time tracking
+		enter time
+			issue > estimation
+			issue > time tracking
+				enter time spent
+			cmd: work Development today 15m coding
+		automatic time tracking
+			project settings > workflow > workTimer
+		issue
+			opt1
+				state: in progress
+					starts timer
+				state: fixed
+					stops timer
+			opt2
+				timer > start
+		Report 
+			how much time in each step?
+	01-YouTrack Overview-d7oSxVVzb2A.mp4
+		search
+			sb: #unresolved spent time: 1w
+			sb: summary: ui
+				full text search
+	sb: tag: ux and tag: dpiu
+		create issue
+			drafts automatically saved
+		view
+			compact view
+			tree view
+			detailed view
+			one line view
+		dashboard
+		custom fields
+			custom enum types
+			custom workflows
+	02-Whats New in YouTrack 6.5-unqotxEofB0.mp4
+		Hub and Upsource
+	03-Dashboard and Reporting in YouTrack-ryuS0fdA2z0.mp4
+		dashboard > add widget
+		widgets
+			notes
+			issue list
+				by search query
+			report
+				.select report
+		example reports
+			reopened vs. verified rate
+			fixed vs. reported rate
+			issues average age
+			cumulative flow this week
+				per state
+			weekly time report per person
+			issues assignee vs. priority
+			verified issues this month
+		Reporting
+			issue distribution reports
+				issues per assignee
+				issues per project
+				issues per arbitrary field
+				issues per two fields
+					ex
+						issue assignee vs. priority
+							| assignee | priority |
+							| ali      | 1566     |
+							| mehmet   | 305      |
+				matrix report
+			timeline reports
+				burndown
+				cumulative flow
+				resolution time (sla)
+					ex 1
+						| date  | days |
+						| 03.10 | 15   |
+						| 04.10 | 17   |
+					ex 2
+						| date  | resolved today |
+						| 03.10 | 12             |
+						| 04.10 | 10             |
+			time management report
+				weekly time report
+					ex
+						| user | type | spent |
+						| ali  | dev  | 10h   |
+						| veli | doc  | 5h    |
+			state transition
+				verified distribution
+				reopened issues this month
+					ex  
+						| status   | how many |
+						| normal   | 17       |
+						| critical | 10       |
+	04-Agile Development with YouTrack-UgEgIDRfOpM.mp4
+		backlog management
+			what is backlog
+				set of items that haven't been scheduled yet
+		sb: project: x Fix versions: unscheduled #unresolved
+		agile board
+			agile boards > admin
+				board comes from
+					saved search
+		scrum support
+			which sprint a feature is associated?
+				Fix versions: Sprint 2
+			agile boards > per sprint
+				how much is done?
+				columns:
+					open > in progress > to discuss > done
+				moving cards modifies their states
+				shows: how much time spent
+			burndown chart
+				3 lines
+					green: spent time
+					orange: estimated effort
+					blue: ideal development
+		kanban support
+			settings > max cards in each state (wip)
+		personal agile board
+			two projects: crms css
+		epics support
+	05-Time Management in YouTrack-vwt_bJRII3M.mp4
+	06-YouTrack and IDE integration-n2_3Y1jLm5U.mp4
+		open tasks in ide
+		show history
+	07-GitHub Integration in YouTrack 6-3XfMvHdyOcU.mp4
+		fix status from commit
+		commit link from issue comment
+	08-Creating and Editing Issues in YouTrack-GxBXL97kWJs.mp4
+	10-Using Commands in YouTrack-jhSTP_M7_Ns.mp4
+	13-Drag Files Anywhere in YouTrack-dBdSyzAz1w8.mp4
+	03-YouTrack -- Not Just an Issue Tracker!-IQYrU6CSLIc.mp4
+		travel database
+		rules
+			ex
+				trip end cannot be before trip start
+			workflow editor
+				rule1
+					when <issue created or updated>
+						if issue.TravelType == {Dailye Expense}
+							issue.Currency = {RUB}
+				rule2: nice arrows
+					when <>
+						issue.summary = issue.summary.replace("-->", "=>")
+	07-Tracking YouTrack - a Practical Guide on Searches-R1Sf6YprAE8.mp4
+		sb
+			for: me #Open
+			sort by: tag desc
+			Priority: Critical
+			reported by: me
+			#Today
+			tag:
+			updated:
+			commenter:
+			created:
+			by: 
+			issue id:
+			depends on:
+			links:
+workflows
+	Warn if assignee isn't included into the visibility group
+		!Assignee.isInGroup(permittedGroup.name)
+	Auto-raise priority from Normal to Major if not resolved in 7 days
+		daily at 08:00:00 [issue.resolved == null && issue.Priority == {Normal} && issue.created < now - 7 days] { 
+	No Comments for Verified Issues
+		assert comments.added.isEmpty: l10n ( Commenting for fixed and verified issues is disabled. );
+	Description template for external users
+		description = l10n ( What steps will reproduce the problem? ) + "\n1.\n2.\n3.\n\n" + l10n ( What is the expected result? ) + "\n\n" + l10n ( What happens instead? ) + "\n\n" + l10n ( Please provide any additional information below. ) + "\n" + l10n ( Attach a screenshot if possible ) + "\n"
+	Do not allow fix issue with unresolved dependencies
+		for each dep in depends on { if (dep.isReported()) { assert dep.State.isResolved: l10n ( The issue has unresolved dependencies and thus cannot be set Fixed! ); } }
+	Notify assignee about overdue issues
+		daily at 10:00:00 [now > issue.Due Date] { 
+		 if (!isResolved()) { 
+	deniedCombinations
+		assert !(Priority == {Show-stopper} && State == {Submitted}): l10n ( Denied fields combination detected (Submitted Show-stopper) );
+	Don't allow to submit issue without Due Date set
+		Due Date.required(l10n ( You must set the Due Date! ))
+	Notify assignee of dependant issue when required issue is resolved
+		for each depends in is required for { 
+			depends.Assignee.notify(l10n ( [Youtrack, Required issue is resolved] )
+
