@@ -14,7 +14,7 @@ output:
 
 ---
 
-# Article: Pedestal - What is an Interceptor? id=g_12100
+# Article: Pedestal - What is an Interceptor? id=g12100
 
 [Pedestal - What is an Interceptor?](http://pedestal.io/guides/what-is-an-interceptor)
 

@@ -22,7 +22,7 @@ New project in Cursive:
 
 Check `/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/deps.edn`
 
-## Exercises: Clojure By Example - kimh id=g_10990
+## Exercises: Clojure By Example - kimh id=g10990
 
 https://github.com/kimh/clojure-by-example
 
@@ -34,7 +34,7 @@ Check `~/codes/clojure/clojure-by-example/source/index.html.md`
 
 Check `~/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj`
 
-## Exercises: Sequences from Reference Doc id=g_11270
+## Exercises: Sequences from Reference Doc id=g11270
 
 https://clojure.org/reference/sequences
 

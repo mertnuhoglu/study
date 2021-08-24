@@ -232,7 +232,7 @@ ls -la
 
 # xsv examples
 
-## count distinct values in a column  id=g_10957
+## count distinct values in a column  id=g10957
 
 ``` 
 cd /Users/mertnuhoglu/projects/study/problem/sample_data

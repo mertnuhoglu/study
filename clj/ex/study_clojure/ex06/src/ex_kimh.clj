@@ -47,7 +47,7 @@ true
   (+ 10 20))
 ;; => 30
 
-; global bindings: defn vs def id=g_11323
+; global bindings: defn vs def id=g11323
 
 (defn f [a] a)
 ;; => #'ex_kimh/f
@@ -68,14 +68,14 @@ true
   (str ""))
 ;; => #'ex_kimh/documented
 
-; var and reader macro  id=g_11325
+; var and reader macro  id=g11325
 
 (meta (var documented))
 ;; => {:arglists ([]), :doc "This is documentation", :line 65, :column 1, :file "/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj", :name documented, :ns #namespace[ex_kimh]}
 (meta #'documented)
 ;; => {:arglists ([]), :doc "This is documentation", :line 65, :column 1, :file "/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj", :name documented, :ns #namespace[ex_kimh]}
 
-;; anonymous functions id=g_11322
+;; anonymous functions id=g11322
 
 (fn [] (str ""))
 (def anon-function (fn [] (str "")))
@@ -95,7 +95,7 @@ true
 (#(+ 6 %1) 3)
 ;; => 9
 
-;; higher-order-functions id=g_11326
+;; higher-order-functions id=g11326
 
 (defn h [fun]
   (fun 10))
@@ -103,7 +103,7 @@ true
 (h inc)
 ;; => 11
 
-;; closure  id=g_11327
+;; closure  id=g11327
 (defn closure [a] #(inc a))
 ;; => #'ex_kimh/closure
 (def outer (closure 20))
@@ -111,7 +111,7 @@ true
 outer
 ;; => 21
 
-;; Namespaces id=g_11328
+;; Namespaces id=g11328
 
 (in-ns 'user)
 ;; => #namespace[user]
@@ -132,7 +132,7 @@ ex_kimh/outer
 cbe/outer
 ;; => 21
 
-;; control clow id=g_11329
+;; control clow id=g11329
 
 (if (< 3 5)
   "then"
@@ -191,7 +191,7 @@ cbe/outer
 (boolean :a)
 ;; => true
 
-;; Strings id=g_11330
+;; Strings id=g11330
 
 (str "join " "strings")
 ;; => "join strings"
@@ -200,7 +200,7 @@ cbe/outer
 (format "%s %s" "this is" "me")
 ;; => "this is me"
 
-;; Numbers id=g_11331
+;; Numbers id=g11331
 
 (/ 4 3)
 ;; => 4/3
@@ -211,7 +211,7 @@ cbe/outer
 (mod 3 2)
 ;; => 1
 
-;; Lists id=g_11332
+;; Lists id=g11332
 
 
 '(1 2 3)
@@ -223,7 +223,7 @@ cbe/outer
 (count '(5 3))
 ;; => 2
 
-;; Vectors id=g_11333
+;; Vectors id=g11333
 
 
 [3 2 5]
@@ -240,7 +240,7 @@ cbe/outer
 (get ["a" "b"] 1)
 ;; => "b"
 
-;; Sets id=g_11334
+;; Sets id=g11334
 
 
 #{1 2 3}
@@ -258,7 +258,7 @@ cbe/outer
 (clojure.set/superset? #{1 2 3} #{1 2})
 ;; => true
 
-;; Maps id=g_11335
+;; Maps id=g11335
 
 {:a 1 :b 2}
 ;; => {:a 1, :b 2}
@@ -279,7 +279,7 @@ cbe/outer
 (vals {:a 1 :b 2})
 ;; => (1 2)
 
-;; Sequences id=g_11336
+;; Sequences id=g11336
 
 
 (seq '(1 2))
@@ -303,7 +303,7 @@ cbe/outer
 (concat '(1 2) '(3 4))
 ;; => (1 2 3 4)
 
-; map id=g_11338
+; map id=g11338
 
 
 (map inc [1 2])
@@ -319,7 +319,7 @@ cbe/outer
 (map vector [:a :b] [:d :e])
 ;; => ([:a :d] [:b :e])
 
-; reduce  id=g_11337
+; reduce  id=g11337
 
 
 (reduce + [1 2 3])
@@ -329,7 +329,7 @@ cbe/outer
 (reduce + -10 [1 2 3])
 ;; => -4
 
-; into id=g_11339
+; into id=g11339
 
 
 (into [1 2] '(3 4))
@@ -348,7 +348,7 @@ cbe/outer
 (reverse [1 2])
 ;; => (2 1)
 
-; iterations id=g_11340
+; iterations id=g11340
 
 
 (take 3 (iterate inc 3))
@@ -360,7 +360,7 @@ cbe/outer
 (doseq [a [1 2 3]] (println a))
 ;; => nil
 
-; take drop id=g_11342
+; take drop id=g11342
 
 
 (take 5 (range 0 100))
@@ -372,7 +372,7 @@ cbe/outer
 (drop-while pos? [1 2 -3 4])
 ;; => (-3 4)
 
-; filter id=g_11343
+; filter id=g11343
 
 
 (filter pos? [1 2 -3 4])
@@ -380,7 +380,7 @@ cbe/outer
 (remove pos? [1 2 -3 4])
 ;; => (-3)
 
-; grouping id=g_11344
+; grouping id=g11344
 
 
 (partition-by pos? [1 2 -3])
@@ -388,7 +388,7 @@ cbe/outer
 (group-by pos? [1 2 -3])
 ;; => {true [1 2], false [-3]}
 
-; for: list comprehension id=g_11345
+; for: list comprehension id=g11345
 
 
 (for [x [1 2 3]] (+ 5 x))
@@ -408,7 +408,7 @@ cbe/outer
   [x y])
 ;; => ([a 1] [a 2] [b 1] [b 2])
 
-; recursion id=g_11346
+; recursion id=g11346
 
 
 ; https://practicalli.github.io/clojure/thinking-functionally/recursion.html
@@ -438,7 +438,7 @@ cbe/outer
 (count-down [] 3)
 ;; => [3 2 1]
 
-; loop id=g_11347
+; loop id=g11347
 
 
 (loop [i 0]
@@ -449,7 +449,7 @@ cbe/outer
       (recur (inc i)))))
 ;; => nil
 
-; macros id=g_11348
+; macros id=g11348
 
 
 (defmacro unless [cond then]
@@ -464,7 +464,7 @@ cbe/outer
 (macroexpand '(unless false 1))
 ;; => (if (not false) 1)
 
-; quotes id=g_11349
+; quotes id=g11349
 
 
 (+ 1 2)
@@ -474,7 +474,7 @@ cbe/outer
 '(+ 1 2)
 ;; => (+ 1 2)
 
-; syntax-quoting  id=g_11350
+; syntax-quoting  id=g11350
 
 
 `(+ 1 2)                                                    ; syntax-quoting
@@ -486,7 +486,7 @@ cbe/outer
 `(+ ~@(list 1 2))                                           ; unqoute splice `~@` expands a seq
 ;; => (clojure.core/+ 1 2)
 
-; threading macros id=g_11351
+; threading macros id=g11351
 
 
 (conj (conj [] 1) 2)
@@ -500,7 +500,7 @@ cbe/outer
   (map #(* 2 %)))
 ;; => (4 6)
 
-; delay id=g_11352
+; delay id=g11352
 
 
 (def later (do [] (prn "Adding") (+ 1 2)))
@@ -537,7 +537,7 @@ cbe/outer
 (job)
 ;; => #promise[{:status :ready, :val "value"} 0x2f87b537]
 
-; atom id=g_11353
+; atom id=g11353
 
 
 (def a (atom 1))
@@ -555,7 +555,7 @@ cbe/outer
 (swap! a multiple-by 3)
 ;; => 9
 
-; thread safety id=g_11354
+; thread safety id=g11354
 
 
 (def g 0)
@@ -576,7 +576,7 @@ cbe/outer
   (fn [] (future (swap! g inc))))
 ;; => (#future[{:status :ready, :val 2} 0x60880eb9] #future[{:status :ready, :val 1} 0x6505ef8c])
 
-; ref id=g_11355
+; ref id=g11355
 
 
 (def r (ref 0))
@@ -584,7 +584,7 @@ cbe/outer
 (deref r)
 ;; => 0
 
-; transaction ref-set id=g_11356
+; transaction ref-set id=g11356
 
 
 (dosync
@@ -605,7 +605,7 @@ cbe/outer
   ;(throw (Exception. "wrong"))
   (alter rec merge {:age 40}))
 
-; java id=g_11357
+; java id=g11357
 
 
 (new java.util.Date)

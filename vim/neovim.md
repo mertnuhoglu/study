@@ -15,7 +15,7 @@ blog: mertnuhoglu.com
 
 ---
 
-# Article: A guide to using Lua in Neovim id=g_12288
+# Article: A guide to using Lua in Neovim id=g12288
 
 [nanotee/nvim-lua-guide: A guide to using Lua in Neovim](https://github.com/nanotee/nvim-lua-guide)
 

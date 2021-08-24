@@ -15,7 +15,7 @@ state: wip
 
 ---
 
-# REPL driven development with Clojure using Spacemacs, CIDER and clj-kondo - Practicalli id=g_11830
+# REPL driven development with Clojure using Spacemacs, CIDER and clj-kondo - Practicalli id=g11830
 
 [(112) REPL driven development with Clojure using Spacemacs, CIDER and clj-kondo - YouTube](https://www.youtube.com/watch?v=NDrpclY54E0&list=PLpr9V-R8ZxiCHMl2_dn1Fovcd34Oz45su&index=19)
 
@@ -176,7 +176,7 @@ Switch to namespace: `,` in evil insert mode in REPL buffer: `ns`
 
 [Namespaces · Clojure development with Spacemacs & Cider](https://practicalli.github.io/spacemacs/navigating-code/namespaces.html)
 
-# Video: "Frameworkless Web Development in Clojure" by Andreas ‘Kungi’ Klein - YouTube id=g_11910
+# Video: "Frameworkless Web Development in Clojure" by Andreas ‘Kungi’ Klein - YouTube id=g11910
 
 ["Frameworkless Web Development in Clojure" by Andreas ‘Kungi’ Klein - YouTube](https://www.youtube.com/watch?v=_LghX4oDWcY)
 
@@ -404,7 +404,7 @@ Benefits:
 - Communication between libraries is through plain old clojure data structures
 - You can eliminate some libraries when there is no need
 
-# Video: "Debugging Clojure Code" by Daniel Škarda - YouTube id=g_11912
+# Video: "Debugging Clojure Code" by Daniel Škarda - YouTube id=g11912
 
 ["Debugging Clojure Code" by Daniel Škarda - YouTube](https://www.youtube.com/watch?v=5oEfyeyyguY)
 
@@ -426,7 +426,7 @@ Benefits:
 
 - Compute a difference between executions
 
-# Article: Inside Clojure's Collection Model – Inside Clojure - Alex Miller id=g_11990
+# Article: Inside Clojure's Collection Model – Inside Clojure - Alex Miller id=g11990
 
 [Inside Clojure's Collection Model – Inside Clojure](https://insideclojure.org/2016/03/16/collections/)
 
@@ -475,7 +475,7 @@ Benefits:
           So sequences are also treated as (virtual) collections, but not treated as IPersistentLists. 
           This can be confusing because both sequences and lists print with parentheses as if they are lists.
 
-# Video: Clojure The Art of Abstraction - Alex Miller - YouTube id=g_11989
+# Video: Clojure The Art of Abstraction - Alex Miller - YouTube id=g11989
 
 [Clojure The Art of Abstraction - Alex Miller - YouTube](https://www.youtube.com/watch?v=bZ23d9DkKek)
 
@@ -553,7 +553,7 @@ Benefits:
       namespaces: modularity
       metadata: out-of-band information passing
 
-# Video: What Sucks about Clojure and Why You'll Love It Anyway Chas Emerick - YouTube id=g_11991
+# Video: What Sucks about Clojure and Why You'll Love It Anyway Chas Emerick - YouTube id=g11991
 
 [What Sucks about Clojure and Why You'll Love It Anyway Chas Emerick - YouTube](https://www.youtube.com/watch?v=wXgdxCFDjD0)
 
@@ -628,7 +628,7 @@ Benefits:
     Bus factors
       is 1 = Rich Hickey
 
-# Article: In Clojure, records are wacky maps | Yehonathan Sharvit id=g_12116
+# Article: In Clojure, records are wacky maps | Yehonathan Sharvit id=g12116
 
 [In Clojure, records are wacky maps | Yehonathan Sharvit](https://blog.klipse.tech/clojurescript/2016/04/25/records-wacky-maps.html)
       
@@ -655,7 +655,7 @@ Differences from maps:
 
 Code: `~/projects/study/clj/ex/study_clojure/ex06/src/protocol.clj`
 
-# Article: The power and danger of deftype in clojure and clojurescript | Yehonathan Sharvit id=g_12117
+# Article: The power and danger of deftype in clojure and clojurescript | Yehonathan Sharvit id=g12117
 
 [The power and danger of deftype in clojure and clojurescript | Yehonathan Sharvit](https://blog.klipse.tech/clojurescript/2016/04/26/deftype-explained.html)
 

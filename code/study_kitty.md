@@ -24,11 +24,11 @@ kitty @ set-colors -a /Users/mertnuhoglu/.config/kitty/kitty-themes/themes/Monok
 kitty @ set-colors -a Solarized_Dark_Higher_Contrast.conf
 ```
 
-## kitty refcard id=g_11648
+## kitty refcard id=g11648
 
 		https://sw.kovidgoyal.net/kitty/#other-keyboard-shortcuts
 		/Users/mertnuhoglu/projects/private_dotfiles/.config/kitty/kitty.conf
-		Layout management <url:file:///~/projects/private_dotfiles/.config/kitty/kitty.conf#r=g_11649>
+		Layout management <url:file:///~/projects/private_dotfiles/.config/kitty/kitty.conf#r=g11649>
 
 		^+u	unicode
 		^+f	move window forward

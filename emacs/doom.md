@@ -19,11 +19,11 @@ state: wip
 
 # Index Doom
 
-## Doom Refcard  id=g_12039
+## Doom Refcard  id=g12039
 
 	| SPC h t | load-theme |
 
-ref: `spacemacs doom emacs refcard <url:file:///~/projects/study/emacs/spacemacs.md#r=g_11015>`
+ref: `spacemacs doom emacs refcard <url:file:///~/projects/study/emacs/spacemacs.md#r=g11015>`
 
     | spacemacs | description                  | command                     | doom  |
     | SPC SPC   | list and search all commands | M-x                         | SPC : |
@@ -47,14 +47,14 @@ cider - clojure
   | ,hc     | cider-clojuredocs                      |
   | ,pP     | cider-pprint-eval-last-sexp-to-comment |
 
-ref: `Dired  <url:file:///~/projects/study/emacs/doom.md#r=g_12041>`
+ref: `Dired  <url:file:///~/projects/study/emacs/doom.md#r=g12041>`
 
   | +     | create a directory        |
   | d     | mark to delete a file     |
   | m     | mark a file               |
   | U     | unselect                  |
 
-ref: `org mode <url:file:///~/projects/study/emacs/doom.md#r=g_12042>`
+ref: `org mode <url:file:///~/projects/study/emacs/doom.md#r=g12042>`
 
   | TAB                | collapse/expand fold              |
   | !k/j               | move headlines up/dn (same level) |
@@ -62,7 +62,7 @@ ref: `org mode <url:file:///~/projects/study/emacs/doom.md#r=g_12042>`
   | [[Headline Title]] | link to headline title            |
   | file::Title        | link to title                     |
 
-ref: `Magit <url:file:///~/projects/study/emacs/doom.md#r=g_12043>`
+ref: `Magit <url:file:///~/projects/study/emacs/doom.md#r=g12043>`
 
   | SPC g g | status of repository    | magit-status         |
   | ?       | context help in magit   |                      |
@@ -74,9 +74,9 @@ ref: `Magit <url:file:///~/projects/study/emacs/doom.md#r=g_12043>`
 
 ## smartparens config
 
-ref: smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g_12112>
+ref: smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g12112>
 
-## Bir projeyi REPL ile incelemek id=g_12073
+## Bir projeyi REPL ile incelemek id=g12073
 
 01: open project: `SPC p p`
 
@@ -126,11 +126,11 @@ opt01: in a major-mode
 (setq doom-localleader-key ",")
 ```
 
-## Osx Command Meta Key Bindings id=g_12032
+## Osx Command Meta Key Bindings id=g12032
 
 Left option ise sembol değiştirici olarak algılanıyor. Right option, option olarak algılanıyor.
 
-ref: `Osx Command Meta Key Bindings: <url:file:///~/projects/study/emacs/spacemacs.md#r=g_12031>`
+ref: `Osx Command Meta Key Bindings: <url:file:///~/projects/study/emacs/spacemacs.md#r=g12031>`
 
 opt01:
 
@@ -149,7 +149,7 @@ Edit `~/.config/doom/config.el`
       ns-left-option-modifier  'none)
 ```
 
-# Doom Documentation id=g_12033
+# Doom Documentation id=g12033
 
 [doom-emacs/index.org at develop · hlissner/doom-emacs](https://github.com/hlissner/doom-emacs/blob/develop/docs/index.org)
 
@@ -168,7 +168,7 @@ brew install emacs-mac --with-modules
 ln -s /usr/local/opt/emacs-mac/Emacs.app /Applications/Emacs.app
 ```
 
-Multiple emacs: `Multiple Emacs Setups/Installations in Osx <url:file:///~/projects/study/emacs/emacs.md#r=g_12029>`
+Multiple emacs: `Multiple Emacs Setups/Installations in Osx <url:file:///~/projects/study/emacs/emacs.md#r=g12029>`
 
 Edit `~/.config/doom/init.el`
 
@@ -207,7 +207,7 @@ Check `~/.config/doom/packages.el`
 doom sync
 ```
 
-# Video: Emacs Doom - Zaiste id=g_12040
+# Video: Emacs Doom - Zaiste id=g12040
 
 ## Buffers, Windows
 
@@ -237,7 +237,7 @@ doom sync
   | SPC o e | open shell terminal             | +eshell/toggle                            |
   | SPC o E | open shell terminal (full)      | +eshell/here                              |
 
-## Dired  id=g_12041
+## Dired  id=g12041
 
 [(245) Emacs Doom E03 - A short intro to Dired - YouTube](https://www.youtube.com/watch?v=oZSmlAAbmYs&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=3)
 
@@ -296,7 +296,7 @@ p04: yank a word:
 
 [(245) Emacs Doom E08: Multiple cursor in Emacs with evil-multiedit - YouTube](https://www.youtube.com/watch?v=zXdT5jY_ui0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8)
 
-## org mode id=g_12042
+## org mode id=g12042
 
 [(245) Emacs Doom E09: Org Mode, Basic Outlines - YouTube](https://www.youtube.com/watch?v=CV2IFpSW2sE&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=9)
 
@@ -330,7 +330,7 @@ Show [[elisp:org-agenda][My Agenda]]
 Shell command: [[shell:ls *.org][ls]]
 ```
 
-## Magit id=g_12043
+## Magit id=g12043
 
 [(245) Emacs Magit - Getting Started - Emacs Doom 18 - YouTube](https://www.youtube.com/watch?v=7ywEgcbaiys&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=18)
 
@@ -344,7 +344,7 @@ Shell command: [[shell:ls *.org][ls]]
 
 ## Deft mode
  
-# Doom Cider Refcard id=g_12074
+# Doom Cider Refcard id=g12074
 
   | ,dd | cider-debug-defun-at-point                        |
   | ,e  | eval menu                                         |

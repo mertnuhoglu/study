@@ -15,13 +15,13 @@ state: wip
 
 ---
 
-# Quickstart Ukulele id=g_11829
+# Quickstart Ukulele id=g11829
 
-`Updating Keyboard Layout <url:file:///~/projects/study/osx/ukelele.md#r=g_11828>`
+`Updating Keyboard Layout <url:file:///~/projects/study/osx/ukelele.md#r=g11828>`
 
 # Issues 
 
-## Updating Keyboard Layout id=g_11828
+## Updating Keyboard Layout id=g11828
 
 s01: Ukelele:
 

@@ -15,7 +15,7 @@ state: wip
 
 ---
 
-## Tutorial: video-series id=g_11458
+## Tutorial: video-series id=g11458
 
 `~/codes/clojure/fulcro/video-series`
 
@@ -103,7 +103,7 @@ opt02: cursive
 (js/alert "hi")
 ```
 
-opt03: spacemacs cider id=g_11460
+opt03: spacemacs cider id=g11460
 
 [Connect to existing REPL · Clojure development with Spacemacs & Cider](https://practicalli.github.io/spacemacs/external-repl/connect-to-running-repl.html)
 
@@ -127,7 +127,7 @@ lein repl :connect localhost:9002
 
 Open: `http://localhost:8003/`
 
-# Fikir: fulcro oop ve frp arasında bir denge kuruyor gibi 20200701  id=g_11459
+# Fikir: fulcro oop ve frp arasında bir denge kuruyor gibi 20200701  id=g11459
 
 Fulcro'nun lokal düşünme yaklaşımı, OOP'yi hatırlatıyor. Orada da veri, ilgili objenin içine encapsulate edilir 
 
@@ -137,7 +137,7 @@ Bir mutation olduğunda, bunu akan veri mantığıyla veritabanına düzgün bir
 
 Lokal düşünmenin faydası nedir? Objeye baktığında, bunun ne yaptığını nasıl çalıştığını anlarsın. 
 
-# Tutorial video-series  id=g_11484
+# Tutorial video-series  id=g11484
 
 ## Video: 02-Fulcro – Part 2 - Normalization-HCVzG2BLRwk
 
@@ -155,7 +155,7 @@ Cursive > `Send form` ve `Send expression` to repl.
 
 normalde json hiyerarşik bir veri. normalizasyon içermez. fulcro bunu normalize eder ilişkisel veri modeline uygun bir şekilde
 
-## Video: 03-Fulcro – Part 3 - Initial State and Mutations-KJsFLmkdRig id=g_11456
+## Video: 03-Fulcro – Part 3 - Initial State and Mutations-KJsFLmkdRig id=g11456
 
 mutations are meant to be dealt with data lik emanner. when you invoke it, it goes through a transactional processor. 
 
@@ -422,7 +422,7 @@ Bu durumda `PersonList` komponentininin de render edilmesi için, `:refresh` atr
 																		  {:refresh [:person-list/people]}))})
 ```
 
-## 06-Fulcro – Part 6  - Full Stack Part One (Read Description for Optional Content)-F7QzFpo8pA0 id=g_11457
+## 06-Fulcro – Part 6  - Full Stack Part One (Read Description for Optional Content)-F7QzFpo8pA0 id=g11457
 
 Working with server.
 
@@ -661,7 +661,7 @@ ex: put time on query results:
   ##>   {:server/time #inst "2020-07-17T17:35:42.020-00:00", :person/age 26}]}
 ```
 
-### s: populate client when it starts id=g_11482
+### s: populate client when it starts id=g11482
 
 ```clojure
 (defonce APP (app/fulcro-app {:remotes          {:remote (http/fulcro-http-remote {})}
@@ -854,7 +854,7 @@ cursive repl:
 
 # Restudy Tutorial 20200725 
 
-## initial-state id=g_11486
+## initial-state id=g11486
 
 ```clojure
 (def ui-person (comp/factory Person {:keyfn :person/id}))
@@ -881,5 +881,5 @@ Check React [documentation](https://reactjs.org/docs/lists-and-keys.html#keys) o
 
 But how does `[keyfn qualifier]` destructure the given arguments?
 
-ref: `opt02: short form <url:file:///~/projects/study/clj/clojure.md#r=g_11487>`
+ref: `opt02: short form <url:file:///~/projects/study/clj/clojure.md#r=g11487>`
 

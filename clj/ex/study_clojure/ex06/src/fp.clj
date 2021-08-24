@@ -14,7 +14,7 @@
 (stack-consuming-fibo 9)
 ;;=> 34
 
-; p02 Tail Recursion id=g_12018
+; p02 Tail Recursion id=g12018
 
 (defn tail-fibo [n]
   (letfn [(fib ; <label id="code.tail-fibo.letfn"/>
@@ -34,7 +34,7 @@
 
   ,)
 
-; p03 Explicit self-recursion with recur  id=g_12019
+; p03 Explicit self-recursion with recur  id=g12019
 
 (defn recur-fibo [n]
   (letfn [(fib 
@@ -67,7 +67,7 @@
 
   ,)
 
-; p05 Lazy Seq Recursion Using iterate id=g_12020
+; p05 Lazy Seq Recursion Using iterate id=g12020
 
 (comment
   (take 5 (iterate (fn [[a b]] [b (+ a b)]) [0 1])))
@@ -82,7 +82,7 @@
 
   ,)
 
-; p06 Lazier than Lazy id=g_12022
+; p06 Lazier than Lazy id=g12022
 
 (defn count-heads-pairs [coll]
   (loop [cnt 0 coll coll]
@@ -100,7 +100,7 @@
 
   ,)
 
-; p07 Transforming the Input Sequence id=g_12021
+; p07 Transforming the Input Sequence id=g12021
 
 (defn by-pairs [coll]
   (let [take-pair 
@@ -137,7 +137,7 @@
 
   ,)
 
-; p07.02 Use partition instead of by-pairs id=g_12023
+; p07.02 Use partition instead of by-pairs id=g12023
 
 ; (partition size step? coll)
 

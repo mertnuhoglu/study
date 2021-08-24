@@ -14,7 +14,7 @@ output:
 
 ---
 
-# Quickstart Fragment id=g_11682
+# Quickstart Fragment id=g11682
 
 ```bash
 | crop           | c   |

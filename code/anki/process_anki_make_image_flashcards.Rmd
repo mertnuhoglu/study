@@ -20,7 +20,7 @@ state: wip
 
 # TOC
 
-		opt02: complete process eng_word,tur_word,image  <url:file:///~/projects/study/code/anki/process_anki_make_image_flashcards.Rmd#r=g_10823>
+		opt02: complete process eng_word,tur_word,image  <url:file:///~/projects/study/code/anki/process_anki_make_image_flashcards.Rmd#r=g10823>
 
 ## 01. Resimleri topla
 
@@ -431,7 +431,7 @@ anki_sheets_2_anki_txt "${tags}"
 anki_mv_media_files_2_collection
 ``` 
 
-### opt02: complete process eng_word,tur_word,image id=g_10823
+### opt02: complete process eng_word,tur_word,image id=g10823
 
 Script: `~/projects/anki_english/scripts/anki_process_3`
 

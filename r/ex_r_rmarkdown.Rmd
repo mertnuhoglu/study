@@ -16,7 +16,7 @@ resource_files:
 
 ## xaringan slides
 
-### Basic example with xaringan id=g_11691
+### Basic example with xaringan id=g11691
 
 Check `~/projects/study/r/ex/ex_r_rmarkdown/xaringan01/x01.Rmd`
 

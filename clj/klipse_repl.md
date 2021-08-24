@@ -3,13 +3,13 @@
 
 # Index klipse repl
 
-`Ex01: Run klipse repl anywhere <url:file:///~/projects/study/clj/klipse_repl.md#r=g_11733>`
+`Ex01: Run klipse repl anywhere <url:file:///~/projects/study/clj/klipse_repl.md#r=g11733>`
 
 ```bash
 clj -A:klipse
 ```
 
-`Remote connection <url:file:///~/projects/study/clj/klipse_repl.md#r=g_11736>`
+`Remote connection <url:file:///~/projects/study/clj/klipse_repl.md#r=g11736>`
 
 ```bash
 clojure -A:klipse --port 9876
@@ -19,7 +19,7 @@ clojure -A:klipse --port 9876
 
 [viebel/klipse-repl: Beginners friendly Clojure REPL](https://github.com/viebel/klipse-repl)
 
-## Ex01: Run klipse repl anywhere id=g_11733
+## Ex01: Run klipse repl anywhere id=g11733
 
 ```bash
 clojure -Sdeps "{:deps {viebel/klipse-repl {:mvn/version \"0.2.3\"}}}" -m klipse-repl.main
@@ -75,7 +75,7 @@ Add deps:
 (add-deps '{funcool/cuerdas {:mvn/version "2.0.5"}})
 ```
 
-## Remote connection id=g_11736
+## Remote connection id=g11736
 
 ```bash
 clojure -A:klipse --port 9876

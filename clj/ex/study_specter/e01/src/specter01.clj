@@ -4,7 +4,7 @@
 
 ; Most codes taken from: https://github.com/redplanetlabs/specter/blob/master/README.md
 
-; ex: Increment every even number nested within map of vector of maps id=g_11441
+; ex: Increment every even number nested within map of vector of maps id=g11441
 
 (def data {:a [{:aa 1 :bb 2}
                {:cc 3}]
@@ -40,7 +40,7 @@
 (select [MAP-VALS] data)
 ;; => [[{:aa 1, :bb 2} {:cc 3}] [{:dd 4}]]
 
-; ex: Append a sequence of elements to a nested vector id=g_11440
+; ex: Append a sequence of elements to a nested vector id=g11440
 
 (def data {:a [1 2 3]})
 
@@ -59,7 +59,7 @@
 ;; => [[1 2 3]]
 
 
-; ex: Increment the last odd number in a sequence id=g_11442
+; ex: Increment the last odd number in a sequence id=g11442
 
 
 (def data [1 2 3 4])
@@ -83,7 +83,7 @@
 ;; => [1 2 3 4]
 
 
-; ex: Map a function over a sequence without changing the type or order of the sequence id=g_11446
+; ex: Map a function over a sequence without changing the type or order of the sequence id=g11446
 
 ;; Manual Clojure
 (map inc data) ;; doesn't work, becomes a lazy sequence
@@ -96,7 +96,7 @@
 ;; => [2 3 4 5]
 
 
-; ex: Increment all the values in maps of maps: id=g_11447
+; ex: Increment all the values in maps of maps: id=g11447
 
 (transform [MAP-VALS MAP-VALS]
         inc
@@ -208,7 +208,7 @@
 ;; => [[1 2 4 :c] [6]]
 
 
-; Video: Understanding Specter - Clojure's missing piece - rh5J4vacG98  id=g_11449
+; Video: Understanding Specter - Clojure's missing piece - rh5J4vacG98  id=g11449
 
 ; ex01
 
@@ -607,7 +607,7 @@
 ;; => [0 2]
 
 
-; Video: Specter  Powerful and Simple Data Structure Manipulation - Nathan Marz - VTCy_DkAJGk id=g_11450
+; Video: Specter  Powerful and Simple Data Structure Manipulation - Nathan Marz - VTCy_DkAJGk id=g11450
 
                                         ; ex: add a value to a nested set
 

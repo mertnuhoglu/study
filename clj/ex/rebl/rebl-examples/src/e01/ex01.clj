@@ -1,4 +1,4 @@
-; 	Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g_11934>
+; 	Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g11934>
 
 ; Run commands in Emacs REPL one-by-one.
 

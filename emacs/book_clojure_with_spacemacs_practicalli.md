@@ -201,7 +201,7 @@ states:
 
 https://practicalli.github.io/spacemacs/clojure-projects/
 
-### The REPL id=g_10828
+### The REPL id=g10828
 
 `SPC m` = `,`
 
@@ -267,7 +267,7 @@ s s			switch between repl buffer and source code buffer
 	| , e m | cider-macroexpand-1 |
 	| , e M | cider-macroexpand-all |
 
-#### Showing Intermediary values - Enlighten mode id=g_11847
+#### Showing Intermediary values - Enlighten mode id=g11847
 
 `enlighten` minor mode: shows intermediary values during evaluation
 

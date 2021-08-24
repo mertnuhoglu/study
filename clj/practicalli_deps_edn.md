@@ -39,7 +39,7 @@ clojure -M:project/outdated
 clojure -M:inspect/reveal:repl/rebel
 ```
 
-### Run cognitect rebl: id=g_11925
+### Run cognitect rebl: id=g11925
 
 ```bash
 clojure -M:inspect/rebl-java8
@@ -57,11 +57,11 @@ clojure -M:inspect/rebl-java8
 
 Yine hata veriyor, ama en azından çalışıyor.
 
-#### Run REBL for nREPL based editors CIDER and Calva id=g_11932
+#### Run REBL for nREPL based editors CIDER and Calva id=g11932
 
-ref: `Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g_11934>`
+ref: `Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g11934>`
 
-### Run portal data repl: id=g_11751
+### Run portal data repl: id=g11751
 
 [Portal · Practicalli Clojure](http://practicalli.github.io/clojure/clojure-tools/data-browsers/portal.html)
 

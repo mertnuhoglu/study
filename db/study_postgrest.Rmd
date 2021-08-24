@@ -29,7 +29,7 @@ options(width = 150)
 options(max.print = 30)
 ``` 
 
-Summarized in `~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g_10633>`
+Summarized in `~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10633>`
 
 ## Start postgrest server
 
@@ -44,7 +44,7 @@ cd psk01
 
 ### bzq postgrest server
 
-ref: `00: Start docker  <url:file:///~/projects/bizqualify/BQ-data-run/datarun/make_api_ready_for_creditsafe_20181219.md#r=g_10761>`
+ref: `00: Start docker  <url:file:///~/projects/bizqualify/BQ-data-run/datarun/make_api_ready_for_creditsafe_20181219.md#r=g10761>`
 
 ``` bash
 subzero base-project
@@ -99,9 +99,9 @@ source ~/.bashrc
 
 ### vrp postgrest server
 
-ref: `walkthrough vrp_psk01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g_10551>`
+ref: `walkthrough vrp_psk01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g10551>`
 
-First prepare the data: `walkthrough yuml2data01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g_10550>`
+First prepare the data: `walkthrough yuml2data01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g10550>`
 
 Starting database and postgrest with `~/projects/itr/vrp_psk01/docker-compose.yml`
 
@@ -116,7 +116,7 @@ docker-compose up
 
 ### vrp Data
 
-### Toy Data id=g_10771
+### Toy Data id=g10771
 
 ``` sql
 CREATE SCHEMA <new_schema>;
@@ -175,7 +175,7 @@ Two options:
 
 opt01: Default data
 
-ref: `walkthrough study_psk <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g_10522>`
+ref: `walkthrough study_psk <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10522>`
 
 ``` bash
 curl http://localhost:8080/rest/todos?select=id
@@ -187,7 +187,7 @@ curl http://localhost:8080/rest/todos?select=id,todo
 
 opt02: vrp data
 
-ref: `walkthrough vrp_psk01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g_10551>`
+ref: `walkthrough vrp_psk01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g10551>`
 
 ``` bash
 curl -H "Authorization: Bearer $JWT_TOKEN" http://localhost:8080/rest/address
@@ -222,14 +222,14 @@ opt01: default data
 
 opt02: vrp data
 
-Superagent use. ref: `Use superagent or cyclejs <url:file:///~/projects/study/db/study_postgrest.Rmd#r=g_10763>`
+Superagent use. ref: `Use superagent or cyclejs <url:file:///~/projects/study/db/study_postgrest.Rmd#r=g10763>`
 
 ``` js
 superagent
 	.get( 'http://localhost:8080/rest/company' )
 ``` 
 
-cyclejs use. From `p03: Multiple HTTP Requests <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10764>`
+cyclejs use. From `p03: Multiple HTTP Requests <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g10764>`
 
 ``` js
   const requests$ = xs.from(
@@ -396,7 +396,7 @@ I can specify full path too:
 
 		curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: text/csv" --data-binary @/Users/mertnuhoglu/projects/study/db/ex/study_postgrest/e01/company01.csv http://localhost:8080/rest/company
 
-#### opt03: toy data insert id=g_10772
+#### opt03: toy data insert id=g10772
 
 Prepare toy data to insert:
 
@@ -430,7 +430,7 @@ SELECT id FROM schema01.table01;
   ##>  402
 ``` 
 
-### Use superagent or cyclejs id=g_10763
+### Use superagent or cyclejs id=g10763
 
 #### opt02: vrp data insert
 
@@ -546,7 +546,7 @@ Edit `~/projects/study/db/ex/study_postgrest/e01/cycle01.js`
 
 This works. 
 
-### Use R to upload data id=g_10759
+### Use R to upload data id=g10759
 
 #### opt01: default data
 
@@ -658,7 +658,7 @@ response <- httr::POST("http://localhost:8080/rest/table01",
 
 Reference:
 
-		veri gönderme - http <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10651>
+		veri gönderme - http <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10651>
 
 We have to use x-www-form-urlencoded because postgrest supports only this method. 
 
@@ -680,7 +680,7 @@ superagent
 	.send('company_id,company_extid,company_name\n201,,company_201')
 ``` 
 
-#### Upload data to postgrest with cyclejs id=g_10758
+#### Upload data to postgrest with cyclejs id=g10758
 
 ``` bash
 cd ex/study_postgrest/ 
@@ -717,5 +717,5 @@ Solution: Add Content-Type to header:
 
 Summarized in:
 
-		~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g_10633>
+		~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10633>
 

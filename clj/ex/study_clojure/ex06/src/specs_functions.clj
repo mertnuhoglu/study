@@ -4,7 +4,7 @@
 
 (require '[clojure.spec.alpha :as s])
 
-; p01: Sequences with structure id=g_12026
+; p01: Sequences with structure id=g12026
 
 ; p01.01: s/cat
 

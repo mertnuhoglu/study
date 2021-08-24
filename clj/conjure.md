@@ -70,7 +70,7 @@ Fix:
    :main-opts   ["-m" "dave.prepl-server" "50500"]}
 ```
 
-# Article: Getting started with Clojure, Neovim and Conjure in minutes id=g_11952
+# Article: Getting started with Clojure, Neovim and Conjure in minutes id=g11952
 
 [Getting started with Clojure, Neovim and Conjure in minutes](https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/)
 

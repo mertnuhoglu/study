@@ -50,7 +50,7 @@ Check rich comment: `~/projects/study/clj/ex/book_essential_reference_borgatti/e
 
 Check also: `~/projects/study/clj/ex/study_clojure/ex06/src/book_essential_reference_borgatti.clj`
 
-## clojure.repl help functions id=g_11959
+## clojure.repl help functions id=g11959
 
 Help functions: `~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj`
 
@@ -81,7 +81,7 @@ Require functions: `~/projects/study/clj/ex/study_clojure/ex06/src/require_funct
 (use '[clojure.string :only (split)])
 ```
 
-## Debug Functions id=g_11960
+## Debug Functions id=g11960
 
 Debug functions: `~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj`
 

@@ -17,7 +17,7 @@ state: wip
 
 # Index cli tools
 
-## Import source, doc, apropos and other REPL functions id=g_11947
+## Import source, doc, apropos and other REPL functions id=g11947
 
 If your repl doesn't have above functions such as `source` or `apropos`, require them:
 
@@ -25,7 +25,7 @@ If your repl doesn't have above functions such as `source` or `apropos`, require
 (require '[clojure.repl :refer :all])
 ```
 
-# Article: What are the Clojure Tools? id=g_11929
+# Article: What are the Clojure Tools? id=g11929
 
 [What are the Clojure Tools?](https://betweentwoparens.com/what-are-the-clojure-tools)
 
@@ -85,7 +85,7 @@ Built-in repl: `clojure.main/repl`
 java -jar clojure-1.8.0.jar
 ```
 
-## REPL functions: id=g_11930
+## REPL functions: id=g11930
 
 	| `clojure.repl`   |                                              |
 	| source           | `(source clojure.main/repl)`                 |
@@ -102,7 +102,7 @@ java -jar clojure-1.8.0.jar
 	| *1 *2 *3         | last eval                                    |
 	| *e               | last uncaught exception                      |
 
-ref: `Import source, doc, apropos and other REPL functions <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g_11947>`
+ref: `Import source, doc, apropos and other REPL functions <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g11947>`
 
 ## Line Editing and History Support with rlwrap
 
@@ -110,7 +110,7 @@ ref: `Import source, doc, apropos and other REPL functions <url:file:///~/projec
 rlwrap java -jar clojure-1.8.0.jar
 ```
 
-## Socket REPL id=g_11931
+## Socket REPL id=g11931
 
 Where does a REPL read from or print to?
 

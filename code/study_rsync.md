@@ -48,7 +48,7 @@ rsync -av d01/ d08 # copies d01/*
 rsync -av d01/ d10/ # same 
 ``` 
 
-### rsync --delete id=g_10932
+### rsync --delete id=g10932
 
 ``` 
 mkdir d11
@@ -66,7 +66,7 @@ ls d12
 
 ## References
 
-`rsync <url:file:///~/projects/study/bash/examples_bash.Rmd#r=g_10931>`
+`rsync <url:file:///~/projects/study/bash/examples_bash.Rmd#r=g10931>`
 
 Trailing slash in rsync: `~/projects/study/bash/trailing_slash_on_directory.md`
 

@@ -49,7 +49,7 @@ state: wip
 
 # Tools
 
-# tool: transferwee: wetransfer cli id=g_11002
+# tool: transferwee: wetransfer cli id=g11002
 
 [iamleot/transferwee: Download/upload files via wetransfer.com](https://github.com/iamleot/transferwee)
 
@@ -58,7 +58,7 @@ state: wip
   ##> https://we.tl/t-WK9VSkw5DI
 ``` 
 
-## tool: howdoi id=g_10994
+## tool: howdoi id=g10994
 
 [gleitz/howdoi: instant coding answers via the command line](https://github.com/gleitz/howdoi)
 
@@ -93,7 +93,7 @@ echo 'export PATH=/usr/local/Cellar/ruby/2.4.1_1/bin:$PATH' >> ~/.zprofile
 ``` 
 
 
-## tool: curl cheat.sh id=g_10993
+## tool: curl cheat.sh id=g10993
 
 ``` 
 ❯ curl cheat.sh/tar

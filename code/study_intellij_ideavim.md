@@ -32,7 +32,7 @@ source ~/.ideavimrc
 ```
 
 
-## Tool: Intellimacs id=g_10992
+## Tool: Intellimacs id=g10992
 
 Spacemacs key bindings for IntelliJ
 

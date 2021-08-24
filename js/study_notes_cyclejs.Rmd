@@ -838,11 +838,11 @@ Edit `~/projects/study/js/ex/study_notes_cyclejs/ref_ex/ref06/index.js`
 
 Based on `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p16/ex01.js`
 
-		refblc: p16: onion with one subcomponent and lens <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10221>
+		refblc: p16: onion with one subcomponent and lens <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g10221>
 
 ## ref08: Full CycleJs App:
 
-		refblc: cyclejs ex15_10_05 <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g_10585>
+		refblc: cyclejs ex15_10_05 <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10585>
 
 # Article: Handling lists in Cyclejs
 
@@ -1222,7 +1222,7 @@ Or toHTML()
     } )
     // "<div><div></div></div>"
 
-## p03: Multiple HTTP Requests id=g_10764
+## p03: Multiple HTTP Requests id=g10764
 
 
 Opt01: Multiple Buttons
@@ -2417,7 +2417,7 @@ function model(httpSource) {
 // result: {"plans":[{"plan_id":1,"usr":"usr_4_4_4_4_4_4","depot_id":4},{"plan_id":2,"usr":"usr_4_4_4_4_4_4","depot_id":2},{"plan_id":3,"usr":"usr_2_2_2_2_","depot_id":5},{"plan_id":4,"usr":"usr_1_1_1_1_1_1","depot_id":3},{"plan_id":5,"usr":"usr_1_1_1_1_1_1","depot_id":3}],"purchase_orders":[]}
 ``` 
 
-## p16: onion with one subcomponent and lens id=g_10221
+## p16: onion with one subcomponent and lens id=g10221
 
 I want to mimic a web app that has a parent component and a subcomponent where the subcomponent accesses the global state using a lens object. 
 
@@ -2879,9 +2879,9 @@ Let's merge them together.
 
 
 
-## p17: Systematic elimination of possible bug causes id=g_10219
+## p17: Systematic elimination of possible bug causes id=g10219
 
-		p17: Systematic elimination of possible bug causes <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10219>
+		p17: Systematic elimination of possible bug causes <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g10219>
 
 The application gives the following error message:
 
@@ -3147,15 +3147,15 @@ So, I decided to focus into `model()`. I commented `planReducer$` inside `model(
 
 But this doesn't break any type constraint.
 
-## p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` id=g_10223
+## p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` id=g10223
 
-		p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10223>
+		p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g10223>
 
 ### p18.01: Base Node App
 
 Based on 
 
-		"p02_03: Why does `isolate()` remove type information?"  <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10222>
+		"p02_03: Why does `isolate()` remove type information?"  <url:file:///~/projects/study/js/study_ts.Rmd#r=g10222>
 		`~/projects/study/js/ex/study_notes_cyclejs/src/problems/p15/ex04.js`
 
 Edit `~/projects/study/js/ex/study_notes_cyclejs/src/problems/p18/ex01.ts`

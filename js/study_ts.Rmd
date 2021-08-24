@@ -206,9 +206,9 @@ This gives error too, but it runs.
 							Type '{} | ((prevState: any) => { plans: never[]; purchase_orders: never[]; firstPlan: {}; })' is not assignable to type 'Reducer<{}>'.
 								Type '{}' is not assignable to type 'Reducer<{}>'.
 
-## p02: Type Error: Type '{}' provides no match for the signature '(s: any): any'. id=g_10220
+## p02: Type Error: Type '{}' provides no match for the signature '(s: any): any'. id=g10220
 
-		p02: Type Error: Type '{}' provides no match for the signature '(s: any): any'.  <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10220>
+		p02: Type Error: Type '{}' provides no match for the signature '(s: any): any'.  <url:file:///~/projects/study/js/study_ts.Rmd#r=g10220>
 
 This error occurs in `~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03c/components/app/index.ts`
 
@@ -252,13 +252,13 @@ const planPanelSinks2 = PlanPanel(sources)
 planPanelSinks2.onion: xs<(s:any) => any>
 ``` 
 
-### p02_03: Why does `isolate()` remove type information? id=g_10222
+### p02_03: Why does `isolate()` remove type information? id=g10222
 
-		p02_03: Why does `isolate()` remove type information?  <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10222>
+		p02_03: Why does `isolate()` remove type information?  <url:file:///~/projects/study/js/study_ts.Rmd#r=g10222>
 
 Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/problems/p02/ex03.ts`
 
-Continue: p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10223>
+Continue: p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g10223>
 
 ### 10_03e: Run App Without Using isolate()
 
@@ -272,7 +272,7 @@ Edit `/Users/mertnuhoglu/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_03f/in
 
 ref
 
-		Continue: p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10223>
+		Continue: p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g10223>
 
 ## p03: Type Inference Issues
 
@@ -511,9 +511,9 @@ const redB$: Stream<Reducer<B>> = xs.of(
 
 # Articles 
 
-## article: Advanced Types - Typescript Handbook id=g_10224
+## article: Advanced Types - Typescript Handbook id=g10224
 
-		article: Advanced Types - Typescript Handbook <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10224>
+		article: Advanced Types - Typescript Handbook <url:file:///~/projects/study/js/study_ts.Rmd#r=g10224>
 		https://www.typescriptlang.org/docs/handbook/advanced-types.html
 
 ### sub: Intersection Types
@@ -1295,9 +1295,9 @@ class CartModel {
 
 Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/articles/art03/ex01.ts`
 
-## article: TypeScript Evolution - Marius Schulz  id=g_10231
+## article: TypeScript Evolution - Marius Schulz  id=g10231
 
-		article: TypeScript Evolution - Marius Schulz  <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10231>
+		article: TypeScript Evolution - Marius Schulz  <url:file:///~/projects/study/js/study_ts.Rmd#r=g10231>
 
 ### Non-Nullable Types
 
@@ -2060,9 +2060,9 @@ const prettierConfig = {
 const formatter = createFormatter(prettierConfig);
 ``` 
 
-## article: TypeScript Handbook: Generics  id=g_10232
+## article: TypeScript Handbook: Generics  id=g10232
 
-		article: TypeScript Handbook: Generics  <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10232>
+		article: TypeScript Handbook: Generics  <url:file:///~/projects/study/js/study_ts.Rmd#r=g10232>
 		https://www.typescriptlang.org/docs/handbook/generics.html
 
 ### Hello World of Generics
@@ -2234,9 +2234,9 @@ function create<T>(c: {new(): T; }): T {
 }
 ``` 
 
-## article: Real World Use Case For Typescript Record Types id=g_10229
+## article: Real World Use Case For Typescript Record Types id=g10229
 
-		article: Real World Use Case For Typescript Record Types <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10229>
+		article: Real World Use Case For Typescript Record Types <url:file:///~/projects/study/js/study_ts.Rmd#r=g10229>
 
 http://www.rickcarlino.com/2017/02/27/real-world-use-case-for-typescript-record-types.html
 
@@ -2298,9 +2298,9 @@ Edit `/Users/mertnuhoglu/projects/study/js/ex/study_ts/src/articles/art04/ex03.t
 type UserPref = Partial<Record<PrefName, any>>
 ``` 
 
-## Article: Learn Typescript in 30 Minutes id=g_10233
+## Article: Learn Typescript in 30 Minutes id=g10233
 
-		Article: Learn Typescript in 30 Minutes <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10233>
+		Article: Learn Typescript in 30 Minutes <url:file:///~/projects/study/js/study_ts.Rmd#r=g10233>
 
 https://tutorialzine.com/2016/07/learn-typescript-in-30-minutes
 
@@ -2735,9 +2735,9 @@ type Rectangle = typeof rectangle1;
 let rectangle2: Rectangle;
 ``` 
 
-## Article: TypeScript 2.8 Conditional Types id=g_10234
+## Article: TypeScript 2.8 Conditional Types id=g10234
 
-		Article: TypeScript 2.8 Conditional Types <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10234>
+		Article: TypeScript 2.8 Conditional Types <url:file:///~/projects/study/js/study_ts.Rmd#r=g10234>
 
 https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 

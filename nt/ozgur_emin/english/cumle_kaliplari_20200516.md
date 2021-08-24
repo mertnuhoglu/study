@@ -16,7 +16,7 @@ examples:
     I want you to eat the water.
     I want you to go to bed.
 
-# ... that I ...  id=g_11008
+# ... that I ...  id=g11008
 
 ``` bash
 cd ~/Downloads/anki/tatoeba_sentences
@@ -48,7 +48,7 @@ example_en="~/projects/study/nt/ozgur_emin/english/${tags}/example_en.tsv"
 ~/projects/anki_english/scripts/anki_process_tatoeba_sentences "${tags}" "${sentence_ids_eng}" "${example_en}"
 ``` 
 
-# other sentence patterns: id=g_10955
+# other sentence patterns: id=g10955
 
 I go where I like most
 I like how you swim

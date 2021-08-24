@@ -2,15 +2,15 @@
 
 	articles fp
 		~/Dropbox/mynotes/content/articles/articles_fp.md
-		articles fp <url:file:///~/Dropbox/mynotes/content/articles/articles_fp.md#r=g_10608>
+		articles fp <url:file:///~/Dropbox/mynotes/content/articles/articles_fp.md#r=g10608>
 
 ## Javascript FP 
 
-	jsfp id=g_10606
-		jsfp <url:file:///~/Dropbox/mynotes/content/code/cfp/cfp.md#r=g_10606>
+	jsfp id=g10606
+		jsfp <url:file:///~/Dropbox/mynotes/content/code/cfp/cfp.md#r=g10606>
 		index jsfp
-			index articles jsfp id=g_10607
-				index articles jsfp <url:file:///~/Dropbox/mynotes/content/code/cfp/cfp.md#r=g_10607>
+			index articles jsfp id=g10607
+				index articles jsfp <url:file:///~/Dropbox/mynotes/content/code/cfp/cfp.md#r=g10607>
 				brian lonsdorf
 					frisby - brian lonsdorf
 						~/Dropbox/mynotes/content/books/fp/frisby_intro_to_fp_egghead.md
@@ -20,24 +20,24 @@
 						~/projects/study/js/study_frisby_book_adequate_guide_to_fp.Rmd
 			cyclejs
 				ref
-					cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10248>
+					cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10248>
 			ramdajs
 				ref
-					ramdajs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10246>
+					ramdajs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10246>
 					~/projects/study/js/study_ramda_for_reactive_streams.Rmd
 			ramdajs fantasy
 				ref
-					ramdajs fantasy <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10604>
+					ramdajs fantasy <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10604>
 			rxjs
 				ref
-					rxjs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10247>
+					rxjs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10247>
 			xstream
 				ref
-					xstream <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10605>
+					xstream <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10605>
 					~/projects/study/js/study_ramda_for_reactive_streams.Rmd
 		articles jsfp
-			If Else vs Either Monad vs FRP id=g_10609
-				If Else vs Either Monad vs FRP <url:file:///~/gdrive/mynotes/content/code/cfp/cfp.md#r=g_10609>
+			If Else vs Either Monad vs FRP id=g10609
+				If Else vs Either Monad vs FRP <url:file:///~/gdrive/mynotes/content/code/cfp/cfp.md#r=g10609>
 				https://glebbahmutov.com/blog/if-else-vs-either-monad-vs-frp/
 				goal
 					const condition = true
@@ -97,8 +97,8 @@
 						falsy$.addListener({
 							next: g
 						})
-			Ramda for reactive streams id=g_10610
-				Ramda for reactive streams <url:file:///~/gdrive/mynotes/content/code/cfp/cfp.md#r=g_10610>
+			Ramda for reactive streams id=g10610
+				Ramda for reactive streams <url:file:///~/gdrive/mynotes/content/code/cfp/cfp.md#r=g10610>
 				https://glebbahmutov.com/blog/ramda-for-reactive-streams/
 				ref
 					~/projects/study/js/study_ramda_for_reactive_streams.Rmd

@@ -1,10 +1,10 @@
 
 
-## nuhoğlu vakfı web sitesi hugo 20190910  id=g_11632
+## nuhoğlu vakfı web sitesi hugo 20190910  id=g11632
 
 Tema: https://github.com/devcows/hugo-universal-theme
 
-### universal theme: sıfırdan oluşturma id=g_11635
+### universal theme: sıfırdan oluşturma id=g11635
 
 opt01: düz site
 

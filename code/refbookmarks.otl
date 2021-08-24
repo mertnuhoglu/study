@@ -1,6 +1,6 @@
 
 parent
-	refmine kms <url:file:///~/projects/myrepo/general/refmine.otl#r=g_11660>
+	refmine kms <url:file:///~/projects/myrepo/general/refmine.otl#r=g11660>
 code #topics
 	clojure
 		cheatsheets - clojure

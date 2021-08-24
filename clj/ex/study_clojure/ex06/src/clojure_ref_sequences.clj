@@ -5,7 +5,7 @@
 
 ;; # seq -> seq
 
-;; sect01: shorter seq id=g_11359
+;; sect01: shorter seq id=g11359
 
 (distinct [1 2 3 1])
 ;; => (1 2 3)
@@ -31,7 +31,7 @@
 (keep-indexed #(if (odd? %1) %2) [:a :b :c])
 ;; => (:b)
 
-;; sect02: longer seq id=g_11360
+;; sect02: longer seq id=g11360
 
 (cons 1 [2 3])
 ;; => (1 2 3)
@@ -55,7 +55,7 @@
 (str/join ", " ["ali" "veli"])
 ;; => "ali, veli"
 
-;; sect03: head-items missing id=g_11361
+;; sect03: head-items missing id=g11361
 
 (rest [1 2 3])
 ;; => (2 3)
@@ -84,7 +84,7 @@
 (nthnext [1 2 3] 2)
 ;; => (3)
 
-;; sect04: tail-items missing id=g_11362
+;; sect04: tail-items missing id=g11362
 
 (take 2 [1 2 3])
 ;; => (1 2)
@@ -97,7 +97,7 @@
 (drop-last 2 [1 2 3])
 ;; => (1)
 
-;; sect05: rearrangement of a seq id=g_11363
+;; sect05: rearrangement of a seq id=g11363
 
 (flatten [1 [2 3]])
 ;; => (1 2 3)
@@ -110,7 +110,7 @@
 (shuffle [1 2 3])
 ;; => [1 2 3]
 
-;; sect06: nested seqs id=g_11364
+;; sect06: nested seqs id=g11364
 
 (split-at 2 [1 2 3 4 5])
 ;; => [(1 2) (3 4 5)]
@@ -127,7 +127,7 @@
 (partition-by pos? [-1 3 0 -3])
 ;; => ((-1) (3) (0 -3))
 
-;; sect07: partition each item to create a new seq id=g_11365
+;; sect07: partition each item to create a new seq id=g11365
 
 (map inc [1 2 3])
 ;; => (2 3 4)
@@ -158,7 +158,7 @@
 
 ;; # using a seq
 
-;; sect01: extract a specific-numbered item id=g_11366
+;; sect01: extract a specific-numbered item id=g11366
 
 (first [1 2 3])
 ;; => 1
@@ -177,7 +177,7 @@
 (rand-nth [1 2 3])
 ;; => 2
 
-;; sect02: seq -> collection id=g_11367
+;; sect02: seq -> collection id=g11367
 
 (zipmap [:a :b] [1 2])
 ;; => {:a 1, :b 2}
@@ -194,7 +194,7 @@
 (group-by count ["ali" "ab" "axe"])
 ;; => {3 ["ali" "axe"], 2 ["ab"]}
 
-;; sect03: pass items to a function id=g_11368
+;; sect03: pass items to a function id=g11368
 
 (apply str ["a" "b" "c"])
 ;; => "abc"
@@ -205,7 +205,7 @@
 (str 123)
 ;; => "123"
 
-;; sect04: compute boolean id=g_11369
+;; sect04: compute boolean id=g11369
 
 (not-empty [1 2])
 ;; => [1 2]

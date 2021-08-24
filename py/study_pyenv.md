@@ -20,7 +20,7 @@ state: wip
 
 pyenv kurulumu için çok uğraştım. 
 
-Şu hatayı bir türlü düzeltemedim: `Error: ModuleNotFoundError: No module named 'pyexpat' <url:file:///~/projects/study/py/study_pyenv.md#r=g_11566>`
+Şu hatayı bir türlü düzeltemedim: `Error: ModuleNotFoundError: No module named 'pyexpat' <url:file:///~/projects/study/py/study_pyenv.md#r=g11566>`
 
 Son kararım: `pyenv` kullanma. Eski usul brew ile yönet. Upgrade edeceğin vakit, eski usul manuel ilerle.
 
@@ -39,9 +39,9 @@ pyenv install --list | rg " 3\."
 pyenv install 3.8.3
 ```
 
-### Error: ModuleNotFoundError: No module named 'pyexpat' id=g_11566
+### Error: ModuleNotFoundError: No module named 'pyexpat' id=g11566
 
-Çözüm: `symlink to brew python  <url:file:///~/projects/study/py/study_pyenv.md#r=g_11478>`
+Çözüm: `symlink to brew python  <url:file:///~/projects/study/py/study_pyenv.md#r=g11478>`
 
 ## making brew compatible with pyenv
 
@@ -69,7 +69,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 ```
 
-### symlink to brew python  id=g_11478
+### symlink to brew python  id=g11478
 
 [How can I make homebrew's python and pyenv live together? - Stack Overflow](https://stackoverflow.com/questions/30499795/how-can-i-make-homebrews-python-and-pyenv-live-together)
 
@@ -144,7 +144,7 @@ pyenv pros:
 
 much simpler. orthogonal tools. 
 
-## article: The right and wrong way to set up Python 3 on MacOS  id=g_11469
+## article: The right and wrong way to set up Python 3 on MacOS  id=g11469
 
 [The right and wrong way to set up Python 3 on MacOS | Opensource.com](https://opensource.com/article/19/5/python-3-default-mac)
 
@@ -159,7 +159,7 @@ ls /usr/local/bin/ | rg python
 
 best solution: `pyenv`
 
-## article: How to set up virtual environments for Python on MacOS  id=g_11470
+## article: How to set up virtual environments for Python on MacOS  id=g11470
 
 [How to set up virtual environments for Python on MacOS | Opensource.com](https://opensource.com/article/19/6/python-virtual-environments-mac)
 

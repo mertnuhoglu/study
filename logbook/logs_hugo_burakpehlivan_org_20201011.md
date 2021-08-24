@@ -5,7 +5,7 @@
 
 ## @deprecated: opt01: nuhogluvakfi instructions
 
-ref: `universal theme: sıfırdan oluşturma <url:file:///~/projects/study/logbook/hugo_universal_theme_customization_nuhogluvakfi_20190913.md#r=g_11635>`
+ref: `universal theme: sıfırdan oluşturma <url:file:///~/projects/study/logbook/hugo_universal_theme_customization_nuhogluvakfi_20190913.md#r=g11635>`
 
 ``` bash
 mkdir test03
@@ -27,9 +27,9 @@ Delete:
 
 		themesDir = "../.."
 
-## opt02: mertnuhoglu.com instructions id=g_11641
+## opt02: mertnuhoglu.com instructions id=g11641
 
-ref: `Final: mertnuhoglu.com ile yap <url:file:///~/projects/study/logbook/hugo_kisisel_web_sitemi_duzeltme_20190827.md#r=g_11639>`
+ref: `Final: mertnuhoglu.com ile yap <url:file:///~/projects/study/logbook/hugo_kisisel_web_sitemi_duzeltme_20190827.md#r=g11639>`
 
 ``` bash
 mkdir -p burakpehlivan_org/burakpehlivan_org
@@ -89,7 +89,7 @@ baseURL = "https://mertnuhoglu.netlify.com"
 wget --mirror --convert-links --adjust-extension --page-requisites --no-parent --no-check-certificate http://burakpehlivan.org
 ```
 
-## @deprecated: Error: tags içinde tırnak kullanımı yanlış id=g_11643
+## @deprecated: Error: tags içinde tırnak kullanımı yanlış id=g11643
 
 ```
 'Erdogan's Visit to Ukraine yanukovich and erdogan meeting'
@@ -206,7 +206,7 @@ do
 done 
 ```
 
-## @deprecated: opt02: id=g_11646
+## @deprecated: opt02: id=g11646
 
 [lonekorean/wordpress-export-to-markdown: Converts a WordPress export XML file into Markdown files.](https://github.com/lonekorean/wordpress-export-to-markdown)
 

@@ -114,12 +114,12 @@
 
 ## rmarkdown
 
-### bookdown docs id=g_10029
+### bookdown docs id=g10029
 
   ref
-    bookdown docs <url:file:///~/Dropbox/mynotes/content/articles/articles_r.md#r=g_10029>
+    bookdown docs <url:file:///~/Dropbox/mynotes/content/articles/articles_r.md#r=g10029>
     https://bookdown.org/yihui/bookdown/get-started.html
-    Publishing Web Site and Blog <url:file:///~/Dropbox/mynotes/general/processes.md#r=g_10033>
+    Publishing Web Site and Blog <url:file:///~/Dropbox/mynotes/general/processes.md#r=g10033>
 
 #### Preface
 
@@ -174,11 +174,11 @@
         bookdown::gitbook:
           lib_dir: "book_assets"
 
-### RMarkdown Docs id=g_10030
+### RMarkdown Docs id=g10030
 
   http://rmarkdown.rstudio.com/
   meta
-    RMarkdown Docs <url:file:///~/Dropbox/mynotes/content/articles/articles_r.md#r=g_10030>
+    RMarkdown Docs <url:file:///~/Dropbox/mynotes/content/articles/articles_r.md#r=g10030>
     codes
       /Users/mertnuhoglu/codes/rr/rmarkdown/
   How it works

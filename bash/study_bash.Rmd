@@ -69,7 +69,7 @@ Bu `Esc q` tuşunu bağlıyor. Ama `Alt q` çalışmıyor hala.
 
 ## zsh keybindings bindkey
 
-Ref: zsh-autosuggestions <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10557>
+Ref: zsh-autosuggestions <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10557>
 
 ``` bash
 bindkey '^[ ' autosuggest-accept
@@ -85,7 +85,7 @@ Ref: error: shift+f3 vim içinde niye çalışmıyor? <url:/Users/mertnuhoglu/pr
 
 ## How to find out control sequences (keybindings)?
 
-Ref: `custom tmux keybindings with # Cmd @mine <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10536>`
+Ref: `custom tmux keybindings with # Cmd @mine <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10536>`
 
 Use `cat` or `od` or `ctrl-v`
 

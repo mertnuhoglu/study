@@ -3,7 +3,7 @@
 
 ; most codes are taken from https://github.com/clojure-cookbook/clojure-cookbook
 
-; capitalization of a string id=g_11372
+; capitalization of a string id=g11372
 
 (str/capitalize "a b. c d.")
 ;; => "A b. c d."
@@ -12,7 +12,7 @@
 (str/lower-case "A B") 
 ;; => "a b"
 
-; Clean Whitespace in a String  id=g_11373
+; Clean Whitespace in a String  id=g11373
 
 (str/trim " \ta b\n") 
 ;; => "a b"
@@ -20,7 +20,7 @@
 (str/replace "a\t\nb c\fd" #"\s+" " ") 
 ;; => "a b c d"
 
-; Combine/Join a String id=g_11374
+; Combine/Join a String id=g11374
 
 (str "a" " " "b")
 ;; => "a b"
@@ -39,7 +39,7 @@
 (apply str header (interpose "\n" rows))
 ;; => "a,b\n10,20\n11,21"
 
-; String to Character id=g_11375
+; String to Character id=g11375
 
 (seq "ali")
 ;; => (\a \l \i)
@@ -56,7 +56,7 @@
 (all_upper? "A b")
 ;; => false
 
-; Character to/from Integer id=g_11376
+; Character to/from Integer id=g11376
 
 (int \a)
 ;; -> 97
@@ -65,7 +65,7 @@
 (char 97)
 ;; -> \a
 
-; Formatting Strings id=g_11377
+; Formatting Strings id=g11377
 
 ;; str
 
@@ -99,7 +99,7 @@
 ;; Ryan                 | Neufeld              | 2
 ;; Luke                 | Vanderhart           | 1
 
-; Regex Match id=g_11378
+; Regex Match id=g11378
 
 (re-find #"\d+" "ab 12")
 ;; => "12"
@@ -118,7 +118,7 @@
 (mentions "ab @c de. #fg")
 ;; => (["@c" "@" "c"] ["#fg" "#" "fg"])
 
-; Regex Replace id=g_11379
+; Regex Replace id=g11379
 
 (str/replace "a b" "a" "c")
 ;; => "c b"
@@ -129,7 +129,7 @@
 (str/split "A,B" #",")
 ;; => ["A" "B"]
 
-; Pluralizing Strings id=g_11380
+; Pluralizing Strings id=g11380
 
 
 (require '[inflections.core :as inf])
@@ -140,7 +140,7 @@
 (inf/pluralize 12 "monkey")
 ;; -> "12 monkeys"
 
-; Converting Between Strings, Symbols, and Keywords id=g_11381
+; Converting Between Strings, Symbols, and Keywords id=g11381
 
 
 (symbol "a?")
@@ -166,7 +166,7 @@
 (namespace :user/a?)
 ;; => "user"
 
-; Precision Numbers id=g_11382
+; Precision Numbers id=g11382
 
 
 2.1e2
@@ -180,7 +180,7 @@
 (*' 9999 9999 9999 9999 9999)
 ;; => 99950009999000049999N
 
-; Rational Numbers id=g_11383
+; Rational Numbers id=g11383
 
 
 (/ 1 3)
@@ -200,7 +200,7 @@
 (+ (/ 1 3) (rationalize 0.3))
 ;; -> 19/30
 
-; Parsing Numbers id=g_11384
+; Parsing Numbers id=g11384
 
 (Integer/parseInt "-42")
 ;; -> -42
@@ -208,7 +208,7 @@
 (Double/parseDouble "3.14")
 ;; -> 3.14
 
-; Rounding and Truncating id=g_11385
+; Rounding and Truncating id=g11385
 
 (int 2.0001)
 ;; -> 2
@@ -220,7 +220,7 @@
 (Math/round 2.999)
 ;; -> 3
 
-; Fuzzy Comparison id=g_11386
+; Fuzzy Comparison id=g11386
 
 
 (defn fuzzy= [tolerance x y]
@@ -230,12 +230,12 @@
 (fuzzy= 0.01 10 10.001)
 ;; => true
 
-; Trigonometry id=g_11388
+; Trigonometry id=g11388
 
 (Math/sin 0.1)
 ;; => 0.09983341664682815
 
-; Different Bases id=g_11387
+; Different Bases id=g11387
 
 (int 2r101)
 ;; => 5
@@ -286,7 +286,7 @@
 (median [5 2 4])
 ;; => 4
 
-; Random Numbers id=g_11389
+; Random Numbers id=g11389
 
 (rand)
 ;; -> 0.0249306187447903
@@ -318,7 +318,7 @@ two
 (ma/plus two two)
 ;; -> #<Money USD 4.00>
 
-; imprecise numbers id=g_11391
+; imprecise numbers id=g11391
 
 
 ; IEEE 754 standard carry a certain imprecision by design
@@ -326,7 +326,7 @@ two
 (- 0.23 0.24)
 ;; -> -0.009999999999999981
 
-; uuid global identifiers id=g_11390
+; uuid global identifiers id=g11390
 
 
 (java.util.UUID/randomUUID)
@@ -338,7 +338,7 @@ two
 u1
 ;; -> #uuid "527bf210-dfae-4c73-8b7a-302d3b511f41"
 
-; Date and Time id=g_11392
+; Date and Time id=g11392
 
 
 (defn now []
@@ -351,14 +351,14 @@ u1
 (System/currentTimeMillis)
 ;; => 1592333064027
 
-; Dates as Literals id=g_11393
+; Dates as Literals id=g11393
 
 (def my-birthday #inst "1987-02-18T18:00:00.000-00:00")
 
 (println my-birthday)
 ;; #inst "1987-02-18T18:00:00.000-00:00"
 
-; Parsing Dates id=g_11394
+; Parsing Dates id=g11394
 
 
 ; $ lein try clj-time
@@ -374,7 +374,7 @@ u1
 (tf/parse wonky-format "16:13:49:06 on 2013-04-06")
 ;; -> #<DateTime 2013-04-06T16:13:49.060Z>
 
-; Formatting Dates id=g_11395
+; Formatting Dates id=g11395
 
 
 (require '[clj-time.format :as tf])
@@ -387,7 +387,7 @@ u1
 (tf/unparse my-format (t/now))
 ;; -> "Apr 6, 2013 at 04:54"
 
-; Convert joda from/to java date instances id=g_11396
+; Convert joda from/to java date instances id=g11396
 
 (require '[clj-time.coerce :as tc])
 
@@ -400,7 +400,7 @@ u1
 (tc/to-long (t/now))
 ;; -> 1365267761585
 
-; Comparing Dates id=g_11397
+; Comparing Dates id=g11397
 
 
 (defn now [] (java.util.Date.))
@@ -415,7 +415,7 @@ u1
 (sort occurrences)
 ;; => (#inst "2002-12-25T00:40:57.688-00:00" #inst "2013-04-06T17:40:57.688-00:00")
 
-; Time Interval Between id=g_11398
+; Time Interval Between id=g11398
 
 (require '[clj-time.core :as t])
 

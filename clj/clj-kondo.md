@@ -32,7 +32,7 @@ state: wip
 
 ### Vim
 
-ref: `Tool: clj-kondo in vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11964>`
+ref: `Tool: clj-kondo in vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11964>`
 
 ## Usage
 

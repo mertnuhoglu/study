@@ -15,7 +15,7 @@ state: wip
 
 ---
 
-# Article: Parens of the Dead id=g_11848
+# Article: Parens of the Dead id=g11848
 
 [Parens of the Dead](http://www.parens-of-the-dead.com/)
 

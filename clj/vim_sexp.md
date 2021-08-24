@@ -14,7 +14,7 @@ output:
 
 ---
 
-# Tool: vim-sexp id=g_11846
+# Tool: vim-sexp id=g11846
 
 [tpope/vim-sexp-mappings-for-regular-people: vim-sexp mappings for regular people](https://github.com/tpope/vim-sexp-mappings-for-regular-people)
 
@@ -71,7 +71,7 @@ wrap:
 	| ,e[ ,e] | element [] |
 	| ,e{ ,e} | element {} |
 
-# sexp cheatsheet id=g_11971
+# sexp cheatsheet id=g11971
 
 `sexp_mappings_for_regular_people`: `~/.vim/bundle/vim-sexp-mappings-for-regular-people/plugin/sexp_mappings_for_regular_people.vim`
 

@@ -1,8 +1,8 @@
   <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md>
 
-# Beau teaches JavaScript  id=g_10189
+# Beau teaches JavaScript  id=g10189
 
-  Beau teaches JavaScript  <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10189>
+  Beau teaches JavaScript  <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10189>
   01-Heap Data Structure (max and min)- Beau teaches JavaScript-dM_JHpfFITs.mp4
   02-Pop ups tutorial - Beau teaches JavaScript-y6P8uvqRYgw.mp4
     alert("message"): void
@@ -233,9 +233,9 @@
   75-cookies vs localStorage vs sessionStorage - Beau teaches JavaScript-AwicscsvGLg.mp4
    
 
-# JS Patterns and Idioms: Douglas Crockford, Design Patterns id=g_10138
+# JS Patterns and Idioms: Douglas Crockford, Design Patterns id=g10138
 
-  JS Patterns and Idioms: Douglas Crockford, Design Patterns <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10138>
+  JS Patterns and Idioms: Douglas Crockford, Design Patterns <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10138>
   Js Design Patterns
     <url:file:///~/Dropbox/mynotes/content/books/js/js_design_patterns_addy_osmani.md>
   const vs object freeze
@@ -889,16 +889,16 @@
       </form>
 
       
-## HTML+CSS Öğreniyoruz by Adem İlter  id=g_10188
+## HTML+CSS Öğreniyoruz by Adem İlter  id=g10188
 
-  HTML+CSS Öğreniyoruz by Adem İlter  <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10188>
+  HTML+CSS Öğreniyoruz by Adem İlter  <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10188>
   1-HTML+CSS Öğreniyoruz #1-1AhFCvWS-XE.mp4
 
 ## CSS Grid cssgrid
 
-### Learn CSS Grid by scrimba Harald Borgen id=g_10187
+### Learn CSS Grid by scrimba Harald Borgen id=g10187
 
-  Learn CSS Grid by scrimba Harald Borgen <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10187>
+  Learn CSS Grid by scrimba Harald Borgen <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10187>
   ref
     <url:file:///~/projects/study/html/cssgrid_01/cssgrid.Rmd>
     https://scrimba.com/p/pWqLHa/cg9PpTb
@@ -1775,9 +1775,9 @@
         --> {{hello}}
     
 
-## bootstrap twitter bootstrap id=g_10186
+## bootstrap twitter bootstrap id=g10186
 
-  bootstrap twitter bootstrap <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10186>
+  bootstrap twitter bootstrap <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10186>
   official documentation 3.3
     structures of documentations
       Getting Started
@@ -2326,8 +2326,8 @@
 
 # es modules
 
-    ECMAScript modules in browsers id=g_10192
-      ECMAScript modules in browsers <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10192>
+    ECMAScript modules in browsers id=g10192
+      ECMAScript modules in browsers <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10192>
       https://jakearchibald.com/2017/es-modules-in-browsers/
       ex: <url:/Users/mertnuhoglu/projects/study/js/ecmascript_modules.Rmd#tn=## v01: Basic Example 01>
     ES6 Modules in Browsers
@@ -2637,9 +2637,9 @@
               index.css
               icon.svg
 
-### Webpack: When To Use And Why id=g_10193
+### Webpack: When To Use And Why id=g10193
 
-Webpack: When To Use And Why <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10193>
+Webpack: When To Use And Why <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10193>
 
 https://blog.andrewray.me/webpack-when-to-use-and-why/
 
@@ -2749,9 +2749,9 @@ in a global namespace.
 
 Stop being a human compiler. Use a dependency graph.
 
-### What's new in webpack 2 id=g_10194
+### What's new in webpack 2 id=g10194
 
-What's new in webpack 2 <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10194>
+What's new in webpack 2 <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10194>
 
 https://gist.github.com/sokra/27b24881210b56bbaff7
 
@@ -2893,9 +2893,9 @@ Everything You Need To Know About Parcel
   run specific build path
     parcel build index.js -d build/output
 
-### ParcelJs Official Documentation id=g_10195
+### ParcelJs Official Documentation id=g10195
 
-ParcelJs Official Documentation <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10195>
+ParcelJs Official Documentation <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10195>
 
 https://parceljs.org/getting_started.html
 
@@ -3074,9 +3074,9 @@ Multiple classes:
     button({className: "btn btn-default"}); // by space!
     button(".btn.btn-default");             // by dot!
 
-# nodejs id=g_10126
+# nodejs id=g10126
 
-  nodejs <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10126>
+  nodejs <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10126>
   expressjs
     multiple template engines
       http://expressjs.com/en/api.html
@@ -3341,8 +3341,8 @@ Multiple classes:
               if (!req.body) return res.sendStatus(400)
               res.send('welcome, ' + req.body.username)
             })
-    file upload - nodejs id=g_10125
-      file upload - nodejs <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10125>
+    file upload - nodejs id=g10125
+      file upload - nodejs <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10125>
       Form Fields and Upload At the Same Time using Formidable
         http://stackoverflow.com/questions/26996333/can-i-use-body-parser-and-formidable-at-the-same-time
         code
@@ -3753,14 +3753,14 @@ Multiple classes:
       });
       req.write(); // sending the request
 
-# Testing JS id=g_10611
+# Testing JS id=g10611
 
-	Testing JS <url:file:///~/projects/study/js/articles_js.md#r=g_10611>
-		Picking snapshot library id=g_10613
-			Picking snapshot library <url:file:///~/projects/study/js/articles_js.md#r=g_10613>
+	Testing JS <url:file:///~/projects/study/js/articles_js.md#r=g10611>
+		Picking snapshot library id=g10613
+			Picking snapshot library <url:file:///~/projects/study/js/articles_js.md#r=g10613>
 			https://glebbahmutov.com/blog/picking-snapshot-library/
-		Jest 14.0: React Tree Snapshot Testing id=g_10612
-			Jest 14.0: React Tree Snapshot Testing <url:file:///~/projects/study/js/articles_js.md#r=g_10612>
+		Jest 14.0: React Tree Snapshot Testing id=g10612
+			Jest 14.0: React Tree Snapshot Testing <url:file:///~/projects/study/js/articles_js.md#r=g10612>
 			https://jestjs.io/blog/2016/07/27/jest-14.html
 			intro
 				jest: zero-configuration testing
@@ -3790,8 +3790,8 @@ Multiple classes:
 
 # unclassified
 
-	Ramdajs  id=g_10190
-		Ramdajs  <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10190>
+	Ramdajs  id=g10190
+		Ramdajs  <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10190>
 		moved to <url:file:///~/projects/study/js/study_ramda.Rmd>
   Use EJS to Template Your Node Application
     https://scotch.io/tutorials/use-ejs-to-template-your-node-application
@@ -3803,10 +3803,10 @@ Multiple classes:
   https://code.lengstorf.com/learn-rollup-js/
   good blogs
     https://webapplog.com/tag/node-js/
-  next - articles_js id=g_10124
-    next - articles_js <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10124>
+  next - articles_js id=g10124
+    next - articles_js <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10124>
     ref
-      next - js egzersiz <url:file:///~/Dropbox/mynotes/stuff.otl#r=g_10123>
+      next - js egzersiz <url:file:///~/Dropbox/mynotes/stuff.otl#r=g10123>
     https://medium.freecodecamp.com/5-javascript-bad-parts-that-are-fixed-in-es6-c7c45d44fd81#.ht5ypbzbh
     https://medium.com/@rajaraodv/is-class-in-es6-the-new-bad-part-6c4e6fe1ee65#.8hcaar39k
   Wes Bos - Modern workflow and tooling for frontend developers-CiMGKZpnHQE.mp4

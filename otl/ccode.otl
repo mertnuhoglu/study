@@ -1,17 +1,17 @@
 _ id=r_lastid ccd_0010
 
 parent
-	refmine kms <url:file:///~/projects/myrepo/general/refmine.otl#r=g_11660>
+	refmine kms <url:file:///~/projects/myrepo/general/refmine.otl#r=g11660>
 index
-	bash <url:file:///~/projects/study/otl/ccode.otl#r=g_11687>
-	awk <url:file:///~/projects/study/otl/ccode.otl#r=g_11686>
+	bash <url:file:///~/projects/study/otl/ccode.otl#r=g11687>
+	awk <url:file:///~/projects/study/otl/ccode.otl#r=g11686>
 	regex ~/projects/study/otl/cregex.otl
 issues
 	Print documents with syntax coloring
 		source code:
-			ref: :TOhtml <url:file:///~/projects/study/otl/cvim.otl#r=g_11899>
+			ref: :TOhtml <url:file:///~/projects/study/otl/cvim.otl#r=g11899>
 		markdown docs:
-			ref: pandoc2 <url:file:///~/projects/study/otl/ccode.otl#r=g_11900>
+			ref: pandoc2 <url:file:///~/projects/study/otl/ccode.otl#r=g11900>
 stuff
 	quotes: single-quoted double-quoted 
 		https://stackoverflow.com/questions/3446216/what-is-the-difference-between-single-quoted-and-double-quoted-strings-in-php
@@ -133,8 +133,8 @@ browsers
 				H		tab history
 				T		tabs list
 cloud
-	gcloud # gcloud # google cloud  id=g_10740
-		gcloud # gcloud # google cloud  <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10740>
+	gcloud # gcloud # google cloud  id=g10740
+		gcloud # gcloud # google cloud  <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10740>
 			gcloud compute instances list
 			ssh ile bağlantı
 				https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys
@@ -174,8 +174,8 @@ cloud
 					how to connect with root?
 						there is no root user
 						but you can run `sudo`
-	aws # aws # amazon id=g_10640
-		aws # aws # amazon <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10640>
+	aws # aws # amazon id=g10640
+		aws # aws # amazon <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10640>
 		points aws
 			listing all resources 
 				list-resources cli
@@ -190,8 +190,8 @@ cloud
 			costs / billing reports
 				https://console.aws.amazon.com/billing/home?#/reports
 				https://console.aws.amazon.com/billing/home#/reports/usage
-			process: move a volume to another instance or restore a backup snapshot id=g_10744
-				process: move a volume to another instance or restore a backup snapshot <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10744>
+			process: move a volume to another instance or restore a backup snapshot id=g10744
+				process: move a volume to another instance or restore a backup snapshot <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10744>
 				ref
 					~/projects/bizqualify/BQ-data-run/datarun/restore_snapshot_on_aws_ec2_20181220.md
 					https://www.techrepublic.com/blog/the-enterprise-cloud/backing-up-and-restoring-snapshots-on-amazon-ec2-machines/
@@ -280,19 +280,19 @@ cloud
 					aws ec2 describe-addresses | jq '.Addresses[].PublicIp'
 						"34.215.116.149"
 					aws ec2 associate-address --instance-id i-03317e7025b6e7aaf --public-ip 34.215.116.149
-			process: setup ec2 instance from terminal id=g_10726
-				process: setup ec2 instance from terminal <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10726>
+			process: setup ec2 instance from terminal id=g10726
+				process: setup ec2 instance from terminal <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10726>
 				ref
-					aws ec2 User Guide <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10165>
+					aws ec2 User Guide <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10165>
 			creating a new iam user 
-				ref: Creating IAM Admin User and Group <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10642>
+				ref: Creating IAM Admin User and Group <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10642>
 			where are configuration and credentials info?
 				~/.aws/config
 				~/.aws/credentials
 			users groups and root
 				root is your actual aws account: mert.nuhoglu@gmail.com
 					but you shouldn't use it at all 
-					see: ref: Creating IAM Admin User and Group <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10642>
+					see: ref: Creating IAM Admin User and Group <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10642>
 				ex: groups 
 					Administrators, Readers, Developers
 				you will have multiple iam users
@@ -683,8 +683,8 @@ cloud
 											"Resource": ["*"]
 									}]
 								}
-		aws ec2 User Guide id=g_10165
-			aws ec2 User Guide <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10165>
+		aws ec2 User Guide id=g10165
+			aws ec2 User Guide <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10165>
 			http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/RootDeviceStorage.html?shortFooter=true
 			What is EC2
 				Amazon EC2 Root Device Volume
@@ -861,8 +861,8 @@ cloud
 					create IAM user credentials for interaction with AWS
 				You can have multiple unique credentials for each user
 					Define who has access to which resources
-				Tasks That Require Root User Credentials id=g_10641
-					Tasks That Require Root User Credentials <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10641>
+				Tasks That Require Root User Credentials id=g10641
+					Tasks That Require Root User Credentials <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10641>
 					https://docs.aws.amazon.com/general/latest/gr/aws_tasks-that-require-root.html
 					Modify root user password
 					Change support plan
@@ -921,12 +921,12 @@ cloud
 					https://iterative.signin.aws.amazon.com/console
 			Getting Started
 				First: set up an admin group for your AWS account
-				Creating IAM Admin User and Group id=g_10642
-					Creating IAM Admin User and Group <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10642>
+				Creating IAM Admin User and Group id=g10642
+					Creating IAM Admin User and Group <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10642>
 					https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html
 					Recommended: Don't use root user for any task if it is not required
 						create a new IAM user instead
-						see: Tasks That Require Root User Credentials <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10641>
+						see: Tasks That Require Root User Credentials <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10641>
 					opt01: Console
 						Sign in to IAM console using root user
 							https://console.aws.amazon.com/iam/
@@ -1162,8 +1162,8 @@ cloud
 			sudo update-alternatives --config java
 			sudo nano /etc/environment
 				JAVA_HOME="/usr/lib/jvm/java-8-oracle"
-	netlify # netlify id=g_10732
-		netlify # netlify <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10732>
+	netlify # netlify id=g10732
+		netlify # netlify <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10732>
 		articles
 			https://www.savjee.be/2017/10/Static-website-hosting-who-is-fastest/
 				static website
@@ -1220,10 +1220,10 @@ databases
 		horizontal partition of data
 		each shard is held on a separate database server instance
 development practices and methods
-	development practices and methods id=g_10659
-		development practices and methods <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10659>
-		beklenmedik hatalarda küçük şekillerde test et: id=g_10660
-			beklenmedik hatalarda küçük şekillerde test et: <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10660>
+	development practices and methods id=g10659
+		development practices and methods <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10659>
+		beklenmedik hatalarda küçük şekillerde test et: id=g10660
+			beklenmedik hatalarda küçük şekillerde test et: <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10660>
 			opt01: write_csv(df[from:to,])
 				ref: <url:/Users/mertnuhoglu/projects/bizqualify/BQ-data-run/datarun/debug_missing_data_20181027.md#tn=Disable Scientific Notation in write_csv>
 				code
@@ -1236,22 +1236,22 @@ development practices and methods
 					FROM ad09_minus_ad11;
 				INSERT INTO data_20181105.all_data3 
 					select bq_total_assets from data_20181105.all_data_bq_total_assets where bq_total_assets IS NOT NULL limit 10;
-		attention/typo like mistakes id=g_10661
-			attention/typo like mistakes <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10661>
+		attention/typo like mistakes id=g10661
+			attention/typo like mistakes <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10661>
 			ref
-				standart/dikkat hatalarını gözden geçir 20180918	<url:file:///~/Dropbox/mynotes/general/rules.md#r=g_10506>
+				standart/dikkat hatalarını gözden geçir 20180918	<url:file:///~/Dropbox/mynotes/general/rules.md#r=g10506>
 			opt01: running a temporary script instead of the real one
 				ex:
 					running a temporary <script>_02.sh script because of copy-pasting:
 						./28_backup_and_load_to_production_02.sh data_${data_run_date} 
 					solution:
 						./28_backup_and_load_to_production.sh data_${data_run_date} 
-git git2 id=g_10500
-	git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10500>
+git git2 id=g10500
+	git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10500>
 		multiple remote locations: gitlab ve github
 			ref
-				POC uygulamalarını bitbucket'tan github'a taşı 20210412  <url:file:///~/projects/study/logbook/log_20210412.md#r=g_12089>
-				gitlab, bitbucket, github repolarını sync et 20200415  <url:file:///~/projects/study/logbook/log_20200415.md#r=g_12087>
+				POC uygulamalarını bitbucket'tan github'a taşı 20210412  <url:file:///~/projects/study/logbook/log_20210412.md#r=g12089>
+				gitlab, bitbucket, github repolarını sync et 20200415  <url:file:///~/projects/study/logbook/log_20200415.md#r=g12087>
 		revert a file to a commit
 			git checkout c5f567 -- file1/to/restore
 		git tag
@@ -1283,8 +1283,8 @@ git git2 id=g_10500
 		git diff two dirs outside of repo 
 			https://stackoverflow.com/a/7945988/29246
 				git diff --no-index a b >> patch
-		search git logs id=g_10562
-			search git logs <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10562>
+		search git logs id=g10562
+			search git logs <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10562>
 			https://www.gun.io/blog/git-search-log
 				search log messages
 					git log --grep="word" 
@@ -1295,8 +1295,8 @@ git git2 id=g_10500
 				-S: pickaxe option
 				Line Log Search
 					git log -L :function_name:file_name.c  # show changes in this function
-		detached HEAD id=g_10553
-			detached HEAD <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10553>
+		detached HEAD id=g10553
+			detached HEAD <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10553>
 			https://www.git-tower.com/learn/git/faq/detached-head-when-checkout-commit
 				understanding how checkout works
 					git checkout <revision>
@@ -1333,8 +1333,8 @@ git git2 id=g_10500
 				git push origin :<old> <new> # delete remote branch and push new branch
 				git push origin -u <new> # reset upstream branch for new branch
 		errors git 
-			error: could not lock config file /Users/mertnuhoglu/.gitconfig: File exists id=g_10579
-				error: could not lock config file /Users/mertnuhoglu/.gitconfig: File exists <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10579>
+			error: could not lock config file /Users/mertnuhoglu/.gitconfig: File exists id=g10579
+				error: could not lock config file /Users/mertnuhoglu/.gitconfig: File exists <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10579>
 				google: 
 					could not lock config file .gitconfig file exists 
 					on every shell
@@ -1350,10 +1350,10 @@ git git2 id=g_10500
 						sudo chown mertnuhoglu:mertnuhoglu /Users/mertnuhoglu/projects/private_dotfiles
 						error: chown: mertnuhoglu: illegal group name
 							sudo chown mertnuhoglu: /Users/mertnuhoglu/projects/private_dotfiles
-			cannot push because HEAD is detached id=g_10516
-				cannot push because HEAD is detached <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10516>
+			cannot push because HEAD is detached id=g10516
+				cannot push because HEAD is detached <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10516>
 				ref
-					detached HEAD <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10553>
+					detached HEAD <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10553>
 				msg
 					hint: Updates were rejected because a pushed branch tip is behind its remote
 					hint: counterpart. Check out this branch and integrate the remote changes
@@ -1378,8 +1378,8 @@ git git2 id=g_10500
 			could not lock config file /Users/mertnuhoglu/.gitconfig: File exists
 				https://askubuntu.com/questions/258288/trouble-setting-up-git-error-could-not-lock-config-file
 					rm ~/.gitconfig.lock
-		git log id=g_10499
-			git log <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10499>
+		git log id=g10499
+			git log <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10499>
 			atlassian git cheatsheet
 				https://www.atlassian.com/dam/jcr:8132028b-024f-4b6b-953e-e68fcce0c5fa/atlassian-git-cheatsheet.pdf
 				git log -<limit>
@@ -1401,8 +1401,8 @@ git git2 id=g_10500
 				revision ranges
 					git log master # branch
 					git log v1.0.0 # tag
-		undo changes in git id=g_10543
-			undo changes in git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10543>
+		undo changes in git id=g10543
+			undo changes in git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10543>
 			https://docs.gitlab.com/ee/topics/git/numerous_undo_possibilities_in_git/
 				Undo local changes which were not pushed to remote repository
 					before commit
@@ -1442,10 +1442,10 @@ git git2 id=g_10500
 					replace last commit with staged changes
 				git rebase <base>
 				git reflog
-		tags git id=g_10495
-			tags git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10495>
-			move tag to another commit id=g_10518
-				move tag to another commit <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10518>
+		tags git id=g10495
+			tags git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10495>
+			move tag to another commit id=g10518
+				move tag to another commit <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10518>
 				ref
 					Moving Existing Git Tags <url:/Users/mertnuhoglu/projects/study/git/study_git_tags.Rmd#tn=## Moving Existing Git Tags>
 				https://stackoverflow.com/questions/8044583/how-can-i-move-a-tag-on-a-git-branch-to-a-different-commit/28280404
@@ -1470,8 +1470,8 @@ git git2 id=g_10500
 			push tags and commits together
 				git push --follow-tags
 		git diff 
-			diff previous commit id=g_10517
-				diff previous commit <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10517>
+			diff previous commit id=g10517
+				diff previous commit <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10517>
 				opt
 					https://stackoverflow.com/questions/9903541/finding-diff-between-current-and-last-version
 					git diff HEAD^ HEAD
@@ -1517,8 +1517,8 @@ git git2 id=g_10500
 			git stash
 			git checkout other-branch
 			git stash pop
-		branch merging - git id=g_10556
-			branch merging - git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10556>
+		branch merging - git id=g10556
+			branch merging - git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10556>
 			refcard - branch merging
 				# co = checkout
 				# dev is a branch
@@ -1527,8 +1527,8 @@ git git2 id=g_10500
 				# resolve conflicts
 				git co master
 				git merge --no-ff dev
-			Git Merge vs. Rebase: What’s the Diff? id=g_10554
-				Git Merge vs. Rebase: What’s the Diff?  <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10554>
+			Git Merge vs. Rebase: What’s the Diff? id=g10554
+				Git Merge vs. Rebase: What’s the Diff?  <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10554>
 				https://hackernoon.com/git-merge-vs-rebase-whats-the-diff-76413c117333
 				intro
 					`git merge` and `git rebase`
@@ -1538,8 +1538,8 @@ git git2 id=g_10500
 					Use merge in cases where you want a set of commits to be clearly grouped together in history
 					Use rebase when you want to keep a linear commit history
 					DON’T use rebase on a public/shared branch
-			Visualize Merge History with git log --graph, --first-parent, and --no-merges id=g_10555
-				Visualize Merge History with git log --graph, --first-parent, and --no-merges <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10555>
+			Visualize Merge History with git log --graph, --first-parent, and --no-merges id=g10555
+				Visualize Merge History with git log --graph, --first-parent, and --no-merges <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10555>
 				https://redfin.engineering/visualize-merge-history-with-git-log-graph-first-parent-and-no-merges-c6a9b5ff109c
 				intro
 					`git log` is confusing when history contains merges
@@ -1887,14 +1887,14 @@ firebug
 				console > enable
 				console > persist
 bash
-	bash2 id=g_11687
+	bash2 id=g11687
 		makefile
-			ref: Makefile for build and install <url:file:///~/projects/study/otl/cr.otl#r=g_12099>
+			ref: Makefile for build and install <url:file:///~/projects/study/otl/cr.otl#r=g12099>
 		points
 			list files with absolute paths
 				ls -d "$PWD"/* 
-		prompt customization - bash id=g_10644
-			prompt customization - bash <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10644>
+		prompt customization - bash id=g10644
+			prompt customization - bash <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10644>
 			ref
 				http://ezprompt.net
 			current dir
@@ -1928,7 +1928,7 @@ bash
 				cd "`pwd`"
 				better: $(..)
 					output=$(sed -n /"$1"/p $file)
-	awk id=g_11686
+	awk id=g11686
 		awk
 			built-in variables
 				OFS	output field separator
@@ -1983,13 +1983,13 @@ bash
 				https://github.com/so-fancy/diff-so-fancy
 	fd: find replacement fd2 find2
 		batch delete files with find xargs
-			ref: xargs <url:file:///~/projects/study/otl/ccode.otl#r=g_10805>
+			ref: xargs <url:file:///~/projects/study/otl/ccode.otl#r=g10805>
 		help:
 			fd --help
 				örneklerle çok güzel dokümante edilmiş
 		examples:
 			fd --change-newer-than  '2020-12-07 06:00:00' --change-older-than  '2020-12-08 10:00:00'
-				ref: Belli bir date tarihte update edilen dosyaları nasıl bulurum? <url:file:///~/projects/study/bash/study_fd.md#r=g_11822>
+				ref: Belli bir date tarihte update edilen dosyaları nasıl bulurum? <url:file:///~/projects/study/bash/study_fd.md#r=g11822>
 		https://github.com/sharkdp/fd
 		ref
 			<url:file:///~/projects/study/vim/vim_ex_fzf_fuzzy_file_finder.Rmd> 
@@ -2026,7 +2026,7 @@ bash
 				(press ^D)
 				# output: 
 				60 7a
-	pandoc2 id=g_11900
+	pandoc2 id=g11900
 		FILE=valve_usecase_shut_work_order
 		find . -maxdepth 1 -type f -iname "*.md" -print0 | xargs --null -I{} pandoc --output {}.docx --standalone {} | echo
 		pandoc --output $FILE.docx --standalone $FILE.md
@@ -2064,13 +2064,13 @@ bash
 					list sessions
 				screen -x
 					attach to session
-	sed sed2 id=g_10806
+	sed sed2 id=g10806
 		sed
-			sed <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10806>
+			sed <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10806>
 			[Sed Cheatsheet](https://gist.github.com/sergeyklay/4641c7665b262680f8b9cf38de923af1)
 			options
 				-n			print if match
-					echo "id=g_10843" | sed -n "/=g/p" 
+					echo "id=g10843" | sed -n "/=g/p" 
 					sed -n '3 p' config.conf
 				-p			print pattern space
 				q				quit
@@ -2158,7 +2158,7 @@ bash
 				replace in file
 					sed -i -e 's/=g_\([[:digit:]][[:digit:]]*\)/=g\1/g' devcards.md
 				convert g_101 -> g101
-					echo "id=g_10843" | sed -e "s/=g_\([[:digit:]][[:digit:]]*\)/=g\1/g" 
+					echo "id=g10843" | sed -e "s/=g_\([[:digit:]][[:digit:]]*\)/=g\1/g" 
 				double every empty line
 				sed '/^$/ p'
 				act like grep
@@ -2194,8 +2194,8 @@ bash
 		ssh
 			ref
 				ssh key <url:/Users/mertnuhoglu/projects/study/bash/examples_bash.Rmd#tn=ssh key>
-			keep ssh sessions alive - drop out time id=g_10643
-				keep ssh sessions alive - drop out time <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10643>
+			keep ssh sessions alive - drop out time id=g10643
+				keep ssh sessions alive - drop out time <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10643>
 				https://sysadmincasts.com/episodes/39-cli-monday-how-to-keep-your-ssh-sessions-alive
 					local
 						$ cat ~/.ssh/config
@@ -2221,9 +2221,9 @@ bash
 			port forwarding
 				ssh user@host.com -NfL 3333:localhost:8888
 					open browser to connect to remote server
-	xargs id=g_10805
+	xargs id=g10805
 		xargs
-			xargs <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10805>
+			xargs <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10805>
 			find files and convert them using pandoc to markdown
 				find . -type f -iname "*.docx" -print0 | xargs --null -I{} pandoc -f docx -t markdown '{}' -o '{}.md'
 			find files and remove them
@@ -2260,8 +2260,8 @@ bash
 						-l: use one line per command as parameter
 	zsh
 		articles
-			zsh line editor and creating custom widgets id=g_10558
-				zsh line editor and creating custom widgets <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10558>
+			zsh line editor and creating custom widgets id=g10558
+				zsh line editor and creating custom widgets <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10558>
 				https://sgeb.io/posts/2014/04/zsh-zle-custom-widgets/
 				zsh line editor: command prompt
 				keymaps
@@ -2338,8 +2338,8 @@ bash
 						$ zle -l
 		zsh plugins
 			zsh plugins
-				antigen id=g_10559
-					antigen <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10559>
+				antigen id=g10559
+					antigen <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10559>
 					https://github.com/zsh-users/antigen
 					install
 						brew install antigen
@@ -2352,8 +2352,8 @@ bash
 						https://joshldavis.com/2014/07/26/oh-my-zsh-is-a-disease-antigen-is-the-vaccine/
 							antigen: similar to Vundle
 							addresses issues with oh-my-zsh
-				forgit  id=g_10561
-					forgit  <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10561>
+				forgit  id=g10561
+					forgit  <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10561>
 					ref
 						<url:/Users/mertnuhoglu/.zshenv#tn=forgit aliases>
 					https://github.com/wfxr/forgit
@@ -2363,8 +2363,8 @@ bash
 					gd: git diff
 					gcf: git checkout <file>
 					gclean: git clean
-				fzf-z id=g_10560
-					fzf-z <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10560>
+				fzf-z id=g10560
+					fzf-z <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10560>
 					usage
 						^g		list directories (subdirs, recent dirs, all in FZFZ_EXTRA_DIRS)
 						$ fzfz-file-widget
@@ -2373,8 +2373,8 @@ bash
 					https://github.com/leophys/zsh-plugin-fzf-finder
 					!e   # shortcut
 					$ fzf-finder-widget
-				zsh-autosuggestions id=g_10557
-					zsh-autosuggestions <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10557>
+				zsh-autosuggestions id=g10557
+					zsh-autosuggestions <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10557>
 					https://github.com/zsh-users/zsh-autosuggestions
 					usage:
 						$ echo <^F> # forward-char
@@ -2384,13 +2384,13 @@ bash
 						# make iterm2 send '[[AS' when !space is pressed
 					which shortcut is bound?
 						bindkey | rg autosuggest-accept
-clojure clojure2 id=g_11835
-	clojure2 <url:file:///~/projects/study/otl/ccode.otl#r=g_11835>
+clojure clojure2 id=g11835
+	clojure2 <url:file:///~/projects/study/otl/ccode.otl#r=g11835>
 	ref
 		~/projects/study/clj/clojure.otl
 networking
-	http protocol id=g_10631
-		http protocol <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10631>
+	http protocol id=g10631
+		http protocol <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10631>
 			articles - http
 				Bir web isteğinin anatomisi
 					https://medium.com/@gokhansengun/bir-web-iste%C4%9Finin-anatomisi-ec54d78c8da5
@@ -2424,10 +2424,10 @@ networking
 					ex 
 						$ sudo cp $(which ping) .
 						$ sudo dtruss ./ping google.com
-			veri gönderme - http id=g_10651
-				veri gönderme - http <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10651>
+			veri gönderme - http id=g10651
+				veri gönderme - http <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10651>
 				ref
-					Form Data: x-www-form-urlencoded and form-data <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10650>
+					Form Data: x-www-form-urlencoded and form-data <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10650>
 				verilerin gönderilmesi için iki enctype seçeneği var:
 					x-www-form-urlencoded ve form-data
 					x-www-form-urlencoded olunca, tüm veriler bir key-value pair'ları halinde POST body içinde gönderiliyor
@@ -2443,8 +2443,8 @@ networking
 							curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: application/json" -d '[{"company_id": "103", "company_name":"company_103"},{"company_id": "102", "company_name":"company_102"}]'  http://localhost:8080/rest/company
 							curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: application/json" --data-binary @company02.json http://localhost:8080/rest/company
 							curl -H "Authorization: Bearer $JWT_TOKEN" -H "Content-Type: application/json" --form file=@company02.json http://localhost:8080/rest/company
-			Form Data: x-www-form-urlencoded and form-data id=g_10650
-				Form Data: x-www-form-urlencoded and form-data <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10650>
+			Form Data: x-www-form-urlencoded and form-data id=g10650
+				Form Data: x-www-form-urlencoded and form-data <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10650>
 				https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
 					https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms
 					https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data
@@ -2489,7 +2489,7 @@ networking
 									include file picker widgets
 				https://developer.mozilla.org/en-US/docs/Web/HTTP
 					https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
-			post size limit id=g_10756
+			post size limit id=g10756
 				https://stackoverflow.com/questions/2880722/is-http-post-limitless
 					no limit by POST method
 					depends on the web server and browser
@@ -2500,7 +2500,7 @@ networking
 					nginx.conf
 					http {
 						client_max_body_size 20M;
-									post size limit <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10756>
+									post size limit <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10756>
 				https://stackoverflow.com/questions/2880722/is-http-post-limitless
 					no limit by POST method
 					depends on the web server and browser
@@ -2600,8 +2600,8 @@ ruby
 					thrice do 
 						<url:file:///...>
 					end
-tmux id=g_10599
-		tmux <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10599>
+tmux id=g10599
+		tmux <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10599>
 		show options
 			:show-options -g
 			tmux show-options -g
@@ -2670,8 +2670,8 @@ tmux id=g_10599
 		shortcuts
 			prefix ?		list-keys		shortcuts
 			`f		find window
-		custom tmux keybindings with # Cmd @mine id=g_10536
-			custom tmux keybindings with # Cmd @mine <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10536>
+		custom tmux keybindings with # Cmd @mine id=g10536
+			custom tmux keybindings with # Cmd @mine <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10536>
 			how to do it
 				https://medium.freecodecamp.org/tmux-in-practice-iterm2-and-tmux-integration-7fb0991c6c01
 					steps
@@ -2843,8 +2843,8 @@ curl
 				curl --head <url>
 			include extra header
 				curl -H "{{X-Myheader: 123}}" <url>
-		media type (MIME type / content type) id=g_10155
-			media type (MIME type / content type) <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10155>
+		media type (MIME type / content type) id=g10155
+			media type (MIME type / content type) <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10155>
 			https://en.wikipedia.org/wiki/Media_type
 				two-part identifier for file formats
 				IANA (Internet Assigned Numbers Authority) manages
@@ -3019,13 +3019,13 @@ tools
 				unmute/mute selected    u
 				export selected  #e
 				export multiple  #L
-	balsamiq mockups id=g_10710
-		balsamiq mockups <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10710>
+	balsamiq mockups id=g10710
+		balsamiq mockups <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10710>
 			shortcuts
 				/ +		quick add
 				+enter		add control
-	docker id=g_10120
-		docker <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10120>
+	docker id=g10120
+		docker <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10120>
 			refcard
 				docker exec -it vrp_java_1 bash
 			disk space cleaning
@@ -3069,8 +3069,8 @@ tools
 						<url:file:///~/codes/pg/test04b/docker-compose.yml>
 							image: postgres:9.6
 								- "./postgresql/data:/var/lib/postgresql/data"
-				problem: bir dizini mount edebiliyorum, ama bir dosyayı edemiyorum id=g_10514
-					problem: bir dizini mount edebiliyorum, ama bir dosyayı edemiyorum <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10514>
+				problem: bir dizini mount edebiliyorum, ama bir dosyayı edemiyorum id=g10514
+					problem: bir dizini mount edebiliyorum, ama bir dosyayı edemiyorum <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10514>
 					ref
 						<url:file:///~/codes/pg/test04b/docker-compose.yml>
 						https://stackoverflow.com/questions/42248198/how-to-mount-a-single-file-in-a-volume
@@ -3760,8 +3760,8 @@ tools
 						ssh docker@192.168.99.100
 						user: docker
 						pass: tcuser
-			How to execute host's Docker command from container? id=g_10127
-				How to execute host's Docker command from container? <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10127>
+			How to execute host's Docker command from container? id=g10127
+				How to execute host's Docker command from container? <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10127>
 				ref
 					http://stackoverflow.com/questions/34687421/docker-issue-command-from-one-linked-container-to-another
 					http://stackoverflow.com/questions/31625679/how-to-execute-hosts-docker-command-from-container
@@ -4510,11 +4510,11 @@ tools
 										}
 								}
 						}'
-	google docs / google drive / gdocs id=g_10711
-		ref: gdrive gdrive2 google drive <url:file:///~/projects/study/other/refcard.otl#r=g_11799>
+	google docs / google drive / gdocs id=g10711
+		ref: gdrive gdrive2 google drive <url:file:///~/projects/study/other/refcard.otl#r=g11799>
 		google sheets2 gsheets
-			ref: googlesheets google sheets sheets2 <url:file:///~/projects/study/other/refcard.otl#r=g_12085>
-		google docs / google drive / gdocs <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10711>
+			ref: googlesheets google sheets sheets2 <url:file:///~/projects/study/other/refcard.otl#r=g12085>
+		google docs / google drive / gdocs <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10711>
 			spreadsheet
 				shortcuts
 					!/			quick command
@@ -4532,8 +4532,8 @@ tools
 					'[0:0] [0:1] [1:0] [1:1] [2:0] [2:1] \
 					 concat=n=3:v=1:a=1 [v] [a]' \
 					-map '[v]' -map '[a]' output.mp4
-	fzf: fuzzy file finder id=g_10242
-		fzf: fuzzy file finder <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10242>
+	fzf: fuzzy file finder id=g10242
+		fzf: fuzzy file finder <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10242>
 			https://github.com/junegunn/fzf
 			refcard fzf
 				bash
@@ -4895,7 +4895,7 @@ tools
 					!c    cd into selected dir
 	lf: file manager (list files) lf2 id=g12347
 		Issue: Open Excel files with vd (Excel dosyalarını vd ile açmak): <url:file:///~/projects/study/code/study_lf.md#r=g12348>
-		toggle preview kısayolu oluştur <url:file:///~/projects/study/code/study_lf.md#r=g_11823>
+		toggle preview kısayolu oluştur <url:file:///~/projects/study/code/study_lf.md#r=g11823>
 		dosya silme delete file  <url:file:///~/projects/study/code/study_lf.md#r=g12349>
 		shortcuts lf  <url:file:///~/projects/study/code/study_lf.md#r=g12350>
 		Customizations lf <url:file:///~/projects/study/code/study_lf.md#r=g12351>
@@ -4915,8 +4915,8 @@ tools
 					header columns to sort
 				fn+up/dn: page scroll
 				space: line scroll
-	hugo id=g_10167
-			hugo <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10167>
+	hugo id=g10167
+			hugo <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10167>
 			@mine
 				temalar themes
 					elegant
@@ -5066,7 +5066,7 @@ tools
 			js javascript and ts typescript support
 				install nodejs plugin
 			live reload and hotswap
-				LiveReload ve HotSwap <url:file:///~/Dropbox/mynotes/content/code/cjava/cjava.md#r=g_10147>
+				LiveReload ve HotSwap <url:file:///~/Dropbox/mynotes/content/code/cjava/cjava.md#r=g10147>
 				LiveReload
 					bu css/html/js güncellemelerini otomatik yükler
 					ayarlamasını yapamadım
@@ -5642,7 +5642,7 @@ tools
 			delete/remove user
 				use dentas
 				db.dropUser("myUserAdmin")
-			convert String field to Date field in mongodb id=g_10148
+			convert String field to Date field in mongodb id=g10148
 				make date from validFrom
 					var validFrom = "1.4.2017"
 					var ad = new Date(validFrom)
@@ -5692,8 +5692,8 @@ tools
 			SSL/TLS certificates <url:#r=ccd_0003>
 		openresty
 			ref
-				~/projects/study/code/study_openresty.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10751>
-				~/projects/study/code/nginx_rate_limiting.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10752>
+				~/projects/study/code/study_openresty.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10751>
+				~/projects/study/code/nginx_rate_limiting.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10752>
 			articles - openresty
 				https://github.com/beiyannanfei/test/blob/e7c45217a8460d01c1076dc9d977494899dd83e8/SENSORO/macNginx/nginx_03.conf
 				https://www.digitalocean.com/community/tutorials/understanding-the-nginx-configuration-file-structure-and-configuration-contexts
@@ -6160,8 +6160,8 @@ tools
 							allo  other to proxied server
 				FastCGI Proxying
 					to run applications with PHP
-		how-to-set-up-nginx-server-blocks id=g_10106
-			how-to-set-up-nginx-server-blocks <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10106>
+		how-to-set-up-nginx-server-blocks id=g10106
+			how-to-set-up-nginx-server-blocks <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10106>
 			https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04-lts
 			step 1: set up new document root directories
 				by default:
@@ -6209,7 +6209,7 @@ tools
 			git commit
 			git push
 	osx osx2
-		ref: shortcuts kısayollar keybindings - osx <url:file:///~/projects/study/otl/cosx.otl#r=g_12084>
+		ref: shortcuts kısayollar keybindings - osx <url:file:///~/projects/study/otl/cosx.otl#r=g12084>
 		sesli kayıt alma - audio recording
 			Simple Recorder: küresel kısayollarla ses kaydı başlatıp tamamlama
 			Vox: Playlist ile bunları dinleme
@@ -6262,7 +6262,7 @@ tools
 			copyq: multiple clipboard manager
 	ranger
 		ref
-			Index <url:file:///~/projects/study/code/study_ranger.md#r=g_11809>
+			Index <url:file:///~/projects/study/code/study_ranger.md#r=g11809>
 		| m<any>                   | mark bookmark                |
 		| '<any>                   | goto bookmark                |
 		| ?k                       | help for keybindings         |
@@ -6335,7 +6335,7 @@ tools
 	vd visidata spreadsheet vd2
 		ref
 			~/projects/study/code/study_visidata.md
-			refcard visidata <url:file:///~/projects/study/code/study_visidata.md#r=g_11578>
+			refcard visidata <url:file:///~/projects/study/code/study_visidata.md#r=g11578>
 		examples
 			vd https://en.wikipedia.org/wiki/ISO_3166-1
 				scrapes data in html web pages 
@@ -6351,12 +6351,12 @@ tools
 						> Settings
 							> .File: ...
 							Encapsulation method: ..
-	webfaction id=g_10566
+	webfaction id=g10566
 		webfaction
-			webfaction <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10566>
+			webfaction <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10566>
 			ref
-				## 1-201 webfaction <url:file:///~/Dropbox/mynotes/nx/keynote/kodlar/webapps.md#r=g_10565>
-				webfaction @cnn <url:file:///~/Dropbox/mynotes/nx/nsettings.md#r=g_10577>
+				## 1-201 webfaction <url:file:///~/Dropbox/mynotes/nx/keynote/kodlar/webapps.md#r=g10565>
+				webfaction @cnn <url:file:///~/Dropbox/mynotes/nx/nsettings.md#r=g10577>
 			redirection of subdomains
 				redirect wf to digitalocean
 					admin | domains | .choose domain
@@ -6386,7 +6386,7 @@ tools
 					# get files 
 					rsync -Paz mertnuhoglu@mertnuhoglu.webfactional.com:/home/mertnuhoglu/files/backup ~/projects/backup
 				put backup files here:
-					webfaction @cnn <url:file:///~/Dropbox/mynotes/nx/nsettings.md#r=g_10577>
+					webfaction @cnn <url:file:///~/Dropbox/mynotes/nx/nsettings.md#r=g10577>
 	word2vec
 			how does it work
 				input: text corpus
@@ -6980,8 +6980,8 @@ topics
 				only one level of subdomain
 					not be valid for the certificate:
 					test.login.example.com
-			How To Secure Nginx with Let's Encrypt on Ubuntu 16.04 id=g_10164
-				How To Secure Nginx with Let's Encrypt on Ubuntu 16.04 <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10164>
+			How To Secure Nginx with Let's Encrypt on Ubuntu 16.04 id=g10164
+				How To Secure Nginx with Let's Encrypt on Ubuntu 16.04 <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10164>
 				https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
 				install certbot
 					sudo add-apt-repository ppa:certbot/certbot
@@ -7147,8 +7147,8 @@ topics
 	Serverless
 		serverless
 			articles
-				Serverless Patterns and Anti-patterns - Joe Emison id=g_10713
-					Serverless Patterns and Anti-patterns - Joe Emison <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10713>
+				Serverless Patterns and Anti-patterns - Joe Emison id=g10713
+					Serverless Patterns and Anti-patterns - Joe Emison <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10713>
 					https://www.youtube.com/watch?v=U0X0j9mt8gA
 					what why how
 						serverless means: 
@@ -7975,11 +7975,11 @@ unclassified
 			build community
 			own your content
 			learn from others
-index_rmd for code files id=g_10749
-	index_rmd for code files <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10749>
+index_rmd for code files id=g10749
+	index_rmd for code files <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10749>
 		~/projects/study/code/mongodb_import_export_dump_restore_commands.Rmd
-		~/projects/study/code/nginx_rate_limiting.Rmd id=g_10752
-			~/projects/study/code/nginx_rate_limiting.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10752>
+		~/projects/study/code/nginx_rate_limiting.Rmd id=g10752
+			~/projects/study/code/nginx_rate_limiting.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10752>
 			tut01
 				ex00
 					$ docker run -it --rm -p 80:80 sportebois/nginx-rate-limit-sandbox
@@ -8032,8 +8032,8 @@ index_rmd for code files id=g_10749
 						location /internal/rest/ {
 							limit_req zone=by_uri;
 		~/projects/study/code/study_aws_cli.Rmd
-		~/projects/study/bash/study_curl.Rmd id=g_10775
-			~/projects/study/bash/study_curl.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10775>
+		~/projects/study/bash/study_curl.Rmd id=g10775
+			~/projects/study/bash/study_curl.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10775>
 			sof: How to set up a reverse Telnet on Mac OS X
 			Debugging curl requests
 				stackoverflow:
@@ -8054,7 +8054,7 @@ index_rmd for code files id=g_10749
 							...
 			List open ports with netstat
 				$ lsof -Pn -i4 | rg 2399
-			Debug: make a query to postgrest id=g_10773
+			Debug: make a query to postgrest id=g10773
 				Debug using curl GET
 					opt01: use netcat to debug
 						nc -l -p 8888
@@ -8067,11 +8067,11 @@ index_rmd for code files id=g_10749
 						response <- httr::GET("http://localhost:8888/rest/table01")
 					opt02: use verbose() to debug
 						response <- httr::GET("http://localhost:8080/rest/table01", verbose())
-			Debug: Insert data with POST to postgrest  id=g_10774
+			Debug: Insert data with POST to postgrest  id=g10774
 				Debug using curl POST
 				Debug using R httr::POST
-		~/projects/study/bash/study_netcat_nc.Rmd id=g_10776
-			~/projects/study/bash/study_netcat_nc.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10776>
+		~/projects/study/bash/study_netcat_nc.Rmd id=g10776
+			~/projects/study/bash/study_netcat_nc.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10776>
 			Official Manual
 				Start a server:
 					nc -l -p 2399
@@ -8081,8 +8081,8 @@ index_rmd for code files id=g_10749
 				Client-Server
 			8 Practical Linux Netcat NC Command Examples
 				`netstat`
-		~/projects/study/code/study_openresty.Rmd id=g_10751
-			~/projects/study/code/study_openresty.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10751>
+		~/projects/study/code/study_openresty.Rmd id=g10751
+			~/projects/study/code/study_openresty.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10751>
 			ex
 				ex01
 					nginx.conf

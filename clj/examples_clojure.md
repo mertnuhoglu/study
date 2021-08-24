@@ -18,7 +18,7 @@ state: wip
 
 # Index
 
-## repl id=g_11312
+## repl id=g11312
 
 ``` clojure
 (str *1 " result of most recent evaluation")
@@ -26,7 +26,7 @@ state: wip
 (load-file "file.clj")
 ``` 
 
-ref: `Helper functions <url:file:///~/projects/study/clj/book_learn_clojure.md#r=g_11313>`
+ref: `Helper functions <url:file:///~/projects/study/clj/book_learn_clojure.md#r=g11313>`
 
 ``` clojure
 (doc +)

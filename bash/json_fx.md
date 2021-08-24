@@ -12,9 +12,9 @@ output: rmarkdown::html_document
 
 ---
 
-# Quickstart fx id=g_11922
+# Quickstart fx id=g11922
 
-# Index fx id=g_11921
+# Index fx id=g11921
 
 # Issues fx
 

@@ -432,7 +432,7 @@ active
 
 ___
 
-## How to implement a `many_to_many` relationship in PostgreSQL? `id=g_10176`
+## How to implement a `many_to_many` relationship in PostgreSQL? `id=g10176`
 
 ··  `` CREATE TABLE product (  `` <br>
 ····  `` product_id serial PRIMARY KEY  -- implicit primary key constraint  `` <br>

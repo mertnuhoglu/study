@@ -14,7 +14,7 @@ output:
 
 ---
 
-# Issues coc.vim id=g_11955
+# Issues coc.vim id=g11955
 
   |:CocDisable| disable autocompletion| 
 
@@ -47,6 +47,6 @@ CocConfig
 
 Settings in: `~/projects/private_dotfiles/.config/nvim/coc-settings.json`
 
-Example configuration in: `": coc.vim {{{ <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11954>`
+Example configuration in: `": coc.vim {{{ <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g11954>`
 
     

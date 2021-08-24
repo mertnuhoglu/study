@@ -15,17 +15,17 @@ state: wip
 
 ---
 
-# Quickstart reveal id=g_11738
+# Quickstart reveal id=g11738
 
 # Index reveal repl
 
-`reveal with emacs cider <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11949>`
+`reveal with emacs cider <url:file:///~/projects/study/clj/reveal_repl.md#r=g11949>`
 
 ```bash
 clojure -M:inspect/reveal-nrepl
 ```
 
-`rebel-readline with reveal <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11749>`
+`rebel-readline with reveal <url:file:///~/projects/study/clj/reveal_repl.md#r=g11749>`
 
 ```bash
 clojure -M:inspect/reveal:repl/rebel
@@ -37,18 +37,18 @@ clojure -M:inspect/reveal:repl/rebel
 (tap> *1)
 ```
 
-`Navigation <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11918>`
+`Navigation <url:file:///~/projects/study/clj/reveal_repl.md#r=g11918>`
 
-`Ex01: reveal repl on terminal <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11734>`
+`Ex01: reveal repl on terminal <url:file:///~/projects/study/clj/reveal_repl.md#r=g11734>`
 
 ```bash
 clj -X:reveal
 clj -Sdeps '{:deps {vlaaad/reveal {:mvn/version "1.1.163"}}}' -m vlaaad.reveal repl
 ```
 
-`Ex01: reveal repl on cursive <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11735>`
+`Ex01: reveal repl on cursive <url:file:///~/projects/study/clj/reveal_repl.md#r=g11735>`
 
-`Remote connection <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11737>`
+`Remote connection <url:file:///~/projects/study/clj/reveal_repl.md#r=g11737>`
 
 # Article: README: Reveal: Read Eval Visualize Loop for Clojure
 
@@ -60,7 +60,7 @@ clj -Sdeps '{:deps {vlaaad/reveal {:mvn/version "1.1.163"}}}' -m vlaaad.reveal r
          :exec-fn repl}
 ```
 
-## Ex01: reveal repl on terminal id=g_11734
+## Ex01: reveal repl on terminal id=g11734
 
 Check `~/projects/study/clj/ex/study_reveal_repl/reveal-01/deps.edn`
 
@@ -86,7 +86,7 @@ Oklar ve return tuşlarıyla objeleri inceleyebilirsin.
 
 [Reveal: Read Eval Visualize Loop for Clojure](https://vlaaad.github.io/reveal/#cursive)
 
-#### Ex01: reveal repl on cursive id=g_11735
+#### Ex01: reveal repl on cursive id=g11735
 
 Edit `~/projects/study/clj/ex/study_reveal_repl/reveal-repl-01/deps.edn`
 
@@ -231,7 +231,7 @@ Keybindings
 	- convert java array to vector
 	- view color
 
-## Remote connection with prepl id=g_11737
+## Remote connection with prepl id=g11737
 
 Run server:
 
@@ -247,7 +247,7 @@ nc localhost 5555
   ##> reveal window appears
 ```
 
-## Navigation id=g_11918
+## Navigation id=g11918
 
   | space enter           | open context menu                 |
   | tab                   | switch between output and results |
@@ -260,7 +260,7 @@ nc localhost 5555
 	| !up !dn               | next/prev                         |
 	| !Home !End            | first/last                        |
 
-# rebel-readline with reveal id=g_11749
+# rebel-readline with reveal id=g11749
 
 [Reveal · Practicalli Clojure](http://practicalli.github.io/clojure/clojure-tools/data-browsers/reveal.html)
 
@@ -294,7 +294,7 @@ clojure -M:inspect/reveal:repl/rebel
 clojure -M:inspect/reveal
 ```
 
-# reveal with emacs cider id=g_11949
+# reveal with emacs cider id=g11949
 
 [Using Reveal with nrepl Editors](https://practicalli.github.io/clojure/clojure-tools/data-browsers/reveal.html#using-reveal-with-nrepl-editors)
 
@@ -304,7 +304,7 @@ clojure -M:inspect/reveal-nrepl
 
 Emacs: `cider-connect`
 
-# Video: Reveal REPL and data browser for Clojure by practicalli - YouTube id=g_11917
+# Video: Reveal REPL and data browser for Clojure by practicalli - YouTube id=g11917
 
 [Reveal REPL and data browser for Clojure - YouTube](https://www.youtube.com/watch?v=1jy09_16EeY)
 

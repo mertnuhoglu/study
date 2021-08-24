@@ -18,10 +18,10 @@ blog: mertnuhoglu.com
 ## quickstart intellij
 
 	compatible keybindings: my vim and intellij <url:/Users/mertnuhoglu/.ideavimrc#tn=compatible keybindings: my vim and intellij >
-	compatible keybindings: spacemacs and intellij <url:file:///~/.ideavimrc#r=g_10991>
-	compatible keybindings: custom intellij  {{{ <url:file:///~/.ideavimrc#r=g_11485>
+	compatible keybindings: spacemacs and intellij <url:file:///~/.ideavimrc#r=g10991>
+	compatible keybindings: custom intellij  {{{ <url:file:///~/.ideavimrc#r=g11485>
 
-## intellij refcard id=g_11014
+## intellij refcard id=g11014
 
 		| #a / SPC SPC | find action       |
 		| ++           | search everywhere |
@@ -31,9 +31,9 @@ blog: mertnuhoglu.com
 		| ^^           | Run anything      |
 		| #! SPC, ...  | menus             |
 
-		my customizations <url:file:///~/projects/study/code/study_intellij.md#r=g_10996>
-		my quick lists <url:file:///~/projects/study/code/study_intellij.md#r=g_10995>
-		quicklist: select popups <url:file:///~/projects/study/code/study_intellij.md#r=g_11320>
+		my customizations <url:file:///~/projects/study/code/study_intellij.md#r=g10996>
+		my quick lists <url:file:///~/projects/study/code/study_intellij.md#r=g10995>
+		quicklist: select popups <url:file:///~/projects/study/code/study_intellij.md#r=g11320>
 
 ## Most important commands:
 
@@ -68,7 +68,7 @@ Switcher `#s`
 
 		| ^+ up/dn | next/prev method |
 
-## quicklist: select popups id=g_11320
+## quicklist: select popups id=g11320
 
 `!+SPC`
 
@@ -97,15 +97,15 @@ Quick List > .add frequent commands
 
 # my keybindings and customizations
 
-## my quick lists id=g_10995
+## my quick lists id=g10995
 
 		| !+space | popups  |
 		| !u p    | popups  |
 		| !u c    | clojure |
 
-## my customizations id=g_10996
+## my customizations id=g10996
 
-ref: `": compatible keybindings: custom intellij  {{{ <url:file:///~/.ideavimrc#r=g_11485>`
+ref: `": compatible keybindings: custom intellij  {{{ <url:file:///~/.ideavimrc#r=g11485>`
 
 		| !m w | window menu popup  |
 		| !m e | edit menu popup    |
@@ -129,7 +129,7 @@ Ref: `~/projects/study/code/study_intellij_ideavim.md`
 
 		| ^w o | restore default layout |
 
-# doc: Intellij Kısayolları 20210408 id=g_12289
+# doc: Intellij Kısayolları 20210408 id=g12289
 
 ref: intelij_kisayollari_20210408.m4a
 

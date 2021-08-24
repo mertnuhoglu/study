@@ -250,8 +250,8 @@
 
 ### Java 8 Tutorial
 
-    Java Streams Preview vs .Net High-Order Programming with LINQ id=g_10141
-      Java Streams Preview vs .Net High-Order Programming with LINQ <url:file:///~/Dropbox/mynotes/content/articles/articles_java.md#r=g_10141>
+    Java Streams Preview vs .Net High-Order Programming with LINQ id=g10141
+      Java Streams Preview vs .Net High-Order Programming with LINQ <url:file:///~/Dropbox/mynotes/content/articles/articles_java.md#r=g10141>
       http://web.archive.org/web/20160316155815/http://blog.informatech.cr/2013/03/24/java-streams-preview-vs-net-linq/
       ex01: filtering
         String[] names = {"Sam","Pamela", "Dave", "Pascal", "Erik"};
@@ -720,10 +720,10 @@
 
     maven
       mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
-    deployment of java apps id=g_10118
-      deployment of java apps <url:file:///~/Dropbox/mynotes/content/articles/articles_java.md#r=g_10118>
+    deployment of java apps id=g10118
+      deployment of java apps <url:file:///~/Dropbox/mynotes/content/articles/articles_java.md#r=g10118>
       ref
-        reverse proxy <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g_10117>
+        reverse proxy <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g10117>
       How do people deploy SpringBoot apps in production?
         https://www.reddit.com/r/java/comments/45x294/how_do_people_deploy_springboot_apps_in_production/
           opt1: fat jar
@@ -757,7 +757,7 @@
           mvn clean install
         init.d
           ln -s /var/yourapp/yourapp.jar /etc/init.d/yourapp
-          init.d <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g_10119>
+          init.d <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g10119>
         start app like
           /etc/init.d/yourapp start|stop|restart
         maybe

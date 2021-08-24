@@ -340,7 +340,7 @@ command! Rmarkdown :!R -e 'rmarkdown::render("%")'
 
 ### other
 
-show_query id=g_10794
+show_query id=g10794
 
 ``` R
 d01 = tbl(con, sql(s)) 
@@ -353,7 +353,7 @@ show_query(d02)
   ##> FROM data_20190203.all_data) "zzzduwkcqn"
 ``` 
 
-### glue id=g_10793
+### glue id=g10793
 
 ``` R
 library(glue)
@@ -364,7 +364,7 @@ FROM {schema}.all_data
 ")
 ``` 
 
-### gather id=g_10792
+### gather id=g10792
 
 ``` r
 library(tidyverse)
@@ -393,7 +393,7 @@ gather(d0, key = "var", value = "value", -c)
 gather(d0, key = "var", value = "value", c(a,b))
 ``` 
 
-### spread id=g_10803
+### spread id=g10803
 
 ``` r
 s1 = tibble::tribble(
@@ -411,7 +411,7 @@ s1
   #> 2     2     2    NA
 ```
 
-### building R packages id=g_10799
+### building R packages id=g10799
 
 opt02: building on R console (for debugging)
 
@@ -444,7 +444,7 @@ R CMD INSTALL yuml2data_0.1.0.tar.gz
 devtools::load_all()
 ``` 
 
-### verifications for keys id=g_10797
+### verifications for keys id=g10797
 
 check uniqueness
 
@@ -484,7 +484,7 @@ setdiff(d0$xsector, i0$xsector)
   ##> empty
 ``` 
 
-### descriptive stats  id=g_10798
+### descriptive stats  id=g10798
 
 
 for categorical vars:
@@ -683,7 +683,7 @@ rio::export(d0, "file.xlsx")
 
 opt02: convert all excel sheets to separate tsv files
 
-Check `Extract Process Area From Excel Sheet Names <url:file:///~/projects/btg/btg_cmmi/logbook/convert_cmmi_pir_v13_to_v20.md#r=g_11807>`
+Check `Extract Process Area From Excel Sheet Names <url:file:///~/projects/btg/btg_cmmi/logbook/convert_cmmi_pir_v13_to_v20.md#r=g11807>`
 
 ```r
 sheet_names = readxl::excel_sheets(piid)
@@ -1092,7 +1092,7 @@ df %>% slice(-1:-5)
 
 ## arguments to Rscript 
 
-Ref: `arguments to Rscript  <url:file:///~/projects/study/r/study_r.Rmd#r=g_10954>`
+Ref: `arguments to Rscript  <url:file:///~/projects/study/r/study_r.Rmd#r=g10954>`
 
 ``` 
 args <- commandArgs(trailingOnly = TRUE)
@@ -1135,7 +1135,7 @@ lapply(seq(nrow(files)),
 )
 ``` 
 
-## sample data id=g_11655
+## sample data id=g11655
 
 ```r
 sample_data = tibble::tribble(

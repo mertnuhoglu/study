@@ -14,7 +14,7 @@ output:
 
 ---
 
-# Index id=g_11809
+# Index id=g11809
 
 		| ~/.config/ranger/rc.conf | configuration of keybindings |
 		| ?k                       | help for keybindings         |
@@ -61,5 +61,5 @@ other shortcuts
 
 # fzf integration
 
-ref: `fzf integration <url:file:///~/.config/ranger/rc.conf#r=g_11592>`
+ref: `fzf integration <url:file:///~/.config/ranger/rc.conf#r=g11592>`
 

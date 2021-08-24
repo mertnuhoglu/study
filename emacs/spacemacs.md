@@ -21,9 +21,9 @@ state: wip
 
 Ref: `Spacemacs Lvl01 20200418 <url:/Users/mertnuhoglu/projects/study/lvlbook/lvl_20200418.md#tn=Spacemacs Lvl01 20200418>`
 
-ref: `Book: Clojure Development with Spacemacs & Cider - Practicalli <url:file:///~/projects/study/emacs/book_clojure_with_spacemacs_practicalli.md#r=g_11800>`
+ref: `Book: Clojure Development with Spacemacs & Cider - Practicalli <url:file:///~/projects/study/emacs/book_clojure_with_spacemacs_practicalli.md#r=g11800>`
 
-## spacemacs doom emacs refcard id=g_11015
+## spacemacs doom emacs refcard id=g11015
 
     | spacemacs | description                  | command                     | doom  |
     | SPC SPC   | list and search all commands | M-x                         | SPC : |
@@ -53,9 +53,9 @@ vim compatible commands:
 .
 ``` 
 
-		my keybindings <url:file:///~/projects/study/emacs/spacemacs.md#r=g_11016>
-		Custom Keybindings Binding keys - Spacemacs <url:file:///~/projects/study/emacs/spacemacs.md#r=g_10998>
-		important tasks <url:file:///~/projects/study/emacs/spacemacs.md#r=g_11017>
+		my keybindings <url:file:///~/projects/study/emacs/spacemacs.md#r=g11016>
+		Custom Keybindings Binding keys - Spacemacs <url:file:///~/projects/study/emacs/spacemacs.md#r=g10998>
+		important tasks <url:file:///~/projects/study/emacs/spacemacs.md#r=g11017>
 
 ## My Customizations
 
@@ -63,7 +63,7 @@ Ref: Bind Command key to Meta and Alt key to itself: <url:/Users/mertnuhoglu/pro
 
 Paste: ^y
 
-### my keybindings id=g_11016
+### my keybindings id=g11016
 
 Ref: `~/.spacemacs` > `dotspacemacs/user-config`
 
@@ -74,7 +74,7 @@ Ref: `~/.spacemacs` > `dotspacemacs/user-config`
 		| üa       | balance-windows                 |
 		| üüs      | evil-write-all                  |
 
-# important tasks id=g_11017
+# important tasks id=g11017
 
 		| SPC T n   | switch to next theme listed in dotspacemacs-themes |
 		| SPC f e d | open ~/.spacemacs                                  | find-dotfile     |
@@ -89,7 +89,7 @@ Ref: `~/.spacemacs` > `dotspacemacs/user-config`
 		| RET       | jump/goto link                                     |
 		| SPC TAB   | switch to other buffer                             |
 
-## Osx Command Meta Key Bindings: id=g_12031
+## Osx Command Meta Key Bindings: id=g12031
 
 Bind Command key to Meta and Alt key to itself:
 
@@ -116,7 +116,7 @@ Restart: SPC q r
 
 `C-c M-p`
  
-## Create new tab id=g_11916
+## Create new tab id=g11916
 
 [emacs-from-scratch/Emacs-Tips-06.org at 82f03806d90eb356b815cf514d10b6d863a2cbdc · daviwil/emacs-from-scratch](https://github.com/daviwil/emacs-from-scratch/blob/82f03806d90eb356b815cf514d10b6d863a2cbdc/show-notes/Emacs-Tips-06.org)
 
@@ -135,7 +135,7 @@ Restart: SPC q r
 
 Örneğin: `C-h k (`: Bu vim'deki `:verbose map (` komutuna karşılık gelir.
 
-## How to navigate functions in elisp files? id=g_11810
+## How to navigate functions in elisp files? id=g11810
 
 How to navigate to next defun in `.spacemacs`?
 
@@ -160,7 +160,7 @@ Prefix: `SPC m` or `,`
 		| s f   | cider-send-function-to-repl |                            |
 		| s a   | cider-switch-to-repl-buffer |                            |
 
-Ref: `The REPL <url:file:///~/projects/study/emacs/spacemacs.md#r=g_10828>`
+Ref: `The REPL <url:file:///~/projects/study/emacs/spacemacs.md#r=g10828>`
 
 # Cider REPL
 
@@ -511,7 +511,7 @@ buffers: same in vim and emacs.
 
 Ex: `python` layer provides auto-completion, syntax checking packages.
 
-## Custom Keybindings Binding keys - Spacemacs id=g_10998
+## Custom Keybindings Binding keys - Spacemacs id=g10998
 
 ref: `Custom keybindings for emacs <url:/Users/mertnuhoglu/projects/study/emacs/emacs.md#tn=Custom keybindings for emacs>`
 

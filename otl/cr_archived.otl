@@ -523,21 +523,21 @@ refcard
 			toString
 				convert an object to string
 			args
-	packages2: packagesr packager id=g_12292
+	packages2: packagesr packager id=g12292
 		basic steps
 			ref
 				devtools for package building <url:#r=sr_0007>
-		refcard - R packages id=g_10535
-			refcard - R packages <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g_10535>
+		refcard - R packages id=g10535
+			refcard - R packages <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g10535>
 			~/projects/rutils/Makefile
 			use RStudio to install packages
 				https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio
 				install: Rstudio > Build and Reload ^+R
-			using magrittr pipe in external package <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g_10534>
+			using magrittr pipe in external package <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g10534>
 		issues
 			how to debug package functions
 				use RStudio
-		Makefile for build and install id=g_12099
+		Makefile for build and install id=g12099
 			ref
 				~/projects/rutils/Makefile
 				~/projects/study/code/study_make.Rmd
@@ -625,8 +625,8 @@ refcard
 			.Rbuildignore
 				^.*\.Rproj$
 			bundle: .tar.gz file
-		using magrittr pipe in external package id=g_10534
-			using magrittr pipe in external package <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g_10534>
+		using magrittr pipe in external package id=g10534
+			using magrittr pipe in external package <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g10534>
 			https://stackoverflow.com/questions/27947344/r-use-magrittr-pipe-operator-in-self-written-package#27979637
 			DESCRIPTION
 				Imports: 
@@ -1873,8 +1873,8 @@ refcard
 			http://rmarkdown.rstudio.com/
 			https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf
 			https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
-		blogdown id=g_10179
-			blogdown <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g_10179>
+		blogdown id=g10179
+			blogdown <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g10179>
 			install.packages("blogdown")
 			cmd
 				library(blogdown)

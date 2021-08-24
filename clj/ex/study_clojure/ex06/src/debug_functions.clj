@@ -1,11 +1,11 @@
 (ns debug-functions)
 
 ; Good methods:
-; hashp for tracing <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g_11988>
-; cider debugging example <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g_11970>
+; hashp for tracing <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g11988>
+; cider debugging example <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g11970>
 
 (comment 
-  ; hashp for tracing id=g_11988
+  ; hashp for tracing id=g11988
   ; [Clojure observability and debugging tools](http://www.futurile.net/2020/05/16/clojure-observability-and-debugging-tools/)
 
   (require 'hashp.core)
@@ -84,7 +84,7 @@
   ,)
 
 (comment
-  ; cider debugging example id=g_11970
+  ; cider debugging example id=g11970
   ; [Cider Debugger - YouTube](https://www.youtube.com/watch?v=jHCch3-Yuac)
 
   ; 01: put break point here: `,db`

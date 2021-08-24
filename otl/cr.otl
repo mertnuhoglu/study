@@ -1,6 +1,6 @@
 
 index
-	sample data <url:file:///~/projects/study/r/examples_r.Rmd#r=g_11655>
+	sample data <url:file:///~/projects/study/r/examples_r.Rmd#r=g11655>
 		tags: sample_data, table, dataframe
 	projects
 		bizqualify
@@ -365,7 +365,7 @@ cookbook
 				opt2: do.call
 					as.data.frame(do.call(rbind, dlist), stringsAsFactors = FALSE) 
 			opt4: manual lapply per each list
-				# study_convert_list_to_dataframe = function() { <url:file:///~/Dropbox (BTG)/TEUIS PROJECT 05-ANALYSIS/working_library/requirements_database/scripts/verify_enums.R#r=g_10023>
+				# study_convert_list_to_dataframe = function() { <url:file:///~/Dropbox (BTG)/TEUIS PROJECT 05-ANALYSIS/working_library/requirements_database/scripts/verify_enums.R#r=g10023>
 		convert factor columns to character
 			http://stackoverflow.com/questions/2851015/convert-data-frame-columns-from-factors-to-characters
 			opt1: lapply df[]
@@ -663,8 +663,8 @@ cookbook
 			browseVignettes("dbplyr")
 			vignette("dbplyr")
 			install.packages("dbplyr")
-	date id=g_10725
-		date <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g_10725>
+	date id=g10725
+		date <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10725>
 		why multiple date classes
 			as.Date: simplest. without times
 			chron: handles dates and times but not time zones
@@ -1572,7 +1572,7 @@ cookbook
 				mapview(locations_sf) # opt01
 				leaflet(locations_sf) %>% addProviderTiles("OpenStreetMap.Mapnik") %>% addCircles(weight = 20)
 		leaflet2 leaflet id=g12297
-			ref: Documentation: Leaflet for R <url:file:///~/projects/study/r/shiny/study_leaflet.Rmd#r=g_12293>
+			ref: Documentation: Leaflet for R <url:file:///~/projects/study/r/shiny/study_leaflet.Rmd#r=g12293>
 			shiny-leaflet
 				leaflet haritasını shiny içine koyma
 					ref: ~/projects/study/r/shiny/ex/study_leaflet/leaflet_shiny/e01.R
@@ -1589,7 +1589,7 @@ cookbook
 					server:
 						output$map <- renderLeaflet({
 				click eventleri
-					ref: Inputs/Events <url:file:///~/projects/study/r/shiny/study_leaflet.Rmd#r=g_12294>
+					ref: Inputs/Events <url:file:///~/projects/study/r/shiny/study_leaflet.Rmd#r=g12294>
 					ref: ~/projects/study/r/shiny/ex/study_leaflet/ex02/02.R
 						ui:
 							map <- leaflet() %>% addCircleMarkers(
@@ -1695,21 +1695,21 @@ cookbook
 			whole file: read_file().
 			write_csv()
 			points - readr
-				read_csv sparse kolonlarda tipleri yanlış tanıyabiliyor id=g_10656
-					read_csv sparse kolonlarda tipleri yanlış tanıyabiliyor <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g_10656>
+				read_csv sparse kolonlarda tipleri yanlış tanıyabiliyor id=g10656
+					read_csv sparse kolonlarda tipleri yanlış tanıyabiliyor <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10656>
 					bug:
 						ref: <url:/Users/mertnuhoglu/projects/bizqualify/BQ-data-run/datarun/debug_missing_data_20181027.md#tn=CONTEXT:  COPY all_data2, line 5958, column bq_cogs: "39879e3">
 						örneğin çok fazla NA olan satırları character olarak algılıyor. (bq_cogs)
 						halbuki bq_cogs numeric
 						bu yüzden 359e4 gibi bilimsel notasyonnda yazılmış numerik değerleri çeviremiyorum: options(scipen=999) ile
 						bu yüzden postgresql copy from csv hata veriyor
-				disable scientific notation in write_csv  id=g_10657
-					scientific notationdan kurtulmak için  <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g_10657>
+				disable scientific notation in write_csv  id=g10657
+					scientific notationdan kurtulmak için  <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10657>
 					opt01: scipen
 						options(scipen = 999)
 					opt02: as.character
-				write_csv(na = ""): don't forget NA id=g_10658
-					write_csv(na = ""): don't forget NA <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g_10658>
+				write_csv(na = ""): don't forget NA id=g10658
+					write_csv(na = ""): don't forget NA <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10658>
 		excel readxl
 			readxl::read_excel("my-spreadsheet.xls", sheet = "data")
 			readxl::read_excel("egar_gis_db.xlsx", sheet = "bolgeler")
@@ -2006,7 +2006,7 @@ cookbook
 			options(max.print=6)
 		packages2: usethis
 			ref
-				packages2: packagesr packager <url:file:///~/projects/study/otl/cr_archived.otl#r=g_12292>
+				packages2: packagesr packager <url:file:///~/projects/study/otl/cr_archived.otl#r=g12292>
 			usethis
 				https://www.tidyverse.org/articles/2017/11/usethis-1.0.0/
 				install.packages("usethis")
@@ -2674,8 +2674,8 @@ bookmarks
 			http://kateto.net/network-visualization
 		datapasta: RStudio Addins for Data Copy-Pasta
 			RStudio addins to make copy-pasting vectors and tables into source painless.
-index_rmd for r  id=g_10652
-	index_rmd for r  <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g_10652>
+index_rmd for r  id=g10652
+	index_rmd for r  <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g10652>
 	~/projects/study/r
 	~/projects/study/r/debug_bugs.Rmd
 	~/projects/study/r/debug_datatable_bracket_in_own_package.Rmd
@@ -2690,8 +2690,8 @@ index_rmd for r  id=g_10652
 	~/projects/study/r/refcard_datapasta.Rmd
 	~/projects/study/r/refcard_loops.Rmd
 	~/projects/study/r/study_compare.Rmd
-	~/projects/study/r/study_httr.Rmd id=g_10777
-		~/projects/study/r/study_httr.Rmd <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g_10777>
+	~/projects/study/r/study_httr.Rmd id=g10777
+		~/projects/study/r/study_httr.Rmd <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10777>
 		POST
 			b2 <- "http://httpbin.org/post"
 			POST(b2, body = "A simple text string")
@@ -2704,11 +2704,11 @@ index_rmd for r  id=g_10652
 				Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk", 
 				Content-Type = "text/csv"
 			body = upload_file("~/projects/study/db/ex/study_postgrest/e03/table01.csv"),
-	~/projects/study/r/study_plumber_restful_apis.Rmd id=g_10653
-		~/projects/study/r/study_plumber_restful_apis.Rmd <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g_10653>
+	~/projects/study/r/study_plumber_restful_apis.Rmd id=g10653
+		~/projects/study/r/study_plumber_restful_apis.Rmd <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10653>
 		ref
-			~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g_10633>
-			~/projects/study/js/study_expressjs_server.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g_10634>
+			~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10633>
+			~/projects/study/js/study_expressjs_server.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10634>
 		run plumber
 			pr <- plumber::plumb("e01.R")
 			pr$run(port=4500)

@@ -59,9 +59,9 @@ Book Summaries
 
 ## innovation
 
-### Towards Design Theory and expandable rationality - Herbert Simon by Armand Hatchuel id=g_10185
+### Towards Design Theory and expandable rationality - Herbert Simon by Armand Hatchuel id=g10185
 
-  Towards Design Theory and expandable rationality - Herbert Simon by Armand Hatchuel <url:file:///~/Dropbox/mynotes/content/articles/articles.md#r=g_10185>
+  Towards Design Theory and expandable rationality - Herbert Simon by Armand Hatchuel <url:file:///~/Dropbox/mynotes/content/articles/articles.md#r=g10185>
   Armand Hatchuel
   intro
     Simon's self description

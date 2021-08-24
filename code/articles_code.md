@@ -740,10 +740,10 @@ Tutorial
       +arrow: select multiple tasks
       
       
-# github pages id=g_10027
+# github pages id=g10027
 
   ref
-    github pages <url:file:///~/Dropbox/mynotes/content/articles/articles.md#r=g_10027>
+    github pages <url:file:///~/Dropbox/mynotes/content/articles/articles.md#r=g10027>
 
 ## configuring github pages
 
@@ -1570,9 +1570,9 @@ _refcard _me
     end
   end # def decode
 
-# lua id=g_10160
+# lua id=g10160
 
-    lua <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g_10160>
+    lua <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g10160>
     LuaJIT
       a compiler for lua
       overview
@@ -1698,9 +1698,9 @@ _refcard _me
 
 # nginx
 
-## OpenResty id=g_10161
+## OpenResty id=g10161
 
-    OpenResty <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g_10161>
+    OpenResty <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g10161>
     Definitely an openresty guide
       http://www.staticshin.com/programming/definitely-an-open-resty-guide/
       1. Why openresty
@@ -2873,8 +2873,8 @@ combineLatest
 
 # Unclassified
 
-    init.d id=g_10119
-      init.d <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g_10119>
+    init.d id=g10119
+      init.d <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g10119>
       What is the difference between /etc/init/ and /etc/init.d/?
       Get To Know Linux: The /etc/init.d Directory
         init.d directory
@@ -2894,10 +2894,10 @@ combineLatest
           ex: scripts:
             samba, apache2, mysql
     nginx
-      reverse proxy id=g_10117
-        reverse proxy <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g_10117>
+      reverse proxy id=g10117
+        reverse proxy <url:file:///~/Dropbox/mynotes/content/articles/articles_code.md#r=g10117>
         ref
-          deployment of java apps <url:file:///~/Dropbox/mynotes/content/articles/articles_java.md#r=g_10118>
+          deployment of java apps <url:file:///~/Dropbox/mynotes/content/articles/articles_java.md#r=g10118>
         nginx reverse proxy
           https://www.nginx.com/resources/admin-guide/reverse-proxy/
           passing a request to proxied server

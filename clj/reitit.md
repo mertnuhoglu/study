@@ -67,6 +67,6 @@ Framework:
 
 You call the librray, but the framework calls you
 
-# Article: Reitit Documentation id=g_12101
+# Article: Reitit Documentation id=g12101
 
 [Controllers — metosin/reitit-ring 0.5.12](https://cljdoc.org/d/metosin/reitit-ring/0.5.12/doc/frontend/controllers)

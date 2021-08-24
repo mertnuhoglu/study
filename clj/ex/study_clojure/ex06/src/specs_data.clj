@@ -11,7 +11,7 @@
 
 (s/def ::ingredient (s/keys :req [::name ::quantity ::unit]))
 
-; p02: Predicates id=g_12024
+; p02: Predicates id=g12024
 
 (s/def :my.app/company-name string?)
 (s/valid? :my.app/company-name "Acme")
@@ -61,7 +61,7 @@
 ; (out) 0 - failed: odd? at: [:odd] spec: :specs/odd-int
 ; (out) 0 - failed: #{42} at: [:42] spec: :specs/odd-or-42
 
-; p07: Collection specs id=g_12025
+; p07: Collection specs id=g12025
 
 (s/def ::names (s/coll-of string?))
 (s/valid? ::names ["Alex" "Stu"])

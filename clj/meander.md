@@ -15,7 +15,7 @@ state: wip
 
 ---
 
-# Video: "Meander: Declarative Explorations at the Limits of FP" by Jimmy Miller  id=g_11838
+# Video: "Meander: Declarative Explorations at the Limits of FP" by Jimmy Miller  id=g11838
 
 ["Meander: Declarative Explorations at the Limits of FP" by Jimmy Miller - YouTube](https://www.youtube.com/watch?v=9fhnJpCgtUw)
 

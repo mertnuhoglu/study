@@ -124,7 +124,7 @@ drive_browse(iris_ss)
 
 ## examples
 
-### ex01: download all files in a folder id=g_11018
+### ex01: download all files in a folder id=g11018
 
 ``` r
 files = googledrive::drive_ls("~/IFTTT/Spotify")

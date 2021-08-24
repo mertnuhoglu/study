@@ -168,7 +168,7 @@ netcat    21162 mertnuhoglu    4u  IPv4 0x8a3383dd17da36a5      0t0  TCP 127.0.0
 netcat    21221 mertnuhoglu    3u  IPv4 0x8a3383dd184fedad      0t0  TCP 127.0.0.1:59472->127.0.0.1:2399 (ESTABLISHED)
 ``` 
 
-## Debug: make a query to postgrest id=g_10773
+## Debug: make a query to postgrest id=g10773
 
 ### Debug using curl GET
 
@@ -300,7 +300,7 @@ response <- httr::GET("http://localhost:8080/rest/table01", verbose())
   ##> <-
 ``` 
 
-## Debug: Insert data with POST to postgrest  id=g_10774
+## Debug: Insert data with POST to postgrest  id=g10774
 
 ### Debug using curl POST
 

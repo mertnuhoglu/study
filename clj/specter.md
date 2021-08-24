@@ -19,7 +19,7 @@ state: wip
 
 [Functional-navigational programming in Clojure(Script) with Specter](http://nathanmarz.com/blog/functional-navigational-programming-in-clojurescript-with-sp.html)
 
-# Article: Vanilla Clojure vs. Specter vs. transducers id=g_11432
+# Article: Vanilla Clojure vs. Specter vs. transducers id=g11432
 
 [Vanilla Clojure vs. Specter vs. transducers](https://gist.github.com/borkdude/5f9a4ae710217e893a9462ff90b6cac3)
 
@@ -169,9 +169,9 @@ increment the last odd number in a sequence:
 
 Check `~/projects/study/clj/ex/study_specter/e01/src/specter01.clj`
 
-# Video: Understanding Specter - Clojure's missing piece - rh5J4vacG98 id=g_11448
+# Video: Understanding Specter - Clojure's missing piece - rh5J4vacG98 id=g11448
 
-ref: `; Video: Understanding Specter - Clojure's missing piece - rh5J4vacG98  <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g_11449>`
+ref: `; Video: Understanding Specter - Clojure's missing piece - rh5J4vacG98  <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g11449>`
 
 Clojure's weaknesses:
 
@@ -272,7 +272,7 @@ use01: query deep data with `select`
 
 # Video: Specter  Powerful and Simple Data Structure Manipulation - Nathan Marz - VTCy_DkAJGk 
 
-Ref: `Video: Specter  Powerful and Simple Data Structure Manipulation - Nathan Marz - VTCy_DkAJGk <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g_11450>`
+Ref: `Video: Specter  Powerful and Simple Data Structure Manipulation - Nathan Marz - VTCy_DkAJGk <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g11450>`
 
 Check `transfer` function in `http://nathanmarz.com/blog/functional-navigational-programming-in-clojurescript-with-sp.html`
 

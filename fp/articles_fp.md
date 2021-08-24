@@ -26,8 +26,8 @@
 
 ## articles fp
 
-	articles fp id=g_10608
-		articles fp <url:file:///~/Dropbox/mynotes/content/articles/articles_fp.md#r=g_10608>
+	articles fp id=g10608
+		articles fp <url:file:///~/Dropbox/mynotes/content/articles/articles_fp.md#r=g10608>
 		Brian Lonsdorf
 			Brian Lonsdorf - Oh Composable World!-SfWR3dKnFIo.mp4
 				dot chaining
@@ -1845,8 +1845,8 @@
 								F: compile time language
 								G: run time language
 							~>: we can transform F to G
-		GOTO 2016 • The Return of Stream I_O • Andre 'Staltz' Medeiros-Tkjg179M-Nc.mp4 id=g_10116
-			GOTO 2016 • The Return of Stream I_O • Andre 'Staltz' Medeiros-Tkjg179M-Nc.mp4 <url:file:///~/Dropbox/mynotes/content/articles/articles_fp.md#r=g_10116>
+		GOTO 2016 • The Return of Stream I_O • Andre 'Staltz' Medeiros-Tkjg179M-Nc.mp4 id=g10116
+			GOTO 2016 • The Return of Stream I_O • Andre 'Staltz' Medeiros-Tkjg179M-Nc.mp4 <url:file:///~/Dropbox/mynotes/content/articles/articles_fp.md#r=g10116>
 			history of cyclejs
 				Erik Meijer: Stream IO: IO System as purely functional interaction
 				Pual Hudak 1989: On the Expressiveness of Purely Functional IO Systems
@@ -2324,7 +2324,7 @@
     https://james-forbes.com/?/posts/the-perfect-api
     https://github.com/pelotom/burrido#an-example-using-rxjs
     http://buzzdecafe.github.io/content/code/2014/05/16/introducing-ramda
-    GOTO 2016 • The Return of Stream I_O • Andre 'Staltz' Medeiros-Tkjg179M-Nc.mp4 <url:file:///~/Dropbox/mynotes/content/articles/articles_fp.md#r=g_10116>
+    GOTO 2016 • The Return of Stream I_O • Andre 'Staltz' Medeiros-Tkjg179M-Nc.mp4 <url:file:///~/Dropbox/mynotes/content/articles/articles_fp.md#r=g10116>
     https://github.com/fantasyland/fantasy-land
     https://medium.com/@drboolean/divide-and-conquer-with-algebraic-structures-14070106fb4#.npns0wivh
     https://jaysoo.ca/2016/01/13/functional-programming-little-ideas/

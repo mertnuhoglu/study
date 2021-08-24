@@ -103,11 +103,11 @@ ref
     Explaining GraphQL Connections
       https://dev-blog.apollodata.com/explaining-graphql-connections-c48b7c3d6976
 
-## PostgreSQL 9.6.5 Manual id=g_10156
+## PostgreSQL 9.6.5 Manual id=g10156
 
-    PostgreSQL 9.6.5 Manual <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10156>
-      4.2 Value Expressions id=g_10250
-				4.2 Value Expressions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10250>
+    PostgreSQL 9.6.5 Manual <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10156>
+      4.2 Value Expressions id=g10250
+				4.2 Value Expressions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10250>
         ex: new column values in INSERT/UPDATE
         also called: 
           scalar
@@ -133,8 +133,8 @@ ref
         column references
           correlation.columnname
           correlation: name of table
-        positional parameters id=g_10249
-					positional parameters <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10249>
+        positional parameters id=g10249
+					positional parameters <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10249>
           $number
           ex
             CREATE FUNCTION dept(text) RETURNS dept AS $$ SELECT * FROM dept WHERE name = $1 $$ LANGUAGE SQL;
@@ -194,8 +194,8 @@ ref
         window function calls
         type casts
       Chapter 5. Data Definition
-        5.7. Row Security Policies id=adb_002 id=g_10251
-					5.7. Row Security Policies  id=g_10251 <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10251>
+        5.7. Row Security Policies id=adb_002 id=g10251
+					5.7. Row Security Policies  id=g10251 <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10251>
           row level security per user basis:
             which rows can be returned by
               queries, inserts, updates, deletes
@@ -252,8 +252,8 @@ ref
               UPDATE passwd set user_name = 'joe';
               # ERROR
               update passwd set real_name = 'Alice doe';
-      Chapter 8. Data Types id=g_10252
-				Chapter 8. Data Types <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10252>
+      Chapter 8. Data Types id=g10252
+				Chapter 8. Data Types <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10252>
         intro
           table: common data types
             bigint
@@ -331,8 +331,8 @@ ref
             time [ (p) ] [ without time zone ]
             time [ (p) ] with time zone
             interval [ fields ] [ (p) ]
-        8.5.1. Date/Time Input id=g_10253
-					8.5.1. Date/Time Input <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10253>
+        8.5.1. Date/Time Input id=g10253
+					8.5.1. Date/Time Input <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10253>
           reasonable input formats
             syntax:
               type [ (p)  ] 'value'
@@ -479,8 +479,8 @@ ref
 					8.15.4. Modifying Arrays
 					8.15.5. Searching in Arrays
 					8.15.6. Array Input and Output Syntax
-        8.16. Composite Types id=g_10737
-					8.16. Composite Types <url:file:///~/projects/study/db/articles_db.md#r=g_10737>
+        8.16. Composite Types id=g10737
+					8.16. Composite Types <url:file:///~/projects/study/db/articles_db.md#r=g10737>
 						https://www.postgresql.org/docs/9.6/rowtypes.html
 						composite type models structure of a row/record
 							it is a list of field names and their data types
@@ -610,15 +610,15 @@ ref
         8.19. pg_lsn Type
         8.20. Pseudo-Types
         8.5. 
-      Chapter 9. Functions and Operators id=g_10254
-				Chapter 9. Functions and Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10254>
+      Chapter 9. Functions and Operators id=g10254
+				Chapter 9. Functions and Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10254>
         intro
           list all functions \df
           list all operators \do
         9.1. Logical Operators
           common: AND OR NOT
-        9.2. Comparison Operators id=g_10255
-					9.2. Comparison Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10255>
+        9.2. Comparison Operators id=g10255
+					9.2. Comparison Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10255>
           common
             < > <= >= = 
             <> != not equal
@@ -676,8 +676,8 @@ ref
           random()
           setseed(dp)
           trigonometric functions
-        9.4. String Functions and Operators id=g_10256
-					9.4. String Functions and Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10256>
+        9.4. String Functions and Operators id=g10256
+					9.4. String Functions and Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10256>
           || concatenation
             'post' || 'gresql'
           char_length(string)
@@ -713,8 +713,8 @@ ref
             to_ascii()
         9.5. Binary String Functions and Operators
         9.6. Bit String Functions and Operators
-        9.7. Pattern Matching id=g_10257
-					9.7. Pattern Matching <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10257>
+        9.7. Pattern Matching id=g10257
+					9.7. Pattern Matching <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10257>
           LIKE
             'abc' LIKE 'a%'
             'abc' LIKE '_b_'
@@ -739,8 +739,8 @@ ref
             ex: substring
               substring('foobar' from 'o.b')
               regexp_replace('foobar', 'b(..)', E'X\\1Y', 'ig')
-        9.8. Data Type Formatting Functions id=g_10258
-					9.8. Data Type Formatting Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10258>
+        9.8. Data Type Formatting Functions id=g10258
+					9.8. Data Type Formatting Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10258>
           functions
             to_char(timestamp, text)
               to_char(current_timestamp, 'HH12:MI:SS')
@@ -754,8 +754,8 @@ ref
             MI
             SS
             ..
-        9.9. Date/Time Functions and Operators id=g_10259
-					9.9. Date/Time Functions and Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10259>
+        9.9. Date/Time Functions and Operators id=g10259
+					9.9. Date/Time Functions and Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10259>
           operators
             +
               + date '2001-09-28' + integer '7' date '2001-10-05'
@@ -800,8 +800,8 @@ ref
               SELECT now();
           Delaying Execution
             SELECT pg_sleep(1.5);
-        9.10. Enum Support Functions id=g_10260
-					9.10. Enum Support Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10260>
+        9.10. Enum Support Functions id=g10260
+					9.10. Enum Support Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10260>
           ex
             CREATE TYPE rainbow AS ENUM ('red', 'orange', 'yellow', 'green', 'blue', 'purple');
           support functions
@@ -840,8 +840,8 @@ ref
             lastval()
             nextval()
             setval()
-        9.16. Conditional Expressions id=g_10261
-					9.16. Conditional Expressions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10261>
+        9.16. Conditional Expressions id=g10261
+					9.16. Conditional Expressions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10261>
           9.16.1. CASE
             syntax
               CASE WHEN condition THEN result
@@ -867,8 +867,8 @@ ref
                         ELSE 'other'
                  END
               FROM test;
-          9.16.2. COALESCE id=g_10262
-						9.16.2. COALESCE <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10262>
+          9.16.2. COALESCE id=g10262
+						9.16.2. COALESCE <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10262>
             returns first argument that is not null
               used to substitute a default value for null for display
             COALESCE(value [, ...])
@@ -880,8 +880,8 @@ ref
           9.16.4. GREATEST and LEAST
             GREATEST(value [, ...])
             LEAST(value [, ...])
-        9.17. Array Functions and Operators id=g_10263
-					9.17. Array Functions and Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10263>
+        9.17. Array Functions and Operators id=g10263
+					9.17. Array Functions and Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10263>
           operators
             = equal ARRAY[1.1,2.1,3.1]::int[] = ARRAY[1,2,3]  t
             @>  contains  ARRAY[1,4,3] @> ARRAY[3,1]  t
@@ -897,8 +897,8 @@ ref
               1
               2
               (2 rows)
-        9.19. Range Functions and Operators id=g_10264
-					9.19. Range Functions and Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10264>
+        9.19. Range Functions and Operators id=g10264
+					9.19. Range Functions and Operators <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10264>
           operators
             = equal int4range(1,5) = '[1,4]'::int4range t
             @>  contains range  int4range(2,4) @> int4range(2,3)  t
@@ -907,8 +907,8 @@ ref
             <@  element is contained by 42 <@ int4range(1,7)  f
             &&  overlap (have points in common) int8range(3,7) && int8range(4,12) t
             <<  strictly left of  int8range(1,10) << int8range(100,110) t
-        9.18. Aggregate Functions id=g_10265
-					9.18. Aggregate Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10265>
+        9.18. Aggregate Functions id=g10265
+					9.18. Aggregate Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10265>
           Aggregate functions compute a single result from a set of input values
           functions
             array_agg(expression) any non-array type    
@@ -939,8 +939,8 @@ ref
               out: most frequent value
             percentile_cont(fraction)
               continous percentile
-        9.19. Window Functions id=g_10266
-					9.19. Window Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10266>
+        9.19. Window Functions id=g10266
+					9.19. Window Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10266>
           perform calculations across set of rows
           invoked using window syntax
             OVER clause is required
@@ -962,8 +962,8 @@ ref
             first_value
             last_value
             nth_value
-        9.20. Subquery Expressions id=g_10267
-					9.20. Subquery Expressions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10267>
+        9.20. Subquery Expressions id=g10267
+					9.20. Subquery Expressions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10267>
           all return boolean results
           9.20.1. EXISTS
             EXISTS(subquery)
@@ -980,8 +980,8 @@ ref
           9.20.5. ALL
             expression operator ALL (subquery)
         9.21. Row and Array Comparisons
-        9.22. Set Returning Functions id=g_10268
-					9.22. Set Returning Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10268>
+        9.22. Set Returning Functions id=g10268
+					9.22. Set Returning Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10268>
           return multiple rows
           series generating functions
             generate_series(start, stop)
@@ -998,8 +998,8 @@ ref
                3
                4
               (4 rows)
-        9.23. System Information Functions id=g_10269
-					9.23. System Information Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10269>
+        9.23. System Information Functions id=g10269
+					9.23. System Information Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10269>
           functions
             current_catalog
             current_database()
@@ -1017,8 +1017,8 @@ ref
             has_xxx_privilege
               server, table, tablespace, type, language
             pg_has_role(user, role, privilege)
-        9.24. System Administration Functions id=g_10270
-					9.24. System Administration Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10270>
+        9.24. System Administration Functions id=g10270
+					9.24. System Administration Functions <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10270>
           functions
             current_setting(setting_name [, missing_ok ]) 
             set_config(setting_name, new_value, is_local) 
@@ -1037,10 +1037,10 @@ ref
               select pg_start_backup('label_goes_here');
           Recovery Control Functions
         9.25. Trigger Functions
-			Chapter 20. database Roles and Privileges id=g_10335
-				Chapter 20. database Roles and Privileges <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10335>
-				20.4. Role Membership id=g_10336
-					20.4. Role Membership <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10336>
+			Chapter 20. database Roles and Privileges id=g10335
+				Chapter 20. database Roles and Privileges <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10335>
+				20.4. Role Membership id=g10336
+					20.4. Role Membership <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10336>
 					logic
 						to group users
 						privileges can be granted to a group
@@ -1076,10 +1076,10 @@ ref
 								SET ROLE joe
 								SET ROLE NONE
 								RESET ROLE
-      Chapter 21. Database Roles id=g_10271
-				Chapter 21. Database Roles <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10271>
-        21.3 Role Membership id=g_10272
-					21.3 Role Membership <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10272>
+      Chapter 21. Database Roles id=g10271
+				Chapter 21. Database Roles <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10271>
+        21.3 Role Membership id=g10272
+					21.3 Role Membership <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10272>
           create a group role:
             CREATE ROLE name;
           add/remove members:
@@ -1093,8 +1093,8 @@ ref
             GRANT wheel TO admin;
           change effective role:
             SET ROLE wheel;
-      chapter 35. The Information Schema id=g_10273
-				chapter 35. The Information Schema <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10273>
+      chapter 35. The Information Schema id=g10273
+				chapter 35. The Information Schema <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10273>
         35.1. The Schema
         35.2. Data Types
         35.3. information_schema_catalog_name
@@ -1173,8 +1173,8 @@ ref
         35.62. view_routine_usage
         35.63. view_table_usage
         35.64. views
-			Chapter 36. Extending SQL id=g_10736
-				Chapter 36. Extending SQL <url:file:///~/projects/study/db/articles_db.md#r=g_10736>
+			Chapter 36. Extending SQL id=g10736
+				Chapter 36. Extending SQL <url:file:///~/projects/study/db/articles_db.md#r=g10736>
 				https://www.postgresql.org/
 				36.1. How Extensibility Works
 					extensible because its operation is catalog-driven
@@ -1568,8 +1568,8 @@ ref
 				36.15.5. Extension Updates
 				36.15.6. Extension Example
 				36.16. Extension Building Infrastructuredocs/9.6/extend.html
-      Part VI. Reference: SQL Commands id=g_10274
-				Part VI. Reference: SQL Commands <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10274>
+      Part VI. Reference: SQL Commands id=g10274
+				Part VI. Reference: SQL Commands <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10274>
         intro
           table: sql commands
             ABORT — abort the current transaction
@@ -1756,9 +1756,9 @@ ref
 							Temporary tables exist in a special schema, so a schema name cannot be given when creating a temporary table
 							Temporary tables are automatically dropped at the end of a session
 
-## PostgreSQL Up and Running 1491963417 id=g_10157
+## PostgreSQL Up and Running 1491963417 id=g10157
 
-    PostgreSQL Up and Running 1491963417 <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10157>
+    PostgreSQL Up and Running 1491963417 <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10157>
     intro
       why postgresql
         not just a db
@@ -1954,8 +1954,8 @@ ref
           dynamic background workers
       Database Drivers
       Notable PGS Forks
-    chapter 2. database administration id=g_10276
-			chapter 2. database administration <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10276>
+    chapter 2. database administration id=g10276
+			chapter 2. database administration <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10276>
       configuration files
         postgresql.conf
           general settings
@@ -1990,8 +1990,8 @@ ref
             SELECT pg_terminate_backend(procid)
         kill connections by a user
           SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE usename = 'some_role'
-      Roles id=g_10275
-				Roles <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10275>
+      Roles id=g10275
+				Roles <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10275>
         intro
           login roles
             roles that can login
@@ -2041,8 +2041,8 @@ ref
           you can mark any db as template
         UPDATE pg_database SET datistemplate = TRUE WHERE dataname = 'mydb'
           now mydb becomes immutable (due to dataistemplate = TRUE)
-      Using Schemas id=g_10277
-				Using Schemas <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10277>
+      Using Schemas id=g10277
+				Using Schemas <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10277>
         to organize db into groups
         default: public
         always prepend schema name to table name:
@@ -2063,8 +2063,8 @@ ref
             CREATE SCHEMA my_extensions
             ALTER DATABASE mydb SET search_path = '"$user", public, my_extensions'
               needs reconnect
-      Privileges id=g_10278
-				Privileges <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10278>
+      Privileges id=g10278
+				Privileges <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10278>
         defn: permissions
         tricky to administer because of fine granular control
       Types of Privileges
@@ -2080,8 +2080,8 @@ ref
           CREATE DATABASE mydb WITH owner = mydb_admin
         login as mydb_admin
         setup additional schemas and tables
-      GRANT id=g_10279
-				GRANT <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10279>
+      GRANT id=g10279
+				GRANT <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10279>
         assigns privileges to others
         GRANT some_privilege TO some_role
         note:
@@ -2148,8 +2148,8 @@ ref
               indexes, operators, functions to enhance full text searches
             xml
               xml data type, functions
-      Backup and Restore id=g_10280
-				Backup and Restore <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10280>
+      Backup and Restore id=g10280
+				Backup and Restore <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10280>
         pg_dump
         pg_dumpall
         may use: ~/.pgpass
@@ -2227,10 +2227,10 @@ ref
           query view: pg_settings
           ex
             SELECT name, context , unit , setting, boot_val, reset_val FROM pg_settings WHERE name IN ('listen_addresses','deadlock_timeout','shared_buffers' 'effective_cache_size','work_mem','maintenance_work_mem') ORDER BY context, name;
-    chapter 3. psql id=g_10281
-			chapter 3. psql <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10281>
-      Environment Variables id=g_10282
-				Environment Variables <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10282>
+    chapter 3. psql id=g10281
+			chapter 3. psql <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10281>
+      Environment Variables id=g10282
+				Environment Variables <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10282>
         PSQL_HISTORY  
           default: ~/.psql_history
         PSQLRC
@@ -2240,8 +2240,8 @@ ref
         PGUSER
         PGPASSWORD
           or .password file
-      Interactive vs Noninteractive psql id=g_10283
-				Interactive vs Noninteractive psql <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10283>
+      Interactive vs Noninteractive psql id=g10283
+				Interactive vs Noninteractive psql <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10283>
         \?
           list of commands
         \h <command>
@@ -2265,8 +2265,8 @@ ref
             \i: execute script interactively (vs -f)
           run:
             psql -f build_stage.psql -d postgresql_book
-      psql Customizations id=g_10284
-				psql Customizations <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10284>
+      psql Customizations id=g10284
+				psql Customizations <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10284>
         settings: .psqlrc
           runs all commands therein
           ex:
@@ -2326,8 +2326,8 @@ ref
             \dt+ pg_catalog.pg_t*
           ex: more details about an object: \d+
             \d+ pg_ts_dict
-      Importing and Exporting Data id=g_10285
-				Importing and Exporting Data <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10285>
+      Importing and Exporting Data id=g10285
+				Importing and Exporting Data <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10285>
         \copy
           default delimiter: tab
         psql Import
@@ -2361,8 +2361,8 @@ ref
           ex
             psql -d postgresql_book -H -c
             "<sql_query>" -o test.html
-    chapter 4. Using pgAdmin id=g_10286
-			chapter 4. Using pgAdmin <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10286>
+    chapter 4. Using pgAdmin id=g10286
+			chapter 4. Using pgAdmin <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10286>
       Overview of Features
         graphical explain your queries
         SQL pane
@@ -2413,8 +2413,8 @@ ref
           CREATE TABLE @tdef
       Graphical Explain
       Job Scheduling with pgAgent
-    chapter 5. Data Types id=g_10287
-			chapter 5. Data Types <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10287>
+    chapter 5. Data Types id=g10287
+			chapter 5. Data Types <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10287>
       Numerics
       Serials
         serial bigserial
@@ -2446,8 +2446,8 @@ ref
             to convert array to rows
             ex
               SELECT unnest(string_to_array("split.this", ".")) As x
-      Regex id=g_10288
-				Regex <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10288>
+      Regex id=g10288
+				Regex <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10288>
         ex
           regexp_replace('text', 'regex', E'replace')
         backreferences: \\1
@@ -2489,8 +2489,8 @@ ref
         extracting/formatting
           date_part('hour', <timestamp>)
           to_char(<timestamp>, 'HH12:MI AM')
-      Arrays id=g_10289
-				Arrays <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10289>
+      Arrays id=g10289
+				Arrays <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10289>
         useful in 
           building aggregate functions
           IN and ANY clauses
@@ -2517,8 +2517,8 @@ ref
             arr[1:2] || arr[5:6]
         Unnesting Arrays to Rows
           unnest('{1,2,3}'::smallint[])
-      Range Types id=g_10290
-				Range Types <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10290>
+      Range Types id=g10290
+				Range Types <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10290>
         (-2,2]
         (-2,2)
         [-2,2]
@@ -2636,10 +2636,10 @@ ref
       XML
       Composite Data Types
         All Tables are Custom Data Types
-    chapter 6. Tables, Constraints and Indexes id=g_10291
-			chapter 6. Tables, Constraints and Indexes <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10291>
-      Tables id=g_10292
-				Tables <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g_10292>
+    chapter 6. Tables, Constraints and Indexes id=g10291
+			chapter 6. Tables, Constraints and Indexes <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10291>
+      Tables id=g10292
+				Tables <url:file:///~/Dropbox/mynotes/content/articles/articles_db.md#r=g10292>
         Basic Table Creation
         Inherited Tables
           ex

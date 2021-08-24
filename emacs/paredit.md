@@ -21,7 +21,7 @@ paredit'in mevcut kısayolları hep noktalama işaretleri içeriyor. Bu yüzden 
 
 [Writing Clojure in Vim](https://thoughtbot.com/blog/writing-clojure-in-vim)
 
-# The Animated Guide to Paredit id=g_11865
+# The Animated Guide to Paredit id=g11865
 
 [The Animated Guide to Paredit](http://danmidwood.com/content/2014/11/21/animated-paredit.html)
 

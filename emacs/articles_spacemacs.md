@@ -15,7 +15,7 @@ state: wip
 
 ---
 
-# Migrating from vim id=g_11831
+# Migrating from vim id=g11831
 
 [spacemacs/VIMUSERS.org at master · syl20bnr/spacemacs](https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org)
 
@@ -118,7 +118,7 @@ Functions:
 ```
 
 
-# Article: Loading in Spacemacs id=g_11863
+# Article: Loading in Spacemacs id=g11863
 
 [Loading in Spacemacs](https://gist.github.com/TheBB/367096660b203952c162)
 

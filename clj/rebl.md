@@ -15,15 +15,15 @@ state: wip
 
 ---
 
-# Quickstart rebl id=g_11926
+# Quickstart rebl id=g11926
 
-# Index rebl id=g_11927
+# Index rebl id=g11927
 
-Emacs integration: `Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g_11934>`
+Emacs integration: `Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g11934>`
 
-`Run REBL <url:file:///~/projects/study/clj/rebl.md#r=g_11928>`
+`Run REBL <url:file:///~/projects/study/clj/rebl.md#r=g11928>`
 
-Examples: `Video: REBL - Stuart Halloway - YouTube <url:file:///~/projects/study/clj/rebl.md#r=g_11935>`
+Examples: `Video: REBL - Stuart Halloway - YouTube <url:file:///~/projects/study/clj/rebl.md#r=g11935>`
 
 # Documentation
 
@@ -37,7 +37,7 @@ Get REBL by email.
 bash ./install
 ```
 
-# Run REBL id=g_11928
+# Run REBL id=g11928
 
 opt01: seancorfield deps:
 
@@ -49,13 +49,13 @@ clojure -M:rebl
 
 opt02: practicalli deps:
 
-`Run cognitect rebl: <url:file:///~/projects/study/clj/practicalli_deps_edn.md#r=g_11925>`
+`Run cognitect rebl: <url:file:///~/projects/study/clj/practicalli_deps_edn.md#r=g11925>`
 
-# Run REBL for nREPL id=g_11934
+# Run REBL for nREPL id=g11934
 
-ref: `Run cognitect rebl: <url:file:///~/projects/study/clj/practicalli_deps_edn.md#r=g_11925>`
+ref: `Run cognitect rebl: <url:file:///~/projects/study/clj/practicalli_deps_edn.md#r=g11925>`
 
-ref: `seancorfield deps.edn dosyasıyla rebl çalıştırmayı dene 20210120  <url:file:///~/projects/study/logbook/log_20210117.md#r=g_11924>`
+ref: `seancorfield deps.edn dosyasıyla rebl çalıştırmayı dene 20210120  <url:file:///~/projects/study/logbook/log_20210117.md#r=g11924>`
 
 ref: `https://practicalli.github.io/clojure/alternative-tools/clojure-tools/cognitect-rebl.html#run-rebl-for-nrepl-based-editors`
 
@@ -86,7 +86,7 @@ java15
 clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
 ```
 
-## Connect REBL from Emacs Cider id=g_11943
+## Connect REBL from Emacs Cider id=g11943
 
 Emacs: Open  `~/projects/study/clj/ex/rebl/rebl-nrepl-01/deps.edn`
 
@@ -94,7 +94,7 @@ Emacs: Open  `~/projects/study/clj/ex/rebl/rebl-nrepl-01/deps.edn`
 
 Run commands in `~/projects/study/clj/ex/rebl/rebl-examples/src/e01/rebl_examples.clj`
 
-## Connect REBL from Intellij Cursive id=g_11944
+## Connect REBL from Intellij Cursive id=g11944
 
 ```
 Configurations > Clojure REPL > Remote
@@ -106,11 +106,11 @@ Use pot from nREPL file
 
 ![](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210121_211450.jpg)
 
-## Connect REBL from Vim Conjure id=g_11945
+## Connect REBL from Vim Conjure id=g11945
 
 `:ConjureConnect <port>`
 
-# Video: REBL - Stuart Halloway - YouTube id=g_11935
+# Video: REBL - Stuart Halloway - YouTube id=g11935
 
 [REBL - Stuart Halloway - YouTube](https://www.youtube.com/watch?v=c52QhiXsmyI&t=1347s)
 

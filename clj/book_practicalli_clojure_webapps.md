@@ -26,7 +26,7 @@ output:
 
 [Application servers · Practicalli Clojure WebApps](https://practicalli.github.io/clojure-webapps/app-servers/)
 
-### Simple restart id=g_12109
+### Simple restart id=g12109
 
 ```bash
 cd ~/projects/study/clj/ex/book_practicalli_clojure_webapps
@@ -87,7 +87,7 @@ Kullanımı:
 (-main :port 8888)
 ```
 
-## Practicalli: Clojure Webapp routing and APIs with JSON id=g_12110
+## Practicalli: Clojure Webapp routing and APIs with JSON id=g12110
 
 [Practicalli: Clojure Webapp routing and APIs with JSON](https://practicalli.github.io/blog/posts/webapp-routes-with-json/)
 
@@ -96,13 +96,13 @@ Edit `~/projects/study/clj/ex/book_practicalli_clojure_webapps/p01/src/practical
 		http://localhost:8000/player/jenny-jetpack
 		http://localhost:8000/scores
 
-## Practicalli: Consuming APIs from Clojure id=g_12111
+## Practicalli: Consuming APIs from Clojure id=g12111
 
 [Practicalli: Consuming APIs from Clojure](https://practicalli.github.io/blog/posts/consuming-apis-with-clojure/)
 
 Edit `~/projects/study/clj/ex/book_practicalli_clojure_webapps/p01/src/practicalli/p08.clj`
 
-## Getting Started — seancorfield/next.jdbc id=g_12113
+## Getting Started — seancorfield/next.jdbc id=g12113
 
 [Getting Started — seancorfield/next.jdbc 1.1.569](https://cljdoc.org/d/seancorfield/next.jdbc/1.1.569/doc/getting-started)
 

@@ -1,7 +1,7 @@
 
 ## Tree
 
-	shortcuts kısayollar keybindings - osx id=g_12084
+	shortcuts kısayollar keybindings - osx id=g12084
 		sol alt köşe: #^+
       | r | obs: streaming           |
       | n | obs: recording           |
@@ -22,7 +22,7 @@
 			https://www.simplified.guide/macos/bash-completion
 			brew install bash-completion
 	spotlight
-		dictionary lookup in spotlight id=g_11938
+		dictionary lookup in spotlight id=g11938
 			<word> def
 				shows the dictionary definition on top
 
@@ -30,7 +30,7 @@
 
 ### Internet wifi network
 
-  wifi connection issues id=g_10099
+  wifi connection issues id=g10099
     ref
       <url:file:///~/Dropbox/mynotes/content/code/cosx/internet_connection_drops_constantly.md>
     opt1: bounce mDNSResponder

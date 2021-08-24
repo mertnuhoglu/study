@@ -1,7 +1,7 @@
 (ns destructuring)
 
-; destructuring id=g_11408
-; ref: Destructuring <url:file:///~/projects/study/clj/book_clojure_practicalli.md#r=g_11407>
+; destructuring id=g11408
+; ref: Destructuring <url:file:///~/projects/study/clj/book_clojure_practicalli.md#r=g11407>
 
 (let [[a b & c :as d] [1 2 3 4]] [a b])
 ;; => [1 2]

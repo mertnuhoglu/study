@@ -10,7 +10,7 @@ points
 	check localleader and leader
 		:echo mapleader
 		:let mapleader = "\<Space>"
-	colorscheme themes id=g_11968
+	colorscheme themes id=g11968
 		dark
 			rigel
 			oceanicnext
@@ -133,7 +133,7 @@ points
 	tab colors
 		lightline gibi tabline eklentisi kullanıyorsan, oradan değiştirmelisin
 			ref
-				lightline: statusline/tabline  <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10570>
+				lightline: statusline/tabline  <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g10570>
 		https://stackoverflow.com/questions/7238113/customising-the-colours-of-vims-tab-bar
 			:hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
 			:hi TabLine ctermfg=Blue ctermbg=Yellow
@@ -223,10 +223,10 @@ plugins
 			:PlugInstall
 	tabular: align
 		ref
-			tabular align text <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11680>
+			tabular align text <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g11680>
 	spacemacs - vim-which-key
 		ref
-			vim-which-key spacemacs emacs-which-key port {{{ <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11679>
+			vim-which-key spacemacs emacs-which-key port {{{ <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g11679>
 			<url:vimhelp:vim-which-key>
 	deoplete - autocomplete
 	easymotion - quick move chars
@@ -244,8 +244,8 @@ plugins
 		TsuDefinition
 		TsuReferences
 		TsuImplementation
-	lightline: statusline/tabline  id=g_10570
-		lightline: statusline/tabline  <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10570>
+	lightline: statusline/tabline  id=g10570
+		lightline: statusline/tabline  <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g10570>
 		let g:lightline = {
 					\ 'colorscheme': 'solarized',
 		tema tanımları:
@@ -267,8 +267,8 @@ plugins
 			yy  "+ register
 			dd
 			pp
-	ale: LSP Language Server Protocol Client id=g_10563
-		ale: LSP Language Server Protocol Client <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10563>
+	ale: LSP Language Server Protocol Client id=g10563
+		ale: LSP Language Server Protocol Client <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g10563>
 		typescript
 			let b:ale_fixers = { 'typescript': ['eslint', 'prettier'] }
 		<vimhelp:ale-typescript-options>
@@ -307,8 +307,8 @@ plugins
 				running linters from vim
 					set makeprg=ci/lint.sh
 					:make
-	fugitive.vim id=g_10519
-		fugitive.vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10519>
+	fugitive.vim id=g10519
+		fugitive.vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g10519>
 		ref
 			http://vimcasts.org/categories/git/
 		use cases
@@ -350,8 +350,8 @@ plugins
 			Glog -1 --until=yesterday
 			Glog --
 				loads logs into current buffer
-	unimpaired.vim id=g_10520
-		unimpaired.vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10520>
+	unimpaired.vim id=g10520
+		unimpaired.vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g10520>
 		<vimhelp:unimpaired-next>
 		*[q*     |:cprevious|
 		*]q*     |:cnext|
@@ -698,8 +698,8 @@ plugins
 					go up the directory tree by one or multiple levels.
 				:command at the end of input
 					Use :25 to jump to line 25. Use :diffthis when opening multiple files to run :diffthis on the first 4 files.
-viml vimscript id=g_10491
-	viml vimscript <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10491>
+viml vimscript id=g10491
+	viml vimscript <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g10491>
 	refcard - komut listesi
 		expand
 			let word = expand('<cword>')
@@ -731,8 +731,8 @@ viml vimscript id=g_10491
 				exe a:firstline.",".a:lastline."g/\\(\\.jpg\\>\\)\\|\\(\\.png\\)/ s#\\(^\\)\\(.*/\\)\\([^/]\\+\\)\\(\\..*$\\)#![\\3](\\2\\3\\4)#"
 			endfunction
 			command! -nargs=* -range=% SurroundMdImage <line1>,<line2>call SurroundMdImage()
-	window/buffer navigation: goto some window/buffer id=g_10490
-		window/buffer navigation: goto some window/buffer <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10490>
+	window/buffer navigation: goto some window/buffer id=g10490
+		window/buffer navigation: goto some window/buffer <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g10490>
 		echo bufnr("%")
 		win_findbuf(6)
 		win_gotoid(win_id)
@@ -808,7 +808,7 @@ viml vimscript id=g_10491
 		"a:000" is set to a |List| that contains these arguments
 vim documentation
 	neovim
-		:TOhtml id=g_11899
+		:TOhtml id=g11899
 			syntax highlighted html output as seen in neovim
 		<vimhelp:nvim-intro>
 			differences between vim and nvim
@@ -937,8 +937,8 @@ my keybindings
 			c command, nt nerdtree
 		nnoremap cnf :NERDTreeFind<cr>
 articles-books
-	javascript in vim id=g_10197
-		javascript in vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g_10197>
+	javascript in vim id=g10197
+		javascript in vim <url:file:///~/Dropbox/mynotes/content/code/cvim/cvim.md#r=g10197>
 		https://davidosomething.com/blog/vim-for-javascript/
 			https://github.com/sheerun/vim-polyglot
 			https://github.com/pangloss/vim-javascript

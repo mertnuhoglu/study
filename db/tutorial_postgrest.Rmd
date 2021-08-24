@@ -18,7 +18,7 @@ path: ~/projects/study/db/tutorial_postgrest.Rmd
 state: wip
 ---
 
-Summarized in `~/projects/study/db/tutorial_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g_10765>`
+Summarized in `~/projects/study/db/tutorial_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10765>`
 
 # 01. Postgrest Official Tutorial 
 
@@ -723,9 +723,9 @@ curl http://localhost:8080/rest/t01b?select=id
   ##>  {"id":101}]
 ``` 
 
-#### 02.04.02. Create a new schema and define an api for it id=g_10769
+#### 02.04.02. Create a new schema and define an api for it id=g10769
 
-    ref canonical: Toy Data <url:file:///~/projects/study/db/study_postgrest.Rmd#r=g_10771>
+    ref canonical: Toy Data <url:file:///~/projects/study/db/study_postgrest.Rmd#r=g10771>
 
 Now, try with another schema and table from scratch:
 

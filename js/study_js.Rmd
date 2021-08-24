@@ -245,7 +245,7 @@ reference:
 
     Frisby's Mostly Adequate Guide to Functional Programming - Brian Lonsdorf
     Chapter 9: Monadic Onions
-		## Chapter 9: Monadic Onions <url:file:///~/gdrive/mynotes/content/books/fp/book_frisby_adequate_guide_to_functional_programming.md#r=g_10601>
+		## Chapter 9: Monadic Onions <url:file:///~/gdrive/mynotes/content/books/fp/book_frisby_adequate_guide_to_functional_programming.md#r=g10601>
 
 ### Simple Example for `concatMap` 02
 

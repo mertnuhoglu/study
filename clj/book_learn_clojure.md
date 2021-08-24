@@ -21,7 +21,7 @@ state: wip
 
 https://clojure.org/guides/learn/syntax
 
-### Strings (character types) id=g_11315
+### Strings (character types) id=g11315
 
 ``` clojure
 "hello"         ; string
@@ -29,7 +29,7 @@ https://clojure.org/guides/learn/syntax
   #"[0-9]+"       ; regular expression
 ``` 
 
-### Symbols and idents: id=g_11316
+### Symbols and idents: id=g11316
 
 		map             ; symbol
 		+               ; symbol - most punctuation allowed
@@ -72,7 +72,7 @@ Lists are evaluated as invocation.
 
 Some languages have both statements and expressions. Statements have stateful effect but don't return a value. In clojure, everything is an expression that evaluates to a value.
 
-### Delaying evaluation with quoting id=g_11317
+### Delaying evaluation with quoting id=g11317
 
 Sometimes, symbols should just be a symbol without looking up what it refers to. Then we suspend evaluation with quoting:
 
@@ -86,7 +86,7 @@ Sometimes, a list should just be a list of data values:
 '(1 2 3)
 ``` 
 
-### REPL id=g_11318
+### REPL id=g11318
 
 Clojure is always compiled to JVM bytecode. There is no clojure interpreter.
 
@@ -99,7 +99,7 @@ History of values of last expressions: `*1` `*2`...
 ;; => 17
 ``` 
 
-#### Helper functions id=g_11313
+#### Helper functions id=g11313
 
 Helper functions: `doc`, `find-doc`, `apropos`, `source`, `dir`
 
@@ -147,7 +147,7 @@ Symbols are evaluated by looking up what they refer to:
   ##> 14
 ``` 
 
-#### Printing id=g_11319
+#### Printing id=g11319
 
 `println` and `print` for human-readable printing.
 
@@ -295,7 +295,7 @@ Instead you can simply write:
 
 ### Java Interop
 
-#### invoking java code id=g_11324
+#### invoking java code id=g11324
 
 ``` clojure
 	| Task            | Java              | Clojure          |

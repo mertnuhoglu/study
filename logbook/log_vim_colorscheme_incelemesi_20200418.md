@@ -13,6 +13,6 @@ Plug 'rainglow/vim'
 
 Beğendiğim temalar:
 
-`colorscheme themes <url:file:///~/projects/study/otl/cvim.otl#r=g_11968>`
+`colorscheme themes <url:file:///~/projects/study/otl/cvim.otl#r=g11968>`
 
 

@@ -31,7 +31,7 @@ Ref:
 
 		~/projects/study/r/study_gis_r.Rmd
 
-# Documentation: Leaflet for R id=g_12293
+# Documentation: Leaflet for R id=g12293
 
 ## Shiny Integration
 
@@ -83,7 +83,7 @@ Used to replace or remove map elements
   | topojson | addTopoJSON                                       | removeTopoJSON | clearTopoJSON |
   | control  | addControl                                        | removeControl  | clearControls |
 
-### Inputs/Events id=g_12294
+### Inputs/Events id=g12294
 
 `input$MAPID_OBJCATEGORY_EVENTNAME`
 

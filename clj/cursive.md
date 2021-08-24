@@ -15,7 +15,7 @@ state: wip
 
 ---
 
-# quickstart cursive id=g_11816
+# quickstart cursive id=g11816
 
     | ^^ repl | run anything: repl             |
     | !u c    | clojure popup menu             |
@@ -25,17 +25,17 @@ state: wip
     | !e n    | send repl ns to current file   | ,en |
     | !r b    | jump to repl editor            | ,rb |
 
-# Index cursive id=g_11817
+# Index cursive id=g11817
 
-`Getting around: Structural movement <url:file:///~/projects/study/clj/cursive.md#r=g_11818>`
+`Getting around: Structural movement <url:file:///~/projects/study/clj/cursive.md#r=g11818>`
 
-`Structural editing (paredit) <url:file:///~/projects/study/clj/cursive.md#r=g_11819>`
+`Structural editing (paredit) <url:file:///~/projects/study/clj/cursive.md#r=g11819>`
 
-`Bir projeyi REPL ile incelemek  <url:file:///~/projects/study/clj/cursive.md#r=g_12072>`
+`Bir projeyi REPL ile incelemek  <url:file:///~/projects/study/clj/cursive.md#r=g12072>`
 
 # Issues
 
-## Bir projeyi REPL ile incelemek  id=g_12072
+## Bir projeyi REPL ile incelemek  id=g12072
 
 File > New > Project from existing sources > .select: `~/codes/clj/ataraxy/project.clj`
 
@@ -128,7 +128,7 @@ Quick documentation `F1`
 
 ![quick documentation](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200413124352.png)
 
-## Structural editing (paredit) id=g_11819
+## Structural editing (paredit) id=g11819
 
 Add shortcut for: `Structural Editing` as `#+s`
 
@@ -160,7 +160,7 @@ Press `#+0`, cursor goes to:
 		split		split the list
 		join		unsplit the list
 
-### Getting around: Structural movement id=g_11818
+### Getting around: Structural movement id=g11818
 
 Navigate > Structural Movement
 

@@ -36,10 +36,10 @@ _ id=r_lastid cjs_004
         var obj = { 0: 'a', 1: 'b', 2: 'c' };
         console.log(Object.keys(obj)); // console: ['0', '1', '2']
       export import 
-				require vs import id=g_10603
-					require vs import <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10603>
+				require vs import id=g10603
+					require vs import <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10603>
 					ref
-						ES Module Syntax  <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10602>
+						ES Module Syntax  <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10602>
 					opt01: 
 						import {div} from '@cycle/dom';
 						const {div} = require('@cycle/dom');
@@ -374,8 +374,8 @@ _ id=r_lastid cjs_004
         monitorEvent($('h1'), 'click')
       dom breakpoint
         inspector > .select element > Break on ... > Subtree Modifications
-    cyclejs id=g_10248
-			cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10248>
+    cyclejs id=g10248
+			cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10248>
       ref
         <url:file:///~/projects/study/js/study_learn_rxjs.Rmd>
         <url:file:///~/projects/study/js/study_rxjs.Rmd>
@@ -385,8 +385,8 @@ _ id=r_lastid cjs_004
         <url:file:///~/projects/study/js/study_cyclejs_router.Rmd>
         <url:file:///~/projects/study/problem/datatables_in_cyclejs/datatables_in_cyclejs.Rmd>
         <url:file:///~//itr/vrp_doc/study/cyclejs_vrp.Rmd>
-			refcard cyclejs id=g_10245
-				refcard cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10245>
+			refcard cyclejs id=g10245
+				refcard cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10245>
 				Reference CycleJs Examples <url:/Users/mertnuhoglu/projects/study/js/study_notes_cyclejs.Rmd#tn=Reference CycleJs Examples>
       current
 				addListener
@@ -394,7 +394,7 @@ _ id=r_lastid cjs_004
         debug
 					systematic elimination of possible bug causes
 						ref
-							p17: Systematic elimination of possible bug causes <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10219>
+							p17: Systematic elimination of possible bug causes <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g10219>
 						Put debug(console.log) to each stream
 							const requests$ = xs.merge( parentRequests$, planPanelSinks.HTTP,)
 								 .debug(x => { console.log("app/index main requests$"); console.log(x); })
@@ -817,11 +817,11 @@ _ id=r_lastid cjs_004
       router
         ref
           https://github.com/SteveALee/cycle-spa-template
-      cyclejs design  id=g_10207
-        cyclejs design  <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10207>
+      cyclejs design  id=g10207
+        cyclejs design  <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10207>
         makeDOMDriver
-      onion architecture id=g_10196
-        onion architecture <url:file:///~/projects/study/study_js.md#r=g_10196>
+      onion architecture id=g10196
+        onion architecture <url:file:///~/projects/study/study_js.md#r=g10196>
         ref
           https://github.com/olpeh/meeting-price-calculator/
           <url:file:///~/codes/js/meeting-price-calculator/src/index.ts>
@@ -1132,8 +1132,8 @@ _ id=r_lastid cjs_004
 				TypeError: sources.onion.debug is not a function
 					fix:
 						sources.onion.state$.debug() 
-      idioms - cyclejs id=g_10200
-        idioms - cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10200>
+      idioms - cyclejs id=g10200
+        idioms - cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10200>
 				reducer neden reducer olarak adlandırılmış mapper yerine?
 					<url:/Users/mertnuhoglu/Dropbox/mynotes/content/code/cjs/cjs.md#tn=reducer neden reducer olarak adlandırılmış mapper yerine?>
 					imzasına bakınca, sanki mapper gibi görünüyor:
@@ -1539,8 +1539,8 @@ _ id=r_lastid cjs_004
             addListener(actions)
             addListener({removeItem$: actions.removeItem$})
             addListenerStream(actions.newItem$, "newItem$")
-      examples real - cyclejs id=g_10201
-        examples real - cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10201>
+      examples real - cyclejs id=g10201
+        examples real - cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10201>
         autocomplete-search
           ref
             <url:file:///~/codes/js/cyclejs/examples/advanced/autocomplete-search/src/app.js>
@@ -1703,9 +1703,9 @@ _ id=r_lastid cjs_004
             return {
               storage: storageRequest$
             }
-        todomvc-onion id=g_10198
+        todomvc-onion id=g10198
           ref
-            todomvc-onion <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10198>
+            todomvc-onion <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10198>
             <url:file:///~/codes/js/todomvc-cycle-onion/src/app.js>
           onion inner logic
             const listSinks = isolate(List, {onion: listLens})(sources);
@@ -1868,8 +1868,8 @@ _ id=r_lastid cjs_004
             const locationSink = isolate(CityForm, {onion: cityLens})(sources);
             const todayForecastSink = isolate(TodayForecast, {onion: cityLens})(sources);
             const futureForecastSink = isolate(FutureForecast, {onion: cityLens})(sources);
-        ivan-kleshnin examples id=g_10206
-          ivan-kleshnin examples <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10206>
+        ivan-kleshnin examples id=g10206
+          ivan-kleshnin examples <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10206>
           form-1.0
             <url:file:///~/codes/js/cyclejs-examples/1.0-form/src/app.js>
             intent+model
@@ -2065,8 +2065,8 @@ _ id=r_lastid cjs_004
                   $ a = $ form
                 returns one stream:
                   $ b =  $ User
-          form-1.5: validation with id=g_10208
-            form-1.5: validation with <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10208>
+          form-1.5: validation with id=g10208
+            form-1.5: validation with <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10208>
             <url:file:///~/codes/js/cyclejs-examples/1.5-form/src/app.js>
             validation 
               let errors = store(seeds.form, $.merge(
@@ -2296,10 +2296,10 @@ _ id=r_lastid cjs_004
               <url:file:///~/codes/js/cyclejs-examples/3.0-crud.alt/src/app.js>
           next
             tcomb
-      taslak dizaynlar - cyclejs id=g_10202
-        taslak dizaynlar - cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10202>
-        focus/blur example id=g_10199
-          focus/blur example <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10199>
+      taslak dizaynlar - cyclejs id=g10202
+        taslak dizaynlar - cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10202>
+        focus/blur example id=g10199
+          focus/blur example <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10199>
           https://javascript.info/focus-blur
           features:
             blur edince inputu submit et
@@ -2324,7 +2324,7 @@ _ id=r_lastid cjs_004
               .map(name => div("#name", name))
             return xs.merge(errors$, text$)
 			articles - cyclejs 
-				cyclejs ex15_10_05 id=g_10585
+				cyclejs ex15_10_05 id=g10585
 					~/projects/study/js/vrp/ex/cyclejs_vrp/ex15/src/10_05/index.ts
 						index.ts
 							onionify(App)
@@ -2363,8 +2363,8 @@ _ id=r_lastid cjs_004
 					effects
 					separate these parts
     expressjs
-			server in expressjs and nodejs id=g_10625
-				server in expressjs and nodejs <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g_10625>
+			server in expressjs and nodejs id=g10625
+				server in expressjs and nodejs <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10625>
 				ref
 					~/projects/study/js/study_expressjs_server.Rmd
 				ex: 
@@ -2548,11 +2548,11 @@ _ id=r_lastid cjs_004
               correctFormat: true,
               defaultDate: '01/01/1900'
           },
-    html id=g_10204
-      html <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10204>
+    html id=g10204
+      html <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10204>
       document
-        attributes and properties id=g_10205
-          attributes and properties <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10205>
+        attributes and properties id=g10205
+          attributes and properties <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10205>
           https://javascript.info/dom-attributes-and-properties
           intro 
             HTML attributes are mapped to DOM Object properties
@@ -2755,8 +2755,8 @@ _ id=r_lastid cjs_004
     hyperscript
       ref
         <url:file:///~/projects/study/js/study_hyperscript.Rmd>
-      snabbdom - cyclejs id=g_10203
-        snabbdom - cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10203>
+      snabbdom - cyclejs id=g10203
+        snabbdom - cyclejs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10203>
         documentation
           ref
             https://github.com/snabbdom/snabbdom
@@ -3342,7 +3342,7 @@ _ id=r_lastid cjs_004
             npm run build
             open build/index.html
     nodejs
-			ref: server in expressjs and nodejs <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g_10625>
+			ref: server in expressjs and nodejs <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10625>
       node version managers: nvm and n
         nvm is more complex
         n is more simple
@@ -3541,8 +3541,8 @@ _ id=r_lastid cjs_004
     npm cli tools
       http-server
         http-server .
-    ramdajs id=g_10246
-			ramdajs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10246>
+    ramdajs id=g10246
+			ramdajs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10246>
 			ref
 				https://ramdajs.com/docs/
 				<url:file:///~/projects/study/js/study_ramda.Rmd>
@@ -3709,16 +3709,16 @@ _ id=r_lastid cjs_004
 					R.unnest([1, [2], [[3]]]); //=> [1, 2, [3]]
 					R.unnest([[1, 2], [3, 4], [5, 6]]); //=> [1, 2, 3, 4, 5, 6]
 				see: flatten, chain
-		ramdajs fantasy id=g_10604
-			ramdajs fantasy <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10604>
+		ramdajs fantasy id=g10604
+			ramdajs fantasy <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10604>
 			deprecated: use sanctuaryjs instead
 			Functor
 				implements
 					map 
 				ex
 					Array
-    rxjs id=g_10247
-			rxjs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10247>
+    rxjs id=g10247
+			rxjs <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10247>
       ref
         <url:file:///~/projects/study/js/study_learn_rxjs.Rmd>
         v6 rxjs based cyclejs <url:#r=cjs_003>
@@ -3861,10 +3861,10 @@ _ id=r_lastid cjs_004
         new Date("2017-07-04")
         new Date(Date.parse("2017-07-04"))
         moment("2017-07-04")
-    twitter bootstrap id=g_10145
-      twitter bootstrap <url:file:///~/projects/study/study/study_js.md#r=g_10145>
+    twitter bootstrap id=g10145
+      twitter bootstrap <url:file:///~/projects/study/study/study_js.md#r=g10145>
       ref
-        bootstrap twitter bootstrap <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10186>
+        bootstrap twitter bootstrap <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10186>
       cheatsheets
         https://hackerthemes.com/bootstrap-cheatsheet/
       themes
@@ -3904,8 +3904,8 @@ _ id=r_lastid cjs_004
               <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="home">tab1</div>
-    typescript # typescript id=g_10209
-      typescript <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10209>
+    typescript # typescript id=g10209
+      typescript <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10209>
       reference
         Compiler Options
           https://www.typescriptlang.org/docs/handbook/compiler-options.html
@@ -4023,8 +4023,8 @@ _ id=r_lastid cjs_004
       articles
 				Painting app for STEM 
 					https://github.com/bradymholt/the-painting-app
-				CLI apps in TypeScript via ts-node id=g_10666
-					CLI apps in TypeScript via ts-node <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10666>
+				CLI apps in TypeScript via ts-node id=g10666
+					CLI apps in TypeScript via ts-node <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10666>
 					https://www.geekytidbits.com/cli-apps-in-typescript-via-ts-node/
 					cli.ts
 						export function run() {
@@ -4037,8 +4037,8 @@ _ id=r_lastid cjs_004
 						require('./cli.ts').run();
 					> ./my-script
 						Hello from TypeScript!
-				Five tips I wish I knew when I started with Typescript id=g_10227
-					Five tips I wish I knew when I started with Typescript <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10227>
+				Five tips I wish I knew when I started with Typescript id=g10227
+					Five tips I wish I knew when I started with Typescript <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10227>
 					https://codeburst.io/five-tips-i-wish-i-knew-when-i-started-with-typescript-c9e8609029db
 					Strict configuration
 						tsconfig.json
@@ -4162,11 +4162,11 @@ _ id=r_lastid cjs_004
 									specialDelivery: "special delivery",
 									inStore: "in-store pickup",
 							};
-				Advanced Types - Typescript Handbook id=g_10226
-					Advanced Types - Typescript Handbook <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10226>
+				Advanced Types - Typescript Handbook id=g10226
+					Advanced Types - Typescript Handbook <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10226>
 					https://www.typescriptlang.org/docs/handbook/advanced-types.html
 					ref
-						article: Advanced Types - Typescript Handbook <url:file:///~/projects/study/js/study_ts.Rmd#r=g_10224>
+						article: Advanced Types - Typescript Handbook <url:file:///~/projects/study/js/study_ts.Rmd#r=g10224>
 					Intersection Types
 						def
 							A & B
@@ -4293,8 +4293,8 @@ _ id=r_lastid cjs_004
 							type PersonPartial = Partial<Person>;
 							type ReadonlyPerson = Readonly<Person>;
 					Inference from mapped types
-				TypeScript Deep Dive id=g_10228
-					TypeScript Deep Dive <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10228>
+				TypeScript Deep Dive id=g10228
+					TypeScript Deep Dive <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10228>
 					https://basarat.gitbooks.io/typescript/content/docs/getting-started.html
 					Run TypeScript with NodeJs
 						https://basarat.gitbooks.io/typescript/content/docs/quick/nodejs.html
@@ -4726,8 +4726,8 @@ _ id=r_lastid cjs_004
 											use es module syntax
 										tsconfig.json
 											module:commonjs
-									ES Module Syntax id=g_10602
-										ES Module Syntax  <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10602>
+									ES Module Syntax id=g10602
+										ES Module Syntax  <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10602>
 										ex
 											// file `foo.ts`
 											export let someVar = 123;
@@ -4807,8 +4807,8 @@ _ id=r_lastid cjs_004
 							Type Compatibility
 							Never Type
 							Discriminated Unions
-							Index Signatures (index types) id=g_10230
-								Index Signatures (index types) <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10230>
+							Index Signatures (index types) id=g10230
+								Index Signatures (index types) <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10230>
 								in js:
 									any object can be used as index 
 									ex
@@ -4882,8 +4882,8 @@ _ id=r_lastid cjs_004
 						Dynamic Import Expressions
 					Node.js QuickStart
 					Browser QuickStart
-					TypeScript's Type System id=g_10225
-						TypeScript's Type System <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10225>
+					TypeScript's Type System id=g10225
+						TypeScript's Type System <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10225>
 						intro 
 							Primitive Types
 								var num: number;
@@ -6137,8 +6137,8 @@ _ id=r_lastid cjs_004
                 <input id="datetimepicker" type="text" >
               javaScript
                 jQuery('#datetimepicker').datetimepicker();
-    xstream id=g_10605
-			xstream <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10605>
+    xstream id=g10605
+			xstream <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10605>
       import xstream
         const xs = require('xstream').default
         import xs from 'xstream';
@@ -6260,8 +6260,8 @@ _ id=r_lastid cjs_004
           .env.example
             #MONGODB_URI=mongodb://localhost:27017/test
             MONGODB_URI=mongodb://myUserAdmin:12345@localhost:27017/test
-      pug jade id=g_10139
-        pug jade <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g_10139>
+      pug jade id=g10139
+        pug jade <url:file:///~/Dropbox/mynotes/content/articles/articles_js.md#r=g10139>
         https://webapplog.com/jade/
           tags: first word
             body
@@ -6371,8 +6371,8 @@ _ id=r_lastid cjs_004
 
 ## Rmd files
 
-	index_rmd for js id=g_10627
-		index_rmd for js <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g_10627>
+	index_rmd for js id=g10627
+		index_rmd for js <url:file:///~/Dropbox/mynotes/content/code/cjs/cjs.md#r=g10627>
 		~/projects/study/js/ecmascript_modules.Rmd
 		~/projects/study/js/import_js_files.Rmd
 		~/projects/study/js/mixing_streams_with_values.Rmd
@@ -6382,11 +6382,11 @@ _ id=r_lastid cjs_004
 		~/projects/study/js/study_cyclejs_examples.Rmd
 		~/projects/study/js/study_cyclejs_onion_architecture.Rmd
 		~/projects/study/js/study_cyclejs_router.Rmd
-		~/projects/study/js/study_expressjs_server.Rmd id=g_10634
-			~/projects/study/js/study_expressjs_server.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g_10634>
+		~/projects/study/js/study_expressjs_server.Rmd id=g10634
+			~/projects/study/js/study_expressjs_server.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10634>
 			ref
-				~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g_10633>
-				~/projects/study/r/study_plumber_restful_apis.Rmd <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g_10653>
+				~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10633>
+				~/projects/study/r/study_plumber_restful_apis.Rmd <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10653>
 			e01: expressjs getting started
 				server.js
 					const app = express()
@@ -6447,8 +6447,8 @@ _ id=r_lastid cjs_004
 		~/projects/study/js/study_js.Rmd
 		~/projects/study/js/study_js_promises.Rmd
 		~/projects/study/js/study_learn_rxjs.Rmd
-		~/projects/study/js/study_notes_cyclejs.Rmd id=g_10767
-			~/projects/study/js/study_notes_cyclejs.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g_10767>
+		~/projects/study/js/study_notes_cyclejs.Rmd id=g10767
+			~/projects/study/js/study_notes_cyclejs.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10767>
 			Andre Staltz' CycleJs Fundamentals
 				v01
 					<iframe src="ex/cyclejs_ex01.html" width="200" height="30"></iframe>
@@ -6593,9 +6593,9 @@ _ id=r_lastid cjs_004
 						const request$ = intent(sources.DOM)
 						const parentReducer$ = model(sources.HTTP);
 				ref07: Node Apps
-					refblc: p16: onion with one subcomponent and lens <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g_10221>
+					refblc: p16: onion with one subcomponent and lens <url:file:///~/projects/study/js/study_notes_cyclejs.Rmd#r=g10221>
 				ref08: Full CycleJs App:
-					refblc: cyclejs ex15_10_05 <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g_10585>
+					refblc: cyclejs ex15_10_05 <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10585>
 			Article: Handling lists in Cyclejs
 				How to create Dynamic List Components
 			Problems
@@ -6634,7 +6634,7 @@ _ id=r_lastid cjs_004
 								global.x = x
 								console.log(toHTML(x))
 							// "<div><div></div></div>"
-				p03: Multiple HTTP Requests id=g_10764
+				p03: Multiple HTTP Requests id=g10764
 					intro
 						fails:
 							const response$ = xs.merge(
@@ -6697,7 +6697,7 @@ _ id=r_lastid cjs_004
 					p15 ex03
 					p15 ex04
 					p15 ex05
-				p16: onion with one subcomponent and lens id=g_10221
+				p16: onion with one subcomponent and lens id=g10221
 					p16.01 Creating subcomponent  Uses `cycle-onionify.onionify()`
 					p16.02 Pass the global state to subcomponent  Custom `isolate()` with `cycle-onionify.onionify()`
 					p16.02a Bug:
@@ -6713,7 +6713,7 @@ _ id=r_lastid cjs_004
 						Compiling and running TypeScript files
 						p16.08a Add type annotations: Sinks problem
 					p16.09 Implement custom type-safe `isolate`
-				p17: Systematic elimination of possible bug causes id=g_10219
+				p17: Systematic elimination of possible bug causes id=g10219
 					Put debug(console.log) to each stream
 					p17_01: Initial application
 					p17_02: Elimination of DetailPanel Component
@@ -6721,7 +6721,7 @@ _ id=r_lastid cjs_004
 					Cause of the Problem
 					Did Systematic Elimination Really Work?
 					Why Didn't TypeScript Give an Error for undefined variable?
-				p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` id=g_10223
+				p18: Why Does `isolate()` Remove Type Information? Reimplementing `isolate()` id=g10223
 					p18.01: Base Node App
 					p18.02: Encapsulate Components into Their Own Functions
 					p18.03: Custom `onionify()`
@@ -6776,8 +6776,8 @@ _ id=r_lastid cjs_004
 		~/projects/study/js/using_js_in_rmd.Rmd
 		vrp
 			~//itr/vrp_doc/study/cyclejs_vrp.Rmd
-			~/projects/itr/vrp_doc/study/study_vrp.Rmd id=g_10766
-				~/projects/itr/vrp_doc/study/study_vrp.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g_10766>
+			~/projects/itr/vrp_doc/study/study_vrp.Rmd id=g10766
+				~/projects/itr/vrp_doc/study/study_vrp.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10766>
 				001 study_vrp: concatMap example
 				002 study_vrp: using ramda
 				003 study_vrp: order_line instead of pln_orl
@@ -6807,14 +6807,14 @@ _ id=r_lastid cjs_004
 							dm/schema/yuml/datamodel_shipment.md ...
 						Copy them into `yuml2data01` dm folder.
 					007.02 Generate ddl.sql and sample_data.sql files
-						Follow `walkthrough yuml2data01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g_10550>`
+						Follow `walkthrough yuml2data01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g10550>`
 						Generate the following output files:
 							dm/schema/gen/ddl.sql
 							dm/schema/gen/views.sql
 							...
 						Copy them into actual database such as `vrp_psk01`
 					007.03 Run the database from docker container
-						Follow `walkthrough vrp_psk01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g_10551>`
+						Follow `walkthrough vrp_psk01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g10551>`
 						cd vrp_psk01
 						docker-compose up 
 					007.04 Run the java, R servers
@@ -6860,7 +6860,7 @@ _ id=r_lastid cjs_004
 										-F sevk_emri_file=@input/20170103/sevk_emri.xlsx \
 										...
 										http://localhost:8300/upload_run
-							opt02: Pass Data as Form Parameters id=g_10719
+							opt02: Pass Data as Form Parameters id=g10719
 								Edit `~/projects/itr/vrp/r/pkg/vrpdata/R/vrp_api.R`
 									post_run = function(sevk_emri_data, planningDate, planId) {
 								Run curl:
@@ -6883,7 +6883,7 @@ _ id=r_lastid cjs_004
 							Error: Error in fread(dec = ".", col_types = c("text",...)
 								opt01: run post_run in R
 								Why is sevk_emri data broken?
-							Error: <assertError: is_empty(x = instances_with_no_attribute_value) is not TRUE> id=g_10754
+							Error: <assertError: is_empty(x = instances_with_no_attribute_value) is not TRUE> id=g10754
 								opt01: Systematic elimination of options
 								Why is `order$company_id` empty?
 									Compare sevk_emri_file between R run and curl run:
@@ -6921,14 +6921,14 @@ _ id=r_lastid cjs_004
 							Step 04: Test it
 								Run curl command with big data: `~/projects/study/js/vrp/ex/study_vrp/post_run_01/curl02.sh`
 								Output: `/Users/mertnuhoglu/projects/itr/vrp/data/jtn/out/plan_single_20170103a6.xlsx`
-						007.02 Options  id=g_10755
+						007.02 Options  id=g10755
 							007.02.01 Running R Services in R Console
 
 
 ## unclassified
 
 	refs
-		functional programming in js - js fp - jsfp <url:file:///~/Dropbox/mynotes/content/code/cfp/cfp.md#r=g_10606>
+		functional programming in js - js fp - jsfp <url:file:///~/Dropbox/mynotes/content/code/cfp/cfp.md#r=g10606>
 	unclassified
     generator functions
       function* mdn

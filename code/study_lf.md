@@ -28,7 +28,7 @@ cmd open ${{
 ```
 
 
-## toggle preview kısayolu oluştur id=g_11823
+## toggle preview kısayolu oluştur id=g11823
 
 ```bash
 map zp set preview!
@@ -43,7 +43,7 @@ y
 
 # My Customizations
 
-Check: `zshrc: lf <url:file:///~/.zshrc#r=g_11820>`
+Check: `zshrc: lf <url:file:///~/.zshrc#r=g11820>`
 
 # Official Tutorial
 

@@ -26,7 +26,7 @@ fd --extension jpg --exec convert {} {.}.png
 
 # Problems
 
-## Belli bir tarihte update edilen dosyaları nasıl bulurum? id=g_11822
+## Belli bir tarihte update edilen dosyaları nasıl bulurum? id=g11822
 
 ```bash
 find . -type f -ls | grep 'Sep'

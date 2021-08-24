@@ -15,7 +15,7 @@ state: wip
 
 ---
 
-# osx keybindings for editing text id=g_11010
+# osx keybindings for editing text id=g11010
 
 [(Emacs) Keyboard Shortcuts for Editing Text Fields in OS X](https://jblevins.org/log/kbd)
 

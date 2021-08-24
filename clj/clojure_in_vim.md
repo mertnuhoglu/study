@@ -15,14 +15,14 @@ state: wip
 
 ---
 
-# Index: Clojure in Vim id=g_11843
+# Index: Clojure in Vim id=g11843
 
-	Connect to REPL in Conjure <url:#r=g_11844>
-	Keybindings Conjure <url:#r=g_11845>
-	Tool: ConjureSchool  <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11842>
-	Tool: vim-sexp <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11846>
+	Connect to REPL in Conjure <url:#r=g11844>
+	Keybindings Conjure <url:#r=g11845>
+	Tool: ConjureSchool  <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11842>
+	Tool: vim-sexp <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11846>
 
-	| Disable linter: #r=g_11965 | call lsp#disable_diagnostics_for_buffer() |
+	| Disable linter: #r=g11965 | call lsp#disable_diagnostics_for_buffer() |
 
 # Issues
 
@@ -40,7 +40,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 ```
 
-## Show Documentation in Conjure Floating Window id=g_11957
+## Show Documentation in Conjure Floating Window id=g11957
 
 Put in `~/.vimrc`
 
@@ -58,7 +58,7 @@ Now, hover over any clojure function and press `K`
 
 It works on any word as well.
 
-## Keybindings Conjure id=g_11845
+## Keybindings Conjure id=g11845
 
   | ,eb     | evaluate buffer                 | eval (buf)             |
   | ,ee     | evaluate inner expression       | eval (current-form)    |
@@ -73,7 +73,7 @@ It works on any word as well.
 
 Source: `:ConjureSchool`
 
-## Connect to REPL in Conjure id=g_11844
+## Connect to REPL in Conjure id=g11844
 
 01: Run nREPL server
 
@@ -95,9 +95,9 @@ Open `~/projects/study/clj/ex/articles_clojure/e01/src/fireplace/e01.clj`
 
 03: Evaluate lines
 
-ref: `Tool: ConjureSchool  <url:#r=g_11842>`
+ref: `Tool: ConjureSchool  <url:#r=g11842>`
 
-# Article: Writing Clojure in Vim id=g_11839
+# Article: Writing Clojure in Vim id=g11839
 
 [Writing Clojure in Vim](https://thoughtbot.com/blog/writing-clojure-in-vim)
 
@@ -105,7 +105,7 @@ ref: `Tool: ConjureSchool  <url:#r=g_11842>`
 
 [tpope/vim-sexp-mappings-for-regular-people: vim-sexp mappings for regular people](https://github.com/tpope/vim-sexp-mappings-for-regular-people)
 
-# REPL Tool: fireplace.vim id=g_11840
+# REPL Tool: fireplace.vim id=g11840
 
 ```bash
 cd ~/projects/study/clj/ex/articles_clojure
@@ -130,7 +130,7 @@ Edit `~/projects/study/clj/ex/articles_clojure/e01/deps.edn`
 clojure -M:nREPL
 ```
 
-# Article: Getting started with Clojure, Neovim and Conjure in minutes id=g_11841
+# Article: Getting started with Clojure, Neovim and Conjure in minutes id=g11841
 
 [Getting started with Clojure, Neovim and Conjure in minutes](https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/)
 
@@ -140,7 +140,7 @@ Conjure tutorial:
 curl -fL conjure.fun/school | sh
 ```
 
-# Tool: ConjureSchool  id=g_11842
+# Tool: ConjureSchool  id=g11842
 
 ```vim
 :ConjureSchool
@@ -152,11 +152,11 @@ curl -fL conjure.fun/school | sh
 clojure -Sdeps '{:deps {nrepl {:mvn/version "0.8.3"} cider/cider-nrepl {:mvn/version "0.25.4"}}}' -m nrepl.cmdline --middleware '["cider.nrepl/cider-middleware"]'
 ```
 
-# Tool: vim-sexp id=g_11846
+# Tool: vim-sexp id=g11846
 
 ref: `~/projects/study/clj/vim_sexp.md`
 
-# Tool: clojure-lsp id=g_11956
+# Tool: clojure-lsp id=g11956
 
 [clojure-lsp/clojure-lsp: Language Server (LSP) for Clojure](https://github.com/clojure-lsp/clojure-lsp)
 
@@ -176,13 +176,13 @@ ref: `~/.lsp/config.edn`
 
 ## Issues
 
-Disable linter: id=g_11965
+Disable linter: id=g11965
 
 ```vim
 call lsp#disable_diagnostics_for_buffer()
 ```
 
-# Tool: clj-kondo in vim id=g_11964
+# Tool: clj-kondo in vim id=g11964
 
 [clj-kondo/editor-integration.md at master · clj-kondo/clj-kondo](https://github.com/clj-kondo/clj-kondo/blob/master/doc/editor-integration.md)
 
@@ -195,7 +195,7 @@ compiler clj-kondo
 make
 ```
 
-Also check: `" automatic linting clojure files <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11963>`
+Also check: `" automatic linting clojure files <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g11963>`
 
 ref: `~/.vim/compiler/clj-kondo.vim`
 

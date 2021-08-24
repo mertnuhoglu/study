@@ -22,7 +22,7 @@ path: ~/projects/study/bash/study_fzf.Rmd
 ## Quickstart FZF
 
 
-## refcard fzf id=g_11666
+## refcard fzf id=g11666
 
 [Search syntax](https://github.com/junegunn/fzf#search-syntax)
 

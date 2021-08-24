@@ -15,11 +15,11 @@ state: wip
 
 ---
 
-# Quickstart deps.edn id=g_11724
+# Quickstart deps.edn id=g11724
 
-`New Project <url:file:///~/projects/study/clj/deps_cli.md#r=g_11941>`
+`New Project <url:file:///~/projects/study/clj/deps_cli.md#r=g11941>`
 
-`Index deps.edn <url:#r=g_11723>`
+`Index deps.edn <url:#r=g11723>`
 
 	| man clj                           | clj help                       |
 	| clj -A:alias                      | run alias                      |
@@ -37,19 +37,19 @@ state: wip
 	| -F:table "text"                   | apropos search                 |
 	| -X:project/new create :name <prj> | create new app from template   |
 
-`Article: What are the Clojure Tools? <url:clojure_cli_tools.md#r=g_11929>`
+`Article: What are the Clojure Tools? <url:clojure_cli_tools.md#r=g11929>`
 
 Practicalli deps.edn: `~/projects/study/clj/practicalli_deps_edn.md`
 
-`REPL functions: <url:clojure_cli_tools.md#r=g_11930>`
+`REPL functions: <url:clojure_cli_tools.md#r=g11930>`
 
-`Socket REPL <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g_11931>`
+`Socket REPL <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g11931>`
 
-# Index deps.edn id=g_11723
+# Index deps.edn id=g11723
 
-# Issues CLI Tools  id=g_11940
+# Issues CLI Tools  id=g11940
 
-## New Project id=g_11941
+## New Project id=g11941
 
 ```bash
 clojure -X:project/new :name mertnuhoglu/datawalk-01
@@ -62,15 +62,15 @@ clojure -M::datawalk:repl/rebel
 
 > -A (for REPL invocation), -X (for function execution), or -M (for clojure.main execution). 
 
-## Run main function id=g_12070
+## Run main function id=g12070
 
-`Run main function: <url:file:///~/projects/study/clj/deps_cli.md#r=g_11745>`
+`Run main function: <url:file:///~/projects/study/clj/deps_cli.md#r=g11745>`
 
 ```bash
 clj -M -m clj-new-01.clj-new-01
 ```
 
-opt02: `Run a clojure file as script  <url:file:///~/projects/study/clj/deps_cli.md#r=g_12069>`
+opt02: `Run a clojure file as script  <url:file:///~/projects/study/clj/deps_cli.md#r=g12069>`
 
 ```clj
 clojure src/cards/core.clj
@@ -85,7 +85,7 @@ clj -A:rebel
 clj -M:repl/rebel ;; practicalli/deps.edn
 ```
 
-ref: `Article: rebel-readline README <url:file:///~/projects/study/clj/deps_cli.md#r=g_11718>`
+ref: `Article: rebel-readline README <url:file:///~/projects/study/clj/deps_cli.md#r=g11718>`
 
 	| ^x ^d             | show doc           |
 	| ^x ^s             | show source        |
@@ -101,17 +101,17 @@ ref: `Article: rebel-readline README <url:file:///~/projects/study/clj/deps_cli.
 clj -Sdescribe
 ```
 
-## Running functions id=g_12071
+## Running functions id=g12071
 
-opt01a: `Executing a function <url:file:///~/projects/study/clj/deps_cli.md#r=g_11721>`
+opt01a: `Executing a function <url:file:///~/projects/study/clj/deps_cli.md#r=g11721>`
 
 ```bash
 clj -X:my-fn
 ```
 
-opt01b: `Run any function as alias: <url:file:///~/projects/study/clj/deps_cli.md#r=g_11746>`
+opt01b: `Run any function as alias: <url:file:///~/projects/study/clj/deps_cli.md#r=g11746>`
 
-opt02: `Running a main or script <url:file:///~/projects/study/clj/deps_cli.md#r=g_11722>`
+opt02: `Running a main or script <url:file:///~/projects/study/clj/deps_cli.md#r=g11722>`
 
 ```bash
 clojure -M -m clj-new-01.clj-new-01
@@ -119,14 +119,14 @@ clojure -M -m clj-new-01.clj-new-01
 
 ## Using libraries
 
-opt01: ref: `Using local libraries <url:file:///~/projects/study/clj/deps_cli.md#r=g_11719>`
+opt01: ref: `Using local libraries <url:file:///~/projects/study/clj/deps_cli.md#r=g11719>`
 
 ```clojure
 {:deps
  {time-lib/time-lib {:local/root "../time-lib"}}}
 ```
 
-opt02: ref: `Using git libraries <url:file:///~/projects/study/clj/deps_cli.md#r=g_11720>`
+opt02: ref: `Using git libraries <url:file:///~/projects/study/clj/deps_cli.md#r=g11720>`
 
 ```clojure
 {:deps
@@ -152,7 +152,7 @@ clj -A:find-deps java-time
 clj -A:find-deps -F:save priority-map
 ```
 
-ref: `find-deps <url:file:///~/projects/study/clj/deps_cli.md#r=g_11716>`
+ref: `find-deps <url:file:///~/projects/study/clj/deps_cli.md#r=g11716>`
 
 ## Create a new project: clj-new
 
@@ -160,7 +160,7 @@ ref: `find-deps <url:file:///~/projects/study/clj/deps_cli.md#r=g_11716>`
 clojure -X:new create :name clj-new-01/clj-new-01
 ```
 
-ref: `clj-new: Generate new projects based on templates  <url:file:///~/projects/study/clj/deps_cli.md#r=g_11717>`
+ref: `clj-new: Generate new projects based on templates  <url:file:///~/projects/study/clj/deps_cli.md#r=g11717>`
 
 # Article: Clojure - Deps and CLI Guide
 
@@ -217,7 +217,7 @@ clj -X hello/run
 
 `-X` executes an entry function.
 
-## Using local libraries id=g_11719
+## Using local libraries id=g11719
 
 Create a local library:
 
@@ -245,7 +245,7 @@ Check `~/projects/study/clj/ex/study_deps_cli/deps-local-libraries/src/hello.clj
 clj -X hello/run
 ```
 
-## Using git libraries id=g_11720
+## Using git libraries id=g11720
 
 ```clojure
 {:deps
@@ -312,7 +312,7 @@ clojure: for other uses
 clj
 ```
 
-## Executing a function id=g_11721
+## Executing a function id=g11721
 
 Ex: A function that takes a map: 
 
@@ -349,7 +349,7 @@ Execute an arbitrary function:
 clj -X my.qualified/fn :config 789
 ```
 
-## Running a main or script id=g_11722
+## Running a main or script id=g11722
 
 `-M` calls a `-main` function or a clojure script
 
@@ -357,13 +357,13 @@ clj -X my.qualified/fn :config 789
 clojure [clj-opt*] -M[:aliases] [main-opts]
 ```
 
-ref: `clj-new: Generate new projects based on templates  <url:file:///~/projects/study/clj/deps_cli.md#r=g_11717>`
+ref: `clj-new: Generate new projects based on templates  <url:file:///~/projects/study/clj/deps_cli.md#r=g11717>`
 
 ```bash
 clojure -M -m clj-new-01.clj-new-01
 ```
 
-# find-deps id=g_11716
+# find-deps id=g11716
 
 [hagmonk/find-deps: tools.deps friendly utility for searching clojars and maven](https://github.com/hagmonk/find-deps)
 
@@ -438,7 +438,7 @@ clj -A:rebel
 
 
 
-# Article: rebel-readline README id=g_11718
+# Article: rebel-readline README id=g11718
 
 [bhauman/rebel-readline: Terminal readline library for Clojure dialects](https://github.com/bhauman/rebel-readline)
 
@@ -558,7 +558,7 @@ Check `~/projects/study/clj/ex/study_deps_cli/main-function/src/practicalli/what
 clojure -m practicalli.what-time-is-it
 ```
 
-# clj-new: Generate new projects based on templates  id=g_11717
+# clj-new: Generate new projects based on templates  id=g11717
 
 Using practicalli deps:
 
@@ -621,13 +621,13 @@ clojure -M:test:runner
 
 Check test scripts: `~/projects/study/clj/ex/study_deps_cli/clj-new-01/test/clj_new_01/clj_new_01_test.clj`
 
-### Run main function: id=g_11745
+### Run main function: id=g11745
 
 ```bash
 clj -M -m clj-new-01.clj-new-01
 ```
 
-### Run any function as alias: id=g_11746
+### Run any function as alias: id=g11746
 
 Check: `deps.edn > aliases > :my-fn <url:/Users/mertnuhoglu/projects/study/clj/ex/study_deps_cli/clj-new-01/deps.edn#tn=:my-fn>`
 
@@ -652,7 +652,7 @@ You can skip `:exec-args` in `:aliases`
 clj -X:my-fn2			;; ok
 ```
 
-### Run a clojure file as script  id=g_12069
+### Run a clojure file as script  id=g12069
 
 [ubuntu - How to run a Clojure File? - Stack Overflow](https://stackoverflow.com/questions/30445590/how-to-run-a-clojure-file)
 

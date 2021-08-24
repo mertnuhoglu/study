@@ -19,7 +19,7 @@ state: wip
 
 ---
 
-# topic: managing python versions id=g_11468
+# topic: managing python versions id=g11468
 
 return: requires python 3.6+ <url:/Users/mertnuhoglu/projects/study/logbook/log_20200523.md#tn=requires python 3.6+>
 
@@ -34,7 +34,7 @@ ln -s /usr/local/opt/python@3/bin/python3 python
 ```
 
 
-## Article: The right and wrong way to set up Python 3 on MacOS | Opensource.com id=g_11567
+## Article: The right and wrong way to set up Python 3 on MacOS | Opensource.com id=g11567
 
 [The right and wrong way to set up Python 3 on MacOS | Opensource.com](https://opensource.com/article/19/5/python-3-default-mac#what-to-do)
 

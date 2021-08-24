@@ -22,24 +22,24 @@ state: wip
 
 https://github.com/saulpw/visidata
 
-## refcard visidata id=g_11578
+## refcard visidata id=g11578
 
 		cheatsheet	https://jsvine.github.io/visidata-cheat-sheet/en/
-		Help/quit <url:file:///~/projects/study/code/study_visidata.md#r=g_11570>
-		Move <url:file:///~/projects/study/code/study_visidata.md#r=g_11568>
-		Search <url:file:///~/projects/study/code/study_visidata.md#r=g_11569>
-		Sheets: <url:file:///~/projects/study/code/study_visidata.md#r=g_11571>
-		Row selection <url:file:///~/projects/study/code/study_visidata.md#r=g_11572>
-		Move rows: <url:file:///~/projects/study/code/study_visidata.md#r=g_11573>
-		column types: <url:file:///~/projects/study/code/study_visidata.md#r=g_11574>
-		Column width size: <url:file:///~/projects/study/code/study_visidata.md#r=g_11575>
-		Move columns and rows: <url:file:///~/projects/study/code/study_visidata.md#r=g_11576>
-		Sorting and Filtering <url:file:///~/projects/study/code/study_visidata.md#r=g_11577>
+		Help/quit <url:file:///~/projects/study/code/study_visidata.md#r=g11570>
+		Move <url:file:///~/projects/study/code/study_visidata.md#r=g11568>
+		Search <url:file:///~/projects/study/code/study_visidata.md#r=g11569>
+		Sheets: <url:file:///~/projects/study/code/study_visidata.md#r=g11571>
+		Row selection <url:file:///~/projects/study/code/study_visidata.md#r=g11572>
+		Move rows: <url:file:///~/projects/study/code/study_visidata.md#r=g11573>
+		column types: <url:file:///~/projects/study/code/study_visidata.md#r=g11574>
+		Column width size: <url:file:///~/projects/study/code/study_visidata.md#r=g11575>
+		Move columns and rows: <url:file:///~/projects/study/code/study_visidata.md#r=g11576>
+		Sorting and Filtering <url:file:///~/projects/study/code/study_visidata.md#r=g11577>
 
-		VisiData Cheat Sheet <url:file:///~/projects/study/code/study_visidata.md#r=g_11582>
-		Editing cells <url:file:///~/projects/study/code/study_visidata.md#r=g_11579>
-		Summarizing data <url:file:///~/projects/study/code/study_visidata.md#r=g_11580>
-		Creating new columns <url:file:///~/projects/study/code/study_visidata.md#r=g_11581>
+		VisiData Cheat Sheet <url:file:///~/projects/study/code/study_visidata.md#r=g11582>
+		Editing cells <url:file:///~/projects/study/code/study_visidata.md#r=g11579>
+		Summarizing data <url:file:///~/projects/study/code/study_visidata.md#r=g11580>
+		Creating new columns <url:file:///~/projects/study/code/study_visidata.md#r=g11581>
 
 		| ^h     | help                          |
 		| e      | edit cell                     |
@@ -124,7 +124,7 @@ Frequency Table (Histogram): `+F`
  BUSINESS           ‖    5868 |      7.99 | ************                                       ‖
 ``` 
 
-Help/quit id=g_11570
+Help/quit id=g11570
 
 		| q  | quit       |
 		| ^c | abort      |
@@ -134,7 +134,7 @@ Help/quit id=g_11570
 
 Cheatsheet: `https://jsvine.github.io/visidata-cheat-sheet/en/`
 
-Move id=g_11568
+Move id=g11568
 
 		| g  | global (mnemonics) |
 		| gj | last row           |
@@ -144,7 +144,7 @@ Move id=g_11568
 		| ^f | page forward       |
 		| ^b | page backward      |
 
-Search id=g_11569
+Search id=g11569
 
 		| /regex  | search in column      |
 		| ?regex  | search backwards      |
@@ -155,7 +155,7 @@ Search id=g_11569
 		| zr 99   | row 99                |
 		| zc 99   | col 99                |
 
-## Sheets: id=g_11571
+## Sheets: id=g11571
 
 https://jsvine.github.io/intro-to-visidata/basics/understanding-sheets/
 
@@ -178,7 +178,7 @@ Sheets Sheet: Lists all open sheets: `+s`
 		| gS  | goto sheets trash |
 		| c-^ | goto last sheet   |
 
-## Rows id=g_11572
+## Rows id=g11572
 
 		| s        | select row                           |
 		| u        | unselect                             |
@@ -190,7 +190,7 @@ Sheets Sheet: Lists all open sheets: `+s`
 		| ,        | select if matches current rows value |
 		| g,       | all                                  |
 
-Move rows: id=g_11573
+Move rows: id=g11573
 
 ex: col: STATE > `|` > .TX 
 
@@ -212,7 +212,7 @@ Properties:
 
 Columns sheet (view all columns): `+c`
 
-Set column types: id=g_11574
+Set column types: id=g11574
 
 		| # | integer  |
 		| % | float    |
@@ -222,7 +222,7 @@ Set column types: id=g_11574
 
 Rename columns: `^`
 
-Column width size: id=g_11575
+Column width size: id=g11575
 
 		| _     | expand to fit in visible rows       |
 		| g_    | all rows                            |
@@ -232,7 +232,7 @@ Column width size: id=g_11575
 		| z-    | half width                          |
 		| z     | general: narrow scope of the action |
 
-Move columns and rows: id=g_11576
+Move columns and rows: id=g11576
 	
 		| +H +L | move cols |
 		| +J +K | move rows |
@@ -250,7 +250,7 @@ Manipulating inside Columns sheet:
 		| g$    | selected: set col types to $ |
 		| ge 99 | selected: set width to 99    |
 
-## Sorting and Filtering id=g_11577
+## Sorting and Filtering id=g11577
 
 		| !  | toggle "key" column    |
 		| [  | sort ascending              |
@@ -471,7 +471,7 @@ vd ~/projects/study/code/ex/study_visidata/e01/t01.tsv
 
 `F1` `^h`: manual
 
-## A VisiData Cheat Sheet id=g_11582
+## A VisiData Cheat Sheet id=g11582
 
 [A VisiData Cheat Sheet](https://jsvine.github.io/visidata-cheat-sheet/en/)
 
@@ -554,13 +554,13 @@ Filtering
 	| "     | Create new sheet of selected rows                  |
 	| gz"   | Create new sheet with "deep copy" of selected rows |
 	| R + n | Create new sheet containing n randomly chosen rows |
-Summarizing data id=g_11580
+Summarizing data id=g11580
 	| F         | Create frequency table of current column                      |
 	| gF        | Create frequency table of key columns                         |
 	| + + aggr  | Add aggregator to column                                      |
 	| z+ + aggr | Calculate one-time aggregation of column                      |
 	| I         | Create a "Describe Sheet," with summary stats for each column |
-Creating new columns id=g_11581
+Creating new columns id=g11581
 	| = + expr  | Create a new column from a Python expr evaluated against each row   |
 	| : + regex | Create new column(s) by splitting current column on regex           |
 	| ; + regex | Create new column(s) by extracting regex groups from current column |
@@ -569,7 +569,7 @@ Reshaping data
 	| W | Create pivot table sheet, with key column(s) as rows and current column as values |
 	| M | Create "melted" sheet, with key columns as non-melted values                      |
 	| T | Create a transposed sheet, where columns become rows and v.v.                     |  
-Editing cells id=g_11579
+Editing cells id=g11579
 	| e      | Begin editing current cell                           |
 	| Enter  | Finish editing                                       |
 	| Ctrl-c | Cancel editing                                       |
@@ -614,7 +614,7 @@ Open selected files as sheets: `g<enter>`
 
 # Articles
 
-## Saul Pwanson Visidata Videos id=g_11693
+## Saul Pwanson Visidata Videos id=g11693
 
 [VisiData demo 2: Graphs - YouTube](https://www.youtube.com/watch?v=Ozap_numsjI)
 
@@ -638,7 +638,7 @@ unzip simplemaps_uscities_basicv1.7.zip
 vd /Users/mertnuhoglu/codes/data/uscities.csv
 ```
 
-### Drawing Graphs id=g_11694
+### Drawing Graphs id=g11694
 
 [/graph](https://www.visidata.org/docs/graph/)
 
@@ -691,7 +691,7 @@ Interaction with graphs
 | v              | toggles the visibility of graph labels      |
 ```
 
-## Opening Google Sheets in Visidata id=g_11695
+## Opening Google Sheets in Visidata id=g11695
 
 Ref: [User Manual](https://readthedocs.org/projects/sphinx-visidata/downloads/pdf/latest/)
 

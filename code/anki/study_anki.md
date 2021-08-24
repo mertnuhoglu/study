@@ -22,7 +22,7 @@ state: wip
 
     Import tsv files into anki <url:file:///~/projects/study/code/anki/study_anki.md#r=g12334>
 		Import md files into anki  <url:file:///~/projects/study/code/anki/study_anki.md#r=g12355>
-    Card Templates  <url:file:///~/projects/study/code/anki/study_anki.md#r=g_11563>
+    Card Templates  <url:file:///~/projects/study/code/anki/study_anki.md#r=g11563>
       Card Type: Cloze: Text -> Text+Extra
         anki > browse > 
           din
@@ -86,7 +86,7 @@ I usually use anki for code blocks. To format them in an easy to read style, I c
 
 3. Select `Cloze` > Cards
 
-### Card Templates  id=g_11563
+### Card Templates  id=g11563
 
 4. Cards
 

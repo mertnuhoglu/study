@@ -25,7 +25,7 @@ clojure -X:project/new :name logic-tutorials/episode1
 
 Check `~/projects/study/clj/ex/art_logic_programming/episode1/deps.edn`
 
-# miniKanren - Dan Friedman and William Byrd - YouTube id=g_11871
+# miniKanren - Dan Friedman and William Byrd - YouTube id=g11871
 
 [miniKanren - Dan Friedman and William Byrd - YouTube](https://www.youtube.com/watch?v=5Q9x16uIsKA)
 
@@ -154,7 +154,7 @@ Check `~/projects/study/clj/ex/art_logic_programming/episode1/deps.edn`
 				(<question2> <answer1> <answer..>)
 				(<question3> ))
 
-# Article: Home · frenchy64/Logic-Starter Wiki id=g_11896
+# Article: Home · frenchy64/Logic-Starter Wiki id=g11896
 
 [Home · frenchy64/Logic-Starter Wiki](https://github.com/frenchy64/Logic-Starter/wiki)
 			
@@ -164,7 +164,7 @@ cd /Users/mertnuhoglu/codes/clj/Logic-Starter
 lein trampoline run -m clojure.main
 ```
 
-# Video: Programming Languages: The Logic Programming Paradigm - 1 - YouTube id=g_11897
+# Video: Programming Languages: The Logic Programming Paradigm - 1 - YouTube id=g11897
 
 [Programming Languages: The Logic Programming Paradigm - 1 - YouTube](https://www.youtube.com/watch?v=Z62rQwe8MSI)
 

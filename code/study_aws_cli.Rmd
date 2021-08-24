@@ -18,7 +18,7 @@ path: ~/projects/study/code/study_aws_cli.Rmd
 Related documents:
 
 		~/projects/bizqualify/BQ-data-run/datarun/restore_snapshot_on_aws_ec2_20181220.md
-		aws # aws # amazon <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10640>
+		aws # aws # amazon <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10640>
 
 # config and credentials
 

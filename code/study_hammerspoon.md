@@ -16,7 +16,7 @@ output:
 
 # Issues
 
-## hammerspoon: find name of application id=g_11480
+## hammerspoon: find name of application id=g11480
 
 opt01:
 

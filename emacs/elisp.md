@@ -17,7 +17,7 @@ state: wip
 
 ---
 
-# Article: Learn elisp in Y Minutes id=g_12044
+# Article: Learn elisp in Y Minutes id=g12044
 
 [Learn elisp in Y Minutes](https://learnxinyminutes.com/docs/elisp/)
 

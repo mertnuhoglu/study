@@ -36,9 +36,9 @@ _ id=r_lastid ai_0001
         Classification
         Clustering
 
-# Deep Learning - Andrew Ng id=g_10151
+# Deep Learning - Andrew Ng id=g10151
 
-    Deep Learning - Andrew Ng <url:file:///~/Dropbox/mynotes/content/articles/articles_ai.md#r=g_10151>
+    Deep Learning - Andrew Ng <url:file:///~/Dropbox/mynotes/content/articles/articles_ai.md#r=g10151>
     Week 2
       Binary Classification
         implementational techniques
@@ -628,9 +628,9 @@ _ id=r_lastid ai_0001
       dl'in parametrelerindeki değişim nasıl oluyor?
         dl'nin katmanları neye karşılık geliyor?
 
-# Serdar Tensorflow 20170903  id=g_10152
+# Serdar Tensorflow 20170903  id=g10152
 
-    Serdar Tensorflow 20170903  <url:file:///~/Dropbox/mynotes/content/articles/articles_ai.md#r=g_10152>
+    Serdar Tensorflow 20170903  <url:file:///~/Dropbox/mynotes/content/articles/articles_ai.md#r=g10152>
     ex:
       import tensorflow as tf
       from tensorflow.examples.tutorials.mnist import input_data
@@ -700,9 +700,9 @@ _ id=r_lastid ai_0001
               
               
 
-# Learning to See 20170907  id=g_10153
+# Learning to See 20170907  id=g10153
 
-    Learning to See 20170907  <url:file:///~/Dropbox/mynotes/content/articles/articles_ai.md#r=g_10153>
+    Learning to See 20170907  <url:file:///~/Dropbox/mynotes/content/articles/articles_ai.md#r=g10153>
     decision trees
       ex: finger detection
         /Users/mertnuhoglu/Dropbox/public/img/ss-215.png

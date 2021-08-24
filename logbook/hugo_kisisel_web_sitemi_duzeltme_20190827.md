@@ -7,11 +7,11 @@ ref:
 
 `~/projects/myrepo/general/process_website_hugo.md`
 
-`hugo <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10167>`
+`hugo <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10167>`
 
-`hugo <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10167>`
+`hugo <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10167>`
 
-### basit bir hugo sitesi oluştur  id=g_11634
+### basit bir hugo sitesi oluştur  id=g11634
 
 opt01:
 
@@ -36,7 +36,7 @@ http://localhost:1313/posts/my-first-post/
 
 opt02: custom layout
 
-`nuhoğlu vakfı web sitesi hugo 20190910  <url:file:///~/projects/study/logbook/hugo_universal_theme_customization_nuhogluvakfi_20190913.md#r=g_11632>`
+`nuhoğlu vakfı web sitesi hugo 20190910  <url:file:///~/projects/study/logbook/hugo_universal_theme_customization_nuhogluvakfi_20190913.md#r=g11632>`
 
 
 ### price comparison
@@ -1286,7 +1286,7 @@ Fix: `~/projects/jekyll/testnetlify12/config.toml`
 baseURL = "https://optimistic-volhard-1f3e5a.netlify.com"
 ``` 
 
-#### Final: mertnuhoglu.com ile yap id=g_11639
+#### Final: mertnuhoglu.com ile yap id=g11639
 
 ``` bash
 mkdir mertnuhoglu.com

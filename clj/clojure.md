@@ -15,11 +15,11 @@ state: wip
 
 ---
 
-# Quickstart Clojure id=g_11627
+# Quickstart Clojure id=g11627
 
-Exercises: Clojure By Example - kimh <url:file:///~/projects/study/clj/exercise_with_clojure_examples.md#r=g_10990>
+Exercises: Clojure By Example - kimh <url:file:///~/projects/study/clj/exercise_with_clojure_examples.md#r=g10990>
 
-Exercises: Sequences from Reference Doc <url:file:///~/projects/study/clj/exercise_with_clojure_examples.md#r=g_11270>
+Exercises: Sequences from Reference Doc <url:file:///~/projects/study/clj/exercise_with_clojure_examples.md#r=g11270>
 
 
 			~/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj
@@ -31,8 +31,8 @@ Exercises: Sequences from Reference Doc <url:file:///~/projects/study/clj/exerci
 
 Repl:
 
-`Quickstart deps.edn <url:file:///~/projects/study/clj/deps_cli.md#r=g_11724>`
-`Index babashka  <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g_11812>`
+`Quickstart deps.edn <url:file:///~/projects/study/clj/deps_cli.md#r=g11724>`
+`Index babashka  <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g11812>`
 
 ```bash
 ~/projects/study/clj/deps_cli.md
@@ -48,9 +48,9 @@ Repl:
 ~/projects/study/clj/nrepl.md
 ```
 
-`Quickstart deps.edn <url:file:///~/projects/study/clj/deps_cli.md#r=g_11724>`
+`Quickstart deps.edn <url:file:///~/projects/study/clj/deps_cli.md#r=g11724>`
 
-`New Project <url:file:///~/projects/study/clj/deps_cli.md#r=g_11941>`
+`New Project <url:file:///~/projects/study/clj/deps_cli.md#r=g11941>`
 
 # Articles
 
@@ -58,7 +58,7 @@ Repl:
 
 # Questions
 
-## reduce-kv id=g_11444
+## reduce-kv id=g11444
 
 [reduce-kv - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/reduce-kv)
 
@@ -88,7 +88,7 @@ ex: all vals are incremented by 1.
 (map #(update-map % inc) vector-of-maps)
 ``` 
 
-## keep  id=g_11435
+## keep  id=g11435
 
 [keep - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/keep)
 
@@ -108,7 +108,7 @@ ex: all vals are incremented by 1.
 ;;=> (1 3 5 7 9)
 ``` 
 
-## complement id=g_11433
+## complement id=g11433
 
 [complement - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/complement)
 
@@ -120,7 +120,7 @@ ex: all vals are incremented by 1.
 (not-empty? [1 2]) ;;=> true
 ``` 
 
-## map doc id=g_11276
+## map doc id=g11276
 
 https://clojuredocs.org/clojure.core/map
 
@@ -161,7 +161,7 @@ https://clojuredocs.org/clojure.core/map
 ;;=> ([:a :d :g] [:b :e :h] [:c :f :i])
 ``` 
 
-## partial doc id=g_11277
+## partial doc id=g11277
 
 https://clojuredocs.org/clojure.core/partial
 
@@ -186,7 +186,7 @@ user=> (hundred-times 4 5 6)
 ``` 
 
 
-## apply doc id=g_11278
+## apply doc id=g11278
 
 https://clojuredocs.org/clojure.core/apply
 
@@ -219,7 +219,7 @@ Applies fn f to the argument list formed by prepending intervening arguments to 
 ;;=> 3
 ``` 
 
-## comp doc id=g_11279
+## comp doc id=g11279
 
 https://clojuredocs.org/clojure.core/comp
 
@@ -249,7 +249,7 @@ Takes a set of functions and returns a fn that is the composition of those fns. 
 (negative-quotient 8 3)  ;;=> -8/3
 ``` 
 
-## juxt doc id=g_11280
+## juxt doc id=g11280
 
 https://clojuredocs.org/clojure.core/juxt
 
@@ -286,14 +286,14 @@ of those fns.
 ;;=> {:a "a" :b "b" :c "c" :d "d"}
 ``` 
 
-## identity doc id=g_11281
+## identity doc id=g11281
 
 ``` clojure
 user=> (identity 4)
 4
 ``` 
 
-## name doc id=g_11282
+## name doc id=g11282
 
 https://clojuredocs.org/clojure.core/name
 
@@ -316,7 +316,7 @@ Returns the name String of a string, symbol or keyword.
 ;;=> "x"
 ``` 
 
-## pr-str doc id=g_11283
+## pr-str doc id=g11283
 
 https://clojuredocs.org/clojure.core/pr-str
 
@@ -341,7 +341,7 @@ user=> x
 ;; => [1 2 3 4 5]
 ``` 
 
-## repeat doc id=g_11284
+## repeat doc id=g11284
 
 https://clojuredocs.org/clojure.core/repeat
 
@@ -362,7 +362,7 @@ Returns a lazy (infinite!, or length n if supplied) sequence of xs.
 
 ``` 
 
-## into doc id=g_11285
+## into doc id=g11285
 
 https://clojuredocs.org/clojure.core/into
 
@@ -386,7 +386,7 @@ https://clojuredocs.org/clojure.core/into
 ;; => [[1 2] [3 4]]
 ``` 
 
-## remove doc id=g_11286
+## remove doc id=g11286
 
 https://clojuredocs.org/clojure.core/remove
 
@@ -440,7 +440,7 @@ Evet, bu durumda, tek tek gönderiliyor. O zaman, item değil de vector olarak m
 
 Evet, map'in öğeleri `{:a 1}` gibi map değil, `[:a 1]` gibi vector.
 
-## update-in id=g_11287
+## update-in id=g11287
 
 https://clojuredocs.org/clojure.core/update-in
 
@@ -452,7 +452,7 @@ https://clojuredocs.org/clojure.core/update-in
 ;;=> {:name "James", :age 27}
 ``` 
 
-## assoc-in id=g_11288
+## assoc-in id=g11288
 
 https://clojuredocs.org/clojure.core/assoc-in
 
@@ -464,7 +464,7 @@ https://clojuredocs.org/clojure.core/assoc-in
 ; => {:person "Violet"}
 ``` 
 
-## swap! amap assoc akey nasıl çalışıyor? id=g_11289
+## swap! amap assoc akey nasıl çalışıyor? id=g11289
 
 ``` clojure
 (def m (atom {:a 1}))
@@ -486,7 +486,7 @@ Acaba sıralama değişince ne oluyor?
 
 `assoc` 2 argüman alıyor. Bu yüzden, `swap!` ile kullanımda ilk argüman otomatikman mevcut atom oluyor. 
 
-## defonce id=g_11290
+## defonce id=g11290
 
 Like def, but you cannot overwrite it.
 
@@ -505,7 +505,7 @@ foo
 ;; => 5
 ``` 
 
-## printing a map id=g_11291
+## printing a map id=g11291
 
 ``` clojure
 (print {:a 1 :b 2})
@@ -524,7 +524,7 @@ https://stackoverflow.com/questions/1527548/why-does-clojure-have-keywords-in-ad
 
 > Keywords are generally used as lightweight "constant strings", e.g. for the keys of a hash-map or the dispatch values of a multimethod. Symbols are generally used to name variable and functions and it's less common to manipulate them as objects
 
-## mapv function id=g_11292
+## mapv function id=g11292
 
 > Returns a vector consisting of the result of applying f to the
 > set of first items of each coll, followed by applying f to the set
@@ -544,7 +544,7 @@ Usage:
 ;; => [4 6]
 ``` 
 
-## hash-map function id=g_11293
+## hash-map function id=g11293
 
 https://clojuredocs.org/clojure.core/hash-map
 
@@ -568,7 +568,7 @@ https://clojuredocs.org/clojure.core/hash-map
 ;; => {"a" "1", "b" "2", "c" "3"}
 ``` 
 
-## namespaced keyword notations id=g_11294
+## namespaced keyword notations id=g11294
 
 ``` clojure
   #:a{:b :c}
@@ -577,7 +577,7 @@ https://clojuredocs.org/clojure.core/hash-map
 ;; => #:a{:b :c}
 ``` 
 
-## map-indexed function id=g_11295
+## map-indexed function id=g11295
 
 ``` clojure
 (map-indexed (fn [idx itm] [idx itm]) "foobar")
@@ -586,7 +586,7 @@ https://clojuredocs.org/clojure.core/hash-map
 ;; => ({0 "f"} {1 "o"} {2 "o"} {3 "b"} {4 "a"} {5 "r"})
 ``` 
 
-## vec function id=g_11296
+## vec function id=g11296
 
 ``` clojure
 (vec '(1 2 3))
@@ -635,7 +635,7 @@ clj
 ;; => "2019-11-01T11:53:40.214Z"
 ``` 
 
-## Writing a program id=g_11297
+## Writing a program id=g11297
 
 Edit `~/projects/study/clj/ex/study_clojure/ex01/src/hello.clj`
 
@@ -648,7 +648,7 @@ clj -m hello
 
 ## Article: Freecodecamp Clojure
 
-### Hashmaps id=g_11298
+### Hashmaps id=g11298
 
 https://guide.freecodecamp.org/clojure/hashmaps/
 
@@ -668,7 +668,7 @@ Two ways to construct:
 ;; => {:a 1, :b 2}
 ``` 
 
-#### Converting other collections to hashmaps id=g_11299
+#### Converting other collections to hashmaps id=g11299
 
 ``` clojure
 (hash-map [:a 1 :b 2 :c 3])
@@ -690,7 +690,7 @@ It destructures a collection before applying a function to it:
 
 https://www.braveclojure.com/do-things/
 
-### Special Forms id=g_11300
+### Special Forms id=g11300
 
 In the previous section, you learned that function calls are expressions that have a function expression as the operator. The two other kinds of expressions are macro calls and special forms
 
@@ -698,7 +698,7 @@ the main feature that makes special forms “special” is that, unlike function
 
 Another feature that differentiates special forms is that you can’t use them as arguments to functions
 
-### Multi-arity id=g_11301
+### Multi-arity id=g11301
 
 Functions also support arity overloading. This means that you can define a function so a different function body will run depending on the arity
 
@@ -728,7 +728,7 @@ Arity overloading is one way to provide default values for arguments
 
 "karate" is the default value.
 
-### Variable-arity id=g_11302
+### Variable-arity id=g11302
 
 By including a `rest` parameter. 
 
@@ -744,7 +744,7 @@ By including a `rest` parameter.
 ; => "Hi, Doreen, here are my favorite things: gum, shoes, kara-te"
 ``` 
 
-### Destructuring id=g_11303
+### Destructuring id=g11303
 
 Binding names to values within a collection.
 
@@ -773,7 +773,7 @@ opt01:
 ; => Treasure lng: 50
 ``` 
 
-opt02: short form id=g_11487
+opt02: short form id=g11487
 
 ``` clojure
 (defn announce-treasure-location
@@ -794,7 +794,7 @@ opt02: short form id=g_11487
   (steer-ship! treasure-location))
 ``` 
 
-### anonymous functions id=g_11304
+### anonymous functions id=g11304
 
 `%&`: Rest parameter
 
@@ -803,7 +803,7 @@ opt02: short form id=g_11487
 ; => (1 "blarg" :yip)
 ``` 
 
-### returning functions id=g_11305
+### returning functions id=g11305
 
 Returned functions are closures
 
@@ -859,7 +859,7 @@ Returned functions are closures
                      (set [part (matching-part part)])))))))
 ``` 
 
-### let id=g_11307
+### let id=g11307
 
 Rest parameters in `let`
 
@@ -874,7 +874,7 @@ Rest parameters in `let`
 ; => ["Pongo" ("Perdita" "Puppy 1" "Puppy 2")]
 ``` 
 
-### loop id=g_11308
+### loop id=g11308
 
 ``` clojure
 (loop [iteration 0]
@@ -910,7 +910,7 @@ You can do the same thing by recursive functions but this is more verbose:
 ; => Goodbye!
 ``` 
 
-### reduce id=g_11306
+### reduce id=g11306
 
 Process each element in a sequence and build a result.
 
@@ -951,7 +951,7 @@ With `reduce` you know that you are processing elements of collection.
 
 https://github.com/stuarthalloway/presentations/blob/master/ClojureInTenBigIdeas-Jun-2017.pdf?raw=true
 
-## Article: Functional-navigational programming in Clojure(Script) with Specter id=g_11311
+## Article: Functional-navigational programming in Clojure(Script) with Specter id=g11311
 
 http://nathanmarz.com/blog/functional-navigational-programming-in-clojurescript-with-sp.html
 

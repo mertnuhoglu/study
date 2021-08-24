@@ -20,7 +20,7 @@ state: wip
 
 # References
 
-		hugo refcard <url:file:///~/projects/study/other/refcard.otl#r=g_11654>
+		hugo refcard <url:file:///~/projects/study/other/refcard.otl#r=g11654>
 
 # Documentation
 

@@ -27,12 +27,12 @@ options(width = 150)
 options(max.print = 30)
 ``` 
 
-# Issues rmarkdown id=g_11692
+# Issues rmarkdown id=g11692
 
 ## Quickstart rmarkdown
 
 ```
-Basic example with xaringan <url:file:///~/projects/study/r/ex_r_rmarkdown.Rmd#r=g_11691>
+Basic example with xaringan <url:file:///~/projects/study/r/ex_r_rmarkdown.Rmd#r=g11691>
 ```
 
 ## Refcard rmarkdown

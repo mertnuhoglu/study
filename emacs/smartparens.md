@@ -15,13 +15,13 @@ state: wip
 
 ---
 
-# Index - smartparens id=g_11901
+# Index - smartparens id=g11901
 
-`Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g_11961>`
+`Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>`
 
-`Aktifleştirme: cleverparens <url:file:///~/projects/study/emacs/smartparens.md#r=g_11857>`
+`Aktifleştirme: cleverparens <url:file:///~/projects/study/emacs/smartparens.md#r=g11857>`
 
-`Mantık: Smartparens, paredit ve structural editing <url:file:///~/projects/study/emacs/smartparens.md#r=g_11858>`
+`Mantık: Smartparens, paredit ve structural editing <url:file:///~/projects/study/emacs/smartparens.md#r=g11858>`
 
 # Documentation - Smartparens
 
@@ -31,7 +31,7 @@ state: wip
 
 # @mine
 
-## Mantık: Smartparens, paredit ve structural editing id=g_11858
+## Mantık: Smartparens, paredit ve structural editing id=g11858
 
 @mine: paredit'in çalışmasını sağlayan şey, kodun AST yapısında veri olması. Yani kod eğer AST ile aynı formda olmasaydı, o zaman onun üzerinde paredit'teki değişiklikleri yapmak bu kadar kesin tanımlanamazdı.
 
@@ -129,13 +129,13 @@ Feature04: kill to the end of line
 
 Feature05: join-sexps
 
-# Article: Emacs and Pairs id=g_11855
+# Article: Emacs and Pairs id=g11855
 
 [Emacs and Pairs](https://ebzzry.io/en/emacs-pairs/)
 
 # cleverparens:
 
-## Aktifleştirme: cleverparens id=g_11857
+## Aktifleştirme: cleverparens id=g11857
 
 opt01:
 
@@ -187,17 +187,17 @@ To enable evil-cleverparens with your favorite lispy-mode use:
 
 @q: lispy-mode nedir? Nerede tanımlanmıştır?
 
-## cleverparens: README id=g_11864
+## cleverparens: README id=g11864
 
 [luxbock/evil-cleverparens: Evil normal-state minor-mode for editing lisp-like languages. Work in progress.](https://github.com/luxbock/evil-cleverparens)
 
 Part of embracing Lisp and structural editing is learning to love the parentheses. Vim/evil is optimized for moving around by units of text, but for friends of Lisp the parentheses are more than just text
 
-## Cheatsheet cleverparens vim-sexp id=g_11961
+## Cheatsheet cleverparens vim-sexp id=g11961
 
 ref: `~/projects/study/emacs/ex/smartparens/e01/cleverparens_commands.clj`
 
-ref: `sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g_11971>`
+ref: `sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>`
 
 )(	ıy)lınem
   | keybinding | function                            | vim-sexp |

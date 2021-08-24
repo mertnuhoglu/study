@@ -23,7 +23,7 @@ ref: `~/codes/clj/programming-clojure/src/examples/introduction.clj`
 
 ### Simplicity and Power
 
-Ex01: Check `; START:blank <url:file:///~/codes/clj/programming-clojure/src/examples/introduction.clj#r=g_11992>`
+Ex01: Check `; START:blank <url:file:///~/codes/clj/programming-clojure/src/examples/introduction.clj#r=g11992>`
 
 - no variables
 - no mutable state
@@ -250,7 +250,7 @@ There is no `for` loop and no direct mutable variables.
 
 `StringUtils.indexOfAny` implementation in clojure:
 
-Check: `; StringUtils.indexOfAny implementation in clojure: <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/flow_control.clj#r=g_11994>`
+Check: `; StringUtils.indexOfAny implementation in clojure: <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/flow_control.clj#r=g11994>`
 
 FP vs imperative: 
 
@@ -361,11 +361,11 @@ Induction: For `n > 1`, `F_n` equals `F_{n-1} + F_{n-2}`
 
 #### Tail Recursion
 
-Check: `; 02 Tail Recursion <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g_12018>`
+Check: `; 02 Tail Recursion <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g12018>`
 
 #### Explicit Self-Recursion
 
-Check: `; 03 Explicit self-recursion with recur  <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g_12019>`
+Check: `; 03 Explicit self-recursion with recur  <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g12019>`
 
 Difference: 
 
@@ -377,7 +377,7 @@ Difference:
 
 #### Lazy Seq Iteration
 
-Check: `; 05 Lazy Seq Recursion Using iterate <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g_12020>`
+Check: `; 05 Lazy Seq Recursion Using iterate <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g12020>`
 
 Use `iterate` instead of writing lazy-seq recursion by yourself.
 
@@ -388,11 +388,11 @@ Use `iterate` instead of writing lazy-seq recursion by yourself.
 
 #### Lazier than Lazy
 
-Check: `; 06 Lazier than Lazy <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g_12022>`
+Check: `; 06 Lazier than Lazy <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g12022>`
 
-Check: `; 07 Transforming the Input Sequence <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g_12021>`
+Check: `; 07 Transforming the Input Sequence <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g12021>`
 
-Use `partition` instead of our own `by-pairs`: ``; 07.02 Use partition instead of by-pairs <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g_12023>``
+Use `partition` instead of our own `by-pairs`: ``; 07.02 Use partition instead of by-pairs <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/fp.clj#r=g12023>``
 
 ## ch05: Specifications
 
@@ -400,7 +400,7 @@ Use `partition` instead of our own `by-pairs`: ``; 07.02 Use partition instead o
 
 Check: `~/projects/study/clj/ex/study_clojure/ex06/src/specs_data.clj`
 
-Predicates: `; p02: Predicates <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/specs_data.clj#r=g_12024>`
+Predicates: `; p02: Predicates <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/specs_data.clj#r=g12024>`
 
 ```clj
 (s/def :my.app/company-name string?)
@@ -461,7 +461,7 @@ Composite specs from other specs using `s/and` or `s/or`
 ; (out) 0 - failed: #{42} at: [:42] spec: :specs/odd-or-42
 ```
 
-Collection Specs: `; p07: Collection specs <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/specs_data.clj#r=g_12025>`
+Collection Specs: `; p07: Collection specs <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/specs_data.clj#r=g12025>`
 
 `s/coll-of`: describes lists, vectors, sets, and seqs 
 
@@ -501,7 +501,7 @@ It has capabilities:
 - instrumentation
 - generative testing
 
-Sequences with structure: `; p01: Sequences with structure <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/specs_functions.clj#r=g_12026>`
+Sequences with structure: `; p01: Sequences with structure <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/specs_functions.clj#r=g12026>`
 
 `s/cat`
 

@@ -14,7 +14,7 @@ output:
 
 ---
 
-## ex01: split/cut a video in two clips and merge/concat them id=g_11013
+## ex01: split/cut a video in two clips and merge/concat them id=g11013
 
 ``` 
 youtube-dl https://www.youtube.com/watch?v=fqS4znBZ5F8

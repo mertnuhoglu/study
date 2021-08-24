@@ -17,9 +17,9 @@ state: wip
 
 # Quickstart
 
-`Run portal data repl: <url:file:///~/projects/study/clj/practicalli_deps_edn.md#r=g_11751>`
+`Run portal data repl: <url:file:///~/projects/study/clj/practicalli_deps_edn.md#r=g11751>`
 
-`Inspect Data Files With Portal On Babashka <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g_11752>`
+`Inspect Data Files With Portal On Babashka <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g11752>`
 
 # Index
 

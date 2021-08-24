@@ -16,7 +16,7 @@ resource_files:
 
 # mutate with ifelse overwrites a non-NA value with NA 
 
-    id=g_10178
+    id=g10178
 
 debug_r_isna_all_checks_column_inside_dplyr_mutate.R
 

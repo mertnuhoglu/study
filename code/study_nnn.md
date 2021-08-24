@@ -18,7 +18,7 @@ output:
 
 # Index nnn
 
-`.zshrc nnn <url:file:///~/.zshrc#r=g_11753>`
+`.zshrc nnn <url:file:///~/.zshrc#r=g11753>`
 
 # Article: README
 

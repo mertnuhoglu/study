@@ -30,7 +30,7 @@
 (into [] (reverse (rest (range 6))))
 ;; [5 4 3 2 1]
 
-; StringUtils.indexOfAny implementation in clojure: id=g_11994
+; StringUtils.indexOfAny implementation in clojure: id=g11994
 (defn indexed [coll] (map-indexed vector coll))
 
 (indexed "abcde")

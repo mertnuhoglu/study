@@ -1,8 +1,8 @@
-# Migrate burakpehlivan.org from wordrpress to hugo id=g_11640
+# Migrate burakpehlivan.org from wordrpress to hugo id=g11640
 
 ## New Website Using Hugo tranquilpeak theme 
 
-ref: `Final: mertnuhoglu.com ile yap <url:file:///~/projects/study/logbook/hugo_kisisel_web_sitemi_duzeltme_20190827.md#r=g_11639>`
+ref: `Final: mertnuhoglu.com ile yap <url:file:///~/projects/study/logbook/hugo_kisisel_web_sitemi_duzeltme_20190827.md#r=g11639>`
 
 ref for logs: `~/projects/study/logbook/logs_hugo_burakpehlivan_org_20201011.md`
 
@@ -54,7 +54,7 @@ cd $_
 wget --mirror --convert-links --adjust-extension --page-requisites --no-parent --no-check-certificate http://burakpehlivan.org
 ```
 
-## Migrate from Wordpress to Hugo id=g_11638
+## Migrate from Wordpress to Hugo id=g11638
 
 [Switching From WordPress To Hugo — Smashing Magazine](https://www.smashingmagazine.com/2019/05/switch-wordpress-hugo/)
 
@@ -178,7 +178,7 @@ rm $dest/content/blog/*
 cp ~/projects/jekyll/burakpehlivan_org/wp2hugo/blog2md/out/*.md $dest/content/blog/
 ```
 
-## Fix sidebar and about pages id=g_11647
+## Fix sidebar and about pages id=g11647
 
 Edit `config.toml`
 
@@ -205,7 +205,7 @@ baseURL = "https://burakpehlivan.org"
 
 Note that, when we set `baseURL` before setting up the domain settings then we will have some broken links after deploying to netlify. But they will be fixed after domain is set up.
 
-## url redirection id=g_11650
+## url redirection id=g11650
 
 Wordpress has permalinks such as: 
 

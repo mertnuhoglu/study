@@ -15,7 +15,7 @@ state: wip
 
 ---
 
-# Index cider id=g_11815
+# Index cider id=g11815
 
   | SPC m | cider menu        |
   | d d   | cider-clojuredocs |
@@ -38,7 +38,7 @@ Launch an nREPL server and client:
 
 [CIDER :: CIDER Docs](https://docs.cider.mx/cider/index.html)
 
-## Debugging cider id=g_11969
+## Debugging cider id=g11969
 
 [Debugger :: CIDER Docs](https://docs.cider.mx/cider/debugging/debugger.html)
 
@@ -49,13 +49,13 @@ Launch an nREPL server and client:
 	| , d b | cider-debug-defun-at-point |
 	| , e f | cider-eval-defun-at-point  |
 
-Check: `cider debugging example <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g_11970>`
+Check: `cider debugging example <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g11970>`
 
 [Cider debug · Clojure development with Spacemacs & Cider](https://practicalli.github.io/spacemacs/debug-clojure/cider-debug.html)
 
 	| C-z | toggle evil mode during debugging |
 
-Example: `cider debugging example <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g_11970>`
+Example: `cider debugging example <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g11970>`
 
 ![Debugger commands](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210203_222836.jpg)
 
@@ -70,7 +70,7 @@ Example: `cider debugging example <url:file:///~/projects/study/clj/ex/study_clo
 						sebep: o dosyanın kendi repl'ı olması gerekiyor
 						fix: `cider-jack-in` yapınca çalışıyor.
 
-# Video: F(by) 2016 - Bozhidar Batsov - Speech 1 - CIDER: Inside the Brewery - YouTube id=g_11762
+# Video: F(by) 2016 - Bozhidar Batsov - Speech 1 - CIDER: Inside the Brewery - YouTube id=g11762
 
 [F(by) 2016 - Bozhidar Batsov - Speech 1 - CIDER: Inside the Brewery - YouTube](https://www.youtube.com/watch?v=E0rDMM2EEu0)
 

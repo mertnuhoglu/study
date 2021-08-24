@@ -52,8 +52,8 @@
           düz Application 
         maven
           mvn spring-boot:run
-      LiveReload ve HotSwap id=g_10147
-        LiveReload ve HotSwap <url:file:///~/Dropbox/mynotes/content/code/cjava/cjava.md#r=g_10147>
+      LiveReload ve HotSwap id=g10147
+        LiveReload ve HotSwap <url:file:///~/Dropbox/mynotes/content/code/cjava/cjava.md#r=g10147>
         https://docs.spring.io/spring-boot/docs/current/reference/html/howto-hotswapping.html
         spring-boot-devtools plugin
         maven

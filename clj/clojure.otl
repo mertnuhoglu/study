@@ -1,14 +1,14 @@
 ref
 	~/projects/study/clj/refcard_clojure.otl
 index
-	Setup a new project  <url:file:///~/projects/study/clj/clojure.otl#r=g_11946>
-	Run REPL <url:file:///~/projects/study/clj/clojure.otl#r=g_12068>
-	Run a clojure script/function/app <url:file:///~/projects/study/clj/clojure.otl#r=g_12108>
-	idioms - kendime göre özetler <url:file:///~/projects/study/clj/clojure.otl#r=g_12080>
-	Weird Characters <url:file:///~/projects/study/clj/book_clojure_documentation.md#r=g_11401>
+	Setup a new project  <url:file:///~/projects/study/clj/clojure.otl#r=g11946>
+	Run REPL <url:file:///~/projects/study/clj/clojure.otl#r=g12068>
+	Run a clojure script/function/app <url:file:///~/projects/study/clj/clojure.otl#r=g12108>
+	idioms - kendime göre özetler <url:file:///~/projects/study/clj/clojure.otl#r=g12080>
+	Weird Characters <url:file:///~/projects/study/clj/book_clojure_documentation.md#r=g11401>
 	editors clojure <url:file:///~/projects/study/clj/clojure.otl#r=g12360>
 clojure
-	authors id=g_11837
+	authors id=g11837
 		Rich Hickey - Clojure
 		David Nolen - ClojureScript, core.logic, om next
 		unprompt - Meander
@@ -26,25 +26,25 @@ clojure
 	editors clojure id=g12360
 		vim conjure
 			conjure
-				Index: Clojure in Vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11843>
+				Index: Clojure in Vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11843>
 			fireplace.md
-				Quickref fireplace.vim <url:file:///~/projects/study/clj/fireplace.md#r=g_12014>
+				Quickref fireplace.vim <url:file:///~/projects/study/clj/fireplace.md#r=g12014>
 					| ]d     | Source                     |
 					| gf     | go to source of namespace  |
 					| cmm    | Macroexpand innermost form |
 					| :Eval  | eval current form          |
 					| :Eval% | eval file                  |
 			vim_sexp.md 
-				sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g_11971>
-				Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g_11961>
-			Disable linter: <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11965>
+				sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>
+				Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>
+			Disable linter: <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11965>
 				call lsp#disable_diagnostics_for_buffer()
 		emacs
 			doom
-				Doom Refcard  <url:file:///~/projects/study/emacs/doom.md#r=g_12039>
-				Doom Cider Refcard <url:file:///~/projects/study/emacs/doom.md#r=g_12074>
+				Doom Refcard  <url:file:///~/projects/study/emacs/doom.md#r=g12039>
+				Doom Cider Refcard <url:file:///~/projects/study/emacs/doom.md#r=g12074>
 			spacemacs
-				spacemacs refcard <url:file:///~/projects/study/emacs/spacemacs.md#r=g_11015>
+				spacemacs refcard <url:file:///~/projects/study/emacs/spacemacs.md#r=g11015>
 					| SPC SPC   | list and search all commands | M-x                         |
 					| SPC ?     | search for key bindings      | show keybindings            |
 					| C-h k     | search for key binding       | describe-key                |
@@ -64,40 +64,40 @@ clojure
 					| SPC a	r   | open ranger                  |
 					| C-x t 2   | tab-bar-new-tab              |
 					| gt gT     | tab-next                     |
-				Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g_11961>
+				Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>
 					ref_ex: ~/projects/study/emacs/ex/smartparens/e01/cleverparens_commands.clj
 			multiple emacs: chemacs
-				Multiple Emacs Setups/Installations in Osx <url:file:///~/projects/study/emacs/emacs.md#r=g_12029>
+				Multiple Emacs Setups/Installations in Osx <url:file:///~/projects/study/emacs/emacs.md#r=g12029>
 				~/projects/private_dotfiles/.config/chemacs/profiles.el
 				emacs --with-profile default
 		paredit vim-sexp smartparens cleverparens
-			Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g_11961>
-			smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g_12112>
+			Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>
+			smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g12112>
 	trainings
 		https://lambdaisland.com/episodes
 		https://purelyfunctional.tv/browse/
 		https://tbaldridge.pivotshare.com/
 	language
 		Destructuring
-			destructuring <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/destructuring.clj#r=g_11408>
-			Destructuring <url:file:///~/projects/study/clj/book_clojure_practicalli.md#r=g_11407>
-		Weird Characters <url:file:///~/projects/study/clj/book_clojure_documentation.md#r=g_11401>
+			destructuring <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/destructuring.clj#r=g11408>
+			Destructuring <url:file:///~/projects/study/clj/book_clojure_practicalli.md#r=g11407>
+		Weird Characters <url:file:///~/projects/study/clj/book_clojure_documentation.md#r=g11401>
 			ref: ~/projects/study/clj/ex/study_clojure/ex06/src/weird_characters.clj
 	libraries
-		clojure.repl help functions <url:file:///~/projects/study/clj/book_essential_reference_borgatti.md#r=g_11959>
+		clojure.repl help functions <url:file:///~/projects/study/clj/book_essential_reference_borgatti.md#r=g11959>
 			ref_ex: ~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj
 	resources
 howto
 	debugging
 		spacemacs cider debugging
-			Debugging cider <url:file:///~/projects/study/clj/cider.md#r=g_11969>
+			Debugging cider <url:file:///~/projects/study/clj/cider.md#r=g11969>
 				| , d b | cider-debug-defun-at-point         |
 				| , e f | cider-eval-defun-at-point          |
 				| C-z   | disable evil mode during debugging |
-		Debug Functions <url:file:///~/projects/study/clj/book_essential_reference_borgatti.md#r=g_11960>
+		Debug Functions <url:file:///~/projects/study/clj/book_essential_reference_borgatti.md#r=g11960>
 			ref_ex: ~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj
-				hashp for tracing <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g_11988>
-				cider debugging example <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g_11970>
+				hashp for tracing <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g11988>
+				cider debugging example <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g11970>
 	deps.edn
 		find-deps ile search library
 			ref: find-deps - fuzzy search Maven & Clojars and add deps to deps.edn <url:/Users/mertnuhoglu/projects/private_dotfiles/.config/clojure/deps.edn#tn=;; find-deps - fuzzy search>
@@ -107,42 +107,42 @@ howto
 		repl: 
 			(require '[my-namespace])
 			(in-ns 'my-namespace)
-	Setup a new project  id=g_11946
-		New Clojure Project <url:deps_cli.md#r=g_11941>
+	Setup a new project  id=g11946
+		New Clojure Project <url:deps_cli.md#r=g11941>
 			clojure -X:project/new :name mert/project-01
 			clojure -X:project/new :name mertnuhoglu/project-01
 			cd project-01
-	Run REPL id=g_12068
+	Run REPL id=g12068
 		REBL
-			Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g_11934>
+			Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g11934>
 				java15
 				clojure -M:trace:inspect/reveal-nrep
 				clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
-				Connect REBL from Emacs Cider <url:file:///~/projects/study/clj/rebl.md#r=g_11943>
+				Connect REBL from Emacs Cider <url:file:///~/projects/study/clj/rebl.md#r=g11943>
 					SPC SPC cider-connect-clj
-				Connect REBL from Intellij Cursive <url:file:///~/projects/study/clj/rebl.md#r=g_11944>
+				Connect REBL from Intellij Cursive <url:file:///~/projects/study/clj/rebl.md#r=g11944>
 					Configurations > Clojure REPL > Remote
 					Connection Type: nREPL
 					Use standard port file: checked
-				Connect REBL from Vim Conjure <url:file:///~/projects/study/clj/rebl.md#r=g_11945>
+				Connect REBL from Vim Conjure <url:file:///~/projects/study/clj/rebl.md#r=g11945>
 					:ConjureConnect <port>
 		nREPL
 			nrepl with rebel
 				clojure -M:repl/rebel-nrepl
-			Reveal with nrepl <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11949>
+			Reveal with nrepl <url:file:///~/projects/study/clj/reveal_repl.md#r=g11949>
 				clojure -M:inspect/reveal-nrepl
-			bb nrepl server <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g_11958>
+			bb nrepl server <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g11958>
 				bb --nrepl-server 50500
 				lein repl :connect 50500
 		rebel
 			Run rebel-readline
 				clj -M:repl/rebel
 		Reveal
-			Reveal with rebel-readline <url:file:///~/projects/study/clj/reveal_repl.md#r=g_11749>
+			Reveal with rebel-readline <url:file:///~/projects/study/clj/reveal_repl.md#r=g11749>
 				clojure -M:inspect/reveal:repl/rebel
 				(add-tap ((requiring-resolve 'vlaaad.reveal/ui)))
 				(tap> {:a 1 :b 2})
-	Run a clojure script/function/app id=g_12108
+	Run a clojure script/function/app id=g12108
 		from repl:
 			ref: ~/projects/study/clj/book_practicalli_clojure_webapps.md
 			(require '[practicalli.p02] :verbose)
@@ -154,10 +154,10 @@ howto
 			,eb | eval buffer
 			Eval: `(def app-server-instance (-main 8888))`
 		from cli: clj
-			Run main function <url:file:///~/projects/study/clj/deps_cli.md#r=g_12070>
+			Run main function <url:file:///~/projects/study/clj/deps_cli.md#r=g12070>
 				clj -M -m clj-new-01.clj-new-01
 				clojure src/cards/core.clj
-			Running functions <url:file:///~/projects/study/clj/deps_cli.md#r=g_12071>
+			Running functions <url:file:///~/projects/study/clj/deps_cli.md#r=g12071>
 				clj -X:my-fn
 	require import libraries
 		ref: ~/projects/study/clj/ex/study_clojure/ex06/src/require_functions.clj
@@ -167,7 +167,7 @@ howto
 			(:require [clojure.inspector :as ins]))
 		(require 'hashp.core)
 		(require '[clojure.repl :refer :all])
-	Import source, doc, apropos and other REPL functions <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g_11947>
+	Import source, doc, apropos and other REPL functions <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g11947>
 		(require '[clojure.repl :refer :all])
 		ref: ~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj
 			(pp/print-table [{:a 1 :b 2 :c 3}{:a 4 :b 5 :c 6}])
@@ -181,8 +181,8 @@ howto
 			(ns-publics 'clojure.java.io)
 			(all-ns)
 	vim
-		Show Documentation in Conjure Floating Window <url:clojure_in_vim.md#r=g_11957> ,eb > K
-idioms - kendime göre özetler id=g_12080
+		Show Documentation in Conjure Floating Window <url:clojure_in_vim.md#r=g11957> ,eb > K
+idioms - kendime göre özetler id=g12080
 	let
 		(let [a b
 		      c a])
@@ -197,7 +197,7 @@ idioms - kendime göre özetler id=g_12080
 		(-> request :session :user-id)
 		= request[[:session]][[:user-id]]
 		= request.session.user-id
-	Ring suyu id=g_12082
+	Ring suyu id=g12082
 		middleware fonksiyonu tanımlama:
 			(defn mw [handler]
 				(fn [request]
@@ -242,28 +242,28 @@ topics
 			(boolean 0) ;; => true
 			(boolean []) ;; => true
 		string
-			; Strings <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11330>
+			; Strings <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11330>
 				(str "join " "strings") ;; => "join strings"
 				(format "%s %s" "this is" "me") ;; => "this is me"
 		numbers
-			; Numbers <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11331>
+			; Numbers <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11331>
 			(/ 4 3) ;; => 4/3
 			(* (/ 4 3) 3) ;; => 4N
 		lists
-			; Lists <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11332>
+			; Lists <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11332>
 			'(1 2 3) ;; => (1 2 3)
 			(conj '(1 2) 3) ;; => (3 1 2)
 			(nth '(3 5 2) 1) ;; => 5
 			(count '(5 3)) ;; => 2
 		vectors
-			; Vectors <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11333>
+			; Vectors <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11333>
 			[3 2 5] ;; => [3 2 5]
 			(conj [4 1] 7) ;; => [4 1 7]
 			(nth [3 2] 0) ;; => 3
 			(last [2 7 1]) ;; => 1
 			(get ["a" "b"] 1) ;; => "b"
 		sets
-			; Sets <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11334>
+			; Sets <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11334>
 			(conj #{1 2 3} 4) ;; => #{1 4 3 2}
 			(disj #{1 2 3} 3) ;; => #{1 2}
 			(sort #{1 2 3}) ;; => (1 2 3)
@@ -271,7 +271,7 @@ topics
 			(clojure.set/subset? #{1 2} #{1 2 3}) ;; => true
 			(clojure.set/superset? #{1 2 3} #{1 2}) ;; => true
 		maps
-			; Maps <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11335>
+			; Maps <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11335>
 			{:a 1 :b 2} ;; => {:a 1, :b 2}
 			(get {:a 1 :b 2} :a) ;; => 1
 			({:a 1 :b 2} :a) ;; => 1
@@ -283,14 +283,14 @@ topics
 			(vals {:a 1 :b 2}) ;; => (1 2)
 			(contains? {:a 1 :b 2} :a) ;; => true
 			(get-in {:a {:b 3}} [:a :b]) ;; => 3
-			; Threading macro to shorten code: <url:book_clojure_practicalli.md#r=g_11406>
+			; Threading macro to shorten code: <url:book_clojure_practicalli.md#r=g11406>
 				(-> {:a {:b 3}}
 						:a
 						:b)
 				;; => 3
 	sequences
 		sequences
-			; Sequences <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11336>
+			; Sequences <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11336>
 				(seq '(1 2)) ;; => (1 2)
 				(seq [1 2]) ;; => (1 2)
 				(first [5 2]) ;; => 5
@@ -298,14 +298,14 @@ topics
 				(rest [1 2 3]) ;; => (2 3)
 				(cons 0 [1 2]) ;; => (0 1 2)
 				(concat '(1 2) '(3 4)) ;; => (1 2 3 4)
-			;; sect01: shorter seq <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g_11359>
+			;; sect01: shorter seq <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11359>
 				(distinct [1 2 3 1]) ;; => (1 2 3)
 				(filter even? [1 2 3]) ;; => (2)
 				(remove pos? [-1 0 1]) ;; => (-1 0)
 				(for [x [0 1 2] :let [y (inc x)] when (even? y)] x) ;; => (1)
 				(keep pos? [-1 0 1]) ;; => (false false true)
 				(keep-indexed #(if (odd? %1) %2) [:a :b :c]) ;; => (:b)
-			;; sect02: longer seq <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g_11360>
+			;; sect02: longer seq <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11360>
 				(cons 1 [2 3]) ;; => (1 2 3)
 				(cons 1 '(2 3)) ;; => (1 2 3)
 				(concat [1 2] [3 4]) ;; => (1 2 3 4)
@@ -316,7 +316,7 @@ topics
 				(interpose ", " ["ali" "veli"]) ;; => ("ali" ", " "veli")
 				(apply str (interpose ", " ["ali" "veli"])) ;; => "ali, veli"
 				(str/join ", " ["ali" "veli"]) ;; => "ali, veli"
-			;; sect03: head-items missing <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g_11361>
+			;; sect03: head-items missing <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11361>
 				(rest [1 2 3]) ;; => (2 3)
 				(next [:a :b :c]) ;; => (:b :c)
 				(rest [:a]) ;; => ()
@@ -328,26 +328,26 @@ topics
 				(drop 5 [1 2 3]) ;; => ()
 				(drop-while pos? [1 3 -2 -5 4]) ;; => (-2 -5 4)
 				(nthnext [1 2 3] 2) ;; => (3)
-			;; sect04: tail-items missing <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g_11362>
+			;; sect04: tail-items missing <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11362>
 				(take 2 [1 2 3]) ;; => (1 2)
 				(take-nth 2 [1 2 3 4 5]) ;; => (1 3 5)
 				(take-while pos? [1 2 -1 3]) ;; => (1 2)
 				(butlast [1 2 3]) ;; => (1 2)
 				(drop-last 2 [1 2 3]) ;; => (1)
-			;; sect05: rearrangement of a seq <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g_11363>
+			;; sect05: rearrangement of a seq <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11363>
 				(flatten [1 [2 3]]) ;; => (1 2 3)
 				(reverse [1 2 3]) ;; => (3 2 1)
 				(sort [3 1 2]) ;; => (1 2 3)
 				(sort-by count ["ali" "x"]) ;; => ("x" "ali")
 				(shuffle [1 2 3]) ;; => [1 2 3]
-			;; sect06: nested seqs <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g_11364>
+			;; sect06: nested seqs <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11364>
 				(split-at 2 [1 2 3 4 5]) ;; => [(1 2) (3 4 5)]
 				(split-with pos? [1 2 -1 3]) ;; => [(1 2) (-1 3)]
 				(split-with (partial > 2) [1 2 -1 0]) ;; => [(1) (2 -1 0)]
 				(partition 2 (range 5)) ;; => ((0 1) (2 3))
 				(partition-all 2 (range 5)) ;; => ((0 1) (2 3) (4))
 				(partition-by pos? [-1 3 0 -3]) ;; => ((-1) (3) (0 -3))
-			;; sect07: partition each item to create a new seq <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g_11365>
+			;; sect07: partition each item to create a new seq <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11365>
 				(map inc [1 2 3]) ;; => (2 3 4)
 				(map + [1 2] [3 4]) ;; => (4 6)
 				(apply map vector [[:a :b :c] [:d :e :f] [:g :h :i]]) ;; => ([:a :d :g] [:b :e :h] [:c :f :i])
@@ -358,7 +358,7 @@ topics
 				(reductions + [1 2 3]) ;; => (1 3 6)
 				(map-indexed #(when (< % 2) (str % %2)) [:a :b :c]) ;;=> ("0:a" "1:b" nil)
 				(keep-indexed #(when (< % 2) (str % %2)) [:a :b :c]) ;;=> ("0:a" "1:b")
-			;; sect01: extract a specific-numbered item <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g_11366>
+			;; sect01: extract a specific-numbered item <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11366>
 				(first [1 2 3]) ;; => 1
 				(ffirst [[3 4] [1 2]]) ;; => 3
 				(nfirst [[3 4] [1 2]]) ;; => (4)
@@ -367,7 +367,7 @@ topics
 				(when-first [a [1 2]] a) ;; => 1
 				(last [1 2 3]) ;; => 3
 				(rand-nth [1 2 3]) ;; => 2
-			;; sect02: seq -> collection <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g_11367>
+			;; sect02: seq -> collection <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11367>
 				(zipmap [:a :b] [1 2]) ;; => {:a 1, :b 2}
 				(into (sorted-map) {:b 1 :a 2}) ;; => {:a 2, :b 1}
 				(reduce + [1 2 3]) ;; => 6
@@ -375,11 +375,11 @@ topics
 				(vec '(1 2 3)) ;; => [1 2 3]
 				(frequencies [:a :b :a]) ;; => {:a 2, :b 1}
 				(group-by count ["ali" "ab" "axe"]) ;; => {3 ["ali" "axe"], 2 ["ab"]}
-			;; sect03: pass items to a function <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g_11368>
+			;; sect03: pass items to a function <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11368>
 				(apply str [1 2 3]) ;; => "123"
 				(str [1 2 3]) ;; => "[1 2 3]"
 				(str 123) ;; => "123"
-			;; sect04: compute boolean <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g_11369>
+			;; sect04: compute boolean <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11369>
 				(not-empty [1 2]) ;; => [1 2]
 				(not-empty "hello") ;; => "hello"
 				(some even? [1 2 3]) ;; => true
@@ -388,18 +388,18 @@ topics
 				(not-every? even? [1 2]) ;; => true
 				(not-any? even? [1 2]) ;; => false
 				(empty? [1 2]) ;; => false
-	core id=g_11867
+	core id=g11867
 		reduce-kv
-			; reduce-kv <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g_11445>
+			; reduce-kv <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g11445>
 			(reduce-kv #(assoc %1 %3 %2) {} {:a 1 :b 2}) ;; => {1 :a, 2 :b}
 			(reduce-kv (fn [m k v] (assoc m k (inc v))) 
 				{} {:a 1 :b 2}) ;; => {:a 2, :b 3}
 		keep
-			; keep  <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g_11436>
+			; keep  <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g11436>
 			(keep #(if (odd? %) %) (range 4)) ;;=> (1 3 5 7 9)
 		literals
-			Strings (character types) <url:book_learn_clojure.md#r=g_11315>
-			Symbols and idents: <url:book_learn_clojure.md#r=g_11316>
+			Strings (character types) <url:book_learn_clojure.md#r=g11315>
+			Symbols and idents: <url:book_learn_clojure.md#r=g11316>
 			"hello"         ; string
 			\e              ; character
 			#"[0-9]+"       ; regular expression
@@ -408,165 +408,165 @@ topics
 			#{1 2 3}     ; set
 			{:a 1, :b 2} ; map
 		complement
-			; complement <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g_11434>
+			; complement <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g11434>
 			(def not-empty? (complement empty?))
 			(not-empty? [1 2]) ;;=> true
 		map
-			; map doc <url:clojure.md#r=g_11276>
+			; map doc <url:clojure.md#r=g11276>
 			(map f coll)
 			(map + [1 2 3] [4 5 6]) ;;=> (5 7 9)
-			; map <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11338>
+			; map <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11338>
 			(map vector [:a :b] [:d :e]) ;; => ([:a :d] [:b :e])
 			(map inc [1 2]) ;; => (2 3)
 			(map key {:a 1 :b 2}) ;; => (:a :b)
-		reduce id=g_11310
-			; reduce <url:clojure.md#r=g_11306>
-			; reduce <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11337>
+		reduce id=g11310
+			; reduce <url:clojure.md#r=g11306>
+			; reduce <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11337>
 			(reduce + [1 2 3]) ;; => 6
 			(reduce (fn [rst x] (+ rst x)) [1 2 3]) ;; => 6
 			(reduce + -10 [1 2 3]) ;; => -4
 		into
-			; into <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11339>
+			; into <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11339>
 			(into [1 2] '(3 4)) ;; => [1 2 3 4]
 			(into [] '(1 2)) ;; => [1 2]
 			(into {} [[:a 1] [:b 2]]) ;; => {:a 1, :b 2}
 			(into [] {:a 1 :b 2}) ;; => [[:a 1] [:b 2]]
 		mapv
-			; mapv function <url:clojure.md#r=g_11292>
+			; mapv function <url:clojure.md#r=g11292>
 			(mapv + [1 2] [3 4]) ;; => [4 6]
 		hash-map
-			; hash-map function <url:clojure.md#r=g_11293>
+			; hash-map function <url:clojure.md#r=g11293>
 				(hash-map :key1 'val1) ;; => {:key1 val1}
 				(hash-map [:compound :key] nil) ; compound key ;; => {[:compound :key] nil} 
-			; Hashmaps <url:clojure.md#r=g_11298>
+			; Hashmaps <url:clojure.md#r=g11298>
 				constructor function
 					(hash-map :a 1 :b 2) ;; => {:b 2, :a 1}
 				hashmap literal
 					{:a 1 :b 2} ;; => {:a 1, :b 2}
-			; Converting collections to hashmaps <url:clojure.md#r=g_11299>
+			; Converting collections to hashmaps <url:clojure.md#r=g11299>
 				(hash-map [:a 1 :b 2 :c 3]) ;; => IllegalArgumentException 
 				(apply hash-map [:a 1 :b 2 :c 3]) ;; => {:c 3, :b 2, :a 1}
 		map-indexed
-			; map-indexed function <url:clojure.md#r=g_11295>
+			; map-indexed function <url:clojure.md#r=g11295>
 			(map-indexed hash-map "foobar") ;; => ({0 "f"} {1 "o"} {2 "o"} {3 "b"} {4 "a"} {5 "r"})
 		iterations
-			; iterations <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11340>
+			; iterations <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11340>
 			(take 3 (iterate inc 3)) ;; => (3 4 5)
 			(range 1 3) ;; => (1 2)
 			(repeatedly 3 #(str "hi")) ;; => ("hi" "hi" "hi")
 			(doseq [a [1 2 3]] (println a)) ;; => nil
 			(dotimes [i 3] (println i)) ;; 0 ;; 1 ;; 2 ;; => nil
 		take
-			; take drop <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11342>
+			; take drop <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11342>
 			(take 5 (range 0 100)) ;; => (0 1 2 3 4)
 			(take-while pos? [1 2 -3 4]) ;; => (1 2)
 			(drop 3 (range 0 10)) ;; => (3 4 5 6 7 8 9)
 			(drop-while pos? [1 2 -3 4]) ;; => (-3 4)
 		filter
-			; filter <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11343>
+			; filter <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11343>
 			(filter pos? [1 2 -3 4]) ;; => (1 2 4)
 			(remove pos? [1 2 -3 4]) ;; => (-3)
 		group-by partition-by
-			; grouping <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11344>
+			; grouping <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11344>
 			(partition-by pos? [1 2 -3]) ;; => ((1 2) (-3))
 			(group-by pos? [1 2 -3]) ;; => {true [1 2], false [-3]}
 		for: list comprehension
-			; list comprehension <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11345>
+			; list comprehension <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11345>
 			(for [x [1 2 3]] (+ 5 x)) ;; => (6 7 8)
 			(for [x [-1 2 3] :when (< 0 x)] x) ;; => (2 3)
 			(for [x [1 2 3] :let [y (+ x 1)] when (even? y)] y) ;; => (2 4)
 			(for [x (range 3) :while (< x 2)] x) ;; => (0 1)
 		vec
-			; vec function <url:clojure.md#r=g_11296>
+			; vec function <url:clojure.md#r=g11296>
 			(vec '(1 2 3)) ;; => [1 2 3]
 		partial
-			; partial doc <url:clojure.md#r=g_11277>
+			; partial doc <url:clojure.md#r=g11277>
 			(partial f arg1)
 			(def hundred-times (partial * 100))
 		apply
-			; apply doc <url:clojure.md#r=g_11278>
+			; apply doc <url:clojure.md#r=g11278>
 			(apply f args)
 			(apply max [1 2 3])
 			(apply + [1 2 3]) ;; => 6
 			(apply hash-map [:a 1 :b 2 :c 3]) ;; => {:c 3, :b 2, :a 1}
 		comp
-			; comp doc <url:clojure.md#r=g_11279>
+			; comp doc <url:clojure.md#r=g11279>
 			(comp f g)
 			((comp str +) 8 8 8)   
 		juxt
-			; juxt doc <url:clojure.md#r=g_11280>
+			; juxt doc <url:clojure.md#r=g11280>
 			((juxt a b c) x) => [(a x) (b x) (c x)]
 			((juxt :a :b) {:a 1 :b 2 :c 3 :d 4}) ;;=> [1 2]
 			((juxt identity name) :keyword) ;;=> [:keyword "keyword"]
 		identity
-			; identity doc <url:clojure.md#r=g_11281>
+			; identity doc <url:clojure.md#r=g11281>
 			(identity 4) ;; => 4
 		name
-			; name doc <url:clojure.md#r=g_11282>
+			; name doc <url:clojure.md#r=g11282>
 			(name :x) ;;=> "x"
 		pr-str
-			; pr-str doc <url:clojure.md#r=g_11283>
+			; pr-str doc <url:clojure.md#r=g11283>
 			(pr-str x) ;; => "[1 2 3 4 5]"
 			(read-string (pr-str x)) ;; => [1 2 3 4 5]
 		repeat
-			; repeat doc <url:clojure.md#r=g_11284>
+			; repeat doc <url:clojure.md#r=g11284>
 			(take 5 (repeat "x")) ;; => ("x" "x" "x" "x" "x")
 			(repeat 5 "x")
 		into
-			; into doc <url:clojure.md#r=g_11285>
+			; into doc <url:clojure.md#r=g11285>
 			(into () '(1 2 3)) ;; => (3 2 1)
 			(into [1 2 3] '(4 5 6)) ;; => [1 2 3 4 5 6]
 			(into (sorted-map) [ [:a 1] [:c 3] [:b 2] ] ) ;; => {:a 1, :b 2, :c 3}
 			(into [] {1 2, 3 4}) ;; => [[1 2] [3 4]]
 		remove
-			; remove doc <url:clojure.md#r=g_11286>
+			; remove doc <url:clojure.md#r=g11286>
 			(remove even? (range 10)) ;;=> (1 3 5 7 9)
 			(remove #(> (second %) 100) {:a 1 c 101 }) ;;=> ([:a 1] )
 			(map #(> (second %) 100) {:a 1 :c 101}) ;; => (false true)
 		update-in
-			; update-in <url:clojure.md#r=g_11287>
+			; update-in <url:clojure.md#r=g11287>
 			(def p {:name "James" :age 26})
 			(update-in p [:age] inc) ;;=> {:name "James", :age 27}
 		assoc-in
-			; assoc-in <url:clojure.md#r=g_11288>
+			; assoc-in <url:clojure.md#r=g11288>
 			(assoc-in {:person {:name "Mike"}} [:person :name] "Violet") ; => {:person {:name "Violet"}}
 			(assoc-in {:person {:name "Mike"}} [:person] "Violet") ; => {:person "Violet"}
 		swap!
-			; swap! amap assoc akey nasıl çalışıyor? <url:clojure.md#r=g_11289>
+			; swap! amap assoc akey nasıl çalışıyor? <url:clojure.md#r=g11289>
 			(def m (atom {:a 1}))
 			(swap! m assoc :b 2) ;; => {:a 1, :b 2}
 		defonce
-			; defonce <url:clojure.md#r=g_11290>
+			; defonce <url:clojure.md#r=g11290>
 			(defonce foo 5)
 			(defonce foo 10) ;; => nil
 		namespaced keyword
-			; namespaced keyword notations <url:clojure.md#r=g_11294>
+			; namespaced keyword notations <url:clojure.md#r=g11294>
 			#:a{:b :c} ;; => #:a{:b :c}
 			{:a/b :c} ;; => #:a{:b :c}
 		file read
-			; slurp: read file url <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g_11404>
+			; slurp: read file url <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g11404>
 			(spit "tmp.txt" "test")
 			(slurp "tmp.txt") ;; => "test"
 	libraries
-		specter id=g_11443
-			; ex: Increment every even number nested within map of vector of maps <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g_11441>
+		specter id=g11443
+			; ex: Increment every even number nested within map of vector of maps <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g11441>
 				(def data {:a [{:aa 1 :bb 2} {:cc 3}] b [{:dd 4}]})
 				(transform [MAP-VALS ALL MAP-VALS even?] inc data) ;; => {:a [{:aa 1, :bb 3} {:cc 3}], :b [{:dd 5}]}
-			; ex: Append a sequence of elements to a nested vector <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g_11440>
+			; ex: Append a sequence of elements to a nested vector <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g11440>
 				(def data {:a [1 2 3]})
 				(setval [:a END] [4 5] data) ;; => {:a [1 2 3 4 5]}
-			; ex: Increment the last odd number in a sequence <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g_11442>
+			; ex: Increment the last odd number in a sequence <url:file:///~/projects/study/clj/ex/study_specter/e01/src/specter01.clj#r=g11442>
 				(def data [1 2 3 4])
 				(transform [(filterer odd?) LAST] inc data) ;; => [1 2 4 4]
 		string
-			; capitalization of a string <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11372>
+			; capitalization of a string <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11372>
 				(str/capitalize "a b. c d.") ;; => "A b. c d."
 				(str/upper-case "ab c") ;; => "AB C"
 				(str/lower-case "A B") ;; => "a b"
-			; Clean Whitespace in a String  <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11373>
+			; Clean Whitespace in a String  <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11373>
 				(str/trim " \ta b\n") ;; => "a b"
 				(str/replace "a\t\nb c\fd" #"\s+" " ") ;; => "a b c d"
-			; Combine/Join a String <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11374>
+			; Combine/Join a String <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11374>
 				(str "a" " " "b") ;; => "a b"
 				(def lines ["#! /bin/bash\n", "du -a ./ | sort -n -r\n"]) 
 				(apply str lines) ;; -> "#! /bin/bash\ndu -a ./ | sort -n -r\n"
@@ -577,18 +577,18 @@ topics
 					(def rows ["10,20","11,21"])
 					(apply str header (interpose "\n" rows))
 					;; => "a,b\n10,20\n11,21"
-			; String to Character <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11375>
+			; String to Character <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11375>
 				(seq "ali") ;; => (\a \l \i)
 				(frequencies (str/lower-case "aa b")) ;; => {\a 2, \space 1, \b 1}
 				; all_upper?
 					(defn all_upper? [s] (every? #(or (not (Character/isLetter %)) (Character/isUpperCase %)) s))
 					(all_upper? "A B") ;; => true
 					(all_upper? "A b") ;; => false
-			; Character to/from Integer <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11376>
+			; Character to/from Integer <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11376>
 				(int \a) ;; -> 97
 				(map int "a b") ;; => (97 32 98)
 				(char 97) ;; -> \a
-			; Formatting Strings <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11377>
+			; Formatting Strings <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11377>
 				(def me {:k "v"})
 				(str "key: " (:k me)) ;; => "key: v"
 				(apply str (interpose " " [1 2.000 (/ 3 1) (/ 4 9)])) ;; -> "1 2.0 3 4/9"
@@ -596,11 +596,11 @@ topics
 					(defn filename [name i] (format "%03d-%s" i name))
 					(filename "file.txt" 12)
 					;; => "012-file.txt"
-			; Pluralizing Strings <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11380>
+			; Pluralizing Strings <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11380>
 				(require '[inflections.core :as inf])
 				(inf/pluralize 1 "monkey") ;; -> "1 monkey"
 				(inf/pluralize 12 "monkey") ;; -> "12 monkeys"
-			; Converting Between Strings, Symbols, and Keywords <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11381>
+			; Converting Between Strings, Symbols, and Keywords <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11381>
 				(symbol "a?") ;; => a?
 				(str 'a?) ;; => "a?"
 				(name :a) ;; => "a"
@@ -611,14 +611,14 @@ topics
 				(name :user/a?) ;; => "a?"
 				(namespace :user/a?) ;; => "user"
 		regex
-			; Regex Match <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11378>
+			; Regex Match <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11378>
 				(re-find #"\d+" "ab 12") ;; => "12"
 				(re-matches #"\w+" "ab c") ;; => nil
 				(re-seq #"\w+" "ab c") ;; => ("ab" "c")
 				(defn mentions [tweet] (re-seq #"(@|#)(\w+)" tweet))
 				(mentions "ab @c de. #fg")
 				;; => (["@c" "@" "c"] ["#fg" "#" "fg"])
-			; Regex Replace <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11379>
+			; Regex Replace <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11379>
 				(str/replace "a b" "a" "c") ;; => "c b"
 				(str/split "A,B" #",") ;; => ["A" "B"]
 		clj-time
@@ -628,76 +628,76 @@ topics
 			; BigDecimal BigInt
 				(+ 1 0.0001M) ;; 1.0001M
 				(+ 1 1000000000000000N)
-			; Precision Numbers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11382>
+			; Precision Numbers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11382>
 				2.1e2 ;; -> 2.1E2
 				1e-10 ;; -> 1.0E-10
 				(* 9999 9999 9999 9999 9999) ;; ArithmeticException integer overflow  clojure.lang.Numbers.throwIntOverflow
 				(*' 9999 9999 9999 9999 9999) ;; => 99950009999000049999N
-			; Rational Numbers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11383>
+			; Rational Numbers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11383>
 				(/ 1 3) ;; -> 1/3
 				(type (/ 1 3)) ;; -> clojure.lang.Ratio
 				(* 3 (/ 1 3)) ;; -> 1N
 				(rationalize 0.3) ;; -> 3/10
 				(+ (/ 1 3) (rationalize 0.3)) ;; -> 19/30
-			; Parsing Numbers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11384>
+			; Parsing Numbers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11384>
 				(Integer/parseInt "-42") ;; -> -42
 				(Double/parseDouble "3.14") ;; -> 3.14
-			; Rounding and Truncating <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11385>
+			; Rounding and Truncating <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11385>
 				(int 2.0001) ;; -> 2
 				(int 2.999999999) ;; -> 2
 				(Math/round 2.0001) ;; -> 2
 				(Math/round 2.999) ;; -> 3
-			; Fuzzy Comparison <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11386>
+			; Fuzzy Comparison <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11386>
 				(defn fuzzy= [tolerance x y]
 					(let [diff (Math/abs (- x y))]
 						(< diff tolerance)))
 				(fuzzy= 0.01 10 10.001)
 				;; => true
-			; Trigonometry <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11388>
+			; Trigonometry <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11388>
 				(Math/sin 0.1) ;; => 0.09983341664682815
-			; Different Bases <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11387>
+			; Different Bases <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11387>
 				(int 2r101) ;; => 5
 				(int 16r2A) ;; => 42
 				(Integer/toString 5 2) ;; => "101"
-			; Random Numbers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11389>
+			; Random Numbers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11389>
 				(rand) ;; -> 0.0249306187447903
 				(inc (rand-int 6)) ;; => 1
 				(rand-nth '(:a :b :c)) ;; -> :c
 				(rand-nth (seq #{:heads :tails})) ;; -> :heads
 				(shuffle [1 2 3 4 5 6]) ;; -> [3 1 4 5 2 6]
-			; imprecise numbers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11391>
+			; imprecise numbers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11391>
 				(- 0.23 0.24) ;; -> -0.009999999999999981
 		uuid
-			; uuid global identifiers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11390>
+			; uuid global identifiers <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11390>
 				(java.util.UUID/randomUUID) ;; -> #uuid "5358e6e3-7f81-40f0-84e5-750e29e6ee05"
 				(def u1 (squuid))
 				u1 ;; -> #uuid "527bf210-dfae-4c73-8b7a-302d3b511f41"
 		date time
-			; Date and Time <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11392>
+			; Date and Time <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11392>
 				(defn now [] (java.util.Date.))
 				(now) ;; => #inst "2020-06-16T18:44:08.981-00:00"
 				; unix timestamp
 				(System/currentTimeMillis) ;; => 1592333064027
-			; Dates as Literals <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11393>
+			; Dates as Literals <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11393>
 				(def my-birthday #inst "1987-02-18T18:00:00.000-00:00")
 				(println my-birthday) ;; #inst "1987-02-18T18:00:00.000-00:00"
-			; Parsing Dates <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11394>
+			; Parsing Dates <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11394>
 				(require '[clj-time.format :as tf])
 				(tf/parse (tf/formatter "MM/dd/yy") "02/18/87") ;; -> #<DateTime 1987-02-18T00:00:00.000Z>
-			; Formatting Dates <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11395>
-			; Convert joda from/to java date instances <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11396>
-			; Comparing Dates <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11397>
+			; Formatting Dates <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11395>
+			; Convert joda from/to java date instances <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11396>
+			; Comparing Dates <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11397>
 				(defn now [] (java.util.Date.))
 				(def one-second-ago (now))
 				(compare (now) one-second-ago) ;; -> 1
 				(def occurrences [#inst "2013-04-06T17:40:57.688-00:00" #inst "2002-12-25T00:40:57.688-00:00"])
 				(sort occurrences) ;; => (#inst "2002-12-25T00:40:57.688-00:00" #inst "2013-04-06T17:40:57.688-00:00")
-			; Time Interval Between <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g_11398>
+			; Time Interval Between <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11398>
 		edn
-			edn-format/edn: Extensible Data Notation <url:book_clojure_documentation.md#r=g_11402>
+			edn-format/edn: Extensible Data Notation <url:book_clojure_documentation.md#r=g11402>
 	concepts
 		record defrecord
-			ref: defrecord <url:file:///~/projects/study/clj/art_clojure_language_brian_will.md#r=g_12114>
+			ref: defrecord <url:file:///~/projects/study/clj/art_clojure_language_brian_will.md#r=g12114>
 				ex
 					(defrecord Nadine [x y z] ; fields
 						Roger ; protocol implemented
@@ -710,41 +710,41 @@ topics
 				defrecord = class
 				map fct returns a new record
 					(assoc adam :x 5) ; new Nadine record {:x 5 :y "hi" :z false}
-			ref: create types <url:file:///~/projects/study/clj/art_clojure_language_brian_will.md#r=g_12115>
+			ref: create types <url:file:///~/projects/study/clj/art_clojure_language_brian_will.md#r=g12115>
 				deftype: for data structure
 				defrecord: for domain data
-			ref: record <url:ex/study_clojure/ex06/src/core01.clj#r=g_11410>
+			ref: record <url:ex/study_clojure/ex06/src/core01.clj#r=g11410>
 				(defrecord Book [title author])
 				(->Book "title01" "author01") ;; => #user.Book{:title "title01", :author "author01"}
 		global bindings
-			; bindings: defn vs def <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11323>
+			; bindings: defn vs def <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11323>
 				(defn f [a] a)
 				(def g (fn [a] a))
 				(defn documented "This is documentation" [] (str ""))
 		quoting
 			(quote (1 2 3)) ;; (1 2 3)
 			(type 'quoted-symbols-are-not-evaluated) ;; => clojure.lang.Symbol
-			; quotes <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11349>
+			; quotes <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11349>
 				(quote (+ 1 2)) ;; => (+ 1 2)
 				'(+ 1 2) ;; => (+ 1 2)
-			; syntax-quoting  <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11350>
+			; syntax-quoting  <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11350>
 				`(+ 1 2) ;; => (clojure.core/+ 1 2)
 				`(+ 1 ~(inc 1)) ;; => (clojure.core/+ 1 2)
 				`(+ ~(list 1 2)) ;; => (clojure.core/+ (1 2))
 				`(+ ~@(list 1 2)) ;; => (clojure.core/+ 1 2)
-			; Delaying evaluation with quoting <url:book_learn_clojure.md#r=g_11317>
+			; Delaying evaluation with quoting <url:book_learn_clojure.md#r=g11317>
 				'x
 				'(1 2 3)
 		special forms
-			; Special Forms <url:clojure.md#r=g_11300>
+			; Special Forms <url:clojure.md#r=g11300>
 				unlike function calls, they don’t always evaluate all of their operands
 				you can’t use them as arguments to functions
-				; var and reader macro  <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11325>
+				; var and reader macro  <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11325>
 					(meta (var documented))
 					(meta #'documented)
 					;; => {:arglists ([]), :doc "This is documentation", :line 65, :column 1, :file "/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj", :name documented, :ns #namespace[clojure_by_example_kimh]}
 		multi-arity
-			; Multi-arity <url:clojure.md#r=g_11301>
+			; Multi-arity <url:clojure.md#r=g11301>
 				(defn plus
 					([a b] (+ a b))
 					([a] (+ a)))
@@ -753,46 +753,46 @@ topics
 						([a b] (str a b))
 						([a] (fn1 a "karate")))
 		variable-arity
-			; Variable-arity <url:clojure.md#r=g_11302>
+			; Variable-arity <url:clojure.md#r=g11302>
 				(defn fn1
 					[name & things]
 					(str name (clojure.string/join ", " things)))
 		variadic
-			; variadic function <url:ex/study_clojure/ex06/src/core01.clj#r=g_11358>
+			; variadic function <url:ex/study_clojure/ex06/src/core01.clj#r=g11358>
 			(defn f [x & xs] (str x xs))
 			(f 1 2 3) ;; => "1(2 3)"
-		destructuring id=g_11904
-			; Destructuring <url:clojure.md#r=g_11303>
+		destructuring id=g11904
+			; Destructuring <url:clojure.md#r=g11303>
 				(defn fn1 [[a]] a)
 				(fn1 [1 2 3]) ;; => 1
-			; destructuring <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/destructuring.clj#r=g_11408>
+			; destructuring <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/destructuring.clj#r=g11408>
 				(let [[a b & c :as d] [1 2 3 4]] [a b]) ;; => [1 2]
 				(let [[a b & c :as d] [1 2 3 4]] [c]) ;; => [(3 4)]
 				(let [[a b & c :as d] [1 2 3 4]] [d]) ;; => [[1 2 3 4]]
 				(let [{a :a, c :c}  {:a 5 :c 6}] [a c]) ;; [5 6]
 				(let [{a :a, :as m} {:a 2 :b 3}] [a m]) ;; => [2 {:a 2, :b 3}]
 		anonymous functions
-			; anonymous functions <url:clojure.md#r=g_11304>
+			; anonymous functions <url:clojure.md#r=g11304>
 				(#(identity %&) 1 "blarg" :yip) ;; => (1 "blarg" :yip)
-			; anonymous functions <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11322>
+			; anonymous functions <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11322>
 				((fn [x] (+ 6 x)) 3) ;; => 9
 				(#(+ 6 %) 3) ;; => 9
 				(#(+ 6 %1) 3) ;; => 9
 		higher-order-functions
-			; higher-order-functions <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11326>
+			; higher-order-functions <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11326>
 				(defn h [fun] (fun 10))
 				(h inc) ;; => 11
 		closures
-			; returning functions <url:clojure.md#r=g_11305>
+			; returning functions <url:clojure.md#r=g11305>
 				(defn inc-maker [inc-by] #(+ % inc-by))
 				(def inc3 (inc-maker 3))
 				(inc3 7) ;; => 10
-			; closure  <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11327>
+			; closure  <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11327>
 				(defn closure [a] #(inc a))
 				(def outer (closure 20))
 				(outer) ;; => 21
 		namespaces
-			Namespaces <url:book_programming_in_clojure.md#r=g_11412>
+			Namespaces <url:book_programming_in_clojure.md#r=g11412>
 				`in-ns`: create/switch namespace
 					(in-ns 'myapp)
 				You should `use` `clojure.core` namespace when you move to a new namespace.
@@ -806,13 +806,13 @@ topics
 					(ns examples.exploring
 						(:require [clojure.string :as str])
 						(:import (java.io File)))
-			; Namespaces <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11328>
+			; Namespaces <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11328>
 				(in-ns 'user)
 				(require 'clojure_by_example_kimh)
 				(clojure_by_example_kimh/outer) ;; => 21
 				(require '[clojure_by_example_kimh :as cbe])
 				(cbe/outer) ;; => 21
-			Namespace <url:book_clojure_practicalli.md#r=g_11405>
+			Namespace <url:book_clojure_practicalli.md#r=g11405>
 				opt01: use a function
 					(ns my-namespace.core :require [clojure.java.io])
 					(clojure.java.io/reader filename)
@@ -833,16 +833,16 @@ topics
 												 [org.clojure/clojurescript "1.7.122"]
 												 [com.stuartsierra/component "0.3.0"]
 		control flow
-			; control clow <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11329>
+			; control clow <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11329>
 				(if (< 3 5) "then" "else") ;; => "then"
 				(if-let [a 1] a 0) ;; => 1
 				(when true "10") ;; => "10"
 				(let [n 2] (case n 1 "a" 2 "b" "other")) ;; => "b"
 		let
-			; let <url:clojure.md#r=g_11307>
+			; let <url:clojure.md#r=g11307>
 				(let [[a & b] [1 2 3]] [a b]) ;; => [1 (2 3)]
-		loop id=g_11309
-			; loop <url:clojure.md#r=g_11308>
+		loop id=g11309
+			; loop <url:clojure.md#r=g11308>
 				(loop [i 0]
 					(println (str i))
 					(if (> i 1)
@@ -852,33 +852,33 @@ topics
 				; => 1
 				; => Goodbye!
 		java calls
-			; invoking java code <url:book_learn_clojure.md#r=g_11324>
+			; invoking java code <url:book_learn_clojure.md#r=g11324>
 				| Instantiation   | new Widget("foo") | (Widget. "foo")  |
 				| Instance method | rnd.nextInt()     | (.nextInt rnd)   |
 				| Instance field  | object.field      | (.-field object) |
 				| Static method   | Math.sqrt(25)     | (Math/sqrt 25)   |
 				| Static field    | Math.PI           | Math/PI          |
-			; java <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11357>
+			; java <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11357>
 				(new java.util.Date) ;; => #inst "2020-06-15T14:27:36.415-00:00"
 				(java.util.Date. "2016/2/19") ;; => #inst "2016-02-18T22:00:00.000-00:00"
 				(let [d (java.util.Date.)] (str d)) ;; => "Mon Jun 15 17:27:43 EEST 2020"
 				(Math/pow 2 3) ;; => 8.0
 				(let [d (java.util.Date.)] (.toString d)) ;; => "Mon Jun 15 17:27:47 EEST 2020"
 				(let [d (java.util.Date.)] (. d toString)) ;; => "Mon Jun 15 17:27:51 EEST 2020"
-			dot dot syntax <url:book_programming_in_clojure.md#r=g_11413>
+			dot dot syntax <url:book_programming_in_clojure.md#r=g11413>
 				(.. System (getProperties) (get "os.name"))
 				;; expands to:
 				(. (. System (getProperties)) (get "os.name"))
 				(-> (System/getProperties) (.get "os.name"))
 		recursions
-			; recursion <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11346>
+			; recursion <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11346>
 			(defn length2 [result xs]
 				(if (empty? xs)
 					result
 					(recur (+ 1 result) (rest xs))))
 			(length2 0 [3 4]) ;; => 2
 		loop
-			; loop <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11347>
+			; loop <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11347>
 			(loop [i 0]
 				(if (= i 3)
 					(println "done!")
@@ -888,7 +888,7 @@ topics
 		macros macro2
 			~/projects/study/clj/ex/study_clojure/ex06/src/macro.clj
 				(macroexpand '(-> c (+ 3) (* 2)))
-			; macros <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11348>
+			; macros <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11348>
 			ex: unless
 				(defmacro unless [cond then]
 					(list
@@ -898,15 +898,15 @@ topics
 				(unless false 1) ;; => 1
 			(macroexpand '(unless false 1)) ;; => (if (not false) 1)
 		threading
-			; threading macros <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11351>
+			; threading macros <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11351>
 				(-> [] (conj 1) (conj 2)) ;; => [1 2]
 				(->> [1 2] (map inc) (map #(* 2 %))) ;; => (4 6)
 		delay
-			; delay <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11352>
+			; delay <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11352>
 			(def later (do [] (prn "Adding") (+ 1 2)))
 			(def later (delay [] (prn "Adding") (+ 1 2)))
 		atom
-			; atom <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11353>
+			; atom <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11353>
 			(def a (atom 1)) ;; => #'user/a
 			(deref a) ;; => 1
 			(reset! a 2) ;; => 2
@@ -914,12 +914,12 @@ topics
 			(defn multiple-by [an-atom n] (* an-atom n))
 			(swap! a multiple-by 3) ;; => 9
 		thread safety
-			; thread safety <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11354>
+			; thread safety <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11354>
 		ref
-			; ref <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11355>
+			; ref <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11355>
 		transaction ref-set
-			; transaction ref-set <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g_11356>
-		Weird Characters <url:book_clojure_documentation.md#r=g_11401>
+			; transaction ref-set <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11356>
+		Weird Characters <url:book_clojure_documentation.md#r=g11401>
 			# - Dispatch character
 			#{ … } - Set
 			#_ - Discard
@@ -961,26 +961,26 @@ topics
 		install
 			brew install clojure
 		run
-			; Writing a program <url:clojure.md#r=g_11297>
+			; Writing a program <url:clojure.md#r=g11297>
 			clj -m hello ;; => Hello world, the time is 02:57 PM
-		new project <url:book_clojure_documentation.md#r=g_11399>
+		new project <url:book_clojure_documentation.md#r=g11399>
 			lein new app proj01
 			cd proj01
 			lein run
 	articles
-		; Article: Functional-navigational programming in Clojure(Script) with Specter <url:clojure.md#r=g_11311>
+		; Article: Functional-navigational programming in Clojure(Script) with Specter <url:clojure.md#r=g11311>
 	repl
 		start repl
 			lein repl
-			Interactive Development <url:book_clojure_documentation.md#r=g_11400>
+			Interactive Development <url:book_clojure_documentation.md#r=g11400>
 				lein repl
 				(-main) ;; Hello, World!
 				(require 'proj01.core :reload)
 				(-main) ;; Hello, World!2
 		doc
 			(doc map)
-		; repl <url:examples_clojure.md#r=g_11312>
-		; REPL <url:book_learn_clojure.md#r=g_11318>
+		; repl <url:examples_clojure.md#r=g11312>
+		; REPL <url:book_learn_clojure.md#r=g11318>
 		history
 			(+ 3 4) ;; => 7
 			(+ 10 *1) ;; => 17
@@ -990,20 +990,20 @@ topics
 		dir: list functions in namespace
 			(dir clojure.repl)
 		print
-			; Printing <url:book_learn_clojure.md#r=g_11319>
+			; Printing <url:book_learn_clojure.md#r=g11319>
 			(println "What is this:" (+ 1 2))
-			; printing https://clojuredocs.org/clojure.core/pr <url:ex/study_clojure/ex06/src/core01.clj#r=g_11321>
+			; printing https://clojuredocs.org/clojure.core/pr <url:ex/study_clojure/ex06/src/core01.clj#r=g11321>
 				(pr ['a :b "\n" \space "c"]) ;; [a :b "\n" \space "c"]nil
 				(print ['a :b "\n" \space "c"])
 				;; [a :b
 				;;  c]nil
 		special variables
-			Whats my environment <url:book_clojure_practicalli.md#r=g_11403>
+			Whats my environment <url:book_clojure_practicalli.md#r=g11403>
 			*clojure-version* ;; {:major 1, :minor 9, :incremental 0, :qualifier nil}
 			*compile-path* ;; "/Users/mertnuhoglu/codes/clojure/clojure-through-code/target/classes"
 			*ns* ;; #object[clojure.lang.Namespace 0x209a5cf "user"]
 		special functions
-			Special Variables <url:book_programming_in_clojure.md#r=g_11409>
+			Special Variables <url:book_programming_in_clojure.md#r=g11409>
 			(pst) ; print stack trace
 			(load-file "file.clj")
 			(find-doc "reduce") 
@@ -1011,17 +1011,17 @@ topics
 	tools
 		ides
 			doom
-				Bir projeyi REPL ile incelemek <url:file:///~/projects/study/emacs/doom.md#r=g_12073>
+				Bir projeyi REPL ile incelemek <url:file:///~/projects/study/emacs/doom.md#r=g12073>
 			spacemacs
-				; spacemacs refcard <url:~/projects/study/emacs/spacemacs.md#r=g_11015>
+				; spacemacs refcard <url:~/projects/study/emacs/spacemacs.md#r=g11015>
 					| SPC SPC   | list and search all commands | M-x                         |
 					| SPC m     | cider menu                   | ,                           |
 					| '         | start REPL                   | cider-jack-in               |
 					| e c       | eval expression as comment   | cider-eval-defun-to-comment |
 			cursive intellij
-				Bir projeyi REPL ile incelemek  <url:file:///~/projects/study/clj/cursive.md#r=g_12072>
-				; intellij refcard <url:~/projects/study/code/study_intellij.md#r=g_11014>
-				; compatible keybindings: spacemacs and intellij <url:~/.ideavimrc#r=g_10991>
+				Bir projeyi REPL ile incelemek  <url:file:///~/projects/study/clj/cursive.md#r=g12072>
+				; intellij refcard <url:~/projects/study/code/study_intellij.md#r=g11014>
+				; compatible keybindings: spacemacs and intellij <url:~/.ideavimrc#r=g10991>
 					| ^^ repl | run repl           |
 					| SPC sf  | eval sexp          |
 					| !+ SPC  | quicklist: popups  |
@@ -1040,7 +1040,7 @@ topics
 	mine
 		ex/study_clojure/ex06/src/ex_kimh.clj
 	resources
-		exercises katas id=g_11414
+		exercises katas id=g11414
 			http://www.4clojure.com/
 				terminal
 					https://github.com/porkostomus/ctrain
@@ -1097,9 +1097,9 @@ topics
 	next
 		examples_clojure.md
 		reduce loop için daha sade örnekler
-			; loop <url:refcard_clojure.otl#r=g_11309>
-			; reduce <url:refcard_clojure.otl#r=g_11310>
-flashcards id=g_12065
+			; loop <url:refcard_clojure.otl#r=g11309>
+			; reduce <url:refcard_clojure.otl#r=g11310>
+flashcards id=g12065
 	~/projects/study/clj/book_essential_reference_borgatti.md
 		Book: Essential Reference, Borgatti
 		-X:project/new :name mertnuhoglu/conjure01
@@ -1200,7 +1200,7 @@ inbox
 				bu sefer çalışıyor
 			opt04: acaba ns bozuk olduğundan mı çalışmadı ilkinde?
 		debug cider
-			Showing Intermediary values - Enlighten mode <url:file:///~/projects/study/emacs/book_clojure_with_spacemacs_practicalli.md#r=g_11847>
+			Showing Intermediary values - Enlighten mode <url:file:///~/projects/study/emacs/book_clojure_with_spacemacs_practicalli.md#r=g11847>
 				| , T e | cider-enlighten-mode |
 		zprint
 			zprint -w file.edn
