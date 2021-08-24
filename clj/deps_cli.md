@@ -21,13 +21,13 @@ state: wip
 
 `Index deps.edn <url:#r=g_11723>`
 
-  | man clj                           | clj help                       |
-  | clj -A:alias                      | run alias                      |
-  | clj -M:repl/rebel                 | run repl with rebel-readline   |
-  | clj -Sdescribe                    | print version and environment  |
-  | clj -X:fct                        | run (eXecute) function         |
-  | clj -M -m qualified_main          | run main/script                |
-  | ^x ^d/s/a/e                       | rebel: doc/source/apropos/eval |
+	| man clj                           | clj help                       |
+	| clj -A:alias                      | run alias                      |
+	| clj -M:repl/rebel                 | run repl with rebel-readline   |
+	| clj -Sdescribe                    | print version and environment  |
+	| clj -X:fct                        | run (eXecute) function         |
+	| clj -M -m qualified_main          | run main/script                |
+	| ^x ^d/s/a/e                       | rebel: doc/source/apropos/eval |
 	| :deps                             | deps.edn dependencies          |
 	| :local/root                       | local deps                     |
 	| :git/url                          | github deps                    |
@@ -87,10 +87,10 @@ clj -M:repl/rebel ;; practicalli/deps.edn
 
 ref: `Article: rebel-readline README <url:file:///~/projects/study/clj/deps_cli.md#r=g_11718>`
 
-  | ^x ^d             | show doc           |
-  | ^x ^s             | show source        |
-  | ^x ^a             | show apropos       |
-  | ^x ^e             | inline eval        |
+	| ^x ^d             | show doc           |
+	| ^x ^s             | show source        |
+	| ^x ^a             | show apropos       |
+	| ^x ^e             | inline eval        |
 	| :repl/help        | help               |
 	| :repl/keybindings | keybindings        |
 	| :repl<tab>        | available commands |
@@ -444,13 +444,13 @@ clj -A:rebel
 
 ## Keybinding rebel-readline
 
-  | ^c         | abort current line             |
-  | ^d         | quit                           |
-  | ^tab       | word completion or code indent |
-  | ^x ^d      | show doc                       |
-  | ^x ^s      | show source                    |
-  | ^x ^a      | show apropos                   |
-  | ^x ^e      | inline eval                    |
+	| ^c         | abort current line             |
+	| ^d         | quit                           |
+	| ^tab       | word completion or code indent |
+	| ^x ^d      | show doc                       |
+	| ^x ^s      | show source                    |
+	| ^x ^a      | show apropos                   |
+	| ^x ^e      | inline eval                    |
 	| :repl/help | help                           |
 	| :repl<tab> | available commands             |
 

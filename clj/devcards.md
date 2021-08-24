@@ -210,7 +210,7 @@ cd e03
 lein figwheel
 ``` 
 
-## devcards'ın örneklerini yeniden üretme id=g_10843
+## devcards'ın örneklerini yeniden üretme id=g10843
 
 ``` bash
 cd ~/projects/study/clj/ex/study_devcards

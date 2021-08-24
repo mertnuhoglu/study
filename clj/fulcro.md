@@ -17,11 +17,11 @@ state: wip
 
 # index fulcro
 
-Başlangıç için örnek alınacak proje: `Tutorial: video-series <url:file:///~/projects/study/clj/fulcro_tutorial.md#r=g_11458>`
+Başlangıç için örnek alınacak proje: `Tutorial: video-series <url:file:///~/projects/study/clj/fulcro_tutorial.md#r=g11458>`
 
-Video anlatımı: `Tutorial video-series  <url:file:///~/projects/study/clj/fulcro_tutorial.md#r=g_11484>`
+Video anlatımı: `Tutorial video-series  <url:file:///~/projects/study/clj/fulcro_tutorial.md#r=g11484>`
 
-Başlangıç kılavuzu: `Article: Fulcro Developers Guide Getting Started <url:file:///~/projects/study/clj/fulcro.md#r=g_11472>`
+Başlangıç kılavuzu: `Article: Fulcro Developers Guide Getting Started <url:file:///~/projects/study/clj/fulcro.md#r=g11472>`
 
 ## fulcro refcard
 
@@ -29,7 +29,7 @@ Başlangıç kılavuzu: `Article: Fulcro Developers Guide Getting Started <url:f
 npm install
 ```
 
-# Article: Fulcro Developers Guide Getting Started id=g_11472
+# Article: Fulcro Developers Guide Getting Started id=g11472
 
 [Fulcro Developers Guide Getting Started](http://book.fulcrologic.com/#_getting_started)
 
@@ -72,7 +72,7 @@ cursive repl:
 (js/alert "hi")
 ```
 
-# Article: Demand-driven architecture: Relay, Falcor, Om.Next - Shaun Robinson - Medium id=g_11451
+# Article: Demand-driven architecture: Relay, Falcor, Om.Next - Shaun Robinson - Medium id=g11451
 
 [Demand-driven architecture Relay, Falcor, Om.Next - Shaun Robinson - Medium](https://medium.com/@env/demand-driven-development-relay-falcor-om-next-75818bd54ea1)
 
@@ -88,7 +88,7 @@ Demand language also deals with mutations, specified, like queries, as data.
 
 Client cache and reconciliation allows it to fetch only what it needs when the UI demand changes as the user moves through the product
 
-# Article: Val on Programming - DataScript as a Lingua Franca for domain modeling id=g_11453
+# Article: Val on Programming - DataScript as a Lingua Franca for domain modeling id=g11453
 
 [Val on Programming - DataScript as a Lingua Franca for domain modeling](https://vvvvalvalval.github.io/posts/2018-07-23-datascript-as-a-lingua-franca-for-domain-modeling.html)
 
@@ -128,7 +128,7 @@ A plumbing-first approach makes for early successes, and is generally a good app
 
 By 'framework', I really mean a set of programmatically-enforced decisions about application architecture.
 
-# Article: The Benefits of Fulcro id=g_11454
+# Article: The Benefits of Fulcro id=g11454
 
 [The Benefits of Fulcro](https://fulcro.fulcrologic.com/benefits.html)
 
@@ -150,7 +150,7 @@ The model makes CQRS pretty easy to add for both auditing and performance
 
 `/Users/mertnuhoglu/codes/clojure/fulcro/crudless-todomvc`
 
-# Video: Why Build Solutions with Fulcro - Tom Toor - PMbGhgVf9Do id=g_11455
+# Video: Why Build Solutions with Fulcro - Tom Toor - PMbGhgVf9Do id=g11455
 
 React:
 
@@ -204,7 +204,7 @@ we say: reducing coupling is good.
 
 ex: delete item -> local ui change -> server request -> response -> event ...
 
-Problem: chains of logic ar e hard to follow
+Problem: chains of logic are hard to follow
 
 Problem: implicit coupling
 
@@ -552,9 +552,9 @@ UI Easy to Visually Regression Test: with devcards
 
 Eliminates sources of complexity like Controllers, library event systems (signals), etc. Local reasoning helps here.
 
-# Örnek Projeler id=g_11471
+# Örnek Projeler id=g11471
 
-## cursive support for fulcro macros id=g_11481
+## cursive support for fulcro macros id=g11481
 
 ![resolve defresolver as defn](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20200717_163411.jpg)
 

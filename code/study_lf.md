@@ -16,13 +16,25 @@ output:
 
 # Issues
 
+## Issue: Open Excel files with vd (Excel dosyalarını vd ile açmak): id=g12348
+
+Edit `~/projects/private_dotfiles/.config/lf/lfrc`
+
+```sh
+cmd open ${{
+    case $(file --mime-type $f -bL) in
+				...
+				application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) vd "${f}";;
+```
+
+
 ## toggle preview kısayolu oluştur id=g_11823
 
 ```bash
 map zp set preview!
 ```
 
-## dosya silme delete file 
+## dosya silme delete file  id=g12349
 
 ```bash
 :delete
@@ -36,6 +48,8 @@ Check: `zshrc: lf <url:file:///~/.zshrc#r=g_11820>`
 # Official Tutorial
 
 [Tutorial · gokcehan/lf Wiki](https://github.com/gokcehan/lf/wiki/Tutorial)
+
+## shortcuts lf  id=g12350
 
   | j/k       | down/up                           |
   | ^u/^d     | half-up/half-down                 |
@@ -57,14 +71,13 @@ Check: `zshrc: lf <url:file:///~/.zshrc#r=g_11820>`
   | i         | launch pager                      |
   | w         | launch shell                      |
 
-## Custom Configuration
+## Customizations lf id=g12351
 
 Check `~/.config/lf/lfrc`
 
   | af | fzf                    |
   | az | fasd                   |
   | Y  | copy path: $f > pbcopy |
-
 
 # Official Documentation
 
@@ -101,6 +114,4 @@ brew install --cask font-inconsolata-nerd-font
 ## Bookmarks
 
 [Bookmarks for directories · Issue #76 · gokcehan/lf](https://github.com/gokcehan/lf/issues/76)
-
-
 

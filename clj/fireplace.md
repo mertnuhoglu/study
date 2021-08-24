@@ -18,10 +18,10 @@ output:
 
 # Quickref fireplace.vim id=g_12014
 
-  | :Connect [port] | connect to nrepl server    |
-  | ]d              | Source                     |
-  | gf              | go to source of namespace  |
-  | cmm             | Macroexpand innermost form |
-  | :Eval           | eval current form          |
-  | :%Eval          | eval file                  |
+	| :Connect [port] | connect to nrepl server    |
+	| ]d              | Source                     |
+	| gf              | go to source of namespace  |
+	| cmm             | Macroexpand innermost form |
+	| :Eval           | eval current form          |
+	| :%Eval          | eval file                  |
 

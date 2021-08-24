@@ -17,9 +17,10 @@ state: wip
 
 # Index: Clojure in Vim id=g_11843
 
-`Connect to REPL in Conjure <url:#r=g_11844>`
-
-`Keybindings Conjure <url:#r=g_11845>`
+	Connect to REPL in Conjure <url:#r=g_11844>
+	Keybindings Conjure <url:#r=g_11845>
+	Tool: ConjureSchool  <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11842>
+	Tool: vim-sexp <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11846>
 
 	| Disable linter: #r=g_11965 | call lsp#disable_diagnostics_for_buffer() |
 

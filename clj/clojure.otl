@@ -5,6 +5,8 @@ index
 	Run REPL <url:file:///~/projects/study/clj/clojure.otl#r=g_12068>
 	Run a clojure script/function/app <url:file:///~/projects/study/clj/clojure.otl#r=g_12108>
 	idioms - kendime göre özetler <url:file:///~/projects/study/clj/clojure.otl#r=g_12080>
+	Weird Characters <url:file:///~/projects/study/clj/book_clojure_documentation.md#r=g_11401>
+	editors clojure <url:file:///~/projects/study/clj/clojure.otl#r=g12360>
 clojure
 	authors id=g_11837
 		Rich Hickey - Clojure
@@ -21,9 +23,10 @@ clojure
 		Daniel Friedman - miniKanren
 		Gerald Sussman - SICP
 		Sean Corfield - rebl
-	editors
+	editors clojure id=g12360
 		vim conjure
 			conjure
+				Index: Clojure in Vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g_11843>
 			fireplace.md
 				Quickref fireplace.vim <url:file:///~/projects/study/clj/fireplace.md#r=g_12014>
 					| ]d     | Source                     |
@@ -67,7 +70,7 @@ clojure
 				Multiple Emacs Setups/Installations in Osx <url:file:///~/projects/study/emacs/emacs.md#r=g_12029>
 				~/projects/private_dotfiles/.config/chemacs/profiles.el
 				emacs --with-profile default
-		paredit
+		paredit vim-sexp smartparens cleverparens
 			Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g_11961>
 			smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g_12112>
 	trainings
@@ -994,7 +997,7 @@ topics
 				(print ['a :b "\n" \space "c"])
 				;; [a :b
 				;;  c]nil
-		sppecial variables
+		special variables
 			Whats my environment <url:book_clojure_practicalli.md#r=g_11403>
 			*clojure-version* ;; {:major 1, :minor 9, :incremental 0, :qualifier nil}
 			*compile-path* ;; "/Users/mertnuhoglu/codes/clojure/clojure-through-code/target/classes"

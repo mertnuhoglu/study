@@ -17,8 +17,7 @@ state: wip
 
 [The Clojure Language - YouTube](https://www.youtube.com/playlist?list=PLAC43CFB134E85266)
 
-brian will
-	fp: functional programming
+	fp: functional programming - brian will
 		fp: referential transparency
 		fp vs ip: mutable state
 		why?
