@@ -1,0 +1,55 @@
+Paul deGrandis - Unlocking data-driven systems - YouTube id=g12361
+	[(630) Paul deGrandis - Unlocking data-driven systems - YouTube](https://www.youtube.com/watch?v=BNkYYYyfF48)
+	The value of values
+		Data all the things
+		This is good but we need more: Systems captured in data
+		There is a spectrum of value-oriented systems
+		What is next in this path?
+	Case: Consumer Reports
+		Let clients produce apps based on our data
+	Design and thinking
+		How would you do that?
+		What do we mean with "service"?
+	What is our ideal future?
+		Container service
+			Services that build othe services
+			Describe services using edn
+			Constrain services. They can do only 5 things
+				Respond with static data
+				Redirect to another url
+				Query database and return results
+				Transact data into database
+				Validate some data payload
+		Pedestal: for creating web services
+			route definition is purely by data
+		Datomic: 
+			all components are defined by data
+		Master container service:
+			handles service definitions
+			upsert service definitions
+				so we can evolve subsystems
+	Ex: Vase
+		ex: Data modeli değiştirdiğimde, hangi yazılım komponentleri etkileniyor?
+			Datalog query ile bulunabilir
+		ex: Teknik iş kuralları koymak mümkün:
+			Query is only triggered by a GET request
+	But what about our data?
+		Alt sistemlere verimizi nasıl paylaşacağız?
+		Datomic'e veri import yapmalıyız
+			Data source agnostic: Bazı veriler json bazıları db'den gelebilir.
+		Multi-pass design
+			First pass: generate schema for services
+			Second pass: Import data using schema
+		All knobs to control the system are also data-driven
+	What about rich-client apps?
+		/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210824_150236.jpg
+		This app is defined in 26 lines:
+		/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210824_150254.jpg
+	Apps like TV channels
+		Instant feedback from different apps or versions of some app
+		Create big apps from smaller apps
+		Versioned, rolled back
+		Queried, analyzed
+			core.logic to analyze and query the system
+		Variations of the system
+
