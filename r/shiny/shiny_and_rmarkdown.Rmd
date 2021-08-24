@@ -40,9 +40,9 @@ Basic example with xaringan <url:file:///~/projects/study/r/ex_r_rmarkdown.Rmd#r
 # Other
 
 ```{r}
-numericInput("rows", "How many cars?", 5)
+shiny::numericInput("rows", "How many cars?", 5)
 
-renderTable({
+shiny::renderTable({
   head(cars, input$rows)
 })
 ```

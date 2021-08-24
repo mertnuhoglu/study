@@ -1,9 +1,11 @@
 _ id=r_lastid ccd_0010
+
 parent
 	refmine kms <url:file:///~/projects/myrepo/general/refmine.otl#r=g_11660>
 index
 	bash <url:file:///~/projects/study/otl/ccode.otl#r=g_11687>
 	awk <url:file:///~/projects/study/otl/ccode.otl#r=g_11686>
+	regex ~/projects/study/otl/cregex.otl
 issues
 	Print documents with syntax coloring
 		source code:
@@ -88,21 +90,24 @@ stuff
 			https://news.ycombinator.com/item?id=15468786
 			https://medium.freecodecamp.org/software-engineering-interviews-744380f4f2af
 			https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/
+	convert word to markdown
+		https://github.com/benbalter/word-to-markdown
+		w2m path/to/document.docx
 browsers
 	chrome
-    ref
-      <url:file:///~/projects/study/js/study_chrome_devtools.Rmd>
-    shortcuts
-      #!i   developer tools
-    monitor events
-      https://developers.google.com/web/tools/chrome-devtools/debug/command-line/events?hl=en
-      view even listeners
-        getEventListeners(document)
-        registered on dom elements
-          <url:file:///.select dom > event listeners>
-    display console as drawer
-      Esc
-      menu > Show Console
+		ref
+			<url:file:///~/projects/study/js/study_chrome_devtools.Rmd>
+		shortcuts
+			#!i   developer tools
+		monitor events
+			https://developers.google.com/web/tools/chrome-devtools/debug/command-line/events?hl=en
+			view even listeners
+				getEventListeners(document)
+				registered on dom elements
+					<url:file:///.select dom > event listeners>
+		display console as drawer
+			Esc
+			menu > Show Console
 	vivaldi
 		quick commands
 			https://help.vivaldi.com/article/quick-commands/
@@ -1698,189 +1703,189 @@ git git2 id=g_10500
 				hub create -d "My new thing"
 				(creates a new project on GitHub with the name of current directory)
 				git push origin master
-    git pull vs git fetch
-      https://stackoverflow.com/questions/292357/what-is-the-difference-between-git-pull-and-git-fetch#292359
-      git pull = git fetch + git merge
-      git fetch never changes working copy
-    different config files in branches
-      https://stackoverflow.com/questions/24498844/using-conditional-configuration-files-with-git/24498888#24498888
-      git attributes
-        https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#_merge_strategies
-          path specific settings: git attributes
-            set in 
-              .gitattributes: per directory
-              .git/info/attributes: project wise
-          uses:
-            handling binary files differently
-            merge strategies
-          merge strategies: different config files for different branches
-            .gitattributes
-              database.xml merge=ours
-            git config --global merge.ours.driver true
-            git merge topic
-    change submodule after fork
-      https://stackoverflow.com/questions/11637175/swap-git-submodule-with-own-fork
-      .gitmodules:
-      $ cat .gitmodules
-      [submodule "ext/google-maps"]
-          path = ext/google-maps
-          url = git://git.naquadah.org/google-maps.git
-      edit the url with a text editor, you need to run the following:
-      $ git submodule sync
-    git repo inside git repo: submodules
-      https://git-scm.com/book/en/v2/Git-Tools-Submodules
-      Submodules
-        you need another project within some project
-        two procejts well be separate
-      adding
-        # adds existing repo as a submodule of working repo
-        git submodule add https://github.com/chaconinc/DbConnector
-        # added into directory named same as repo: "DbConnector"
-          different path:
-            git submodule add https://github.com/chaconinc/DbConnector <new_folder>
-      ex:
-        # cd to directory where subrepo will be installed
-        cd themes
-        git submodule add https://github.com/spf13/herring-cove 
-        $ cat ../.gitmodules
-        [submodule "themes/herring-cove"]
-          path = themes/herring-cove
-          url = https://github.com/spf13/herring-cove
-      cloning
-        opt1
-          git clone x
-          git submodule init
-          git submodule update
-        opt2
-          git clone --recursive x
+		git pull vs git fetch
+			https://stackoverflow.com/questions/292357/what-is-the-difference-between-git-pull-and-git-fetch#292359
+			git pull = git fetch + git merge
+			git fetch never changes working copy
+		different config files in branches
+			https://stackoverflow.com/questions/24498844/using-conditional-configuration-files-with-git/24498888#24498888
+			git attributes
+				https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#_merge_strategies
+					path specific settings: git attributes
+						set in 
+							.gitattributes: per directory
+							.git/info/attributes: project wise
+					uses:
+						handling binary files differently
+						merge strategies
+					merge strategies: different config files for different branches
+						.gitattributes
+							database.xml merge=ours
+						git config --global merge.ours.driver true
+						git merge topic
+		change submodule after fork
+			https://stackoverflow.com/questions/11637175/swap-git-submodule-with-own-fork
+			.gitmodules:
+			$ cat .gitmodules
+			[submodule "ext/google-maps"]
+					path = ext/google-maps
+					url = git://git.naquadah.org/google-maps.git
+			edit the url with a text editor, you need to run the following:
+			$ git submodule sync
+		git repo inside git repo: submodules
+			https://git-scm.com/book/en/v2/Git-Tools-Submodules
+			Submodules
+				you need another project within some project
+				two procejts well be separate
+			adding
+				# adds existing repo as a submodule of working repo
+				git submodule add https://github.com/chaconinc/DbConnector
+				# added into directory named same as repo: "DbConnector"
+					different path:
+						git submodule add https://github.com/chaconinc/DbConnector <new_folder>
+			ex:
+				# cd to directory where subrepo will be installed
+				cd themes
+				git submodule add https://github.com/spf13/herring-cove 
+				$ cat ../.gitmodules
+				[submodule "themes/herring-cove"]
+					path = themes/herring-cove
+					url = https://github.com/spf13/herring-cove
+			cloning
+				opt1
+					git clone x
+					git submodule init
+					git submodule update
+				opt2
+					git clone --recursive x
 		issues
 			global git ignore
 				excludesfile = ~/.config/git/ignore
-    articles
-      Learning to debug with Git
-        https://medium.com/@naveenkarippai/learning-to-debug-with-git-20bf13318164
-        bottom line
-          git grep
-            search in working dir 
-          git blame
-            find author of a specific line or commit 
-          git bisect
-            find commit that introduced the line
-          man git [command]
-        git grep
-          git grep awesome-typescript-loader
+		articles
+			Learning to debug with Git
+				https://medium.com/@naveenkarippai/learning-to-debug-with-git-20bf13318164
+				bottom line
+					git grep
+						search in working dir 
+					git blame
+						find author of a specific line or commit 
+					git bisect
+						find commit that introduced the line
+					man git [command]
+				git grep
+					git grep awesome-typescript-loader
 haskell
-    
-    tutorials
-      Haskell to javascript
-        https://lettier.github.io/posts/2016-07-04-haskell-to-javascript.html
-        tek tek satır satır anlatıyor
-    tools
-      build tool: haskell stack
-        https://github.com/commercialhaskell/stack
-    articles/videos
-      Haskell Sucks
-        if you can avoid avoid it 
-        monad difficult to teach
-        lazy vs. 
-      Haskell Monads in 8 Minutes
+		
+		tutorials
+			Haskell to javascript
+				https://lettier.github.io/posts/2016-07-04-haskell-to-javascript.html
+				tek tek satır satır anlatıyor
+		tools
+			build tool: haskell stack
+				https://github.com/commercialhaskell/stack
+		articles/videos
+			Haskell Sucks
+				if you can avoid avoid it 
+				monad difficult to teach
+				lazy vs. 
+			Haskell Monads in 8 Minutes
 latex
-    ref
-      mathematical symbols: http://oeis.org/wiki/List_of_LaTeX_mathematical_symbols
-      detexify: draw and find symbol http://detexify.kirelabs.org/classify.html
-    Latex primer
-      http://data-blog.udacity.com/posts/2016/10/latex-primer/
-      inline and display
-        inline: $y=mx+b$
-        display: $$y=mx+b$$
-      superscript and subscript
-        x^2
-        x_2
-        x_{10}
-        _{10}x
-      commands
-        \sqrt{2\pi}
-        \frac{P}{X}
-      symbols
-        greek letters
-          \alpha \beta \gamma
-          \Alpha \Gamma
-        operators
-          \times \pm \cup \oplus \cdot
-        trigonometry
-          \sin \arctan
-        relations
-          \leq \geq \approx \neq
-        triple dots
-          \cdots \ldots \ddots
-        various
-          \infty \nabla \partial
-        derivative del partial
-          \partial ∂ \dP
-          \nabla ∇ \NB del
-      accents
-        \hat x
-        \widehat{abs}
-        \bar x
-        \overline{abs}
-        \dot x
-        \ddot x
-        \vec{x}
-        \overrightarrow{xy}
-      parentheses
-        cases
-          f(x)= 
-          \begin{cases}
-              \frac{x^2-x}{x},& \text{if } x\geq 1\\
-              0,              & \text{otherwise}
-          \end{cases}
-        \left \right
-          \left( \frac{dx}{dy} \right)
-        vertical lines 
-          | or \vert or \mid
-        angle brackets
-          \langle \rangle
-        matrix brackets
-          \left\lgroup \matrix{a & b\cr c & d} \right\rgroup
-        vertical bars
-          \|
-      typefaces
-      summation integral
-        \sum
-      spaces
-        \, \: \;
-        \quad \qquad
-      escaping characters
-        \{ \_ \$ \backslash
-      newline
-        \\
-      aligned equations
-        \begin{align}
-        a_1 & = b_1 + c_1 \\
-        a_2 & = b_2 + c_2 
-        \end{align}
-      set of real numbers
-        \rm I\!R
+		ref
+			mathematical symbols: http://oeis.org/wiki/List_of_LaTeX_mathematical_symbols
+			detexify: draw and find symbol http://detexify.kirelabs.org/classify.html
+		Latex primer
+			http://data-blog.udacity.com/posts/2016/10/latex-primer/
+			inline and display
+				inline: $y=mx+b$
+				display: $$y=mx+b$$
+			superscript and subscript
+				x^2
+				x_2
+				x_{10}
+				_{10}x
+			commands
+				\sqrt{2\pi}
+				\frac{P}{X}
+			symbols
+				greek letters
+					\alpha \beta \gamma
+					\Alpha \Gamma
+				operators
+					\times \pm \cup \oplus \cdot
+				trigonometry
+					\sin \arctan
+				relations
+					\leq \geq \approx \neq
+				triple dots
+					\cdots \ldots \ddots
+				various
+					\infty \nabla \partial
+				derivative del partial
+					\partial ∂ \dP
+					\nabla ∇ \NB del
+			accents
+				\hat x
+				\widehat{abs}
+				\bar x
+				\overline{abs}
+				\dot x
+				\ddot x
+				\vec{x}
+				\overrightarrow{xy}
+			parentheses
+				cases
+					f(x)= 
+					\begin{cases}
+							\frac{x^2-x}{x},& \text{if } x\geq 1\\
+							0,              & \text{otherwise}
+					\end{cases}
+				\left \right
+					\left( \frac{dx}{dy} \right)
+				vertical lines 
+					| or \vert or \mid
+				angle brackets
+					\langle \rangle
+				matrix brackets
+					\left\lgroup \matrix{a & b\cr c & d} \right\rgroup
+				vertical bars
+					\|
+			typefaces
+			summation integral
+				\sum
+			spaces
+				\, \: \;
+				\quad \qquad
+			escaping characters
+				\{ \_ \$ \backslash
+			newline
+				\\
+			aligned equations
+				\begin{align}
+				a_1 & = b_1 + c_1 \\
+				a_2 & = b_2 + c_2 
+				\end{align}
+			set of real numbers
+				\rm I\!R
 jq: json query
 security
-    MFA (multi-factor authentication)
-      mobile apps
-        Google Authenticator vs. Authy vs. FreeOTP. What do you guys think?
-          https://www.reddit.com/r/privacy/comments/2q01bb/google_authenticator_vs_authy_vs_freeotp_what_do/
-          pros and cons
-            authy: 
-              + has PIN protection 
-                needs to enter PIN to use the tool
-              + cloud backup
-                if you lose mobile phone, you can restore from cloud
+		MFA (multi-factor authentication)
+			mobile apps
+				Google Authenticator vs. Authy vs. FreeOTP. What do you guys think?
+					https://www.reddit.com/r/privacy/comments/2q01bb/google_authenticator_vs_authy_vs_freeotp_what_do/
+					pros and cons
+						authy: 
+							+ has PIN protection 
+								needs to enter PIN to use the tool
+							+ cloud backup
+								if you lose mobile phone, you can restore from cloud
 firebug
-  how to audit js events and functions
-    http://stackoverflow.com/questions/11097234/using-firefox-how-can-i-monitor-all-javascript-events-that-are-fired
-    opt
-      firebug > html > events
-      firebug > body > right > log > events
-        console > enable
-        console > persist
+	how to audit js events and functions
+		http://stackoverflow.com/questions/11097234/using-firefox-how-can-i-monitor-all-javascript-events-that-are-fired
+		opt
+			firebug > html > events
+			firebug > body > right > log > events
+				console > enable
+				console > persist
 bash
 	bash2 id=g_11687
 		makefile
@@ -1896,7 +1901,7 @@ bash
 				export PS1="\W $ "
 			green fg
 				export PS1="\[\e[32m\]\W\[\e[m\] $ "
-    http://www.tldp.org/LDP/abs/html/commandsub.html
+		http://www.tldp.org/LDP/abs/html/commandsub.html
 		replace last command with this command: ^old^new
 			ex:
 				cat file
@@ -2008,367 +2013,6 @@ bash
 		options
 			-H		# hidden files (.git vs.)
 			-I --no-ignore
-	fzf: fuzzy file finder id=g_10242
-		fzf: fuzzy file finder <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10242>
-			https://github.com/junegunn/fzf
-			refcard fzf
-				bash
-					$ some_command <tab>   # shows options
-					^y			# list all commands
-			install
-				brew install fzf
-				$(brew --prefix)/opt/fzf/install
-					to install key bindings
-				brew reinstall fzf
-			ex:
-				find * -type f | fzf
-				-m    multi-select
-					tab: to mark
-			search syntax
-				abcd    fuzzy match
-				^abc    prefix-exact
-				.mp3$   suffix-exact
-				'wild   exact-match
-				!fire   inverse-exact-match
-				!.mp3$
-			ex: multiple args
-				^core rb$ | py$
-				# start with core
-				# ends with rb or py
-			man fzf
-				--tac
-					reverse order of the input
-				+s --no-sort
-			shortcuts for cli
-				^t    paste selected lines onto cli
-					ex: 
-						rg <^t>
-						select multiple items
-						enter
-				^r    paste from history
-				!c    cd into selected dir
-			readme.md
-				usage
-					ex:
-						find * -type f | fzf > selected
-						find * -type f | fzf 
-						vim $(fzf)
-							opens selected file in vim
-						open $(fzf)
-					fzf
-						search for files under current dir
-					finder commands
-						^j ^k ^n ^p			next/prev item 
-						enter					select item
-						^c ^g esc			exit
-						tab +tab			mark multiple items (-m mode)
-					layout
-						default: in fullscreen mode
-						vim $(fzf --height 40%)
-						fzf --reverse
-							finder at top
-						fzf --border
-					options
-						export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-							save options
-					search syntax
-						token examples
-							fuzzy match (default)
-							'wild			exact match
-							^music		prefix match
-							!fire			inverse match
-							.mp3$			suffix match
-						-e --exact
-				fzf-tmux
-					cat /usr/share/dict/words | fzf-tmux -l 20% --multi --reverse
-					git branch | fzf-tmux -d 15
-				key bindings
-					^t		paste selected lines 
-					^r		paste from history
-					!c		cd into selected dir (use esc instead of alt)
-						sometimes it works
-				fuzzy completion
-					vim **<tab>
-					vim ../**<tab>
-					vim fzf**<tab>
-					cd **<tab>
-					ssh **<tab>
-					kill -9 <tab>
-					export **<tab>		# list environment variables
-				executing external commands
-					# Press F1 to open the file with less without leaving fzf
-					# Press CTRL-Y to copy the line to clipboard and aborts fzf (requires pbcopy)
-					fzf --bind 'f1:execute(less -f {}),ctrl-y:execute-silent(echo {} | pbcopy)+abort' 
-						BUILD.md
-				using a script in selected data processing
-					https://github.com/junegunn/fzf/issues/876
-						opt01
-							echo $'one\ntwo\nthree\nfour' |
-								fzf --bind "enter:execute-multi:python -c 'import sys; print \";\".join(sys.argv[1:])' {}" -m +s --tac2
-						opt02
-							echo $'one\ntwo\nthree\nfour' |
-								fzf --bind "enter:execute-multi:~/bin/foobar.py {}" -m +s --tac
-				preview window
-					ex
-						# {} is replaced to the single-quoted string of the focused line
-						fzf --preview 'cat {}'
-						fzf --preview 'head -100 {}'
-			examples.md
-				https://github.com/junegunn/fzf/wiki/examples
-				searching file contents
-					ag --nobreak --nonumbers --noheading . | fzf
-					ag . | fzf
-			article: https://medium.com/@sidneyliebrand/how-fzf-and-ripgrep-improved-my-workflow-61c7ca212861
-				ls | fzf
-				nvim $(ls | fzf)
-				rg --files | fzf
-					--files: list files rg will search
-				use cases:
-					killing processes
-						before:
-							ps -ef | grep <process_name>
-							kill -9 <process_id>
-						now	
-							kp
-					installing brew plugins
-					search only rg valid files (ignore .ignore files)
-						export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
-					fzf#vim#with_preview
-			vim plugin: fzf.vim
-				~/.vim/bundle/fzf.vim/README.md
-				https://github.com/junegunn/fzf/blob/master/README-VIM.md
-				commands
-					<url:/Users/mertnuhoglu/.vim/bundle/fzf.vim/README.md#tn=| Command           | List>
-					| `Files [PATH]`    | Files (similar to `:FZF`)                                               |
-					| `GFiles [OPTS]`   | Git files (`git ls-files`)                                              |
-					| `GFiles?`         | Git files (`git status`)                                                |
-					| `Buffers`         | Open buffers                                                            |
-					| `Colors`          | Color schemes                                                           |
-					| `Ag [PATTERN]`    | [ag][ag] search result (`ALT-A` to select all, `ALT-D` to deselect all) |
-					| `Rg [PATTERN]`    | [rg][rg] search result (`ALT-A` to select all, `ALT-D` to deselect all) |
-					| `Lines [QUERY]`   | Lines in loaded buffers                                                 |
-					| `BLines [QUERY]`  | Lines in the current buffer                                             |
-					| `Tags [QUERY]`    | Tags in the project (`ctags -R`)                                        |
-					| `BTags [QUERY]`   | Tags in the current buffer                                              |
-					| `Marks`           | Marks                                                                   |
-					| `Windows`         | Windows                                                                 |
-					| `Locate PATTERN`  | `locate` command output                                                 |
-					| `History`         | `v:oldfiles` and open buffers                                           |
-					| `History:`        | Command history                                                         |
-					| `History/`        | Search history                                                          |
-					| `Snippets`        | Snippets ([UltiSnips][us])                                              |
-					| `Commits`         | Git commits (requires [fugitive.vim][f])                                |
-					| `BCommits`        | Git commits for the current buffer                                      |
-					| `Commands`        | Commands                                                                |
-					| `Maps`            | Normal mode mappings                                                    |
-					| `Helptags`        | Help tags <sup id="a1">[1](#helptags)</sup>                             |
-					| `Filetypes`       | File types
-					Files [PATH]
-					GFiles [OPTS]
-				custom completion helper
-					ex
-						" Replace the default dictionary completion with fzf-based fuzzy completion
-						inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
-				commands
-					:FZF
-						files under current dir
-					FZF ~
-						files under home dir
-					FM FZFMru History
-						nnoremap ıı :FZFMru<CR>
-				opening selected files
-					enter		current window
-					^T		  new tab
-					^X			horizontal split
-					^V			vertical split
-				my customizations:
-					FZFMru
-					imap <c-x><c-k> <plug>(fzf-complete-word)
-					imap <c-x><c-f> <plug>(fzf-complete-path)
-					imap <c-x><c-r> <plug>(fzf-complete-file-rg)
-					" üd: jump to tag with fzf 
-				preview window
-					note: to make it work you need to install fzf plugin using Plug
-						Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-						Plug 'junegunn/fzf.vim'
-					ex
-						command! -bang -nargs=? -complete=dir Files
-							\ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-					note: preview window hidden by default, press `?` to enable it
-						command! -bang -nargs=* Rg
-							\ call fzf#vim#grep(
-							\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-							\   <bang>0 ? fzf#vim#with_preview('up:60%')
-							\           : fzf#vim#with_preview('right:50%:hidden', '?'),
-							\   <bang>0)
-				mappings
-					completions
-						<url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=" completion with fzf>
-				custom input to FZF
-					ref	
-						https://github.com/junegunn/fzf/wiki/Examples-(vim)
-						<url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=function! MRU_LoadList()>
-					ex
-						function! MRU_LoadList()
-							return readfile(g:MRU_File)
-						endfun
-						command! FZFMru call fzf#run({
-						\ 'source':  MRU_LoadList(),
-					ex
-						command! FZFTest call fzf#run({
-						\ 'source':  readfile("/Users/mertnuhoglu//itr/vrp_doc/study/cyclejs_vrp.Rmd"),
-						\ 'down':    '40%' })
-					sink options	
-						e
-						tabedit
-						botright split
-						vertical botright split
-						colorscheme
-						function('<sid>bufopen')
-							<vimhelp:E81>
-						tag
-						function('s:tags_sink')
-						function('<sid>ag_handler')
-			studying fzf code 
-				fzf#run nerede tanımlı?
-					fzf#run ~/.fzf/plugin/fzf.vim içinde tanımlı
-						<url:/Users/mertnuhoglu/.fzf/plugin/fzf.vim#tn=function! fzf#run(...) abort>
-					Files ise ~/.vim/bundle/fzf.vim/plugin/fzf.vim içinde tanımlı
-					FZFMru ise ~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim içinde tanımlı ve fzf#run fonksiyonunu kullanıyor
-					bunun örnek kodunu ise wiki'den aldım: https://github.com/junegunn/fzf/wiki/Examples-(vim)
-				fzf#vim#with_preview() code
-					fzf#vim#with_preview
-						output:
-							{'options': ['--preview-window', 'right', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}']}
-						~/.vim/bundle/fzf.vim/bin/preview.rb
-					fzf#vim#files
-						output:
-							args = {'options': ['-m', '--prompt', '~/.vim/']}
-							a:000 = [{'options': ['--preview-window', 'right', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}']}, 0]
-						calls:
-							return s:fzf('files', args, a:000)
-					s:fzf
-						<url:/Users/mertnuhoglu/.vim/bundle/fzf.vim/autoload/fzf/vim.vim#tn=function! s:fzf(name, opts, extra)>
-						function! s:fzf(name, opts, extra)
-							call s:merge_opts(merged, eopts)
-							echo merged
-							" Files
-							" merged = {'options': ['-m', '--prompt', '~/.vim/', '--preview-window', 'right', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}']}
-							" Ag
-							" merged = {'options': ['--ansi', '--prompt', 'Ag> ', '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all', '--color', 'hl:4,hl+:12', '--preview-window', 'right:50%:hidden', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}', '--bind', '?:toggle-preview'], 'source': 'ag --nogroup --column --color  ''h
-							" bang = 0
-			examples for bash
-				chrome bookmarks - fzf
-					ref
-						https://gist.github.com/junegunn/15859538658e449b886f
-						~/projects/stuff/bash/bookmarks.rb
-					usage
-						bookmarks.rb
-				bash/shell/zsh directory bookmarks
-					ref
-						~/.cdg_paths
-						https://dmitryfrank.com/articles/shell_shortcuts
-						/Users/mertnuhoglu/projects/stuff/bash
-							cdscuts_glob_echo cdscuts_list_echo
-					usage
-						cdg
-				chrome history
-					ref
-						https://github.com/junegunn/fzf/wiki/examples#searching-file-contents
-						<url:/Users/mertnuhoglu/.zshenv#tn=vg() {>
-					usage
-						chrome_history
-				file open
-					ref
-						https://github.com/junegunn/fzf/wiki/examples#searching-file-contents
-						<url:/Users/mertnuhoglu/.zshenv#tn=fo() {>
-					usage	
-						fo
-				locate
-					ref
-						https://github.com/junegunn/fzf/wiki/examples#locate
-						<url:/Users/mertnuhoglu/.zshenv#tn=fzf-locate-widget() {>
-					usage
-						fzf-locate-widget
-						esc i
-				lpass
-					usage	
-						lpass show -c --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
-				marker
-					ref
-						<url:/Users/mertnuhoglu/.zshenv#tn=bindkey "${FZF_MARKER_MAIN_KEY:-\C-y}" _fzf_marker_main_widget>
-					usage 
-						ls | grep -
-							^y		show command palette
-							tab				next command
-							^t				next field
-				pdf search
-					ref
-					usage
-						pdf_search 
-				cd interactive
-					ref
-						zsh-interactive-cd.plugin.zsh
-						https://github.com/changyuheng/zsh-interactive-cd
-					usage
-						cd <tab>
-						cd xxx<tab>
-			fzf and fd
-				https://mike.place/2017/fzf-fd/
-				setup
-					export FZF_CTRL_T_COMMAND="fd . $HOME"
-					export FZF_ALT_C_COMMAND="fd -t d . $HOME"
-				ex
-					cp foo.txt <ctrl-t>
-						select destination directory
-					<esc-c>
-						change current dir to selected dir
-					<ctrl-r>
-						select command from history
-			http://sysadvent.blogspot.com/2017/12/day-18-awesome-command-line-fuzzy.html
-				pipe data into fzf
-					cat /usr/share/dict/words | fzf 
-				pipe data out of fzf
-					cat /usr/share/dict/words | fzf | cowsay
-				live preview
-					cat /usr/share/dict/words | fzf --preview "cowsay {}" | cowsay
-				git diff show
-					ref
-						<url:/Users/mertnuhoglu/.zshenv#tn=fshow() {>
-					usage
-						fshow
-				man pages
-					usage
-						mans
-			http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
-				FZF_DEFAULT_OPTS
-					export FZF_DEFAULT_OPTS='--bind J:down,K:up --reverse --ansi --multi'
-						J/K		up/dn
-						--reverse
-				search for text: fr
-					fr <text>
-			usage ex
-				^y: copies current item to clipboard
-				multi select
-					<Tab> to select items 
-			@mine
-				cd benzeri komutlar: ^g fz cdg cd** z
-					opt 
-						fz ^g
-						cdg 
-						cd **<tab>
-						z <name>
-						:Cdg
-					^g fz hepsini içeriyor
-				export FZF_DEFAULT_OPTS='--bind "J:down,K:up,D:page-down,U:page-up,up:preview-up,down:preview-down,ctrl-y:execute-silent(printf {} | pbcopy)+abort" --reverse --ansi --multi'
-					J/K		up/dn
-					D/U		pg dn/up
-					^y		yank
-					up/dn		preview up/dn
-			next
-				don't work:
-					^r    paste from history
-					!c    cd into selected dir
 	global gtags
 			https://www.gnu.org/software/global/download.html
 			tags for definition, reference, calling etc
@@ -2423,10 +2067,15 @@ bash
 	sed sed2 id=g_10806
 		sed
 			sed <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10806>
+			[Sed Cheatsheet](https://gist.github.com/sergeyklay/4641c7665b262680f8b9cf38de923af1)
 			options
-				-n			if auto-print is not disabled print pattern space. 
+				-n			print if match
+					echo "id=g_10843" | sed -n "/=g/p" 
+					sed -n '3 p' config.conf
 				-p			print pattern space
 				q				quit
+				-e			Execute multiple sed commands
+					sed -e 'command1' -e 'command2' input-file
 			global command
 				Delete with d
 					sed '/WORD/d'
@@ -2453,7 +2102,7 @@ bash
 				no \d use:
 					[[:digit:]]
 				\1 \2 groups
-				\{3\} multiplier
+				\{3\} multiplier repeater
 				\(...\)
 			commands
 				find then sed
@@ -2506,6 +2155,10 @@ bash
 				keep first match in a line, delete the rest
 				sed 's/\([a-z]*\).*/\1/'
 			examples
+				replace in file
+					sed -i -e 's/=g_\([[:digit:]][[:digit:]]*\)/=g\1/g' devcards.md
+				convert g_101 -> g101
+					echo "id=g_10843" | sed -e "s/=g_\([[:digit:]][[:digit:]]*\)/=g\1/g" 
 				double every empty line
 				sed '/^$/ p'
 				act like grep
@@ -2731,7 +2384,7 @@ bash
 						# make iterm2 send '[[AS' when !space is pressed
 					which shortcut is bound?
 						bindkey | rg autosuggest-accept
-clojure2 id=g_11835
+clojure clojure2 id=g_11835
 	clojure2 <url:file:///~/projects/study/otl/ccode.otl#r=g_11835>
 	ref
 		~/projects/study/clj/clojure.otl
@@ -2873,14 +2526,14 @@ networking
 				server: socket.on -> io.emit('id')
 				broadcasted: socket.on('id') -> html.append
 purescript
-    psci multiline mode
-    Partial
-      The Partial type class
-        https://github.com/purescript/purescript/wiki/The-Partial-type-class
-        Why have a Partial type class?
-          partial functions
-            functions which don't handle every possible case of their inputs
-        I just want to use a partial function, please
+		psci multiline mode
+		Partial
+			The Partial type class
+				https://github.com/purescript/purescript/wiki/The-Partial-type-class
+				Why have a Partial type class?
+					partial functions
+						functions which don't handle every possible case of their inputs
+				I just want to use a partial function, please
 ruby
 	rubymine
 		jruby support
@@ -2947,612 +2600,6 @@ ruby
 					thrice do 
 						<url:file:///...>
 					end
-			text
-				# ---------------------------- Section 1: Blocks ----------------------------
-				 
-				# Blocks are like closures, because they can refer to variables from their defining context:
-				 
-				def thrice
-					yield
-					yield
-					yield
-				end
-				 
-				x = 5
-				puts "value of x before: #{x}"
-				thrice { x += 1 }
-				puts "value of x after: #{x}"
-				 
-				# A block refers to variables in the context it was defined, not the context in which it is called:
-				 
-				example 2
-				 
-				def thrice_with_local_x
-					x = 100
-					yield
-					yield
-					yield
-					puts "value of x at end of thrice_with_local_x: #{x}"
-				end
-				 
-				x = 5
-				thrice_with_local_x { x += 1 }
-				puts "value of outer x after: #{x}"
-				 
-				# A block only refers to *existing* variables in the outer context; if they don't exist in the outer, a
-				# block won't create them there:
-				 
-				example 3
-				 
-				thrice do # note that {...} and do...end are completely equivalent
-					y = 10
-					puts "Is y defined inside the block where it is first set?"
-					puts "Yes." if defined? y
-				end
-				puts "Is y defined in the outer context after being set in the block?"
-				puts "No!" unless defined? y
-				 
-				# OK, so blocks seem to be like closures: they are closed with respect to variables defined in the context
-				# where they were created, regardless of the context in which they're called.
-				# 
-				# But they're not quite closures as we've been using them, because we have no way to pass them around:
-				# "yield" can *only* refer to the block passed to the method it's in.
-				#
-				# We can pass a block on down the chain, however, using &:
-				 
-				example 4
-				 
-				def six_times(&block)
-					thrice(&block)
-					thrice(&block)
-				end
-				 
-				x = 4
-				six_times { x += 10 }
-				puts "value of x after: #{x}"
-				 
-				# So do we have closures? Not quite! We can't hold on to a &block and call it later at an arbitrary
-				# time; it doesn't work. This, for example, will not compile:
-				#
-				# def save_block_for_later(&block)
-				#     saved = &block
-				# end
-				#
-				# But we *can* pass it around if we use drop the &, and use block.call(...) instead of yield:
-				 
-				example 5
-				 
-				def save_for_later(&b)
-					@saved = b  # Note: no ampersand! This turns a block into a closure of sorts.
-				end
-				 
-				save_for_later { puts "Hello!" }
-				puts "Deferred execution of a block:"
-				@saved.call
-				@saved.call
-				 
-				# But wait! We can't pass multiple blocks to a function! As it turns out, there can be only zero
-				# or one &block_params to a function, and the &param *must* be the last in the list.
-				#
-				# None of these will compile:
-				#
-				#    def f(&block1, &block2) ...
-				#    def f(&block1, arg_after_block) ...
-				#    f { puts "block1" } { puts "block2" }
-				#
-				# What the heck?
-				#
-				# I claim this single-block limitation violates the "principle of least surprise." The reasons for
-				# it have to do with ease of C implementation, not semantics.
-				#
-				# So: are we screwed for ever doing anything robust and interesting with closures?
-				 
-				 
-				# ---------------------------- Section 2: Closure-Like Ruby Constructs ----------------------------
-				 
-				# Actually, no. When we pass a block &param, then refer to that param without the ampersand, that
-				# is secretly a synonym for Proc.new(&param):
-				 
-				example 6
-				 
-				def save_for_later(&b)
-					@saved = Proc.new(&b) # same as: @saved = b
-				end
-				 
-				save_for_later { puts "Hello again!" }
-				puts "Deferred execution of a Proc works just the same with Proc.new:"
-				@saved.call
-				 
-				# We can define a Proc on the spot, no need for the &param:
-				 
-				example 7
-				 
-				@saved_proc_new = Proc.new { puts "I'm declared on the spot with Proc.new." }
-				puts "Deferred execution of a Proc works just the same with ad-hoc Proc.new:"
-				@saved_proc_new.call
-				 
-				# Behold! A true closure!
-				#
-				# But wait, there's more.... Ruby has a whole bunch of things that seem to behave like closures,
-				# and can be called with .call:
-				 
-				example 8
-				 
-				@saved_proc_new = Proc.new { puts "I'm declared with Proc.new." }
-				@saved_proc = proc { puts "I'm declared with proc." }
-				@saved_lambda = lambda { puts "I'm declared with lambda." }
-				def some_method 
-					puts "I'm declared as a method."
-				end
-				@method_as_closure = method(:some_method)
-				 
-				puts "Here are four superficially identical forms of deferred execution:"
-				@saved_proc_new.call
-				@saved_proc.call
-				@saved_lambda.call
-				@method_as_closure.call
-				 
-				# So in fact, there are no less than seven -- count 'em, SEVEN -- different closure-like constructs in Ruby:
-				#
-				#      1. block (implicitly passed, called with yield)
-				#      2. block (&b  =>  f(&b)  =>  yield)  
-				#      3. block (&b  =>  b.call)    
-				#      4. Proc.new  
-				#      5. proc  
-				#      6. lambda    
-				#      7. method
-				#
-				# Though they all look different, some of these are secretly identical, as we'll see shortly.
-				#
-				# We already know that (1) and (2) are not really closures -- and they are, in fact, exactly the same thing.
-				# Numbers 3-7 all seem to be identical. Are they just different syntaxes for identical semantics?
-				 
-				# ---------------------------- Section 3: Closures and Control Flow ----------------------------
-				 
-				# No, they aren't! One of the distinguishing features has to do with what "return" does.
-				#
-				# Consider first this example of several different closure-like things *without* a return statement.
-				# They all behave identically:
-				 
-				example 9
-				 
-				def f(closure)
-					puts
-					puts "About to call closure"
-					result = closure.call
-					puts "Closure returned: #{result}"
-					"Value from f"
-				end
-				 
-				puts "f returned: " + f(Proc.new { "Value from Proc.new" })
-				puts "f returned: " + f(proc { "Value from proc" })
-				puts "f returned: " + f(lambda { "Value from lambda" })
-				def another_method
-					"Value from method"
-				end
-				puts "f returned: " + f(method(:another_method))
-				 
-				# But put in a "return," and all hell breaks loose!
-				 
-				example 10
-				 
-				begin
-					f(Proc.new { return "Value from Proc.new" })
-				rescue Exception => e
-					puts "Failed with #{e.class}: #{e}"
-				end
-				 
-				# The call fails because that "return" needs to be inside a function, and a Proc isn't really
-				# quite a full-fledged function:
-				 
-				example 11
-				 
-				def g
-					result = f(Proc.new { return "Value from Proc.new" })
-					puts "f returned: " + result #never executed
-					"Value from g"               #never executed
-				end
-				 
-				puts "g returned: #{g}"
-				 
-				# Note that the return inside the "Proc.new" didn't just return from the Proc -- it returned
-				# all the way out of g, bypassing not only the rest of g but the rest of f as well! It worked
-				# almost like an exception.
-				#
-				# This means that it's not possible to call a Proc containing a "return" when the creating
-				# context no longer exists:
-				 
-				example 12
-				 
-				def make_proc_new
-					begin
-							Proc.new { return "Value from Proc.new" } # this "return" will return from make_proc_new
-					ensure
-							puts "make_proc_new exited"
-					end
-				end
-				 
-				begin
-					puts make_proc_new.call
-				rescue Exception => e
-					puts "Failed with #{e.class}: #{e}"
-				end
-				 
-				# (Note that this makes it unsafe to pass Procs across threads.)
-				 
-				# A Proc.new, then, is not quite truly closed: it depends on the creating context still existing,
-				# because the "return" is tied to that context.
-				#
-				# Not so for lambda:
-				 
-				example 13
-				 
-				def g
-					result = f(lambda { return "Value from lambda" })
-					puts "f returned: " + result
-					"Value from g"
-				end
-				 
-				puts "g returned: #{g}"
-				 
-				# And yes, you can call a lambda even when the creating context is gone:
-				 
-				example 14
-				 
-				def make_lambda
-					begin
-							lambda { return "Value from lambda" }
-					ensure
-							puts "make_lambda exited"
-					end
-				end
-				 
-				puts make_lambda.call
-				 
-				# Inside a lambda, a return statement only returns from the lambda, and flow continues normally.
-				# So a lambda is like a function unto itself, whereas a Proc remains dependent on the control
-				# flow of its caller.
-				#
-				# A lambda, therefore, is Ruby's true closure.
-				#
-				# As it turns out, "proc" is a synonym for either "Proc.new" or "lambda."
-				# Anybody want to guess which one? (Hint: "Proc" in lowercase is "proc.")
-				 
-				example 15
-				 
-				def g
-					result = f(proc { return "Value from proc" })
-					puts "f returned: " + result
-					"Value from g"
-				end
-				 
-				puts "g returned: #{g}"
-				 
-				# Hah. Fooled you.
-				#
-				# The answer: Ruby changed its mind. If you're using Ruby 1.8, it's a synonym for "lambda."
-				# That's surprising (and also ridiculous); somebody figured this out, so in 1.9, it's a synonym for
-				# Proc.new. Go figure.
-				 
-				# I'll spare you the rest of the experiments, and give you the behavior of all 7 cases:
-				#
-				# "return" returns from caller:
-				#      1. block (called with yield)
-				#      2. block (&b  =>  f(&b)  =>  yield)  
-				#      3. block (&b  =>  b.call)    
-				#      4. Proc.new
-				#      5. proc in 1.9
-				#
-				# "return" only returns from closure:
-				#      5. proc in 1.8
-				#      6. lambda    
-				#      7. method
-				 
-				# ---------------------------- Section 4: Closures and Arity ----------------------------
-				 
-				# The other major distinguishing of different kinds of Ruby closures is how they handle mismatched
-				# arity -- in other words, the wrong number of arguments.
-				#
-				# In addition to "call," every closure has an "arity" method which returns the number of expected
-				# arguments:
-				 
-				example 16
-				 
-				puts "One-arg lambda:"
-				puts (lambda {|x|}.arity)
-				puts "Three-arg lambda:"
-				puts (lambda {|x,y,z|}.arity)
-				 
-				# ...well, sort of:
-				 
-				puts "No-args lambda: "
-				puts (lambda {}.arity) # This behavior is also subject to change in 1.9.
-				puts "Varargs lambda: "
-				puts (lambda {|*args|}.arity)
-				 
-				# Watch what happens when we call these with the wrong number of arguments:
-				 
-				example 17
-				 
-				def call_with_too_many_args(closure)
-					begin
-							puts "closure arity: #{closure.arity}"
-							closure.call(1,2,3,4,5,6)
-							puts "Too many args worked"
-					rescue Exception => e
-							puts "Too many args threw exception #{e.class}: #{e}"
-					end
-				end
-				 
-				def two_arg_method(x,y)
-				end
-				 
-				puts; puts "Proc.new:"; call_with_too_many_args(Proc.new {|x,y|})
-				puts; puts "proc:"    ; call_with_too_many_args(proc {|x,y|})
-				puts; puts "lambda:"  ; call_with_too_many_args(lambda {|x,y|})
-				puts; puts "Method:"  ; call_with_too_many_args(method(:two_arg_method))
-				 
-				def call_with_too_few_args(closure)
-					begin
-						puts "closure arity: #{closure.arity}"
-						closure.call()
-						puts "Too few args worked"
-					rescue Exception => e
-						puts "Too few args threw exception #{e.class}: #{e}"
-					end
-				end
-				 
-				puts; puts "Proc.new:"; call_with_too_few_args(Proc.new {|x,y|})
-				puts; puts "proc:"    ; call_with_too_few_args(proc {|x,y|})
-				puts; puts "lambda:"  ; call_with_too_few_args(lambda {|x,y|})
-				puts; puts "Method:"  ; call_with_too_few_args(method(:two_arg_method))
-				 
-				# Yet oddly, the behavior for one-argument closures is different....
-				 
-				example 18
-				 
-				def one_arg_method(x)
-				end
-				 
-				puts; puts "Proc.new:"; call_with_too_many_args(Proc.new {|x|})
-				puts; puts "proc:"    ; call_with_too_many_args(proc {|x|})
-				puts; puts "lambda:"  ; call_with_too_many_args(lambda {|x|})
-				puts; puts "Method:"  ; call_with_too_many_args(method(:one_arg_method))
-				puts; puts "Proc.new:"; call_with_too_few_args(Proc.new {|x|})
-				puts; puts "proc:"    ; call_with_too_few_args(proc {|x|})
-				puts; puts "lambda:"  ; call_with_too_few_args(lambda {|x|})
-				puts; puts "Method:"  ; call_with_too_few_args(method(:one_arg_method))
-				 
-				# Yet when there are no args...
-				 
-				example 19
-				 
-				def no_arg_method
-				end
-				 
-				puts; puts "Proc.new:"; call_with_too_many_args(Proc.new {||})
-				puts; puts "proc:"    ; call_with_too_many_args(proc {||})
-				puts; puts "lambda:"  ; call_with_too_many_args(lambda {||})
-				puts; puts "Method:"  ; call_with_too_many_args(method(:no_arg_method))
-				 
-				# For no good reason that I can see, Proc.new, proc and lambda treat a single argument as a special
-				# case; only a method enforces arity in all cases. Principle of least surprise my ass.
-				 
-				 
-				 
-				# ---------------------------- Section 5: Rant ----------------------------
-				#
-				# This is quite a dizzing array of syntactic options, with subtle semantics differences that are not
-				# at all obvious, and riddled with minor special cases. It's like a big bear trap from programmers who
-				# expect the language to just work.
-				#
-				# Why are things this way? Because Ruby is:
-				#
-				#   (1) designed by implementation, and
-				#   (2) defined by implementation.
-				#
-				# The language grows because the Ruby team tacks on cool ideas, without maintaining a real spec apart
-				# from CRuby. A spec would make clear the logical structure of the language, and thus help highlight
-				# inconsistencies like the ones we've just seen. Instead, these inconsinstencies creep into the language,
-				# confuse the crap out of poor souls like me who are trying to learn it, and then get submitted as bug
-				# reports. Something as fundamental as the semantics of proc should not get so screwed up that they have
-				# to backtrack between releases, for heaven's sake! Yes, I know, language design is hard -- but something
-				# like this proc/lambda issue or the arity problem wasn't so hard to get right the first time.
-				# Yammer yammer.
-				 
-				 
-				# ---------------------------- Section 6: Summary ----------------------------
-				#
-				# So, what's the final verdict on those 7 closure-like entities?          
-				#
-				#                                                     "return" returns from closure
-				#                                    True closure?    or declaring context...?         Arity check?
-				#                                    ---------------  -----------------------------    -------------------
-				# 1. block (called with yield)       N                declaring                        no
-				# 2. block (&b => f(&b) => yield)    N                declaring                        no
-				# 3. block (&b => b.call)            Y except return  declaring                        warn on too few
-				# 4. Proc.new                        Y except return  declaring                        warn on too few
-				# 5. proc                                    <<< alias for lambda in 1.8, Proc.new in 1.9 >>>
-				# 6. lambda                          Y                closure                          yes, except arity 1
-				# 7. method                          Y                closure                          yes
-				#
-				# The things within each of these groups are all semantically identical -- that is, they're different
-				# syntaxes for the same thing:
-				#   
-				#      1. block (called with yield)
-				#      2. block (&b  =>  f(&b)  =>  yield)  
-				#      -------
-				#      3. block (&b  =>  b.call)
-				#      4. Proc.new  
-				#      5. proc in 1.9
-				#      -------
-				#      5. proc in 1.8
-				#      6. lambda    
-				#      -------
-				#      7. method (may be identical to lambda with changes to arity checking in 1.9)
-				#
-				# Or at least, this is how I *think* it is, based on experiment. There's no authoritative answer other
-				# than testing the CRuby implementation, because there's no real spec -- so there may be other differences
-				# I haven't discovered.
-				#
-				# The final verdict: Ruby has four types of closures and near-closures, expressible in seven syntactic
-				# variants. Not pretty. But you sure sure do cool stuff with them! That's up next....
-				#
-				# This concludes the "Ruby makes Paul crazy" portion of our broadcast; from here on, it will be the "Ruby is
-				# awesome" portion.
-				 
-				 
-				# ---------------------------- Section 7: Doing Something Cool with Closures ----------------------------
-				 
-				# Let's make a data structure containing all of the Fibonacci numbers. Yes, I said *all* of them.
-				# How is this possible? We'll use closures to do lazy evaluation, so that the computer only calculates
-				# as much of the list as we ask for.
-				 
-				# To make this work, we're going to use Lisp-style lists: a list is a recursive data structure with
-				# two parts: "car," the next element of the list, and "cdr," the remainder of the list.
-				#
-				# For example, the list of the first three positive integers is [1,[2,[3]]]. Why? Because:
-				#
-				#   [1,[2,[3]]]     <--- car=1, cdr=[2,[3]]
-				#      [2,[3]]      <--- car=2, cdr=[3]
-				#         [3]       <--- car=3, cdr=nil
-				#
-				# Here's a class for traversing such lists:
-				 
-				example 20
-				 
-				class LispyEnumerable
-					include Enumerable
-				 
-					def initialize(tree)
-						@tree = tree
-					end
-				 
-					def each
-						while @tree
-							car,cdr = @tree
-							yield car
-							@tree = cdr
-						end
-					end
-				end
-				 
-				list = [1,[2,[3]]]
-				LispyEnumerable.new(list).each do |x|
-					puts x
-				end
-				 
-				# So how to make an infinite list? Instead of making each node in the list a fully built
-				# data structure, we'll make it a closure -- and then we won't call that closure
-				# until we actually need the value. This applies recursively: the top of the tree is a closure,
-				# and its cdr is a closure, and the cdr's cdr is a closure....
-				 
-				example 21
-				 
-				class LazyLispyEnumerable
-					include Enumerable
-				 
-					def initialize(tree)
-							@tree = tree
-					end
-				 
-					def each
-							while @tree
-									car,cdr = @tree.call # <--- @tree is a closure
-									yield car
-									@tree = cdr
-							end
-					end
-				end
-				 
-				list = lambda{[1, lambda {[2, lambda {[3]}]}]} # same as above, except we wrap each level in a lambda
-				LazyLispyEnumerable.new(list).each do |x|
-					puts x
-				end
-				 
-				example 22
-				 
-				# Let's see when each of those blocks gets called:
-				list = lambda do
-					puts "first lambda called"
-					[1, lambda do
-						puts "second lambda called"
-						[2, lambda do
-							puts "third lambda called"
-							[3]
-						end]
-					end]
-				end
-				 
-				puts "List created; about to iterate:"
-				LazyLispyEnumerable.new(list).each do |x|
-					puts x
-				end
-				 
-				 
-				# Now, because the lambda defers evaluation, we can make an infinite list:
-				 
-				example 23
-				 
-				def fibo(a,b)
-					lambda { [a, fibo(b,a+b)] } # <---- this would go into infinite recursion if it weren't in a lambda
-				end
-				 
-				LazyLispyEnumerable.new(fibo(1,1)).each do |x|
-					puts x
-					break if x > 100 # we don't actually want to print all of the Fibonaccis!
-				end
-				 
-				# This kind of deferred execution is called "lazy evaluation" -- as opposed to the "eager
-				# evaluation" we're used to, where we evaluate an expression before passing its value on.
-				# (Most languages, including Ruby, use eager evaluation, but there are languages (like Haskell)
-				# which use lazy evaluation for everything, by default! Not always performant, but ever so very cool.)
-				#
-				# This way of implementing lazy evaluation is terribly clunky! We had to write a separate
-				# LazyLispyEnumerable that *knows* we're passing it a special lazy data structure. How unsatisfying!
-				# Wouldn't it be nice of the lazy evaluation were invisible to callers of the lazy object?
-				#
-				# As it turns out, we can do this. We'll define a class called "Lazy," which takes a block, turns it
-				# into a closure, and holds onto it without immediately calling it. The first time somebody calls a
-				# method, we evaluate the closure and then forward the method call on to the closure's result.
-				 
-				class Lazy
-					def initialize(&generator)
-					@generator = generator
-					end
-				 
-					def method_missing(method, *args, &block)
-						evaluate.send(method, *args, &block)
-					end
-				 
-					def evaluate
-						@value = @generator.call unless @value
-						@value
-					end
-				end
-				 
-				def lazy(&b)
-					Lazy.new &b
-				end
-				 
-				# This basically allows us to say:
-				#
-				#   lazy {value}
-				# 
-				# ...and get an object that *looks* exactly like value -- except that value won't be created until the
-				# first method call that touches it. It creates a transparent lazy proxy object. Observe:
-				 
-				example 24
-				 
-				x = lazy do
-					puts "<<< Evaluating lazy value >>>"
-					"lazy value"
-				end
-				 
-				puts "x has now been assigned"
-				puts "About to call one of x's methods:"
-				puts "x.size: #{x.size}"          # <--- .size triggers lazy evaluation
-				puts "x.swapcase: #{x.swapcase}"
 tmux id=g_10599
 		tmux <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10599>
 		show options
@@ -3739,128 +2786,136 @@ tmux id=g_10599
 		configuration file
 			~/.tmux.conf
 unix
-    backtick ``
-      https://unix.stackexchange.com/questions/27428/what-does-backquote-backtick-mean-in-commands
-      not a quotation sign
-      it is evaluated by shell before main command
-      output is used instead
-    .d extension in init.d and other directories
-      .d in directory names typically indicates a directory containing many configuration files or scripts for a particular situation 
-    memory usage of processes
-      https://unix.stackexchange.com/questions/164653/actual-memory-usage-of-a-process
-        ans1
-          no single command gives actual memory usage
-            because there is no such thing as actual memory usage
-          memory page can be
-            transient storage used by that process alone
-            shared with other processes
-            backed up by a disk file
-            physical memory or swap
-        ans2
-          pmap source: /proc/[N]/maps
-          virtual address space vs physical memory
-            virtual address space
-              not real
-              a map of all memory allocated
-              limit is same for each process (2-4 GB)
-              not accumulated (multiple processes can only has 512 MB of physical memory)
-              data is not stored from virtual address space
-              kernel's job: manage the relation bw physical and virtual memory
-              virtual space useful for:
-                structure of a process
-                relation to physical memory use
-            amount of RAM actually used: physical memory counts
-          pmap: info about virtual space
-          pmap -x: Dirty column
-            this is closed to real amount of memory
-          top columns
-            VIRT: VirtualSz: from virtual space
-            RES: ResidentSz: from physical memory
+		backtick ``
+			https://unix.stackexchange.com/questions/27428/what-does-backquote-backtick-mean-in-commands
+			not a quotation sign
+			it is evaluated by shell before main command
+			output is used instead
+		.d extension in init.d and other directories
+			.d in directory names typically indicates a directory containing many configuration files or scripts for a particular situation 
+		memory usage of processes
+			https://unix.stackexchange.com/questions/164653/actual-memory-usage-of-a-process
+				ans1
+					no single command gives actual memory usage
+						because there is no such thing as actual memory usage
+					memory page can be
+						transient storage used by that process alone
+						shared with other processes
+						backed up by a disk file
+						physical memory or swap
+				ans2
+					pmap source: /proc/[N]/maps
+					virtual address space vs physical memory
+						virtual address space
+							not real
+							a map of all memory allocated
+							limit is same for each process (2-4 GB)
+							not accumulated (multiple processes can only has 512 MB of physical memory)
+							data is not stored from virtual address space
+							kernel's job: manage the relation bw physical and virtual memory
+							virtual space useful for:
+								structure of a process
+								relation to physical memory use
+						amount of RAM actually used: physical memory counts
+					pmap: info about virtual space
+					pmap -x: Dirty column
+						this is closed to real amount of memory
+					top columns
+						VIRT: VirtualSz: from virtual space
+						RES: ResidentSz: from physical memory
 linux variants
 	linux variants
 		ubuntu
 			check version
 				lsb_release -a
 curl
-    man curl
-      download url to filename
-        curl "{{URL}}" -o {{filename}}
-      send form-encoded data
-        curl --data {{name=bob}}
-        POST request of type: application/x-www-form-urlencoded
-      send json data
+		man curl
+			download url to filename
+				curl "{{URL}}" -o {{filename}}
+			send form-encoded data
+				curl --data {{name=bob}}
+				POST request of type: application/x-www-form-urlencoded
+			send json data
 				curl -X POST -H "Content-Type: application/json" -d '{"user":"bob", "password": "ali"}' http://localhost:3000/login
-      specify http method
-        curl -X {{DELETE}} <url>
-      head request
-        curl --head <url>
-      include extra header
-        curl -H "{{X-Myheader: 123}}" <url>
-    media type (MIME type / content type) id=g_10155
-      media type (MIME type / content type) <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10155>
-      https://en.wikipedia.org/wiki/Media_type
-        two-part identifier for file formats
-        IANA (Internet Assigned Numbers Authority) manages
-        defined in RFC2045
-          for denoting type of email content and attachments
-          name MIME: Multipurpose Internet Mail Extensions
-          used by HTTP and HTML as well
-        naming
-          composed of
-            type
-            subtype
-            optional params
-          ex
-            text/html; charset=UTF-8
-              text: type
-              html: subtype
-              charset: optional parameter
-          registered type names:
-            application, audio, image, multipart, text, ...
-          ex:
-            application/javascript
-            application/json
-            application/x-www-form-urlencoded
-            text/html
-            text/csv
-            image/png
-          registration trees
-            type/media_type_name[+suffix]
-            vendor tree
-              vnd.
-    How are parameters sent in an HTTP POST request?
-      https://stackoverflow.com/questions/14551194/how-are-parameters-sent-in-an-http-post-request#
-      sent in request body
-        in the format that content type specifies
-          usually: application/x-www-form-urlencoded
-          ex: request body contains string:
-            parameter=value&also=another
-      for file upload:
-        multipart/form-data
-      content is put after http header
-        ex
-          POST /path/script.cgi HTTP/1.0
-          From: frog@jmarshall.com
-          User-Agent: HTTPTool/1.0
-          Content-Type: application/x-www-form-urlencoded
-          Content-Length: 32
-          # blank line
-          home=Cosby&favorite+flavor=flies
-        debug with Fiddler
-      for json data:
-        application/json
+			specify http method
+				curl -X {{DELETE}} <url>
+			head request
+				curl --head <url>
+			include extra header
+				curl -H "{{X-Myheader: 123}}" <url>
+		media type (MIME type / content type) id=g_10155
+			media type (MIME type / content type) <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10155>
+			https://en.wikipedia.org/wiki/Media_type
+				two-part identifier for file formats
+				IANA (Internet Assigned Numbers Authority) manages
+				defined in RFC2045
+					for denoting type of email content and attachments
+					name MIME: Multipurpose Internet Mail Extensions
+					used by HTTP and HTML as well
+				naming
+					composed of
+						type
+						subtype
+						optional params
+					ex
+						text/html; charset=UTF-8
+							text: type
+							html: subtype
+							charset: optional parameter
+					registered type names:
+						application, audio, image, multipart, text, ...
+					ex:
+						application/javascript
+						application/json
+						application/x-www-form-urlencoded
+						text/html
+						text/csv
+						image/png
+					registration trees
+						type/media_type_name[+suffix]
+						vendor tree
+							vnd.
+		How are parameters sent in an HTTP POST request?
+			https://stackoverflow.com/questions/14551194/how-are-parameters-sent-in-an-http-post-request#
+			sent in request body
+				in the format that content type specifies
+					usually: application/x-www-form-urlencoded
+					ex: request body contains string:
+						parameter=value&also=another
+			for file upload:
+				multipart/form-data
+			content is put after http header
+				ex
+					POST /path/script.cgi HTTP/1.0
+					From: frog@jmarshall.com
+					User-Agent: HTTPTool/1.0
+					Content-Type: application/x-www-form-urlencoded
+					Content-Length: 32
+					# blank line
+					home=Cosby&favorite+flavor=flies
+				debug with Fiddler
+			for json data:
+				application/json
 make
-    Minimal make
-      http://kbroman.org/minimal_make/
-      intro
-        most important tool for reproducible research is: GNU make
-        consider: files associated with a book
-          R scripts
-          Latex files for main text
-          BibTex for references
-      A simple example
+	Minimal make
+		http://kbroman.org/minimal_make/
+		intro
+			most important tool for reproducible research is: GNU make
+			consider: files associated with a book
+				R scripts
+				Latex files for main text
+				BibTex for references
+		A simple example
 tools
-	anki
+	anki anki2
+		ref
+			Import tsv files into anki <url:file:///~/projects/study/code/anki/study_anki.md#r=g12334>
+			Import md files into anki  <url:file:///~/projects/study/code/anki/study_anki.md#r=g12355>
+		tablo türü anki kartları nasıl yapılır?
+			ref: [(627) S03 - Anki Flashcards: 10 Tips for adding tables to your cards - YouTube](https://www.youtube.com/watch?v=0ybiIE2Cdbg)
+			opt01: ekran görüntüsü olarak
+			opt02: tablesgenerator.com
+				html olarak ekle: Edit HTML
 		anki
 			Basics: Objects
 				Cards
@@ -3929,7 +2984,6 @@ tools
 			Adding Material
 				Downloading Shared Decks
 				Adding Cards and Notes
-						
 			errors
 				media files not synced
 					desktop anki:
@@ -5456,6 +4510,14 @@ tools
 										}
 								}
 						}'
+	google docs / google drive / gdocs id=g_10711
+		ref: gdrive gdrive2 google drive <url:file:///~/projects/study/other/refcard.otl#r=g_11799>
+		google sheets2 gsheets
+			ref: googlesheets google sheets sheets2 <url:file:///~/projects/study/other/refcard.otl#r=g_12085>
+		google docs / google drive / gdocs <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10711>
+			spreadsheet
+				shortcuts
+					!/			quick command
 	ffmpeg
 			video slideshow from image + audio
 				ffmpeg -loop 1 -i slide001.jpg -i slide001.mp3 -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest slide001.mp4
@@ -5470,14 +4532,379 @@ tools
 					'[0:0] [0:1] [1:0] [1:1] [2:0] [2:1] \
 					 concat=n=3:v=1:a=1 [v] [a]' \
 					-map '[v]' -map '[a]' output.mp4
-	google docs / google drive / gdocs id=g_10711
-		ref: gdrive gdrive2 google drive <url:file:///~/projects/study/other/refcard.otl#r=g_11799>
-		google sheets2 gsheets
-			ref: googlesheets google sheets sheets2 <url:file:///~/projects/study/other/refcard.otl#r=g_12085>
-		google docs / google drive / gdocs <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10711>
-			spreadsheet
-				shortcuts
-					!/			quick command
+	fzf: fuzzy file finder id=g_10242
+		fzf: fuzzy file finder <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10242>
+			https://github.com/junegunn/fzf
+			refcard fzf
+				bash
+					$ some_command <tab>   # shows options
+					^y			# list all commands
+			install
+				brew install fzf
+				$(brew --prefix)/opt/fzf/install
+					to install key bindings
+				brew reinstall fzf
+			ex:
+				find * -type f | fzf
+				-m    multi-select
+					tab: to mark
+			search syntax
+				abcd    fuzzy match
+				^abc    prefix-exact
+				.mp3$   suffix-exact
+				'wild   exact-match
+				!fire   inverse-exact-match
+				!.mp3$
+			ex: multiple args
+				^core rb$ | py$
+				# start with core
+				# ends with rb or py
+			man fzf
+				--tac
+					reverse order of the input
+				+s --no-sort
+			shortcuts for cli
+				^t    paste selected lines onto cli
+					ex: 
+						rg <^t>
+						select multiple items
+						enter
+				^r    paste from history
+				!c    cd into selected dir
+			readme.md
+				usage
+					ex:
+						find * -type f | fzf > selected
+						find * -type f | fzf 
+						vim $(fzf)
+							opens selected file in vim
+						open $(fzf)
+					fzf
+						search for files under current dir
+					finder commands
+						^j ^k ^n ^p			next/prev item 
+						enter					select item
+						^c ^g esc			exit
+						tab +tab			mark multiple items (-m mode)
+					layout
+						default: in fullscreen mode
+						vim $(fzf --height 40%)
+						fzf --reverse
+							finder at top
+						fzf --border
+					options
+						export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+							save options
+					search syntax
+						token examples
+							fuzzy match (default)
+							'wild			exact match
+							^music		prefix match
+							!fire			inverse match
+							.mp3$			suffix match
+						-e --exact
+				fzf-tmux
+					cat /usr/share/dict/words | fzf-tmux -l 20% --multi --reverse
+					git branch | fzf-tmux -d 15
+				key bindings
+					^t		paste selected lines 
+					^r		paste from history
+					!c		cd into selected dir (use esc instead of alt)
+						sometimes it works
+				fuzzy completion
+					vim **<tab>
+					vim ../**<tab>
+					vim fzf**<tab>
+					cd **<tab>
+					ssh **<tab>
+					kill -9 <tab>
+					export **<tab>		# list environment variables
+				executing external commands
+					# Press F1 to open the file with less without leaving fzf
+					# Press CTRL-Y to copy the line to clipboard and aborts fzf (requires pbcopy)
+					fzf --bind 'f1:execute(less -f {}),ctrl-y:execute-silent(echo {} | pbcopy)+abort' 
+						BUILD.md
+				using a script in selected data processing
+					https://github.com/junegunn/fzf/issues/876
+						opt01
+							echo $'one\ntwo\nthree\nfour' |
+								fzf --bind "enter:execute-multi:python -c 'import sys; print \";\".join(sys.argv[1:])' {}" -m +s --tac2
+						opt02
+							echo $'one\ntwo\nthree\nfour' |
+								fzf --bind "enter:execute-multi:~/bin/foobar.py {}" -m +s --tac
+				preview window
+					ex
+						# {} is replaced to the single-quoted string of the focused line
+						fzf --preview 'cat {}'
+						fzf --preview 'head -100 {}'
+			examples.md
+				https://github.com/junegunn/fzf/wiki/examples
+				searching file contents
+					ag --nobreak --nonumbers --noheading . | fzf
+					ag . | fzf
+			article: https://medium.com/@sidneyliebrand/how-fzf-and-ripgrep-improved-my-workflow-61c7ca212861
+				ls | fzf
+				nvim $(ls | fzf)
+				rg --files | fzf
+					--files: list files rg will search
+				use cases:
+					killing processes
+						before:
+							ps -ef | grep <process_name>
+							kill -9 <process_id>
+						now	
+							kp
+					installing brew plugins
+					search only rg valid files (ignore .ignore files)
+						export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+					fzf#vim#with_preview
+			vim plugin: fzf.vim
+				~/.vim/bundle/fzf.vim/README.md
+				https://github.com/junegunn/fzf/blob/master/README-VIM.md
+				commands
+					<url:/Users/mertnuhoglu/.vim/bundle/fzf.vim/README.md#tn=| Command           | List>
+					| `Files [PATH]`    | Files (similar to `:FZF`)                                               |
+					| `GFiles [OPTS]`   | Git files (`git ls-files`)                                              |
+					| `GFiles?`         | Git files (`git status`)                                                |
+					| `Buffers`         | Open buffers                                                            |
+					| `Colors`          | Color schemes                                                           |
+					| `Ag [PATTERN]`    | [ag][ag] search result (`ALT-A` to select all, `ALT-D` to deselect all) |
+					| `Rg [PATTERN]`    | [rg][rg] search result (`ALT-A` to select all, `ALT-D` to deselect all) |
+					| `Lines [QUERY]`   | Lines in loaded buffers                                                 |
+					| `BLines [QUERY]`  | Lines in the current buffer                                             |
+					| `Tags [QUERY]`    | Tags in the project (`ctags -R`)                                        |
+					| `BTags [QUERY]`   | Tags in the current buffer                                              |
+					| `Marks`           | Marks                                                                   |
+					| `Windows`         | Windows                                                                 |
+					| `Locate PATTERN`  | `locate` command output                                                 |
+					| `History`         | `v:oldfiles` and open buffers                                           |
+					| `History:`        | Command history                                                         |
+					| `History/`        | Search history                                                          |
+					| `Snippets`        | Snippets ([UltiSnips][us])                                              |
+					| `Commits`         | Git commits (requires [fugitive.vim][f])                                |
+					| `BCommits`        | Git commits for the current buffer                                      |
+					| `Commands`        | Commands                                                                |
+					| `Maps`            | Normal mode mappings                                                    |
+					| `Helptags`        | Help tags <sup id="a1">[1](#helptags)</sup>                             |
+					| `Filetypes`       | File types
+					Files [PATH]
+					GFiles [OPTS]
+				custom completion helper
+					ex
+						" Replace the default dictionary completion with fzf-based fuzzy completion
+						inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
+				commands
+					:FZF
+						files under current dir
+					FZF ~
+						files under home dir
+					FM FZFMru History
+						nnoremap ıı :FZFMru<CR>
+				opening selected files
+					enter		current window
+					^T		  new tab
+					^X			horizontal split
+					^V			vertical split
+				my customizations:
+					FZFMru
+					imap <c-x><c-k> <plug>(fzf-complete-word)
+					imap <c-x><c-f> <plug>(fzf-complete-path)
+					imap <c-x><c-r> <plug>(fzf-complete-file-rg)
+					" üd: jump to tag with fzf 
+				preview window
+					note: to make it work you need to install fzf plugin using Plug
+						Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+						Plug 'junegunn/fzf.vim'
+					ex
+						command! -bang -nargs=? -complete=dir Files
+							\ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+					note: preview window hidden by default, press `?` to enable it
+						command! -bang -nargs=* Rg
+							\ call fzf#vim#grep(
+							\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+							\   <bang>0 ? fzf#vim#with_preview('up:60%')
+							\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+							\   <bang>0)
+				mappings
+					completions
+						<url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=" completion with fzf>
+				custom input to FZF
+					ref	
+						https://github.com/junegunn/fzf/wiki/Examples-(vim)
+						<url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=function! MRU_LoadList()>
+					ex
+						function! MRU_LoadList()
+							return readfile(g:MRU_File)
+						endfun
+						command! FZFMru call fzf#run({
+						\ 'source':  MRU_LoadList(),
+					ex
+						command! FZFTest call fzf#run({
+						\ 'source':  readfile("/Users/mertnuhoglu//itr/vrp_doc/study/cyclejs_vrp.Rmd"),
+						\ 'down':    '40%' })
+					sink options	
+						e
+						tabedit
+						botright split
+						vertical botright split
+						colorscheme
+						function('<sid>bufopen')
+							<vimhelp:E81>
+						tag
+						function('s:tags_sink')
+						function('<sid>ag_handler')
+			studying fzf code 
+				fzf#run nerede tanımlı?
+					fzf#run ~/.fzf/plugin/fzf.vim içinde tanımlı
+						<url:/Users/mertnuhoglu/.fzf/plugin/fzf.vim#tn=function! fzf#run(...) abort>
+					Files ise ~/.vim/bundle/fzf.vim/plugin/fzf.vim içinde tanımlı
+					FZFMru ise ~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim içinde tanımlı ve fzf#run fonksiyonunu kullanıyor
+					bunun örnek kodunu ise wiki'den aldım: https://github.com/junegunn/fzf/wiki/Examples-(vim)
+				fzf#vim#with_preview() code
+					fzf#vim#with_preview
+						output:
+							{'options': ['--preview-window', 'right', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}']}
+						~/.vim/bundle/fzf.vim/bin/preview.rb
+					fzf#vim#files
+						output:
+							args = {'options': ['-m', '--prompt', '~/.vim/']}
+							a:000 = [{'options': ['--preview-window', 'right', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}']}, 0]
+						calls:
+							return s:fzf('files', args, a:000)
+					s:fzf
+						<url:/Users/mertnuhoglu/.vim/bundle/fzf.vim/autoload/fzf/vim.vim#tn=function! s:fzf(name, opts, extra)>
+						function! s:fzf(name, opts, extra)
+							call s:merge_opts(merged, eopts)
+							echo merged
+							" Files
+							" merged = {'options': ['-m', '--prompt', '~/.vim/', '--preview-window', 'right', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}']}
+							" Ag
+							" merged = {'options': ['--ansi', '--prompt', 'Ag> ', '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all', '--color', 'hl:4,hl+:12', '--preview-window', 'right:50%:hidden', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}', '--bind', '?:toggle-preview'], 'source': 'ag --nogroup --column --color  ''h
+							" bang = 0
+			examples for bash
+				chrome bookmarks - fzf
+					ref
+						https://gist.github.com/junegunn/15859538658e449b886f
+						~/projects/stuff/bash/bookmarks.rb
+					usage
+						bookmarks.rb
+				bash/shell/zsh directory bookmarks
+					ref
+						~/.cdg_paths
+						https://dmitryfrank.com/articles/shell_shortcuts
+						/Users/mertnuhoglu/projects/stuff/bash
+							cdscuts_glob_echo cdscuts_list_echo
+					usage
+						cdg
+				chrome history
+					ref
+						https://github.com/junegunn/fzf/wiki/examples#searching-file-contents
+						<url:/Users/mertnuhoglu/.zshenv#tn=vg() {>
+					usage
+						chrome_history
+				file open
+					ref
+						https://github.com/junegunn/fzf/wiki/examples#searching-file-contents
+						<url:/Users/mertnuhoglu/.zshenv#tn=fo() {>
+					usage	
+						fo
+				locate
+					ref
+						https://github.com/junegunn/fzf/wiki/examples#locate
+						<url:/Users/mertnuhoglu/.zshenv#tn=fzf-locate-widget() {>
+					usage
+						fzf-locate-widget
+						esc i
+				lpass
+					usage	
+						lpass show -c --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
+				marker
+					ref
+						<url:/Users/mertnuhoglu/.zshenv#tn=bindkey "${FZF_MARKER_MAIN_KEY:-\C-y}" _fzf_marker_main_widget>
+					usage 
+						ls | grep -
+							^y		show command palette
+							tab				next command
+							^t				next field
+				pdf search
+					ref
+					usage
+						pdf_search 
+				cd interactive
+					ref
+						zsh-interactive-cd.plugin.zsh
+						https://github.com/changyuheng/zsh-interactive-cd
+					usage
+						cd <tab>
+						cd xxx<tab>
+			fzf and fd
+				https://mike.place/2017/fzf-fd/
+				setup
+					export FZF_CTRL_T_COMMAND="fd . $HOME"
+					export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+				ex
+					cp foo.txt <ctrl-t>
+						select destination directory
+					<esc-c>
+						change current dir to selected dir
+					<ctrl-r>
+						select command from history
+			http://sysadvent.blogspot.com/2017/12/day-18-awesome-command-line-fuzzy.html
+				pipe data into fzf
+					cat /usr/share/dict/words | fzf 
+				pipe data out of fzf
+					cat /usr/share/dict/words | fzf | cowsay
+				live preview
+					cat /usr/share/dict/words | fzf --preview "cowsay {}" | cowsay
+				git diff show
+					ref
+						<url:/Users/mertnuhoglu/.zshenv#tn=fshow() {>
+					usage
+						fshow
+				man pages
+					usage
+						mans
+			http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
+				FZF_DEFAULT_OPTS
+					export FZF_DEFAULT_OPTS='--bind J:down,K:up --reverse --ansi --multi'
+						J/K		up/dn
+						--reverse
+				search for text: fr
+					fr <text>
+			usage ex
+				^y: copies current item to clipboard
+				multi select
+					<Tab> to select items 
+			@mine
+				cd benzeri komutlar: ^g fz cdg cd** z
+					opt 
+						fz ^g
+						cdg 
+						cd **<tab>
+						z <name>
+						:Cdg
+					^g fz hepsini içeriyor
+				export FZF_DEFAULT_OPTS='--bind "J:down,K:up,D:page-down,U:page-up,up:preview-up,down:preview-down,ctrl-y:execute-silent(printf {} | pbcopy)+abort" --reverse --ansi --multi'
+					J/K		up/dn
+					D/U		pg dn/up
+					^y		yank
+					up/dn		preview up/dn
+			next
+				don't work:
+					^r    paste from history
+					!c    cd into selected dir
+	lf: file manager (list files) lf2 id=g12347
+		Issue: Open Excel files with vd (Excel dosyalarını vd ile açmak): <url:file:///~/projects/study/code/study_lf.md#r=g12348>
+		toggle preview kısayolu oluştur <url:file:///~/projects/study/code/study_lf.md#r=g_11823>
+		dosya silme delete file  <url:file:///~/projects/study/code/study_lf.md#r=g12349>
+		shortcuts lf  <url:file:///~/projects/study/code/study_lf.md#r=g12350>
+		Customizations lf <url:file:///~/projects/study/code/study_lf.md#r=g12351>
+		quickref shortcuts
+			| af | fzf                    |
+			| az | fasd                   |
+			| Y  | copy path: $f > pbcopy |
+			| i         | launch pager                      |
+			| s         | change sortby/info options        |
 	hammerspoon
 		ref: ~/projects/study/code/study_hammerspoon.md
 		bundleid
@@ -6260,521 +5687,520 @@ tools
 						https://stackoverflow.com/questions/24483727/how-to-insert-a-document-with-date-in-mongo
 						db.example.insert({"date":ISODate("2016-03-03T08:00:00.000")});
 	nginx id=ccd_0004
-		
-			nginx <url:#r=ccd_0004>
+		nginx <url:#r=ccd_0004>
+		ref
+			SSL/TLS certificates <url:#r=ccd_0003>
+		openresty
+			ref
+				~/projects/study/code/study_openresty.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10751>
+				~/projects/study/code/nginx_rate_limiting.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10752>
+			articles - openresty
+				https://github.com/beiyannanfei/test/blob/e7c45217a8460d01c1076dc9d977494899dd83e8/SENSORO/macNginx/nginx_03.conf
+				https://www.digitalocean.com/community/tutorials/understanding-the-nginx-configuration-file-structure-and-configuration-contexts
+				http://www.staticshin.com/programming/definitely-an-open-resty-guide/
+				https://github.com/openresty/lua-nginx-module#content_by_lua
+				https://yos.io/2016/01/28/building-an-api-gateway-with-lua-and-nginx/
+				https://www.staticshin.com/top-tens/things-about-openresty.html
+				https://github.com/yosriady/openresty-quickstart.git
+				https://medium.freecodecamp.org/an-introduction-to-nginx-for-developers-62179b6a458f
+		HSTS: cache for browsers to remember to not try http instead of https
+			add_header Strict-Transport-Security "max-age=31536000";
+			# about 1 year
+		alias: replacement for location
+			http://nginx.org/en/docs/http/ngx_http_core_module.html#alias
+			ex
+				location /i/ {
+						alias /data/w3/images/;
+				}
+				# on request of “/i/top.gif”, the file /data/w3/images/top.gif will be sent
+		path for nginx web root
+			depends on nginx.conf
+			ex: 
+				/etc/nginx/nginx.conf
+					server {
+						listen 80;
+						server_name _; #
+						location / {
+							root /srv/;
+				-->
+				/srv/
+		ssl nginx
 			ref
 				SSL/TLS certificates <url:#r=ccd_0003>
-			openresty
-				ref
-					~/projects/study/code/study_openresty.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10751>
-					~/projects/study/code/nginx_rate_limiting.Rmd <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g_10752>
-				articles - openresty
-					https://github.com/beiyannanfei/test/blob/e7c45217a8460d01c1076dc9d977494899dd83e8/SENSORO/macNginx/nginx_03.conf
-					https://www.digitalocean.com/community/tutorials/understanding-the-nginx-configuration-file-structure-and-configuration-contexts
-					http://www.staticshin.com/programming/definitely-an-open-resty-guide/
-					https://github.com/openresty/lua-nginx-module#content_by_lua
-					https://yos.io/2016/01/28/building-an-api-gateway-with-lua-and-nginx/
-					https://www.staticshin.com/top-tens/things-about-openresty.html
-					https://github.com/yosriady/openresty-quickstart.git
-					https://medium.freecodecamp.org/an-introduction-to-nginx-for-developers-62179b6a458f
-			HSTS: cache for browsers to remember to not try http instead of https
-				add_header Strict-Transport-Security "max-age=31536000";
-				# about 1 year
-			alias: replacement for location
-				http://nginx.org/en/docs/http/ngx_http_core_module.html#alias
-				ex
-					location /i/ {
-							alias /data/w3/images/;
-					}
-					# on request of “/i/top.gif”, the file /data/w3/images/top.gif will be sent
-			path for nginx web root
-				depends on nginx.conf
-				ex: 
-					/etc/nginx/nginx.conf
+			Lets Encrypt with an nginx reverse proxy
+				https://serverfault.com/questions/768509/lets-encrypt-with-an-nginx-reverse-proxy#784940
+				ans
+					you can have nginx proxy requests to HTTP servers, and then itself respond to clients over HTTPS
+					getting certificate
+						modify "server" clause for ".well-known" subdirectory
 						server {
-							listen 80;
-							server_name _; #
-							location / {
-								root /srv/;
-					-->
-					/srv/
-			ssl nginx
-				ref
-					SSL/TLS certificates <url:#r=ccd_0003>
-				Lets Encrypt with an nginx reverse proxy
-					https://serverfault.com/questions/768509/lets-encrypt-with-an-nginx-reverse-proxy#784940
-					ans
-						you can have nginx proxy requests to HTTP servers, and then itself respond to clients over HTTPS
-						getting certificate
-							modify "server" clause for ".well-known" subdirectory
+								listen 80;
+								server_name sub.domain.com www.sub.domain.com;
+								[…]
+								location /.well-known {
+												alias /var/www/sub.domain.com/.well-known;
+								}
+								location / {
+										# proxy commands go here
+										[…]
+								}
+						}
+						certbot with webroot plugin
+							certbot certonly --webroot -w /var/www/sub.domain.com/ -d sub.domain.com -d www.sub.domain.com
+					configurign nginx to use certificate
+						server {
+								listen 443 ssl;
+								# if you wish, you can use the below line for listen instead
+								# which enables HTTP/2
+								# requires nginx version >= 1.9.5
+								# listen 443 ssl http2;
+								server_name sub.domain.com www.sub.domain.com;
+								ssl_certificate /etc/letsencrypt/live/sub.domain.com/fullchain.pem;
+								ssl_certificate_key /etc/letsencrypt/live/sub.domain.com/privkey.pem;
+								# Turn on OCSP stapling as recommended at 
+								# https://community.letsencrypt.org/t/integration-guide/13123 
+								# requires nginx version >= 1.3.7
+								ssl_stapling on;
+								ssl_stapling_verify on;
+								# Uncomment this line only after testing in browsers,
+								# as it commits you to continuing to serve your site over HTTPS
+								# in future
+								# add_header Strict-Transport-Security "max-age=31536000";
+								access_log /var/log/nginx/sub.log combined;
+								# maintain the .well-known directory alias for renewals
+								location /.well-known {
+										alias /var/www/sub.domain.com/.well-known;
+								}
+								location / {
+										# proxy commands go here as in your port 80 configuration
+										[…]
+								}
+						}
+						service nginx reload
+						test:
+							https://sub.domain.com
+					Redirect HTTP requests to HTTPS
+						replace port 80 server clause with:
 							server {
 									listen 80;
 									server_name sub.domain.com www.sub.domain.com;
-									[…]
-									location /.well-known {
-													alias /var/www/sub.domain.com/.well-known;
-									}
-									location / {
-											# proxy commands go here
-											[…]
-									}
+									rewrite     ^   https://$host$request_uri? permanent;
 							}
-							certbot with webroot plugin
-								certbot certonly --webroot -w /var/www/sub.domain.com/ -d sub.domain.com -d www.sub.domain.com
-						configurign nginx to use certificate
-							server {
-									listen 443 ssl;
-									# if you wish, you can use the below line for listen instead
-									# which enables HTTP/2
-									# requires nginx version >= 1.9.5
-									# listen 443 ssl http2;
-									server_name sub.domain.com www.sub.domain.com;
-									ssl_certificate /etc/letsencrypt/live/sub.domain.com/fullchain.pem;
-									ssl_certificate_key /etc/letsencrypt/live/sub.domain.com/privkey.pem;
-									# Turn on OCSP stapling as recommended at 
-									# https://community.letsencrypt.org/t/integration-guide/13123 
-									# requires nginx version >= 1.3.7
-									ssl_stapling on;
-									ssl_stapling_verify on;
-									# Uncomment this line only after testing in browsers,
-									# as it commits you to continuing to serve your site over HTTPS
-									# in future
-									# add_header Strict-Transport-Security "max-age=31536000";
-									access_log /var/log/nginx/sub.log combined;
-									# maintain the .well-known directory alias for renewals
-									location /.well-known {
-											alias /var/www/sub.domain.com/.well-known;
-									}
-									location / {
-											# proxy commands go here as in your port 80 configuration
-											[…]
-									}
-							}
-							service nginx reload
-							test:
-								https://sub.domain.com
-						Redirect HTTP requests to HTTPS
-							replace port 80 server clause with:
-								server {
-										listen 80;
-										server_name sub.domain.com www.sub.domain.com;
-										rewrite     ^   https://$host$request_uri? permanent;
-								}
-				How To Use Certbot Standalone Mode to Retrieve Let's Encrypt SSL Certificates
-					https://www.digitalocean.com/community/tutorials/how-to-use-certbot-standalone-mode-to-retrieve-let-s-encrypt-ssl-certificates
-					install certbot
+			How To Use Certbot Standalone Mode to Retrieve Let's Encrypt SSL Certificates
+				https://www.digitalocean.com/community/tutorials/how-to-use-certbot-standalone-mode-to-retrieve-let-s-encrypt-ssl-certificates
+				install certbot
+					sudo add-apt-repository ppa:certbot/certbot
+					sudo apt-get update
+					sudo apt-get install certbot
+					sudo certbot certonly --standalone --preferred-challenges http -d example.com
+						The --preferred-challenges option instructs Certbot to use port 80 or port 443. If you're using port 80, you want --preferred-challenges http. For port 443 it would be --preferred-challenges tls-sni
+				renewal
+					sudo nano /etc/letsencrypt/renewal/example.com.conf
+						renew_hook = systemctl reload rabbitmq
+			How To Secure Nginx with Let's Encrypt on Ubuntu 16.04
+				https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+				install certbot
+					# not in debian:
 						sudo add-apt-repository ppa:certbot/certbot
-						sudo apt-get update
-						sudo apt-get install certbot
-						sudo certbot certonly --standalone --preferred-challenges http -d example.com
-							The --preferred-challenges option instructs Certbot to use port 80 or port 443. If you're using port 80, you want --preferred-challenges http. For port 443 it would be --preferred-challenges tls-sni
-					renewal
-						sudo nano /etc/letsencrypt/renewal/example.com.conf
-							renew_hook = systemctl reload rabbitmq
-				How To Secure Nginx with Let's Encrypt on Ubuntu 16.04
-					https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
-					install certbot
-						# not in debian:
-							sudo add-apt-repository ppa:certbot/certbot
-						sudo apt-get update
-						sudo apt-get install python-certbot-nginx
-					setup nginx
-						sudo nano /etc/nginx/sites-available/default
-							server_name example.com www.example.com;
-						sudo nginx -t
-						sudo systemctl reload nginx
-					allow https through firewall
-						sudo ufw status
-						sudo ufw allow 'Nginx Full'
-						sudo ufw delete allow 'Nginx HTTP'
-					get ssl certificate
-						sudo certbot --nginx -d example.com -d www.example.com
-					certbot auto-renewal
-						sudo certbot renew --dry-run
-						sudo certbot renew 
-				Setting up SSL with nginx (using a NameCheap EssentialSSL wildcard certificate on DigitalOcean) - Aral Balkan
-					https://ar.al/scribbles/setting-up-ssl-with-nginx-using-a-namecheap-essentialssl-wildcard-certificate-on-digitalocean/
-					on development machine
-						# create private key
-						openssl genrsa 2048 > key.pem
-						# create a key to use for forward secrecy
-						openssl dhparam -out dhparams.pem 2048
-						# create signing request
-						openssl req -new -key key.pem -out csr.pem
-						# buy EssintialSSL wildcard certificate from Namecheap
-						# send csr.pem content to the form on Namecheap
-						# create certificate bundle
-						# you will get:
-							STAR_yourdomain_ext.crt
-							COMODORSADomainValidationSecureServerCA.crt
-							COMODORSAAddTrustCA.crt
-							AddTrustExternalCARoot.crt
-						# bundle them
-						cat STAR_yourdomain_ext.crt COMODORSADomainValidationSecureServerCA.crt COMODORSAAddTrustCA.crt AddTrustExternalCARoot.crt > bundle.cer
-					on server
-						# place private key and certificate bundle
-						# copy keys
-						sudo mkdir /etc/nginx/ssl
-						sudo vim /etc/nginx/ssl/bundle.cer
-						# copy paste
-						sudo vim /etc/nginx/ssl/key.pem
-						# copy paste
-						sudo chmod 600 /etc/nginx/ssl
-						opt: put /etc/nginx under git
-					configuring nginx
-						sudo vim /etc/nginx/sites-available/default
-							server {
-								listen 80;
-								server_name yourdomain.ext;
-								return 301 https://yourdomain.ext$request_uri;
-							}
-							server {
-								listen 80;
-								server_name www.yourdomain.ext;
-								return 301 https://yourdomain.ext$request_uri;
-							}
-							server {
-								listen 443 ssl;
-								listen [::]:443 ipv6only=on;
-								ssl_certificate ssl/bundle.cer;
-								ssl_certificate_key ssl/key.pem;
-								root /path/to/the/root/of/your/site;
-								index index.html index.htm;
-								# Make site accessible from http://localhost/
-								server_name yourdomain.ext;
-								location / {
-								# More lines…
-					perfect forward secrecy and hsts
+					sudo apt-get update
+					sudo apt-get install python-certbot-nginx
+				setup nginx
+					sudo nano /etc/nginx/sites-available/default
+						server_name example.com www.example.com;
+					sudo nginx -t
+					sudo systemctl reload nginx
+				allow https through firewall
+					sudo ufw status
+					sudo ufw allow 'Nginx Full'
+					sudo ufw delete allow 'Nginx HTTP'
+				get ssl certificate
+					sudo certbot --nginx -d example.com -d www.example.com
+				certbot auto-renewal
+					sudo certbot renew --dry-run
+					sudo certbot renew 
+			Setting up SSL with nginx (using a NameCheap EssentialSSL wildcard certificate on DigitalOcean) - Aral Balkan
+				https://ar.al/scribbles/setting-up-ssl-with-nginx-using-a-namecheap-essentialssl-wildcard-certificate-on-digitalocean/
+				on development machine
+					# create private key
+					openssl genrsa 2048 > key.pem
+					# create a key to use for forward secrecy
+					openssl dhparam -out dhparams.pem 2048
+					# create signing request
+					openssl req -new -key key.pem -out csr.pem
+					# buy EssintialSSL wildcard certificate from Namecheap
+					# send csr.pem content to the form on Namecheap
+					# create certificate bundle
+					# you will get:
+						STAR_yourdomain_ext.crt
+						COMODORSADomainValidationSecureServerCA.crt
+						COMODORSAAddTrustCA.crt
+						AddTrustExternalCARoot.crt
+					# bundle them
+					cat STAR_yourdomain_ext.crt COMODORSADomainValidationSecureServerCA.crt COMODORSAAddTrustCA.crt AddTrustExternalCARoot.crt > bundle.cer
+				on server
+					# place private key and certificate bundle
+					# copy keys
+					sudo mkdir /etc/nginx/ssl
+					sudo vim /etc/nginx/ssl/bundle.cer
+					# copy paste
+					sudo vim /etc/nginx/ssl/key.pem
+					# copy paste
+					sudo chmod 600 /etc/nginx/ssl
+					opt: put /etc/nginx under git
+				configuring nginx
+					sudo vim /etc/nginx/sites-available/default
 						server {
-							# …
-							# Perfect forward secrecy
-							ssl_prefer_server_ciphers on;
-							ssl_dhparam /etc/nginx/ssl/dhparams.pem;
-							ssl_ciphers "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4";
-							# HSTS
-							add_header Strict-Transport-Security "max-age=31536000; includeSubdomains";
-							# …
-						}
-						# what is HSTS (HTTP Strict Transport Security)
-							The ‘max-age’ values specifies how long, in seconds, you want the client to treat you as a HSTS host. That is, how long you want them to contact you using HTTPS exclusively. The value I’m using here is 1 year and each time the client visits my site and receives the header, the timer is reset back to a year. Assuming your browser is HSTS compliant, after the first page load over HTTPS, you will no longer be able to communicate with me via HTTP, the browser will prevent it
-					fixing poodle vulnerability in ssl3
-						# disable ssl3.0
-						ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-					nginx.conf
-						sudo nano /etc/nginx/nginx.conf
-						# uncomment
-						server_names_hash_bucket_size 64;
-						sudo service nginx reload
-					file locations
-						nginx’s configuration files are in:
-						/etc/nginx
-						nginx config file:
-						/etc/nginx/nginx.conf
-						The default site is served from:
-						/usr/share/nginx/html
-						Default site config info:
-						/etc/nginx/sites-available/default
-				How To Create an SSL Certificate on Nginx for Ubuntu 14.04
-					https://www.digitalocean.com/community/tutorials/how-to-create-an-ssl-certificate-on-nginx-for-ubuntu-14-04
-					install nginx 
-						apt-get update
-						apt-get install nginx
-					get a certificate
-						sudo mkdir /etc/nginx/ssl
-						# self signed
-						sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
-						# out:
-							nginx.key
-								private key
-							nginx.crt
-								certificate
-					configure nginx
-						# nginx.conf
-							server {
-											listen 80 default_server;
-											listen [::]:80 default_server ipv6only=on;
-											listen 443 ssl;
-											root /usr/share/nginx/html;
-											index index.html index.htm;
-											server_name your_domain.com;
-											ssl_certificate /etc/nginx/ssl/nginx.crt;
-											ssl_certificate_key /etc/nginx/ssl/nginx.key;
-											location / {
-															try_files $uri $uri/ =404;
-											}
-							}
-					testing
-						http://server_domain_or_IP
-						https://server_domain_or_IP
-				How To Configure Nginx with SSL as a Reverse Proxy for Jenkins
-					https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins
-					install nginx
-						apt-get update
-						apt-get install nginx
-						nginx -v
-					get a certificate
-						cd /etc/nginx
-						# self signed certificate
-						sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/cert.key -out /etc/nginx/cert.crt
-						# output:
-							cert.key
-							cert.crt
-					edit nginx config
-						sudo vim /etc/nginx/sites-enabled/default
-							server {
-									listen 443;
-									server_name jenkins.domain.com;
-									ssl_certificate           /etc/nginx/cert.crt;
-									ssl_certificate_key       /etc/nginx/cert.key;
-									ssl on;
-									ssl_session_cache  builtin:1000  shared:SSL:10m;
-									ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
-									ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
-									ssl_prefer_server_ciphers on;
-									access_log            /var/log/nginx/jenkins.access.log;
-									location / {
-										proxy_set_header        Host $host;
-										proxy_set_header        X-Real-IP $remote_addr;
-										proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-										proxy_set_header        X-Forwarded-Proto $scheme;
-										# Fix the “It appears that your reverse proxy set up is broken" error.
-										proxy_pass          http://localhost:8080;
-										proxy_read_timeout  90;
-										proxy_redirect      http://localhost:8080 https://jenkins.domain.com;
-									}
-								}
-			reload restart nginx
-				nginx -s signal
-				Where signal may be one of the following:
-					stop — fast shutdown
-					quit — graceful shutdown
-					reload — reloading the configuration file
-					reopen — reopening the log files
-					nginx -s reload
-				start
-					nginx -g daemon off
-			resolver
-				Configures name servers used to resolve names of upstream servers into addresses, for example:
-				resolver 127.0.0.1 [::1]:5353;
-			error: 413 (Request Entity Too Large)
-				POST yaptığım request kabul edilmiyor
-				sebep:
-					nginx varsayılan olarak 1M'nin üstündeki payload'ları reddediyor
-				solution
-					https://www.daveperrett.com/articles/2009/11/18/nginx-error-413-request-entity-too-large/
-					nginx
-						server {
-								client_max_body_size 20M;
-			error: 503 Service Temporarily Unavailable
-				nginx loglarını debug et
-				muhtemelen route işlemlerinde eksik vardır
-				ex: dc.yml'de VIRTUAL_HOST silinmiş
-			error: 502 bad gateway
-				ex: nginx'e gelen request, java'ya iletilmiyor
-					docker-compose.yml'da java'nın dahili portunu 8090 yapmışım. nginx ise 8080'e yönlendirmeye çalıştığından bulamıyor.
-					nasıl debug ettim?
-						nginx'in loglarına bak
-							docker logs nginx
-							hata logları
-								2017/09/12 18:14:04 [error] 6#6: *247 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.2, server: dentasrotaplandev.i-terative.com, request: "GET / HTTP/1.1", upstream: "http://34.251.15.137:8100/", host: "dentasrotaplandev.i-terative.com"
-								172.18.0.2 - - [12/Sep/2017:18:14:04 +0000] "GET / HTTP/1.1" 502 575 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36 OPR/47.0.2631.80" "94.55.173.59"
-							explain
-								request nginx'e gelmiş
-								o is upstream'e yani 34...:8100 adresine yönlendirmeye çalışmış ama bulamamış
-								yani java uygulama sunucusu yanıt vermemiş
-			authentication in nginx
-				https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-nginx-on-ubuntu-14-04
-					shell
-						apt-get update
-						apt-get install apache2-utils
-						htpasswd -cb /etc/nginx/.htpasswd manager s6EcRuxe
-						htpasswd -b /etc/nginx/.htpasswd iterative iterative
-						vim /etc/nginx/nginx.conf
-							# inside server {}
-							auth_basic "Restricted Content";
-							auth_basic_user_file /etc/nginx/.htpasswd;
-					make .htpasswd file once then you can just use it without installing htpasswd app
-						docker run -p 80:80 --name ng -v /home/ec2-user/.htpasswd:/etc/nginx/.htpasswd -v /home/ec2-user/nginx.conf:/etc/nginx/nginx.conf:ro -d nginx
-			nginx: cors
-				https://stackoverflow.com/questions/10636611/how-does-access-control-allow-origin-header-work
-				https://enable-cors.org/server.html
-				nginx.conf
-					server {
 							listen 80;
-							server_name jotunboya.i-terative.com;
+							server_name yourdomain.ext;
+							return 301 https://yourdomain.ext$request_uri;
+						}
+						server {
+							listen 80;
+							server_name www.yourdomain.ext;
+							return 301 https://yourdomain.ext$request_uri;
+						}
+						server {
+							listen 443 ssl;
+							listen [::]:443 ipv6only=on;
+							ssl_certificate ssl/bundle.cer;
+							ssl_certificate_key ssl/key.pem;
+							root /path/to/the/root/of/your/site;
+							index index.html index.htm;
+							# Make site accessible from http://localhost/
+							server_name yourdomain.ext;
 							location / {
-									proxy_pass http://jotunboya.i-terative.com:3000;
-									proxy_set_header Host $host;
-									proxy_set_header 'Access-Control-Allow-Origin' 'http://jotunboya.i-terative.com';
-									proxy_set_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-									proxy_set_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
-									proxy_set_header 'Access-Control-Expose-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
-							}   
+							# More lines…
+				perfect forward secrecy and hsts
+					server {
+						# …
+						# Perfect forward secrecy
+						ssl_prefer_server_ciphers on;
+						ssl_dhparam /etc/nginx/ssl/dhparams.pem;
+						ssl_ciphers "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4";
+						# HSTS
+						add_header Strict-Transport-Security "max-age=31536000; includeSubdomains";
+						# …
 					}
-				https://stackoverflow.com/questions/35553500/xmlhttprequest-cannot-load-https-www-website-com
-				https://stackoverflow.com/questions/10636611/how-does-access-control-allow-origin-header-work
-					Site A
-					Site B
-					Site A tries to fetch content from Site B
-					Site B sends "Access-Control-Allow-Origin" response header
-						that tells browser the origins that can access
-					To allow it, Site B sends response header:
-						Access-Control-Allow-Origin: http://siteA.com
-				opt2: nginx configuration
-					proxy_set_header 'Access-Control-Allow-Origin' 'http://api.mysite.com';
-			Setting up webservers with Nginx
-				https://www.youtube.com/watch?v=7QXnk8emzOU
-				performance
-					worker processes = number of cpu cores
+					# what is HSTS (HTTP Strict Transport Security)
+						The ‘max-age’ values specifies how long, in seconds, you want the client to treat you as a HSTS host. That is, how long you want them to contact you using HTTPS exclusively. The value I’m using here is 1 year and each time the client visits my site and receives the header, the timer is reset back to a year. Assuming your browser is HSTS compliant, after the first page load over HTTPS, you will no longer be able to communicate with me via HTTP, the browser will prevent it
+				fixing poodle vulnerability in ssl3
+					# disable ssl3.0
+					ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+				nginx.conf
+					sudo nano /etc/nginx/nginx.conf
+					# uncomment
+					server_names_hash_bucket_size 64;
+					sudo service nginx reload
+				file locations
+					nginx’s configuration files are in:
+					/etc/nginx
+					nginx config file:
+					/etc/nginx/nginx.conf
+					The default site is served from:
+					/usr/share/nginx/html
+					Default site config info:
+					/etc/nginx/sites-available/default
+			How To Create an SSL Certificate on Nginx for Ubuntu 14.04
+				https://www.digitalocean.com/community/tutorials/how-to-create-an-ssl-certificate-on-nginx-for-ubuntu-14-04
+				install nginx 
+					apt-get update
+					apt-get install nginx
+				get a certificate
+					sudo mkdir /etc/nginx/ssl
+					# self signed
+					sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
+					# out:
+						nginx.key
+							private key
+						nginx.crt
+							certificate
+				configure nginx
+					# nginx.conf
+						server {
+										listen 80 default_server;
+										listen [::]:80 default_server ipv6only=on;
+										listen 443 ssl;
+										root /usr/share/nginx/html;
+										index index.html index.htm;
+										server_name your_domain.com;
+										ssl_certificate /etc/nginx/ssl/nginx.crt;
+										ssl_certificate_key /etc/nginx/ssl/nginx.key;
+										location / {
+														try_files $uri $uri/ =404;
+										}
+						}
+				testing
+					http://server_domain_or_IP
+					https://server_domain_or_IP
+			How To Configure Nginx with SSL as a Reverse Proxy for Jenkins
+				https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins
+				install nginx
+					apt-get update
+					apt-get install nginx
+					nginx -v
+				get a certificate
+					cd /etc/nginx
+					# self signed certificate
+					sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/cert.key -out /etc/nginx/cert.crt
+					# output:
+						cert.key
+						cert.crt
+				edit nginx config
+					sudo vim /etc/nginx/sites-enabled/default
+						server {
+								listen 443;
+								server_name jenkins.domain.com;
+								ssl_certificate           /etc/nginx/cert.crt;
+								ssl_certificate_key       /etc/nginx/cert.key;
+								ssl on;
+								ssl_session_cache  builtin:1000  shared:SSL:10m;
+								ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+								ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+								ssl_prefer_server_ciphers on;
+								access_log            /var/log/nginx/jenkins.access.log;
+								location / {
+									proxy_set_header        Host $host;
+									proxy_set_header        X-Real-IP $remote_addr;
+									proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+									proxy_set_header        X-Forwarded-Proto $scheme;
+									# Fix the “It appears that your reverse proxy set up is broken" error.
+									proxy_pass          http://localhost:8080;
+									proxy_read_timeout  90;
+									proxy_redirect      http://localhost:8080 https://jenkins.domain.com;
+								}
+							}
+		reload restart nginx
+			nginx -s signal
+			Where signal may be one of the following:
+				stop — fast shutdown
+				quit — graceful shutdown
+				reload — reloading the configuration file
+				reopen — reopening the log files
+				nginx -s reload
+			start
+				nginx -g daemon off
+		resolver
+			Configures name servers used to resolve names of upstream servers into addresses, for example:
+			resolver 127.0.0.1 [::1]:5353;
+		error: 413 (Request Entity Too Large)
+			POST yaptığım request kabul edilmiyor
+			sebep:
+				nginx varsayılan olarak 1M'nin üstündeki payload'ları reddediyor
+			solution
+				https://www.daveperrett.com/articles/2009/11/18/nginx-error-413-request-entity-too-large/
+				nginx
+					server {
+							client_max_body_size 20M;
+		error: 503 Service Temporarily Unavailable
+			nginx loglarını debug et
+			muhtemelen route işlemlerinde eksik vardır
+			ex: dc.yml'de VIRTUAL_HOST silinmiş
+		error: 502 bad gateway
+			ex: nginx'e gelen request, java'ya iletilmiyor
+				docker-compose.yml'da java'nın dahili portunu 8090 yapmışım. nginx ise 8080'e yönlendirmeye çalıştığından bulamıyor.
+				nasıl debug ettim?
+					nginx'in loglarına bak
+						docker logs nginx
+						hata logları
+							2017/09/12 18:14:04 [error] 6#6: *247 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.2, server: dentasrotaplandev.i-terative.com, request: "GET / HTTP/1.1", upstream: "http://34.251.15.137:8100/", host: "dentasrotaplandev.i-terative.com"
+							172.18.0.2 - - [12/Sep/2017:18:14:04 +0000] "GET / HTTP/1.1" 502 575 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36 OPR/47.0.2631.80" "94.55.173.59"
+						explain
+							request nginx'e gelmiş
+							o is upstream'e yani 34...:8100 adresine yönlendirmeye çalışmış ama bulamamış
+							yani java uygulama sunucusu yanıt vermemiş
+		authentication in nginx
+			https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-nginx-on-ubuntu-14-04
+				shell
+					apt-get update
+					apt-get install apache2-utils
+					htpasswd -cb /etc/nginx/.htpasswd manager s6EcRuxe
+					htpasswd -b /etc/nginx/.htpasswd iterative iterative
+					vim /etc/nginx/nginx.conf
+						# inside server {}
+						auth_basic "Restricted Content";
+						auth_basic_user_file /etc/nginx/.htpasswd;
+				make .htpasswd file once then you can just use it without installing htpasswd app
+					docker run -p 80:80 --name ng -v /home/ec2-user/.htpasswd:/etc/nginx/.htpasswd -v /home/ec2-user/nginx.conf:/etc/nginx/nginx.conf:ro -d nginx
+		nginx: cors
+			https://stackoverflow.com/questions/10636611/how-does-access-control-allow-origin-header-work
+			https://enable-cors.org/server.html
+			nginx.conf
+				server {
+						listen 80;
+						server_name jotunboya.i-terative.com;
+						location / {
+								proxy_pass http://jotunboya.i-terative.com:3000;
+								proxy_set_header Host $host;
+								proxy_set_header 'Access-Control-Allow-Origin' 'http://jotunboya.i-terative.com';
+								proxy_set_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+								proxy_set_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+								proxy_set_header 'Access-Control-Expose-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+						}   
+				}
+			https://stackoverflow.com/questions/35553500/xmlhttprequest-cannot-load-https-www-website-com
+			https://stackoverflow.com/questions/10636611/how-does-access-control-allow-origin-header-work
+				Site A
+				Site B
+				Site A tries to fetch content from Site B
+				Site B sends "Access-Control-Allow-Origin" response header
+					that tells browser the origins that can access
+				To allow it, Site B sends response header:
+					Access-Control-Allow-Origin: http://siteA.com
+			opt2: nginx configuration
+				proxy_set_header 'Access-Control-Allow-Origin' 'http://api.mysite.com';
+		Setting up webservers with Nginx
+			https://www.youtube.com/watch?v=7QXnk8emzOU
+			performance
+				worker processes = number of cpu cores
+			ex
+				server {
+					listen 80;
+					server_name _; # 
+					location / {
+						root /test/a/;
+						index index.htm;
+						# ex: localhost -> redirects to index.htm
+						autoindex on; # automatically shows directory contents
+					}
+				}
+			proxying:
+				shellinabox: works as login terminal
+					runs on 4200 port
+				ex:
+					location /shbox/ { # redirects all requests to /shbox
+						proxy_pass http://127.0.0.1:4200; # redirect all /shbox requests to :4200 
+					}
+			ssl:
+				server {
+					listen 443;
+					server_name _;
+					ssl on;
+					ssl_certificate /etc/ssl/private/bck.me.pem;
+					ssl_certificate_key ..;
+			vhosting (virtual host)
 				ex
 					server {
 						listen 80;
-						server_name _; # 
+						server_name _; # default server
 						location / {
 							root /test/a/;
 							index index.htm;
-							# ex: localhost -> redirects to index.htm
-							autoindex on; # automatically shows directory contents
 						}
 					}
-				proxying:
-					shellinabox: works as login terminal
-						runs on 4200 port
-					ex:
-						location /shbox/ { # redirects all requests to /shbox
-							proxy_pass http://127.0.0.1:4200; # redirect all /shbox requests to :4200 
-						}
-				ssl:
 					server {
-						listen 443;
-						server_name _;
-						ssl on;
-						ssl_certificate /etc/ssl/private/bck.me.pem;
-						ssl_certificate_key ..;
-				vhosting (virtual host)
+						listen 80;
+						server_name example_org; # specific domain
+						location / {
+							root /test/b/;
+							index index.htm;
+						}
+					}
+		Nginx Tutorial - Jakob Jenkov
+			http://tutorials.jenkov.com/nginx/index.html
+			starting nginx
+				/etc/init.d/nginx start
+			check if nginx is running
+				htop
+			original configuration file
+		Beginner’s Guide - Nginx
+			http://nginx.org/en/docs/beginners_guide.html
+			starting, stopping, reloading
+				once nginx is started, use:
+					nginx -s signal
+					signal:
+						stop, quit, reload, reopen
+			configuration file's structure
+				directives:
+					simple directives: one line
+					block directives: {} braces
+						some have other directives inside
+							called context: events, http, server, location
+				directives outside any contexts: in the main context
+					events, http reside in main context
+					server in http
+					location in server
+					summary:
+						main
+							events
+							http
+								server
+									location
+				serving static content
+					location = local directories
+					ex
+						location / {
+								root /data/www;
+						}
+						note: "/" is added to URI
 					ex
 						server {
-							listen 80;
-							server_name _; # default server
-							location / {
-								root /test/a/;
-								index index.htm;
-							}
+								location / {
+										root /data/www;
+								}
+								location /images/ {
+										root /data;
+								}
 						}
+						# note
+							http://localhost/images/example.png
+								sends:
+								/data/images/example.png
+				Setting Up a Simple Proxy Server
+					ex
 						server {
-							listen 80;
-							server_name example_org; # specific domain
-							location / {
-								root /test/b/;
-								index index.htm;
-							}
+								location / {
+										proxy_pass http://localhost:8080/;
+								}
+								location ~ \.(gif|jpg|png)$ {
+										root /data/images;
+								}
 						}
-			Nginx Tutorial - Jakob Jenkov
-				http://tutorials.jenkov.com/nginx/index.html
-				starting nginx
-					/etc/init.d/nginx start
-				check if nginx is running
-					htop
-				original configuration file
-			Beginner’s Guide - Nginx
-				http://nginx.org/en/docs/beginners_guide.html
-				starting, stopping, reloading
-					once nginx is started, use:
-						nginx -s signal
-						signal:
-							stop, quit, reload, reopen
-				configuration file's structure
-					directives:
-						simple directives: one line
-						block directives: {} braces
-							some have other directives inside
-								called context: events, http, server, location
-					directives outside any contexts: in the main context
-						events, http reside in main context
-						server in http
-						location in server
-						summary:
-							main
-								events
-								http
-									server
-										location
-					serving static content
-						location = local directories
-						ex
-							location / {
-									root /data/www;
-							}
-							note: "/" is added to URI
-						ex
-							server {
-									location / {
-											root /data/www;
-									}
-									location /images/ {
-											root /data;
-									}
-							}
-							# note
-								http://localhost/images/example.png
-									sends:
-									/data/images/example.png
-					Setting Up a Simple Proxy Server
-						ex
-							server {
-									location / {
-											proxy_pass http://localhost:8080/;
-									}
-									location ~ \.(gif|jpg|png)$ {
-											root /data/images;
-									}
-							}
-							note:
-								requests with .gif to /data/images
-								allo  other to proxied server
-					FastCGI Proxying
-						to run applications with PHP
-			how-to-set-up-nginx-server-blocks id=g_10106
-				how-to-set-up-nginx-server-blocks <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10106>
-				https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04-lts
-				step 1: set up new document root directories
-					by default:
-						/usr/share/nginx/html
-					create dirs:
-						sudo mkdir -p /srv/www/example.com/html
-					ownership to our non-sudo user
-						sudo chown -R $USER:$USER /srv/www/example.com/html
-				step 2: create sample pages
-					vim /srv/www/example.com/html/index.html
-				step 3: create server block files for the domain
-					server block = virtual host in apache
-						each domain = 1 server block
-						by default: nginx has server block called `default`
-					copy existing default server block
-						sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/example.com
-					edit the file
-						sudo vim /etc/nginx/sites-available/example.com
-							update lines "default_server"
-								listen 80;
-								listen [::]:80;
-							update line "root"
-								root /srv/www/example.com/html;
-							update line "server_name"
-								server_name example.com www.example.com;
-				step 4: enable server blocks and restart
-					create symbolic links 
-						sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
-						/etc/nginx/sites-enabled/
-					sudo vim /etc/nginx/nginx.conf
-						uncomment line
-							server_names_hash_bucket_size 64;
-					restart nginx
-						sudo service nginx restart
-			NGINX rate-limiting in a nutshell
-				https://medium.freecodecamp.org/nginx-rate-limiting-in-a-nutshell-128fe9e0126c
-				300r/m to allow 300 requests per minute, or 5r/s to allow 5 requests each second
-					limit_req_zone $request_uri zone=zone1:10m rate=300r/m;
-					limit_req_zone $request_uri zone=zone2:10m rate=5/s;
+						note:
+							requests with .gif to /data/images
+							allo  other to proxied server
+				FastCGI Proxying
+					to run applications with PHP
+		how-to-set-up-nginx-server-blocks id=g_10106
+			how-to-set-up-nginx-server-blocks <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g_10106>
+			https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04-lts
+			step 1: set up new document root directories
+				by default:
+					/usr/share/nginx/html
+				create dirs:
+					sudo mkdir -p /srv/www/example.com/html
+				ownership to our non-sudo user
+					sudo chown -R $USER:$USER /srv/www/example.com/html
+			step 2: create sample pages
+				vim /srv/www/example.com/html/index.html
+			step 3: create server block files for the domain
+				server block = virtual host in apache
+					each domain = 1 server block
+					by default: nginx has server block called `default`
+				copy existing default server block
+					sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/example.com
+				edit the file
+					sudo vim /etc/nginx/sites-available/example.com
+						update lines "default_server"
+							listen 80;
+							listen [::]:80;
+						update line "root"
+							root /srv/www/example.com/html;
+						update line "server_name"
+							server_name example.com www.example.com;
+			step 4: enable server blocks and restart
+				create symbolic links 
+					sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+					/etc/nginx/sites-enabled/
+				sudo vim /etc/nginx/nginx.conf
+					uncomment line
+						server_names_hash_bucket_size 64;
+				restart nginx
+					sudo service nginx restart
+		NGINX rate-limiting in a nutshell
+			https://medium.freecodecamp.org/nginx-rate-limiting-in-a-nutshell-128fe9e0126c
+			300r/m to allow 300 requests per minute, or 5r/s to allow 5 requests each second
+				limit_req_zone $request_uri zone=zone1:10m rate=300r/m;
+				limit_req_zone $request_uri zone=zone2:10m rate=5/s;
 	openshift rhcloud
 		account
 			openshift 2 > applications > .dev > source code: repo
@@ -6782,8 +6208,17 @@ tools
 		deploy
 			git commit
 			git push
-	osx
+	osx osx2
 		ref: shortcuts kısayollar keybindings - osx <url:file:///~/projects/study/otl/cosx.otl#r=g_12084>
+		sesli kayıt alma - audio recording
+			Simple Recorder: küresel kısayollarla ses kaydı başlatıp tamamlama
+			Vox: Playlist ile bunları dinleme
+			VLC: m4a dosyalarının taglerini düzenleme
+			Syncthing: mac ve telefon arasında senkronizasyon
+		music/mp3/audio players
+			Vox
+			foobar2000
+			Strawberry
 		transfer files from osx to ipad
 		image viewer
 			finder > select all > space
@@ -6816,10 +6251,15 @@ tools
 					https://community.spotify.com/t5/Desktop-Mac/How-to-limit-cache-size/td-p/2907725
 					cd "~/Library/Application Support/Spotify/"
 					nvim prefs
-			ukelele
+			ukelele: keyboard layout manager
 			mucommander
-			phiewer: image viewer
+			fragment: image viewer
 			fork: git client
+			syncthing: android-desktop sync
+			be focused: pomodora timer
+			anki: spaced repetition for memory
+			karabiner: shortcuts, hotkeys management
+			copyq: multiple clipboard manager
 	ranger
 		ref
 			Index <url:file:///~/projects/study/code/study_ranger.md#r=g_11809>
@@ -6892,6 +6332,13 @@ tools
 	teams
 		^+m		mute
 		^+o		video
+	vd visidata spreadsheet vd2
+		ref
+			~/projects/study/code/study_visidata.md
+			refcard visidata <url:file:///~/projects/study/code/study_visidata.md#r=g_11578>
+		examples
+			vd https://en.wikipedia.org/wiki/ISO_3166-1
+				scrapes data in html web pages 
 	vlc
 			subscribe to podcast
 				window > playlist > podcasts > subscribe
@@ -6954,6 +6401,9 @@ tools
 							vector('king') - vector('man') +vector('woman')
 								≅ vector('queen')
 					from words to phrases
+	youtrack youtrack2 id=g12338
+		ref
+			YouTrack Documentation <url:file:///~/projects/study/code/youtrack.otl#r=art_0005>
 	zoom2 zoom
 		+#a	audio mute/unmute
 		+#v	video toggle
@@ -7845,6 +7295,23 @@ topics
 							Status: 206
 							Range-Unit: items
 							Content-Range: 0-24/1000000
+	ui design
+		ui component names id=g12339
+			main navigation at top
+			Projects link
+			set of options
+				Search and Filter options
+				filter current list
+				use this feature to find issues
+			search bar
+				search bar has two controls: Search Context list and Search Box
+			sidebar
+				sidebar gives you quick access
+				to configure the list of saved searches ...
+			Single Issue View
+			other concepts
+				permission
+				visibility of options
 	video production
 			software tools
 					gifcurry: overlay text on animated gifs from video files
@@ -7857,299 +7324,299 @@ topics
 unclassified
 	unclassified
 		https://repl.it/site/blog/multi
-    books
-      Data Analytics Made Accessible
-      Practical Foundations of Mathematics Paul Taylor
-        http://www.paultaylor.eu/~pt/prafm/html/index.html
-      pragmatic
-        Exercises for Programmers
-        Customer Requirements
-        Mazes for Programmers
-        Predicting the Unpredictable Pragmatic Approaches to Estimating Project Schedule or Cost
-        Behind Closed Doors
-    slack
-      slack-term
-        cli tool for slack
-        config
-          ~/slack-term.json
-        slack-token 
-    Maker products marketplace: tindie.com
-    hackaday.io: maker projeleri sosyal ağı
-    HackerRank: challenges for hackers
-      https://www.hackerrank.com/challenges/tutorial-intro
-      eğer problemleri çözersen seni işverenlerle görüştürüyorlar
-    Diagrams - vector dsl in haskell
-      http://projects.haskell.org/diagrams/
-    The Curse of the Excluded Middle "Mostly functional" programming does not work.
-      Erik Meijer
-      http://queue.acm.org/detail.cfm?id=2611829
-    peter norvig code puzzles and solutions
-      http://nbviewer.jupyter.org/url/norvig.com/ipython/Advent%20of%20Code.ipynb
-    https://maryrosecook.com/blog/post/a-practical-introduction-to-functional-programming
-      examples in imperative and functional style
-    https://gobyexample.com
-      go by example
-    apps
-      scan uygulamaları
-        http://lifehacker.com/five-best-mobile-document-scanning-apps-1691417781
-        http://www.howtogeek.com/166610/who-needs-a-scanner-scan-a-document-to-pdf-with-your-android-phone/
-    books
-      Data Analysis for the Life Sciences 
-        leanpub
-      Social Architecture book
-        https://www.gitbook.com/book/hintjens/social-architecture/details
-      Hintjens books  
-        http://hintjens.com/books
-      Github Cheat Sheet
-        https://www.gitbook.com/book/snowdream86/github-cheat-sheet/details
-    data analysis
-      https://github.com/Quartz/bad-data-guide
-      csvconf
-        https://gist.github.com/philandstuff/496b0a4872b89da5bb33a245171d789a
-        https://librecatproject.wordpress.com/2014/12/01/day-1-getting-catmandu/
-        https://jorol.github.io/2016-csvconf-catmandu/
-        https://richfitz.github.io/jiffy/
-    tools
-      json
-        jsonbrowse.com: online browser for json
-      Viz.js — Graphviz in your browser. 
-      https://code.hackmit.org
-        tools for hackathons
-        jury app, mentor app
-      https://github.com/simeji/jid
-        json incremental digger
-        very useful tool to filter/query json docs
-      https://hyper.is/
-        js temelli bir terminal app
-        çok kolay konfigüre edilebilir  
-      https://github.com/nathancahill/anycomplete
-        autocomplete for all apps
-        thesaurus gibi işlev görür
-        hammerspoon temelli
-      https://kapeli.com/dash
-        dokümantasyon takip app
-      http://pencil.evolus.vn/
-        js temelli bir gui çizim editörü
-      https://github.com/mas-cli/mas
-        mac appstore cli
-      https://github.com/jaspervdj/patat
-        terminal based presentations
-      https://github.com/ok-borg/borg?utm_content=bufferefcfa&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
-        terminal based search engine for bash commands
-      https://github.com/gravitational/teleconsole?utm_content=buffer87f6d&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
-        remote terminal connection to any computer 
-      https://github.com/christabor/flask_jsondash?utm_content=bufferf684e&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
-        dashboard app for any api
-      http://datasciencemasters.org/?utm_content=buffer5774b&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
-        curriculum for data science
-      httpstat — curl statistics made simple http://chlg.co/2bGamiU 
-      Mojibar – 🍊 Emoji searcher but as a menubar app. http://chlg.co/2b01kwc
-      Thyme – Automatically track which applications you use and for how long. http://chlg.co/2blN5Yn 
-      Librevault - p2p, decentralized and open source file sync
-      Checkup — distributed, self-hosted health checks and status pages http://chlg.co/2aI0fdv 
-      gron makes JSON more greppable http://chlg.co/2asQEtd 
-      Jargon from the functional programming world in simple terms! http://git.io/fp-jargons
-      m-cli — helps you programmatically administer macOS
-      It brings you Slack-style :emoji: keyboard shortcuts https://github.com/warpling/Macmoji 
-      Write your next presentation in #Markdown with Marp http://chlg.co/29wMHkN 
-      "ES6 for Humans" looks like a great starting point to level up your JavaScript skills from ES5 to ES6
-      Atmo – a server-side power tool (UI) for quickly mocking #API endpoints http://chlg.co/29hECiR 
-      TellForm – an #OSS alternative to TypeForm or Google Forms: http://chlg.co/29NYv2B 
-      "You should have to pass a quiz that proves you actually read an article before you can comment / share it." readsure
-      A game designed to teach JavaScript and artificial intelligence in a fun, interactive way. http://chlg.co/298EJBj warrior.js
-      https://github.com/thechangelog/ping/issues?utm_content=buffer81c94&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
-        podcast içeriği önerilerini github issue'ları olarak almak
-      Neodoc – Beautiful, handcrafted commandline interfaces for #NodeJS http://chlg.co/294A7rT 
-      All of @github’s #opensource code (2.8M+ repos) is now in BigQuery. Start analyzing: http://goo.gl/0yJMyr 
-      https://sourcegraph.com/
-        navigate any code
-      emoj — Find relevant emojis from text on the command-line 😮 ✨ 🙌 🐴 💥 🙈 http://chlg.co/28RhzAB 
-      gitalias: useful git aliases
-      lemonade-stand: https://t.co/v1TOattOdV financial support for oss projects
-      VisualAlchemist — A web-based database diagramming and automation tool http://chlg.co/1UW4VuO 
-      Mailtrain – a self-hosted email newsletter app built on top of #Node http://chlg.co/1rpM2J8 
-      https://github.com/fstab/grok_exporter
-        Grok is a tool to parse crappy unstructured log data into something structured and queryable. Grok is heavily used in Logstash to provide log data as input for ElasticSearch.
-      A complete daily plan for studying to become a machine learning engineer (Insta-🔖) https://t.co/HfjAhx67ve
-      Cayley — a db inspired by the graph database behind Freebase and Google's Knowledge Graph. https://t.co/6jgUxOg33j
-      People are starting to build things on top of #IPFS! Check out Orbit, a distributed, peer-to-peer chat app https://t.co/PKMLjLL1jb
-      Mega Boilerplate — handcrafted starter projects, optimized for simplicity and ease of use http://chlg.co/1tbs8mt 
-      gvar(1) -- bash: display, set, or remove global variables. http://arturoherrero.github.io/gvar/g…
-        https://github.com/arturoherrero/gvar?utm_content=buffer7ca40&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
-      The simplest, fastest way to get business intelligence and analytics to everyone in your company 😋 http://metabase.com
-      movtogif: CLI simplifies converting mov/mp4 files to high quality animated GIFs http://chlg.co/28LUPw3 
-      grok: Grok is a tool to parse crappy unstructured log data into something structured and queryable. Grok is heavily used in Logstash to provide log data as input for ElasticSearch.
-      https://github.com/dbohdan/structured-text-tools
-      convert excel to csv on terminal
-        pip install xlsx2csv
-        xlsx2csv excel_file out_file
-      yuml
-        Terminalden Yuml Kullanımı
-          https://github.com/wandernauta/yuml
-          run
-            echo "[This]-[That]" | ./yuml -s nofunky -o diagram.png
-          options
-            -i  read file
-            -o  store output
-            -f  format png, pdf, jpg, svg
-            -t  diagram type: class, activity, usecase
-            -s  diagram style: scruffy, plain, nofunky
-            --dir direction: LR, RL, TD
-            --scale percentage
-            -v  debug info
-          run full
-            yuml -i -o -f png -t class -s plain --dir 
-    http://www.cis.upenn.edu/~bcpierce/tapl/main.html
-      Types and Programming Languages
-    https://github.com/askn/crystal-by-example
-    game
-      https://www.codingame.com/
-        programlayarak oyun oynama
-      http://www.bootstrapworld.org/
-        algebraic game programming
-      http://treksit.com/
-        game to learn graph theory
-    unix
-      https://www.learnenough.com/command-line-tutorial
-    learning
-      http://exercism.io/
-        exercises for programming languages
-    https://www.edx.org/course/beauty-joy-computing-cs-principles-part-uc-berkeleyx-bjc-1x
-    http://www.lambda.cd/
-      pipelines for build server
-    https://www.getsync.com/
-    programming
-      graphql
-        https://www.compose.com/articles/postgraphql-postgresql-meets-graphql/
-      purescript
-        https://github.com/paf31/24-days-of-purescript-2016
-          book for purescript
-      thoughtworks technology radar
-      http://martinfowler.com/articles/command-line-google.html
-      'Coder Decoder - Functional Programmer Lingo Explained, with Pictures' by Katie Miller-uwrCQmpZ8Ts.mp
-    category theory - fp
-      https://manning.com/books/design-for-the-mind
-      https://manning.com/books/reactive-data-handling
-      https://www.manning.com/books/functional-programming-in-javascript
-      https://manning.com/books/learn-haskell
-      <url:file:///~/Movies/youtube/wadler/Category Theory, The essence of interface-based design - Erik Meijer-JMP6gI5mLHc.mp4>
-      http://debasishg.blogspot.com/2012/07/does-category-theory-make-you-better.html
-      http://debasishg.blogspot.com/2014/03/functional-patterns-in-domain-modeling.html
-      Philip Wadler - Everything old is new again - Quoted domain specific languages - Curry On-FiflFiZ6pPI.mp4
-      Immutable JavaScript - You can't change this-wA98Coal4jk.mp4
-      Category Theory, The essence of interface-based design - Erik Meijer-JMP6gI5mLHc.mp4
-      Spreadsheets for developers by Felienne Hermans-0CKru5d4GPk.mp4
-    tools 
-      opensource.guide
-        https://github.com/github/opensource.guide
-        community guides for open source authors
-      OnlinePythonTutor
-        https://github.com/pgbovine/OnlinePythonTutor
-        visualize python, java, js in browser
-      csvtotable
-        https://github.com/vividvilla/csvtotable
-        cli to convert CSV files to searchable and sortable HTML table
-        ex
-        Installation
-          pip install --upgrade csvtotable
-        Get started
-          csvtotable --help
-        Convert data.csv file to data.html file
-          csvtotable data.csv data.html
-        Open output file in a web browser instead of writing to a file
-          csvtotable data.csv --serve
-      audreyr/cookiecutter
-        https://github.com/audreyr/cookiecutter
-        A command-line utility that creates projects from cookiecutters (project templates), 
-        e.g. creating a Python package project from a Python package project template.
-      toddmotto/public-apis
-        https://github.com/toddmotto/public-apis
-        collective list of public JSON APIs for use in web development
-      learnxinyminutes-docs
-        https://github.com/adambard/learnxinyminutes-docs
-        learn programming languages with examples in actual code
-        ex
-          // ... or using the dot syntax, provided the key is a valid identifier.
-          myObj.myKey; // = "myValue"
-      https://asciinema.org/
-        screencasting tool for terminal
-      https://github.com/jreybert/vimagit
-        vim git client, very useful
-        ex
-          S: stage block
-          CC: commit block
-      Google Translate plugin for chrome
-        çift tıklayarak kelimelerin karşılıklarını bulur
-      http://kk.org/cooltools/tag/cool-tools-show/
-        podcast
-      cooltools: chris anderson
-        usician
-        3d printer
-    ux
-      https://www.oreilly.com/learning/fundamentals-of-mapping-experiences
-    linux
-      Linux Fundamentals, Paul Cobbaut
-    datalog
-      learndatalogtoday.com
-        extensible data notation (edn)
-          similar to json plus
-            user defined value types
-            more base types
-            subset of clojure data
-          consists of
-            numbers
-            strings
-            keywords: :kw
-            symbols: max
-            vectors: [1 2 3]
-            lists: (+ 1 2 3)
-            instants: #inst
-            more
-          ex: find all movie titles
-            [:find ?title
-            :where
-            [_ :movie/title ?title]]
-          the query is a vector with 4 elements
-            keyword :find
-            symbol ?title
-            keyword :where
-            vector [_ :movie/title ?title]
-    machine learning
-      youtube: nando de freitas
-      videolectures.net
-      goodwell
-      bishop
-    fp
-      covariant and contravariant
-        https://www.johndcook.com/blog/2013/02/28/covariant-and-contravariant/
-        Nowadays such situations are always distinguished by calling the things which go in the same direction “covariant” and the things which go in the opposite direction “contravariant.”
-          
-      Philip Wadler on Functional Programming
-        https://www.infoq.com/interviews/wadler-functional-programming/
-    multimedia
-      ProCreate - ipad üzerinde video aracı
-        çok iyi
-        yaptığın tüm işlemleri kaydediyor
-        https://www.youtube.com/watch?v=G78NXyHaRok
-      Kendi ipad stylus kalemini yap
-        https://www.youtube.com/watch?v=2XKJ9bF0GVk
-          kulak çöpü + alüminyum + su + kalem
-        https://www.youtube.com/watch?v=4tf2lm5RgCU
-          metalik bir kalemin ucuna pamuk sıkıştır
-          
-      Infinite-Quality Abstract Art and Animations with Primitive
-        http://minimaxir.com/2016/12/primitive/
-        herhangi bir resmi soyut bir resim ve animasyon haline getiriyor
-        açık kaynak
-    python
-      conda
-        Conda: Myths and Misconceptions
-          https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/
-          conda sadece python değil, başka yazılımları da yönetir
-          conda ikiye ayrılır:
-            conda: package manager
-            anaconda/miniconda: distribution
-          pip: python paketlerini yönetir, conda pip'i kullanır altta
+		books
+			Data Analytics Made Accessible
+			Practical Foundations of Mathematics Paul Taylor
+				http://www.paultaylor.eu/~pt/prafm/html/index.html
+			pragmatic
+				Exercises for Programmers
+				Customer Requirements
+				Mazes for Programmers
+				Predicting the Unpredictable Pragmatic Approaches to Estimating Project Schedule or Cost
+				Behind Closed Doors
+		slack
+			slack-term
+				cli tool for slack
+				config
+					~/slack-term.json
+				slack-token 
+		Maker products marketplace: tindie.com
+		hackaday.io: maker projeleri sosyal ağı
+		HackerRank: challenges for hackers
+			https://www.hackerrank.com/challenges/tutorial-intro
+			eğer problemleri çözersen seni işverenlerle görüştürüyorlar
+		Diagrams - vector dsl in haskell
+			http://projects.haskell.org/diagrams/
+		The Curse of the Excluded Middle "Mostly functional" programming does not work.
+			Erik Meijer
+			http://queue.acm.org/detail.cfm?id=2611829
+		peter norvig code puzzles and solutions
+			http://nbviewer.jupyter.org/url/norvig.com/ipython/Advent%20of%20Code.ipynb
+		https://maryrosecook.com/blog/post/a-practical-introduction-to-functional-programming
+			examples in imperative and functional style
+		https://gobyexample.com
+			go by example
+		apps
+			scan uygulamaları
+				http://lifehacker.com/five-best-mobile-document-scanning-apps-1691417781
+				http://www.howtogeek.com/166610/who-needs-a-scanner-scan-a-document-to-pdf-with-your-android-phone/
+		books
+			Data Analysis for the Life Sciences 
+				leanpub
+			Social Architecture book
+				https://www.gitbook.com/book/hintjens/social-architecture/details
+			Hintjens books  
+				http://hintjens.com/books
+			Github Cheat Sheet
+				https://www.gitbook.com/book/snowdream86/github-cheat-sheet/details
+		data analysis
+			https://github.com/Quartz/bad-data-guide
+			csvconf
+				https://gist.github.com/philandstuff/496b0a4872b89da5bb33a245171d789a
+				https://librecatproject.wordpress.com/2014/12/01/day-1-getting-catmandu/
+				https://jorol.github.io/2016-csvconf-catmandu/
+				https://richfitz.github.io/jiffy/
+		tools
+			json
+				jsonbrowse.com: online browser for json
+			Viz.js — Graphviz in your browser. 
+			https://code.hackmit.org
+				tools for hackathons
+				jury app, mentor app
+			https://github.com/simeji/jid
+				json incremental digger
+				very useful tool to filter/query json docs
+			https://hyper.is/
+				js temelli bir terminal app
+				çok kolay konfigüre edilebilir  
+			https://github.com/nathancahill/anycomplete
+				autocomplete for all apps
+				thesaurus gibi işlev görür
+				hammerspoon temelli
+			https://kapeli.com/dash
+				dokümantasyon takip app
+			http://pencil.evolus.vn/
+				js temelli bir gui çizim editörü
+			https://github.com/mas-cli/mas
+				mac appstore cli
+			https://github.com/jaspervdj/patat
+				terminal based presentations
+			https://github.com/ok-borg/borg?utm_content=bufferefcfa&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
+				terminal based search engine for bash commands
+			https://github.com/gravitational/teleconsole?utm_content=buffer87f6d&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
+				remote terminal connection to any computer 
+			https://github.com/christabor/flask_jsondash?utm_content=bufferf684e&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
+				dashboard app for any api
+			http://datasciencemasters.org/?utm_content=buffer5774b&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
+				curriculum for data science
+			httpstat — curl statistics made simple http://chlg.co/2bGamiU 
+			Mojibar – 🍊 Emoji searcher but as a menubar app. http://chlg.co/2b01kwc
+			Thyme – Automatically track which applications you use and for how long. http://chlg.co/2blN5Yn 
+			Librevault - p2p, decentralized and open source file sync
+			Checkup — distributed, self-hosted health checks and status pages http://chlg.co/2aI0fdv 
+			gron makes JSON more greppable http://chlg.co/2asQEtd 
+			Jargon from the functional programming world in simple terms! http://git.io/fp-jargons
+			m-cli — helps you programmatically administer macOS
+			It brings you Slack-style :emoji: keyboard shortcuts https://github.com/warpling/Macmoji 
+			Write your next presentation in #Markdown with Marp http://chlg.co/29wMHkN 
+			"ES6 for Humans" looks like a great starting point to level up your JavaScript skills from ES5 to ES6
+			Atmo – a server-side power tool (UI) for quickly mocking #API endpoints http://chlg.co/29hECiR 
+			TellForm – an #OSS alternative to TypeForm or Google Forms: http://chlg.co/29NYv2B 
+			"You should have to pass a quiz that proves you actually read an article before you can comment / share it." readsure
+			A game designed to teach JavaScript and artificial intelligence in a fun, interactive way. http://chlg.co/298EJBj warrior.js
+			https://github.com/thechangelog/ping/issues?utm_content=buffer81c94&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
+				podcast içeriği önerilerini github issue'ları olarak almak
+			Neodoc – Beautiful, handcrafted commandline interfaces for #NodeJS http://chlg.co/294A7rT 
+			All of @github’s #opensource code (2.8M+ repos) is now in BigQuery. Start analyzing: http://goo.gl/0yJMyr 
+			https://sourcegraph.com/
+				navigate any code
+			emoj — Find relevant emojis from text on the command-line 😮 ✨ 🙌 🐴 💥 🙈 http://chlg.co/28RhzAB 
+			gitalias: useful git aliases
+			lemonade-stand: https://t.co/v1TOattOdV financial support for oss projects
+			VisualAlchemist — A web-based database diagramming and automation tool http://chlg.co/1UW4VuO 
+			Mailtrain – a self-hosted email newsletter app built on top of #Node http://chlg.co/1rpM2J8 
+			https://github.com/fstab/grok_exporter
+				Grok is a tool to parse crappy unstructured log data into something structured and queryable. Grok is heavily used in Logstash to provide log data as input for ElasticSearch.
+			A complete daily plan for studying to become a machine learning engineer (Insta-🔖) https://t.co/HfjAhx67ve
+			Cayley — a db inspired by the graph database behind Freebase and Google's Knowledge Graph. https://t.co/6jgUxOg33j
+			People are starting to build things on top of #IPFS! Check out Orbit, a distributed, peer-to-peer chat app https://t.co/PKMLjLL1jb
+			Mega Boilerplate — handcrafted starter projects, optimized for simplicity and ease of use http://chlg.co/1tbs8mt 
+			gvar(1) -- bash: display, set, or remove global variables. http://arturoherrero.github.io/gvar/g…
+				https://github.com/arturoherrero/gvar?utm_content=buffer7ca40&utm_medium=twitter&utm_source=changelog&utm_campaign=buffer
+			The simplest, fastest way to get business intelligence and analytics to everyone in your company 😋 http://metabase.com
+			movtogif: CLI simplifies converting mov/mp4 files to high quality animated GIFs http://chlg.co/28LUPw3 
+			grok: Grok is a tool to parse crappy unstructured log data into something structured and queryable. Grok is heavily used in Logstash to provide log data as input for ElasticSearch.
+			https://github.com/dbohdan/structured-text-tools
+			convert excel to csv on terminal
+				pip install xlsx2csv
+				xlsx2csv excel_file out_file
+			yuml
+				Terminalden Yuml Kullanımı
+					https://github.com/wandernauta/yuml
+					run
+						echo "[This]-[That]" | ./yuml -s nofunky -o diagram.png
+					options
+						-i  read file
+						-o  store output
+						-f  format png, pdf, jpg, svg
+						-t  diagram type: class, activity, usecase
+						-s  diagram style: scruffy, plain, nofunky
+						--dir direction: LR, RL, TD
+						--scale percentage
+						-v  debug info
+					run full
+						yuml -i -o -f png -t class -s plain --dir 
+		http://www.cis.upenn.edu/~bcpierce/tapl/main.html
+			Types and Programming Languages
+		https://github.com/askn/crystal-by-example
+		game
+			https://www.codingame.com/
+				programlayarak oyun oynama
+			http://www.bootstrapworld.org/
+				algebraic game programming
+			http://treksit.com/
+				game to learn graph theory
+		unix
+			https://www.learnenough.com/command-line-tutorial
+		learning
+			http://exercism.io/
+				exercises for programming languages
+		https://www.edx.org/course/beauty-joy-computing-cs-principles-part-uc-berkeleyx-bjc-1x
+		http://www.lambda.cd/
+			pipelines for build server
+		https://www.getsync.com/
+		programming
+			graphql
+				https://www.compose.com/articles/postgraphql-postgresql-meets-graphql/
+			purescript
+				https://github.com/paf31/24-days-of-purescript-2016
+					book for purescript
+			thoughtworks technology radar
+			http://martinfowler.com/articles/command-line-google.html
+			'Coder Decoder - Functional Programmer Lingo Explained, with Pictures' by Katie Miller-uwrCQmpZ8Ts.mp
+		category theory - fp
+			https://manning.com/books/design-for-the-mind
+			https://manning.com/books/reactive-data-handling
+			https://www.manning.com/books/functional-programming-in-javascript
+			https://manning.com/books/learn-haskell
+			<url:file:///~/Movies/youtube/wadler/Category Theory, The essence of interface-based design - Erik Meijer-JMP6gI5mLHc.mp4>
+			http://debasishg.blogspot.com/2012/07/does-category-theory-make-you-better.html
+			http://debasishg.blogspot.com/2014/03/functional-patterns-in-domain-modeling.html
+			Philip Wadler - Everything old is new again - Quoted domain specific languages - Curry On-FiflFiZ6pPI.mp4
+			Immutable JavaScript - You can't change this-wA98Coal4jk.mp4
+			Category Theory, The essence of interface-based design - Erik Meijer-JMP6gI5mLHc.mp4
+			Spreadsheets for developers by Felienne Hermans-0CKru5d4GPk.mp4
+		tools 
+			opensource.guide
+				https://github.com/github/opensource.guide
+				community guides for open source authors
+			OnlinePythonTutor
+				https://github.com/pgbovine/OnlinePythonTutor
+				visualize python, java, js in browser
+			csvtotable
+				https://github.com/vividvilla/csvtotable
+				cli to convert CSV files to searchable and sortable HTML table
+				ex
+				Installation
+					pip install --upgrade csvtotable
+				Get started
+					csvtotable --help
+				Convert data.csv file to data.html file
+					csvtotable data.csv data.html
+				Open output file in a web browser instead of writing to a file
+					csvtotable data.csv --serve
+			audreyr/cookiecutter
+				https://github.com/audreyr/cookiecutter
+				A command-line utility that creates projects from cookiecutters (project templates), 
+				e.g. creating a Python package project from a Python package project template.
+			toddmotto/public-apis
+				https://github.com/toddmotto/public-apis
+				collective list of public JSON APIs for use in web development
+			learnxinyminutes-docs
+				https://github.com/adambard/learnxinyminutes-docs
+				learn programming languages with examples in actual code
+				ex
+					// ... or using the dot syntax, provided the key is a valid identifier.
+					myObj.myKey; // = "myValue"
+			https://asciinema.org/
+				screencasting tool for terminal
+			https://github.com/jreybert/vimagit
+				vim git client, very useful
+				ex
+					S: stage block
+					CC: commit block
+			Google Translate plugin for chrome
+				çift tıklayarak kelimelerin karşılıklarını bulur
+			http://kk.org/cooltools/tag/cool-tools-show/
+				podcast
+			cooltools: chris anderson
+				usician
+				3d printer
+		ux
+			https://www.oreilly.com/learning/fundamentals-of-mapping-experiences
+		linux
+			Linux Fundamentals, Paul Cobbaut
+		datalog
+			learndatalogtoday.com
+				extensible data notation (edn)
+					similar to json plus
+						user defined value types
+						more base types
+						subset of clojure data
+					consists of
+						numbers
+						strings
+						keywords: :kw
+						symbols: max
+						vectors: [1 2 3]
+						lists: (+ 1 2 3)
+						instants: #inst
+						more
+					ex: find all movie titles
+						[:find ?title
+						:where
+						[_ :movie/title ?title]]
+					the query is a vector with 4 elements
+						keyword :find
+						symbol ?title
+						keyword :where
+						vector [_ :movie/title ?title]
+		machine learning
+			youtube: nando de freitas
+			videolectures.net
+			goodwell
+			bishop
+		fp
+			covariant and contravariant
+				https://www.johndcook.com/blog/2013/02/28/covariant-and-contravariant/
+				Nowadays such situations are always distinguished by calling the things which go in the same direction “covariant” and the things which go in the opposite direction “contravariant.”
+					
+			Philip Wadler on Functional Programming
+				https://www.infoq.com/interviews/wadler-functional-programming/
+		multimedia
+			ProCreate - ipad üzerinde video aracı
+				çok iyi
+				yaptığın tüm işlemleri kaydediyor
+				https://www.youtube.com/watch?v=G78NXyHaRok
+			Kendi ipad stylus kalemini yap
+				https://www.youtube.com/watch?v=2XKJ9bF0GVk
+					kulak çöpü + alüminyum + su + kalem
+				https://www.youtube.com/watch?v=4tf2lm5RgCU
+					metalik bir kalemin ucuna pamuk sıkıştır
+					
+			Infinite-Quality Abstract Art and Animations with Primitive
+				http://minimaxir.com/2016/12/primitive/
+				herhangi bir resmi soyut bir resim ve animasyon haline getiriyor
+				açık kaynak
+		python
+			conda
+				Conda: Myths and Misconceptions
+					https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/
+					conda sadece python değil, başka yazılımları da yönetir
+					conda ikiye ayrılır:
+						conda: package manager
+						anaconda/miniconda: distribution
+					pip: python paketlerini yönetir, conda pip'i kullanır altta
 				http://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/
 					conda: replaces pip + virtualenv
 						pip: package manager
@@ -8161,341 +7628,341 @@ unclassified
 					Anaconda + Miniconda
 						use conda as package manager
 						miniconda: no pre-installed packages like anaconda
-    nodered: flow based programming for iot and web
-      https://nodered.org
-    cypress: web ui testing
-      https://www.cypress.io
-    Building JavaScript and mobile_native Clients for Token-based Architectures-eF2myGRT8bo.mp4
-      token based security
-        one token for all API clients
-          mobile, native, web, 3rd party
-      token security as a service
-      first protocol: who is the user
-        uses security token service
-        OpenID Connect: authenticates user
-      2. protocol: for talking to API
-        delegate the identity of user to API
-        OAuth 2.0
-      flow  
-        1. client aunthenticates, establishes session with token service
-        2. token service returns identity token, access token
-        3. clients process response, validate identity token
-        4. client send access token to API
-      login ui
-        opt1: local login ui in client
-          benefit:
-            you have control of login page
-        opt2: redirect to server rendered login page
-          benefit:
-            single sign on
-            3rd party apps won't get password 
-          better in general
-          client apps use that as a service
-      why tokens instead of cookies
-        in spa there is no server side app
-        apis don't use cookies
-        cookies are only for browser based apps
-        csrf security issue
-      discovery
-        1. get discovery document
-          it contains all key information such as
-            authorization_endpoint
-            token_endpoint
-        2. client redirects to openid provider (op)
-        3. user authenticates
-        4. op returns to client
-          id token
-        5. client validates id token
-      id token
-        it is returned as hash fragment in url #lekalmik
-        format is JSON web token (jwt)
-          header
-          claims
-          signature
-      openid client library: oidcclient
-    Migrating to Serverless - an experience report - Gojko Adzic-i2gEbw_jzfY.mp4
-      from heroku to amazon lambda
-      1/3 less code
-        no authentication, no deployment code etc
-      no need to provision servers for scaling
-      tool
-        npm install claudia-api-builder -S
-        npm install claudia -D
-        vim api.js
-          const API = require('claudia-api-builder'),
-            api = new API();
-          module.exports = api;
-          api.get('/hello', () => "hi there!");
-        vim package.json
-          "scripts":
-            "create": "claudia create --region us-east-1 --api-module api",
-        npm run create
-        # "url": "https://...amazonaws.com/latest"
-      using
-        $ curl https://...amazonaws.com/latest
-        "hi there!"
-      infrastructure and monitoring is ready
-        logging
-        invocations
-        authentication
-        recovery
-        versioning
-          20 different deployments cost the same as 1 deployment
-          very useful for full a/b testing with different api services
-        scaling
-      update
-        package.json
-          "update": ".."
-        npm update
-          # version: 2
-          # url: https:.../dev
-      embrace platform
-        gatekeeper -> distributed authentication
-          authentication, senin sunucun tarafından yapılmak zorunda değil
-          doğrudan amazon cognito ile yapılabilir
-          böylece örneğin:
-            kullanıcı pdf dosyası yükler
-            authentication tarafını amazon yapar
-            istediği zaman url ile indirir
-            senin sunucuların hiç çalışmaz bile
-        orchestration -> client or workflow engines
-      don't design for stateless, design for share-nothing
-    Object-Oriented Programming is Bad-QM1iUe6IofM.mp4
-      most important programming video you will ever watch
-        %5 will say oo is not important
-        %25 it has some virtues and some benefits
-        i say: oo is definitively not relevant for any problem
-        that is contrary to common knowledge
-      procedural code is better
-        even when not functional
-        procedural & imperative (default)
-        procedural & functional (minimize state)
-        oo & imperative (segregate state)
-      not part of discussion
-        inheritance irrelevant
-          be very careful or not use at all
-        polymorphism is not exclusively oop
-      core: encapsulation does not work
-        that is the essence of oop but it doesn't work
-      why does oop dominate industry?
-        oop is something that programmers did to themselves
-        java is one main reason
-        before java windows app programming was very difficult
-          encrypted libraries
-        people liked: subject.verb(object)
-          ide provides code completion, simplifies programming
-        gui programming: very compatible for objects
-          components = widgets 
-      unit of code abstraction larger than functions and data types?
-        combination of two: objects
-        led to patterns
-          SOLID principle
-          dependency injection
-          tdd
-          agile
-        all best practices are bandates
-          since oop doesn't satisfy its promise
-          every few years new buzzwords arise
-      why does oop (encapsulation) not work?
-        what is an object
-          encapsulated state
-          we shouldn't access state (private)
-          we can only call a message
-          objects call messages to each other
-        in origin: messages send only copies of state, not references
-          objects are state
-          then messages cannot pass object references
-          then A must hold a private reference to B
-          then B must be part of A's private state
-    Practical lessons from a year of building web components - Google I_O 2016-zfQoleQEa4w.mp4
-    Federated Wiki
-      Keynote - The Federated Wiki-3nB8ml6UowE.mp4
-        normal mode 
-          double click
-          right/left   move horizontally
-          drag    move items
-        edit mode
-          #i  info about markup
-          +enter  add new item
-        buttons
-          flag  i claim it is my own
-          +     new item
-      Tutiorial
-        02-02. cross-page-refactoring-tYrLwlxOKmA.mp4
-    DataFiller: generate sample data
-      https://www.cri.ensmp.fr/people/coelho/datafiller.html
-    Ports & Adapters Architecture
-      https://herbertograca.com/2017/09/14/ports-adapters-architecture/
-      problems of traditional approach
-        no seperation of concerns -> unreusable components
-      evolving from layered architecture
-        ddd: really relevant: inner layers
-          where business logic should live
-        cockburn: top and bottom layers are simply entry/exit points for application
-          presentation <-> business logic <-> data 
-          controllers <-> business logic <-> data
-          /Users/mertnuhoglu/Dropbox/public/img/ss-227.png
-          each side can have several entry/exit points
-            ex:
-              left side: api and ui are two entry/exit
-              right side: orm and search engine are two entry/exits
-            multiple entry/exit points, hence hexagonal
-        ports & adapters: an abstraction layer as a port and adapter
-      what is port
-        consumer agnostic entry/exit point
-        an interface 
-        ex: interface to perform search
-      what is adapter
-        transforms an interface into another
-        ex: 
-    Vivaldi Browser
-      https://www.howtogeek.com/250683/the-best-features-of-vivaldi-a-new-customizable-web-browser-for-power-users/
-        tile tabs
-        multiple select tabs
-        screencapture
-        #+c   copy to notes
-        #!p   show panel
-        add page to web panel
-        f2    quick commands
-        #^b   bookmark manager
-        nicknames for bookmarks
-      vimium
-        ?     help
-        hl    scroll horizontally
-      shortcuts
-        #+p   save in pocket
-    Dat: dat project
-      install
-        npm install -g dat
-    franchise: opensource notebook for sql
-      https://franchise.cloud
-      /Users/mertnuhoglu/Dropbox/public/img/ss-229.png
-      using
-        # inside codes
-        cd franchise
-        PORT=3090 yarn start
-        http://localhost:3090
-      features
-        csv xlsx sql
-        table view, card view
-        plots
-        side by side queries 
-        data pipeline
-          /Users/mertnuhoglu/Dropbox/public/img/ss-230.png
-        export/download
-    golem: cloud sharing
-      https://golem.network
-    CommonCrawl: web crawler that shares all data
-      http://commoncrawl.org/
-    CloudCraft: cloud/network diagram visualization
-      https://cloudcraft.co
-    Hands-on TensorBoard
-      https://www.youtube.com/watch?v=eBbEDRsCmv4
-      TensorFlow graph visualization
-    3D models to navigate
-      https://poly.google.com
-    link fish: turn websites into structured data
-      scrape web sites
-      https://link.fish/api/
-    Wordpress Knowledge Base Plugin: Helpie
-      http://helpie.pauple.com/demo/
-    ripgrep
-      ag ack alternatifi
-      https://github.com/BurntSushi/ripgrep
-      rg -tpy foo
-      rg -Tpy foo
-    em-keyboard: cli emoji keyboard
-      https://github.com/kennethreitz/em-keyboard
-      Provide the names of a few emoji, and those lucky chosen emojis will be displayed in your terminal, then copied to your clipboard
-      install
-        $ pip install em-keyboard
-      ex
-        $ em sparkles cake sparkles
-        Copied! ✨🍰✨
-      ex: search
-        $ em -s read
-        🚗  car
-        🎴  flower_playing_cards
-        👹  japanese_ogre
-        👺  japanese_goblin
-    sql_insert_writer: make long SQL INSERT statements
-      https://github.com/18F/sql_insert_writer
-    mermaid: diagram generation from text
-      https://github.com/knsv/mermaid
-      gantt, workflow, sequence, network
-      install
-        npm install -g mermaid.cli
-      ex
-        graph TD;
-            A-->B;
-            A-->C;
-            B-->D;
-            C-->D;
-      https://news.ycombinator.com/item?id=13326065
-        alternatives
-          draw.io
-      cli:
-        mermaid.cli
-        ex:
-          mmdc -i input.mmd -o output.png
-          mmdc -i input.mmd -o output.png
-          mmdc -i input.mmd -o output.pdf
-          mmdc -i input.mmd -o output.svg -w 1024 -H 768
-          mmdc -i input.mmd -t forest
-          mmdc -i input.mmd -o output.png -b '#FFF000'
-          mmdc -i input.mmd -o output.png -b transparent
-    word dictionary files, thesaurus databases
-      myspell: previously
-      hunspell: current
-      R hunspell library
-        uses any .dic file as dictionary
-      dictionary files resource
-        https://github.com/titoBouzout/Dictionaries
-        english
-          https://raw.githubusercontent.com/titoBouzout/Dictionaries/master/English%20(American).dic
-          https://raw.githubusercontent.com/titoBouzout/Dictionaries/master/English%20(American).aff
-      how to install
-        https://apple.stackexchange.com/questions/11827/easy-way-to-install-additional-spell-check-dictionaries-for-os-x/11842#11842
-        osx
-          Move the files with the .aff and .dic extensions (ro_RO.aff and ro_RO.dic for Romanian) to your ~/Library/Spelling folder.
-          Go to System Preferences > Keyboard > Text > Spelling and choose the language of your choice
-      vim plugin
-        https://github.com/Ron89/thesaurus_query.vim
-          lookup synonyms
-          replace them
-      common words
-        https://github.com/first20hours/google-10000-english
-    tldr: examples for bash commands
-      ex
-        tldr tar
-        tldr git mv
-    marker: cli tool
-      Marker is a command palette for the terminal. It lets you bookmark commands (or commands templates) and easily retreive them with the help of a real-time fuzzy matcher.
-      /Users/mertnuhoglu/Dropbox/keynote_resimler/yayin/marker_cli_tool.gif
-    Command line flash cards with bash-lX8jqo70r1I.mp4
-      tsv file contains two columns:
-        question|answer
-      shows one by one
-    libuv
-      https://github.com/libuv/libuv
-        async io made simple
-        multiplatform support for async io
-        features
-          event loop
-          async tcp/udp sockets
-          async dns resolution
-          async file/systems ops
-    Semantic versioning
-      https://semver.org
-        MAJOR.MINOR.PATCH
-        MAJOR version: incompatible API changes
-        MINOR: new functionality backwards-compatible
-        PATCH: backwards-compatible bug fixes
-    Graphviz in Browser
-      http://www.webgraphviz.com
-    blessed: terminal interface for nodejs
-      https://github.com/chjj/blessed
-      https://recodes.co/introducing-gitter-cli/
+		nodered: flow based programming for iot and web
+			https://nodered.org
+		cypress: web ui testing
+			https://www.cypress.io
+		Building JavaScript and mobile_native Clients for Token-based Architectures-eF2myGRT8bo.mp4
+			token based security
+				one token for all API clients
+					mobile, native, web, 3rd party
+			token security as a service
+			first protocol: who is the user
+				uses security token service
+				OpenID Connect: authenticates user
+			2. protocol: for talking to API
+				delegate the identity of user to API
+				OAuth 2.0
+			flow  
+				1. client aunthenticates, establishes session with token service
+				2. token service returns identity token, access token
+				3. clients process response, validate identity token
+				4. client send access token to API
+			login ui
+				opt1: local login ui in client
+					benefit:
+						you have control of login page
+				opt2: redirect to server rendered login page
+					benefit:
+						single sign on
+						3rd party apps won't get password 
+					better in general
+					client apps use that as a service
+			why tokens instead of cookies
+				in spa there is no server side app
+				apis don't use cookies
+				cookies are only for browser based apps
+				csrf security issue
+			discovery
+				1. get discovery document
+					it contains all key information such as
+						authorization_endpoint
+						token_endpoint
+				2. client redirects to openid provider (op)
+				3. user authenticates
+				4. op returns to client
+					id token
+				5. client validates id token
+			id token
+				it is returned as hash fragment in url #lekalmik
+				format is JSON web token (jwt)
+					header
+					claims
+					signature
+			openid client library: oidcclient
+		Migrating to Serverless - an experience report - Gojko Adzic-i2gEbw_jzfY.mp4
+			from heroku to amazon lambda
+			1/3 less code
+				no authentication, no deployment code etc
+			no need to provision servers for scaling
+			tool
+				npm install claudia-api-builder -S
+				npm install claudia -D
+				vim api.js
+					const API = require('claudia-api-builder'),
+						api = new API();
+					module.exports = api;
+					api.get('/hello', () => "hi there!");
+				vim package.json
+					"scripts":
+						"create": "claudia create --region us-east-1 --api-module api",
+				npm run create
+				# "url": "https://...amazonaws.com/latest"
+			using
+				$ curl https://...amazonaws.com/latest
+				"hi there!"
+			infrastructure and monitoring is ready
+				logging
+				invocations
+				authentication
+				recovery
+				versioning
+					20 different deployments cost the same as 1 deployment
+					very useful for full a/b testing with different api services
+				scaling
+			update
+				package.json
+					"update": ".."
+				npm update
+					# version: 2
+					# url: https:.../dev
+			embrace platform
+				gatekeeper -> distributed authentication
+					authentication, senin sunucun tarafından yapılmak zorunda değil
+					doğrudan amazon cognito ile yapılabilir
+					böylece örneğin:
+						kullanıcı pdf dosyası yükler
+						authentication tarafını amazon yapar
+						istediği zaman url ile indirir
+						senin sunucuların hiç çalışmaz bile
+				orchestration -> client or workflow engines
+			don't design for stateless, design for share-nothing
+		Object-Oriented Programming is Bad-QM1iUe6IofM.mp4
+			most important programming video you will ever watch
+				%5 will say oo is not important
+				%25 it has some virtues and some benefits
+				i say: oo is definitively not relevant for any problem
+				that is contrary to common knowledge
+			procedural code is better
+				even when not functional
+				procedural & imperative (default)
+				procedural & functional (minimize state)
+				oo & imperative (segregate state)
+			not part of discussion
+				inheritance irrelevant
+					be very careful or not use at all
+				polymorphism is not exclusively oop
+			core: encapsulation does not work
+				that is the essence of oop but it doesn't work
+			why does oop dominate industry?
+				oop is something that programmers did to themselves
+				java is one main reason
+				before java windows app programming was very difficult
+					encrypted libraries
+				people liked: subject.verb(object)
+					ide provides code completion, simplifies programming
+				gui programming: very compatible for objects
+					components = widgets 
+			unit of code abstraction larger than functions and data types?
+				combination of two: objects
+				led to patterns
+					SOLID principle
+					dependency injection
+					tdd
+					agile
+				all best practices are bandates
+					since oop doesn't satisfy its promise
+					every few years new buzzwords arise
+			why does oop (encapsulation) not work?
+				what is an object
+					encapsulated state
+					we shouldn't access state (private)
+					we can only call a message
+					objects call messages to each other
+				in origin: messages send only copies of state, not references
+					objects are state
+					then messages cannot pass object references
+					then A must hold a private reference to B
+					then B must be part of A's private state
+		Practical lessons from a year of building web components - Google I_O 2016-zfQoleQEa4w.mp4
+		Federated Wiki
+			Keynote - The Federated Wiki-3nB8ml6UowE.mp4
+				normal mode 
+					double click
+					right/left   move horizontally
+					drag    move items
+				edit mode
+					#i  info about markup
+					+enter  add new item
+				buttons
+					flag  i claim it is my own
+					+     new item
+			Tutiorial
+				02-02. cross-page-refactoring-tYrLwlxOKmA.mp4
+		DataFiller: generate sample data
+			https://www.cri.ensmp.fr/people/coelho/datafiller.html
+		Ports & Adapters Architecture
+			https://herbertograca.com/2017/09/14/ports-adapters-architecture/
+			problems of traditional approach
+				no seperation of concerns -> unreusable components
+			evolving from layered architecture
+				ddd: really relevant: inner layers
+					where business logic should live
+				cockburn: top and bottom layers are simply entry/exit points for application
+					presentation <-> business logic <-> data 
+					controllers <-> business logic <-> data
+					/Users/mertnuhoglu/Dropbox/public/img/ss-227.png
+					each side can have several entry/exit points
+						ex:
+							left side: api and ui are two entry/exit
+							right side: orm and search engine are two entry/exits
+						multiple entry/exit points, hence hexagonal
+				ports & adapters: an abstraction layer as a port and adapter
+			what is port
+				consumer agnostic entry/exit point
+				an interface 
+				ex: interface to perform search
+			what is adapter
+				transforms an interface into another
+				ex: 
+		Vivaldi Browser
+			https://www.howtogeek.com/250683/the-best-features-of-vivaldi-a-new-customizable-web-browser-for-power-users/
+				tile tabs
+				multiple select tabs
+				screencapture
+				#+c   copy to notes
+				#!p   show panel
+				add page to web panel
+				f2    quick commands
+				#^b   bookmark manager
+				nicknames for bookmarks
+			vimium
+				?     help
+				hl    scroll horizontally
+			shortcuts
+				#+p   save in pocket
+		Dat: dat project
+			install
+				npm install -g dat
+		franchise: opensource notebook for sql
+			https://franchise.cloud
+			/Users/mertnuhoglu/Dropbox/public/img/ss-229.png
+			using
+				# inside codes
+				cd franchise
+				PORT=3090 yarn start
+				http://localhost:3090
+			features
+				csv xlsx sql
+				table view, card view
+				plots
+				side by side queries 
+				data pipeline
+					/Users/mertnuhoglu/Dropbox/public/img/ss-230.png
+				export/download
+		golem: cloud sharing
+			https://golem.network
+		CommonCrawl: web crawler that shares all data
+			http://commoncrawl.org/
+		CloudCraft: cloud/network diagram visualization
+			https://cloudcraft.co
+		Hands-on TensorBoard
+			https://www.youtube.com/watch?v=eBbEDRsCmv4
+			TensorFlow graph visualization
+		3D models to navigate
+			https://poly.google.com
+		link fish: turn websites into structured data
+			scrape web sites
+			https://link.fish/api/
+		Wordpress Knowledge Base Plugin: Helpie
+			http://helpie.pauple.com/demo/
+		ripgrep
+			ag ack alternatifi
+			https://github.com/BurntSushi/ripgrep
+			rg -tpy foo
+			rg -Tpy foo
+		em-keyboard: cli emoji keyboard
+			https://github.com/kennethreitz/em-keyboard
+			Provide the names of a few emoji, and those lucky chosen emojis will be displayed in your terminal, then copied to your clipboard
+			install
+				$ pip install em-keyboard
+			ex
+				$ em sparkles cake sparkles
+				Copied! ✨🍰✨
+			ex: search
+				$ em -s read
+				🚗  car
+				🎴  flower_playing_cards
+				👹  japanese_ogre
+				👺  japanese_goblin
+		sql_insert_writer: make long SQL INSERT statements
+			https://github.com/18F/sql_insert_writer
+		mermaid: diagram generation from text
+			https://github.com/knsv/mermaid
+			gantt, workflow, sequence, network
+			install
+				npm install -g mermaid.cli
+			ex
+				graph TD;
+						A-->B;
+						A-->C;
+						B-->D;
+						C-->D;
+			https://news.ycombinator.com/item?id=13326065
+				alternatives
+					draw.io
+			cli:
+				mermaid.cli
+				ex:
+					mmdc -i input.mmd -o output.png
+					mmdc -i input.mmd -o output.png
+					mmdc -i input.mmd -o output.pdf
+					mmdc -i input.mmd -o output.svg -w 1024 -H 768
+					mmdc -i input.mmd -t forest
+					mmdc -i input.mmd -o output.png -b '#FFF000'
+					mmdc -i input.mmd -o output.png -b transparent
+		word dictionary files, thesaurus databases
+			myspell: previously
+			hunspell: current
+			R hunspell library
+				uses any .dic file as dictionary
+			dictionary files resource
+				https://github.com/titoBouzout/Dictionaries
+				english
+					https://raw.githubusercontent.com/titoBouzout/Dictionaries/master/English%20(American).dic
+					https://raw.githubusercontent.com/titoBouzout/Dictionaries/master/English%20(American).aff
+			how to install
+				https://apple.stackexchange.com/questions/11827/easy-way-to-install-additional-spell-check-dictionaries-for-os-x/11842#11842
+				osx
+					Move the files with the .aff and .dic extensions (ro_RO.aff and ro_RO.dic for Romanian) to your ~/Library/Spelling folder.
+					Go to System Preferences > Keyboard > Text > Spelling and choose the language of your choice
+			vim plugin
+				https://github.com/Ron89/thesaurus_query.vim
+					lookup synonyms
+					replace them
+			common words
+				https://github.com/first20hours/google-10000-english
+		tldr: examples for bash commands
+			ex
+				tldr tar
+				tldr git mv
+		marker: cli tool
+			Marker is a command palette for the terminal. It lets you bookmark commands (or commands templates) and easily retreive them with the help of a real-time fuzzy matcher.
+			/Users/mertnuhoglu/Dropbox/keynote_resimler/yayin/marker_cli_tool.gif
+		Command line flash cards with bash-lX8jqo70r1I.mp4
+			tsv file contains two columns:
+				question|answer
+			shows one by one
+		libuv
+			https://github.com/libuv/libuv
+				async io made simple
+				multiplatform support for async io
+				features
+					event loop
+					async tcp/udp sockets
+					async dns resolution
+					async file/systems ops
+		Semantic versioning
+			https://semver.org
+				MAJOR.MINOR.PATCH
+				MAJOR version: incompatible API changes
+				MINOR: new functionality backwards-compatible
+				PATCH: backwards-compatible bug fixes
+		Graphviz in Browser
+			http://www.webgraphviz.com
+		blessed: terminal interface for nodejs
+			https://github.com/chjj/blessed
+			https://recodes.co/introducing-gitter-cli/
 		10 Reasons to Blog
 			https://www.geekytidbits.com/ten-reasons-to-blog/
 			help others
@@ -8695,4 +8162,4 @@ index_rmd for code files id=g_10749
 										local arg = ngx.req.get_uri_args()
 										local res = ngx.location.capture("/sum", {args={a=arg.aa,b=arg.bb}})
 										ngx.say("status: ", res.status, " response: ", res.body)
-    
+		
