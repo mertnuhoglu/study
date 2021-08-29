@@ -1,0 +1,626 @@
+Minimalist Fulcro Tutorial :: Fulcro Community id=g12367
+	[Minimalist Fulcro Tutorial :: Fulcro Community](https://fulcro-community.github.io/guides/tutorial-minimalist-fulcro/)
+	Study path
+		1. study this tutorial
+			work on tutorial exercises [fulcro-community/fulcro-exercises](https://github.com/fulcro-community/fulcro-exercises)
+		2. modify an existing app
+			fulcro-template
+		3. watch fulcro videos and dev guide
+		4. post questions in slack #fulcro
+	Prerequisites
+		EQL Tutorial: [Eql Pathom Overview :: Fulcro Community](https://fulcro-community.github.io/guides/tutorial-eql-pathom-overview/index.html)
+		Pathom 2: [Briefly about Pathom](https://fulcro-community.github.io/guides/tutorial-minimalist-fulcro/#about-pathom)
+	Key concepts
+		App
+			Fulcro application 
+			produced by `app/fulcro-app`
+		Client DB
+			map of maps
+			entity name -> id -> properties
+			id property = entity name
+			{:person/id  {123 {:person/id 123, :person/fname "Jo", :person/address [:address/id 3]}}}
+		UI Component
+			React component with meta data (query, ident)
+			stateful = has a query
+			stateless = otherwise = UI-only
+		Data entity
+			a part of frontend data model with an identity
+		EQL server
+		Ident
+			of a data entity: identify of a data entity
+			ID property name and a value
+			of a component: a function that returns an ident
+		Mutation
+			components submit a mutation that describes desired change
+			local or remote
+			for fulcro: request to load data from backend is also a mutation (local)
+		Normalization of data
+			entities do not include other entities but only their idents
+		Query
+			stateful components declare what data they need using an EQL query (query fragment)
+		Resolver 
+			takes 0..1 input, optional parameters
+			outputs a tree of data
+			ex: ::pc/output [{:all-blogs [:blog/id :blog/title :blog/content]}] 
+				return {:all-blogs [{:blog/id 1, ..}, ..]}. 
+				any query that asks for :all-blogs can be "parsed" and answered.
+		Root component
+			top component of UI, `Root`
+		Transaction subsystem
+			an async queue
+			components submit mutations to transaction subsystem for execution with `transact!`
+	Fulcro lifecycle
+		tbd
+	On components and mutations
+		defsc
+			define stateful component (React class-based component)
+		Parts of Fulcro stateful component
+			defsc = React class-based component = produces a JS class
+				(defsc Person [<arguments>]
+					{<meta data>}
+					(<body>))
+			factory = creates React elements
+				(def ui-person (comp/factory Person))
+		Parts of defsc (React class-based component)
+			arguments: `this` and `props`
+			meta data: `:query` and `:ident`
+			body: `render` method of the React component = produces DOM elements
+			Note: props and query mirror each other
+		Example Fulcro component: Person with properties id, fname, email, address
+			(defsc Person
+				[this {:person/keys [fname email address] :as props}] ; 
+				{:query [:person/id :person/fname :person/email       ; 
+								 {:person/address (comp/get-query Address)}]
+				 :ident (fn [] [:person/id (:person/id props)])}      ; 
+				(div                                                  ; 
+					(p "Name: " fname ", email: " email)
+					(ui-address address)))
+			(def ui-person (comp/factory Person))
+		props
+			map of data passed in by the parent component
+		On qualified keywords
+			ref: ; Destructuring qualified keywords <url:file:///~/projects/study/clj/clojure.md#r=g12377>
+			ref: ; Destructuring qualified keywords of alias namespaces  <url:file:///~/projects/study/clj/clojure.md#r=g12378>
+			ref: namespaced keyword notations <url:file:///~/projects/study/clj/clojure.md#r=g11294>
+		Query
+			query part of component:
+				what props the component needs, including the needs of its child components
+				(defsc Person
+					[_ _]
+					{:query [:person/id :person/fname :person/email
+									 {:person/address (comp/get-query Address)}]
+					 ..} ..)
+				Note: Address componentinin ihtiyacını `comp/get-query` ile içerir
+			Query composition and data flow
+				/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210828_081728.jpg
+				Root komponenti tüm alt komponentlerden query'leri toplar
+				Bunları birleştirip client db'ye gönderir
+				Client db tree of data döner
+				Root bunları kendi çocuklarına dağıtır (propagates down)
+			Query vs query fragment
+				defsc'lerin sorguları bağımsız birer sorgu değil, birer sorgu parçası.
+				Ancak üst sorgu bağlamı içinde bir anlam ifade eder
+				Örn: `[:person/id :person/fname]`
+				Bu sorgu parçası hangi person olduğunu belirtmez. Bu bilgi üst sorgudan gelir:
+				Örn: [{:all-people [<insert here>]}] (in an imaginary AllPeopleList component)
+		Ident
+			Ident tanımlama yolları:
+				(defsc Person
+					[_ props]
+					{..
+					 ;; There are three ways to specify an ident, here all are equal:
+					 :ident (fn [] [:person/id (:person/id props)])} ..) ; lambda form
+					 ;; = the template form: [:person/id :person/id]
+					 ;; = the keyword  form: :person/id
+			Parts of an Ident for a data entity:
+				template form
+				2-element vector: `[:person/id 123]`
+				name of ID property
+				its value
+			Ident for a component:
+				lambda form
+				`(fn [] [:person/id (:person/id props)])`
+				a function that returns the ident of the associated data entity
+			Ident for a singleton component:
+				`:ident (fn [] [:component/id :AllPeopleList])`
+				property name: `component/id`
+				hardcoded value: usually its name as keyword
+			Why do we need component idents?
+				To tell Fulcro what is the ID property of an entity so that it can normalize its data into the client database.
+			shorthand for lambda form
+				:ident :address/id
+				;; shorthand for
+				:ident (fn [:address/id (:address/id props)])
+		Initial state :initial-state
+			:initial-state ne işe yarar?
+				ilk render (first frame) sırasında yüklenecek propları tanımlar
+				:initial-state (fn [params] <data>)
+		body of a component
+			parts of a component's body:
+				1. HTML classes and element ID
+				2. map of HTML tag's attributes
+				3. children
+				(dom/<tag> ; or <ns>/<Fulcro component factory name> for components
+					<[optional] keyword encoding classes and an element ID> ; 
+					<[optional] map of the tag's attributes (or React props)> ; 
+					<[optional] children>) ; 
+			ex: component body:
+				(dom/h2 :.ui.message#about
+					{:style {:background "1px solid black"}
+					 :classes ["my-heading" (when (:important? props) "important")]}
+					"About")
+			returning multiple elements
+				wrap them in a sequence or comp/fragment
+				React requires them to have a unique `:key`
+				ex: `(defsc X [_ _] [(dom/p {:key "a"} "a") (dom/p {:key "b"} "b")])`
+			assigning a unique `:key` to every instance of a fulcro component. ör: bir map dönüyorsun, bunun her bir öğesine nasıl tekil `:key` atarsın?
+				ör: `(map ui-employee (:department/employees props))`
+				comp/factory'nin ikinci argümanı bir fonksiyon alır ve bu tekil `:key` döner:
+				(def ui-employee (comp/factory Employee {:keyfn :employee/id}))
+				;; assuming the Employee component has the (unique) :employee/id prop
+			mutations:
+				bir komponent ne için mutasyon kullanır?
+					kendi dışında bir şeyi değiştirmek için
+					ör: upload file, change data in client DB, change data on server-side
+					comp/transact! ile
+				mutation yapan transact! fonksiyonu ne bekler?
+					sequence of data
+					(comp/transact! app-or-component
+						[(<fully qualified symbol> <params map>), ...])
+				local and remote mutation örneği:
+					#?(:cljs
+							;; client-side
+							(m/defmutation delete-employee [{id :employee/id :as params}] ; 
+								(action [{:keys [app state] :as env}]          ; 
+									(swap! state update :employee/id dissoc id))
+								(remote [env] true)                            ; 
+								(ok-action [{:keys [app state result]}]        ; 
+									(println "It worked!")))
+						:clj
+							;; server-side
+							(pc/defmutation delete-employee [env {id :employee/id :as params}]) ; 
+								{::pc/params #{:employee/id}}
+								(db/delete-employee id)
+								nil))
+					;; Somewhere in a component:
+					(comp/transact! this [(delete-employee {:employee/id id})])   ; 
+					;; or:
+					(comp/transact! this `[(delete-employee {:employee/id ~id})]) ; 
+			load! data
+				load! iki şey yapar:
+					serverdan data tree çeker
+					bu veriyi normalleştirip client DB ile birleştirir (merge)
+				merge-component! örneği:
+					(merge/merge-component!
+						app
+						Person
+						person-tree)
+					person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir:
+						{:person/id  {1  {:person/id 1   :person/fname "Jo" :person/address [:address/id 11]}}
+						 :address/id {11 {:address/id 11 :address/street "Elm Street 7"}}}
+					nested data tree:
+						(def person-tree
+							{:person/id 1
+							 :person/fname "Jo"
+							 :person/address {:address/id 11
+																:address/street "Elm Street 7"}})
+					stateful componentler:
+						(defsc Address [_ _]
+							{:query [:address/id :address/street]
+							 :ident :address/id})
+							 ;; reminder: `:address/id` is a shorthand for
+							 ;; (fn [:address/id (:address/id props)])
+						(defsc Person [_ _]
+							{:query [:person/id :person/fname
+											 {:person/address (comp/get-query Address)}]
+							 :ident :person/id})
+				when to load! ?
+					Kendin serverdan veriyi yüklemelisin, fulcro senin için yüklemez.
+					Şu zamanlarda yükleyebilirsin:
+					1. app başlarken
+					2. event handler içinde (onClick)
+					3. component mount edildiğinde
+					4. component gösterileceği vakit (deferred routing)
+				what to load! ?
+Guide to learning Fulcro :: Fulcro Community Guide to learning Fulcro :: Fulcro Community  id=g12366
+	[Guide to learning Fulcro :: Fulcro Community](https://fulcro-community.github.io/guides/guide-learning-fulcro/index.html)
+	1. Study: Minimalist Fulcro Tutorial :: Fulcro Community <url:file:///~/projects/study/clj/articles_clojure.otl#r=g12367>
+	2. Watch Fulcro Tutorial Videos 1-7
+	3. Read Fulcro Developers Guide 1-4
+	4. Play with fulcro-template
+	5. Revisit awesome-fulcro
+Fulcro Explained: When UI Components and Data Entities Diverge id=g12363
+	[Holy on Dev: Fulcro Explained: When UI Components and Data Entities Diverge](https://blog.jakubholy.net/2020/fulcro-divergent-ui-data/)
+	UI component defines a Data Entity
+		defsc
+		defines both:
+			a data entity such as Person
+			a UI component to display it
+		has either:
+			static identifier 
+				ex: `:ident (fn [] [:component/id ::AllPeopleList])`
+				uses lambda form
+				when entity is a singleton
+			dynamic ident
+				ex: `:ident (fn [] [:person/id (:person/id props)])`
+					props dependent
+				ex: `:person/id`
+					keyword form
+	A UI-only component
+		when: no stateful descendant
+			make `defsc` with no `:ident :query :initial-state`
+		ex: stateless component with stateful child
+			then let parent control stateful descendant, composing its query 
+	A data-only component (query component)
+	Multiple UI views of a single Data Entity
+	A Data Entity spread across multiple (sibling) components
+	Accessing top-level data from a nested component
+Eql Pathom Overview :: Fulcro Community id=g12368
+	[Eql Pathom Overview :: Fulcro Community](https://fulcro-community.github.io/guides/tutorial-eql-pathom-overview/index.html)
+	data:
+	transaction = EQL interaction
+	query = read only transaction
+		describe the data you want = description of the shape of the data
+	ex01: Query for properties
+		query
+			[{:all-lists [:list/id :list/name]}]
+		response
+			{:all-lists
+				[{:list/id 1 :list/name "Personal"}
+				 {:list/id 2 :list/name "Work"}]}
+	ex02: Join
+		query
+			[{:all-lists [:list/name :list/items]}]
+		response
+		  {:all-lists
+			 [{:list/name "Personal"
+				 :list/items [{:todo/id 1}
+											{:todo/id 2}
+											{:todo/id 3}]}
+				{:list/name "Work"
+				 :list/items [{:todo/id 4}
+											{:todo/id 5}
+											{:todo/id 6}]}]}
+	ex03: Join with specific properties of nested data
+		query
+			[{:all-lists [{:list/items [:todo/label]}]}]
+		response
+			{:all-lists
+			 [{:list/id 1
+				 :list/name "Personal"
+				 :list/items [{:todo/label "Buy Milk"
+											 :todo/label "Cook Dinner"
+											 :todo/label "Mail Letter"}]}
+		query
+			[{:all-lists [:list/id :list/name {:list/items [:todo/label]}]}]
+			[{:all-lists [:list/name {:list/items [:todo/label {:todo/notes [:note/content]}]}]}]
+	Ident
+		restrict/filter the data
+		key-value
+			key specifies filter (from and where)
+			value specifies properties (select)
+		ex
+			query
+				{[:list/id 1]
+				 {:list/name Clojure}}
+			response
+				{[:list/id 1]
+				 {:list/name Clojure}}
+	Mutations
+		ex:
+			[(add-todo! {:list/id 1 :todo/label "Pet Mr. Fluffy" :todo/status :not-started})]
+		vector of a list of two elements:
+			1. symbol: name of mutation
+			2. map: data to add
+Introduction | Pathom id=g12369
+	[Introduction | Pathom](https://blog.wsscode.com/pathom/v2/pathom/2.2.0/introduction.html)
+	[Resolvers | Pathom](https://blog.wsscode.com/pathom/v2/pathom/2.2.0/connect/resolvers.html)
+Implementing custom Om.next parsers | by Wilker Lucio  id=g12372
+	[Implementing custom Om.next parsers | by Wilker Lucio | Medium](https://medium.com/@wilkerlucio/implementing-custom-om-next-parsers-f20ca6db1664)
+	read: [Om Next Query Syntax Explained · anmonteiro](https://anmonteiro.com/2016/01/om-next-query-syntax/)
+Demand-Driven Architecture - David Nolen id=g12374
+	[Demand-Driven Architecture](https://www.infoq.com/presentations/domain-driven-architecture/)
+	@anki-cards
+		Supply driven architecture
+			backend servisleri belirtir
+			istemci tek bir alan bile eklemek istese, backend yazılımcısına talepte bulunur.
+		Supply driven architecture problemleri neler?
+			Gelecekteki istemcilerin ihtiyaçlarını tahmin edemeyiz
+			Herkesin aynı anda versiyon yükseltmesini sağlayamazsın (senkronizasyon çok zordur)
+			Latency really matters (n requests)
+		Demand driven architecture
+			Represent client demand as data
+			istemci neye ihtiyacı olduğunu belirtir
+			- hangi bilgiye
+			- bu bilginin şekline (shape)
+		EQL vs. SQL
+			SQL: bir string 
+			EQL: data structure.
+			semantik çok daha zengin
+		User interfaces in demand driven architecture
+			UI are trees
+			We can annotate UI components with query fragments
+			ContactListView:
+				[:person/first-name {person/address ...}]
+	Clients
+		how to serve n clients with 1 service?
+		Sürekli yeni istemcileri desteklememiz gerekiyor
+	Sorun: her farklı istemcinin farklı ihtiyaçları var
+		opt01: REST service
+			sadece tek bir resource yetmiyor, bunu başka resourcelarla join etmen gerekiyor
+			bu durumda backend sorgularını mı değiştirmelisin, yoksa client tarafında n tane sorgu mu yapmalısın?
+			backend sorgularını değiştirirsen => karmaşık servisler
+			client tarafında n sorgu yaparsan => latency artar
+	Geleneksel çözüm: Supply driven architecture
+		backend servisleri belirtir
+		istemci tek bir alan eklemek isterse, backend yazılımcısına talepte bulunur.
+			bir hafta bekler.
+			ancak o zaman bunu frontendde gerçekleştirebilir
+		bir süre sonra REST servisler, karmakarışık hale gelir
+			sadece bir istemcinin bir ihtiyacı için karmaşıklaşmış servisler ortaya çıkar
+	Sorunlar
+		Gelecekteki istemcilerin ihtiyaçlarını tahmin edemeyiz
+		Herkesin aynı anda versiyon yükseltmesini sağlayamazsın (senkronizasyon çok zordur)
+		İstemci uygulamaları dağıtık uygulamalardır
+			Latency really matters
+			Mimarin latency'yi dikkate almalıdır
+		Bu sorunlar aslında eski dağıtık sistemlerde de vardı
+			Geleneksel çözüm: RDBMS
+				RDBMS bu sorunu çözmek için ortaya çıkmıştı
+				Clientlar ne istiyorsa, bunu veritabanından kendileri isteyebilmeli
+			Batching (latency): 
+				Bunun üzerine çok düşünüldü
+				Bağlantı kurmak ve veriyi almak çok maliyetli
+				Batch edebilmen lazım
+	Ne yapılabilir?
+		Endpoint sınırlayıcı olsun ama aynı zamanda expressive sorgu dili sunsun
+			SQL endpoint olmasın ama bir miktar onun gücünde olsun
+		Can an endpoint evolve with clients?
+		Can an endpoint serve multiple tiers of demand from a client?
+			Heterojen sistemler: 
+				mikroservisler, SQL veritabanları, 3. parti yazılımlar
+				ancak client tek bir mantıksal sonuç istiyor
+	Demand driven architecture
+		opt01: kod olarak 
+		opt02: data olarak
+		opt03: server tarafında
+		opt04: client tarafında
+		Teklif: data olarak, client tarafında
+			data kolay değiştirilebilir
+			karmaşıklığı client tarafında kapsüllemeliyiz
+	Ana fikir
+		Represent client demand as data
+			istemcinin ihtiyaçlarını önceden öngöremeyiz, istemci ne istiyorsa onu söylesin
+			REST ile çelişir bu:
+				Tek bir servis yoktur
+				istemcinin çok sayıda talepte bulunması gerekir
+		İki sonucu var bunun:
+			Variation captured in data, on the client
+				Bir  değişiklik olacağı vakit, sadece tek bir yerde ve data içinde değişiklik yapılır
+				Server kodunun değişmesi gerekmez
+			Explicit Contract between client and service
+				Servis istemcinin ihtiyaçlarıyla ilgili varsayımda bulunması gerekmez
+				İstemcinin de servisin sunabilecekleriyle ilgili
+	Prensipler
+		Demand: istemci neye ihtiyacı olduğunu belirtir
+			hangi bilgiye
+			bu bilginin şekline (shape)
+		Composition: recursive data structure = a tree
+			Neden?
+				Variation in composition
+				Batching
+					Her bir demand parçası, geçerli bir requesttir
+					Ancak kompozisyon sayesinde daha büyük talepler oluşturabiliriz
+		Interpretation
+			demand: simple recursive data structure
+			client doesn't care about data source
+			servis bunu nereden alacağını kendi yorumlayıp toplar
+			tezat: SQL
+				bir string göndeririz
+				semantik çok zengindir
+	Demo: Query yorumlama
+		query
+			[{:app/contacts [:person/first-name]}]
+		response
+			{:app/contacts
+			 [{:person/first-name "Bob"}
+			  {:person/first-name "Ali"}]}
+		nasıl bunu interpret eder servis?
+			:app/contacts -> router
+			her bir contact için: subquery'yi göndeririz ve onu yorumlarız
+			:person/first-name -> router -> query
+		router bizim query engine'imiz
+		veri kaynağı: RDBMS de olabilir başka bir şey de
+	Demo: Composition
+		query
+			[{:app/contacts                               ;; router
+			  [:person/first-name                         ;; query
+				 {:person/address [:address/zip-code]}]}]   ;; subquery
+	User interfaces
+		UI are trees
+		We can annotate UI components with query fragments
+	Nasıl bunu yapacağız?
+		Root view:
+			AppView
+				[{:app/contacts ...}]
+		Alt viewlar:
+			ContactListView
+				[:person/first-name {person/address ...}]
+		Böylece gelen datanın bir daha reshape edilmesi gerekmez
+Om Next - David Nolen - YouTube id=g12373
+	[Om Next - David Nolen - YouTube](https://www.youtube.com/watch?v=ByNs9TG30E8)
+	@anki-cards
+		REST ile çözülemeyen temel problem
+			client-server senkronizasyonu
+		Datomic Pull Syntax simplified
+			it is recursive select-keys
+			(select-keys {:a 1 :b 2} [:a :c])
+			;;=> {:a 1}
+	REST ile çözülemeyen temel problem: client-server senkronizasyonu
+	Demand driven approach
+		[Demand-Driven Architecture](https://www.infoq.com/presentations/domain-driven-architecture/)
+	Datomic Pull Syntax
+		it is recursive select-keys
+		(select-keys {:a 1 :b 2} [:a :c])
+		;;=> {:a 1}
+Implementing Graph API's with Clojure - Wilker Lúcio - YouTube id=g12375
+	[Implementing Graph API's with Clojure - Wilker Lúcio - YouTube](https://www.youtube.com/watch?v=r3zywlNflJI)
+	@anki-cards
+		Write a pathom resolver to get youtube video data
+			(defresolver `youtube-video-by-id
+				{::pc/input  #{:youtube.video/id}
+				 ::pc/output [:youtube.video/id
+											:youtube.video/title]}
+				(fn [env {:keys [youtube.video/id]}]
+					(some-> (youtube env (str "/videos?part=snippet&id=" id))
+									:items first
+									(adapt-video))))
+			(defn youtube [{:keys [youtube.api/token]} path]
+				(-> (http/get (str "https://www.googleapis.com/youtube/v3" path "&key=" token)
+						{:as :auto})
+					:body))
+	https://github.com/wilkerlucio/clojure-days-clojure-graph-presentation/blob/master/src/clojure_graphs_presentation_demo/indexes.clj
+		(defresolver `youtube-video-by-id
+			{::pc/input  #{:youtube.video/id}
+			 ::pc/output [:youtube.video/id
+										:youtube.video/published-at
+										:youtube.video/title
+										:youtube.video/description
+										:youtube.channel/id
+										:youtube.channel/title]}
+			(fn [env {:keys [youtube.video/id]}]
+				(some-> (youtube env (str "/videos?part=snippet&id=" id))
+								:items first
+								(adapt-video))))
+		(defn youtube [{:keys [youtube.api/token]} path]
+			(-> (http/get (str "https://www.googleapis.com/youtube/v3" path "&key=" token)
+					{:as :auto})
+				:body))
+The Maximal Graph - Wilker Silva - YouTube id=g12376
+	[The Maximal Graph - Wilker Silva - YouTube](https://www.youtube.com/watch?v=IS3i3DTUnAI&t=1220s)
+	@anki-cards
+		Diffs bw GraphQL and EQL
+			Enums
+			Variables
+			Fragment (alt sorgu cümleleri)
+			Directives (if vb. mantık kuralları)
+			Types
+		EQL: Enum çözümü?
+			use specs
+			(s/def :s/episodes #{hope empire jedi})
+		EQL: Çözüm? Variables
+			plain clojure symbols
+			(defn a-query [episode]
+				[{(:movie/hero {:movie/episode episode})}])
+		EQL: Çözüm? Fragment (alt sorgu cümleleri)
+			(def character-fields
+				[:character/name
+				 :character/appears-in])
+			[{(:movie/hero {:movie/episode})
+				character-fields}]  ;; uses a global variable
+	Parameters
+		[{(:movie/hero {:movie/episode "Modern Family"})}])
+	Diffs bw GraphQL and EQL
+		Not on EQL
+			Enums
+				use specs
+				ex:
+					(s/def :s/episodes #{hope empire jedi})
+			Variables
+				GraphQL is a text based PL
+				thus you cannot interpolate variables
+				but this is possible in EQL
+				ex:
+					(defn a-query [episode]
+						[{(:movie/hero {:movie/episode episode})}])
+			Fragment
+				EQL can use simple data structures
+				ex:
+					(def character-fields
+						[:character/name
+						 :character/appears-in])
+					[{(:movie/hero {:movie/episode})
+					  character-fields}]  ;; uses a global variable
+			Directives
+				using `if` in GraphQL
+				use clojure if
+		Interpretation
+			GQL has types
+				EQL has properties
+				use specs for defining schema
+				Pathom resolvers
+					represent edges on graph
+					are maps
+					enable auto-complete
+			Execution
+		Flattening
+			Gereksiz içiçelikleri kaldırabilir
+		Globals
+			Inputu olmayan resolverlar globaldır
+			İstediğin yerde kullanabilirsin
+			ex:
+				(pc/defresolver server-time [_ _]
+					{::pc/input #{}
+					 ::pc/output [:awesome-store/server-time]})
+				[:awesome-store/server-time
+				 {[:customer/id 2]
+				 [:awesome-store/server-time]}]
+		Placeholders
+			Flatteningin tam tersi
+			ex:
+		GQL integration
+		Property Alias
+		...
+Fulcro Developers Guide id=g12379
+	[Fulcro Developers Guide](https://book.fulcrologic.com/#_core_concepts)
+	3. Core Concepts
+		Client DB Naming Conventions
+			UI components | :ui/name
+			Tables | :person/id ~ :entity-type/index-name
+			Root properties | :root/prop-name
+			Node properties | :entity-type/prop-name ex: :person/name 
+			Singleton components | ::Component
+	4. Getting Started
+		Create project
+			ref:
+				~/projects/study/clj/ex/study_fulcro/app/deps.edn
+			mkdir and npm 
+				mkdir | mkdir -p src/main src/dev resources/public
+				npm install | npm install shadow-cljs react react-dom --save
+			deps.edn
+				:paths | :paths   ["src/main" "resources"]
+				:deps | :deps {org.clojure/clojure ... com.fulcrologic/fulcro ...}
+				:aliases :dev | {:extra-paths .. :extra-deps ..}
+				:aliases :dev :extra-deps | {org.clojure/clojurescript .. thheller/shadow-cljs .. binaryage/devtools ..}
+			shadow-cljs.edn
+				:deps | {:aliases [:dev]}
+				:builds :main | {:target .. :output-dir .. :asset-path .. :modules .. :devtools .. }
+			HTML File
+				<div id="app"..
+				<script src="/js/main/main.js"..
+			Application Sources
+				app path | src/main/app/client.cljs
+				app top level forms | (defonce app ..) (defsc Root ..) (defn init ..) (defn refresh ..)
+			Build it
+				npx shadow-cljs server
+			Using the REPL
+				:nrepl {:port 9000} ; shadow-cljs.edn
+				(shadow/repl :main) ; cursive
+		Basic UI Components
+			render method
+				body of defsc = render method of React component
+				(dom/div {:id "id" :className "x y z" :style {:color "red"}} ...)
+				(dom/div :.x.y.z#id {:style {:color "red"}} ...)
+			element factory
+				ex:
+				(def ui-person (comp/factory Person))
+			ex: Person with name, age properties. component witout metadata and element factory 
+				(defsc Person [this {:person/keys [name age]}]
+					(dom/div
+						(dom/p "Name: " name)
+						(dom/p "Age: " age)))
+				(def ui-person (comp/factory Person))
+				(defsc Root [this props]
+					(dom/div
+						(ui-person {:person/name "Joe" :person/age 22})))
+

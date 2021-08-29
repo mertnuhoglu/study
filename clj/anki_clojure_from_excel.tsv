@@ -1,0 +1,253 @@
+clj00001	"query <br>
+<br>
+·· [{:all-lists [:list/id :list/name]}]"	"response <br>
+<br>
+·· {:all-lists <br>
+···· [{:list/id 1 :list/name ""Personal""} <br>
+····  {:list/id 2 :list/name ""Work""}]}"
+clj00002	"join query <br>
+<br>
+·· [{:all-lists [{:list/items [:todo/label]}]}]"	"response <br>
+<br>
+·· {:all-lists <br>
+··  [{:list/id 1 <br>
+······  :list/name ""Personal""
+······  :list/items [{:todo/label ""Buy Milk""
+··················          :todo/label ""Cook Dinner""
+··················          :todo/label ""Mail Letter""}]}"
+clj00003	"Ident query <br>
+<br>
+·· {[:list/id 1] <br>
+··  {:list/name Clojure}}"	"response <br>
+<br>
+·· {[:list/id 1] <br>
+··  {:list/name Clojure}}"
+clj00004	Supply driven architecture	"backend servisleri belirtir <br>
+istemci tek bir alan bile eklemek istese, backend yazılımcısına talepte bulunur <br>
+"
+clj00005	Supply driven architecture problemleri neler?	"Gelecekteki istemcilerin ihtiyaçlarını tahmin edemeyiz <br>
+Herkesin aynı anda versiyon yükseltmesini sağlayamazsın (senkronizasyon çok zordur) <br>
+Latency really matters (n requests)"
+clj00006	Demand driven architecture	"Represent client demand as data <br>
+istemci neye ihtiyacı olduğunu belirtir <br>
+- hangi bilgiye <br>
+- bu bilginin şekline (shape)"
+clj00007	EQL vs. SQL	"SQL: bir string  <br>
+EQL: data structure. <br>
+semantik çok daha zengin"
+clj00008	User interfaces in demand driven architecture	"UI are trees <br>
+We can annotate UI components with query fragments <br>
+ContactListView: <br>
+·· [:person/first-name {person/address ...}]"
+clj00009	REST ile çözülemeyen temel problem	client-server senkronizasyonu <br>
+clj00010	Datomic Pull Syntax simplified	"it is recursive select-keys <br>
+(select-keys {:a 1 :b 2} [:a :c]) <br>
+;;=&gt; {:a 1}"
+clj00011	Write a pathom resolver to get youtube video data	"(defresolver `youtube-video-by-id <br>
+·· {::pc/input  #{:youtube.video/id} <br>
+··  ::pc/output [:youtube.video/id <br>
+················ :youtube.video/title]} <br>
+·· (fn [env {:keys [youtube.video/id]}] <br>
+···· (some-&gt; (youtube env (str ""/videos?part=snippet&id="" id)) <br>
+············ :items first <br>
+············ (adapt-video)))) <br>
+(defn youtube [{:keys [youtube.api/token]} path] <br>
+·· (-&gt; (http/get (str ""https://www.googleapis.com/youtube/v3"" path ""&key="" token) <br>
+······ {:as :auto}) <br>
+···· :body))"
+clj00012	Diffs bw GraphQL and EQL	"Enums <br>
+Variables <br>
+Fragment (alt sorgu cümleleri) <br>
+Directives (if vb. mantık kuralları) <br>
+Types"
+clj00013	EQL: Enum çözümü?	"use specs <br>
+(s/def :s/episodes #{hope empire jedi})"
+clj00014	EQL: Çözüm? Variables	"plain clojure symbols <br>
+(defn a-query [episode] <br>
+·· [{(:movie/hero {:movie/episode episode})}])"
+clj00015	EQL: Çözüm? Fragment (alt sorgu cümleleri)	"(def character-fields <br>
+·· [:character/name <br>
+··  :character/appears-in]) <br>
+[{(:movie/hero {:movie/episode}) <br>
+·· character-fields}]  ;; uses a global variable"
+clj00016	App (in fulcro)	"Fulcro application  <br>
+produced by `app/fulcro-app`"
+clj00017	Client DB (in fulcro)	"map of maps <br>
+entity name -&gt; id -&gt; properties <br>
+id property = entity name <br>
+{:person/id  {123 {:person/id 123, :person/fname ""Jo"", :person/address [:address/id 3]}}}"
+clj00018	UI Component (in fulcro)	"React component with meta data (query, ident) <br>
+stateful = has a query <br>
+stateless = otherwise = UI-only"
+clj00019	Data entity (in fulcro)	a part of frontend data model with an identity <br>
+clj00020	EQL server (in fulcro)	pathom implementation in backend <br>
+clj00021	Ident (in fulcro)	"of a data entity: identify of a data entity <br>
+ID property name and a value <br>
+of a component: a function that returns an ident <br>
+"
+clj00022	Mutation (in fulcro)	"components submit a mutation that describes desired change <br>
+local or remote <br>
+for fulcro: request to load data from backend is also a mutation (local)"
+clj00023	Normalization of data (in fulcro)	entities do not include other entities but only their idents <br>
+clj00024	Query (in fulcro)	stateful components declare what data they need using an EQL query (query fragment) <br>
+clj00025	Resolver  (in fulcro)	"takes 0..1 input, optional parameters <br>
+outputs a tree of data <br>
+ex: ::pc/output [{:all-blogs [:blog/id :blog/title :blog/content]}]  <br>
+·· return {:all-blogs [{:blog/id 1, ..}, ..]}.  <br>
+·· any query that asks for :all-blogs can be ""parsed"" and answered. <br>
+"
+clj00026	Root component (in fulcro)	top component of UI, `Root` <br>
+clj00027	Transaction subsystem (in fulcro)	"an async queue <br>
+components submit mutations to transaction subsystem for execution with `transact!`"
+clj00028	; Destructuring qualified keywords ~/projects/study/clj/clojure.md#r=g12377&gt;	"(def props {:car/make ""Škoda"", :ui/selected? false}) <br>
+<br>
+;; 1. :&lt;ns&gt;/keys [..] <br>
+(let [{:car/keys [make], :ui/keys [selected?]} props] [make selected?]) <br>
+<br>
+;; 2. :keys [&lt;ns1&gt;/key1, &lt;ns2&gt;/key2, ...] <br>
+(let [{:keys [car/make ui/selected?]} props] [make selected?]) <br>
+<br>
+;; 3. &lt;symbol&gt; &lt;qualified keyword&gt; <br>
+(let [{make :car/make, selected? :ui/selected?]} props] [make selected?])"
+clj00029	; Destructuring qualified keywords of alias namespaces  ~/projects/study/clj/clojure.md#r=g12378>	"; Alias ile qualify edilen keyword iki tane `:` gerektirir: `::<ns_alias>/kwd` <br>
+; Eğer alias ile qualify etmeden çift `:` kullanırsan, current ns ile genişletilir: `::kwd` = `:&lt;current_ns&gt;/kwd` <br>
+(ns myns (:require [my.domain.car :as car])) <br>
+(def props {::car/make ""Škoda"", :my.domain.car/year 2020, ::sold? true}) <br>
+(let [{::car/keys [make year], ::keys [sold?], sold2? :myns/sold?} props] <br>
+·· (println make year sold? sold2?)) <br>
+; OUT&gt; Škoda 2020 true true"
+clj00030	defsc	define stateful component (React class-based component) <br>
+clj00031	Parts of Fulcro stateful component	"defsc = React class-based component = produces a JS class <br>
+·· (defsc Person [&lt;arguments&gt;] <br>
+···· {&lt;meta data&gt;} <br>
+···· (&lt;body&gt;)) <br>
+factory = creates React elements <br>
+·· (def ui-person (comp/factory Person))"
+clj00032	Parts of defsc (React class-based component)	"arguments: `this` and `props` <br>
+meta data: `:query` and `:ident` <br>
+body: `render` method of the React component = produces DOM elements <br>
+Note: props and query mirror each other"
+clj00033	Example Fulcro component: Person with properties id, fname, email, address	"(defsc Person <br>
+·· [this {:person/keys [fname email address] :as props}] ;  <br>
+·· {:query [:person/id :person/fname :person/email       ;  <br>
+··········  {:person/address (comp/get-query Address)}] <br>
+··  :ident (fn [] [:person/id (:person/id props)])}      ;  <br>
+·· (div                                                  ;  <br>
+···· (p ""Name: "" fname "", email: "" email) <br>
+···· (ui-address address))) <br>
+(def ui-person (comp/factory Person))"
+clj00034	props	map of data passed in by the parent component <br>
+clj00035	query part of component:	"what props the component needs, including the needs of its child components <br>
+(defsc Person <br>
+·· [_ _] <br>
+·· {:query [:person/id :person/fname :person/email <br>
+··········  {:person/address (comp/get-query Address)}] <br>
+··  ..} ..) <br>
+Note: Address componentinin ihtiyacını `comp/get-query` ile içerir"
+clj00036	Query composition and data `flow	"/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210828_081728.jpg` <br>
+Root komponenti tüm alt komponentlerden query'leri toplar <br>
+Bunları birleştirip client db'ye gönderir <br>
+Client db tree of data döner <br>
+Root bunları kendi çocuklarına dağıtır (propagates down)"
+clj00037	Query vs query fragment	"defsc'lerin sorguları bağımsız birer sorgu değil, birer sorgu parçası. <br>
+Ancak üst sorgu bağlamı içinde bir anlam ifade eder <br>
+Örn: `[:person/id :person/fname]` <br>
+Bu sorgu parçası hangi person olduğunu belirtmez. Bu bilgi üst sorgudan gelir: <br>
+Örn: [{:all-people [&lt;insert here&gt;]}] (in an imaginary AllPeopleList component)"
+clj00038	Ident tanımlama yolları:	"(defsc Person <br>
+·· [_ props] <br>
+·· {.. <br>
+··  ;; There are three ways to specify an ident, here all are equal: <br>
+··  :ident (fn [] [:person/id (:person/id props)])} ..) ; lambda form <br>
+··  ;; = the template form: [:person/id :person/id] <br>
+··  ;; = the keyword  form: :person/id"
+clj00039	Parts of an Ident for a data entity:	"template form <br>
+2-element vector: `[:person/id 123]` <br>
+name of ID property <br>
+its value"
+clj00040	Ident for a component:	"lambda form <br>
+`(fn [] [:person/id (:person/id props)])` <br>
+a function that returns the ident of the associated data entity"
+clj00041	Ident for a singleton component:	"`:ident (fn [] [:component/id :AllPeopleList])` <br>
+property name: `component/id` <br>
+hardcoded value: usually its name as keyword"
+clj00042	Why do we need component idents?	To tell Fulcro what is the ID property of an entity so that it can normalize its data into the client database. <br>
+clj00043	shorthand for lambda form	":ident :address/id <br>
+;; shorthand for <br>
+:ident (fn [:address/id (:address/id props)]) <br>
+:initial-state ne işe yarar? <br>
+ilk render (first frame) sırasında yüklenecek propları tanımlar <br>
+:initial-state (fn [params] &lt;data&gt;)"
+clj00044	parts of a component's body:	"1. HTML classes and element ID <br>
+2. map of HTML tag's attributes <br>
+3. children <br>
+(dom/&lt;tag&gt; ; or &lt;ns&gt;/&lt;Fulcro component factory name&gt; for components <br>
+·· &lt;[optional] keyword encoding classes and an element ID&gt; ;  <br>
+·· &lt;[optional] map of the tag's attributes (or React props)&gt; ;  <br>
+·· &lt;[optional] children&gt;) ; "
+clj00045	ex: component body:	"(dom/h2 :.ui.message#about <br>
+·· {:style {:background ""1px solid black""} <br>
+··  :classes [""my-heading"" (when (:important? props) ""important"")]} <br>
+·· ""About"")"
+clj00046	returning multiple elements	"wrap them in a sequence or comp/fragment <br>
+React requires them to have a unique `:key` <br>
+ex: `(defsc X [_ _] [(dom/p {:key ""a""} ""a"") (dom/p {:key ""b""} ""b"")])`"
+clj00047	assigning a unique `:key` to every instance of a fulcro component. ör: bir map dönüyorsun, bunun her bir öğesine nasıl tekil `:key` atarsın?	"ör: `(map ui-employee (:department/employees props))` <br>
+comp/factory'nin ikinci argümanı bir fonksiyon alır ve bu tekil `:key` döner: <br>
+(def ui-employee (comp/factory Employee {:keyfn :employee/id})) <br>
+;; assuming the Employee component has the (unique) :employee/id prop"
+clj00048	bir komponent ne için mutasyon kullanır?	"kendi dışında bir şeyi değiştirmek için <br>
+ör: upload file, change data in client DB, change data on server-side <br>
+comp/transact! ile"
+clj00049	mutation yapan transact! fonksiyonu ne bekler?	"sequence of data <br>
+(comp/transact! app-or-component <br>
+·· [(&lt;fully qualified symbol&gt; &lt;params map&gt;), ...])"
+clj00050	local and remote mutation örneği:	"#?(:cljs <br>
+···· ;; client-side <br>
+···· (m/defmutation delete-employee [{id :employee/id :as params}] ;  <br>
+······ (action [{:keys [app state] :as env}]          ;  <br>
+········ (swap! state update :employee/id dissoc id)) <br>
+······ (remote [env] true)                            ;  <br>
+······ (ok-action [{:keys [app state result]}]        ;  <br>
+········ (println ""It worked!""))) <br>
+·· :clj <br>
+···· ;; server-side <br>
+···· (pc/defmutation delete-employee [env {id :employee/id :as params}]) ;  <br>
+······ {::pc/params #{:employee/id}} <br>
+······ (db/delete-employee id) <br>
+······ nil)) <br>
+;; Somewhere in a component: <br>
+(comp/transact! this [(delete-employee {:employee/id id})])   ;  <br>
+;; or: <br>
+(comp/transact! this `[(delete-employee {:employee/id ~id})]) ; "
+clj00051	load! iki şey yapar:	"serverdan data tree çeker <br>
+bu veriyi normalleştirip client DB ile birleştirir (merge)"
+clj00052	merge-component! örneği:	"(merge/merge-component! <br>
+·· app <br>
+·· Person <br>
+·· person-tree) <br>
+person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir: <br>
+·· {:person/id  {1  {:person/id 1   :person/fname ""Jo"" :person/address [:address/id 11]}} <br>
+··  :address/id {11 {:address/id 11 :address/street ""Elm Street 7""}}} <br>
+nested data tree: <br>
+·· (def person-tree <br>
+···· {:person/id 1 <br>
+····  :person/fname ""Jo""
+····  :person/address {:address/id 11 <br>
+·················· 		:address/street ""Elm Street 7""}}) <br>
+stateful componentler: <br>
+·· (defsc Address [_ _] <br>
+···· {:query [:address/id :address/street] <br>
+····  :ident :address/id}) <br>
+····  ;; reminder: `:address/id` is a shorthand for <br>
+····  ;; (fn [:address/id (:address/id props)]) <br>
+·· (defsc Person [_ _] <br>
+···· {:query [:person/id :person/fname <br>
+············  {:person/address (comp/get-query Address)}] <br>
+····  :ident :person/id})"
+clj00053	when to load! ?	"Kendin serverdan veriyi yüklemelisin, fulcro senin için yüklemez. <br>
+Şu zamanlarda yükleyebilirsin: <br>
+1. app başlarken <br>
+2. event handler içinde (onClick) <br>
+3. component mount edildiğinde <br>
+4. component gösterileceği vakit (deferred routing)"

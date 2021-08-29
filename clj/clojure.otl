@@ -7,6 +7,9 @@ index
 	idioms - kendime göre özetler <url:file:///~/projects/study/clj/clojure.otl#r=g12080>
 	Weird Characters <url:file:///~/projects/study/clj/book_clojure_documentation.md#r=g11401>
 	editors clojure <url:file:///~/projects/study/clj/clojure.otl#r=g12360>
+	anki clojure
+		~/projects/study/clj/anki_clojure_from_excel.tsv
+		~/projects/study/clj/anki_clojure.tsv
 clojure
 	authors id=g11837
 		Rich Hickey - Clojure
@@ -539,10 +542,12 @@ topics
 			; defonce <url:clojure.md#r=g11290>
 			(defonce foo 5)
 			(defonce foo 10) ;; => nil
-		namespaced keyword
+		namespaced keyword (qualified keywords) (namespaced maps)
 			; namespaced keyword notations <url:clojure.md#r=g11294>
 			#:a{:b :c} ;; => #:a{:b :c}
 			{:a/b :c} ;; => #:a{:b :c}
+			ref: Destructuring qualified keywords <url:file:///~/projects/study/clj/clojure.md#r=g12377>
+			ref: Destructuring qualified keywords of alias namespaces  <url:file:///~/projects/study/clj/clojure.md#r=g12378>
 		file read
 			; slurp: read file url <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g11404>
 			(spit "tmp.txt" "test")
@@ -771,6 +776,22 @@ topics
 				(let [[a b & c :as d] [1 2 3 4]] [d]) ;; => [[1 2 3 4]]
 				(let [{a :a, c :c}  {:a 5 :c 6}] [a c]) ;; [5 6]
 				(let [{a :a, :as m} {:a 2 :b 3}] [a m]) ;; => [2 {:a 2, :b 3}]
+			; Destructuring qualified keywords <url:file:///~/projects/study/clj/clojure.md#r=g12377>
+				(def props {:car/make "Škoda", :ui/selected? false})
+				;; 1. :<ns>/keys [..]
+				(let [{:car/keys [make], :ui/keys [selected?]} props] [make selected?])
+				;; 2. :keys [<ns1>/key1, <ns2>/key2, ...]
+				(let [{:keys [car/make ui/selected?]} props] [make selected?])
+				;; 3. <symbol> <qualified keyword>
+				(let [{make :car/make, selected? :ui/selected?]} props] [make selected?])
+			; Destructuring qualified keywords of alias namespaces  <url:file:///~/projects/study/clj/clojure.md#r=g12378>
+				; Alias ile qualify edilen keyword iki tane `:` gerektirir: `::<ns_alias>/kwd`
+				; Eğer alias ile qualify etmeden çift `:` kullanırsan, current ns ile genişletilir: `::kwd` = `:<current_ns>/kwd`
+				(ns myns (:require [my.domain.car :as car]))
+				(def props {::car/make "Škoda", :my.domain.car/year 2020, ::sold? true})
+				(let [{::car/keys [make year], ::keys [sold?], sold2? :myns/sold?} props]
+					(println make year sold? sold2?))
+				; OUT> Škoda 2020 true true
 		anonymous functions
 			; anonymous functions <url:clojure.md#r=g11304>
 				(#(identity %&) 1 "blarg" :yip) ;; => (1 "blarg" :yip)

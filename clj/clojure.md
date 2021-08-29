@@ -572,9 +572,42 @@ https://clojuredocs.org/clojure.core/hash-map
 
 ``` clojure
   #:a{:b :c}
-;; => #:a{:b :c}
-{:a/b :c}
-;; => #:a{:b :c}
+	;; => #:a{:b :c}
+	{:a/b :c}
+	;; => #:a{:b :c}
+``` 
+
+### Destructuring qualified keywords id=g12377
+
+``` clojure
+;; Given:
+(def props {:car/make "Škoda", :ui/selected? false})
+
+;; 1. Destructure using (multiple) :<ns>/keys [..]:
+(let [{:car/keys [make], :ui/keys [selected?]} props]
+  (println make selected?))
+
+;; 2. Destructure using :keys [<ns1>/key1, <ns2>/key2, ...]:
+(let [{:keys [car/make ui/selected?]} props]
+  (println make selected?))
+
+;; 3. Destructure manually using <symbol> <qualified keyword> pairs:
+(let [{car-make :car/make, selected? :ui/selected?]} props]
+  (println make selected?))
+``` 
+
+### Destructuring qualified keywords of alias namespaces  id=g12378
+
+Alias ile qualify edilen keyword iki tane `:` gerektirir: `::<ns_alias>/kwd`
+
+Eğer alias ile qualify etmeden çift `:` kullanırsan, current ns ile genişletilir: `::kwd` = `:<current_ns>/kwd`
+
+``` clojure
+(ns myns (:require [my.domain.car :as car]))
+(def props {::car/make "Škoda", :my.domain.car/year 2020, ::sold? true})
+(let [{::car/keys [make year], ::keys [sold?], sold2? :myns/sold?} props]
+  (println make year sold? sold2?))
+; OUT> Škoda 2020 true true
 ``` 
 
 ## map-indexed function id=g11295

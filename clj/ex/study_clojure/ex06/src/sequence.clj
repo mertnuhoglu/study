@@ -547,6 +547,15 @@
 (select-keys song [:name :artist])
 ;;=> {:name "Agnus Dei", :artist "Krzysztof Penderecki"}
 
+; [select-keys - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/select-keys)
+
+(select-keys {:a 1 :b 2} [:a])
+;;=> {:a 1}
+(select-keys {:a 1 :b 2} [:a :c])
+;;=> {:a 1}
+(select-keys {:a 1 :b 2 :c 3} [:a :c])
+;;=> {:c 3, :a 1}
+
 ; 16.10 (merge map1 map2)
 
 (merge song {:size 8118166 :time 507245})

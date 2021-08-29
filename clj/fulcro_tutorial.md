@@ -15,9 +15,38 @@ state: wip
 
 ---
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+  - [Tutorial: video-series id=g11458](#tutorial-video-series-idg11458)
+    - [01: tag intro](#01-tag-intro)
+    - [02: tag initial-state](#02-tag-initial-state)
+    - [03: tag: dom+react](#03-tag-domreact)
+    - [04: tag: full-stack-1](#04-tag-full-stack-1)
+- [Fikir: fulcro oop ve frp arasında bir denge kuruyor gibi 20200701  id=g11459](#fikir-fulcro-oop-ve-frp-aras%C4%B1nda-bir-denge-kuruyor-gibi-20200701--idg11459)
+- [Tutorial video-series  id=g11484](#tutorial-video-series--idg11484)
+  - [Video: 02-Fulcro – Part 2 - Normalization-HCVzG2BLRwk](#video-02-fulcro--part-2---normalization-hcvzg2blrwk)
+  - [Video: 03-Fulcro – Part 3 - Initial State and Mutations-KJsFLmkdRig id=g11456](#video-03-fulcro--part-3---initial-state-and-mutations-kjsflmkdrig-idg11456)
+  - [04-Fulcro – Part 4  - Components, DOM, and React-vNKYl-5x8Ao](#04-fulcro--part-4----components-dom-and-react-vnkyl-5x8ao)
+  - [05-Fulcro – Part 5  - How Rendering Works-JBy_htHxygo](#05-fulcro--part-5----how-rendering-works-jby_hthxygo)
+  - [06-Fulcro – Part 6  - Full Stack Part One (Read Description for Optional Content)-F7QzFpo8pA0 id=g11457](#06-fulcro--part-6----full-stack-part-one-read-description-for-optional-content-f7qzfpo8pa0-idg11457)
+    - [backend resolvers](#backend-resolvers)
+      - [setup inspect debug tools](#setup-inspect-debug-tools)
+      - [join query](#join-query)
+      - [query with no input: global resolvers](#query-with-no-input-global-resolvers)
+    - [s: populate client when it starts id=g11482](#s-populate-client-when-it-starts-idg11482)
+    - [s: updating data in backend](#s-updating-data-in-backend)
+  - [07-Fulcro – Part 7  - Full Stack Operations Over Time-wuOnP5yufxU.mp4](#07-fulcro--part-7----full-stack-operations-over-time-wuonp5yufxump4)
+  - [08-Fulcro – Part 8  - Reasoning about Loads (over time)-Bistiamcz8Y.mp4](#08-fulcro--part-8----reasoning-about-loads-over-time-bistiamcz8ymp4)
+- [Restudy Tutorial 20200725](#restudy-tutorial-20200725)
+  - [initial-state id=g11486](#initial-state-idg11486)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Tutorial: video-series id=g11458
 
-`~/codes/clojure/fulcro/video-series`
+`~/codes/clojure/lib/fulcro/video-series`
 
 `ssh://git@github.com/fulcrologic/video-series`
 
@@ -28,14 +57,14 @@ state: wip
 opt01:
 
 ```bash
-cd ~/codes/clojure/fulcro/video-series
+cd ~/codes/clojure/lib/fulcro/video-series
 git checkout intro
 ```
 
 opt02:
 
 ```clojure
-cd /Users/mertnuhoglu/codes/clojure/fulcro/tutorial_tags/
+cd /Users/mertnuhoglu/codes/clojure/lib/fulcro/tutorial_tags/
 cd intro
 ```
 
@@ -49,7 +78,7 @@ npm install
 
 01. Change ports:
 
-Edit `~/codes/clojure/fulcro/tutorial_tags/initial-state/shadow-cljs.edn`
+Edit `~/codes/clojure/lib/fulcro/tutorial_tags/initial-state/shadow-cljs.edn`
 
 ```clojure
  :nrepl    {:port 9001}
@@ -465,7 +494,7 @@ s:
 
 You give to it `middleware`. It is a stack of ring middleware functions. 
 
-Check `~/codes/clojure/fulcro/video-series/src/app/server.clj`
+Check `~/codes/clojure/lib/fulcro/video-series/src/app/server.clj`
 
 ```clojure
 (def middleware (-> not-found-handler
@@ -519,7 +548,7 @@ There is no automatic hotcode reload in server. You need to trigger it when you 
 
 Ok, we have a server. Now we need to get client talk to the server.
 
-Check `~/codes/clojure/fulcro/video-series/src/app/client.cljs`
+Check `~/codes/clojure/lib/fulcro/video-series/src/app/client.cljs`
 
 We define the `APP` with `fulcro-app` function. And we have a map of `:remotes`
 

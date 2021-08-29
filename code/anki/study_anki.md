@@ -44,6 +44,12 @@ state: wip
   - Field 2 = Front
   - Field 3 = Back
 
+## From Excel
+
+Aynı şekilde, ancak çok satırlı hücreler kullanabilirsin.
+
+Bu durumda tsv'ye import etmeden önce, vim'de `ConvertAnkiTsv` fonksiyonuyla formatı düzeltmelisin.
+
 # Import md files into anki  id=g12355
 
 ## Basic Cards

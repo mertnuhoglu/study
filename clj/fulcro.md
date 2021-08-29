@@ -15,13 +15,46 @@ state: wip
 
 ---
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [index fulcro](#index-fulcro)
+  - [fulcro refcard](#fulcro-refcard)
+- [Article: Fulcro Developers Guide Getting Started id=g11472](#article-fulcro-developers-guide-getting-started-idg11472)
+- [Article: Demand-driven architecture: Relay, Falcor, Om.Next - Shaun Robinson - Medium id=g11451](#article-demand-driven-architecture-relay-falcor-omnext---shaun-robinson---medium-idg11451)
+- [Article: Val on Programming - DataScript as a Lingua Franca for domain modeling id=g11453](#article-val-on-programming---datascript-as-a-lingua-franca-for-domain-modeling-idg11453)
+  - [Plumbing-first vs Domain-first](#plumbing-first-vs-domain-first)
+  - [You're in the business of framework-authoring](#youre-in-the-business-of-framework-authoring)
+- [Article: The Benefits of Fulcro id=g11454](#article-the-benefits-of-fulcro-idg11454)
+- [Links: Fulcro links and resources - fulcro](#links-fulcro-links-and-resources---fulcro)
+- [Project: crudless-todomvc- Example TodoMVC powered by fulcro, pathom, and hasura](#project-crudless-todomvc--example-todomvc-powered-by-fulcro-pathom-and-hasura)
+- [Video: Why Build Solutions with Fulcro - Tom Toor - PMbGhgVf9Do id=g11455](#video-why-build-solutions-with-fulcro---tom-toor---pmbghgvf9do-idg11455)
+  - [Om Next and Fulcro](#om-next-and-fulcro)
+  - [We were missing a real database](#we-were-missing-a-real-database)
+  - [How to give data to UI components from client database](#how-to-give-data-to-ui-components-from-client-database)
+  - [Pathom Synergy](#pathom-synergy)
+  - [Client mutations](#client-mutations)
+  - [State Machines](#state-machines)
+- [Book: Fulcro Developers Guide](#book-fulcro-developers-guide)
+    - [3.13. Parsing Queries](#313-parsing-queries)
+- [Logs 20200630](#logs-20200630)
+  - [Article: Fulcro vs. Stock Om Next](#article-fulcro-vs-stock-om-next)
+  - [Discussion: Fulcro Developers Guide - Hacker News](#discussion-fulcro-developers-guide---hacker-news)
+  - [Discussion: What are paradigm differences between different front-end ClojureScript libraries? - Community Center / Beginners - ClojureVerse](#discussion-what-are-paradigm-differences-between-different-front-end-clojurescript-libraries---community-center--beginners---clojureverse)
+  - [Article: Evaluating Fulcro (or web development tools in general)](#article-evaluating-fulcro-or-web-development-tools-in-general)
+- [Örnek Projeler id=g11471](#%C3%B6rnek-projeler-idg11471)
+  - [cursive support for fulcro macros id=g11481](#cursive-support-for-fulcro-macros-idg11481)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+	Fulcro Explained: When UI Components and Data Entities Diverge <url:file:///~/projects/study/clj/articles_clojure.otl#r=g12363>
+
 # index fulcro
 
-Başlangıç için örnek alınacak proje: `Tutorial: video-series <url:file:///~/projects/study/clj/fulcro_tutorial.md#r=g11458>`
-
-Video anlatımı: `Tutorial video-series  <url:file:///~/projects/study/clj/fulcro_tutorial.md#r=g11484>`
-
-Başlangıç kılavuzu: `Article: Fulcro Developers Guide Getting Started <url:file:///~/projects/study/clj/fulcro.md#r=g11472>`
+	Başlangıç için örnek alınacak proje: Tutorial: video-series <url:file:///~/projects/study/clj/fulcro_tutorial.md#r=g11458>
+	Video anlatımı: Tutorial video-series  <url:file:///~/projects/study/clj/fulcro_tutorial.md#r=g11484>
+	Başlangıç kılavuzu: Article: Fulcro Developers Guide Getting Started <url:file:///~/projects/study/clj/fulcro.md#r=g11472>
 
 ## fulcro refcard
 
@@ -148,7 +181,7 @@ The model makes CQRS pretty easy to add for both auditing and performance
 
 [crudless-todomvc- Example TodoMVC powered by fulcro, pathom, and hasura](https://github.com/codonnell/crudless-todomvc)
 
-`/Users/mertnuhoglu/codes/clojure/fulcro/crudless-todomvc`
+`/Users/mertnuhoglu/codes/clojure/lib/fulcro/crudless-todomvc`
 
 # Video: Why Build Solutions with Fulcro - Tom Toor - PMbGhgVf9Do id=g11455
 

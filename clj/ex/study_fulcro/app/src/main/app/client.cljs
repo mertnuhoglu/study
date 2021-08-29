@@ -6,9 +6,6 @@
 
 (defonce app (app/fulcro-app))
 
-(defsc Root [this props]
-  (dom/div "TODO4"))
-
 (defn ^:export init
   "Shadow-cljs sets this up to be our entry-point function. See shadow-cljs.edn `:init-fn` in the modules of the main build."
   []
@@ -20,9 +17,15 @@
   []
   ;; re-mounting will cause forced UI refresh, update internals, etc.
   (app/mount! app Root "app")
+  ;; As of Fulcro 3.3.0, this addition will help with stale queries when using dynamic routing:
+  (comp/refresh-dynamic-queries! app)
   (js/console.log "Hot reload"))
 
-(defn f [x]
-  (+ 1 2)
-  (* x x))
-
+(defsc Person [this {:person/keys [name age]}]
+  (dom/div
+    (dom/p "Name: " name)
+    (dom/p "Age: " age)))
+(def ui-person (comp/factory Person))
+(defsc Root [this props]
+  (dom/div
+    (ui-person {:person/name "Joe" :person/age 22})))
