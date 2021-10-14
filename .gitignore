@@ -95,3 +95,7 @@ conjure-log*.cljc
 nx
 
 **/*.db
+**/.cpcache
+**/.nrepl-port
+**/tags.lock
+**/tags.temp

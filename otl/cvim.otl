@@ -809,7 +809,7 @@ viml vimscript id=g10491
 vim documentation
 	neovim
 		:TOhtml id=g11899
-			syntax highlighted html output as seen in neovim
+			syntax highlighted html output as seen in neovim to print
 		<vimhelp:nvim-intro>
 			differences between vim and nvim
 				<vimhelp:vim-differences>

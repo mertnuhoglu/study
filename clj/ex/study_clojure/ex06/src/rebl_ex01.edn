@@ -1,0 +1,37 @@
+{:web
+ {:game-night (io/as-url "https://github.com/clojureconj/clojureconj2018/wiki/Board-Game-Night")}
+
+ :data
+ {:scala       "hello"
+  :powers      [0 1 4 9]
+  :pairs       [[1 2] [-3 5]]
+  :keyed-pairs {:a [[1 2] [-3 5]] :b [[4 8]]}
+  :tuples      [[1 2] [3 4] [5 6]]
+  :code        '(defn foo [x] "hola")
+  :bigger      (repeatedly 100 (fn [] {:alpha (rand-int 100)
+                                       :beta  (rand-int 100)}))
+  :chart       (with-meta [1 2 3] {:rebl/xy-chart {:title "A Graph"}})
+  }
+
+ :datafy
+ {:throwable (ex-info "Boom" {:a 1 :b 2})
+  :ref       (atom (range 100))
+  :spec      (s/keys :req-un [::a ::b])
+  }
+
+ :recursive-datafy
+ {:filesystem (io/file ".")
+  :class clojure.lang.APersistentVector
+  :namespace (find-ns 'clojure.set)
+  }
+
+ :datafy+nav
+ {:query-results (d/q {:query '[:find (pull ?e [:db/id :release/name])
+                                :where [?e :release/name ?name]]
+                       :args [db]})
+  :pull-result (d/pull db '[:artist/gid :db/id]
+                 [:artist/gid
+                 #uuid "8elkileka"])
+  }
+ }
+

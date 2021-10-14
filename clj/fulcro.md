@@ -593,3 +593,56 @@ Eliminates sources of complexity like Controllers, library event systems (signal
 
 [custom macros](https://cursive-ide.com/userguide/macros.html)
 
+## Project: minimalist-fulcro-template-backendless
+
+[holyjak/minimalist-fulcro-template-backendless: A minimal template for browser-only Fulcro apps for learning](https://github.com/holyjak/minimalist-fulcro-template-backendless)
+ 
+ref: `/Users/mertnuhoglu/codes/clj/prj/web/minimalist-fulcro-template-backendless/deps.edn`
+
+Usage
+
+``` clojure
+npm install
+npx shadow-cljs watch main
+``` 
+
+## Project: fulcrologic/fulcro-template
+
+[fulcrologic/fulcro-template: A sample project that could be used as a starting point for a Fulcro 3 project.](https://github.com/fulcrologic/fulcro-template)
+
+## Quick Start
+
+Follow: [README.md Quick Start](https://github.com/fulcrologic/fulcro-template)
+
+ref: `/Users/mertnuhoglu/codes/clj/prj/web/fulcro-app/deps.edn`
+
+## Project: Fulcro Exercises id=g12391
+
+ref: `/Users/mertnuhoglu/codes/clj/prj/web/fulcro-exercises/deps.edn`
+
+## Project: nubank/workspaces id=g12400
+
+[nubank/workspaces: Live development environment for Clojurescript](https://github.com/nubank/workspaces)
+
+### opt01: Project from scratch
+
+``` clojure
+clojure -X:project/new :name main/workspaces01
+``` 
+
+Edit `/Users/mertnuhoglu/projects/study/clj/ex/fulcro/workspaces01/deps.edn`
+
+Better: `opt02: Example project`
+
+### opt02: Example project
+
+Check `~/codes/clj/lib/workspaces/examples/workspaces-shadow-example/deps.edn`
+
+``` clojure
+git clone https://github.com/nubank/workspaces
+cd workspaces/examples/workspaces-shadow-example
+npx shadow-cljs watch workspaces
+``` 
+
+Open `http://localhost:3655/`
+

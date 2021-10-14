@@ -156,6 +156,7 @@ Ex: `/Users/mertnuhoglu/projects/study/js/anki_js.md`
 
 ``` bash
 ankdown -p <file>.apkg -d db01 -i <file>.md
+ankdown -p <file>.apkg -i <file>.md
 ``` 
 
 3. Open anki and import apkg: File > Import ...

@@ -1,5 +1,67 @@
 (ns sequence)
 
+; from: [seq - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/seq)
+
+(seq '(1))  ;;=> (1)
+(seq [1 2]) ;;=> (1 2)
+(seq "abc") ;;=> (\a \b \c)
+
+;; Corner cases
+(seq nil)   ;;=> nil
+(seq '())   ;;=> nil
+(seq [])    ;;=> nil
+(seq "")    ;;=> nil
+
+;; (seq x) is the recommended idiom for testing if a collection is not empty
+(every? seq ["1" [1] '(1) {:1 1} #{1}])
+;;=> true
+
+;; 'seq' can be used to turn a map into a list of vectors.
+;; Notice how the list is built adding elements to the beginning 
+;; of the seq (list) not to the end, as with vectors.
+;; (Of course, the order that items are 
+;;  taken from a map should not be relied upon
+;;  unless a deterministic 'sorted-map' is used.)
+(seq {:key1 "value1" :key2 "value2"})
+;;=> ([:key2 "value2"] [:key1 "value1"])
+
+;; Here is the difference between seq and sequence
+
+(seq nil)
+;;=> nil
+
+(seq ())
+;;=> nil
+
+(sequence ())
+;;=> ()
+
+(sequence nil)
+;;=> ()
+
+;; seq is very similar to not-empty:
+
+(every? seq ["1" [1] '(1) {:1 1} #{1}])
+;;=> true
+(every? not-empty ["1" [1] '(1) {:1 1} #{1}])
+;;=> true
+
+(seq '(1))       ;;=> (1)
+(not-empty '(1)) ;;=> (1)
+
+(seq [1 2])       ;;=> (1 2)
+(not-empty [1 2]) ;;=> [1 2]
+
+
+(seq "abc")       ;;=> (\a \b \c)
+(not-empty "abc") ;;=> "abc"
+
+(map seq [nil '() [] "" {}])
+;;=> (nil nil nil nil nil)
+
+(map not-empty [nil '() [] "" {}])
+;;=> (nil nil nil nil nil)
+
 ; Code from: Programming Clojure, Alex Miller
 
 ;; Vectors are seqs

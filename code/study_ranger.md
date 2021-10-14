@@ -61,5 +61,6 @@ other shortcuts
 
 # fzf integration
 
-ref: `fzf integration <url:file:///~/.config/ranger/rc.conf#r=g11592>`
+ref: `fzf integration <url:file:///~/projects/private_dotfiles/.config/ranger/rc.conf#r=g_11592>`
+
 

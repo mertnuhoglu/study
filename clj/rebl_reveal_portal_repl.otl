@@ -1,0 +1,91 @@
+ref
+	rebl rebl2 <url:file:///~/projects/study/clj/clojure.otl#r=g12423>
+	run REBL <url:file:///~/projects/study/clj/clojure.otl#r=g12422>
+örnek kod denemeleri
+	common
+		cd /Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06
+		(tap> {:accounts [{:name "jen" :email "jen@jen.com"} {:name "sara" :email "sara@sara.com"}]})
+		(tap> (slurp "ex06/deps.edn"))
+		(require '[clojure.java.io :refer [reader]])
+		(tap> (line-seq (reader "ex06/deps.edn")))
+		(require '[clojure.edn :as edn])
+		(tap> (edn/read-string (slurp "ex06/deps.edn")))
+		(tap> (edn/read-string (slurp "/Users/mertnuhoglu/projects/myrepo/db_settings.edn")))
+		(tap> (io/file "deps.edn"))
+			> datafy (console'dan datafy komutunu ver)
+	portal
+	reveal
+	rebl
+		(edn/read-string (slurp "/Users/mertnuhoglu/projects/myrepo/db_settings.edn"))
+		(require '[clojure.java.io :as io])
+		(io/reader "deps.edn")
+		(io/file "deps.edn")
+rebl rebl3 id=g12436
+	ref
+		[Cognitect REBL | Datomic](https://docs.datomic.com/cloud/other-tools/REBL.html)
+		~/projects/study/clj/ex/study_clojure/ex06/src/rebl_ex01.edn
+	kısayollar
+		| #rg/lf | nav forward/backwards |
+		| #+lf | nav to root |
+		| ^ç | focus browse | b |
+		| ^c | focus view | v|
+		| ^+ç | focus browse choice | b|
+		| ^+c | focus view choice | v |
+		| ^ı | focus code entry | r |
+		Nav Forward	Command-Right
+		Nav Backwards	Command-Left
+		Nav to Root (Eval History)	Shift-Command-Left
+		Focus Browse	Control-B
+		Focus View	Control-V
+		Focus Browse Choice	Shift-Control-B
+		Focus View Choice	Shift-Control-V
+		Focus Code Entry	Control-R
+portal portal3 id=g12438
+	ref: ilk başlarken otomatik repl'ları başlat <url:file:///~/projects/study/clj/rebl_reveal_portal_repl.otl#r=g12437>
+	clj -M:dev:cider:cljs:shadow watch client
+		lgg:
+			clojure -M:dev:cider:cljs:dev-cljs:shadow-cljs watch client
+				error: execution error (FileNotFoundException) at java.io.FileInputStream/open0
+					fix:
+						clj -M:dev:cider:cljs:shadow watch client
+Portal Introduction - Youtube id=g12439
+	[(733) Apropos 14 October 2020 - YouTube](https://www.youtube.com/watch?v=gByyg-m0XOg)
+	tip01: ring server.clj içinde handler içine (tap> req) koymuş 09:43
+		böylece her gelen request ootmatik loglanıyor
+	tip02: klavye
+		tab + hjkl veya ok tuşlarıyla dolaşabilirsin
+		ctrl+c ile kopyala yapıştır
+		copy-as-edn
+	tip03: console
+		kendi dahili komutlarını consoledan verirsin
+	tip04: copy paste
+		copy-as-edn
+		copy-path
+		bunlarla portal'daki datayı dışarı kopyalayabilirsin
+	tip05: repl içinde @portal defef edebilirsin
+		portal user.clj içinde bir atom olarak tanımlandığından, deref edebilirsin
+		ref: ~/projects/study/clj/ex/study_clojure/ex06/src/user.clj
+		(first @portal)
+		böylece portaldaki dataya doğrudan repl ile erişebilirsin
+		(count @portal)
+	tip06: table view
+		> select-columns
+			istediğin kolonları filtreleyebilirsin
+	tip07: history navigate
+		> history-first
+	tip08: swap ve reset ile portal datasını değiştirme
+		(swap! portal inc)
+		(reset! portal {:a 1})
+	tip09: diff
+		ex:
+			(tap> [{:a 1} {:a 2}])
+			viewer > diff
+	tip10:
+problems
+	ilk başlarken otomatik repl'ları başlat id=g12437
+		user.clj içine koyduğun kodlar otomatik olarak başlarken çalıştırılır
+			[Portal · Practicalli Clojure](https://practical.li/clojure/clojure-tools/data-browsers/portal.html)
+		ex:
+			ref: ~/projects/study/clj/ex/study_clojure/ex06/src/user.clj
+			direk clojure ile bile çalıştırsan, portal browser otomatik açılır
+	

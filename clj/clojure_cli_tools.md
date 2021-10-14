@@ -75,9 +75,11 @@ Specifies dependencies and configurations.
 brew install clojure/tools/clojure
 ```
 
-# Article: The Ultimate Guide To Clojure REPLs Guide
+# Article: The Ultimate Guide To Clojure REPLs Guide id=g12457
 
 [Clojure REPLs | The Ultimate Guide To Clojure REPLs Guide](https://lambdaisland.com/guides/clojure-repls/clojure-repls)
+
+ref: `The Ultimate Guide To Clojure REPLs - lambdaisland <url:file:///~/projects/study/clj/articles_clojure.otl#r=g12455>`
 
 Built-in repl: `clojure.main/repl`
 

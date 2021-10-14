@@ -1,0 +1,26 @@
+
+intellij
+	shortcuts
+		| !#space w | window menu|
+cursive
+	ref
+		~/projects/study/clj/cursive.md
+	custom shortcuts id=g12410
+		| !p d | cursive deps |
+		| !p r | refresh cursive deps |
+		| !n t | select next tab |
+		| !n +t | select previous tab |
+		| !b n | close notification |
+		| !p i | import project from existing sources |
+	quicklists
+		| !u j | clojure quicklist |
+		| !u n | next quicklist |
+		| !u k | general quicklist |
+	frequent commands
+		| #!dn/up | next occurrence |
+		| !u m | structural movement |
+	file navigator (project tab)
+		| space | preview |
+		| !#enter | quick actions | 
+gtd
+	incele: Productity Guide 

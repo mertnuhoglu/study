@@ -1,3 +1,19 @@
+@questions - fulcro id=g12397
+	Bir defsc fonksiyonunu nasıl REPL ile test edebilirim çıktısının ne olacağını görmek için?
+Referenced Articles:
+	Article: Prop Drilling id=g12402
+		[Prop Drilling](https://kentcdodds.com/blog/prop-drilling)
+		alıntılar
+			you have to go through to get data to parts of the React Component tree
+		kendi anladığım:
+			A -> B -> C içiçe komponentler olsun
+			C komponentinin ihtiyaç duyduğu bilgi, A'dan sağlanıyor
+			A bu bilgiyi B'ye arg olarak gönderiyor. O da C'ye.
+			Buna prop drilling deniyor.
+		maliyetleri:
+			verinin şeklini değiştirmek zorlaşır
+			over-forwarding props: bazı prop'lara gerek kalmamıştır, ama temizlenmesi zor
+			under-forwarding props: abusing defaultProps
 Minimalist Fulcro Tutorial :: Fulcro Community id=g12367
 	[Minimalist Fulcro Tutorial :: Fulcro Community](https://fulcro-community.github.io/guides/tutorial-minimalist-fulcro/)
 	Study path
@@ -186,42 +202,44 @@ Minimalist Fulcro Tutorial :: Fulcro Community id=g12367
 					(comp/transact! this [(delete-employee {:employee/id id})])   ; 
 					;; or:
 					(comp/transact! this `[(delete-employee {:employee/id ~id})]) ; 
-			load! data
-				load! iki şey yapar:
-					serverdan data tree çeker
-					bu veriyi normalleştirip client DB ile birleştirir (merge)
-				merge-component! örneği:
-					(merge/merge-component!
-						app
-						Person
-						person-tree)
-					person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir:
-						{:person/id  {1  {:person/id 1   :person/fname "Jo" :person/address [:address/id 11]}}
-						 :address/id {11 {:address/id 11 :address/street "Elm Street 7"}}}
-					nested data tree:
-						(def person-tree
-							{:person/id 1
-							 :person/fname "Jo"
-							 :person/address {:address/id 11
-																:address/street "Elm Street 7"}})
-					stateful componentler:
-						(defsc Address [_ _]
-							{:query [:address/id :address/street]
-							 :ident :address/id})
-							 ;; reminder: `:address/id` is a shorthand for
-							 ;; (fn [:address/id (:address/id props)])
-						(defsc Person [_ _]
-							{:query [:person/id :person/fname
-											 {:person/address (comp/get-query Address)}]
-							 :ident :person/id})
-				when to load! ?
-					Kendin serverdan veriyi yüklemelisin, fulcro senin için yüklemez.
-					Şu zamanlarda yükleyebilirsin:
-					1. app başlarken
-					2. event handler içinde (onClick)
-					3. component mount edildiğinde
-					4. component gösterileceği vakit (deferred routing)
-				what to load! ?
+		load! data
+			load! iki şey yapar:
+				serverdan data tree çeker
+				bu veriyi normalleştirip client DB ile birleştirir (merge)
+			merge-component! örneği:
+				(merge/merge-component!
+					app
+					Person
+					person-tree)
+				person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir:
+					{:person/id  {1  {:person/id 1   :person/fname "Jo" :person/address [:address/id 11]}}
+					 :address/id {11 {:address/id 11 :address/street "Elm Street 7"}}}
+				nested data tree:
+					(def person-tree
+						{:person/id 1
+						 :person/fname "Jo"
+						 :person/address {:address/id 11
+															:address/street "Elm Street 7"}})
+				stateful componentler:
+					(defsc Address [_ _]
+						{:query [:address/id :address/street]
+						 :ident :address/id})
+						 ;; reminder: `:address/id` is a shorthand for
+						 ;; (fn [:address/id (:address/id props)])
+					(defsc Person [_ _]
+						{:query [:person/id :person/fname
+										 {:person/address (comp/get-query Address)}]
+						 :ident :person/id})
+			when to load! ?
+				Kendin serverdan veriyi yüklemelisin, fulcro senin için yüklemez.
+				Şu zamanlarda yükleyebilirsin:
+				1. app başlarken
+				2. event handler içinde (onClick)
+				3. component mount edildiğinde
+				4. component gösterileceği vakit (deferred routing)
+			Data targeting
+				:append :prepend :replace :replace
+				ref: ~/projects/study/clj/ex/articles_fulcro/minimalist/data_targeting.cljs
 Guide to learning Fulcro :: Fulcro Community Guide to learning Fulcro :: Fulcro Community  id=g12366
 	[Guide to learning Fulcro :: Fulcro Community](https://fulcro-community.github.io/guides/guide-learning-fulcro/index.html)
 	1. Study: Minimalist Fulcro Tutorial :: Fulcro Community <url:file:///~/projects/study/clj/articles_clojure.otl#r=g12367>
@@ -282,8 +300,8 @@ Eql Pathom Overview :: Fulcro Community id=g12368
 											{:todo/id 5}
 											{:todo/id 6}]}]}
 	ex03: Join with specific properties of nested data
-		query
-			[{:all-lists [{:list/items [:todo/label]}]}]
+		join query
+			[{:all-lists [:list/id :list/name {:list/items [:todo/label]}]}]
 		response
 			{:all-lists
 			 [{:list/id 1
@@ -301,8 +319,7 @@ Eql Pathom Overview :: Fulcro Community id=g12368
 			value specifies properties (select)
 		ex
 			query
-				{[:list/id 1]
-				 {:list/name Clojure}}
+				[{[:list/id 1] [:list/name]}]
 			response
 				{[:list/id 1]
 				 {:list/name Clojure}}
@@ -496,8 +513,138 @@ Implementing Graph API's with Clojure - Wilker Lúcio - YouTube id=g12375
 			(-> (http/get (str "https://www.googleapis.com/youtube/v3" path "&key=" token)
 					{:as :auto})
 				:body))
+Grokking Fulcro – Part 1: React DOM and Fulcro - YouTube id=g12381
+	[Grokking Fulcro – Part 1: React DOM and Fulcro - YouTube](https://www.youtube.com/watch?v=3dZK5seIaVI&list=PLVi9lDx-4C_TBRiHfjnjXaK2J3BIUDPnf&index=1&t=1828s)
+Why Build Solutions with Fulcro - Tom Toor - Youtube id=g12382
+	Om Next Ideas:
+		UI Component co-located identity/query
+		Auto-normalize client-side database
+		Reify mutations
+	We were missing a real database in frontend side
+		Most of logic is on the front-end
+		Why is your data stored as an ad-hoc mess?
+	How much database needed in front-end?
+		Data normalization
+		Query engine
+		Queue updates
+		Indexing (nice to have)
+	Reified Mutations instead of events:
+		They are lists and look like function invocations
+		`(delete-item {:item/id 1})
+		Can be grouped into transactions:
+		`[(f) (g)]
+		Abstract representation of an operation:
+			Delete in client db (optimistically)
+			Delete in server db
+		Record, replay, audit
+	ex: reified mutations
+		usage:
+			(let [handler #(transact! this `[(delete-item {:item/id ~id})])]
+				(div {:onClick handler} "Delete"))
+		definition:
+			(defmutation delete-item
+				[{:keys [item/id]}]
+				(action [{:keys [state]}]
+					(swap! state dissoc :item/id id))
+				(remote [_] :http-api))
+		server:
+			(defmutation delete-item
+				[{:keys [item/id]}]
+				(action [{:keys [conn]}]
+					@(d/transact conn [[:db.fn/retractEntity id]])))
+	Fulcro summary:
+		state* = f(state)                          ; mutation/load
+		props = QueryEngine(UI-components, state*) ; query
+		view = ui(props)                           ; react
+	Fulcro benefits
+		data pools problem
+		decouples ui from behavior
+		clear caching story
+	State machines
+	Data model benefits
+		Where's the data for Y?
+			Always in client db
+			One level deep only (shallow) keyed by identity
+			Identity is colocated with ui code
+		Updating deep denormalized tables is difficult. But shallow tables easy
+		Easily implement rollback
+		Optimistic update code colocated with full-stack logic
+	Common benefits
+		Network plumbing is ready
+			websocket, xhr
+			Full transactional semantics
+			Progress indicators
+			Cancel pending requests
+			Sequential request queue
+		Pathom: wraps any data source
+		Read/writes API well defined
+		All responses from API are normalized automatically
+	Optimization benefits
+		Caching in client is part of design
+		Query engine is very fast
+		Read/write can be combined into single request
+	Fulcro inspect: dev tooling
+		Client db inspection
+		UI Element inspection
+		Network tab: requests in IO
+		Query builder for EQL queries
 The Maximal Graph - Wilker Silva - YouTube id=g12376
 	[The Maximal Graph - Wilker Silva - YouTube](https://www.youtube.com/watch?v=IS3i3DTUnAI&t=1220s)
+	Demand Driven Architecture Principles
+		Clients must be able to specify what they need (which) and in which shape (what)
+		Composition: The request must support recursion
+		Interpretation: Queries must be interpreted in server
+	Pathom resolvers
+		Represent edges on the graph
+		Resolvers are maps
+		Enabel contextual auto-complete inference
+	Execution of EQL
+		ex: query:
+			[{[:customer/id 2]
+			  [:customer/name
+				 :customer/dob
+				 {:customer/orders
+				  [[:order/ordered-at
+					 :order/open?]}]}]
+		resolvers:
+			(pc/defresolver customer-by-id [_ {:keys [customer/id]}]
+			  {::pc/input   #{:customer/id}
+				 ::pc/output  [:customer/id
+				               :customer/name
+											 :customer/dob]}
+				(db/find-customer-by-id id))
+		execution
+			1. adım: [:customer/id 2]
+				sets context
+				Bu aşamada henüz resolver belli değil, resolvera gönderilecek arg belli
+			2. adım: :customer/name
+				Şimdi bu çıktıyı resolverlar içinde ararız.
+				Hangi resolver çıktısında varsa, bu resolvera contextteki argları göndeririz
+	Flattening
+		Tüm to-one ilişkiler düzleştirilebilir
+		resolvers:
+			(pc/defresolver customer-by-id [_ {:keys [customer/id]}]
+				{::pc/input   #{:customer/id}
+				 ::pc/output  [:customer/id
+											 :customer/name
+											 :customer/dob]}
+				(db/find-customer-by-id id))
+			(pc/defresolver customer-orders [_ {:keys [customer/id]}]
+				{::pc/input   #{:customer/id}
+				 ::pc/output  [{:customer/orders
+											  [:order/id
+												 :customer/id   ;; to-one relationship
+												 :order/ordered-at
+												 :order/open?]}]}
+				{:customer/orders (db/find-customer-orders id)})
+		query:
+			[{[:customer/id 2]
+				[{:customer/orders
+					[:order/ordered-at
+					 :order/open?
+					 :customer/name]}]}] ;; xxx
+	Placeholders
+		Flattening'in tam tersi
 	@anki-cards
 		Diffs bw GraphQL and EQL
 			Enums
@@ -540,7 +687,7 @@ The Maximal Graph - Wilker Silva - YouTube id=g12376
 						[:character/name
 						 :character/appears-in])
 					[{(:movie/hero {:movie/episode})
-					  character-fields}]  ;; uses a global variable
+						character-fields}]  ;; uses a global variable
 			Directives
 				using `if` in GraphQL
 				use clojure if
@@ -571,50 +718,98 @@ The Maximal Graph - Wilker Silva - YouTube id=g12376
 		GQL integration
 		Property Alias
 		...
+Pathom Developers Guide id=g12384
+	[Pathom Developers Guide](https://blog.wsscode.com/pathom/#_baseline_boilerplate)
+Getting Started | Pathom 3 id=g12385
+	ref: Article: Getting Started | Pathom 3 <url:file:///~/projects/study/clj/study_pathom.md#r=g12386>
+	[Getting Started | Pathom 3](https://pathom3.wsscode.com/docs/)
+	Resolver is like a function, with some constraints:
+		1. Input must be a map
+		2. Must return a map
+		3. May receive another map containing environment information
+EQL Documentation id=g12387
+	[What is EQL? | EDN Query Language](https://edn-query-language.org/eql/1.0.0/what-is-eql.html)
+	ref
+		~/projects/study/clj/study_eql.md
+Pathom v2 Documentation   id=g12389
+	ref
+		Article: Pathom v2 Documentation  <url:file:///~/projects/study/clj/study_pathom.md#r=g12388>
+	terms
+		environment: map of configuration
+		resolver: resolvers are composed into a connect-based Reader
+		reader: 
+		connect indexes
+	Resolvers
+		elements of resolver:
+			1. inputs: required in the current parsing context
+			2. outputs: output shape
+			3. a function
+Project: Fulcro Exercises id=g12390
+	ref
+		/Users/mertnuhoglu/codes/clj/prj/web/fulcro-exercises/deps.edn
+		Project: Fulcro Exercises <url:file:///~/projects/study/clj/fulcro.md#r=g12391>
+	follow readme
+Podcast: S4 E6 Fulcro with Tony Kay (Part 1) by ClojureScript Podcast
+	[S4 E6 Fulcro with Tony Kay (Part 1) by ClojureScript Podcast](https://soundcloud.com/user-959992602/s4-e6-fulcro-with-tony-kay-part-1)
 Fulcro Developers Guide id=g12379
 	[Fulcro Developers Guide](https://book.fulcrologic.com/#_core_concepts)
 	3. Core Concepts
 		Client DB Naming Conventions
-			UI components | :ui/name
-			Tables | :person/id ~ :entity-type/index-name
-			Root properties | :root/prop-name
-			Node properties | :entity-type/prop-name ex: :person/name 
-			Singleton components | ::Component
+			UI components        
+				:ui/name
+			Tables               
+				:person/id ~ :entity-type/index-name
+			Root properties      
+				:root/prop-name
+			Node properties      
+				:entity-type/prop-name ex: :person/name
+			Singleton components 
+				::Component
 	4. Getting Started
 		Create project
 			ref:
 				~/projects/study/clj/ex/study_fulcro/app/deps.edn
-			mkdir and npm 
-				mkdir | mkdir -p src/main src/dev resources/public
-				npm install | npm install shadow-cljs react react-dom --save
-			deps.edn
-				:paths | :paths   ["src/main" "resources"]
-				:deps | :deps {org.clojure/clojure ... com.fulcrologic/fulcro ...}
-				:aliases :dev | {:extra-paths .. :extra-deps ..}
-				:aliases :dev :extra-deps | {org.clojure/clojurescript .. thheller/shadow-cljs .. binaryage/devtools ..}
-			shadow-cljs.edn
-				:deps | {:aliases [:dev]}
-				:builds :main | {:target .. :output-dir .. :asset-path .. :modules .. :devtools .. }
-			HTML File
+			mkdir and npm (fulcro)
+				mkdir       
+					mkdir -p src/main src/dev resources/public
+				npm install 
+					npm install shadow-cljs react react-dom --save
+			deps.edn (fulcro)
+				:paths                    
+					:paths   ["src/main" "resources"]
+				:deps                     
+					:deps {org.clojure/clojure ... com.fulcrologic/fulcro ...}
+				:aliases :dev             
+					{:extra-paths .. :extra-deps ..}
+				:aliases :dev :extra-deps 
+					{org.clojure/clojurescript .. thheller/shadow-cljs .. binaryage/devtools ..}
+			shadow-cljs.edn (fulcro)
+				:deps         
+					{:aliases [:dev]}
+				:builds :main 
+					{:target .. :output-dir .. :asset-path .. :modules .. :devtools .. }
+			HTML File (fulcro)
 				<div id="app"..
 				<script src="/js/main/main.js"..
-			Application Sources
-				app path | src/main/app/client.cljs
-				app top level forms | (defonce app ..) (defsc Root ..) (defn init ..) (defn refresh ..)
-			Build it
+			Application Sources (fulcro)
+				app path            
+					src/main/app/client.cljs
+				app top level forms 
+					(defonce app ..) (defsc Root ..) (defn init ..) (defn refresh ..)
+			Build it (fulcro)
 				npx shadow-cljs server
-			Using the REPL
+			Using the REPL (fulcro)
 				:nrepl {:port 9000} ; shadow-cljs.edn
 				(shadow/repl :main) ; cursive
 		Basic UI Components
-			render method
+			render method (fulcro)
 				body of defsc = render method of React component
 				(dom/div {:id "id" :className "x y z" :style {:color "red"}} ...)
 				(dom/div :.x.y.z#id {:style {:color "red"}} ...)
-			element factory
+			element factory (fulcro)
 				ex:
 				(def ui-person (comp/factory Person))
-			ex: Person with name, age properties. component witout metadata and element factory 
+			ex: Person with name, age properties. component witout metadata and element factory  (fulcro)
 				(defsc Person [this {:person/keys [name age]}]
 					(dom/div
 						(dom/p "Name: " name)
@@ -623,4 +818,450 @@ Fulcro Developers Guide id=g12379
 				(defsc Root [this props]
 					(dom/div
 						(ui-person {:person/name "Joe" :person/age 22})))
+			~/projects/study/clj/ex/study_fulcro/app/deps.edn
+			~/projects/study/clj/ex/study_fulcro/app02/deps.edn
+				app/ui.cljs dosyasını dışarı al
+			~/projects/study/clj/ex/study_fulcro/app03/deps.edn
+				/Users/mertnuhoglu/projects/study/clj/ex/study_fulcro/app03/src/app/ui.cljs
+					Root. data: friends -> list/label list/people -> person/name person/age (fulcro)
+						(defsc Root [this {:keys [ui/react-key]}]
+							(let [ui-data {:friends {:list/label "Friends" :list/people
+																									 [{:person/name "Sally" :person/age 32}
+																										{:person/name "Joe" :person/age 22}]}
+														 :enemies {:list/label "Enemies" :list/people
+																									 [{:person/name "Fred" :person/age 11}
+																										{:person/name "Bobby" :person/age 55}]}}]
+								(dom/div
+									(ui-person-list (:friends ui-data))
+									(ui-person-list (:enemies ui-data)))))
+						(def ui-person-list (comp/factory PersonList))
+						(defsc PersonList [this {:list/keys [label people]}]
+							(dom/div
+								(dom/h4 label)
+								(dom/ul
+									(map ui-person people))))
+				UI graph: (fulcro)
+					Root
+						List
+							Person
+							Person
+						List
+							Person
+							Person
+				and the data graph matches the same structure, with map keys acting as the graph "edges": (fulcro)
+					edge = key ve value = node demek istiyor.
+					{ :friends           { :list/people [PERSON ...]
+					;  ==to-one list=>      ==to-many people==>
+						:enemies           { :list/people [PERSON ...] }
+		4.6. Feeding the Data Tree
+			Initial State
+				ref: ~/projects/study/clj/ex/study_fulcro/app03/src/app/ui.cljs
+				benefits of initial state: (fulcro)
+					1. feeds the initial UI with data
+					2. it becomes your initial app database
+					3. it supports local reasoning
+				pull initial tree at REPL (fulcro)
+					dev:cljs.user=> (com.fulcrologic.fulcro.components/get-initial-state app.ui/Root {})
+					{:friends {:list/label "Friends",
+										 :list/people [{:person/name "Sally", :person/age 32} {:person/name "Joe", :person/age 22}]},
+					 :enemies {:list/label "Enemies",
+										 :list/people [{:person/name "Fred", :person/age 11} {:person/name "Bobby", :person/age 55}]}}
+				see current app state at REPL (fulcro)
+					(com.fulcrologic.fulcro.application/current-state app.client/app)
+			Establishing a Query
+				how to read this query:  (fulcro)
+					[{:friends  ; JOIN
+							[ :list/label
+								{:list/people ; JOIN
+									 [:person/name :person/age]}]}]
+					reads: At the root you’ll find :friends, which joins to a nested entity that has a label and people. People, in turn, is a join that has nested properties name and age.
+						vector = "get this stuff at the current node". node is relative (to current node)
+						`:friends` is root of application state. its value is nested state (maps mean joins on trees)
+						value of `:friends` is a subquery. thus it is a vector.
+				join multiplicity: (fulcro)
+					`to-one` if singular
+					`to-many` if vector
+				try queries in REPL (fulcro)
+					(require '[com.fulcrologic.fulcro.algorithms.denormalize :as fdn]) 
+					(require '[com.fulcrologic.fulcro.components :as comp])
+					(fdn/db->tree [{:friends [:list/label]}] (comp/get-initial-state app.ui/Root {}) {})
+					; {:friends {:list/label "Friends"}}
+				Step 3 — Receive the Data Feed as Props in Root
+					ref: /Users/mertnuhoglu/projects/study/clj/ex/study_fulcro/app07/src/app/ui.cljs
+					(defsc Root [this {:keys [friends enemies]}]
+						{:query         [{:friends (comp/get-query PersonList)}
+														 {:enemies (comp/get-query PersonList)}]
+					(com.fulcrologic.fulcro.components/get-query app.ui/Root {})
+					[{:friends [:list/label {:list/people [:person/name :person/age]}]}
+					 {:enemies [:list/label {:list/people [:person/name :person/age]}]}]
+				Passing Callbacks and Other Parent-computed Data
+					ref: app08
+					:onDelete
+					(defsc Person [this {:person/keys [name age]} {:keys [onDelete]}] ; (2)
+						{:query         [:person/name :person/age]
+						 :initial-state (fn [{:keys [name age] :as params}] {:person/name name :person/age age})}
+						(dom/li
+							(dom/h5 (str name " (age: " age ")") (dom/button {:onClick #(onDelete name)} "X")))) ; (2)
+					(def ui-person (comp/factory Person {:keyfn :person/name}))
+					(defsc PersonList [this {:list/keys [label people]}] ;
+						{:query [:list/label {:list/people (comp/get-query Person)}]
+						 :initial-state
+										(fn [{:keys [label]}]
+											{:list/label  label
+											 :list/people (if (= label "Friends")
+																						 [(comp/get-initial-state Person {:name "Sally" :age 32})
+																							(comp/get-initial-state Person {:name "Joe" :age 22})]
+																						 [(comp/get-initial-state Person {:name "Fred" :age 11})
+																							(comp/get-initial-state Person {:name "Bobby" :age 55})])})}
+						(let [delete-person (fn [name] (println label "asked to delete" name))] ; (1)
+							(dom/div
+								(dom/h4 label)
+								(dom/ul
+									(map (fn [p] (ui-person (comp/computed p {:onDelete delete-person}))) people))))) ; (1)
+				4.8. Updating the Data Tree
+					4.8.1. Transactions
+						comp/transact!
+						treat operation like data
+						use unquote to embed data from local variables
+					4.8.2. Handling Mutations
+						iki şey gerek:
+							(defmutation delete-person ..)
+							defsc içinden bu defmutation'u çağırmak. örneğin bir buton tarafından tetiklenecek şekilde.
+						(defmutation delete-person
+							"Mutation: Delete the person with `name` from the list with `list-name`"
+							[{:keys [list-name name]}] ; (1)
+							(action [{:keys [state]}] ; (2)
+								(let [path     (if (= "Friends" list-name)
+																 [:friends :list/people]
+																 [:enemies :list/people])
+											old-list (get-in @state path)
+											new-list (vec (filter #(not= (:person/name %) name) old-list))]
+									(swap! state assoc-in path new-list))))
+						(defsc PersonList [this {:keys [list/label list/people]}]
+							...
+							(let [delete-person (fn [name] (comp/transact! this [(api/delete-person {:list-name label :name name})]))] ; (2)
+					4.8.3. Hold on – Something Still Sucks!
+						problemler
+							UI refactor ederken, mutationları da düzeltmemiz gerekiyor çünkü veri ağacının şekli değişiyor
+							veri üzerine yerel düşünemiyoruz. mutasyonlar global anlayış gerektiriyor
+							mutasyonlar giderek büyüyüp çirkin hale geliyor
+							bir fact birden çok yerde bulunuyorsa, hepsi için doğru sırada güncelleme yapmak gerekiyor. data duplikasyon meselesi.
+				4.9. The Secret Sauce – Normalizing the Database
+					Yukarıdaki problemlerin çözümü: veritabanı normalizasyonu
+						bir mapte (veya graph databasede), referans to-many arity'ye sahip olabilir, ilişkisel veritabanlarından farklı olarak
+						örn:
+						{:PersonList { :friends  { :id :friends
+																			 :label "Friends"
+																			 :people #{1, 2} }}
+						 :Person { 1 {:id 1 :name "Joe" }
+											 2 {:id 2 :name "Sally"}}}
+						Buradaki sorun: `:people`
+							1 ve 2 id'lerini hangi tablodan bakacağımızı yukarıdaki speklerde göremiyoruz
+							Hem tablo ismine, hem de id'ye ihtiyacımız var: `[:Person 1]` gibi
+							[TABLE ID] vektörüne `ident` denir
+						{:list/id { :friends  { :list/id :friends
+																		:list/label "Friends"
+																		:list/people [[:person/id 1] [:person/id 2]] }}
+						 :person/id { 1 {:person/id 1 :person/name "Joe" }
+													2 {:person/id 2 :person/name "Sally"}}}
+					4.9.1. Automatic Normalization
+						Komponentler kendi kendilerini normalize edebilirler. 
+						İhtiyaç duydukları her şey var, bir tek ident'in değeri dışında.
+						Dolayısıyla ident'i onlara aktarmalıyız
+						ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_9_1_automatic_normalization.cljs
+						=> (com.fulcrologic.fulcro.application/current-state app.application/app)
+							ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_9_1_current-state.cljs
+						=> (com.fulcrologic.fulcro.algorithms.denormalize/db->tree query state state)
+							ref: <url:file:///~/projects/study/clj/ex/articles_fulcro/docs/4_9_1_db->tree.cljs>
+					4.9.2. Mutations on a Normalized Database
+						how to delete a person?
+							instead of removing a person from a tree, we will remove a FK from a TABLE entry
+						benefits
+							easier to code
+							independent of the shape of the UI tree
+						(defmutation delete-person ..)
+							..
+							(swap! state merge/remove-ident* [:person/id person-id] [:list/id list-id :list/people])))
+							ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_9_2_defmutation.cljs
+							[:list/id list-id :list/people]: path to the list of idents that you want to remove it from
+							ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_9_2_mutation_usage.cljs
+					4.9.3. How Automatic Normalization Works (optional) id=g12383
+				4.10. Review So Far
+				4.11. Using Better Tools
+					4.11.1. Fulcro Inspect
+					4.11.2. Workspaces
+				4.12. Going Remote!
+					4.12.1. The Communication
+						additional deps for server side
+							com.wsscode/pathom     {:mvn/version "2.2.15"}
+							com.taoensso/timbre    {:mvn/version "4.10.0"}
+						pathom parser
+							ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_12_1_parser.clj
+					4.12.2. Setting up a Server
+						additional deps for http server
+							ring/ring-core         {:mvn/version "1.6.3"}
+							http-kit               {:mvn/version "2.3.0"}
+					4.12.3. Running the Server
+						server
+							ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_12_2_server.clj
+					4.12.4. Server Refresh
+				4.13. Parsing Queries
+					Pathom is used for:
+						building EQL parsers
+						1. resolvers (read)
+						2. mutations (write)
+					sample resolver: id -> (id, name) 
+						(pc/defresolver person-resolver [env input]
+							{::pc/input  #{:person/id}
+							 ::pc/output [:person/name]}
+							(let [name (get-name-from-database (:person/id input))]
+								{:person/name name}))
+					ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_13_resolvers.clj
+					query existing database using idents:
+						ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_13_query_parser.clj
+						Dikkat: pathom ident'leri kullanarak, bunların ait olduğu resolver'ları buluyor.
+						sonra bu resolverın query fonksiyonunu çağırıyor
+					global resolvers = root queries in graphql
+						ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_13_global_resolvers.clj
+						ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_13_query_global_resolvers.clj
+						ilk root'a erişim için global resolverları kullanıyorsun
+					4.13.1. Loading Data
+						veriler statik bir map'ten değil, veritabanından gelmeli.
+						verileri veritabanından yükleyen fonksiyon:
+							..data-fetch/load!
+						application database normalized. bu yüzden seviyelendirme şöyle:
+							3 seviye derinlikte
+							table, ID, field 
+						3 olası senaryo var:
+							1: load into root of app state (root prop)
+							2: load tree and normalize it into tables
+							3: target a loaded tree to start a some edge
+						ilk olarak: initial state'i kaldıralım
+							ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_13_1_get_rid_of_initial_state.clj
+						load something into DB root
+							add remote support
+								ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_13_1_application.cljs
+							add initial load during app startup
+						Loading a specific entity and its subgraph (by ident)
+					4.13.2. Handling Mutations on The Server
+				4.14. Wrapping Up
+				@sorular
+					Edge ne anlama geliyor tam olarak?
+						opt01: bir map'in bir entry'si?
+		4.7. Passing Callbacks
+		4.8. Updating the Data Tree
+		4.9. Normalizing the Database
+			ref
+				/Users/mertnuhoglu/gdrive/keynote_resimler/tarama/fulcro_2021-09-14_133229.pdf
+				/Users/mertnuhoglu/gdrive/keynote_resimler/tarama/fulcro_defmutation_2021-09-14_153442.pdf
+			defmutation delete-person
+				ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_9_2_defmutation.cljs
+				emojiler nasıl giriliyordu?
+			summary of the logic
+				ref
+					/Users/mertnuhoglu/gdrive/keynote_resimler/tarama/fulcro_2021-09-14_133229.pdf
+					/Users/mertnuhoglu/gdrive/keynote_resimler/tarama/fulcro_defmutation_2021-09-14_153442.pdf
+				patterns:
+					a: dpm (delete-person) mutation flow
+					b: pid (:person/id) flow
+					c: ppr (person props) flow
+					d: lid (:list/id) flow
+				a: dpm (delete-person) mutation flow
+					a1: dpm definition
+					a2: passed to transact! function
+					a3: which is assigned to local variable in parent component PersonList 
+					a4: which is set to :onDelete parameter of child component Person 
+					a5: Person component receives it as second props
+					a6: Person component sets it to :onClick attribute of dom/button
+				b: pid (:person/id) flow
+					b0: Person component sets pid parameter as argument of onDelete function that is set to :onClick attribute of dom/button
+					b1: On runtime, user clicks button. pid is passed to onDelete function
+					b2: delete-person closure function receives pid
+					b3: It passes pid to dpm
+					b4: dpm receives pid argument
+					b5: dpm passes pid to remove-ident* function which is called by swap! function
+					note: remove-ident* uses pid to find out which Person ident should be removed from the list of idents.
+				c: ppr (person props) flow
+					c1: PersonList calls map with Person component factory and people vector that contains person props
+					c2: map passes ppr one-by-one to the comp/computed closure function inside Person component factory function 
+					c3: Person component receives ppr
+				d: lid (:list/id) flow
+					d1: PersonList component receives lid 
+					d2: It passes lid to dpm
+					d3: dpm receives lid
+					d4: dpm passes lid to remove-ident* function which is called by swap! function
+					note: remove-ident* uses lid to find out PersonList that you want to remove Person ident from
+	@anki
+		Map vs ilişkisel veritabanı: to-many arity referanslardaki fark nedir?
+			bir mapte (veya graph databasede), referans to-many arity'ye sahip olabilir, ilişkisel veritabanlarından farklı olarak
+		Şu şekilde referans vermenin kusuru nedir: { ... people #{1, 2} }
+			Buradaki sorun: `:people`
+				1 ve 2 id'lerini hangi tablodan bakacağımızı yukarıdaki speklerde göremiyoruz
+				Hem tablo ismine, hem de id'ye ihtiyacımız var: `[:Person 1]` gibi
+				[TABLE ID] vektörüne `ident` denir
+			:list/people [[:person/id 1] [:person/id 2]] }}
+		comp/transact! özellikleri:
+			treat operation like data
+			use unquote to embed data from local variables
+		Mutasyon şu şekilde olsaydı ne kusurları olurdu: (comp/transact! this [(api/delete-person {:list-name label :name name})])
+			UI refactor ederken, mutationları da düzeltmemiz gerekiyor çünkü veri ağacının şekli değişiyor
+			veri üzerine yerel düşünemiyoruz. mutasyonlar global anlayış gerektiriyor
+			mutasyonlar giderek büyüyüp çirkin hale geliyor
+			bir fact birden çok yerde bulunuyorsa, hepsi için doğru sırada güncelleme yapmak gerekiyor. data duplikasyon meselesi.
+		Mutasyonlarda global veri modelini bilme gereğini kaldırmak için ne gerekir?
+			Veritabanı normalizasyonu
+		state çekme fonksiyonu:
+			(com.fulcrologic.fulcro.application/current-state app.application/app)
+		bir ui komponentin query'sini çekme fonksiyonu:
+			(com.fulcrologic.fulcro.components/get-query app.ui/Root)
+		mevcut state'i ve query'yi kullanarak, veri ağacını çekme fonksiyonu:
+			(com.fulcrologic.fulcro.algorithms.denormalize/db->tree query state state)
+			{:friends {:list/id :friends,
+								 :list/label "Friends",
+								 :list/people [{:person/id 1, :person/name "Sally", :person/age 32}
+															 {:person/id 2, :person/name "Joe", :person/age 22}]},
+			 :enemies {:list/id :enemies,
+								 :list/label "Enemies",
+								 :list/people [{:person/id 3, :person/name "Fred", :person/age 11}
+															 {:person/id 4, :person/name "Bobby", :person/age 55}]}}
+		ex resolver: id -> (id, name) 
+			(pc/defresolver person-resolver [env input]
+				{::pc/input  #{:person/id}
+				 ::pc/output [:person/name]}
+				(let [name (get-name-from-database (:person/id input))]
+					{:person/name name}))
+		ex: id -> (id, people). [List|id] - [Person|name]
+			(app.parser/api-parser [{[:list/id :friends] [:list/id {:list/people [:person/name]}]}])
+			=> {[:list/id :friends] {:list/id :friends, :list/people [{:person/name "Sally"} {:person/name "Joe"}]}}
+		Neden EQL'de joinler nested map olarak belirtilir?
+			ex: {:entity [:prop01 {:subentity [:prop02]} ]}
+			eğer nested map olmasaydı ne olurdu?
+			{:entity [:prop01 :subentity [:prop02] ]}
+			bu durumda prop02'nin subentity'nin nested mapinde olduğunu anlayamazdık
+	17. UI State Machines id=g12460
+		17.1 Aliases
+			actor: a keyword defined in the state machine
+				stands for a UI component
+			ex:
+				::uism/actor-names #{:actor/dialog :actor/form}
+					ekranda dialog ve form bulunacak
+			actors are names for some ident that points to an entity in db
+			data our state machine manipulates:
+			ex:
+				::uism/aliases {:visible? [:actor/dialog :ui/active?]}
+			`visible?` burada alias
+				alias: data path to some field of an entity
+			ex: 
+				[:modal/id :general] bir componentin identi olsun
+				bunun aktörü: :actor/dialog olsun
+				bu durumda :visible? aliası şu path olur:
+				[:modal/id :general :ui/active?]
+		17.2 Derived State Machines
+			bir stm'ye assoc-in ile yeni kv pairleri eklemek için kullanılır
+			ex:
+				(defstatemachine custom-login-machine
+					(assoc-in login-machine [::uism/aliases :visible? 1] :ui/visible?))
+				yani: uism/aliases içindeki :visible? 1 olan değerlere artık ui/visible? densin, eskiden ui/active? deniyorken
+		17.3 Plugins
+			stm mantıksal kurallarına plugin deniyor
+			girdi olarak state map alıyorlar (alias name ile)
+			ex: bir login formumuz var. email alanına doğru giriş yapılmadan ve ayrıca username doldurulmadan kullanıcı submit yapamasın
+				::uism/plugins
+				  {:valid-credentials?
+					  (fn [{:keys [username password]}]
+						  (boolean (and seq username) (seq password)))}
+			bir plugini değiştirmek için, derived stm'lerdeki gibi assoc-in kullan
+			ex: plugin çağırmak
+				:event/login 
+				{::uism/handler
+				  (fn [env]
+					  (let [valid? (uism/run env :valid-credentials?)] 
+						  ...))}
+		17.4 States
+			state: map from a statename to a function
+				function: input: stm environment for all events
+			:initial state zorunlu
+				bunun handlerı ::uism/started event ile tetiklenir
+			current state handler: aktif olduğu sürede her event için tetiklenir 
+			ex:
+				(defstatemachine login-machine
+				  {::uism/actor-names #{...}
+					 ::uism/aliases {...}
+					 ::uism/states {
+						 :initial {...}
+						 :state/state-id {...}
+						 :state/state2-id {...}}})
+			state tanımlamalarında (handler) iki seçenek var
+			17.4.1 Option 1 - Predicate/handler (preferred)
+				ex:
+					::uism/states {
+						:initial {
+							:uism/events {
+								::uism/event-predicate (fn [env] ... true)
+								::uism/target-states #{:state/next-state}
+								::uism/handler 
+								  (fn [env] ..(uism/activate env :state/next-state))
+							}
+						}
+					}
+			17.4.2. Option 2 - A Single Handler
+		17.5 Transitioning State
+			17.5.1. Option 1 - Call uism/activate from within a handler
+				ex
+					::uism/handler
+					  (fn [env]
+						  (uism/activate env :state/next-state))
+			17.5.2. Option 2 — Use the ::uism/target-state keyword shortcut
+			  ex
+					{:event/some-event {::uism/target-state :state/some-other-state}}}
+		17.6. Writing Handlers and Data Manipulation
+			handlers: functions that receive stm env and return env
+			ex:
+				(fn [env]
+					(-> env
+						 (uism/assoc-aliased :visible? true)
+						 ...))
+		17.7. Using State Machines from the UI
+			hooking stm to control UI
+			17.7.1. Starting An Instance
+				(uism/begin! app-or-component machine-def instance-id actor-map)
+				actor map:
+					map, keyed by actor-id
+					lets stm know what components are acted upon
+					value olarak şunlardan biri olabilir:
+						ident
+						component class `(comp/get-ient class {})`
+						component instance `this`
+				ex:
+					(uism/begin! this login-machine ::loginsm {
+						:actor/dialog  Dialog
+						:actor/session Session
+						:actor/form    LoginForm})
+Nubank Workspaces   id=g12399
+	ref
+		Project: nubank/workspaces <url:file:///~/projects/study/clj/fulcro.md#r=g12400>
+Project: Gift list  id=g12401
+	[Gift list dev diary: introduction · Chris's Blog](https://chrisodonnell.dev/posts/giftlist/intro/)
+		alıntılar
+			Without normalized application state, it’s very easy to end up with two pieces of data describing the same thing that get out of sync. 
+				Often this results in UI elements displaying inconsistent data
+				fulcro’s system of component-colocated queries and idents neatly solves the problem of prop drilling.
+					ref: Prop Drilling <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g12402>
+			A component's data structure is something you can ship to a server and get back a response with all the data necessary to render that part of your UI
+	[Gift list dev diary: authentication · Chris's Blog](https://chrisodonnell.dev/posts/giftlist/authentication/)
+Project: glam id=g12411
+	düzgün çalışıyor
+	running
+		readme içindeki cursive adımlarını uygula, şu farklarla:
+		yarn client
+		localhost:9630
+		run repl: server
+			(start)
+		run repl (client): nrepl 
+		localhost:8085
+		repl içinde:
+			(require '[shadow.cljs.devtools.api :as shadow])
+			(shadow/repl :main)
+Fulcro Videos
+	Part 12 Subforms
 

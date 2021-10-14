@@ -3,6 +3,11 @@ parent
 	refmine kms <url:file:///~/projects/myrepo/general/refmine.otl#r=g11660>
 code #topics
 	clojure
+		forums
+			[Clojure Q&A](https://ask.clojure.org/)
+			zulip
+			slack
+			sof
 		cheatsheets - clojure
 			https://cljs.info/cheatsheet/
 				/Users/mertnuhoglu/codes/clojure/cljs-cheatsheet

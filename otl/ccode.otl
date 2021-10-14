@@ -7,7 +7,7 @@ index
 	awk <url:file:///~/projects/study/otl/ccode.otl#r=g11686>
 	regex ~/projects/study/otl/cregex.otl
 issues
-	Print documents with syntax coloring
+	Print documents with syntax coloring in vim
 		source code:
 			ref: :TOhtml <url:file:///~/projects/study/otl/cvim.otl#r=g11899>
 		markdown docs:
@@ -109,6 +109,9 @@ browsers
 			Esc
 			menu > Show Console
 	vivaldi
+		shortcuts
+			| 4| previous tab |
+			| 3 | next tab |
 		quick commands
 			https://help.vivaldi.com/article/quick-commands/
 				#e f2
@@ -1789,6 +1792,9 @@ haskell
 				monad difficult to teach
 				lazy vs. 
 			Haskell Monads in 8 Minutes
+json edn - json2 id=g12415
+	ref
+		json/edn <url:file:///~/projects/study/clj/clojure.otl#r=g12416>
 latex
 		ref
 			mathematical symbols: http://oeis.org/wiki/List_of_LaTeX_mathematical_symbols
@@ -2911,11 +2917,29 @@ tools
 		ref
 			Import tsv files into anki <url:file:///~/projects/study/code/anki/study_anki.md#r=g12334>
 			Import md files into anki  <url:file:///~/projects/study/code/anki/study_anki.md#r=g12355>
+			/Users/mertnuhoglu/Library/Application Support/Anki2/ozgureminnuhoglu/collection.media/
+			/Users/mertnuhoglu/Library/Application Support/Anki2/mertnuhoglu/collection.media/
+			~/projects/study/code/anki/process_anki_make_image_flashcards.Rmd
 		tablo türü anki kartları nasıl yapılır?
 			ref: [(627) S03 - Anki Flashcards: 10 Tips for adding tables to your cards - YouTube](https://www.youtube.com/watch?v=0ybiIE2Cdbg)
 			opt01: ekran görüntüsü olarak
 			opt02: tablesgenerator.com
 				html olarak ekle: Edit HTML
+		netflix ve youtube gibi videolardan anki kartları oluşturma
+			1. Language Reactor (chrome) ile cümleleri kaydet
+			2. Export > Print 
+			3. Bunları excele kopyala
+			4. Anki'de tek tek bunları sesli olarak kaydet
+				Mikrofon olarak dahili mikrofonu kullan. Ses kalitesi daha iyi.
+				Sound: output kulaklık yap. Böylece bilgisayarın hoparlöründen kayıtlarını otomatik geri çalarken duymazsın.
+		twitter maddelerinden anki kartları oluşturma
+			1. SimpleNote kayıtlarını bir metin dosyasına aktar vim içinde
+			2. ConvertToExcelFromMultilines
+			3. Bunları excele kopyala
+			4. tsv içine kopyala
+				ConvertAnkiTsv
+		custom shortcuts  id=g12392
+			Tools > Add-ons > Custom Shortcuts > Config
 		anki
 			Basics: Objects
 				Cards
@@ -3024,7 +3048,7 @@ tools
 			shortcuts
 				/ +		quick add
 				+enter		add control
-	docker id=g10120
+	docker docker2 id=g10120
 		docker <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10120>
 			refcard
 				docker exec -it vrp_java_1 bash
@@ -4445,6 +4469,8 @@ tools
 					R ile java docker'ını çağırıp sonucunu nasıl alırım?
 						promise?
 						rest?
+	duf duf2: disk usage/free utility
+		[muesli/duf: Disk Usage/Free Utility - a better 'df' alternative](https://github.com/muesli/duf)
 	elastic
 			Getting Started Tutorial
 				https://www.elastic.co/guide/en/elasticsearch/guide/current/_installing_elasticsearch.html
@@ -4894,21 +4920,14 @@ tools
 					^r    paste from history
 					!c    cd into selected dir
 	lf: file manager (list files) lf2 id=g12347
-		Issue: Open Excel files with vd (Excel dosyalarını vd ile açmak): <url:file:///~/projects/study/code/study_lf.md#r=g12348>
-		toggle preview kısayolu oluştur <url:file:///~/projects/study/code/study_lf.md#r=g11823>
-		dosya silme delete file  <url:file:///~/projects/study/code/study_lf.md#r=g12349>
-		shortcuts lf  <url:file:///~/projects/study/code/study_lf.md#r=g12350>
-		Customizations lf <url:file:///~/projects/study/code/study_lf.md#r=g12351>
-		quickref shortcuts
-			| af | fzf                    |
-			| az | fasd                   |
-			| Y  | copy path: $f > pbcopy |
-			| i         | launch pager                      |
-			| s         | change sortby/info options        |
+		ref
+			lf lf3  <url:file:///~/projects/study/code/lf_ranger_file_managers.otl#r=g12426>
 	hammerspoon
 		ref: ~/projects/study/code/study_hammerspoon.md
-		bundleid
+		opt01: bundleid
 			osascript -e 'id of app "Microsoft Excel"'
+		opt02: eğer bundleid yoksa pencere başlığının ismini kullan
+			hs.window.find('Reveal'):focus()
 	htop
 			usage
 				use mouse
@@ -5062,7 +5081,8 @@ tools
 			ghostscript
 				gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dFirstPage=3 -dLastPage=5 -sOUTPUTFILE=input.3_5.pdf index.pdf
 				convert *.png -gravity South -annotate 0 '%f' all.pdf
-	intellij
+	intellij intellij2
+			ref: ~/projects/study/otl/intellij.otl
 			js javascript and ts typescript support
 				install nodejs plugin
 			live reload and hotswap
@@ -6240,6 +6260,7 @@ tools
 				KeyCode::<key to fire when held continuously>,
 				KeyCode::<key to fire when pressed and released quickly>
 		applications
+			krispy: zoom kullanırken arka fondaki gürültüyü temizler
 			iterm2
 				solarized renkleri iterm için bozuk
 					https://gitlab.com/gnachman/iterm2/issues/3989
@@ -6260,14 +6281,27 @@ tools
 			anki: spaced repetition for memory
 			karabiner: shortcuts, hotkeys management
 			copyq: multiple clipboard manager
-	ranger
+	plocate: locate mdfind 
+		alternative: locate mdfind 
+		[plocate, a much faster locate](https://plocate.sesse.net/)
+	pspg: pager for tables id=g12408
 		ref
+			~/projects/private_dotfiles/.psqlrc
+		alternative to
+			visidata
+			less more
+			psql
+		[okbob/pspg: Unix pager (with very rich functionality) designed for work with tables. Designed for PostgreSQL, but MySQL is supported too. Works well with pgcli too. Can be used as CSV or TSV viewer too. It supports searching, selecting rows, columns, or block and export selected area to clipboard.](https://github.com/okbob/pspg)
+		setup
+			export PSQL_PAGER=pspg
+			~/projects/private_dotfiles/.psqlrc
+	ranger ranger2 id=g12424
+		ref
+			ranger ranger3 <url:file:///~/projects/study/code/lf_ranger_file_managers.otl#r=g12425>
 			Index <url:file:///~/projects/study/code/study_ranger.md#r=g11809>
-		| m<any>                   | mark bookmark                |
-		| '<any>                   | goto bookmark                |
-		| ?k                       | help for keybindings         |
-		| yp                       | yank path                    |
-		| zp                       | toggle preview               |
+			~/projects/private_dotfiles/.config/ranger/rc.conf
+			~/.config/ranger/commands.py
+			~/projects/study/code/lf_ranger_file_managers.otl
 	scim - spreadsheet on terminal
 			basics
 				in normal mode
@@ -6332,6 +6366,19 @@ tools
 	teams
 		^+m		mute
 		^+o		video
+	tldr
+	taeldeer: tldr cheatsheets
+		alternative: tldr cheat
+		[dbrgn/tealdeer: A very fast implementation of tldr in Rust.](https://github.com/dbrgn/tealdeer)
+	ugrep - search text id=g12409
+		[Genivia/ugrep: ultra fast grep with interactive query UI and fuzzy search](https://github.com/Genivia/ugrep#install)
+		alternative to: rg ripgrep grep
+		features
+			pdf docx support
+			interactive
+			fuzzy search
+			filter by filename extensions
+			output in csv
 	vd visidata spreadsheet vd2
 		ref
 			~/projects/study/code/study_visidata.md
@@ -7321,6 +7368,9 @@ topics
 					powtoon
 					go animate
 					toontastic
+	zoxide: z autojump
+		alternative: z autojump
+		[ajeetdsouza/zoxide: A smarter cd command. Supports all major shells.](https://github.com/ajeetdsouza/zoxide)
 unclassified
 	unclassified
 		https://repl.it/site/blog/multi

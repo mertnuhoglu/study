@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>~/projects/study/clj/ex/articles_fulcro/docs/4_9_2_defmutation.cljs.html</title>
+<meta name="Generator" content="Vim/8.0">
+<meta name="plugin-version" content="vim8.1_v2">
+<meta name="syntax" content="clojure">
+<meta name="settings" content="number_lines,use_css,pre_wrap,no_foldcolumn,expand_tabs,line_ids,prevent_copy=,use_input_for_pc=fallback">
+<meta name="colorscheme" content="vo_light">
+<style>
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #000000; background-color: #ffffff; }
+body { font-family: monospace; color: #000000; background-color: #ffffff; }
+* { font-size: 1em; }
+.clojureRainbow_lv0_o0 { color: #3a5fcd; }
+.clojureRainbow_lv0_p0 { color: #3a5fcd; }
+.clojureRainbow_lv1_p0 { color: #cd6600; }
+.clojureRainbow_lv4_p1 { color: #9a32cd; }
+.clojureRainbow_lv0_p2 { color: #3a5fcd; }
+.clojureRainbow_lv1_o2 { color: #cd6600; }
+.clojureRainbow_lv1_p2 { color: #cd6600; }
+.clojureRainbow_lv2_o2 { color: #43cd80; }
+.clojureRainbow_lv2_p0 { color: #43cd80; }
+.clojureRainbow_lv3_p0 { color: #b22222; }
+.clojureRainbow_lv4_p0 { color: #9a32cd; }
+.clojureRainbow_lv0_p1 { color: #3a5fcd; }
+.LineNr { color: #00a0ff; background-color: #dbf2ff; padding-bottom: 1px; font-weight: bold; }
+.clojureRainbow_lv2_p2 { color: #43cd80; }
+.clojureRainbow_lv3_o2 { color: #b22222; }
+.clojureRainbow_lv3_p2 { color: #b22222; }
+.clojureRainbow_lv4_o2 { color: #9a32cd; }
+.clojureRainbow_lv4_p2 { color: #9a32cd; }
+.Identifier { color: #008b8b; }
+.clojureRainbow_lv1_p1 { color: #cd6600; }
+.clojureRainbow_lv2_p1 { color: #43cd80; }
+.clojureRainbow_lv3_p1 { color: #b22222; }
+.Comment { color: #0000ff; }
+.Constant { color: #ff00ff; }
+.Special { color: #6a5acd; }
+.Statement { color: #a52a2a; font-weight: bold; }
+.PreProc { color: #6a0dad; }
+-->
+</style>
+
+<script>
+<!--
+
+/* function to open any folds containing a jumped-to line before jumping to it */
+function JumpToLine()
+{
+  var lineNum;
+  lineNum = window.location.hash;
+  lineNum = lineNum.substr(1); /* strip off '#' */
+
+  if (lineNum.indexOf('L') == -1) {
+    lineNum = 'L'+lineNum;
+  }
+  var lineElem = document.getElementById(lineNum);
+  /* Always jump to new location even if the line was hidden inside a fold, or
+   * we corrected the raw number to a line ID.
+   */
+  if (lineElem) {
+    lineElem.scrollIntoView(true);
+  }
+  return true;
+}
+if ('onhashchange' in window) {
+  window.onhashchange = JumpToLine;
+}
+
+-->
+</script>
+</head>
+<body onload='JumpToLine();'>
+<pre id='vimCodeElement'>
+<span id="L1" class="LineNr"> 1 </span><span class="clojureRainbow_lv0_p0">(</span><span class="PreProc">ns</span> app.mutations
+<span id="L2" class="LineNr"> 2 </span>  <span class="clojureRainbow_lv1_p0">(</span><span class="Statement">:require</span>
+<span id="L3" class="LineNr"> 3 </span>    <span class="clojureRainbow_lv2_p1">[</span>com.fulcrologic.fulcro.mutations <span class="Statement">:as</span> m <span class="Statement">:refer</span> <span class="clojureRainbow_lv3_p1">[</span>defmutation<span class="clojureRainbow_lv3_p1">]</span><span class="clojureRainbow_lv2_p1">]</span>
+<span id="L4" class="LineNr"> 4 </span>    <span class="clojureRainbow_lv2_p1">[</span>com.fulcrologic.fulcro.algorithms.merge <span class="Statement">:as</span> <span class="Identifier">merge</span><span class="clojureRainbow_lv2_p1">]</span><span class="clojureRainbow_lv1_p0">)</span><span class="clojureRainbow_lv0_p0">)</span>
+<span id="L5" class="LineNr"> 5 </span>
+<span id="L6" class="LineNr"> 6 </span><span class="clojureRainbow_lv0_p0">(</span>defmutation delete-person
+<span id="L7" class="LineNr"> 7 </span>
+<span id="L8" class="LineNr"> 8 </span>  <span class="clojureRainbow_lv1_p1">[</span><span class="clojureRainbow_lv2_p2">{</span>list-id   <span class="Statement">:list/id</span>
+<span id="L9" class="LineNr"> 9 </span>    person-id <span class="Statement">:person/id</span><span class="clojureRainbow_lv2_p2">}</span><span class="clojureRainbow_lv1_p1">]</span>
+<span id="L10" class="LineNr">10 </span>
+<span id="L11" class="LineNr">11 </span>  <span class="clojureRainbow_lv1_p0">(</span>action <span class="clojureRainbow_lv2_p1">[</span><span class="clojureRainbow_lv3_p2">{</span><span class="Statement">:keys</span> <span class="clojureRainbow_lv4_p1">[</span>state<span class="clojureRainbow_lv4_p1">]</span><span class="clojureRainbow_lv3_p2">}</span><span class="clojureRainbow_lv2_p1">]</span>
+<span id="L12" class="LineNr">12 </span>
+<span id="L13" class="LineNr">13 </span>    <span class="clojureRainbow_lv2_p0">(</span><span class="Identifier">swap!</span>
+<span id="L14" class="LineNr">14 </span>      state
+<span id="L15" class="LineNr">15 </span>      merge/remove-ident*                 <span class="Comment">; (1)</span>
+<span id="L16" class="LineNr">16 </span>      <span class="clojureRainbow_lv3_p1">[</span><span class="Statement">:person/id</span> person-id<span class="clojureRainbow_lv3_p1">]</span>              <span class="Comment">; (2)</span>
+<span id="L17" class="LineNr">17 </span>      <span class="clojureRainbow_lv3_p1">[</span><span class="Statement">:list/id</span> list-id <span class="Statement">:list/people</span><span class="clojureRainbow_lv3_p1">]</span><span class="clojureRainbow_lv2_p0">)</span><span class="clojureRainbow_lv1_p0">)</span><span class="clojureRainbow_lv0_p0">)</span>  <span class="Comment">; (3)</span>
+<span id="L18" class="LineNr">18 </span>
+<span id="L19" class="LineNr">19 </span><span class="Comment">; (1) removes an ident from a list of idents</span>
+<span id="L20" class="LineNr">20 </span><span class="Comment">; (2) ident to be removed</span>
+<span id="L21" class="LineNr">21 </span><span class="Comment">; (3) path to the list of idents that you want to remove ident from</span>
+<span id="L22" class="LineNr">22 </span>
+<span id="L23" class="LineNr">23 </span>...
+<span id="L24" class="LineNr">24 </span>
+<span id="L25" class="LineNr">25 </span><span class="clojureRainbow_lv0_p0">(</span>defsc Person
+<span id="L26" class="LineNr">26 </span>
+<span id="L27" class="LineNr">27 </span>  <span class="clojureRainbow_lv1_p1">[</span>this
+<span id="L28" class="LineNr">28 </span>   <span class="clojureRainbow_lv2_p2">{</span><span class="Statement">:person/keys</span> <span class="clojureRainbow_lv3_p1">[</span>id <span class="Identifier">name</span> age<span class="clojureRainbow_lv3_p1">]</span> <span class="Statement">:as</span> props<span class="clojureRainbow_lv2_p2">}</span>    <span class="Comment">; 🦄 (3)</span>
+<span id="L29" class="LineNr">29 </span>   <span class="clojureRainbow_lv2_p2">{</span><span class="Statement">:keys</span> <span class="clojureRainbow_lv3_p1">[</span>onDelete<span class="clojureRainbow_lv3_p1">]</span>   <span class="Comment">; 3️⃣ 🐹</span>
+<span id="L30" class="LineNr">30 </span>    ...<span class="clojureRainbow_lv2_p2">}</span><span class="clojureRainbow_lv1_p1">]</span>
+<span id="L31" class="LineNr">31 </span>
+<span id="L32" class="LineNr">32 </span>  <span class="clojureRainbow_lv1_p0">(</span>dom/h5
+<span id="L33" class="LineNr">33 </span>    <span class="clojureRainbow_lv2_p0">(</span><span class="Identifier">str</span> <span class="Identifier">name</span> <span class="Constant">&quot;</span><span class="Constant"> (age: </span><span class="Constant">&quot;</span> age <span class="Constant">&quot;</span><span class="Constant">)</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv2_p0">)</span><span class="clojureRainbow_lv1_p0">)</span>
+<span id="L34" class="LineNr">34 </span>  <span class="clojureRainbow_lv1_p0">(</span>dom/button
+<span id="L35" class="LineNr">35 </span>    <span class="clojureRainbow_lv2_p2">{</span><span class="Statement">:onClick</span> <span class="Special">#</span><span class="clojureRainbow_lv3_p0">(</span>onDelete id<span class="clojureRainbow_lv3_p0">)</span><span class="clojureRainbow_lv2_p2">}</span> <span class="Comment">; 🐱 1️⃣</span>
+<span id="L36" class="LineNr">36 </span>    <span class="Constant">&quot;</span><span class="Constant">X</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv1_p0">)</span><span class="clojureRainbow_lv0_p0">)</span>
+<span id="L37" class="LineNr">37 </span>
+<span id="L38" class="LineNr">38 </span>...
+<span id="L39" class="LineNr">39 </span>
+<span id="L40" class="LineNr">40 </span><span class="clojureRainbow_lv0_p0">(</span>defsc PersonList
+<span id="L41" class="LineNr">41 </span>
+<span id="L42" class="LineNr">42 </span>  <span class="clojureRainbow_lv1_p1">[</span>this
+<span id="L43" class="LineNr">43 </span>   <span class="clojureRainbow_lv2_p2">{</span><span class="Statement">:list/keys</span> <span class="clojureRainbow_lv3_p1">[</span>id label people<span class="clojureRainbow_lv3_p1">]</span> <span class="Statement">:as</span> props<span class="clojureRainbow_lv2_p2">}</span><span class="clojureRainbow_lv1_p1">]</span>
+<span id="L44" class="LineNr">44 </span>  ...
+<span id="L45" class="LineNr">45 </span>
+<span id="L46" class="LineNr">46 </span>  <span class="clojureRainbow_lv1_p0">(</span><span class="Special">let</span>
+<span id="L47" class="LineNr">47 </span>    <span class="clojureRainbow_lv2_p1">[</span>delete-person  <span class="Comment">; 1️⃣ 🐹</span>
+<span id="L48" class="LineNr">48 </span>     <span class="clojureRainbow_lv3_p0">(</span><span class="Special">fn</span> <span class="clojureRainbow_lv4_p1">[</span>person-id<span class="clojureRainbow_lv4_p1">]</span>   <span class="Comment">; 🐱 2️⃣</span>
+<span id="L49" class="LineNr">49 </span>       <span class="clojureRainbow_lv4_p0">(</span>comp/transact!
+<span id="L50" class="LineNr">50 </span>         this
+<span id="L51" class="LineNr">51 </span>         <span class="clojureRainbow_lv0_p1">[</span><span class="clojureRainbow_lv1_p0">(</span>api/delete-person
+<span id="L52" class="LineNr">52 </span>            <span class="clojureRainbow_lv2_p2">{</span><span class="Statement">:list/id</span> id <span class="Statement">:person/id</span> person-id<span class="clojureRainbow_lv2_p2">}</span><span class="clojureRainbow_lv1_p0">)</span><span class="clojureRainbow_lv0_p1">]</span><span class="clojureRainbow_lv4_p0">)</span><span class="clojureRainbow_lv3_p0">)</span><span class="clojureRainbow_lv2_p1">]</span>
+<span id="L53" class="LineNr">53 </span>
+<span id="L54" class="LineNr">54 </span>    <span class="clojureRainbow_lv2_p0">(</span>dom/div
+<span id="L55" class="LineNr">55 </span>      <span class="clojureRainbow_lv3_p0">(</span>dom/h4 label<span class="clojureRainbow_lv3_p0">)</span>
+<span id="L56" class="LineNr">56 </span>      <span class="clojureRainbow_lv3_p0">(</span>dom/ul
+<span id="L57" class="LineNr">57 </span>        <span class="clojureRainbow_lv4_p0">(</span><span class="Identifier">map</span>
+<span id="L58" class="LineNr">58 </span>          <span class="Special">#</span><span class="clojureRainbow_lv0_p0">(</span>ui-person
+<span id="L59" class="LineNr">59 </span>             <span class="clojureRainbow_lv1_p0">(</span>comp/computed
+<span id="L60" class="LineNr">60 </span>               <span class="Special">%</span>     <span class="Comment">; 🦄 (2)</span>
+<span id="L61" class="LineNr">61 </span>               <span class="clojureRainbow_lv2_p2">{</span><span class="Statement">:onDelete</span> delete-person<span class="clojureRainbow_lv2_p2">}</span><span class="clojureRainbow_lv1_p0">)</span><span class="clojureRainbow_lv0_p0">)</span>    <span class="Comment">; 2️⃣ 🐹</span>
+<span id="L62" class="LineNr">62 </span>          people<span class="clojureRainbow_lv4_p0">)</span><span class="clojureRainbow_lv3_p0">)</span><span class="clojureRainbow_lv2_p0">)</span><span class="clojureRainbow_lv1_p0">)</span><span class="clojureRainbow_lv0_p0">)</span>  <span class="Comment">; 🦄 (1)</span>
+<span id="L63" class="LineNr">63 </span>
+<span id="L64" class="LineNr">64 </span>
+<span id="L65" class="LineNr">65 </span><span class="clojureRainbow_lv0_p0">(</span><span class="PreProc">comment</span>
+<span id="L66" class="LineNr">66 </span>
+<span id="L67" class="LineNr">67 </span>  <span class="clojureRainbow_lv1_p0">(</span>com.fulcrologic.fulcro.application/current-state app.application/app<span class="clojureRainbow_lv1_p0">)</span>
+<span id="L68" class="LineNr">68 </span>  <span class="clojureRainbow_lv1_p2">{</span><span class="Statement">:friends</span> <span class="clojureRainbow_lv2_p1">[</span><span class="Statement">:list/id</span> <span class="Statement">:friends</span><span class="clojureRainbow_lv2_p1">]</span>
+<span id="L69" class="LineNr">69 </span>   <span class="Statement">:enemies</span> <span class="clojureRainbow_lv2_p1">[</span><span class="Statement">:list/id</span> <span class="Statement">:enemies</span><span class="clojureRainbow_lv2_p1">]</span>
+<span id="L70" class="LineNr">70 </span>   <span class="Statement">:person/id</span> <span class="clojureRainbow_lv2_p2">{</span><span class="Constant">1</span> <span class="clojureRainbow_lv3_p2">{</span><span class="Statement">:person/id</span> <span class="Constant">1</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:person/name</span> <span class="Constant">&quot;</span><span class="Constant">Sally</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:person/age</span> <span class="Constant">32</span><span class="clojureRainbow_lv3_p2">}</span>
+<span id="L71" class="LineNr">71 </span>               <span class="Constant">2</span> <span class="clojureRainbow_lv3_p2">{</span><span class="Statement">:person/id</span> <span class="Constant">2</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:person/name</span> <span class="Constant">&quot;</span><span class="Constant">Joe</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:person/age</span> <span class="Constant">22</span><span class="clojureRainbow_lv3_p2">}</span>
+<span id="L72" class="LineNr">72 </span>               <span class="Constant">3</span> <span class="clojureRainbow_lv3_p2">{</span><span class="Statement">:person/id</span> <span class="Constant">3</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:person/name</span> <span class="Constant">&quot;</span><span class="Constant">Fred</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:person/age</span> <span class="Constant">11</span><span class="clojureRainbow_lv3_p2">}</span>
+<span id="L73" class="LineNr">73 </span>               <span class="Constant">4</span> <span class="clojureRainbow_lv3_p2">{</span><span class="Statement">:person/id</span> <span class="Constant">4</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:person/name</span> <span class="Constant">&quot;</span><span class="Constant">Bobby</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:person/age</span> <span class="Constant">55</span><span class="clojureRainbow_lv3_p2">}</span><span class="clojureRainbow_lv2_p2">}</span>
+<span id="L74" class="LineNr">74 </span>   <span class="Statement">:list/id</span> <span class="clojureRainbow_lv2_p2">{</span><span class="Statement">:friends</span> <span class="clojureRainbow_lv3_p2">{</span><span class="Statement">:list/id</span> <span class="Statement">:friends</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:list/label</span> <span class="Constant">&quot;</span><span class="Constant">Friends</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:list/people</span> <span class="clojureRainbow_lv4_p1">[</span><span class="clojureRainbow_lv0_p1">[</span><span class="Statement">:person/id</span> <span class="Constant">1</span><span class="clojureRainbow_lv0_p1">]</span> <span class="clojureRainbow_lv0_p1">[</span><span class="Statement">:person/id</span> <span class="Constant">2</span><span class="clojureRainbow_lv0_p1">]</span><span class="clojureRainbow_lv4_p1">]</span><span class="clojureRainbow_lv3_p2">}</span>
+<span id="L75" class="LineNr">75 </span>             <span class="Statement">:enemies</span> <span class="clojureRainbow_lv3_p2">{</span><span class="Statement">:list/id</span> <span class="Statement">:enemies</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:list/label</span> <span class="Constant">&quot;</span><span class="Constant">Enemies</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv3_o2">,</span> <span class="Statement">:list/people</span> <span class="clojureRainbow_lv4_p1">[</span><span class="clojureRainbow_lv0_p1">[</span><span class="Statement">:person/id</span> <span class="Constant">3</span><span class="clojureRainbow_lv0_p1">]</span> <span class="clojureRainbow_lv0_p1">[</span><span class="Statement">:person/id</span> <span class="Constant">4</span><span class="clojureRainbow_lv0_p1">]</span><span class="clojureRainbow_lv4_p1">]</span><span class="clojureRainbow_lv3_p2">}</span><span class="clojureRainbow_lv2_p2">}</span><span class="clojureRainbow_lv1_p2">}</span>
+<span id="L76" class="LineNr">76 </span>
+<span id="L77" class="LineNr">77 </span>  <span class="clojureRainbow_lv1_p0">(</span><span class="Special">def</span> state <span class="clojureRainbow_lv2_p0">(</span>com.fulcrologic.fulcro.application/current-state app.application/app<span class="clojureRainbow_lv2_p0">)</span><span class="clojureRainbow_lv1_p0">)</span>
+<span id="L78" class="LineNr">78 </span>  <span class="Comment">;; #'cljs.user/state</span>
+<span id="L79" class="LineNr">79 </span>  <span class="clojureRainbow_lv1_p0">(</span><span class="Special">def</span> query <span class="clojureRainbow_lv2_p0">(</span>com.fulcrologic.fulcro.components/get-query app.ui/Root<span class="clojureRainbow_lv2_p0">)</span><span class="clojureRainbow_lv1_p0">)</span>
+<span id="L80" class="LineNr">80 </span>  <span class="Comment">;; #'cljs.user/query</span>
+<span id="L81" class="LineNr">81 </span>
+<span id="L82" class="LineNr">82 </span>  <span class="clojureRainbow_lv1_p0">(</span>com.fulcrologic.fulcro.algorithms.denormalize/db-&gt;tree query state state<span class="clojureRainbow_lv1_p0">)</span>
+<span id="L83" class="LineNr">83 </span>  <span class="clojureRainbow_lv1_p2">{</span><span class="Statement">:friends</span> <span class="clojureRainbow_lv2_p2">{</span><span class="Statement">:list/id</span> <span class="Statement">:friends</span><span class="clojureRainbow_lv2_o2">,</span>
+<span id="L84" class="LineNr">84 </span>             <span class="Statement">:list/label</span> <span class="Constant">&quot;</span><span class="Constant">Friends</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv2_o2">,</span>
+<span id="L85" class="LineNr">85 </span>             <span class="Statement">:list/people</span> <span class="clojureRainbow_lv3_p1">[</span><span class="clojureRainbow_lv4_p2">{</span><span class="Statement">:person/id</span> <span class="Constant">1</span><span class="clojureRainbow_lv4_o2">,</span> <span class="Statement">:person/name</span> <span class="Constant">&quot;</span><span class="Constant">Sally</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv4_o2">,</span> <span class="Statement">:person/age</span> <span class="Constant">32</span><span class="clojureRainbow_lv4_p2">}</span>
+<span id="L86" class="LineNr">86 </span>                           <span class="clojureRainbow_lv4_p2">{</span><span class="Statement">:person/id</span> <span class="Constant">2</span><span class="clojureRainbow_lv4_o2">,</span> <span class="Statement">:person/name</span> <span class="Constant">&quot;</span><span class="Constant">Joe</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv4_o2">,</span> <span class="Statement">:person/age</span> <span class="Constant">22</span><span class="clojureRainbow_lv4_p2">}</span><span class="clojureRainbow_lv3_p1">]</span><span class="clojureRainbow_lv2_p2">}</span><span class="clojureRainbow_lv1_o2">,</span>
+<span id="L87" class="LineNr">87 </span>   <span class="Statement">:enemies</span> <span class="clojureRainbow_lv2_p2">{</span><span class="Statement">:list/id</span> <span class="Statement">:enemies</span><span class="clojureRainbow_lv2_o2">,</span>
+<span id="L88" class="LineNr">88 </span>             <span class="Statement">:list/label</span> <span class="Constant">&quot;</span><span class="Constant">Enemies</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv2_o2">,</span>
+<span id="L89" class="LineNr">89 </span>             <span class="Statement">:list/people</span> <span class="clojureRainbow_lv3_p1">[</span><span class="clojureRainbow_lv4_p2">{</span><span class="Statement">:person/id</span> <span class="Constant">3</span><span class="clojureRainbow_lv4_o2">,</span> <span class="Statement">:person/name</span> <span class="Constant">&quot;</span><span class="Constant">Fred</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv4_o2">,</span> <span class="Statement">:person/age</span> <span class="Constant">11</span><span class="clojureRainbow_lv4_p2">}</span>
+<span id="L90" class="LineNr">90 </span>                           <span class="clojureRainbow_lv4_p2">{</span><span class="Statement">:person/id</span> <span class="Constant">4</span><span class="clojureRainbow_lv4_o2">,</span> <span class="Statement">:person/name</span> <span class="Constant">&quot;</span><span class="Constant">Bobby</span><span class="Constant">&quot;</span><span class="clojureRainbow_lv4_o2">,</span> <span class="Statement">:person/age</span> <span class="Constant">55</span><span class="clojureRainbow_lv4_p2">}</span><span class="clojureRainbow_lv3_p1">]</span><span class="clojureRainbow_lv2_p2">}</span><span class="clojureRainbow_lv1_p2">}</span>
+<span id="L91" class="LineNr">91 </span>  <span class="clojureRainbow_lv0_o0">,</span><span class="clojureRainbow_lv0_p0">)</span>
+<span id="L92" class="LineNr">92 </span>
+<span id="L93" class="LineNr">93 </span><span class="clojureRainbow_lv0_p0">(</span><span class="Special">def</span> data-tree
+<span id="L94" class="LineNr">94 </span>  <span class="clojureRainbow_lv1_p2">{</span><span class="Statement">:friends</span>
+<span id="L95" class="LineNr">95 </span>   <span class="clojureRainbow_lv2_p1">[</span><span class="clojureRainbow_lv3_p2">{</span><span class="Statement">:list/id</span> <span class="Statement">:friends</span>
+<span id="L96" class="LineNr">96 </span>     <span class="Statement">:list/people</span> <span class="clojureRainbow_lv4_p1">[</span><span class="clojureRainbow_lv0_p2">{</span><span class="Statement">:person/id</span> <span class="Constant">1</span>
+<span id="L97" class="LineNr">97 </span>                    <span class="Statement">:person/id</span> <span class="Constant">2</span><span class="clojureRainbow_lv0_p2">}</span><span class="clojureRainbow_lv4_p1">]</span><span class="clojureRainbow_lv3_p2">}</span><span class="clojureRainbow_lv2_p1">]</span><span class="clojureRainbow_lv1_p2">}</span><span class="clojureRainbow_lv0_p0">)</span>
+<span id="L98" class="LineNr">98 </span>
+</pre>
+</body>
+</html>
+<!-- vim: set foldmethod=manual : -->

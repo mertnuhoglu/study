@@ -65,6 +65,8 @@ ref: `Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g11934>`
 
 [Portal · Practicalli Clojure](http://practicalli.github.io/clojure/clojure-tools/data-browsers/portal.html)
 
+Note: Bazı projelerin altında çalışmayabiliyor. Şurada çalışıyor: `/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06`
+
 ```bash
 clojure -M:inspect/portal-web
 ```

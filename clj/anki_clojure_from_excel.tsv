@@ -251,3 +251,327 @@ clj00053	when to load! ?	"Kendin serverdan veriyi yüklemelisin, fulcro senin i�
 2. event handler içinde (onClick) <br>
 3. component mount edildiğinde <br>
 4. component gösterileceği vakit (deferred routing)"
+clj00054	Client DB Naming Conventions (fulcro)	"UI components         <br>
+·· :ui/name <br>
+Tables                <br>
+·· :person/id ~ :entity-type/index-name <br>
+Root properties       <br>
+·· :root/prop-name <br>
+Node properties       <br>
+·· :entity-type/prop-name ex: :person/name <br>
+Singleton components  <br>
+·· ::Component <br>
+"
+clj00055	mkdir and npm (fulcro)	"mkdir        <br>
+·· mkdir -p src/main src/dev resources/public <br>
+npm install  <br>
+·· npm install shadow-cljs react react-dom --save <br>
+"
+clj00056	deps.edn (fulcro)	":paths                     <br>
+·· :paths   [""src/main"" ""resources""] <br>
+:deps                      <br>
+·· :deps {org.clojure/clojure ... com.fulcrologic/fulcro ...} <br>
+:aliases :dev              <br>
+·· {:extra-paths .. :extra-deps ..} <br>
+:aliases :dev :extra-deps  <br>
+·· {org.clojure/clojurescript .. thheller/shadow-cljs .. binaryage/devtools ..} <br>
+"
+clj00057	shadow-cljs.edn (fulcro)	":deps          <br>
+·· {:aliases [:dev]} <br>
+:builds :main  <br>
+·· {:target .. :output-dir .. :asset-path .. :modules .. :devtools .. } <br>
+"
+clj00058	HTML File (fulcro)	"&lt;div id=""app"".. <br>
+&lt;script src=""/js/main/main.js"".."
+clj00059	Application Sources (fulcro)	"app path             <br>
+·· src/main/app/client.cljs <br>
+app top level forms  <br>
+·· (defonce app ..) (defsc Root ..) (defn init ..) (defn refresh ..) <br>
+"
+clj00060	Build and run fulcro app (fulcro)	npx shadow-cljs server <br>
+clj00061	Using the REPL (fulcro)	":nrepl {:port 9000} ; shadow-cljs.edn <br>
+(shadow/repl :main) ; cursive <br>
+"
+clj00062	render method (fulcro)	"body of defsc = render method of React component <br>
+(dom/div {:id ""id"" :className ""x y z"" :style {:color ""red""}} ...) <br>
+(dom/div :.x.y.z#id {:style {:color ""red""}} ...)"
+clj00063	element factory (fulcro)	"ex: <br>
+(def ui-person (comp/factory Person))"
+clj00064	ex: Person with name, age properties. component witout metadata and element factory  (fulcro)	"(defsc Person [this {:person/keys [name age]}] <br>
+·· (dom/div <br>
+···· (dom/p ""Name: "" name) <br>
+···· (dom/p ""Age: "" age))) <br>
+(def ui-person (comp/factory Person)) <br>
+(defsc Root [this props] <br>
+·· (dom/div <br>
+···· (ui-person {:person/name ""Joe"" :person/age 22})))"
+clj00065	Root. data: friends -&gt; list/label list/people -&gt; person/name person/age (fulcro)	"(defsc Root [this {:keys [ui/react-key]}] <br>
+·· (let [ui-data {:friends {:list/label ""Friends"" :list/people <br>
+·················· 										 [{:person/name ""Sally"" :person/age 32} <br>
+·················· 											{:person/name ""Joe"" :person/age 22}]} <br>
+················  :enemies {:list/label ""Enemies"" :list/people <br>
+·················· 										 [{:person/name ""Fred"" :person/age 11} <br>
+·················· 											{:person/name ""Bobby"" :person/age 55}]}}] <br>
+···· (dom/div <br>
+······ (ui-person-list (:friends ui-data)) <br>
+······ (ui-person-list (:enemies ui-data))))) <br>
+(def ui-person-list (comp/factory PersonList)) <br>
+(defsc PersonList [this {:list/keys [label people]}] <br>
+·· (dom/div <br>
+···· (dom/h4 label) <br>
+···· (dom/ul <br>
+······ (map ui-person people))))"
+clj00066	UI graph: (fulcro)	"Root <br>
+·· List <br>
+···· Person <br>
+···· Person <br>
+·· List <br>
+···· Person <br>
+···· Person"
+clj00067	and the data graph matches the same structure, with map keys acting as the graph "edges": (fulcro)	"edge = key ve value = node demek istiyor. <br>
+{ :friends           { :list/people [PERSON ...] <br>
+;  ==to-one list=>      ==to-many people==> <br>
+·· :enemies           { :list/people [PERSON ...] }"
+clj00068	benefits of initial state: (fulcro)	"1. feeds the initial UI with data <br>
+2. it becomes your initial app database <br>
+3. it supports local reasoning"
+clj00069	pull initial tree at REPL (fulcro)	"dev:cljs.user=&gt; (com.fulcrologic.fulcro.components/get-initial-state app.ui/Root {}) <br>
+{:friends {:list/label ""Friends"", <br>
+··········  :list/people [{:person/name ""Sally"", :person/age 32} {:person/name ""Joe"", :person/age 22}]}, <br>
+:enemies {:list/label ""Enemies"", <br>
+··········  :list/people [{:person/name ""Fred"", :person/age 11} {:person/name ""Bobby"", :person/age 55}]}}"
+clj00070	see current app state at REPL (fulcro)	(com.fulcrologic.fulcro.application/current-state app.client/app) <br>
+clj00071	how to read this query:  (fulcro)	"[{:friends  ; JOIN <br>
+···· [ :list/label <br>
+······ {:list/people ; JOIN <br>
+········  [:person/name :person/age]}]}] <br>
+reads: At the root you’ll find :friends, which joins to a nested entity that has a label and people. People, in turn, is a join that has nested properties name and age. <br>
+·· vector = ""get this stuff at the current node"". node is relative (to current node) <br>
+·· `:friends` is root of application state. its value is nested state (maps mean joins on trees) <br>
+·· value of `:friends` is a subquery. thus it is a vector."
+clj00072	join multiplicity: (fulcro)	"`to-one` if singular <br>
+`to-many` if vector"
+clj00073	try queries in REPL (fulcro)	"(require '[com.fulcrologic.fulcro.algorithms.denormalize :as fdn])  <br>
+(require '[com.fulcrologic.fulcro.components :as comp]) <br>
+(fdn/db-&gt;tree [{:friends [:list/label]}] (comp/get-initial-state app.ui/Root {}) {}) <br>
+; {:friends {:list/label ""Friends""}} <br>
+(com.fulcrologic.fulcro.components/get-query app.ui/Root {})"
+rprog00074	[How do I group my date variable into month/year in R? - Stack Overflow&#093;(https://stackoverflow.com/questions/33221425/how-do-i-group-my-date-variable-into-month-year-in-r) (R)	"expenses %&gt;% `group_by(month=lubridate::floor_date(date,` ""month"")) %&gt;% <br>
+··  summarize(amount=sum(amount)) <br>
+·· ##>    month      amount <br>
+·· ##>    <date>      <dbl> <br>
+·· ##>  1 2016-01-01  1305. <br>
+·· ##>  2 2016-02-01  1168."
+rprog00075	ex: import excel file 2nd sheet, select one column, convert it to lowercase (R)	"vars01 = rio::import(""inpot.xlsx"", which = 2) %&gt;% <br>
+·· select(field_name) %&gt;% <br>
+·· mutate(field_name = tolower(field_name))  <br>
+"
+rprog00076	ex: `dplyr::bind_rows` `(R)	"bind_rows(data.frame(x` = 1:3), data.frame(y = 1:4)) <br>
+·· ##>    x  y <br>
+·· ##> 1  1 NA <br>
+·· ##> 2  2 NA <br>
+·· ##> 3  3 NA <br>
+·· ##> 4 NA  1 <br>
+·· ##> 5 NA  2 <br>
+·· ##> 6 NA  3 <br>
+·· ##> 7 NA  4"
+rprog00077	get number of rows in dataframe `(R)	nrow(vars_df)` <br>
+rprog00078	get number of elements in a list or vector (R)	length(lst) <br>
+rprog00079	Specify names of selected fields with a vector (R)	"d02 = d01 %&gt;% <br>
+·· select_(.dots = vars_f) <br>
+write_csv(d02, path = ""file.csv"", na = """")"
+rprog00080	Import data into database using R (R)	dbWriteTable(con, c("client", `"altdg_sample"),` d0, row.names=F) <br>
+rprog00081	Load data from database into R (R)	d10 = tbl(con, sql("SELECT * FROM `data_20181001.public_all_data"))` %&gt;% collect <br>
+rprog00082	Run a SQL query. native R (R)	"dbGetQuery(con, statement = paste0(""
+·· insert into "", data_schema, "".master_variables <br>
+·· select * from "", data_schema, "".master_variables_forecast <br>
+·· where source = 'ez' <br>
+""))"
+rprog00083	Run a SQL query. dplyr (R)	"d0 = tbl(con, sql(""
+·· SELECT company_ein <br>
+·· FROM data_20181202.master_variables <br>
+·· WHERE extract(YEAR from plan_year_end_date) = 2014 and source = 'ez' <br>
+·· "")) %&gt;% collect <br>
+nrow(d0)"
+rprog00084	Compare `company_ein` field between two dfs. Which ones are different? (R)	"d2 = `setdiff(d0$company_ein,` `d1$company_ein)` <br>
+length(d2)"
+rprog00085	df. filter rows after and before some date. (R)	"c03 = c02 %&gt;% <br>
+·· filter(filing_date &gt;= as.Date('2017-1-1')) %&gt;% <br>
+·· filter(filing_date &lt; as.Date('2018-1-1')) "
+clj00086	"Step 3 — Receive the Data Feed as Props in Root <br>
+············  ref: /Users/mertnuhoglu/projects/study/clj/ex/study_fulcro/app07/src/app/ui.cljs <br>
+············  (defsc Root [this {:keys [friends enemies]}] <br>
+··················       {:query         [{:friends (comp/get-query PersonList)} <br>
+··················                                                                        {:enemies (comp/get-query PersonList)}] <br>
+<br>
+How to get query for Root?"	"(com.fulcrologic.fulcro.components/get-query app.ui/Root {}) <br>
+<br>
+[{:friends [:list/label {:list/people [:person/name :person/age]}]} <br>
+ {:enemies [:list/label {:list/people [:person/name :person/age]}]}]"
+clj00087	Map vs ilişkisel veritabanı: to-many arity referanslardaki fark nedir? (fulcro)	bir mapte (veya graph databasede), referans to-many arity'ye sahip olabilir, ilişkisel veritabanlarından farklı olarak <br>
+clj00088	Şu şekilde referans vermenin kusuru nedir: { ... people #{1, 2} } (fulcro)	"Buradaki sorun: `:people` <br>
+·· 1 ve 2 id'lerini hangi tablodan bakacağımızı yukarıdaki speklerde göremiyoruz <br>
+·· Hem tablo ismine, hem de id'ye ihtiyacımız var: `[:Person 1]` gibi <br>
+·· [TABLE ID] vektörüne `ident` denir <br>
+<br>
+:list/people [[:person/id 1] [:person/id 2]] }}"
+clj00089	comp/transact! özellikleri: (fulcro)	"treat operation like data <br>
+use unquote to embed data from local variables <br>
+"
+clj00090	Mutasyon şu şekilde olsaydı ne kusurları olurdu: (comp/transact! this [(api/delete-person {:list-name label :name name})]) (fulcro)	"UI refactor ederken, mutationları da düzeltmemiz gerekiyor çünkü veri ağacının şekli değişiyor <br>
+veri üzerine yerel düşünemiyoruz. mutasyonlar global anlayış gerektiriyor <br>
+mutasyonlar giderek büyüyüp çirkin hale geliyor <br>
+bir fact birden çok yerde bulunuyorsa, hepsi için doğru sırada güncelleme yapmak gerekiyor. data duplikasyon meselesi."
+clj00091	Mutasyonlarda global veri modelini bilme gereğini kaldırmak için ne gerekir? (fulcro)	Veritabanı normalizasyonu <br>
+clj00092	state çekme fonksiyonu: (fulcro)	(com.fulcrologic.fulcro.application/current-state app.application/app) <br>
+clj00093	bir ui komponentin query'sini çekme fonksiyonu: (fulcro)	(com.fulcrologic.fulcro.components/get-query app.ui/Root) <br>
+clj00094	mevcut state'i ve query'yi kullanarak, veri ağacını çekme fonksiyonu: (fulcro)	"(com.fulcrologic.fulcro.algorithms.denormalize/db-&gt;tree query state state) <br>
+<br>
+{:friends {:list/id :friends, <br>
+··········  :list/label ""Friends"", <br>
+··········  :list/people [{:person/id 1, :person/name ""Sally"", :person/age 32} <br>
+·················· 			 {:person/id 2, :person/name ""Joe"", :person/age 22}]}, <br>
+:enemies {:list/id :enemies, <br>
+··········  :list/label ""Enemies"", <br>
+··········  :list/people [{:person/id 3, :person/name ""Fred"", :person/age 11} <br>
+·················· 			 {:person/id 4, :person/name ""Bobby"", :person/age 55}]}}"
+clj00095	ex resolver: id -> (id, name)  (fulcro)	"(pc/defresolver person-resolver [env input] <br>
+·· {::pc/input  #{:person/id} <br>
+··  ::pc/output [:person/name]} <br>
+·· (let [name (get-name-from-database (:person/id input))] <br>
+···· {:person/name name}))"
+clj00096	ex: id -&gt; (id, people). [List|id] - [Person|name] (fulcro)	"(app.parser/api-parser [{[:list/id :friends] [:list/id {:list/people [:person/name]}]}]) <br>
+<br>
+=&gt; {[:list/id :friends] {:list/id :friends, :list/people [{:person/name ""Sally""} {:person/name ""Joe""}]}}"
+clj00097	Om Next Ideas: (fulcro)	"UI Component co-located identity/query <br>
+Auto-normalize client-side database <br>
+Reify mutations"
+clj00098	We were missing a real database in frontend side (fulcro)	"Most of logic is on the front-end <br>
+Why is your data stored as an ad-hoc mess?"
+clj00099	How much database needed in front-end? (fulcro)	"Data normalization <br>
+Query engine <br>
+Queue updates <br>
+Indexing (nice to have)"
+clj00100	Reified Mutations instead of events: (fulcro)	"They are lists and look like function invocations <br>
+<br>
+`(delete-item {:item/id 1}) <br>
+<br>
+Can be grouped into transactions: <br>
+<br>
+`[(f) (g)] <br>
+<br>
+Abstract representation of an operation: <br>
+·· Delete in client db (optimistically) <br>
+·· Delete in server db <br>
+Record, replay, audit <br>
+<br>
+"
+clj00101	ex: reified mutations. delete-item (fulcro)	"usage: <br>
+<br>
+·· (let [handler #(transact! this `[(delete-item {:item/id ~id})])] <br>
+···· (div {:onClick handler} ""Delete"")) <br>
+<br>
+definition: <br>
+<br>
+·· (defmutation delete-item <br>
+···· [{:keys [item/id]}] <br>
+···· (action [{:keys [state]}] <br>
+······ (swap! state dissoc :item/id id)) <br>
+···· (remote [_] :http-api)) <br>
+<br>
+server: <br>
+<br>
+·· (defmutation delete-item <br>
+···· [{:keys [item/id]}] <br>
+···· (action [{:keys [conn]}] <br>
+······ @(d/transact conn [[:db.fn/retractEntity id]])))"
+clj00102	Fulcro summary: (fulcro)	"state* = f(state)                          ; mutation/load <br>
+props = QueryEngine(UI-components, state*) ; query <br>
+view = ui(props)                           ; react <br>
+"
+clj00103	Fulcro benefits (fulcro)	"data pools problem <br>
+decouples ui from behavior <br>
+clear caching story"
+clj00104	Data model benefits (fulcro)	"Where's the data for Y? <br>
+·· Always in client db <br>
+·· One level deep only (shallow) keyed by identity <br>
+·· Identity is colocated with ui code <br>
+Updating deep denormalized tables is difficult. But shallow tables easy <br>
+Easily implement rollback <br>
+Optimistic update code colocated with full-stack logic"
+clj00105	Common benefits (fulcro)	"Network plumbing is ready <br>
+·· websocket, xhr <br>
+·· Full transactional semantics <br>
+·· Progress indicators <br>
+·· Cancel pending requests <br>
+·· Sequential request queue <br>
+Pathom: wraps any data source <br>
+Read/writes API well defined <br>
+All responses from API are normalized automatically"
+clj00106	Optimization benefits (fulcro)	"Caching in client is part of design <br>
+Query engine is very fast <br>
+Read/write can be combined into single request"
+clj00107	Fulcro inspect: dev tooling (fulcro)	"Client db inspection <br>
+UI Element inspection <br>
+Network tab: requests in IO <br>
+Query builder for EQL queries"
+clj00108	Demand Driven Architecture Principles (fulcro)	"Clients must be able to specify what they need (which) and in which shape (what) <br>
+Composition: The request must support recursion <br>
+Interpretation: Queries must be interpreted in server"
+clj00109	Pathom resolvers (fulcro)	"Represent edges on the graph <br>
+Resolvers are maps <br>
+Enable contextual auto-complete inference <br>
+"
+clj00110	Execution of EQL (fulcro)	"ex: query: <br>
+<br>
+·· [{[:customer/id 2] <br>
+····  [:customer/name <br>
+······  :customer/dob <br>
+······  {:customer/orders <br>
+········  [[:order/ordered-at <br>
+··········  :order/open?]}]}] <br>
+<br>
+resolvers: <br>
+<br>
+·· (pc/defresolver customer-by-id [_ {:keys [customer/id]}] <br>
+····  {::pc/input   #{:customer/id} <br>
+······  ::pc/output  [:customer/id <br>
+··················          :customer/name <br>
+··················          :customer/dob]} <br>
+····  (db/find-customer-by-id id)) <br>
+<br>
+execution <br>
+<br>
+·· 1. adım: [:customer/id 2] <br>
+····  sets context <br>
+····  Bu aşamada henüz resolver belli değil, resolvera gönderilecek arg belli <br>
+·· 2. adım: :customer/name <br>
+····  Şimdi bu çıktıyı resolverlar içinde ararız. <br>
+····  Hangi resolver çıktısında varsa, bu resolvera contextteki argları göndeririz"
+clj00111	Flattening (fulcro)	"Tüm to-one ilişkiler düzleştirilebilir <br>
+<br>
+resolvers: <br>
+<br>
+·· (pc/defresolver customer-by-id [_ {:keys [customer/id]}] <br>
+····  {::pc/input   #{:customer/id} <br>
+······  ::pc/output  [:customer/id <br>
+··················          :customer/name <br>
+··················          :customer/dob]} <br>
+····  (db/find-customer-by-id id)) <br>
+<br>
+·· (pc/defresolver customer-orders [_ {:keys [customer/id]}] <br>
+····  {::pc/input   #{:customer/id} <br>
+······  ::pc/output  [{:customer/orders <br>
+··················           [:order/id <br>
+··················            :customer/id   ;; to-one relationship <br>
+··················            :order/ordered-at <br>
+··················            :order/open?]}]} <br>
+····  {:customer/orders (db/find-customer-orders id)}) <br>
+<br>
+query: <br>
+<br>
+·· [{[:customer/id 2] <br>
+····  [{:customer/orders <br>
+········  [:order/ordered-at <br>
+··········  :order/open? <br>
+··········  :customer/name]}]}] ;; xxx"

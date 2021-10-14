@@ -1,0 +1,32 @@
+Summary of the logic
+	patterns:
+		a: dpm (delete-person) mutation flow
+		b: pid (:person/id) flow
+		c: ppr (person props) flow
+		d: lid (:list/id) flow
+	a: dpm (delete-person) mutation flow
+		a1: dpm definition
+		a2: passed to transact! function
+		a3: which is assigned to local variable in parent component PersonList 
+		a4: which is set to :onDelete parameter of child component Person 
+		a5: Person component receives it as second props
+		a6: Person component sets it to :onClick attribute of dom/button
+	b: pid (:person/id) flow
+		b0: Person component sets pid parameter as argument of onDelete function that is set to :onClick attribute of dom/button
+		b1: On runtime, user clicks button. pid is passed to onDelete function
+		b2: delete-person closure function receives pid
+		b3: It passes pid to dpm
+		b4: dpm receives pid argument
+		b5: dpm passes pid to remove-ident* function which is called by swap! function
+		note: remove-ident* uses pid to find out which Person ident should be removed from the list of idents.
+	c: ppr (person props) flow
+		c1: PersonList calls map with Person component factory and people vector that contains person props
+		c2: map passes ppr one-by-one to the comp/computed closure function inside Person component factory function 
+		c3: Person component receives ppr
+	d: lid (:list/id) flow
+		d1: PersonList component receives lid 
+		d2: It passes lid to dpm
+		d3: dpm receives lid
+		d4: dpm passes lid to remove-ident* function which is called by swap! function
+		note: remove-ident* uses lid to find out PersonList that you want to remove Person ident from
+

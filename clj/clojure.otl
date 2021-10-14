@@ -10,6 +10,8 @@ index
 	anki clojure
 		~/projects/study/clj/anki_clojure_from_excel.tsv
 		~/projects/study/clj/anki_clojure.tsv
+@questions - clojure id=g12396
+	slack vs. yerine stackoverflow'da soruları sormak, bulunabilirlik açısından daha iyi olmaz mı?
 clojure
 	authors id=g11837
 		Rich Hickey - Clojure
@@ -30,6 +32,23 @@ clojure
 		vim conjure
 			conjure
 				Index: Clojure in Vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11843>
+				shortcuts
+					| ,ee                   | eval current form                 |
+					| ,eb                   | eval buffer                       |
+					| ,em[mark]             | eval form under given `mark`      |
+					| ,ew                   | eval word under cursor (peek var) |
+					| ,E                    | eval visual selection             |
+					| ,lv                   | open log buffer vertical          |
+					| K                     | look up documentation             |
+					| gd                    | go to definition                  |
+				temel kullanım
+					clojure -M:repl/rebel-nrepl
+					ConjureConnect [port]
+					let g:conjure#mapping#prefix = " m"
+					| ,ed     | evaluate inner expression       | eval (current-form)    |
+					lua require('conjure.eval')['current-form']()
+					lua require('conjure.eval')['root-form']()
+					nnoremap <leader>mec :call ConjureEvalToComment()<cr>
 			fireplace.md
 				Quickref fireplace.vim <url:file:///~/projects/study/clj/fireplace.md#r=g12014>
 					| ]d     | Source                     |
@@ -90,8 +109,21 @@ clojure
 		clojure.repl help functions <url:file:///~/projects/study/clj/book_essential_reference_borgatti.md#r=g11959>
 			ref_ex: ~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj
 	resources
-howto
+howto problems
 	debugging
+		dirac: chrome devtools plugin id=g12454
+			kurulum:
+				[dirac/cli.md at master · binaryage/dirac](https://github.com/binaryage/dirac/blob/master/docs/cli.md#how-does-dirac-locate-chromium-executable-on-my-machine)
+				ln -s "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" link
+			kullanım:
+				cli: dirac
+					dirac ile chrome başlat
+				chrome içinden localhost:8000 gibi web uygulamasını aç
+				console'a gir, `^,` ile cljs repl'ını başlat
+			breakpoint ekleme:
+				[(743) Clojurescript and Dirac workflow - YouTube](https://www.youtube.com/watch?v=DDmUop6XlmQ)
+				kodun içine (js-debugger) koy
+				uygulamayı çalıştırdığında dirac orada durur
 		spacemacs cider debugging
 			Debugging cider <url:file:///~/projects/study/clj/cider.md#r=g11969>
 				| , d b | cider-debug-defun-at-point         |
@@ -109,17 +141,24 @@ howto
 		cursive: load-file veya Send file to REPL
 		repl: 
 			(require '[my-namespace])
+				(require '[clojure.edn :as edn])
+				(require '[clojure.java.io :refer [reader]])
 			(in-ns 'my-namespace)
 	Setup a new project  id=g11946
 		New Clojure Project <url:deps_cli.md#r=g11941>
+			clojure -X:project/new :name main/project01
+				; src/main klasörünü oluşturur proje dizininde
+				; project01/src/main
 			clojure -X:project/new :name mert/project-01
 			clojure -X:project/new :name mertnuhoglu/project-01
 			cd project-01
 	Run REPL id=g12068
-		REBL
+		ref
+			~/projects/study/clj/rebl_reveal_portal_repl.otl
+		run REBL id=g12422
 			Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g11934>
 				java15
-				clojure -M:trace:inspect/reveal-nrep
+				clojure -M:trace:inspect/reveal-nrepl
 				clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
 				Connect REBL from Emacs Cider <url:file:///~/projects/study/clj/rebl.md#r=g11943>
 					SPC SPC cider-connect-clj
@@ -145,6 +184,54 @@ howto
 				clojure -M:inspect/reveal:repl/rebel
 				(add-tap ((requiring-resolve 'vlaaad.reveal/ui)))
 				(tap> {:a 1 :b 2})
+		portal id=g12421
+			opt00: hem portal hem nrepl
+				clojure -M:inspect/portal-cli:repl/rebel-nrepl
+			opt01: çalışıyor
+				clojure -M:inspect/portal-cli
+				(require '[portal.api :as portal])
+			opt02: bozuk
+				clojure -M:inspect/portal-web
+				(require '[portal.web :as portal])
+			ortak:
+				(portal/open)
+				(portal/tap)
+				(tap> {:accounts [{:name "jen" :email "jen@jen.com"} {:name "sara" :email "sara@sara.com"}]})
+			opt03: doğrudan main olarak çalıştır
+				cat deps.edn | clojure -M:portal/cli edn
+			opt03a: doğrudan aliaslar kullan
+				cat deps.edn | edn
+				cat j01.json | json
+		multiple repls together: id=g12447
+			alias zshrc
+				cljreblportal
+			rebl+portal
+				java15
+				clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl:inspect/portal-cli:repl/rebel-nreply
+			reveal+portal
+				clojure -M:inspect/reveal:repl/rebel:inspect/portal-cli:repl/rebel-nreply
+			rebl+reveal
+				clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl:inspect/reveal
+					opens reveal
+				clojure -M:inspect/reveal:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
+					opens rebl
+				main opts
+					:inspect/reveal "-m" "vlaaad.reveal" "repl"
+					:lib/cider-nrepl
+					:inspect/rebl15 "-m" "cognitect.rebl"
+					:middleware/nrebl "-m" "nrepl.cmdline"
+			rebl+reveal+portal id=g12431
+				java15
+				clojure -M:inspect/reveal:repl/rebel:inspect/portal-cli:repl/rebel-nreply:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
+				(add-tap ((requiring-resolve 'vlaaad.reveal/ui))) ; reveal açar
+				çalışmıyor:
+					opt01:
+						java15
+						clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl:inspect/portal-cli:repl/rebel-nreply:inspect/reveal:repl/rebel
+					opt02:
+						clojure -M:inspect/reveal:repl/rebel:inspect/portal-cli:repl/rebel-nreply:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
+						(require '[vlaaad.reveal :as reveal])
+						(reveal/-main "repl")
 	Run a clojure script/function/app id=g12108
 		from repl:
 			ref: ~/projects/study/clj/book_practicalli_clojure_webapps.md
@@ -163,28 +250,37 @@ howto
 			Running functions <url:file:///~/projects/study/clj/deps_cli.md#r=g12071>
 				clj -X:my-fn
 	require import libraries
-		ref: ~/projects/study/clj/ex/study_clojure/ex06/src/require_functions.clj
-		(require '[clojure.tools.trace :refer [trace, dotrace]])
-		(use '[clojure.string :only (split)])
-		(ns help_functions
-			(:require [clojure.inspector :as ins]))
-		(require 'hashp.core)
-		(require '[clojure.repl :refer :all])
-	Import source, doc, apropos and other REPL functions <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g11947>
-		(require '[clojure.repl :refer :all])
-		ref: ~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj
-			(pp/print-table [{:a 1 :b 2 :c 3}{:a 4 :b 5 :c 6}])
-			(clojure.repl/source map)
-			(clojure.repl/doc map)
-			(clojure.repl/find-doc "create-context")
-			(clojure.repl/apropos "unmount-renderer")
-			(clojure.repl/dir help_functions)
-			*ns*
-			(ns-aliases 'user)
-			(ns-publics 'clojure.java.io)
-			(all-ns)
+		inside code
+			ref: ~/projects/study/clj/ex/study_clojure/ex06/src/require_functions.clj
+			(require '[clojure.tools.trace :refer [trace, dotrace]])
+			(use '[clojure.string :only (split)])
+			(ns help_functions
+				(:require [clojure.inspector :as ins]))
+			(require 'hashp.core)
+			(require '[clojure.repl :refer :all])
+		require inside repl id=g12420
+			(ns ex01
+				{:import java.io.File}
+				{:require [clojure.java.io :as io]
+									[clojure.core.protocols :as p])
+		Import source, doc, apropos and other REPL functions <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g11947>
+			(require '[clojure.repl :refer :all])
+			ref: ~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj
+				(pp/print-table [{:a 1 :b 2 :c 3}{:a 4 :b 5 :c 6}])
+				(clojure.repl/source map)
+				(clojure.repl/doc map)
+				(clojure.repl/find-doc "create-context")
+				(clojure.repl/apropos "unmount-renderer")
+				(clojure.repl/dir help_functions)
+				*ns*
+				(ns-aliases 'user)
+				(ns-publics 'clojure.java.io)
+				(all-ns)
 	vim
 		Show Documentation in Conjure Floating Window <url:clojure_in_vim.md#r=g11957> ,eb > K
+	data browser / edn navigation
+		ref
+			portal <url:file:///~/projects/study/clj/clojure.otl#r=g12421>
 idioms - kendime göre özetler id=g12080
 	let
 		(let [a b
@@ -193,6 +289,7 @@ idioms - kendime göre özetler id=g12080
 			a = b
 			c = a
 	assoc
+		ref: ~/projects/study/clj/ex/study_clojure/ex06/src/assoc_update.clj
 		(assoc request :user user)
 		= request[[:user]] = user
 		= request.user = user
@@ -237,7 +334,13 @@ idioms - kendime göre özetler id=g12080
 		kullanımı:
 			(-main)
 			(stop-server)
-topics
+topics 
+	io - file
+		ref
+			~/projects/study/clj/ex/study_clojure/ex06/src/io_file.clj
+		(edn/read-string (slurp "deps.edn")) ; edn file -> string -> map
+		(spit "tmp.txt" "test")
+		(slurp "tmp.txt") ;; => "test"
 	data structures
 		boolean
 			(boolean false) ;; => false
@@ -392,6 +495,17 @@ topics
 				(not-any? even? [1 2]) ;; => false
 				(empty? [1 2]) ;; => false
 	core id=g11867
+		assoc assoc-in update update-in
+			ref: ~/projects/study/clj/ex/study_clojure/ex06/src/assoc_update.clj
+			update-in
+				; update-in <url:clojure.md#r=g11287>
+				(def p {:name "James" :age 26})
+				(update-in p [:age] inc) ;;=> {:name "James", :age 27}
+			assoc-in
+				; assoc-in <url:clojure.md#r=g11288>
+				ref: ~/projects/study/clj/ex/study_clojure/ex06/src/assoc_update.clj
+				(assoc-in {:person {:name "Mike"}} [:person :name] "Violet") ; => {:person {:name "Violet"}}
+				(assoc-in {:person {:name "Mike"}} [:person] "Violet") ; => {:person "Violet"}
 		reduce-kv
 			; reduce-kv <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g11445>
 			(reduce-kv #(assoc %1 %3 %2) {} {:a 1 :b 2}) ;; => {1 :a, 2 :b}
@@ -423,6 +537,7 @@ topics
 			(map inc [1 2]) ;; => (2 3)
 			(map key {:a 1 :b 2}) ;; => (:a :b)
 		reduce id=g11310
+			ref: ~/projects/study/clj/ex/study_clojure/ex06/src/reduce.clj
 			; reduce <url:clojure.md#r=g11306>
 			; reduce <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11337>
 			(reduce + [1 2 3]) ;; => 6
@@ -526,14 +641,6 @@ topics
 			(remove even? (range 10)) ;;=> (1 3 5 7 9)
 			(remove #(> (second %) 100) {:a 1 c 101 }) ;;=> ([:a 1] )
 			(map #(> (second %) 100) {:a 1 :c 101}) ;; => (false true)
-		update-in
-			; update-in <url:clojure.md#r=g11287>
-			(def p {:name "James" :age 26})
-			(update-in p [:age] inc) ;;=> {:name "James", :age 27}
-		assoc-in
-			; assoc-in <url:clojure.md#r=g11288>
-			(assoc-in {:person {:name "Mike"}} [:person :name] "Violet") ; => {:person {:name "Violet"}}
-			(assoc-in {:person {:name "Mike"}} [:person] "Violet") ; => {:person "Violet"}
 		swap!
 			; swap! amap assoc akey nasıl çalışıyor? <url:clojure.md#r=g11289>
 			(def m (atom {:a 1}))
@@ -548,7 +655,7 @@ topics
 			{:a/b :c} ;; => #:a{:b :c}
 			ref: Destructuring qualified keywords <url:file:///~/projects/study/clj/clojure.md#r=g12377>
 			ref: Destructuring qualified keywords of alias namespaces  <url:file:///~/projects/study/clj/clojure.md#r=g12378>
-		file read
+		io file read write
 			; slurp: read file url <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/core01.clj#r=g11404>
 			(spit "tmp.txt" "test")
 			(slurp "tmp.txt") ;; => "test"
@@ -1047,6 +1154,102 @@ topics
 					| SPC sf  | eval sexp          |
 					| !+ SPC  | quicklist: popups  |
 					| +L C    | quicklist: clojure |
+		repl
+		json/edn id=g12416
+			jsoneditoronline.org
+				https://jsoneditoronline.org/#right=local.honuse
+			fx json tool id=g12412
+				ref
+					~/projects/study/bash/json_fx.md
+					[Discover how to use fx effectively, a JSON manipulation command line tool | by Anton | Medium](https://medium.com/@antonmedv/discover-how-to-use-fx-effectively-668845d2a4ea)
+				örnek veri
+				çok kullanışlı
+				ln ile kısayol oluştur
+				ln -s /Users/mertnuhoglu/projects/private_dotfiles/.fxrc /Users/mertnuhoglu/.fxrc
+			rq tool  id=g12413
+				ref
+					[rq/tutorial.md at master · dflemstr/rq](https://github.com/dflemstr/rq/blob/master/doc/tutorial.md)
+			fzf json repl  id=g12417
+				ref
+					[Turn Your fzf Into a Live REPL :: paweldu.dev — Pawel Duda's personal site](https://paweldu.dev/posts/fzf-live-repl/)
+				doc
+					ex01: awk repl
+						echo '' | fzf --print-query --preview 'echo "a\nb\nc\nd" | awk {q}'
+						P # show preview
+						{print}
+						/a/ {print}
+					ex02: jq repl
+						echo '' | fzf --print-query --preview 'jq {q} /path/to/json/file'
+			gron id=g12418
+				gron <url:file:///~/projects/study/clj/clojure.otl#r=g12418>
+				ref
+					gron examples <url:file:///~/projects/study/logbook/log_20200420.md#r=g11923>
+				ex:
+					gron ~/projects/btg/btg_cmmi/ex/log_cmmi_20200415/e02/sidebar.json
+						json.div.div[2].div.span = "CAR 1.1 Identify and address causes of selected outcomes.";
+						json.div.div[3].div.span = "Level 2";
+						json.div.div[4].div.span = "CAR 2.1 Select outcomes for analysis.";
+				ex: convert back to json: gron > grep > json
+					▶ gron testdata/two.json | grep likes | gron --ungron
+					{
+						"likes": [
+							"code",
+							"cheese",
+							"meat"
+						]
+					}
+			up: ultimate plumber  id=g12419
+				ref
+					https://github.com/akavel/up
+				up: fzf gibi komutları gerçek zamanlı test etme aracı
+					lshw |& up	
+						grep net
+						grep network -A2 | grep : | cut -d: -f2 | paste - -
+			jid: json incremental digger
+				ref
+					[simeji/jid: json incremental digger](https://github.com/simeji/jid)
+			json viewer
+				ref
+					[ashwin/json-viewer: Display JSON file as tree in GUI](https://github.com/ashwin/json-viewer)
+			catj
+				ref
+					[soheilpro/catj: Displays JSON files in a flat format.](https://github.com/soheilpro/catj)
+			floki
+				ref
+					[dotfiles/navigators.md at 7c8b9b8b9111ef8b6f9cb22b721570f7ced22b18 · denisidoro/dotfiles](https://github.com/denisidoro/dotfiles/blob/7c8b9b8b9111ef8b6f9cb22b721570f7ced22b18/docs/navigators.md)
+			edn converter
+				ref
+					[wilkerlucio/edn-json: Tools to convert back and forth between EDN and JSON, optimised for storage and JSON tooling friendliness.](https://github.com/wilkerlucio/edn-json)
+			rebl rebl2 id=g12423
+				ref
+					run REBL <url:file:///~/projects/study/clj/clojure.otl#r=g12422>
+					~/projects/study/clj/rebl_reveal_portal_repl.otl
+					[(167) 1. Atom, Chlorine, and Cognitect's REBL - YouTube](https://www.youtube.com/watch?v=ZhzMoEz4j1k)
+			org mode dönüştürme var mı?
+				ref
+					[Org Element API](https://orgmode.org/worg/dev/org-element-api.html)
+					[org mode - Turn a list or data structure into an org document - Emacs Stack Exchange](https://emacs.stackexchange.com/questions/2869/turn-a-list-or-data-structure-into-an-org-document)
+					[Convert Pandoc JSON to Emacs Org mode for free on Alldocs](https://alldocs.app/convert-pandoc-json-to-emacs-org-mode)
+					[jlumpe/ox-json: JSON export back end for Emacs Org mode](https://github.com/jlumpe/ox-json)
+			pandoc json
+				ref
+					[Pandoc - Demos](https://pandoc.org/demos.html)
+				pandoc biblio.bib -t csljson -o biblio.json
+				pandoc -s biblio.json -o biblio.org
+				pandoc -s MANUAL.txt -o example27.org
+				pandoc -s MANUAL.txt -t json -o manual.json
+				pandoc -s MANUAL.txt -t json | fx . > manual.json
+				pandoc -s iris.csv -t json | fx . > iris.json
+			opt
+				vim emacs plugin de olabilir
+				json schema generator?
+			eq (edn query)
+				ref
+					[jonase/eq: A command line tool for edn processing and pretty printing](https://github.com/jonase/eq)
+			zprint
+				ref
+					[kkinnear/zprint: Executables, uberjar, and library to beautifully format Clojure and Clojurescript source code and s-expressions.](https://github.com/kkinnear/zprint)
+				küçük bir dosyada deneyelim
 	webapps
 		ref
 			~/projects/study/clj/book_practicalli_clojure_webapps.md

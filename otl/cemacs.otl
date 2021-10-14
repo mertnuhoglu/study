@@ -36,5 +36,10 @@
 				git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 		next
 			http://spacemacs.org/#
+	doom
+		ref
+			~/projects/study/emacs/doom.md
+			[Doom Emacs Cheatsheet](https://gist.github.com/hjertnes/9e14416e8962ff5f03c6b9871945b165)
+			[doom-emacs/modules/lang/clojure at develop · hlissner/doom-emacs](https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/clojure)
 
 

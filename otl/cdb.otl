@@ -512,7 +512,7 @@ Topics id=g10304
 			set search_path = data, public;
 			psql postgresql://superuser:superuserpass@localhost/app
 				psql postgresql://authenticator:authenticatorpass@localhost/app
-		env variables
+		environment variables
 			export PGHOST=localhost
 			export PGPORT=5432
 			export PGUSER=superuser
@@ -1249,6 +1249,24 @@ Postgresql Setup id=g12106
 		opt02: Single user mode ile kullanıcıları resetleme <url:file:///~/projects/study/logbook/log_20210419.md#r=g12107>
 			brew services stop postgresql
 			postgres --single -D /usr/local/var/postgres postgres
+	what is default username and password?
+		default username: username of the operating system 
+			[What is the Default Password for PostgreSQL? | Liquid Web](https://www.liquidweb.com/kb/what-is-the-default-password-for-postgresql/)
+		check pg_hba.conf
+			cat /usr/local/var/postgres/pg_hba.conf
+			SHOW hba_file;
+		ref: [postgresql - What's the default superuser username/password for postgres after a new install? - Server Fault](https://serverfault.com/questions/110154/whats-the-default-superuser-username-password-for-postgres-after-a-new-install)
+	connect to postgres
+		psql postgres
+	current users
+		select * from user;
+	jdbc connection string
+		[Connecting to the Database](https://jdbc.postgresql.org/documentation/80/connect.html)
+			jdbc:postgresql:database
+			jdbc:postgresql://host/database
+			jdbc:postgresql://host:port/database
+	createdb: create database
+		createdb mydb;
 PostgreSQL how tos  id=g10325
 	find tables that contain a column id=g10739
 		find tables that contain a column <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10739>

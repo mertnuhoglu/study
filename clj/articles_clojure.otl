@@ -54,4 +54,122 @@ Paul deGrandis - Unlocking data-driven systems - YouTube id=g12361
 		Queried, analyzed
 			core.logic to analyze and query the system
 		Variations of the system
+Intro to Core Async | Lesson 25 | Learn ClojureScript
+	[Intro to Core Async | Lesson 25 | Learn ClojureScript](https://www.learn-clojurescript.com/section-4/lesson-25-intro-to-core-async/)
+	intro
+		use cases:
+			API communication
+			respond to user input 
+			IO tasks without blocking main thread
+		options:
+			use js promise
+			use core.async
+		same concurrency model as Go
+	Overview of CSP
+		based on mathematical process calculus
+			called: Communicating Sequential Processes
+			Tony Hoare 198
+		basic idea of CSP
+			independent processes that execute some ordered sequence of steps
+			these processes communicate with each other by messages over channels
+			when a process wants to read a message from a channel, 
+				it blocks until a message is available
+				then it consumes the message and moves on
+			multiple processes can synchronize
+				st. one process waits for an input from another before proceeding
+		core.async logic:
+			create async workflows with `go` macro
+			`go` creates a process `chan`
+			`chan` creates a channel and the operators take <! put >! alts!
+		CSP:
+			key object: process
+				process: an unnamed piece of code that can execute a number of steps in order
+				code in a process runs syncronously
+			key object: channel
+				it carries values from process to process
+				they carry one value at once
+				processes block channels
+					reading blocks until channel is written
+					writing blocks until channel is read
+				channels can have buffers
+					they can hold some values that have not been read
+				![Synchronization with channels](https://www.learn-clojurescript.com/img/lesson25/channel-sync.png)
+Clojure - The REPL and main entry points id=g12429
+	[Clojure - The REPL and main entry points](https://clojure.org/reference/repl_and_main)
+Defining Aliases · Practicalli Clojure id=g12430
+	[Defining Aliases · Practicalli Clojure](https://practical.li/clojure/reference/clojure-cli-tools/defining-aliases.html)
+	multiple alias varsa, en son main çalışır
+An Architect's View: Clojure 1.10's datafy and nav id=g12432
+	[An Architect's View: Clojure 1.10's datafy and nav](https://corfield.org/blog/2018/12/03/datafy-nav/)
+How I use tap> - quanttype id=g12433
+	[How I use tap> - quanttype](https://quanttype.net/posts/2018-10-18-how-i-use-tap.html)
+	add pretty printer and tap to cursive
+		(add-tap (bound-fn* puget.printer/cprint))
+	add pretty printer only
+		(add-tap (bound-fn* clojure.pprint/pprint))
+	use atom for intermediate logs
+		(def debug-a (atom nil))
+		(add-tap #(reset! debug-a %))
+Can someone explain the arguments to nav ? - Clojure Q&A id=g12434
+	[Can someone explain the arguments to nav ? - Clojure Q&A](https://ask.clojure.org/index.php/8550/can-someone-explain-the-arguments-to-nav)
+	The clojure.protocols/nav function has signature:
+		[coll k v]
+	datafy: to convert clj object to a map
+	nav: to convert map to a clj object
+	myThing -> datafy -> description-hash-map
+	For any (get description-hash-map :foo) 
+		that produces some foo-val value, 
+		we can navigate back to the equivalent point in the Thing world by calling 
+		(nav description-hash-map :foo foo-val) 
+		and that will produce some new object in the Thing world.
+	yani myThing -> datafy -> description-hash-map ile map datası oluşturduk
+		bunun üzerinde rebl ile dolaşıp foo-val değerine ulaştık
+		şimdi bunun altındaki verilere bakmak istiyoruz, bunun için önce nav ile foo-val'ın karşılığı clj objesine gideriz
+		sonra bu objeden datafy ile alt verilerine gideriz
+	myThing -> datafy -> description-hash-map
+	description-hash-map -> get -> more-data
+	description-hash-map -> nav (with more-data) -> someNewThing
+Introducing shadow-cljs Inspect - Projects / shadow-cljs - ClojureVerse id=g12435
+	[Introducing shadow-cljs Inspect - Projects / shadow-cljs - ClojureVerse](https://clojureverse.org/t/introducing-shadow-cljs-inspect/5012)
+	shadow-cljs server
+	$ shadow-cljs node-repl
+	cljs.user=> (require 'shadow.remote.runtime.cljs.node)
+	cljs.user=> (tap> :hello)
+The Ultimate Guide To Clojure REPLs - lambdaisland id=g12455
+	[The Ultimate Guide To Clojure REPLs | The Ultimate Guide To Clojure REPLs Guide](https://lambdaisland.com/guides/clojure-repls)
+	ref:
+		Article: The Ultimate Guide To Clojure REPLs Guide <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g12457>
+	Built-in REPL
+		java -jar clojure-1.8.0.jar
+		Special Functions in cloure.main/repl
+			ref: /Users/mertnuhoglu/codes/clj/clojure/src/clj/clojure/repl.clj
+				source
+				apropos "word"
+				doc map-indexed
+				dir clojure.string
+				pst e
+				find-doc "join"
+			ref: pprint
+				pprint
+				pp
+					print previous result
+			magic variables
+				*1 *2 *3
+				*e
+		Socket REPL
+			read from standard input
+				STDIN, System.in, clojure.core/*in*
+			TCP veya başka streamleri std io streamlerine bağlarsan, onlarla bilgi alışverişi yaparsın
+			socket REPL başlat:
+				java -cp clojure-1.8.0.jar -Dclojure.server.repl="{:port 5555 :accept clojure.core.server/repl}" clojure.main
+			buna socket repl ile bağlanmak için:
+				nc localhost 5555
+		Creating Your Own Socket REPLs
+About REPLs - Antonin Hildebrand id=g12456
+	[dirac/about-repls.md at master · binaryage/dirac](https://github.com/binaryage/dirac/blob/master/docs/about-repls.md)
+
+
+
+
+
 

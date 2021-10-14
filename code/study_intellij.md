@@ -23,13 +23,16 @@ blog: mertnuhoglu.com
 
 ## intellij refcard id=g11014
 
-		| #a / SPC SPC | find action       |
-		| ++           | search everywhere |
-		| !+ SPC       | quicklist: popups |
-		| ! SPC        | Quick definition  |
-		| f1           | quickdocs         |
-		| ^^           | Run anything      |
-		| #! SPC, ...  | menus             |
+    | #a / SPC SPC | find action        |
+    | ++           | search everywhere  |
+    | !u SPC       | quicklist: popups  |
+    | !u p         | quicklist: popups  |
+    | !u j         | quicklist: clojure |
+    | !u k         | quicklist: general |
+    | ! SPC        | Quick definition   |
+    | f1           | quickdocs          |
+    | ^^           | Run anything       |
+    | #! SPC, ...  | menus              |
 
 		my customizations <url:file:///~/projects/study/code/study_intellij.md#r=g10996>
 		my quick lists <url:file:///~/projects/study/code/study_intellij.md#r=g10995>
@@ -154,4 +157,5 @@ ref: intelij_kisayollari_20210408.m4a
     | !tn     | run tests in current ns      | ,tn   | cider-test-run-ns-tests |
     | !mm     | macro expand                 | ,m    | cider-macroexpand-1     |
     | SPC pp  |
+		| !bn			| close notification window		|
 

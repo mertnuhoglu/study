@@ -1,0 +1,45 @@
+
+lf lf3  id=g12426
+	ref
+		lf: file manager (list files) lf2 <url:file:///~/projects/study/otl/ccode.otl#r=g12347>
+	Issue: Open Excel files with vd (Excel dosyalarını vd ile açmak): <url:file:///~/projects/study/code/study_lf.md#r=g12348>
+	toggle preview kısayolu oluştur <url:file:///~/projects/study/code/study_lf.md#r=g11823>
+	dosya silme delete file  <url:file:///~/projects/study/code/study_lf.md#r=g12349>
+	shortcuts lf  <url:file:///~/projects/study/code/study_lf.md#r=g12350>
+	Customizations lf <url:file:///~/projects/study/code/study_lf.md#r=g12351>
+	quickref shortcuts
+		| af | fzf                    |
+		| az | fasd                   |
+		| Y  | copy path: $f > pbcopy |
+		| i         | launch pager                      |
+		| s         | change sortby/info options        |
+	features
+		bookmarks config
+			/Users/mertnuhoglu/projects/private_dotfiles/.config/lf/marks
+ranger ranger3 id=g12425
+	ref
+		ranger ranger2 <url:file:///~/projects/study/otl/ccode.otl#r=g12424>
+		Index <url:file:///~/projects/study/code/study_ranger.md#r=g11809>
+		~/projects/private_dotfiles/.config/ranger/rc.conf
+		~/.config/ranger/commands.py
+		~/projects/study/code/lf_ranger_file_managers.otl
+	shortcuts
+		| m<any>                   | mark bookmark                |
+		| '<any>                   | goto bookmark                |
+		| ?k                       | help for keybindings         |
+		| yp                       | yank path                    |
+		| zp                       | toggle preview               |
+		| ^f                       | fzf search                   |
+		| yy/dd                    | put file into reg            |
+		| pp                       | move/copy file to            |
+		| space                    | select file                  |
+		| o abc...                 | order/sort by basename,...   |
+		|:				|command|
+		Alt-number		go to tab n
+		Tab						next tab
+		^n			new tab
+	custom shortcuts
+		| ^f | fzf |
+	features
+		file preview
+			zp

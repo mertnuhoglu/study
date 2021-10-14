@@ -1,0 +1,10 @@
+{:my.system.server/port
+ 1234
+
+ :my.system.resource/path
+ "resources/public"
+
+ :my.system/generic-db
+ ^{:com.wsscode.pathom3/entity-table :my.system/user-id}
+ {4 {:my.system.user/name "Anne"}
+  2 {:my.system.user/name "Fred"}}}

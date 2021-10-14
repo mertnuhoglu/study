@@ -63,10 +63,12 @@ LIMIT 100)
 d01 = tbl(con, sql(sql01)) %>% collect
 ``` 
 
+Specify names of selected fields with a vector
+
 ``` R
 d02 = d01 %>%
 	select_(.dots = vars_f)
-write_csv(d02, path = "~/bizqualify_data/zoom_data_extract_20181221.csv", na = "")
+write_csv(d02, path = "file.csv", na = "")
 ``` 
 
 ### 01.01.a opt01: Import into Database Using R
@@ -142,10 +144,10 @@ c01 = read_csv("~/bizqualify_data/data_20180903_ts.csv") %>%
 nrow(c01)
   ##> [1] 6521042
 c02 = c01 %>%
-	select(company_ein, bq_ticker, bq_company_name, bq_comp_most_recent_filing_date, bq_year)
+	select(company_ein, bq_ticker, bq_company_name, filing_date, bq_year)
 c03 = c02 %>%
-	filter(bq_comp_most_recent_filing_date >= as.Date('2017-1-1')) %>%
-	filter(bq_comp_most_recent_filing_date < as.Date('2018-1-1')) 
+	filter(filing_date >= as.Date('2017-1-1')) %>%
+	filter(filing_date < as.Date('2018-1-1')) 
 c04 = unique(c03$company_ein)
 length(c04)
 	##> [1] 334453
@@ -1420,4 +1422,12 @@ expenses %>% group_by(month=lubridate::floor_date(date, "month")) %>%
   ##>  1 2016-01-01  1305.
   ##>  2 2016-02-01  1168.
 ```
+
+## ex: import excel file 2nd sheet, select one column, convert it to lowercase
+
+``` r
+vars01 = rio::import("inpot.xlsx", which = 2) %>%
+	select(field_name) %>%
+	mutate(field_name = tolower(field_name)) 
+``` 
 

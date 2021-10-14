@@ -18,24 +18,44 @@ state: wip
 # quickstart cursive id=g11816
 
     | ^^ repl | run anything: repl             |
-    | !u c    | clojure popup menu             |
+    | !u j    | clojure popup menu             |
     | !e b    | load file in repl              | ,eb |
     | !e d    | send top form to repl          | ,ed |
     | !e e    | send form before caret to repl | ,ee |
-    | !e n    | send repl ns to current file   | ,en |
+    | !r n    | switch repl ns to current file | ,en |
     | !r b    | jump to repl editor            | ,rb |
+    | #enter  | repl: submit command           |
+    | !++enter | repl: submit command           |
 
 # Index cursive id=g11817
 
-`Getting around: Structural movement <url:file:///~/projects/study/clj/cursive.md#r=g11818>`
-
-`Structural editing (paredit) <url:file:///~/projects/study/clj/cursive.md#r=g11819>`
-
-`Bir projeyi REPL ile incelemek  <url:file:///~/projects/study/clj/cursive.md#r=g12072>`
+	Shortcuts cursive <url:file:///~/projects/study/clj/cursive.md#r=g12405>
+	Getting around: Structural movement <url:file:///~/projects/study/clj/cursive.md#r=g11818>
+	Structural editing (paredit) <url:file:///~/projects/study/clj/cursive.md#r=g11819>
+	Bir projeyi REPL ile incelemek  <url:file:///~/projects/study/clj/cursive.md#r=g12072>
 
 # Issues
 
 ## Bir projeyi REPL ile incelemek  id=g12072
+
+### deps.edn
+
+File > New > Project from existing sources > .select: `deps.edn`
+
+Edit Configurations > Clojure REPL Local > Run with Deps
+
+Which type: `nREPL`
+
+Aliases: `runner`
+
+Run 'REPL'
+
+1. REPL > Load File in REPL
+
+2. REPL > Switch REPL ns to current file
+
+
+### Leiningen
 
 File > New > Project from existing sources > .select: `~/codes/clj/ataraxy/project.clj`
 
@@ -194,4 +214,8 @@ Note that, str was not in the current namespace yet.
 # Video: Colin Fleming - Debugging Clojure Code Wtih Cursive - YouTube
 
 [Colin Fleming - Debugging Clojure Code Wtih Cursive - YouTube](https://www.youtube.com/watch?v=ql77RwhcCK0)
+
+# Shortcuts cursive id=g12405
+
+`custom shortcuts <url:file:///~/projects/study/otl/intellij.otl#r=g12410>`
 

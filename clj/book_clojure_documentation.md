@@ -91,6 +91,18 @@ Sub-expressions:
 https://clojure.org/guides/weird_characters
 
 ``` clojure
+	| Instantiation   | new Widget("foo") | (Widget. "foo")  |
+	| Instance method | rnd.nextInt()     | (.nextInt rnd)   |
+	| Instance field  | object.field      | (.-field object) |
+	(.. System (getProperties) (get "os.name"))
+		;; expands to:
+		(. (. System (getProperties)) (get "os.name"))
+		(-> (System/getProperties) (.get "os.name"))
+	; java <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11357>
+		(new java.util.Date) ;; => #inst "2020-06-15T14:27:36.415-00:00"
+		(java.util.Date. "2016/2/19") ;; => #inst "2016-02-18T22:00:00.000-00:00"
+		(let [d (java.util.Date.)] (.toString d)) ;; => "Mon Jun 15 17:27:47 EEST 2020"
+		(let [d (java.util.Date.)] (. d toString)) ;; => "Mon Jun 15 17:27:51 EEST 2020"
   ( … ) - List
   [ … ] - Vector
   { … } - Map
@@ -111,7 +123,7 @@ https://clojure.org/guides/weird_characters
 		(meta #'five)
 		(def ^:debug five 5) ; bc single value
 		(def ^Integer ^:debug ^:private five 5) ; stack shorthand notations
-		#^ deprecated in favor of ^
+	k #^ deprecated in favor of ^
   ' - Quote: read but not evaluate
   ; - Comment
   : - Keyword

@@ -1,0 +1,5 @@
+{:my.system.server/port
+ 1234
+
+ :my.system.resource/path
+ "resources/public"}

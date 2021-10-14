@@ -60,9 +60,12 @@ It works on any word as well.
 
 ## Keybindings Conjure id=g11845
 
+	let g:conjure#mapping#prefix = " m"
+	lua require('conjure.eval')['current-form']()
+	let g:conjure#mapping#eval_root_form = "ed"
   | ,eb     | evaluate buffer                 | eval (buf)             |
   | ,ee     | evaluate inner expression       | eval (current-form)    |
-  | ,er     | evaluate top expression         | eval (root-form)       |
+  | ,ed     | evaluate top expression         | eval (root-form)       |
   | ,e!     | evaluate exp and replace result | eval (root-form)       |
   | ,ls ,lt | open log buffer                 | eval (replace-form)    |
   | "cp     | paste result register           |                        |
@@ -75,11 +78,20 @@ Source: `:ConjureSchool`
 
 ## Connect to REPL in Conjure id=g11844
 
+opt01: run nREPL server with global deps.edn alias settings
+
+```bash
+clojure -M:repl/rebel-nrepl
+clojure -M:inspect/reveal-nrepl
+``` 
+
+opt02: run nREPL server with custom arguments
+
 01: Run nREPL server
 
 ```bash
 cd /Users/mertnuhoglu/projects/study/clj/ex/articles_clojure/e01
-clj -Sdeps '{:deps {nrepl {:mvn/version "0.7.0"} cider/cider-nrepl {:mvn/version "0.25.2"}}}' \
+clj -Sdeps '{:deps {nrepl {:mvn/version "0.9.0-beta2"} cider/cider-nrepl {:mvn/version "0.26.0"}}}' \
     -m nrepl.cmdline \
     --middleware '["cider.nrepl/cider-middleware"]' \
     --interactive
