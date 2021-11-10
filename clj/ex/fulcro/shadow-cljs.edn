@@ -1,0 +1,20 @@
+{:deps     {:aliases [:dev]}
+ :http     {:port 9631}                                     ; shadow control server
+ ;:nrepl    {:port 9000}
+ :dev-http {8000 "resources/public"}
+ :builds   {:main {:target     :browser
+                   :output-dir "resources/public/js/main"
+                   :asset-path "/js/main"
+                   :dev        {:compiler-options {:external-config {:guardrails {:emit-spec? true :throw? false}}}}
+                   :release    {:compiler-options {:source-map true}}
+                   :modules    {:main {:init-fn app.client/init
+                                       :entries [app.client]}}
+                   :devtools   {:preloads   [com.fulcrologic.fulcro.inspect.preload
+                                             shadow.remote.runtime.cljs.browser ; Shadow Inspect tab support
+                                             devtools.preload
+                                             com.fulcrologic.fulcro.inspect.dom-picker-preload]
+
+                                :after-load app.client/refresh}}}}
+
+
+

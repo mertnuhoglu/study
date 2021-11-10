@@ -1,5 +1,5 @@
 
-index
+index rprg id=g12476
 	sample data <url:file:///~/projects/study/r/examples_r.Rmd#r=g11655>
 		tags: sample_data, table, dataframe
 	projects
@@ -23,6 +23,11 @@ index
 	refcards
 		~/projects/study/r/rfc_convert_data.md
 		~/projects/study/r/examples_r.Rmd
+	cheatsheets and vignettes
+		vignette()
+		vignette(package = "dplyr")
+		[rstudio/cheatsheets: RStudio Cheat Sheets](https://github.com/rstudio/cheatsheets)
+		[A Grammar of Data Manipulation • dplyr](https://dplyr.tidyverse.org/)
 topics
 	r programming
 		http://daattali.com/shiny/timevis-demo/
@@ -173,6 +178,660 @@ cookbook
 			setdiff(x, y)
 			setequal(x, y)
 			is.element(el, set)
+	df2 df
+		names colnames setNames unname
+			colnames(df)
+			setNames( 1:3, c("foo", "bar", "baz") )
+				> setNames(data.frame(v1=c(1:10), v2=seq(1, 100, length=10)), c("X","Y"))
+				X   Y
+				1   1   1
+				2   2  12
+				df = import(path) %>%
+					setNames(c("IsYeri","IE_Lot_No","Stok_Kodu","Kalite_Kodu","Siparis","Str","L_Eni","L_Boy","IE_Tarihi","Terrmin_Tarihi","Miktar","sira"))
+			names(df) <- tolower(names(df)) 
+			unname(obj) # remove names
+		access row col 
+			df[i,]   # row i 
+			df[,j]   # column j
+			tail(df, 1)
+				Last row
+		columns
+			cols = names(df) %in% c("q3", "q4")
+			df = df[!cols] # remove
+			df = df[c(-8, -9)] # remove
+			dt[ , -6:-16 ] # by range
+			df[cols] # keep
+			df$cols = NULL # remove
+			df[ , c(2,1,3) ] # change column order
+		rows
+			remove rows
+				df[ -ids, ] # remove by index
+				df[ !dups, ] # remove by T/F
+				but if ids is integer() above methods won't work
+				opt1
+					df %>%
+						 filter(!row_number() %in% drop)
+				opt2 
+					df[!seq_len(nrow(df)) %in% drop, ]
+				opt3
+					df[ setdiff(1:nrow(df), drop), ]
+		rownames
+			rownames(f) <- c()
+		subset/query
+			df[ df$col == logical ]          
+		examples/use cases
+			find rows with all NA cells
+				d4 = data.frame( x = c(1, NA), y = c(NA, NA))
+				applyr = partial(apply, MARGIN = 1)
+				r4 = applyr(is.na(d4), all)
+				r4 == c(F,T)
+			remove rows with all NA values
+				df %>%
+					filter( !applyr(is.na(.), all) )
+			{ # loop over all columns of some df
+				df3 = data.frame( operation_id = df[['operation_id']] )
+				# opt1
+				for (i in seq_along(cols)) {
+					df3[[cols[i]]] = df[[cols[i]]]
+				}
+				# opt2
+				df4 = df[cols] 
+				# opt3
+				df6 = lapply(seq_along(cols), function(i) df[[cols[i]]] %>% as.numeric )
+				# opt4
+				df7 = lapply(cols, function(col) df[[col]] %>% as.numeric ) %>% 
+					setNames(cols) %>%
+					as.data.frame
+				}
+			apply for datframe is lapply
+				convert list of vectors to dataframe
+					df7 = lapply(cols, function(col) df[[col]] %>% as.numeric ) %>% 
+						setNames(cols) %>%
+						as.data.frame
+					map(df, ~ str_replace_all(.x, '\\n', '') ) %>%
+						as.data.frame
+			study_create_dataframe_with_columns_specified_in_list 
+				opt1
+					l = list( a = NA, b = NA )
+					df = as_data_frame(l)
+				opt2
+					l2 = setNames( replicate(2,NA, simplify = F), c('a', 'b'))
+					df = as_data_frame(l2)
+		access row col 
+			m[4, 2]
+			m[3, ] # row
+			m[ , 2] # col
+		growing cbind rbind
+			m = cbind(m1, m2) # column bind
+			rbind(df1, df2)
+		filter
+			iris %>% filter( column("Sepal.Length") < 5 )
+				var <- "Sepal.Length"
+				iris %>% filter( column(var) < 5 )
+		Equivalent of SQL CASE - mutate if
+			https://github.com/hadley/dplyr/issues/631
+			ex: if not smoker, then comsumption of cigarettes <- 0
+				#standard R way
+				smoke$cigarrettes[!smoke$is_smoker & is.na(smoke$cigarrettes)] <- 0
+				opt1: filter + rbind
+					#dplyr option 1: split the data set, fix one part and combine the two
+					smoker_true <- smoke %>% filter(!is_smoker, is.na(smoke$cigarettes))
+					# complement
+					smoker_false <- smoke %>% filter(is_smoker | !is.na(smoke$cigarettes))
+					smoke2 <- rbind( smoker_true %>% mutate(cigarrettes=0)
+												 , smoker_false
+					)
+				opt2: mutate if
+					# dplyr option 2: replace the whole variable and do the filtering in the assignment
+					smoke2 <- smoke %>%
+						mutate(cigarrettes=ifelse(!is_smoker & is.na(cigarrettes), 0, cigarrettes))
+				opt3: coalesce
+					mutate(smoke, cigarettes = if_else(is_smoker, cigarettes, 0L, 0L))
+				opt4: case_when
+					mtcars %>% tbl_df %>%  transmute(size = case_when(.$cyl > 6 ~ "big", TRUE ~ "small"))
+				opt5: if_else
+					mutate(smoke, cigarettes = if_else(is_smoker, cigarettes, 0L, 0L))
+		tibble2
+			ref: [Simple Data Frames • tibble](https://tibble.tidyverse.org/)
+			opt01: tablo gibi oluşturma: tribble
+				tribble(
+					~x, ~y,  ~z,
+					"a", 2,  3.6,
+					"b", 1,  8.5
+				)
+			opt02: df tarzı oluşturma: tibble
+				tibble(x = 1:5, y = 1, z = x ^ 2 + y)
+			opt03: convert
+				as_tibble(iris)
+			tibble::add_row
+				library(tibble)
+				df <- data_frame(x = 1:3, y = 3:1)
+				add_row(df, x = 4, y = 0)
+	dplyr2 dplyr
+		vignettes and tutorials
+			http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/
+			https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html
+		aliases for operators: extract [ extract2 [[
+			extract2 [[
+			check magrittr alias
+			?magrittr::extract2
+				‘extract’                 ‘`[`’
+				‘extract2’                ‘`[[`’
+				‘inset’                   ‘`[<-`’
+				‘inset2’                  ‘`[[<-`’
+				‘use_series’              ‘`$`’
+				‘add’                     ‘`+`’
+				‘subtract’                ‘`-`’
+				‘multiply_by’             ‘`*`’
+				‘raise_to_power’          ‘`^`’
+				‘multiply_by_matrix’      ‘`%*%`’
+				‘divide_by’               ‘`/`’
+				‘divide_by_int’           ‘`%/%`’
+				‘mod’                     ‘`%%`’
+				‘is_in’                   ‘`%in%`’
+				‘and’                     ‘`&`’
+				‘or’                      ‘`|`’
+				‘equals’                  ‘`==`’
+				‘is_greater_than’         ‘`>`’
+				‘is_weakly_greater_than’  ‘`>=`’
+				‘is_less_than’            ‘`<`’
+				‘is_weakly_less_than’     ‘`<=`’
+				‘not’ (‘`n'est pas`’)     ‘`!`’
+				‘set_colnames’            ‘`colnames<-`’
+				‘set_rownames’            ‘`rownames<-`’
+				‘set_names’               ‘`names<-`’
+			Examples:
+				iris %>%
+					 extract(, 1:4) %>%
+					 head
+		examples
+			http://stackoverflow.com/questions/31358953/in-r-subset-or-dplyrfilter-with-variable-from-vector
+			rbind: filter mutate select left_join(original)
+				fkd = r_data_field() %>%
+					select( 1:2, pk_fk ) %>%
+					filter( pk_fk == "FK" ) %>%
+					mutate( fk_data_entity_name = ...)
+					select( data_field_id, fk_data_entity_name )
+				dfl = r_data_field(with_invalid=T) %>%
+					select( -fk_data_entity_name ) %>%
+					left_join(fkd)
+				export(dfl, "data/updates/DataField_updated.tsv")
+			incremental row id
+				fte02 = import( "inbox/formasiya_tomi_emsallari.xlsx" ) %>%
+					remove_all_na_rows %>%
+					mutate( fte_id = 1:n() )
+			summarise_each( funs(last(.)) )
+				result = by_cik %>%
+					summarise_each( funs(last(.)) )
+			join by multiple columns
+				inner_join(xcr, by = c("filename", "contextRef"))
+			join by different columns
+				org3 = org %>%
+					left_join( org2, by = c("parent_id" = "organization_id") )
+		debugging dplyr
+			https://github.com/gaborcsardi/tamper
+			devtools::install_github("gaborcsardi/tamper")
+			options(error = tamper::tamper)
+			ex
+				1:10 %>%
+					multiply_by(10) %>%
+					add(10) %>%
+					add("oh no!") %>%
+					subtract(5) %>%
+					divide_by(5)
+		verbs
+			mutate mutate_if
+				add new columns with mutate()
+					mutate(flights, gain = arr_delay - dep_delay)
+				mutate if
+					mutate( type = ifelse(  f$type == f$field, NA, f$type ) )
+					opts
+						data.table
+							id = "field_id" 
+							flden = import("data/translation/field_en.xlsx") %>%
+								select( one_of("field_id"), ends_with("_en") ) %>%
+								as.data.table
+							setkey(flden, field_id)
+							flden2 = flden[!is.na(field_name_en)]
+							fld = read_rdb_field() %>%
+								as.data.table
+							setkey(fld, field_id)
+							assert_that(all( flden2$field_id %in% fld$field_id ) )
+							fld2 = fld
+							fld2[field_id %in% flden2$field_id]$field_name_en = flden2$field_name_en
+							assert_that( setequal( fld[[id]], fld2[[id]] ) )
+							export(fld2, "data/translation/field2.tsv")
+						dplyr
+							id = "field_id" 
+							flden = import("data/translation/field_en.xlsx") %>%
+								select( one_of("field_id"), ends_with("_en") )
+							fld = read_rdb_field()
+							fld2 = fld %>%
+								left_join( flden, by = id) %>%
+								mutate( field_name_en = ifelse( is.na(field_name_en.y), field_name_en.x, field_name_en.y )) %>%
+								select( -one_of("field_name_en.y", "field_name_en.x") )
+							assert_that( setequal( fld[[id]], fld2[[id]] ) )
+							export(fld2, "data/translation/field2.tsv")
+				mutate_if: Conditional replace in-place
+					@deprecated use case_when
+					ref: case_when      <url:file:///~/projects/study/otl/cr.otl#r=g12317>
+					mutate_if(df,a==3,x=100)
+					use
+						mutate( type = ifelse(  f$type == f$field, NA, f$type ) )
+			select rename
+				select(flights, year, month, day)
+				select(flights, year:day)
+				select(flights, -(year:day))
+				helper functions
+					starts_with()
+					ends_with
+					matches()
+					contains()
+					?select
+				rename variables using named arguments
+					select(flights, tail_num = tailnum) # others are dropped
+					rename(flights, tail_num = tailnum)
+					rename using string functions
+						iris %>% rename_(.dots=setNames(names(.), tolower(gsub("\\.", "_", names(.)))))
+				order columns
+					select(field_id, data_entity_id:variable_name)
+					remaining columns ordering
+						http://stackoverflow.com/questions/32040742/dplyrselect-including-all-other-columns-at-end-of-new-data-frame-or-beginni
+						all other (remaining) columns at end
+							col <- c("carrier", "tailnum", "year", "month", "day")
+							select(flights, one_of(col), everything()) 
+						all other at beginning
+							select(flights, -one_of(col), one_of(col))
+						all dataframe at end
+							bind_cols(select(flights, one_of(col)), flights)
+						all dataframe at beginning
+							bind_cols(flights, select(flights, one_of(col)))
+				Select/arrange columns with character variables
+					cols = c("mpg","cyl, hp:vs")
+					mtcars %.%
+						filter(gear == 3,cyl == 8) %.%
+						s_select(cols)
+					s_arrange(mtcars, c("gear", "-mpg"))
+					normal way:
+						select(mpg, cyl)
+			filter slice
+				select by position: slice
+					slice(flights, 1:10)
+				boolean operators explicit
+					filter(flights, month == 1 | day == 1)
+				filter(flights, month == 1, day == 1)
+				babynames %>%
+					filter(name %>% substr(1, 3) %>% equals("Ste")) %>%
+					group_by(year, sex) %>%
+					summarize(total = sum(n)) %>%
+					qplot(year, total, color = sex, data = ., geom = "line") %>%
+					add(ggtitle('Names starting with "Ste"')) %>%
+					print
+				filter vector
+					files = list.files( "data/" ) %>%
+						vgrepv( "\\.tsv$" )
+				slice     
+					row_number'a göre filtreleme yapar
+					slice(mtcars, 1L)
+					slice(mtcars, n())
+					slice(mtcars, 5:n())
+					by_cyl <- group_by(mtcars, cyl)
+					slice(by_cyl, 1:2)
+					# Equivalent code using filter that will also work with databases,
+					# but won't be as fast for in-memory data. For many databases, you'll
+					# need to supply an explicit variable to use to compute the row number.
+					filter(mtcars, row_number() == 1L)
+					filter(mtcars, row_number() == n())
+					filter(mtcars, between(row_number(), 5, n()))
+			arrange
+				arrange(flights, year, month, day)
+				descending order: desc()  
+					arrange(flights, desc(year))
+				more verbose
+					flights[order(flights$year, flights$month, flights$day), ]
+			summarise summarize aggregate
+				summarise(flight, delay = mean(dep_delay, na.rm = T))
+				expenses %>% group_by(month=lubridate::floor_date(date, "month")) %>% summarize(amount=sum(amount))
+				use summarise() with aggregate functions
+					that take a vector values, return a single number
+					base R: min, max, sum, mean,
+					dplyr: n, n_distinct(x), first(x), last(x), nth(x,n)
+				ex
+					destinations = group_by(flights, dest)
+					summarise(destinations, 
+						planes = n_distinct(tailnum),
+						flights = n()
+					)
+				when grouping by multiple variables, each summary peels off one level of grouping
+					daily = group_by(flights, year, month, day)
+					per_day = summarise(daily, flights = n())
+					per_month = summarise(per_day, flights = sum(flights))
+				how does summarise_each work?
+					> by_species <- iris %>% group_by(Species)
+					> by_species %>% summarise_each(funs(length))
+					Source: local data frame [3 x 5]
+							 Species Sepal.Length Sepal.Width Petal.Length Petal.Width
+					1     setosa           50          50           50          50
+					2 versicolor           50          50           50          50
+					3  virginica           50          50           50          50
+					funs(...) applied to each column separately
+						> by_species %>% summarise_each(funs(mean), matches("Width"))
+						Source: local data frame [3 x 3]
+								 Species Sepal.Width Petal.Width
+						1     setosa       3.428       0.246
+						2 versicolor       2.770       1.326
+						3  virginica       2.974       2.026
+						> by_species %>% summarise_each(funs(mean), Petal.Width)
+						Source: local data frame [3 x 2]
+								 Species Petal.Width
+						1     setosa       0.246
+						2 versicolor       1.326
+						3  virginica       2.026
+				ex: # <url:dropbox_btg/TEUIS PROJECT 05-ANALYSIS/working_library/requirements_database/scripts/prepare_rdb_field_operations.R#p108_rdb_gfield_aggregate_dfield>
+					# the result is not useful usually
+					fld2 = fld %>%
+						left_join(scr, by = "screen_id") %>%
+						left_join(dfl, by = "data_entity_id") 
+					fld3 = fld2 %>%
+						group_by(field_id) %>%
+						summarize(list(data_field_name))
+					{ # testing
+						head(fld3)[[2]]
+						paste(head(fld3)[[2]], collaps=",")
+						toString(unlist(fld3[1,][[2]]))
+						fld3[1:3,][[2]]
+					}
+					dfn = lapply( fld3[1:nrow(fld3),][[2]], toString ) %>% unlist
+					fld4 = data_frame(
+						field_id = fld3$field_id,
+						data_field_name_aggregated = dfn
+					)
+					fld5 = fld %>%
+						left_join(fld4, by = "field_id")
+			distinct: unique rows
+				distinct(select(flights, tailnum))
+				normalde sadece seçtiğin kolonları tutar
+					tüm kolonları tutması için:
+						.keep_all = T
+			join
+				join key: group_by keys
+					delays <- flights %>%
+						group_by(dest) %>%
+						summarise(arr_delay = mean(arr_delay, na.rm = TRUE), n = n()) %>%
+						arrange(desc(arr_delay)) %>%
+						inner_join(location)
+				multiple join keys
+					inner_join(xcr, by = c("filename", "contextRef")) 
+				join types
+					left_join
+					inner_join
+					anti_join
+						excluded in right
+						but not join
+					semi_join
+						intersection rows
+						but not join
+					right_join
+						reverse of left
+					outer_join
+						union
+				keys to join
+					default: all common columns
+					join by different columns
+						org3 = org %>%
+							left_join( org2, by = c("parent_id" = "organization_id") )
+					by: explicitly specify
+						inner_join(xcr, by = c("filename", "contextRef")) 
+						inner_join(mcf, by="filename") %>%
+						documentation says but doesn't work
+							by = c("a")
+							by = c("a" = "b")
+			mutate + transmute
+			sample_n + sample_frac
+		case_when      id=g12317
+			ref
+				mutate case_when instead of mutate_if <url:file:///~/projects/study/r/examples_r.Rmd#r=g12318>
+			ex1
+				x <- 1:50
+				case_when(
+					x %% 35 == 0 ~ "fizz buzz",
+					x %% 5 == 0 ~ "fizz",
+					x %% 7 == 0 ~ "buzz",
+					TRUE ~ as.character(x)
+				)
+		sample rows
+			sample_n(flights, 10)
+			sample_frac(flights, 0.01)
+				replace = T
+		grouped operations
+			group by day of date
+				ref: dplyr:: group by day of the date  <url:file:///~/projects/study/r/examples_r.Rmd#r=g12341>
+			arrayization: convert single valued cells into multiple valued cells
+				var = r_variable() %>%
+					group_by( test_id ) %>%
+					summarise( variable_id_list = paste( variable_id, collapse = "," ) ) 
+			unarrayization with unnest
+				ex2
+					http://bioinfoblog.it/2015/02/the-most-useful-r-command-unnest-from-tidyr/comment-page-1/
+					d1
+						k v
+						k1  v1,v2
+					->
+					d2
+						k v
+						k1  v1
+						k1  v2
+					opt1
+						d1 %>%
+							mutate( v = str_split(v, ",") ) %>%
+							unnest(v)
+					opt2
+						d1 %>%
+							unnest( v = str_split(v, ",") )
+				ex
+					denp1 = r_data_entity() %>%
+						select(data_entity_id, bps_id_list)
+					denp2 = r_data_entity() %>%
+						mutate(bps_id=str_split(bps_id_list, ",")) %>% 
+						unnest(bps_id) %>%
+						select(data_entity_id, bps_id)
+					#> denp1
+						 #data_entity_id                    bps_id_list
+					#1              86 1,2,3,5,6,7,8,9,10,11,12,13,14
+					#2              99                             11
+					#> denp2
+						 #data_entity_id bps_id
+					#1              86      1
+					#2              86      2
+					#3              86      3
+			group_by and concat strings by column
+				rvw2 = rvw %>%
+					left_join( vsc, by = "view_id" ) %>%
+					left_join( scw, by = "screen_id" ) %>%
+					group_by( view_id ) %>%
+					distinct( window_id ) %>%
+					summarise( window_id_list = paste( window_id, collapse = "," ) ) %>%
+					arrange( view_id )
+			filter first row from group_by
+				http://stackoverflow.com/questions/31528981/dplyr-select-first-and-last-row-from-grouped-data
+				opt1: row_number() == 1
+					df %>%
+						group_by(id) %>%
+						arrange(stopSequence) %>%
+						filter(row_number()==1 | row_number()==n())
+				opt2: slice(1)
+					df %>% arrange(stopSequence) %>% group_by(id) %>% slice(c(1,n()))
+			verbs affected by grouping as:
+				select() no change
+				arrange() orders first by grouping variables
+				mutate() and filter() most usefil with window functions (rank() or min(x) == x)
+					vignette("window-function")
+				sample_n() sample rows in each group
+				slice() extract rows within each group
+				summarise() explained below
+			example
+				planes = group_by(flights, tailnum)
+				delay = summarise(planes,
+					count = n(),
+					dist = mean(distance, na.rm = T),
+					delay = mean(arr_delay, na.rm = T))
+				delay = filter(delay, count > 20, dist < 2000)
+			grouping without summarising
+				flights %>%
+					group_by(Dest) %>%
+					select(Cancelled) %>%
+					table() %>%
+					head()
+		window functions
+			n inputs and n outputs
+			ex
+				filter(min_rank(desc(DepDelay)) <= 2) %>%
+				=
+				top_n(2) %>%
+			# for each month, calculate the number of flights and the change from the previous month
+				flights %>%
+					group_by(Month) %>%
+					summarise(flight_count = n()) %>%
+					mutate(change = flight_count - lag(flight_count))
+				# rewrite more simply with tally
+					tally() %>%
+					mutate(change = n - lag(n))
+			# row numbers of each element in each group
+				r2 %>%
+					group_by( from ) %>%
+					mutate( order2 = row_number(order) )
+				# from to order order2
+				#    a  b     1      1
+				#    a  c     1      2
+				#    b  d     2      1
+				r2 %>%
+					group_by( from ) %>%
+					mutate( order2 = row_number() )
+				# from to order order2
+				#    a  b     1      1
+				#    a  c     1      2
+				#    b  d     2      1
+			ranking 
+				functions
+					row_number
+					min_rank
+					dense_rank
+				difference:
+					how to solve ties
+				example
+					nums = c(1, 1, 2, 3)
+					> min_rank(nums)
+					[1] 1 1 3 4
+					> dense_rank(nums)
+					[1] 1 1 2 3
+					> row_number(nums)
+					[1] 1 2 3 4
+				how to handle ties
+					min_rank
+						normal ranking
+					dense_rank
+						doesn't skip the places
+					row_number
+						ignores ties
+		selecting columns
+			select by suffix/prefix
+				cols = c("op_id", "no")
+				opt1
+					cols[ends_with(cols, '_id')]
+				opt2
+					cols %>%
+						extract( ends_with(., '_id') )
+			opt1
+				cols = cols[ends_with(cols, '_id')] 
+				df4 = df[cols]
+			opt2
+				df5 = df %>%
+					extract( cols[ends_with(cols, '_id')] )
+		utilities
+			instead of str(): glimpse(flights)
+		databases - sql
+			connect to database
+				jdbc - most reliable
+					username = "btg_mis"
+					password = "..."
+					conStr =  "jdbc:oracle:thin:@52.73.23.191:1521:btgdev"
+					drv <- JDBC("oracle.jdbc.driver.OracleDriver",
+						"other/ojdbc6.jar",
+						identifier.quote="`")
+					conn = dbConnect(drv, conStr, username, password)
+				my_db = src_sqlite("my_db.sqlite3")
+			create new database
+				my_db <- src_sqlite("my_db.sqlite3", create = T)
+			read table
+				dbReadTibble = function(db, table_name) {
+					dbReadTable(db, table_name) %>%
+						as_tibble
+				}
+				act_evt_log = function(db) dbReadTibble(db, "ACT_EVT_LOG")
+			select query: dbGetQuery() or tbl()
+				load/read data: database to df
+				conn = get_db_aws()
+				df = dbGetQuery(conn, "SELECT * FROM T_TEST")
+				weather_db <- hflights_db %>% tbl("weather")
+			connect to
+			select queries with tbl()
+				tbl(my_db, "hflights")
+				tbl(my_db, sql("SELECT * FROM hflights LIMIT 100"))
+			convert dplyr to sql: explain()
+				show sql and show plan
+				flights_db %>% filter(n > 10) %>% explain()
+			insert/copy df to database: copy_to()
+				copy_to(hflights_db, as.data.frame(flights), name = "flights", 
+					indexes = list(c("date", "hour"), "plane", "dest", "arr"), temporary = FALSE)
+			work with data as if they are local data frames
+				flights_db %>% left_join(planes_db)
+				operations are lazy, until you see the data
+			get all data locally
+				hourly_local <- collect(hourly)
+		tally
+			planes %>% group_by(type) %>% tally()
+			simple count() by group
+		do()
+			if existing verbs don't work, use do()
+			similar to dlply()
+			slower
+			uses pronoun: . to refer to current group
+			ex
+				df: houseID, year, price
+				by_house = df %>% 
+					group_by(houseID) 
+				by_house %>% do(na.locf(.))
+					na.locf: last observation carried forward. replace na with last non-na value
+				by_house %>% do(head(., 2))
+				by_house %>% do(data.frame(year = .$year[1]))
+		learning sql
+			how indices work
+				sqlite.org/queryplanner.html
+			how select works
+				10 easy steps to a complete understanding of sql
+		bind_rows
+			do.call(rbind, x) # ==
+			bind_rows(x)
+		errors
+			# Error: `false` has type 'integer' not 'double'
+				sip3 %>%
+					mutate( bicak_sayisi = if_else( T, 1, as.integer(1) ))
+				if_else'in tüm çıktıları aynı type'ta olmalı. fakat integer ve numeric farklı tipler.
+				ex2
+					if_else: Error: `false` has type 'logical' not 'double'
+						if_else(TRUE, 1, NA)
+						#> Error: `false` has type 'logical' not 'double'
+						if_else(TRUE, 1, NA_real_)
+						#> [1] 1
+			error: index out of bounds
+				join key mevcut değil
+			Error: argument "x" is missing, with no default
+				4: lapply(result, . %>% "kombin"[[]]) %>% bind_rows() %>% mutate(kombin_id = row_number()) at optimize_trim_in_one_step.R#70
+				sebep: 
+					result = list()
+		row_number: add sequence of row number column
+			[r - Add an index (numeric ID) column to large data frame - Stack Overflow](https://stackoverflow.com/questions/23518605/add-an-index-numeric-id-column-to-large-data-frame/23518737)
+				df <- df %>% mutate(id = row_number())
 	apply/ldply/foreach list generations
 		cases for lapply, map
 			we need to loop over this function:
@@ -249,6 +908,8 @@ cookbook
 							sprintf( t, list(data[,1], data[,2]) )
 							do.call( 'sprintf', list( fmt = t, data ) )
 		lapply variants lapply2
+			lapply and bind_rows:
+				dlist %>% lapply(as_data_frame) %>% bind_rows()
 			ldfapply: list of dataframe
 				# v0: lapply
 				lapply( seq_along(ldf), function( i, ldf ) {
@@ -365,7 +1026,7 @@ cookbook
 				opt2: do.call
 					as.data.frame(do.call(rbind, dlist), stringsAsFactors = FALSE) 
 			opt4: manual lapply per each list
-				# study_convert_list_to_dataframe = function() { <url:file:///~/Dropbox (BTG)/TEUIS PROJECT 05-ANALYSIS/working_library/requirements_database/scripts/verify_enums.R#r=g10023>
+				# study_convert_list_to_dataframe = function() { <url:file:///~/dropbox_btg/TEUIS PROJECT 05-ANALYSIS/working_library/requirements_database/scripts/verify_enums.R#r=g10023>
 		convert factor columns to character
 			http://stackoverflow.com/questions/2851015/convert-data-frame-columns-from-factors-to-characters
 			opt1: lapply df[]
@@ -762,663 +1423,6 @@ cookbook
 		show sizes of objects
 			object.size(x)
 			format(object.size(x), units = "Mb")
-	df2 df
-		names colnames setNames unname
-			colnames(df)
-			setNames( 1:3, c("foo", "bar", "baz") )
-				> setNames(data.frame(v1=c(1:10), v2=seq(1, 100, length=10)), c("X","Y"))
-				X   Y
-				1   1   1
-				2   2  12
-				df = import(path) %>%
-					setNames(c("IsYeri","IE_Lot_No","Stok_Kodu","Kalite_Kodu","Siparis","Str","L_Eni","L_Boy","IE_Tarihi","Terrmin_Tarihi","Miktar","sira"))
-			names(df) <- tolower(names(df)) 
-			unname(obj) # remove names
-		access row col 
-			df[i,]   # row i 
-			df[,j]   # column j
-			tail(df, 1)
-				Last row
-		columns
-			cols = names(df) %in% c("q3", "q4")
-			df = df[!cols] # remove
-			df = df[c(-8, -9)] # remove
-			dt[ , -6:-16 ] # by range
-			df[cols] # keep
-			df$cols = NULL # remove
-			df[ , c(2,1,3) ] # change column order
-		rows
-			remove rows
-				df[ -ids, ] # remove by index
-				df[ !dups, ] # remove by T/F
-				but if ids is integer() above methods won't work
-				opt1
-					df %>%
-						 filter(!row_number() %in% drop)
-				opt2 
-					df[!seq_len(nrow(df)) %in% drop, ]
-				opt3
-					df[ setdiff(1:nrow(df), drop), ]
-		rownames
-			rownames(f) <- c()
-		subset/query
-			df[ df$col == logical ]          
-		examples/use cases
-			find rows with all NA cells
-				d4 = data.frame( x = c(1, NA), y = c(NA, NA))
-				applyr = partial(apply, MARGIN = 1)
-				r4 = applyr(is.na(d4), all)
-				r4 == c(F,T)
-			remove rows with all NA values
-				df %>%
-					filter( !applyr(is.na(.), all) )
-			{ # loop over all columns of some df
-				df3 = data.frame( operation_id = df[['operation_id']] )
-				# opt1
-				for (i in seq_along(cols)) {
-					df3[[cols[i]]] = df[[cols[i]]]
-				}
-				# opt2
-				df4 = df[cols] 
-				# opt3
-				df6 = lapply(seq_along(cols), function(i) df[[cols[i]]] %>% as.numeric )
-				# opt4
-				df7 = lapply(cols, function(col) df[[col]] %>% as.numeric ) %>% 
-					setNames(cols) %>%
-					as.data.frame
-				}
-			apply for datframe is lapply
-				convert list of vectors to dataframe
-					df7 = lapply(cols, function(col) df[[col]] %>% as.numeric ) %>% 
-						setNames(cols) %>%
-						as.data.frame
-					map(df, ~ str_replace_all(.x, '\\n', '') ) %>%
-						as.data.frame
-			study_create_dataframe_with_columns_specified_in_list 
-				opt1
-					l = list( a = NA, b = NA )
-					df = as_data_frame(l)
-				opt2
-					l2 = setNames( replicate(2,NA, simplify = F), c('a', 'b'))
-					df = as_data_frame(l2)
-		access row col 
-			m[4, 2]
-			m[3, ] # row
-			m[ , 2] # col
-		growing cbind rbind
-			m = cbind(m1, m2) # column bind
-			rbind(df1, df2)
-		filter
-			iris %>% filter( column("Sepal.Length") < 5 )
-				var <- "Sepal.Length"
-				iris %>% filter( column(var) < 5 )
-		Equivalent of SQL CASE - mutate if
-			https://github.com/hadley/dplyr/issues/631
-			ex: if not smoker, then comsumption of cigarettes <- 0
-				#standard R way
-				smoke$cigarrettes[!smoke$is_smoker & is.na(smoke$cigarrettes)] <- 0
-				opt1: filter + rbind
-					#dplyr option 1: split the data set, fix one part and combine the two
-					smoker_true <- smoke %>% filter(!is_smoker, is.na(smoke$cigarettes))
-					# complement
-					smoker_false <- smoke %>% filter(is_smoker | !is.na(smoke$cigarettes))
-					smoke2 <- rbind( smoker_true %>% mutate(cigarrettes=0)
-												 , smoker_false
-					)
-				opt2: mutate if
-					# dplyr option 2: replace the whole variable and do the filtering in the assignment
-					smoke2 <- smoke %>%
-						mutate(cigarrettes=ifelse(!is_smoker & is.na(cigarrettes), 0, cigarrettes))
-				opt3: coalesce
-					mutate(smoke, cigarettes = if_else(is_smoker, cigarettes, 0L, 0L))
-				opt4: case_when
-					mtcars %>% tbl_df %>%  transmute(size = case_when(.$cyl > 6 ~ "big", TRUE ~ "small"))
-				opt5: if_else
-					mutate(smoke, cigarettes = if_else(is_smoker, cigarettes, 0L, 0L))
-		tibble2
-			ref: [Simple Data Frames • tibble](https://tibble.tidyverse.org/)
-			opt01: tablo gibi oluşturma: tribble
-				tribble(
-					~x, ~y,  ~z,
-					"a", 2,  3.6,
-					"b", 1,  8.5
-				)
-			opt02: df tarzı oluşturma: tibble
-				tibble(x = 1:5, y = 1, z = x ^ 2 + y)
-			opt03: convert
-				as_tibble(iris)
-			tibble::add_row
-				library(tibble)
-				df <- data_frame(x = 1:3, y = 3:1)
-				add_row(df, x = 4, y = 0)
-	dplyr2 dplyr
-		vignettes and tutorials
-			http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/
-			https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html
-		aliases for operators: extract [ extract2 [[
-			extract2 [[
-			check magrittr alias
-			?magrittr::extract2
-				‘extract’                 ‘`[`’
-				‘extract2’                ‘`[[`’
-				‘inset’                   ‘`[<-`’
-				‘inset2’                  ‘`[[<-`’
-				‘use_series’              ‘`$`’
-				‘add’                     ‘`+`’
-				‘subtract’                ‘`-`’
-				‘multiply_by’             ‘`*`’
-				‘raise_to_power’          ‘`^`’
-				‘multiply_by_matrix’      ‘`%*%`’
-				‘divide_by’               ‘`/`’
-				‘divide_by_int’           ‘`%/%`’
-				‘mod’                     ‘`%%`’
-				‘is_in’                   ‘`%in%`’
-				‘and’                     ‘`&`’
-				‘or’                      ‘`|`’
-				‘equals’                  ‘`==`’
-				‘is_greater_than’         ‘`>`’
-				‘is_weakly_greater_than’  ‘`>=`’
-				‘is_less_than’            ‘`<`’
-				‘is_weakly_less_than’     ‘`<=`’
-				‘not’ (‘`n'est pas`’)     ‘`!`’
-				‘set_colnames’            ‘`colnames<-`’
-				‘set_rownames’            ‘`rownames<-`’
-				‘set_names’               ‘`names<-`’
-			Examples:
-				iris %>%
-					 extract(, 1:4) %>%
-					 head
-		examples
-			http://stackoverflow.com/questions/31358953/in-r-subset-or-dplyrfilter-with-variable-from-vector
-			rbind: filter mutate select left_join(original)
-				fkd = r_data_field() %>%
-					select( 1:2, pk_fk ) %>%
-					filter( pk_fk == "FK" ) %>%
-					mutate( fk_data_entity_name = ...)
-					select( data_field_id, fk_data_entity_name )
-				dfl = r_data_field(with_invalid=T) %>%
-					select( -fk_data_entity_name ) %>%
-					left_join(fkd)
-				export(dfl, "data/updates/DataField_updated.tsv")
-			incremental row id
-				fte02 = import( "inbox/formasiya_tomi_emsallari.xlsx" ) %>%
-					remove_all_na_rows %>%
-					mutate( fte_id = 1:n() )
-			result = by_cik %>%
-				summarise_each( funs(last(.)) )
-			tbl_df
-			join by multiple columns
-				inner_join(xcr, by = c("filename", "contextRef"))
-			join by different columns
-				org3 = org %>%
-					left_join( org2, by = c("parent_id" = "organization_id") )
-			filtering vector
-				cols = c("op_id", "no")
-				opt1
-					cols[ends_with(cols, '_id')]
-				opt2
-					cols %>%
-						extract( ends_with(., '_id') )
-			selecting columns of some df
-				opt1
-					cols = cols[ends_with(cols, '_id')] 
-					df4 = df[cols]
-				opt2
-					df5 = df %>%
-						extract( cols[ends_with(cols, '_id')] )
-		debugging dplyr
-			https://github.com/gaborcsardi/tamper
-			devtools::install_github("gaborcsardi/tamper")
-			options(error = tamper::tamper)
-			ex
-				1:10 %>%
-					multiply_by(10) %>%
-					add(10) %>%
-					add("oh no!") %>%
-					subtract(5) %>%
-					divide_by(5)
-		verbs
-			mutate mutate_if
-				add new columns with mutate()
-					mutate(flights, gain = arr_delay - dep_delay)
-				mutate if
-					mutate( type = ifelse(  f$type == f$field, NA, f$type ) )
-					opts
-						data.table
-							id = "field_id" 
-							flden = import("data/translation/field_en.xlsx") %>%
-								select( one_of("field_id"), ends_with("_en") ) %>%
-								as.data.table
-							setkey(flden, field_id)
-							flden2 = flden[!is.na(field_name_en)]
-							fld = read_rdb_field() %>%
-								as.data.table
-							setkey(fld, field_id)
-							assert_that(all( flden2$field_id %in% fld$field_id ) )
-							fld2 = fld
-							fld2[field_id %in% flden2$field_id]$field_name_en = flden2$field_name_en
-							assert_that( setequal( fld[[id]], fld2[[id]] ) )
-							export(fld2, "data/translation/field2.tsv")
-						dplyr
-							id = "field_id" 
-							flden = import("data/translation/field_en.xlsx") %>%
-								select( one_of("field_id"), ends_with("_en") )
-							fld = read_rdb_field()
-							fld2 = fld %>%
-								left_join( flden, by = id) %>%
-								mutate( field_name_en = ifelse( is.na(field_name_en.y), field_name_en.x, field_name_en.y )) %>%
-								select( -one_of("field_name_en.y", "field_name_en.x") )
-							assert_that( setequal( fld[[id]], fld2[[id]] ) )
-							export(fld2, "data/translation/field2.tsv")
-				mutate_if: Conditional replace in-place
-					@deprecated use case_when
-					ref: case_when      <url:file:///~/projects/study/otl/cr.otl#r=g12317>
-					mutate_if(df,a==3,x=100)
-					use
-						mutate( type = ifelse(  f$type == f$field, NA, f$type ) )
-			select rename
-				select(flights, year, month, day)
-				select(flights, year:day)
-				select(flights, -(year:day))
-				helper functions
-					starts_with()
-					ends_with
-					matches()
-					contains()
-					?select
-				rename variables using named arguments
-					select(flights, tail_num = tailnum) # others are dropped
-					rename(flights, tail_num = tailnum)
-					rename using string functions
-						iris %>% rename_(.dots=setNames(names(.), tolower(gsub("\\.", "_", names(.)))))
-				order columns
-					select(field_id, data_entity_id:variable_name)
-					remaining columns ordering
-						http://stackoverflow.com/questions/32040742/dplyrselect-including-all-other-columns-at-end-of-new-data-frame-or-beginni
-						all other (remaining) columns at end
-							col <- c("carrier", "tailnum", "year", "month", "day")
-							select(flights, one_of(col), everything()) 
-						all other at beginning
-							select(flights, -one_of(col), one_of(col))
-						all dataframe at end
-							bind_cols(select(flights, one_of(col)), flights)
-						all dataframe at beginning
-							bind_cols(flights, select(flights, one_of(col)))
-				Select/arrange columns with character variables
-					cols = c("mpg","cyl, hp:vs")
-					mtcars %.%
-						filter(gear == 3,cyl == 8) %.%
-						s_select(cols)
-					s_arrange(mtcars, c("gear", "-mpg"))
-					normal way:
-						select(mpg, cyl)
-			filter slice
-				select by position: slice
-					slice(flights, 1:10)
-				boolean operators explicit
-					filter(flights, month == 1 | day == 1)
-				filter(flights, month == 1, day == 1)
-				babynames %>%
-					filter(name %>% substr(1, 3) %>% equals("Ste")) %>%
-					group_by(year, sex) %>%
-					summarize(total = sum(n)) %>%
-					qplot(year, total, color = sex, data = ., geom = "line") %>%
-					add(ggtitle('Names starting with "Ste"')) %>%
-					print
-				filter vector
-					files = list.files( "data/" ) %>%
-						vgrepv( "\\.tsv$" )
-				slice     
-					row_number'a göre filtreleme yapar
-					slice(mtcars, 1L)
-					slice(mtcars, n())
-					slice(mtcars, 5:n())
-					by_cyl <- group_by(mtcars, cyl)
-					slice(by_cyl, 1:2)
-					# Equivalent code using filter that will also work with databases,
-					# but won't be as fast for in-memory data. For many databases, you'll
-					# need to supply an explicit variable to use to compute the row number.
-					filter(mtcars, row_number() == 1L)
-					filter(mtcars, row_number() == n())
-					filter(mtcars, between(row_number(), 5, n()))
-			arrange
-				arrange(flights, year, month, day)
-				descending order: desc()  
-					arrange(flights, desc(year))
-				more verbose
-					flights[order(flights$year, flights$month, flights$day), ]
-			summarise summarize
-				summarise(flight, delay = mean(dep_delay, na.rm = T))
-			distinct: unique rows
-				distinct(select(flights, tailnum))
-				normalde sadece seçtiğin kolonları tutar
-					tüm kolonları tutması için:
-						.keep_all = T
-			join
-				join key: group_by keys
-					delays <- flights %>%
-						group_by(dest) %>%
-						summarise(arr_delay = mean(arr_delay, na.rm = TRUE), n = n()) %>%
-						arrange(desc(arr_delay)) %>%
-						inner_join(location)
-				multiple join keys
-					inner_join(xcr, by = c("filename", "contextRef")) 
-				join types
-					left_join
-					inner_join
-					anti_join
-						excluded in right
-						but not join
-					semi_join
-						intersection rows
-						but not join
-					right_join
-						reverse of left
-					outer_join
-						union
-				keys to join
-					default: all common columns
-					join by different columns
-						org3 = org %>%
-							left_join( org2, by = c("parent_id" = "organization_id") )
-					by: explicitly specify
-						inner_join(xcr, by = c("filename", "contextRef")) 
-						inner_join(mcf, by="filename") %>%
-						documentation says but doesn't work
-							by = c("a")
-							by = c("a" = "b")
-			mutate + transmute
-			sample_n + sample_frac
-		case_when      id=g12317
-			ref
-				mutate case_when instead of mutate_if <url:file:///~/projects/study/r/examples_r.Rmd#r=g12318>
-			ex1
-				x <- 1:50
-				case_when(
-					x %% 35 == 0 ~ "fizz buzz",
-					x %% 5 == 0 ~ "fizz",
-					x %% 7 == 0 ~ "buzz",
-					TRUE ~ as.character(x)
-				)
-		sample rows
-			sample_n(flights, 10)
-			sample_frac(flights, 0.01)
-				replace = T
-		grouped operations
-			group by day of date
-				ref:
-					dplyr:: group by day of the date  <url:file:///~/projects/study/r/examples_r.Rmd#r=g12341>
-				expenses %>% group_by(month=lubridate::floor_date(date, "month")) %>%
-					 summarize(amount=sum(amount))
-			arrayization: convert single valued cells into multiple valued cells
-				var = r_variable() %>%
-					group_by( test_id ) %>%
-					summarise( variable_id_list = paste( variable_id, collapse = "," ) ) 
-			unarrayization with unnest
-				ex2
-					http://bioinfoblog.it/2015/02/the-most-useful-r-command-unnest-from-tidyr/comment-page-1/
-					d1
-						k v
-						k1  v1,v2
-					->
-					d2
-						k v
-						k1  v1
-						k1  v2
-					opt1
-						d1 %>%
-							mutate( v = str_split(v, ",") ) %>%
-							unnest(v)
-					opt2
-						d1 %>%
-							unnest( v = str_split(v, ",") )
-				ex
-					denp1 = r_data_entity() %>%
-						select(data_entity_id, bps_id_list)
-					denp2 = r_data_entity() %>%
-						mutate(bps_id=str_split(bps_id_list, ",")) %>% 
-						unnest(bps_id) %>%
-						select(data_entity_id, bps_id)
-					#> denp1
-						 #data_entity_id                    bps_id_list
-					#1              86 1,2,3,5,6,7,8,9,10,11,12,13,14
-					#2              99                             11
-					#> denp2
-						 #data_entity_id bps_id
-					#1              86      1
-					#2              86      2
-					#3              86      3
-			group_by and concat strings by column
-				rvw2 = rvw %>%
-					left_join( vsc, by = "view_id" ) %>%
-					left_join( scw, by = "screen_id" ) %>%
-					group_by( view_id ) %>%
-					distinct( window_id ) %>%
-					summarise( window_id_list = paste( window_id, collapse = "," ) ) %>%
-					arrange( view_id )
-			filter first row from group_by
-				http://stackoverflow.com/questions/31528981/dplyr-select-first-and-last-row-from-grouped-data
-				opt1: row_number() == 1
-					df %>%
-						group_by(id) %>%
-						arrange(stopSequence) %>%
-						filter(row_number()==1 | row_number()==n())
-				opt2: slice(1)
-					df %>% arrange(stopSequence) %>% group_by(id) %>% slice(c(1,n()))
-			verbs affected by grouping as:
-				select() no change
-				arrange() orders first by grouping variables
-				mutate() and filter() most usefil with window functions (rank() or min(x) == x)
-					vignette("window-function")
-				sample_n() sample rows in each group
-				slice() extract rows within each group
-				summarise() explained below
-			example
-				planes = group_by(flights, tailnum)
-				delay = summarise(planes,
-					count = n(),
-					dist = mean(distance, na.rm = T),
-					delay = mean(arr_delay, na.rm = T))
-				delay = filter(delay, count > 20, dist < 2000)
-			summarise()
-				use summarise() with aggregate functions
-					that take a vector values, return a single number
-					base R: min, max, sum, mean,
-					dplyr: n, n_distinct(x), first(x), last(x), nth(x,n)
-				ex
-					destinations = group_by(flights, dest)
-					summarise(destinations, 
-						planes = n_distinct(tailnum),
-						flights = n()
-					)
-				when grouping by multiple variables, each summary peels off one level of grouping
-					daily = group_by(flights, year, month, day)
-					per_day = summarise(daily, flights = n())
-					per_month = summarise(per_day, flights = sum(flights))
-			grouping without summarising
-				flights %>%
-					group_by(Dest) %>%
-					select(Cancelled) %>%
-					table() %>%
-					head()
-			how does summarise_each work?
-				> by_species <- iris %>% group_by(Species)
-				> by_species %>% summarise_each(funs(length))
-				Source: local data frame [3 x 5]
-						 Species Sepal.Length Sepal.Width Petal.Length Petal.Width
-				1     setosa           50          50           50          50
-				2 versicolor           50          50           50          50
-				3  virginica           50          50           50          50
-				funs(...) applied to each column separately
-					> by_species %>% summarise_each(funs(mean), matches("Width"))
-					Source: local data frame [3 x 3]
-							 Species Sepal.Width Petal.Width
-					1     setosa       3.428       0.246
-					2 versicolor       2.770       1.326
-					3  virginica       2.974       2.026
-					> by_species %>% summarise_each(funs(mean), Petal.Width)
-					Source: local data frame [3 x 2]
-							 Species Petal.Width
-					1     setosa       0.246
-					2 versicolor       1.326
-					3  virginica       2.026
-		window functions
-			n inputs and n outputs
-			ex
-				filter(min_rank(desc(DepDelay)) <= 2) %>%
-				=
-				top_n(2) %>%
-			# for each month, calculate the number of flights and the change from the previous month
-				flights %>%
-					group_by(Month) %>%
-					summarise(flight_count = n()) %>%
-					mutate(change = flight_count - lag(flight_count))
-				# rewrite more simply with tally
-					tally() %>%
-					mutate(change = n - lag(n))
-			# row numbers of each element in each group
-				r2 %>%
-					group_by( from ) %>%
-					mutate( order2 = row_number(order) )
-				# from to order order2
-				#    a  b     1      1
-				#    a  c     1      2
-				#    b  d     2      1
-				r2 %>%
-					group_by( from ) %>%
-					mutate( order2 = row_number() )
-				# from to order order2
-				#    a  b     1      1
-				#    a  c     1      2
-				#    b  d     2      1
-			ranking 
-				functions
-					row_number
-					min_rank
-					dense_rank
-				difference:
-					how to solve ties
-				example
-					nums = c(1, 1, 2, 3)
-					> min_rank(nums)
-					[1] 1 1 3 4
-					> dense_rank(nums)
-					[1] 1 1 2 3
-					> row_number(nums)
-					[1] 1 2 3 4
-				how to handle ties
-					min_rank
-						normal ranking
-					dense_rank
-						doesn't skip the places
-					row_number
-						ignores ties
-		utilities
-			instead of str()
-				glimpse(flights)
-		databases - sql
-			jdbc - most reliable
-				username = "btg_mis"
-				password = "..."
-				conStr =  "jdbc:oracle:thin:@52.73.23.191:1521:btgdev"
-				drv <- JDBC("oracle.jdbc.driver.OracleDriver",
-					"other/ojdbc6.jar",
-					identifier.quote="`")
-				conn = dbConnect(drv, conStr, username, password)
-			read table
-				dbReadTibble = function(db, table_name) {
-					dbReadTable(db, table_name) %>%
-						as_tibble
-				}
-				act_evt_log = function(db) dbReadTibble(db, "ACT_EVT_LOG")
-			select query 
-				conn = get_db_aws()
-				df = dbGetQuery(conn, "SELECT * FROM T_TEST")
-			my_db = src_sqlite("my_db.sqlite3")
-			tbl(my_db, "hflights")
-			tbl(my_db, sql("SELECT * FROM hflights LIMIT 100"))
-			sql command?
-				%>% explain()
-			create new database
-				my_db <- src_sqlite("my_db.sqlite3", create = T)
-			# put/insert/copy data to database
-				copy_to(hflights_db, as.data.frame(flights), name = "flights", 
-					indexes = list(c("date", "hour"), "plane", "dest", "arr"), temporary = FALSE)
-			# load data
-				weather_db <- hflights_db %>% tbl("weather")
-			# work with data as if they are local data frames
-				flights_db %>% left_join(planes_db)
-			# operations are lazy, until you see the data
-			# show sql and show plan
-				flights_db %>% filter(n > 10) %>% explain()
-			# get all data locally
-				hourly_local <- collect(hourly)
-		tally
-			planes %>% group_by(type) %>% tally()
-			simple count() by group
-		do()
-			if existing verbs don't work, use do()
-			similar to dlply()
-			slower
-			uses pronoun: . to refer to current group
-			ex
-				df: houseID, year, price
-				by_house = df %>% 
-					group_by(houseID) 
-				by_house %>% do(na.locf(.))
-					na.locf: last observation carried forward. replace na with last non-na value
-				by_house %>% do(head(., 2))
-				by_house %>% do(data.frame(year = .$year[1]))
-		learning sql
-			how indices work
-				sqlite.org/queryplanner.html
-			how select works
-				10 easy steps to a complete understanding of sql
-		bind_rows
-			do.call(rbind, x) # ==
-			bind_rows(x)
-		aggregate with summarize
-			# <url:Dropbox (BTG)/TEUIS PROJECT 05-ANALYSIS/working_library/requirements_database/scripts/prepare_rdb_field_operations.R#p108_rdb_gfield_aggregate_dfield>
-			# the result is not useful usually
-			fld2 = fld %>%
-				left_join(scr, by = "screen_id") %>%
-				left_join(dfl, by = "data_entity_id") 
-			fld3 = fld2 %>%
-				group_by(field_id) %>%
-				summarize(list(data_field_name))
-			{ # testing
-				head(fld3)[[2]]
-				paste(head(fld3)[[2]], collaps=",")
-				toString(unlist(fld3[1,][[2]]))
-				fld3[1:3,][[2]]
-			}
-			dfn = lapply( fld3[1:nrow(fld3),][[2]], toString ) %>% unlist
-			fld4 = data_frame(
-				field_id = fld3$field_id,
-				data_field_name_aggregated = dfn
-			)
-			fld5 = fld %>%
-				left_join(fld4, by = "field_id")
-		errors
-			# Error: `false` has type 'integer' not 'double'
-				sip3 %>%
-					mutate( bicak_sayisi = if_else( T, 1, as.integer(1) ))
-				if_else'in tüm çıktıları aynı type'ta olmalı. fakat integer ve numeric farklı tipler.
-				ex2
-					if_else: Error: `false` has type 'logical' not 'double'
-						if_else(TRUE, 1, NA)
-						#> Error: `false` has type 'logical' not 'double'
-						if_else(TRUE, 1, NA_real_)
-						#> [1] 1
-			error: index out of bounds
-				join key mevcut değil
-			Error: argument "x" is missing, with no default
-				4: lapply(result, . %>% "kombin"[[]]) %>% bind_rows() %>% mutate(kombin_id = row_number()) at optimize_trim_in_one_step.R#70
-				sebep: 
-					result = list()
-		row_number: add sequence of row number column
-			[r - Add an index (numeric ID) column to large data frame - Stack Overflow](https://stackoverflow.com/questions/23518605/add-an-index-numeric-id-column-to-large-data-frame/23518737)
-				df <- df %>% mutate(id = row_number())
 	file system
 		file name from path
 			basename("C:/some_dir/a")
@@ -1429,7 +1433,7 @@ cookbook
 			dir.create(path = ..., recursive = T) # mkdir -p
 		list.files(path = ".", pattern = NULL, all.files = FALSE,
 			full.names = FALSE, recursive = FALSE,
-			ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE)
+			ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE) # ls
 		dir(path = ".", pattern = NULL, all.files = FALSE,
 			full.names = FALSE, recursive = FALSE,
 			ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE)
@@ -1710,12 +1714,16 @@ cookbook
 					opt02: as.character
 				write_csv(na = ""): don't forget NA id=g10658
 					write_csv(na = ""): don't forget NA <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10658>
-		excel readxl
+		excel2 excel readxl
+			Excel: Farklı sayfalardaki tabloları birleştir <url:file:///~/projects/study/r/examples_r.Rmd#r=g12544>
+			Excel: Farklı sayfaları/sheets sıraya  dizelim <url:file:///~/projects/study/r/examples_r.Rmd#r=g12545>
 			readxl::read_excel("my-spreadsheet.xls", sheet = "data")
 			readxl::read_excel("egar_gis_db.xlsx", sheet = "bolgeler")
 			link içeren excel dosyaları
 				bir excel dosyası başka bir dosyaya link içerdiğinde, "update links" demek gerekiyor
 				aksi taktirde eski veriler okunur
+			list all sheets
+				sheet_names = readxl::excel_sheets(piid)
 		write excel
 			opt1: openxlsx: no external dependency
 				library(openxlsx)
@@ -2350,7 +2358,7 @@ cookbook
 					df = data.frame( id = 1:3, eroziya = 5:7 )
 					'%(id)s: %(eroziya)d' %format% df
 					#[1] "1: 5" "2: 6" "3: 7"
-		paste (concat)
+		paste (concat concatenate)
 			na'leri blank ile replace et
 				> na.exclude(c(NA, 3)) %>% as.character
 				[1] "3"
@@ -2506,7 +2514,7 @@ cookbook
 			str_trim( unlist( str_split(goog,',') ) )
 				[1] "GOOG"  "GOOGL"
 			basic
-				str_c
+				str_c: concetenate
 					paste0 like
 				str_length
 					nchar like
@@ -2612,6 +2620,10 @@ cookbook
 			split single column into multiple
 		unite
 			unite multiple columns into single
+			unite(df, "New_Column", col1:coln)
+			unite(df, "New_Column", col1:coln, sep = ";", remove = FALSE)
+				remove: eski kolonları silme
+				sep: birleştirme separator
 		gather
 			ex
 				data

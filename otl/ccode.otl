@@ -4928,6 +4928,11 @@ tools
 			osascript -e 'id of app "Microsoft Excel"'
 		opt02: eğer bundleid yoksa pencere başlığının ismini kullan
 			hs.window.find('Reveal'):focus()
+		hs.application.nameForBundleID
+		hs.application.launchOrFocusByBundleID
+			hs.application.launchOrFocusByBundleID("com.apple.TextInputMenuAgent")
+			hs.application.launchOrFocusByBundleID("com.jetbrains.datagrip")
+			hs.application.launchOrFocusByBundleID("com.apple.TextInputSwitcher")
 	htop
 			usage
 				use mouse

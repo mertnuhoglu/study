@@ -1739,7 +1739,7 @@
     Webstorm configuration
       hide all buttons
         View > Toolbar ...
-      find action command #+A
+      find action command #e
       stretch to left right #+ok
         first select a window
       Prefs > Editor > Editor Tabs > Limit = 1

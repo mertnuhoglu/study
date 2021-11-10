@@ -2,6 +2,17 @@
 intellij
 	shortcuts
 		| !#space w | window menu|
+		intellij refcard <url:file:///~/projects/study/code/study_intellij.md#r=g11014>
+			| #e / SPC SPC | find action        |
+			| ++           | search everywhere  |
+			| !u SPC       | quicklist: popups  |
+			| !u p         | quicklist: popups  |
+			| !u j         | quicklist: clojure |
+			| !u k         | quicklist: general |
+			| ! SPC        | Quick definition   |
+			| f1           | quickdocs          |
+			| ^^           | Run anything       |
+			| #! SPC, ...  | menus              |
 cursive
 	ref
 		~/projects/study/clj/cursive.md
@@ -22,5 +33,10 @@ cursive
 	file navigator (project tab)
 		| space | preview |
 		| !#enter | quick actions | 
+ideavim
+	" M->cmd, A->option, C->control
+	" <ESC> - escape, <BS> - backspace, <CR> - return
+	Kullanılan komutların action id'lerini bulmak için:
+		Toggle: Track Action Ids
 gtd
 	incele: Productity Guide 

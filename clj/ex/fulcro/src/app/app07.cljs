@@ -1,4 +1,4 @@
-(ns app.ui
+(ns app.app07
   (:require
     [com.fulcrologic.fulcro.dom :as dom]
     [com.fulcrologic.fulcro.components :as comp :refer [defsc]]))
@@ -17,7 +17,7 @@
           (fn [{:keys [label]}]
             {:list/label  label
              :list/people (if (= label "Friends")
-                            [(comp/get-initial-state Person {:name "Sally" :age 37})
+                            [(comp/get-initial-state Person {:name "Sally" :age 32})
                              (comp/get-initial-state Person {:name "Joe" :age 22})]
                             [(comp/get-initial-state Person {:name "Fred" :age 11})
                              (comp/get-initial-state Person {:name "Bobby" :age 55})])})}

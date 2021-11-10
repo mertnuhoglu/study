@@ -23,7 +23,7 @@ blog: mertnuhoglu.com
 
 ## intellij refcard id=g11014
 
-    | #a / SPC SPC | find action        |
+    | #e / SPC SPC | find action        |
     | ++           | search everywhere  |
     | !u SPC       | quicklist: popups  |
     | !u p         | quicklist: popups  |
@@ -42,7 +42,7 @@ blog: mertnuhoglu.com
 
 01. Search Everywhere: `++` `Shift+Shift`
 
-02. Find Action: `#a`
+02. Find Action: `#e`
 
 It is like Osx Spotlight.
 

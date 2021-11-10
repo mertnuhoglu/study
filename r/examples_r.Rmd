@@ -71,118 +71,9 @@ d02 = d01 %>%
 write_csv(d02, path = "file.csv", na = "")
 ``` 
 
-### 01.01.a opt01: Import into Database Using R
+# dplyr
 
-Filter public companies into different files because current files are too big:
-
-``` R
-library(dplyr)
-library(readr)
-setwd("~/bizqualify_data")
-d10 = read_csv("bq_hedge_funds_all_data_20181001.csv") 
-d10b = d10 %>%
-	filter(!is.na(bq_ticker))
-write_csv(d10b, "public_20181001.csv", na="")
-``` 
-
-Import data into database using R:
-
-``` R
-library("RPostgreSQL")
-source("~/BQ-data-run/config.R")
-dbWriteTable(con, c("client", "altdg_sample"), d0, row.names=F)
-``` 
-
-Note that: `dbWriteTable` doesn't write the data when it has `append=F` and the table was created already. (default value)
-
-### 01.02. Load data from database
-
-Load both data sets from database now:
-
-``` R
-d10 = tbl(con, sql("SELECT * FROM data_20181001.public_all_data")) %>% collect
-``` 
-
-## Run a SQL query
-
-``` bash
-dbGetQuery(con, statement = paste0("
-  insert into ", data_schema, ".master_variables
-  select * from ", data_schema, ".master_variables_forecast
-  where source = 'ez'
-"))
-``` 
-
-opt02: use dplyr::tbl()
-
-``` bash
-d0 = tbl(con, sql("
-	SELECT company_ein
-  FROM data_20181202.master_variables
-  WHERE extract(YEAR from plan_year_end_date) = 2014 and source = 'ez'
-	")) %>% collect
-nrow(d0)
-``` 
-
-#### 01.01.03 Compare company_ein Between Them
-
-``` R
-d2 = setdiff(d0$company_ein, d1$company_ein)
-length(d2)
-  ##> [1] 112087
-d3 = setdiff(d1$company_ein, d0$company_ein)
-length(d3)
-  ##> [1] 124030
-``` 
-
-# select and filter
-
-Compare with 20180903 and 20180806:
-
-``` r
-c01 = read_csv("~/bizqualify_data/data_20180903_ts.csv") %>%
-nrow(c01)
-  ##> [1] 6521042
-c02 = c01 %>%
-	select(company_ein, bq_ticker, bq_company_name, filing_date, bq_year)
-c03 = c02 %>%
-	filter(filing_date >= as.Date('2017-1-1')) %>%
-	filter(filing_date < as.Date('2018-1-1')) 
-c04 = unique(c03$company_ein)
-length(c04)
-	##> [1] 334453
-dif_11_09 = a04[!a04 %in% c04]
-length(dif_11_09)
-	##> [1] 15115
-dif_09_11 = c04[!c04 %in% a04]
-length(dif_09_11)
-	##> [1] 87989
-``` 
-
-Let's compare 08 (august) to 09 (september)
-
-``` r
-dif_09_08 = c04[!c04 %in% d04]
-length(dif_09_08)
-	##> [1] 922
-dif_08_09 = d04[!d04 %in% c04]
-length(dif_08_09)
-	##> [1] 63003
-``` 
-
-# Compare Lists of Lines or Words
-
-``` r
-> d09 = readLines("0903.txt")
-> d10 = readLines("1027.txt")
-> setdiff(d09, d10)
-[1] "bq_industry_sub_sector_code bigint" "bq_sp_500_indicator text"
-> setdiff(d10, d09)
- [1] "bq_company_legal_name_expanded text"              "bq_emp_contrib_pens_amt_a_us_m bigint"
- [3] "bq_growth_emp_contrib_pens_amt_a_p bigint"        "bq_growth_emp_contrib_pens_amt_a_p_us bigint"
-``` 
-
-# Mutate column types
+## Mutate column types of df id=g12484
 
 ``` r
 bd10 = bd10 %>%
@@ -199,148 +90,7 @@ bd10 = bd10 %>%
 	mutate(bq_profitability_score_us_m = as.integer(bq_profitability_score_us_m)) 
 ```
 
-## Disable Scientific Notation in write_csv
-
-Note that, write_csv formats big numbers that end with multiple zeros in scientific notation. But scientific numbers cannot be imported into Postgresql.
-
-To disable scientific notation, there are alternative ways:
-
-``` r
-options(scipen = 999)
-write_csv(bd11[270:290,], "~/bizqualify_data/tmp.csv", na = "")
-options(digits=22) 
-write.csv(bd11[270:290,], "~/bizqualify_data/tmp.csv", na = "")
-write.csv(bd11, "~/bizqualify_data/data_20181105_ts2.csv", na = "", row.names = F)
-write.csv(bd11[1:10000,], "~/bizqualify_data/tmp.csv", na = "", row.names = F)
-```
-
-## 06. Verify that These Are Unique Really - 2. iteration
-
-Now, 
-
-``` R
-cnt = tbl(con, sql("SELECT * FROM data_20181202.companies_non_ts")) %>% collect
-length(unique(cnt$company_ein))
-  ##> [1] 1149644
-nrow(cnt)
-  ##> [1] 6583082
-``` 
-
-Check other variables
-
-``` R
-distinct(cnt, company_ein, bq_company_legal_name) %>% nrow()
-  ##> [1] 1149644
-``` 
-
-## Setup Google Drive Access using R googledrive
-
-``` bash
-install.packages("devtools")
-devtools::install_github("tidyverse/googlesheets4")
-library(googledrive)
-library(googlesheets4)
-``` 
-
-Upload the csv and simultaneously convert to a Sheet
-
-``` bash
-(iris_tempfile <- tempfile(pattern = "iris-", fileext = ".csv"))
-write.csv(iris, iris_tempfile, row.names = FALSE)
-(iris_ss <- drive_upload(iris_tempfile, type = "spreadsheet"))
-``` 
-
-``` bash
-## visit the new Sheet in the browser, in an interactive session!
-drive_browse(iris_ss)
-``` 
-
-## other
-
-``` R
-layout <- read.csv(paste0(raw_data_dir, file), stringsAsFactors = FALSE)
-``` 
-
-### Rmarkdown code blocks
-
-``` {R include=F}
-options(scipen = 999)
-``` 
-
-``` {R echo = F, message = F, warning = F}
-library("RPostgreSQL")
-library(dplyr)
-library(readr)
-library(knitr)
-
-source("~/BQ-data-run/config.R")
-``` 
-
-``` {R echo=F}
-sql = "
-SELECT schemaname,relname,n_live_tup AS row_count
-  FROM pg_stat_user_tables 
-	WHERE schemaname = 'twosigma'
-  ORDER BY n_live_tup DESC
-"
-dbGetQuery(con, sql)
-``` 
-
-``` {R echo=F}
-sql = glue("
-WITH unique_year_ticker AS (
-	SELECT DISTINCT ON (bq_year, bq_ticker) bq_year, bq_ticker
-	FROM {data_schema}.all_data
-	ORDER BY bq_year, bq_ticker
-)
-SELECT bq_year, count(*) AS unique_bq_ticker
-FROM unique_year_ticker 
-GROUP BY bq_year
-ORDER BY bq_year;
-")
-d01 = dbGetQuery(con, sql)
-knitr::kable(d01)
-``` 
-
-### summary
-
-``` R
-summary(d0$percent_change_revenue)
-  ##>     Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's
-  ##>     0.00     0.00     0.00    11.69     0.00 40400.00        2
-summary(d0$percent_change_employment)
-  ##>      Min.   1st Qu.    Median      Mean   3rd Qu.      Max.
-  ##>     0.000     0.000     0.000     5.868     0.000 28100.000
-``` 
-
-### custom summary
-
-``` R
-f1 = d0 %>%
-	filter(percent_change_employment != 0)
-stat = list(
-  total_no_companies = nrow(d0)
-	, no_change_in_employment = nrow(d0) - nrow(f1)
-	, changed = nrow(f1)
-	, percent_changed = (nrow(f1)/nrow(d0)*100)
-)
-``` 
-
-### rmarkdown report
-
-``` bash
-file=twosigma/report_twosigma_florida_20190211.Rmd
-R -e 'rmarkdown::render("'"$file"'", "md_document")'
-``` 
-
-Run it from inside vim:
-
-``` bash
-command! Rmarkdown :!R -e 'rmarkdown::render("%")'
-:Rmarkdown
-``` 
-
-### other
+## show_query: convert dplyr functions to sql id=g12492
 
 show_query id=g10794
 
@@ -355,18 +105,7 @@ show_query(d02)
   ##> FROM data_20190203.all_data) "zzzduwkcqn"
 ``` 
 
-### glue id=g10793
-
-``` R
-library(glue)
-schema = "data_20190203"
-s = glue("
-SELECT bq_ticker, bq_company_name, bq_revenue
-FROM {schema}.all_data
-")
-``` 
-
-### gather id=g10792
+## gather: wide format to long format id=g10792
 
 ``` r
 library(tidyverse)
@@ -395,7 +134,7 @@ gather(d0, key = "var", value = "value", -c)
 gather(d0, key = "var", value = "value", c(a,b))
 ``` 
 
-### spread id=g10803
+## spread: long format to wide format id=g10803
 
 ``` r
 s1 = tibble::tribble(
@@ -413,174 +152,7 @@ s1
   #> 2     2     2    NA
 ```
 
-### building R packages id=g10799
-
-opt02: building on R console (for debugging)
-
-``` bash
-cd ~/projects/yuml2data/
-Rs
-``` 
-
-``` r
-library(devtools)
-devtools::document()
-devtools::build_vignettes()
-devtools::load_all()
-library(magrittr)
-devtools::build()
-devtools::install()
-``` 
-
-opt03: building on terminal
-
-``` bash
-cd ~/projects
-R CMD build yuml2data
-R CMD INSTALL yuml2data_0.1.0.tar.gz
-``` 
-
-### reload all code without installing
-
-``` r
-devtools::load_all()
-``` 
-
-### verifications for keys id=g10797
-
-check uniqueness
-
-``` r
-length(unique(d0$ticker)) == nrow(d0)
-  ##> TRUE
-``` 
-
-What is the duplicate `name` value?
-
-``` r
-d0 %>%
-  distinct(ticker, name) %>%
-  group_by(name) %>%
-  summarise(n = n()) %>%
-	filter(n > 1)
-  ##>   name                n
-  ##>   <chr>           <int>
-  ##> 1 SUNDANCE ENERGY     2
-d0 %>%
-	filter(name == "SUNDANCE ENERGY")
-  ##>   ticker name  xsector xindustry mindustry date  usd   exch  SP500  gics
-  ##>   <chr>  <chr>   <int>     <int>     <int> <chr> <chr> <chr> <int> <int>
-  ##> 1 SDCJF  SUND…      12       136        42 01/3… AUS   OTC       0    10
-  ##> 2 SNDE   SUND…      12       136        42 01/3… USA   NSDQ      0    10
-``` 
-
-Verify that the foreign keys are valid:
-
-		`all_data$mindustry` to `industrie$M_Industry` 
-		`all_data$xsector` to `sectors$xsector`
-
-``` r
-setdiff(d0$mindustry, i0$M_Industry)
-  ##> empty
-setdiff(d0$xsector, i0$xsector)
-  ##> empty
-``` 
-
-### descriptive stats  id=g10798
-
-
-for categorical vars:
-
-``` r
-desc_cat(d0, c('SP500'))
-  ##>   var     `0`   `1`    avg    sd missing     n
-  ##> 1 SP500  92.2  7.78 0.0778 0.268       0  6492
-``` 
-
-for numeric vars:
-
-``` r
-desc_num(d0, c('marketValue'))
-  ##>   var           avg      sd missing     n   min   med      max
-  ##> 1 marketValue 7412. 178617.       0  6492     0  254. 14186708
-``` 
-
-Check values of other categorical fields:
-
-``` R
-unique(d0$xindustry) %>% sort
-  ##>   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  15  16  17  18  19
-``` 
-
-### Environment variable:
-
-``` r
-dbhost = Sys.getenv("DB_HOST")
-``` 
-
-### Read text into dataframe
-
-https://stackoverflow.com/questions/3936285/is-there-a-way-to-use-read-csv-to-read-from-a-string-value-rather-than-a-file-in
-
-
-``` r
-lines <- "
-+ flim,flam
-+ 1.2,2.2
-+ 77.1,3.14
-+ "
-``` 
-
-opt01: `read.csv`
-
-``` r
-data <- read.csv(text=lines)
-data
-  ##>   flim flam
-  ##> 1  1.2 2.20
-  ##> 2 77.1 3.14
-``` 
-
-opt02: `textConnection`
-
-``` r
-con <- textConnection(lines)
-data <- read.csv(con)
-close(con)
-data
-  ##>   flim flam
-  ##> 1  1.2 2.20
-  ##> 2 77.1 3.14
-``` 
-
-## Use seq_along and seq_len in for loops
-
-Use `seq_along` with list/vector objects instead of `1:length(vec)`. This won't run the loop when object is empty.
-
-``` r
-	for (gr in seq_along(route_groups)) {
-	  print(gr)
-	}
-	##> no looping
-``` 
-
-Use `seq_len` for dataframes. This won't run the loop when there is no rows:
-
-``` r
-	for (sqn in seq_len(nrow(df))) {
-		print(sqn)
-	}
-``` 
-
-### replace_na
-
-``` r
-twc3 = twc %>%
-	left_join(c0, by = "customer_id") %>%
-	dplyr::mutate_at("customer_name", tidyr::replace_na, "Depo")
-``` 
-
-### dplyr join
+## dplyr join id=g12498
 
 ``` bash
 left_join(kmbg, by = "kombin_id")
@@ -589,271 +161,15 @@ left_join( org2, by = c("parent_id" = "organization_id") )
 inner_join(xcr, by = c("filename", "contextRef"))
 ``` 
 
-### mkdir mv ls directory commands
+## replace_na id=g12497
 
 ``` r
-     file.create(..., showWarnings = TRUE)
-     file.exists(...)
-     file.remove(...)
-     file.rename(from, to)
-     file.append(file1, file2)
-     file.copy(from, to, overwrite = recursive, recursive = FALSE,
-               copy.mode = TRUE, copy.date = FALSE)
-     file.symlink(from, to)
-     file.link(from, to)
+twc3 = twc %>%
+	left_join(c0, by = "customer_id") %>%
+	dplyr::mutate_at("customer_name", tidyr::replace_na, "Depo")
 ``` 
 
-cp file.copy
-
-``` bash
-file.copy(from = "/Users/mertnuhoglu/projects/itr/vrp/vrps/data/jtn/input/default/rate_optimization.xlsx", to = glue::glue( "/Users/mertnuhoglu/projects/itr/vrp/vrps/data/jtn/input/{folder_name}"), overwrite = T)
-``` 
-
-Warning: If the destination file name and source file name differ, it doesn't copy the file.
-
-There are two ways that it works:
-
-1. Don't specify the file name in `to`
-2. Give the same file name in `to`
-
-safe way of file copying: first copy to some directory, then rename (move)
-
-``` bash
-	folder_name = format(Sys.time(), "%y%m%d_%H%M")
-	sem_src = formContents$sevk_emri_file$tempfile
-	sem_dest = sprintf("%s/input/%s/sevk_emri.xlsx", data_dir(), folder_name)
-	sem_src_name = basename(sem_src)
-	dir.create("out", recursive = T)
-	dir.create(path = sprintf("%s/input/%s", data_dir(), folder_name), recursive = T)
-	file.copy(sem_src, "out")
-	file.rename(glue::glue("out/{sem_src_name}"), sem_dest)
-``` 
-
-mkdir dir.create
-
-``` r
-dir.create(path = ... ) # mkdir
-dir.create(path = ..., recursive = T) # mkdir -p
-``` 
-
-ls list.files
-
-``` r
-list.files(path = glue::glue("{PEYMAN_PROJECT_DIR}/pvrp_data/out"), include.dirs = T, pattern = "^report_\\d+.*")
-``` 
-
-mv move move_files rename files and directories
-
-``` bash
-file.rename(
-	glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp/out")
-  , glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp/out_{format(Sys.time(), '%Y%m%d_%H%M%S')}")
-)
-``` 
-
-``` r
-install.packages("filesstrings")
-install.packages("processx")
-filesstrings::move_files(
-	glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp_data/out")
-  , glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp_data/out_{format(Sys.time(), '%Y%m%d_%H%M%S')}")
-)
-``` 
-
-### basedir basename dirname
-
-``` bash
-basename("C:/some_dir/a")
-> [1]  "a"
-dirname("C:/some_dir/a")
->[1] "C:/some_dir"
-``` 
-
-### excel read/write
-
-opt01: tidyverse readxl
-
-``` bash
-d1 = readxl::read_excel("file01.xlsx", sheet = "d0")
-``` 
-
-``` r
-d0 = dplyr::tibble(a = 1:3, b = 10:12)
-WriteXLS::WriteXLS(d0, "file01.xlsx", SheetNames = "d0")
-rio::export(d0, "file.xlsx")
-``` 
-
-opt02: convert all excel sheets to separate tsv files
-
-Check `Extract Process Area From Excel Sheet Names <url:file:///~/projects/btg/btg_cmmi/logbook/convert_cmmi_pir_v13_to_v20.md#r=g11807>`
-
-```r
-sheet_names = readxl::excel_sheets(piid)
-out = "/Users/mertnuhoglu/gdrive/btg/cmmi/simsoft/gen"
-for (sheet in 2:19) {
-	d00 = readxl::read_excel(piid, sheet=sheet) 
-	pa = sheet_names[sheet]
-	d01 = d00[-c(1:3), 2:6] %>%
-		setNames(c("practice_row", "practice_title", "source_oe", "document", "link")) %>%
-		dplyr::mutate(process_area_v13 = pa)
-	rio::export(d01, glue::glue("{out}/sheet_{sheet}.tsv"))
-}
-```
-
-### run shinyApp
-
-opt01: runApp from directory
-
-``` r
-shiny::runApp(".")
-``` 
-
-opt02: runApp from functions
-
-``` r
-runApp(shinyApp(ui, server), host="0.0.0.0",port=5050)
-``` 
-
-or
-
-``` r
-app = shiny::shinyApp(ui, server)
-runApp(app)
-``` 
-
-### Convert sf to dataframe
-
-https://gis.stackexchange.com/questions/224915/extracting-data-frame-from-simple-features-object-in-r
-
-``` r
-r0 = dplyr::select(state$routeSS, salesman_id, week_day) 
-sf::st_geometry(r0) <- NULL
-r0
-``` 
-
-### convert secs to hours
-
-https://stackoverflow.com/questions/27312292/convert-seconds-to-days-hoursminutesseconds
-
-``` r
-library(lubridate)
-seconds_to_period(86400)
-  ##> #[1] "1d 0H 0M 0S"
-
-seconds_to_period(48000)
-  ##> #[1] "13H 20M 0S"
-  ##> If you need to format
-
-td <- seconds_to_period(86400)
-sprintf('%02d %02d:%02d:%02d', day(td), td@hour, minute(td), second(td))
-  ##> #[1] "01 00:00:00"
-  ##> If it spans for >99 days,
-
-td <- seconds_to_period(1e7)
-sprintf('%03d %02d:%02d:%02d', day(td), td@hour, minute(td), second(td))
-  ##> #[1] "115 17:46:40"
-
-
-``` 
-
-Print as hours
-
-``` r
-lubridate::seconds_to_period(sum(d2$sure, na.rm=T)) %>%
-	lubridate::as.duration() %>%
-	as.numeric("hours")
-``` 
-
-### create a package and use a library inside
-
-``` r
-library(usethis)
-usethis::create_package("ex01")
-usethis::use_package("MASS", "Suggests")
-usethis::use_package("dplyr")
-usethis::use_package("stringr")
-usethis::use_package("tidyr")
-usethis::use_test("my-test")
-usethis::use_dev_package("paulc91/shinyauthr")
-``` 
-
-### package: export functions
-
-``` r
-  #' @export
-foo <- function(..)
-``` 
-
-Add symbols:
-
-``` r
-  #' @importFrom magrittr "%>%"
-NULL
-``` 
-
-## package: build and install
-
-`Makefile`
-
-``` txt
-build:
-	R -e 'devtools::document(); devtools::build_vignettes(); devtools::build(); devtools::install()'
-``` 
-
-``` bash
-make build
-``` 
-
-### json jsonlite jsonr examples
-
-Read as dataframe with `jsonlite`
-
-``` r
-pl0 = jsonlite::fromJSON("logs/plan_jobs.json", simplifyDataFrame = T) %>%
-	as_tibble()
-str(pl0)
-  ##> 'data.frame':   2432 obs. of  12 variables:
-pl0
-  ##> # A tibble: 2,432 x 12
-  ##>    `_id`$`$oid`   depot  shortStatus status  submitDate 
-  ##>    <chr>          <chr>  <chr>       <chr>   <chr>      
-  ##>  1 59259c9b4eb11… ADANA  G           TAMAML… 2017-05-2… 
-  ##>  2 5926703e4eb11… CORLU  G           TAMAML… 2017-05-2… 
-``` 
-
-Read as `list` with `rjson`
-
-``` r
-pj0 = rjson::fromJSON(file="logs/plan_jobs.json")
-  ##>  $ :List of 11
-  ##>   ..$ _id              :List of 1
-  ##>   .. ..$ $oid: chr "591e95424eb11b0a51ac8712"
-  ##>   ..$ depot            : chr "CORLU"
-  ##>   ..$ status           : chr "TAMAMLANDI"
-  ##>   ..$ submitDate       : chr "2017-05-19 09:48:33"
-  ##>   ..$ user             : chr "plan_corlu"
-  ##>  $ :List of 11
-  ##>   ..$ _id              :List of 1
-  ##>   .. ..$ $oid: chr "591ea8ba4eb11b0a51ac87ef"
-  ##>   ..$ depot            : chr "ADANA"
-length(pj0)
-  ##> [1] 2432
-``` 
-
-### toJSON fromJSON
-
-```bash
-t01 = readr::read_tsv("~/projects/study/problem/sample_data/t01.tsv")
-j01 = jsonlite::toJSON(t01, pretty = T)
-t02 = jsonlite::fromJSON(j01)
-writeLines(j01, "~/projects/study/problem/sample_data/j01.json")
-```
-
-```bash
-vd ~/projects/study/problem/sample_data/j01.json
-```
-
-### group_by then count tally 
+## dplyr: group_by then count tally  id=g12512
 
 ``` r
 pl1 %>%
@@ -874,142 +190,7 @@ pl1 %>%
 	tally()
 ``` 
 
-### grepl str_detect
-
-``` r
-"(ali)" %>% stringr::str_detect("^\\(.*\\)$")
-  ##> [1] TRUE
-``` 
-
-### run r script from terminal
-
-``` bash
-Rscript --verbose --vanilla backtesting/backtesting.R
-R CMD ... # deprecated
-R --vanilla -e "source('~/projects/itr/vrp_doc/study/ex/peyman_data_relations_20190522/prepare_od_table.R'); test_origin_destination_json()"
-R --no-save --no-restore-data
-R --no-save --no-restore-data -e "source('~/projects/itr/vrp_doc/study/ex/peyman_data_relations_20190522/prepare_od_table.R'); test_origin_destination_json()"
-``` 
-
-### get version of a package
-
-``` r
-packageVersion("stringr")
-``` 
-
-### print/show all rows of a df
-
-``` r
-state$routes %>% print(n = 20)
-``` 
-
-### select a default CRAN mirror
-
-https://stackoverflow.com/questions/11488174/how-to-select-a-cran-mirror-in-r
-
-### loop through each directory one by one:
-
-``` bash
-for d in */
-do
-    ( cd "$d" && your-command-here )
-done
-``` 
-
-### error: using scalar function in dataframe
-
-Check `~/projects/itr/itr_scripts/dentas/geocoding_20190824/ex/e05.R`
-
-``` r
-d0 = rio::import("/Users/mertnuhoglu/projects/itr/itr_scripts/dentas/geocoding_20190824/data/addresses.xlsx") %>%
-	dplyr::mutate(
-		url = glue::glue("https://maps.googleapis.com/maps/api/geocode/json?&address={URLencode(adres)}&key={KEY}")
-		, file_name = glue::glue("{musteri_kodu}.json")
-		, curl_cmd = glue::glue("curl '{url}' > {GEOCODING_DIR}/out/json/{file_name}")
-		, adres2 = adres
-		, adres3 = glue::glue("{adres}")
-		, adres4 = glue::glue("{URLencode(adres)}")
-		, adres5 = URLencode(glue::glue("{adres}"))
-		, adres6 = URLencode(glue::glue("{adres3}"))
-		, adres7 = URLencode(adres3)
-	)
-d0$adres8 = URLencode(d0$adres)
-vURLencode = Vectorize(URLencode)
-d0$adres9 = vURLencode(d0$adres)
-``` 
-
-### regex stringr
-
-Ref: `~/projects/study/r/study_stringr.Rmd`
-
-#### sed s: str_replace str_replace_all
-
-``` bash
-library(stringr)
-str_replace(string, pattern, replacement)
-``` 
-
-``` r
-fruits <- c("one apple", "two pears", "three bananas")
-str_replace(fruits, "[aeiou]", "-")
-  ##> [1] "-ne apple"     "tw- pears"     "thr-e bananas"
-str_replace_all(fruits, "[aeiou]", "-")
-str_replace_all(fruits, "[aeiou]", toupper)
-  ##> [1] "OnE ApplE"     "twO pEArs"     "thrEE bAnAnAs"
-```
-
-### str_match
-
-``` bash
-str_match(string, pattern)
-str_match_all(string, pattern)
-``` 
-
-``` r
-strings = c(" 219 733 8965", "329-293-8753 ", "banana")
-pattern <- "([2-9][0-9]{2})[- .]([0-9]{3})[- .]([0-9]{4})"
-str_extract(strings, pattern)
-  ##> [1] "219 733 8965" "329-293-8753" NA
-m = str_match(strings, pattern)
-m
-  ##>      [,1]           [,2]  [,3]  [,4]  
-  ##> [1,] "219 733 8965" "219" "733" "8965"
-  ##> [2,] "329-293-8753" "329" "293" "8753"
-  ##> [3,] NA             NA    NA    NA
-m[1,1] # match 1 group 1
-  ##> [1] "219 733 8965"
-m[1,2] # match 1 group 2
-  ##> [1] "219"
-```
-
-## grep = str_which ; grep(value = T) = str_subset  
-
-``` r
-	str_subset(string, pattern, negate = FALSE)
-	str_which(string, pattern, negate = FALSE)
-``` 
-
-``` r
-fruit <- c("apple", "banana", "pear", "pinapple")
-str_subset(fruit, "a")
-  #> [1] "apple"    "banana"   "pear"     "pinapple"
-str_which(fruit, "a")
-  #> [1] 1 2 3 4
-``` 
-
-## grepl = detect
-
-``` r
-str_detect(fruit, "a")
-  ##> [1] TRUE TRUE TRUE TRUE
-  # Also vectorised over pattern
-str_detect("aecfg", letters)
-  ##>  [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE
-``` 
-
-
-
-## bind_rows
+## dplyr: bind_rows concatenate tables id=g12524
 
 ``` bash
 bind_rows(data.frame(x = 1:3), data.frame(y = 1:4))
@@ -1023,22 +204,14 @@ bind_rows(data.frame(x = 1:3), data.frame(y = 1:4))
   ##> 7 NA  4
 ``` 
 
-## round and format decimals
-
-https://stackoverflow.com/questions/3443687/formatting-decimal-places-in-r
-
-``` bash
-format(round(carea / parea, 2), nsmall = 2)
-``` 
-
-## ifelse
+## dplyr: ifelse id=g12526
 
 ``` bash
 	f05 = f04b %>%
 		dplyr::mutate( axis = ifelse(cpl == 0, "ver", "hor") )
 ``` 
 
-## filter
+## dplyr: filter id=g12527
 
 match by regex
 
@@ -1047,60 +220,20 @@ match by regex
 		filter( grepl( ".*legenda.*", screen_name ) )
 ``` 
 
-## dplyr: access by column no
+## dplyr: access by column no id=g12528
 
 ``` 
 s2 %>%
 	filter(grepl("Subpractices.*", .[[2]]) )
 ``` 
 
-## string length
-
-`nchar` or `str_length`: preserves NA
+## dplyr: select columns by position number id=g12531
 
 ``` 
-nchar("ali")
-  ##> 3
+select(c(1,2,4))
 ``` 
 
-`length` gives number of elements in list
-
-## head: delete first few rows
-
-``` 
-df(-1, ) # delete first row
-df[-c(1:3), ] # delete first 3 rows
-``` 
-
-`dplyr::slice`
-
-``` 
-df %>% slice(6:n())
-df %>% slice(-1:-5)
-``` 
-
-
-## select columns by position number
-
-``` 
-			select(c(1,2,4))
-``` 
-
-## truncate / trim string by length
-
-``` 
-			mutate(`...2` = stringr::str_trunc(stringr::str_replace_all(`...2`, "\\n", "Þ"), 75, "right")) %>%
-``` 
-
-## arguments to Rscript 
-
-Ref: `arguments to Rscript  <url:file:///~/projects/study/r/study_r.Rmd#r=g10954>`
-
-``` 
-args <- commandArgs(trailingOnly = TRUE)
-``` 
-
-## dplyr: select all remaining columns:
+## dplyr: select all remaining columns: id=g12534
 
 at the end:
 
@@ -1117,53 +250,7 @@ select(flights, -one_of(col), one_of(col))
 ``` 
 
 
-## lapply all rows of a dataframe
-
-ex01:
-
-``` r
-files = googledrive::drive_ls("~/IFTTT/Spotify")
-names(files)
-  ##> [1] "name"           "id"             "drive_resource"
-lapply(seq(nrow(files)), 
-	function(row) {
-		googledrive::drive_download(
-			googledrive::as_id(files[row, ]$id)
-			, type = "txt"
-			, path = glue::glue("/Users/mertnuhoglu/gdrive/IFTTT/Spotify/{files[row, ]$name}.txt")
-			, overwrite = T
-		)
-	}
-)
-``` 
-
-## sample data id=g11655
-
-```r
-sample_data = tibble::tribble(
-  ~id,   ~key, ~value,
-  1,   "a",  2,
-  2,   "b",  3,
-  3,   "a",  2
-  ) 
-```
-
-Check `~/projects/study/problem/sample_data/t01.tsv`
-
-```r
-s01 = readr::read_tsv("~/projects/study/problem/sample_data/t01.tsv")
-```
-
-```r
-s01 = tibble::tribble(
-	~id,	~title,
-	101.00, a,
-	102.00, b,
-	104.00, c
-)
-```
-
-## text templates
+## dplyr: string templating with glue id=g12536
 
 ref: `~/projects/study/logbook/ex/hugo_burakpehlivan_org_20201011/c_wordpress_export_xml_to_csv/c_wordpress_export_xml_to_csv.R`
 
@@ -1172,7 +259,7 @@ ba2 = ba1 %>%
 	dplyr::mutate(link = glue::glue("/blog/{page_name}"))
 ```
 
-## cross join
+## dplyr: cross join id=g12537
 
 ```clj
 band_members
@@ -1218,7 +305,7 @@ band_members %>%
   ##> 6 Paul  Beatles lower
 ```
 
-## mutate case_when instead of mutate_if id=g12318
+## dplyr: if alternative: mutate case_when instead of mutate_if id=g12318
 
 ```clj
 df_uppercase = data.frame( case = c("upper", "lower") )
@@ -1242,7 +329,7 @@ band_members %>%
   ##> 6 paul  Beatles lower
 ```
 
-## remove duplicated rows 
+## dplyr: remove duplicated rows  id=g12538
 
 opt01: `dplyr::distinct`
 
@@ -1260,7 +347,7 @@ band_members %>%
   ##> 3 Paul  Beatles
 ```
 
-## group each two consequential rows (ardışık bir şekilde satırları ikişerli gruplama)
+## dplyr: group each two consequential rows (ardışık bir şekilde satırları ikişerli gruplama) id=g12539
 
 ```clj
 df_uppercase = data.frame( case = c("upper", "lower") )
@@ -1281,7 +368,534 @@ gl(2, 1, 6)
   ##> [1] 1 2 1 2 1 2
 ```
 
-## glue fonksiyonunu dinamik tanımlanmış bir şablonla kullanma
+## dplyr:: group by day of the date  id=g12341
+
+opt01: [How do I group my date variable into month/year in R? - Stack Overflow](https://stackoverflow.com/questions/33221425/how-do-i-group-my-date-variable-into-month-year-in-r)
+
+```r
+library(dplyr)
+(expenses <- data_frame(
+  date=seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by=1),
+  amount=rgamma(length(date), shape = 2, scale = 20)))
+```
+
+```r
+expenses %>% group_by(month=lubridate::floor_date(date, "month")) %>%
+   summarize(amount=sum(amount))
+  ##>    month      amount
+  ##>    <date>      <dbl>
+  ##>  1 2016-01-01  1305.
+  ##>  2 2016-02-01  1168.
+```
+
+# Excel
+
+## Excel: Farklı sayfaları/sheets sıraya  dizelim id=g12545
+
+ref: `~/gdrive/btg/dcwater_mert/ams/scripts/scr01_collect_data_fields_from_ams_sandbox.Rmd`
+
+Önce okuma ve birleştirme işlemini yap: `Excel: Farklı sayfalardaki tabloları birleştir <url:file:///~/projects/study/r/examples_r.Rmd#r=g12544>`
+
+```{r}
+sn <- group_keys(df01, maximo_table)$maximo_table
+dl01 <- df01 %>%
+  group_split(maximo_table) %>%
+  setNames(sn)
+``` 
+
+## Excel: Farklı sayfalardaki tabloları birleştir id=g12544
+
+ref: `~/gdrive/btg/dcwater_mert/ams/scripts/scr01_collect_data_fields_from_ams_sandbox.Rmd`
+
+`ams_sandbox` excel dosyasındaki tüm sayfaları dolaşıp, buralardaki bilgileri tek bir tabloya toplayalım:
+
+```{r}
+ams_sandbox <- "data/ams_sandbox.xlsx"
+sheet_names <- readxl::excel_sheets(ams_sandbox)
+df01 <- lapply(sheet_names[3:length(sheet_names)],
+  function(sheet) {
+    readxl::read_excel(ams_sandbox, sheet = sheet) %>%
+      mutate(maximo_table = sheet)
+  }) %>%
+  bind_rows()
+``` 
+
+## excel read/write id=g12501
+
+opt01: tidyverse readxl
+
+``` bash
+d1 = readxl::read_excel("file01.xlsx", sheet = "d0")
+``` 
+
+``` r
+d0 = dplyr::tibble(a = 1:3, b = 10:12)
+WriteXLS::WriteXLS(d0, "file01.xlsx", SheetNames = "d0")
+rio::export(d0, "file.xlsx")
+``` 
+
+opt02: convert all excel sheets to separate tsv files
+
+Check `Extract Process Area From Excel Sheet Names <url:file:///~/projects/btg/btg_cmmi/logbook/convert_cmmi_pir_v13_to_v20.md#r=g11807>`
+
+```r
+sheet_names = readxl::excel_sheets(piid)
+out = "/Users/mertnuhoglu/gdrive/btg/cmmi/simsoft/gen"
+for (sheet in 2:19) {
+	d00 = readxl::read_excel(piid, sheet=sheet) 
+	pa = sheet_names[sheet]
+	d01 = d00[-c(1:3), 2:6] %>%
+		setNames(c("practice_row", "practice_title", "source_oe", "document", "link")) %>%
+		dplyr::mutate(process_area_v13 = pa)
+	rio::export(d01, glue::glue("{out}/sheet_{sheet}.tsv"))
+}
+```
+
+## ex: import excel file 2nd sheet, select one column, convert it to lowercase id=g12542
+
+``` r
+vars01 = rio::import("inpot.xlsx", which = 2) %>%
+	select(field_name) %>%
+	mutate(field_name = tolower(field_name)) 
+``` 
+
+# df/table and data structures
+
+## map: lapply all rows of a dataframe id=g12535
+
+ex01:
+
+``` r
+files = googledrive::drive_ls("~/IFTTT/Spotify")
+names(files)
+  ##> [1] "name"           "id"             "drive_resource"
+lapply(seq(nrow(files)), 
+	function(row) {
+		googledrive::drive_download(
+			googledrive::as_id(files[row, ]$id)
+			, type = "txt"
+			, path = glue::glue("/Users/mertnuhoglu/gdrive/IFTTT/Spotify/{files[row, ]$name}.txt")
+			, overwrite = T
+		)
+	}
+)
+``` 
+
+## sample data id=g11655
+
+```r
+sample_data = tibble::tribble(
+  ~id,   ~key, ~value,
+  1,   "a",  2,
+  2,   "b",  3,
+  3,   "a",  2
+  ) 
+```
+
+Check `~/projects/study/problem/sample_data/t01.tsv`
+
+```r
+s01 = readr::read_tsv("~/projects/study/problem/sample_data/t01.tsv")
+```
+
+```r
+s01 = tibble::tribble(
+	~id,	~title,
+	101.00, a,
+	102.00, b,
+	104.00, c
+)
+```
+
+## Verify if df columns are unique id=g12486
+
+Now, 
+
+``` R
+cnt = tbl(con, sql("SELECT * FROM data_20181202.companies_non_ts")) %>% collect
+length(unique(cnt$company_ein))
+  ##> [1] 1149644
+nrow(cnt)
+  ##> [1] 6583082
+``` 
+
+Check other variables
+
+``` R
+distinct(cnt, company_ein, bq_company_legal_name) %>% nrow()
+  ##> [1] 1149644
+``` 
+
+## Disable Scientific Notation in write_csv id=g12485
+
+Note that, write_csv formats big numbers that end with multiple zeros in scientific notation. But scientific numbers cannot be imported into Postgresql.
+
+To disable scientific notation, there are alternative ways:
+
+``` r
+options(scipen = 999)
+write_csv(bd11[270:290,], "~/bizqualify_data/tmp.csv", na = "")
+options(digits=22) 
+write.csv(bd11[270:290,], "~/bizqualify_data/tmp.csv", na = "")
+write.csv(bd11, "~/bizqualify_data/data_20181105_ts2.csv", na = "", row.names = F)
+write.csv(bd11[1:10000,], "~/bizqualify_data/tmp.csv", na = "", row.names = F)
+```
+
+## Diff a column in two df id=g12481
+
+``` R
+d2 = setdiff(d0$company_ein, d1$company_ein)
+length(d2)
+  ##> [1] 112087
+d3 = setdiff(d1$company_ein, d0$company_ein)
+length(d3)
+  ##> [1] 124030
+``` 
+
+## Diff two df using %in% id=g12482
+
+Compare with 20180903 and 20180806:
+
+``` r
+c01 = read_csv("~/bizqualify_data/data_20180903_ts.csv") %>%
+nrow(c01)
+  ##> [1] 6521042
+c02 = c01 %>%
+	select(company_ein, bq_ticker, bq_company_name, filing_date, bq_year)
+c03 = c02 %>%
+	filter(filing_date >= as.Date('2017-1-1')) %>%
+	filter(filing_date < as.Date('2018-1-1')) 
+c04 = unique(c03$company_ein)
+length(c04)
+	##> [1] 334453
+dif_11_09 = a04[!a04 %in% c04]
+length(dif_11_09)
+	##> [1] 15115
+dif_09_11 = c04[!c04 %in% a04]
+length(dif_09_11)
+	##> [1] 87989
+``` 
+
+Let's compare 08 (august) to 09 (september)
+
+``` r
+dif_09_08 = c04[!c04 %in% d04]
+length(dif_09_08)
+	##> [1] 922
+dif_08_09 = d04[!d04 %in% c04]
+length(dif_08_09)
+	##> [1] 63003
+``` 
+
+## Diff Lists of Lines or Words id=g12483
+
+``` r
+> d09 = readLines("0903.txt")
+> d10 = readLines("1027.txt")
+> setdiff(d09, d10)
+[1] "bq_industry_sub_sector_code bigint" "bq_sp_500_indicator text"
+> setdiff(d10, d09)
+ [1] "bq_company_legal_name_expanded text"              "bq_emp_contrib_pens_amt_a_us_m bigint"
+ [3] "bq_growth_emp_contrib_pens_amt_a_p bigint"        "bq_growth_emp_contrib_pens_amt_a_p_us bigint"
+``` 
+
+## read csv: strings as factors
+
+``` R
+layout <- read.csv(paste0(raw_data_dir, file), stringsAsFactors = FALSE)
+``` 
+
+## summary statistics id=g12489
+
+``` R
+summary(d0$percent_change_revenue)
+  ##>     Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's
+  ##>     0.00     0.00     0.00    11.69     0.00 40400.00        2
+summary(d0$percent_change_employment)
+  ##>      Min.   1st Qu.    Median      Mean   3rd Qu.      Max.
+  ##>     0.000     0.000     0.000     5.868     0.000 28100.000
+``` 
+
+## custom summary of a df id=g12490
+
+``` R
+f1 = d0 %>%
+	filter(percent_change_employment != 0)
+stat = list(
+  total_no_companies = nrow(d0)
+	, no_change_in_employment = nrow(d0) - nrow(f1)
+	, changed = nrow(f1)
+	, percent_changed = (nrow(f1)/nrow(d0)*100)
+)
+``` 
+
+## descriptive stats  id=g10798
+
+
+for categorical vars:
+
+``` r
+desc_cat(d0, c('SP500'))
+  ##>   var     `0`   `1`    avg    sd missing     n
+  ##> 1 SP500  92.2  7.78 0.0778 0.268       0  6492
+``` 
+
+for numeric vars:
+
+``` r
+desc_num(d0, c('marketValue'))
+  ##>   var           avg      sd missing     n   min   med      max
+  ##> 1 marketValue 7412. 178617.       0  6492     0  254. 14186708
+``` 
+
+Check values of other categorical fields:
+
+``` R
+unique(d0$xindustry) %>% sort
+  ##>   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  15  16  17  18  19
+``` 
+
+## verifications for key columns: unique, duplicate, valid foreign keys id=g10797
+
+check uniqueness
+
+``` r
+length(unique(d0$ticker)) == nrow(d0)
+  ##> TRUE
+``` 
+
+What is the duplicate `name` value?
+
+``` r
+d0 %>%
+  distinct(ticker, name) %>%
+  group_by(name) %>%
+  summarise(n = n()) %>%
+	filter(n > 1)
+  ##>   name                n
+  ##>   <chr>           <int>
+  ##> 1 SUNDANCE ENERGY     2
+d0 %>%
+	filter(name == "SUNDANCE ENERGY")
+  ##>   ticker name  xsector xindustry mindustry date  usd   exch  SP500  gics
+  ##>   <chr>  <chr>   <int>     <int>     <int> <chr> <chr> <chr> <int> <int>
+  ##> 1 SDCJF  SUND…      12       136        42 01/3… AUS   OTC       0    10
+  ##> 2 SNDE   SUND…      12       136        42 01/3… USA   NSDQ      0    10
+``` 
+
+Verify that the foreign keys are valid:
+
+		`all_data$mindustry` to `industrie$M_Industry` 
+		`all_data$xsector` to `sectors$xsector`
+
+``` r
+setdiff(d0$mindustry, i0$M_Industry)
+  ##> empty
+setdiff(d0$xsector, i0$xsector)
+  ##> empty
+``` 
+
+## Convert delimited string into dataframe id=g12495
+
+https://stackoverflow.com/questions/3936285/is-there-a-way-to-use-read-csv-to-read-from-a-string-value-rather-than-a-file-in
+
+
+``` r
+lines <- "
++ flim,flam
++ 1.2,2.2
++ 77.1,3.14
++ "
+``` 
+
+opt01: `read.csv`
+
+``` r
+data <- read.csv(text=lines)
+data
+  ##>   flim flam
+  ##> 1  1.2 2.20
+  ##> 2 77.1 3.14
+``` 
+
+opt02: `textConnection`
+
+``` r
+con <- textConnection(lines)
+data <- read.csv(con)
+close(con)
+data
+  ##>   flim flam
+  ##> 1  1.2 2.20
+  ##> 2 77.1 3.14
+``` 
+
+## GIS: Convert sf to dataframe id=g12503
+
+https://gis.stackexchange.com/questions/224915/extracting-data-frame-from-simple-features-object-in-r
+
+``` r
+r0 = dplyr::select(state$routeSS, salesman_id, week_day) 
+sf::st_geometry(r0) <- NULL
+r0
+``` 
+
+## Json: Json to df with `jsonlite` id=g12509
+
+``` r
+pl0 = jsonlite::fromJSON("logs/plan_jobs.json", simplifyDataFrame = T) %>%
+	as_tibble()
+str(pl0)
+  ##> 'data.frame':   2432 obs. of  12 variables:
+pl0
+  ##> # A tibble: 2,432 x 12
+  ##>    `_id`$`$oid`   depot  shortStatus status  submitDate 
+  ##>    <chr>          <chr>  <chr>       <chr>   <chr>      
+  ##>  1 59259c9b4eb11… ADANA  G           TAMAML… 2017-05-2… 
+  ##>  2 5926703e4eb11… CORLU  G           TAMAML… 2017-05-2… 
+``` 
+
+## Json: Json to `list` with `rjson` id=g12510
+
+``` r
+pj0 = rjson::fromJSON(file="logs/plan_jobs.json")
+  ##>  $ :List of 11
+  ##>   ..$ _id              :List of 1
+  ##>   .. ..$ $oid: chr "591e95424eb11b0a51ac8712"
+  ##>   ..$ depot            : chr "CORLU"
+  ##>   ..$ status           : chr "TAMAMLANDI"
+  ##>   ..$ submitDate       : chr "2017-05-19 09:48:33"
+  ##>   ..$ user             : chr "plan_corlu"
+  ##>  $ :List of 11
+  ##>   ..$ _id              :List of 1
+  ##>   .. ..$ $oid: chr "591ea8ba4eb11b0a51ac87ef"
+  ##>   ..$ depot            : chr "ADANA"
+length(pj0)
+  ##> [1] 2432
+``` 
+
+## Json: csv-json conversion with jsonlite: toJSON fromJSON id=g12511
+
+```bash
+t01 = readr::read_tsv("~/projects/study/problem/sample_data/t01.tsv")
+j01 = jsonlite::toJSON(t01, pretty = T)
+t02 = jsonlite::fromJSON(j01)
+writeLines(j01, "~/projects/study/problem/sample_data/j01.json")
+```
+
+```bash
+vd ~/projects/study/problem/sample_data/j01.json
+```
+
+## head: delete first few rows of df id=g12530
+
+``` 
+df(-1, ) # delete first row
+df[-c(1:3), ] # delete first 3 rows
+``` 
+
+`dplyr::slice`
+
+``` 
+df %>% slice(6:n())
+df %>% slice(-1:-5)
+``` 
+
+
+# database
+
+## Import into Database Using R id=g12478
+
+Filter public companies into different files because current files are too big:
+
+``` R
+library(dplyr)
+library(readr)
+setwd("~/bizqualify_data")
+d10 = read_csv("bq_hedge_funds_all_data_20181001.csv") 
+d10b = d10 %>%
+	filter(!is.na(bq_ticker))
+write_csv(d10b, "public_20181001.csv", na="")
+``` 
+
+Import data into database using R:
+
+``` R
+library("RPostgreSQL")
+source("~/BQ-data-run/config.R")
+dbWriteTable(con, c("client", "altdg_sample"), d0, row.names=F)
+``` 
+
+Note that: `dbWriteTable` doesn't write the data when it has `append=F` and the table was created already. (default value)
+
+## Load data from database id=g12479
+
+Load both data sets from database now:
+
+``` R
+d10 = tbl(con, sql("SELECT * FROM data_20181001.public_all_data")) %>% collect
+``` 
+
+## Run a SQL query id=g12480
+
+``` bash
+dbGetQuery(con, statement = paste0("
+  insert into ", data_schema, ".master_variables
+  select * from ", data_schema, ".master_variables_forecast
+  where source = 'ez'
+"))
+``` 
+
+opt02: use dplyr::tbl()
+
+``` bash
+d0 = tbl(con, sql("
+	SELECT company_ein
+  FROM data_20181202.master_variables
+  WHERE extract(YEAR from plan_year_end_date) = 2014 and source = 'ez'
+	")) %>% collect
+nrow(d0)
+``` 
+
+# string
+
+## glue: string templating id=g10793
+
+``` R
+library(glue)
+schema = "data_20190203"
+s = glue("
+SELECT bq_ticker, bq_company_name, bq_revenue
+FROM {schema}.all_data
+")
+``` 
+
+## numeric: round and format decimals id=g12525
+
+https://stackoverflow.com/questions/3443687/formatting-decimal-places-in-r
+
+``` bash
+format(round(carea / parea, 2), nsmall = 2)
+``` 
+
+## string: length id=g12529
+
+`nchar` or `str_length`: preserves NA
+
+``` 
+nchar("ali")
+  ##> 3
+``` 
+
+`length` gives number of elements in list
+
+## string: truncate / trim string by length id=g12532
+
+``` 
+			mutate(`...2` = stringr::str_trunc(stringr::str_replace_all(`...2`, "\\n", "Þ"), 75, "right")) %>%
+``` 
+
+## glue fonksiyonunu dinamik tanımlanmış bir şablonla kullanma id=g12540
 
 ```clj
 d0 <- tibble::tibble(word = "ali", template = "{word}.txt")
@@ -1312,7 +926,7 @@ d0 %>%
 	glue::glue_data(d0$template)
 ```
 
-## Error: names(x) must be a character vector of the same length as x
+## Error: names(x) must be a character vector of the same length as x id=g12541
 
 ex01:
 
@@ -1403,31 +1017,453 @@ lapply(templates, function(template) {
   ##> 10        54E70  54E70.csv
 ```
 
-### dplyr:: group by day of the date  id=g12341
+# regex
 
-opt01: [How do I group my date variable into month/year in R? - Stack Overflow](https://stackoverflow.com/questions/33221425/how-do-i-group-my-date-variable-into-month-year-in-r)
-
-```r
-library(dplyr)
-(expenses <- data_frame(
-  date=seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by=1),
-  amount=rgamma(length(date), shape = 2, scale = 20)))
-```
-
-```r
-expenses %>% group_by(month=lubridate::floor_date(date, "month")) %>%
-   summarize(amount=sum(amount))
-  ##>    month      amount
-  ##>    <date>      <dbl>
-  ##>  1 2016-01-01  1305.
-  ##>  2 2016-02-01  1168.
-```
-
-## ex: import excel file 2nd sheet, select one column, convert it to lowercase
+## Stringr: grep logical: grepl str_detect id=g12513
 
 ``` r
-vars01 = rio::import("inpot.xlsx", which = 2) %>%
-	select(field_name) %>%
-	mutate(field_name = tolower(field_name)) 
+"(ali)" %>% stringr::str_detect("^\\(.*\\)$")
+  ##> [1] TRUE
 ``` 
+
+## regex stringr id=g12519
+
+Ref: `~/projects/study/r/study_stringr.Rmd`
+
+## regex: sed s command: str_replace str_replace_all id=g12520
+
+``` bash
+library(stringr)
+str_replace(string, pattern, replacement)
+``` 
+
+``` r
+fruits <- c("one apple", "two pears", "three bananas")
+str_replace(fruits, "[aeiou]", "-")
+  ##> [1] "-ne apple"     "tw- pears"     "thr-e bananas"
+str_replace_all(fruits, "[aeiou]", "-")
+str_replace_all(fruits, "[aeiou]", toupper)
+  ##> [1] "OnE ApplE"     "twO pEArs"     "thrEE bAnAnAs"
+```
+
+## regex: str_match id=g12521
+
+``` bash
+str_match(string, pattern)
+str_match_all(string, pattern)
+``` 
+
+``` r
+strings = c(" 219 733 8965", "329-293-8753 ", "banana")
+pattern <- "([2-9][0-9]{2})[- .]([0-9]{3})[- .]([0-9]{4})"
+str_extract(strings, pattern)
+  ##> [1] "219 733 8965" "329-293-8753" NA
+m = str_match(strings, pattern)
+m
+  ##>      [,1]           [,2]  [,3]  [,4]  
+  ##> [1,] "219 733 8965" "219" "733" "8965"
+  ##> [2,] "329-293-8753" "329" "293" "8753"
+  ##> [3,] NA             NA    NA    NA
+m[1,1] # match 1 group 1
+  ##> [1] "219 733 8965"
+m[1,2] # match 1 group 2
+  ##> [1] "219"
+```
+
+## regex: grep = str_which ; grep(value = T) = str_subset   id=g12522
+
+``` r
+	str_subset(string, pattern, negate = FALSE)
+	str_which(string, pattern, negate = FALSE)
+``` 
+
+``` r
+fruit <- c("apple", "banana", "pear", "pinapple")
+str_subset(fruit, "a")
+  #> [1] "apple"    "banana"   "pear"     "pinapple"
+str_which(fruit, "a")
+  #> [1] 1 2 3 4
+``` 
+
+## regex: grepl = detect id=g12523
+
+``` r
+str_detect(fruit, "a")
+  ##> [1] TRUE TRUE TRUE TRUE
+  # Also vectorised over pattern
+str_detect("aecfg", letters)
+  ##>  [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE
+``` 
+
+
+
+# cmd
+
+## Environment variable id=g12494
+
+``` r
+dbhost = Sys.getenv("DB_HOST")
+``` 
+
+## R package: building R packages id=g10799
+
+opt02: building on R console (for debugging)
+
+``` bash
+cd ~/projects/yuml2data/
+Rs
+``` 
+
+``` r
+library(devtools)
+devtools::document()
+devtools::build_vignettes()
+devtools::load_all()
+library(magrittr)
+devtools::build()
+devtools::install()
+``` 
+
+opt03: building on terminal
+
+``` bash
+cd ~/projects
+R CMD build yuml2data
+R CMD INSTALL yuml2data_0.1.0.tar.gz
+``` 
+
+## R package: reload all code without installing id=g12493
+
+``` r
+devtools::load_all()
+``` 
+
+## export rmarkdown report id=g12491
+
+``` bash
+file=twosigma/report_twosigma_florida_20190211.Rmd
+R -e 'rmarkdown::render("'"$file"'", "md_document")'
+``` 
+
+Run it from inside vim:
+
+``` bash
+command! Rmarkdown :!R -e 'rmarkdown::render("%")'
+:Rmarkdown
+``` 
+
+## Rmarkdown code blocks id=g12488
+
+``` {R include=F}
+options(scipen = 999)
+``` 
+
+``` {R echo = F, message = F, warning = F}
+library("RPostgreSQL")
+library(dplyr)
+library(readr)
+library(knitr)
+
+source("~/BQ-data-run/config.R")
+``` 
+
+``` {R echo=F}
+sql = "
+SELECT schemaname,relname,n_live_tup AS row_count
+  FROM pg_stat_user_tables 
+	WHERE schemaname = 'twosigma'
+  ORDER BY n_live_tup DESC
+"
+dbGetQuery(con, sql)
+``` 
+
+``` {R echo=F}
+sql = glue("
+WITH unique_year_ticker AS (
+	SELECT DISTINCT ON (bq_year, bq_ticker) bq_year, bq_ticker
+	FROM {data_schema}.all_data
+	ORDER BY bq_year, bq_ticker
+)
+SELECT bq_year, count(*) AS unique_bq_ticker
+FROM unique_year_ticker 
+GROUP BY bq_year
+ORDER BY bq_year;
+")
+d01 = dbGetQuery(con, sql)
+knitr::kable(d01)
+``` 
+
+## Google Drive Access using R googledrive id=g12487
+
+``` bash
+install.packages("devtools")
+devtools::install_github("tidyverse/googlesheets4")
+library(googledrive)
+library(googlesheets4)
+``` 
+
+Upload the csv and simultaneously convert to a Sheet
+
+``` bash
+(iris_tempfile <- tempfile(pattern = "iris-", fileext = ".csv"))
+write.csv(iris, iris_tempfile, row.names = FALSE)
+(iris_ss <- drive_upload(iris_tempfile, type = "spreadsheet"))
+``` 
+
+``` bash
+  # visit the new Sheet in the browser, in an interactive session!
+drive_browse(iris_ss)
+``` 
+
+## mkdir mv ls directory commands id=g12499
+
+``` r
+     file.create(..., showWarnings = TRUE)
+     file.exists(...)
+     file.remove(...)
+     file.rename(from, to)
+     file.append(file1, file2)
+     file.copy(from, to, overwrite = recursive, recursive = FALSE,
+               copy.mode = TRUE, copy.date = FALSE)
+     file.symlink(from, to)
+     file.link(from, to)
+``` 
+
+cp file.copy
+
+``` bash
+file.copy(from = "/Users/mertnuhoglu/projects/itr/vrp/vrps/data/jtn/input/default/rate_optimization.xlsx", to = glue::glue( "/Users/mertnuhoglu/projects/itr/vrp/vrps/data/jtn/input/{folder_name}"), overwrite = T)
+``` 
+
+Warning: If the destination file name and source file name differ, it doesn't copy the file.
+
+There are two ways that it works:
+
+1. Don't specify the file name in `to`
+2. Give the same file name in `to`
+
+safe way of file copying: first copy to some directory, then rename (move)
+
+``` bash
+	folder_name = format(Sys.time(), "%y%m%d_%H%M")
+	sem_src = formContents$sevk_emri_file$tempfile
+	sem_dest = sprintf("%s/input/%s/sevk_emri.xlsx", data_dir(), folder_name)
+	sem_src_name = basename(sem_src)
+	dir.create("out", recursive = T)
+	dir.create(path = sprintf("%s/input/%s", data_dir(), folder_name), recursive = T)
+	file.copy(sem_src, "out")
+	file.rename(glue::glue("out/{sem_src_name}"), sem_dest)
+``` 
+
+mkdir dir.create
+
+``` r
+dir.create(path = ... ) # mkdir
+dir.create(path = ..., recursive = T) # mkdir -p
+``` 
+
+ls list.files
+
+``` r
+list.files(path = glue::glue("{PEYMAN_PROJECT_DIR}/pvrp_data/out"), include.dirs = T, pattern = "^report_\\d+.*")
+``` 
+
+mv move move_files rename files and directories
+
+``` bash
+file.rename(
+	glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp/out")
+  , glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp/out_{format(Sys.time(), '%Y%m%d_%H%M%S')}")
+)
+``` 
+
+``` r
+install.packages("filesstrings")
+install.packages("processx")
+filesstrings::move_files(
+	glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp_data/out")
+  , glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp_data/out_{format(Sys.time(), '%Y%m%d_%H%M%S')}")
+)
+``` 
+
+## basedir basename dirname id=g12500
+
+``` bash
+basename("C:/some_dir/a")
+> [1]  "a"
+dirname("C:/some_dir/a")
+>[1] "C:/some_dir"
+``` 
+
+## Package: create a package and use a library inside id=g12505
+
+``` r
+library(usethis)
+usethis::create_package("ex01")
+usethis::use_package("MASS", "Suggests")
+usethis::use_package("dplyr")
+usethis::use_package("stringr")
+usethis::use_package("tidyr")
+usethis::use_test("my-test")
+usethis::use_dev_package("paulc91/shinyauthr")
+``` 
+
+## package: export functions id=g12506
+
+``` r
+  #' @export
+foo <- function(..)
+``` 
+
+Add symbols:
+
+``` r
+  #' @importFrom magrittr "%>%"
+NULL
+``` 
+
+## package: build and install id=g12507
+
+`Makefile`
+
+``` txt
+build:
+	R -e 'devtools::document(); devtools::build_vignettes(); devtools::build(); devtools::install()'
+``` 
+
+``` bash
+make build
+``` 
+
+## run r script from terminal id=g12514
+
+``` bash
+Rscript --verbose --vanilla backtesting/backtesting.R
+R CMD ... # deprecated
+R --vanilla -e "source('~/projects/itr/vrp_doc/study/ex/peyman_data_relations_20190522/prepare_od_table.R'); test_origin_destination_json()"
+R --no-save --no-restore-data
+R --no-save --no-restore-data -e "source('~/projects/itr/vrp_doc/study/ex/peyman_data_relations_20190522/prepare_od_table.R'); test_origin_destination_json()"
+``` 
+
+## Package: get version of a package id=g12515
+
+``` r
+packageVersion("stringr")
+``` 
+
+## Print: print/show all rows of a df id=g12516
+
+``` r
+state$routes %>% print(n = 20)
+``` 
+
+## select a default CRAN mirror id=g12517
+
+https://stackoverflow.com/questions/11488174/how-to-select-a-cran-mirror-in-r
+
+## arguments to Rscript  id=g12533
+
+Ref: `arguments to Rscript  <url:file:///~/projects/study/r/study_r.Rmd#r=g10954>`
+
+``` 
+args <- commandArgs(trailingOnly = TRUE)
+``` 
+
+# other
+
+## For loop: seq_along and seq_len id=g12496
+
+Use `seq_along` with list/vector objects instead of `1:length(vec)`. This won't run the loop when object is empty.
+
+``` r
+	for (gr in seq_along(route_groups)) {
+	  print(gr)
+	}
+	##> no looping
+``` 
+
+Use `seq_len` for dataframes. This won't run the loop when there is no rows:
+
+``` r
+	for (sqn in seq_len(nrow(df))) {
+		print(sqn)
+	}
+``` 
+
+## run shinyApp id=g12502
+
+opt01: runApp from directory
+
+``` r
+shiny::runApp(".")
+``` 
+
+opt02: runApp from functions
+
+``` r
+runApp(shinyApp(ui, server), host="0.0.0.0",port=5050)
+``` 
+
+or
+
+``` r
+app = shiny::shinyApp(ui, server)
+runApp(app)
+``` 
+
+## Date: convert secs to hours id=g12504
+
+https://stackoverflow.com/questions/27312292/convert-seconds-to-days-hoursminutesseconds
+
+``` r
+library(lubridate)
+seconds_to_period(86400)
+  ##> #[1] "1d 0H 0M 0S"
+
+seconds_to_period(48000)
+  ##> #[1] "13H 20M 0S"
+  ##> If you need to format
+
+td <- seconds_to_period(86400)
+sprintf('%02d %02d:%02d:%02d', day(td), td@hour, minute(td), second(td))
+  ##> #[1] "01 00:00:00"
+  ##> If it spans for >99 days,
+
+td <- seconds_to_period(1e7)
+sprintf('%03d %02d:%02d:%02d', day(td), td@hour, minute(td), second(td))
+  ##> #[1] "115 17:46:40"
+
+
+``` 
+
+Print as hours
+
+``` r
+lubridate::seconds_to_period(sum(d2$sure, na.rm=T)) %>%
+	lubridate::as.duration() %>%
+	as.numeric("hours")
+``` 
+
+## error: using scalar function in dataframe id=g12518
+
+Check `~/projects/itr/itr_scripts/dentas/geocoding_20190824/ex/e05.R`
+
+``` r
+d0 = rio::import("/Users/mertnuhoglu/projects/itr/itr_scripts/dentas/geocoding_20190824/data/addresses.xlsx") %>%
+	dplyr::mutate(
+		url = glue::glue("https://maps.googleapis.com/maps/api/geocode/json?&address={URLencode(adres)}&key={KEY}")
+		, file_name = glue::glue("{musteri_kodu}.json")
+		, curl_cmd = glue::glue("curl '{url}' > {GEOCODING_DIR}/out/json/{file_name}")
+		, adres2 = adres
+		, adres3 = glue::glue("{adres}")
+		, adres4 = glue::glue("{URLencode(adres)}")
+		, adres5 = URLencode(glue::glue("{adres}"))
+		, adres6 = URLencode(glue::glue("{adres3}"))
+		, adres7 = URLencode(adres3)
+	)
+d0$adres8 = URLencode(d0$adres)
+vURLencode = Vectorize(URLencode)
+d0$adres9 = vURLencode(d0$adres)
+``` 
+
 

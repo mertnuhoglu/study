@@ -167,6 +167,25 @@ The Ultimate Guide To Clojure REPLs - lambdaisland id=g12455
 		Creating Your Own Socket REPLs
 About REPLs - Antonin Hildebrand id=g12456
 	[dirac/about-repls.md at master · binaryage/dirac](https://github.com/binaryage/dirac/blob/master/docs/about-repls.md)
+Grokking Clojure transducers  id=g12467
+	[Grokking Clojure transducers - /dev/solita](https://dev.solita.fi/2021/10/14/grokking-clojure-transducers.html)
+	A reducing function is a function you can use as the first argument of reduce. A reducing function takes an accumulated result and an input and returns a new result.
+	In essence, a transducer is a function that takes a reducing function (like conj) and turns it into a new, more awesome reducing function. Let’s give it a try. Let’s make a transducer called inc-transducer:
+	mapping is not a transducer. It is a function that takes a function and returns a transducer.
+	With transducers (like the one mapping returns), on the other hand, we can decide which reducing function to use
+	Secondly, notice how the transformation (incrementing numbers) is distinct from how the final output is built. In other words, (mapping inc) does not say anything about how to make the final value.
+		This decoupling of the transformation from its inputs and outputs has important repercussions. For one, it means we can also use transducers with things like clojure.core.async channels
+	The thread-last macro transforms collections. Transducers, in turn, transform reducing functions
+		When we use the thread-last macro, after every step of the transformation process, we create an intermediate collection, only to immediately throw it away.
+	functions in the Clojure core that take transducers as arguments:
+		transduce
+		into
+		sequence
+		eduction
+	The real value of transducers is not performance, but rather that non-standard data representations like core.async channels can use clojure.core directly rather than having to define their own map, filter, and so on.
+
+
+
 
 
 

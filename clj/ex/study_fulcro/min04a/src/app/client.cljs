@@ -22,13 +22,29 @@
   (comp/refresh-dynamic-queries! app)
   (js/console.log "Hot reload"))
 
+(defonce current-app (atom nil))
+
+(defn ^:export init2
+  [RootComponent]
+  (let [app (app/fulcro-app RootComponent)]
+    (reset! current-app app)
+    (app/mount! app RootComponent "app")
+    (js/console.log "Loaded")))
+
+(defn ^:export init3 [])
+
 (comment
-  (keys app)
-  (-> app (::app/state-atom) deref)
-  ;{:fulcro.inspect.core/app-id "app.ui/Root",
-  ; :friends {:list/label "Friends",
-  ;           :list/people [{:person/name "Sally", :person/age 37} {:person/name "Joe", :person/age 22}]},
-  ; :enemies {:list/label "Enemies",
-  ;           :list/people [{:person/name "Fred", :person/age 11} {:person/name "Bobby", :person/age 55}]},
-  ; :fulcro.inspect.core/app-uuid #uuid"339a48f1-7611-457b-aae2-cb4bf2ec73cf"}
-,)
+  (def app (app/fulcro-app))
+  (app/mount! app ui/Root "app")
+  ,)
+
+
+
+
+
+
+
+
+
+
+

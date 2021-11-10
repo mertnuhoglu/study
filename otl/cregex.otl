@@ -1,6 +1,7 @@
 regex
 	ref
 		[Regular Expression Tutorial - Learn How to Use Regular Expressions](https://www.regular-expressions.info/tutorial.html)
+vim regex id=g12543
 	backreferences
 	variants of regex
 		re2
@@ -15,3 +16,8 @@ regex
 			\@<!
 			Ex:
 				\(mi \)\@<=casa matches “casa” if preceded by “mi ”. So it matches only the first “casa” in mi casa es su casa.
+	multiline newline match
+		\_. match any single char including newline
+			:h /\_.
+		\_.\{-}
+			lazy match

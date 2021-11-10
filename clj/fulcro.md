@@ -630,7 +630,7 @@ ref: `/Users/mertnuhoglu/codes/clj/prj/web/fulcro-exercises/deps.edn`
 clojure -X:project/new :name main/workspaces01
 ``` 
 
-Edit `/Users/mertnuhoglu/projects/study/clj/ex/fulcro/workspaces01/deps.edn`
+Edit `/Users/mertnuhoglu/projects/study/clj/ex/study_fulcro/workspaces01/deps.edn`
 
 Better: `opt02: Example project`
 

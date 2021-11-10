@@ -1257,4 +1257,13 @@ done
 
 ```
 
+## loop through each directory one by one:
+
+``` bash
+for d in */
+do
+    ( cd "$d" && your-command-here )
+done
+``` 
+
 

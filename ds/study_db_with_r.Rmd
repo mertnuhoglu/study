@@ -133,10 +133,10 @@ opt02: jdbc
 install.packages("RJDBC",dep=TRUE)
 
 library(RJDBC)
-drv <- JDBC("com.microsoft.sqlserver",
-           "/Users/mertnuhoglu/codes/java/jdbc/mssql-jdbc-9.2.1.jre11.jar",
+drv <- JDBC("com.microsoft.sqlserver.jdbc.SQLServerDriver",
+           "/Users/mertnuhoglu/codes/java/jdbc/mssql-jdbc-9.4.0.jre8.jar",
            identifier.quote="`")
-conn <- dbConnect(drv, "jdbc:sqlserver://gis.layermark.com;database=gisdbp", Sys.getenv("LAYERMARK_DB_USER"), Sys.getenv("LAYERMARK_DB_PASSWORD"))
+conn <- dbConnect(drv, "jdbc:sqlserver://dcw-test.layermark.com;database=maxtest", Sys.getenv("LAYERMARK_DB_USER"), Sys.getenv("LAYERMARK_DB_PASSWORD"))
 
 ```
 

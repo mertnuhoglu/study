@@ -10,6 +10,15 @@ points
 	check localleader and leader
 		:echo mapleader
 		:let mapleader = "\<Space>"
+	change color in colorscheme theme id=g12477
+		1. ilgili colorscheme dosyasını bul
+			örn:
+				~/.vim/bundle/vim-colorschemes/colors/PapayaWhip.vim
+		2. buradaki renkleri tek tek değiştir
+			örneğin: Papaya temasında _ karakterlerinin arka fonu kırmızılaştırılmış
+			tek tek guifg renklerini değiştirip deneme yap
+			sonuç:
+			hi Error guifg=#c43060 ctermfg=167 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 	colorscheme themes id=g11968
 		dark
 			rigel
@@ -806,6 +815,8 @@ viml vimscript id=g10491
 		<vimhelp:a:000>
 		Up to 20 arguments can be given, separated by commas.  After the named arguments an argument "..." can be specified
 		"a:000" is set to a |List| that contains these arguments
+regex2
+	ref: vim regex <url:file:///~/projects/study/otl/cregex.otl#r=g12543>
 vim documentation
 	neovim
 		:TOhtml id=g11899
