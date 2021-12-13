@@ -35,7 +35,7 @@ bb --nrepl-server 5678
 
 ## run portal browser on any edn file
 
-`- Inspect Data Files With Portal On Babashka <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g11752>`
+`- Inspect Data Files With Portal On Babashka <url:file:///~/projects/study/clj/lib/babashka_interpreter.md#r=g11752>`
 
 ```bash
 portal.clj ~/.clojure/deps.edn
@@ -43,7 +43,7 @@ portal.clj ~/.clojure/deps.edn
 
 ## inline script
 
-`Ex01: inline scripts <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g11814>`
+`Ex01: inline scripts <url:file:///~/projects/study/clj/lib/babashka_interpreter.md#r=g11814>`
 
 ```bash
 $ ls | bb -i '(prn *input*)'
@@ -53,7 +53,7 @@ $ ls | bb -i '(filter #(-> % io/file .isDirectory) *input*)'
 
 ## clj script
 
-`Ex02: Execute clj script <url:file:///~/projects/study/clj/babashka_interpreter.md#r=g11813>`
+`Ex02: Execute clj script <url:file:///~/projects/study/clj/lib/babashka_interpreter.md#r=g11813>`
 
 shebang:
 
@@ -134,13 +134,13 @@ brew upgrade babashka
 [portal](https://github.com/borkdude/babashka/blob/master/examples/README.md#portal)
 
 ```bash
-/Users/mertnuhoglu/codes/clj/babashka/examples/portal.clj ~/.clojure/deps.edn
+/Users/mertnuhoglu/codes/clj/lib/babashka/examples/portal.clj ~/.clojure/deps.edn
 portal.clj ~/.clojure/deps.edn
 ```
 
 [fzf](https://github.com/borkdude/babashka/blob/master/examples/README.md#fzf)
 
-Check `~/codes/clj/babashka/examples/fzf.clj`
+Check `~/codes/clj/lib/babashka/examples/fzf.clj`
 
 ```bash
 examples/portal.clj ~/.clojure/deps.edn

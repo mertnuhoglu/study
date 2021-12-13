@@ -1,15 +1,21 @@
 ref
 	~/projects/study/clj/refcard_clojure.otl
 index
-	Setup a new project  <url:file:///~/projects/study/clj/clojure.otl#r=g11946>
-	Run REPL <url:file:///~/projects/study/clj/clojure.otl#r=g12068>
-	Run a clojure script/function/app <url:file:///~/projects/study/clj/clojure.otl#r=g12108>
-	idioms - kendime göre özetler <url:file:///~/projects/study/clj/clojure.otl#r=g12080>
-	Weird Characters <url:file:///~/projects/study/clj/book_clojure_documentation.md#r=g11401>
-	editors clojure <url:file:///~/projects/study/clj/clojure.otl#r=g12360>
+	ref
+		~/projects/study/clj/fulcro.otl
 	anki clojure
 		~/projects/study/clj/anki_clojure_from_excel.tsv
 		~/projects/study/clj/anki_clojure.tsv
+	projects
+		/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/ex06.iml
+		/Users/mertnuhoglu/projects/study/clj/ex/fulcro/fulcro.iml
+	clojure.otl
+		Setup a new project  <url:file:///~/projects/study/clj/clojure.otl#r=g11946>
+		Run REPL <url:file:///~/projects/study/clj/clojure.otl#r=g12068>
+		Run a clojure script/function/app <url:file:///~/projects/study/clj/clojure.otl#r=g12108>
+		idioms - kendime göre özetler <url:file:///~/projects/study/clj/clojure.otl#r=g12080>
+		Weird Characters <url:file:///~/projects/study/clj/book_clojure_documentation.md#r=g11401>
+		editors clojure <url:file:///~/projects/study/clj/clojure.otl#r=g12360>
 @questions - clojure id=g12396
 	slack vs. yerine stackoverflow'da soruları sormak, bulunabilirlik açısından daha iyi olmaz mı?
 clojure
@@ -29,6 +35,18 @@ clojure
 		Gerald Sussman - SICP
 		Sean Corfield - rebl
 	editors clojure id=g12360
+		cursive intellij
+			ref
+				quickstart cursive <url:file:///~/projects/study/clj/cursive.md#r=g11816>
+			shortcuts
+				| #e       | actions command bar            |
+				| !u       | ç: popup menu prefix           |
+				| !up/çp   | popup menus                    |
+				| !uj      | clojure popup menu             |
+				| !uç/çç   | popup general menu             |
+				| !un/çn   | popup next menu                |
+				| !ue/çe   | popup structural editing menu  |
+				| !u SPC   | popup move menu                |
 		vim conjure
 			conjure
 				Index: Clojure in Vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11843>
@@ -108,7 +126,6 @@ clojure
 	libraries
 		clojure.repl help functions <url:file:///~/projects/study/clj/book_essential_reference_borgatti.md#r=g11959>
 			ref_ex: ~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj
-	resources
 howto problems
 	debugging
 		dirac: chrome devtools plugin id=g12454
@@ -155,6 +172,36 @@ howto problems
 	Run REPL id=g12068
 		ref
 			~/projects/study/clj/rebl_reveal_portal_repl.otl
+		multiple repls together: id=g12447
+			alias zshrc
+				cljreblportal
+			rebl+portal
+				java15
+				clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl:inspect/portal-cli:repl/rebel-nreply
+			reveal+portal
+				clojure -M:inspect/reveal:repl/rebel:inspect/portal-cli:repl/rebel-nreply
+			rebl+reveal
+				clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl:inspect/reveal
+					opens reveal
+				clojure -M:inspect/reveal:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
+					opens rebl
+				main opts
+					:inspect/reveal "-m" "vlaaad.reveal" "repl"
+					:lib/cider-nrepl
+					:inspect/rebl15 "-m" "cognitect.rebl"
+					:middleware/nrebl "-m" "nrepl.cmdline"
+			rebl+reveal+portal id=g12431
+				java15
+				clojure -M:inspect/reveal:repl/rebel:inspect/portal-cli:repl/rebel-nreply:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
+				(add-tap ((requiring-resolve 'vlaaad.reveal/ui))) ; reveal açar
+				çalışmıyor:
+					opt01:
+						java15
+						clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl:inspect/portal-cli:repl/rebel-nreply:inspect/reveal:repl/rebel
+					opt02:
+						clojure -M:inspect/reveal:repl/rebel:inspect/portal-cli:repl/rebel-nreply:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
+						(require '[vlaaad.reveal :as reveal])
+						(reveal/-main "repl")
 		run REBL id=g12422
 			Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g11934>
 				java15
@@ -202,36 +249,6 @@ howto problems
 			opt03a: doğrudan aliaslar kullan
 				cat deps.edn | edn
 				cat j01.json | json
-		multiple repls together: id=g12447
-			alias zshrc
-				cljreblportal
-			rebl+portal
-				java15
-				clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl:inspect/portal-cli:repl/rebel-nreply
-			reveal+portal
-				clojure -M:inspect/reveal:repl/rebel:inspect/portal-cli:repl/rebel-nreply
-			rebl+reveal
-				clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl:inspect/reveal
-					opens reveal
-				clojure -M:inspect/reveal:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
-					opens rebl
-				main opts
-					:inspect/reveal "-m" "vlaaad.reveal" "repl"
-					:lib/cider-nrepl
-					:inspect/rebl15 "-m" "cognitect.rebl"
-					:middleware/nrebl "-m" "nrepl.cmdline"
-			rebl+reveal+portal id=g12431
-				java15
-				clojure -M:inspect/reveal:repl/rebel:inspect/portal-cli:repl/rebel-nreply:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
-				(add-tap ((requiring-resolve 'vlaaad.reveal/ui))) ; reveal açar
-				çalışmıyor:
-					opt01:
-						java15
-						clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl:inspect/portal-cli:repl/rebel-nreply:inspect/reveal:repl/rebel
-					opt02:
-						clojure -M:inspect/reveal:repl/rebel:inspect/portal-cli:repl/rebel-nreply:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
-						(require '[vlaaad.reveal :as reveal])
-						(reveal/-main "repl")
 	Run a clojure script/function/app id=g12108
 		from repl:
 			ref: ~/projects/study/clj/book_practicalli_clojure_webapps.md
@@ -464,7 +481,7 @@ topics
 				(reductions + [1 2 3]) ;; => (1 3 6)
 				(map-indexed #(when (< % 2) (str % %2)) [:a :b :c]) ;;=> ("0:a" "1:b" nil)
 				(keep-indexed #(when (< % 2) (str % %2)) [:a :b :c]) ;;=> ("0:a" "1:b")
-			;; sect01: extract a specific-numbered item <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11366>
+			;; sect08: extract a specific-numbered item <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11366>
 				(first [1 2 3]) ;; => 1
 				(ffirst [[3 4] [1 2]]) ;; => 3
 				(nfirst [[3 4] [1 2]]) ;; => (4)
@@ -473,7 +490,7 @@ topics
 				(when-first [a [1 2]] a) ;; => 1
 				(last [1 2 3]) ;; => 3
 				(rand-nth [1 2 3]) ;; => 2
-			;; sect02: seq -> collection <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11367>
+			;; sect09: seq -> collection <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11367>
 				(zipmap [:a :b] [1 2]) ;; => {:a 1, :b 2}
 				(into (sorted-map) {:b 1 :a 2}) ;; => {:a 2, :b 1}
 				(reduce + [1 2 3]) ;; => 6
@@ -481,11 +498,11 @@ topics
 				(vec '(1 2 3)) ;; => [1 2 3]
 				(frequencies [:a :b :a]) ;; => {:a 2, :b 1}
 				(group-by count ["ali" "ab" "axe"]) ;; => {3 ["ali" "axe"], 2 ["ab"]}
-			;; sect03: pass items to a function <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11368>
+			;; sect10: pass items to a function <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11368>
 				(apply str [1 2 3]) ;; => "123"
 				(str [1 2 3]) ;; => "[1 2 3]"
 				(str 123) ;; => "123"
-			;; sect04: compute boolean <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11369>
+			;; sect11: compute boolean <url:ex/study_clojure/ex06/src/clojure_ref_sequences.clj#r=g11369>
 				(not-empty [1 2]) ;; => [1 2]
 				(not-empty "hello") ;; => "hello"
 				(some even? [1 2 3]) ;; => true
@@ -1429,5 +1446,21 @@ inbox
 		zprint
 			zprint -w file.edn
 				pretty prints and writes edn/clj files
-	
-	
+	test
+		|| name |col|
+		| hel | 10 |
+	test2
+		|no | line|
+		| les | klkl| 
+	Pets
+		+--------+-----+--------+----------------+
+		| Name   | Age | Animal | Inside/Outside |
+		+========+=====+========+================+
+		| Kirby  | 9   | dog    | both           |
+		+--------+-----+--------+----------------+
+		| Hoover | 1   | dog    | both           |
+		+--------+-----+--------+----------------+
+		| Sophia | 9   | cat    | inside         |
+		+--------+-----+--------+----------------+
+		
+		

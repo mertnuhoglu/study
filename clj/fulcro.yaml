@@ -1,0 +1,53 @@
+---
+index:
+  ref: ~/projects/study/clj/articles_fulcro.otl
+  anki cards: https://docs.google.com/spreadsheets/d/1u4LuaWdBc_XeNSEDhhiJr4O2RGjLesZN/edit#gid=293827940
+  projects:
+    fulcro examples project <url:file:///~/projects/study/clj/fulcro.otl#r=g12548>
+topics:
+  debug - fulcro id=g12453:
+    defsc defmutation vs nasıl debug edilir?:
+      a01. kodun içinde loglama yap: |
+        [Debugging thread macro -> or ->> in Clojure - Stack Overflow](https://stackoverflow.com/questions/52580430/debugging-thread-macro-or-in-clojure)
+        (defn debug [x]
+          (println x)
+          x)
+        (defn max-subseq-sum [coll]
+          (->> (take-while seq (iterate rest coll))
+               (debug)
+               (mapcat #(reductions conj [] %))
+               (apply max-key #(reduce + %))))
+    shadow inspect:
+      a01. shadow-cljs clj-repl: |
+        [Status Update - Inspect, cljs_eval - Projects / shadow-cljs - ClojureVerse](https://clojureverse.org/t/status-update-inspect-cljs-eval/6074)
+        npx create-cljs-project inspect-test
+        cd inspect-test
+        npx shadow-cljs clj-repl
+        (tap> shadow.cljs.devtools.server.runtime/instance-ref)
+    scope-capture: |
+      [(743) Easier REPL-based debugging with scope-capture - Valentin Waeselynck - YouTube](https://www.youtube.com/watch?v=dCInpNWlZ4k&t=146s)
+    macro-expand: _
+    dirac:
+      ref: <url:file:///~/projects/study/clj/clojure.otl#r=g12454>
+use cases:
+anki fulcro:
+  ref: |
+    ~/projects/study/clj/articles_fulcro.otl
+    https://docs.google.com/spreadsheets/d/1u4LuaWdBc_XeNSEDhhiJr4O2RGjLesZN/edit#gid=293827940
+      ~/projects/study/clj/anki_clojure_from_excel.tsv
+projects:
+  fulcro examples project id=g12548:
+    ref: |
+      /Users/mertnuhoglu/projects/study/clj/ex/fulcro/fulcro.iml
+      /Users/mertnuhoglu/projects/study/clj/ex/fulcro
+    run: |
+      npx shadow-cljs watch main
+      http://localhost:8000
+      app.client/init içinde çağrılan komponent Root component olur
+    debug: |
+      run > cljs
+        otomatik .shadow-cljs/nrepl.port ile nrepla bağlanır
+      (shadow/repl :main)
+      (js/alert "hi")
+  study_fulcro:
+    /Users/mertnuhoglu/projects/study/clj/ex/study_fulcro

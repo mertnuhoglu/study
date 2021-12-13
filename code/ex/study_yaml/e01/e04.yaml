@@ -1,0 +1,63 @@
+tools:
+	- [Json Yaml Converter](https://www.json2yaml.com/)
+ex:
+	- ~/projects/study/code/ex/study_yaml/e01/e01.yaml
+	- e02
+		- ref: 
+			- ~/projects/study/code/ex/study_yaml/e01/e02.yaml
+			- [YAML Tutorial: Everything You Need to Get Started in Minutes | Cloudbees Blog](https://www.cloudbees.com/blog/yaml-tutorial-everything-you-need-get-started)
+		- rules
+			- start new document: --- (three dashes)
+				- multiple documents allowed
+			- key-value pairs
+				- key: value
+			- data types:
+				- string
+					- can be quoted or not quoted
+					- double quotes: needed for escape sequences
+						- ex: "this \t \n"
+					- multiline: 
+						- `>` newline -> space
+							- ex: 
+								- bar: >
+									- this is 
+									- multiline without newlines
+						- `|` newline preserved
+							- ex:
+								- bar: |
+									- this is 
+									- multiline with newlines
+					- float, integer
+					- boolean
+						- True/False
+						- On/Off
+						- Yes/No
+			- array: 
+				- a01: `-`
+					- in multiple lines
+					- array elements start with dash `-`
+					- indented (no tabs)
+				- a02: [elem1, elem2]
+					- in single line
+			- map:
+				- a01: indented nested key-value pairs
+				- a02: { k1: v1, k2: v2 }
+			- comment: hash sign
+				- .# This is a full line comment
+			- null: `~` or `null`
+				- ex:
+					- foo: ~
+					- bar: null
+	- e03
+		- ref
+			- ~/projects/study/code/ex/study_yaml/e01/e03.yaml
+		- ex
+			- stuff:
+				- foo: bar
+				- bar: foo
+			- ->
+			- "stuff": {
+				- "foo": "bar",
+				- "bar": "foo"
+			- }
+

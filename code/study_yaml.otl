@@ -1,0 +1,98 @@
+
+tools
+	[Json Yaml Converter](https://www.json2yaml.com/)
+ex
+	~/projects/study/code/ex/study_yaml/e01/e01.yaml
+	e02
+		ref: 
+			~/projects/study/code/ex/study_yaml/e01/e02.yaml
+			[YAML Tutorial: Everything You Need to Get Started in Minutes | Cloudbees Blog](https://www.cloudbees.com/blog/yaml-tutorial-everything-you-need-get-started)
+		rules
+			start new document: --- (three dashes)
+				multiple documents allowed
+			key-value pairs
+				key: value
+			data types:
+				string
+					can be quoted or not quoted
+					double quotes: needed for escape sequences
+						ex: "this \t \n"
+					multiline: 
+						`>` newline -> space
+							ex: 
+								bar: >
+									this is 
+									multiline without newlines
+							ex: 
+								- >
+									this is 
+									multiline without newlines
+							ex: 
+								- this is 
+									multiline without newlines
+						`|` newline preserved
+							ex:
+								bar: |
+									this is 
+									multiline with newlines
+					float, integer
+					boolean
+						True/False
+						On/Off
+						Yes/No
+			array: 
+				a01: `-`
+					in multiple lines
+					array elements start with dash `-`
+					indented (no tabs)
+				a02: [elem1, elem2]
+					in single line
+			map:
+				a01: indented nested key-value pairs
+				a02: { k1: v1, k2: v2 }
+			comment: hash sign
+				.# This is a full line comment
+			null: `~` or `null`
+				ex:
+					foo: ~
+					bar: null
+	e03
+		ref
+			~/projects/study/code/ex/study_yaml/e01/e03.yaml
+		ex
+			stuff:
+				foo: bar
+				bar: foo
+			->
+			"stuff": {
+				"foo": "bar",
+				"bar": "foo"
+			}
+	e04: 
+		desc: otl dosyası yaml olarak
+		ref:
+			~/projects/study/code/ex/study_yaml/e01/e04.yaml
+	e05. implicit explicit complex keys id=g12577:
+		ref
+			[What is a complex mapping key in YAML? - Stack Overflow](https://stackoverflow.com/questions/33987316/what-is-a-complex-mapping-key-in-yaml)
+		ex: implicit keys
+			ref:
+				~/projects/study/code/ex/study_yaml/e01/e05a.yaml
+			mapping:
+				foo: 1
+				bar baz: 2
+				"qux:quux": 3
+		ex: explicit keys
+			ref:
+				~/projects/study/code/ex/study_yaml/e01/e05b.yaml
+			mapping:
+				? foo
+				: 1
+				? bar baz
+				: 2
+				? "qux:quux"
+				: 3
+		ex: explicit keys for all data types
+			ref:
+				~/projects/study/code/ex/study_yaml/e01/e05c.yaml
+

@@ -149,7 +149,97 @@ points
 			:hi TabLineSel ctermfg=Red ctermbg=Yellow
 			This line affects the window counter per tab:
 			:hi Title ctermfg=LightBlue ctermbg=Magenta
+neovim documentation
+	LSP lsp2 id=g12575
+		ref
+			[Neovim - Native LSP Setting Up Autocomplete and Language Servers - YouTube](https://www.youtube.com/watch?v=NXysez2vS4Q)
+		features
+			| gd | goto definition |
+			| gr | goto reference |
+			autocompletion
+			diagnostics:
+				error messages
+				| ^n/p | next/prev error |
+			code actions:
+				intentions
+				:LspCodeAction
+		neovim LSP id=g12576
+			ref
+				LSP lsp2 <url:file:///~/projects/study/otl/cvim.otl#r=g12575>
+				[Neovim - Native LSP Setting Up Autocomplete and Language Servers - YouTube](https://www.youtube.com/watch?v=NXysez2vS4Q)
+				~/projects/private_dotfiles/.config/nvim/lua/lsp.lua
+			nvim-lspconfig
+				clojure-lsp
+					ref
+						[clojure-lsp/clojure-lsp: Language Server (LSP) for Clojure](https://github.com/clojure-lsp/clojure-lsp)
+						~/.lsp/config.edn
+				check if lsp client has attached:
+					lua print(vim.inspect(vim.lsp.buf_get_clients()))
+				yaml
+					ref
+						[nvim-lspconfig/server_configurations.md at master · neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#yamlls)
+				bash
+					ref
+						[bash-lsp/bash-language-server: A language server for Bash](https://github.com/bash-lsp/bash-language-server)
+				lua
+					ref
+						[sumneko/lua-language-server: Lua Language Server coded by Lua](https://github.com/sumneko/lua-language-server)
+				sql
+					ref
+						[nanotee/sqls.nvim: Neovim plugin for sqls that leverages the built-in LSP client](https://github.com/nanotee/sqls.nvim)
+						[lighttiger2505/sqls: SQL language server written in Go.](https://github.com/lighttiger2505/sqls)
 plugins
+	packer.nvim  id=g12573
+		ref
+			[wbthomason/packer.nvim: A use-package inspired plugin manager for Neovim. Uses native packages, supports Luarocks dependencies, written in Lua, allows for expressive config](https://github.com/wbthomason/packer.nvim)
+		description: plugin manager
+			lua tabanlı
+			en iyisi diyorlar NeoVim 0.5+ için
+		how to use:
+			edit ~/.config/nvim/lua/plugins.lua
+			:PackerCompile
+			:PackerInstall
+			:PackerUpdate
+	telescope id=g12561
+		shortcuts
+			ref: https://github.com/nvim-telescope/telescope.nvim#default-mappings
+			^/ | help menu (insert mode)
+			esc | normal mode
+			? | help menu (normal mode)
+			^d ^u	| scroll dn/up in preview
+		file_browser
+			telescope > file_browser
+			description: klasörler ve dosyalar arasında dolaşmayı sağlar
+		vim-bookmarks
+			ref
+				vim-bookmarks <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12560>
+				[MattesGroeger/vim-bookmarks: Vim bookmark plugin](https://github.com/MattesGroeger/vim-bookmarks)
+		telescope-vim-bookmarks id=g12563
+			ref
+				vim-bookmarks <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12560>
+				[tom-anders/telescope-vim-bookmarks.nvim: Integrates vim-bookmarks into telescope.nvim](https://github.com/tom-anders/telescope-vim-bookmarks.nvim)
+		telescope-zoxide id=g12564
+			ref
+				zoxide settings: <url:file:///~/projects/private_dotfiles/.config/nvim/lua/mytelescope.lua#r=g12565>
+				[jvgrootveld/telescope-zoxide: An extension for telescope.nvim that allows you operate zoxide within Neovim.](https://github.com/jvgrootveld/telescope-zoxide)
+			shortcuts
+				^s	open directory
+				^q	split directory
+		telescope-fzf-native id=g12566
+			ref
+				fzf-native settings: <url:file:///~/projects/private_dotfiles/.config/nvim/lua/mytelescope.lua#r=g12567>
+				[nvim-telescope/telescope-fzf-native.nvim: FZF sorter for telescope written in c](https://github.com/nvim-telescope/telescope-fzf-native.nvim)
+			description:
+				fzf sentaksını kullanmana izin verir
+				$: end of line
+				': exact match
+				etc.
+		telescope-repo
+			ref
+				[cljoly/telescope-repo.nvim: 🦘 Jump into the repositories (git, mercurial…) of your filesystem with telescope.nvim, without any setup](https://github.com/cljoly/telescope-repo.nvim)
+		neoclip id=g12571
+			ref
+				neoclip settings <url:file:///~/projects/private_dotfiles/.config/nvim/lua/mytelescope.lua#r=g12570>
 	vinegar
 		bookmarking a directory
 			mb        mark bookmark

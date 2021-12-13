@@ -183,12 +183,35 @@ Grokking Clojure transducers  id=g12467
 		sequence
 		eduction
 	The real value of transducers is not performance, but rather that non-standard data representations like core.async channels can use clojure.core directly rather than having to define their own map, filter, and so on.
-
-
-
-
-
-
-
-
-
+Programming to abstractions with sequence functions  id=g12556
+	[Programming to abstractions with sequence functions | Joep Schuurkes](https://j19sch.github.io/blog/clojure/2021/clj7-programming-to-abstractions-with-sequence-functions/)
+	map
+		ex: multiple sequences
+			(map str [1 2 3] [6 7 8 9])
+			; => ("16" "27" "38")
+		ex: multiple functions
+			(map #(str %) [1 2 3])
+			; => ("1" "2" "3")
+	Implementing map, filter and some using reduce
+		map using reduce
+			(defn my-map [func inp]
+			(reduce (fn [vect number]
+								(concat vect [(func number)]))
+								()
+								inp)
+			)
+			(my-map inc [1 2 3])
+			; => (2 3 4)
+			(my-map dec [4 5 6])
+			; => (3 4 5)
+		filter using reduce
+			(defn my-simple-filter [inp]
+				(reduce (fn [vect numb]
+									(if (< numb 4)
+										(concat vect [numb])
+										vect))
+								()
+								inp)
+				)
+			(my-simple-filter [1 2 3 4 5])
+			=> (1 2 3)

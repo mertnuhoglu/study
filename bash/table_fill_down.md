@@ -20,6 +20,16 @@ resource_files:
 
 # Table Text Processing: Fill Down 20200927  id=g11617
 
+## Best: Fill down = outline tree to linear tree id=g12547
+
+script: `~/projects/study/bash/ex/table_fill_down/fill_down/awk04a.sh`
+
+input: `/Users/mertnuhoglu/projects/study/bash/ex/table_fill_down/fill_down/input04.tsv
+`
+
+output: `/Users/mertnuhoglu/projects/study/bash/ex/table_fill_down/fill_down/input04a2.tsv
+`
+
 ## opt01: awk for fixed width
 
 [awk to Fill Empty Column value with Previous Non-Empty Column value: - Stack Overflow](https://stackoverflow.com/questions/25182580/awk-to-fill-empty-column-value-with-previous-non-empty-column-value)

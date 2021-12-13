@@ -25,6 +25,9 @@
 		dictionary lookup in spotlight id=g11938
 			<word> def
 				shows the dictionary definition on top
+	bugs
+		keyboard stops responding - klavye donması
+			bilgisayarı kapatma tuşuna basarak, logoff ve login ol düzeliyor.
 
 ## System
 

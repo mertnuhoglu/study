@@ -17,14 +17,21 @@ state: wip
 
 # quickstart cursive id=g11816
 
-    | ^^ repl | run anything: repl             |
-    | !u j    | clojure popup menu             |
-    | !e b    | load file in repl              | ,eb |
-    | !e d    | send top form to repl          | ,ed |
-    | !e e    | send form before caret to repl | ,ee |
-    | !r n    | switch repl ns to current file | ,en |
-    | !r b    | jump to repl editor            | ,rb |
-    | #enter  | repl: submit command           |
+    | ^^ repl  | run anything: repl             |
+    | #e       | actions command bar            |
+    | !u/ç     | popup menu prefix              |
+    | !up/çp   | popup menus                    |
+    | !uj      | clojure popup menu             |
+    | !uç/çç   | popup general menu             |
+    | !un/çn   | popup next menu                |
+    | !ue/çe   | popup structural editing menu  |
+    | !u SPC   | popup move menu                |
+    | !eb      | load file in repl              | ,eb |
+    | !ed      | send top form to repl          | ,ed |
+    | !ee      | send form before caret to repl | ,ee |
+    | !rn      | switch repl ns to current file | ,en |
+    | !rb      | jump to repl editor            | ,rb |
+    | #enter   | repl: submit command           |
     | !++enter | repl: submit command           |
 
 # Index cursive id=g11817

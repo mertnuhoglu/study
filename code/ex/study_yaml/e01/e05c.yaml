@@ -1,0 +1,31 @@
+---
+complex_keys:
+  # Use a sequence as a key
+  ? - foo
+    - bar
+  : 1
+  # Use a mapping as a key
+  ? baz: qux
+  : 2
+  # You can skip the value, which implies `null`
+  ? quux
+  # You can leave the key blank, which implies a `null` key
+  ?
+  : 3
+  # You can even skip both the key and value, so both will be `null`
+  ?
+  # Or you can use a preposterously long scalar as a key
+  ? |
+    We the People of the United States, in Order to form a more
+    perfect Union, establish Justice, insure domestic Tranquility,
+    provide for the common defence, promote the general Welfare,
+    and secure the Blessings of Liberty to ourselves and our
+    Posterity, do ordain and establish this Constitution for the
+    United States of America.
+  : 3
+  # Or just be ridiculous
+  ? - foo: bar
+      baz:
+      - { qux: quux }
+    - stahp
+  : 4

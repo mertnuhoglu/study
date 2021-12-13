@@ -1,0 +1,19 @@
+
+	problems
+		extract url from hyperlink
+			[Excel: convert a column with hyperlinks to just display the links - Super User](https://superuser.com/questions/430260/excel-convert-a-column-with-hyperlinks-to-just-display-the-links)
+			01: VBA > Insert Module > .copy paste function
+			02: Use function in Excel
+			Public Function GetURL(c As Range) As String
+				On Error Resume Next
+				GetURL = c.Hyperlinks(1).Address
+			End Function
+			problem: hotech
+				multi step
+					=geturl(F25)
+					=geturl2(F25)
+					=IF(ISBLANK(H25),"",CONCAT("#",H25))
+					=CONCAT(G25,I25)
+				single step
+					=CONCAT(geturl(F25),IF(ISBLANK(geturl2(F25)),"",CONCAT("#",geturl2(F25))))
+

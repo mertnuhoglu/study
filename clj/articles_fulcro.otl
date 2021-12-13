@@ -1,3 +1,5 @@
+index
+	Minimalist Fulcro Tutorial <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g12367>
 @questions - fulcro id=g12397
 	Bir defsc fonksiyonunu nasıl REPL ile test edebilirim çıktısının ne olacağını görmek için?
 Referenced Articles:
@@ -1263,5 +1265,7 @@ Project: glam id=g12411
 			(require '[shadow.cljs.devtools.api :as shadow])
 			(shadow/repl :main)
 Fulcro Videos
+	ref
+		[flc videos 20211010](simplenote://note/4d87be325ce544ad820282eeee964bda)
 	Part 12 Subforms
 

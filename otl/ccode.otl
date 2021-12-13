@@ -6,8 +6,25 @@ index
 	bash <url:file:///~/projects/study/otl/ccode.otl#r=g11687>
 	awk <url:file:///~/projects/study/otl/ccode.otl#r=g11686>
 	regex ~/projects/study/otl/cregex.otl
+	~/projects/study/otl/cbooks.otl
 issues
-	Print documents with syntax coloring in vim
+	convert tree/outline to excel/flat table:
+		Fill down = outline tree to linear tree <url:file:///~/projects/study/bash/table_fill_down.md#r=g12547>
+		nxt
+			[Representing and Editing JSON with Spreadsheets | by Don Hopkins | Medium](https://donhopkins.medium.com/representing-and-editing-json-with-spreadsheets-8f8832db5239)
+	Cheatsheet hazırlama id=g12546
+		ref
+			https://github.com/jsvine/visidata-cheat-sheet
+		a01: visidata projesini şablon olarak kullan
+			cd /Users/mertnuhoglu/codes/python/visidata-cheat-sheet
+			edit ~/codes/python/visidata-cheat-sheet/input/cheat-sheet.yaml
+			make html
+			chromium tmp.html
+			print > pdf
+		a02: latex kullan
+			https://github.com/readevalprintlove/clojurescript-cheatsheet/blob/master/cljs-cheatsheet.tex
+			bu tex dosyasını overleaf ile düzenle ve pdf oluştur
+	Print documents with syntax coloring in vim id=g12550
 		source code:
 			ref: :TOhtml <url:file:///~/projects/study/otl/cvim.otl#r=g11899>
 		markdown docs:
@@ -33,7 +50,7 @@ stuff
 	shaape
 		examples
 			- "inner[12]": {fill:[[0.3, 0.6, 0.6], flat], frame:[[0, 0, 0], dashed, 1], text:[[0, 0, 0,]]}
-				fill: flat
+				fill: flat                                                                                          
 					no gradient
 				inner[12]
 					matches: inner1, inner2
@@ -104,14 +121,14 @@ browsers
 			view even listeners
 				getEventListeners(document)
 				registered on dom elements
-					<url:file:///.select dom > event listeners>
+					.select dom > event listeners
 		display console as drawer
-			Esc
-			menu > Show Console
+			Esc > menu > Show Console
 	vivaldi
-		shortcuts
+		shortcuts id=g12572
 			| 4| previous tab |
 			| 3 | next tab |
+			| Move Active Tab Forward/Backward | #+dn/up|
 		quick commands
 			https://help.vivaldi.com/article/quick-commands/
 				#e f2
@@ -6391,6 +6408,8 @@ tools
 		examples
 			vd https://en.wikipedia.org/wiki/ISO_3166-1
 				scrapes data in html web pages 
+		shortcuts id=g12574
+			v | multiline mode
 	vlc
 			subscribe to podcast
 				window > playlist > podcasts > subscribe

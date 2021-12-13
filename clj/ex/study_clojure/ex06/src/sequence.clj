@@ -75,7 +75,7 @@
 ;;=> (2 3)
 
 (cons 4 aseq)
-;;=> (2 3)
+;;=> (1 2 3 4)
 
 ;; next = seq rest
 (next aseq)
