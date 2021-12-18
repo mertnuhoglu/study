@@ -1076,6 +1076,9 @@ articles-books
 					definition:
 						function myplugin#somefile#Hello()
 all
+	error: after vim substitution message appears: disable press enter or type command
+		fix: put <cr><esc> twice at the end of nnoremap
+		ex: nnoremap ükm :ConvertLine2YamlKeyMultiline<cr><esc>
 	error: indent kendi kendine bozuluyor otl dosyalarında
 		solution
 			https://vi.stackexchange.com/questions/11023/auto-indent-turns-off-itself-automatically-on-php-files

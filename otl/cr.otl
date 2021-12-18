@@ -1770,6 +1770,7 @@ cookbook
 			tercih
 			doğrudan df olarak döndürüyor
 		jsonlite örnek
+			jsonlite::toJSON(obj)
 			result = jsonlite::fromJSON("data/input/postman_20160719.json")
 			jsonlite::fromJSON("data/arcgis/aws.json", simplifyDataFrame = T)
 				df üretir, bazen

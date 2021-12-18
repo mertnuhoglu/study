@@ -56,7 +56,7 @@ evl = tibble::tribble(
 
 Here are the test data:
 
-``` {r}
+```{r}
 den = tibble::tribble(
   ~data_entity_id,               ~entity_name,
                7L,               "enum_value",
@@ -114,7 +114,7 @@ lapply( entities, rdb_to_data, data_entities, dfl, den)
 
 Note that, these statements access file system. In this Rmd file, I don't want to import data from file system. Instead I will initialize `data_entities` from sample dataframes:
 
-``` {r}
+```{r}
 entities = c("enum_var", "enum_value")
 data_entities = list( enum_var = evr, enum_value = evl )
 data_entities
@@ -122,7 +122,7 @@ data_entities
 
 Step by step, data flow inside `rdb_to_data()` is as follows:
 
-``` {r}
+```{r}
 entity = "enum_var"
 dflf = dfl %>%
   dplyr::left_join(den, by = "data_entity_id") %>%
@@ -137,7 +137,7 @@ So, we get meta data from `dfl` which stores all data fields for each entity (ta
 
 Now, let's implement `build_sql()`
 
-``` {r}
+```{r}
 insert_sql_template = function( entity, columns ) {
 	template = "INSERT INTO %s (%s) VALUES (%s);"
 	column_names = columns %>% paste(collapse=",")
@@ -165,7 +165,7 @@ sql
 
 `sql_insert()` function converts data contained in a `data_frame` into `SQL INSERT` statements.
 
-``` {r}
+```{r}
 build_sql = function(df, entity) {
 	sql = sql_insert( df, entity )
   return(list(
@@ -178,7 +178,7 @@ I put `sql_insert` inside `build_sql` function because later I will also create 
 
 So, let's update definition of `rdb_to_data()` with this `build_sql()` and run the program again:
 
-``` {r}
+```{r}
 rdb_to_data = function(entity, data_entities, dfl, den) {
   dflf = dfl %>%
     dplyr::left_join(den, by = "data_entity_id") %>%
@@ -195,7 +195,7 @@ Now, we can define functions that will generate `SQL UPDATE` and `SQL DELETE` co
 
 Let's add `SQL UPDATE` and `SQL DELETE` statements into `build_sql()` function:
 
-``` {r}
+```{r}
 delete_sql = function( df, template ) {
 	arg = c( list(template), as.list(df) )
 	do.call( 'sprintf', arg ) 
@@ -234,7 +234,7 @@ sql_update = function(df, entity) {
 
 Now, let's update `build_sql` with `sql_update`, `sql_delete`:
 
-``` {r}
+```{r}
 build_sql = function(df, entity, id_column, den) {
   df_id_at_end = df %>%
 		dplyr::select( -dplyr::one_of(id_column), dplyr::everything(), id_column )
@@ -302,14 +302,14 @@ sql = sql_insert( df, entity )
 
 `insert_sql_template()` function returns a template string:
 
-``` {r}
+```{r}
 template_df = dplyr::data_frame( entity = entity, insert_template = insert_sql_template(entity, names(df) ))
 template_df
 ```
 
 This template string is filled with the data in `df`. 
 
-``` {r}
+```{r}
 df
 ```
 

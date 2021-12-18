@@ -13,7 +13,7 @@
 (defonce app (app/fulcro-app))
 
 (comment
-  (in-ns 'app.app0)
+  (in-ns 'app.app00)
   (app/mount! app Sample "app")
   ; check web page:
 

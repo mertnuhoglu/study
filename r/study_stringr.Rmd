@@ -5,6 +5,7 @@ output:
   html_document: default
     toc: true
     toc_float: true
+
 ---
 
 ```{r load_packages, include=FALSE}
@@ -14,11 +15,11 @@ output:
 
 ## sed s: str_replace str_replace_all
 
-``` bash
+```{r}
 str_replace(string, pattern, replacement)
 ``` 
 
-``` r
+```{r}
 library(stringr)
 fruits <- c("one apple", "two pears", "three bananas")
 str_replace(fruits, "[aeiou]", "-")
@@ -33,12 +34,12 @@ str_replace_all(fruits, "b", NA_character_)
 
 ### str_match
 
-``` bash
+```{r}
 str_match(string, pattern)
 str_match_all(string, pattern)
 ``` 
 
-``` r
+```{r}
 library(stringr)
 strings = c(" 219 733 8965", "329-293-8753 ", "banana")
 pattern <- "([2-9][0-9]{2})[- .]([0-9]{3})[- .]([0-9]{4})"
@@ -62,14 +63,14 @@ https://stringr.tidyverse.org/reference/str_subset.html
  
 `str_subset()` is a wrapper around `x[str_detect(x, pattern)]`, and is equivalent to `grep(pattern, x, value = TRUE)`. `str_which()` is a wrapper around `which(str_detect(x, pattern))`, and is equivalent to `grep(pattern, x)`. See `str_detect()` for an equivalent to `grepl(pattern, x)`.
 
-``` r
+```{r}
 	str_subset(string, pattern, negate = FALSE)
 	str_which(string, pattern, negate = FALSE)
 ``` 
 
 ### Examples
 
-``` r
+```{r}
 fruit <- c("apple", "banana", "pear", "pinapple")
 str_subset(fruit, "a")
   #> [1] "apple"    "banana"   "pear"     "pinapple"
@@ -101,7 +102,7 @@ Equivalent to `grepl(pattern, x)`. See `str_which()` for an equivalent to `grep(
 
 ### Examples
 
-``` r
+```{r}
 fruit <- c("apple", "banana", "pear", "pinapple")
 
 str_detect(fruit, "a")

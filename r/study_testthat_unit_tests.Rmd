@@ -35,13 +35,13 @@ http://r-pkgs.had.co.nz/tests.html
 
 First create a project
 
-``` r
+```{r}
 library(usethis)
 
 create_package("ex02")
 ``` 
 
-``` r
+```{r}
 usethis::use_testthat()
 usethis::use_test("test01")
   ##> ~/projects/study/r/ex/study_testthat_unit_tests/ex02/tests/testthat/test-test01.R
@@ -49,7 +49,7 @@ usethis::use_test("test01")
 
 Run tests
 
-``` r
+```{r}
 devtools::test()
 ``` 
 
@@ -62,7 +62,7 @@ cd ~/projects/study/r/ex/study_testthat_unit_tests
 R
 ``` 
 
-``` r
+```{r}
 library(usethis)
 
 create_package("art03")
@@ -72,7 +72,7 @@ use_package("shiny")
 
 Edit `~/projects/study/r/ex/study_testthat_unit_tests/art03/R/app.R`
 
-``` r
+```{r}
 source("R/app.R")
 app = shiny::shinyApp(ui, server)
 runApp(app)
@@ -87,13 +87,13 @@ cd ~/projects/study/r/ex/study_testthat_unit_tests
 R
 ``` 
 
-``` r
+```{r}
 library(usethis)
 
 create_package("ex03")
 ``` 
 
-``` r
+```{r}
 usethis::use_testthat()
 usethis::use_test("test01")
   ##> ~/projects/study/r/ex/study_testthat_unit_tests/ex03/tests/testthat/test-test01.R
@@ -101,7 +101,7 @@ usethis::use_test("test01")
 
 Edit `~/projects/study/r/ex/study_testthat_unit_tests/ex03/R/funs.R`
 
-``` r
+```{r}
 ex03_fun = function() {
 	print("hello")
 }
@@ -109,7 +109,7 @@ ex03_fun = function() {
 
 Edit `~/projects/study/r/ex/study_testthat_unit_tests/ex03/tests/testthat/test-test01.R`
 
-``` r
+```{r}
 test_that("can use library functions", {
 	ex03_fun()
   expect_equal(1, 1)
@@ -118,7 +118,7 @@ test_that("can use library functions", {
 
 Run tests
 
-``` r
+```{r}
 devtools::test()
 ``` 
 
