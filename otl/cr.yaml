@@ -109,7 +109,7 @@ cookbook:
         assert_that( all_unique(df$data_field_id) )
     compare:
       ref: ~/projects/study/r/study_compare.Rmd
-      base R:
+      base R: >
         identical
         all.equal
     console:
@@ -192,6 +192,9 @@ cookbook:
       df[,j]   # column j
       tail(df, 1)
         Last row
+      m[4, 2]
+      m[3, ] # row
+      m[ , 2] # col
     columns: >
       cols = names(df) %in% c("q3", "q4")
       df = df[!cols] # remove
@@ -254,10 +257,6 @@ cookbook:
         opt2: >
           l2 = setNames( replicate(2,NA, simplify = F), c('a', 'b'))
           df = as_data_frame(l2)
-    access row col: >
-      m[4, 2]
-      m[3, ] # row
-      m[ , 2] # col
     growing cbind rbind: >
       m = cbind(m1, m2) # column bind
       rbind(df1, df2)
@@ -289,7 +288,7 @@ cookbook:
         opt5:- if_else: >
           mutate(smoke, cigarettes = if_else(is_smoker, cigarettes, 0L, 0L))
     tibble2:
-      ref: [Simple Data Frames • tibble](https://tibble.tidyverse.org/)
+      ref: "[Simple Data Frames • tibble](https://tibble.tidyverse.org/)"
       opt01:- tablo gibi oluşturma:- tribble: >
         tribble(
           ~x, ~y,  ~z,

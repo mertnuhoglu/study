@@ -16,6 +16,11 @@ vim regex id=g12543
 			\@<!
 			Ex:
 				\(mi \)\@<=casa matches “casa” if preceded by “mi ”. So it matches only the first “casa” in mi casa es su casa.
+				\(, \)\@<=[^]]*
+					input:
+						operators:- [info, operators]
+					match:
+						operators:- [info, ^operators]
 	multiline newline match
 		\_. match any single char including newline
 			:h /\_.

@@ -1,6 +1,16 @@
-_ id=r_lastid cvim_002
 
+kendi kullanım yöntemlerim
+	otl-yaml:
+		otl yaml dokümanlarındaki bilgileri etkili dolaşma (navigasyon)  <url:file:///~/projects/study/otl/cvim.otl#r=g12603>
+		convert:- otl to yaml: <url:file:///~/projects/myrepo/otl/notesme.otl#r=g12590>
+		normalize yaml tree: <url:file:///~/projects/myrepo/otl/notesme.otl#r=g12588>
 points
+	otl yaml dokümanlarındaki bilgileri etkili dolaşma (navigasyon)  id=g12603
+		ref
+			folding and navigation settings <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12604>
+		zj zk: maddeler arasında dolaşma
+		zJ zK: diğer maddeleri kapatarak dolaşma
+		zi ze: diğer maddeleri kapatarak dolaşma
 	indent reformat lines
 		== current line
 		=4j
@@ -79,7 +89,6 @@ points
 			ex
 				hi! Important ctermbg=red guibg=red
 				match Important /!Important!/
-			ex
 			ex: see active highlight-groups
 				:so $VIMRUNTIME/syntax/hitest.vim
 			ex: add to existing groups
@@ -189,6 +198,14 @@ neovim documentation
 						[nanotee/sqls.nvim: Neovim plugin for sqls that leverages the built-in LSP client](https://github.com/nanotee/sqls.nvim)
 						[lighttiger2505/sqls: SQL language server written in Go.](https://github.com/lighttiger2505/sqls)
 plugins
+	lsp plugins
+		lspkind-nvim
+			ref
+				[Autocomplete with nvim-cmp - Neovim Lua From Scratch #9 - YouTube](https://www.youtube.com/watch?v=5lPA8LpMytI)
+			autocomplete popup listesinde Text, Property vs yanında sembol gösterimi
+	lualine.vim id=g12598
+		ref
+			~/projects/private_dotfiles/.config/nvim/lua/statusline.lua
 	packer.nvim  id=g12573
 		ref
 			[wbthomason/packer.nvim: A use-package inspired plugin manager for Neovim. Uses native packages, supports Luarocks dependencies, written in Lua, allows for expressive config](https://github.com/wbthomason/packer.nvim)
@@ -802,6 +819,16 @@ viml vimscript id=g10491
 	refcard - komut listesi
 		expand
 			let word = expand('<cword>')
+		foldclosed:
+			ref: <vimhelp:foldclosed()>
+			dsc: is fold closed
+			kd:
+				:echo foldclosed(415)
+		line:
+			ref: <vimhelp:line()>
+			dsc: get current line number
+			kd: 
+				:echo line(".") + 1
 		getline
 			let lines = getline(lnum1, lnum2)
 		getpos
@@ -818,6 +845,9 @@ viml vimscript id=g10491
 			let date = strftime("%Y%m%d")
 		substitute
 			let url = substitute(url, ">\s*", "", "")
+	check if line is folded: foldclosed()
+		<vimhelp:foldclosed>
+		echo foldclosed(811)
 	visual range to a command as its argument
 		https://vi.stackexchange.com/questions/11025/passing-visual-range-to-a-command-as-its-argument
 			function! PrintGivenRange() range
@@ -1027,6 +1057,9 @@ vim documentation
 			:PlugUpdate
 				install/update plugins
 my keybindings
+	lsp kısayollarım id=g12595
+		ref
+			which-key lsp_map: SPC ü l  <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12593>
 	c commands
 		mnemonics
 			c = command
@@ -1076,7 +1109,73 @@ articles-books
 					definition:
 						function myplugin#somefile#Hello()
 all
-	error: after vim substitution message appears: disable press enter or type command
+	indent settings
+		ref:
+			settings {{{ <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12607>
+			error: vim bazen 6 space ile indent ediyor bazen 2  <url:file:///~/projects/study/otl/cvim.otl#r=g12606>
+	error: vim bazen 6 space ile indent ediyor bazen 2  id=g12606
+		ref
+			Add indentation three times for a line that starts with '\' or '"\ ' <url:/usr/local/Cellar/neovim/0.6.0/share/nvim/runtime/indent/vim.vim#tn=Add it three times for a line that starts with >
+		durum:
+			`=` ile autoindent edince bazen 6 bazen 2 space indent ediliyor
+		sebep:
+			indent/vim.vim dosyasında GetVimIndent() fonksiyonu autoindent koşullarında indent miktarına karar veriyor
+			`{` ve `\` gibi karakterlerle başlayan satırlarda shiftwidth * 3 misli indent yapılıyor otomatik olarak
+		[How to Use Auto-indent in Vim](https://linuxhint.com/use-auto-indent-in-vim/)
+			a01: 
+				set autoindent
+			a02: persistent setting
+				filetype plugin indent on
+			neovim vim ile aynı config klasörünü mü kullanıyor?
+		[vim - Setting autoindentation to spaces in neovim? - Stack Overflow](https://stackoverflow.com/questions/51995128/setting-autoindentation-to-spaces-in-neovim/51995699)
+			:help tabstop
+			:help softtabstop
+			:help shiftwidth
+			tabstop: width for tab
+			softtabstop: 0 -> same as tabstop
+			shiftwidth: width for >>: 0 -> same as tabstop
+			:help expandtab
+			expandtab: use space chars for indentation
+	settings folders id=g12605
+		neovim:
+			/usr/local/Cellar/neovim/0.6.0/share/nvim/runtime/indent/vim.vim
+	vimscript fonksiyonları örnekleri ve dokümantasyonu: <vimhelp:eval.txt> id=g12602
+	filetype: neden vim dosyalarını conf olarak algılıyor? id=g12601
+		sebep:
+			vim's modeline feature:
+			" vim:fileencoding=utf-8:ft=conf:foldmethod=marker
+		fix:
+			" vim:fileencoding=utf-8:ft=vim:foldmethod=marker
+	Neovim LSP Diagnostics In Your Statusline id=g12599
+		ref
+			[Neovim LSP Diagnostics In Your Statusline 🦀 ⚙ - YouTube](https://www.youtube.com/watch?v=hPMKLXZIe-s)
+			~/projects/private_dotfiles/.config/nvim/lua/statusline.lua
+		vim.lsp.diagnostic.get_count(0, [[Hint]])
+	diagnosticleri location liste ekleme id=g12597
+		ref
+			Diagnostic mesajlarını location liste ekleme <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12596>
+	error: lsp codeAction is not supported by any of the servers id=g12594
+		[(3) nvim-lspconfig error 'method textDocument/codeAction is not supported' : neovim](https://www.reddit.com/r/neovim/comments/qhh4qr/nvimlspconfig_error_method_textdocumentcodeaction/)
+		debug:
+			:autocmd CursorHold
+			out:
+				CursorHold
+				*         lua PrintDiagnostics()
+									lua vim.diagnostic.open_float(nil, {focus=false})
+									lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})
+									lua require('code_action_utils').code_action_listener()
+			lokasyon:
+				~/projects/private_dotfiles/.config/nvim/lua/code_action_utils.lua
+	quickfix list vs location list farkı id=g12592
+		ref
+			[What is the difference between location list and quickfix list in vim - Stack Overflow](https://stackoverflow.com/questions/20933836/what-is-the-difference-between-location-list-and-quickfix-list-in-vim)
+		location list: local to the window
+		quickfix list: global list for all windows
+	regex aramalarında / karakterini escapeleme: id=g12589
+		a01: SearchNoEscape
+			<space>üks
+		a02: use ? instead of /
+	error: after vim substitution message appears: disable press enter or type command id=g12584
 		fix: put <cr><esc> twice at the end of nnoremap
 		ex: nnoremap ükm :ConvertLine2YamlKeyMultiline<cr><esc>
 	error: indent kendi kendine bozuluyor otl dosyalarında
