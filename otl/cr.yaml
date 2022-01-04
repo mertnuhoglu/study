@@ -53,6 +53,7 @@ cookbook:
     apply/lapply datatable columns: [info, apply/lapply datatable columns]
     apply/for loop functionals:- lapply/sapply/vapply/mapply: [info, apply/for loop functionals:- lapply/sapply/vapply/mapply]
     apply/lapply variants lapply2: [info, apply/lapply variants lapply2]
+    apply/apply() function: [info, apply/apply() function]
   convert data:- text yaml list df vector factor flatten:
     ref: ~/projects/study/r/rfc_convert_data.md
     convert_data/text -> yaml -> list -> dataframe: [info, convert_data/text -> yaml -> list -> dataframe]
@@ -196,6 +197,7 @@ cookbook:
     rep/ex03: [info, rep/ex03]
     rep/ex04: [info, rep/ex04]
     rep/ex05: [info, rep/ex05]
+    rep/ex06: [info, rep/ex06]
   reproducible:- reprex datapasta:
     reproducible/reprex:- reproducible example codes: [info, reproducible/reprex:- reproducible example codes]
     reproducible/datapasta: [info, reproducible/datapasta]
@@ -257,6 +259,13 @@ cookbook:
     plumber/ex01:- basic service: [info, plumber/ex01:- basic service]
     plumber/ex02:- service with argument: [info, plumber/ex02:- service with argument]
     plumber/ex04:- file upload service: [info, plumber/ex04:- file upload service]
+function documentation:
+  doc/rep:
+    rep vs replicate: [info, rep vs replicate]
+  doc/lapply:
+    apply/lapply() function: [info, apply/lapply() function]
+  doc/apply:
+    apply/apply() function: [info, apply/apply() function]
 bookmarks:
   bookmark/tools:
     bookmark/presentation library: [info, bookmark/presentation library]
@@ -285,6 +294,126 @@ index_rmd for r  id=g10652:
     - ~/projects/study/r/yuml_to_rdb.Rmd
     - ~/projects/study/r/yuml_to_rdb2.Rmd
 info:
+  apply/cases for lapply, map:
+    we need to loop over this function:
+      find_correct_tag = function(fn, revenue, xdca) {..}
+    opt1:- make xdca global: >
+      ct = Map(find_correct_tag, vxtf$filename, vxtf$revenue) %>%
+        rbindlist
+    opt2:- partial find_correct_tag: >
+      fun1 = partial(find_correct_tag, xdca = xdca)
+      ct = Map(fun1, vxtf$filename, vxtf$revenue) %>%
+        rbindlist
+    opt3:- use seq_along in lapply: >
+      ct = lapply(seq_along(vxtf$filename), 
+        function(i, vxtf, xdca) 
+          find_correct_tag(vxtf[i]$filename, vxtf[i]$revenue, xdca)
+        , vxtf, xdca
+      ) %>%
+        rbindlist
+  apply/lapply over names: >
+    example_apply_with_names = function() {
+      ls = list( a = 3, b = 5 )
+      # opt1 
+      for (n in names(ls)) {
+        print(ls[[n]] + 1)
+      } 
+      # opt2 
+      lapply( seq_along(ls), function(i, ns, ls) {
+          ls[[ns[i]]] + 1
+        }, names(ls), ls)
+      # opt4
+      mapn(ls, function(elem, name) {
+           print(elem + 1)
+           print(name)
+        })
+    }
+  apply/lapply() function:
+    apply.lapply/ex01: [info, apply.lapply/ex01]
+  apply.lapply/ex01:
+    ref: apply.lapply/ex01 <url:file:///~/projects/study/r/examples_r.Rmd#r=g12618>
+    kd: >
+      m01 <- list(t01, t02, t03)
+      lapply(m01, "[", , 2) # 2. col of each element
+      lapply(m01, "[", 1, ) # 1. row of each element
+  apply/apply() function:
+    nrm: apply(X, MARGIN, FUN, ...)
+    ref: >
+      [R tutorial on the Apply family of functions - DataCamp](https://www.datacamp.com/community/tutorials/r-tutorial-apply-family)
+    MARGIN: when MARGIN=1, it applies over rows, whereas with MARGIN=2, it works over columns. MARGIN=c(1,2), it applies to both rows and columns
+    ex01: >
+      apply(X, 2, sum)
+      apply the function ‘sum’ to the matrix X along margin 2 (by column), summing up the values of each column
+    apply/ex02: [info, apply/ex02]
+  apply/ex02:
+    ref: apply/ex02 <url:file:///~/projects/study/r/examples_r.Rmd#r=g12615>
+    kd: >
+      X <- matrix(c(1,2,3,4,5,6), nrow=2, ncol=3)
+      apply(X, 2, sum)
+      ##> [1]  3  7 11
+  apply/lapply datatable columns:
+    lapply(data, function(x) sprintf(t, x))
+  apply/for loop functionals:- lapply/sapply/vapply/mapply:
+    lapply for lists:
+      for rows of data frames:- use apply
+    lapply(l, f): >
+      apply f to each element of list
+      return:- list as l
+    aggregating l elements with f: >
+      lapply(l, f) %>% unlist # ==
+      sapply(l, f)
+      replicate(n, expr, simplify = "array")
+        wrapper for sapply
+      simplify
+        result simplifed to vector, matrix, array?
+      simplify = F, value:- list
+    Map: >
+      lapply:- one argument varies
+      Map:- multiple args
+        Map(f, list1, list2)
+      mtmeans <- lapply(mtcars, mean) 
+      mtmeans[] <- Map(`/`, mtcars, mtmeans) # ==
+      mtcars[] <- lapply(mtcars, function(x) x / mean(x))
+    mapply:
+      ftr: variant of Map
+      apply/do.call vs. lapply: [info, apply/do.call vs. lapply]
+  apply/lapply variants lapply2:
+    lapply and bind_rows:
+      dlist %>% lapply(as_data_frame) %>% bind_rows()
+    apply/ldfapply:- list of dataframe: [info, ldfapply:- list of dataframe]
+  apply/do.call vs. lapply:
+    do.call(fun, args):
+      fun(args)
+    lapply(args, fun): >
+      args passed to fun one by one
+      fun(args[[1]])
+    sprintf:
+      works: >
+        do.call( 'sprintf', list( fmt = t, data[,1], data[,2] ) ) # works
+        arg = c( list(t), as.list(data) )
+        do.call( 'sprintf', arg ) # works
+      not works:
+        do.call( 'sprintf', t, data )
+        do.call( 'sprintf', t, list(data[,1], data[,2]) )
+        sprintf( t, list(data[,1], data[,2]) )
+        do.call( 'sprintf', list( fmt = t, data ) )
+  apply/ldfapply:- list of dataframe:
+    a01: >
+      # v0:- lapply
+      lapply( seq_along(ldf), function( i, ldf ) {
+          sheet = names(ldf)[i]
+          print(sheet)
+          text = unlist( ldf[i] )
+          writeLines( text, paste0( "../rdm/auto_dm_", sheet, ".md" ) )
+        }, ldf
+      )
+    a02: >
+      # v1:- ldfapply
+      ldfapply( ldf, function( df, n ) {
+        print(n)
+        text = unlist(df)
+        writeLines( text, paste0( "../rdm/auto_dm_", n, ".md" ) )
+      })
   basic/assert_that:
     ref: https://github.com/hadley/assertthat
     setup: >
@@ -416,10 +545,12 @@ info:
   df/rownames: rownames(f) <- c()
   df.subset/query: df[ df$col == logical ]          
   df/find rows with all NA cells:
-    d4 = data.frame( x = c(1, NA), y = c(NA, NA))
-    applyr = partial(apply, MARGIN = 1)
-    r4 = applyr(is.na(d4), all)
-    r4 == c(F,T)
+    ref: df/find rows with all NA cells <url:file:///~/projects/study/r/examples_r.Rmd#r=g12613>
+    kd: >
+      d4 = data.frame( x = c(1, NA, 3), y = c(NA, NA, 3))
+      applyr = purrr::partial(apply, MARGIN = 1)
+      r4 = applyr(is.na(d4), all)
+      r4 == c(F,T,F)
   df/remove rows with all NA values:
     df %>%
       filter( !applyr(is.na(.), all) )
@@ -429,6 +560,17 @@ info:
     df/loop over all columns of some df: [info, df/loop over all columns of some df]
     df/apply for dataframe is lapply: [info, df/apply for dataframe is lapply]
     df/study_create_dataframe_with_columns_specified_in_list : [info, df/study_create_dataframe_with_columns_specified_in_list ]
+    dplyr.ex/read multiple sheets and bind_rows: [info, dplyr.ex/read multiple sheets and bind_rows]
+  dplyr.ex/read multiple sheets and bind_rows:
+    ref: dplyr.ex/read multiple sheets and bind_rows <url:file:///~/projects/study/r/examples_r.Rmd#r=g12614>
+    kd: >
+      vars01 <- rio::import("data/d01.xlsx", which = 1) %>%
+        select(title) %>%
+        mutate(title = tolower(title))
+      vars02 <- rio::import("data/d01.xlsx", which = 2) %>%
+        select(title) %>%
+        mutate(title = tolower(title))
+      vars_df <- bind_rows(vars01, vars02)
   df/loop over all columns of some df:
     common: df3 = data.frame( operation_id = df[['operation_id']] )
     opt1: >
@@ -1072,103 +1214,6 @@ info:
     min_rank: normal ranking
     dense_rank: doesn't skip the places
     row_number: ignores ties
-  apply/cases for lapply, map:
-    we need to loop over this function:
-      find_correct_tag = function(fn, revenue, xdca) {..}
-    opt1:- make xdca global: >
-      ct = Map(find_correct_tag, vxtf$filename, vxtf$revenue) %>%
-        rbindlist
-    opt2:- partial find_correct_tag: >
-      fun1 = partial(find_correct_tag, xdca = xdca)
-      ct = Map(fun1, vxtf$filename, vxtf$revenue) %>%
-        rbindlist
-    opt3:- use seq_along in lapply: >
-      ct = lapply(seq_along(vxtf$filename), 
-        function(i, vxtf, xdca) 
-          find_correct_tag(vxtf[i]$filename, vxtf[i]$revenue, xdca)
-        , vxtf, xdca
-      ) %>%
-        rbindlist
-  apply/lapply over names: >
-    example_apply_with_names = function() {
-      ls = list( a = 3, b = 5 )
-      # opt1 
-      for (n in names(ls)) {
-        print(ls[[n]] + 1)
-      } 
-      # opt2 
-      lapply( seq_along(ls), function(i, ns, ls) {
-          ls[[ns[i]]] + 1
-        }, names(ls), ls)
-      # opt4
-      mapn(ls, function(elem, name) {
-           print(elem + 1)
-           print(name)
-        })
-    }
-  apply/lapply datatable columns:
-    lapply(data, function(x) sprintf(t, x))
-  apply/for loop functionals:- lapply/sapply/vapply/mapply:
-    lapply for lists:
-      for rows of data frames:- use apply
-    lapply(l, f): >
-      apply f to each element of list
-      return:- list as l
-    aggregating l elements with f: >
-      lapply(l, f) %>% unlist # ==
-      sapply(l, f)
-      replicate(n, expr, simplify = "array")
-        wrapper for sapply
-      simplify
-        result simplifed to vector, matrix, array?
-      simplify = F, value:- list
-    Map: >
-      lapply:- one argument varies
-      Map:- multiple args
-        Map(f, list1, list2)
-      mtmeans <- lapply(mtcars, mean) 
-      mtmeans[] <- Map(`/`, mtcars, mtmeans) # ==
-      mtcars[] <- lapply(mtcars, function(x) x / mean(x))
-    mapply:
-      ftr: variant of Map
-      apply/do.call vs. lapply: [info, apply/do.call vs. lapply]
-  apply/lapply variants lapply2:
-    lapply and bind_rows:
-      dlist %>% lapply(as_data_frame) %>% bind_rows()
-    apply/ldfapply:- list of dataframe: [info, ldfapply:- list of dataframe]
-  apply/do.call vs. lapply:
-    do.call(fun, args):
-      fun(args)
-    lapply(args, fun): >
-      args passed to fun one by one
-      fun(args[[1]])
-    sprintf:
-      works: >
-        do.call( 'sprintf', list( fmt = t, data[,1], data[,2] ) ) # works
-        arg = c( list(t), as.list(data) )
-        do.call( 'sprintf', arg ) # works
-      not works:
-        do.call( 'sprintf', t, data )
-        do.call( 'sprintf', t, list(data[,1], data[,2]) )
-        sprintf( t, list(data[,1], data[,2]) )
-        do.call( 'sprintf', list( fmt = t, data ) )
-  apply/ldfapply:- list of dataframe:
-    a01: >
-      # v0:- lapply
-      lapply( seq_along(ldf), function( i, ldf ) {
-          sheet = names(ldf)[i]
-          print(sheet)
-          text = unlist( ldf[i] )
-          writeLines( text, paste0( "../rdm/auto_dm_", sheet, ".md" ) )
-        }, ldf
-      )
-    a02: >
-      # v1:- ldfapply
-      ldfapply( ldf, function( df, n ) {
-        print(n)
-        text = unlist(df)
-        writeLines( text, paste0( "../rdm/auto_dm_", n, ".md" ) )
-      })
   convert_data/text -> yaml -> list -> dataframe: >
     study_build_ddl_2_table = function() {
       ddl = readLines("data/delete_sql/hibernate_ddl_create_table.sql")
@@ -2430,6 +2475,12 @@ info:
   rep/ex05: >
     a6 = a2 %>%
       mutate_looping(elems, "col")
+  rep/ex06:
+    ref: rep/ex06 <url:file:///~/projects/study/r/examples_r.Rmd#r=g12623>
+    kd: >
+      v1 <- c(1,4,8)
+      rep(v1,c(3,1,2))
+      ##> [1] 1 1 1 4 8 8
   reproducible/reprex:- reproducible example codes:
     install:
       install.packages("reprex")

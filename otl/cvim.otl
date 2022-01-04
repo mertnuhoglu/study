@@ -4,7 +4,23 @@ kendi kullanım yöntemlerim
 		otl yaml dokümanlarındaki bilgileri etkili dolaşma (navigasyon)  <url:file:///~/projects/study/otl/cvim.otl#r=g12603>
 		convert:- otl to yaml: <url:file:///~/projects/myrepo/otl/notesme.otl#r=g12590>
 		normalize yaml tree: <url:file:///~/projects/myrepo/otl/notesme.otl#r=g12588>
+		FindYamlElement: bulunduğun yaml elementine referansları bul <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12617>
+		ConvertHeading2YamlElement: bulunduğun başlığı bir yaml elementine çevirir referansıyla id=g12622
+		Yaml kısayolları:
+			ref:
+				which-key yaml_map: SPC ü y   <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12616>
+		Bookmarklarla tasnif etme:
+			ref:
+				which-key vim-bookmarks: SPC m <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12560>
 points
+	tab hareket ettirme (move tab = tabmove) id=g12632
+		sağa taşıma
+		:tabm +1
+		sola taşıma
+		:tabm -1
+		belli bir pozisyona koyma
+		:tabm 3
+		:tabm[ove]
 	otl yaml dokümanlarındaki bilgileri etkili dolaşma (navigasyon)  id=g12603
 		ref
 			folding and navigation settings <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12604>
@@ -340,10 +356,17 @@ plugins
 	tabular: align
 		ref
 			tabular align text <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g11680>
-	spacemacs - vim-which-key
-		ref
-			vim-which-key spacemacs emacs-which-key port {{{ <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g11679>
-			<url:vimhelp:vim-which-key>
+	spacemacs
+		cheatsheet.nvim
+			ref
+				[sudormrfbin/cheatsheet.nvim: bundled cheatsheets for the editor](https://github.com/sudormrfbin/cheatsheet.nvim#installation)
+		which-key.nvim
+			ref
+				~/projects/private_dotfiles/.config/nvim/lua/mert/which-key.lua
+		vim-which-key
+			ref
+				vim-which-key spacemacs emacs-which-key port {{{ <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g11679>
+				<url:vimhelp:vim-which-key>
 	deoplete - autocomplete
 	easymotion - quick move chars
 		m: my leader
@@ -1109,6 +1132,9 @@ articles-books
 					definition:
 						function myplugin#somefile#Hello()
 all
+	autocomplete disabled in otl/text files
+		ref
+			disable autocompletion based on file types <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12612>
 	indent settings
 		ref:
 			settings {{{ <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12607>
@@ -1157,7 +1183,8 @@ all
 	error: lsp codeAction is not supported by any of the servers id=g12594
 		[(3) nvim-lspconfig error 'method textDocument/codeAction is not supported' : neovim](https://www.reddit.com/r/neovim/comments/qhh4qr/nvimlspconfig_error_method_textdocumentcodeaction/)
 		debug:
-			:autocmd CursorHold
+			kd: autocmd CursorHold
+			dsc: hangi autocmd komutları aktif onları listeler
 			out:
 				CursorHold
 				*         lua PrintDiagnostics()
