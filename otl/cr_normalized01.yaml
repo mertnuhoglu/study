@@ -1,0 +1,40 @@
+---
+a01:
+  cookbook:
+    basics:
+      id: basics
+      info:
+        - assert_that
+        - compare
+  info:
+    assert_that:
+      ref: assertthat
+      setup: library('assertthat')
+    compare:
+      ref: study_compare.Rmd
+      base R: identical
+a02:
+  cookbook:
+    basics:
+      id: basics
+      assert_that:
+        ref: assertthat
+        setup: library('assertthat')
+      compare:
+        ref: study_compare.Rmd
+        base R: identical
+a03:
+  cookbook:
+    basics:
+      id: basics
+      assert_that: [info, assert_that]
+      compare: [info, compare]
+  info:
+    assert_that:
+      ref: assertthat
+      setup: library('assertthat')
+    compare:
+      ref: study_compare.Rmd
+      base R: identical
+
+
