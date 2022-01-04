@@ -1,0 +1,2 @@
+00:49:49 [INFO] name: A log message                  file="e02.lua", line=55
+00:49:49 [WARN] name: A log message with keyword arguments file="e02.lua", line=56, warning="something happened"

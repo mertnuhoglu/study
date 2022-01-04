@@ -1,0 +1,54 @@
+---
+quickref:
+  preview scroll: ^d ^u
+  shortcuts help: <esc>?
+articles:
+  Telescope Developer Guide id=g12631:
+    ref:
+      https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md
+    ex01:
+      ref: ~/projects/study/vim/ex/telescope/ex/e01.lua
+      run: :luafile %
+      dsc: >
+        opts: table for options
+        finder: list of results
+        sorter: set to generic_sorter
+        find(): starts the picker
+    ex02:
+      ref: ~/projects/study/vim/ex/telescope/ex/e02.lua
+      run the picker:
+        colors(require("telescope.themes").get_dropdown{})
+    ex03:
+      ref: ~/projects/study/vim/ex/telescope/ex/e03.lua
+      ttl: default davranış olan sonuç metne (dosyaya) gitmeyi iptal eder
+      ftr: >
+        print(vim.inspect(selection))
+    ex04:
+      ttl: Entry maker table
+      dsc: Entry maker sayesinde gösterilen sonuçla dönen sonuç birbirinden farklı olabilir
+      ref: ~/projects/study/vim/ex/telescope/ex/e04.lua
+    telescope-01 plugin id=g12642: 
+      ttl: Önceki kodları bir neovim eklentisi olarak kur
+      ref: >
+        ~/projects/study/vim/ex/telescope/telescope-01/plugin/telescope-01.vim
+        ~/projects/study/vim/ex/telescope/telescope-01/lua/telescope-01/init.lua
+        video:- Writing NeoVim Plugins - YouTube <url:file:///~/projects/study/vim/neovim.yaml#r=g12641:>
+      notes:
+        run:
+          :call color_list()
+    telescope-02 plugin id=g12643:
+      ttl: alert ile colors picker birleştir
+      ref: >
+        ~/projects/study/vim/ex/telescope/telescope-02/plugin/telescope-02.vim
+        ~/projects/study/vim/ex/telescope/telescope-02/lua/telescope-02/init.lua
+    telescope-03 plugin id=g12644:
+      ttl: buffer satırlarını listele
+      ref: >
+        ~/projects/study/vim/ex/telescope/telescope-03/plugin/telescope-03.vim
+        ~/projects/study/vim/ex/telescope/telescope-03/lua/telescope-03/init.lua
+
+
+
+
+
+
