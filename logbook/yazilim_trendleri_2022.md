@@ -3,13 +3,25 @@
 
 Sınırlı bilgime dayanarak gözlemlediğim yazılım trendlerine dair birkaç tahminim şunlar:
 
-- Fuzzy Finder Araçları
-- Neovim Telescope 
-- Data Oriented Programming
-- Neovim ve Lua Tabanlı Eklenti Geliştirme
-- Language Server Protocol
-- Wardley Mapping
-- Vim Uyumluluk
+- Programlama Yöntemleri: Data Oriented Programming, R TidyVerse
+- Araçlar: Fuzzy Finder Araçları, Neovim Telescope, Neovim ve Lua Tabanlı Eklenti Geliştirme, Language Server Protocol
+- Stratejik Planlama Yöntemleri: Wardley Mapping
+
+# Programlama Yöntemleri
+
+## Data Oriented Programming
+
+Önümüzdeki dönemin önemli trendlerinden birisinin veri odaklı programlama (data oriented programming) yaklaşımı olacağını düşünüyorum. Oyun programlamasında eskiden beri kullanılagelen bir yaklaşımmış bu. O tarafları doğrusu hiç bilmiyorum. Ben iki sene önce Clojure öğrenmeye başladığımda bu kavramı ilk kez duymuştum. Ve ilk duyduğumdan beridir de, çok hoşuma giden ve iyice öğrenmek istediğim bir yaklaşım bu. 
+
+Bu yaklaşımı güzelce anlatan içerikler çokça mevcut internette. Örneğin: [Data-Oriented Programming is dope - DEV Community](https://dev.to/xba/data-oriented-programming-is-dope-ma2), [What is Data Oriented Programming? | Yehonathan Sharvit](https://blog.klipse.tech/databook/2020/09/25/data-book-chap0.html). Geçtiğimiz senenin [en çok satan](https://twitter.com/viebel/status/1477510420592271360) Manning kitabı [Data-Oriented Programming](https://www.manning.com/books/data-oriented-programming) olmuş. 
+
+Gördüğüm kadarıyla, DOP zaman içinde OOP'yi mevcut yerleşik konumundan edebilecek bir yaklaşım. Mutlaka saf fonksiyonel programlama (FP) yöntemlerini kullanmadan da, mevcut Java, Python gibi OOP için tasarlanmış programlama dillerinin içinde kalarak, programlama yapmaya müsait. Önümüzdeki dönemin güçlenecek trendlerinden birisinin bu dizayn yöntemi olacağını düşünüyorum.
+
+## TidyVerse
+
+TidyVerse, R programlama dili içindeki bir programlama yaklaşımı ve bu yaklaşıma göre dizayn edilmiş bir library ekosistemidir. 2014 yılında Hadley Wickham tarafından yazılan dplyr adlı bir kütüphane etrafında bir dünya bu. Hadley Wickham, R dünyasındaki pek çok önemli kitabın ve yaygın kullanılan kütüphanelerin yazarıdır. Genel olarak veri bilimi ve veri analiz çalışmalarındaki en büyük maliyet kaleminin verinin hazırlanmasıyla ilgili çalışmalar olduğu söylenegelir. Hadley Wickham, ["Tidy Data"](https://vita.had.co.nz/papers/tidy-data.pdf) makalesiyle veriyi formatlama ve modellemeye dair temel bazı prensipleri ortaya koydu. Hem bu prensiplere, hem fonksiyonel programlama ve diğer iyi programlama yaklaşımlarına göre kendine kısıtlar koyarak veri manipülasyonuyla ilgili kütüphaneler dizayn etti. Zaman içinde bu kütüphaneleri kullanan R programcıları bu prensipleri ve yaklaşımları giderek daha çok benimsedi ve başka programcılar da aynı dizayn yaklaşımlarına göre TidyVerse adını verdikleri ekosistemi inşa ettiler. Her geçen sene bu ekosistem daha da gelişiyor. Data Oriented Programming ile kesişen bazı yönleri de var TidyVerse yaklaşımının, bu da sanıyorum her ikisinin Fonksiyonel Programlama yaklaşımından ciddi ölçüde etkilenmesinden kaynaklanıyor olabilir. Mesela, her ikisinde de ham veri sadece temel data structurelar kullanılarak işleniyor, nesne tabanlı modellemenin önerdiği data hiding veya encapsulation gibi yaklaşımların tam tersi uygulanıyor. Immutability ve side-effect free programlama prensipleri takip ediliyor. For-loop'lar yerine map/reduce tarzı fonksiyonlar iş mantığı kodlanıyor. TidyVerse'in belirleyici özelliklerinden birisi de Unix'in [pipe operatörünü](https://en.wikipedia.org/wiki/Pipeline_(Unix)) standart kompozisyon (composition) aracı olarak kullanması. Bu standart, kütüphane yazarlarının API dizayn kararlarını kısıtlamakla birlikte, tüm API'lerin birbiriyle uyumlu olmasını sağladığından çok büyük fayda sağlıyor. 
+
+# Araçlar
 
 ## Fuzzy Finder Araçları
 
@@ -29,15 +41,9 @@ Telescope'un önceki benzer vim eklentilerinden önemli bir farkı bulunuyor. En
 
 [Neovim](https://neovim.io/), klasik Vim uygulamasının sıfırdan yeniden yazılmış drop-in replacement versiyonu. Neovim ve Vim birbirine paralel olarak evrimlerine devam ediyorlar. Neovim çok daha geniş bir çekirdek geliştirici desteğine sahip. Performansı çok daha yüksek ve Lua tabanlı eklenti geliştirmeye dahili olarak destek veriyor. Bu da çok daha performanslı ve kolay eklenti geliştirme imkanı sağlıyor. 
 
-Neovim'in geçtiğimiz 2021 senesinde yayınlanan 0.5 versiyonuyla dahili LSP (Language Server Protocol) desteği geldi. Bununla birlikte Neovim, sade bir metin editörü olmaktan çıkıp, Vs Code veya IntelliJ gibi tam teşekküllü bir IDE aracı haline geldi. Önümüzdeki dönemde de, mevcut LSP entegrasyonunu geliştirecek çok sayıda yeni özellik ve eklentiler çıkacağını düşünüyorum. Vim'in büyük IDE'lerin hep gerisinde kalışına neden olan en önemli kısıtı aşıldı. Bu sayede, Neovim'in gelecekte diğer IDE'lerin önüne geçmesini sağlayacak yeni özelliklere imkan tanıması muhtemel.
+Neovim'in geçtiğimiz 2021 senesinde yayınlanan 0.5 versiyonuyla dahili LSP (Language Server Protocol) desteği geldi. Bununla birlikte Neovim, sade bir metin editörü olmaktan çıkıp, Vs Code veya IntelliJ gibi tam teşekküllü bir IDE aracı haline geldi. Önümüzdeki dönemde de, mevcut LSP entegrasyonunu geliştirecek çok sayıda yeni özellik ve eklentiler çıkacağını düşünüyorum. Vim'in büyük IDE'lerin özellik seti olarak hep gerisinde kalışına neden olan en önemli kısıtı aşıldı. Bu sayede, Neovim'in gelecekte diğer IDE'lerin önüne geçmesini sağlayacak yeni özelliklere imkan tanıması muhtemel.
 
-## Data Oriented Programming
-
-Önümüzdeki dönemin önemli trendlerinden birisinin de veri odaklı programlama (data oriented programming) yaklaşımı olacağını düşünüyorum. Oyun programlamasında eskiden beri kullanılagelen bir yaklaşımmış bu. O tarafları doğrusu hiç bilmiyorum. Ben iki sene önce Clojure öğrenmeye başladığımda bu kavramı ilk kez duymuştum. Ve ilk duyduğumdan beridir de, çok hoşuma giden ve iyice öğrenmek istediğim bir yaklaşım bu. 
-
-Bu yaklaşımı güzelce anlatan içerikler çokça mevcut internette. Örneğin: [Data-Oriented Programming is dope - DEV Community](https://dev.to/xba/data-oriented-programming-is-dope-ma2), [What is Data Oriented Programming? | Yehonathan Sharvit](https://blog.klipse.tech/databook/2020/09/25/data-book-chap0.html). Geçtiğimiz senenin [en çok satan](https://twitter.com/viebel/status/1477510420592271360) Manning kitabı [Data-Oriented Programming](https://www.manning.com/books/data-oriented-programming) olmuş. 
-
-Gördüğüm kadarıyla, DOP zaman içinde OOP'yi mevcut yerleşik konumundan edebilecek bir yaklaşım. Mutlaka saf fonksiyonel programlama (FP) yöntemlerini kullanmadan da, mevcut Java, Python gibi OOP için tasarlanmış programlama dillerinin içinde kalarak, programlama yapmaya müsait. Önümüzdeki dönemin güçlenecek trendlerinden birisinin bu dizayn yöntemi olacağını düşünüyorum.
+# Stratejik Planlama Yöntemleri
 
 ## Wardley Mapping
 
