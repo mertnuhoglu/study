@@ -1,7 +1,7 @@
 
 # Yazılım Trendleri 2022
 
-Sınırlı bilgime dayanarak gözlemlediğim yazılım trendlerine dair birkaç tahminim şunlar:
+Sınırlı bilgime dayanarak gözlemlediğim yazılım trendlerinden önümüzdeki dönemde yaygınlaşmaya devam edecek olanların bir kısmının şunlar olacağını tahmin ediyorum:
 
 - Programlama Yöntemleri: Data Oriented Programming, R TidyVerse
 - Araçlar: Fuzzy Finder Araçları, Neovim Telescope, Neovim ve Lua Tabanlı Eklenti Geliştirme, Language Server Protocol
