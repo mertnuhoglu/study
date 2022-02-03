@@ -39,7 +39,5 @@ s02: Copy file to `/Users/mertnuhoglu/Library/Keyboard Layouts/`
 cp ~/projects/private_dotfiles/TurkishFMert.keylayout "/Users/mertnuhoglu/Library/Keyboard Layouts/"
 ```
 
-s03: Keyboard Preferences:
-
-Input Sources > Add > Other: TurkishMertx
+s03: Keyboard Preferences > Input Sources > Add > Other: TurkishMertx
 

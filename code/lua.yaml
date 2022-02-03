@@ -1,0 +1,50 @@
+---
+articles:
+  Lua Tutorial - w3big.com:
+    ref: http://www.w3big.com/lua/lua-environment.html
+    Environment Installation:
+      ex01:
+        ref: ~/projects/study/code/ex/lua/ex/e01.lua
+        run: lua e01.lua
+        kd: print("hello")
+    Basic Grammar:
+      REPL:
+        kd: lua -i
+      shebang: #!/usr/local/bin/lua
+      commenting:
+        single line: --
+        multi line: "--[[ ... ]]"
+topics:
+  json:
+    a01:- json-lua:
+      install: luarocks install json-lua
+      ex01:- convert json string into table:
+        ref: ~/projects/study/code/ex/lua/ex/json01.lua
+        kd: JSON:decode(raw_json_text) -- decode example
+      ex02:- read json file into table id=g12648: 
+        ref: ~/projects/study/code/ex/lua/ex/json02.lua
+  debugging:
+    inspect.lua:
+      ref: https://github.com/kikito/inspect.lua
+  file:
+    a01:- read file:
+      ref: https://stackoverflow.com/questions/11201262/how-to-read-data-from-a-file-in-lua
+  platform:
+    install directory of lua packages:
+      ex01:- view paths using `package.path`:
+        ref: ~/projects/study/code/ex/lua/ex/install_path01.lua
+      ex02:- view paths using `luarocks path`:
+        kd: luarocks path
+    neovim luajit vs luarocks id=g12652:
+      dsc: >
+        neovim luajit adında bir compiler kullanıyor.
+        bu lua 5.1 ile uyumlu
+        fakat güncel lua yazılımı ise şu an 5.4 versiyonunda
+        luarocks ile modül kurduğunda 5.4 versiyonunun klasörüne modülleri yüklüyor.
+        /usr/local/share/lua/5.4/
+        halbuki neovim bu klasör yerine şu klasörde arıyor modül dosyalarını:-
+        /usr/local/share/lua/5.1/
+  regex:
+    ex01:
+      ref:
+        ~/projects/study/code/ex/lua/ex/regex01.lua

@@ -1173,16 +1173,66 @@ topics
 					| +L C    | quicklist: clojure |
 		repl
 		json/edn id=g12416
+			tools:
+				[List of JSON tools for command line – Ilya's blog](https://ilya-sher.org/2018/04/10/list-of-json-tools-for-command-line/)
+				jet
+				dasel
+				jj
+				yamlpath
+				yq
+				jtbl
+				jc
+				skim -i
+				gojq
+				[Extracting Objects Recursively with Jq | Hacker News](https://news.ycombinator.com/item?id=28026712)
+			vim: telescope tools:
+				:YAMLTelescope
+				jsonata
+				jfq
+				jqplay.org
+				json_to_paths
+					https://github.com/TomConlin/json_to_paths
+			convert json:
+				eat:- convert yaml, toml, xml, ini, cli to json:
+					ref
+						https://github.com/antonmedv/eat
+				any-json: convert anything to json:
+					ref
+						https://github.com/any-json/any-json
+					ftr: csv, partial json, yaml, merge, cson, xlsx
 			jsoneditoronline.org
 				https://jsoneditoronline.org/#right=local.honuse
-			fx json tool id=g12412
+			fx:- json navigation tool id=g12412:
 				ref
 					~/projects/study/bash/json_fx.md
 					[Discover how to use fx effectively, a JSON manipulation command line tool | by Anton | Medium](https://medium.com/@antonmedv/discover-how-to-use-fx-effectively-668845d2a4ea)
-				örnek veri
-				çok kullanışlı
-				ln ile kısayol oluştur
-				ln -s /Users/mertnuhoglu/projects/private_dotfiles/.fxrc /Users/mertnuhoglu/.fxrc
+					https://www.youtube.com/watch?v=ktfeRxKog98
+				ftr: >
+					çok kullanışlı
+					table output
+					edit in-place
+					xargs ile çok sayıda json elementini işleme
+					recursively search json
+				setup: >
+					ln ile kısayol oluştur
+					ln -s /Users/mertnuhoglu/projects/private_dotfiles/.fxrc /Users/mertnuhoglu/.fxrc
+				quickref: >
+					hjkl | up/dn expand/collapse
+					.[0].name | filtering
+					/ | search
+					. | autocompletion fields
+				ex document: curl https://swapi.co/api/planets/1/ | fx .
+				pretty print: curl https://swapi.co/api/planets/1/ | fx .
+				filtering: fx .films
+				expressions:- snippets
+					ex01: x => x.chalk
+				lodash functions:
+					ex01: fx package.json 'require("lodash").toPairs'
+					nts: >
+						lodash require ifadesini global .fxrc içine koyabilirsin
+					ex02: groupBy("commit.author.name")
+					ex03:- multiple commands: >
+						'groupBy("commit.author.name")' 'mapValues(size)'
 			rq tool  id=g12413
 				ref
 					[rq/tutorial.md at master · dflemstr/rq](https://github.com/dflemstr/rq/blob/master/doc/tutorial.md)

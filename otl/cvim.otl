@@ -13,6 +13,14 @@ kendi kullanım yöntemlerim
 			ref:
 				which-key vim-bookmarks: SPC m <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12560>
 points
+	message çıktısını buffer içine koyma id=g12685
+		:put =execute('messages')
+		:let @+ = execute('messages')
+	dosya path'inden dosyaya zıplama  id=g12662
+		<vimhelp:CTRL-W_F>
+		gf | aynı pencere içinde
+		^w F | split pencere içinde zıplar
+		yalnız mevcut dizine göre path'leri yorumlar
 	tab hareket ettirme (move tab = tabmove) id=g12632
 		sağa taşıma
 		:tabm +1
@@ -245,7 +253,7 @@ plugins
 			description: klasörler ve dosyalar arasında dolaşmayı sağlar
 		vim-bookmarks
 			ref
-				vim-bookmarks <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12560>
+				vim-bookmarks <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12655>
 				[MattesGroeger/vim-bookmarks: Vim bookmark plugin](https://github.com/MattesGroeger/vim-bookmarks)
 		telescope-vim-bookmarks id=g12563
 			ref

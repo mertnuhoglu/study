@@ -26,6 +26,7 @@ kitty @ set-colors -a Solarized_Dark_Higher_Contrast.conf
 
 ## kitty refcard id=g11648
 
+		~/projects/study/code/study_kitty.otl
 		https://sw.kovidgoyal.net/kitty/#other-keyboard-shortcuts
 		/Users/mertnuhoglu/projects/private_dotfiles/.config/kitty/kitty.conf
 		Layout management <url:file:///~/projects/private_dotfiles/.config/kitty/kitty.conf#r=g11649>

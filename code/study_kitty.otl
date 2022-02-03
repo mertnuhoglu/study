@@ -1,0 +1,13 @@
+shortcuts
+	^+p>f | insert selected path
+		bununla herhangi bir pathi seçip otomatik insert edebilirsin komut satırına
+		her yerde çalışır, vim de dahil
+	^+p>+f | open selected path
+	^+p>l | insert selected line
+	^+p>w | insert selected word
+	^+p>h | insert selected hash (git commit hash)
+	^+p>n | open selected file at line
+		filename:linenum formatındaki dosyaları vim ile açar
+	^+p>y | open selected hyperlink
+	^+e		| open hyperlink
+

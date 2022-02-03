@@ -5171,6 +5171,10 @@ tools
 					print(rkafka.readPoll(consumer1))
 				test arguments
 					
+	kitty terminal manager
+		ref
+			~/projects/study/code/study_kitty.otl
+			~/projects/study/code/study_kitty.md
 	libreoffice
 		spreadsheets - calc
 			Page Layout - Print Layout
@@ -7396,6 +7400,9 @@ topics
 		alternative: z autojump
 		[ajeetdsouza/zoxide: A smarter cd command. Supports all major shells.](https://github.com/ajeetdsouza/zoxide)
 unclassified
+	fd:- dosya ismi aramalarında fzf yerine fd kullan id=g12656:
+		fzf fd'ye göre çok yavaş kalıyor
+		fd --hidden ile tüm gizli klasörler de dahil tüm dosyaların isimlerini aratabilirsin
 	unclassified
 		https://repl.it/site/blog/multi
 		books

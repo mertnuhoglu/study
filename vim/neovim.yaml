@@ -1,6 +1,19 @@
 ---
+Topics:
+  Debugging in Neovim: [info, nvim-dap debugger g12667]
+  Otomatik reload:
+    ttl: bir plugin kodunu değiştirip tekrar çalıştırmak için hızlı otomatik reload yapmakta fayda var
+    a01: 
+      video:- Writing NeoVim Plugins - YouTube g12641: [info, video:- Writing NeoVim Plugins - YouTube g12641]
+    a02:
+      ttl: eğer plugini varsayılan yerinden dışarı alıp taşıyamıyorsan
+      kd:
+        :lua for k in pairs(package.loaded) do if k:match("telescope") then package.loaded[k] = nil end end
+        :so %
 plugin development:
-  video:- Neovim Lua Buffer API | Neovim 💙💚 Lua id=g12639:
+  points:
+    :messages komutu: komut satırı mesajlarını listeler debug için
+  video:- Neovim Lua Buffer API | Neovim 💙💚 Lua g12639:
     ref: https://www.youtube.com/watch?v=K9F5Z8QBFt4
     notes: >
       nvim_buf_...()
@@ -15,7 +28,7 @@ plugin development:
       dsc: >
         nvim_buf_get_lines(): belli satırları çeker
         nvim_buf_get_mark(0, "t"): t mark pozisyonunu çeker
-  video:- Writing NeoVim Plugins - YouTube id=g12641:
+  video:- Writing NeoVim Plugins - YouTube g12641:
     ref: 
       https://www.youtube.com/watch?v=9L4sW047oow
       ~/projects/study/vim/ex/neovim/plugin-01/plugin/plugin-01.vim
@@ -35,7 +48,7 @@ plugin development:
         nvim_win_ ile başlayanlar
         vim.api.nvim_... şeklinde çağrılır
 Plugins:
-  structlog.nvim id=g12645:
+  structlog.nvim g12645:
     ex01:
       ref: ~/projects/study/vim/ex/neovim/logging/e01.lua
     ex02:
@@ -50,6 +63,42 @@ Plugins:
       usage: >
         local logger = require("mert/logger").logger
         logger:info("A log message2")
+  telescope.nvim g12653:
+    ref: ~/projects/study/vim/telescope.yaml
+  nvim-dap debugger g12667:
+    ref: >
+      debug_map <url:file:///~/projects/private_dotfiles/.config/nvim/lua/mert/which-key.lua#r=g12666>
+      nvim-dap shortcuts <url:file:///~/projects/private_dotfiles/.config/nvim/lua/mert/debug.lua#r=g12663>
+      [quickstart](https://github.com/jbyuki/one-small-step-for-vimkind/blob/main/doc/osv.txt)
+      ~/projects/study/code/ex/lua/ex/e02.lua
+    01:- start DAP server in neovim A (yedek):
+      lua require"osv".launch({port = 8088})
+      SPC d a
+    02:- start neovim B (asıl):
+      01: open lua file
+      02:- place a breakpoint:
+        :lua require"dap".toggle_breakpoint()
+        SPC d b
+      03:- connect DAP client:
+        :lua require"dap".continue()
+        SPC d c
+        enter host+port
+    03:- run lua file in neovim A:
+      a01:- düz lua scripti ise:
+        :luafile e02.lua
+      a02:- neovim plugin ise: >
+        :source e02.lua
+        :call Function()
+      state: neovim B freezes on breakpoint
+    04: neovim B attaches to lua server in A
+    05:- terminate neovim B:
+      :lua require"dap".terminate()
+      SPC d q
+    06: repeat step 01 in A
+    07:- repeat step 02 in B:
+      choose: Terminate
+    08: repeat step 02 in B
+    09: repeat 03 in A
 Neovim:
   video:- Neovim 0.6:- What's new? - YouTube:
     ref: https://www.youtube.com/watch?v=jzYgaGMAGDw

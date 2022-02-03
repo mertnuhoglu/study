@@ -1,7 +1,124 @@
 ---
+parent:
+  ref:
+    ~/projects/study/vim/neovim.yaml
 quickref:
   preview scroll: ^d ^u
   shortcuts help: <esc>?
+internal logic of telescope:
+  previewer:
+    callstack of YAMLTelescope previewer g12704:
+      kd: >
+        ~/codes/vim/yaml.nvim/lua/yaml_nvim/init.lua
+          M.telescope = function()
+            vim.cmd("cex v:lua.create_yaml_quickfix()")
+            require("telescope.builtin").quickfix()
+          _G.create_yaml_quickfix = function()
+            for _, key in pairs(document.all_keys()) do
+              if not document.is_value_a_block(key) then
+              local parsed = pair.parse(key)
+              table.insert(lines, parsed.errorformat)
+    callstack of file previewer g12657:
+      doc: >
+        internals.lua
+          internal.planets = function(opts) ..
+            pickers.new({ ..
+              previewer = previewers.cat.new(opts),
+        buffer_previewer.lua
+          previewers.new_buffer_previewer = function(opts)
+            local function set_bufnr(self, value)
+            return Previewer:new(opts)
+          -- cat: previewer for files
+          previewers.cat = defaulter(function(opts) ..
+            return previewers.new_buffer_previewer {
+              define_preview = function(self, entry, status)
+                conf.buffer_previewer_maker(p, self.state.bufnr, {
+                -- p: dosya ismi. burada dosya içeriği previewer içine ekleniyor
+        init.lua
+          previewers.buffer_previewer_maker = buffer_previewer.file_maker
+        buffer_previewer.lua
+          previewers.file_maker = function(filepath, bufnr, opts)
+            Path:new(filepath):_read_async(vim.schedule_wrap(function(data)
+              local ok = pcall(vim.api.nvim_buf_set_lines, bufnr, 0, -1, false, processed_data)
+          previewers.vim_buffer_cat = buffer_previewer.cat
+      dsc:
+        mantık: >
+          önce dosyayı okuyor
+          bunu processed_data arrayi içine koyuyor
+          bununla da yeni bufferı (preview buffer) dolduruyor
+        kd: >
+          previewers.file_maker = function(filepath, bufnr, opts)
+            Path:new(filepath):_read_async(vim.schedule_wrap(function(data)
+              local processed_data = split(data, "[\r]?\n", _, opts)
+              local ok = pcall(vim.api.nvim_buf_set_lines, bufnr, 0, -1, false, processed_data)
+    callstack of define_preview g12700:
+      kd: >
+        ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/previewers/previewer.lua
+          function opts.preview_fn(self, entry, status)
+            opts.define_preview(self, entry, status)
+          function Previewer:preview(entry, status)
+            return self:preview_fn(entry, status)
+        ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/pickers.lua
+          function Picker:refresh_previewer()
+            self.previewer:preview(self._selection_entry, status)
+          function Picker:set_selection(row)
+            self:refresh_previewer()
+          function Picker:_do_selection(prompt)
+            self:set_selection(self:get_reset_row())
+          function Picker:get_result_processor(find_id, prompt, status_updater)
+            return function(entry)
+              self:_do_selection(prompt)
+        ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/finders/async_oneshot_finder.lua
+          return function(opts)
+            return setmetatable({
+              __call = function(_, prompt, process_result, process_complete)
+                process_result(v)
+    callstack of setup of previewer g12701:
+      kd: >
+        ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/previewers/previewer.lua
+          function Previewer:new(opts)
+            return setmetatable({
+              _setup_func = opts.setup,
+        ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/builtin/files.lua
+          files.find_files = function(opts)
+            pickers.new(opts, {
+              previewer = conf.file_previewer(opts),
+          local function apply_checks(mod)
+            mod[k] = function(opts)
+              v(opts)
+        ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/builtin/init.lua
+          local apply_config = function(mod)
+            mod[k] = function(opts)
+              v(vim.tbl_extend("force", defaults, opts))
+        ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/command.lua
+          local function run_command(args)
+            builtin[cmd](opts)
+              -- cmd = find_files
+              -- ▾ builtin = table: 0x01032df2c0
+                find_files = function: 0x01032f32a0
+          function command.load_command(start_line, end_line, count, cmd, ...)
+            run_command(user_opts)
+use cases:
+  telescope eklentisi geliştirme:
+    ref: >
+      video:- Writing NeoVim Plugins - YouTube <url:file:///~/projects/study/vim/neovim.yaml#r=g12641>
+      Telescope Developer Guide <url:file:///~/projects/study/vim/telescope.yaml#r=g12631>
+    ftr: >
+      reload et otomatik bir şekilde
+      dahili eklentileri otomatik reload etmek mümkün olmuyor `:qa` kullanmak lazım
+projects:
+  YAML için Telescope navigator eklentisi g12705:
+    dsc: >
+      Clojure Data Browserlar gibi çalışacak
+      Bir key'i seçtiğinde previewerda sadece onun değerini göösterecek
+      Key'in içine girdiğinde, Picker listesi sadece onun alt key'lerini gösterecek
+      Hiyerarşik bir dolaşma aracı olacak
+    sonuç: >
+      En yakın örnek yaml_nvim eklentisinin :YAMLTelescope komutu
+      Ancak bir key'in içine girmene müsaade etmiyor bu
+    ref: >
+      callstack of YAMLTelescope previewer g12704: <url:/Users/mertnuhoglu/projects/study/vim/telescope.yaml#tn=callstack of YAMLTelescope previewer g12704:>
+      yaml/json telescope navigator geliştir 20220102  <url:file:///~/projects/myrepo/work/work.otl#r=g12638>
 articles:
   Telescope Developer Guide id=g12631:
     ref:
@@ -33,22 +150,36 @@ articles:
         ~/projects/study/vim/ex/telescope/telescope-01/plugin/telescope-01.vim
         ~/projects/study/vim/ex/telescope/telescope-01/lua/telescope-01/init.lua
         video:- Writing NeoVim Plugins - YouTube <url:file:///~/projects/study/vim/neovim.yaml#r=g12641:>
-      notes:
-        run:
-          :call color_list()
+      setup:
+        :set rtp+=/Users/mertnuhoglu/projects/study/vim/ex/telescope/telescope-01
+      run:
+        :call Telescope01()
     telescope-02 plugin id=g12643:
       ttl: alert ile colors picker birleştir
       ref: >
-        ~/projects/study/vim/ex/telescope/telescope-02/plugin/telescope-02.vim
         ~/projects/study/vim/ex/telescope/telescope-02/lua/telescope-02/init.lua
     telescope-03 plugin id=g12644:
       ttl: buffer satırlarını listele
       ref: >
-        ~/projects/study/vim/ex/telescope/telescope-03/plugin/telescope-03.vim
         ~/projects/study/vim/ex/telescope/telescope-03/lua/telescope-03/init.lua
-
-
-
-
-
-
+    telescope-04 plugin id=g12649:
+      ttl: logger kullan
+      ref: >
+        ~/projects/study/vim/ex/telescope/telescope-04/lua/telescope-04/init.lua
+    telescope-05 plugin id=g12650:
+      ttl: bir tableın öğelerini listele
+      ref: >
+        ~/projects/study/vim/ex/telescope/telescope-05/lua/telescope-05/init.lua
+    telescope-06 plugin id=g12651: 
+      ttl: bir json dosyasını oku ve öğelerini table olarak listele
+      ref: >
+        ~/projects/study/vim/ex/telescope/telescope-06/lua/telescope-06/init.lua
+      kd: >
+        local fileContent = read_file("colors.json");
+        local t0 = JSON:decode(fileContent)
+        finder = finders.new_table {
+          results = t0, ... }
+    telescope-07 plugin  id=g12658:
+      ttl: 
+      ref: >
+        ~/projects/study/vim/ex/telescope/telescope-07/lua/telescope-07/init.lua
