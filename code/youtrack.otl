@@ -351,4 +351,7 @@ workflows
 	Notify assignee of dependant issue when required issue is resolved
 		for each depends in is required for { 
 			depends.Assignee.notify(l10n ( [Youtrack, Required issue is resolved] )
+youtrack api id=g12712
+	authorization token:
+		[Manage Permanent Tokens - Help | Developer Portal for YouTrack and Hub](https://www.jetbrains.com/help/youtrack/devportal/Manage-Permanent-Token.html)
 

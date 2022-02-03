@@ -1,0 +1,159 @@
+---
+title: "youtrack study"
+output: html_document
+---
+```{r libraries,warning=false,message=false,include=false}
+library(httr)
+library(jsonlite)
+library(lubridate)
+library(tidyverse)
+library(knitr)
+library(runner)
+library(ggplot2)
+library(tidyjson)
+library(dplyr)
+library(glue)
+```
+## issue data
+
+listing all the issues in all projects:
+
+```{r list_issues}
+resp <- httr::get("https://youtrack.layermark.com/api/issues",
+           query = list(fields = "idreadable,created,updated,resolved",
+                        `$top` = 5000),
+           add_headers(authorization = glue("bearer perm:{sys.getenv('youtrack_auth')}")))
+
+raw_issue_data <- jsonlite::fromjson(rawToChar(resp$content)) %>%
+  dplyr::as_tibble()
+raw_issue_data
+```
+```{r}
+issues01 <- raw_issue_data %>%
+  dplyr::mutate(`issue_id` = idreadable,
+         `created` = as_datetime(created/1000),
+         `resolved` = as_datetime(resolved/1000),
+         `updated` = as_datetime(updated/1000)) %>%
+  dplyr::select(issue_id, created, updated, resolved)
+issues01
+
+```
+
+extract project id and issue id:
+```{r}
+issues02 <- issues01 %>%
+    dplyr::arrange(issue_id, created) %>%
+    tidyr::separate(issue_id, into = c("project_id", "issue_no"), sep ="-") %>%
+    dplyr::mutate(issue_no = as.numeric(issue_no))
+issues02
+
+```
+filter issues from eems project only:
+
+```{r}
+issues03 <- issues02 %>%
+  dplyr::filter(project_id == "eems")
+issues03
+```
+
+global issue_id kolonunu tekrar ekle:
+
+```{r}
+issues04 <- issues03 %>%
+    dplyr::arrange(issue_no, created) %>%
+    tidyr::unite(`issue_id`, c("project_id", "issue_no"), sep ="-") %>%
+    dplyr::as_tibble()
+issues04
+```
+```{r}
+resolved_issues <- issues04 %>%
+  dplyr::filter(!is.na(resolved))
+resolved_issues
+
+```
+```{r}
+unresolved_issues <- issues04 %>%
+  dplyr::filter(is.na(resolved))
+unresolved_issues
+
+```
+
+## activity data
+```{r}
+resp <- httr::get("https://youtrack.layermark.com/api/activities",
+                  query = list(fields = "id,timestamp,removed(name),added(name),target(idreadable),field(name)",
+                               categories = "customfieldcategory",
+                               `$top` = 5000),
+                  add_headers(authorization = glue("bearer perm:{sys.getenv('youtrack_auth')}")))
+
+raw_activity_data <- jsonlite::fromjson(rawToChar(resp$content)) %>%
+    dplyr::as_tibble()
+raw_activity_data
+```
+
+`raw_activity_data` oldukça karmaşık bir veri yapısı:
+```{r}
+names(raw_activity_data)
+```
+```{r}
+raw_activity_data$removed[[2]]
+```
+```{r}
+# writeLines(rawToChar(resp$content), "tmp/raw_activity_data.json")
+# example element:
+# {
+#     "removed": [
+#       {
+#         "name": "Open",
+#         "$type": "StateBundleElement"
+#       }
+#     ],
+#     "added": [
+#       {
+#         "name": "Done",
+#         "$type": "StateBundleElement"
+#       }
+#     ],
+#     "timestamp": 1593788850921,
+#     "field": {
+#       "name": "State",
+#       "$type": "CustomFilterField"
+#     },
+#     "id": "0-0.9-5",
+#     "target": {
+#       "idReadable": "LYN-102",
+#       "$type": "Issue"
+#     },
+#     "$type": "CustomFieldActivityItem"
+#   }
+```
+
+`raw_activity_data` tüm alanlardaki tüm değişiklik aktivitelerinin kaydını tutar. Ancak nested listeler halinde bunu tutar. Bu yüzden önce veriyi flatten etmeliyiz.
+
+```{r}
+activities01 <- raw_activity_data %>%
+  filter(field$name == "State") %>%
+  mutate(`changed_from` = bind_rows(removed)[[1]],
+         `changed_to` = bind_rows(added)[[1]],
+         `issue_id` = bind_rows(target)[[1]],
+         `field` = bind_rows(field)[[1]],
+         `date` = as_datetime(timestamp/1000)) %>%
+  select(issue_id,changed_from, changed_to, date, field)
+activities01
+
+```
+
+`activities01` tüm alanlardaki (field) tüm değişiklik aktivitelerinin kaydını tutar. Biz sadece `State` alanındaki değişiklikleri takip etmek istiyoruz:
+```{r}
+activities02 <- activities01 %>%
+  filter(field == "State") %>%
+  arrange(date)
+activities02
+```
+
+Sadece `EEMS` projesindeki aktiviteleri filtreleyelim:
+```{r}
+activities03 <- activities02 %>%
+    filter(str_detect(issue_id,"EEMS"))
+activities03
+```

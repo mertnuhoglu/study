@@ -99,3 +99,4 @@ nx
 **/.nrepl-port
 **/tags.lock
 **/tags.temp
+**/*.log
