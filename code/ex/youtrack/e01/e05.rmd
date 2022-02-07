@@ -1,0 +1,131 @@
+---
+title: "Youtrack API: Create Issue"
+output: html_document
+---
+
+## Setup
+
+```{r libraries,warning=false,message=false,include=false}
+library(httr)
+library(jsonlite)
+library(lubridate)
+library(tidyverse)
+library(knitr)
+library(dplyr)
+library(glue)
+```
+Önce GET fonksiyonuna Authorization tokenlarını partial ile konfigüre edelim:
+
+```{r setup}
+config <- httr::add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}"))
+h2 <- httr::accept_json()
+h3 <- httr::content_type_json()
+config$headers <- c(config$headers, h2$headers, h3$headers)
+GET_auth <- purrr::partial(httr::GET, config = headers)
+POST_auth <- purrr::partial(httr::POST, config = config)
+```
+## Get Project Id `project_id`
+
+```{r list_projects}
+resp <- GET_auth("https://youtrack.layermark.com/api/admin/projects",
+                  query = list(fields = "id,name,shortName"))
+
+raw_project_data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
+  dplyr::as_tibble()
+raw_project_data
+```
+
+```{r}
+rio::export(raw_project_data, "tmp/project_list.tsv")
+```
+Doğrudan belli bir projenin ismiyle sorgulama yapmak için örnek REST sorgusu: `https://youtrack.layermark.com/api/admin/projects?fields=id,name,shortName&query=AMS'
+
+```{r get_project}
+resp <- GET_auth("https://youtrack.layermark.com/api/admin/projects",
+                  query = list(fields = "id,name,shortName", query = "test"))
+data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
+  dplyr::as_tibble()
+data
+```
+
+Burada her bir projenin bir id değeri var. Bu id değerini kullanarak yeni issue oluşturacağız.
+
+## Create Issue
+
+body içine gömdüğümüz datayı istersek bir list objesi olarak, istersen json formatında bir string olarak doldurabiliriz.
+
+```{r create_issue_a01}
+  # a01: list objesi olarak data
+project_id <- data$id
+body <- list(
+  project = list(id = "0-7"),
+  summary = "Test Youtrack API POST"
+)
+query = list(fields = "idReadable,created,updated,resolved")
+url <- "https://youtrack.layermark.com/api/issues"
+resp <- POST_auth(url, body = body, query = query, encode = "json")
+response_data <- fromJSON(rawToChar(resp$content))
+
+```
+
+a02: Doğrudan json stringiyle veriyi göndermek:
+
+```{r create_issue_a02}
+  # a02: json formatında data
+body2 <- '{
+  "project":{"id":"0-7"},
+  "summary":"Test API Post 6"
+}'
+url <- "https://youtrack.layermark.com/api/issues"
+resp <- POST_auth(url, body = body2, encode = "form", verbose())
+```
+
+## Set Fields While Creating Issues
+
+e06.rmd içinde `e09c.sh` scriptinde mevcut bir issue'nun field'larını set ettik.
+
+Ref: `~/projects/study/code/ex/youtrack/e01/e09c.sh`
+
+```json
+{
+	"customFields": [
+		{"name":"Assignee","$type":"SingleUserIssueCustomField","value":{"login":"BE1"}},
+		{"name":"Estimation","$type":"PeriodIssueCustomField","value":{"minutes":1440}},
+		{"name":"Requirement ID","$type":"SimpleIssueCustomField","value":25}
+	]
+}
+```
+
+Şimdi bu işlemi issue'yu ilk oluşturduğumuz sırada ve R list objesini kullanarak yapmayı deneyelim:
+
+```{r create_issue_and_set_fields_a01}
+project_id <- "0-7"
+body <- list(
+  project = list(id = project_id),
+  summary = "Test Youtrack API POST",
+  customFields = list(
+    list(
+      name = "Requirement ID",
+      `$type` = "SimpleIssueCustomField",
+      value = 25
+    )
+  )
+)
+jsonlite::toJSON(body)
+  # {"project":{"id":["0-7"]},"summary":["Test Youtrack API POST"],"customFields":[{"name":["Requirement ID"],"$type":["SimpleIssueCustomField"],"value":[25]}]}
+jsonlite::toJSON(body, auto_unbox = TRUE)
+  # {"project":{"id":"0-7"},"summary":"Test Youtrack API POST","customFields":[{"name":"Requirement ID","$type":"SimpleIssueCustomField","value":25}]}
+
+
+
+```
+
+Dikkat: `toJSON` çağırırken, `auto_unbox=TRUE` argümanıyla çağırmalıyız. Aksi taktirde primitif değerleri json array olarak kodluyor.
+
+```{r}
+query = list(fields = "idReadable,created,updated,resolved")
+url <- "https://youtrack.layermark.com/api/issues"
+resp <- POST_auth(url, body = body, query = query, encode = "json")
+response_data <- fromJSON(rawToChar(resp$content))
+
+```

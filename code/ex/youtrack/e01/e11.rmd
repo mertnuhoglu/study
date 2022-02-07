@@ -1,0 +1,386 @@
+---
+title: "Make Tasks from RDB Requirements"
+output: html_notebook
+---
+
+# Introduction
+
+Set the project id. Proje id'leri e05.rmd içinde çekilmişti. `project_list.tsv` içinde kayıtlı
+```{r init}
+project_id <- "0-21"
+```
+## Read Data from RDB
+
+İki tane tablomuz var: `Requirement` ve `Requirement-Module`.
+
+```{r read_rdb_requirement}
+googlesheets4::gs4_deauth()
+url_rdb_data_ams <- "https://docs.google.com/spreadsheets/d/1NKaPR3rhGHG-N51thExeps8u3r3deO_YPPQCragRfT8"
+rqt <- googlesheets4::read_sheet(url_rdb_data_ams, sheet = "Requirement") %>%
+  dplyr::mutate(phase = unlist(phase)) %>%
+  dplyr::filter(phase == "1") %>%
+  dplyr::filter(invalid != 1)
+rqt
+```
+
+```{r read_rdb_requirement_module}
+tsk <- googlesheets4::read_sheet(url_rdb_data_ams, sheet = "Requirement-Module") %>%
+  dplyr::mutate(phase = unlist(phase)) %>%
+  dplyr::filter(phase == "1") %>%
+  dplyr::filter(is_detail == 1) %>%
+  dplyr::select(task_id, requirement_id, module_id, assignee, end_type)
+tsk
+```
+
+## Data Model of RDB and Youtrack
+
+`Requirement-Module` içinde her bir gereksinimin ait olduğu modül bilgisi var. Ama her bir modül kendisi de bir gereksinim olarak `Requirement` tablosunda tutuluyor.
+
+```yuml
+[Requirement] ^- [Module]
+```
+
+`Module` objelerinin her biri bir `Requirement`. 
+
+`Module` altındaki her bir `Requirement`, YT'de bir `Issue` olarak tanımlanmalı. Bunlara `Task` diyelim. Ve bunların her biri için bir `task_id` koyalım rdb içinde `Requirement-Module` tablosuna.
+
+```yuml
+[Requirement] 1-n [Task]
+[Module] 1-n [Task]
+```
+
+Her bir Module ve Task için birer Issue oluşturacağız, YT'de. Her Task'ı ilgili Module'ün altına koyacağız, `parent for` ilişkisini kullanarak. Ayrıca bunların her birinin `requirement_id` atributuna da ilgili Requirement objesinin id'sini koyacağız.
+
+Ancak önce fazlara göre işleri bölüştüreceğiz ilk oluştururken.
+
+Her bir Task'ı yapacak Assignee bilgisini ise en son aşamada set edelim. Belki toplu bir şekilde veya her bir modülü tek bir kişiye atayabiliriz. Veya project_plan tablosundan çekebiliriz bu bilgiyi.
+
+YT Issue'larını Task'lardan oluşturmalıyız. Dolayısıyla `tsk` tablosuna ilgili oldukları gereksinimlerin bilgilerini eklemeliyiz, join yaparak.
+
+## Hangi bilgileri YT'ye kaydedeceğiz?
+
+- Summary = rqt$requirement
+- Description = rqt$description
+- Assignee = tsk$assignee
+- Type = "Requirement"
+- Estimation = rqt$est_mandays * 8 * 60
+- Depends On = rqt$
+- Parent For = rqt$
+
+# Kaydedilecek Bilgileri Tek Bir Tablo Olarak Hazırlama
+
+```{r join_tsk_with_rqt}
+tsk02 <- tsk %>%
+  dplyr::inner_join(rqt, by = "requirement_id") %>%
+  dplyr::mutate(estimation = est_mandays * 8 * 60) %>%
+  dplyr::select(task_id, requirement_id, module_id, requirement, description, assignee, phase, estimation, parent_id, predecessor_requirement_id, end_type)
+tsk02
+```
+
+## Öncülleri Bulma
+
+Öncülleri (predecessor) bulalım şimdi. 
+
+### FE Taskların Öncülleri
+
+FE tasklar için birinci öncül, ilgili gereksinimin BE taskı olsun. Onu nasıl bulacağım?
+
+Önce sadece FE taskları ve BE taskları ayrı ayrı çıkartalım:
+```{r tsk_fe}
+tsk_fe <- tsk %>%
+        dplyr::filter(end_type == "FE") %>%
+        dplyr::select(task_id, requirement_id)
+tsk_fe
+```
+
+```{r tsk_be}
+tsk_be <- tsk %>%
+        dplyr::filter(end_type == "BE") %>%
+        dplyr::select(be_task_id = task_id, requirement_id)
+tsk_be
+```
+Şimdi bu task'ların requirement_id'lerini kullanarak ilgili BE tasklarının id'lerini ekleyelim:
+```{r join_tsk_fe_with_tsk_be}
+tsk_fe2 <- tsk_fe %>%
+        dplyr::left_join(tsk_be, by = "requirement_id")
+tsk_fe2
+```
+
+Bu tablodaki `be_task_id` ilgili FE taskın öncülü olarak tanımlanmalı.
+
+### BE Taskların Öncülleri
+
+```{r tsk_be2}
+tsk_be2 <- tsk02 %>%
+        dplyr::filter(end_type == "BE") %>%
+        dplyr::select(task_id, requirement_id, predecessor_requirement_id)
+tsk_be2
+```
+```{r join_tsk_be2_with_itself}
+tsk_be3 <- tsk_be2 %>%
+        dplyr::left_join(tsk_be2, by = c("predecessor_requirement_id" = "requirement_id")) %>%
+        dplyr::select(task_id = task_id.x, requirement_id, predecessor_requirement_id, predecessor_task_id = task_id.y )
+tsk_be3
+```
+Şimdi hem bu tabloyu hem de fe'nin benzer tablosunu `tsk02` tablosuna ekleyelim tek seferde:
+
+```{r tsk_pred_by_binding_rows_of_tsk_be_and_fe}
+tsk_fe3 <- tsk_fe2 %>%
+        dplyr::select(-requirement_id, predecessor_task_id = be_task_id)
+tsk_be4 <- tsk_be3 %>%
+        dplyr::select(task_id, predecessor_task_id)
+tsk_pred <- dplyr::bind_rows(tsk_fe3, tsk_be4)
+tsk_pred
+```
+```{r join_tsk_with_tsk_pred}
+tsk_rqt <- tsk02 %>%
+        dplyr::left_join(tsk_pred, by = "task_id") %>%
+        dplyr::select(-predecessor_requirement_id, -end_type)
+tsk_rqt
+```
+
+Herhangi bir `predecessor_task_id`si olmayan tasklar doğrudan proje planında ilk başlanabilecek görevlerdir.
+
+### Log: Neden bazı taskların predecessor_task_id değeri NA?
+
+h01: Bazı backend taskları birden çok modülde yer almış. Bundan kaynaklanmış olabilir.
+
+Bunu test etmek için, bu tarz bütün taskların sorgulamasını yapalım:
+```{r log_check_duplicate_be_tasks}
+tsk_be_duplicate <- tsk02 %>%
+        dplyr::filter(end_type == "BE") %>%
+        dplyr::group_by(requirement_id, end_type) %>%
+        dplyr::summarise(count = dplyr::n()) %>%
+        dplyr::filter(count > 1)
+tsk_be_duplicate
+```
+
+Sadece 4 ve 77 için bu durum varmış. Halbuki başka satırlar da NA olmuştu. Demek ki mevzu bundan kaynaklanmıyor.
+
+h02: Bu NA ne anlama geliyor?
+
+RHS'da ilgili requirement_id'nin bulunmadığı anlamına geliyor.
+
+Demek ki, o requirement bizde BE taskı olarak tanımlanmamış.
+
+Biz `Requirement-Module` tablosunu `project_plan` tablosuna aktarırken, tüm satırları almadık. `is_detail` = 1 olan satırları almıştık. Dolayısıyla aynı filtrelemeyi burada da yapmalıyız.
+
+Ancak yine de 3 tane satırda hala NA değeri bulunuyor tsk_fe2 içinde.
+
+```tsv
+62	102	NA
+115	101	NA
+26	60	NA
+```
+
+Bunlardan iki tanesi sadece FE taskı:
+
+```tsv
+101	87	User login screen (mobile)
+102	100	User login screen (web)
+```
+
+Bir tanesinin BE olması gerekiyordu, ama unutmuşuz:
+
+```tsv
+60	83	Item Type CRUD
+```
+
+## Parentları Bulma
+
+YT'de `Parent For` ilişkisini kurmak için gerekli datayı hazırlayalım şimdi.
+
+Parent ilişkisini modüllerin WBS kırılımına göre yapacağız.
+
+Şimdi parça-bütün ilişkisi iki farklı şekilde tanımlanmış durumda:
+
+1. Gereksinimlerin kendi arasındaki mantıksal parça-bütün ilişkisi olarak.
+2. Modüllerin içindeki tasklar anlamında.
+
+Birinci anlamdaki ilişki, `Requirement` tablosundaki `parent_id` atributuyla tutuluyor.
+
+İkinci anlamdaki ilişki ise, `Requirement-Module` tablosundaki `module_id` atributuyla tutuluyor.
+
+Biz proje planını modüllere göre tanımlayalım demiştik. Dolayısıyla ikinci anlamdaki parça-bütün ilişkisini YT'ye aktaracağız.
+
+Her bir module kaydı, YT'de bir issue olacak ve bu issue'nun Type değeri `Group Task` olacak.
+
+Dolayısıyla bu modül tasklarını öncelikle oluşturmalıyız.
+
+İkinci olarak da her bir taskımızın içine ait olduğu module_id'nin task_id'sini eklemeliyiz.
+
+## Modül Tasklarını Oluşturma
+
+```{r tsk_mdl}
+tsk_mdl <- tsk %>%
+        dplyr::distinct(module_id) %>%
+        dplyr::select(requirement_id = module_id)
+tsk_mdl2 <- tsk_mdl %>%
+        dplyr::inner_join(rqt, by = "requirement_id") %>%
+        dplyr::select(requirement_id, requirement, description)
+tsk_mdl2
+```
+
+# İlişkileri Issue Id'lerle kurmak
+
+1. Şimdi öncelikle bütün task'ları (hem modül, hem normal) YT'de create edelim.
+2. Ondan sonra onların issue_id'lerini kaydedelim.
+3. Sonra da hem öncüllük, hem parent id'lerini bunlarla değiştirelim.
+4. Ve sonra tekrar YT'de ilgili fiedları update edelim.
+
+## Step01: YT'de Issue'ları Create Etme
+
+Hem modül tasklarını, hem de normal gereksinim tasklarını oluşturmalıyız.
+
+### Önce modül tasklarını oluşturalım:
+
+```{r}
+bs_mdl <- lapply(1:nrow(tsk_mdl2), function(i, tsk_df) {
+  row <- tsk_df[i,]
+  list(
+    project = list(id = project_id),
+    summary = row$requirement,
+    description = row$description,
+    customFields = list(
+      list( name = "Type", `$type` = "SingleEnumIssueCustomField", value = list( name = "Requirement Group")),
+      list(name = "Requirement ID", `$type` = "SimpleIssueCustomField", value = row$requirement_id)
+    )
+  ) %>%
+    jsonlite::toJSON(auto_unbox = TRUE)
+}, tsk_mdl2) %>%
+  unlist()
+tsk_mdl3 <- tsk_mdl2 %>%
+  dplyr::mutate(body = bs_mdl)
+tsk_mdl3
+```
+
+Şimdi REST servisimizi çağırıp, body datalarını argüman olarak gönderip, modül tasklarımızı tek tek oluşturabiliriz:
+
+```{r step09}
+url <- "https://youtrack.layermark.com/api/issues"
+query = list(fields = "idReadable,created")
+map_yt_rdb_mdl <- lapply(1:nrow(tsk_mdl3), function(i, tsk_df) {
+  row <- tsk_df[i,]
+  resp <- POST_auth(url, body = row$body, query = query, encode = "form")
+  response_data <- fromJSON(rawToChar(resp$content))
+  tibble(
+    entity_id = response_data$id,
+    issue_id = response_data$idReadable,
+    requirement_id = row$requirement_id
+  )
+}, tsk_mdl3) %>% 
+  dplyr::bind_rows()
+map_yt_rdb_mdl
+```
+
+### Normal gereksinim tasklarını oluşturalım:
+
+```{r}
+bs_rqt <- lapply(1:nrow(tsk_rqt), function(i, tsk_df) {
+  row <- tsk_df[i,]
+  list(
+    project = list(id = project_id),
+    summary = row$requirement,
+    description = row$description,
+    customFields = list(
+			list( name = "Type", `$type` = "SingleEnumIssueCustomField", value = list( name = "Requirement Implementation")),
+			list( name = "Assignee", `$type` = "SingleUserIssueCustomField", value = list( login = row$assignee)),
+			list( name = "Estimation", `$type` = "PeriodIssueCustomField", value = list( minutes = (row$estimation))),
+      list(name = "Requirement ID", `$type` = "SimpleIssueCustomField", value = row$requirement_id)
+    )
+  ) %>%
+    jsonlite::toJSON(auto_unbox = TRUE)
+}, tsk_rqt) %>%
+  unlist()
+tsk_rqt2 <- tsk_rqt %>%
+  dplyr::mutate(body = bs_rqt)
+tsk_rqt2
+```
+
+Şimdi REST servisimizi çağırıp, body datalarını argüman olarak gönderip, gereksinim tasklarımızı tek tek oluşturabiliriz:
+
+```{r step09}
+url <- "https://youtrack.layermark.com/api/issues"
+query = list(fields = "idReadable,created")
+map_yt_rdb_rqt <- lapply(1:nrow(tsk_rqt2), function(i, tsk_df) {
+  row <- tsk_df[i,]
+  resp <- POST_auth(url, body = row$body, query = query, encode = "form")
+  response_data <- fromJSON(rawToChar(resp$content))
+  tibble(
+    entity_id = response_data$id,
+    issue_id = response_data$idReadable,
+    task_id = row$task_id
+  )
+}, tsk_rqt2) %>%
+  dplyr::bind_rows()
+map_yt_rdb_rqt
+```
+## Step02: YT Issue Id'lerini Requirement Id'leriyle Birlikte kaydedelim
+
+```{r}
+rio::export(map_yt_rdb_mdl, "map_yt_rdb_mdl.tsv")
+rio::export(map_yt_rdb_rqt, "map_yt_rdb_rqt.tsv")
+```
+
+## Step03: hem öncüllük, hem parent id'lerini issue_id ile değiştirelim
+```{r}
+tsk_rqt3 <- tsk_rqt2 %>%
+        dplyr::left_join(map_yt_rdb_rqt, by = "task_id") %>%
+        dplyr::select(task_id, self_issue_id = issue_id, module_id, predecessor_task_id)
+tsk_rqt3
+```
+
+Önce parent ilişkisini kurmak için, her bir modülün issue_id'sini buraya birleştirelim.
+```{r}
+tsk_rqt4 <- tsk_rqt3 %>%
+  left_join(map_yt_rdb_mdl, c("module_id" = "requirement_id")) %>%
+  dplyr::select(task_id, self_issue_id, predecessor_task_id, parent_issue_id = issue_id)
+tsk_rqt4
+```
+
+Şimdi öncüllük ilişkisine ait issue_id'leri buraya birleştirelim.
+```{r}
+tsk_rqt5 <- tsk_rqt4 %>%
+  dplyr::left_join(map_yt_rdb_rqt, c("predecessor_task_id" = "task_id")) %>%
+  dplyr::select(task_id, issue_id = self_issue_id, parent_issue_id, predecessor_issue_id = issue_id)
+tsk_rqt5
+```
+
+## Step04: İlişki fieldlarını YT'de update edelim
+
+Şimdi `parent for` ve `depends on` ilişki fieldlarını YT'de update edebiliriz. Bunun için `commands` servisini kullanacağız.
+
+### Data olarak command'ları oluşturalım
+
+```{r step11a02}
+# n <- nrow(rqt02)
+body_predecessor_tmpl <- '{{
+  "query": "depends on {predecessor_issue_id}",
+  "issues": [ {{ "idReadable": "{issue_id}" }} ]
+}}'
+bs_pred <- tsk_rqt5 %>%
+        dplyr::mutate(body_predecessor = glue::glue(body_predecessor_tmpl)) %>%
+        dplyr::filter(!is.na(predecessor_issue_id))
+bs_pred
+```
+
+```{r}
+body_parent_tmpl <- '{{
+  "query": "subtask of {parent_issue_id}",
+  "issues": [ {{ "idReadable": "{issue_id}" }} ]
+}}'
+bs_parent <- tsk_rqt5 %>%
+        dplyr::mutate(body_parent = glue::glue(body_parent_tmpl)) %>%
+        dplyr::filter(!is.na(parent_issue_id))
+bs_parent
+```
+```{r}
+url_command <- "https://youtrack.layermark.com/api/commands"
+for (i in 1:nrow(bs_pred)) {
+  POST_auth(url_command, body = bs_pred[i, ]$body_predecessor, encode = "form")
+}
+for (i in 1:nrow(bs_parent)) {
+  POST_auth(url_command, body = bs_parent[i, ]$body_parent, encode = "form")
+}
+```
+

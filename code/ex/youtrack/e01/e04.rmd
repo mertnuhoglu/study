@@ -1,0 +1,27 @@
+---
+title: "Youtrack API: GET Partial Authorization"
+output: html_document
+---
+
+# Partial GET
+
+GET fonksiyonu kullanırken her seferinde authorization tokenlarını eklemek kodu çok uzatıyor. Bu yüzden partial ile önden bu argümanları konfigüre edelim.
+```{r}
+GET3 <- purrr::partial(httr::GET, "https://youtrack.layermark.com/api/admin/projects")
+resp <- GET3(query = list(fields = "id,name,shortName", query = "test"),
+             add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}")))
+data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
+  dplyr::as_tibble()
+
+headers <- httr::add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}"))
+resp <- GET3(query = list(fields = "id,name,shortName", query = "AMS"),
+             config = headers)
+data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
+  dplyr::as_tibble()
+
+GET4 <- purrr::partial(GET3, config = headers)
+resp <- GET4(query = list(fields = "id,name,shortName", query = "test"))
+data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
+  dplyr::as_tibble()
+data
+```

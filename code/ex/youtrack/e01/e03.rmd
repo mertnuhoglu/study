@@ -1,6 +1,9 @@
 ---
-title: "youtrack study"
-output: html_document
+title: "Youtrack API study: Getting Issue Data"
+output:
+  html_document:
+    toc: true
+    toc_float: true
 ---
 ```{r libraries,warning=false,message=false,include=false}
 library(httr)
@@ -8,9 +11,6 @@ library(jsonlite)
 library(lubridate)
 library(tidyverse)
 library(knitr)
-library(runner)
-library(ggplot2)
-library(tidyjson)
 library(dplyr)
 library(glue)
 ```
@@ -18,32 +18,46 @@ library(glue)
 
 listing all the issues in all projects:
 
-```{r list_issues}
-resp <- httr::get("https://youtrack.layermark.com/api/issues",
-           query = list(fields = "idreadable,created,updated,resolved",
-                        `$top` = 5000),
-           add_headers(authorization = glue("bearer perm:{sys.getenv('youtrack_auth')}")))
+İstersen REST sorgusundaki query argümanlarını doğrudan URL içine gömebilirsin:
 
-raw_issue_data <- jsonlite::fromjson(rawToChar(resp$content)) %>%
+```{r list_issues_url}
+resp <- GET("https://youtrack.layermark.com/api/issues?fields=idReadable,created,updated&$top=5000",
+           add_headers(Authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}")))
+
+raw_issue_data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
+        dplyr::as_tibble()
+raw_issue_data
+```
+
+İstersen de query'yi list data structure olarak belirtebilirsin:
+```{r list_issues}
+resp <- GET("https://youtrack.layermark.com/api/issues",
+          query = list(fields = "idReadable,created,updated,resolved",
+                       `$top` = 5000),
+          add_headers(Authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}")))
+
+raw_issue_data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
   dplyr::as_tibble()
 raw_issue_data
 ```
+
 ```{r}
 issues01 <- raw_issue_data %>%
-  dplyr::mutate(`issue_id` = idreadable,
-         `created` = as_datetime(created/1000),
-         `resolved` = as_datetime(resolved/1000),
-         `updated` = as_datetime(updated/1000)) %>%
+  dplyr::mutate(`issue_id` = idReadable,
+         `created` = as_datetime(created / 1000),
+         `resolved` = as_datetime(resolved / 1000),
+         `updated` = as_datetime(updated / 1000)) %>%
   dplyr::select(issue_id, created, updated, resolved)
 issues01
 
 ```
 
 extract project id and issue id:
+
 ```{r}
 issues02 <- issues01 %>%
     dplyr::arrange(issue_id, created) %>%
-    tidyr::separate(issue_id, into = c("project_id", "issue_no"), sep ="-") %>%
+    tidyr::separate(issue_id, into = c("project_id", "issue_no"), sep = "-") %>%
     dplyr::mutate(issue_no = as.numeric(issue_no))
 issues02
 
@@ -61,7 +75,7 @@ global issue_id kolonunu tekrar ekle:
 ```{r}
 issues04 <- issues03 %>%
     dplyr::arrange(issue_no, created) %>%
-    tidyr::unite(`issue_id`, c("project_id", "issue_no"), sep ="-") %>%
+    tidyr::unite(`issue_id`, c("project_id", "issue_no"), sep = "-") %>%
     dplyr::as_tibble()
 issues04
 ```
@@ -80,13 +94,13 @@ unresolved_issues
 
 ## activity data
 ```{r}
-resp <- httr::get("https://youtrack.layermark.com/api/activities",
-                  query = list(fields = "id,timestamp,removed(name),added(name),target(idreadable),field(name)",
-                               categories = "customfieldcategory",
+resp <- httr::GET("https://youtrack.layermark.com/api/activities",
+                  query = list(fields = "id,timestamp,removed(name),added(name),target(idReadable),field(name)",
+                               categories = "CustomFieldCategory",
                                `$top` = 5000),
-                  add_headers(authorization = glue("bearer perm:{sys.getenv('youtrack_auth')}")))
+                  add_headers(authorization = glue::glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}")))
 
-raw_activity_data <- jsonlite::fromjson(rawToChar(resp$content)) %>%
+raw_activity_data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
     dplyr::as_tibble()
 raw_activity_data
 ```

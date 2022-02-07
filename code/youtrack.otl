@@ -352,6 +352,10 @@ workflows
 		for each depends in is required for { 
 			depends.Assignee.notify(l10n ( [Youtrack, Required issue is resolved] )
 youtrack api id=g12712
+	API Documentation
+		https://youtrack.layermark.com/api/openapi.json
 	authorization token:
-		[Manage Permanent Tokens - Help | Developer Portal for YouTrack and Hub](https://www.jetbrains.com/help/youtrack/devportal/Manage-Permanent-Token.html)
+		[Manage Permanent Tokens](https://www.jetbrains.com/help/youtrack/devportal/Manage-Permanent-Token.html)
+		[Custom Fields in REST API](https://www.jetbrains.com/help/youtrack/devportal/api-concept-custom-fields.html#type-issue-custom-fields)
+		[EnumBundleElement](https://www.jetbrains.com/help/youtrack/devportal/api-entity-EnumBundleElement.html)
 
