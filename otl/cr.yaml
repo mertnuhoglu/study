@@ -1396,7 +1396,7 @@ info:
         rbindlist(my.list)
       opt2: >
         as.data.frame(e)
-      opt3: differing sizes: >
+      opt3:- differing sizes: >
         test4 <- list('Row1'=letters[1:5], 'Row2'=letters[1:7], 'Row3'=letters[8:14])
         as.data.table(test4)
       ref: http://www.r-bloggers.com/converting-a-list-to-a-data-frame/

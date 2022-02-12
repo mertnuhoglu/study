@@ -1,0 +1,96 @@
+---
+title: "YAML to Flat Table"
+output: html_document
+
+---
+
+```{r libraries,warning=false,message=false,include=false}
+library(yaml)
+library(dplyr)
+library(tidyverse)
+
+```
+# Read YAML
+
+```{r read_yaml}
+yml01 <- yaml.load_file("./data/projects.yaml")
+str(yml01)
+#> List of 1
+#>  $ projects:List of 3
+#>  ..$ :List of 2
+#>  .. ..$ ttl: chr "project01"
+#>  .. ..$ ftr: chr "description of project01"
+#>  ..$ :List of 1
+#>  .. ..$ ttl: chr "project02"
+```
+```{r}
+yml02 <- yml01$projects %>%
+        tibble(
+          ttl = map_chr(., "ttl")
+        )
+listviewer::jsonedit(yml02)
+```
+```{r}
+yml01$projects %>%
+  map_chr("ttl")
+#> [1] "project01" "project02" "project03"
+```
+```{r}
+str(yml02)
+
+```
+```{r}
+lapply(yml01$projects, function(p) p$ttl) %>%
+        unlist() %>%
+        tibble(ttl = .)
+#> # A tibble: 3 × 1
+#>   ttl
+#>   <chr>
+#> 1 project01
+#> 2 project02
+#> 3 project03
+```
+```{r}
+map_chr(yml01$projects, "ttl") %>%
+        tibble(ttl = .)
+#> # A tibble: 3 × 1
+#>   ttl
+#>   <chr>
+#> 1 project01
+#> 2 project02
+#> 3 project03
+```
+```{r}
+safe_extract <- function(l, wut) {
+        res <- l[wut]
+        null_here <- map_lgl(res, is.null)
+        res[null_here] <- NA
+        res
+}
+
+```
+```{r}
+yml01$projects %>%
+        map_df(`[`, c("ttl"))
+#> # A tibble: 3 × 1
+#>   ttl
+#>   <chr>
+#> 1 project01
+#> 2 project02
+#> 3 project03
+```
+```{r}
+safe_extract <- function(l, wut) {
+  res <- l[wut]
+  null_here <- map_lgl(res, is.null)
+  res[null_here] <- NA
+  res
+}
+
+yml01$projects %>%
+  map_df(safe_extract, c("ttl", "ftr"))
+yml01$projects %>%
+        map_df(safe_extract, c("ttl"))
+yml01$projects %>%
+        map_df(safe_extract, c("ftr"))
+```

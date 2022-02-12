@@ -1,0 +1,8 @@
+projects:
+  - ttl: project01
+    ftr: description of project01
+  - ttl: project02
+  - ttl: project03
+    opt: >
+      alternative01
+      alternative02

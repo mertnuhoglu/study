@@ -1,0 +1,701 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r libraries,warning=false,message=false,include=false}
+library(purrr)
+library(dplyr)
+```
+
+# map function family
+
+## Iteration | R for Data Science
+
+Aşağıdaki örneklerin kaynakları: [21 Iteration | R for Data Science](https://r4ds.had.co.nz/iteration.html#the-map-functions)
+
+# Input Data
+
+```{r}
+df <- tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+z <- list(x = 1:3, y = 4:5)
+```
+
+```{r}
+map_dbl(df, mean)
+#>          a          b          c          d
+#> -0.3260369  0.1356639  0.4291403 -0.2498034
+map_dbl(df, median)
+#>           a           b           c           d
+#> -0.51850298  0.02779864  0.17295591 -0.61163819
+map_int(z, length)
+#> x y
+#> 3 2
+```
+
+Creating anonymous function using shortcut: one-sided formula:
+
+```{r}
+models <- mtcars %>%
+  split(.$cyl) %>%
+  map(~lm(mpg ~ wt, data = .))
+models
+```
+
+Tüm models öğelerinin R2 değerini çekelim:
+
+```{r}
+summaries <- models %>%
+  map(summary)
+str(summaries)
+```
+
+`summaries` list of list. Her bir list öğesinin `r.squared` diye bir öğesi var. Hepsini çekmek için:
+
+```{r}
+summaries %>%
+  map_dbl(~.$r.squared)
+#>         4         6         8
+#> 0.5086326 0.4645102 0.4229655
+```
+Her bir list'in 2. öğesini (by position) çekmek:
+
+```{r}
+x <- list(list(1, 2, 3), list(4, 5, 6), list(7, 8, 9))
+x %>% map_dbl(2)
+#> [1] 2 5 8
+```
+`lapply` ~ `map` birbirine denk. Ama `map` diğer purrr fonksiyonlarıyla uyumlu ve `.f` için kısayollar kullanmana izin verir.
+
+# jennybc: purrr tutorial: Relationship to base and plyr functions
+
+Examples taken from: [Relationship to base and plyr functions](https://jennybc.github.io/purrr-tutorial/bk01_base-functions.html)
+
+```{r}
+library(purrr)
+library(repurrrsive)
+```
+
+## lapply vs purrr::map
+```{r}
+lapply(got_chars[1:3],
+       function(x) x[["name"]])
+#> [[1]]
+#> [1] "Theon Greyjoy"
+#>
+#> [[2]]
+#> [1] "Tyrion Lannister"
+#>
+#> [[3]]
+#> [1] "Victarion Greyjoy"
+
+```
+```{r map_a_column}
+map(got_chars[1:3], "name")
+#> [[1]]
+#> [1] "Theon Greyjoy"
+#>
+#> [[2]]
+#> [1] "Tyrion Lannister"
+#>
+#> [[3]]
+#> [1] "Victarion Greyjoy"
+
+```
+sapply, vapply fonksiyonları map_chr gibi spesifik type döndüren map fonksiyonlarına denk gelir. Ancak map_* fonksiyonları daha güvenli çünkü öngörülebilir.
+
+## do.call(rbind) vs map_dfr()
+
+map_dfr her zaman dönen datayı bind_rows() edip dataframe olarak döndürür.
+
+```{r}
+map_dfr(got_chars[23:25],
+        `[`, c("name", "playedBy"))
+#> # A tibble: 3 x 2
+#>   name            playedBy
+#>   <chr>           <chr>
+#> 1 Jon Snow        Kit Harington
+#> 2 Aeron Greyjoy   Michael Feast
+#> 3 Kevan Lannister Ian Gelder
+
+```
+```{r}
+tibble::tibble(
+  name = map_chr(got_chars[23:25], "name"),
+  id = map_int(got_chars[23:25], "id")
+)
+#> # A tibble: 3 x 2
+#>   name               id
+#>   <chr>           <int>
+#> 1 Jon Snow          583
+#> 2 Aeron Greyjoy      60
+#> 3 Kevan Lannister   605
+
+```
+
+## mapply() vs map2() and pmap()
+
+Birden çok argümanı bir arada iterate etmek için map2() veya pmap() kullan:
+```{r}
+nms <- got_chars[16:18] %>%
+  map_chr("name")
+birth <- got_chars[16:18] %>%
+  map_chr("born")
+map2_chr(nms, birth, ~ paste(.x, "was born", .y))
+#> [1] "Brandon Stark was born In 290 AC, at Winterfell"
+#> [2] "Brienne of Tarth was born In 280 AC"
+#> [3] "Catelyn Stark was born In 264 AC, at Riverrun"
+
+## and again, but with pmap()
+df <- tibble::tibble(
+  nms,
+  connector = "was born",
+  birth
+)
+pmap_chr(df, paste)
+#> [1] "Brandon Stark was born In 290 AC, at Winterfell"
+#> [2] "Brienne of Tarth was born In 280 AC"
+#> [3] "Catelyn Stark was born In 264 AC, at Riverrun"
+
+```
+
+## aggregate() vs. dplyr::summarize()
+
+Birden çok değişkene göre summarize etmek için: `vars` kullan:
+
+```{r}
+library(dplyr)
+library(gapminder)
+(mini_gap <- gapminder %>%
+  filter(country %in% c("Canada", "Germany"), year > 2000) %>%
+  droplevels())
+#> # A tibble: 4 x 6
+#>   country continent  year lifeExp      pop gdpPercap
+#>   <fct>   <fct>     <int>   <dbl>    <int>     <dbl>
+#> 1 Canada  Americas   2002    79.8 31902268    33329.
+#> 2 Canada  Americas   2007    80.7 33390141    36319.
+#> 3 Germany Europe     2002    78.7 82350671    30036.
+#> 4 Germany Europe     2007    79.4 82400996    32170.
+
+```
+```{r}
+mini_gap %>%
+  group_by(country) %>%
+  summarize_at(vars(lifeExp, gdpPercap), mean)
+#> # A tibble: 2 x 3
+#>   country lifeExp gdpPercap
+#>   <fct>     <dbl>     <dbl>
+#> 1 Canada     80.2    34824.
+#> 2 Germany    79.0    31103.
+
+```
+
+Bivariate summary of two variables
+
+```{r}
+gapminder %>%
+  group_by(country) %>%
+  summarize(cor = cor(lifeExp, year))
+#> # A tibble: 142 x 2
+#>    country       cor
+#>    <fct>       <dbl>
+#>  1 Afghanistan 0.974
+#>  2 Albania     0.954
+#>  3 Algeria     0.993
+#>  4 Angola      0.942
+#>  5 Argentina   0.998
+#>  6 Australia   0.990
+#>  7 Austria     0.996
+#>  8 Bahrain     0.983
+#>  9 Bangladesh  0.995
+#> 10 Belgium     0.997
+#> # … with 132 more rows
+```
+
+## by() vs. tidyr::nest()
+
+Create a nested dataframe with `nest()`.
+```{r}
+library(tidyr)
+nested_df <- gapminder %>%
+  group_by(country, continent) %>%
+  nest()
+names(nested_df)
+#> [1] "country"   "continent" "data"
+```
+```{r}
+models <- nested_df %>%
+  mutate(fit = map(data, ~ lm(lifeExp ~ year, data = .x)))
+names(models)
+#> [1] "country"   "continent" "data"      "fit"
+
+str(models$fit[1:2], max.level = 1)
+#> List of 2
+#>  $ :List of 12
+#>   ..- attr(*, "class")= chr "lm"
+#>  $ :List of 12
+#>   ..- attr(*, "class")= chr "lm"
+nested_df$fit[[1]]
+#>
+#> Call:
+#> lm(formula = lifeExp ~ year, data = .x)
+#>
+#> Coefficients:
+#> (Intercept)         year
+#>   -507.5343       0.2753
+
+```
+
+"Oceania" satırını filtrelemek:
+```{r}
+models %>%
+  filter(continent == "Oceania") %>%
+  .$fit
+#> [[1]]
+#>
+#> Call:
+#> lm(formula = lifeExp ~ year, data = .x)
+#>
+#> Coefficients:
+#> (Intercept)         year
+#>   -376.1163       0.2277
+#>
+#>
+#> [[2]]
+#>
+#> Call:
+#> lm(formula = lifeExp ~ year, data = .x)
+#>
+#> Coefficients:
+#> (Intercept)         year
+#>   -307.6996       0.1928
+
+```
+
+Dikkat: `.$fit` ile doğrudan kolona erişebiliyorsun.
+
+
+Şimdi bu nested datayı temizleyelim. Tek bir satırda flatten edelim, önemli değişkenleri:
+```{r}
+models %>%
+  mutate(coefs = map(fit, coef),
+         intercept = map_dbl(coefs, 1),
+         slope = map_dbl(coefs, 2)) %>%
+  select(country, continent, intercept, slope)
+#> # A tibble: 142 x 4
+#> # Groups:   country, continent [710]
+#>    country     continent intercept slope
+#>    <fct>       <fct>         <dbl> <dbl>
+#>  1 Afghanistan Asia          -508. 0.275
+#>  2 Albania     Europe        -594. 0.335
+#>  3 Algeria     Africa       -1068. 0.569
+#>  4 Angola      Africa        -377. 0.209
+#>  5 Argentina   Americas      -390. 0.232
+#>  6 Australia   Oceania       -376. 0.228
+#>  7 Austria     Europe        -406. 0.242
+#>  8 Bahrain     Asia          -860. 0.468
+#>  9 Bangladesh  Asia          -936. 0.498
+#> 10 Belgium     Europe        -340. 0.209
+#> # … with 132 more rows
+
+```
+```{r}
+str(models[1, ]$fit[[1]])
+names(models[1, ]$fit[[1]])
+#>  [1] "coefficients"  "residuals"     "effects"       "rank"          "fitted.values" "assign"        "qr"
+#>  [8] "df.residual"   "xlevels"       "call"          "terms"         "model"
+
+```
+
+Yukarıdaki `coef` bir fonksiyon:
+```{r}
+coef(models[1, ]$fit[[1]])
+str(coef(models[1, ]$fit[[1]]))
+```
+# jennybc: purrr tutorial: Explore the example lists: Wes Anderson, Game of Thrones, GitHub
+
+Code taken from: [Explore the example lists: Wes Anderson, Game of Thrones, GitHub](https://jennybc.github.io/purrr-tutorial/ls00_inspect-explore.html)
+
+## Indexing review
+
+Indexing operatörleri:
+
+- `$`: tek öğe döner. extract a single element by name. `alist$a`
+- `[[`: extract a single element by name or position. `alist[["a"]]`, `alist[[fld]]`, `alist[[2]]`
+- `[`: returns a list. `x["a"]` `x[c("a", "b")]`, `x[c(F, T)]`
+
+### str()
+
+Aşırı büyük listelerde şu argümanları kullan:
+
+- `max.level`: içiçe kaç seviye
+- `list.len`: toplam uzunluk
+
+Eğer liste homojense (sublistler aynı yapıdaysa), tek bir öğeyi incele.
+
+`repurrrsive` paketinde çok sayıda liste örneği var.
+
+### listviewer ve View()
+
+a01: Rstudio için:
+
+- `View(mylist)`
+
+![View list örneği](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20220211_113507.jpg)
+
+a02: Rmd için:
+```{r}
+library(listviewer)
+listviewer::jsonedit(got_chars, mode = "view")
+```
+
+Örnek: wesanderson:
+
+```{r}
+library(wesanderson)
+listviewer::jsonedit(wesanderson)
+```
+Örnek: game of thrones characters
+```{r}
+listviewer::jsonedit(got_chars, list.len = 3)
+```
+
+Örnek: github users
+
+# jennybc: purrr tutorial: Introduction to map(): extract elements
+
+[Introduction to map(): extract elements](https://jennybc.github.io/purrr-tutorial/ls01_map-name-position-shortcuts.html)
+```{r}
+library(purrr)
+library(repurrrsive)
+
+```
+```{r}
+map(c(9, 16, 25), sqrt)
+#> [[1]]
+#> [1] 3
+#>
+#> [[2]]
+#> [1] 4
+#>
+#> [[3]]
+#> [1] 5
+```
+
+## Name and Position Shortcuts
+```{r}
+map(got_chars[1:4], "name")
+#> [[1]]
+#> [1] "Theon Greyjoy"
+#>
+#> [[2]]
+#> [1] "Tyrion Lannister"
+#>
+#> [[3]]
+#> [1] "Victarion Greyjoy"
+#>
+#> [[4]]
+#> [1] "Will"
+
+```
+```{r}
+map(got_chars[5:8], 3)
+```
+
+## Extract multiple values
+```{r}
+got_chars[[3]][c("name", "culture", "gender", "born")]
+```
+```{r}
+x <- map(got_chars, `[`, c("name", "culture", "gender", "born"))
+str(x[16:17])
+#> List of 2
+#>  $ :List of 4
+#>   ..$ name   : chr "Brandon Stark"
+#>   ..$ culture: chr "Northmen"
+#>   ..$ gender : chr "Male"
+#>   ..$ born   : chr "In 290 AC, at Winterfell"
+#>  $ :List of 4
+#>   ..$ name   : chr "Brienne of Tarth"
+#>   ..$ culture: chr ""
+#>   ..$ gender : chr "Female"
+#>   ..$ born   : chr "In 280 AC"
+
+
+```
+
+Alternative: use `magrittr::extract`
+```{r}
+library(magrittr)
+#>
+#> Attaching package: 'magrittr'
+#> The following object is masked from 'package:purrr':
+#>
+#>     set_names
+x <- map(got_chars, extract, c("name", "culture", "gender", "born"))
+str(x[18:19])
+```
+
+## Dataframe output
+```{r}
+map_dfr(got_chars, extract, c("name", "culture", "gender", "id", "born", "alive"))
+#> # A tibble: 30 x 6
+#>    name            culture  gender    id born                         alive
+#>    <chr>           <chr>    <chr>  <int> <chr>                        <lgl>
+#>  1 Theon Greyjoy   Ironborn Male    1022 In 278 AC or 279 AC, at Pyke TRUE
+#>  2 Tyrion Lannist… ""       Male    1052 In 273 AC, at Casterly Rock  TRUE
+
+```
+
+Alternative: safer but needs more work:
+```{r}
+library(tibble)
+got_chars %>% {
+  tibble(
+    name = map_chr(., "name"),
+    culture = map_chr(., "culture"),
+    gender = map_chr(., "gender"),
+    id = map_int(., "id"),
+    born = map_chr(., "born"),
+    alive = map_lgl(., "alive")
+  )
+}
+#> # A tibble: 30 x 6
+#>    name            culture  gender    id born                         alive
+#>    <chr>           <chr>    <chr>  <int> <chr>                        <lgl>
+#>  1 Theon Greyjoy   Ironborn Male    1022 In 278 AC or 279 AC, at Pyke TRUE
+#>  2 Tyrion Lannist… ""       Male    1052 In 273 AC, at Casterly Rock  TRUE
+
+```
+
+Syntax notes: The dot . above is the placeholder for the primary input: got_chars in this case. The curly braces {} surrounding the tibble() call prevent got_chars from being passed in as the first argument of tibble().
+
+# jennybc: purrr tutorial: Simplifying data from a list of GitHub users
+
+Summarized from: [Simplifying data from a list of GitHub users](https://jennybc.github.io/purrr-tutorial/ls02_map-extraction-advanced.html)
+
+```{r}
+listviewer::jsonedit(gh_repos)
+```
+```{r}
+gh_repos %>%
+  map_chr(c(1, 3))
+#> [1] "gaborcsardi/after"   "jennybc/2013-11_sfu" "jtleek/advdatasci"
+#> [4] "juliasilge/2016-14"  "leeper/ampolcourse"  "masalmon/aqi_pdf"
+## TO DO? I would prefer a character example :( but gh_repos is unnamed atm
+
+
+```
+Dikkat: 1 ve 3. elemanları almıyor. 1. öğenin 3. öğesini alıyor. Yani önce birinci öğeyi alıyor, bu bir list. Bunun 3. öğesini çekiyor.
+
+
+## List inside a data frame
+```{r}
+(unames <- map_chr(gh_repos, c(1, 4, 1)))
+#> [1] "gaborcsardi" "jennybc"     "jtleek"      "juliasilge"  "leeper"
+#> [6] "masalmon"
+gh02 <- gh_repos %>%
+  set_names(unames)
+listviewer::jsonedit(gh02)
+```
+```{r}
+(udf <- gh_repos %>%
+  set_names(unames) %>%
+  tibble::enframe("username", "gh_repos"))
+#> # A tibble: 6 x 2
+#>   username    gh_repos
+#>   <chr>       <list>
+#> 1 gaborcsardi <list [30]>
+#> 2 jennybc     <list [30]>
+#> 3 jtleek      <list [30]>
+#> 4 juliasilge  <list [26]>
+#> 5 leeper      <list [30]>
+#> 6 masalmon    <list [30]>
+listviewer::jsonedit(udf)
+
+```
+```{r}
+udf02 <- udf %>%
+  mutate(n_repos = map_int(gh_repos, length))
+#> # A tibble: 6 x 3
+#>   username    gh_repos    n_repos
+#>   <chr>       <list>        <int>
+#> 1 gaborcsardi <list [30]>      30
+#> 2 jennybc     <list [30]>      30
+#> 3 jtleek      <list [30]>      30
+#> 4 juliasilge  <list [26]>      26
+#> 5 leeper      <list [30]>      30
+#> 6 masalmon    <list [30]>      30
+
+```
+This shows that we know how to operate on a list-column inside a tibble.
+
+Dikkat: Her bir satırdaki list objesini diğer primitif atributlar gibi map sayesinde kullanabiliyoruz bu sayede.
+
+Önce nested list yapısını detaylı analiz ediyoruz:
+```{r}
+## one_user is a list of repos for one user
+one_user <- udf$gh_repos[[1]]
+## one_user[[1]] is a list of info for one repo
+one_repo <- one_user[[1]]
+str(one_repo, max.level = 1, list.len = 5)
+#> List of 68
+#>  $ id               : int 61160198
+#>  $ name             : chr "after"
+#>  $ full_name        : chr "gaborcsardi/after"
+#>  $ owner            :List of 17
+#>  $ private          : logi FALSE
+#>   [list output truncated]
+## a highly selective list of tibble-worthy info for one repo
+one_repo[c("name", "fork", "open_issues")]
+#> $name
+#> [1] "after"
+#>
+#> $fork
+#> [1] FALSE
+#>
+#> $open_issues
+#> [1] 0
+## make a data frame of that info for all a user's repos
+map_df(one_user, `[`, c("name", "fork", "open_issues"))
+#> # A tibble: 30 x 3
+#>    name        fork  open_issues
+#>    <chr>       <lgl>       <int>
+#>  1 after       FALSE           0
+#>  2 argufy      FALSE           6
+#>  3 ask         FALSE           4
+#>  4 baseimports FALSE           0
+#>  5 citest      TRUE            0
+#>  6 clisymbols  FALSE           0
+#>  7 cmaker      TRUE            0
+#>  8 cmark       TRUE            0
+#>  9 conditions  TRUE            0
+#> 10 crayon      FALSE           7
+#> # … with 20 more rows
+## YYAAAASSSSSSS
+```
+
+Daha sonra yukarıdaki analize göre map ile parçaları birleştiriyoruz:
+```{r}
+udf03 <- udf %>%
+  mutate(repo_info = gh_repos %>%
+    map(. %>% map_df(`[`, c("name", "fork", "open_issues"))))
+#> # A tibble: 6 x 3
+#>   username    gh_repos    repo_info
+#>   <chr>       <list>      <list>
+#> 1 gaborcsardi <list [30]> <tibble [30 × 3]>
+#> 2 jennybc     <list [30]> <tibble [30 × 3]>
+#> 3 jtleek      <list [30]> <tibble [30 × 3]>
+#> 4 juliasilge  <list [26]> <tibble [26 × 3]>
+#> 5 leeper      <list [30]> <tibble [30 × 3]>
+#> 6 masalmon    <list [30]> <tibble [30 × 3]>
+listviewer::jsonedit(udf03)
+```
+
+Veriyi aldık. Şimdi içiçe listeleri `unnest` ile yok edelim:
+```{r}
+(rdf <- udf %>%
+  mutate(
+    repo_info = gh_repos %>%
+      map(. %>% map_df(`[`, c("name", "fork", "open_issues")))
+  ) %>%
+  select(-gh_repos) %>%
+  tidyr::unnest(repo_info))
+#> # A tibble: 176 x 4
+#>    username    name        fork  open_issues
+#>    <chr>       <chr>       <lgl>       <int>
+#>  1 gaborcsardi after       FALSE           0
+#>  2 gaborcsardi argufy      FALSE           6
+
+```
+```{r}
+rdf %>%
+  filter(!fork) %>%
+  select(-fork) %>%
+  group_by(username) %>%
+  arrange(username, desc(open_issues)) %>%
+  slice(1:3)
+#> # A tibble: 18 x 3
+#> # Groups:   username [6]
+#>    username    name                     open_issues
+#>    <chr>       <chr>                          <int>
+#>  1 gaborcsardi gh                                 8
+#>  2 gaborcsardi crayon                             7
+#>  3 gaborcsardi argufy                             6
+#>  4 jennybc     2014-01-27-miami                   4
+#>  5 jennybc     bingo                              3
+#>  6 jennybc     candy                              2
+
+```
+
+# jennycb: purrr tutorial: Food Markets in New York
+
+Summary of: [Food Markets in New York](https://jennybc.github.io/purrr-tutorial/ex26_ny-food-market-json.html)
+```{r}
+library(jsonlite)
+library(purrr)
+library(listviewer)
+library(tibble)
+library(dplyr)
+food_mkts_raw <- fromJSON(url("https://github.com/jennybc/purrr-tutorial/blob/gh-pages/foodMarkets/retail_food_markets.json?raw=true"),
+                          simplifyVector = FALSE)
+```
+```{r}
+str(food_mkts_raw$data, max.level = 1, list.len = 5)
+#> List of 28355
+#>  $ :List of 23
+#>   .. [list output truncated]
+#>  $ :List of 23
+#>   .. [list output truncated]
+#>  $ :List of 23
+#>   .. [list output truncated]
+#>  $ :List of 23
+#>   .. [list output truncated]
+#>  $ :List of 23
+#>   .. [list output truncated]
+#>   [list output truncated]
+
+```
+```{r}
+food_mkts <- food_mkts_raw[["data"]]
+jsonedit(food_mkts_raw[[c("meta", "view")]])
+
+```
+```{r}
+(cnames <- food_mkts_raw[[c("meta", "view", "columns")]] %>%
+        map_chr("name"))
+#>  [1] "sid"            "id"             "position"       "created_at"
+#>  [5] "created_meta"   "updated_at"     "updated_meta"   "meta"
+#>  [9] "County"         "License Number" "Operation Type" "Estab Type"
+#> [13] "Entity Name"    "DBA Name"       "Street Number"  "Street Name"
+#> [17] "Address Line 2" "Address Line 3" "City"           "State"
+#> [21] "Zip Code"       "Square Footage" "Location"
+
+```
+```{r}
+food_mkts <- food_mkts %>%
+        map(set_names, cnames)
+```
+```{r}
+food_mkts %>%
+        map_chr("DBA Name") %>%
+        head()
+#> [1] "PLAZA 23 TRUCK STOP    " "PRICE CHOPPER #245     "
+#> [3] "PEACOCK                " "FINYOUR FISHMONGER     "
+#> [5] "R&A GROCERY STORE      " "ANTHONYS CHOC DIP FRUIT"
+
+```
+```{r}
+(to_process <- cnames[cnames != "Location"])
+
+```
+```{r}
+food_mkts %>%
+        map_df(`[`, to_process)
+```
+

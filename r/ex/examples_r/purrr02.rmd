@@ -1,0 +1,199 @@
+---
+title: "Study Purrr: Convert Json to Table"
+output: html_document
+---
+
+# Homojen Olmayan Json Datasını Tabloya Çevirme (Convert Non-Homogenous Json to Flat Table)
+```{r}
+j01 <- fromJSON("data/data01.json", simplifyVector = F)
+listviewer::jsonedit(j01)
+```
+```{r}
+j01a <- j01 %>%
+  map_df(`[`, "a")
+j01a
+#> # A tibble: 3 × 1
+#> a
+#> <chr>
+#> 1 a01
+#> 2 a02
+#> 3 a03
+```
+```{r}
+j01b <- j01 %>%
+  map_df(`[`, "b")
+j01b
+#> # A tibble: 3 × 1
+#> b
+#> <chr>
+#> 1 ""
+#> 2 "b02"
+#> 3 "b03"
+```
+```{r}
+j01c <- j01 %>%
+  map_df(`[`, "c")
+j01c
+#> # A tibble: 2 × 1
+#> c
+#> <chr>
+#> 1 c01
+#> 2 c03
+```
+```{r}
+j01d <- j01 %>%
+  map_df(`[`, "d")
+j01d
+#> # A tibble: 2 × 1
+#> d
+#> <chr>
+#> 1 d02
+#> 2 d03
+
+```
+```{r}
+cnames <- c("a", "b", "c", "d")
+#> j02 <- j01 %>%
+#>         map_df(`[`, cnames)
+#> Error (purrr.rmd#752): Argument 2 must have names.
+cnames1 <- c("a", "b", "c")
+cnames2 <- c("a", "b", "d")
+```
+```{r}
+j01 %>% map_chr("a")
+#> [1] "a01" "a02" "a03"
+#> j01 %>% map_chr("c")
+#> Error (purrr.rmd#759): Result 2 must be a single string, not NULL of length 0
+```
+```{r}
+safe_extract <- function(l, wut) {
+  res <- l[wut]
+  null_here <- map_lgl(res, is.null)
+  res[null_here] <- NA
+  res
+}
+j01 %>% map_df(safe_extract, c("a", "b"))
+#> # A tibble: 3 × 2
+#> a     b
+#> <chr> <chr>
+#> 1 a01   ""
+#> 2 a02   "b02"
+#> 3 a03   "b03"
+```
+```{r}
+l <- j01[[1]]
+str(l)
+#> List of 4
+#> $ a: chr "a01"
+#> $ b: chr ""
+#> $ c: chr "c01"
+#> $ d: NULL
+wut <- c("a", "b")
+res <- l[wut]
+str(res)
+#> List of 2
+#> $ a: chr "a01"
+#> $ b: chr ""
+```
+```{r}
+l <- j01[[1]]
+str(l)
+#> List of 4
+#> $ a: chr "a01"
+#> $ b: chr ""
+#> $ c: chr "c01"
+#> $ d: NULL
+wut <- c("a", "b", "d")
+res <- l[wut]
+str(res)
+#> List of 2
+#> $ a: chr "a01"
+#> $ b: chr ""
+#> $ d: NULL
+null_here <- map_lgl(res, is.null)
+null_here
+#> a     b     d
+#> FALSE FALSE  TRUE
+res[null_here] <- NA
+str(res)
+#> List of 3
+#> $ a: chr "a01"
+#> $ b: chr ""
+#> $ d: logi NA
+
+```
+Bir atributun değeri `null` ise onun yerine `NA` koyuyor:
+```{r}
+j01 %>% map_df(safe_extract, c("a", "b", "d"))
+#> # A tibble: 3 × 3
+#> a     b     d
+#> <chr> <chr> <chr>
+#> 1 a01   ""    NA
+#> 2 a02   "b02" d02
+#> 3 a03   "b03" d03
+```
+
+Ancak atribut tümüyle mevcut değilse, o zaman hata veriyor:
+```{r}
+#> j01 %>% map_df(safe_extract, c("a", "b", "c"))
+#> Error (purrr02.rmd#135): Argument 2 must have names.
+```
+
+Bu durumda da aynı ilk durumdaki gibi, eksik atributun yerine `NA` koymasını istiyorum:
+
+
+```{r}
+l <- j01[[2]]
+str(l)
+#> List of 3
+#> $ a: chr "a02"
+#> $ b: chr "b02"
+#> $ d: chr "d02"
+wut <- c("a", "b", "c")
+res <- l[wut]
+str(res)
+#> List of 3
+#> $ a : chr "a02"
+#> $ b : chr "b02"
+#> $ NA: NULL
+```
+
+Dikkat: Atribut null olunca `res` `$ d: NULL` oluyordu, ancak şimdi `$ NA: NULL` oldu.
+
+Dolayısıyla öncelikle atributun ismini düzeltmek lazım.
+```{r}
+names(res)
+#> [1] "a" "b" NA
+res2 <- setNames(res, wut)
+names(res2)
+#> [1] "a" "b" "c"
+```
+
+O zaman `setNames` eklemesi yaparak, `res` objesini assign edelim
+```{r}
+res <- l[wut] %>%
+        setNames(wut)
+names(res)
+#> [1] "a" "b" "c"
+null_here <- map_lgl(res, is.null)
+null_here
+#> a     b     c
+#> FALSE FALSE  TRUE
+```
+```{r}
+safe_extract <- function(l, wut) {
+  res <- l[wut] %>%
+          setNames(wut)
+  null_here <- map_lgl(res, is.null)
+  res[null_here] <- NA
+  res
+}
+j01 %>% map_df(safe_extract, c("a", "b", "c"))
+#> # A tibble: 3 × 3
+#> a     b     c
+#> <chr> <chr> <chr>
+#> 1 a01   ""    c01
+#> 2 a02   "b02" NA
+#> 3 a03   "b03" c03
+
+```
