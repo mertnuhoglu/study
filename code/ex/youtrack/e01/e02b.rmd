@@ -1,0 +1,60 @@
+---
+title: "Test: Youtrack REST API"
+output: html_document
+---
+```{r libraries,warning=false,message=false,include=false}
+library(httr)
+library(glue)
+```
+```{r list_issues_url}
+resp <- httr::GET("https://youtrack.layermark.com/api/users/me",
+            httr::add_headers(Authorization = glue::glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}")))
+
+```
+`resp$content` objesi binary data içeriyor.
+
+```
+> resp$content
+ [1] 7b 22 69 64 22 3a 22 31 2d 31 34 22 2c 22 24 74 79 70 65 22 3a 22 4d 65 22 7d
+```
+
+Bu binary datayı okunabilir hale çevirmek için: `rawToChar` fonksiyonunu kullanıyoruz:
+```{r}
+text <- rawToChar(resp$content)
+text
+```
+```{r}
+rawToChar(resp$content)
+```
+
+Sadece `rawToChar` fonksiyonunun sonucunda dönen json verisi bir string (character, metin) olarak dönüyor. Fakat bizim esas istediğimiz şey, hiyerarşik bir list objesi olarak dönmesi. Bunun için `fromJSON` fonksiyonunu kullanıyoruz.
+```{r}
+rl <- jsonlite::fromJSON(rawToChar(resp$content))
+rl
+
+```
+R'daki list objelerini bir bağıntı (mapping) gibi düşünebiliriz. Java'da `Map`, Javascript'te `object` data structure'larına denk geliyor.
+
+Yani başka bir deyişle
+
+Benim `rl` diye bir list objem var. Bunun altında iki tane entry/obje var. Bunlardan bir tanesinin ismi `id` diğerinin ismi `$type`. Bu ilk objenin değeri de `1-14`.
+
+Fakat biz bu hiyerarşik list objesini de bildiğimiz alıştığımız düz bir tabloya çevirmek istiyoruz. Bu yüzden de onu da en sonda `tibble` fonksiyonuna gönderiyoruz.
+
+```{r}
+raw_issue_data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
+  dplyr::as_tibble()
+raw_issue_data
+
+```
+
+`%>%` bir pipe operatörü. Aynı unix'teki `|` pipe operatörü gibi çalışıyor. Yani ilk fonksiyonun çıktısını, ikinci fonksiyona girdi olarak gönderiyor.
+
+Yani bunu şu şekilde de yapabilirdik:
+
+```{r}
+out01 <- jsonlite::fromJSON(rawToChar(resp$content))
+out02 <- dplyr::as_tibble(out01)
+out02
+
+```

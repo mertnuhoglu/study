@@ -1,0 +1,35 @@
+---
+title: "Get Issue Custom Fields"
+output: html_document
+---
+
+Ref: `e12.sh`
+
+Burada belli bir issue'nun tüm custom field'larının değerlerini çekiyoruz.
+
+```
+'https://example.youtrack.cloud/api/issues/2-7/customFields?fields=id,value(id,name,login,fullName),projectCustomField(id,field(id,name))'
+```
+
+Fakat dikkat ederseniz, `2-7` diye issue id'yi girdi olarak vermemiz bu sorguyu çalıştırabilmek için. Dolayısıyla  issue_id'leri bir yerden çekmemiz gerekiyor.
+
+issue_id olarak readable id'yi de kullanabiliriz. Örnek: `e12b.sh`
+
+```
+https://youtrack.layermark.com/api/issues/TEST-514/customFields?fields=id,value(id,name,login,fullName),projectCustomField(id,field(id,name))
+```
+
+Burada id olarak `TEST-514` yazdık.
+
+Bu durumda önce ilgili projedeki tüm issue'ları çekeceğiz, `e03.rmd` içindeki gibi.
+```{r}
+issues01 <- raw_issue_data %>%
+  dplyr::mutate(`issue_id` = idReadable,
+                `created` = as_datetime(created / 1000),
+                `resolved` = as_datetime(resolved / 1000),
+                `updated` = as_datetime(updated / 1000)) %>%
+  dplyr::select(issue_id, created, updated, resolved)
+
+```
+Sonra da ilgilendiğimiz issue_id'leri bir yere kaydedip bunların field değerlerini `e12b.sh` içindeki gibi çekeceğiz.
+

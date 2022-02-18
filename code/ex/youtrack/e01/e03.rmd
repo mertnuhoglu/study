@@ -29,9 +29,11 @@ raw_issue_data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
 raw_issue_data
 ```
 
+Pipe operatörünü biz neden çok kullanıyoruz, seviyoruz? Çünkü pipe operatörü lineer, düz kod yazmamızı sağlıyor. Bunun alternatifi çatallı kod yazmak. if-then-else'ler, for loop'lar vs. bu tip bir koda örnek oluyor.
+
 İstersen de query'yi list data structure olarak belirtebilirsin:
 ```{r list_issues}
-resp <- GET("https://youtrack.layermark.com/api/issues",
+resp <- httr::GET("https://youtrack.layermark.com/api/issues",
           query = list(fields = "idReadable,created,updated,resolved",
                        `$top` = 5000),
           add_headers(Authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}")))
@@ -41,6 +43,7 @@ raw_issue_data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
 raw_issue_data
 ```
 
+Gelen tarih datası unix epoch time formatında. Onu çevirmemiz için bir iki işlem yapalım:
 ```{r}
 issues01 <- raw_issue_data %>%
   dplyr::mutate(`issue_id` = idReadable,
@@ -66,7 +69,7 @@ filter issues from eems project only:
 
 ```{r}
 issues03 <- issues02 %>%
-  dplyr::filter(project_id == "eems")
+  dplyr::filter(project_id == "EEMS")
 issues03
 ```
 
