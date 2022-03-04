@@ -1,6 +1,9 @@
 
 # Index
 
+Ref: 
+
+	~/projects/study/logbook/yazilim_trendleri_2022.md
 	[fkrp infop metin yazılım trendleri 2022](simplenote://note/99259b620b9e43fdaea2d43f2f32243d)
 
 # Fikirler

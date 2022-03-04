@@ -126,8 +126,6 @@ browsers
 			Esc > menu > Show Console
 	vivaldi
 		shortcuts id=g12572
-			| 4| previous tab |
-			| 3 | next tab |
 			| Move Active Tab Forward/Backward | #+dn/up|
 		quick commands
 			https://help.vivaldi.com/article/quick-commands/
@@ -1809,9 +1807,8 @@ haskell
 				monad difficult to teach
 				lazy vs. 
 			Haskell Monads in 8 Minutes
-json edn - json2 id=g12415
-	ref
-		json/edn <url:file:///~/projects/study/clj/clojure.otl#r=g12416>
+json edn yaml - json2 id=g12415
+	ref: ~/projects/study/otl/json.otl
 latex
 		ref
 			mathematical symbols: http://oeis.org/wiki/List_of_LaTeX_mathematical_symbols
@@ -2092,6 +2089,8 @@ bash
 			sed <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10806>
 			[Sed Cheatsheet](https://gist.github.com/sergeyklay/4641c7665b262680f8b9cf38de923af1)
 			options
+				-r extended regex
+					+ ? çalışır bununla
 				-n			print if match
 					echo "id=g10843" | sed -n "/=g/p" 
 					sed -n '3 p' config.conf

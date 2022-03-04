@@ -94,7 +94,7 @@ cookbook:
     date/as.Date: [info, date/as.Date]
     date/format: [info, date/format]
     date/?strftime: _
-    date/?strptime: [info, date/?strptime]
+    date/?strptime: "[info, date/?strptime]"
     date/extract year, mon out of date: [info, date/extract year, mon out of date]
     date/convert char to date: [info, date/convert char to date]
     date/lubridate: [info, date/lubridate]
@@ -794,8 +794,8 @@ info:
           planes = n_distinct(tailnum),
           flights = n()
         )
-      dplyr.summarize/when grouping by multiple variables, each summary peels off one level of grouping: [info, dplyr.summarize/when grouping by multiple variables, each summary peels off one level of grouping]
-      dplyr.summarize/how does summarise_each work?: [info, dplyr.summarize/how does summarise_each work?]
+      dplyr.summarize/when grouping by multiple variables, each summary peels off one level of grouping: "[info, dplyr.summarize/when grouping by multiple variables, each summary peels off one level of grouping]"
+      dplyr.summarize/how does summarise_each work?: "[info, dplyr.summarize/how does summarise_each work?]"
       ex03:
         ref: <url:dropbox_btg/TEUIS PROJECT 05-ANALYSIS/working_library/requirements_database/scripts/prepare_rdb_field_operations.R#p108_rdb_gfield_aggregate_dfield>
         kd: >
@@ -920,6 +920,14 @@ info:
         #1              86      1
         #2              86      2
         #3              86      3
+    dplyr/group by then summarize by concatenating the rows in each group:
+      ref:
+        Group by then summarize by concatenating the rows in each group:- <url:/Users/mertnuhoglu/projects/myrepo/scrap/sandbox.Rmd#tn=Group by then summarize by concatenating the rows in each group>
+      code: >
+        d02 <- d01 %>%
+          group_by(ttl) %>%
+          mutate(ftr = paste0(ftr, collapse = ".-")) %>%
+          slice(1)
     dplyr/group_by and concat strings by column: >
       rvw2 = rvw %>%
         left_join( vsc, by = "view_id" ) %>%
@@ -1135,13 +1143,13 @@ info:
     basic: mutate_if(df,a==3,x=100)
     use:
       mutate( type = ifelse(  f$type == f$field, NA, f$type ) )
-  dplyr.select/helper functions:
+  dplyr.select/helper functions: >
     starts_with()
     ends_with
     matches()
     contains()
     ?select
-  dplyr.select/rename variables using named arguments:
+  dplyr.select/rename variables using named arguments: >
     select(flights, tail_num = tailnum) # others are dropped
     rename(flights, tail_num = tailnum)
     rename using string functions
@@ -1160,7 +1168,7 @@ info:
       dplyr.select/all dataframe at beginning:
         bind_cols(flights, select(flights, one_of(col)))
   dplyr.select/Select-arrange columns with character variables:
-    a01: -
+    a01: >
       cols = c("mpg","cyl, hp:vs")
       mtcars %.%
         filter(gear == 3,cyl == 8) %.%
@@ -1391,6 +1399,9 @@ info:
     dataframe to datatable:
       den = read_excel2(path, 'DataEntity') %>% data.table
     list to data frame/table:
+      best: >
+        mylist %>%
+          purrr::map_df(rutils::safe_extract, c("ttl", "ftr", "opt"))
       opt1: >
         my.df <- do.call('rbind', my.list)
         rbindlist(my.list)
@@ -1626,7 +1637,8 @@ info:
     POSIXlt: stores a list of day, month, year ...
     POSIXct: stores seconds since unix epoch
     strptime: converts char to POSIXlt
-    as.POSIXlt: converts some to POSIXlt 
+    as.POSIXlt: >
+      converts some to POSIXlt 
       if char arg: expects ISO8601 standard format: "2017-12-30"
     as.POSIXct: converts some to POSIXlt
     ftr: use simplest possible
@@ -1791,10 +1803,11 @@ info:
       }
     }
   fp/problem:- how to make a function testable:
-    nrm: change its dependencies without changing its definition
+    nrm: >
+      change its dependencies without changing its definition
       download_company_idx_files(use_cache = use_cache)
     fp/solution 1:- using partials: [info, fp/solution 1:- using partials]
-    fp/problem 2:- we have lots of similar test functions. how to abstract commonalities?: [info, fp/problem 2:- we have lots of similar test functions. how to abstract commonalities?]
+    fp/problem 2:- we have lots of similar test functions. how to abstract commonalities?: "[info, fp/problem 2:- we have lots of similar test functions. how to abstract commonalities?]"
     fp/solution 2:- using higher order function generator for partial: [info, fp/solution 2:- using higher order function generator for partial]
     fp/solution 3:- abstract one more step: [info, fp/solution 3:- abstract one more step]
   fp/solution 1:- using partials: >
@@ -1845,19 +1858,19 @@ info:
     gis/view sf objects on map: [info, gis/view sf objects on map]
   gis/sf:- simple features:
     dsc: modern tidyverse uyumlu gis kütüphanesi
-    eskisi: sp: spatial
+    eskisi: sp:- spatial
     ref: ~/gdrive/shared/ozguremin_mert/egar/test11_sf01.R
   gis/convert to sf:
     ref: ~/gdrive/shared/ozguremin_mert/egar/test07_sf.R
     kd: >
       world_sp = as(world, "Spatial")
       world_sf = st_as_sf(world_sp)
-    ref: ~/gdrive/shared/ozguremin_mert/egar/test13_convert_lnglat_to_sf.R
+    ref2: ~/gdrive/shared/ozguremin_mert/egar/test13_convert_lnglat_to_sf.R
     a01: >
       locations <- read_csv("~/codes/rr/intro-to-r/data/locations.csv")
       locations_sf <- st_as_sf(locations, coords = c("lon", "lat"), crs = 4326)
   gis/sfc:- sf geometry column:
-    ref: sfc: list-column of type simple feature geometry <url:file:///~/gdrive/shared/ozguremin_mert/egar/test11_sf01.R#r=g12296>
+    ref3: sfc:- list-column of type simple feature geometry <url:file:///~/gdrive/shared/ozguremin_mert/egar/test11_sf01.R#r=g12296>
     kd: nc_geom <- st_geometry(nc)
   gis/sfg:- sf geometry object:
     a01: 
@@ -1889,7 +1902,7 @@ info:
       mapview(locations_sf) # opt01
       leaflet(locations_sf) %>% addProviderTiles("OpenStreetMap.Mapnik") %>% addCircles(weight = 20)
   gis/leaflet2 leaflet id=g12297:
-    ref: Documentation: Leaflet for R <url:file:///~/projects/study/r/shiny/study_leaflet.Rmd#r=g12293>
+    ref: Documentation:- Leaflet for R <url:file:///~/projects/study/r/shiny/study_leaflet.Rmd#r=g12293>
     gis/shiny-leaflet: [info, gis/shiny-leaflet]
     gis/markers: [info, gis/markers]
     gis/Türkiye illerinin poligon haritası: [info, gis/Türkiye illerinin poligon haritası]

@@ -10,4 +10,5 @@ shortcuts
 		filename:linenum formatındaki dosyaları vim ile açar
 	^+p>y | open selected hyperlink
 	^+e		| open hyperlink
+	^+l   | less
 

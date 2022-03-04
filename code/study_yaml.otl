@@ -1,5 +1,7 @@
 
 tools
+	ref: 
+		~/projects/study/otl/json.otl
 	[Json Yaml Converter](https://www.json2yaml.com/)
 ex
 	~/projects/study/code/ex/study_yaml/e01/e01.yaml

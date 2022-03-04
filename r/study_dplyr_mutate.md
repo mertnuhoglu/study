@@ -15,6 +15,12 @@ resource_files:
 
 ---
 
+[[study_fd]]
+
+[[new-file-that-doesnt-exist]]
+
+
+
 # Articles
 
 ## Article01: Data Wrangling Part 2: Transforming your columns into the right shape

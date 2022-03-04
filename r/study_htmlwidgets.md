@@ -14,6 +14,10 @@ resource_files:
 
 ---
 
+[[json_fx]]
+
+[[makale_yazilim_trendleri_2022]]
+
 # htmlwidgets
 
 ## Creating a widget

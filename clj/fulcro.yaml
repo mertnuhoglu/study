@@ -3,7 +3,7 @@ index:
   ref: ~/projects/study/clj/articles_fulcro.otl
   anki cards: https://docs.google.com/spreadsheets/d/1u4LuaWdBc_XeNSEDhhiJr4O2RGjLesZN/edit#gid=293827940
   projects:
-    fulcro examples project <url:file:///~/projects/study/clj/fulcro.otl#r=g12548>
+    fulcro examples project <url:file:///~/projects/study/clj/fulcro.yaml#r=g12548>
 topics:
   debug - fulcro id=g12453:
     defsc defmutation vs nasıl debug edilir?:
