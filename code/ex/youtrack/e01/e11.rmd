@@ -1,22 +1,54 @@
 ---
-title: "Make Tasks from RDB Requirements"
+title: "Import Tasks to Youtrack from RDB Requirements"
 output: html_notebook
 ---
 
 # Introduction
 
+RDB dosyasındaki tüm task'ları Youtrack'te issue olarak oluşturur.
+
 Set the project id. Proje id'leri e05.rmd içinde çekilmişti. `project_list.tsv` içinde kayıtlı
+
 ```{r init}
-project_id <- "0-7"
+# project_id <- "0-7"
+project_id <- "0-24"
+url_rdb <- "https://docs.google.com/spreadsheets/d/1HMosZ0_z42TxqezqDF7WAozxdu1TNgTs8CMueB5MZdY/edit#gid=0"
 ```
+## Initial Setup
+
+```{r libraries,warning=false,message=false,include=false}
+library(httr)
+library(jsonlite)
+library(lubridate)
+library(tidyverse)
+library(knitr)
+library(dplyr)
+library(glue)
+library(googlesheets4)
+```
+
+REST servislerini çağıracağımız `httr::GET` fonksiyonunu standart varsayılan argümanlarıyla konfigüre edelim:
+
+```{r step02}
+config <- httr::add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}"))
+h2 <- httr::accept_json()
+h3 <- httr::content_type_json()
+config$headers <- c(config$headers, h2$headers, h3$headers)
+GET_auth <- purrr::partial(httr::GET, config = headers)
+POST_auth <- purrr::partial(httr::POST, config = config)
+```
+
+
 ## Read Data from RDB
 
 İki tane tablomuz var: `Requirement` ve `Requirement-Module`.
 
 ```{r read_rdb_requirement}
 googlesheets4::gs4_deauth()
-url_rdb_data_ams <- "https://docs.google.com/spreadsheets/d/1NKaPR3rhGHG-N51thExeps8u3r3deO_YPPQCragRfT8"
-rqt <- googlesheets4::read_sheet(url_rdb_data_ams, sheet = "Requirement") %>%
+rqt <- googlesheets4::read_sheet(url_rdb, sheet = "Requirement", na = "NA") %>%
+  dplyr::mutate(description = as.character(description)) %>%
+  dplyr::mutate(description = replace_na(description, "")) %>%
+  dplyr::mutate(est_mandays = replace_na(est_mandays, 0)) %>%
   dplyr::mutate(phase = unlist(phase)) %>%
   dplyr::filter(phase == "1") %>%
   dplyr::filter(invalid != 1)
@@ -24,10 +56,10 @@ rqt
 ```
 
 ```{r read_rdb_requirement_module}
-tsk <- googlesheets4::read_sheet(url_rdb_data_ams, sheet = "Requirement-Module") %>%
+tsk <- googlesheets4::read_sheet(url_rdb, sheet = "Requirement-Module", na = "NA") %>%
   dplyr::mutate(phase = unlist(phase)) %>%
   dplyr::filter(phase == "1") %>%
-  dplyr::filter(is_detail == 1) %>%
+  # dplyr::filter(is_detail == 1) %>%
   dplyr::select(task_id, requirement_id, module_id, assignee, end_type)
 tsk
 ```
@@ -221,6 +253,91 @@ tsk_mdl2 <- tsk_mdl %>%
 tsk_mdl2
 ```
 
+# Analiz ve Test Tasklarını Oluşturmak
+
+Her bir Requirement için bir detay analiz bir de Test taskı oluşturalım öncelikle.
+
+Bunun için öncelikle `rqt` tablosundan `tsk_analysis` tablosunu oluşturalım.
+```{r}
+tsk_analysis <- rqt %>%
+  dplyr::mutate(assignee = "AN1")
+```
+
+```{r}
+# closure = inner function ~= anonymous function
+# idiom = kalıp ifade
+bodys_analysis <- lapply(1:nrow(tsk_analysis), function(i, rqt_df) {
+  row <- rqt_df[i,]
+  list(
+          project = list(id = project_id),
+          summary = glue::glue("Analysis: {row$requirement}"),
+          # @todo: summary'yi descriptiona ayırabiliriz
+          # description = row$description,
+          customFields = list(
+                  list( name = "Type", `$type` = "SingleEnumIssueCustomField", value = list( name = "Task")),
+                  list(name = "Requirement ID", `$type` = "SimpleIssueCustomField", value = row$requirement_id),
+                  list( name = "Assignee", `$type` = "SingleUserIssueCustomField", value = list( login = row$assignee))
+          )
+  ) %>%
+          jsonlite::toJSON(auto_unbox = TRUE)
+}, tsk_analysis) %>%
+        unlist()
+tsk_analysis2 <- tsk_analysis %>%
+        dplyr::mutate(body = bodys_analysis)
+tsk_analysis2
+
+bodys_test <- lapply(1:nrow(tsk_analysis), function(i, rqt_df) {
+  row <- rqt_df[i,]
+  list(
+          project = list(id = project_id),
+          summary = glue::glue("Test: {row$requirement}"),
+          # @todo: summary'yi descriptiona ayırabiliriz
+          description = row$description,
+          customFields = list(
+                  list( name = "Type", `$type` = "SingleEnumIssueCustomField", value = list( name = "Task")),
+                  list(name = "Requirement ID", `$type` = "SimpleIssueCustomField", value = row$requirement_id),
+                  list( name = "Assignee", `$type` = "SingleUserIssueCustomField", value = list( login = row$assignee))
+          )
+  ) %>%
+          jsonlite::toJSON(auto_unbox = TRUE)
+}, tsk_analysis) %>%
+        unlist()
+tsk_test <- tsk_analysis %>%
+        dplyr::mutate(body = bodys_test)
+tsk_test
+```
+Şimdi REST servisimizi çağırıp, body datalarını argüman olarak gönderip, analysis tasklarımızı tek tek oluşturabiliriz:
+
+```{r step09}
+url <- "https://youtrack.layermark.com/api/issues"
+query = list(fields = "idReadable,created")
+map_yt_rdb_analysis <- lapply(1:nrow(tsk_analysis2), function(i, tsk_df) {
+  row <- tsk_df[i,]
+  resp <- POST_auth(url, body = row$body, query = query, encode = "form")
+  response_data <- fromJSON(rawToChar(resp$content))
+  tibble(
+          entity_id = response_data$id,
+          issue_id = response_data$idReadable,
+          requirement_id = row$requirement_id
+  )
+}, tsk_analysis2) %>%
+        dplyr::bind_rows()
+map_yt_rdb_analysis
+
+map_yt_rdb_test <- lapply(1:nrow(tsk_test), function(i, tsk_df) {
+  row <- tsk_df[i,]
+  resp <- POST_auth(url, body = row$body, query = query, encode = "form")
+  response_data <- fromJSON(rawToChar(resp$content))
+  tibble(
+          entity_id = response_data$id,
+          issue_id = response_data$idReadable,
+          requirement_id = row$requirement_id
+  )
+}, tsk_test) %>%
+        dplyr::bind_rows()
+map_yt_rdb_test
+```
+
 # İlişkileri Issue Id'lerle kurmak
 
 1. Şimdi öncelikle bütün task'ları (hem modül, hem normal) YT'de create edelim.
@@ -246,7 +363,7 @@ bs_mdl <- lapply(1:nrow(tsk_mdl2), function(i, tsk_df) {
       list(name = "Requirement ID", `$type` = "SimpleIssueCustomField", value = row$requirement_id)
     )
   ) %>%
-    jsonlite::toJSON(auto_unbox = TRUE)
+    jsonlite::toJSON(auto_unbox = TRUE, na = "null")
 }, tsk_mdl2) %>%
   unlist()
 tsk_mdl3 <- tsk_mdl2 %>%
@@ -286,7 +403,7 @@ bs_rqt <- lapply(1:nrow(tsk_rqt), function(i, tsk_df) {
 			list( name = "Type", `$type` = "SingleEnumIssueCustomField", value = list( name = "Requirement Implementation")),
 			list( name = "Assignee", `$type` = "SingleUserIssueCustomField", value = list( login = row$assignee)),
 			list( name = "Estimation", `$type` = "PeriodIssueCustomField", value = list( minutes = (row$estimation))),
-      list(name = "Requirement ID", `$type` = "SimpleIssueCustomField", value = row$requirement_id)
+            list(name = "Requirement ID", `$type` = "SimpleIssueCustomField", value = row$requirement_id)
     )
   ) %>%
     jsonlite::toJSON(auto_unbox = TRUE)
@@ -302,7 +419,8 @@ tsk_rqt2
 ```{r step09}
 url <- "https://youtrack.layermark.com/api/issues"
 query = list(fields = "idReadable,created")
-map_yt_rdb_rqt <- lapply(1:nrow(tsk_rqt2), function(i, tsk_df) {
+map_yt_rdb_rqt <- lapply(1:3, function(i, tsk_df) {
+# map_yt_rdb_rqt <- lapply(1:nrow(tsk_rqt2), function(i, tsk_df) {
   row <- tsk_df[i,]
   resp <- POST_auth(url, body = row$body, query = query, encode = "form")
   response_data <- fromJSON(rawToChar(resp$content))
@@ -318,6 +436,8 @@ map_yt_rdb_rqt
 ## Step02: YT Issue Id'lerini Requirement Id'leriyle Birlikte kaydedelim
 
 ```{r}
+rio::export(map_yt_rdb_analysis, "map_yt_rdb_analysis.tsv")
+rio::export(map_yt_rdb_test, "map_yt_rdb_test.tsv")
 rio::export(map_yt_rdb_mdl, "map_yt_rdb_mdl.tsv")
 rio::export(map_yt_rdb_rqt, "map_yt_rdb_rqt.tsv")
 ```

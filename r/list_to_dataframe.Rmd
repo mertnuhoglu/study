@@ -1,0 +1,15 @@
+---
+title: "Convert: R List to Data Frame"
+date: '2022-02-10T19:30:01+03:00'
+draft: true
+description: ""
+tags:
+categories: r list
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+
+---
+
+Ref: `~/projects/dewey/data_analysis_presentations/video_trainings/exercise_converting_a_nested_list_into_dataframe_v1/index.Rmd`

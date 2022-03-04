@@ -81,16 +81,23 @@ yml01$projects %>%
 ```
 ```{r}
 safe_extract <- function(l, wut) {
-  res <- l[wut]
+  res <- l[wut] %>%
+    setNames(wut)
   null_here <- map_lgl(res, is.null)
   res[null_here] <- NA
   res
 }
 
 yml01$projects %>%
-  map_df(safe_extract, c("ttl", "ftr"))
+  map_df(safe_extract, c("ttl", "ftr", "opt"))
+#> # A tibble: 3 × 3
+#> ttl       ftr                      opt
+#> <chr>     <chr>                    <chr>
+#> 1 project01 description of project01 NA
+#> 2 project02 NA                       NA
+#> 3 project03 NA                       alternative01 alternative02
+```
+```{r}
 yml01$projects %>%
-        map_df(safe_extract, c("ttl"))
-yml01$projects %>%
-        map_df(safe_extract, c("ftr"))
+  purrr::map_df(rutils::safe_extract, c("ttl", "ftr", "opt"))
 ```

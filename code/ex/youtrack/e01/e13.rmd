@@ -3,6 +3,36 @@ title: "Get Issue Custom Fields"
 output: html_document
 ---
 
+# Initial Setup
+
+```{r libraries,warning=false,message=false,include=false}
+library(httr)
+library(jsonlite)
+library(lubridate)
+library(tidyverse)
+library(knitr)
+library(dplyr)
+library(glue)
+library(googlesheets4)
+```
+
+REST servislerini çağıracağımız `httr::GET` fonksiyonunu standart varsayılan argümanlarıyla konfigüre edelim:
+
+```{r step02}
+config <- httr::add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}"))
+h2 <- httr::accept_json()
+h3 <- httr::content_type_json()
+config$headers <- c(config$headers, h2$headers, h3$headers)
+GET_auth <- purrr::partial(httr::GET, config = headers)
+POST_auth <- purrr::partial(httr::POST, config = config)
+```
+
+
+
+## opt01: Tek tek issue'ların bilgilerini çekmek
+
+Bunun yerine opt02'yi tercih edelim.
+
 Ref: `e12.sh`
 
 Burada belli bir issue'nun tüm custom field'larının değerlerini çekiyoruz.
@@ -24,12 +54,126 @@ Burada id olarak `TEST-514` yazdık.
 Bu durumda önce ilgili projedeki tüm issue'ları çekeceğiz, `e03.rmd` içindeki gibi.
 ```{r}
 issues01 <- raw_issue_data %>%
-  dplyr::mutate(`issue_id` = idReadable,
-                `created` = as_datetime(created / 1000),
-                `resolved` = as_datetime(resolved / 1000),
-                `updated` = as_datetime(updated / 1000)) %>%
-  dplyr::select(issue_id, created, updated, resolved)
+        dplyr::mutate(`issue_id` = idReadable,
+                      `created` = as_datetime(created / 1000),
+                      `resolved` = as_datetime(resolved / 1000),
+                      `updated` = as_datetime(updated / 1000)) %>%
+        dplyr::select(issue_id, created, updated, resolved)
 
 ```
 Sonra da ilgilendiğimiz issue_id'leri bir yere kaydedip bunların field değerlerini `e12b.sh` içindeki gibi çekeceğiz.
+
+## opt02: Tüm issue'ları tek seferde çekmek
+
+[Query Syntax - Help | Developer Portal for YouTrack and Hub](https://www.jetbrains.com/help/youtrack/devportal/api-query-syntax.html#samples)
+
+Tek bir sorguyla istediğimiz issue'ları ve onların alanlarını çekebiliriz. Ref: `e12e.sh`
+
+```
+https://youtrack.layermark.com/api/issues?fields=id,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type))&query=project:+test
+```
+
+Bunun datasını örnek olarak `tmp/e12e.json` içine koyduk. Şimdi bu datayı flat formata (tablo) çevirelim:
+
+```{r}
+raw_issue_data <- jsonlite::fromJSON("tmp/e12e_hyd.json") %>%
+  dplyr::as_tibble()
+
+```
+
+Yukarıda json dosyasındaki verileri almıştık. Şimdi bir de doğrudan Youtrack'ten REST servisiyle verileri çekelim.
+
+```{r step08}
+url2 <- glue::glue("https://youtrack.layermark.com/api/issues")
+resp <- GET_auth(url2, query = list(fields = "id,idReadable,summary"))
+# resp <- GET_auth(url2, query = list(fields = "id,idReadable,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,name))",
+#                                     query = "project:+test"))
+response_data <- fromJSON(rawToChar(resp$content))
+response_data
+```
+
+Şimdi ilk olarak her bir atributun ismini okuyalım:
+
+```{r}
+raw_issue_data$customFields[[1]]$projectCustomField$field$name
+#  [1] "State"          "Priority"       "Assignee"       "Type"
+#  [5] "Estimation"     "Spent time"     "Due Date"       "Requirement ID"
+#  [9] "Verifier"       "Sprint"         "Story points"   "Volume"
+# [13] "Uncertainty"    "Complexity"     "SubProject"     "Epic"
+# [17] "Timer time"     "Fixed Version"
+```
+Şimdi bu atributların değerlerini de görmek istiyorum. Benzer şekilde:
+
+```{r}
+raw_issue_data$customFields[[1]]$value
+# [[1]]
+# [[1]]$name
+# [1] "Open"
+#
+# [[1]]$`$type`
+# [1] "StateBundleElement"
+#
+#
+#
+#
+# ...[[3]]
+# [[7]]
+# NULL
+
+# [[8]]
+# [1] 4
+```
+Şimdi burada homojen bir data structure yok. Yani aynı formda değil, dönen objenin farklı öğeleri. Dolayısıyla bunu doğrudan kolay bir şekilde tabloya çeviremeyiz.
+
+Birkaç seçenek
+
+opt01: Esas almak istediğimiz datayı alalım, diğerlerini bırakalım şimdilik.
+opt02: Tüm dataları tek seferde flat edelim. Bunun için lapply/map fonksiyonları kullanmak lazım.
+
+Şimdilik kolay olduğu için, birinci seçenekten devam edelim. Bizim almak istediğimiz `Requirement ID` objesi 8. obje. Direk onu çekelim.
+
+```{r}
+raw_issue_data$customFields[[1]]$value[[8]]
+# [1] 4
+
+```
+Burada sadece raw_issue_data içindeki ilk satırın değerini almıştık. Tümünü almak için:
+
+```{r}
+rqt_ids <- lapply(1:nrow(raw_issue_data), function(i, df) {
+  rqt_id <- df$customFields[[i]]$value[[8]]
+}, raw_issue_data) %>%
+  unlist()
+rqt_ids
+```
+
+Şimdi bir de State değerleri için aynısını yapalım.
+
+```{r}
+states <- lapply(1:nrow(raw_issue_data), function(i, df) {
+  state <- df$customFields[[i]]$value[[1]]$name
+}, raw_issue_data) %>%
+        unlist()
+states
+```
+
+Şimdi bu Requirement Id ve State değerlerinden oluşan vektörleri, bir tablonun kolonuna koymam gerekiyor.
+
+Önce raw_issue_data'dan flat kolonları alalım sadece:
+
+```{r}
+df02 <- raw_issue_data %>%
+  dplyr::select(idReadable, summary)
+df02
+```
+
+
+Şimdi bu rqt_ids vektörünü, df02'ye ekleyelim. Ancak fonksiyonel programlamanın immutable prensibi gereği, mevcut objeyi update etmeyelim, yeni bir objeye bunu koyalım. Bunun için de dplyr::mutate fonksiyonunu kullanacağız.
+```{r}
+df03 <- df02 %>%
+  dplyr::mutate(requirement_id = rqt_ids) %>%
+  dplyr::mutate(state = states)
+df03
+```
+
 

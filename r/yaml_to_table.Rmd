@@ -1,0 +1,15 @@
+---
+title: "Example: YAML to Flat Table"
+date: '2022-02-10T18:53:30+03:00'
+draft: true
+description: ""
+tags:
+categories: r yaml
+type: post
+url:
+author: "Mert Nuhoglu"
+output: html_document
+
+---
+
+

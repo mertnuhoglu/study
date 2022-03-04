@@ -1,0 +1,106 @@
+---
+title: "Reshaping Nested Data"
+output: html_document
+---
+
+# Initial Setup
+
+```{r libraries,warning=false,message=false,include=false}
+library(httr)
+library(jsonlite)
+library(lubridate)
+library(tidyverse)
+library(knitr)
+library(dplyr)
+library(glue)
+library(googlesheets4)
+```
+
+# Problem: Nested Datayı Flat Dataya Çevirmek
+
+İçiçe bir youtrack datasını örnek olarak `tmp/e12e.json` içine koyduk. Şimdi bu datayı flat formata (tablo) çevirelim:
+
+```{r}
+json <- jsonlite::fromJSON("tmp/e12e.json") %>%
+  dplyr::as_tibble()
+
+```
+
+Öncelikle bu verinin yapısını veya şeklini görelim. Bunun için `e15.sh` içindeki şu scripti çalıştıralım:
+
+```bash
+json2xpath.jq tmp/e12e.json | sort -u | xpath2dot.awk -v ORIENT="UD" | dot -T png > tmp/e12e.png
+```
+
+![Json verisinin yapısı](tmp/e12e.png)
+
+Alternatif olarak gron ile de bu işlemi yapabiliriz. `e15b.sh`:
+
+```bash
+gron tmp/e12e.json | sed -e 's/ =.*//' | sed -r 's/[0-9]+//g' | sort -u
+
+#json
+#json[]
+#json[].$type
+#json[].customFields
+#json[].customFields[]
+#json[].customFields[].$type
+#json[].customFields[].id
+#json[].customFields[].projectCustomField
+#json[].customFields[].projectCustomField.$type
+#json[].customFields[].projectCustomField.field
+#json[].customFields[].projectCustomField.field.$type
+#json[].customFields[].projectCustomField.field.id
+#json[].customFields[].projectCustomField.field.name
+#json[].customFields[].projectCustomField.id
+#json[].customFields[].value
+#json[].customFields[].value.$type
+#json[].customFields[].value.name
+#json[].id
+#json[].idReadable
+#json[].summary
+```
+
+Aynı içiçe yapı, R tarafındaki list objesinde de bulunur.
+
+Dolayısıyla mesela ilk objenin customFields objelerinin atributlarının isimlerini okumak için:
+
+```{r}
+json$customFields[[1]]$projectCustomField$field$name
+#  [1] "State"          "Priority"       "Assignee"       "Type"
+#  [5] "Estimation"     "Spent time"     "Due Date"       "Requirement ID"
+#  [9] "Verifier"       "Sprint"         "Story points"   "Volume"
+# [13] "Uncertainty"    "Complexity"     "SubProject"     "Epic"
+# [17] "Timer time"     "Fixed Version"
+```
+
+Peki tüm objelerin customFields objelerinin atributlarının isimlerini nasıl alırız?
+
+Bunun için yukarıdaki ifadede `customFields[[i]]` şeklinde i indeksini dolaşmamız lazım.
+
+Eğer tüm json objelerinin iç veri yapıları aynı olsa, bunu yapmamıza gerek olmaz. Ama bunun böyle olmadığını kabul edelim.
+
+
+
+Şimdi bu atributların değerlerini de görmek istiyorum. Benzer şekilde:
+
+```{r}
+json$customFields[[1]]$value
+# [[1]]
+# [[1]]$name
+# [1] "Open"
+#
+# [[1]]$`$type`
+# [1] "StateBundleElement"
+#
+#
+#
+#
+# ...[[3]]
+# [[7]]
+# NULL
+
+# [[8]]
+# [1] 4
+```
+Şimdi burada homojen bir data structure yok. Yani aynı formda değil, dönen objenin farklı öğeleri. Dolayısıyla bunu doğrudan kolay bir şekilde tabloya çeviremeyiz.

@@ -1,0 +1,349 @@
+use cases id=g12722
+	Json Structure To Graph 20220214  <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12720>
+	ref: Yaml To Json To Edn 20220214 <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12721>
+	ref: Convert: isfkr.yaml to table 20220215 <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12724>
+tools id=g12416
+	fx:- json navigation tool id=g12412:
+		ref
+			~/projects/study/bash/json_fx.md
+			[Discover how to use fx effectively, a JSON manipulation command line tool | by Anton | Medium](https://medium.com/@antonmedv/discover-how-to-use-fx-effectively-668845d2a4ea)
+			https://www.youtube.com/watch?v=ktfeRxKog98
+		ftr: >
+			çok kullanışlı
+			table output
+			edit in-place
+			xargs ile çok sayıda json elementini işleme
+			recursively search json
+		setup: >
+			ln ile kısayol oluştur
+			ln -s /Users/mertnuhoglu/projects/private_dotfiles/.fxrc /Users/mertnuhoglu/.fxrc
+		quickref: >
+			hjkl | up/dn expand/collapse
+			e/+e | expand/collapse all
+			.[0].name | filtering
+			/ | search
+			. | query console
+			^w | query: delete last path
+			^u | query: delete all path
+		ex document: curl https://swapi.co/api/planets/1/ | fx .
+		pretty print: curl https://swapi.co/api/planets/1/ | fx .
+		filtering: fx .films
+		expressions:- snippets
+			ex01: x => x.chalk
+		lodash functions:
+			ex01: fx package.json 'require("lodash").toPairs'
+			nts: >
+				lodash require ifadesini global .fxrc içine koyabilirsin
+			ex02: groupBy("commit.author.name")
+			ex03:- multiple commands: >
+				'groupBy("commit.author.name")' 'mapValues(size)'
+	jless:- navigation id=g12716
+		https://pauljuliusmartinez.github.io/
+		[jless - Command Line JSON Viewer](https://pauljuliusmartinez.github.io/usage.html)
+		shortcuts
+			j/k | next/prev line
+			c/e | collapse/expand
+			0/$ | first/last sibling
+			h/l | collapse/expand
+			H | focus parent wo collapsing
+			J/K | next/prev sibling N times
+			w/b | for/backward until change in level
+			0/^ | first sibling
+			$   | last sibling
+			^e/^y | scroll down/up
+			zz/zt/zb | focus to center/top/bottom
+			/?*#nN | search commands (vim)
+			m | data/line mode
+			% | match delimiter (in line mode)
+			:help | help
+			q | quit
+		yaml:
+			cat file.yaml | yq -o=json | jless
+	gojq
+		jq replacement
+		yaml support
+	jet: edn id=g12717
+		ex: convert from json
+			echo '{"a": 2}' | jet --from json --to edn
+		ex: yaml -> json -> edn
+			ref: Yaml To Json To Edn 20220214 <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12721>
+			cat isfkr_20211214.yaml | yq -o=json | sponge isfkr.json
+	yq: jq for YAML id=g12715
+		ttl: jq wrapper for YAML, XML, TOML, JSON
+		ref
+			[mikefarah/yq: yq is a portable command-line YAML, JSON and XML processor](https://github.com/mikefarah/yq)
+		ex
+			cat /etc/file.json | yq '.a.path = "value"' | sponge /etc/myfile
+			cat file.yaml | yq '.cool'
+			yq '.a.b[0].c' file.yaml
+			yq -i '.a.b[0].c = "cool"' file.yaml
+				update file inplace
+			yq -P '.' sample.json
+				-P --prettyPrint
+			-o=json
+				output as json
+	jsunfui: navigation
+		https://github.com/AdrianSchneider/jsonfui
+		curl -s https://api.github.com/users/adrianschneider/repos | jsonfui
+		shortcuts
+			j/k | next/prev sibling
+			h/l | collapse/expand node
+			enter | send to stdout
+			y/c | copy to clipboard
+			- | toggle expansion
+			/ | search
+			* | search under cursor
+			n/N | next/prev search
+			SPC | clear highlight
+	gron id=g12418
+		gron <url:file:///~/projects/study/clj/clojure.otl#r=g12418>
+		ex: gron subset and ungron
+			gron | rg <some fragment> | gron -u
+		ref
+			gron examples <url:file:///~/projects/study/logbook/log_20200420.md#r=g11923>
+		ex:
+			gron ~/projects/btg/btg_cmmi/ex/log_cmmi_20200415/e02/sidebar.json
+				json.div.div[2].div.span = "CAR 1.1 Identify and address causes of selected outcomes.";
+				json.div.div[3].div.span = "Level 2";
+				json.div.div[4].div.span = "CAR 2.1 Select outcomes for analysis.";
+		ex: convert back to json: gron > grep > json
+			▶ gron testdata/two.json | grep likes | gron --ungron
+			{
+				"likes": [
+					"code",
+					"cheese",
+					"meat"
+				]
+			}
+	jid: json incremental digger id=g12718
+		ref
+			[simeji/jid: json incremental digger](https://github.com/simeji/jid)
+		autocomplete
+		ex:
+			echo '{"aa":"2AA2","bb":{"aaa":[123,"cccc",[1,2]],"c":321}}'| jid
+			<enter> => prints output
+		shortcuts
+			TAB | show available items
+	prolog for json id=g12719
+		ref: [JSON data is also a valid *Prolog* term, and the declarative programming languag... | Hacker News](https://news.ycombinator.com/item?id=28028820)
+	json_to_paths
+		https://github.com/TomConlin/json_to_paths
+		ex: json to graph
+			ref: Json To Graph 20220214  <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12720>
+		make jq paths
+			./json2jqpath.jq testdata.json > testdata.jqpath
+			cat testdata.jqpath
+			.
+			.response
+			.response|.count
+			.response|.data
+			.response|.data|.[]
+			.response|.data|.[]|.person
+			.response|.data|.[]|.person|.address
+		make xpath paths
+			./json2xpath.jq testdata.json| sort -u > testdata.xpath
+			cat testdata.xpath
+			./response
+			./response/count
+			./response/data
+			./response/data/person
+			./response/data/person/address
+		make dot diagram of json:
+			./json2xpath.jq testdata.json |
+					sort -u |
+					xpath2dot.awk -v ORIENT="UD" |
+					dot -T svg > testdata.svg
+			json2xpath.jq isfkr.json | sort -u | xpath2dot.awk -v ORIENT="UD" | dot -T svg > isfkr.svg
+		count and sort info in deep tree
+			jq ".response|.data|.[]|.person|.tags|.[]" testdata.json |
+					sort | uniq -c | sort -nr | head
+					75 "est"
+					64 "labore"
+					63 "consectetur"
+	ijq: interactive jq
+		[gpanders/ijq: Interactive jq (mirror)](https://github.com/gpanders/ijq)
+		[jq play](https://jqplay.org/#)
+		curl -s https://api.github.com/users/gpanders | ijq
+	jsonata jfq: jq alternative
+		daha basit bir sorgulama dili
+		jfq
+			yaml desteği de var
+	vim-jqplay
+		[bfrg/vim-jqplay: Run jq interactively in Vim](https://github.com/bfrg/vim-jqplay)
+		neovim desteği yok
+	nvim-jqx: jq in vim 
+		ref:
+			[gennaro-tedesco/nvim-jqx: Populate the quickfix with json entries](https://github.com/gennaro-tedesco/nvim-jqx)
+		ftr:
+			jq sorgulama
+			sonuçları quickfix ile görme
+			enter ile doğrudan ilgili satıra gitme
+			yaml desteği
+		:JqxList
+			populate qf with json keys
+	vim: telescope tools:
+		:YAMLTelescope
+		jqplay.org
+	convert json:
+		eat:- convert yaml, toml, xml, ini, cli to json:
+			ref
+				https://github.com/antonmedv/eat
+		any-json: convert anything to json:
+			ref
+				https://github.com/any-json/any-json
+			ftr: csv, partial json, yaml, merge, cson, xlsx
+	jsoneditoronline.org
+		https://jsoneditoronline.org/#right=local.honuse
+	table
+		ttl: present tables in cli
+		ref: [cli-table3 - npm](https://www.npmjs.com/package/cli-table3)
+		ex:
+			fx commits.json .[].commit.author table
+	rq tool  id=g12413
+		ref
+			[rq/tutorial.md at master · dflemstr/rq](https://github.com/dflemstr/rq/blob/master/doc/tutorial.md)
+	fzf json repl  id=g12417
+		ref
+			[Turn Your fzf Into a Live REPL :: paweldu.dev — Pawel Duda's personal site](https://paweldu.dev/posts/fzf-live-repl/)
+		doc
+			ex01: awk repl
+				echo '' | fzf --print-query --preview 'echo "a\nb\nc\nd" | awk {q}'
+				P # show preview
+				{print}
+				/a/ {print}
+			ex02: jq repl
+				echo '' | fzf --print-query --preview 'jq {q} /path/to/json/file'
+	up: ultimate plumber  id=g12419
+		ref
+			https://github.com/akavel/up
+		up: fzf gibi komutları gerçek zamanlı test etme aracı
+			lshw |& up	
+				grep net
+				grep network -A2 | grep : | cut -d: -f2 | paste - -
+	json viewer
+		ref
+			[ashwin/json-viewer: Display JSON file as tree in GUI](https://github.com/ashwin/json-viewer)
+	catj
+		ref
+			[soheilpro/catj: Displays JSON files in a flat format.](https://github.com/soheilpro/catj)
+	floki
+		ref
+			[dotfiles/navigators.md at 7c8b9b8b9111ef8b6f9cb22b721570f7ced22b18 · denisidoro/dotfiles](https://github.com/denisidoro/dotfiles/blob/7c8b9b8b9111ef8b6f9cb22b721570f7ced22b18/docs/navigators.md)
+	edn converter
+		ref
+			[wilkerlucio/edn-json: Tools to convert back and forth between EDN and JSON, optimised for storage and JSON tooling friendliness.](https://github.com/wilkerlucio/edn-json)
+	rebl rebl2 id=g12423
+		ref
+			run REBL <url:file:///~/projects/study/clj/clojure.otl#r=g12422>
+			~/projects/study/clj/rebl_reveal_portal_repl.otl
+			[(167) 1. Atom, Chlorine, and Cognitect's REBL - YouTube](https://www.youtube.com/watch?v=ZhzMoEz4j1k)
+	org mode dönüştürme var mı?
+		ref
+			[Org Element API](https://orgmode.org/worg/dev/org-element-api.html)
+			[org mode - Turn a list or data structure into an org document - Emacs Stack Exchange](https://emacs.stackexchange.com/questions/2869/turn-a-list-or-data-structure-into-an-org-document)
+			[Convert Pandoc JSON to Emacs Org mode for free on Alldocs](https://alldocs.app/convert-pandoc-json-to-emacs-org-mode)
+			[jlumpe/ox-json: JSON export back end for Emacs Org mode](https://github.com/jlumpe/ox-json)
+	pandoc json
+		ref
+			[Pandoc - Demos](https://pandoc.org/demos.html)
+		pandoc biblio.bib -t csljson -o biblio.json
+		pandoc -s biblio.json -o biblio.org
+		pandoc -s MANUAL.txt -o example27.org
+		pandoc -s MANUAL.txt -t json -o manual.json
+		pandoc -s MANUAL.txt -t json | fx . > manual.json
+		pandoc -s iris.csv -t json | fx . > iris.json
+	opt
+		vim emacs plugin de olabilir
+		json schema generator?
+	eq (edn query)
+		ref
+			[jonase/eq: A command line tool for edn processing and pretty printing](https://github.com/jonase/eq)
+	zprint
+		ref
+			[kkinnear/zprint: Executables, uberjar, and library to beautifully format Clojure and Clojurescript source code and s-expressions.](https://github.com/kkinnear/zprint)
+		küçük bir dosyada deneyelim
+	jql: jq alternative
+		lispy go syntax
+		ref: [cube2222/jql: Easy JSON Query Processor with a Lispy syntax in Go](https://github.com/cube2222/jql#Type-Cheatsheet)
+		pnn: clojurea benziyor. direk jet kullanmak daha iyi
+	dasel: CRUD for json
+		ref: [TomWright/dasel: Select, put and delete data from JSON, TOML, YAML, XML and CSV files with a single tool. Supports conversion between formats and can be used as a Go package.](https://github.com/TomWright/dasel)
+		ex: select
+			echo '{"name": "Tom"}' | dasel -r json '.name'
+				"Tom"
+		ex: convert json to yaml
+			echo '{"name": "Tom"}' | dasel -r json -w yaml
+				name: Tom
+		ex: put
+			echo '{"name": "Tom"}' | dasel put string -r json '.email' 'contact@tomwright.me'
+			{
+				"email": "contact@tomwright.me",
+				"name": "Tom"
+			}
+		jq vs dasel
+			ref: [JQ to Dasel - Dasel](https://daseldocs.tomwright.me/examples/jq-to-dasel)
+			ex
+				Select a single value
+					echo '{"name": "Tom"}' | jq '.name'
+					"Tom"
+					echo '{"name": "Tom"}' | dasel -p json '.name'
+					"Tom"
+				Select a nested value
+					echo '{"user": {"name": "Tom", "age": 27}}' | jq '.user.age'
+					27
+					echo '{"user": {"name": "Tom", "age": 27}}' | dasel -p json '.user.age'
+					27
+				Select an array index
+					echo '[1, 2, 3]' | jq '.[1]'
+					2
+					echo '[1, 2, 3]' | dasel -p json '.[1]'
+					2
+	yaml-revealer.vim
+		bulunduğun yaml maddesinin yolunu gösterir
+	yaml.nvim
+		:YAMLTelescope
+		:YAMLQuickfix
+		:YAMLYank
+		:YAMLYankKey
+	pxi
+		ref:
+			[Yord/pxi: 🧚 pxi (pixie) is a small, fast, and magical command-line data processor similar to jq, mlr, and awk.](https://github.com/Yord/pxi)
+		ex
+			Convert between JSON, CSV, SSV, and TSV:
+				$ pxi --from json --to csv < 2019.jsonl > 2019.csv
+				$ pxi --deserializer json --serializer csv < 2019.jsonl > 2019.csv
+				$ pxi -d json -s csv < 2019.jsonl > 2019.csv
+	Textrude
+		ref:
+			[NeilMacMullen/Textrude: Code generation from YAML/JSON/CSV models via SCRIBAN templates](https://github.com/NeilMacMullen/Textrude)
+	jj
+		ref:
+			[tidwall/jj: JSON Stream Editor (command line utility)](https://github.com/tidwall/jj)
+		supports JSON Lines 
+			ex:
+				{"name": "Gilbert", "age": 61}
+				{"name": "Alexa", "age": 34}
+				{"name": "May", "age": 57}
+			code:
+				..#                   >> 4
+				..1                   >> {"name": "Alexa", "age": 34}
+				..#.name              >> ["Gilbert","Alexa","May"]
+				..#[name="May"].age   >> 57
+		jq vs jj
+			$ time cat citylots.json | jq -cM .features[10000].properties.LOT_NUM
+			$ time cat citylots.json | jj -r features.10000.properties.LOT_NUM
+	yamlpath
+		ref:
+			[wwkimball/yamlpath: Command-line get/set/merge/validate/scan/convert/diff processors for YAML/JSON/Compatible data using powerful, intuitive, command-line friendly syntax.](https://github.com/wwkimball/yamlpath)
+	jinsi
+		ref:
+			[scravy/jinsi: JSON/YAML homoiconic templating language](https://github.com/scravy/jinsi)
+	tools:
+		[w3c/EasierRDF: Making RDF easy enough for most developers](https://github.com/w3c/EasierRDF)
+		[List of JSON tools for command line – Ilya's blog](https://ilya-sher.org/2018/04/10/list-of-json-tools-for-command-line/)
+		jtbl
+		jc
+		skim -i
+		[Extracting Objects Recursively with Jq | Hacker News](https://news.ycombinator.com/item?id=28026712)
+
+		

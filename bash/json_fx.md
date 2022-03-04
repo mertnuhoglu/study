@@ -14,6 +14,8 @@ output: rmarkdown::html_document
 
 # Quickstart fx id=g11922
 
+ref: `fx:- json navigation tool <url:file:///~/projects/study/otl/json.otl#r=g12412>`
+
 # Index fx id=g11921
 
 # Issues fx

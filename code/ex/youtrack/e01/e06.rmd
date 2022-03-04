@@ -54,6 +54,22 @@ lapply(1:3, function(e) e)
 lapply(1:3, function(e) e + 1)
 ```
 
+lapply standart fonksiyonel programlamada map fonksiyonun karşılığı.
+
+Şöyle düşünelim. Elimizde girdi olarak [1,2,3] -> [2,3,4]. Bu dönüştürme işlemine map etmek diyoruz. Fakat lapply box ediyor bunu. Yani bir list içine alıyor her bir öğeyi. Dolayısıyla en sonunda unlist etmemiz gerekiyor, tekrar vektör elde etmek istiyorsak.
+
+```{r}
+lapply(1:3, function(i) i + 1) %>%
+  unlist()
+```
+
+Aynı şeyi map fonksiyonlarıyla da yapabiliriz.
+
+```{r}
+library(purrr)
+purrr::map_dbl(1:3, function(i) i + 1)
+map_dbl(1:3, ~ . + 2)
+```
 Vector of list objesi oluşturmak istiyorum lapply sonucunda. Vektörün her bir öğesi, bir body list objesi olacak şekilde
 
 ```{r step04}
@@ -286,6 +302,8 @@ resp <- POST_auth(url, body = body2, query = query, encode = "form")
 
 #### Error: body'yi list objesi olarak kullanınca hata veriyor
 
+##### opt01: Primitif değerleri array içine box etmiş
+
 ```{r a01_list}
 url <- "https://youtrack.layermark.com/api/issues"
 query = list(fields = "idReadable,created,updated,resolved")
@@ -319,6 +337,27 @@ resp <- POST_auth(url, body = body2, query = query, encode = "form")
 ```
 
 Bu şekilde düzgün çalışıyor.
+
+##### opt02: null değerler
+
+```
+bodys_analysis[1]
+[1] "{\"project\":{\"id\":\"0-24\"},\"summary\":\"Analysis: Field Mobility Application (FMA)\",\"description\":null,\"customFields\":[{\"name\":\"Type\",\"$type\":\"SingleEnumIssueCustomField\",\"value\":{\"name\":\"Task\"}},{\"name\":\"Requirement ID\",\"$type\":\"SimpleIssueCustomField\",\"value\":2}]}"
+```
+
+Burada `\"description\":null` olduğundan bu hatayı vermiş. Çözüm: "replace_na" kullan. [Replace NAs with specified values — replace_na • tidyr](https://tidyr.tidyverse.org/reference/replace_na.html)
+
+##### opt03: Projeye dışarıdan API ile erişim izni yoktur
+
+Her projede tekrar ayarlama yapmak gerekiyor.
+
+##### opt04: Projenin fieldları farklı olabilir
+
+Yeni issue create ederken, gönderdiğin custom fieldlar eğer bu projede yoksa, bu hatayı alabilirsin.
+
+##### opt05: Alanlar aynı fakat enum değerleri farklı
+
+Type alanı var, ama bunun enum değerleri yoktu. Çözmek için: Type > Replace > with AMS projects
 
 #### Error: Bazı atributlar NA döndürüyor
 
