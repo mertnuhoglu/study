@@ -103,4 +103,4 @@ json$customFields[[1]]$value
 # [[8]]
 # [1] 4
 ```
-Şimdi burada homojen bir data structure yok. Yani aynı formda değil, dönen objenin farklı öğeleri. Dolayısıyla bunu doğrudan kolay bir şekilde tabloya çeviremeyiz.
+Şimdi burada homojen bir data structure yok. Yani aynı formda değil, dönen objenin farklı öğeleri. Bazen bazı issue'larda Requirement Id atributu var, bazen yok. Dolayısıyla bunu doğrudan kolay bir şekilde tabloya çeviremeyiz.

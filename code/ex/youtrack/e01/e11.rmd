@@ -10,8 +10,8 @@ RDB dosyasındaki tüm task'ları Youtrack'te issue olarak oluşturur.
 Set the project id. Proje id'leri e05.rmd içinde çekilmişti. `project_list.tsv` içinde kayıtlı
 
 ```{r init}
-# project_id <- "0-7"
-project_id <- "0-24"
+# project_id <- "0-7"  # Test Project
+project_id <- "0-24"   # DMB Project
 url_rdb <- "https://docs.google.com/spreadsheets/d/1HMosZ0_z42TxqezqDF7WAozxdu1TNgTs8CMueB5MZdY/edit#gid=0"
 ```
 ## Initial Setup
@@ -343,7 +343,7 @@ map_yt_rdb_test
 1. Şimdi öncelikle bütün task'ları (hem modül, hem normal) YT'de create edelim.
 2. Ondan sonra onların issue_id'lerini kaydedelim.
 3. Sonra da hem öncüllük, hem parent id'lerini bunlarla değiştirelim.
-4. Ve sonra tekrar YT'de ilgili fiedları update edelim.
+4. Ve sonra tekrar YT'de ilgili fieldları update edelim.
 
 ## Step01: YT'de Issue'ları Create Etme
 
@@ -419,8 +419,7 @@ tsk_rqt2
 ```{r step09}
 url <- "https://youtrack.layermark.com/api/issues"
 query = list(fields = "idReadable,created")
-map_yt_rdb_rqt <- lapply(1:3, function(i, tsk_df) {
-# map_yt_rdb_rqt <- lapply(1:nrow(tsk_rqt2), function(i, tsk_df) {
+map_yt_rdb_rqt <- lapply(1:nrow(tsk_rqt2), function(i, tsk_df) {
   row <- tsk_df[i,]
   resp <- POST_auth(url, body = row$body, query = query, encode = "form")
   response_data <- fromJSON(rawToChar(resp$content))
@@ -443,12 +442,18 @@ rio::export(map_yt_rdb_rqt, "map_yt_rdb_rqt.tsv")
 ```
 
 ## Step03: hem öncüllük, hem parent id'lerini issue_id ile değiştirelim
+
+### Step03a: set issue_id
 ```{r}
 tsk_rqt3 <- tsk_rqt2 %>%
         dplyr::left_join(map_yt_rdb_rqt, by = "task_id") %>%
-        dplyr::select(task_id, self_issue_id = issue_id, module_id, predecessor_task_id)
+        dplyr::select(task_id, self_issue_id = issue_id, module_id, predecessor_task_id, parent_id)
 tsk_rqt3
 ```
+
+### Step03b: set parent_issue_id
+
+#### Step03b.1 Modülleri parent_issue_id olarak ayarlamak
 
 Önce parent ilişkisini kurmak için, her bir modülün issue_id'sini buraya birleştirelim.
 ```{r}
@@ -457,6 +462,21 @@ tsk_rqt4 <- tsk_rqt3 %>%
   dplyr::select(task_id, self_issue_id, predecessor_task_id, parent_issue_id = issue_id)
 tsk_rqt4
 ```
+
+####  Step03b.2 Requirement parent_id'yi parent_issue_id olarak ayarlamak
+
+Her bir gereksinimin bir modüle ait olması gibi, birçok gereksinimin de kendi içinde bir üst gereksinim maddesi bulunuyor.
+```{r}
+map_yt_rdb_rqt2 <- map_yt_rdb_rqt %>%
+        left_join(tsk_rqt, "task_id") %>%
+        dplyr::select(issue_id, requirement_id, module_id)
+tsk_rqt4b <- tsk_rqt3 %>%
+        left_join(map_yt_rdb_rqt2, c("parent_id" = "requirement_id", "module_id" = "module_id")) %>%
+        dplyr::select(task_id, issue_id = self_issue_id, parent_issue_id = issue_id)
+tsk_rqt4b
+```
+
+### Step03b: set predecessor_issue_id
 
 Şimdi öncüllük ilişkisine ait issue_id'leri buraya birleştirelim.
 ```{r}
@@ -472,6 +492,7 @@ tsk_rqt5
 
 ### Data olarak command'ları oluşturalım
 
+#### a: Öncüllük komutları
 ```{r step11a02}
 # n <- nrow(rqt02)
 body_predecessor_tmpl <- '{{
@@ -484,23 +505,43 @@ bs_pred <- tsk_rqt5 %>%
 bs_pred
 ```
 
+#### b: Modüllerin subtaskları
+
 ```{r}
 body_parent_tmpl <- '{{
   "query": "subtask of {parent_issue_id}",
   "issues": [ {{ "idReadable": "{issue_id}" }} ]
 }}'
-bs_parent <- tsk_rqt5 %>%
+bs_parent_mdl <- tsk_rqt5 %>%
         dplyr::mutate(body_parent = glue::glue(body_parent_tmpl)) %>%
         dplyr::filter(!is.na(parent_issue_id))
-bs_parent
+bs_parent_mdl
+```
+
+#### c: Requirementların kendi hiyerarşisi
+
+```{r}
+body_parent_tmpl <- '{{
+  "query": "subtask of {parent_issue_id}",
+  "issues": [ {{ "idReadable": "{issue_id}" }} ]
+}}'
+bs_parent_rqt <- tsk_rqt4b %>%
+        dplyr::mutate(body_parent = glue::glue(body_parent_tmpl)) %>%
+        dplyr::filter(!is.na(parent_issue_id))
+bs_parent_rqt
 ```
 ```{r}
 url_command <- "https://youtrack.layermark.com/api/commands"
 for (i in 1:nrow(bs_pred)) {
   POST_auth(url_command, body = bs_pred[i, ]$body_predecessor, encode = "form")
 }
-for (i in 1:nrow(bs_parent)) {
-  POST_auth(url_command, body = bs_parent[i, ]$body_parent, encode = "form")
+for (i in 1:nrow(bs_parent_mdl)) {
+  POST_auth(url_command, body = bs_parent_mdl[i, ]$body_parent, encode = "form")
 }
 ```
-
+```{r}
+url_command <- "https://youtrack.layermark.com/api/commands"
+for (i in 1:nrow(bs_parent_rqt)) {
+  POST_auth(url_command, body = bs_parent_rqt[i, ]$body_parent, encode = "form")
+}
+```

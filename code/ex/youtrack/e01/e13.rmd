@@ -1,5 +1,5 @@
 ---
-title: "Get Issue Custom Fields"
+title: "Get Issue Custom Fields: Requirement ID ve Spent Time"
 output: html_document
 ---
 
@@ -76,7 +76,8 @@ https://youtrack.layermark.com/api/issues?fields=id,summary,customFields($type,i
 Bunun datasını örnek olarak `tmp/e12e.json` içine koyduk. Şimdi bu datayı flat formata (tablo) çevirelim:
 
 ```{r}
-raw_issue_data <- jsonlite::fromJSON("tmp/e12e_hyd.json") %>%
+raw_issue_data <- jsonlite::fromJSON("tmp/e12e_ams.json") %>%
+# raw_issue_data <- jsonlite::fromJSON("tmp/e12e_hyd.json") %>%
   dplyr::as_tibble()
 
 ```
@@ -92,6 +93,8 @@ response_data <- fromJSON(rawToChar(resp$content))
 response_data
 ```
 
+# Tüm Atributları Listelemek
+
 Şimdi ilk olarak her bir atributun ismini okuyalım:
 
 ```{r}
@@ -102,6 +105,11 @@ raw_issue_data$customFields[[1]]$projectCustomField$field$name
 # [13] "Uncertainty"    "Complexity"     "SubProject"     "Epic"
 # [17] "Timer time"     "Fixed Version"
 ```
+
+# Atribut Değerlerini Çekmek
+
+## opt01: Elle doğrudan atribut indeksini hard code ederek
+
 Şimdi bu atributların değerlerini de görmek istiyorum. Benzer şekilde:
 
 ```{r}
@@ -133,7 +141,7 @@ opt02: Tüm dataları tek seferde flat edelim. Bunun için lapply/map fonksiyonl
 Şimdilik kolay olduğu için, birinci seçenekten devam edelim. Bizim almak istediğimiz `Requirement ID` objesi 8. obje. Direk onu çekelim.
 
 ```{r}
-raw_issue_data$customFields[[1]]$value[[8]]
+raw_issue_data$customFields[[1]]$value[[6]]
 # [1] 4
 
 ```
@@ -141,13 +149,13 @@ Burada sadece raw_issue_data içindeki ilk satırın değerini almıştık. Tüm
 
 ```{r}
 rqt_ids <- lapply(1:nrow(raw_issue_data), function(i, df) {
-  rqt_id <- df$customFields[[i]]$value[[8]]
+  rqt_id <- df$customFields[[i]]$value[[6]]
 }, raw_issue_data) %>%
   unlist()
 rqt_ids
 ```
 
-Şimdi bir de State değerleri için aynısını yapalım.
+Şimdi bir de State değerleri için aynısını yapalım. Yalnız State atributu bir Enum olduğundan, bir nested json objesiyle tutulur. Bu yüzden yukarıdaki ifadenin sonuna `$name` atributunu koyarız.
 
 ```{r}
 states <- lapply(1:nrow(raw_issue_data), function(i, df) {
@@ -157,7 +165,48 @@ states <- lapply(1:nrow(raw_issue_data), function(i, df) {
 states
 ```
 
-Şimdi bu Requirement Id ve State değerlerinden oluşan vektörleri, bir tablonun kolonuna koymam gerekiyor.
+## opt02: Atributların İndekslerini Parametrik Olarak Alalım
+
+Hangi atributları okuyacaksak, onların indeks/sıra numaralarına ihtiyacımız var:
+```{r}
+nms <- raw_issue_data$customFields[[1]]$projectCustomField$field$name
+idx_rqt <- match("Requirement ID", nms)
+idx_spent <- match("Spent time", nms)
+idx_estimation <- match("Estimation", nms)
+idx_state <- match("State", nms)
+
+```
+
+Şimdi mesela bir tanesi için tüm satırları çekelim:
+
+```{r}
+rqt_ids <- lapply(1:nrow(raw_issue_data), function(i, df) {
+  rqt_id <- df$customFields[[i]]$value[[idx_rqt]]
+}, raw_issue_data) %>%
+        unlist()
+rqt_ids
+```
+```{r}
+rqt_state <- lapply(1:nrow(raw_issue_data), function(i, df) {
+  rqt_id <- df$customFields[[i]]$value[[idx_state]]$name
+}, raw_issue_data) %>%
+        unlist()
+
+```
+```{r}
+rqt_estimation <- lapply(1:nrow(raw_issue_data), function(i, df) {
+  rqt_id <- df$customFields[[i]]$value[[idx_estimation]]
+}, raw_issue_data) %>%
+        unlist()
+rqt_spent <- lapply(1:nrow(raw_issue_data), function(i, df) {
+  rqt_id <- df$customFields[[i]]$value[[idx_spent]]
+}, raw_issue_data) %>%
+        unlist()
+
+```
+# Çıktı Tabloyu Oluşturma
+
+Şimdi bu Requirement Id ve State gibi atribut değerlerinden oluşan vektörleri, bir tablonun kolonuna koymam gerekiyor.
 
 Önce raw_issue_data'dan flat kolonları alalım sadece:
 
@@ -172,8 +221,38 @@ df02
 ```{r}
 df03 <- df02 %>%
   dplyr::mutate(requirement_id = rqt_ids) %>%
-  dplyr::mutate(state = states)
+  dplyr::mutate(state = rqt_state)
+  # dplyr::mutate(estimation = rqt_estimation) %>%
+  # dplyr::mutate(spent_time = rqt_spent)
 df03
 ```
 
+Bitmiş tüm statelerin bir vektörünü oluşturalım
+```{r}
+done <- c("To Verify", "Verified", "Done")
+```
 
+Bitmiş statüdeki tüm gereksinimleri çekelim:
+```{r}
+df04 <- df03 %>%
+  dplyr::filter(state %in% done)
+df04
+```
+
+Bu yüzde olarak tüm gereksinimlerin yüzde kaçı oluyor?
+
+Bunun için de öncelikle rdb'deki tüm gereksinimleri çekmemiz lazım. `rdb_data_ams` dosyasındaki tüm requirement kayıtlarını çekelim.
+
+```{r step01}
+googlesheets4::gs4_deauth()
+url_rdb_data_ams <- "https://docs.google.com/spreadsheets/d/1NKaPR3rhGHG-N51thExeps8u3r3deO_YPPQCragRfT8"
+rqt <- googlesheets4::read_sheet(url_rdb_data_ams, sheet = "Requirement") %>%
+        dplyr::filter(invalid == 0) %>%
+        dplyr::filter(phase == 1)
+rqt
+```
+```{r}
+no_done_unique_rqt <- unique(df04$requirement_id) %>% length()
+total_unique_rqt <- nrow(rqt)
+no_done_unique_rqt / total_unique_rqt
+```

@@ -4,7 +4,7 @@
 # Ayrıca tüm alanları alabiliriz
 
 curl -X GET \
-'https://youtrack.layermark.com/api/issues?fields=id,idReadable,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,name))&query=project:+AMS' \
+'https://youtrack.layermark.com/api/issues?fields=id,idReadable,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,name))&query=project:%20AMS%20Type:%20%7BRequirement%20Implementation%7D%20Requirement%20ID:%20*' \
 -H 'Accept: application/json' \
 -H "Authorization: Bearer perm:${YOUTRACK_AUTH}" \
 -H 'Cache-Control: no-cache' \
