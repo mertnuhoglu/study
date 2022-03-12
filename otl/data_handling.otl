@@ -1,0 +1,52 @@
+
+index
+	/Users/mertnuhoglu/projects/study/r/ex/examples_r/purrr.rmd
+	/Users/mertnuhoglu/projects/study/r/ex/examples_r/purrr02.rmd
+	/Users/mertnuhoglu/projects/study/r/ex/yaml_to_table/e01/e01.rmd
+	/Users/mertnuhoglu/projects/study/r/df.Rmd
+	/Users/mertnuhoglu/projects/study/r/dplyr_counting.Rmd
+	/Users/mertnuhoglu/projects/study/r/dplyr_group_by.md
+	/Users/mertnuhoglu/projects/study/r/dplyr_meta_programming.Rmd
+	/Users/mertnuhoglu/projects/study/r/examples_r.Rmd
+	/Users/mertnuhoglu/projects/study/r/refcard_loops.Rmd
+	/Users/mertnuhoglu/projects/study/r/study_dplyr_mutate.md
+	/Users/mertnuhoglu/projects/study/r/study_purrrlyr.Rmd
+	/Users/mertnuhoglu/projects/study/r/study_r.Rmd
+	/Users/mertnuhoglu/projects/study/code/ex/youtrack/e01/e14.rmd
+	~/projects/study/otl/json.otl
+	~/projects/study/clj/ex/study_clojure/ex06/src/edn.clj
+	seq clojuredocs: ~/projects/study/clj/ex/study_clojure/ex06/src/sequence.clj
+	/Users/mertnuhoglu/projects/study/clj/meander.md
+	/Users/mertnuhoglu/projects/study/clj/datomic.md
+	/Users/mertnuhoglu/projects/study/clj/art_transparency_through_data_by_james_reeves.md
+	/Users/mertnuhoglu/projects/study/clj/art_solving_problems_clojure_way_rafal_dittwald.md
+	/Users/mertnuhoglu/projects/study/clj/jet.md
+	/Users/mertnuhoglu/projects/study/clj/rebl_reveal_portal_repl.otl
+	/Users/mertnuhoglu/projects/study/clj/clojure.otl
+	/Users/mertnuhoglu/projects/study/clj/specter.md
+	/Users/mertnuhoglu/projects/study/clj/study_eql.md
+Problem Types
+Example Problems
+nxt
+	nxt - rectangling nested data id=g12779
+		tidyr
+			[Rectangle a nested list into a tidy tibble — hoist • tidyr](https://tidyr.tidyverse.org/reference/hoist.html)
+			[Analyzing JSON data by taking advantage of what makes it JSON in R | by Kan Nishida | learn data science](https://blog.exploratory.io/analyzing-json-data-by-taking-advantage-of-the-structure-in-r-1e0508e30117)
+			[Working with JSON Data](https://shanghai.hosting.nyu.edu/data/r/working-with-json-data.html)
+			[Nested data: JSON to tibble](https://hendrikvanb.gitlab.io/2018/07/nested_data-json_to_tibble/)
+			[How to Wrangle JSON Data in R with jsonlite, purr and dplyr - Robot Wealth](https://robotwealth.com/how-to-wrangle-json-data-in-r-with-jsonlite-purr-and-dplyr/)
+		tidyjson
+			[Shell scripting using Clojure and Babashka | Red Hat Nordics SA Demo lab](https://redhatnordicssa.github.io/shell-scripting-using-clojure-and-babashka)
+			[Introduction to tidyjson](https://cran.microsoft.com/snapshot/2017-08-01/web/packages/tidyjson/vignettes/introduction-to-tidyjson.html)
+		[How to flatten a deeply and irregularly nested list/JSON in R - Stack Overflow](https://stackoverflow.com/questions/40964923/how-to-flatten-a-deeply-and-irregularly-nested-list-json-in-r?rq=1)
+			[Use quick formula functions in purrr::map (+ base vs tidtyverse idiom comparisons/examples) | rud.is](https://rud.is/b/2016/07/26/use-quick-formula-functions-in-purrrmap-base-vs-tidtyverse-idiom-comparisonsexamples/)
+		[markus-wa/cq: Clojure Command-line Data Processor for JSON, YAML, EDN, XML and more](https://github.com/markus-wa/cq)
+		[Shell scripting using Clojure and Babashka | Red Hat Nordics SA Demo lab](https://redhatnordicssa.github.io/shell-scripting-using-clojure-and-babashka)
+		jq
+			[Convert JSON to CSV with jq | egghead.io](https://egghead.io/lessons/jq-convert-json-to-csv-with-jq)
+		meander specter
+		clack
+		[The Data Lake and Schema On Read](https://mran.microsoft.com/snapshot/2018-05-23/web/packages/rdflib/vignettes/data-lake.html)
+		[The Magic of Purrr | Caio Lente](https://lente.dev/en/posts/purrr-magic/)
+		[Boettiger Group](https://www.carlboettiger.info/2017/12/11/data-rectangling-with-jq/)
+		[Data rectangling ⫽ Data Challenge Lab](https://dcl-2017-04.github.io/curriculum/rectangling.html)

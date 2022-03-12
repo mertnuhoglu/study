@@ -300,7 +300,7 @@ body2 <- toJSON(body, auto_unbox = TRUE)
 resp <- POST_auth(url, body = body2, query = query, encode = "form")
 ```
 
-#### Error: body'yi list objesi olarak kullanınca hata veriyor
+#### Error: body'yi list objesi olarak kullanınca hata veriyor id=g12782
 
 ##### opt01: Primitif değerleri array içine box etmiş
 

@@ -1,0 +1,169 @@
+---
+title: "Update Youtrack Issues from RDB"
+output: html_document
+---
+
+# Introduction
+
+`e11.rmd` içinde RDB'deki tüm taskları youtrack'e aktarmıştık. Ancak daha sonra bu taskların bazı bilgilerini güncelledik, örneğin est_man_days gibi. Bu bilgileri şimdi tekrar youtrack'e güncellemek istiyoruz.
+
+## Initial Setup
+
+```{r init}
+# project_id <- "0-7"  # Test Project
+project_id <- "0-24"   # DMB Project
+url_rdb <- "https://docs.google.com/spreadsheets/d/1HMosZ0_z42TxqezqDF7WAozxdu1TNgTs8CMueB5MZdY/edit#gid=0" # dmb
+```
+
+```{r libraries,warning=false,message=false,include=false}
+library(httr)
+library(jsonlite)
+library(lubridate)
+library(tidyverse)
+library(knitr)
+library(dplyr)
+library(glue)
+library(googlesheets4)
+```
+
+REST servislerini çağıracağımız `httr::GET` fonksiyonunu standart varsayılan argümanlarıyla konfigüre edelim:
+
+```{r step02}
+config <- httr::add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}"))
+h2 <- httr::accept_json()
+h3 <- httr::content_type_json()
+config$headers <- c(config$headers, h2$headers, h3$headers)
+GET_auth <- purrr::partial(httr::GET, config = headers)
+POST_auth <- purrr::partial(httr::POST, config = config)
+```
+
+# Mapping Between RDB task_id and YT issue_id
+
+Öncelikle RDB'deki taskların id'leriyle Youtrack issue id'lerini eşleştirdiğimiz dosyayı okumalıyız.
+
+```{r}
+map_yt_rdb_rqt_dmb <- readr::read_tsv("data/map_yt_rdb_rqt_dmb.tsv") %>%
+  dplyr::select(issue_id, task_id)
+map_yt_rdb_rqt_dmb
+```
+
+rdb'deki güncellenmiş datayı okuyalım.
+```{r read_rdb_task}
+tsk <- googlesheets4::read_sheet(url_rdb, sheet = "Task", na = "NA") %>%
+  dplyr::mutate(phase = unlist(phase)) %>%
+  dplyr::filter(phase == "1") %>%
+  dplyr::filter(!is.na(est_manhours)) %>%
+  dplyr::select(task_id, est_manhours)
+tsk
+```
+
+RDB'den gelen `tsk` tablosuna YT `issue_id` datasını join edelim:
+```{r}
+tsk2 <- tsk %>%
+  dplyr::left_join(map_yt_rdb_rqt_dmb, by = "task_id")
+tsk2
+```
+
+# Update İşlemi API Örneği
+
+Update işlemi için örnek kullanım: `e09c.sh` içinde. Dokümantasyonu: [Update Issue Custom Fields - Help | Developer Portal for YouTrack and Hub](https://www.jetbrains.com/help/youtrack/devportal/api-how-to-update-custom-fields-values.html)
+
+Create ederken `api/issues` endpointini kullanıyoruz, update ederken `api/issues/TEST-91` gibi bir endpoint kullanıyoruz.
+
+# API Payload Body ve Endpoint Oluşturma
+
+Update işleminde hem endpointi, hem de payload datayı oluşturmak gerekiyor:
+
+Payload body:
+
+```{r}
+bodys_estimation <- lapply(1:nrow(tsk), function(i, tsk_df) {
+  row <- tsk_df[i,]
+  list(
+    customFields = list(
+      list( name = "Estimation", `$type` = "PeriodIssueCustomField", value = list( minutes = (row$est_manhours * 60)))
+    )
+  ) %>%
+    jsonlite::toJSON(auto_unbox = TRUE)
+}, tsk) %>%
+  unlist()
+```
+
+Endpoint oluşturma:
+```{r}
+tsk3 <- tsk2 %>%
+  dplyr::mutate(body = bodys_estimation) %>%
+  dplyr::mutate(endpoint = glue::glue("https://youtrack.layermark.com/api/issues/{issue_id}"))
+tsk3
+```
+
+# Call REST Services Using POST
+
+Şimdi artık POST requestlerimizi çağırabiliriz:
+
+```{r}
+query = list(fields = "idReadable,created")
+result <- lapply(1:nrow(tsk3), function(i, tsk_df) {
+  row <- tsk_df[i,]
+  resp <- POST_auth(row$endpoint, body = row$body, query = query, encode = "form")
+  response_data <- fromJSON(rawToChar(resp$content))
+  tibble(
+    entity_id = response_data$id,
+    issue_id = response_data$idReadable,
+    task_id = row$task_id
+  )
+}, tsk3) %>%
+  dplyr::bind_rows()
+result
+```
+
+## Logs: Error01: Error in UseMethod("as.request"): no applicable method for 'as.request' applied to an object of class "function"
+
+`POST_auth()` fonksiyonunu çalıştırınca şu hatayı veriyor:
+
+    Error01: Error in UseMethod("as.request"): no applicable method for 'as.request' applied to an object of class "function"
+
+a01: Doğrudan curl komutu olarak bu komutu çalıştıralım. ref: `e09d_debug.sh`
+
+```r
+tsk_df <- tsk3
+i <- 1
+row <- tsk_df[i,]
+row$endpoint
+  #> https://youtrack.layermark.com/api/issues/DMB-238
+row$body
+  #> [1] {"customFields":[{"name":"Estimation","$type":"PeriodIssueCustomField","value":{"minutes":9600}}]}
+
+```
+
+Doğrudan curl komutu olarak çalışıyor.
+
+a02: Token problemi
+
+[Using token generates error: no applicable method for 'as.request' applied to an object of class "R6" · Issue #171 · ropensci/rtweet](https://github.com/ropensci/rtweet/issues/171)
+
+Bu problem bir token problemi diyor.
+
+Test etmek için daha önce çalıştığını bildiğimiz düz bir POST requesti çalıştırmayı deneyelim:
+
+```r
+# a02: json formatında data
+body2 <- '{
+  "project":{"id":"0-7"},
+  "summary":"Test API Post 7"
+}'
+url <- "https://youtrack.layermark.com/api/issues"
+resp <- POST_auth(url, body = body2, encode = "form", verbose())
+```
+
+Yine aynı hatayı aldık.
+
+a03: Düz R terminalinden bu satırları çalıştıralım.
+
+Bu sefer düzgün çalıştı. Demek IntelliJ içinde sorun çıkıyor.
+
+a04: Restart edip tekrar çalıştıralım.
+
+Tamam çalıştı şimdi.
+
+

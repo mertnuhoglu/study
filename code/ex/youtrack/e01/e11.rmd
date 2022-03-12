@@ -10,9 +10,9 @@ RDB dosyasındaki tüm task'ları Youtrack'te issue olarak oluşturur.
 Set the project id. Proje id'leri e05.rmd içinde çekilmişti. `project_list.tsv` içinde kayıtlı
 
 ```{r init}
-# project_id <- "0-7"  # Test Project
-project_id <- "0-24"   # DMB Project
-url_rdb <- "https://docs.google.com/spreadsheets/d/1HMosZ0_z42TxqezqDF7WAozxdu1TNgTs8CMueB5MZdY/edit#gid=0"
+project_id <- "0-7"  # Test Project
+# project_id <- "0-24"   # DMB Project
+url_rdb <- "https://docs.google.com/spreadsheets/d/1HMosZ0_z42TxqezqDF7WAozxdu1TNgTs8CMueB5MZdY/edit#gid=0" # dmb
 ```
 ## Initial Setup
 
@@ -55,8 +55,8 @@ rqt <- googlesheets4::read_sheet(url_rdb, sheet = "Requirement", na = "NA") %>%
 rqt
 ```
 
-```{r read_rdb_requirement_module}
-tsk <- googlesheets4::read_sheet(url_rdb, sheet = "Requirement-Module", na = "NA") %>%
+```{r read_rdb_task}
+tsk <- googlesheets4::read_sheet(url_rdb, sheet = "Task", na = "NA") %>%
   dplyr::mutate(phase = unlist(phase)) %>%
   dplyr::filter(phase == "1") %>%
   # dplyr::filter(is_detail == 1) %>%

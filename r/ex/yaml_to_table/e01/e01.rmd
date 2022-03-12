@@ -8,6 +8,8 @@ output: html_document
 library(yaml)
 library(dplyr)
 library(tidyverse)
+library(purrr)
+library(rutils)
 
 ```
 # Read YAML
@@ -22,12 +24,14 @@ str(yml01)
 #>  .. ..$ ftr: chr "description of project01"
 #>  ..$ :List of 1
 #>  .. ..$ ttl: chr "project02"
+jsonlite::toJSON(yml01, pretty = TRUE, auto_unbox = TRUE)
 ```
 ```{r}
 yml02 <- yml01$projects %>%
         tibble(
           ttl = map_chr(., "ttl")
         )
+str(yml02)
 listviewer::jsonedit(yml02)
 ```
 ```{r}
@@ -35,10 +39,23 @@ yml01$projects %>%
   map_chr("ttl")
 #> [1] "project01" "project02" "project03"
 ```
+
+Burada tüm 3 alt objede de ttl atributu bulunduğundan, düzgün bir şekilde map fonksiyonu bize bütün değerleri döndürdü. Peki hepsinde olmayan bir atribut ile map fonksiyonu çağıralım, ne oluyor?
+
+```{r}
+# yml02b <- yml01$projects %>%
+#   map_chr("ftr")
+# yml02b
+```
+
+Hata veriyor, çalışmıyor.
+
 ```{r}
 str(yml02)
 
 ```
+
+Alternatif olarak map yerine lapply kullanarak da aynı datayı çekebiliriz. Böylece bir table alabiliriz.
 ```{r}
 lapply(yml01$projects, function(p) p$ttl) %>%
         unlist() %>%
@@ -50,6 +67,8 @@ lapply(yml01$projects, function(p) p$ttl) %>%
 #> 2 project02
 #> 3 project03
 ```
+
+map_chr ile de aynı tabloyu daha basit bir şekilde oluşturabiliriz:
 ```{r}
 map_chr(yml01$projects, "ttl") %>%
         tibble(ttl = .)
@@ -100,4 +119,12 @@ yml01$projects %>%
 ```{r}
 yml01$projects %>%
   purrr::map_df(rutils::safe_extract, c("ttl", "ftr", "opt"))
+```
+
+Bu şu anlama geliyor aslında:
+```{r}
+x01 <- safe_extract(yml01$projects[[1]], c("ttl", "ftr", "opt"))
+x02 <- safe_extract(yml01$projects[[2]], c("ttl", "ftr", "opt"))
+x03 <- safe_extract(yml01$projects[[3]], c("ttl", "ftr", "opt"))
+dplyr::bind_rows(x01, x02, x03)
 ```

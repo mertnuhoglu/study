@@ -124,6 +124,21 @@ map_dfr(got_chars[23:25],
 #> 3 Kevan Lannister Ian Gelder
 
 ```
+Bu yukarıdaki objeyi map_dfr yerine doğrudan map'e de gönderebilirdik. Ama o zaman dönen sonuç bir dataframe olmazdı.
+```{r}
+map(got_chars[23:25],
+        `[`, c("name", "playedBy")) %>%
+  dplyr::bind_rows()
+
+```
+
+Burada `[` ifadesiyle aslında normalde operatör olarak kullandığımız `[` sembolünü bir fonksiyon olarak map fonksiyonuna 2. argüman olarak gönderdik.
+
+```{r}
+a <- got_chars[[1]]
+`[[`(a, "url")
+a[["url"]]
+```
 ```{r}
 tibble::tibble(
   name = map_chr(got_chars[23:25], "name"),
@@ -633,7 +648,7 @@ rdf %>%
 
 ```
 
-# jennycb: purrr tutorial: Food Markets in New York
+# jennybc: purrr tutorial: Food Markets in New York
 
 Summary of: [Food Markets in New York](https://jennybc.github.io/purrr-tutorial/ex26_ny-food-market-json.html)
 ```{r}
@@ -699,3 +714,54 @@ food_mkts %>%
         map_df(`[`, to_process)
 ```
 
+# jennybc: Trump Android words
+
+[Trump Android words](https://jennybc.github.io/purrr-tutorial/ls08_trump-tweets.html)
+```{r}
+library(purrr)
+suppressMessages(library(dplyr))
+library(tibble)
+
+load(url("http://varianceexplained.org/files/trump_tweets_df.rda"))
+# load("trump_tweets_df.rda")
+glimpse(trump_tweets_df)
+
+tweets <- trump_tweets_df$text
+tweets %>% head() %>% strtrim(70)
+#> [1] "My economic policy speech will be carried live at 12:15 P.M. Enjoy!"
+#> [2] "Join me in Fayetteville, North Carolina tomorrow evening at 6pm. Ticke"
+#> [3] "#ICYMI: \"Will Media Apologize to Trump?\" https://t.co/ia7rKBmioA"
+#> [4] "Michael Morell, the lightweight former Acting Director of C.I.A., and "
+#> [5] "The media is going crazy. They totally distort so many things on purpo"
+#> [6] "I see where Mayor Stephanie Rawlings-Blake of Baltimore is pushing Cro"
+```
+```{r}
+regex <- "badly|crazy|weak|spent|strong|dumb|joke|guns|funny|dead"
+tweets <- tweets[c(1, 2, 5, 6, 198, 347, 919)]
+tweets %>% strtrim(70)
+#> [1] "My economic policy speech will be carried live at 12:15 P.M. Enjoy!"
+#> [2] "Join me in Fayetteville, North Carolina tomorrow evening at 6pm. Ticke"
+#> [3] "The media is going crazy. They totally distort so many things on purpo"
+```
+```{r}
+matches <- gregexpr(regex, tweets)
+str(matches)
+#> List of 7
+#>  $ : int -1
+#>   ..- attr(*, "match.length")= int -1
+#>   ..- attr(*, "index.type")= chr "chars"
+#>   ..- attr(*, "useBytes")= logi TRUE
+#>  $ : int -1
+#>   ..- attr(*, "match.length")= int -1
+#>   ..- attr(*, "index.type")= chr "chars"
+#>   ..- attr(*, "useBytes")= logi TRUE
+matches[[7]]
+#> [1]  50 112 123
+#> attr(,"match.length")
+#> [1] 4 4 4
+#> attr(,"index.type")
+#> [1] "chars"
+#> attr(,"useBytes")
+#> [1] TRUE
+
+```

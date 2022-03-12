@@ -279,7 +279,17 @@ sudo vim /etc/ssh/sshd_config
 	PermitRootLogin without-password
 ``` 
 
-# install apps 
+# install apps  id=g12781
+
+## install all dependencies together in a script
+
+Example install scripts:
+
+```
+~/projects/itr/vrp/vrprapi/inst/install_software.sh
+~/projects/itr/fmcgvrp/pvrp/scripts/install_software_common.sh
+~/projects/bizqualify/BizQualify/datarun/datarun01.sh
+```
 
 ## setup docker and docker-compose
 
@@ -317,7 +327,7 @@ sudo apt-get -y install postgresql postgresql-contrib
 sudo apt-get -y install postgresql-client
 ``` 
 
-## setup R
+## setup R id=g12780
 
 https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-16-04-2
 
