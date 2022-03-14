@@ -1,0 +1,19 @@
+
+shinydashboard
+	ref: 
+		[Shiny Dashboard Examples](https://rstudio.github.io/shinydashboard/examples.html)
+		/Users/mertnuhoglu/codes/rr/shinydashboard
+flexdashboard
+	ref
+		[Example projects • flexdashboard](https://pkgs.rstudio.com/flexdashboard/articles/examples.html)
+		/Users/mertnuhoglu/projects/study/r/shiny/ex/study_flexdashboard
+	Examples
+		/Users/mertnuhoglu/projects/study/r/shiny/ex/study_flexdashboard/ex/html_widgets_showcase.rmd
+intellij ile shiny testi
+	kısayollar
+		| !dt #5 | R Tools | 
+		| !dl #8 | R Console | 
+		| !rq    | Stop |
+		mnemonics:
+			!d debug, t tools, l local variables
+			

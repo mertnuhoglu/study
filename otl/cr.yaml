@@ -3137,7 +3137,7 @@ info:
   httr/POST: >
     b2 <- "http://httpbin.org/post"
     POST(b2, body = "A simple text string")
-  httr/Debugging http requests: >
+  httr/Debugging http requests:G >
     response <- httr::POST("http://localhost:8888/rest/table01", 
                           body = list(id = 601, title = "t601"),
                           encode = "json", verbose()
@@ -3199,3 +3199,8 @@ info:
   bookmark/datapasta: >
     RStudio Addins for Data Copy-Pasta
     RStudio addins to make copy-pasting vectors and tables into source painless.
+  issue/environment variable boş geliyor Rstudio içinde: >
+    [r - Rstudio-server environment variables not loading? - Stack Overflow](https://stackoverflow.com/questions/16867720/rstudio-server-environment-variables-not-loading)
+    Rstudio .zshrc dosyasındaki env variableları okumuyor.
+    .Renviron veya .Rprofile dosyasına koymamız gerekiyor evn var'ları.
+
