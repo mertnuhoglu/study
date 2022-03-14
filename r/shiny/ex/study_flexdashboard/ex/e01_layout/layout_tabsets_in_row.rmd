@@ -25,3 +25,7 @@ Row {.tabset .tabset-fade}
 
 ```{r}
 ```
+
+### Table x
+
+Merhaba bu bir tablo widgetı olacak

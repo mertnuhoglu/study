@@ -15,7 +15,7 @@ data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
 
 headers <- httr::add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}"))
 resp <- GET3(query = list(fields = "id,name,shortName", query = "AMS"),
-             config = headers)
+             config = config)
 data <- jsonlite::fromJSON(rawToChar(resp$content)) %>%
   dplyr::as_tibble()
 

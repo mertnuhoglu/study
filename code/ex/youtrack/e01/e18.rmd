@@ -1,0 +1,119 @@
+---
+title: "Project Progress Report for all Projects"
+output: html_document
+---
+
+# Initial Setup
+
+Daha önce `e13.rmd` scriptinde tek bir proje için yaptığımız proje ilerleme raporunu, tüm projeler için yapalım.
+
+```{r libraries,warning=false,message=false,include=false}
+library(httr)
+library(jsonlite)
+library(lubridate)
+library(tidyverse)
+library(knitr)
+library(dplyr)
+library(glue)
+library(googlesheets4)
+```
+
+REST servislerini çağıracağımız `httr::GET` fonksiyonunu standart varsayılan argümanlarıyla konfigüre edelim:
+
+```{r step02}
+config <- httr::add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}"))
+h2 <- httr::accept_json()
+h3 <- httr::content_type_json()
+config$headers <- c(config$headers, h2$headers, h3$headers)
+GET_auth <- purrr::partial(httr::GET, config = config)
+POST_auth <- purrr::partial(httr::POST, config = config)
+```
+
+## Tüm issue'ları tek seferde çekmek
+
+Youtrack'ten REST servisiyle verileri çekelim.
+
+```{r step08}
+url <- glue::glue("https://youtrack.layermark.com/api/issues?fields=id,idReadable,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,name))&query=project:%20AMS%20Type:%20%7BRequirement%20Implementation%7D%20Requirement%20ID:%20*")
+resp <- GET_auth(url)
+raw_issue_data <- fromJSON(rawToChar(resp$content))
+```
+
+## Atributların İndekslerini Parametrik Olarak Alalım
+
+Hangi atributları okuyacaksak, onların indeks/sıra numaralarına ihtiyacımız var:
+```{r}
+nms <- raw_issue_data$customFields[[1]]$projectCustomField$field$name
+idx_rqt <- match("Requirement ID", nms)
+idx_state <- match("State", nms)
+
+```
+
+Şimdi mesela bir tanesi için tüm satırları çekelim:
+
+```{r}
+rqt_ids <- lapply(1:nrow(raw_issue_data), function(i, df) {
+  rqt_id <- df$customFields[[i]]$value[[idx_rqt]]
+}, raw_issue_data) %>%
+        unlist()
+rqt_ids
+```
+```{r}
+rqt_state <- lapply(1:nrow(raw_issue_data), function(i, df) {
+  rqt_id <- df$customFields[[i]]$value[[idx_state]]$name
+}, raw_issue_data) %>%
+        unlist()
+
+```
+# Çıktı Tabloyu Oluşturma
+
+Şimdi bu Requirement Id ve State gibi atribut değerlerinden oluşan vektörleri, bir tablonun kolonuna koymam gerekiyor.
+
+Önce raw_issue_data'dan flat kolonları alalım sadece:
+
+```{r}
+df02 <- raw_issue_data %>%
+  dplyr::select(idReadable, summary)
+df02
+```
+
+
+Şimdi bu rqt_ids vektörünü, df02'ye ekleyelim. Ancak fonksiyonel programlamanın immutable prensibi gereği, mevcut objeyi update etmeyelim, yeni bir objeye bunu koyalım. Bunun için de dplyr::mutate fonksiyonunu kullanacağız.
+```{r}
+df03 <- df02 %>%
+  dplyr::mutate(requirement_id = rqt_ids) %>%
+  dplyr::mutate(state = rqt_state)
+  # dplyr::mutate(estimation = rqt_estimation) %>%
+  # dplyr::mutate(spent_time = rqt_spent)
+df03
+```
+
+Bitmiş tüm statelerin bir vektörünü oluşturalım
+```{r}
+done <- c("To Verify", "Verified", "Done")
+```
+
+Bitmiş statüdeki tüm gereksinimleri çekelim:
+```{r}
+df04 <- df03 %>%
+  dplyr::filter(state %in% done)
+df04
+```
+
+Bu yüzde olarak tüm gereksinimlerin yüzde kaçı oluyor?
+
+Bunun için de öncelikle rdb'deki tüm gereksinimleri çekmemiz lazım. `rdb_data_ams` dosyasındaki tüm requirement kayıtlarını çekelim.
+
+```{r step01}
+googlesheets4::gs4_deauth()
+url_rdb_data_ams <- "https://docs.google.com/spreadsheets/d/1NKaPR3rhGHG-N51thExeps8u3r3deO_YPPQCragRfT8"
+rqt <- googlesheets4::read_sheet(url_rdb_data_ams, sheet = "Requirement") %>%
+        dplyr::filter(invalid == 0) %>%
+        dplyr::filter(phase == 1)
+rqt
+```
+```{r}
+no_done_unique_rqt <- unique(df04$requirement_id) %>% length()
+total_unique_rqt <- nrow(rqt)
+no_done_unique_rqt / total_unique_rqt
+```

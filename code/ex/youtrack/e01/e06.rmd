@@ -37,7 +37,7 @@ config <- httr::add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTR
 h2 <- httr::accept_json()
 h3 <- httr::content_type_json()
 config$headers <- c(config$headers, h2$headers, h3$headers)
-GET_auth <- purrr::partial(httr::GET, config = headers)
+GET_auth <- purrr::partial(httr::GET, config = config)
 POST_auth <- purrr::partial(httr::POST, config = config)
 ```
 
@@ -359,6 +359,57 @@ Yeni issue create ederken, gönderdiğin custom fieldlar eğer bu projede yoksa,
 
 Type alanı var, ama bunun enum değerleri yoktu. Çözmek için: Type > Replace > with AMS projects
 
+##### opt06: query argümanında problem çıkıyor:
+
+
+```{r step08}
+url2 <- glue::glue("https://youtrack.layermark.com/api/issues")
+resp <- httr::GET(url2,
+                  httr::add_headers(Authorization = glue::glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}")),
+                  httr::accept_json(),
+                  httr::content_type_json())
+# bu çalışıyor
+
+response_data <- fromJSON(rawToChar(resp$content))
+resp <- httr::GET(url2,
+                  query = list(fields = "id,idReadable,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,name))", query = "project:+test"),
+                  httr::add_headers(Authorization = glue::glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}")),
+                  httr::accept_json(),
+                  httr::content_type_json())
+# bu hata veriyor
+
+url3 <- glue::glue("https://youtrack.layermark.com/api/issues?fields=id,idReadable,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,name))&query=project:%20AMS%20Type:%20%7BRequirement%20Implementation%7D%20Requirement%20ID:%20*")
+resp <- httr::GET(url3,
+                  httr::add_headers(Authorization = glue::glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}")),
+                  httr::accept_json(),
+                  httr::content_type_json())
+# bu çalışıyor
+
+response_data <- fromJSON(rawToChar(resp$content))
+resp <- GET_auth(url3)
+response_data <- fromJSON(rawToChar(resp$content))
+response_data
+```
+
+Bir şekilde query argümanlarını doğrudan url içine koyunca çalışıyor. Öbür türlü hata veriyor.
+
+#### Error: error: Error in UseMethod("as.request"): no applicable method for 'as.request' applied to an object of class "function"
+
+sebep: GET_auth config = config yerine yanlış objeyi göndermişim:
+
+```
+config <- httr::add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTRACK_AUTH')}"))
+h2 <- httr::accept_json()
+h3 <- httr::content_type_json()
+config$headers <- c(config$headers, h2$headers, h3$headers)
+
+GET_auth <- purrr::partial(httr::GET, config = headers)
+->
+GET_auth <- purrr::partial(httr::GET, config = config)
+
+```
+
+
 #### Error: Bazı atributlar NA döndürüyor
 
 rdb'deki bazı atributlar boş olduğundan, `make_body_data` içinde oluştururken, body içine de "NA" yazıyor, bu da hatalara neden oluyor.
@@ -385,6 +436,7 @@ body$customFields[[2]]$value$minutes
 
 Bazı `est_mandays` değerleri boş olduğundan, json içine `NA` stringi yazıyor. Bu da hataya neden oluyor.
 
+###
 ### Set Fields
 
 ```{r step09b}

@@ -23,12 +23,41 @@ config <- httr::add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTR
 h2 <- httr::accept_json()
 h3 <- httr::content_type_json()
 config$headers <- c(config$headers, h2$headers, h3$headers)
-GET_auth <- purrr::partial(httr::GET, config = headers)
+GET_auth <- purrr::partial(httr::GET, config = config)
 POST_auth <- purrr::partial(httr::POST, config = config)
 ```
 
 
 
+## opt02: Tüm issue'ları tek seferde çekmek
+
+[Query Syntax - Help | Developer Portal for YouTrack and Hub](https://www.jetbrains.com/help/youtrack/devportal/api-query-syntax.html#samples)
+
+Tek bir sorguyla istediğimiz issue'ları ve onların alanlarını çekebiliriz. Ref: `e12e.sh`
+
+```
+https://youtrack.layermark.com/api/issues?fields=id,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type))&query=project:+test
+```
+
+Bunun datasını örnek olarak `tmp/e12e.json` içine koyduk. Şimdi bu datayı flat formata (tablo) çevirelim:
+
+```{r}
+raw_issue_data <- jsonlite::fromJSON("tmp/e12e_ams.json") %>%
+# raw_issue_data <- jsonlite::fromJSON("tmp/e12e_hyd.json") %>%
+  dplyr::as_tibble()
+
+```
+
+Yukarıda json dosyasındaki verileri almıştık. Şimdi bir de doğrudan Youtrack'ten REST servisiyle verileri çekelim.
+
+```{r step08}
+url2 <- glue::glue("https://youtrack.layermark.com/api/issues")
+resp <- GET_auth(url2, query = list(fields = "id,idReadable,summary"))
+# resp <- GET_auth(url2, query = list(fields = "id,idReadable,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,name))",
+#                                     query = "project:+test"))
+response_data <- fromJSON(rawToChar(resp$content))
+response_data
+```
 ## opt01: Tek tek issue'ların bilgilerini çekmek
 
 Bunun yerine opt02'yi tercih edelim.
@@ -63,35 +92,6 @@ issues01 <- raw_issue_data %>%
 ```
 Sonra da ilgilendiğimiz issue_id'leri bir yere kaydedip bunların field değerlerini `e12b.sh` içindeki gibi çekeceğiz.
 
-## opt02: Tüm issue'ları tek seferde çekmek
-
-[Query Syntax - Help | Developer Portal for YouTrack and Hub](https://www.jetbrains.com/help/youtrack/devportal/api-query-syntax.html#samples)
-
-Tek bir sorguyla istediğimiz issue'ları ve onların alanlarını çekebiliriz. Ref: `e12e.sh`
-
-```
-https://youtrack.layermark.com/api/issues?fields=id,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type))&query=project:+test
-```
-
-Bunun datasını örnek olarak `tmp/e12e.json` içine koyduk. Şimdi bu datayı flat formata (tablo) çevirelim:
-
-```{r}
-raw_issue_data <- jsonlite::fromJSON("tmp/e12e_ams.json") %>%
-# raw_issue_data <- jsonlite::fromJSON("tmp/e12e_hyd.json") %>%
-  dplyr::as_tibble()
-
-```
-
-Yukarıda json dosyasındaki verileri almıştık. Şimdi bir de doğrudan Youtrack'ten REST servisiyle verileri çekelim.
-
-```{r step08}
-url2 <- glue::glue("https://youtrack.layermark.com/api/issues")
-resp <- GET_auth(url2, query = list(fields = "id,idReadable,summary"))
-# resp <- GET_auth(url2, query = list(fields = "id,idReadable,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,name))",
-#                                     query = "project:+test"))
-response_data <- fromJSON(rawToChar(resp$content))
-response_data
-```
 
 # Tüm Atributları Listelemek
 

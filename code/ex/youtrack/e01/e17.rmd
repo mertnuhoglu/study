@@ -33,7 +33,7 @@ config <- httr::add_headers(authorization = glue("Bearer perm:{Sys.getenv('YOUTR
 h2 <- httr::accept_json()
 h3 <- httr::content_type_json()
 config$headers <- c(config$headers, h2$headers, h3$headers)
-GET_auth <- purrr::partial(httr::GET, config = headers)
+GET_auth <- purrr::partial(httr::GET, config = config)
 POST_auth <- purrr::partial(httr::POST, config = config)
 ```
 
