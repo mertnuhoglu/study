@@ -49,7 +49,7 @@ idx_state <- match("State", nms)
 
 ```
 
-Şimdi mesela bir tanesi için tüm satırları çekelim:
+Şimdi tüm requirement id'lerini ve state'leri çekelim:
 
 ```{r}
 rqt_ids <- lapply(1:nrow(raw_issue_data), function(i, df) {
@@ -63,11 +63,11 @@ rqt_state <- lapply(1:nrow(raw_issue_data), function(i, df) {
   rqt_id <- df$customFields[[i]]$value[[idx_state]]$name
 }, raw_issue_data) %>%
         unlist()
-
+rqt_state
 ```
 # Çıktı Tabloyu Oluşturma
 
-Şimdi bu Requirement Id ve State gibi atribut değerlerinden oluşan vektörleri, bir tablonun kolonuna koymam gerekiyor.
+Şimdi bu Requirement Id ve State gibi atribut değerlerinden oluşan vektörleri, bir tablonun kolonu olarak ekleyelim.
 
 Önce raw_issue_data'dan flat kolonları alalım sadece:
 
@@ -83,8 +83,6 @@ df02
 df03 <- df02 %>%
   dplyr::mutate(requirement_id = rqt_ids) %>%
   dplyr::mutate(state = rqt_state)
-  # dplyr::mutate(estimation = rqt_estimation) %>%
-  # dplyr::mutate(spent_time = rqt_spent)
 df03
 ```
 
@@ -116,4 +114,41 @@ rqt
 no_done_unique_rqt <- unique(df04$requirement_id) %>% length()
 total_unique_rqt <- nrow(rqt)
 no_done_unique_rqt / total_unique_rqt
+```
+
+## Logs: Errors
+
+### phase kolonunu list olarak okuyor google sheets dosyasından
+```{r}
+gdrive_rdb_id <- "1f_oKbqgzk8B5Ya_GMTl4NoT0MbQVSHsPdTzC3XADNX4"
+url_rdb_rqt <- glue::glue("https://docs.google.com/spreadsheets/d/{gdrive_rdb_id}")
+rqt <- googlesheets4::read_sheet(url_rdb_rqt, sheet = "Requirement", na = "N/A") %>%
+        dplyr::filter(invalid == 0)
+```
+
+Burada `rqt$phase` kolonu primitif bir vektör değil, list olarak alınmış:
+```{r}
+typeof(rqt$phase)
+```
+
+Geçiçi çözüm: Null yani boş olan hücrelerin yerine "-9" yazalım. Daha sonra problemin çözümüne bakarız. @todo
+
+a01: Bazı satırlarda "HOLD" gibi bir metin vardı. Onu rakamla değiştirdik. "-7" rakamıyla
+
+Yine çözülmedi.
+
+Genel olarak bir programlama problemi olduğunda ve mantığını anlayamadığımızda, o problemi en basit haliyle reproduce (üretmeye) çalışabiliriz.
+
+En basit haliyle bu sorunu nasıl üretebilirim?
+
+a02: İlgili kolonun altında data bittikten sonra ekstra bazı kayıtlar yazılmış. Onları temizleyince düzeldi.
+
+### Error in gargle_abort_request_failed
+
+Gdrive'dan excel dosyasını okumaya çalışınca bu hatayı veriyor.
+
+```
+Error in gargle_abort_request_failed(error_message(resp), resp) (e18b.R#66): Client error: (400) FAILED_PRECONDITION
+• Request can not be executed in the current system state, such as deleting a non-empty directory.
+• This operation is not supported for this document
 ```
