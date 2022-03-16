@@ -86,7 +86,7 @@ get_progress_stats <- function(yt_project_id, gdrive_rdb_id, phase) {
 }
 
 main <- function() {
-  projects <- readr::read_tsv("data/projects.tsv")
+  projects <- readr::read_tsv("~/gdrive/btg/layermark_projects/opal/metrics/executive_dashboards/data/projects.tsv")
   stats <- map_dbl(1:nrow(projects), function(i, df) {
     p01 <- df[i, ]
     get_progress_stats(p01$yt_project_id, p01$gdrive_rdb_id, p01$phase)
@@ -118,6 +118,7 @@ comment <- function() {
   # bu gibi durumlarda side-effect var diyoruz
 
   # loopa çevirme:
+  p01 <- projects[1, ]
   get_progress_stats(p01$yt_project_id, p01$gdrive_rdb_id)
   p01 <- projects[2, ]
   get_progress_stats(p01$yt_project_id, p01$gdrive_rdb_id)

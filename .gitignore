@@ -100,3 +100,5 @@ nx
 **/tags.lock
 **/tags.temp
 **/*.log
+
+r/**/*.html
