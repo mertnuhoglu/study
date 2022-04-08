@@ -107,9 +107,14 @@ stuff
 			https://news.ycombinator.com/item?id=15468786
 			https://medium.freecodecamp.org/software-engineering-interviews-744380f4f2af
 			https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/
-	convert word to markdown
-		https://github.com/benbalter/word-to-markdown
-		w2m path/to/document.docx
+	convert word to markdown id=g12808
+		ref: [Convert a Microsoft Word document to markdown - Darragh ORiordan](https://www.darraghoriordan.com/2021/07/16/converting-word-doc-to-markdown-md/)
+		e01: tek dosya
+			pandoc -f docx -t markdown my-document.docx -o my-markdown.md --extract-media=./
+		e02: bütün docx dosyaları:
+			for FILE in *.docx; do
+				pandoc -f docx -t markdown ${FILE} -o ${FILE}.md --extract-media=./
+			done
 browsers
 	chrome
 		ref
@@ -1908,6 +1913,26 @@ firebug
 				console > persist
 bash
 	bash2 id=g11687
+		for loop in bash
+			ref
+				~/projects/study/bash/ex_bash_loop.Rmd
+			e01
+				for filename in *.Rmd; do
+					echo $filename 
+				done
+		enhancd - cd2 cd id=g12783
+			ref
+				enhancd setup <url:file:///~/.zshrc#r=g12782>
+				[b4b4r07/enhancd: A next-generation cd command with your interactive filter](https://github.com/b4b4r07/enhancd)
+			features
+				recent directories
+					cd 
+					cd <fuzzy>
+				go to visited directory in past
+					cd -
+				echo .. | cd
+				go to specific parent directory
+					cd .
 		makefile
 			ref: Makefile for build and install <url:file:///~/projects/study/otl/cr.otl#r=g12099>
 		points

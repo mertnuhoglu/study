@@ -1,0 +1,11 @@
+<cart>
+  <line-items>
+    <product sku="CH56" qty="1" price="2.5">Chocolate</product>
+    <product sku="CA94" qty="1" price="1.7">Candy</product>
+    <discount amount="10%" />
+  </line-items>
+  <customer>
+    <name>Arne</name>
+    <address>Berlin</address>
+  </customer>
+</cart>

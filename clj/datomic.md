@@ -18,290 +18,57 @@ state: wip
 
 ---
 
+# nxt
+
+ref: `nxt - datomic <url:file:///~/projects/myrepo/work/work.otl#r=g12787>`
+
+# Datomic Tutorial: Getting Started id=g12785
+
+[Connect to a Database | Datomic](https://docs.datomic.com/on-prem/getting-started/connect-to-a-database.html)
+
+ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic_01.clj`
+
 # Articles
 
 ## Setup Datomic
 
 https://docs.datomic.com/on-prem/get-datomic.html
 
-``` bash
-cd ~/codes/clojure/datomic-pro-0.9.5951/
+```clj
+VERSION=1.0.6362
+cd /Users/mertnuhoglu/codes/clj/lib/datomic-pro-${VERSION}
 ``` 
 
 ## Connect to a Database
 
+Veritabanı iki türde çalışıyor:
+
+1. Peer Server: Geçici
+2. Kalıcı
+
+ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic_01.clj`
+
 Launch Peer Server
 
-``` bash
-cd ~/codes/clojure/datomic-pro-0.9.5951/
+```clj
+VERSION=1.0.6362
+cd /Users/mertnuhoglu/codes/clj/lib/datomic-pro-${VERSION}
 bin/run -m datomic.peer-server -h localhost -p 8998 -a myaccesskey,mysecret -d hello,datomic:mem://hello
 ``` 
 
-Edit `~/projects/study/clj/ex/study_datomic/ex01/deps.edn`
+Veritabanı sunucusunu çalıştırdıktan sonra, client kütüphanesini projeye eklemek gerekiyor:
 
-``` bash
- {com.datomic/client-pro {:mvn/version "0.8.28"}}
-``` 
+Edit `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/deps.edn`
 
-``` bash
-clj
-``` 
-
-``` bash
-(require '[datomic.client.api :as d])
-``` 
-
-``` bash
-(def cfg {:server-type :peer-server
-                 :access-key "myaccesskey"
-                 :secret "mysecret"
-                 :endpoint "localhost:8998"})
-  ##> #'user/cfg
-(def client (d/client cfg))
-  ##> #'user/client
-(def conn (d/connect client {:db-name "hello"}))
-  ##> #'user/conn
-``` 
-
-``` bash
-conn
-  ##> {:db-name "hello", :database-id "5dbc1958-2af3-4743-91d6-3e2c82b85267", :t 66, :next-t 1000, :type :datomic.client/conn}
-``` 
-
-## Transact Schema
-
-In Datomic everything including the schema is data.
-
-Attribute definition. This is a map of data.
-
-``` bash
-{:db/ident :movie/title
- :db/valueType :db.type/string
- :db/cardinality :db.cardinality/one
- :db/doc "The title of the movie"}
-{:db/ident :movie/genre
- :db/valueType :db.type/string
- :db/cardinality :db.cardinality/one
- :db/doc "The genre of the movie"}
-{:db/ident :movie/release-year
- :db/valueType :db.type/long
- :db/cardinality :db.cardinality/one
- :db/doc "The year the movie was released in theaters"}
-``` 
-
-We can send these attribute definitions in one batch as a single transaction:
-
-Combine three maps into a single vector of maps. Bind this single vector to a var called `movie-schema` which defines our schema:
-
-``` bash
-(def movie-schema [{:db/ident :movie/title
-                           :db/valueType :db.type/string
-                           :db/cardinality :db.cardinality/one
-                           :db/doc "The title of the movie"}
-
-                          {:db/ident :movie/genre
-                           :db/valueType :db.type/string
-                           :db/cardinality :db.cardinality/one
-                           :db/doc "The genre of the movie"}
-
-                          {:db/ident :movie/release-year
-                           :db/valueType :db.type/long
-                           :db/cardinality :db.cardinality/one
-                           :db/doc "The year the movie was released in theaters"}])
-``` 
-
-Now transact the schema:
-
-``` bash
-(d/transact conn {:tx-data movie-schema})
-``` 
-
-## Transact Data
-
-https://docs.datomic.com/on-prem/getting-started/transact-data.html
-
-Define the data as a vector of maps:
-
-``` bash
-(def first-movies [{:movie/title "The Goonies"
-                           :movie/genre "action/adventure"
-                           :movie/release-year 1985}
-                          {:movie/title "Commando"
-                           :movie/genre "action/adventure"
-                           :movie/release-year 1985}
-                          {:movie/title "Repo Man"
-                           :movie/genre "punk dystopia"
-                           :movie/release-year 1984}])
-``` 
-
-``` bash
-(d/transact conn {:tx-data first-movies})
-  ##> {:db-before {:database-id "5dbc3927-e737-4646-9372-a22597e9606c", :db-name "hello", :t 1000, :next-t 1001, :type :datomic.client/db}, 
-  ##> :db-after {:database-id "5dbc3927-e737-4646-9372-a22597e9606c", :db-name "hello", :t 1001, :next-t 1005, :type :datomic.client/db}, 
-  ##> :tx-data [#datom[13194139534313 50 #inst "2019-11-01T14:02:44.626-00:00" 13194139534313 true] #datom[17592186045418 72 "The Goonies" 13194139534313 true] #datom[17592186045418 73 "action/adventure" 13194139534313 true] #datom[17592186045418 74 1985 13194139534313 true] #datom[17592186045419 72 "Commando" 13194139534313 true] #datom[17592186045419 73 "action/adventure" 13194139534313 true] #datom[17592186045419 74 1985 13194139534313 true] #datom[17592186045420 72 "Repo Man" 13194139534313 true] #datom[17592186045420 73 "punk dystopia" 13194139534313 true] #datom[17592186045420 74 1984 13194139534313 true]], :tempids {-9223301668109598131 17592186045418, -9223301668109598130 17592186045419, -9223301668109598129 17592186045420}}
-``` 
-
-## Query the Data
-
-https://docs.datomic.com/on-prem/getting-started/query-the-data.html
-
-Two ways to get data:
-
-1. query: uses datomic language
-2. pull
-
-Get current database value:
-
-``` bash
-(def db (d/db conn))
-db
-  ##> {:t 1001, :next-t 1005, :db-name "hello", :database-id "5dbc3927-e737-4646-9372-a22597e9606c", :type :datomic.client/db}
-``` 
-
-This is the value of the database to use.
-
-### Ex01: Find ids
-
-Defining a query:
-
-``` bash
-(def all-movies-q '[:find ?e 
-                           :where [?e :movie/title]])
-``` 
-
-This means: find ids of all entities which have an attribute called `:movie/title`
-
-Running the query:
-
-``` bash
-(d/q all-movies-q db)
-  ##> [[17592186045418] [17592186045419] [17592186045420]]
-``` 
-
-### Ex02: Get all the titles
-
-Get all the titles:
-
-``` bash
-(def all-titles-q '[:find ?movie-title 
-                           :where [_ :movie/title ?movie-title]])
-``` 
-
-Notice `underscore`: It means: we are not  interested in the entity id but value of `:movie/title`
-
-The query reads as "find all movie titles that has an attribute `:movie/title` and assign the title to a logic variable called `?movie-title`"
-
-Run the query:
-
-``` bash
-(d/q all-titles-q db)
-  ##> [["Commando"] ["The Goonies"] ["Repo Man"]]
-``` 
-
-### Ex03: Filter by release date
-
-Get titles of movies released in 1985:
-
-``` bash
-(def titles-from-1985 '[:find ?title 
-                               :where [?e :movie/title ?title] 
-                                      [?e :movie/release-year 1985]])
-(d/q titles-from-1985 db)
-  ##> [["Commando"] ["The Goonies"]]
-``` 
-
-Now, `:where` has two clauses, one to bind `:movie/title` attribute and one to filter by `:movie/release-year`. These two clauses are joined.
-
-Note that we use `?e` instead of `_` because it is the join point for the two clauses.
-
-### Ex04: Get all attribute data
-
-``` bash
-(def all-data-from-1985 '[:find ?title ?year ?genre 
-                                 :where [?e :movie/title ?title] 
-                                        [?e :movie/release-year ?year] 
-                                        [?e :movie/genre ?genre] 
-                                        [?e :movie/release-year 1985]])
-(d/q all-data-from-1985 db)
-  ##> [["The Goonies" 1985 "action/adventure"] ["Commando" 1985 "action/adventure"]]
-``` 
-
-## See Historic Data
-
-``` bash
-(d/q '[:find ?e 
-              :where [?e :movie/title "Commando"]] 
-            db)
-  ##> [[17592186045419]]
-``` 
-
-``` bash
-(def commando-id 
-         (ffirst (d/q '[:find ?e 
-                        :where [?e :movie/title "Commando"]] 
-                       db)))
-  ##> #'user/commando-id
-``` 
-
-Update value of `:movie/genre`
-
-``` bash
-(d/transact conn {:tx-data [{:db/id commando-id :movie/genre "future governor"}]})
-  ##> {:db-before {:database-id "5dbc3927-e737-4646-9372-a22597e9606c", :db-name "hello", :t 1001, :next-t 1005, :type :datomic.client/db}, :db-after {:database-id "5dbc3927-e737-4646-9372-a22597e9606c", :db-name "hello", :t 1005, :next-t 1006, :type :datomic.client/db}, :tx-data [#datom[13194139534317 50 #inst "2019-11-01T18:26:18.910-00:00" 13194139534317 true] #datom[17592186045419 73 "future governor" 13194139534317 true] #datom[17592186045419 73 "action/adventure" 13194139534317 false]], :tempids {}}
-``` 
-
-Get record to verify it is updated:
-
-``` bash
-(d/q all-data-from-1985 db)
-  ##> [["The Goonies" 1985 "action/adventure"] ["Commando" 1985 "action/adventure"]]
-``` 
-
-It looks like it has still the same value. 
-
-Remember:
-
-> A database value is the state of the database at a given point in time. You can issue as many queries against that database value as you want, they will always return the same results.
-
-The connection `db` corresponds to a `database value`
-
-So we need to get the current value of the database first:
-
-``` bash
-(def db (d/db conn))
-(d/q all-data-from-1985 db)
-  ##> [["The Goonies" 1985 "action/adventure"] ["Commando" 1985 "future governor"]]
-``` 
-
-``` bash
-db
-  ##> {:t 1005, :next-t 1006, :db-name "hello", :database-id "5dbc3927-e737-4646-9372-a22597e9606c", :type :datomic.client/db}
-``` 
-
-Get the database at `:t 1004`
-
-``` bash
-(def old-db (d/as-of db 1004))
-(d/q all-data-from-1985 old-db)
-  ##> [["The Goonies" 1985 "action/adventure"] ["Commando" 1985 "action/adventure"]]
-``` 
-
-> You can also use "since" instead of "as-of", which returns a database value with only changes added after a point in time.
-
-Use `history` to see all the values a given attribute has held:
-
-``` bash
-(def hdb (d/history db))
-(d/q '[:find ?genre 
-              :where [?e :movie/title "Commando"] 
-                     [?e :movie/genre ?genre]] 
-             hdb)
-  ##> [["action/adventure"] ["future governor"]]
+```clj
+{com.datomic/client-pro {:mvn/version "1.0.72"}}
 ``` 
 
 ## Tutorial
 
 ### Introduction
+
+#### Information, not CRUD id=g12786
 
 Information is not forgotten as a side effect of acquiring new information.
 
@@ -328,9 +95,11 @@ Any change is tracked within the database itself.
 
 ### Assertion
 
+ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic_02_assertion.clj`
+
 #### List and Map Forms
 
-``` bash
+```clj
 [:db/add "foo" :db/ident :green]
 ``` 
 
@@ -341,13 +110,13 @@ Any change is tracked within the database itself.
 
 This is equivalent to:
 
-``` bash
+```clj
 {:db/ident :green}
 ``` 
 
 Maps imply and are equivalent to a set of assertions, all about the same entity.
 
-``` bash
+```clj
 (d/transact
 	conn 
 	{:tx-data [{:db/ident :red}
@@ -359,75 +128,15 @@ Maps imply and are equivalent to a set of assertions, all about the same entity.
 
 This transaction adds four colors to the database.
 
-#### Programming with Data
-
-``` bash
-(defn make-idents
-	[x]
-	(mapv #(hash-map :db/ident %) x))
-  ##> #'user/make-idents
-(def sizes [:small :medium :large :xlarge])
-  ##> #'user/sizes
-(make-idents sizes)
-  ##> [#:db{:ident :small} #:db{:ident :medium} #:db{:ident :large} #:db{:ident :xlarge}]
-``` 
-
-`make-idents` is a pure function with no database.
-
-Let's insert the data into database:
-
-``` bash
-(def types [:shirt :pants :dress :hat])
-(def colors [:red :green :blue :yellow])
-(d/transact conn {:tx-data (make-idents sizes)})
-(d/transact conn {:tx-data (make-idents types)})
-``` 
-
-#### Schema
-
-``` bash
-(def schema-1
-  [{:db/ident :inv/sku
-    :db/valueType :db.type/string
-    :db/unique :db.unique/identity
-    :db/cardinality :db.cardinality/one}
-   {:db/ident :inv/color
-    :db/valueType :db.type/ref
-    :db/cardinality :db.cardinality/one}
-   {:db/ident :inv/size
-    :db/valueType :db.type/ref
-    :db/cardinality :db.cardinality/one}
-   {:db/ident :inv/type
-    :db/valueType :db.type/ref
-    :db/cardinality :db.cardinality/one}])
-(d/transact conn {:tx-data schema-1})
-``` 
-
-#### Sample Data
-
-``` bash
-(def sample-data
-  (->> (for [color colors size sizes type types]
-         {:inv/color color
-          :inv/size size
-          :inv/type type})
-       (map-indexed
-        (fn [idx map]
-          (assoc map :inv/sku (str "SKU-" idx))))
-        vec))
-sample-data
-=> ;; 64 (4 x 4 x 4) maps
-
-(d/transact conn {:tx-data sample-data})
-``` 
-
 ### Read
+
+ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic_03_read.clj`
 
 #### Database Values
 
 `db` API returns the latest database value from a connection:
 
-``` bash
+```clj
 (def db (d/db conn))
 ``` 
 
@@ -437,11 +146,11 @@ Analogy: a connection references the entire history, similar to source code repo
 
 Lookup ref: a two element list of unique attribute + value
 
-``` bash
+```clj
 [:inv/sku "SKU-42"]
 ``` 
 
-``` bash
+```clj
 (d/pull db
         [{:inv/color [:db/ident]}
          {:inv/size [:db/ident]}
@@ -456,7 +165,7 @@ Lookup ref: a two element list of unique attribute + value
 
 Find skus of all products that share a color with SKU-42:
 
-``` bash
+```clj
 (d/q '[:find ?sku
        :where [?e :inv/sku "SKU-42"]
               [?e :inv/color ?color]
@@ -478,62 +187,9 @@ In this example:
 
 ### Accumulate
 
-#### More Schema
+ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic_04_accumulate.clj`
 
-We have a new requirement. Database needs to track orders too.
-
-``` bash
-(def order-schema
-  [{:db/ident :order/items
-    :db/valueType :db.type/ref
-    :db/cardinality :db.cardinality/many
-    :db/isComponent true}
-   {:db/ident :item/id
-    :db/valueType :db.type/ref
-    :db/cardinality :db.cardinality/one}
-   {:db/ident :item/count
-    :db/valueType :db.type/long
-    :db/cardinality :db.cardinality/one}])
-(d/transact conn {:tx-data order-schema})
-=> ;; transaction result map
-``` 
-
-#### More Data
-
-``` bash
-(def add-order
-  {:order/items
-   [{:item/id [:inv/sku "SKU-25"]
-     :item/count 10}
-    {:item/id [:inv/sku "SKU-26"]
-     :item/count 20}]})
-
-(d/transact conn {:tx-data [add-order]})
-``` 
-
-### Read Revisited: More Query
-
-First, get the latest value of the database:
-
-``` bash
-(def db (d/db conn))
-``` 
-
-#### Parameterized Query
-
-``` bash
-(d/q '[:find ?sku
-       :in $ ?inv
-       :where [?item :item/id ?inv]
-              [?order :order/items ?item]
-              [?order :order/items ?other-item]
-              [?other-item :item/id ?other-inv]
-              [?other-inv :inv/sku ?sku]]
-     db [:inv/sku "SKU-25"])
-=> [["SKU-25"] ["SKU-26"]]
-``` 
-
-## The Architecture of Datomic, Rich Hickey
+## Article: The Architecture of Datomic, Rich Hickey
 
 https://www.infoq.com/articles/Architecture-Datomic/
 
@@ -606,7 +262,7 @@ Datalog is the query engine.
 
 ### The REST API and clients
 
-## The Datomic Information Model by Rich Hickey
+## Article: The Datomic Information Model by Rich Hickey
 
 https://www.infoq.com/articles/Datomic-Information-Model/
 
@@ -667,7 +323,7 @@ Attributes are entities themselves with the following attributes:
 - component nature (whole part)
 - documentation
 
-``` bash
+```clj
 {:db/ident       :person/name,
  :db/valueType   :db.type/string,
  :db/cardinality :db.cardinality/one,
@@ -680,7 +336,7 @@ Schema is represented by data. This is a map in edn format
 
 A transaction is a list of datoms:
 
-``` bash
+```clj
 [[:db/add entity-id attribute value]
  [:db/add entity-id attribute value]...]
 ``` 
@@ -689,13 +345,13 @@ All data manipulation is represented by data.
 
 Each vector representing a datom in:
 
-``` bash
+```clj
 [op entity attribute value]
 ``` 
 
 To submit several facts about the same entity, you can use a map instead:
 
-``` bash
+```clj
 [{:db/id entity-id,
   attribute value,
 	attribute value}
@@ -714,7 +370,7 @@ A transaction can assert facts about the transaction itself, such as metada.
 
 Example:
 
-``` bash
+```clj
 [[:db/add entity-id attribute value]
  [:my/giveRaise sally-id 100]
  ...]
@@ -726,7 +382,7 @@ Onca it is part of a transaction, it is called a transaction function. It gets p
 
 Transaction function returns simple facts. This fact replaces the transaction function then. Thus transaction becomes like:
 
-``` bash
+```clj
 [[:db/add entity-id attribute value]
  [:db/add sally-id :employee/salary 45100]
  ...]
@@ -762,14 +418,14 @@ Datalog is a declarative query language with pattern-matching.
 
 The basic form of query is:
 
-``` bash
+```clj
 {:find [variables...] :where [clauses...]}
 [:find variables... :where clauses...]
 ``` 
 
 Ex:
 
-``` bash
+```clj
 [[sally :age 21]
  [fred :age 42]
  [ethel :age 42]
@@ -778,7 +434,7 @@ Ex:
  [ethel :likes sushi]]
 ``` 
 
-``` bash
+```clj
 [:find ?e :where [?e :age 42]]
   ##> [[fred], [ethel]]
 ``` 
@@ -787,7 +443,7 @@ Ex:
 
 Joins are implicit and occur whenever you use a variable more than once:
 
-``` bash
+```clj
 [:find ?e ?x
  :where [?e :age 42]
         [?e :likes ?x]
@@ -796,13 +452,13 @@ Joins are implicit and occur whenever you use a variable more than once:
 
 API for query is a function `q`
 
-``` bash
+```clj
 Peer.q(query, inputs...)
 ``` 
 
 `inputs` can be database, collection etc.
 
-``` bash
+```clj
 //connect
 Connection conn = Peer.connect("a-db-URI");
 //grab the current value of the database
@@ -819,7 +475,7 @@ Collection result = Peer.q(query, db);
 
 Ex:
 
-``` bash
+```clj
 //who liked pizza last week?
 Peer.q(query, db.asOf(lastTuesday));
 ``` 
@@ -830,7 +486,7 @@ Ex:
 
 We can add a new collection and rerun a query:
 
-``` bash
+```clj
 Peer.q(query, db.with(everyoneFromBrookly))
 ``` 
 
@@ -840,17 +496,428 @@ Ex:
 
 We can test a query without any database too:
 
-``` bash
+```clj
 Peer.q(query, aCollection)
 ``` 
 
 Ex: Query historical data
 
-``` bash
+```clj
 // who has ever liked pizza?
 Peer.q(query, db.history())
 ``` 
 
 ### Different queries
+
+# Article: JUXT Blog - Datalog for trees in Clojure id=g12784
+
+[JUXT Blog - Datalog for trees in Clojure](https://www.juxt.pro/blog/datascript-dom)
+
+ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datalog_01.clj`
+
+# Video: Day of Datomic Cloud - Session 1 id=g12788
+
+[(1137) Day of Datomic Cloud - Session 1 - YouTube](https://www.youtube.com/watch?v=yWdfhQ4_Yfw&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv)
+
+## Day 2 - Information Model
+
+- notation
+- datoms
+- databases
+- entities
+
+### otl notes
+
+[(1137) Day of Datomic Cloud - Session 1 - YouTube](https://www.youtube.com/watch?v=yWdfhQ4_Yfw&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv)
+
+	slide: agenda
+		notation
+		datoms
+		databases
+		entities
+			things in the world
+			how to get from datoms to entities (aggregates)
+		schema
+			how to model in datomic
+	slide: notation: edn
+		similar to json
+		differences
+		symbolic types:
+			2 types: symbol, keyword
+		4 types of aggregates
+			list: sequentially
+			vector: both sequential and random access
+			map: associative
+				everything composes or nests
+				use maps to represent entities in world
+			set: membership
+	slide: generic extensibility
+		#name edn-form
+		interpret form in the context of this name
+		built-in tags
+			#inst
+			#uuid
+	slide: datoms
+		granular atomic fact
+		granular: minimal
+		immutable
+		datoms never go away
+		5-tuple
+			entity attribute value transaction op
+		entity: identifier
+		attribute: name
+		value
+		transaction: reference to transaction that adds this information
+			reified transactions
+			git has reified transactions: commits
+			it has data about it:
+				reference to other commits, 
+				commit message
+				tags
+		op: adding or removing
+	example datoms
+		jane likes broccoli 1008 true
+	entity ids
+		you don't store jane as a name
+		we don't store attribute names neither
+			we store them in one place
+			they are stored as opaque identifier
+		1001 63 jane 1008 true
+		1002 63 broccoli 1008 true
+	database
+		this is a universal relation
+		by contrast: in sql you use sqecific relation
+		first you need to create table (specific relation)
+		you have slots in table
+		some information doesn't match this slot
+		naive triple store implementation: rdf
+			we have to have universal names
+		many sort orders
+		accumulate only
+	powerful
+		universal relation supports many access styles
+			row
+			column, key-value, document, and graph
+		universal relation lets you model all these styles directly
+	one database, many indexes
+		| structure | attribute |
+		| k/v | AVET |
+		| row | EAVT |
+		| column | AEVT |
+		| document | EAVT, components|
+		| graph | VAET |
+		document: 
+			subtle
+			Entity, calling
+			component: 
+				order line items
+				line item is part of order
+				it doesn't exist outside
+				it is a component
+		graph:
+			values
+			work backwards to who has the value
+			start with a value
+			i have some friend, is that a friend of stu?
+		granular approach:
+			hangi yaklaşıma ihtiyacın varsa, ona göre veritabanına erişmene izin verir
+	slide: time aware
+		| db view | semantics | supports |
+		| (default) | current state | what is current situation? |
+		| as-of | state at point in past | how were things in the past? |
+		| since | state since point in past | how have things changed? |
+		| tx report | before/after/change view of tx | automated event response |
+		| with | state with proposed additions | what would happen if we did X? |
+		| history | timeless view of all history | anything |
+	slide: entities
+		do we really model everything in real world?
+			never.
+		when do we decide what do we care about in relational database?
+			when we make tables.
+		in datomic
+			we care about when we care about
+		tables
+			pro: this row must be completely filled
+			pro: impose structural rules
+			we are not into that
+			in datomic you can do validation 
+				if this entity has 7 fields filled, that is valid
+			con: brittleness of database
+			con: joining because information is in another table
+				complexity
+		how to get from datoms to entities?
+	slide: tx entity map
+		ex:
+			{:name "jane"
+				:likes [[:name "broccoli"]
+								[:name ":name pizza"]]}
+		eav view
+			| e | a | v | opt |
+			| 1001 | 64 | 1002 | true |
+			| 1001 | 64 | 1003 | true |
+		if values are themselves entities, drill down 
+		transformation: there is only one way to do it
+		datoms:
+			all attributes become keys
+			values are values, if they are entities recurse one more level
+	slide: schema
+		schema adds power
+		schema is plain data
+		schema installed via transactions
+		sth is schemaless
+			means: schema is implicitly in your program
+		but: schema means slots for most people
+			we don't want this
+		in-between:
+			schema for only attributes
+		ex: there is this attribute: "color"
+		pro
+			allows indexes
+			navigate around systems
+			without committing to slots/rectangles
+	slide: common schema attributes
+		| attribute | type | use |
+		| db/ident | keyword | programmatic name |
+		| db/valueType | ref | attribute type |
+		| db/cardinality | ref | one- or many- valued? |
+		| db/unique | ref | unique, "upsert" |
+		| db/isComponent | ref | ownership |
+		component: the thing is owned
+			order has line item
+	slide: social news example
+		stories
+		| attribute | type | cardinality |
+		| story/title | string | 1 |
+		| story/url | string | 1 |
+		| story/slug | string | 1|
+		| news/comments | ref | many |
+		schema is plain old data
+		users
+		| attribute | type | cardinality |
+		| user/firstName |
+		| user/lastName |
+		| user/email |
+		comments 
+		| attribute | type | cardinality |
+		| comment/body |
+		| comment/author |
+		| news/comments | ref | many |
+		note: comments have comments
+		note: both stories and comments might have comments attribute. and it is the same attribute.
+	slide: types do not dictate attrs
+		people assume entities as a group of related things
+		we show relatedness with namespace as convention
+	slide: example: mbrainz
+		designed by rich hickey
+		modelled by drawing pictures
+	slide: sync api
+		(client/pull db arg-map)
+	slide: async api
+
+## Session 3
+
+[(1143) Day of Datomic Cloud - Session 3 - YouTube](https://www.youtube.com/watch?v=0ozQ5aSPB04&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv&index=3)
+
+### otl notes
+
+	slide: ACID
+		atomic: 
+			transaction is a set of datoms 
+			transaction entirely in single write
+		consistent
+			all processes see same global ordering of transactions
+		isolated
+			single writer system (nobody to be isolated from)
+		durable
+			always flush through to durable storage before reporting transaction complete
+	slide: assertion and retraction
+		list of assertions
+		[:db/add entity-id attribute value]
+		[:db/retract entity-id attribute value]
+		fakat bu şekilde eklemek yerine entity map ile de verileri ekleyebilirsin
+	slide: entity maps
+		list assertions = entity maps birbirine denkler
+		can nest arbitrarily
+		multiple assertions about same entity
+	slide: lists vs. entity maps
+		assertion list:
+			[:db/add 42 :likes "pizza"]
+			[:db/add 42 :firstName "John"]
+			[:db/add 42 :lastName "Doe"]
+		entity map
+			{:db/id 42
+			 :likes "pizza"
+			 :firstName "John"
+			 :lastName "Doe"}
+		entity map can be nested
+		job of putting data into your system =
+			job of building a data structure
+	slide: cross reference
+		allows temp id
+		[{:person/name "Bob"
+		  :db/id "B"}
+		 {:db/id "A"
+		  :person/name "Alice"
+			:person/friends "B"}]
+		henüz daha veritabanına kaydedilmeden böylece entity'ler arasında ref kullanabiliriz
+		integerlar permanent id'dir datomic tarafından atanmış olan
+		stringler temp id'dir
+	slide: nesting
+		everything nests
+		order has line items
+		[{:order/lineItems 
+		  [{:lineItem/product chocolate
+			  :lineItem/quantity 1}
+			 {:lineItem/product whisky
+			  :lineItem/quantity 2}]}]
+		maps are fundamentally open
+	slide: identity
+		database related unique id
+			bu entity id
+			number
+			tx sonrasında datomic sana verir
+		| requirement | model with | value types |
+		| db-relative id | entity id | opaque long |
+		| external id | unique identity | string, uuid, uri |
+		| global id | unique identity | uuid |
+		| programmatic name | :db/ident | keyword |
+		programmatic name: programcıların kullandığı isimler
+			değişkenler, atribut isimleri
+			:db/ident ile isimlendirilir
+			atributlar da böyle isimlendirilir
+			datomicin tüm parçaları db/ident ile isimlendirilmiştir
+			db/add ilk ident'tir
+		çok hızlıdır db/ident
+			cached in memory
+			tüm entity'leri db/ident ile isimlendirmemelisin
+	slide: transaction functions
+		add and retract are not enough
+		i want to look at current db value
+		using transaction functions
+		:db/cas
+			compare and swap
+			do this only if this holds
+			produces datoms only if condition holds
+		:db/retractEntity
+			takes entity id and
+			expands to retract all datoms about entity
+	slide: reified transactions
+		transactions are like commits in git
+		they are objects (entities) by themselves
+		there are facts about them
+		there is one fact associated with every transaction
+		they are assigned entity id when they happen
+		what is the use for?
+			facts about transactions
+		ex: 
+			this tx was created by ordinary web form
+			this tx came from batch operations
+	slide: transaction attributes
+		ex01:
+			[{:story/title "codeq"
+				:story/url "http:.."}
+			{:db/id "datomic.tx"               ; identifies transaction entity
+				:publish/at (java.util.Date.)}]   ; add your own attributes
+		ex02:
+			[{:story/title "codeq"
+				:story/url "http:.."}
+			{:db/id "datomic.tx"               
+				:db/txInstant #inst "2013-02"}]  ; override txInstant (for imports)
+
+## Video: Day 4
+
+[(1143) Day of Datomic Cloud - Session 4 - YouTube](https://www.youtube.com/watch?v=qplsC2Q2xBA&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv&index=4)
+
+### otl
+
+	slide: query model
+		datalog
+		pull
+	slide: why datalog?
+		logic language for databases
+		developed same time as SQL
+		equivalent to relational model + recursion
+		style of datalog is pattern matching
+	slide: example database
+		| entity | attribute | value
+		| 42 | :email | joe@.. |
+		| 43 | :email | jane@ .. |
+		| 42 | :orders | 107.|
+		| 42 | :orders | 108.|
+	slide: data pattern
+		Constrains the results returned and binds variables
+		always in the same order
+		[<entity> <attribute> <value>]
+		[?customer :email ?email]
+		:email -> constant
+			if the thing in the pattern is a constant, that is constraining the results
+			all the results have to have :email in this position
+		variables:
+			?customer -> variable
+			?email -> variable
+		matching rows:
+			| 42 | :email | joe@.. |
+			| 43 | :email | jane@ .. |
+		[42 :email ?email]
+			this data pattern matches only one row
+			| 42 | :email | joe@.. |
+	slide: variables anywhere
+		variables can appear anywhere
+		[42 ?attribute]
+			what attributes does customer 42 have?
+		any stuff you don't put, we don't care
+			here we don't care about value
+		matching rows:
+			| 42 | :email | joe@.. |
+			| 42 | :orders | 107.|
+			| 42 | :orders | 108.|
+		but result will contain `:orders` once
+	slide: clauses
+		[:find ?customer
+		 :where [?customer :email]]
+		where clause
+			data pattern
+			[?customer :email]
+		find clause
+			variable to return
+			:find ?customer
+	slide: implicit join
+		query: Find all the customers who have placed orders
+		[:find ?customer
+		:where [?customer :email]
+		       [?customer :orders]]
+		anytime you have same variable appearing in more than one clause
+			these clauses must match variable
+			so that is a join
+	slide: in clause
+		names inputs so you can refer to them elsewhere in the query	
+		these things are bound on input
+		:in $database ?email
+		here we bound $database and ?email on input
+	slide: parameterized query
+	slide: first input
+		find a customer by email
+		( d/q [:find ?customer
+		       :in $database ?email
+					 :where [$database ?customer :email ?email]]
+					db
+					"joe@example.com")
+		bindings:
+			db -> $database
+			"joe.." -> ?email
+	slide: predicates
+		functional constraints that can appear in a :where clause
+		[(< 50 ?price)]
+		note: price must be already bound
+			predicate further constrains the variable
+	slide: adding a predicate
+		find the expensive items
+		[:find ?item
+		 :where [?item :item/price ?price]
+		        [(< 50 ?price)]]
+		additional stuff:
+	slide: pull api
+		
+
 
 

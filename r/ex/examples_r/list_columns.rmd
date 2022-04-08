@@ -1,0 +1,67 @@
+---
+title: "List Columns"
+output: html_document
+---
+
+List columns, bir data.frame içindeki list tipindeki kolonlardır.
+
+[List columns](https://jennybc.github.io/purrr-tutorial/ls13_list-columns.html)
+
+Bunları nasıl csv/xlsx formatında export edip import edebiliriz?
+```{r libraries,warning=false,message=false,include=false}
+library(purrr)
+library(dplyr)
+```
+
+```{r}
+d01 <- tibble::tibble(a = 1, b = list(x = "x01"))
+str(d01)
+# tibble [1 × 2] (S3: tbl_df/tbl/data.frame)
+#  $ a: num 1
+#  $ b:List of 1
+#   ..$ x: chr "x01"
+```
+```{r}
+rio::export(d01, "data/list_column01.xlsx")
+```
+```{r}
+d01b <- rio::import("data/list_column01.xlsx")
+str(d01b)
+# 'data.frame':	1 obs. of  2 variables:
+# $ a: num 1
+# $ b: chr "x01"
+```
+
+d01$b kolonu bir list column olduğu halde, export ederken, primitif bir kolon olarak export edilmiş. Dolayısıyla tekrar okunduğunda, aslında farklı bir veri okumuş olduk.
+
+## a01: YAML formatında bu kolonları kaydedelim
+
+```{r}
+d02 <- d01 |>
+        dplyr::mutate(b = yaml::as.yaml(b))
+str(d02)
+# tibble [1 × 2] (S3: tbl_df/tbl/data.frame)
+# $ a: num 1
+# $ b: chr "x: x01\n"
+```
+```{r}
+rio::export(d02, "data/list_column02.xlsx")
+d02b <- rio::import("data/list_column02.xlsx")
+str(d02b)
+# 'data.frame':	1 obs. of  2 variables:
+# $ a: num 1
+# $ b: chr "x: x01\n"
+```
+
+YAML formatında kolonu kaydedince, aynı şekilde okuyabiliyoruz. Bunu tekrar list column'a çevirelim, okuduktan sonra.
+```{r}
+d02c <- d02b |>
+        dplyr::mutate(b = as.list(b))
+str(d02c)
+# 'data.frame':	1 obs. of  2 variables:
+# $ a: num 1
+# $ b:List of 1
+# ..$ : chr "x: x01\n"
+```
+
+`as.list` ile tekrar YAML metnini list columna çevirdik. İlk baştaki d01 objesinin tıpatıp aynısını elde ettik.

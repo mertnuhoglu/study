@@ -51,6 +51,7 @@ clojure
 			conjure
 				Index: Clojure in Vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11843>
 				shortcuts
+					| SPC m                 | prefix instead of comma ,         |
 					| ,ee                   | eval current form                 |
 					| ,eb                   | eval buffer                       |
 					| ,em[mark]             | eval form under given `mark`      |
@@ -822,8 +823,11 @@ topics
 				(def occurrences [#inst "2013-04-06T17:40:57.688-00:00" #inst "2002-12-25T00:40:57.688-00:00"])
 				(sort occurrences) ;; => (#inst "2002-12-25T00:40:57.688-00:00" #inst "2013-04-06T17:40:57.688-00:00")
 			; Time Interval Between <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11398>
-		edn
+		edn edn2
+			ref: 
+				[Learn edn in Y Minutes](https://learnxinyminutes.com/docs/edn/)
 			edn-format/edn: Extensible Data Notation <url:book_clojure_documentation.md#r=g11402>
+			Tagging elements: #tag {:a 1}
 	concepts
 		record defrecord
 			ref: defrecord <url:file:///~/projects/study/clj/art_clojure_language_brian_will.md#r=g12114>
