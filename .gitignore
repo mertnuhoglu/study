@@ -102,3 +102,6 @@ nx
 **/*.log
 
 r/**/*.html
+
+**/data/dev/*
+**/logseq/bak/*

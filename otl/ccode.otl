@@ -6285,6 +6285,13 @@ tools
 			Vox: Playlist ile bunları dinleme
 			VLC: m4a dosyalarının taglerini düzenleme
 			Syncthing: mac ve telefon arasında senkronizasyon
+		Simple Recorder id=g12829
+			#^+u | record
+			#^+i | pause
+			#^+o | stop
+			myrecords folder
+		Vim Motion: macos vim keybindings id=g12830
+			#+SPC | activate vim
 		music/mp3/audio players
 			Vox
 			foobar2000
