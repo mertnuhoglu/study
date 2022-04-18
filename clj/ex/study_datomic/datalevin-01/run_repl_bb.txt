@@ -1,0 +1,47 @@
+$ rlwrap bb
+Babashka v0.7.6 REPL.
+Use :repl/quit or :repl/exit to quit the REPL.
+Clojure rocks, Bash reaches.
+
+user=> (require '[babashka.pods :as pods])
+nil
+user=> (pods/load-pod "dtlv")
+#:pod{:id "pod.huahaiy.datalevin"}
+user=>  (require '[pod.huahaiy.datalevin :as d])
+nil
+user=> (d/defpodfn custom-fn [n] (str "hello " n))
+#:pod.huahaiy.datalevin{:inter-fn custom-fn}
+user=> (d/q '[:find ?greeting :where [(custom-fn "world") ?greeting]])
+#{["hello world"]}
+user=> (def conn (d/get-conn "/tmp/bb-test"))
+#'user/conn
+user=> (d/transact! conn [{:name "hello"}])
+{:datoms-transacted 1}
+user=> (d/q '[:find ?n :where [_ :name ?n]] (d/db conn))
+#{["hello"]}
+user=> (d/close conn)
+nil
+user=>
+
+----
+
+❯ rlwrap dtlv
+
+  Datalevin (version: 0.6.6)
+
+  Type (help) to see available functions. some Clojure core functions are also available.
+  Type (exit) to exit.
+
+(require '[pod.huahaiy.datalevin :as d])
+Could not find namespace pod.huahaiy.datalevin.
+(require '[babashka.pods :as pods])
+Could not find namespace babashka.pods.
+      (def conn (create-conn "/tmp/datalevin-02" {:likes {:db/cardinality :db.cardinality/many}}))
+#'user/conn
+      (def tx (transact! conn [{:db/id -1 :name :foo :likes [:bar :baz]}]))
+#'user/tx
+(type tx)
+datalevin.db.TxReport
+      (q '[:find ?liked :in $ ?liker :where [?e :likes ?liked] [?e :name ?liker]] @conn :foo)
+#{[:baz] [:bar]}
+user>

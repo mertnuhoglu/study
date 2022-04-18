@@ -3,6 +3,16 @@ use cases id=g12722
 	ref: Yaml To Json To Edn 20220214 <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12721>
 	ref: Convert: isfkr.yaml to table 20220215 <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12724>
 tools id=g12416
+	tabl: convert json/edn to table
+		https://github.com/justone/tabl
+		$ cat test.json
+		{"foo":"bar","baz":4}
+		{"foo":"oof","baz":4}
+		$ cat test.json | tabl -j
+		 :baz | :foo
+		------|------
+		 4    | bar
+		 4    | oof
 	fx:- json navigation tool id=g12412:
 		ref
 			~/projects/study/bash/json_fx.md

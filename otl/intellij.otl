@@ -5,10 +5,11 @@ intellij
 		intellij refcard <url:file:///~/projects/study/code/study_intellij.md#r=g11014>
 			| #e / SPC SPC | find action        |
 			| ++           | search everywhere  |
-			| !u SPC       | quicklist: popups  |
-			| !u p         | quicklist: popups  |
-			| !u j         | quicklist: clojure |
-			| !u k         | quicklist: general |
+			| !u / ç       | qUicklist ÇabUk    |
+			| !u SPC       | quicklist: move (boşlukta hareket)  |
+			| !u p         | quicklist: Popups  |
+			| !u j         | quicklist: cloJure |
+			| !u ç         | quicklist: general |
 			| ! SPC        | Quick definition   |
 			| f1           | quickdocs          |
 			| ^^           | Run anything       |
@@ -26,7 +27,7 @@ cursive
 	quicklists
 		| !u j | clojure quicklist |
 		| !u n | next quicklist |
-		| !u k | general quicklist |
+		| !u ç | general quicklist |
 	frequent commands
 		| #!dn/up | next occurrence |
 		| !u m | structural movement |
@@ -40,3 +41,13 @@ ideavim
 		Toggle: Track Action Ids
 gtd
 	incele: Productity Guide 
+mnemonics
+	| !p | project |
+	| !u | pop-Up  |
+	| !u | qUicklist |
+	| ç  | quicklist ÇabUk Listesi |
+	| !u SPC       | quicklist: move (boşlukta hareket)  |
+	| !u p         | quicklist: Popups  |
+	| !u j         | quicklist: cloJure |
+	| !u e         | quicklist: Edit structurally |
+	| !u n         | quicklist: next |

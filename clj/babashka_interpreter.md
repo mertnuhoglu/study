@@ -147,6 +147,21 @@ examples/portal.clj ~/.clojure/deps.edn
 cat src/babashka/main.clj | bb examples/fzf.clj
 ```
 
+# Run console
+
+```sh
+rlwrap bb
+```
+
+
+# Loading and using pods
+
+```clj
+(require '[babashka.pods :as pods])
+(pods/load-pod 'org.babashka/buddy "0.1.0")
+```
+
+
 # @next
 
 [babashka/io-flags.md at master · borkdude/babashka](https://github.com/borkdude/babashka/blob/master/doc/io-flags.md)

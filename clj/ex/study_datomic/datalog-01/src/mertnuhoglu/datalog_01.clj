@@ -150,27 +150,27 @@ small-dom ;=>
 
 (comment
 
-  (def dom small-dom))
+  (def dom small-dom)
   dom
   ;=>
-  [:html
-  {}
-  [:body
-    {:class "test"}
-    [:p {} "A" [:b {} "B"] "C" [:i {} "D"] "E"]
-    [:p {} "hohoho"]]]
+  ;[:html
+  ; {}
+  ; [:body
+  ;  {:class "test"}
+  ;  [:p {} "A" [:b {} "B"] "C" [:i {} "D"] "E"]
+  ;  [:p {} "hohoho"]]]]
 
   (dom-zipper dom)
   ;=>
-  [[:html
-    {}
-    [:body
-     {:class "test"}
-     [:p {} "A" [:b {} "B"] "C" [:i {} "D"] "E"]
-     [:p {} "hohoho"]]]
-   nil]
+  ;[[:html
+  ;  {}
+  ;  [:body
+  ;   {:class "test"}
+  ;   [:p {} "A" [:b {} "B"] "C" [:i {} "D"] "E"]
+  ;   [:p {} "hohoho"]]]
+  ; nil]
 
-  (def zipper (dom-zipper dom)
+  (def zipper (dom-zipper dom))
 
   ; rich comment
   ,)
