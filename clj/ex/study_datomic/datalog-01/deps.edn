@@ -4,7 +4,9 @@
         clj-tagsoup/clj-tagsoup {:mvn/version "0.3.0"}
         io.replikativ/datahike {:mvn/version "0.4.1491"}
         org.clojure/data.xml {:mvn/version "0.0.8"}
-        com.datomic/client-pro {:mvn/version "1.0.72"}}
+        fipp {:mvn/version "0.6.24"}
+        com.datomic/client-pro {:mvn/version "1.0.75"}
+        com.datomic/datomic-free {:mvn/version "0.9.5697"}}
 
  :aliases
  {:test {:extra-paths ["test"]

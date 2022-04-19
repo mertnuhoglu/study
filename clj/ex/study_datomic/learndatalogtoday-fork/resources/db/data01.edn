@@ -1,0 +1,11 @@
+[
+ {:db/id [:db.part/user -100]
+  :person/name "James Cameron"
+  :person/born #inst "1954-08-16"}
+
+ {:db/id [:db.part/user -200]
+  :movie/title "The Terminator"
+  :movie/year 1984
+  :movie/director [:db.part/user -100]}]
+
+

@@ -1,0 +1,9 @@
+{:title "Welcome"
+ :text-file "resources/chapters/chapter-0.md"
+ :exercises [{:question "Find all movies titles in the database." 
+              :hints []
+              :inputs [{:type :query
+                        :value [:find ...]
+                        :correct-value [:find ?title 
+                                        :where 
+                                        [_ :movie/title ?title]]}]}]}
