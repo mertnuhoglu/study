@@ -80,8 +80,8 @@
 
 sample-data
 ;=> ...
-[#:inv{:color :red, :size :small, :type :shirt, :sku "SKU-0"}
- #:inv{:color :red, :size :small, :type :pants, :sku "SKU-1"}
- #:inv{:color :red, :size :small, :type :dress, :sku "SKU-2"}]
+#_[#:inv{:color :red, :size :small, :type :shirt, :sku "SKU-0"}
+   #:inv{:color :red, :size :small, :type :pants, :sku "SKU-1"}
+   #:inv{:color :red, :size :small, :type :dress, :sku "SKU-2"}]
 
 (d/transact conn {:tx-data sample-data})

@@ -49,33 +49,33 @@ conn
 ; transact the schema
 (d/transact conn {:tx-data movie-schema})
 ;=>
-{:db-before {:database-id "6239a257-b8cd-4599-a1d1-13d0fad9b2aa",
-             :db-name "hello",
-             :t 66,
-             :next-t 1000,
-             :type :datomic.client/db},
- :db-after {:database-id "6239a257-b8cd-4599-a1d1-13d0fad9b2aa",
-            :db-name "hello",
-            :t 1000,
-            :next-t 1001,
-            :type :datomic.client/db},
- :tx-data [#datom[13194139534312 50 #inst"2022-03-22T10:27:40.660-00:00" 13194139534312 true]
-           #datom[72 10 :movie/title 13194139534312 true]
-           #datom[72 40 23 13194139534312 true]
-           #datom[72 41 35 13194139534312 true]
-           #datom[72 62 "The title of the movie" 13194139534312 true]
-           #datom[73 10 :movie/genre 13194139534312 true]
-           #datom[73 40 23 13194139534312 true]
-           #datom[73 41 35 13194139534312 true]
-           #datom[73 62 "The genre of the movie" 13194139534312 true]
-           #datom[74 10 :movie/release-year 13194139534312 true]
-           #datom[74 40 22 13194139534312 true]
-           #datom[74 41 35 13194139534312 true]
-           #datom[74 62 "The year the movie was released in theaters" 13194139534312 true]
-           #datom[0 13 72 13194139534312 true]
-           #datom[0 13 73 13194139534312 true]
-           #datom[0 13 74 13194139534312 true]],
- :tempids {-9223301668109598134 72, -9223301668109598133 73, -9223301668109598132 74}}
+#_{:db-before {:database-id "6239a257-b8cd-4599-a1d1-13d0fad9b2aa",
+               :db-name "hello",
+               :t 66,
+               :next-t 1000,
+               :type :datomic.client/db},
+   :db-after {:database-id "6239a257-b8cd-4599-a1d1-13d0fad9b2aa",
+              :db-name "hello",
+              :t 1000,
+              :next-t 1001,
+              :type :datomic.client/db},
+   :tx-data [#datom[13194139534312 50 #inst"2022-03-22T10:27:40.660-00:00" 13194139534312 true]
+             #datom[72 10 :movie/title 13194139534312 true]
+             #datom[72 40 23 13194139534312 true]
+             #datom[72 41 35 13194139534312 true]
+             #datom[72 62 "The title of the movie" 13194139534312 true]
+             #datom[73 10 :movie/genre 13194139534312 true]
+             #datom[73 40 23 13194139534312 true]
+             #datom[73 41 35 13194139534312 true]
+             #datom[73 62 "The genre of the movie" 13194139534312 true]
+             #datom[74 10 :movie/release-year 13194139534312 true]
+             #datom[74 40 22 13194139534312 true]
+             #datom[74 41 35 13194139534312 true]
+             #datom[74 62 "The year the movie was released in theaters" 13194139534312 true]
+             #datom[0 13 72 13194139534312 true]
+             #datom[0 13 73 13194139534312 true]
+             #datom[0 13 74 13194139534312 true]],
+   :tempids {-9223301668109598134 72, -9223301668109598133 73, -9223301668109598132 74}}
 
 ; [Transact Data | Datomic](https://docs.datomic.com/on-prem/getting-started/transact-data.html)
 
@@ -91,29 +91,29 @@ conn
 
 (d/transact conn {:tx-data first-movies})
 ;=>
-{:db-before {:database-id "6239a257-b8cd-4599-a1d1-13d0fad9b2aa",
-             :db-name "hello",
-             :t 1000,
-             :next-t 1001,
-             :type :datomic.client/db},
- :db-after {:database-id "6239a257-b8cd-4599-a1d1-13d0fad9b2aa",
-            :db-name "hello",
-            :t 1001,
-            :next-t 1005,
-            :type :datomic.client/db},
- :tx-data [#datom[13194139534313 50 #inst"2022-03-22T10:53:42.201-00:00" 13194139534313 true]
-           #datom[17592186045418 72 "The Goonies" 13194139534313 true]
-           #datom[17592186045418 73 "action/adventure" 13194139534313 true]
-           #datom[17592186045418 74 1985 13194139534313 true]
-           #datom[17592186045419 72 "Commando" 13194139534313 true]
-           #datom[17592186045419 73 "action/adventure" 13194139534313 true]
-           #datom[17592186045419 74 1985 13194139534313 true]
-           #datom[17592186045420 72 "Repo Man" 13194139534313 true]
-           #datom[17592186045420 73 "punk dystopia" 13194139534313 true]
-           #datom[17592186045420 74 1984 13194139534313 true]],
- :tempids {-9223301668109598131 17592186045418,
-           -9223301668109598130 17592186045419,
-           -9223301668109598129 17592186045420}}
+#_{:db-before {:database-id "6239a257-b8cd-4599-a1d1-13d0fad9b2aa",
+               :db-name "hello",
+               :t 1000,
+               :next-t 1001,
+               :type :datomic.client/db},
+   :db-after {:database-id "6239a257-b8cd-4599-a1d1-13d0fad9b2aa",
+              :db-name "hello",
+              :t 1001,
+              :next-t 1005,
+              :type :datomic.client/db},
+   :tx-data [#datom[13194139534313 50 #inst"2022-03-22T10:53:42.201-00:00" 13194139534313 true]
+             #datom[17592186045418 72 "The Goonies" 13194139534313 true]
+             #datom[17592186045418 73 "action/adventure" 13194139534313 true]
+             #datom[17592186045418 74 1985 13194139534313 true]
+             #datom[17592186045419 72 "Commando" 13194139534313 true]
+             #datom[17592186045419 73 "action/adventure" 13194139534313 true]
+             #datom[17592186045419 74 1985 13194139534313 true]
+             #datom[17592186045420 72 "Repo Man" 13194139534313 true]
+             #datom[17592186045420 73 "punk dystopia" 13194139534313 true]
+             #datom[17592186045420 74 1984 13194139534313 true]],
+   :tempids {-9223301668109598131 17592186045418,
+             -9223301668109598130 17592186045419,
+             -9223301668109598129 17592186045420}}
 
 ; [Query the Data | Datomic](https://docs.datomic.com/on-prem/getting-started/query-the-data.html)
 
