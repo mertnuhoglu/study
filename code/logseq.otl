@@ -1,0 +1,57 @@
+
+tutorials articles
+	[Getting started](https://logseq.github.io/#/page/getting%20started)
+shortcuts id=g12842
+	t
+	| RET     | new block                 |
+	| +RET    | new line in current block |
+	| /       | all commands              |
+	| [(      | reference to new page     |
+	| + CLK   | open link in sidebar      |
+	| RCLK    | block context menu        |
+	| #k      | full search               |
+	| #+k     | search in page            |
+	| #. / #, | zoom in / out             |
+	| ?       | Help                      |
+	| /embed youtube video | youtube video             |
+	| {{youtube <url>}}    | youtube video             |
+	| select word > [[     | link to page              |
+	| Follow link          | #o                        |
+	| Rotate TODO state    | #RET                      |
+	| Open link in sidebar | #+o                       |
+	| Move block up/down   | #+ up/dn                  |
+	| Search bar           | #k                        |
+	go to
+		| Go to home               | g h |
+		| Go to journals           | g j |
+		| Go to all pages          | g a |
+		| Go to graph view         | g g |
+		| Toggle flashcards        | g f |
+		| Go to tomorrow           | g t |
+		| Go to next journal       | g n |
+		| Go to previous journal   | g p |
+		| Go to keyboard shortcuts | g s |
+	toggle
+		| toggle right | tr |
+		| toggle left  | tl |
+	Page embed
+	Block embed
+	Tags for classification #...
+	Task status: #RET
+	Hashtag with space: #[[hashtag wrapped between brackets]]
+	Alias link: [I worked on projects]([[Projects Page]])
+	Creating an alias for a page: 
+		Put as first block:
+			Personal Knowledge Management: alias:: PKM
+		Use link: [[PKM]]
+	Filters
+		CLC: include it
+		+CLC: exclude it
+	Block reference: ((block)) or [Title]((block))
+	Page reference: [[page]]
+	Block embed:
+		a01: /block embed
+		a02: {{embed ((block title))}}
+	Page embed:
+		a01: /page embed
+		a02: {{embed [[page title]]}}
