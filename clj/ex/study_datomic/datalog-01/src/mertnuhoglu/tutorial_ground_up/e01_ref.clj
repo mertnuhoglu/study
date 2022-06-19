@@ -30,7 +30,7 @@
 (q '[:find ?j . :where [?e :person/name "Lucy"] [?e :person/job ?jb] [?jb :job/title ?j]] (db conn)) ; "Rockstar programmer"
 ;=> "Rockstar programmer2"
 
-; ### Reverse ref
+; ### Reverse ref id=g12897
 
 ;Here, we created a job entity and pointed a person to it. Instead, we could create a job and reverse-point a person to it, all in one step. i.e.
 (d/transact conn [{:db/id #db/id[:db.part/user] :job/title "Startup founder" :job/salary 50000.00 :person/_job 103}])

@@ -828,7 +828,7 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 
 [(1143) Day of Datomic Cloud - Session 4 - YouTube](https://www.youtube.com/watch?v=qplsC2Q2xBA&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv&index=4)
 
-### otl
+### Day Of Datomic Cloud otl id=g12849
 
 	slide: query model
 		datalog

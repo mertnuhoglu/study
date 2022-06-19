@@ -13,9 +13,9 @@
 ;Execution error (NullPointerException) at datomic.kv-cluster/kv-cluster (kv_cluster.clj:355).
 ;Cannot invoke "clojure.lang.IFn.invoke()" because the return value of "clojure.lang.IFn.invoke(Object)" is null
 
-; a01:
-; run repl
-; bin/repl
+; a01: run repl:
+; $ bin/repl
+; run all commands inside repl
 
 (def conn (d/connect uri))
 (d/q '[:find ?a :where [:db.part/db :db.install/attribute ?a]] (d/db conn))

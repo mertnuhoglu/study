@@ -1,4 +1,4 @@
-(ns mertnuhoglu.datomic-06-history)
+(ns mertnuhoglu.datomic.datomic-06-history)
 
 ; Copied from [History | Datomic](https://docs.datomic.com/on-prem/tutorial/history.html)
 

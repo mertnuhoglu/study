@@ -1,4 +1,4 @@
-(ns mertnuhoglu.datomic-04-accumulate)
+(ns mertnuhoglu.datomic.datomic-04-accumulate)
 
 ; Copied from: [Accumulate | Datomic](https://docs.datomic.com/on-prem/tutorial/accumulate.html)
 

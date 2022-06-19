@@ -17,6 +17,7 @@ state: wip
 
 # quickstart cursive id=g11816
 
+    " QuickList Popup keybindings <url:file:///~/projects/private_dotfiles/.ideavimrc#r=g12856>
     | ^^ repl  | run anything: repl             |
     | #e       | actions command bar            |
     | !u/ç     | popup menu prefix              |
@@ -24,7 +25,7 @@ state: wip
     | !uj      | clojure popup menu             |
     | !uç/çç   | popup general menu             |
     | !un/çn   | popup next menu                |
-    | !ue/çe   | popup structural editing menu  |
+    | !ue/çt   | popup structural editing menu  |
     | !u SPC   | popup move menu                |
     | !eb      | load file in repl              | ,eb |
     | !ed      | send top form to repl          | ,ed |

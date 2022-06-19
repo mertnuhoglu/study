@@ -1,4 +1,4 @@
-(ns mertnuhoglu.datomic-03-read)
+(ns mertnuhoglu.datomic.datomic-03-read)
 
 ; Copied from: [Read | Datomic](https://docs.datomic.com/on-prem/tutorial/read.html)
 

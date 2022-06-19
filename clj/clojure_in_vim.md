@@ -60,6 +60,8 @@ It works on any word as well.
 
 ## Keybindings Conjure id=g11845
 
+	conjure <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12847>
+	conjure eval mappings <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12840>
 	let g:conjure#mapping#prefix = " m"
 	lua require('conjure.eval')['current-form']()
 	let g:conjure#mapping#eval_root_form = "ed"

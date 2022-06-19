@@ -105,3 +105,4 @@ r/**/*.html
 
 **/data/dev/*
 **/logseq/bak/*
+**/resources/public/scripts/go.js

@@ -3,13 +3,17 @@ ref
 index
 	ref
 		~/projects/study/clj/fulcro.otl
+		datomic.otl <url:file:///~/projects/study/clj/datomic.md#r=g12849>
 	anki clojure
 		~/projects/study/clj/anki_clojure_from_excel.tsv
 		~/projects/study/clj/anki_clojure.tsv
-	projects
-		/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/ex06.iml
+	projects id=g12848
+		ex06 ~/projects/study/clj/ex/study_clojure/ex06/ex06.iml
+		datalog-01 /Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
 		/Users/mertnuhoglu/projects/study/clj/ex/fulcro/fulcro.iml
-	clojure.otl
+	rfc quickstart id=g12853
+		projects <url:file:///~/projects/study/clj/clojure.otl#r=g12848>
+		datomic <url:file:///~/projects/study/clj/clojure.otl#r=g12850>
 		Setup a new project  <url:file:///~/projects/study/clj/clojure.otl#r=g11946>
 		Run REPL <url:file:///~/projects/study/clj/clojure.otl#r=g12068>
 		Run a clojure script/function/app <url:file:///~/projects/study/clj/clojure.otl#r=g12108>
@@ -35,31 +39,47 @@ clojure
 		Gerald Sussman - SICP
 		Sean Corfield - rebl
 	editors clojure id=g12360
+		sexp editing id=g12869
+			ref
+				sexp_editing.otl ~/projects/study/clj/sexp_editing.otl
+				Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>
+				smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g12112>
+				sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>
 		cursive intellij
 			ref
 				quickstart cursive <url:file:///~/projects/study/clj/cursive.md#r=g11816>
 			shortcuts
+				Cursive repl eval keybindings <url:file:///~/projects/private_dotfiles/.ideavimrc#r=g12857>
+				QuickList Popup keybindings <url:file:///~/projects/private_dotfiles/.ideavimrc#r=g12856>
+				| çd       | eval top form  |
+				| çe       | eval last form |
 				| #e       | actions command bar            |
 				| !u       | ç: popup menu prefix           |
 				| !up/çp   | popup menus                    |
 				| !uj      | clojure popup menu             |
 				| !uç/çç   | popup general menu             |
 				| !un/çn   | popup next menu                |
-				| !ue/çe   | popup structural editing menu  |
+				| !ue/çt   | popup structural editing menu  |
 				| !u SPC   | popup move menu                |
 		vim conjure
 			conjure
 				Index: Clojure in Vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11843>
+				conjure <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12847>
 				shortcuts
-					| SPC m                 | prefix instead of comma ,         |
-					| ,ee                   | eval current form                 |
-					| ,eb                   | eval buffer                       |
-					| ,em[mark]             | eval form under given `mark`      |
-					| ,ew                   | eval word under cursor (peek var) |
-					| ,E                    | eval visual selection             |
-					| ,lv                   | open log buffer vertical          |
-					| K                     | look up documentation             |
-					| gd                    | go to definition                  |
+					[`,` yerine SPC m konulacak]
+          | SPC m     | prefix instead of comma ,         |
+          | ,vv       | open log buffer vertical          |
+          | ,ee       | eval current form                 |
+          | ,eb       | eval buffer                       |
+          | ,em[mark] | eval form under given `mark`      |
+          | ,ew       | eval word under cursor (peek var) |
+          | ,E        | eval visual selection             |
+					öneksiz düz kısayollar:
+          | çc | eval_comment_current_form |
+          | çe | eval_current_form         |
+          | çr | eval_root_form            |
+          | K  | look up documentation     |
+          | gd | go to definition          |
 				temel kullanım
 					clojure -M:repl/rebel-nrepl
 					ConjureConnect [port]
@@ -76,8 +96,7 @@ clojure
 					| :Eval  | eval current form          |
 					| :Eval% | eval file                  |
 			vim_sexp.md 
-				sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>
-				Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>
+				sexp editing <url:file:///~/projects/study/clj/clojure.otl#r=g12869>
 			Disable linter: <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11965>
 				call lsp#disable_diagnostics_for_buffer()
 		emacs
@@ -112,8 +131,7 @@ clojure
 				~/projects/private_dotfiles/.config/chemacs/profiles.el
 				emacs --with-profile default
 		paredit vim-sexp smartparens cleverparens
-			Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>
-			smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g12112>
+			sexp_editing.otl ~/projects/study/clj/sexp_editing.otl
 	trainings
 		https://lambdaisland.com/episodes
 		https://purelyfunctional.tv/browse/
@@ -828,6 +846,9 @@ topics
 				[Learn edn in Y Minutes](https://learnxinyminutes.com/docs/edn/)
 			edn-format/edn: Extensible Data Notation <url:book_clojure_documentation.md#r=g11402>
 			Tagging elements: #tag {:a 1}
+	datomic id=g12850
+		datomic.otl <url:file:///~/projects/study/clj/datomic.otl>
+		datalog-01 /Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
 	concepts
 		record defrecord
 			ref: defrecord <url:file:///~/projects/study/clj/art_clojure_language_brian_will.md#r=g12114>
@@ -1175,6 +1196,11 @@ topics
 					| SPC sf  | eval sexp          |
 					| !+ SPC  | quicklist: popups  |
 					| +L C    | quicklist: clojure |
+				Remote nREPL Connection id=g12889
+					Edit Configurations > Clojure REPL Remote > 
+						.Connection Type = nREPL
+						Use port from nREPL file > select Project
+						Use standard port file
 		repl
 		json/edn/yaml: ~/projects/study/otl/json.otl
 	webapps
@@ -1372,5 +1398,114 @@ inbox
 		+--------+-----+--------+----------------+
 		| Sophia | 9   | cat    | inside         |
 		+--------+-----+--------+----------------+
+	reference functions id=g12855
+		standard
+			map-indexed
+			(map-indexed
+			  (fn [idx m]
+				  (assoc m :inv/sku (str "SKU-" idx))) ms)
+			ffirst
+			(mapv #(hash-map :ns/k %) xs)
+			(for [color colors size sizes] ...)
+			(for [color colors size sizes]
+			  {:inv/color color
+				 :inv/size size})
+		datalog ref id=g12868
+			datomic api
+				(require '[datomic.client.api :as d])
+				d/client
+				d/connect client {:db-name "movies"}
+				d/transact conn {:tx-data movie-schema}
+				d/db conn
+				d/q query db
+				d/transact conn {:tx-data [{:db/id .. :movie/genre "..."}]}
+				d/history db
+				{:tx-data [{:db/ident :red} {..}]}
+			datomic schema
+				{:db/ident ..
+				:db/valueType ..
+				:db/cardinality ..}
+				:db/doc
+				:db.type/string
+				:db.type/long
+				:db.cardinality/one
+				:db.cardinality/many
+				:db/unique
+				:db/unique/identity
+				:db/valueType
+				:db.type/ref
+				:db/id
+				:db/id #db/id[:db.part/db]
+			datalog query
+				'[:find ... :where [e a v]]
+				'[:find ?movie-title
+					:where [_ :movie/title ?movie-title]]
+				'[:find ...
+					:where 
+					[e a v]
+					[e a2 v2]]
+				'[find ?title ?genre
+					:where [?e .. ?title] 
+					[... ?genre]]
+				{:order/items 
+				[{:item/id [:inv/sku "SKU-25"] 
+					:item/count 10}]}
+				{:db/ident :item/id
+				:db/valueType :db.type/ref}
+				{:db/ident :inv/sku
+				:db/unique :db.unique/identity}
+				'[:find ?..
+					:in $ ?inv
+					:where [...] [...]]
+				db [:inv/sku "SKU-25"]  ; lookup ref
+				'[:find ?..
+					:in $ % ?inv
+					:where (ordered-together ...) [...]]
+				db rules [:inv/sku "SKU-25"]  ; lookup ref
+			datalog pull
+				d/pull db ..
+				[:inv/sku "SKU-42"]  ; lookup ref
+				d/pull db [{:inv/color [:db/ident]}] [:inv/sku "SKU-42"]
+				{:tx-data [nested-data]}
+			datalog assert retract
+				[:db/add [:inv/sku "..."] :inv/count 10]
+				d/transact conn {:tx-data ...}
+				[:db/retract [:inv-sku ".."] :inv/count 10]
+			datomic history
+				'[:find (max 3 ?tx)
+					:where [?tx :db/txInstant]]
+				d/as-of db txid
+			datahike api
+				(:require [datahike.api :as dh])
+				{:store {:backend :file :path "..."}}
+				dh/create-database cfg
+				dh/connect cfg
+				dh/transact conn [{:db/ident :name ...}]
+				dh/transact conn [{:name "alice" ...}]
+				dh/transact conn {:tx-data [{...}]}
+				dh/q query @conn
+				dh/q {:query '{...} 
+							:args [@conn]}
+				dh/q query (dh/history @conn)
+				dh/release conn
+				dh/delete-database cfg
+				dh/datoms @conn {:index :eavt}
+				dh/entity @conn 4
+				:friends (dh/entity @conn 4)
+				:_friends (dh/entity @conn 4)
+				dh/pull @conn [:db/id, :name, {:friends [:db/id :name]}] 4
+				dh/schema @conn
+		IO
+			slurp "file/path"
+			read-string (slurp ...)
+		logging
+			fipp var
+		map
+			keys m
+			vals m
+		type checks
+			associative?
+
+			
 		
 		

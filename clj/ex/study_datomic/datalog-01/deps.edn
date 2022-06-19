@@ -4,10 +4,10 @@
         clj-tagsoup/clj-tagsoup {:mvn/version "0.3.0"}
         io.replikativ/datahike {:mvn/version "0.4.1491"}
         org.clojure/data.xml {:mvn/version "0.0.8"}
-        fipp {:mvn/version "0.6.24"}
+        fipp/fipp {:mvn/version "0.6.24"}
         com.datomic/client-pro {:mvn/version "1.0.75"}
-        com.datomic/datomic-pro {:mvn/version "1.0.6397"}
-        com.datomic/datomic-free {:mvn/version "0.9.5697"}}
+        com.datomic/datomic-pro {:mvn/version "1.0.6397"}}
+        ; com.datomic/datomic-free {:mvn/version "0.9.5697"}}
 
  :mvn/repos
  {"my.datomic.com" {:url "https://my.datomic.com/repo"}}

@@ -3,7 +3,9 @@
 ; Copied from: [Datomic from the ground up · subhash/clj-stack Wiki](https://github.com/subhash/clj-stack/wiki/Datomic-from-the-ground-up)
 
 (use '[datomic.api :only [q db] :as d])
-(def uri "datomic:mem://movies")
+; (def uri "datomic:mem://movies")
+(def uri "datomic:dev://localhost:4334/ground-up")
+; error: datomic:dev ile bağlanamazsan, datomic-free'yi bağımlılıklardan çıkartıp dene
 (d/create-database uri)
 (def conn (d/connect uri))
 

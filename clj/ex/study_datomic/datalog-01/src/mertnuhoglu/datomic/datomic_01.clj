@@ -1,11 +1,11 @@
-(ns mertnuhoglu.datomic-01)
+(ns mertnuhoglu.datomic.datomic-01)
 
 ; Copied from: [Connect to a Database | Datomic](https://docs.datomic.com/on-prem/getting-started/connect-to-a-database.html)
 
 ; Step01: Run datomic server first:
 
 ; cd /Users/mertnuhoglu/codes/clj/lib/datomic-pro-${VERSION}
-; bin/run -m datomic.peer-server -h localhost -p 8998 -a myaccesskey,mysecret -d hello,datomic:mem://hello
+; bin/run -m datomic.peer-server -h localhost -p 8998 -a myaccesskey,mysecret -d hello,datomic:mem://movies
 
 (require '[datomic.client.api :as d])
 
@@ -18,7 +18,7 @@
 
 (def client (d/client cfg))
 ;#'user/client
-(def conn (d/connect client {:db-name "hello"}))
+(def conn (d/connect client {:db-name "movies"}))
 ;#'user/conn
 
 conn

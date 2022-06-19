@@ -24,4 +24,11 @@
   ["First Blood"]
   ["Terminator 2: Judgment Day"]}
 
-
+(d/q
+  '[:find ?name
+    :where
+    [?m :movie/title "Lethal Weapon"]
+    [?m :movie/cast ?p]
+    [?p :person/name ?name]]
+  db)
+#_#{["Mel Gibson"] ["Gary Busey"] ["Danny Glover"]}

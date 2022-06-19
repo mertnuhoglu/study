@@ -1,4 +1,4 @@
-(ns mertnuhoglu.datomic-02-assertion)
+(ns mertnuhoglu.datomic.datomic-02-assertion)
 
 ; Copied from: [Assertion | Datomic](https://docs.datomic.com/on-prem/tutorial/assertion.html)
 

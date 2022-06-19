@@ -39,6 +39,11 @@
     [:person/name]}
 
 
+;; Bir varlığın tüm atributlarını listele id=g12898
+(q '[:find ?n :where [:db.part/db :db.install/attribute ?a] [?a :db/ident ?n]] (db conn))
+;=>
+#{[:db/code] [:db/doc] [:job/title] [:db/fn] [:db.install/function] [:db/excise] [:db/cardinality] [:db/txInstant] [:db.excise/attrs] [:db.alter/attribute] [:db/noHistory] [:db/isComponent] [:db/fulltext] [:fressian/tag] [:db/index] [:person/job] [:db/lang] [:db.excise/before] [:job/salary] [:db.excise/beforeT] [:person/address] [:db.install/valueType] [:db.install/partition] [:db/valueType] [:db/unique] [:job/dtitle] [:db/ident] [:person/age] [:db.install/attribute] [:person/name]}
+
 ; a pull within the find clause causes the entire entity to be projected
 (q '[:find (pull ?a [*]) :where [?a :db/ident :db.install/attribute]] (db conn))
 ;=>

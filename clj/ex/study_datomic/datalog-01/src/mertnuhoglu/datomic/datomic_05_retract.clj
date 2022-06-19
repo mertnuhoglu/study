@@ -1,4 +1,4 @@
-(ns mertnuhoglu.datomic-05-retract)
+(ns mertnuhoglu.datomic.datomic-05-retract)
 
 ; Copied from: [Retract | Datomic](https://docs.datomic.com/on-prem/tutorial/retract.html)
 
