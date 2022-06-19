@@ -1,0 +1,6 @@
+R -e 'rmarkdown::render("rmarkdown-01.rmd")'
+
+mdmerge --leanpub Book.txt -o output.md
+
+pandoc output.md -o srs.docx
+pandoc output.md -o srs.pdf

@@ -1,0 +1,11 @@
+---
+title: "Rmarkdown Gömme"
+author: 
+date: March 22, 2022
+output: 
+  md_document:
+    variant: markdown_mmd
+---
+
+Bu dosya rmd türünde bir içeriktir.
+
