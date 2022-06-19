@@ -15,7 +15,7 @@ project_id <- "0-24"   # DMB Project
 url_rdb <- "https://docs.google.com/spreadsheets/d/1HMosZ0_z42TxqezqDF7WAozxdu1TNgTs8CMueB5MZdY/edit#gid=0" # dmb
 ```
 
-```{r libraries,warning=false,message=false,include=false}
+```{r libraries,warning=FALSE,message=FALSE,include=FALSE}
 library(httr)
 library(jsonlite)
 library(lubridate)

@@ -1,10 +1,11 @@
 
 # Source code from: [Mimicking a Google Form with a Shiny app](https://deanattali.com/2015/06/14/mimicking-google-form-shiny/)
 
-# After submission show a “Thank you” message and let user submit again
-# shinyjs::hidden
+# Better user feedback while submitting and on error
+# submit_msg
 # input$submit
-# input$submit_another
+# appCSS
+
 
 library(shiny)
 library(shinyjs)
@@ -18,7 +19,10 @@ labelMandatory <- function(label) {
   )
 }
 
-appCSS <- ".mandatory_star { color: red; }"
+appCSS <-
+  ".mandatory_star { color: red; }
+   #error { color: red; }"
+
 
 fieldsAll <- c("name", "favourite_pkg", "used_shiny", "r_num_years", "os_type")
 responsesDir <- file.path("data")
@@ -41,6 +45,13 @@ shinyApp(
       selectInput("os_type", "Operating system used most frequently",
                   c("",  "Windows", "Mac", "Linux")),
       actionButton("submit", "Submit", class = "btn-primary")
+    ),
+
+    shinyjs::hidden(
+      span(id = "submit_msg", "Submitting..."),
+      div(id = "error",
+          div(br(), tags$b("Error: "), span(id = "error_msg"))
+      )
     ),
 
     shinyjs::hidden(
@@ -73,10 +84,24 @@ shinyApp(
 
     # action to take when submit button is pressed
     observeEvent(input$submit, {
-      saveData(formData())
-      shinyjs::reset("form")
-      shinyjs::hide("form")
-      shinyjs::show("thankyou_msg")
+      shinyjs::disable("submit")
+      shinyjs::show("submit_msg")
+      shinyjs::hide("error")
+
+      tryCatch({
+        saveData(formData())
+        shinyjs::reset("form")
+        shinyjs::hide("form")
+        shinyjs::show("thankyou_msg")
+      },
+        error = function(err) {
+          shinyjs::html("error_msg", err$message)
+          shinyjs::show(id = "error", anim = TRUE, animType = "fade")
+        },
+        finally = {
+          shinyjs::enable("submit")
+          shinyjs::hide("submit_msg")
+        })
     })
 
     observeEvent(input$submit_another, {
@@ -84,9 +109,8 @@ shinyApp(
       shinyjs::hide("thankyou_msg")
     })
 
-
+		# check if all mandatory fields have a value
     observe({
-      # check if all mandatory fields have a value
       mandatoryFilled <-
         vapply(fieldsMandatory,
                function(x) {

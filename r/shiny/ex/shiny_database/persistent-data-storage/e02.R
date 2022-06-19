@@ -3,30 +3,34 @@
 
 library(shiny)
 
-# Basic Shiny app without data storage
-# formData
-# output$responses
+# 1. Local file system (local)
+# saveData
+# loadData
 
 # Define the fields we want to save from the form
 fields <- c("name", "used_shiny", "r_num_years")
 
-# Save a response
-# ---- This is one of the two functions we will change for every storage type ----
+outputDir <- "data"
+
 saveData <- function(data) {
-  data <- as.data.frame(t(data))
-  if (exists("data")) {
-    responses <<- rbind(responses, data)
-  } else {
-    responses <<- data
-  }
+  data <- t(data)
+  # Create a unique file name
+  fileName <- sprintf("%s_%s.csv", as.integer(Sys.time()), digest::digest(data))
+  # Write the file to the local system
+  write.csv(
+    x = data,
+    file = file.path(outputDir, fileName),
+    row.names = FALSE, quote = TRUE
+  )
 }
 
-# Load all previous responses
-# ---- This is one of the two functions we will change for every storage type ----
 loadData <- function() {
-  if (exists("data")) {
-    responses
-  }
+  # Read all the files into a list
+  files <- list.files(outputDir, full.names = TRUE)
+  data <- lapply(files, read.csv, stringsAsFactors = FALSE)
+  # Concatenate all data together into one data.frame
+  data <- do.call(rbind, data)
+  data
 }
 
 # Shiny app with 3 fields that the user can submit data for

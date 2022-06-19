@@ -1,11 +1,9 @@
 
 # Source code from: [Mimicking a Google Form with a Shiny app](https://deanattali.com/2015/06/14/mimicking-google-form-shiny/)
 
-# Better user feedback while submitting and on error
-# submit_msg
-# input$submit
-# appCSS
-
+# Add table that shows all previous responses
+# responsesTable
+# loadData
 
 library(shiny)
 library(shinyjs)
@@ -35,6 +33,7 @@ shinyApp(
     shinyjs::useShinyjs(),
     shinyjs::inlineCSS(appCSS),
     titlePanel("Mimicking a Google Form with a Shiny app"),
+    DT::dataTableOutput("responsesTable"),
     div(
       id = "form",
 
@@ -72,6 +71,18 @@ shinyApp(
     })
 
     humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
+
+    loadData <- function() {
+      files <- list.files(file.path(responsesDir), full.names = TRUE)
+      data <- lapply(files, read.csv, stringsAsFactors = FALSE)
+      data <- do.call(rbind, data)
+      data
+    }
+    output$responsesTable <- DT::renderDataTable(
+      loadData(),
+      rownames = FALSE,
+      options = list(searching = FALSE, lengthChange = FALSE)
+    )
 
     saveData <- function(data) {
       fileName <- sprintf("%s_%s.csv",

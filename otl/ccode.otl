@@ -3,6 +3,7 @@ _ id=r_lastid ccd_0010
 parent
 	refmine kms <url:file:///~/projects/myrepo/general/refmine.otl#r=g11660>
 index
+	android android2 <url:file:///~/projects/study/otl/ccode.otl#r=g12841>
 	bash <url:file:///~/projects/study/otl/ccode.otl#r=g11687>
 	awk <url:file:///~/projects/study/otl/ccode.otl#r=g11686>
 	regex ~/projects/study/otl/cregex.otl
@@ -1237,6 +1238,9 @@ cloud
 				static website: s3/cloudfront to netlify
 				prepayment: with google possible
 databases
+	sqlite sqlite2 id=g12920
+		ref
+			~/projects/study/db/sqlite.otl
 	postgresql postgres2 postgresql2
 		ref: ~/projects/study/otl/cdb.otl
 	shard
@@ -2017,12 +2021,19 @@ bash
 		brew
 			backup installed brew packages
 				brew leaves > ~/projects/private_dotfiles/.config/brew/installed_packages.txt
-	csvkit
+	csv csv2 excel2 tsv2 usv2
+		usv unicode separated values id=g12924
+			[SixArm/usv: USV: Unicode Separated Values](https://github.com/SixArm/usv)
+		ultorg
+		moderncsv
+			ref:
+				[CSV File Editor Application for Windows, Mac, and Linux - Modern CSV](https://www.moderncsv.com/)
 		csvkit
-			install
-			csvcut
-				print columns
-					csvcut -n data.csv
+			csvkit
+				install
+				csvcut
+					print columns
+						csvcut -n data.csv
 	diff
 			diff-so-fancy
 				https://github.com/so-fancy/diff-so-fancy
@@ -2953,7 +2964,7 @@ make
 				Latex files for main text
 				BibTex for references
 		A simple example
-tools
+tools tools2
 	anki anki2
 		ref
 			Import tsv files into anki <url:file:///~/projects/study/code/anki/study_anki.md#r=g12334>
@@ -3089,6 +3100,8 @@ tools
 			shortcuts
 				/ +		quick add
 				+enter		add control
+	broot broot2 id=g12938
+		^-> | preview
 	docker docker2 id=g10120
 		docker <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10120>
 			refcard
@@ -4960,6 +4973,19 @@ tools
 				don't work:
 					^r    paste from history
 					!c    cd into selected dir
+	grafik diyagram diagram tools diagram2
+		excalidraw
+			whiteboard
+			genel çizim aracı
+		stately
+		mermaid-js
+		kumu
+		forio
+		C4 model
+		yuml.me
+		structurizr
+		q.uiver.app
+		orgpad.com
 	lf: file manager (list files) lf2 id=g12347
 		ref
 			lf lf3  <url:file:///~/projects/study/code/lf_ranger_file_managers.otl#r=g12426>
@@ -5203,6 +5229,8 @@ tools
 		spreadsheets - calc
 			Page Layout - Print Layout
 				File > Print Preview > Adjust Margins
+	logseq: outliner notes manager
+		ref: shortcuts <url:file:///~/projects/study/code/logseq.otl#r=g12842>
 	moa
 		Tutorial 1
 			running gui
@@ -6352,7 +6380,7 @@ tools
 		setup
 			export PSQL_PAGER=pspg
 			~/projects/private_dotfiles/.psqlrc
-	ranger ranger2 id=g12424
+	ranger ranger2 file manager id=g12424
 		ref
 			ranger ranger3 <url:file:///~/projects/study/code/lf_ranger_file_managers.otl#r=g12425>
 			Index <url:file:///~/projects/study/code/study_ranger.md#r=g11809>
@@ -6411,6 +6439,12 @@ tools
 			selection
 				insert in   i
 				insert out  o
+	simplenote simplenote2
+		ref
+			/Users/mertnuhoglu/gdrive/mynotes/nx/simplenote/
+		export simplenote notes
+			https://simplenote.com/help/
+				Web > Settings > Tools > Export zip
 	sox
 			duration/length of audio
 				soxi -D file.mp3
@@ -6427,6 +6461,15 @@ tools
 	taeldeer: tldr cheatsheets
 		alternative: tldr cheat
 		[dbrgn/tealdeer: A very fast implementation of tldr in Rust.](https://github.com/dbrgn/tealdeer)
+	twitter twitter2
+		twitter shortcuts kybd id=g12877
+			ref: [Every Twitter Shortcut and Term That You Need to Know](https://www.makeuseof.com/twitter-shortcut-terms-cheat-sheet/)
+			| ? | shortcut list |
+			| gb | goto bookmarks |
+			| b | bookmark this |
+		dewey: twitter bookmarks archiver (arşivleyici) id=g12878
+			https://getdewey.co/account/
+				> Grab My Bookmarks
 	ugrep - search text id=g12409
 		[Genivia/ugrep: ultra fast grep with interactive query UI and fuzzy search](https://github.com/Genivia/ugrep#install)
 		alternative to: rg ripgrep grep
@@ -6445,6 +6488,8 @@ tools
 				scrapes data in html web pages 
 		shortcuts id=g12574
 			v | multiline mode
+		visidata sqlite id=g12923
+			vd ~/projects/study/r/shiny/ex/shiny_database/persistent-data-storage/data/responses.db
 	vlc
 			subscribe to podcast
 				window > playlist > podcasts > subscribe
@@ -7250,7 +7295,9 @@ topics
 					mymodel <- trainMOA(model = mymodel, 
 						formula = Species ~ Sepal.Length + Sepal.Width + Petal.Length, 
 						data = irisdatastream)
-	Serverless
+	Serverless serverless2 id=g12925
+		uptash: serverless for redis and kafka
+		neon: serverless for postgres
 		serverless
 			articles
 				Serverless Patterns and Anti-patterns - Joe Emison id=g10713
@@ -7430,6 +7477,22 @@ topics
 	zoxide: z autojump
 		alternative: z autojump
 		[ajeetdsouza/zoxide: A smarter cd command. Supports all major shells.](https://github.com/ajeetdsouza/zoxide)
+android android2 id=g12841
+	use cases
+		video ekitapları takip etmek
+			New Pipe ile videoyu lokaline indir
+			Total Commander ile video dosyasını Ana Sayfana ekle (Add to Home Screen)
+			Videoyu tıklayarak KM Player ile aç
+			KM Player ile videonun içinde Bookmarklar koy
+		youtube subscription listesini New Pipe ile takip etmek
+			Google > Takeout Data > Youtube > .Subscriptions
+				zip dosyayı indir
+				Bunu açıp csv dosyasını koy
+			New Pipe > Import > subscriptions.csv
+		youtube Playlistlerini New Pipe ile takip etmek
+			Youtube > Playlist > .Unlisted
+				> Share > Copy Link
+			New Pipe > Paste Link
 unclassified
 	fd:- dosya ismi aramalarında fzf yerine fd kullan id=g12656:
 		fzf fd'ye göre çok yavaş kalıyor

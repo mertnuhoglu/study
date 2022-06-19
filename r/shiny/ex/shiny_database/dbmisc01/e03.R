@@ -7,7 +7,9 @@ writeClipboard <- function(x = .Last.value) {
   clipr::write_clip(x)
 }
 
-df = data.frame(a=1:5,b="hi",c=Sys.Date(),d=Sys.time())
+db <- dbConnectSQLiteWithSchema("data/userdb.sqlite")
+db <- set.db.schema(db, schema.file="dbmisc01/userdb.yaml")
+
 dbmisc::schema.template(df,"mytable")
 
 # df'den yaml schemasını oluşturur

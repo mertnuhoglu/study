@@ -1,0 +1,94 @@
+
+topics
+	install
+sql syntax
+	create table
+		ref
+			[SQLite Create Table with Examples](https://www.sqlitetutorial.net/sqlite-create-table/)
+		general
+			CREATE TABLE [IF NOT EXISTS] [schema_name].table_name (
+				column_1 data_type PRIMARY KEY,
+					column_2 data_type NOT NULL,
+				column_3 data_type DEFAULT 0,
+				table_constraints
+			) [WITHOUT ROWID];
+		ex
+			CREATE TABLE contacts (
+				contact_id INTEGER PRIMARY KEY,
+				first_name TEXT NOT NULL,
+				last_name TEXT NOT NULL,
+				email TEXT NOT NULL UNIQUE,
+				phone TEXT NOT NULL UNIQUE
+			);
+articles
+	SQLite Sample Database And Its Diagram (in PDF format)
+		ref
+			[SQLite Sample Database And Its Diagram (in PDF format)](https://www.sqlitetutorial.net/sqlite-sample-database/)
+		sample data:
+			/Users/mertnuhoglu/codes/data/chinook.db
+			cd /Users/mertnuhoglu/codes/data
+			sqlite3 chinook.db
+		sqlite console
+			sqlite> .tables
+			albums          employees       invoices        playlists     
+			artists         genres          media_types     tracks        
+			customers       invoice_items   playlist_track
+		connect database
+			.open chinook.db
+			a01:
+				sqlite> ATTACH DATABASE "c:\sqlite\db\chinook.db" AS chinook;
+		show all commands
+			.help
+		show databases in current connection
+			sqlite> .database
+			seq  name             file
+			---  ---------------  --------------------------
+			0    main             c:\sqlite\db\sales.db
+		quit
+			.exit
+		show tables ending with string
+			.table '%es'
+		show attributes (structure) of a table
+			> .schema albums
+			CREATE TABLE "albums" (
+					[AlbumId] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+					[Title] NVARCHAR(160)  NOT NULL,
+					...
+		show all schema
+			.fullschema
+			.indexes
+			.indexes albums
+		save result of query into a file
+			.output albums.txt
+			SELECT title FROM albums;
+		run sql from a file
+			.mode column
+			.header on
+			.read commands.sql
+		import csv
+			.mode csv
+			.import city.csv cities
+			.schema cities -- to verify it is imported
+		export csv
+			$ sqlite3 chinook.db
+			.headers on
+			.mode csv
+			.output data.csv
+			SELECT customerid, firstname FROM customers;
+			.quit
+			a01: single line
+				$ sqlite3 -header -csv c:/sqlite/chinook.db "select * from tracks;" > tracks.csv
+			a02: query data and export to csv
+				$ sqlite3 -header -csv c:/sqlite/chinook.db < query.sql > data.csv
+		dump sql
+			sqlite> .output c:/sqlite/chinook.sql
+			sqlite> .dump
+			a01: table
+				sqlite> .dump albums
+			a02: table structure
+				sqlite> .output c:/sqlite/chinook_structure.sql
+				sqlite> .schema
+			a03: dump queries
+				sqlite> .mode insert
+				sqlite> .output data.sql
+				sqlite> select * from artists;

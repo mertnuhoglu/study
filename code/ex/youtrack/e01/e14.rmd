@@ -5,7 +5,7 @@ output: html_document
 
 # Initial Setup
 
-```{r libraries,warning=false,message=false,include=false}
+```{r libraries,warning=FALSE,message=FALSE,include=FALSE}
 library(httr)
 library(jsonlite)
 library(lubridate)

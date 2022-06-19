@@ -2,7 +2,7 @@
 title: "Test: Youtrack REST API"
 output: html_document
 ---
-```{r libraries,warning=false,message=false,include=false}
+```{r libraries,warning=FALSE,message=FALSE,include=FALSE}
 library(httr)
 library(glue)
 ```

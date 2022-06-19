@@ -1,13 +1,10 @@
 
 # Source code from: [Mimicking a Google Form with a Shiny app](https://deanattali.com/2015/06/14/mimicking-google-form-shiny/)
 
-# Save the response upon submission
-# fieldsAll
-# responsesDir
-# epochTime
-# formData
-# saveData
-# humanTime
+# After submission show a “Thank you” message and let user submit again
+# shinyjs::hidden
+# input$submit
+# input$submit_another
 
 library(shiny)
 library(shinyjs)
@@ -44,7 +41,16 @@ shinyApp(
       selectInput("os_type", "Operating system used most frequently",
                   c("",  "Windows", "Mac", "Linux")),
       actionButton("submit", "Submit", class = "btn-primary")
+    ),
+
+    shinyjs::hidden(
+      div(
+        id = "thankyou_msg",
+        h3("Thanks, your response was submitted successfully!"),
+        actionLink("submit_another", "Submit another response")
+      )
     )
+
   ),
   server = function(input, output, session) {
     formData <- reactive({
@@ -68,7 +74,16 @@ shinyApp(
     # action to take when submit button is pressed
     observeEvent(input$submit, {
       saveData(formData())
+      shinyjs::reset("form")
+      shinyjs::hide("form")
+      shinyjs::show("thankyou_msg")
     })
+
+    observeEvent(input$submit_another, {
+      shinyjs::show("form")
+      shinyjs::hide("thankyou_msg")
+    })
+
 
     observe({
       # check if all mandatory fields have a value

@@ -1140,6 +1140,9 @@ articles-books
 					definition:
 						function myplugin#somefile#Hello()
 all
+	markdown toc headings id=g12874
+		a01: Telescope > Markdown Headings
+		a02: VoomToggle TOC
 	autocomplete disabled in otl/text files
 		ref
 			disable autocompletion based on file types <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12612>

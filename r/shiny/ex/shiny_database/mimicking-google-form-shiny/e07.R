@@ -1,8 +1,9 @@
 
 # Source code from: [Mimicking a Google Form with a Shiny app](https://deanattali.com/2015/06/14/mimicking-google-form-shiny/)
 
-# Add ability to download all responses
-# downloadBtn
+# Restrict access to previous data to admins only
+# adminPanelContainer
+# isAdmin
 
 library(shiny)
 library(shinyjs)
@@ -32,8 +33,8 @@ shinyApp(
     shinyjs::useShinyjs(),
     shinyjs::inlineCSS(appCSS),
     titlePanel("Mimicking a Google Form with a Shiny app"),
-    downloadButton("downloadBtn", "Download responses"),
-    DT::dataTableOutput("responsesTable"),
+    uiOutput("adminPanelContainer"),
+
     div(
       id = "form",
 
@@ -63,6 +64,20 @@ shinyApp(
 
   ),
   server = function(input, output, session) {
+    adminUsers <- c("john", "sally")
+    isAdmin <- reactive({
+      is.null(session$user) || session$user %in% adminUsers
+    })
+    output$adminPanelContainer <- renderUI({
+      if (!isAdmin()) return()
+
+      wellPanel(
+        h2("Previous responses (only visible to admins)"),
+        downloadButton("downloadBtn", "Download responses"), br(), br(),
+        DT::dataTableOutput("responsesTable")
+      )
+    })
+
     formData <- reactive({
       data <- sapply(fieldsAll, function(x) input[[x]])
       data <- c(data, timestamp = epochTime())

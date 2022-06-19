@@ -2,8 +2,8 @@
 
 library(dbmisc)
 
-# Inserting data
-# dbInsert
+# Getting data with dbGet
+# dbGet
 
 # to get the database connection:
 get.userdb = function(db.dir = getwd()) {
@@ -18,10 +18,19 @@ get.userdb = function(db.dir = getwd()) {
 is <- inherits
 
 db <- get.userdb(db.dir = "data")
-new_user = list(created=Sys.time(), userid="user1",age=47, female=TRUE, email="test@email.com", gender="female")
-dbInsert(db,table="user", new_user)
-# inserts into db
 
-dbInsert(db,table="user", new_user,run = FALSE)
-# outputs sql
-# [1] "insert into user values (:userid, :email, :age, :female, :created, :descr)"
+# output: dataframe
+dat = dbGet(db,table="user", list(userid="user1"))
+dat
+#   userid          email age female             created descr
+# 1  user1 test@email.com  47   TRUE 2022-06-19 12:23:39  <NA>
+
+# output: SQL only
+# run = FALSE
+dbGet(db,table="user", list(userid="user1"), run = FALSE)
+## [1] "SELECT * FROM user WHERE userid = :userid"
+
+## joinby
+dbGet(db,c("course","coursestud"), list(courseid="course1"),
+      fields = "*, coursestud.email", joinby=c("courseid"), run = FALSE)
+## [1] "SELECT *, coursestud.email FROM course INNER JOIN coursestud USING(courseid) WHERE courseid = :courseid"

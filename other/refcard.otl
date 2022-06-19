@@ -210,4 +210,7 @@ apps
 	fragment image viewer
 		Quickstart Fragment <url:file:///~/projects/study/code/study_fragment_image_viewer.md#r=g_11682>
 	
+tips
+	Hide/show menu bar
+		^+f | compact
 

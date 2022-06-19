@@ -1,9 +1,8 @@
 
 # Source code from: [Mimicking a Google Form with a Shiny app](https://deanattali.com/2015/06/14/mimicking-google-form-shiny/)
 
-# Add table that shows all previous responses
-# responsesTable
-# loadData
+# Add ability to download all responses
+# downloadBtn
 
 library(shiny)
 library(shinyjs)
@@ -33,6 +32,7 @@ shinyApp(
     shinyjs::useShinyjs(),
     shinyjs::inlineCSS(appCSS),
     titlePanel("Mimicking a Google Form with a Shiny app"),
+    downloadButton("downloadBtn", "Download responses"),
     DT::dataTableOutput("responsesTable"),
     div(
       id = "form",
@@ -83,6 +83,15 @@ shinyApp(
       rownames = FALSE,
       options = list(searching = FALSE, lengthChange = FALSE)
     )
+    output$downloadBtn <- downloadHandler(
+      filename = function() {
+        sprintf("mimic-google-form_%s.csv", humanTime())
+      },
+      content = function(file) {
+        write.csv(loadData(), file, row.names = FALSE)
+      }
+    )
+
 
     saveData <- function(data) {
       fileName <- sprintf("%s_%s.csv",

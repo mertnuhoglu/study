@@ -3,6 +3,10 @@
 
 library(shiny)
 
+# Basic Shiny app without data storage
+# formData
+# output$responses
+
 # Define the fields we want to save from the form
 fields <- c("name", "used_shiny", "r_num_years")
 

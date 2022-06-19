@@ -1,0 +1,37 @@
+# Error: Argument is of length zero
+
+Source: [r - Argument is of length zero in if statement - Stack Overflow](https://stackoverflow.com/questions/27350636/argument-is-of-length-zero-in-if-statement)
+
+"argument is of length zero" is a very specific problem that comes from one of my least-liked elements of R. Let me demonstrate the problem:
+
+```{r}
+FALSE == "turnip"
+# [1] FALSE
+TRUE == "turnip"
+# [1] FALSE
+NA == "turnip"
+# [1] NA
+NULL == "turnip"
+# logical(0)
+```
+
+As you can see, comparisons to a NULL not only don't produce a boolean value, they don't produce a value at all - and control flows tend to expect that a check will produce some kind of output. When they produce a zero-length output... "argument is of length zero".
+
+```{r}
+if (NULL == "turnip") {
+	# error
+}
+```
+
+`NULL` olabilen değişkenleri `is.null` ile kontrol ederek control flowlarda kullanmalısın:
+
+```r
+temp <- 10
+value <- NULL
+if(!is.null(value) & temp > value){
+    #do stuff
+}
+```
+
+
+

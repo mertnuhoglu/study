@@ -1,0 +1,14 @@
+user:
+  table:
+    userid: TEXT
+    email: TEXT
+    age: INTEGER
+    female: BOOLEAN
+    created: DATETIME
+    descr: TEXT
+  unique_index:
+    - userid
+  index:
+    - email
+    - [female, age]
+    - created

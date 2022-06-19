@@ -1,14 +1,13 @@
 
 # Source code from: [Mimicking a Google Form with a Shiny app](https://deanattali.com/2015/06/14/mimicking-google-form-shiny/)
 
-# Define mandatory fields:
-# shinyjs::useShinyjs(),
-# fieldsMandatory
-
-# Show which fields are mandatory in the UI:
-# labelMandatory
-# appCSS
-# shinyjs::inlineCSS(appCSS)
+# Save the response upon submission
+# fieldsAll
+# responsesDir
+# epochTime
+# formData
+# saveData
+# humanTime
 
 library(shiny)
 library(shinyjs)
@@ -23,6 +22,12 @@ labelMandatory <- function(label) {
 }
 
 appCSS <- ".mandatory_star { color: red; }"
+
+fieldsAll <- c("name", "favourite_pkg", "used_shiny", "r_num_years", "os_type")
+responsesDir <- file.path("data")
+epochTime <- function() {
+  as.integer(Sys.time())
+}
 
 shinyApp(
   ui = fluidPage(
@@ -42,6 +47,29 @@ shinyApp(
     )
   ),
   server = function(input, output, session) {
+    formData <- reactive({
+      data <- sapply(fieldsAll, function(x) input[[x]])
+      data <- c(data, timestamp = epochTime())
+      data <- t(data)
+      data
+    })
+
+    humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
+
+    saveData <- function(data) {
+      fileName <- sprintf("%s_%s.csv",
+                          humanTime(),
+                          digest::digest(data))
+
+      write.csv(x = data, file = file.path(responsesDir, fileName),
+                row.names = FALSE, quote = TRUE)
+    }
+
+    # action to take when submit button is pressed
+    observeEvent(input$submit, {
+      saveData(formData())
+    })
+
     observe({
       # check if all mandatory fields have a value
       mandatoryFilled <-

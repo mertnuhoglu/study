@@ -1,0 +1,30 @@
+
+# class inherits is functions
+
+Source: [r - How can I determine if try returned an error or not? - Stack Overflow](https://stackoverflow.com/questions/11316609/how-can-i-determine-if-try-returned-an-error-or-not)
+
+```{r}
+res <- try(log("a"),silent = TRUE)
+class(res) == "try-error"
+# [1] TRUE
+```
+
+```{r}
+res <- try(log(2),silent = TRUE)
+res
+# [1] 0.6931472
+```
+
+```{r}
+is(10, "numeric")
+# character(0)
+class(10)
+# [1] "numeric"
+inherits(10, "numeric")
+# [1] TRUE
+is <- inherits
+is(10, "numeric")
+# [1] TRUE
+```
+
+

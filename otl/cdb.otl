@@ -1,205 +1,205 @@
 TOC Refcard id=g10489
-	cdb.md <url:file:///~/gdrive/mynotes/content/code/cdb.md>
-		## Topics <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10304>
-			Run db clients  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10305>
-			Database Administration <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10306>
-			psql <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10307>
-			Data Types <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10308>
-			Constraints <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10309>
-			Views <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10310>
-			Window Functions <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10311>
-			Common Table Expressions (CTE) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10312>
-			Functions <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10313>
-			Builtin Functions <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10314>
-			JOIN <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10315>
-			Row Level Security (RLS) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10316>
-			ddl <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10320>
-				examples <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10321>
-		## PostgreSQL how tos  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10325>
-			select into = create table as <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10326>
-			record type <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10327>
-			change current_schema <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10328>
-			set a password - store check passwords crypt() <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10329>
+	cdb.md <url:file:///~/projects/study/otl/cdb.otl>
+		## Topics <url:file:///~/projects/study/otl/cdb.otl#r=g10304>
+			Run db clients  <url:file:///~/projects/study/otl/cdb.otl#r=g10305>
+			Database Administration <url:file:///~/projects/study/otl/cdb.otl#r=g10306>
+			psql <url:file:///~/projects/study/otl/cdb.otl#r=g10307>
+			Data Types <url:file:///~/projects/study/otl/cdb.otl#r=g10308>
+			Constraints <url:file:///~/projects/study/otl/cdb.otl#r=g10309>
+			Views <url:file:///~/projects/study/otl/cdb.otl#r=g10310>
+			Window Functions <url:file:///~/projects/study/otl/cdb.otl#r=g10311>
+			Common Table Expressions (CTE) <url:file:///~/projects/study/otl/cdb.otl#r=g10312>
+			Functions <url:file:///~/projects/study/otl/cdb.otl#r=g10313>
+			Builtin Functions <url:file:///~/projects/study/otl/cdb.otl#r=g10314>
+			JOIN <url:file:///~/projects/study/otl/cdb.otl#r=g10315>
+			Row Level Security (RLS) <url:file:///~/projects/study/otl/cdb.otl#r=g10316>
+			ddl <url:file:///~/projects/study/otl/cdb.otl#r=g10320>
+				examples <url:file:///~/projects/study/otl/cdb.otl#r=g10321>
+		## PostgreSQL how tos  <url:file:///~/projects/study/otl/cdb.otl#r=g10325>
+			select into = create table as <url:file:///~/projects/study/otl/cdb.otl#r=g10326>
+			record type <url:file:///~/projects/study/otl/cdb.otl#r=g10327>
+			change current_schema <url:file:///~/projects/study/otl/cdb.otl#r=g10328>
+			set a password - store check passwords crypt() <url:file:///~/projects/study/otl/cdb.otl#r=g10329>
 			single quote vs double quote for text variables <url:#r=adb_016>
-			Difference between set, \set and \pset in psql <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10330>
-			GRANT USAGE <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10331>
+			Difference between set, \set and \pset in psql <url:file:///~/projects/study/otl/cdb.otl#r=g10330>
+			GRANT USAGE <url:file:///~/projects/study/otl/cdb.otl#r=g10331>
 			PostgreSQL Recursive Query By Example <url:#r=adb_005>
-			17 Practical psql Commands <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10332>
-			PostgreSQL Cheat Sheet <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10333>
-			PostgreSQL Basics by Example <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10334>
-			Application users vs. Row Level Security  id=g10344 <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10344>
-				<url:/Users/mertnuhoglu/gdrive/mynotes/content/code/cdb.md#tn=ex: RLS>
-		SOF PostgreSQL: Stackoverflow SOF Popular Questions   <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10238>
-			ref - examples sof postgresql <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10706>
-			PostgreSQL unnest() with element number <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10363>
-			how people ask questions?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10345>
-			Return setof record (virtual table) from function <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10346>
+			17 Practical psql Commands <url:file:///~/projects/study/otl/cdb.otl#r=g10332>
+			PostgreSQL Cheat Sheet <url:file:///~/projects/study/otl/cdb.otl#r=g10333>
+			PostgreSQL Basics by Example <url:file:///~/projects/study/otl/cdb.otl#r=g10334>
+			Application users vs. Row Level Security  id=g10344 <url:file:///~/projects/study/otl/cdb.otl#r=g10344>
+				<url:/Users/mertnuhoglu/projects/study/otl/cdb.otl#tn=ex: RLS>
+		SOF PostgreSQL: Stackoverflow SOF Popular Questions   <url:file:///~/projects/study/otl/cdb.otl#r=g10238>
+			ref - examples sof postgresql <url:file:///~/projects/study/otl/cdb.otl#r=g10706>
+			PostgreSQL unnest() with element number <url:file:///~/projects/study/otl/cdb.otl#r=g10363>
+			how people ask questions?  <url:file:///~/projects/study/otl/cdb.otl#r=g10345>
+			Return setof record (virtual table) from function <url:file:///~/projects/study/otl/cdb.otl#r=g10346>
 			Select first row in each GROUP BY group? <url:#r=adb_015>
 			PostgreSQL Crosstab Query <url:#r=adb_010>
-			Select rows which are not present in other table <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10347>
+			Select rows which are not present in other table <url:file:///~/projects/study/otl/cdb.otl#r=g10347>
 			How to implement a many-to-many relationship in PostgreSQL? <url:file:///~/gdrive/mynotes/content/articles/articles_db.md#r=g10176>
-			PostgreSQL 10 identity columns explained <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10348>
-			Index for finding an element in a JSON array <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10349>
-			Check if NULL exists in Postgres array <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10350>
-			Fast way to discover the row count of a table in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10351>
-			Double colon (::) notation in SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10352>
-			How to concatenate columns in a Postgres SELECT?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10353>
-			Combine two columns and add into one new column <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10354>
-			Any downsides of using data type “text” for storing strings?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10355>
-			Change PostgreSQL columns used in views <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10356>
-			Best way to check for “empty or null value” <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10357>
-			Are PostgreSQL column names case-sensitive?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10358>
-			Query a parameter (postgresql.conf setting) like “max_connections” <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10359>
-			How to filter SQL results in a has-many-through relation <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10360>
-			Export specific rows from a PostgreSQL table as INSERT SQL script <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10361>
-			PostgreSQL sort by datetime asc, null first?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10362>
-			Manual: WITH ORDINALITY <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10364>
-			Concatenate multiple result rows of one column into one, group by another column [duplicate] <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10365>
-			How to update selected rows with values from a CSV file in Postgres?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10366>
-			Create PostgreSQL ROLE (user) if it doesn't exist <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10367>
-			How to select id with max date group by category in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10368>
-			Postgres FOR LOOP <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10369>
-			What is the difference between LATERAL and a subquery in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10370>
+			PostgreSQL 10 identity columns explained <url:file:///~/projects/study/otl/cdb.otl#r=g10348>
+			Index for finding an element in a JSON array <url:file:///~/projects/study/otl/cdb.otl#r=g10349>
+			Check if NULL exists in Postgres array <url:file:///~/projects/study/otl/cdb.otl#r=g10350>
+			Fast way to discover the row count of a table in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10351>
+			Double colon (::) notation in SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10352>
+			How to concatenate columns in a Postgres SELECT?  <url:file:///~/projects/study/otl/cdb.otl#r=g10353>
+			Combine two columns and add into one new column <url:file:///~/projects/study/otl/cdb.otl#r=g10354>
+			Any downsides of using data type “text” for storing strings?  <url:file:///~/projects/study/otl/cdb.otl#r=g10355>
+			Change PostgreSQL columns used in views <url:file:///~/projects/study/otl/cdb.otl#r=g10356>
+			Best way to check for “empty or null value” <url:file:///~/projects/study/otl/cdb.otl#r=g10357>
+			Are PostgreSQL column names case-sensitive?  <url:file:///~/projects/study/otl/cdb.otl#r=g10358>
+			Query a parameter (postgresql.conf setting) like “max_connections” <url:file:///~/projects/study/otl/cdb.otl#r=g10359>
+			How to filter SQL results in a has-many-through relation <url:file:///~/projects/study/otl/cdb.otl#r=g10360>
+			Export specific rows from a PostgreSQL table as INSERT SQL script <url:file:///~/projects/study/otl/cdb.otl#r=g10361>
+			PostgreSQL sort by datetime asc, null first?  <url:file:///~/projects/study/otl/cdb.otl#r=g10362>
+			Manual: WITH ORDINALITY <url:file:///~/projects/study/otl/cdb.otl#r=g10364>
+			Concatenate multiple result rows of one column into one, group by another column [duplicate] <url:file:///~/projects/study/otl/cdb.otl#r=g10365>
+			How to update selected rows with values from a CSV file in Postgres?  <url:file:///~/projects/study/otl/cdb.otl#r=g10366>
+			Create PostgreSQL ROLE (user) if it doesn't exist <url:file:///~/projects/study/otl/cdb.otl#r=g10367>
+			How to select id with max date group by category in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10368>
+			Postgres FOR LOOP <url:file:///~/projects/study/otl/cdb.otl#r=g10369>
+			What is the difference between LATERAL and a subquery in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10370>
 			How do you declare a set-returning-function to only be allowed in the FROM clause? <url:#r=adb_008>
-			Postgres - array for loop <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10371>
-			Table name as a PostgreSQL function parameter <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10372>
-			SQL Injection with user input <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10373>
-			SQL injection in Postgres functions vs prepared queries <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10374>
-			Postgresql manual: format()  id=g10375 <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10375>
-			Sort NULL values to the end of a table <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10376>
-			What are '$$' used for in PL/pgSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10377>
-			Creating temporary tables in SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10378>
-			Grant all on a specific schema in the db to a group role in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10379>
-			How to return result of a SELECT inside a function in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10380>
+			Postgres - array for loop <url:file:///~/projects/study/otl/cdb.otl#r=g10371>
+			Table name as a PostgreSQL function parameter <url:file:///~/projects/study/otl/cdb.otl#r=g10372>
+			SQL Injection with user input <url:file:///~/projects/study/otl/cdb.otl#r=g10373>
+			SQL injection in Postgres functions vs prepared queries <url:file:///~/projects/study/otl/cdb.otl#r=g10374>
+			Postgresql manual: format()  id=g10375 <url:file:///~/projects/study/otl/cdb.otl#r=g10375>
+			Sort NULL values to the end of a table <url:file:///~/projects/study/otl/cdb.otl#r=g10376>
+			What are '$$' used for in PL/pgSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10377>
+			Creating temporary tables in SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10378>
+			Grant all on a specific schema in the db to a group role in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10379>
+			How to return result of a SELECT inside a function in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10380>
 			PostgreSQL: running count of rows for a query 'by minute' <url:#r=adb_014>
-			Calculating Cumulative Sum in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10381>
-			Split comma separated column data into additional columns <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10382>
-			PostgreSQL IF statement <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10383>
-			Store common query as column <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10384>
-			Refactor a PL/pgSQL function to return the output of various SELECT queries  id=g10385 <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10385>
-			Finding similar strings with PostgreSQL quickly <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10386>
-			Best way to delete millions of rows by ID <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10387>
-			Find overlapping date ranges in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10388>
-			Many to Many Table - Performance is bad <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10389>
-			GROUP BY + CASE statement <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10390>
-			Store the query result in variable using postgresql Stored procedure <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10391>
-			Shell script to execute pgsql commands in files <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10392>
-			Is there something like a zip() function in PostgreSQL that combines two arrays?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10393>
-			Two SQL LEFT JOINS produce incorrect result <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10394>
-			Alphanumeric sorting with PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10395>
-			How to create simple fuzzy search with Postgresql only?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10396>
-			PostgreSQL - GROUP BY clause or be used in an aggregate function <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10397>
-			How do you find results that occurred in the past week?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10398>
-			GROUP BY and COUNT in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10399>
-			How to convert “string” to “timestamp without time zone” <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10400>
-			Is there a postgres command to list/drop all materialized views?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10401>
-			Return setof record (virtual table) from function <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10402>
-			Why does PostgreSQL not return null values when the condition is <> true <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10403>
-			INSERT rows into multiple tables in a single query, selecting from an involved table <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10404>
-			Select today's (since midnight) timestamps only <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10405>
-			Join table twice - on two different columns of the same table <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10406>
-			The forgotten assignment operator “=” and the commonplace “:=” <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10407>
-			ORDER BY the IN value list <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10408>
-			How to delete duplicate entries?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10409>
-			Multiple left joins on multiple tables in one query <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10410>
-			Is there a way to define a named constant in a PostgreSQL query?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10411>
-			Get month name from number in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10412>
-			Selecting records between two timestamps <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10413>
-			Pass In “WHERE” parameters to PostgreSQL View?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10414>
-			How to export a PostgreSQL query output to a csv file <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10415>
-			Difference between language sql and language plpgsql in PostgreSQL functions <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10416>
-			Inlining of SQL Functions  id=g10417 <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10417>
-			Return SETOF rows from PostgreSQL function <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10418>
-			SQL update fields of one table from fields of another one <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10419>
-			Difference between LIKE and ~ in Postgres <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10420>
-			Postgres window function and group by exception <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10421>
-			IN vs ANY operator in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10422>
-			How to use ANY instead of IN in a WHERE clause with Rails?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10423>
-			How to get the trigger(s) associated with a view or a table in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10424>
-			Multiple CTE in single query <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10425>
-			Find difference between two big tables in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10426>
-			Guidance on using the WITH clause in SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10427>
-			How to use a SQL window function to calculate a percentage of an aggregate <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10428>
-			Nesting queries in SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10429>
-			PostgreSQL aggregate or window function to return just the last value <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10430>
-			Create a pivot table with PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10431>
-			Generate id row for a view with grouping <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10432>
-			Aggregate strings in descending order in a PostgreSQL query <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10433>
-			How can I test if a column exists in a table using an SQL statement <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10434>
-			How to join tables on regex <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10435>
-			How to Write SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10436>
-			SQL Regression Tests <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10437>
-			Exploring a Data Set in SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10438>
-		postgrest <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10337>
+			Calculating Cumulative Sum in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10381>
+			Split comma separated column data into additional columns <url:file:///~/projects/study/otl/cdb.otl#r=g10382>
+			PostgreSQL IF statement <url:file:///~/projects/study/otl/cdb.otl#r=g10383>
+			Store common query as column <url:file:///~/projects/study/otl/cdb.otl#r=g10384>
+			Refactor a PL/pgSQL function to return the output of various SELECT queries  id=g10385 <url:file:///~/projects/study/otl/cdb.otl#r=g10385>
+			Finding similar strings with PostgreSQL quickly <url:file:///~/projects/study/otl/cdb.otl#r=g10386>
+			Best way to delete millions of rows by ID <url:file:///~/projects/study/otl/cdb.otl#r=g10387>
+			Find overlapping date ranges in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10388>
+			Many to Many Table - Performance is bad <url:file:///~/projects/study/otl/cdb.otl#r=g10389>
+			GROUP BY + CASE statement <url:file:///~/projects/study/otl/cdb.otl#r=g10390>
+			Store the query result in variable using postgresql Stored procedure <url:file:///~/projects/study/otl/cdb.otl#r=g10391>
+			Shell script to execute pgsql commands in files <url:file:///~/projects/study/otl/cdb.otl#r=g10392>
+			Is there something like a zip() function in PostgreSQL that combines two arrays?  <url:file:///~/projects/study/otl/cdb.otl#r=g10393>
+			Two SQL LEFT JOINS produce incorrect result <url:file:///~/projects/study/otl/cdb.otl#r=g10394>
+			Alphanumeric sorting with PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10395>
+			How to create simple fuzzy search with Postgresql only?  <url:file:///~/projects/study/otl/cdb.otl#r=g10396>
+			PostgreSQL - GROUP BY clause or be used in an aggregate function <url:file:///~/projects/study/otl/cdb.otl#r=g10397>
+			How do you find results that occurred in the past week?  <url:file:///~/projects/study/otl/cdb.otl#r=g10398>
+			GROUP BY and COUNT in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10399>
+			How to convert “string” to “timestamp without time zone” <url:file:///~/projects/study/otl/cdb.otl#r=g10400>
+			Is there a postgres command to list/drop all materialized views?  <url:file:///~/projects/study/otl/cdb.otl#r=g10401>
+			Return setof record (virtual table) from function <url:file:///~/projects/study/otl/cdb.otl#r=g10402>
+			Why does PostgreSQL not return null values when the condition is <> true <url:file:///~/projects/study/otl/cdb.otl#r=g10403>
+			INSERT rows into multiple tables in a single query, selecting from an involved table <url:file:///~/projects/study/otl/cdb.otl#r=g10404>
+			Select today's (since midnight) timestamps only <url:file:///~/projects/study/otl/cdb.otl#r=g10405>
+			Join table twice - on two different columns of the same table <url:file:///~/projects/study/otl/cdb.otl#r=g10406>
+			The forgotten assignment operator “=” and the commonplace “:=” <url:file:///~/projects/study/otl/cdb.otl#r=g10407>
+			ORDER BY the IN value list <url:file:///~/projects/study/otl/cdb.otl#r=g10408>
+			How to delete duplicate entries?  <url:file:///~/projects/study/otl/cdb.otl#r=g10409>
+			Multiple left joins on multiple tables in one query <url:file:///~/projects/study/otl/cdb.otl#r=g10410>
+			Is there a way to define a named constant in a PostgreSQL query?  <url:file:///~/projects/study/otl/cdb.otl#r=g10411>
+			Get month name from number in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10412>
+			Selecting records between two timestamps <url:file:///~/projects/study/otl/cdb.otl#r=g10413>
+			Pass In “WHERE” parameters to PostgreSQL View?  <url:file:///~/projects/study/otl/cdb.otl#r=g10414>
+			How to export a PostgreSQL query output to a csv file <url:file:///~/projects/study/otl/cdb.otl#r=g10415>
+			Difference between language sql and language plpgsql in PostgreSQL functions <url:file:///~/projects/study/otl/cdb.otl#r=g10416>
+			Inlining of SQL Functions  id=g10417 <url:file:///~/projects/study/otl/cdb.otl#r=g10417>
+			Return SETOF rows from PostgreSQL function <url:file:///~/projects/study/otl/cdb.otl#r=g10418>
+			SQL update fields of one table from fields of another one <url:file:///~/projects/study/otl/cdb.otl#r=g10419>
+			Difference between LIKE and ~ in Postgres <url:file:///~/projects/study/otl/cdb.otl#r=g10420>
+			Postgres window function and group by exception <url:file:///~/projects/study/otl/cdb.otl#r=g10421>
+			IN vs ANY operator in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10422>
+			How to use ANY instead of IN in a WHERE clause with Rails?  <url:file:///~/projects/study/otl/cdb.otl#r=g10423>
+			How to get the trigger(s) associated with a view or a table in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10424>
+			Multiple CTE in single query <url:file:///~/projects/study/otl/cdb.otl#r=g10425>
+			Find difference between two big tables in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10426>
+			Guidance on using the WITH clause in SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10427>
+			How to use a SQL window function to calculate a percentage of an aggregate <url:file:///~/projects/study/otl/cdb.otl#r=g10428>
+			Nesting queries in SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10429>
+			PostgreSQL aggregate or window function to return just the last value <url:file:///~/projects/study/otl/cdb.otl#r=g10430>
+			Create a pivot table with PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10431>
+			Generate id row for a view with grouping <url:file:///~/projects/study/otl/cdb.otl#r=g10432>
+			Aggregate strings in descending order in a PostgreSQL query <url:file:///~/projects/study/otl/cdb.otl#r=g10433>
+			How can I test if a column exists in a table using an SQL statement <url:file:///~/projects/study/otl/cdb.otl#r=g10434>
+			How to join tables on regex <url:file:///~/projects/study/otl/cdb.otl#r=g10435>
+			How to Write SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10436>
+			SQL Regression Tests <url:file:///~/projects/study/otl/cdb.otl#r=g10437>
+			Exploring a Data Set in SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10438>
+		postgrest <url:file:///~/projects/study/otl/cdb.otl#r=g10337>
 			postgrest
-				Postgrest Manual <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10158>
-					Authentication Sequence <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10448>
-						Tables and Views <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10440>
-							horizontal filtering (rows) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10441>
-							vertical filtering (columns) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10442>
-							limits and pagination <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10443>
-							response format <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10444>
-						resource embedding <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10445>
-						stored procedures <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10446>
-						insertions/updates <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10447>
-					API <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10439>
-				postgrest <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10317>
+				Postgrest Manual <url:file:///~/projects/study/otl/cdb.otl#r=g10158>
+					Authentication Sequence <url:file:///~/projects/study/otl/cdb.otl#r=g10448>
+						Tables and Views <url:file:///~/projects/study/otl/cdb.otl#r=g10440>
+							horizontal filtering (rows) <url:file:///~/projects/study/otl/cdb.otl#r=g10441>
+							vertical filtering (columns) <url:file:///~/projects/study/otl/cdb.otl#r=g10442>
+							limits and pagination <url:file:///~/projects/study/otl/cdb.otl#r=g10443>
+							response format <url:file:///~/projects/study/otl/cdb.otl#r=g10444>
+						resource embedding <url:file:///~/projects/study/otl/cdb.otl#r=g10445>
+						stored procedures <url:file:///~/projects/study/otl/cdb.otl#r=g10446>
+						insertions/updates <url:file:///~/projects/study/otl/cdb.otl#r=g10447>
+					API <url:file:///~/projects/study/otl/cdb.otl#r=g10439>
+				postgrest <url:file:///~/projects/study/otl/cdb.otl#r=g10317>
 			Postgrest Starter Kit 
 				Postgrest Starter Kit Manual <url:#r=adb_003>
-					Iterative Development Workflow <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10449>
-					API Core <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10450>
-						Schemas  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10451>
-						Securing your API <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10452>
-						Using the API <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10453>
+					Iterative Development Workflow <url:file:///~/projects/study/otl/cdb.otl#r=g10449>
+					API Core <url:file:///~/projects/study/otl/cdb.otl#r=g10450>
+						Schemas  <url:file:///~/projects/study/otl/cdb.otl#r=g10451>
+						Securing your API <url:file:///~/projects/study/otl/cdb.otl#r=g10452>
+						Using the API <url:file:///~/projects/study/otl/cdb.otl#r=g10453>
 					Tutorial steps - postgrest starter kit <url:file:///~/gdrive/mynotes/content/articles/articles_db.md#r=g10159>
-				postgrest_starter_kit (psk) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10318>
-				refcard psk <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10492>
-				postgrest_starter_kit (psk): source code review <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10319>
-				study_postgrest_starter_kit.Rmd: SQL functions: array_to_json array_agg row_to_json <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10340>
-				tests psk <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10494>
+				postgrest_starter_kit (psk) <url:file:///~/projects/study/otl/cdb.otl#r=g10318>
+				refcard psk <url:file:///~/projects/study/otl/cdb.otl#r=g10492>
+				postgrest_starter_kit (psk): source code review <url:file:///~/projects/study/otl/cdb.otl#r=g10319>
+				study_postgrest_starter_kit.Rmd: SQL functions: array_to_json array_agg row_to_json <url:file:///~/projects/study/otl/cdb.otl#r=g10340>
+				tests psk <url:file:///~/projects/study/otl/cdb.otl#r=g10494>
 			articles
-				Stop calling PostgREST “MAGIC”!  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10338>
-					Authentication / Authorization - postgrest <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10339>
-					But why (do we need PostgREST)?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10341>
-				HN: PostgREST – A fully RESTful API from any existing PostgreSQL database  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10342>
-				Swagger <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10343>
+				Stop calling PostgREST “MAGIC”!  <url:file:///~/projects/study/otl/cdb.otl#r=g10338>
+					Authentication / Authorization - postgrest <url:file:///~/projects/study/otl/cdb.otl#r=g10339>
+					But why (do we need PostgREST)?  <url:file:///~/projects/study/otl/cdb.otl#r=g10341>
+				HN: PostgREST – A fully RESTful API from any existing PostgreSQL database  <url:file:///~/projects/study/otl/cdb.otl#r=g10342>
+				Swagger <url:file:///~/projects/study/otl/cdb.otl#r=g10343>
 		Tools <url:file:///~/gdrive/mynotes/content/articles/articles_db.md#r=g10175>
-			sample data <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10454>
-				ddlgenerator: generate ddl from data <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10455>
-				datafiller: sample data generator <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10456>
-		Modern SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10465>
-			LATERAL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10466>
-			GROUPING SETS <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10467>
-			WITH (common table expressions CTE) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10468>
-			WITH RECURSIVE <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10469>
-			OVER and PARTITION BY <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10470>
-			OVER and ORDER BY <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10471>
-			WITHIN GROUP <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10472>
-			OVER <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10473>
-			FETCH FIRST <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10474>
-			OFFSET <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10475>
-			AS OF <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10476>
-			LIST_AGG <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10477>
-			Literate SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10478>
-			case — Conditional Expressions <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10479>
-			EXTRACT expression <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10480>
-			FILTER clause <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10481>
-			The FILTER clause in Postgres 9.4 <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10482>
-			Table Column Aliases <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10485>
-			SELECT without FROM <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10486>
-			The Three-Valued Logic of SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10488>
-		## Other <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10457>
-			quotes <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10458>
-			interval usage <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10459>
-			SQL Joins with On or Using <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10460>
-			Set Operations <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10461>
-			Filtered Aggregates <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10462>
-			Subquery Examples <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10463>
+			sample data <url:file:///~/projects/study/otl/cdb.otl#r=g10454>
+				ddlgenerator: generate ddl from data <url:file:///~/projects/study/otl/cdb.otl#r=g10455>
+				datafiller: sample data generator <url:file:///~/projects/study/otl/cdb.otl#r=g10456>
+		Modern SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10465>
+			LATERAL <url:file:///~/projects/study/otl/cdb.otl#r=g10466>
+			GROUPING SETS <url:file:///~/projects/study/otl/cdb.otl#r=g10467>
+			WITH (common table expressions CTE) <url:file:///~/projects/study/otl/cdb.otl#r=g10468>
+			WITH RECURSIVE <url:file:///~/projects/study/otl/cdb.otl#r=g10469>
+			OVER and PARTITION BY <url:file:///~/projects/study/otl/cdb.otl#r=g10470>
+			OVER and ORDER BY <url:file:///~/projects/study/otl/cdb.otl#r=g10471>
+			WITHIN GROUP <url:file:///~/projects/study/otl/cdb.otl#r=g10472>
+			OVER <url:file:///~/projects/study/otl/cdb.otl#r=g10473>
+			FETCH FIRST <url:file:///~/projects/study/otl/cdb.otl#r=g10474>
+			OFFSET <url:file:///~/projects/study/otl/cdb.otl#r=g10475>
+			AS OF <url:file:///~/projects/study/otl/cdb.otl#r=g10476>
+			LIST_AGG <url:file:///~/projects/study/otl/cdb.otl#r=g10477>
+			Literate SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10478>
+			case — Conditional Expressions <url:file:///~/projects/study/otl/cdb.otl#r=g10479>
+			EXTRACT expression <url:file:///~/projects/study/otl/cdb.otl#r=g10480>
+			FILTER clause <url:file:///~/projects/study/otl/cdb.otl#r=g10481>
+			The FILTER clause in Postgres 9.4 <url:file:///~/projects/study/otl/cdb.otl#r=g10482>
+			Table Column Aliases <url:file:///~/projects/study/otl/cdb.otl#r=g10485>
+			SELECT without FROM <url:file:///~/projects/study/otl/cdb.otl#r=g10486>
+			The Three-Valued Logic of SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10488>
+		## Other <url:file:///~/projects/study/otl/cdb.otl#r=g10457>
+			quotes <url:file:///~/projects/study/otl/cdb.otl#r=g10458>
+			interval usage <url:file:///~/projects/study/otl/cdb.otl#r=g10459>
+			SQL Joins with On or Using <url:file:///~/projects/study/otl/cdb.otl#r=g10460>
+			Set Operations <url:file:///~/projects/study/otl/cdb.otl#r=g10461>
+			Filtered Aggregates <url:file:///~/projects/study/otl/cdb.otl#r=g10462>
+			Subquery Examples <url:file:///~/projects/study/otl/cdb.otl#r=g10463>
 			Optimize GROUP BY query to retrieve latest record per user <url:#r=adb_007>
-			Unused index in range of dates query <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10464>
-			ex: get number of countries with GDP higher than 40000 for each year <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10483>
-			filter by count of records <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10484>
-			Use the Index Luke <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10487>
+			Unused index in range of dates query <url:file:///~/projects/study/otl/cdb.otl#r=g10464>
+			ex: get number of countries with GDP higher than 40000 for each year <url:file:///~/projects/study/otl/cdb.otl#r=g10483>
+			filter by count of records <url:file:///~/projects/study/otl/cdb.otl#r=g10484>
+			Use the Index Luke <url:file:///~/projects/study/otl/cdb.otl#r=g10487>
 	articles_db.md <url:file:///~/gdrive/mynotes/content/articles/articles_db.md>
 		PostgreSQL 9.6.5 Manual <url:file:///~/gdrive/mynotes/content/articles/articles_db.md#r=g10156>
 			4.2 Value Expressions <url:file:///~/gdrive/mynotes/content/articles/articles_db.md#r=g10250>
@@ -293,7 +293,7 @@ Topics id=g10304
 				running
 					SELECT clone_schema('old_schema','new_schema');
 		size of disk space usage in database id=g10735
-			size of disk space usage in database <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10735>
+			size of disk space usage in database <url:file:///~/projects/study/otl/cdb.otl#r=g10735>
 			ref
 				~/projects/bizqualify/BQ-data-run/datarun/disk_cleanup_20181208.md
 			Total free disk space on file system:
@@ -325,7 +325,7 @@ Topics id=g10304
 				$$ LANGUAGE SQL;
 				SELECT pg_size_pretty(pg_schema_size('data_20181115_v3b'));
 		quotes id=g10458
-			quotes <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10458>
+			quotes <url:file:///~/projects/study/otl/cdb.otl#r=g10458>
 			[S]ingle quote for [S]trings, [D]ouble quote for things in the [D]atabase
 			single quote vs double quote for text variables <url:#r=adb_016>
 				double quotes used only for quoted identifiers
@@ -337,7 +337,7 @@ Topics id=g10304
 				double ': ''
 				'user''s log'
 		interval usage id=g10459
-			interval usage <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10459>
+			interval usage <url:file:///~/projects/study/otl/cdb.otl#r=g10459>
 			ex
 				+ date '2001-09-28' + interval '1 hour' timestamp '2001-09-28 01:00:00'
 				SELECT '2012-03-11 3:10 AM'::timestamp + '1 hour'::interval
@@ -358,9 +358,9 @@ Topics id=g10304
 					interval values stored as months, days, and seconds
 					seconds can have fractions
 		docker postgres id=g10547
-			docker postgres <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10547>
+			docker postgres <url:file:///~/projects/study/otl/cdb.otl#r=g10547>
 			setup logging and postgresql.conf on docker postgres id=g10549
-				setup logging and postgresql.conf on docker postgres <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10549>
+				setup logging and postgresql.conf on docker postgres <url:file:///~/projects/study/otl/cdb.otl#r=g10549>
 				https://stackoverflow.com/questions/30848670/how-to-customize-the-configuration-file-of-the-official-postgresql-docker-image/41912295#41912295
 					permission to write to log dir
 						chgroup ./logs docker && chmod 770 ./logs
@@ -389,7 +389,7 @@ Topics id=g10304
 						volumes:
 							postgresVolume:
 			tries docker postgresql.conf for logging  id=g10548
-				tries docker postgresql.conf for logging  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10548>
+				tries docker postgresql.conf for logging  <url:file:///~/projects/study/otl/cdb.otl#r=g10548>
 				doc - dersler
 					dc up -d yapma, çünkü -d docker'ın çalışma sırasındaki logları gizliyor +
 					postgresql.conf dosyasında "" kullanma '' kullan +
@@ -483,7 +483,7 @@ Topics id=g10304
 							- ./logs:/pg_log
 					# runs well
 		order of columns matters in INSERT and SELECT id=g10662
-			order of columns matters in INSERT and SELECT <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10662>
+			order of columns matters in INSERT and SELECT <url:file:///~/projects/study/otl/cdb.otl#r=g10662>
 			ex:
 				INSERT INTO ... SELECT ... FROM ...
 			ex: type mismatch error caused by different orders in two tables
@@ -495,7 +495,7 @@ Topics id=g10304
 				-Fc		custom format: allows for selection and is compressed by default
 				-T --exclude-table=<table>
 	Run db clients  id=g10305
-		Run db clients  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10305>
+		Run db clients  <url:file:///~/projects/study/otl/cdb.otl#r=g10305>
 		docker start postgreststarterkit_db_1
 			opt
 				sudo docker run --name tutorial -p 5432:5432 ... -d postgres
@@ -542,7 +542,7 @@ Topics id=g10304
 			DB g:prod = postgresql://superuser:superuserpass@localhost/app
 			DB g:prod select * from data.client
 	Database Administration id=g10306
-		Database Administration <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10306>
+		Database Administration <url:file:///~/projects/study/otl/cdb.otl#r=g10306>
 		Roles
 			Roles
 				CREATE ROLE name;
@@ -639,7 +639,7 @@ Topics id=g10304
 			staging.count_to_50(array_to_string(array_agg('x' || i::text ' varchar(10)));' As create_sql
 			FROM generate_series(1,9) As i;
 	psql id=g10307
-		psql <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10307>
+		psql <url:file:///~/projects/study/otl/cdb.otl#r=g10307>
 		https://www.postgresql.org/docs/current/static/app-psql.html
 		psql -d database -U  user -W
 		psql -h <host> -p <port> -U <username> -W <password> <database>
@@ -685,7 +685,7 @@ Topics id=g10304
 				\copy (SELECT * FROM staging.factfinder_import WHERE s01 ~ E'^[0-9]+') TO '/test.tab' WITH DELIMITER E'\t' CSV HEADER
 		errors/issues
 			no output inside psql: if no semi-colon is used id=g10493
-				no output inside psql: if no semi-colon is used <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10493>
+				no output inside psql: if no semi-colon is used <url:file:///~/projects/study/otl/cdb.otl#r=g10493>
 				app=# select * from data.todo
 				app=# select * from data.todo;
 				 id |  todo  | private | owner_id
@@ -693,7 +693,7 @@ Topics id=g10304
 					1 | item_1 | f       |        1
 					2 | item_2 | t       |        1
 	Data Types id=g10308
-		Data Types <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10308>
+		Data Types <url:file:///~/projects/study/otl/cdb.otl#r=g10308>
 		Serials
 			CREATE SEQUENCE
 			nextval(sequence_name)
@@ -752,7 +752,7 @@ Topics id=g10304
 				FROM families_b
 				WHERE profile @> '{"members":[{"member":{"name":"Alex"} }]}'
 	Constraints id=g10309
-		Constraints <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10309>
+		Constraints <url:file:///~/projects/study/otl/cdb.otl#r=g10309>
 		ALTER TABLE facts ADD CONSTRAINT fk_facts_f 
 			FOREIGN KEY (fact_type_id) REFERENCES lu_fact_types (fact_type_id)
 			ON UPDATE CASCADE ON DELETRESTRICT;
@@ -764,7 +764,7 @@ Topics id=g10304
 		ALTER TABLE schedules ADD CONSTRAINT ex_schedules
 			EXCLUDE USING gist (room WITH =, time_slot WITH &&)
 	Views id=g10310
-		Views <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10310>
+		Views <url:file:///~/projects/study/otl/cdb.otl#r=g10310>
 		CREATE view_name AS query
 		CREATE RECURSIVE VIEW view_name(columns) AS query
 		CREATE VIEW census.vw_facts_2011 AS
@@ -828,7 +828,7 @@ Topics id=g10304
 			FROM test_scores 
 			GROUP BY student;
 	Window Functions id=g10311
-		Window Functions <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10311>
+		Window Functions <url:file:///~/projects/study/otl/cdb.otl#r=g10311>
 		SELECT tract_id, val, AVG(val) OVER () as val_avg
 			FROM census.facts
 			WHERE fact_type_id = 86;
@@ -845,7 +845,7 @@ Topics id=g10304
 			FROM census.lu_tracts
 			WINDOW wt AS (PARTITION BY substring(tract_id,1,5) ORDER BY tract_id)
 	Common Table Expressions (CTE) id=g10312
-		Common Table Expressions (CTE) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10312>
+		Common Table Expressions (CTE) <url:file:///~/projects/study/otl/cdb.otl#r=g10312>
 		WITH 
 			cte1 AS (
 				SELECT * FROM <table1>
@@ -878,7 +878,7 @@ Topics id=g10304
 			) 
 			SELECT * FROM subordinates;
 	Functions id=g10313
-		Functions <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10313>
+		Functions <url:file:///~/projects/study/otl/cdb.otl#r=g10313>
 		CREATE OR REPLACE FUNCTION func_name(arg1 arg1_datatype DEFAULT arg1_default)
 			RETURNS some type | set of some type | TABLE (..) AS
 			$$ 
@@ -906,7 +906,7 @@ Topics id=g10304
 			);
 		CREATE EXTENSION plpython3u;
 	Builtin Functions id=g10314
-		Builtin Functions <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10314>
+		Builtin Functions <url:file:///~/projects/study/otl/cdb.otl#r=g10314>
 		between is
 			a BETWEEN x and y
 			a <= x AND a <= y
@@ -1018,7 +1018,7 @@ Topics id=g10304
 			pg_cancel_backend(pid int)  
 			select pg_start_backup('label_goes_here');
 	JOIN id=g10315
-		JOIN <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10315>
+		JOIN <url:file:///~/projects/study/otl/cdb.otl#r=g10315>
 		FROM people AS p 
 			LEFT JOIN people_activities As a ON (p.p_name = a.p_name)
 			GROUP BY p.p_name
@@ -1031,7 +1031,7 @@ Topics id=g10304
 			FROM <table> INNER JOIN <table>
 			ON <fk1> = <fk2>
 	Row Level Security (RLS) id=g10316
-		Row Level Security (RLS) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10316>
+		Row Level Security (RLS) <url:file:///~/projects/study/otl/cdb.otl#r=g10316>
 		CREATE TABLE accounts (manager text, company text);
 		ALTER TABLE accounts ENABLE ROW LEVEL SECURITY;
 		CREATE POLICY user_policy ON users
@@ -1044,7 +1044,7 @@ Topics id=g10304
 			(pwhash, real_name, home_phone, extra_info, shell)
 			ON passwd TO public;
 	ddl id=g10320
-		ddl <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10320>
+		ddl <url:file:///~/projects/study/otl/cdb.otl#r=g10320>
 		analysis
 			pk
 				id int GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
@@ -1092,7 +1092,7 @@ Topics id=g10304
 				profile json
 				profile jsonb
 		examples id=g10321
-			examples <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10321>
+			examples <url:file:///~/projects/study/otl/cdb.otl#r=g10321>
 			Tables
 				create table
 					CREATE TABLE accounts (manager text, company text);
@@ -1232,7 +1232,7 @@ Topics id=g10304
 	questions and answers
 		deck01: from sof
 			ref
-				SOF PostgreSQL: Stackoverflow SOF Popular Questions   <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10238>
+				SOF PostgreSQL: Stackoverflow SOF Popular Questions   <url:file:///~/projects/study/otl/cdb.otl#r=g10238>
 			new function: header line?
 				CREATE OR REPLACE FUNCTION f_foo()
 			new function: CREATE FUNCTION foo() 
@@ -1269,7 +1269,7 @@ Postgresql Setup id=g12106
 		createdb mydb;
 PostgreSQL how tos  id=g10325
 	find tables that contain a column id=g10739
-		find tables that contain a column <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10739>
+		find tables that contain a column <url:file:///~/projects/study/otl/cdb.otl#r=g10739>
 		ref
 			<url:/Users/mertnuhoglu/projects/bizqualify/BQ-data-run/datarun/debug_if_11_forecast_is_cause_of_2017_problem.md#tn=03.01.01. Which tables do have `acknowledgement_id`?>
 		opt01
@@ -1284,7 +1284,7 @@ PostgreSQL how tos  id=g10325
 			AND n.nspname = 'data_20181202';
 	count rows
 		row count of all tables id=g10738
-			row count of all tables <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10738>
+			row count of all tables <url:file:///~/projects/study/otl/cdb.otl#r=g10738>
 			https://stackoverflow.com/questions/28667604/get-a-row-count-of-every-table-in-postgres-database
 				opt01: for a table:
 					SELECT reltuples FROM pg_class WHERE oid = 'my_schema.my_table'::regclass;
@@ -1330,7 +1330,7 @@ PostgreSQL how tos  id=g10325
 						and table_type='BASE TABLE'
 					order by 3 desc
 	json_populate_record id=g10324
-		json_populate_record <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10324>
+		json_populate_record <url:file:///~/projects/study/otl/cdb.otl#r=g10324>
 		select * from json_populate_record(null::x, '{"a":1,"b":2}')  
 		 a | b
 		---+---
@@ -1340,7 +1340,7 @@ PostgreSQL how tos  id=g10325
 		create table ", data_schema, ".master_variables_forecast (like ", data_schema, ".master_variables)
 		CREATE TABLE data_20181217.all_data AS TABLE data_20181202.all_data;
 	select into = create table as id=g10326
-		select into = create table as <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10326>
+		select into = create table as <url:file:///~/projects/study/otl/cdb.otl#r=g10326>
 		pgsql doesn't create table with "select into"
 			https://stackoverflow.com/questions/11979154/select-into-to-create-a-table-in-pl-pgsql
 				use: create table as
@@ -1376,7 +1376,7 @@ PostgreSQL how tos  id=g10325
 					TABLE films
 					WITH NO DATA;
 	record type id=g10327
-		record type <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10327>
+		record type <url:file:///~/projects/study/otl/cdb.otl#r=g10327>
 		https://www.postgresql.org/docs/9.0/static/plpgsql-declarations.html#PLPGSQL-DECLARATION-RECORDS
 		<name> RECORD;
 		similar to row-type variables
@@ -1387,13 +1387,13 @@ PostgreSQL how tos  id=g10325
 		when pgsql function returns type record
 			record variable can change its row structure on the fly
 	change current_schema id=g10328
-		change current_schema <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10328>
+		change current_schema <url:file:///~/projects/study/otl/cdb.otl#r=g10328>
 		first schema in search path is current schema
 		ex
 			set search_path = data, public;
 			select settings.set('auth.data-schema', current_schema);
 	set a password - store check passwords crypt() id=g10329
-		set a password - store check passwords crypt() <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10329>
+		set a password - store check passwords crypt() <url:file:///~/projects/study/otl/cdb.otl#r=g10329>
 		https://www.postgresql.org/docs/current/static/pgcrypto.html
 			Example of setting a new password:
 				UPDATE ... SET pswhash = crypt('new password', gen_salt('bf'));
@@ -1439,7 +1439,7 @@ PostgreSQL how tos  id=g10325
 			# \echo :test2
 			:DIR
 	Difference between set, \set and \pset in psql id=g10330
-		Difference between set, \set and \pset in psql <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10330>
+		Difference between set, \set and \pset in psql <url:file:///~/projects/study/otl/cdb.otl#r=g10330>
 		https://stackoverflow.com/questions/29593908/difference-between-set-set-and-pset-in-psql#29594391
 		SET: sql command
 		\set \pset: psql meta-commands
@@ -1453,7 +1453,7 @@ PostgreSQL how tos  id=g10325
 			\set time 'select current_timestamp'
 			\pset border 2
 	GRANT USAGE id=g10331
-		GRANT USAGE <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10331>
+		GRANT USAGE <url:file:///~/projects/study/otl/cdb.otl#r=g10331>
 		https://stackoverflow.com/questions/2126225/why-is-a-grant-usage-created-the-first-time-i-grant-a-user-privileges#3972085
 			USAGE === "no privileges"
 		https://stackoverflow.com/questions/17338621/what-grant-usage-on-schema-exactly-do#17355059
@@ -1511,7 +1511,7 @@ PostgreSQL how tos  id=g10325
 				| 7           | 2          | Ryan Metcalfe |
 	psql
 		17 Practical psql Commands id=g10332
-			17 Practical psql Commands <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10332>
+			17 Practical psql Commands <url:file:///~/projects/study/otl/cdb.otl#r=g10332>
 			http://www.postgresqltutorial.com/psql-commands/
 			connect
 				psql -d database -U  user -W
@@ -1547,7 +1547,7 @@ PostgreSQL how tos  id=g10325
 				show/set encoding: \encoding <enc>
 				change working dir: \cd <dir>
 	PostgreSQL Cheat Sheet id=g10333
-		PostgreSQL Cheat Sheet <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10333>
+		PostgreSQL Cheat Sheet <url:file:///~/projects/study/otl/cdb.otl#r=g10333>
 		http://www.postgresqltutorial.com/postgresql-cheat-sheet/
 		connect
 			psql -U <username>
@@ -1584,7 +1584,7 @@ PostgreSQL how tos  id=g10325
 				CREATE RECURSIVE VIEW view_name(columns) AS query
 			create materialized view
 	PostgreSQL Basics by Example id=g10334
-		PostgreSQL Basics by Example <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10334>
+		PostgreSQL Basics by Example <url:file:///~/projects/study/otl/cdb.otl#r=g10334>
 		http://blog.trackets.com/2013/08/19/postgresql-basics-by-example.html
 		psql
 			\h                 # help on SQL commands
@@ -1648,7 +1648,7 @@ PostgreSQL how tos  id=g10325
 			GROUP BY p.p_name
 			ORDER BY p.p_name; 
 	Application users vs. Row Level Security id=adb_004 id=g10344
-		Application users vs. Row Level Security  id=g10344 <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10344>
+		Application users vs. Row Level Security  id=g10344 <url:file:///~/projects/study/otl/cdb.otl#r=g10344>
 		Application users vs. Row Level Security <url:#r=adb_004>
 		https://blog.2ndquadrant.com/application-users-vs-row-level-security/
 		Introduction to RLS
@@ -1729,7 +1729,7 @@ PostgreSQL how tos  id=g10325
 SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 	meta
 		how people ask questions? id=g10345
-			how people ask questions?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10345>
+			how people ask questions?  <url:file:///~/projects/study/otl/cdb.otl#r=g10345>
 			opt1: equivalent of the following mysql command
 			opt2: i want to do this: select * ... but there is an error. 
 			opt3: i can do this. but i want more in addition to it: ...
@@ -1821,7 +1821,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 			next
 				https://stackoverflow.com/questions/17946221/sql-join-and-different-types-of-joins
 	ref - examples sof postgresql id=g10706
-		ref - examples sof postgresql <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10706>
+		ref - examples sof postgresql <url:file:///~/projects/study/otl/cdb.otl#r=g10706>
 		mnemonics 20181121 
 			AND    s.status IS DISTINCT FROM 'ACTIVE';  -- avoid empty updates. see below
 			SELECT *
@@ -1850,7 +1850,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 			SELECT company_id, array_agg(employee ORDER BY company_id DESC)::text
 				GROUP  BY 1;
 			SELECT * FROM tracks WHERE artists @> '[{"name": "The Dirty Heads"}]';
-			What is semi-join <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10687>
+			What is semi-join <url:file:///~/projects/study/otl/cdb.otl#r=g10687>
 				WHERE EXISTS ( 
 			JOIN delivery ON (delivery.magazine_id = subscription.magazine_id
 				AND delivery.user_id = subscription.user_id)
@@ -1938,7 +1938,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 				they reject false, thus they accept true and unknown
 		data types
 			array
-				Check if value exists in Postgres array <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10696>
+				Check if value exists in Postgres array <url:file:///~/projects/study/otl/cdb.otl#r=g10696>
 					SELECT '{1,2,3}'::int[] @> ARRAY[value_variable::int]
 					SELECT value_variable = ANY ('{1,2,3}'::int[])
 				IN vs ANY operator in PostgreSQL <url:#r=g10422>
@@ -1957,16 +1957,16 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					SELECT 'foo' LIKE ANY('{FOO,bar,%oo%}');
 			Any downsides of using data type “text” for storing strings?  <url:#r=g10355>
 				ALTER TABLE tbl ADD CONSTRAINT tbl_col_len CHECK (length(col) < 100);
-			PostgreSQL: Which Datatype should be used for Currency <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10697>
+			PostgreSQL: Which Datatype should be used for Currency <url:file:///~/projects/study/otl/cdb.otl#r=g10697>
 				personally: store currency as "integer" representing Cents
-			Cannot cast type numeric to boolean <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10698>
+			Cannot cast type numeric to boolean <url:file:///~/projects/study/otl/cdb.otl#r=g10698>
 				ALTER TABLE products
 					ALTER power_price DROP DEFAULT
 				 ,ALTER power_price TYPE bool USING (power_price::int::bool)
 				 ,ALTER power_price SET NOT NULL
 				 ,ALTER power_price SET DEFAULT false;
 		distinct
-			How do I (or can I) SELECT DISTINCT on multiple columns?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10699>
+			How do I (or can I) SELECT DISTINCT on multiple columns?  <url:file:///~/projects/study/otl/cdb.otl#r=g10699>
 				opt1:
 					UPDATE sales
 					SET    status = 'ACTIVE'
@@ -1987,7 +1987,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						 AND    s.id <> s1.id                     -- except for row itself
 						 );
 					AND    s.status IS DISTINCT FROM 'ACTIVE';  -- avoid empty updates. see below
-			PostgreSQL DISTINCT ON with different ORDER BY <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10700>
+			PostgreSQL DISTINCT ON with different ORDER BY <url:file:///~/projects/study/otl/cdb.otl#r=g10700>
 				SELECT DISTINCT ON (address_id) purchases.address_id, purchases.*
 					FROM purchases
 					WHERE purchases.product_id = 1
@@ -2116,7 +2116,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					VALUES (1, '[{"name": "blink-182"}]');
 				SELECT * FROM tracks WHERE artists @> '[{"name": "The Dirty Heads"}]';
 		joins
-			What is semi-join <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10687>
+			What is semi-join <url:file:///~/projects/study/otl/cdb.otl#r=g10687>
 				SELECT * 
 				FROM Customers C 
 				WHERE EXISTS ( 
@@ -2124,7 +2124,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					FROM Sales S 
 					WHERE S.Cust_Id = C.Cust_Id 
 					) 
-			Find records where join doesn't exist <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10688>
+			Find records where join doesn't exist <url:file:///~/projects/study/otl/cdb.otl#r=g10688>
 				WHERE NOT EXISTS (
 					 SELECT 1
 					 FROM   votes v
@@ -2147,7 +2147,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 				LEFT   JOIN second parentdata ON parentdata.id = parent.secondary_id
 				LEFT   JOIN second childdata ON childdata.id = child.secondary_id
 				WHERE  parent.parent_id = 'rootID'
-			Join tables on columns of composite foreign / primary key in a query <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10689>
+			Join tables on columns of composite foreign / primary key in a query <url:file:///~/projects/study/otl/cdb.otl#r=g10689>
 				opt01
 					SELECT *
 					FROM subscription
@@ -2175,10 +2175,10 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					JOIN   msg ON (msg.src_addr || '+' || msg.dst_addr) ~ (38 || mnc.code)
 										 AND length(mnc.code) = 3
 		metaprogramming
-			What does regclass signify in Postgresql <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10690>
+			What does regclass signify in Postgresql <url:file:///~/projects/study/otl/cdb.otl#r=g10690>
 				select * from pg_class where oid = 'table1'::regclass; -- ok
 				select * from pg_class where oid = 'table1'; -- wrong
-			How to check if a table exists in a given schema <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10691>
+			How to check if a table exists in a given schema <url:file:///~/projects/study/otl/cdb.otl#r=g10691>
 				opt1: information_schema
 					SELECT EXISTS (
 						 SELECT 1
@@ -2214,7 +2214,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						 SELECT DISTINCT ip  -- DISTINCT is optional
 						 FROM   ip_location
 						 );
-			Best way to select random rows PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10692>
+			Best way to select random rows PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10692>
 				SELECT *
 				FROM  (
 						SELECT DISTINCT 1 + trunc(random() * 5100000)::integer AS id
@@ -2348,7 +2348,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						RETURNS text STABLE LANGUAGE SQL AS
 					'SELECT val FROM val WHERE val_id = $1';
 					SELECT f_val(2);  -- returns 'baz'
-			Postgres Error: More than one row returned by a subquery used as an expression <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10693>
+			Postgres Error: More than one row returned by a subquery used as an expression <url:file:///~/projects/study/otl/cdb.otl#r=g10693>
 				UPDATE customer c
 				SET    customer_id = s.store_key
 				FROM   dblink('port=5432, dbname=SERVER1 user=postgres password=309245'
@@ -2455,7 +2455,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 				INNER JOIN city ON city.id = country.capital
 				WHERE city.population > 100000
 				AND country.headofstate LIKE 'A%'
-			Select NOT IN multiple columns <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10694>
+			Select NOT IN multiple columns <url:file:///~/projects/study/otl/cdb.otl#r=g10694>
 				opt1
 					SELECT * FROM friend f
 					WHERE NOT EXISTS (
@@ -2466,7 +2466,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					FROM   friend f
 					LEFT   JOIN likes l USING (id1, id2)
 					WHERE  l.id1 IS NULL;
-			Find The Missing Integer <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10695>
+			Find The Missing Integer <url:file:///~/projects/study/otl/cdb.otl#r=g10695>
 				ex
 					SELECT i FROM generate_series(1,100) as t(i)
 					EXCEPT
@@ -2554,7 +2554,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 	by topic
 		custom functions
 			Return setof record (virtual table) from function id=g10346
-				Return setof record (virtual table) from function <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10346>
+				Return setof record (virtual table) from function <url:file:///~/projects/study/otl/cdb.otl#r=g10346>
 				https://stackoverflow.com/questions/955167/return-setof-record-virtual-table-from-function
 				code
 					CREATE OR REPLACE FUNCTION foo(open_id numeric)
@@ -2599,7 +2599,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						 unnest  | 2277        | anyarray
 						 unnest  | 3614        | tsvector
 			Table name as a PostgreSQL function parameter id=g10372
-				Table name as a PostgreSQL function parameter <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10372>
+				Table name as a PostgreSQL function parameter <url:file:///~/projects/study/otl/cdb.otl#r=g10372>
 				https://stackoverflow.com/questions/10705616/table-name-as-a-postgresql-function-parameter/10711349#10711349
 				ans
 					function
@@ -2619,7 +2619,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							it fails immediately and more gracefully if the table name is invalid / does not exist / is invisible to the current user.
 							it works with schema-qualified table names, where a plain quote_ident(_tbl) or format(%I) would fail because they cannot resolve the ambiguity.
 			How to return result of a SELECT inside a function in PostgreSQL id=g10380
-				How to return result of a SELECT inside a function in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10380>
+				How to return result of a SELECT inside a function in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10380>
 				https://stackoverflow.com/questions/7945932/how-to-return-result-of-a-select-inside-a-function-in-postgresql/7945958#7945958
 				ans
 					Use RETURN QUERY:
@@ -2675,7 +2675,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						DROP FUNCTION my_function_name(string text, form text);
 						DROP FUNCTION my_function_name(string text);
 			Return setof record (virtual table) from function id=g10402
-				Return setof record (virtual table) from function <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10402>
+				Return setof record (virtual table) from function <url:file:///~/projects/study/otl/cdb.otl#r=g10402>
 				https://stackoverflow.com/questions/23060256/postgres-transpose-rows-to-columns/23061730#23061730
 				q
 					goal
@@ -2702,7 +2702,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							, 'VALUES (1),(2),(3)'
 							 ) AS t (user_id int, user_name text, email1 text, email2 text, email3 text);
 			Inlining of SQL Functions id=adb_012 id=g10417
-				Inlining of SQL Functions  id=g10417 <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10417>
+				Inlining of SQL Functions  id=g10417 <url:file:///~/projects/study/otl/cdb.otl#r=g10417>
 				Inlining of SQL Functions <url:#r=adb_012>
 				https://wiki.postgresql.org/wiki/Inlining_of_SQL_functions
 				scalar functions
@@ -2716,7 +2716,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						select * from func(123);
 						select * from sometable t, func(t.foo, 123);   -- version 9.3+, implicitly LATERAL
 			Return SETOF rows from PostgreSQL function id=g10418
-				Return SETOF rows from PostgreSQL function <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10418>
+				Return SETOF rows from PostgreSQL function <url:file:///~/projects/study/otl/cdb.otl#r=g10418>
 				https://stackoverflow.com/questions/17864911/return-setof-rows-from-postgresql-function/17865708#17865708
 				ans
 					code
@@ -2784,7 +2784,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					Type                │ normal
 		data modelling
 			PostgreSQL create table if not exists id=g10702
-				PostgreSQL create table if not exists <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10702>
+				PostgreSQL create table if not exists <url:file:///~/projects/study/otl/cdb.otl#r=g10702>
 					https://stackoverflow.com/questions/1766046/postgresql-create-table-if-not-exists/7438222#7438222
 					CREATE TABLE IF NOT EXISTS myschema.mytable (i integer);
 			How to implement a many-to-many relationship in PostgreSQL? id=g10176
@@ -2817,7 +2817,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						sequence of key columns is relevant in multicolumn keys
 							(bill_id, product_id) assumes queries look for bill_id always 
 			Change PostgreSQL columns used in views id=g10356
-				Change PostgreSQL columns used in views <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10356>
+				Change PostgreSQL columns used in views <url:file:///~/projects/study/otl/cdb.otl#r=g10356>
 				https://stackoverflow.com/questions/8524873/change-postgresql-columns-used-in-views/8527792#8527792
 				q
 					Let's say I have the following:
@@ -2842,7 +2842,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								ON SELECT TO my_view DO INSTEAD
 							you can GRANT, add comments, define column defaults
 			Creating temporary tables in SQL id=g10378
-				Creating temporary tables in SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10378>
+				Creating temporary tables in SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10378>
 				https://stackoverflow.com/questions/15691243/creating-temporary-tables-in-sql/15700736#15700736
 				ans
 					CREATE TEMP TABLE temp1 AS
@@ -2864,7 +2864,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					one cluster per port
 						multiple clusters: multiple ports if on same machine
 			Many to Many Table - Performance is bad id=g10389
-				Many to Many Table - Performance is bad <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10389>
+				Many to Many Table - Performance is bad <url:file:///~/projects/study/otl/cdb.otl#r=g10389>
 				https://stackoverflow.com/questions/46301784/many-to-many-table-performance-is-bad/46303473#46303473
 				q
 					The following tables are given:
@@ -2898,7 +2898,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					JOIN   player         p ON p.id = pc.player_id
 					WHERE  pc.club_id = 3;
 			Is there a postgres command to list/drop all materialized views? id=g10401
-				Is there a postgres command to list/drop all materialized views?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10401>
+				Is there a postgres command to list/drop all materialized views?  <url:file:///~/projects/study/otl/cdb.otl#r=g10401>
 				ans
 					Show all:
 						SELECT oid::regclass::text
@@ -2920,7 +2920,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 		data types
 			array
 				Check if value exists in Postgres array id=g10696
-					Check if value exists in Postgres array <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10696>
+					Check if value exists in Postgres array <url:file:///~/projects/study/otl/cdb.otl#r=g10696>
 					https://stackoverflow.com/questions/11231544/check-if-value-exists-in-postgres-array/11231965#11231965
 					q
 						Edit: Just realized I could do this
@@ -2933,13 +2933,13 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						points:
 							does not work with NULL elements
 				IN vs ANY operator in PostgreSQL id=g10422
-					IN vs ANY operator in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10422>
+					IN vs ANY operator in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10422>
 					https://stackoverflow.com/questions/34627026/in-vs-any-operator-in-postgresql/34627688#34627688
 					ans
 						IN () is equivalent to = ANY()
 							SELECT 'foo' = ANY('{FOO,bar,%oo%}');
 				How to use ANY instead of IN in a WHERE clause with Rails? id=g10423
-					How to use ANY instead of IN in a WHERE clause with Rails?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10423>
+					How to use ANY instead of IN in a WHERE clause with Rails?  <url:file:///~/projects/study/otl/cdb.otl#r=g10423>
 					https://stackoverflow.com/questions/31191507/how-to-use-any-instead-of-in-in-a-where-clause-with-rails/31192557#31192557
 					ans 
 						two variants of IN:
@@ -2960,7 +2960,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								because it can be combined with several operators, not just "="
 									SELECT 'foo' LIKE ANY('{FOO,bar,%oo%}');
 				Postgres - array for loop id=g10371
-					Postgres - array for loop <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10371>
+					Postgres - array for loop <url:file:///~/projects/study/otl/cdb.otl#r=g10371>
 					https://stackoverflow.com/questions/9783422/postgres-array-for-loop/9784986#9784986
 					ans
 						Since PostgreSQL 9.1 there is the convenient FOREACH:
@@ -2992,7 +2992,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					https://stackoverflow.com/questions/11762398/selecting-data-into-a-postgres-array/11763245#11763245
 					ans
 			PostgreSQL 10 identity columns explained id=g10348
-				PostgreSQL 10 identity columns explained <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10348>
+				PostgreSQL 10 identity columns explained <url:file:///~/projects/study/otl/cdb.otl#r=g10348>
 				https://blog.2ndquadrant.com/postgresql-10-identity-columns/
 				PK columns should be IDENTITY to conform SQL standard
 				before:
@@ -3017,7 +3017,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 				Five pseudo-types of special interest are anyelement, anyarray, anynonarray, anyenum, and anyrange, which are collectively called polymorphic types. 
 				Any function declared using these types is said to be a polymorphic function
 			Any downsides of using data type “text” for storing strings? id=g10355
-				Any downsides of using data type “text” for storing strings?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10355>
+				Any downsides of using data type “text” for storing strings?  <url:file:///~/projects/study/otl/cdb.otl#r=g10355>
 				https://stackoverflow.com/questions/20326892/any-downsides-of-using-data-type-text-for-storing-strings/20334221#20334221
 				q
 					3 data-types for character data:
@@ -3033,11 +3033,11 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 				ans
 					point in geography
 			PostgreSQL: Which Datatype should be used for Currency id=g10697
-				PostgreSQL: Which Datatype should be used for Currency <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10697>
+				PostgreSQL: Which Datatype should be used for Currency <url:file:///~/projects/study/otl/cdb.otl#r=g10697>
 				ans
 					personally: store currency as "integer" representing Cents
 			Cannot cast type numeric to boolean id=g10698
-				Cannot cast type numeric to boolean <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10698>
+				Cannot cast type numeric to boolean <url:file:///~/projects/study/otl/cdb.otl#r=g10698>
 				https://stackoverflow.com/questions/19290248/cannot-cast-type-numeric-to-boolean/19290671#19290671
 				ans
 					ALTER TABLE products
@@ -3047,7 +3047,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					 ,ALTER power_price SET DEFAULT false;
 		distinct
 			How do I (or can I) SELECT DISTINCT on multiple columns? id=g10699
-				How do I (or can I) SELECT DISTINCT on multiple columns?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10699>
+				How do I (or can I) SELECT DISTINCT on multiple columns?  <url:file:///~/projects/study/otl/cdb.otl#r=g10699>
 				https://stackoverflow.com/questions/54418/how-do-i-or-can-i-select-distinct-on-multiple-columns/12632129#12632129
 				ans
 					opt1:
@@ -3071,7 +3071,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							 );
 						AND    s.status IS DISTINCT FROM 'ACTIVE';  -- avoid empty updates. see below
 			PostgreSQL DISTINCT ON with different ORDER BY id=g10700
-				PostgreSQL DISTINCT ON with different ORDER BY <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10700>
+				PostgreSQL DISTINCT ON with different ORDER BY <url:file:///~/projects/study/otl/cdb.otl#r=g10700>
 				https://stackoverflow.com/questions/9795660/postgresql-distinct-on-with-different-order-by/9796104#9796104
 				q
 					SELECT DISTINCT ON (address_id) purchases.address_id, purchases.*
@@ -3131,7 +3131,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 				https://stackoverflow.com/questions/25536422/optimize-group-by-query-to-retrieve-latest-record-per-user/25536748#25536748
 				ans
 			GROUP BY + CASE statement id=g10390
-				GROUP BY + CASE statement <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10390>
+				GROUP BY + CASE statement <url:file:///~/projects/study/otl/cdb.otl#r=g10390>
 				https://stackoverflow.com/questions/19848930/group-by-case-statement/19849537#19849537
 				q
 					goal
@@ -3196,7 +3196,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					WHERE  (u).user_id IS NOT NULL             -- any column defined NOT NULL
 					ORDER  BY (u).user_id;
 			PostgreSQL - GROUP BY clause or be used in an aggregate function id=g10397
-				PostgreSQL - GROUP BY clause or be used in an aggregate function <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10397>
+				PostgreSQL - GROUP BY clause or be used in an aggregate function <url:file:///~/projects/study/otl/cdb.otl#r=g10397>
 				https://stackoverflow.com/questions/10161696/postgresql-group-by-clause-or-be-used-in-an-aggregate-function/10167279#10167279
 				q
 					cars
@@ -3219,7 +3219,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						GROUP before JOIN
 							=> fewer join operations
 			GROUP BY and COUNT in PostgreSQL id=g10399
-				GROUP BY and COUNT in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10399>
+				GROUP BY and COUNT in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10399>
 				https://stackoverflow.com/questions/11807386/group-by-and-count-in-postgresql/11809477#11809477
 				q
 					posts
@@ -3246,7 +3246,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								GROUP  BY posts.id
 								) x;
 			Postgres window function and group by exception id=g10421
-				Postgres window function and group by exception <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10421>
+				Postgres window function and group by exception <url:file:///~/projects/study/otl/cdb.otl#r=g10421>
 				https://stackoverflow.com/questions/8844903/postgres-window-function-and-group-by-exception/8845062#8845062
 				ans
 					code
@@ -3269,7 +3269,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					points: 
 						sum(sum(sp.payout)) OVER w, the outer sum() is a window function, the inner sum() is an aggregate function.
 			How to use a SQL window function to calculate a percentage of an aggregate id=g10428
-				How to use a SQL window function to calculate a percentage of an aggregate <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10428>
+				How to use a SQL window function to calculate a percentage of an aggregate <url:file:///~/projects/study/otl/cdb.otl#r=g10428>
 				https://stackoverflow.com/questions/8515152/how-to-use-a-sql-window-function-to-calculate-a-percentage-of-an-aggregate/8524258#8524258
 				ans
 					ex
@@ -3292,7 +3292,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								GROUP  BY d1, d2
 								) x;
 			PostgreSQL aggregate or window function to return just the last value id=g10430
-				PostgreSQL aggregate or window function to return just the last value <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10430>
+				PostgreSQL aggregate or window function to return just the last value <url:file:///~/projects/study/otl/cdb.otl#r=g10430>
 				https://stackoverflow.com/questions/8320569/postgresql-aggregate-or-window-function-to-return-just-the-last-value/8320588#8320588
 				ans
 					ref
@@ -3325,7 +3325,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							 ) sub(a, b)
 						GROUP  BY a;
 			Calculating Cumulative Sum in PostgreSQL id=g10381
-				Calculating Cumulative Sum in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10381>
+				Calculating Cumulative Sum in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10381>
 				https://stackoverflow.com/questions/22841206/calculating-cumulative-sum-in-postgresql/22843199#22843199
 				q
 					ea_month    id       amount    ea_year    circle_id    cum_amt
@@ -3338,7 +3338,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						FROM   tbl
 						ORDER  BY circle_id, month;
 			Generate id row for a view with grouping id=g10432
-				Generate id row for a view with grouping <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10432>
+				Generate id row for a view with grouping <url:file:///~/projects/study/otl/cdb.otl#r=g10432>
 				https://stackoverflow.com/questions/8637857/generate-id-row-for-a-view-with-grouping/8638486#8638486
 				ans
 					CREATE OR REPLACE VIEW daily_transactions as
@@ -3365,7 +3365,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						before: generate_series() is applied after aggregate functions, but produces multiple rows, thereby multiplying all output rows
 						date_trunc() is redundant in date_trunc('day', t.transaction_time)::date. t.transaction_time::date achieves the same, simper & faster
 			Aggregate strings in descending order in a PostgreSQL query id=g10433
-				Aggregate strings in descending order in a PostgreSQL query <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10433>
+				Aggregate strings in descending order in a PostgreSQL query <url:file:///~/projects/study/otl/cdb.otl#r=g10433>
 				https://stackoverflow.com/questions/10470585/aggregate-strings-in-descending-order-in-a-postgresql-query/10470738#10470738
 				ans
 					SELECT company_id, array_agg(employee ORDER BY company_id DESC)::text
@@ -3381,7 +3381,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						GROUP  BY 1;
 		index
 			Create unique constraint with null columns id=g10701
-				Create unique constraint with null columns <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10701>
+				Create unique constraint with null columns <url:file:///~/projects/study/otl/cdb.otl#r=g10701>
 				https://stackoverflow.com/questions/8289100/create-unique-constraint-with-null-columns/8289253#8289253
 				q
 					goal:
@@ -3395,7 +3395,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						CREATE UNIQUE INDEX favo_2col_uni_idx ON favorites (user_id, recipe_id)
 						WHERE menu_id IS NULL;
 			Index for finding an element in a JSON array id=g10349
-				Index for finding an element in a JSON array <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10349>
+				Index for finding an element in a JSON array <url:file:///~/projects/study/otl/cdb.otl#r=g10349>
 				https://stackoverflow.com/questions/18404055/index-for-finding-an-element-in-a-json-array/18405706#18405706
 				q
 					CREATE TABLE tracks (id SERIAL, artists JSON);
@@ -3417,7 +3417,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 			Can PostgreSQL index array columns?
 				https://stackoverflow.com/questions/4058731/can-postgresql-index-array-columns/29245753#29245753
 			Unused index in range of dates query id=g10464
-				Unused index in range of dates query <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10464>
+				Unused index in range of dates query <url:file:///~/projects/study/otl/cdb.otl#r=g10464>
 				https://dba.stackexchange.com/questions/90128/unused-index-in-range-of-dates-query/90183#90183
 				code
 					mustang=# \d+ bss.amplifier_saturation
@@ -3440,7 +3440,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					DESC NULLS LAST is the beter choice.
 		joins
 			What is semi-join id=g10687
-				What is semi-join <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10687>
+				What is semi-join <url:file:///~/projects/study/otl/cdb.otl#r=g10687>
 				http://www.answers.com/Q/What_is_semi_join_in_SQL
 				ex
 					SELECT * 
@@ -3451,7 +3451,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						WHERE S.Cust_Id = C.Cust_Id 
 						) 
 			Find records where join doesn't exist id=g10688
-				Find records where join doesn't exist <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10688>
+				Find records where join doesn't exist <url:file:///~/projects/study/otl/cdb.otl#r=g10688>
 				https://stackoverflow.com/questions/14251180/find-records-where-join-doesnt-exist/14260510#14260510
 				NULL trap of NOT IN
 				ans
@@ -3464,7 +3464,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					NOT EXISTS () vs NOT IN ()
 						result of NULL in NOT IN is null
 			What is the difference between LATERAL and a subquery in PostgreSQL id=g10370
-				What is the difference between LATERAL and a subquery in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10370>
+				What is the difference between LATERAL and a subquery in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10370>
 				https://stackoverflow.com/questions/28550679/what-is-the-difference-between-lateral-and-a-subquery-in-postgresql/28557803#28557803
 				ans
 					A LATERAL join (Postgres 9.3+) is more like a correlated subquery, not a plain subquery. Like @Andomar pointed out, a function or subquery to the right of a LATERAL join typically has to be evaluated many times - once for each row left of the LATERAL join
@@ -3487,7 +3487,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						FROM   tbl t;
 							http://dbfiddle.uk/?rdbms=postgres_10&fiddle=b78160f4899d95444e2a605a9609cf8f
 			Join table twice - on two different columns of the same table id=g10406
-				Join table twice - on two different columns of the same table <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10406>
+				Join table twice - on two different columns of the same table <url:file:///~/projects/study/otl/cdb.otl#r=g10406>
 				https://stackoverflow.com/questions/10710271/join-table-twice-on-two-different-columns-of-the-same-table/10710362#10710362
 				ans
 					code
@@ -3502,7 +3502,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							LEFT   JOIN table3 t32 ON t32.id = t2.table3_id_2;
 						There is no need to join in table1. table2 has all you need 
 			Multiple left joins on multiple tables in one query id=g10410
-				Multiple left joins on multiple tables in one query <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10410>
+				Multiple left joins on multiple tables in one query <url:file:///~/projects/study/otl/cdb.otl#r=g10410>
 				https://stackoverflow.com/questions/14260860/multiple-left-joins-on-multiple-tables-in-one-query/14261094#14261094
 				q
 					"master" table: multiple levels (parents and childs)
@@ -3522,7 +3522,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						LEFT   JOIN second childdata ON childdata.id = child.secondary_id
 						WHERE  parent.parent_id = 'rootID'
 			Join tables on columns of composite foreign / primary key in a query id=g10689
-				Join tables on columns of composite foreign / primary key in a query <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10689>
+				Join tables on columns of composite foreign / primary key in a query <url:file:///~/projects/study/otl/cdb.otl#r=g10689>
 				https://stackoverflow.com/questions/21791478/join-tables-on-columns-of-composite-foreign-primary-key-in-a-query/21792127#21792127
 				q
 					shorter way to this:
@@ -3536,7 +3536,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					manual:
 						NATURAL is shorthand for a USING list that mentions all columns in the two tables that have the same names.
 			How to join tables on regex id=g10435
-				How to join tables on regex <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10435>
+				How to join tables on regex <url:file:///~/projects/study/otl/cdb.otl#r=g10435>
 				https://stackoverflow.com/questions/8679079/how-to-join-tables-on-regex/8680446#8680446
 				ans
 					ex1: LIKE
@@ -3569,7 +3569,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								)
 		metaprogramming
 			What does regclass signify in Postgresql id=g10690
-				What does regclass signify in Postgresql <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10690>
+				What does regclass signify in Postgresql <url:file:///~/projects/study/otl/cdb.otl#r=g10690>
 				https://stackoverflow.com/questions/13289107/what-does-regclass-signify-in-postgresql#13290020
 				::regclass is a cast
 				regclass is a "magic" data type
@@ -3578,7 +3578,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					select * from pg_class where oid = 'table1'::regclass; -- ok
 					select * from pg_class where oid = 'table1'; -- wrong
 			How to check if a table exists in a given schema id=g10691
-				How to check if a table exists in a given schema <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10691>
+				How to check if a table exists in a given schema <url:file:///~/projects/study/otl/cdb.otl#r=g10691>
 				https://stackoverflow.com/questions/20582500/how-to-check-if-a-table-exists-in-a-given-schema/24089729#24089729
 				How to check whether a table (or view) exists, and the current user has access to it?
 					opt1: information_schema
@@ -3596,14 +3596,14 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							 AND    tablename = 'table_name'
 							 );
 			How to get the trigger(s) associated with a view or a table in PostgreSQL id=g10424
-				How to get the trigger(s) associated with a view or a table in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10424>
+				How to get the trigger(s) associated with a view or a table in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10424>
 				https://stackoverflow.com/questions/25202133/how-to-get-the-triggers-associated-with-a-view-or-a-table-in-postgresql/25204845#25204845
 				ans
 					SELECT tgname
 					FROM   pg_trigger
 					WHERE  tgrelid = 'myschema.mytbl'::regclass; -- optionally schema-qualified
 			How can I test if a column exists in a table using an SQL statement id=g10434
-				How can I test if a column exists in a table using an SQL statement <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10434>
+				How can I test if a column exists in a table using an SQL statement <url:file:///~/projects/study/otl/cdb.otl#r=g10434>
 				https://stackoverflow.com/questions/9991043/how-can-i-test-if-a-column-exists-in-a-table-using-an-sql-statement/10002376#10002376
 				ans
 					code
@@ -3614,7 +3614,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						AND    NOT attisdropped  -- exclude dropped (dead) columns
 						-- AND attnum > 0        -- exclude system columns (you may or may not want this)
 			Exploring a Data Set in SQL id=g10438
-				Exploring a Data Set in SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10438>
+				Exploring a Data Set in SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10438>
 				http://tapoueh.org/blog/2017/06/exploring-a-data-set-in-sql/
 				Artists, Albums, Tracks, Genre
 					ex
@@ -3691,7 +3691,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							-- do something
 						END IF;
 			Postgres FOR LOOP id=g10369
-				Postgres FOR LOOP <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10369>
+				Postgres FOR LOOP <url:file:///~/projects/study/otl/cdb.otl#r=g10369>
 				https://stackoverflow.com/questions/19145761/postgres-for-loop/19147320#19147320
 				ans
 					DO
@@ -3707,7 +3707,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					END
 					$do$;
 			What are '$$' used for in PL/pgSQL id=g10377
-				What are '$$' used for in PL/pgSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10377>
+				What are '$$' used for in PL/pgSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10377>
 				https://stackoverflow.com/questions/12144284/what-are-used-for-in-pl-pgsql/12172353#12172353
 				ans
 					dollar signs: used for dollar quoting
@@ -3732,7 +3732,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						END
 						$func$  LANGUAGE plpgsql STRICT IMMUTABLE;
 			Store the query result in variable using postgresql Stored procedure id=g10391
-				Store the query result in variable using postgresql Stored procedure <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10391>
+				Store the query result in variable using postgresql Stored procedure <url:file:///~/projects/study/otl/cdb.otl#r=g10391>
 				https://stackoverflow.com/questions/12328198/store-the-query-result-in-variable-using-postgresql-stored-procedure/12328820#12328820
 				q
 					begin
@@ -3762,7 +3762,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								 ---
 							END IF;
 			Refactor a PL/pgSQL function to return the output of various SELECT queries id=adb_013 id=g10385
-				Refactor a PL/pgSQL function to return the output of various SELECT queries  id=g10385 <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10385>
+				Refactor a PL/pgSQL function to return the output of various SELECT queries  id=g10385 <url:file:///~/projects/study/otl/cdb.otl#r=g10385>
 				Refactor a PL/pgSQL function to return the output of various SELECT queries <url:#r=adb_013>
 				https://stackoverflow.com/questions/11740256/refactor-a-pl-pgsql-function-to-return-the-output-of-various-select-queries/11751557#11751557
 				q
@@ -3819,7 +3819,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							anyelement is a pseudo data type, a polymorphic type, a placeholder for any non-array data type
 							pg_typeof(_tbl_type) returns the name of the table as object identifier type regtype. When automatically converted to text, identifiers are automatically double-quoted and schema-qualified if needed. 
 			Shell script to execute pgsql commands in files id=g10392
-				Shell script to execute pgsql commands in files <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10392>
+				Shell script to execute pgsql commands in files <url:file:///~/projects/study/otl/cdb.otl#r=g10392>
 				https://stackoverflow.com/questions/8594717/shell-script-to-execute-pgsql-commands-in-files/8595568#8595568
 				ans
 					1. do not mix psql meta-commands and SQL commands
@@ -3836,7 +3836,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						psql -c 'CREATE DATABASE myDB TEMPLATE mytemplate1'
 						If you don't provide a database to connect to, psql will use the default maintenance database named postgres
 			Difference between language sql and language plpgsql in PostgreSQL functions id=g10416
-				Difference between language sql and language plpgsql in PostgreSQL functions <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10416>
+				Difference between language sql and language plpgsql in PostgreSQL functions <url:file:///~/projects/study/otl/cdb.otl#r=g10416>
 				https://stackoverflow.com/questions/24755468/difference-between-language-sql-and-language-plpgsql-in-postgresql-functions/24771561#24771561
 				ans
 					sql better when:
@@ -3851,7 +3851,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						computations that can be reused and CTE can't be stretched
 		queries
 			Select rows which are not present in other table id=g10347
-				Select rows which are not present in other table <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10347>
+				Select rows which are not present in other table <url:file:///~/projects/study/otl/cdb.otl#r=g10347>
 				https://stackoverflow.com/questions/19363481/select-rows-which-are-not-present-in-other-table/19364694#19364694
 				q
 					two postgresql tables:
@@ -3900,7 +3900,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						semi-join
 				SELECT foo FROM bar WHERE EXISTS (SELECT 1 FROM baz WHERE baz.id = bar.id);
 			Best way to select random rows PostgreSQL id=g10692
-				Best way to select random rows PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10692>
+				Best way to select random rows PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10692>
 				https://stackoverflow.com/questions/8674718/best-way-to-select-random-rows-postgresql/8675160#8675160
 				q
 					I want a random selection of rows in PostgreSQL, I tried this:
@@ -3916,7 +3916,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					JOIN   big USING (id)
 					LIMIT  1000;
 			How to concatenate columns in a Postgres SELECT? id=g10353
-				How to concatenate columns in a Postgres SELECT?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10353>
+				How to concatenate columns in a Postgres SELECT?  <url:file:///~/projects/study/otl/cdb.otl#r=g10353>
 				https://stackoverflow.com/questions/19942824/how-to-concatenate-columns-in-a-postgres-select/19943343#19943343
 				q
 					I have two string columns a and b.
@@ -3931,7 +3931,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						Or just concat() if you don't need separators:
 						SELECT concat(a::text, b::text) AS ab FROM foo;
 			Combine two columns and add into one new column id=g10354
-				Combine two columns and add into one new column <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10354>
+				Combine two columns and add into one new column <url:file:///~/projects/study/otl/cdb.otl#r=g10354>
 				https://stackoverflow.com/questions/12310986/combine-two-columns-and-add-into-one-new-column/12320369#12320369
 				q
 					I want to use an SQL statement to combine two columns and create a new column from them.
@@ -3973,7 +3973,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					elegant:
 						SELECT concat(col_a, col_b);
 			How to filter SQL results in a has-many-through relation id=g10360
-				How to filter SQL results in a has-many-through relation <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10360>
+				How to filter SQL results in a has-many-through relation <url:file:///~/projects/study/otl/cdb.otl#r=g10360>
 				https://stackoverflow.com/questions/7364969/how-to-filter-sql-results-in-a-has-many-through-relation/7774879#7774879
 				q
 					student {
@@ -4031,13 +4031,13 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							 AND    y.club_id = 14
 							 )
 			PostgreSQL sort by datetime asc, null first? id=g10362
-				PostgreSQL sort by datetime asc, null first?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10362>
+				PostgreSQL sort by datetime asc, null first?  <url:file:///~/projects/study/otl/cdb.otl#r=g10362>
 				https://stackoverflow.com/questions/9510509/postgresql-sort-by-datetime-asc-null-first/9511492#9511492
 				ans
 					NULLS FIRST | LAST keywords for the ORDER BY clause to cater for that need exactly:
 					ORDER BY last_updated NULLS FIRST
 			PostgreSQL unnest() with element number id=g10363
-				PostgreSQL unnest() with element number <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10363>
+				PostgreSQL unnest() with element number <url:file:///~/projects/study/otl/cdb.otl#r=g10363>
 				https://stackoverflow.com/questions/8760419/postgresql-unnest-with-element-number/8767450#8767450
 				q
 					myTable
@@ -4072,7 +4072,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						LEFT   JOIN LATERAL unnest(string_to_array(t.elements, ','))
 																WITH ORDINALITY AS a(elem, nr) ON TRUE;
 			Manual: WITH ORDINALITY id=g10364
-				Manual: WITH ORDINALITY <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10364>
+				Manual: WITH ORDINALITY <url:file:///~/projects/study/otl/cdb.otl#r=g10364>
 				https://www.postgresql.org/docs/current/static/functions-srf.html
 				When a function in the FROM clause is suffixed by WITH ORDINALITY, a bigint column is appended to the output which starts from 1 and increments by 1 for each row of the function's output. This is most useful in the case of set returning functions such as unnest().
 				SELECT * FROM pg_ls_dir('.') WITH ORDINALITY AS t(ls,n);
@@ -4081,7 +4081,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 				 pg_serial       |  1
 				 pg_twophase     |  2
 			Concatenate multiple result rows of one column into one, group by another column [duplicate] id=g10365
-				Concatenate multiple result rows of one column into one, group by another column [duplicate] <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10365>
+				Concatenate multiple result rows of one column into one, group by another column [duplicate] <url:file:///~/projects/study/otl/cdb.otl#r=g10365>
 				https://stackoverflow.com/questions/15847173/concatenate-multiple-result-rows-of-one-column-into-one-group-by-another-column/15850510#15850510
 				q
 					Movie   Actor   
@@ -4098,7 +4098,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					GROUP  BY 1;
 					The 1 in GROUP BY 1 is a positional reference and a shortcut for GROUP BY movie in this case.
 			How to select id with max date group by category in PostgreSQL id=g10368
-				How to select id with max date group by category in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10368>
+				How to select id with max date group by category in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10368>
 				https://stackoverflow.com/questions/16914098/how-to-select-id-with-max-date-group-by-category-in-postgresql/16920077#16920077
 				ans
 					SELECT DISTINCT ON (category)
@@ -4122,7 +4122,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							Appending an OVER clause makes it a window function. 
 							Omit PARTITION BY in the window definition - you want a running count over all rows
 			Split comma separated column data into additional columns id=g10382
-				Split comma separated column data into additional columns <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10382>
+				Split comma separated column data into additional columns <url:file:///~/projects/study/otl/cdb.otl#r=g10382>
 				https://stackoverflow.com/questions/8584967/split-comma-separated-column-data-into-additional-columns/8612456#8612456
 				q
 					Column 
@@ -4141,7 +4141,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								 , split_part(col, ',', 4) AS col4
 						FROM   tbl;
 			Store common query as column id=g10384
-				Store common query as column <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10384>
+				Store common query as column <url:file:///~/projects/study/otl/cdb.otl#r=g10384>
 				q
 					SELECT <col 1>, <col 2>
 						, (SELECT sum(<col x>)
@@ -4185,7 +4185,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							The function should really be marked STABLE (meaning that if you call it with the same arguments more than once during the execution of a single query it will return the same value), not IMMUTABLE (meaning that it will always return the same value for the same arguments, regardless of database contents or the passage of time)
 							IMMUTABLE would be OK if you were only using values from the row passed as a parameter
 			Best way to delete millions of rows by ID id=g10387
-				Best way to delete millions of rows by ID <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10387>
+				Best way to delete millions of rows by ID <url:file:///~/projects/study/otl/cdb.otl#r=g10387>
 				https://stackoverflow.com/questions/8290900/best-way-to-delete-millions-of-rows-by-id/8290958#8290958
 				ans
 					big tables
@@ -4205,7 +4205,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						USING  del_list d
 						WHERE  t.id = d.id;
 			Finding similar strings with PostgreSQL quickly id=g10386
-				Finding similar strings with PostgreSQL quickly <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10386>
+				Finding similar strings with PostgreSQL quickly <url:file:///~/projects/study/otl/cdb.otl#r=g10386>
 				https://stackoverflow.com/questions/11249635/finding-similar-strings-with-postgresql-quickly/11250001#11250001
 				ans
 					ex1: uses cross join
@@ -4224,7 +4224,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 											 AND n1.name % n2.name
 						ORDER  BY sim DESC;
 			Alphanumeric sorting with PostgreSQL id=g10395
-				Alphanumeric sorting with PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10395>
+				Alphanumeric sorting with PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10395>
 				https://stackoverflow.com/questions/11417975/alphanumeric-sorting-with-postgresql/11418231#11418231
 				ans
 					ex1
@@ -4251,7 +4251,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						ORDER  BY (split_part(name, '_', 1)::int
 											,split_part(name, '_', 2)
 			How do you find results that occurred in the past week? id=g10398
-				How do you find results that occurred in the past week?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10398>
+				How do you find results that occurred in the past week?  <url:file:///~/projects/study/otl/cdb.otl#r=g10398>
 				https://stackoverflow.com/questions/8732517/how-do-you-find-results-that-occurred-in-the-past-week/8736967#8736967
 				ans
 					SELECT * FROM books WHERE returned_date > now()::date - 7
@@ -4261,7 +4261,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						With data type timestamp, you would have to add / subtract an interval
 							select * from books where returned_date > current_date - interval '7 days'
 			ORDER BY the IN value list id=g10408
-				ORDER BY the IN value list <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10408>
+				ORDER BY the IN value list <url:file:///~/projects/study/otl/cdb.otl#r=g10408>
 				q
 					SELECT * FROM comments WHERE (comments.id IN (1,3,2,4));
 					This returns comments in an arbitrary order which in my happens to be ids like 1,2,3,4.
@@ -4297,7 +4297,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						JOIN   unnest('{1,3,2,4}'::int[]) WITH ORDINALITY t(id, ord) USING (id)
 						ORDER  BY t.ord;
 			How to delete duplicate entries? id=g10409
-				How to delete duplicate entries?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10409>
+				How to delete duplicate entries?  <url:file:///~/projects/study/otl/cdb.otl#r=g10409>
 				https://stackoverflow.com/questions/1746213/how-to-delete-duplicate-entries/8826879#8826879
 				ans
 					Find out the size of your table:
@@ -4316,7 +4316,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					points  
 						TRUNCATE: begins clean state
 			Is there a way to define a named constant in a PostgreSQL query? id=g10411
-				Is there a way to define a named constant in a PostgreSQL query?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10411>
+				Is there a way to define a named constant in a PostgreSQL query?  <url:file:///~/projects/study/otl/cdb.otl#r=g10411>
 				https://stackoverflow.com/questions/13316773/is-there-a-way-to-define-a-named-constant-in-a-postgresql-query/13317628#13317628
 				ans
 					no built-in way to define (global) variables like MySQL or Oracle
@@ -4335,7 +4335,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						'SELECT val FROM val WHERE val_id = $1';
 						SELECT f_val(2);  -- returns 'baz'
 			Postgres Error: More than one row returned by a subquery used as an expression id=g10693
-				Postgres Error: More than one row returned by a subquery used as an expression <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10693>
+				Postgres Error: More than one row returned by a subquery used as an expression <url:file:///~/projects/study/otl/cdb.otl#r=g10693>
 				https://stackoverflow.com/questions/21048955/postgres-error-more-than-one-row-returned-by-a-subquery-used-as-an-expression/21050919#21050919
 				q
 					UPDATE customer
@@ -4359,7 +4359,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						prevent empty updates:
 							AND   c.customer_id IS DISTINCT FROM s.store_key;
 			Pass In “WHERE” parameters to PostgreSQL View? id=g10414
-				Pass In “WHERE” parameters to PostgreSQL View?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10414>
+				Pass In “WHERE” parameters to PostgreSQL View?  <url:file:///~/projects/study/otl/cdb.otl#r=g10414>
 				https://stackoverflow.com/questions/11401749/pass-in-where-parameters-to-postgresql-view/11402415#11402415
 				ans
 					code
@@ -4379,7 +4379,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					points
 						Care must be taken to avoid naming conflicts. That's why I make it a habit to prefix parameter names in the declaration (those are visible most everywhere inside the function) and table-qualify column names in the body
 			SQL update fields of one table from fields of another one id=g10419
-				SQL update fields of one table from fields of another one <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10419>
+				SQL update fields of one table from fields of another one <url:file:///~/projects/study/otl/cdb.otl#r=g10419>
 				https://stackoverflow.com/questions/2763817/sql-update-fields-of-one-table-from-fields-of-another-one/23283792#23283792
 				ans
 					Is there an UPDATE syntax ... without specifying the column names?
@@ -4431,7 +4431,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								 ) ab
 							WHERE b.id = ab.id;
 			Multiple CTE in single query id=g10425
-				Multiple CTE in single query <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10425>
+				Multiple CTE in single query <url:file:///~/projects/study/otl/cdb.otl#r=g10425>
 				https://stackoverflow.com/questions/35248217/multiple-cte-in-single-query/35249370#35249370
 				ans
 					code
@@ -4445,7 +4445,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					points
 						If RECURSIVE is specified, it allows a SELECT subquery to reference itself by name.
 			Find difference between two big tables in PostgreSQL id=g10426
-				Find difference between two big tables in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10426>
+				Find difference between two big tables in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10426>
 				https://stackoverflow.com/questions/15330403/find-difference-between-two-big-tables-in-postgresql/15333054#15333054
 				ans
 					opt1: EXISTS anti-semi-join:
@@ -4463,7 +4463,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						Overview over basic techniques in a later post:
 						Select rows which are not present in other table
 			Guidance on using the WITH clause in SQL id=g10427
-				Guidance on using the WITH clause in SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10427>
+				Guidance on using the WITH clause in SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10427>
 				https://stackoverflow.com/questions/8721503/guidance-on-using-the-with-clause-in-sql/8725161#8725161
 				ans
 					ex1
@@ -4497,7 +4497,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						SELECT *
 						FROM   y
 			Nesting queries in SQL id=g10429
-				Nesting queries in SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10429>
+				Nesting queries in SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10429>
 				https://stackoverflow.com/questions/12467354/nesting-queries-in-sql/12467569#12467569
 				ans
 					ex: nested
@@ -4522,7 +4522,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					FROM   DUAL;
 					note: SELECT inside another SELECT
 			Select NOT IN multiple columns id=g10694
-				Select NOT IN multiple columns <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10694>
+				Select NOT IN multiple columns <url:file:///~/projects/study/otl/cdb.otl#r=g10694>
 				https://stackoverflow.com/questions/8033604/select-not-in-multiple-columns/8033700#8033700
 				ans
 					opt1
@@ -4536,7 +4536,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						LEFT   JOIN likes l USING (id1, id2)
 						WHERE  l.id1 IS NULL;
 			Find The Missing Integer id=g10695
-				Find The Missing Integer <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10695>
+				Find The Missing Integer <url:file:///~/projects/study/otl/cdb.otl#r=g10695>
 				http://tapoueh.org/blog/2017/05/find-the-missing-integer/
 				ex
 					> SELECT i FROM generate_series(1,100) as t(i)
@@ -4586,13 +4586,13 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					opt2: dollar-quoted strings
 						$$escape ' with '' $$
 			Double colon (::) notation in SQL id=g10352
-				Double colon (::) notation in SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10352>
+				Double colon (::) notation in SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10352>
 				https://stackoverflow.com/questions/5758499/double-colon-notation-in-sql
 				b.date_completed >  a.dc::date + INTERVAL '1 DAY 7:20:00'
 				the :: converts a.dc to a date type of date.
 				cast to a data type
 			Are PostgreSQL column names case-sensitive? id=g10358
-				Are PostgreSQL column names case-sensitive?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10358>
+				Are PostgreSQL column names case-sensitive?  <url:file:///~/projects/study/otl/cdb.otl#r=g10358>
 				https://stackoverflow.com/questions/20878932/are-postgresql-column-names-case-sensitive/20880247#20880247
 				ans
 					yes: All identifiers (including column names) that are not double-quoted are folded to lower case in PostgreSQL
@@ -4622,7 +4622,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						SELECT public.unaccent('public.unaccent', $1)  -- schema-qualify function and dictionary
 						$func$  LANGUAGE sql IMMUTABLE;
 			PostgreSQL IF statement id=g10383
-				PostgreSQL IF statement <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10383>
+				PostgreSQL IF statement <url:file:///~/projects/study/otl/cdb.otl#r=g10383>
 				https://stackoverflow.com/questions/11299037/postgresql-if-statement/11299968#11299968
 				ans
 					DO
@@ -4640,7 +4640,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						IF (SELECT count(*) FROM orders) > 0 ...
 						IF (SELECT count(*) > 0 FROM orders) ...
 			The forgotten assignment operator “=” and the commonplace “:=” id=g10407
-				The forgotten assignment operator “=” and the commonplace “:=” <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10407>
+				The forgotten assignment operator “=” and the commonplace “:=” <url:file:///~/projects/study/otl/cdb.otl#r=g10407>
 				https://stackoverflow.com/questions/7462322/the-forgotten-assignment-operator-and-the-commonplace/22001209#22001209
 				ans
 					manual
@@ -4656,7 +4656,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 			Using CASE in PostgreSQL to affect multiple columns at once
 				interesting but hard to understand
 			Difference between LIKE and ~ in Postgres id=g10420
-				Difference between LIKE and ~ in Postgres <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10420>
+				Difference between LIKE and ~ in Postgres <url:file:///~/projects/study/otl/cdb.otl#r=g10420>
 				https://stackoverflow.com/questions/12452395/difference-between-like-and-in-postgres/12459689#12459689
 				ans
 					LIKE (~~) fastest
@@ -4777,7 +4777,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 		other
 			configuration
 				Query a parameter (postgresql.conf setting) like “max_connections” id=g10359
-					Query a parameter (postgresql.conf setting) like “max_connections” <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10359>
+					Query a parameter (postgresql.conf setting) like “max_connections” <url:file:///~/projects/study/otl/cdb.otl#r=g10359>
 					https://stackoverflow.com/questions/8288823/query-a-parameter-postgresql-conf-setting-like-max-connections/8288860#8288860
 					ans
 						opt
@@ -4788,7 +4788,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								WHERE  name = 'max_connections';
 			count
 				Fast way to discover the row count of a table in PostgreSQL id=g10351
-					Fast way to discover the row count of a table in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10351>
+					Fast way to discover the row count of a table in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10351>
 					https://stackoverflow.com/questions/7943233/fast-way-to-discover-the-row-count-of-a-table-in-postgresql/7945274#7945274
 					ans
 						counting can be slow
@@ -4829,7 +4829,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					\COPY (SELECT * FROM staging.factfinder_import WHERE s01 ~ E'^[0-9]+') TO '/test.tab' WITH DELIMITER E'\t' CSV HEADER
 					\COPY public.country FROM 'country-codes.csv' WITH DELIMITER ',' CSV HEADER QUOTE '"'
 				select into a table with different column names id=g10704
-					select into a table with different column names <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10704>
+					select into a table with different column names <url:file:///~/projects/study/otl/cdb.otl#r=g10704>
 					https://stackoverflow.com/questions/10560386/select-into-a-table-with-different-column-names/10560396#10560396
 					ans: column names don't matter, as long as data types match
 						INSERT INTO TableB (b1, b2, b3)
@@ -4837,7 +4837,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						FROM   TableA
 						WHERE <some condition>;
 				Export specific rows from a PostgreSQL table as INSERT SQL script id=g10361
-					Export specific rows from a PostgreSQL table as INSERT SQL script <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10361>
+					Export specific rows from a PostgreSQL table as INSERT SQL script <url:file:///~/projects/study/otl/cdb.otl#r=g10361>
 					https://stackoverflow.com/questions/12815496/export-specific-rows-from-a-postgresql-table-as-insert-sql-script/12824831#12824831
 					ans
 						COPY
@@ -4855,7 +4855,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							psql reads/writes
 							This means that file accessibility and privileges are those of the local user, not the server, and no SQL superuser privileges are required
 				How to update selected rows with values from a CSV file in Postgres? id=g10366
-					How to update selected rows with values from a CSV file in Postgres?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10366>
+					How to update selected rows with values from a CSV file in Postgres?  <url:file:///~/projects/study/otl/cdb.otl#r=g10366>
 					https://stackoverflow.com/questions/8910494/how-to-update-selected-rows-with-values-from-a-csv-file-in-postgres/8910810#8910810
 					ans
 						I would COPY the file to a temporary table and update the actual table from there. Could look like this:
@@ -4909,7 +4909,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							JOIN   ins1 USING (firstname, lastname)
 							JOIN   ins2 USING (sample_id);
 				INSERT rows into multiple tables in a single query, selecting from an involved table id=g10404
-					INSERT rows into multiple tables in a single query, selecting from an involved table <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10404>
+					INSERT rows into multiple tables in a single query, selecting from an involved table <url:file:///~/projects/study/otl/cdb.otl#r=g10404>
 					ans
 						test
 							-- DROP TABLE foo; DROP TABLE bar;
@@ -4958,7 +4958,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								INSERT INTO foo (...)
 								SELECT ... FROM foo WHERE ...
 				How to export a PostgreSQL query output to a csv file id=g10415
-					How to export a PostgreSQL query output to a csv file <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10415>
+					How to export a PostgreSQL query output to a csv file <url:file:///~/projects/study/otl/cdb.otl#r=g10415>
 					https://stackoverflow.com/questions/29190632/how-to-export-a-postgresql-query-output-to-a-csv-file/29196924#29196924
 					ans
 						COPY (SELECT * FROM ...) TO '/tmp/filename.csv' (format CSV);
@@ -4966,7 +4966,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							psql meta command \copy in a similar fashion. It writes (and reads) files local to the client and does not require superuser privileges
 			functions
 				Postgresql manual: format() id=adb_009 id=g10375
-					Postgresql manual: format()  id=g10375 <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10375>
+					Postgresql manual: format()  id=g10375 <url:file:///~/projects/study/otl/cdb.otl#r=g10375>
 					Postgresql manual: format() <url:#r=adb_009>
 					https://www.postgresql.org/docs/current/static/functions-string.html#FUNCTIONS-STRING-OTHER
 					type (required)
@@ -4984,7 +4984,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						SELECT format('INSERT INTO %I VALUES(%L)', 'locations', E'C:\\Program Files');
 						Result: INSERT INTO locations VALUES(E'C:\\Program Files')
 				Is there something like a zip() function in PostgreSQL that combines two arrays? id=g10393
-					Is there something like a zip() function in PostgreSQL that combines two arrays?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10393>
+					Is there something like a zip() function in PostgreSQL that combines two arrays?  <url:file:///~/projects/study/otl/cdb.otl#r=g10393>
 					https://stackoverflow.com/questions/12414750/is-there-something-like-a-zip-function-in-postgresql-that-combines-two-arrays/12414884#12414884
 					ans
 						x
@@ -5035,9 +5035,9 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					ans
 						select * from test where foo::text <> '{}'::text;
 			null handling
-				Unused index in range of dates query <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10464>
+				Unused index in range of dates query <url:file:///~/projects/study/otl/cdb.otl#r=g10464>
 				Check if NULL exists in Postgres array id=g10350
-					Check if NULL exists in Postgres array <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10350>
+					Check if NULL exists in Postgres array <url:file:///~/projects/study/otl/cdb.otl#r=g10350>
 					https://stackoverflow.com/questions/34848009/check-if-null-exists-in-postgres-array/34848472#34848472
 					opt 
 						array_replace(ar, NULL, 0) <> ar
@@ -5069,7 +5069,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							Using a polymorphic input type this works for any array type, not just int[].
 							Make it IMMUTABLE to allow performance optimization and index expressions
 				Best way to check for “empty or null value” id=g10357
-					Best way to check for “empty or null value” <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10357>
+					Best way to check for “empty or null value” <url:file:///~/projects/study/otl/cdb.otl#r=g10357>
 					https://stackoverflow.com/questions/23766084/best-way-to-check-for-empty-or-null-value/23767625#23767625
 					q
 						i use:
@@ -5103,14 +5103,14 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								 , ('   ')                -- not different from '' in char(n)
 								 ) sub(stringexpression);
 				Sort NULL values to the end of a table id=g10376
-					Sort NULL values to the end of a table <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10376>
+					Sort NULL values to the end of a table <url:file:///~/projects/study/otl/cdb.otl#r=g10376>
 					https://stackoverflow.com/questions/7621205/sort-null-values-to-the-end-of-a-table/7622046#7622046
 					ans:
 						NULL are sorted last in default ascending order
 						in descending: NULL first
 							ORDER BY col DESC NULLS LAST
 				Why does PostgreSQL not return null values when the condition is <> true id=g10403
-					Why does PostgreSQL not return null values when the condition is <> true <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10403>
+					Why does PostgreSQL not return null values when the condition is <> true <url:file:///~/projects/study/otl/cdb.otl#r=g10403>
 					https://stackoverflow.com/questions/17679721/why-does-postgresql-not-return-null-values-when-the-condition-is-true/17680845#17680845
 					ans
 						manual
@@ -5130,7 +5130,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 																	,'1 month'::interval) m;
 			roles users groups
 				Create PostgreSQL ROLE (user) if it doesn't exist id=g10367
-					Create PostgreSQL ROLE (user) if it doesn't exist <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10367>
+					Create PostgreSQL ROLE (user) if it doesn't exist <url:file:///~/projects/study/otl/cdb.otl#r=g10367>
 					https://stackoverflow.com/questions/8092086/create-postgresql-role-user-if-it-doesnt-exist/8099557#8099557
 					ans
 						DO
@@ -5146,7 +5146,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						$body$;
 						Unlike, for instance, with CREATE TABLE there is no IF NOT EXISTS clause for CREATE ROLE (yet). And you cannot execute dynamic DDL statements in plain SQL.
 				Grant all on a specific schema in the db to a group role in PostgreSQL id=g10379
-					Grant all on a specific schema in the db to a group role in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10379>
+					Grant all on a specific schema in the db to a group role in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10379>
 					https://stackoverflow.com/questions/10352695/grant-all-on-a-specific-schema-in-the-db-to-a-group-role-in-postgresql/10353730#10353730
 					ans
 						GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA foo TO staff;
@@ -5171,7 +5171,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							ALTER ROLE myrole NOLOGIN;
 			temporal date data types
 				Select today's (since midnight) timestamps only id=g10405
-					Select today's (since midnight) timestamps only <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10405>
+					Select today's (since midnight) timestamps only <url:file:///~/projects/study/otl/cdb.otl#r=g10405>
 					https://stackoverflow.com/questions/9716868/select-todays-since-midnight-timestamps-only/9717125#9717125
 					q
 						need to get a list of connected users (i.e. their timestamps are u.login > u.logout):
@@ -5184,7 +5184,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						points
 							An easy way of getting only time stamps for the current day since 01:00 is to filter with CURRENT_DATE + interval '1 hour'
 				Find overlapping date ranges in PostgreSQL id=g10388
-					Find overlapping date ranges in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10388>
+					Find overlapping date ranges in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10388>
 					https://stackoverflow.com/questions/4480715/find-overlapping-date-ranges-in-postgresql/15305292#15305292
 					ans
 						a BETWEEN x AND y translates to:
@@ -5199,7 +5199,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							AND    c.date_join  <  date '2010-01-01'
 							AND   (c.date_leave >= date '2009-01-01' OR c.date_leave IS NULL);
 				How to convert “string” to “timestamp without time zone” id=g10400
-					How to convert “string” to “timestamp without time zone” <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10400>
+					How to convert “string” to “timestamp without time zone” <url:file:///~/projects/study/otl/cdb.otl#r=g10400>
 					https://stackoverflow.com/questions/18913236/how-to-convert-string-to-timestamp-without-time-zone/18919571#18919571
 					ans
 						opt1
@@ -5208,7 +5208,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						opt2
 							to_timestamp('20/8/2013 14:52:49', 'DD/MM/YYYY hh24:mi:ss')
 				Get month name from number in PostgreSQL id=g10412
-					Get month name from number in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10412>
+					Get month name from number in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10412>
 					https://stackoverflow.com/questions/9094392/get-month-name-from-number-in-postgresql/9097651#9097651
 					ans
 						SELECT to_char(to_timestamp (4::text, 'MM'), 'TMmon')
@@ -5217,7 +5217,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 							Question asks for lower case "jan", there is a template pattern for that: mon.
 							If you want to localize the output, prefix the template with the modifier TM.
 				Selecting records between two timestamps id=g10413
-					Selecting records between two timestamps <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10413>
+					Selecting records between two timestamps <url:file:///~/projects/study/otl/cdb.otl#r=g10413>
 					https://stackoverflow.com/questions/8723523/selecting-records-between-two-timestamps/8860632#8860632
 					ans
 						SELECT a,b,c
@@ -5283,7 +5283,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					RDBMS excels at complex queries
 			sql injection
 				SQL Injection with user input id=g10373
-					SQL Injection with user input <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10373>
+					SQL Injection with user input <url:file:///~/projects/study/otl/cdb.otl#r=g10373>
 					http://sqlfiddle.com/#!15/39ef7/3
 					schema
 						CREATE TABLE foo (id serial, data text);
@@ -5301,7 +5301,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						SELECT unsafe_add_table('bar(id int); DELETE FROM foo; CREATE TABLE baz');
 						TABLE foo;
 				SQL injection in Postgres functions vs prepared queries id=g10374
-					SQL injection in Postgres functions vs prepared queries <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10374>
+					SQL injection in Postgres functions vs prepared queries <url:file:///~/projects/study/otl/cdb.otl#r=g10374>
 					https://dba.stackexchange.com/questions/49699/sql-injection-in-postgres-functions-vs-prepared-queries
 					ans
 						With SQL functions (LANGUAGE sql), the answer is generally yes. Passed parameters are treated as values and SQL-injection is not possible - as long as you don't call unsafe functions from within and pass parameters.
@@ -5379,7 +5379,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						END;
 						$func$;
 			How to create simple fuzzy search with Postgresql only? id=g10396
-				How to create simple fuzzy search with Postgresql only?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10396>
+				How to create simple fuzzy search with Postgresql only?  <url:file:///~/projects/study/otl/cdb.otl#r=g10396>
 				https://stackoverflow.com/questions/7730027/how-to-create-simple-fuzzy-search-with-postgresql-only/7747765#7747765
 					ex: levenstein
 						several string comparsion functions such as soundex and metaphone. But you will want to use the levenshtein edit distance function.
@@ -5472,7 +5472,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						 ,"status_1" int
 						 ,"status_0" int);
 			Create a pivot table with PostgreSQL id=g10431
-				Create a pivot table with PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10431>
+				Create a pivot table with PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10431>
 				https://stackoverflow.com/questions/20618323/create-a-pivot-table-with-postgresql/20618487#20618487
 				ans
 					SELECT neighborhood, bedrooms, avg(price)
@@ -5491,7 +5491,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 					for the system to proceed with the deletion of the row.
 					The usual idiom in DELETE triggers is to return OLD
 			How to Write SQL id=g10436
-				How to Write SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10436>
+				How to Write SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10436>
 				http://tapoueh.org/blog/2017/06/how-to-write-sql/
 				writing your SQL queries in .sql files in your code repository and maintain them there
 				ex: Chinook database
@@ -5554,7 +5554,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 								for (title, duration, pct) in db.album_details(albumid):
 										... do something here ...
 			SQL Regression Tests id=g10437
-				SQL Regression Tests <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10437>
+				SQL Regression Tests <url:file:///~/projects/study/otl/cdb.otl#r=g10437>
 				http://tapoueh.org/blog/2017/08/sql-regression-tests/
 				pgtap
 					VALUES
@@ -5574,7 +5574,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 						);
 				RegreSQL
 			Shell script to execute pgsql commands in files id=g10703
-				Shell script to execute pgsql commands in files <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10703>
+				Shell script to execute pgsql commands in files <url:file:///~/projects/study/otl/cdb.otl#r=g10703>
 					https://stackoverflow.com/questions/8594717/shell-script-to-execute-pgsql-commands-in-files/8595568#8595568
 					ans
 						1: don't mix psql and SQL
@@ -5604,7 +5604,7 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 			compute query, but before projection, sort result and group it according to DISTINCT ON. now do the projection using the first tuple in each group and ignore the other tuples.
 			SELECT DISTINCT ON (attributeList) <rest as any query>
 	PostgreSQL - set a default cell value according to another cell value id=g10705
-		PostgreSQL - set a default cell value according to another cell value <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10705>
+		PostgreSQL - set a default cell value according to another cell value <url:file:///~/projects/study/otl/cdb.otl#r=g10705>
 		https://stackoverflow.com/questions/16737738/postgresql-set-a-default-cell-value-according-to-another-cell-value/16754952#16754952
 		ans
 			not possible with `DEFAULT`
@@ -5842,10 +5842,10 @@ SOF PostgreSQL: Stackoverflow SOF Popular Questions   id=g10238
 	sum() vs. count()Feb 21 '13 at 12:24
 postgrest id=g10337
 	ref - bütünleştirici dok postgrest id=g10762
-		ref - bütünleştirici dok postgrest <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10762>
+		ref - bütünleştirici dok postgrest <url:file:///~/projects/study/otl/cdb.otl#r=g10762>
 		Rmd files
-			~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10633>
-			~/projects/study/db/tutorial_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10765>
+			~/projects/study/db/study_postgrest.Rmd <url:file:///~/projects/study/otl/cdb.otl#r=g10633>
+			~/projects/study/db/tutorial_postgrest.Rmd <url:file:///~/projects/study/otl/cdb.otl#r=g10765>
 			~/projects/itr/vrp_doc/study/study_vrp.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10766>
 			~/projects/study/js/study_notes_cyclejs.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10767>
 		bütün opsiyonlar: ~/projects/study/db/study_postgrest.Rmd
@@ -5892,14 +5892,14 @@ postgrest id=g10337
 				input: yuml2data01/*.sql
 				output: psk database
 				walkthrough_vrp reposunun bir örneği vrp_psk01
-		walkthrough study_psk <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10522>
+		walkthrough study_psk <url:file:///~/projects/study/otl/cdb.otl#r=g10522>
 		walkthrough yuml2data01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g10550>
 		walkthrough vrp_psk01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g10551>
 	content pgr
 		issues/errors
 			error: sample_data update olmuyor
 				ref
-					no output inside psql: if no semi-colon is used <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10493>
+					no output inside psql: if no semi-colon is used <url:file:///~/projects/study/otl/cdb.otl#r=g10493>
 				solution
 					opt1
 						tüm sql satırlarının sonuna noktalı virgül `;` koy
@@ -5912,14 +5912,14 @@ postgrest id=g10337
 		points pgr
 			bulk/batch data nasıl import edilir
 				ref
-					~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10633>
-					Bulk Insert <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10630>
+					~/projects/study/db/study_postgrest.Rmd <url:file:///~/projects/study/otl/cdb.otl#r=g10633>
+					Bulk Insert <url:file:///~/projects/study/otl/cdb.otl#r=g10630>
 	notes pgr
 		studies psk
 			ref
 				Tutorial - postgrest starter kit <url:file:///~/gdrive/mynotes/content/articles/articles_db.md#r=g10159>
 			refcard psk id=g10492
-				refcard psk <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10492>
+				refcard psk <url:file:///~/projects/study/otl/cdb.otl#r=g10492>
 				steps psk 01
 					1. basic REST request
 						$ curl http://localhost:8080/rest/todos?select=id
@@ -5971,7 +5971,7 @@ postgrest id=g10337
 						authorization/privileges.sql
 						sample_data/data.sql
 			tutorial postgrest_starter_kit (psk) id=g10318
-				postgrest_starter_kit (psk) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10318>
+				postgrest_starter_kit (psk) <url:file:///~/projects/study/otl/cdb.otl#r=g10318>
 				db/src/data/tables.sql
 					create table client (...)
 					create index client_user_id_index on client(user_id);
@@ -6049,7 +6049,7 @@ postgrest id=g10337
 					--du tasks.completed="eq.false"
 				cloc --include-lang=SQL db/src/api/views_and_procedures.sql db/src/data/tables.sql db/src/authorization/privileges.sql db/src/libs/util/
 			postgrest_starter_kit (psk): source code review id=g10319
-				postgrest_starter_kit (psk): source code review <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10319>
+				postgrest_starter_kit (psk): source code review <url:file:///~/projects/study/otl/cdb.otl#r=g10319>
 				file structure
 					.env
 					docker-compose.yml
@@ -6177,7 +6177,7 @@ postgrest id=g10337
 					signup(name text, email text, password text): session
 					me(): user
 			study_postgrest_starter_kit.Rmd: SQL functions: array_to_json array_agg row_to_json id=g10340
-				study_postgrest_starter_kit.Rmd: SQL functions: array_to_json array_agg row_to_json <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10340>
+				study_postgrest_starter_kit.Rmd: SQL functions: array_to_json array_agg row_to_json <url:file:///~/projects/study/otl/cdb.otl#r=g10340>
 				ref
 					<url:/Users/mertnuhoglu/projects/study/db/study_postgrest_starter_kit.Rmd#tn=In order to understand this code, I simplified it to its core:>
 				step 0: base
@@ -6204,18 +6204,18 @@ postgrest id=g10337
 							body
 							[{"id":1,"todo":"item_1"},{"id":3,"todo":"item_3"},{"id":6,"todo":"item_6"}]
 		tests psk id=g10494
-			tests psk <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10494>
+			tests psk <url:file:///~/projects/study/otl/cdb.otl#r=g10494>
 			ref
-				Tutorial PSK <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10159>
+				Tutorial PSK <url:file:///~/projects/study/otl/cdb.otl#r=g10159>
 				move git tag to another commit <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10518>
 				<url:file:///~/projects/itr/vrp_doc/study/db_vrp.Rmd>
 			psk admin id=g10513
-				psk admin <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10513>
+				psk admin <url:file:///~/projects/study/otl/cdb.otl#r=g10513>
 				docker exec -it khumbuicefall_db_1 bash
 				accessing postgresql logs - psk id=g10544
-					accessing postgresql logs - psk <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10544>
+					accessing postgresql logs - psk <url:file:///~/projects/study/otl/cdb.otl#r=g10544>
 					ref
-						database logs - postgresql <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10515>
+						database logs - postgresql <url:file:///~/projects/study/otl/cdb.otl#r=g10515>
 						<url:file:///~/codes/pg/postgrest-docs/admin.rst>
 					opt1: manually
 						psql
@@ -6228,7 +6228,7 @@ postgrest id=g10337
 								- "./postgresql/data:/var/lib/postgresql/data"
 						cat postgresql/data/postgresql.conf
 			walkthrough study_psk id=g10522
-				walkthrough study_psk <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10522>
+				walkthrough study_psk <url:file:///~/projects/study/otl/cdb.otl#r=g10522>
 				ref
 					https://docs.subzero.cloud/installation/
 					https://github.com/mertnuhoglu/study_psk 
@@ -6551,7 +6551,7 @@ postgrest id=g10337
 							python -mjson.tool
 	postgrest official manual 
 		postgrest official manual id=g10317
-			postgrest official manual <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10317>
+			postgrest official manual <url:file:///~/projects/study/otl/cdb.otl#r=g10317>
 			manual v5.0
 				http://postgrest.org/en/v5.0/intro.html
 				intro
@@ -6767,7 +6767,7 @@ postgrest id=g10337
 							GET /rpc/add_them?a=1&b=2 HTTP/1.1
 					Insertions / Updates
 						Bulk Insert id=g10630
-							Bulk Insert <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10630>
+							Bulk Insert <url:file:///~/projects/study/otl/cdb.otl#r=g10630>
 							http://postgrest.org/en/v5.0/api.html#bulk-insert
 							opt01: json
 								POST /people HTTP/1.1
@@ -6794,7 +6794,7 @@ postgrest id=g10337
 							sniff incoming HTTP requests
 								sudo ngrep -d lo0 port 3000
 						database logs - postgresql id=g10515
-							database logs - postgresql <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10515>
+							database logs - postgresql <url:file:///~/projects/study/otl/cdb.otl#r=g10515>
 							where are db logs?
 								psql:
 									show data_directory;
@@ -6942,7 +6942,7 @@ postgrest id=g10337
 				Authentication
 					GRANT user123 TO authenticator;
 		Postgrest Manual id=g10158
-			Postgrest Manual <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10158>
+			Postgrest Manual <url:file:///~/projects/study/otl/cdb.otl#r=g10158>
 				https://postgrest.com/en/v4.3/intro.html
 			Introduction
 				Motivation
@@ -7188,9 +7188,9 @@ postgrest id=g10337
 				Alternate URL Structure
 					singular or plural object response
 			API id=g10439
-				API <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10439>
+				API <url:file:///~/projects/study/otl/cdb.otl#r=g10439>
 				Tables and Views id=g10440
-					Tables and Views <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10440>
+					Tables and Views <url:file:///~/projects/study/otl/cdb.otl#r=g10440>
 					intro
 						ex
 							GET /people HTTP/1.1
@@ -7200,7 +7200,7 @@ postgrest id=g10337
 								handles 1-n and n-n relationships
 						verbs: OPTIONS, GET, POST, PATCH, DELETE
 					horizontal filtering (rows) id=g10441
-						horizontal filtering (rows) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10441>
+						horizontal filtering (rows) <url:file:///~/projects/study/otl/cdb.otl#r=g10441>
 						people aged under 13
 							GET /people?age=lt.13
 						multiple parameters
@@ -7261,7 +7261,7 @@ postgrest id=g10337
 									-->
 									GET /fresh_stories HTTP/1.1
 					vertical filtering (columns) id=g10442
-						vertical filtering (columns) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10442>
+						vertical filtering (columns) <url:file:///~/projects/study/otl/cdb.otl#r=g10442>
 						GET /people?select=fname,age
 						computed columns
 							computed columns are not in output by default
@@ -7284,7 +7284,7 @@ postgrest id=g10337
 						GET /people?order=age.desc,height.asc
 						GET /people?order=age
 					limits and pagination id=g10443
-						limits and pagination <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10443>
+						limits and pagination <url:file:///~/projects/study/otl/cdb.otl#r=g10443>
 						postgrest uses http range headers
 							to describe size of results
 						ex: response
@@ -7312,7 +7312,7 @@ postgrest id=g10337
 							ex: response header
 								Content-Range: 0-24/434902
 					response format id=g10444
-						response format <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10444>
+						response format <url:file:///~/projects/study/otl/cdb.otl#r=g10444>
 						same API endpoint can respond in different formats
 						use: "Accept"
 						ex
@@ -7345,7 +7345,7 @@ postgrest id=g10337
 					ex
 						http://localhost:3000/%D9%85...
 				resource embedding id=g10445
-					resource embedding <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10445>
+					resource embedding <url:file:///~/projects/study/otl/cdb.otl#r=g10445>
 					allows related sources to be included in single api call
 					server uses fk to determine which tables are returned
 					ex:
@@ -7374,7 +7374,7 @@ postgrest id=g10337
 						ex: order actors in each film
 							GET /films?select=*,actors(*)&actors.order=last_name,first_name
 				stored procedures id=g10446
-					stored procedures <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10446>
+					stored procedures <url:file:///~/projects/study/otl/cdb.otl#r=g10446>
 					accessible under /rpc
 						POST /rpc/function_name
 					named arguments: supplied as json
@@ -7390,7 +7390,7 @@ postgrest id=g10337
 							SELECT current_setting('request.header.origin', true);
 					raising errors
 				insertions/updates id=g10447
-					insertions/updates <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10447>
+					insertions/updates <url:file:///~/projects/study/otl/cdb.otl#r=g10447>
 					ex
 						POST /table_name 
 						{"col1": "value", "col2": "value"}
@@ -7436,7 +7436,7 @@ postgrest id=g10337
 						authenticate: verify that a user is who he says he is
 						authorize: user has permissions to do db operations
 					Authentication Sequence id=g10448
-						Authentication Sequence <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10448>
+						Authentication Sequence <url:file:///~/projects/study/otl/cdb.otl#r=g10448>
 						three types of roles
 							authenticator
 								switches to actual user roles
@@ -7467,7 +7467,7 @@ postgrest id=g10337
 				The PostgREST philosophy establishes a single declarative source of truth: the data itself.
 	postgrest starter kit
 		Postgrest Starter Kit Manual id=adb_003
-			Postgrest Starter Kit Manual <url:~/gdrive/mynotes/content/code/cdb.md#r=adb_003>
+			Postgrest Starter Kit Manual <url:~/projects/study/otl/cdb.otl#r=adb_003>
 			https://github.com/subzerocloud/postgrest-starter-kit/wiki
 			intro
 				postgrest is a solid candidate for production
@@ -7570,7 +7570,7 @@ postgrest id=g10337
 			Authentication Authorization Flow
 				Json Web Tokens JWT
 			Iterative Development Workflow id=g10449
-				Iterative Development Workflow <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10449>
+				Iterative Development Workflow <url:file:///~/projects/study/otl/cdb.otl#r=g10449>
 				Overview
 					big problem: logic moves from a file (stored in git) to environment (database)
 					subzero-cli solves this problem
@@ -7612,7 +7612,7 @@ postgrest id=g10337
 					store docker image in EC2 Container Registry
 				Database (RDS)
 		Tutorial PSK id=g10159
-			Tutorial PSK <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10159>
+			Tutorial PSK <url:file:///~/projects/study/otl/cdb.otl#r=g10159>
 			Tutorial PSK (postgrest starter kit) v01
 				ref
 					~/codes/pg/example-api/
@@ -7624,9 +7624,9 @@ postgrest id=g10337
 							a few hours of work
 							eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.vAN3uJSleb2Yj8RVPRsb1UBkokqmKlfl6lJ2bg3JfFg
 				API Core id=g10450
-					API Core <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10450>
+					API Core <url:file:///~/projects/study/otl/cdb.otl#r=g10450>
 					Schemas  id=g10451
-						Schemas  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10451>
+						Schemas  <url:file:///~/projects/study/otl/cdb.otl#r=g10451>
 						Data Schema
 							schema: data
 							sql file: db/src/data/tables.sql
@@ -7695,7 +7695,7 @@ postgrest id=g10337
 								curl -H ".." http:.../clients?select=id,name
 								# {"permission error"}
 					Securing your API id=g10452
-						Securing your API <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10452>
+						Securing your API <url:file:///~/projects/study/otl/cdb.otl#r=g10452>
 						Access rights to API entities
 							goal: give authenticated API users the ability to access endpoints
 								ie. grant them rights to views in api schema
@@ -7764,7 +7764,7 @@ postgrest id=g10337
 								--data-urlencode select="id,name,projects(id,name,comments(body),tasks(id,name,comments(body)))" | \
 								python -mjson.tool
 				Using the API id=g10453
-					Using the API <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10453>
+					Using the API <url:file:///~/projects/study/otl/cdb.otl#r=g10453>
 					REST
 						ex: get projects of a client and all active tasks
 							curl ...
@@ -8018,7 +8018,7 @@ postgrest id=g10337
 				next
 	articles
 		Stop calling PostgREST “MAGIC”! id=g10338
-			Stop calling PostgREST “MAGIC”!  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10338>
+			Stop calling PostgREST “MAGIC”!  <url:file:///~/projects/study/otl/cdb.otl#r=g10338>
 			https://medium.freecodecamp.org/stop-calling-postgrest-magic-8f3e1d5e5dd1
 			Whats in a URL
 				ex
@@ -8041,7 +8041,7 @@ postgrest id=g10337
 							)::character varying AS BODY
 						FROM (SELECT * FROM essence) response
 				Authentication / Authorization - postgrest id=g10339
-					Authentication / Authorization - postgrest <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10339>
+					Authentication / Authorization - postgrest <url:file:///~/projects/study/otl/cdb.otl#r=g10339>
 					pgrest connects using a role "authenticator"
 						the role has no privileges aside from login
 					when an authenticated request comes in, and there is an Authorization header that contains a JWT token, pgrest decodes the token, verify it is valid, and look at it payload for field "role"
@@ -8097,12 +8097,12 @@ postgrest id=g10337
 							) AS subitems
 						FROM items
 			But why (do we need PostgREST)? id=g10341
-				But why (do we need PostgREST)?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10341>
+				But why (do we need PostgREST)?  <url:file:///~/projects/study/otl/cdb.otl#r=g10341>
 				Do one thing well
 				You'll no longer write APIs, you'll be defining and configuring them
 			Beyond REST
 		HN: PostgREST – A fully RESTful API from any existing PostgreSQL database  id=g10342
-			HN: PostgREST – A fully RESTful API from any existing PostgreSQL database  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10342>
+			HN: PostgREST – A fully RESTful API from any existing PostgreSQL database  <url:file:///~/projects/study/otl/cdb.otl#r=g10342>
 			https://news.ycombinator.com/item?id=13959156
 			q: how to write complex queries
 				to define richer endpoints you create views in the database and stored procedures. It can follow foreign key and m2m through a select url param
@@ -8124,7 +8124,7 @@ postgrest id=g10337
 			q: comparison to ORM
 				shifts the work of writing a basic CRUD API (a task for which you would probably use an ORM) to declaring a SQL schema
 		Swagger id=g10343
-			Swagger <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10343>
+			Swagger <url:file:///~/projects/study/otl/cdb.otl#r=g10343>
 			1. run swagger-ui
 				docker run -p 80:8080 swaggerapi/swagger-ui
 			2. open swagger
@@ -8134,9 +8134,9 @@ postgrest id=g10337
 					enter url of postgrest api uri
 Tools id=g10175
 	sample data id=g10454
-		sample data <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10454>
+		sample data <url:file:///~/projects/study/otl/cdb.otl#r=g10454>
 		ddlgenerator: generate ddl from data id=g10455
-			ddlgenerator: generate ddl from data <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10455>
+			ddlgenerator: generate ddl from data <url:file:///~/projects/study/otl/cdb.otl#r=g10455>
 			https://github.com/catherinedevlin/ddl-generator
 			install
 				pip install ddlgenerator
@@ -8180,7 +8180,7 @@ Tools id=g10175
 			ex: create table and import data into db
 				csvsql --db postgresql:///test --table fy09 --insert data.csv
 		datafiller: sample data generator id=g10456
-			datafiller: sample data generator <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10456>
+			datafiller: sample data generator <url:file:///~/projects/study/otl/cdb.otl#r=g10456>
 			https://www.cri.ensmp.fr/people/coelho/datafiller.html
 			Tutorial
 				ref
@@ -8304,11 +8304,11 @@ Tools id=g10175
 		pgcli
 Articles SQL  id=g10684
 	Modern SQL id=g10465
-		Modern SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10465>
+		Modern SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10465>
 		https://www.slideshare.net/MarkusWinand/modern-sql
 		Modern SQL in PostgreSQL-nFfS1HmiWCM.webm
 		LATERAL id=g10466
-			LATERAL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10466>
+			LATERAL <url:file:///~/projects/study/otl/cdb.otl#r=g10466>
 			ref
 				What is the difference between LATERAL and a subquery in PostgreSQL? <url:#r=adb_006>
 			before:
@@ -8404,7 +8404,7 @@ Articles SQL  id=g10684
 				great for TOP-N suqueries
 				can join table functions (unnest)
 		GROUPING SETS id=g10467
-			GROUPING SETS <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10467>
+			GROUPING SETS <url:file:///~/projects/study/otl/cdb.otl#r=g10467>
 			before:
 				only one GROUP BY operation at a time
 				SELECT year, month, sum(revenue)
@@ -8448,7 +8448,7 @@ Articles SQL  id=g10684
 								,(C1, C3, ..., Cn-2, Cn-1, Cn)
 								…
 		WITH (common table expressions CTE) id=g10468
-			WITH (common table expressions CTE) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10468>
+			WITH (common table expressions CTE) <url:file:///~/projects/study/otl/cdb.otl#r=g10468>
 			nested subqueries are hard to read
 			syntax
 				WITH
@@ -8491,7 +8491,7 @@ Articles SQL  id=g10684
 			issue: performance 
 				CTE doesn't know about outer filters
 		WITH RECURSIVE id=g10469
-			WITH RECURSIVE <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10469>
+			WITH RECURSIVE <url:file:///~/projects/study/otl/cdb.otl#r=g10469>
 			this also part of making SQL, turing complete
 			before:
 				too hard
@@ -8514,7 +8514,7 @@ Articles SQL  id=g10684
 				WITH RECURSIVE is while of SQL
 				supports infinite loops
 		OVER and PARTITION BY id=g10470
-			OVER and PARTITION BY <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10470>
+			OVER and PARTITION BY <url:file:///~/projects/study/otl/cdb.otl#r=g10470>
 			together with recursive CTE SQL became turing complete with over feature
 			/Users/mertnuhoglu/gdrive/public/img/ss-249.png
 				| sql                                          | merge rows | aggregate |
@@ -8549,7 +8549,7 @@ Articles SQL  id=g10684
 			nutshell
 				any aggregate function ok
 		OVER and ORDER BY id=g10471
-			OVER and ORDER BY <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10471>
+			OVER and ORDER BY <url:file:///~/projects/study/otl/cdb.otl#r=g10471>
 			before: calculating a running total
 				SELECT txid, value,
 					(SELECT SUM(value)
@@ -8584,7 +8584,7 @@ Articles SQL  id=g10684
 					top-n per group
 				avoiding self-joins
 		WITHIN GROUP id=g10472
-			WITHIN GROUP <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10472>
+			WITHIN GROUP <url:file:///~/projects/study/otl/cdb.otl#r=g10472>
 			grouped rows cannot be ordered prior aggregation
 				how to get middle value (median) of a set
 			before:
@@ -8598,7 +8598,7 @@ Articles SQL  id=g10684
 					WITHIN GROUP (ORDER BY val)
 				FROM data
 		OVER id=g10473
-			OVER <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10473>
+			OVER <url:file:///~/projects/study/otl/cdb.otl#r=g10473>
 			before: calculate difference to previous row
 				WITH numbered_data AS (
 					SELECT *,
@@ -8616,7 +8616,7 @@ Articles SQL  id=g10684
 				FIRST_VALUE / LAST_VALUE
 				NTH_VALUE(col, n) FROM FIRST/LAST RESPECT/IGNORE NULLS
 		FETCH FIRST id=g10474
-			FETCH FIRST <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10474>
+			FETCH FIRST <url:file:///~/projects/study/otl/cdb.otl#r=g10474>
 			like LIMIT but SQL standard
 			before:
 				SELECT *
@@ -8630,7 +8630,7 @@ Articles SQL  id=g10684
 					ORDER BY x
 					FETCH FIRST 10 ROWS ONLY
 		OFFSET id=g10475
-			OFFSET <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10475>
+			OFFSET <url:file:///~/projects/study/otl/cdb.otl#r=g10475>
 			OFFSET is EVIL
 				comparison to sleep
 				problem: renumbering rows 
@@ -8678,7 +8678,7 @@ Articles SQL  id=g10684
 							where condition uses index
 							you get stable results if new rows are inserted
 		AS OF id=g10476
-			AS OF <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10476>
+			AS OF <url:file:///~/projects/study/otl/cdb.otl#r=g10476>
 			before: changing data was destructive
 			after: tables can be system versioned
 				CREATE TABLE t (...,
@@ -8714,7 +8714,7 @@ Articles SQL  id=g10684
 		Temporal/Bi-Temporal SQL
 			next
 		LIST_AGG id=g10477
-			LIST_AGG <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10477>
+			LIST_AGG <url:file:///~/projects/study/otl/cdb.otl#r=g10477>
 			ex:
 				| grp | val |
 				| 1   | B   |
@@ -8759,7 +8759,7 @@ Articles SQL  id=g10684
 						 , COUNT(*)
 					FROM t1
 		Literate SQL id=g10478
-			Literate SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10478>
+			Literate SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10478>
 			http://modern-sql.com/use-case/literate-sql
 			WITH has two properties:
 				names come first
@@ -8804,7 +8804,7 @@ Articles SQL  id=g10684
 				SELECT ...
 			WITH is like CREATE VIEW
 		case — Conditional Expressions id=g10479
-			case — Conditional Expressions <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10479>
+			case — Conditional Expressions <url:file:///~/projects/study/otl/cdb.otl#r=g10479>
 			http://modern-sql.com/feature/case
 			code
 				CASE WHEN <condition> THEN <result>
@@ -8828,7 +8828,7 @@ Articles SQL  id=g10684
 									 ELSE y
 							END
 		EXTRACT expression id=g10480
-			EXTRACT expression <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10480>
+			EXTRACT expression <url:file:///~/projects/study/otl/cdb.otl#r=g10480>
 			http://modern-sql.com/feature/extract
 			code
 				EXTRACT(<field> FROM <expression>)
@@ -8858,13 +8858,13 @@ Articles SQL  id=g10684
 						WHERE some_date >= DATE'2016-01-01'
 							AND some_date <  DATE'2017-01-01'
 		FILTER clause id=g10481
-			FILTER clause <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10481>
+			FILTER clause <url:file:///~/projects/study/otl/cdb.otl#r=g10481>
 			http://modern-sql.com/feature/filter
 			ex:
 				SUM(<expression>) FILTER (WHERE <condition>)
 				SUM(<expression>) FILTER (WHERE <condition>) OVER (...)
 		The FILTER clause in Postgres 9.4 id=g10482
-			The FILTER clause in Postgres 9.4 <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10482>
+			The FILTER clause in Postgres 9.4 <url:file:///~/projects/study/otl/cdb.otl#r=g10482>
 			https://medium.com/little-programming-joys/the-filter-clause-in-postgres-9-4-3dd327d3c852
 			before:
 				SELECT
@@ -8889,7 +8889,7 @@ Articles SQL  id=g10684
 				FROM purchases
 				GROUP BY purchases.seller_id
 		Table Column Aliases id=g10485
-			Table Column Aliases <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10485>
+			Table Column Aliases <url:file:///~/projects/study/otl/cdb.otl#r=g10485>
 			http://modern-sql.com/feature/table-column-aliases
 			code
 				FROM … [AS] alias [(<derived column list>)]
@@ -8916,7 +8916,7 @@ Articles SQL  id=g10684
 			http://modern-sql.com/feature/values
 			can be used where SELECT is allowed
 		SELECT without FROM id=g10486
-			SELECT without FROM <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10486>
+			SELECT without FROM <url:file:///~/projects/study/otl/cdb.otl#r=g10486>
 			instead of non-conforming select without from:
 				SELECT CURRENT_DATE
 			use VALUES without INSERT
@@ -8929,7 +8929,7 @@ Articles SQL  id=g10684
 										 , (3,4)
 							 ) t1 (c1, c2)
 		The Three-Valued Logic of SQL id=g10488
-			The Three-Valued Logic of SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10488>
+			The Three-Valued Logic of SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10488>
 			http://modern-sql.com/concept/three-valued-logic
 			three valued logic:
 				true, false, unknown
@@ -8963,7 +8963,7 @@ Articles SQL  id=g10684
 							CHECK ( a + b <= 10 )
 					)
 	Use the Index Luke id=g10487
-		Use the Index Luke <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10487>
+		Use the Index Luke <url:file:///~/projects/study/otl/cdb.otl#r=g10487>
 		http://use-the-index-luke.com/sql/table-of-contents
 		Preface — Why is indexing a development task?
 			some say: sql is inherently slow
@@ -9172,9 +9172,9 @@ Articles SQL  id=g10684
 					 FETCH FIRST 100 ROWS ONLY
 				get a sample from the index
 	davisjeff id=g10685
-		davisjeff <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10685>
+		davisjeff <url:file:///~/projects/study/otl/cdb.otl#r=g10685>
 		What is the deal with NULLs? id=g10680
-			What is the deal with NULLs?  <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10680>
+			What is the deal with NULLs?  <url:file:///~/projects/study/otl/cdb.otl#r=g10680>
 			http://thoughts.davisjeff.com/2009/08/02/what-is-the-deal-with-nulls/
 			sql's approach to missing information is unique
 				null is not a value:
@@ -9250,7 +9250,7 @@ Articles SQL  id=g10684
 		SQL: the successful cousin of Haskell
 			tough problems that haskell would solve are already solved in so many cases by SQL
 		Database for a Zoo: the problem and the solution id=g10681
-			Database for a Zoo: the problem and the solution <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10681>
+			Database for a Zoo: the problem and the solution <url:file:///~/projects/study/otl/cdb.otl#r=g10681>
 			http://thoughts.davisjeff.com/2011/09/21/database-for-a-zoo-the-problem-and-the-solution/
 			problem:
 				you cannot mix animals of different types within a single zoo cage
@@ -9291,7 +9291,7 @@ Articles SQL  id=g10684
 		Why PostgreSQL Already Has Query Hints
 			http://thoughts.davisjeff.com/2011/02/05/why-postgresql-already-has-query-hints/
 		Exclusion Constraints are generalized SQL UNIQUE id=g10682
-			Exclusion Constraints are generalized SQL UNIQUE <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10682>
+			Exclusion Constraints are generalized SQL UNIQUE <url:file:///~/projects/study/otl/cdb.otl#r=g10682>
 			http://thoughts.davisjeff.com/2010/09/25/exclusion-constraints-are-generalized-sql-unique/
 			ex: The first requirement you’ll encounter is that no two reservations may overlap
 			ex: identical to UNIQUE constraint
@@ -9344,7 +9344,7 @@ Articles SQL  id=g10684
 				constraints: interdependent data
 				they put complexity into the system
 		Data Labels and Predicates id=g10683
-			Data Labels and Predicates <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10683>
+			Data Labels and Predicates <url:file:///~/projects/study/otl/cdb.otl#r=g10683>
 			http://thoughts.davisjeff.com/2008/02/24/data-labels-and-predicates/
 			ex:
 				username | realname   | phone
@@ -9363,9 +9363,9 @@ Articles SQL  id=g10684
 			https://speakerdeck.com/macdice/parallelism-in-postgresql-11
 			Thomas Munro
 	craigkerstiens id=g10686
-		craigkerstiens <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10686>
+		craigkerstiens <url:file:///~/projects/study/otl/cdb.otl#r=g10686>
 		Postgres Hidden Gems id=g10665
-			Postgres Hidden Gems <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10665>
+			Postgres Hidden Gems <url:file:///~/projects/study/otl/cdb.otl#r=g10665>
 			http://www.craigkerstiens.com/2018/01/31/postgres-hidden-gems/
 			messages
 				saving a tree using ltree
@@ -9383,7 +9383,7 @@ Articles SQL  id=g10684
 				psql: \x auto: wide table displayed vertically
 				\watch
 		How I Work With Postgres – Psql, My PostgreSQL Admin id=g10667
-			How I Work With Postgres – Psql, My PostgreSQL Admin <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10667>
+			How I Work With Postgres – Psql, My PostgreSQL Admin <url:file:///~/projects/study/otl/cdb.otl#r=g10667>
 			http://www.craigkerstiens.com/2013/02/13/How-I-Work-With-Postgres/
 			tips
 				Set your default EDITOR then use \e
@@ -9445,7 +9445,7 @@ Articles SQL  id=g10684
 			Overview
 				FDW allows you to connect to a remote system
 		Writing More Legible SQL id=g10672
-			Writing More Legible SQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10672>
+			Writing More Legible SQL <url:file:///~/projects/study/otl/cdb.otl#r=g10672>
 			http://www.craigkerstiens.com/2016/01/08/writing-better-sql/
 			One thing per line
 				ex:
@@ -9488,7 +9488,7 @@ Articles SQL  id=g10684
 				in 10: CREATE STATISTICS
 			Keeping standbys warm
 		Getting More Out of Psql (the PostgreSQL CLI) id=g10677
-			Getting More Out of Psql (the PostgreSQL CLI) <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10677>
+			Getting More Out of Psql (the PostgreSQL CLI) <url:file:///~/projects/study/otl/cdb.otl#r=g10677>
 			http://www.craigkerstiens.com/2013/02/21/more-out-of-psql/
 			Feel yourself at home
 				CLI: most efficient user interface ever
@@ -9521,7 +9521,7 @@ Articles SQL  id=g10684
 				env variables
 				piping into psql: echo ... | psql
 		Upsert Lands in PostgreSQL 9.5 – a First Look id=g10679
-			Upsert Lands in PostgreSQL 9.5 – a First Look <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10679>
+			Upsert Lands in PostgreSQL 9.5 – a First Look <url:file:///~/projects/study/otl/cdb.otl#r=g10679>
 			http://www.craigkerstiens.com/2015/05/08/upsert-lands-in-postgres-9.5/
 			upsert: create this new row, but if a conflict exists update it
 			ex
@@ -9547,7 +9547,7 @@ Articles SQL  id=g10684
 		pgloader:
 			load csv, mysql etc files like copy
 	SQL Joins with On or Using id=g10460
-		SQL Joins with On or Using <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10460>
+		SQL Joins with On or Using <url:file:///~/projects/study/otl/cdb.otl#r=g10460>
 		https://lornajane.net/posts/2012/sql-joins-with-on-or-using
 		why: you use ON for most things, but USING is a handy shorthand for the situation where the column names are the same
 		ex:
@@ -9558,7 +9558,7 @@ Articles SQL  id=g10684
 				from owners join pets ON (pets.owners_id = owners.owners_id);
 	Becoming a SQL Guru-cL8QZ2yyFCM.mp4
 		Set Operations id=g10461
-			Set Operations <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10461>
+			Set Operations <url:file:///~/projects/study/otl/cdb.otl#r=g10461>
 			Union vs union all
 				union: distinct rows only
 				ex:
@@ -9579,7 +9579,7 @@ Articles SQL  id=g10684
 					INTERSECT
 					select city from suppliers
 		Filtered Aggregates id=g10462
-			Filtered Aggregates <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10462>
+			Filtered Aggregates <url:file:///~/projects/study/otl/cdb.otl#r=g10462>
 			before:
 				select 
 					sum(revenue) as total_revenue,
@@ -9600,7 +9600,7 @@ Articles SQL  id=g10684
 		Rollup: allows for creating of hierarchical 
 		Cube: 
 	Subquery Examples id=g10463
-		Subquery Examples <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10463>
+		Subquery Examples <url:file:///~/projects/study/otl/cdb.otl#r=g10463>
 		http://www.zentut.com/sql-tutorial/sql-subquery/
 			WHERE set
 				SELECT ... WHERE field IN (SELECT field2 FROM ...)
@@ -9645,7 +9645,7 @@ Articles SQL  id=g10684
 					 FROM products t2
 					 WHERE t1.categoryID = t2.categoryID)
 	PostgreSQL’s Powerful New Join Type: LATERAL id=g10668
-		PostgreSQL’s Powerful New Join Type: LATERAL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10668> 
+		PostgreSQL’s Powerful New Join Type: LATERAL <url:file:///~/projects/study/otl/cdb.otl#r=g10668> 
 		https://heapanalytics.com/blog/engineering/postgresqls-powerful-new-join-type-lateral
 		doc:
 			The LATERAL key word can precede a sub-SELECT FROM item. This allows the sub-SELECT to refer to columns of FROM items that appear before it in the FROM list. (Without LATERAL, each sub-SELECT is evaluated independently and so cannot cross-reference any other FROM item.
@@ -9692,7 +9692,7 @@ Articles SQL  id=g10684
 					LIMIT 1
 				) e2 ON true
 	Speeding Up PostgreSQL With Partial Indexes id=g10670
-		Speeding Up PostgreSQL With Partial Indexes <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10670>
+		Speeding Up PostgreSQL With Partial Indexes <url:file:///~/projects/study/otl/cdb.otl#r=g10670>
 		ex: create partial index
 			CREATE INDEX event_signups ON event (time)
 			WHERE (data->>'type') = 'submit' AND (data->>'path') = '/signup/'
@@ -9704,7 +9704,7 @@ Articles SQL  id=g10684
 				(data->>'path') = '/signup/' AND
 				time BETWEEN 1409554800000 AND 1410159600000
 	Postgres Window Functions id=g10671
-		Postgres Window Functions <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10671>
+		Postgres Window Functions <url:file:///~/projects/study/otl/cdb.otl#r=g10671>
 		https://robots.thoughtbot.com/postgres-window-functions
 		oracle: analytic functions
 		goal: get each post's three most recent comments
@@ -9747,7 +9747,7 @@ Articles SQL  id=g10684
 						FROM ranked_comments
 						WHERE comment_rank < 4;
 	Database constraints in Postgres: The last line of defense id=g10673
-		Database constraints in Postgres: The last line of defense <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10673>
+		Database constraints in Postgres: The last line of defense <url:file:///~/projects/study/otl/cdb.otl#r=g10673>
 		https://www.citusdata.com/blog/2018/03/19/postgres-database-constraints/
 		data has inertia once it is stored
 		Constraints
@@ -9803,7 +9803,7 @@ Articles SQL  id=g10684
 			Datatypes as database constraints
 				ex: tweet varchar(140)
 	SELECT DISTINCT ON in PostgreSQL id=g10674
-		SELECT DISTINCT ON in PostgreSQL <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10674>
+		SELECT DISTINCT ON in PostgreSQL <url:file:///~/projects/study/otl/cdb.otl#r=g10674>
 		https://www.geekytidbits.com/postgres-distinct-on/
 		SELECT DISTINCT ON
 			this is not a typical DISTINCT
@@ -9832,7 +9832,7 @@ Articles SQL  id=g10684
 			explain:
 				put the logs into groups unique by url (ON (url)), sort each of these groups by most recent (ORDER BY timestamp DESC) and then return fields for the first record in each of these groups (url, request_duration).
 	The LATERAL join id=g10675
-		The LATERAL join <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10675>
+		The LATERAL join <url:file:///~/projects/study/otl/cdb.otl#r=g10675>
 		https://www.geekytidbits.com/lateral-join/
 		Examples
 			ex: Top-N per group
@@ -9863,7 +9863,7 @@ Articles SQL  id=g10684
 		https://www.geekytidbits.com/performance-tuning-postgres/
 		@later
 	Customizing My Postgres Shell id=g10676
-		Customizing My Postgres Shell <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10676>
+		Customizing My Postgres Shell <url:file:///~/projects/study/otl/cdb.otl#r=g10676>
 		https://www.citusdata.com/blog/2017/07/16/customizing-my-postgres-shell-using-psqlrc/
 		~/.psqlrc
 		ex:
@@ -9892,7 +9892,7 @@ Articles SQL  id=g10684
 		exp: let pgr format everything for you
 			\x auto
 	An Explained psqlrc id=g10678
-		An Explained psqlrc <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10678>
+		An Explained psqlrc <url:file:///~/projects/study/otl/cdb.otl#r=g10678>
 		https://robots.thoughtbot.com/an-explained-psqlrc
 		\pset
 			for changing output format
@@ -9928,7 +9928,7 @@ Articles SQL  id=g10684
 index_rmd for db files id=g10629
 	~/projects/itr/vrp_doc/study/db_vrp.Rmd
 	~/projects/study/db/study_bq.Rmd id=g10786
-		~/projects/study/db/study_bq.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10786>
+		~/projects/study/db/study_bq.Rmd <url:file:///~/projects/study/otl/cdb.otl#r=g10786>
 		Basics of BQ
 			--use_legacy_sql
 				bq query --nouse_legacy_sql 'select count(*) from `bigquery-public-data.samples.shakespeare`'
@@ -9970,10 +9970,10 @@ index_rmd for db files id=g10629
 				Loading data from local file
 					bq --location=US load --source_format=NEWLINE_DELIMITED_JSON mydataset.mytable ./mydata.json ./myschema.json
 	~/projects/study/db/study_db.Rmd id=g10785
-		~/projects/study/db/study_db.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10785>
+		~/projects/study/db/study_db.Rmd <url:file:///~/projects/study/otl/cdb.otl#r=g10785>
 	~/projects/study/db/study_meta_data.Rmd
 	~/projects/study/db/study_postgrest.Rmd id=g10633
-		~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10633>
+		~/projects/study/db/study_postgrest.Rmd <url:file:///~/projects/study/otl/cdb.otl#r=g10633>
 		ref
 			~/projects/study/js/study_expressjs_server.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10634>
 			~/projects/study/r/study_plumber_restful_apis.Rmd <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10653>
@@ -10011,7 +10011,7 @@ index_rmd for db files id=g10629
 		Make a query 
 			Use curl to make a query
 				opt01: Default data
-					ref: `walkthrough study_psk <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10522>`
+					ref: `walkthrough study_psk <url:file:///~/projects/study/otl/cdb.otl#r=g10522>`
 					curl http://localhost:8080/rest/todos?select=id,todo
 				opt02: vrp data
 					ref: `walkthrough vrp_psk01 <url:file:///~/projects/itr/vrp_doc/doc_itr.md#r=g10551>`
@@ -10144,7 +10144,7 @@ index_rmd for db files id=g10629
 								}
 							],
 	~/projects/study/db/tutorial_postgrest.Rmd id=g10765
-		~/projects/study/db/tutorial_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10765>
+		~/projects/study/db/tutorial_postgrest.Rmd <url:file:///~/projects/study/otl/cdb.otl#r=g10765>
 		01. Postgrest Official Tutorial 
 			normal flow
 				create api schema
@@ -10221,7 +10221,7 @@ index_rmd for db files id=g10629
 							curl http://localhost:8080/rest/t03?select=id
 BigQuery  id=g10664
 	ref
-		~/projects/study/db/study_bq.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10786>
+		~/projects/study/db/study_bq.Rmd <url:file:///~/projects/study/otl/cdb.otl#r=g10786>
 	points
 		limit results of bq ls
 			code: ~/.bigqueryrc
@@ -10303,7 +10303,7 @@ Other id=g10457
 				assuming: composite index 1. 2. col
 	https://blog.jooq.org/2014/12/30/the-awesome-postgresql-9-4-sql2003-filter-clause-for-aggregate-functions/
 		ex: get number of countries with GDP higher than 40000 for each year id=g10483
-			ex: get number of countries with GDP higher than 40000 for each year <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10483>
+			ex: get number of countries with GDP higher than 40000 for each year <url:file:///~/projects/study/otl/cdb.otl#r=g10483>
 			CREATE TABLE countries (
 				code CHAR(2) NOT NULL,
 				year INT NOT NULL,
@@ -10335,7 +10335,7 @@ Other id=g10457
 			2009   CA           40764.00       4
 			2009   DE           40270.00       4
 	filter by count of records id=g10484
-		filter by count of records <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10484>
+		filter by count of records <url:file:///~/projects/study/otl/cdb.otl#r=g10484>
 		http://sqlfiddle.com/#!12/bbbdd/3
 		schema
 			CREATE TABLE states

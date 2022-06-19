@@ -16,7 +16,7 @@ url_rdb <- "https://docs.google.com/spreadsheets/d/1HMosZ0_z42TxqezqDF7WAozxdu1T
 ```
 ## Initial Setup
 
-```{r libraries,warning=false,message=false,include=false}
+```{r libraries,warning=FALSE,message=FALSE,include=FALSE}
 library(httr)
 library(jsonlite)
 library(lubridate)

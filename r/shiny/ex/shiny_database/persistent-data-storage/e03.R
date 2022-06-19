@@ -7,29 +7,44 @@ library(shiny)
 # saveData
 # loadData
 
+# prerequisite:
+# sqlite3 data/responses.db
+# CREATE TABLE responses (
+# 	name TEXT,
+# 	used_shiny TEXT,
+# 	r_num_years TEXT
+# );
+
 # Define the fields we want to save from the form
 fields <- c("name", "used_shiny", "r_num_years")
 
-outputDir <- "data"
+library(RSQLite)
+sqlitePath <- "data/responses.db"
+table <- "responses"
 
 saveData <- function(data) {
-  data <- t(data)
-  # Create a unique file name
-  fileName <- sprintf("%s_%s.csv", as.integer(Sys.time()), digest::digest(data))
-  # Write the file to the local system
-  write.csv(
-    x = data,
-    file = file.path(outputDir, fileName),
-    row.names = FALSE, quote = TRUE
+  # Connect to the database
+  db <- dbConnect(SQLite(), sqlitePath)
+  # Construct the update query by looping over the data fields
+  query <- sprintf(
+    "INSERT INTO %s (%s) VALUES ('%s')",
+    table,
+    paste(names(data), collapse = ", "),
+    paste(data, collapse = "', '")
   )
+  # Submit the update query and disconnect
+  dbGetQuery(db, query)
+  dbDisconnect(db)
 }
 
 loadData <- function() {
-  # Read all the files into a list
-  files <- list.files(outputDir, full.names = TRUE)
-  data <- lapply(files, read.csv, stringsAsFactors = FALSE)
-  # Concatenate all data together into one data.frame
-  data <- do.call(rbind, data)
+  # Connect to the database
+  db <- dbConnect(SQLite(), sqlitePath)
+  # Construct the fetching query
+  query <- sprintf("SELECT * FROM %s", table)
+  # Submit the fetch query and disconnect
+  data <- dbGetQuery(db, query)
+  dbDisconnect(db)
   data
 }
 

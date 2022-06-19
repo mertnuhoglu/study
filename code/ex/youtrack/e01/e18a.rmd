@@ -7,7 +7,7 @@ output: html_document
 
 Daha önce `e13.rmd` scriptinde tek bir proje için yaptığımız proje ilerleme raporunu, tüm projeler için yapalım.
 
-```{r libraries,warning=false,message=false,include=false}
+```{r libraries,warning=FALSE,message=FALSE,include=FALSE}
 library(httr)
 library(jsonlite)
 library(lubridate)

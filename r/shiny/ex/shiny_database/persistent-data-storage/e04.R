@@ -3,49 +3,33 @@
 
 library(shiny)
 
-# 1. Local file system (local)
+# 6. Google Sheets (remote)
 # saveData
 # loadData
 
 # prerequisite:
-# sqlite3 data/responses.db
-# CREATE TABLE responses (
-# 	name TEXT,
-# 	used_shiny TEXT,
-# 	r_num_years TEXT
-# );
 
 # Define the fields we want to save from the form
 fields <- c("name", "used_shiny", "r_num_years")
 
-library(RSQLite)
-sqlitePath <- "data/responses.db"
+library(googlesheets4)
+
+# SHEET_ID <- "146NShVEQm5fV9bjs0_LGRG-zBAhcFABS"
+SHEET_ID <- "https://docs.google.com/spreadsheets/d/146NShVEQm5fV9bjs0_LGRG-zBAhcFABS/edit#gid=695229957"
 table <- "responses"
 
+# googlesheets4::gs4_deauth()
+# googlesheets4::gs4_auth(email = "mert.nuhoglu@gmail.com")
+
 saveData <- function(data) {
-  # Connect to the database
-  db <- dbConnect(SQLite(), sqlitePath)
-  # Construct the update query by looping over the data fields
-  query <- sprintf(
-    "INSERT INTO %s (%s) VALUES ('%s')",
-    table,
-    paste(names(data), collapse = ", "),
-    paste(data, collapse = "', '")
-  )
-  # Submit the update query and disconnect
-  dbGetQuery(db, query)
-  dbDisconnect(db)
+  # The data must be a dataframe rather than a named vector
+  data <- data %>% as.list() %>% data.frame()
+  # Add the data as a new row
+  googlesheets4::sheet_append(SHEET_ID, data)
 }
 
 loadData <- function() {
-  # Connect to the database
-  db <- dbConnect(SQLite(), sqlitePath)
-  # Construct the fetching query
-  query <- sprintf("SELECT * FROM %s", table)
-  # Submit the fetch query and disconnect
-  data <- dbGetQuery(db, query)
-  dbDisconnect(db)
-  data
+  googlesheets4::read_sheet(SHEET_ID, sheet = table, na = "N/A")
 }
 
 # Shiny app with 3 fields that the user can submit data for

@@ -29,7 +29,7 @@ curl -X GET \
   ##>       "id": "0-7",
   ##>       "$type": "Project"
   ##>     },
-  ##>     "canBeEmpty": false,
+  ##>     "canBeEmpty": FALSE,
   ##>     "field": {
   ##>       "name": "Type",
   ##>       "id": "89-1",

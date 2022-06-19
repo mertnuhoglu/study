@@ -13,6 +13,9 @@ tools id=g12416
 		------|------
 		 4    | bar
 		 4    | oof
+	jsonvisio: navigator and visualizer
+		ref
+			[JSON Visio - Directly onto graphs](https://jsonvisio.com/)
 	fx:- json navigation tool id=g12412:
 		ref
 			~/projects/study/bash/json_fx.md
