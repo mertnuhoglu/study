@@ -1,0 +1,15 @@
+
+ref
+	vim_sexp: ~/projects/study/clj/vim_sexp.md
+	emacs paredit: ~/projects/study/emacs/paredit.md
+	emacs smartparens: ~/projects/study/emacs/smartparens.md
+	Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>
+	smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g12112>
+vim-sexp
+	ref: 
+		vim-sexp <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12870>
+		[guns/vim-sexp: Precision Editing for S-expressions](https://github.com/guns/vim-sexp)
+cursive sexp
+	ref
+		vim-sexp compatible <url:file:///~/projects/private_dotfiles/.ideavimrc#r=g12468>
+
