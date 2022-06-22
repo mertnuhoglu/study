@@ -4,8 +4,10 @@ new:
     argument is of length zero:
       Error:- Argument is of length zero <url:~/projects/study/r/ex/examples_r/errors/argument_is_of_length_zero.Rmd#tn=Error: Argument is of length zero>
   issues id=g12936:
-    class inherits is functions:
+    class inherits is functions id=g12943:
       class inherits is functions <url:~/projects/study/r/ex/examples_r/errors/class_inherits_is_functions.Rmd#tn=class inherits is functions>
+    dataframe rows to list id=g12944:
+      Problem:- Df'nin her bir satırı bir list olmalı <url:~/projects/study/r/ex/examples_r/convert_df_to_list.rmd#tn=Problem: Df'nin her bir satırı bir list olmalı>
 cookbook:
   basics:
     id: basics

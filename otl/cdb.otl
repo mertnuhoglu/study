@@ -1,4 +1,6 @@
 TOC Refcard id=g10489
+	ref
+	  sqlite ~/projects/study/db/sqlite.otl 
 	cdb.md <url:file:///~/projects/study/otl/cdb.otl>
 		## Topics <url:file:///~/projects/study/otl/cdb.otl#r=g10304>
 			Run db clients  <url:file:///~/projects/study/otl/cdb.otl#r=g10305>

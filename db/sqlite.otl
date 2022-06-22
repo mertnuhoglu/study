@@ -2,7 +2,7 @@
 topics
 	install
 sql syntax
-	create table
+	create table id=g12948
 		ref
 			[SQLite Create Table with Examples](https://www.sqlitetutorial.net/sqlite-create-table/)
 		general
@@ -20,8 +20,10 @@ sql syntax
 				email TEXT NOT NULL UNIQUE,
 				phone TEXT NOT NULL UNIQUE
 			);
+	create new database id=g12947
+		sqlite3 <db-name.db>
 articles
-	SQLite Sample Database And Its Diagram (in PDF format)
+	SQLite Sample Database And Its Diagram  id=g12946
 		ref
 			[SQLite Sample Database And Its Diagram (in PDF format)](https://www.sqlitetutorial.net/sqlite-sample-database/)
 		sample data:

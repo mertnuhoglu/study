@@ -1,0 +1,80 @@
+---
+title: "Convert DataFrame to List"
+output: html_document
+---
+
+# Problem: Df'nin her bir satırı bir list olmalı id=g12940
+
+Dataframe'in her bir satırı bir list objesi olmalı.
+
+Böylece bu list objelerini dbmisc kullanarak veritabanına insert edebilmeliyiz.
+
+Örnek dbmisc ile list objelerinin kullanımı: `~/projects/study/r/shiny/ex/shiny_database/dbmisc01/e04.R`
+
+```r
+new_user <- list(created=Sys.time(), userid="user1",age=47, female=TRUE, email="test@email.com", gender="female")
+dbInsert(db,table="user", new_user)
+```
+```{r}
+df <- data.frame(id = "1", name = "row01")
+l01 <- as.list(df)
+str(l01)
+testthat::expect_equal(l01, list(id = "1", name = "row01"))
+```
+
+```{r}
+df02 <- data.frame(id = c("1", "2"), name = c("row01", "row02"))
+l02 <- as.list(df02)
+str(l02)
+# List of 2
+#  $ id  : chr [1:2] "1" "2"
+#  $ name: chr [1:2] "row01" "row02"
+```
+
+```{r}
+l02b <- list(l01, list(id = "2", name = "row02"))
+str(l02b[[2]])
+# List of 2
+# $ id  : chr "2"
+# $ name: chr "row02"
+```
+
+Make each row a list
+
+```{r}
+l01a <- as.list(df02[1, ])
+testthat::expect_equal(l01a, list(id = "1", name = "row01"))
+```
+
+Convert df to list of rows:
+
+```{r}
+l03 <- lapply(1:nrow(df02), function(row, df) {
+  as.list(df[row, ])
+}, df02)
+str(l03)
+# List of 2
+# $ :List of 2
+# ..$ id  : chr "1"
+# ..$ name: chr "row01"
+# $ :List of 2
+# ..$ id  : chr "2"
+# ..$ name: chr "row02"
+```
+Make it a function:
+
+```{r}
+df_to_list_of_rows <- function(df) {
+  lapply(1:nrow(df), function(row, d) {
+    as.list(d[row, ])
+  }, df)
+}
+str(df_to_list_of_rows(df02))
+# List of 2
+# $ :List of 2
+# ..$ id  : chr "1"
+# ..$ name: chr "row01"
+# $ :List of 2
+# ..$ id  : chr "2"
+# ..$ name: chr "row02"
+```

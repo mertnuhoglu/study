@@ -1,0 +1,17 @@
+---
+title: "dplyr examples 01"
+output: html_notebook
+---
+
+
+```{r}
+library(dplyr)
+con <- DBI::dbConnect(RSQLite::SQLite(), path = "data/db01.db")
+```
+```{r}
+dplyr::copy_to(con, iris, "iris", overwrite = TRUE)
+```
+```{r}
+iris_db <- tbl(con, "iris")
+iris_db
+```

@@ -4,6 +4,9 @@
 		[RegularJob] n-1 [Form]
 		[Form] 1-n [Task]
 		[Task] n-1 [Person]
+		[Scheduler| scheduler_id; scheduler_title; every_min; at_min; at_hour; at_day_of_month; at_day_of_week; ]
+		[Form| form_id; form_title; form_url; ]
+		[Person| person_id; person_name; ]
 	Scheduler: Every Friday at 4:00 PM
 	Regular Job: Hangi etkinliklere ne kadar vakit harcadınız?
 	Form: Yoğunluk_Dağılımı formu

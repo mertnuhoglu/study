@@ -1,0 +1,33 @@
+
+
+# [Scheduler| scheduler_id; scheduler_title; every_min; at_min; at_hour; at_day_of_month; at_day_of_week; ]
+# [Form| form_id; form_title; form_url; ]
+# [Person| person_id; person_name; ]
+
+scheduler:
+  table:
+    scheduler_id: INTEGER
+    scheduler_title: TEXT
+    every_min: INTEGER
+    at_min: INTEGER
+    at_hour: INTEGER
+    at_day_of_month: INTEGER
+    at_day_of_week: INTEGER
+  unique_index:
+    - scheduler_id
+
+form:
+  table:
+    form_id: INTEGER
+    form_title: TEXT
+    form_url: TEXT
+  unique_index:
+    - form_id
+
+person:
+  table:
+    person_id: INTEGER
+    person_name: TEXT
+  unique_index:
+    - person_id
+

@@ -1,0 +1,4 @@
+scheduler_id	scheduler_title	every_min	at_min	at_hour	at_day_of_month	at_day_of_week
+1	Her Cuma akşam 4			16		5
+2	Her gün akşam 5			17		
+3	Her ayın 3. günü				3	

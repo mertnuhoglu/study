@@ -1,0 +1,36 @@
+# Source: [dbmisc/coursedb.yaml at master · skranz/dbmisc](https://github.com/skranz/dbmisc/blob/master/inst/examples/dbschema/coursedb.yaml)
+# An example schema of a simple database with 3 tables
+# that might be use to store information about students
+# in online courses.
+
+student:
+  table:
+    email: TEXT
+    name: TEXT
+    country: TEXT
+    city: TEXT
+    create_time: DATETIME
+  unique_index:
+    - email
+  index:
+    - [country, city]
+    - create_time
+
+course:
+  table:
+    courseid: INTEGER
+    title: TEXT
+    year: INTEGER
+  unique_index:
+    - courseid
+  index:
+    - year
+
+
+coursestud:
+  table:
+    courseid: INTEGER
+    email: TEXT
+  index:
+    - courseid
+    - email

@@ -2025,9 +2025,12 @@ bash
 		usv unicode separated values id=g12924
 			[SixArm/usv: USV: Unicode Separated Values](https://github.com/SixArm/usv)
 		ultorg
-		moderncsv
+		ModernCSV id=g12945
 			ref:
 				[CSV File Editor Application for Windows, Mac, and Linux - Modern CSV](https://www.moderncsv.com/)
+			shortcuts
+				GoogleSheets uyumlu kısayollar
+				Preferences > Edit Shortcuts
 		csvkit
 			csvkit
 				install
