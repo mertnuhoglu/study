@@ -1,0 +1,257 @@
+---
+title: "Database Examples"
+output: html_document
+---
+
+# SQLite id=g12949
+
+## Create Database in SQLite id=g12954
+
+[SQLite - CREATE Database](https://www.tutorialspoint.com/sqlite/sqlite_create_database.htm)
+
+```bash
+sqlite3 data/test01.db
+```
+
+```
+sqlite> .databases
+main: /Users/mertnuhoglu/projects/study/r/ex/examples_r/data/test01.db r/w
+```
+
+## Create Table in SQLite id=g12963
+
+
+```sql
+CREATE TABLE contacts (
+  contact_id TEXT PRIMARY KEY,
+  first_name TEXT NOT NULL
+);
+```
+
+## Drop Table in SQLite
+
+```sql
+DROP TABLE contacts;
+```
+
+
+## Import CSV into SQLite id=g12964
+
+[Import a CSV File Into an SQLite Table](https://www.sqlitetutorial.net/sqlite-import-csv/)
+
+CSV File: `../data/contacts01.csv`
+
+```
+sqlite> .mode csv
+sqlite> .import ./data/contacts01.csv contacts
+```
+
+```sql
+SELECT * FROM contacts;
+```
+
+# RSQLite id=g12952
+
+[RSQLite](https://cran.r-project.org/web/packages/RSQLite/vignettes/RSQLite.html)
+
+İlk olarak DBI paketini yüklemelisin:
+```{r}
+library(DBI)
+```
+## Connecting to an existing database id=g12955
+
+Mevcut bir sqlite dosyasına bağlanabilirsin:
+```{r}
+mydb <- dbConnect(RSQLite::SQLite(), "data/test01.db")
+dbDisconnect(mydb)
+```
+
+Loading data:
+
+
+```{r}
+mydb <- dbConnect(RSQLite::SQLite(), "data/test01.db")
+contacts <- dbGetQuery(mydb, 'SELECT * FROM contacts')
+contacts
+```
+
+## Creating a new database
+
+Eğer ilk bağlandığın dosya henüz mevcut değilse, otomatik onu oluşturur:
+
+```{r}
+mydb <- dbConnect(RSQLite::SQLite(), "data/test02.db")
+dbDisconnect(mydb)
+```
+
+Bunun yerine doğrudan terminalden oluşturmayı dene. Daha güvenli bir yol. ref: `Create Database in SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12954>`
+
+## Import dataframe into database id=g12956
+
+`dbWriteTable` ile daha önce mevcut olmayan bir tabloyu hem create eder hem de datayı import edersin.
+
+```{r}
+mydb <- dbConnect(RSQLite::SQLite(), "data/test02.db")
+dbWriteTable(mydb, "mtcars", mtcars)
+dbWriteTable(mydb, "iris", iris)
+dbListTables(mydb)
+  # [1] "iris"   "mtcars"
+```
+
+## Queries: dbGetQuery id=g12957
+
+```{r}
+dbGetQuery(mydb, 'SELECT * FROM mtcars LIMIT 5')
+  #    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+  # 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+  # 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+  # 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+  # 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+  # 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+```
+
+Escape SQL column names with `"`:
+```{r}
+
+dbGetQuery(mydb, 'SELECT * FROM iris WHERE "Sepal.Length" < 4.6')
+  #>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+  #> 1          4.4         2.9          1.4         0.2  setosa
+  #> 2          4.3         3.0          1.1         0.1  setosa
+  #> 3          4.4         3.0          1.3         0.2  setosa
+  #> 4          4.5         2.3          1.3         0.3  setosa
+  #> 5          4.4         3.2          1.3         0.2  setosa
+
+```
+
+## Parameterised Queries id=g12958
+
+Parameter injection: Use `params` argument:
+
+```{r}
+dbGetQuery(mydb, 'SELECT * FROM iris WHERE "Sepal.Length" < :x',
+           params = list(x = 4.6))
+  #>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+  #> 1          4.4         2.9          1.4         0.2  setosa
+  #> 2          4.3         3.0          1.1         0.1  setosa
+  #> 3          4.4         3.0          1.3         0.2  setosa
+  #> 4          4.5         2.3          1.3         0.3  setosa
+  
+```
+
+## Batched queries
+
+Sorgu sonucu dönen veri çok büyükse, parça parça veriyi çekebilirsin.
+```{r}
+rs <- dbSendQuery(mydb, 'SELECT * FROM mtcars')
+while (!dbHasCompleted(rs)) {
+  df <- dbFetch(rs, n = 10)
+  print(nrow(df))
+}
+  #> [1] 10
+  #> [1] 10
+  #> [1] 10
+  #> [1] 2
+dbClearResult(rs)
+```
+
+## Statements id=g12959
+
+Statement'lar insert, update, delete işlemleridir. Bunlar herhangi bir veri (veritabanı sorgusu gibi) döndürmezler.
+
+```{r}
+dbExecute(mydb, 'DELETE FROM iris WHERE "Sepal.Length" < 4')
+  #> [1] 0
+rs <- dbSendStatement(mydb, 'DELETE FROM iris WHERE "Sepal.Length" < :x')
+dbBind(rs, params = list(x = 4.5))
+dbGetRowsAffected(rs)
+  #> [1] 4
+dbClearResult(rs)
+```
+```{r}
+dbDisconnect(mydb)
+```
+
+## dbListFields id=g12960
+
+[SQLite](https://db.rstudio.com/databases/sqlite/)
+```{r}
+dbListFields(mydb, "contacts")
+  # [1] "contact_id" "first_name"
+```
+
+```{r}
+dbReadTable(mydb, "contacts")
+  #   contact_id first_name
+  # 2          1    Ali Can
+  # 3          2  Yaman Cem
+  # 4          3  Tohum Nur
+```
+# dbplyr with SQLite id=g12953
+
+[Using dplyr with databases](https://db.rstudio.com/r-packages/dplyr/)
+
+```{r}
+library(dplyr)
+src <- src_sqlite("data/test03.db")
+```
+
+## Importing data into database id=g12961
+
+```{r}
+copy_to(src, iris, "iris",
+        temporary = FALSE, indexes = list("Species"), overwrite = T)
+```
+
+## Querying
+
+```{r}
+irisdb <- tbl(src, "iris")
+irisdb
+```
+```{r}
+dbDisconnect(src)
+```
+
+## Error: dbConnect ile bağlanınca veritabanı oluşturmuyor veya erişemiyor
+
+Normalde referans dokümanlarda, `dbConnect` kullanarak dplyr ile veritabanına bağlanın diyor. Ancak bu şekilde veritabanına bağlanıyor gibi görünse de, herhangi bir veri çekemiyoruz.
+
+`src_sqlite` deprecate edilmiş. Ancak düzgün çalışıyor.
+
+```{r}
+con <- DBI::dbConnect(RSQLite::SQLite(), path = "data/test03.db")
+copy_to(con, iris, "iris",
+        temporary = FALSE, indexes = list("Species"))
+irisdb <- tbl(con, "iris")
+dbDisconnect(con)
+
+```
+
+## Querying id=g12962
+
+[Source for database backends — src_dbi • dplyr](https://dplyr.tidyverse.org/reference/src_dbi.html)
+
+Bir tablonun tamamını çekmek için: `tbl`
+```{r}
+con <- src
+copy_to(con, mtcars)
+
+  # To retrieve a single table from a source, use `tbl()`
+mtcars <- con %>% tbl("mtcars")
+mtcars
+
+```
+
+SQL sorgusu çalıştırmak için: `tbl(sql("SELECT ..."))`
+```{r}
+  # You can also use pass raw SQL if you want a more sophisticated query
+mtcars02 <- con %>% tbl(sql("SELECT * FROM mtcars WHERE cyl == 8"))
+mtcars02
+  # # Source:   SQL [?? x 11]
+  # # Database: sqlite 3.38.5 [/Users/mertnuhoglu/projects/study/r/ex/examples_r/data/test03.db]
+  #     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+  #   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+  # 1  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+  # 2  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+
+```

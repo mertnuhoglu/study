@@ -18,6 +18,12 @@ output:
 
     ~/projects/study/r/rfc_convert_data.md
 
+# Database R
+
+	SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12949>
+	RSQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12952>
+	dbplyr with SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12953>
+
 # examples
 
 tbl or dplyr with sql

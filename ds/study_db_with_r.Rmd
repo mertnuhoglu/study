@@ -21,6 +21,7 @@ path: ~/projects/study/ds/study_db_with_r.Rmd
   }
 </style>
 
+
 ``` {r set-options}
 options(width = 150)
 options(max.print = 30)
@@ -51,6 +52,12 @@ con <- DBI::dbConnect(RPostgreSQL::PostgreSQL()
   , port = "5432"
 )
 ```
+
+## Ref
+
+  SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12949>
+  RSQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12952>
+  dbplyr with SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12953>
 
 ## How to Run SQL Expressions
 

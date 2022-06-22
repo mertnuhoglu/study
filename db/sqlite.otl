@@ -1,4 +1,6 @@
 
+ref
+	SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12949>
 topics
 	install
 sql syntax
@@ -94,3 +96,18 @@ articles
 				sqlite> .mode insert
 				sqlite> .output data.sql
 				sqlite> select * from artists;
+examples
+	SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12949>
+	SQLite is great for R and Shiny. The dbmisc package may help a bit. <url:file:///~/projects/study/r/shiny/shiny.otl#r=g12929>
+	Create Database in SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12954>
+		sqlite3 data/test01.db
+		sqlite> .databases
+	Create Table in SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12963>
+		CREATE TABLE contacts (
+			contact_id TEXT PRIMARY KEY,
+			first_name TEXT NOT NULL
+		);
+	Import CSV into SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12964>
+		sqlite> .mode csv
+		sqlite> .import ./data/contacts01.csv contacts
+

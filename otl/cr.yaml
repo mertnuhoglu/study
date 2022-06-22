@@ -56,6 +56,7 @@ cookbook:
     dplyr/bind_rows: [info, dplyr/bind_rows]
     dplyr/errors: [info, dplyr/errors]
     dplyr/row_number:- add sequence of row number column: [info, dplyr/row_number:- add sequence of row number column]
+    dplyr/database: [info, database/dbplyr]
   apply/ldply/foreach list generations:
     apply/cases for lapply, map: [info, apply/cases for lapply, map]
     apply/lapply over names: [info, apply/lapply over names]
@@ -1542,9 +1543,42 @@ info:
     duplicated_values(df, "enum_id")
   data_uc/a02: 
     all_unique = function(v) { duplicated(v) %>% sum == 0 }
-  database/RSQLite: >
-    install.packages("RSQLite")
-    library("RSQLite")
+  database/RSQLite:
+    ref:
+      RSQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12952>
+    install:
+      install.packages("RSQLite")
+    connect: >
+      ref: Connecting to an existing database <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12955>
+      library(DBI)
+      library("RSQLite")
+      mydb <- dbConnect(RSQLite::SQLite(), "data/test01.db")
+      dbDisconnect(mydb)
+    query: >
+      ref: Queries: dbGetQuery <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12957>
+      contacts <- dbGetQuery(mydb, 'SELECT * FROM contacts')
+      dbGetQuery(mydb, 'SELECT * FROM mtcars LIMIT 5')
+      dbGetQuery(mydb, 'SELECT * FROM iris WHERE "Sepal.Length" < 4.6')
+    import dataframe into table: >
+      ref: Import dataframe into database <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12956>
+      dbWriteTable(mydb, "mtcars", mtcars)
+    parameterised queries:
+      ref: Parameterised Queries <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12958>
+      code:
+        dbGetQuery(mydb, 'SELECT * FROM iris WHERE "Sepal.Length" < :x', params = list(x = 4.6))
+    statement:
+      ref: Statements <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12959>
+      code: >
+        dbExecute(mydb, 'DELETE FROM iris WHERE "Sepal.Length" < 4')
+        rs <- dbSendStatement(mydb, 'DELETE FROM iris WHERE "Sepal.Length" < :x')
+        dbBind(rs, params = list(x = 4.5))
+    database meta:
+      ref:
+        dbListFields <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12960>
+        Import dataframe into database <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12956>
+      code:
+        dbListTables(mydb)
+        dbListFields(mydb, "contacts")
   database/RPostgreSQL:
     install: >
       install.packages("RPostgreSQL")
@@ -1582,10 +1616,23 @@ info:
     database_roracle/connection: [info, database_roracle/connection]
   database/RJdbc:
     install.packages("RJDBC")
-  database/dbplyr: >
-    browseVignettes("dbplyr")
-    vignette("dbplyr")
-    install.packages("dbplyr")
+  database/dbplyr: 
+    ref: >
+      dbplyr with SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12953>
+      browseVignettes("dbplyr")
+      vignette("dbplyr")
+      install.packages("dbplyr")
+    connect:
+      ref: dbplyr with SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12953>
+      code: src <- src_sqlite("data/test03.db")
+    import data:
+      ref: Importing data into database <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12961>
+      code: copy_to(src, iris, "iris", temporary = FALSE, indexes = list("Species"), overwrite = T)
+    querying:
+      ref: Querying <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12962>
+      code: >
+        con %>% tbl("mtcars")
+        con %>% tbl(sql("SELECT * FROM mtcars WHERE cyl == 8"))
   database_roracle/install:
     nrm: install.packages("ROracle")
     tutorial:
