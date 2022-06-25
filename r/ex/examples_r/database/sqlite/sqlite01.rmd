@@ -50,3 +50,16 @@ sqlite> .import ./data/contacts01.csv contacts
 SELECT * FROM contacts;
 ```
 
+## Insert Row
+
+```{r}
+INSERT INTO table (column1,column2 ,..)
+VALUES( value1,value2 ,... );
+```
+
+```sql
+INSERT INTO artists (name)
+VALUES('Bud Powell');
+```
+
+

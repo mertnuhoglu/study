@@ -1713,6 +1713,53 @@ info:
         "(ADDRESS=(PROTOCOL=tcp)(HOST=", host, 
         ")(PORT=", port, "))", 
         "(CONNECT_DATA=(SID=", sid, ")))", sep = "")
+  date/date-time examples:
+    ref: >
+      Article: clock Comprehensive Date-Time Handling for R <url:file:///~/projects/study/r/ex/examples_r/datetime/datetime02_clock.rmd#r=g12968>
+      Article: 16 Dates and times | R for Data Science <url:file:///~/projects/study/r/ex/examples_r/datetime/datetime03_lubridate.rmd#r=g12967>
+      Article: Dates and Times in R <url:file:///~/projects/study/r/ex/examples_r/datetime/datetime04_standard.rmd#r=g12969>
+      database/dbmisc <url:~/projects/study/otl/cr.yaml#tn=[info, database/dbmisc]>
+      ~/projects/study/r/ex/examples_r/database/sqlite_datetime.rmd
+  date/create date-time from string:
+    ref: >
+      Article: Dates and Times in R <url:file:///~/projects/study/r/ex/examples_r/datetime/datetime04_standard.rmd#r=g12969>
+    code: >
+      ymd("2017-01-31")
+      #> [1] "2017-01-31"
+      mdy("January 31st, 2017")
+      #> [1] "2017-01-31"
+      ymd(20170131)
+      #> [1] "2017-01-31"
+      ymd_hms("2017-01-31 20:11:59")
+      #> [1] "2017-01-31 20:11:59 UTC"
+      ymd(20170131, tz = "UTC")
+      #> [1] "2017-01-31 UTC"
+  date/create date-time from components:
+    ref: >
+      From individual components <url:~/projects/study/r/ex/examples_r/datetime/datetime03_lubridate.rmd#tn=From individual components>
+    code: >
+      make_date()
+      make_datetime()
+      flights %>% mutate(departure = make_datetime(year, month, day, hour, minute))
+  date/create date-time from unix epoch:
+    ref: From other types <url:~/projects/study/r/ex/examples_r/datetime/datetime03_lubridate.rmd#tn=From other types>
+    code: >
+      as_datetime(today())
+      #> [1] "2020-10-09 UTC"
+      as_date(now())
+      #> [1] "2020-10-09"
+      as_datetime(60 * 60 * 10)
+      #> [1] "1970-01-01 10:00:00 UTC"
+      as_date(365 * 10 + 2)
+      #> [1] "1980-01-01"
+    date/get date-time components:
+      ref: Date-time components <url:~/projects/study/r/ex/examples_r/datetime/datetime03_lubridate.rmd#tn=Date-time components>
+      code: >
+        datetime <- ymd_hms("2016-07-08 12:34:56")
+        year(datetime)
+        #> [1] 2016
+        month(datetime)
+        #> [1] 7
   date/why multiple date classes:
     as.Date: simplest. without times
     chron: handles dates and times but not time zones
@@ -1725,14 +1772,23 @@ info:
       if char arg: expects ISO8601 standard format: "2017-12-30"
     as.POSIXct: converts some to POSIXlt
     ftr: use simplest possible
-  date/POSIX.ct ve POSIXlt: >
-    as.POSIXct("2015-01-01")
-    as.POSIXct(df02$validFrom, format = "%d.%m.%Y")
+  date/POSIX.ct ve POSIXlt:
+    ref: >
+      ~/projects/study/r/ex/examples_r/datetime/datetime01.rmd
+      Article: Dates and Times in R <url:file:///~/projects/study/r/ex/examples_r/datetime/datetime04_standard.rmd#r=g12969>
+    code: >
+      as.POSIXct("2015-01-01")
+      as.POSIXct(df02$validFrom, format = "%d.%m.%Y")
+      ISOdate(2005,10,21,18,47,22,tz="PDT")
+      strptime("20160115", "%Y%m%d")
   date/char to POSIX.ct: >
     strptime("20160115", "%Y%m%d")
-  date/as.Date: >
-    as.Date('1915-6-16')
-    as.Date('20170517', format = "%Y%d%m")
+  date/as.Date:
+    ref: >
+      Article: Dates and Times in R <url:file:///~/projects/study/r/ex/examples_r/datetime/datetime04_standard.rmd#r=g12969>
+    code: >
+      as.Date('1915-6-16')
+      as.Date('20170517', format = "%Y%d%m")
   date/format: >
     format(Sys.time(), "%y%m%d%H%M")
       [1] "1907291705"
@@ -1803,6 +1859,11 @@ info:
       readxl::read_excel(path = sevk_emri_file, col_types = c("text", "date", "text", "text", "text", "text", "text", "text", "text", "numeric", "text", "text", "text", "text"))
     opt2:
       as.POSIXct(sem$shipment_date * (60*60*24) , origin="1899-12-30" , tz="GMT")
+  date/today now: >
+    today()
+    #> [1] "2022-06-23"
+    now()
+    #> [1] "2022-06-23 22:37:37 +03"
   file/file name from path: >
     basename("C:/some_dir/a")
     > [1]  "a"

@@ -1,7 +1,7 @@
 
 ref
-	SQLite <url:file:///~/projects/study/r/ex/examples_r/database/sqlite01.rmd#r=g12949>
-	~/projects/study/r/ex/examples_r/database/sqlite_datetime.rmd
+	SQLite <url:file:///~/projects/study/r/ex/examples_r/database/sqlite/sqlite01.rmd#r=g12949>
+	~/projects/study/r/ex/examples_r/database/sqlite/sqlite_datetime.rmd
 topics
 	install
 sql syntax
@@ -98,7 +98,7 @@ articles
 				sqlite> .output data.sql
 				sqlite> select * from artists;
 examples
-	SQLite <url:file:///~/projects/study/r/ex/examples_r/database/sqlite01.rmd#r=g12949>
+	SQLite <url:file:///~/projects/study/r/ex/examples_r/database/sqlite/sqlite01.rmd#r=g12949>
 	SQLite is great for R and Shiny. The dbmisc package may help a bit. <url:file:///~/projects/study/r/shiny/shiny.otl#r=g12929>
 	Create Database in SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12954>
 		sqlite3 data/test01.db

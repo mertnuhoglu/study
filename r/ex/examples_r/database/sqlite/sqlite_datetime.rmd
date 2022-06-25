@@ -1,0 +1,64 @@
+---
+title: "Sqlite R DateTime Examples"
+output: html_document
+---
+
+## Store date-times as character
+
+SQLite içinde özel date-time type yok.
+
+Bunları string olarak kaydet.
+
+Bunun için önce date-time objelerini stringe çevir R içinde. 
+
+Sonra bunları string olarak sqlite veritabanına kaydet.
+
+Örnek: [r - Using Dates with RSQLite - Stack Overflow](https://stackoverflow.com/questions/13462086/using-dates-with-rsqlite)
+
+```{r}
+library(DBI)
+library(dplyr)
+library(glue)
+library(lubridate)
+mydb <- dbConnect(RSQLite::SQLite(), "data/sqlite_datetime01.sqlite")
+# dbDisconnect(mydb)
+```
+
+```sql
+CREATE TABLE event (
+  event_id TEXT PRIMARY KEY,
+  event_date TEXT,
+  event_datetime TEXT
+);
+```
+
+```sql
+INSERT INTO event (event_id, event_date, event_datetime)
+VALUES('e001', '2022-06-23', '2022-06-23 22:37:37 +03');
+```
+
+```{r}
+event_id <- "e002"
+event_date <- "2022-06-24"
+event_datetime <- "2022-06-24 11:30:30 +03"
+ss <- glue("INSERT INTO event (event_id, event_date, event_datetime) VALUES('{event_id}', '{event_date}', '{event_datetime}');")
+dbExecute(mydb, ss)
+evt <- dbReadTable(mydb, "event")
+```
+
+```{r}
+evt02 <- evt %>%
+  mutate(
+    event_date2 = as.Date(event_date),
+    event_datetime2 = ymd_hms(event_datetime))
+evt02
+```
+```{r}
+str(evt02)
+# 'data.frame':	1 obs. of  5 variables:
+#  $ event_id       : chr "e002"
+#  $ event_date     : chr "2022-06-24"
+#  $ event_datetime : chr "2022-06-24 11:30:30 +03"
+#  $ event_date2    : Date, format: "2022-06-24"
+#  $ event_datetime2: POSIXct, format: "2022-06-24 08:30:30"
+```

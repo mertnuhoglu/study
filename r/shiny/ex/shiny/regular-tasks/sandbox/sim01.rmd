@@ -12,95 +12,86 @@ scheduler <- rio::import("sandbox/data/scheduler.tsv")
 ```
 
 ```{r}
-library(dbmisc)
-library(clipr)
-
-is <- inherits
-writeClipboard <- function(x = .Last.value) {
-  clipr::write_clip(x)
-}
-db.dir = "sandbox/data"
-dbmisc::dbCreateSQLiteFromSchema(schema.file="sandbox/regular_tasks_db.yaml", db.dir=db.dir, db.name="regular_tasks.sqlite")
-```
-
-```{r}
 library(DBI)
 db.path = file.path("sandbox", "data", "regular_tasks.sqlite")
 mydb <- dbConnect(RSQLite::SQLite(), db.path)
+```
+
+### Create database schema with ddl
+
+```sql
+DROP TABLE scheduler;
+DROP TABLE form;
+DROP TABLE person;
+DROP TABLE regular_job;
+DROP TABLE task;
+CREATE TABLE scheduler(scheduler_id INTEGER,
+scheduler_title TEXT,
+every_min INTEGER,
+at_min INTEGER,
+at_hour INTEGER,
+at_day_of_month INTEGER,
+at_day_of_week INTEGER);
+
+CREATE UNIQUE INDEX ind_scheduler_1 ON scheduler (scheduler_id);
+
+CREATE TABLE form(form_id INTEGER,
+form_title TEXT,
+form_url TEXT);
+
+CREATE UNIQUE INDEX ind_form_1 ON form (form_id);
+
+CREATE TABLE person(person_id INTEGER,
+person_name TEXT);
+
+CREATE UNIQUE INDEX ind_person_1 ON person (person_id);
+
+CREATE TABLE regular_job(regular_job_id INTEGER,
+job_title TEXT,
+scheduler_id INTEGER,
+form_id INTEGER,
+person_id INTEGER,
+valid_from TEXT,
+valid_until TEXT);
+
+CREATE UNIQUE INDEX ind_regular_job_1 ON regular_job (regular_job_id);
+
+CREATE TABLE task(task_id INTEGER,
+task_title TEXT,
+form_id INTEGER,
+person_id INTEGER,
+created_at TEXT,
+done_at TEXT);
+
+CREATE UNIQUE INDEX ind_task_1 ON task (task_id);
+```
+
+## Run Simulation
+
+### Step01: Insert Admin data
+
+```{r}
 dbWriteTable(mydb, "scheduler", scheduler, overwrite = T)
 dbWriteTable(mydb, "form", form, overwrite = T)
 dbWriteTable(mydb, "person", person, overwrite = T)
 ```
 
-## Run Simulation
-```{r}
-get.db = function(db.dir = getwd()) {
-  db = getOption("db.connection")
-  if (is.null(db)) {
-    db.file = file.path(db.dir, "regular_tasks.sqlite")
-    db = dbConnectSQLiteWithSchema(db.file, schema.file = "sandbox/regular_tasks_db.yaml")
-    options(userdb.connection = db)
-  }
-  db
-}
-is <- inherits
+### Insert operational data using DBI
 
-dbsq <- get.db(db.dir = db.dir)
-```
 ```{r}
-rj <- list(
-  regular_job_id = 1
-  , job_title = "Job 01"
-  , scheduler_id = 1
-  , form_id = 2
-  , person_id = 2
-  , valid_from = as.Date('2022-06-22')
-  , valid_to = as.Date('2022-08-22')
+library(tibble)
+rj <- tribble(
+  ~regular_job_id, ~job_title, ~scheduler_id, ~form_id, ~person_id, ~valid_from, ~valid_until,
+  1, "Job 01", 2, 1, 1, "2022-06-22", "2022-08-22",
+  2, "Job 02", 1, 1, 2, "2022-06-01", "2022-07-22",
+  3, "Job 03", 2, 1, 3, "2022-07-22", "2022-09-22",
+  4, "Job 04", 1, 2, 1, "2022-06-22", "2022-08-22",
+  5, "Job 05", 2, 2, 2, "2022-06-22", "2022-07-22"
 )
-dbInsert(dbsq,table="regular_job", rj)
-rj <- list(
-  regular_job_id = 2
-  , job_title = "Job 02"
-  , scheduler_id = 1
-  , form_id = 2
-  , person_id = 2
-  , valid_from = '2022-06-22'
-  , valid_to = '2022-08-22'
-)
-dbInsert(dbsq,table="regular_job", rj)
-rj <- list(
-  regular_job_id = 3
-  , job_title = "Job 03"
-  , scheduler_id = 1
-  , form_id = 2
-  , person_id = 2
-  , valid_from = '2022-05-22'
-  , valid_to = '2022-06-22'
-)
-dbInsert(dbsq,table="regular_job", rj)
-rj <- list(
-  regular_job_id = 4
-  , job_title = "Job 04"
-  , valid_to = '2022-06-22'
-)
-dbInsert(dbsq,table="regular_job", rj)
-rj <- list(
-  regular_job_id = 5
-  , job_title = "Job 05"
-  , valid_to = as.Date('2022-06-22')
-)
-dbInsert(dbsq,table="regular_job", rj)
-rj <- list(
-  regular_job_id = 6
-  , job_title = "Job 01"
-  , scheduler_id = 1
-  , form_id = 2
-  , person_id = 2
-  , valid_from = as.Date('2022-06-22')
-  , valid_to = as.Date('2022-08-22')
-)
-dbInsert(dbsq,table="regular_job", rj)
+dbAppendTable(mydb, "regular_job", rj)
 ```
+
+### Read
 
 Read the row from database
 
@@ -116,49 +107,16 @@ rjdf %>%
   filter(valid_from > as.Date("2022-06-01"))
 ```
 
+Dikkat: Eğer collect() etmeden sorguları çalıştırırsan, her nedense date kıyaslamalarında `<` işlemini düzgün hesaplamıyor:
+
 ```{r}
 rjdf %>%
-  filter(valid_from > as.Date("2022-06-01")) %>%
   filter(valid_from < as.Date("2022-07-01"))
 ```
 
-dplyr ile çektiğim verinin belirli bir satır veya kolonuna erişemiyorum, normal dataframe'lerdeki gibi:
-
 ```{r}
-rjdf$valid_from
-  #> NULL
-```
-
-Düz SQL ile veriyi çekelim:
-
-```{r}
-rjdf02 <- dbGetQuery(mydb, 'SELECT * FROM regular_job')
-rj02 <- rjdf02[1, ]
-rj02$valid_from
-  #> [1] "19165.0"
-```
-
-Şimdi bu veriyi tarih formatına çevirelim.
-```{r}
-format(rj02$valid_from, "%Y-%m-%d")
+rjdf %>% collect() %>%
+        filter(valid_from < as.Date("2022-07-01"))
 
 ```
-```{r}
-rj03 <- rjdf02[2, ]
-rj03$valid_from
-  #> [1] "2022-06-22"
-```
-```{r}
-rjdf03 <- rjdf %>%
-  mutate(valid_from2 = as.Date(valid_from))
-rjdf03
-rjdf03 %>%
-  filter(valid_from2 > as.Date("2022-06-01"))
-```
-```{r}
-mydb2 <- dbConnect(RSQLite::SQLite(), db.path, extended_types = TRUE)
-tbl(mydb2, "regular_job") %>%
-        filter(valid_from > as.Date("2022-06-01")) %>%
-        collect()
 
-```
