@@ -1,0 +1,31 @@
+---
+title: "R Date Time Examples"
+output: html_document
+
+---
+
+## ISO 8601 Format
+
+Reading time:
+
+```{r}
+as.POSIXlt(Sys.time(), "UTC", "%Y-%m-%dT%H:%M:%S")
+  #> [1] "2022-06-23 08:29:22 UTC"
+
+as.POSIXlt(Sys.time(), "Asia/Baghdad", "%Y-%m-%dT%H:%M:%S")
+  #> [1] "2022-06-23 11:29:35 +03"
+
+```
+
+Writing time:
+
+```{r}
+tm = as.POSIXlt(Sys.time(), "Asia/Baghdad", "%Y-%m-%dT%H:%M:%S")
+strftime(tm , "%Y-%m-%dT%H:%M:%S%z")
+  #> [1] "2022-06-23T11:29:46+0300"
+
+strftime(Sys.time(), "%Y-%m-%dT%H:%M:%S%z")
+  #> [1] "2022-06-23T11:29:57+0300"
+
+```
+

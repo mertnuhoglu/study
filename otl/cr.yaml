@@ -97,6 +97,7 @@ cookbook:
     database/ROracle: [info, database/ROracle]
     database/RJdbc: [info, database/RJdbc]
     database/dbplyr: [info, database/dbplyr]
+    database/dbmisc: [info, database/dbmisc]
   date id=g10725:
     date/why multiple date classes: [info, date/why multiple date classes]
     date/POSIX.ct ve POSIXlt: [info, date/POSIX.ct ve POSIXlt]
@@ -1616,6 +1617,32 @@ info:
     database_roracle/connection: [info, database_roracle/connection]
   database/RJdbc:
     install.packages("RJDBC")
+  database/dbmisc:
+    ref: >
+      ~/projects/study/r/ex/examples_r/database/dbmisc01/e01.R
+    create sqlite database from yaml schema:
+      ref: ~/projects/study/r/ex/examples_r/database/dbmisc01/e01.R
+      code: dbmisc::dbCreateSQLiteFromSchema(schema.file="dbmisc01/userdb.yaml", db.dir=db.dir, db.name="userdb.sqlite")
+    create yaml schema from dataframe:
+      ref: ~/projects/study/r/ex/examples_r/database/dbmisc01/e02.R
+      code: dbmisc::schema.template(df,"mytable")
+    insert data (one row):
+      ref: ~/projects/study/r/ex/examples_r/database/dbmisc01/e04.R
+      code: >
+        new_user = list(created=Sys.time(), userid="user1",age=47, female=TRUE, email="test@email.com", gender="female")
+        dbInsert(db,table="user", new_user)
+    get data:
+      ref: ~/projects/study/r/ex/examples_r/database/dbmisc01/e05.R
+      code: >
+        dat = dbGet(db,table="user", list(userid="user1"))
+    insert data (dataframe):
+      ref: ~/projects/study/r/ex/examples_r/database/dbmisc01/e06.R
+      code: >
+        c04 <- data.frame(courseid=c("6", "7"), title= c("mat102", "phys101"), year=2022)
+        l04 <- df_to_list_of_rows(c04)
+        l04a <- lapply(l04, dbInsert(lrow, table) {
+          dbInsert(db,table=table, lrow)
+        }, "course")
   database/dbplyr: 
     ref: >
       dbplyr with SQLite <url:file:///~/projects/study/r/ex/examples_r/database/database01.rmd#r=g12953>

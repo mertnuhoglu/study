@@ -1,0 +1,107 @@
+---
+title: "R Date Time: clock Library Examples"
+output: html_document
+
+---
+
+# Article: clock Comprehensive Date-Time Handling for R id=g12968
+
+Source: [Comprehensive Date-Time Handling for R](https://www.tidyverse.org/blog/2021/03/clock-0-1-0/)
+
+```{r}
+library(clock)
+library(nycflights13)
+library(tidyverse)
+library(lubridate)
+```
+Standart fonksiyonların önekleri:
+
+- get_*()
+- set_*()
+- add_*()
+- date_*()
+
+```{r}
+flights
+  #> # A tibble: 100 x 5
+  #>     year month   day dep_time dep_delay
+  #>    <int> <int> <int>    <int>     <dbl>
+  #>  1  2013     1     6     1827        -3
+  #>  2  2013     1     8     1458        -2
+```
+
+Buradaki year, month, day alanlarını birleştirmek için: `date_build()`
+
+```{r}
+flights <- flights %>%
+  mutate(
+    date = date_build(year, month, day),
+    .keep = "unused",
+    .before = 1
+  )
+
+flights
+  #> # A tibble: 100 x 3
+  #>    date       dep_time dep_delay
+  #>    <date>        <int>     <dbl>
+  #>  1 2013-01-06     1827        -3
+  #>  2 2013-01-08     1458        -2
+```
+
+Bileşenleri tekrar geri almak için: `get_*()`
+
+```{r}
+
+```
+
+```{r}
+mutate(flights, year = get_year(date), month = get_month(date))
+  #> # A tibble: 100 x 5
+  #>    date       dep_time dep_delay  year month
+  #>    <date>        <int>     <dbl> <int> <int>
+  #>  1 2013-01-06     1827        -3  2013     1
+  #>  2 2013-01-08     1458        -2  2013     1
+
+```
+
+Group by yapmak için: `date_group()`
+
+```{r}
+flights %>%
+  mutate(date = date_group(date, "month")) %>%
+  group_by(date) %>%
+  summarise(avg_delay = mean(dep_delay, na.rm = TRUE), .groups = "drop")
+  #> # A tibble: 12 x 2
+  #>    date       avg_delay
+  #>    <date>         <dbl>
+  #>  1 2013-01-01     33.3
+  #>  2 2013-02-01     16
+
+```
+### Invalid dates
+
+29 Ocak'a bir ay eklersek ne olur? Geçersiz bir tarih olan 29 Şubat olabilir.  Bu lubridate'te NA olarak sonuç verir. clock ise 4 seçenek sunar:
+
+```{r}
+problems <- flights %>%
+  select(date) %>%
+  slice(c(5, 6))
+
+problems %>%
+  mutate(
+    date2 = add_months(date, 1, invalid = "previous"),
+    date3 = add_months(date, 1, invalid = "next"),
+    date4 = add_months(date, 1, invalid = "overflow"),
+    date5 = add_months(date, 1, invalid = "NA")
+  )
+  #> # A tibble: 2 x 5
+  #>   date       date2      date3      date4      date5
+  #>   <date>     <date>     <date>     <date>     <date>
+  #> 1 2013-01-29 2013-02-28 2013-03-01 2013-03-01 NA
+  #> 2 2013-01-30 2013-02-28 2013-03-01 2013-03-02 NA
+```
+
+### Daylight saving time
+
+Yaz saatine geçiş durumlarında 1 saatlik bir atlama olur. Bu durumda add fonksiyonları lubridate'te NA verir. clock'ta ise yine 4 tane seçenek var.
+

@@ -9,7 +9,7 @@ writeClipboard <- function(x = .Last.value) {
 }
 
 db.dir = "data"
-dbmisc::dbCreateSQLiteFromSchema(schema.file="dbmisc01/coursedb.yaml", db.dir=db.dir, db.name="coursedb.sqlite")
+dbmisc::dbCreateSQLiteFromSchema(schema.file="dbmisc01/coursedb.yaml", db.dir=db.dir, db.name="coursedb2.sqlite")
 
 get.coursedb = function(db.dir = getwd()) {
   db = getOption("coursedb.connection")

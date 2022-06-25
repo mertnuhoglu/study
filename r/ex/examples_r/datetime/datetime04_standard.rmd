@@ -1,0 +1,92 @@
+---
+title: "R date-time: Standard library examples"
+output: html_document
+---
+
+# Article: Dates and Times in R id=g12969
+
+[Dates and Times in R](https://www.stat.berkeley.edu/~s133/dates.html)
+
+```{r}
+as.Date('1915-6-16')
+#> [1] "1915-06-16"
+as.Date('1990/02/17')
+#> [1] "1990-02-17"
+```
+```{r}
+as.Date('1/15/2001',format='%m/%d/%Y')
+#> [1] "2001-01-15"
+as.Date('April 26, 2001',format='%B %d, %Y')
+#> [1] "2001-04-26"
+
+```
+
+Get date components:
+```{r}
+bdays = c(tukey=as.Date('1915-06-16'),fisher=as.Date('1890-02-17'), cramer=as.Date('1893-09-25'), kendall=as.Date('1907-09-06'))
+weekdays(bdays)
+#       tukey      fisher      cramer     kendall
+# "Wednesday"    "Monday"    "Monday"    "Friday"
+
+
+```
+
+Date-times with `chron`:
+
+```{r}
+dtimes = c("2002-06-09 12:45:40","2003-01-29 09:30:40", "2002-09-04 16:45:40","2002-11-13 20:00:40", "2002-07-07 17:30:40")
+dtparts = t(as.data.frame(strsplit(dtimes,' ')))
+row.names(dtparts) = NULL
+thetimes = chron(dates=dtparts[,1],times=dtparts[,2],
+                 format=c('y-m-d','h:m:s'))
+thetimes
+# [1] (02-06-09 12:45:40) (03-01-29 09:30:40) (02-09-04 16:45:40)
+# [4] (02-11-13 20:00:40) (02-07-07 17:30:40)
+```
+`chron` 1970'den bu yana geçen günleri sayar.
+
+Bundan daha iyisi: `POSIXct`. Bu 1970'den bu yana geçen saniyeleri sayar.
+
+`POSIXlt` ise aynı veriyi list olarak saklar. `ct` daha kullanışlıdır.
+
+```{r}
+dts = c("2005-10-21 18:47:22","2005-12-24 16:39:58", "2005-10-28 07:30:05 PDT")
+as.POSIXlt(dts)
+# [1] "2005-10-21 18:47:22" "2005-12-24 16:39:58"
+# [3] "2005-10-28 07:30:05"
+```
+
+Saniye sayısından da datetime objesi üretilebilir:
+```{r}
+dts = c(1127056501,1104295502,1129233601,1113547501,
+        1119826801,1132519502,1125298801,1113289201)
+mydates = dts
+class(mydates) = c('POSIXt','POSIXct')
+mydates
+# [1] "2005-09-18 08:15:01 PDT" "2004-12-28 20:45:02 PST"
+# [3] "2005-10-13 13:00:01 PDT" "2005-04-14 23:45:01 PDT"
+# [5] "2005-06-26 16:00:01 PDT" "2005-11-20 12:45:02 PST"
+# [7] "2005-08-29 00:00:01 PDT" "2005-04-12 00:00:01 PDT"
+```
+
+Create POSIXct from a string:
+```{r}
+> mydate = strptime('16/Oct/2005:07:51:00',format='%d/%b/%Y:%H:%M:%S')
+[1] "2005-10-16 07:51:00"
+```
+
+Create POSIXct from date components:
+```{r}
+> ISOdate(2005,10,21,18,47,22,tz="PDT")
+[1] "2005-10-21 18:47:22 PDT"
+
+```
+
+POSIXct to string: `format`
+```{r}
+> thedate = ISOdate(2005,10,21,18,47,22,tz="PDT")
+> format(thedate,'%A, %B %d, %Y %H:%M:%S')
+[1] "Friday, October 21, 2005 18:47:22"
+
+
+```

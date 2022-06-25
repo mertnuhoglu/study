@@ -31,3 +31,27 @@ person:
   unique_index:
     - person_id
 
+regular_job:
+  table:
+    regular_job_id: INTEGER
+    job_title: TEXT
+    scheduler_id: INTEGER
+    form_id: INTEGER
+    person_id: INTEGER
+    valid_from: TEXT
+    valid_until: TEXT
+  unique_index:
+    - regular_job_id
+
+task:
+  table:
+    task_id: INTEGER
+    task_title: TEXT
+    form_id: INTEGER
+    person_id: INTEGER
+    created_at: TEXT
+    done_at: TEXT
+  unique_index:
+    - task_id
+
+

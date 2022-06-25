@@ -7,6 +7,8 @@
 		[Scheduler| scheduler_id; scheduler_title; every_min; at_min; at_hour; at_day_of_month; at_day_of_week; ]
 		[Form| form_id; form_title; form_url; ]
 		[Person| person_id; person_name; ]
+		[RegularJob| regular_job_id; job_title; scheduler_id; form_id; person_id; valid_from; valid_until; ]
+		[Task| task_id; task_title; form_id; person_id; created_at; done_at; ]
 	Scheduler: Every Friday at 4:00 PM
 	Regular Job: Hangi etkinliklere ne kadar vakit harcadınız?
 	Form: Yoğunluk_Dağılımı formu

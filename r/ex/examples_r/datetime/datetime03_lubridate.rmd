@@ -1,0 +1,303 @@
+---
+title: "R Date Time: Lubridate Examples"
+output: html_document
+
+---
+
+# Article: 16 Dates and times | R for Data Science id=g12967
+
+[16 Dates and times | R for Data Science](https://r4ds.had.co.nz/dates-and-times.html)
+
+```{r}
+library(lubridate)
+library(tidyverse)
+library(nycflights13)
+```
+## Creating date/times
+
+3 types:
+
+- date: printed as <date>
+- time: printed as <time>
+- date-time: printed as <dttm>. POSIXct ile denk.
+
+Get current date or date-time: `today()` or `now()`:
+
+```{r}
+today()
+  #> [1] "2022-06-23"
+now()
+  #> [1] "2022-06-23 22:37:37 +03"
+```
+
+3 ways to create a date/time:
+
+- from a string
+- from date-time components
+- from an existing date/time object
+
+### From string
+
+a01: From quoted strings:
+```{r}
+ymd("2017-01-31")
+  #> [1] "2017-01-31"
+mdy("January 31st, 2017")
+  #> [1] "2017-01-31"
+dmy("31-Jan-2017")
+  #> [1] "2017-01-31"
+```
+
+From unquoted numbers:
+
+```{r}
+ymd(20170131)
+  #> [1] "2017-01-31"
+```
+
+
+`ymd()` creates a date.
+
+`ymd_hms()` creates a date-time:
+
+```{r}
+ymd_hms("2017-01-31 20:11:59")
+  #> [1] "2017-01-31 20:11:59 UTC"
+mdy_hm("01/31/2017 08:01")
+  #> [1] "2017-01-31 08:01:00 UTC"
+```
+
+Timezone argument:
+
+```{r}
+ymd(20170131, tz = "UTC")
+  #> [1] "2017-01-31 UTC"
+```
+
+### From individual components
+
+```{r}
+flights %>%
+        select(year, month, day, hour, minute)
+  #> # A tibble: 336,776 x 5
+  #>    year month   day  hour minute
+  #>   <int> <int> <int> <dbl>  <dbl>
+  #> 1  2013     1     1     5     15
+  #> 2  2013     1     1     5     29
+```
+
+Use `make_date()` for date, or `make_datetime()` for date-time:
+
+```{r}
+flights %>%
+        select(year, month, day, hour, minute) %>%
+        mutate(departure = make_datetime(year, month, day, hour, minute))
+  #> # A tibble: 336,776 x 6
+  #>    year month   day  hour minute departure
+  #>   <int> <int> <int> <dbl>  <dbl> <dttm>
+  #> 1  2013     1     1     5     15 2013-01-01 05:15:00
+  #> 2  2013     1     1     5     29 2013-01-01 05:29:00
+```
+
+### From other types
+
+Switch between date-time and date:
+```{r}
+as_datetime(today())
+  #> [1] "2020-10-09 UTC"
+as_date(now())
+  #> [1] "2020-10-09"
+```
+
+From unix epoch:
+
+```{r}
+as_datetime(60 * 60 * 10)
+  #> [1] "1970-01-01 10:00:00 UTC"
+as_date(365 * 10 + 2)
+  #> [1] "1980-01-01"
+```
+
+### Date-time components
+
+Getting components: `year()`, `month()` ...
+
+```{r}
+datetime <- ymd_hms("2016-07-08 12:34:56")
+
+year(datetime)
+  #> [1] 2016
+month(datetime)
+  #> [1] 7
+mday(datetime)
+  #> [1] 8
+
+yday(datetime)
+  #> [1] 190
+wday(datetime)
+  #> [1] 6
+```
+
+`label = T` ile ayın ve günün ismini alırsın:
+
+```{r}
+month(datetime, label = TRUE)
+  #> [1] Jul
+wday(datetime, label = TRUE, abbr = FALSE)
+  #> [1] Friday
+```
+
+Setting components in-place:
+
+```{r}
+(datetime <- ymd_hms("2016-07-08 12:34:56"))
+  #> [1] "2016-07-08 12:34:56 UTC"
+
+year(datetime) <- 2020
+datetime
+  #> [1] "2020-07-08 12:34:56 UTC"
+month(datetime) <- 01
+datetime
+  #> [1] "2020-01-08 12:34:56 UTC"
+hour(datetime) <- hour(datetime) + 1
+datetime
+  #> [1] "2020-01-08 13:34:56 UTC"
+```
+
+Setting components returning new objects: `update()`
+
+```{r}
+update(datetime, year = 2020, month = 2, mday = 2, hour = 2)
+  #> [1] "2020-02-02 02:34:56 UTC"
+```
+
+## time spans
+
+3 classes to represent time spans:
+
+- duration: number of seconds
+- period: human units like weeks and months
+- intervals: starting and ending point
+
+### Durations
+
+Difftime object:
+```{r}
+  # How old is Hadley?
+h_age <- today() - ymd(19791014)
+h_age
+  #> Time difference of 14971 days
+```
+Duation: always uses seconds
+
+```{r}
+as.duration(h_age)
+  #> [1] "1293494400s (~40.99 years)"
+```
+Duration constructors:
+
+```{r}
+dseconds(15)
+  #> [1] "15s"
+dminutes(10)
+  #> [1] "600s (~10 minutes)"
+dhours(c(12, 24))
+  #> [1] "43200s (~12 hours)" "86400s (~1 days)"
+ddays(0:5)
+  #> [1] "0s"                "86400s (~1 days)"  "172800s (~2 days)"
+  #> [4] "259200s (~3 days)" "345600s (~4 days)" "432000s (~5 days)"
+dweeks(3)
+  #> [1] "1814400s (~3 weeks)"
+dyears(1)
+  #> [1] "31557600s (~1 years)"
+```
+Add and multiply durations:
+
+```{r}
+2 * dyears(1)
+  #> [1] "63115200s (~2 years)"
+dyears(1) + dweeks(12) + dhours(15)
+  #> [1] "38869200s (~1.23 years)"
+```
+Add and subtract durations from dates or date-times:
+
+```{r}
+tomorrow <- today() + ddays(1)
+last_year <- today() - dyears(1)
+```
+
+DST veya benzer özel durumlarda beklenmedik sonuçlar çıkabilir:
+
+```{r}
+one_pm <- ymd_hms("2016-03-12 13:00:00", tz = "America/New_York")
+
+one_pm
+  #> [1] "2016-03-12 13:00:00 EST"
+one_pm + ddays(1)
+  #> [1] "2016-03-13 14:00:00 EDT"
+
+```
+### Periods
+
+İnsanın sezgisel zaman ölçü birimlerini temsil eder.
+
+```{r}
+one_pm
+  #> [1] "2016-03-12 13:00:00 EST"
+one_pm + days(1)
+  #> [1] "2016-03-13 13:00:00 EDT"
+```
+
+Period constructors:
+
+```{r}
+seconds(15)
+  #> [1] "15S"
+minutes(10)
+  #> [1] "10M 0S"
+hours(c(12, 24))
+  #> [1] "12H 0M 0S" "24H 0M 0S"
+days(7)
+  #> [1] "7d 0H 0M 0S"
+months(1:6)
+  #> [1] "1m 0d 0H 0M 0S" "2m 0d 0H 0M 0S" "3m 0d 0H 0M 0S" "4m 0d 0H 0M 0S"
+  #> [5] "5m 0d 0H 0M 0S" "6m 0d 0H 0M 0S"
+weeks(3)
+  #> [1] "21d 0H 0M 0S"
+years(1)
+  #> [1] "1y 0m 0d 0H 0M 0S"
+```
+
+- Add and multiply periods
+- Add them to dates
+
+### Intervals
+
+```{r}
+years(1) / days(1)
+  #> [1] 365.25
+```
+
+```{r}
+next_year <- today() + years(1)
+(today() %--% next_year) / ddays(1)
+  #> [1] 365
+```
+
+```{r}
+(today() %--% next_year) %/% days(1)
+  #> [1] 365
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

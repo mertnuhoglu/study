@@ -1,0 +1,7 @@
+---
+title: "Sqlite R DateTime Examples"
+output: html_document
+---
+
+## Store date-times as character
+

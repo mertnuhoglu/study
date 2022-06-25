@@ -1,0 +1,52 @@
+---
+title: "Sqlite R Examples"
+output: html_document
+---
+
+# SQLite id=g12949
+
+## Create Database in SQLite id=g12954
+
+[SQLite - CREATE Database](https://www.tutorialspoint.com/sqlite/sqlite_create_database.htm)
+
+```bash
+sqlite3 data/test01.db
+```
+
+```
+sqlite> .databases
+main: /Users/mertnuhoglu/projects/study/r/ex/examples_r/data/test01.db r/w
+```
+
+## Create Table in SQLite id=g12963
+
+
+```sql
+CREATE TABLE contacts (
+  contact_id TEXT PRIMARY KEY,
+  first_name TEXT NOT NULL
+);
+```
+
+## Drop Table in SQLite
+
+```sql
+DROP TABLE contacts;
+```
+
+
+## Import CSV into SQLite id=g12964
+
+[Import a CSV File Into an SQLite Table](https://www.sqlitetutorial.net/sqlite-import-csv/)
+
+CSV File: `../data/contacts01.csv`
+
+```
+sqlite> .mode csv
+sqlite> .import ./data/contacts01.csv contacts
+```
+
+```sql
+SELECT * FROM contacts;
+```
+
