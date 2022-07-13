@@ -1,6 +1,7 @@
 ---
 title: "Simulation for Regular Tasks"
 output: html_document
+
 ---
 
 ## Import Admin Data
@@ -76,6 +77,12 @@ dbWriteTable(mydb, "form", form, overwrite = T)
 dbWriteTable(mydb, "person", person, overwrite = T)
 ```
 
+```{r}
+form <- dbReadTable(mydb, "form")
+person <- dbReadTable(mydb, "person")
+scheduler <- dbReadTable(mydb, "scheduler")
+```
+
 ### Insert operational data using DBI
 
 ```{r}
@@ -91,6 +98,24 @@ rj <- tribble(
 dbAppendTable(mydb, "regular_job", rj)
 ```
 
+### Create Task records
+
+```{r}
+r <- rj[1, ]
+s <- rj %>%
+  inner_join(scheduler, by = "scheduler_id") %>%
+  inner_join(person, by = "person_id") %>%
+  inner_join(form, by = "form_id")
+  #> # A tibble: 4 × 16
+  #>   regular_job_id job_title scheduler_id form_id person_id valid_from valid_until scheduler_title  every_min at_min at_hour at_day_of_month
+  #>            <dbl> <chr>            <dbl>   <dbl>     <dbl> <chr>      <chr>       <chr>                <int>  <int>   <int>           <int>
+  #> 1              1 Job 01               2       1         1 2022-06-22 2022-08-22  Her gün akşam 5         NA     NA      17              NA
+  #> 2              2 Job 02               1       1         2 2022-06-01 2022-07-22  Her Cuma akşam 4        NA     NA      16              NA
+  #> 3              4 Job 04               1       2         1 2022-06-22 2022-08-22  Her Cuma akşam 4        NA     NA      16              NA
+  #> 4              5 Job 05               2       2         2 2022-06-22 2022-07-22  Her gün akşam 5         NA     NA      17              NA
+  #> # … with 4 more variables: at_day_of_week <int>, person_name <chr>, form_title <chr>, form_url. <int>
+```
+
 ### Read
 
 Read the row from database
@@ -100,11 +125,20 @@ library(dplyr)
 src <- src_sqlite(db.path)
 rjdf <- tbl(src, "regular_job")
 rjdf
+  #>           <int> <chr>            <int>   <int>     <int> <chr>      <chr>      
+  #>1              1 Job 01               2       1         1 2022-06-22 2022-08-22 
+  #>2              2 Job 02               1       1         2 2022-06-01 2022-07-22 
+  #>3              3 Job 03               2       1         3 2022-07-22 2022-09-22 
+  #>4              4 Job 04               1       2         1 2022-06-22 2022-08-22 
+  #>5              5 Job 05               2       2         2 2022-06-22 2022-07-22 
 ```
+
+### Issue: Date kıyaslamalarında `<` işlemi düzgün çalışmıyor collect() kullanmazsan id=g12972
 
 ```{r}
 rjdf %>%
   filter(valid_from > as.Date("2022-06-01"))
+  #> 5 rows
 ```
 
 Dikkat: Eğer collect() etmeden sorguları çalıştırırsan, her nedense date kıyaslamalarında `<` işlemini düzgün hesaplamıyor:
@@ -112,11 +146,12 @@ Dikkat: Eğer collect() etmeden sorguları çalıştırırsan, her nedense date 
 ```{r}
 rjdf %>%
   filter(valid_from < as.Date("2022-07-01"))
+  #> empty
 ```
 
 ```{r}
 rjdf %>% collect() %>%
         filter(valid_from < as.Date("2022-07-01"))
-
+  #> 4 rows
 ```
 

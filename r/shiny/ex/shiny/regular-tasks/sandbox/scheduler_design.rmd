@@ -1,0 +1,8 @@
+---
+title: "Simulation for Scheduler Design"
+output: html_document
+
+---
+
+Ref: ![sim_regular_tasks$cron_scheduler](https://docs.google.com/spreadsheets/d/10lRHF-qgi5ScyGjGc-9nsBlg76F4YvjM/edit#gid=1575160494)
+

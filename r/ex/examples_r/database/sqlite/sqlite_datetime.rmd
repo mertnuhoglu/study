@@ -53,6 +53,7 @@ evt02 <- evt %>%
     event_datetime2 = ymd_hms(event_datetime))
 evt02
 ```
+
 ```{r}
 str(evt02)
 # 'data.frame':	1 obs. of  5 variables:
@@ -62,3 +63,4 @@ str(evt02)
 #  $ event_date2    : Date, format: "2022-06-24"
 #  $ event_datetime2: POSIXct, format: "2022-06-24 08:30:30"
 ```
+

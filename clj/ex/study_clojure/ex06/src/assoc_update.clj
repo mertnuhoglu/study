@@ -112,10 +112,10 @@ p
 
 ;; can also use in []
 
-user=> (update [1 2 3] 0 inc)
+(update [1 2 3] 0 inc)
 ;;=> [2 2 3]
 
-user=> (update [] 0 #(str "foo" %))
+(update [] 0 #(str "foo" %))
 ;;=> ["foo"]
 
 ;; For a simple change of value we can use constantly
@@ -182,14 +182,14 @@ user=> (update [] 0 #(str "foo" %))
 
 ;; ## Summary
 
-(def m {:k :v})
-(def f1 [v] :rs)
-(def f2 [arg1 arg2] :rs2)
+(def m {:k :v}) ; {:k :v}
+(defn f1 [v] :rs)
+(defn f2 [arg1 arg2] arg1)
 
-(assoc m k1 v1 k2 v2)
-(assoc-in m p-k v)
-(update m k f1)
-(update m k f2 arg2)
+(assoc m :k1 :v1 :k2 :v2) ; {:k :v, :k1 :v1, :k2 :v2}
+(assoc-in m [:k] :v3) ; {:k :v3}
+(update m :k f1) ; {:k :rs}
+(update m :k f2 :v4)
 (update-in m p-k f1)
 (update-in m p-k f2 arg2)
 
