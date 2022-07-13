@@ -13,6 +13,23 @@ kendi kullanım yöntemlerim
 			ref:
 				which-key vim-bookmarks: SPC m <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12560>
 points
+	imlecin bulunduğu kelimeleri çek id=g12998
+		ref
+			FindYamlElement2: imleçin bulunduğu yaml ifadesine referansları bul <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12997>
+		getline gibi benzer fonksiyonlar:
+			getpos
+			getpos(".")
+			[0,5168,5,0]
+			getcurpos: getpos(".") gibi
+			[0, lnum, col, off, curswant] ~
+			setpos('.', num)
+		satırın bir pos'undan sonraki metnini almak
+			substring: denk fonksiyonlar
+				a01: [from,to]
+					:h expr-[:]
+				a02: strpart("..", from, to)
+					Note: To get the first character, {start} must be 0.  For example, to get the character under the cursor: >
+						strpart(getline("."), col(".") - 1, 1, v:true)
 	message çıktısını buffer içine koyma id=g12685
 		:put =execute('messages')
 		:let @+ = execute('messages')

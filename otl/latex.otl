@@ -1,0 +1,78 @@
+
+latex id=g13082
+	ref
+		mathematical symbols: http://oeis.org/wiki/List_of_LaTeX_mathematical_symbols
+		detexify: draw and find symbol http://detexify.kirelabs.org/classify.html
+	Latex primer
+		http://data-blog.udacity.com/posts/2016/10/latex-primer/
+		inline and display
+			inline: $y=mx+b$
+			display: $$y=mx+b$$
+		superscript and subscript
+			x^2
+			x_2
+			x_{10}
+			_{10}x
+		commands
+			\sqrt{2\pi}
+			\frac{P}{X}
+		symbols
+			greek letters
+				\alpha \beta \gamma
+				\Alpha \Gamma
+			operators
+				\times \pm \cup \oplus \cdot
+			trigonometry
+				\sin \arctan
+			relations
+				\leq \geq \approx \neq
+			triple dots
+				\cdots \ldots \ddots
+			various
+				\infty \nabla \partial
+			derivative del partial
+				\partial ∂ \dP
+				\nabla ∇ \NB del
+		accents
+			\hat x
+			\widehat{abs}
+			\bar x
+			\overline{abs}
+			\dot x
+			\ddot x
+			\vec{x}
+			\overrightarrow{xy}
+		parentheses
+			cases
+				f(x)= 
+				\begin{cases}
+						\frac{x^2-x}{x},& \text{if } x\geq 1\\
+						0,              & \text{otherwise}
+				\end{cases}
+			\left \right
+				\left( \frac{dx}{dy} \right)
+			vertical lines 
+				| or \vert or \mid
+			angle brackets
+				\langle \rangle
+			matrix brackets
+				\left\lgroup \matrix{a & b\cr c & d} \right\rgroup
+			vertical bars
+				\|
+		typefaces
+		summation integral
+			\sum
+		spaces
+			\, \: \;
+			\quad \qquad
+		escaping characters
+			\{ \_ \$ \backslash
+		newline
+			\\
+		aligned equations
+			\begin{align}
+			a_1 & = b_1 + c_1 \\
+			a_2 & = b_2 + c_2 
+			\end{align}
+		set of real numbers
+			\rm I\!R

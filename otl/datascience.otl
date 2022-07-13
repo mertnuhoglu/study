@@ -1,0 +1,285 @@
+
+datascience id=g13076
+topics
+	streammining
+		moa
+			Tutorial 1
+				running gui
+					java -cp moa.jar -javaagent:sizeofag.jar moa.gui.GUI
+				running tasks
+					configure > .select: task
+					running on command line
+						copy command > run on command line
+				data streams evaluation
+					requirements for data stream
+						process an example at a time
+						limited memory
+						limited time
+						predict any time
+					accuracy over time
+						holdout
+						interleaved test-then-train or prequential
+							test with each new example first
+							then train the model with it
+					ex1_1
+						expl
+							compare
+								HoeffdingTree with NaiveBayes
+							data stream
+								RandomTreeGenerator 1M 
+							accuracy
+								interleaved
+								sample frequency 10K
+						cmd1
+							java -cp moa.jar -javaagent:sizeofag.jar moa.DoTask \
+								EvaluateInterleavedTestThenTrain \
+								-l trees.HoeffdingTree \
+								-s generators.RandomTreeGenerator -i 1000000 -f 10000
+						cmd2
+							java -cp moa.jar -javaagent:sizeofag.jar moa.DoTask \
+								EvaluateInterleavedTestThenTrain \
+								-l bayes.NaiveBayes \
+								-s generators.RandomTreeGenerator -i 1000000 -f 10000
+						opt
+							use prequential
+								java -cp moa.jar -javaagent:sizeofag.jar moa.DoTask \
+									EvaluatePrequential \
+									-l trees.HoeffdingTree \
+									-s generators.RandomTreeGenerator -i 1000000 -f 10000
+					ex1_2
+						expl
+							same but use 3 different evaluations
+								periodic held out with 1000 for testing
+								interleaved test
+								perquential with sliding window of 1000 
+						cmd1
+							EvaluatePeriodicHeldOutTest -i 1000 -f 10000
+						me
+							use with ./runmoa
+								./runmoa EvaluatePeriodicHeldOutTest -i 1000 -f 10000
+				drift stream generators
+					streams built using
+						generators
+						arff files
+						joining several streams
+						filtering streams
+					concept drift stream
+						cmd
+							EvaluatePeriodicHeldOutTest -s (ConceptDriftStream -s (generators.AgrawalGenerator -f 7) -d (generators.AgrawalGenerator -f 2) -p 900000 -w 1000000) -i 1000 -f 10000
+				learning and evaluating models
+					moa.DoTask
+						running tasks
+						args
+							name of task
+								LearnModel
+									-l learner
+										HoeffdingTree
+							stream to learn from
+								-s
+									generators.WaveformGenerator
+							max. number of examples to train
+								-m
+							output
+								-O
+					ex 1
+						expl
+							learning using HoeffdingTree
+							streaming data using WaveformGenerator
+							output model: model1.moa
+						cmd
+							java -cp moa.jar -javaagent:sizeofag.jar moa.DoTask \
+								LearnModel -l trees.HoeffdingTree \
+								-s generators.WaveformGenerator -m 1000000 -O model1.moa    
+					ex 2
+						expl
+							evaluate model using different seed
+							load model -m
+							generate a new stream with seed 2
+								nesting parameters using brackets
+						cmd
+							java -cp moa.jar -javaagent:sizeofag.jar moa.DoTask \
+								"EvaluateModel -m file:model1.moa \
+								-s (generators.WaveformGenerator -i 2) -i 1000000"
+					ex 3
+						expl
+							do the previous steps in one step
+								without an external file
+						cmd
+							java -cp moa.jar -javaagent:sizeofag.jar moa.DoTask \
+								"EvaluateModel \
+									-m (LearnModel -l trees.HoeffdingTree \
+									-s generators.WaveformGenerator -m 1000000) \
+								-s (generators.WaveformGenerator -i 2) -i 1000000"
+					ex 4
+						expl
+							EvaluatePeriodicHeldOutTest
+								train model while taking snapshots
+								using heldout test set at periodic intervals
+						cmd
+							java -cp moa.jar -javaagent:sizeofag.jar moa.DoTask \
+								"EvaluatePeriodicHeldOutTest \
+									-l trees.HoeffdingTree \
+									-s generators.WaveformGenerator \
+									-n 100000 -i 10000000 -f 1000000" > dsresult.csv
+										use first 100K for testing
+										train on 100M
+										test every 1M 
+			Tutorial 2
+				using API
+					project
+						/Users/mertnuhoglu/projects/study/java/moa_tutorial2/
+					
+				Massive online data stream mining with R 
+				link
+					http://bnosac.be/index.php/blog/26-massive-online-data-stream-mining-with-r
+				description
+					using Moa clustering from R
+					
+		frequent pattern mining
+			http://www.analysis-of-patterns.net/files/bgoethals.pdf
+				agrawal, imielinski 1993: 13 most cited paper
+				find associations between products
+					ex: supermarket
+						which products are bought together?
+						products influence the sales of other products?
+					applications
+						supermarket
+							cross selling
+							product placement
+							special promotions
+							basket / products
+						websearch
+							keywords occur together in webpages?
+							web pages / keywords
+						health care
+							sets of symptoms of a disease
+							patient / symptoms
+						prediction
+							associative classifiers
+				complex patterns
+					data structures
+						sets
+						sequences
+						graphs
+						relational structures
+					sequences
+						dna
+						patterns in sequences
+					relational databases
+						ex
+							likes(drinker, beer)
+							visits(drinker, bar)
+							serves(bar, beer)
+						patterns in RDB
+							Query 1
+								select L.drinker, V.bar
+								From Likes L, Visits V
+								Where V.drinker = L.drinker
+								And L.beer = 'Duvel'
+							Query 2
+								Select L.drinker, V.bar
+								From Likes L, Visits V, Serves S
+								Where V.drinker = L.drinker
+								And L.beer = 'Duvel'
+								And S.bar = V.bar
+								And S.beer = 'Duvel'
+							association rule
+								query 1 => query 2
+								if a person that likes Duvel visits bar,
+								then that bar serves Duvel
+					pattern mining in general
+						given
+							a database
+							a partially ordered class of patterns
+							an interestingness measure (eg. support)
+								which is monotone wrt partial order
+						problem
+							find all interesting patterns
+			http://www.warse.org/pdfs/2014/ijacst05342014.pdf
+				Complete survey on application of FPM on Crime Pattern Mining
+				crime pattern functions
+		Introduction to stream
+			requirements
+				bounded storage
+				single pass
+				real time
+				concept drift
+					data generating process evolves over time
+						distributions change
+						new structure in data appears
+			r data stream libraries:
+				data sources
+					random numbers as streams
+						rstream, relcuyer
+					financial data
+						quantmod
+					twitter
+						streamR twitteR
+				statistical models
+					iteratively updating models
+					factas
+						correspondence analysis, PCA, correlation, discriminant
+					birch
+						clustering
+					rEMM
+						clustering
+					RMOA
+						interfaces to MOA
+				distributed computing frameworks
+					HadoopStreaming
+						using R mapreduce scripts in hadoop
+						no data stream
+					RStorm
+						prototyping bolts (computational units) in R
+						spouts (data stream sources): represented as data frames
+			data stream mining
+				common tasks
+					clustering, classification, frequent pattern mining
+				data stream clusternig
+					standard algorithms
+						access all data points
+						iterate over data multiple times
+			examples
+				# creating a data stream
+				> library("stream")
+				> stream = DSD_Gaussians(k = 3, d = 3, noise = .05, p = c(.5, .3, .1))
+				> stream
+				Mixture of Gaussians
+				Class: DSD_Gaussians, DSD_R, DSD_data.frame, DSD
+				With 3 clusters in 3 dimensions
+				> = get_points(stream, n = 5)
+				> p
+								 V1        V2        V3
+				1 0.7642897 0.7008495 0.3779178
+				2 0.6736316 0.6506696 0.4708139
+				3 0.7456190 0.7255487 0.4731610
+				4 0.4460507 0.7063144 0.2449593
+				5 0.3688679 0.6551766 0.1235002
+				plot( stream, n = 500 )
+		RMOA at github
+			https://github.com/jwijffels/RMOA
+			examples
+				library(RMOA)
+		Create a HoeffdingTree
+					hdt <- HoeffdingTree(numericEstimator = "GaussianNumericAttributeClassObserver")
+					hdt
+		Define a stream - e.g. a stream based on a data.frame
+					data(iris)
+					iris <- factorise(iris)
+					irisdatastream <- datastream_dataframe(data=iris)
+		Train the HoeffdingTree on the iris dataset
+					mymodel <- trainMOA(model = hdt, 
+						formula = Species ~ Sepal.Length + Sepal.Width + Petal.Length, 
+						data = irisdatastream)
+		Predict using the HoeffdingTree on the iris dataset
+					scores <- predict(mymodel, newdata=iris, type="response")
+					str(scores)
+					table(scores, iris$Species)
+					scores <- predict(mymodel, newdata=iris, type="votes")
+					head(scores)
+		Boosting example
+					irisdatastream$reset()
+					mymodel <- OzaBoost(baseLearner = "trees.HoeffdingTree", ensembleSize = 30)
+					mymodel <- trainMOA(model = mymodel, 
+						formula = Species ~ Sepal.Length + Sepal.Width + Petal.Length, 
+						data = irisdatastream)

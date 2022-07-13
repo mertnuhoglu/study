@@ -1,4 +1,6 @@
 
+datomic.otl id=g13023
+	datomic.otl <url:file:///~/projects/study/clj/datomic.otl#r=g13023>
 ref
 	Day Of Datomic Cloud otl <url:file:///~/projects/study/clj/archive-datomic.md#r=g12849>
 study-order datomic id=g12866

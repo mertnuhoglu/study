@@ -1,0 +1,11 @@
+
+cinfo: general information outliner id=g13050
+ndx
+	finance finans finance2 finans2 <url:file:///~/projects/study/otl/cinfo.otl#r=g13051>
+finance finans finance2 finans2 id=g13051
+	ndx
+		gtd - finance <url:file:///~/projects/study/otl/cinfo.otl#r=g13053>
+	[Appajubi Twitter'da: "Çeşitli konularda yazdığım twit zincirlerine buradan ulaşabilirsiniz. - Borsada hisse seçimi:" / Twitter](https://twitter.com/appajubi/status/1471750939086405636) id=g13052
+gtd - cinfo
+	gtd - finance id=g13053
+		Appajubi Twitter'da: "Çeşitli konularda yazdığım twit zincirlerine buradan ulaşabilirsiniz. - Borsada hisse seçimi:" / Twitter <url:file:///~/projects/study/otl/cinfo.otl#r=g13052>

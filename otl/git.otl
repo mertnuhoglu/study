@@ -1,0 +1,528 @@
+
+git  id=g13080
+	multiple remote locations: gitlab ve github
+		ref
+			POC uygulamalarını bitbucket'tan github'a taşı 20210412  <url:file:///~/projects/study/logbook/log_20210412.md#r=g12089>
+			gitlab, bitbucket, github repolarını sync et 20200415  <url:file:///~/projects/study/logbook/log_20200415.md#r=g12087>
+	revert a file to a commit
+		git checkout c5f567 -- file1/to/restore
+	git tag
+		create a tag
+			https://stackoverflow.com/questions/18216991/create-a-tag-in-github-repository
+			git tag <tagname>
+			git tag <tagname> -a
+				include a description -a: annotated tag
+			git push origin --tags
+				push local tags to remote repo
+			git fetch
+				fetch remote tags into local repo
+		git basics - tagging
+			listing tags
+				git tag
+			filtering tags: -l --list
+				git tag -l "v.18.5*"
+			created annotated tags
+				git tag -a v1.4 -m "my version 1.4"
+				git show v1.4
+			create tag (light)
+				git tag v1.4l
+			tagging later
+				git tag v1.4b 9fcebak
+			checkout tags
+				git checkout 2.0.0
+				git checkout -b v2 2.0.0
+					checkout to a new branch
+	git diff two dirs outside of repo 
+		https://stackoverflow.com/a/7945988/29246
+			git diff --no-index a b >> patch
+	search git logs id=g10562
+		search git logs <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10562>
+		https://www.gun.io/blog/git-search-log
+			search log messages
+				git log --grep="word" 
+			search all files in all commits
+				git grep "word" $(git rev-list --all)  # display matched lines
+				git log -S"word" --oneline  # display commits containing matched files
+		https://git-scm.com/book/en/v2/Git-Tools-Searching
+			-S: pickaxe option
+			Line Log Search
+				git log -L :function_name:file_name.c  # show changes in this function
+	detached HEAD id=g10553
+		detached HEAD <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10553>
+		https://www.git-tower.com/learn/git/faq/detached-head-when-checkout-commit
+			understanding how checkout works
+				git checkout <revision>
+				git places all of that revision's files in working copy folder
+				normally you use branch
+					$ git checkout dev
+				you can also use commit
+					$ git checkout 56ae
+					# you are in detached HEAD
+				this state: when a specific commit is checked out instead of a branch 
+					= is called "detached HEAD"
+		https://howtogit.net/recipes/getting-out-of-detached-head-state.html
+			how to get out of detached HEAD state
+				git checkout <branch>
+			what is HEAD
+				the most recent commit of the current branch
+				your HEAD is attached to the branch
+					it always points to last commit on the branch
+			what happens when in detached HEAD state?
+				HEAD points to the commit you specified
+				any commits you make in detached HEAD mode will be lost
+			what is the purpose of detached HEAD state?
+				explore an older state
+			how to return to the branch?
+				git checkout -
+				dash `-`: shortcut for the branch/commit of your last checkout command
+			what else can i do in detached HEAD state?
+				git checkout -b <new-branch>
+				new branch will branch from current position
+				you will exit detached HEAD state
+	rename branch
+		https://multiplestates.wordpress.com/2015/02/05/rename-a-local-and-remote-branch-in-git/
+			git branch -m <new> # rename current local branch
+			git push origin :<old> <new> # delete remote branch and push new branch
+			git push origin -u <new> # reset upstream branch for new branch
+	errors git 
+		error: could not lock config file /Users/mertnuhoglu/.gitconfig: File exists id=g10579
+			error: could not lock config file /Users/mertnuhoglu/.gitconfig: File exists <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10579>
+			google: 
+				could not lock config file .gitconfig file exists 
+				on every shell
+			her yeni shell açılışında hatayı veriyor
+			sol01:
+				rm /Users/mertnuhoglu/projects/private_dotfiles/.gitconfig.lock
+			https://askubuntu.com/questions/258288/trouble-setting-up-git-error-could-not-lock-config-file
+				Verify if there's some file called ~/.gitconfig.lock. If that's the case just delete it.
+				The file ~/.gitconfig belongs to you (use 
+					ls -la ~/.gitconfig 
+					to check). If it does not you can change the ownership using sudo chown <your_username>:<your_username> ~/.gitconfig
+				chown
+					sudo chown mertnuhoglu:mertnuhoglu /Users/mertnuhoglu/projects/private_dotfiles
+					error: chown: mertnuhoglu: illegal group name
+						sudo chown mertnuhoglu: /Users/mertnuhoglu/projects/private_dotfiles
+		cannot push because HEAD is detached id=g10516
+			cannot push because HEAD is detached <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10516>
+			ref
+				detached HEAD <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10553>
+			msg
+				hint: Updates were rejected because a pushed branch tip is behind its remote
+				hint: counterpart. Check out this branch and integrate the remote changes
+				hint: (e.g. 'git pull ...') before pushing again.
+				hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+			https://stackoverflow.com/questions/10298291/cannot-push-to-github-keeps-saying-need-merge
+				opt1: -u
+					git push -u origin master
+				opt2: zor problemi ertele: -f
+					git push -f origin master
+			error: tag'ler remote'a yüklenmiyor
+				msg:
+					HEAD detached from step05
+				https://stackoverflow.com/questions/10228760/fix-a-git-detached-head
+					detached head: you are no longer on a branch
+					opt1: go to HEAD
+						git checkout master
+					opt2: keep changes with detached HEAD
+						git checkout master
+						git branch tmp <detached_head_commit>
+						git merge tmp
+		could not lock config file /Users/mertnuhoglu/.gitconfig: File exists
+			https://askubuntu.com/questions/258288/trouble-setting-up-git-error-could-not-lock-config-file
+				rm ~/.gitconfig.lock
+	git log id=g10499
+		git log <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10499>
+		atlassian git cheatsheet
+			https://www.atlassian.com/dam/jcr:8132028b-024f-4b6b-953e-e68fcce0c5fa/atlassian-git-cheatsheet.pdf
+			git log -<limit>
+				git log -5
+					limit to 5 commits
+			git log --oneline
+			git log -p
+				display full diff
+			git log --stat
+				which files are altered
+			git log --author="<pattern>"
+			git log --grep=<pattern>
+				search for commits
+			git log <since>..<until>
+				args: commit id, branch name, HEAD, revision ref
+			git log -- <file>
+			git log --graph --decorate
+		https://devhints.io/git-log
+			revision ranges
+				git log master # branch
+				git log v1.0.0 # tag
+	undo changes in git id=g10543
+		undo changes in git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10543>
+		https://docs.gitlab.com/ee/topics/git/numerous_undo_possibilities_in_git/
+			Undo local changes which were not pushed to remote repository
+				before commit
+					unstaged changes (before git add)
+						discard all
+							git stash  # save them for possible re-use later
+							git reset --hard # permanently
+						discard a file
+							git checkout -- <file>
+					staged changes
+						Unstage the file to current commit (HEAD)
+							git reset HEAD <file>
+						Unstage everything - retain changes
+							git reset
+						Discard all local changes, but save them for later
+							git stash
+						Discard everything permanently
+							git reset --hard
+				after commit
+					[version control - How do I undo the most recent local commits in Git? - Stack Overflow](https://stackoverflow.com/questions/927358/how-do-i-undo-the-most-recent-local-commits-in-git)
+						$ git commit -m "Something terribly misguided" # (0: Your Accident)
+						$ git reset HEAD~                              # (1)
+						[ edit files as necessary ]                    # (2)
+						$ git add .                                    # (3)
+						$ git commit -c ORIG_HEAD                      # (4)
+		https://www.atlassian.com/dam/jcr:8132028b-024f-4b6b-953e-e68fcce0c5fa/atlassian-git-cheatsheet.pdf
+			git revert <commit>
+				new commit that undoes all changes in <commit>
+			git reset <file>
+				unstages <file> without overwriting any changes
+			git clean -n
+				which files will be removed from working dir
+				-f to execute
+	rewriting git history
+		https://www.atlassian.com/dam/jcr:8132028b-024f-4b6b-953e-e68fcce0c5fa/atlassian-git-cheatsheet.pdf
+			git commit --amend
+				replace last commit with staged changes
+			git rebase <base>
+			git reflog
+	tags git id=g10495
+		tags git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10495>
+		move tag to another commit id=g10518
+			move tag to another commit <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10518>
+			ref
+				Moving Existing Git Tags <url:/Users/mertnuhoglu/projects/study/git/study_git_tags.Rmd#tn=## Moving Existing Git Tags>
+			https://stackoverflow.com/questions/8044583/how-can-i-move-a-tag-on-a-git-branch-to-a-different-commit/28280404
+				opt1: using public git commands
+					git tag -d fix123;                     # delete the old local tag
+					git push origin :fix123                # delete the old remote tag (use for each remote)
+					git tag -d fix123;                     # delete the old local tag again
+					git tag fix123 790a621265              # create a new local tag
+					git push origin fix123                 # push new tag to remote    (use for each remote)
+				opt2: using internal git and -f
+					Delete the tag on any remote before you push
+					git push origin :refs/tags/<tagname>
+					Replace the tag to reference the most recent commit
+					git tag -fa <tagname>
+					Push the tag to the remote origin
+					git push origin master --tags
+		show tags
+			git tag    # list all tags
+			git show --name-only <tag>
+				list tag and associated commit 
+			git ls-remote --tags    # list remote tags
+		push tags and commits together
+			git push --follow-tags
+	git diff 
+		diff previous commit id=g10517
+			diff previous commit <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10517>
+			opt
+				https://stackoverflow.com/questions/9903541/finding-diff-between-current-and-last-version
+				git diff HEAD^ HEAD
+				git diff @~..@
+				git show
+				git diff commit_id HEAD
+				git diff commit_id
+		how to read git diff format
+			https://stackoverflow.com/questions/2529441/how-to-read-the-output-from-git-diff
+				diff --git a/builtin-http-fetch.c b/http-fetch.c
+					a/ b/: filenames are same unless rename/copy is done
+					--git: diff is in git diff format
+				index 8275a52..805e848 100644
+					100644: it is ordinary file (not symlink, executable)
+					short hash of preimage (source)(before change)
+					short hash of postimage (destination)
+				--- a/builtin-http-fetch.c
+					source file
+				+++ b/http-fetch.c
+					destination file
+				@@ -1,8 +1,9 @@
+					read: @@ from-file-range to-file-range @@ [header]
+					from-file-range
+						-<start line>,<number of lines>
+					to-file-range
+						+<start line>,<number of lines>
+		git diff			# show changes in unstaged files
+		git diff --staged			# changes in cache/index (staged) against HEAD
+			--staged = --cached
+		git diff --name-only --staged		# show file names only in staged
+	remove file from git repo without deleting it from filesystem
+		git rm --cached mylogfile.log
+		git rm --cached -r mydirectory
+	change remote origin of repository
+		git remote set-url origin https://...
+	add remote origin
+		git remote add origin https://...
+	get url of repo from local
+		git remote show origin
+		git remote -v
+	commit uncommitted changes to existing branch
+		https://stackoverflow.com/questions/2944469/how-to-commit-my-current-changes-to-a-different-branch-in-git
+		git stash
+		git checkout other-branch
+		git stash pop
+	branch merging - git id=g10556
+		branch merging - git <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10556>
+		refcard - branch merging
+			# co = checkout
+			# dev is a branch
+			git co dev
+			git merge master
+			# resolve conflicts
+			git co master
+			git merge --no-ff dev
+		Git Merge vs. Rebase: What’s the Diff? id=g10554
+			Git Merge vs. Rebase: What’s the Diff?  <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10554>
+			https://hackernoon.com/git-merge-vs-rebase-whats-the-diff-76413c117333
+			intro
+				`git merge` and `git rebase`
+					offer same service: getting commits from one branch into another
+					key difference: how this is achieved?
+			conclusion
+				Use merge in cases where you want a set of commits to be clearly grouped together in history
+				Use rebase when you want to keep a linear commit history
+				DON’T use rebase on a public/shared branch
+		Visualize Merge History with git log --graph, --first-parent, and --no-merges id=g10555
+			Visualize Merge History with git log --graph, --first-parent, and --no-merges <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10555>
+			https://redfin.engineering/visualize-merge-history-with-git-log-graph-first-parent-and-no-merges-c6a9b5ff109c
+			intro
+				`git log` is confusing when history contains merges
+				`git log` can mislead you
+				`git log --graph` to visualize merge history
+				`--first-parent` to see the true history of a single branch
+				`--no-merges` when `--first-parent` is not enough
+				deepen your understanding of git
+			what a rebase is
+				someone says: this is stupid. use only `git rebase` and never have `merge`
+			chronological ordering: time is an illusion
+				ref
+					/Users/mertnuhoglu/projects/study/git/ex01/example
+					~/projects/study/git/ex01/make_example
+				git log --pretty="format:%h %ar %s"
+					shows commits in chronological order `--date-order`
+			merge commits
+				git log --graph
+					ex
+						* |   7b79ec5 3 seconds ago Merge branch 'branch2'
+						|\ \
+						| * | accf1ce 4 seconds ago branch 2
+						| |/
+						* | a26aed9 6 seconds ago commit directly on master
+						|/
+						* 2d56476 7 seconds ago initial
+				* asterisk:	 commits
+				parent commits
+					ordinary commits have one parent
+						parent: last commit of the branch
+					ex:
+						2d56476 is parent of a26aed9
+				root commit: initial commit has no parents
+				when merging two branches:
+					you create a merge commit with two parents
+						parent 1: last commit of the current branch
+						parent 2: last commit of the branch you merge in
+					ex:
+						7b79ec5 has parents: a26aed9 and accf1ce
+				topological ordering: --topo-order
+					"Show no parents before all of its children are shown, and avoid showing commits on multiple lines of history intermixed."
+			use --graph as little as possible
+				visual aids can only represent a few dozen things before they become as complicated as the original thing
+			true lineage of master
+				first parent: current branch when `git merge`
+				second parent: branch that you pull in
+				ex
+					commit 8aec37089204c7ec5d280779cdcfe5e378026c65
+					Merge: b7b4b7c f88c7ba
+					# b7b4b7c: first parent
+				ex
+					$ git log --first-parent.
+					8aec370 0 seconds ago Merge branch 'branch3'
+					b7b4b7c 1 second ago Merge branch 'branch1'
+					7b79ec5 3 seconds ago Merge branch 'branch2'
+					a26aed9 6 seconds ago commit directly on master
+					2d56476 7 seconds ago initial
+				`--first-parent` shows only first parent of each commit
+			fast-forward merges mix up parent order
+	stash
+		stash apply vs stash pop
+			stash pop
+				stash'i geri yükledikten sonra otomatik olarak drop ediyor
+			git stash pop =
+				git stash apply
+				git stash drop
+		dosyayı önce stash'e kaydet sonra pull et, sonra stash'teki değişiklikleri geri al
+			git stash
+			git pull
+			git stash list
+			git stash apply
+	github
+		init project from local
+			if local non empty
+				create a new repo in github
+				git init
+				git remote add origin https://github.com/mertnuhoglu/slidify-demo-01.git
+			if repo is non-empty
+				git init
+				git remote add origin https://github.com/mertnuhoglu/hugo01.git 
+				git pull origin master
+				git add some_file
+				git commit -m "initial"
+				git branch --set-upstream-to=origin/master master 
+				git push origin master 
+				git pull
+	webfaction
+		creating new repository
+			ssh into wf
+			cd ~/webapps/gitw/repos
+			git init --bare repo_name.git
+			cd repo_name.git
+			git config http.receivepack true
+		cloning repository on local
+			git clone http://mertnuhoglu@git.mertnuhoglu.com/repo_name.git
+			cd repo_name
+			git config http.postBuffer 524288000
+		cloning repo on webfaction
+			git clone ~/webapps/gitw/repos/repo_name.git
+	git clone into current directory
+		git init .
+		git remote add -t \* -f origin <repo-url>
+	get url of repo from local
+		git remote show origin
+		git remote -v
+	hub
+		# clone your own project
+			git clone dotfiles
+			git clone git://github.com/YOUR_USER/dotfiles.git
+		# clone another project
+			git clone github/hub
+			git clone git://github.com/github/hub.git
+		# see the current project's issues
+			git browse -- issues
+			open https://github.com/github/hub/issues
+		# open another project's wiki
+			git browse mojombo/jekyll wiki
+			open https://github.com/mojombo/jekyll/wiki
+		# Example workflow for contributing to a project:
+			git clone github/hub
+			cd hub
+		# create a topic branch
+			git checkout -b feature
+			( making changes ... )
+			git commit -m "done with feature"
+		# It's time to fork the repo!
+			git fork
+			(forking repo on GitHub...)
+			git remote add YOUR_USER git://github.com/YOUR_USER/hub.git
+		# push the changes to your new remote
+			git push YOUR_USER feature
+		# open a pull request for the topic branch you've just pushed
+			git pull-request
+			(opens a text editor for your pull request message)
+			an open-source maintainer
+			a project is easier when you can easily fetch from other forks, review pull requests and cherry-pick URLs. You can even create a new repo for your next thing.
+		# fetch from multiple trusted forks, even if they don't yet exist as remotes
+			git fetch mislav,cehoffman
+			git remote add mislav git://github.com/mislav/hub.git
+			git remote add cehoffman git://github.com/cehoffman/hub.git
+			git fetch --multiple mislav cehoffman
+		# check out a pull request for review
+			git checkout https://github.com/github/hub/pull/134
+			(creates a new branch with the contents of the pull request)
+		# directly apply all commits from a pull request to the current branch
+			git am -3 https://github.com/github/hub/pull/134
+		# cherry-pick a GitHub URL
+			git cherry-pick https://github.com/xoebus/hub/commit/177eeb8
+			git remote add xoebus git://github.com/xoebus/hub.git
+			git fetch xoebus
+			git cherry-pick 177eeb8
+		# `am` can be better than cherry-pick since it doesn't create a remote
+			git am https://github.com/xoebus/hub/commit/177eeb8
+		# open the GitHub compare view between two releases
+			git compare v0.9..v1.0
+		# put compare URL for a topic branch to clipboard
+			git compare -u feature | pbcopy
+		# create a repo for a new project
+			git init
+			git add . && git commit -m "It begins."
+			hub create -d "My new thing"
+			(creates a new project on GitHub with the name of current directory)
+			git push origin master
+	git pull vs git fetch
+		https://stackoverflow.com/questions/292357/what-is-the-difference-between-git-pull-and-git-fetch#292359
+		git pull = git fetch + git merge
+		git fetch never changes working copy
+	different config files in branches
+		https://stackoverflow.com/questions/24498844/using-conditional-configuration-files-with-git/24498888#24498888
+		git attributes
+			https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#_merge_strategies
+				path specific settings: git attributes
+					set in 
+						.gitattributes: per directory
+						.git/info/attributes: project wise
+				uses:
+					handling binary files differently
+					merge strategies
+				merge strategies: different config files for different branches
+					.gitattributes
+						database.xml merge=ours
+					git config --global merge.ours.driver true
+					git merge topic
+	change submodule after fork
+		https://stackoverflow.com/questions/11637175/swap-git-submodule-with-own-fork
+		.gitmodules:
+		$ cat .gitmodules
+		[submodule "ext/google-maps"]
+				path = ext/google-maps
+				url = git://git.naquadah.org/google-maps.git
+		edit the url with a text editor, you need to run the following:
+		$ git submodule sync
+	git repo inside git repo: submodules
+		https://git-scm.com/book/en/v2/Git-Tools-Submodules
+		Submodules
+			you need another project within some project
+			two procejts well be separate
+		adding
+			# adds existing repo as a submodule of working repo
+			git submodule add https://github.com/chaconinc/DbConnector
+			# added into directory named same as repo: "DbConnector"
+				different path:
+					git submodule add https://github.com/chaconinc/DbConnector <new_folder>
+		ex:
+			# cd to directory where subrepo will be installed
+			cd themes
+			git submodule add https://github.com/spf13/herring-cove 
+			$ cat ../.gitmodules
+			[submodule "themes/herring-cove"]
+				path = themes/herring-cove
+				url = https://github.com/spf13/herring-cove
+		cloning
+			opt1
+				git clone x
+				git submodule init
+				git submodule update
+			opt2
+				git clone --recursive x
+	issues
+		global git ignore
+			excludesfile = ~/.config/git/ignore
+	articles
+		Learning to debug with Git
+			https://medium.com/@naveenkarippai/learning-to-debug-with-git-20bf13318164
+			bottom line
+				git grep
+					search in working dir 
+				git blame
+					find author of a specific line or commit 
+				git bisect
+					find commit that introduced the line
+				man git [command]
+			git grep
+				git grep awesome-typescript-loader

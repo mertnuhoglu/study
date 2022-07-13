@@ -1,0 +1,131 @@
+
+hugo  id=g13077
+	@mine
+		temalar themes
+			elegant
+				https://themes.gohugo.io/theme/hugo-tranquilpeak-theme/
+				https://themes.gohugo.io//theme/hugo-theme-introduction/#blog
+					https://github.com/victoriadrake/hugo-theme-introduction
+				https://themes.gohugo.io/theme/AllinOne/
+				https://themes.gohugo.io/hugo-future-imperfect-slim/
+				https://themes.gohugo.io//theme/hugo-theme-massively/
+			minimalist	
+				https://themes.gohugo.io/theme/black-and-light/
+			corporate
+				https://github.com/devcows/hugo-universal-theme
+			ananke https://themes.gohugo.io//theme/gohugo-theme-ananke/
+			https://themes.gohugo.io//theme/hugo-refresh/post/
+			https://themes.gohugo.io/mediumish-gohugo-theme/
+			https://themes.gohugo.io/arabica/
+			https://themes.gohugo.io/story/
+			https://themes.gohugo.io/tale-hugo/
+			https://themes.gohugo.io/hugo_theme_pickles/
+			https://themes.gohugo.io/hugo-theme-minos/
+			https://themes.gohugo.io/theme/hugo-creative-portfolio-theme/portfolio/
+			https://github.com/peterychuang/peterychuang.github.io
+			kurumsal
+				https://themes.gohugo.io/airspace-hugo/
+	adding a theme
+		cd themes
+		git submodule add https://github.com/spf13/herring-cove 
+		vim config.yaml
+			# ++
+			theme: herring-cove
+	official documentation
+		Quick Start
+			http://gohugo.io/getting-started/quick-start/
+			install
+				brew install hugo
+				hugo version
+			new site
+				hugo new site quickstart
+			theme
+				cd quickstart;\
+				git init;\
+				git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke;\
+				echo 'theme = "ananke"' >> config.toml
+			add content
+				hugo new posts/my-first-post.md
+			start hugo with drafts enabled
+				$ hugo server -D
+				http://localhost:1313
+			render
+				hugo
+			set draft=false in front parameters
+			deploy
+				rsync to server
+		templates
+			go template primer
+				http://gohugo.io/templates/go-templates/
+				basic syntax
+					{{ foo }}
+					{{ add 1 2 }}
+						params separated by space
+					{{ .Params.bar }}
+						members access via dot
+					{{ if or (isset .Params "alt").. }}
+						parantheses to group items
+				variables
+					{{ .Title }}
+					{{ $address := "123" }}
+						defined new variable
+				functions
+					{{ add 1 2 }}
+				includes
+					/layout/
+						location of templates
+					{{ template "partials/header.html" . }}
+						trailing dot: to pass along the current context
+				logic
+					iteration
+						range
+							using context
+								{{ range array }}
+									{{ . }}
+								{{ end }}
+							using value
+								{{ range $element := array }}
+									{{ $element }}
+							key-value
+								{{ range $index, $element := array }}
+									{{ $index }}
+									{{ $element }}
+					conditionals
+						if
+							{{ if isset .Params "title" }}
+								{{ ... }}
+				pipes
+					ex1: no pipe
+						{{ shuffle (seq 1 5) }}
+					ex2: with pipe
+						{{ (seq 1 5) | shuffle }}
+				context (the dot)
+					top level of template
+						data set available
+					inside iteration
+						value of current item
+					global context
+						$.
+				whitespace
+					to trim whitespace around
+						use -
+						{{- .Title -}}
+				hugo parameters
+					content (page) parameters
+						ex: hiding toc
+							front matter
+								notoc: true
+							usage
+								{{ if not .Params.notoc }}
+					site (config) parameters
+						ex: copyright footer
+							config.yaml
+								params:
+									CopyrightHTML: "..."
+							use
+								{{ if .Site.Params.CopyrightHTML }}
+			single content template
+			list of content
+			homepage
+				Homepage is a Page
+				/layouts/index.html

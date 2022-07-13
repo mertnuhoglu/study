@@ -1,0 +1,421 @@
+
+mongodb id=g13073
+	list all databases
+		show dbs
+		use <db>
+		db.getCollectionNames()
+	export/import
+		dump all db
+			mongodump -d <database_name> -o <directory_backup>
+			mongorestore -d <database_name> <directory_backup>
+	mongo setup
+		mongo --port 27017 -u "administrator" -p "12345" --authenticationDatabase "admin"
+			use movies
+			db.createUser({ user: "myUserAdmin", pwd: '12345', roles: ["readWrite"] });
+		mongo --port 27017 -u "myUserAdmin" -p "12345" movies
+			use movies
+			db.temp.insert({"a":"b"})
+		mongo --port 27017 -u "administrator" -p "12345" --authenticationDatabase "admin"
+			show dbs
+	docker mongodb
+		to persist mongodb: use data volume
+			-v "./mongo/jtn/db:/data/db"
+			/data/db is where mongodb expects the data files to be stored
+	refcard mongodb dzone
+		https://dzone.com/asset/download/174
+		help
+			$ help
+				db.help()
+				db.mycoll.help()
+			source code of any function:
+				$ db.someFunction
+		edit
+			for multiline editing in shell
+				x = function() {
+				edit x
+		.mongorc.js: initial startup script
+			ex: remove dropDatabase()
+				DB.prototype.dropDatabase = function() {
+					print("no dropping dbs")
+				}
+				db.dropDatabase = DB.prototype.dropDatabase
+		diagnosing
+			viewing and killing operations
+				db.currentOp()
+				db.killOp(123)
+			index usage
+				explain(): which index is used for a query
+					$ db.foo.find(criteria).explain()
+		query format
+			general form
+				{key: {$op: value}}
+				{age: {$gte: 18}}
+				exceptions: $and $or $nor
+				{$or: [{age: {$gte: 18}}, {age: {$lt: 18}}]}
+		update format
+			general form
+				{key: {$mod: value}}
+				{age: {$inc: 1}}
+		query operators
+			$gt $gte $lt $lte $ne
+				{numSold: {$lt:3}}
+			$in $nin
+				{age: {$in:[10,14,21]}}
+				# bir tanesinin eşleşmesi yeterli
+					{age:[9,10,11]}
+			$all
+				{hand: {$all: ["10","J"]}}
+				match:
+					{hand:["10","A","J"]}
+			$not
+				{name: {$not: /jon/i}}
+				match
+					{name: "Jon"}
+			$mod
+				{age: {$mod: [10,0]}}
+				match
+					{age:50}
+			$exists
+				{phone: {$exists:true}}
+				match:
+					{phone: "323"}
+			$type
+				{age: {$type:2}}
+				match: {age:"42"}
+				nonmatch: {age:42}
+			$size
+				{"top-three":{$size:3}}
+				match: {"top-three": ["gold", "sil", "brn"]}
+			$regex
+				{role: /admin.*/i}
+				{role: {$regex:'admin.*', $options:'i'}}
+		update modifiers
+			/Users/mertnuhoglu/Dropbox/public/img/ss-203.png
+			modifiers
+				$set $unset $inc $push $pushAll $pull $pullAll $pop $addToSet $each $rename $bit
+			ex
+				| modifier         | start doc                       | example                            | end doc                 |
+				| $set             | {x:"foo"}                       | {$set:{x:[1,2,3]}}                 | {x:[1,2,3]}             |
+				| $unset           | {x:"foo"}                       | {$unset:{x:true}}                  | {}                      |
+				| $inc             | {countdown:5}                   | {$inc:{countdown:-1}}              | {countdown:4}           |
+				| $push, $pushAll  | {votes:[-1,-1,1]}               | {$push:{votes:-1}}                 | {votes:[-1,-1,1,-1}}    |
+				| $pull, $pullAll  | {blacklist:["ip1","ip2","ip3"]} | {$pull:{blacklist:"ip2"}}          | {blacklist:"ip1","ip3"} |
+				| $pop             | {queue:["1pm","3pm","8pm"]}     | {$pop:{queue:-1}}                  | {queue:["3pm","8pm"]}   |
+				| $addToSet, $each | {ints:[0,1,3,4]}                | {$addToSet:{ints:{$each:[1,2,3]}}} | {ints:[0,1,2,3,4]}      |
+				| $rename          | {nmae:"sam"}                    | {$rename:{nmae:"name"}}            | {name:"sam"}            |
+				| $bit             | {permission:6}                  | {$bit:{permissions:{or:1}}}        | {permission:7}          |
+		aggregation pipeline operators
+			performs complex aggregations and also simple queries
+			operators
+				$project $match $limit $skip $sort $group $unwind $redact $out
+			ex
+				db.collection.aggregate({$match:{x:1}},
+					{$limit:10},
+					{$group:{_id: "$age"}})
+			ex
+				{$project: {"new name": "$old_name"}}
+		user management
+			check current user priviliges
+				db.runCommand(
+					{
+						usersInfo:"myUserAdmin",
+						showPrivileges: true
+					}
+				)
+			create a superadmin
+				use admin
+				db.createUser(
+					{
+						user: “myUserAdmin”,
+						pwd: “12345”,
+						roles:
+						[
+							{
+								role: “userAdmin”,
+								db: “movies”
+							}
+						]
+					}
+				)
+	refcard mongodb official
+		mongodb_qrc_booklet.pdf
+		queries
+			{"a.b": 10}
+				b nested in a
+			{a: {$elemMatch: {b: 1, c:2}}}
+				b, c nested in a
+			{$or: [{a:1}, {b: 2}]}
+			{a: /^m/}
+		sql to mongodb
+			terms
+				table = collection
+				row = document
+				column = field
+				joining = embedding & linking
+			commands
+				CREATE TABLE users (..)
+					db.createCollection("users")
+				INSERT INTO users VALUES ('Bob', 32)
+					db.users.insert({name: "Bob", age: 32})
+				SELECT * FROM users 
+					db.users.find()
+				SELECT name, age FROM users
+					db.users.find({}, {name: 1, age: 1, _id:0})
+				SELECT name, age FROM users WHERE age = 33
+					db.users.find({age: 33}, {name: 1, age: 1, _id:0})
+				SELECT * FROM users WHERE age > 33
+					db.users.find({age: {$gt: 33}})
+				SELECT * FROM users WHERE age > 33 and name = 'Bob'
+					db.users.find({$and: [{age: {$gt: 33}}, {name: "Bob"}]})
+				SELECT * FROM users WHERE age = 33 ORDER BY name ASC
+					db.users.find({age: 33}).sort({name: 1})
+				SELECT * FROM users ORDER BY name DESC
+					db.users.find().sort({name: -1})
+				SELECT * FROM users WHERE name LIKE 'Joe%'
+					db.users.find({name: /^Joe/})
+				SELECT * FROM users LIMIT 10 SKIP 20
+					db.users.find().skip(20).limit(10)
+				SELECT DISTINCT name FROM users 
+					db.users.distinct("name")
+				SELECT COUNT(*) FROM users 
+					db.users.count()
+				SELECT COUNT(*) FROM users WHERE AGE > 30
+					db.users.find({age: {$gt: 30}}).count()
+				SELECT COUNT(AGE) FROM users 
+					db.users.find({age: {$exists: true}}).count()
+				UPDATE users SET age = 33 WHERE name = 'Bob'
+					db.users.update({name: "Bob"}, {$set: {age: 33}}, {multi: true})
+				UPDATE users SET age = age + 2 WHERE name = 'Bob'
+					db.users.update({name: "Bob"}, {$inc: {age: 2}}, {multi: true})
+				DELETE FROM users WHERE name = 'Bob'
+					db.users.remove({name: "Bob"})
+				CREATE INDEX ON users (name ASC)
+					db.users.ensureIndex({name: 1})
+				CREATE INDEX ON users (name ASC, age DESC)
+					db.users.ensureIndex({name: 1, age: -1})
+				EXPLAIN SELECT * FROM users WHERE age = 32
+					db.users.find({age: 32}).explain()
+		replication
+			what is replication
+				duplicating data from one system to another
+				replica set: a primary and multiple secondaries
+				provide automatic failover and recovery
+		indexes
+			db.users.getIndexes()
+				get a list of all indexes
+			db.users.totalIndexSize()
+				size of indexes
+			db.users.reIndex()
+				rebuild all indexes
+			db.users.dropIndex(..)
+		bson types
+			string 2
+			array 4
+			binary 5
+			date 9
+	https://www.hacksparrow.com/the-mongodb-tutorial.html
+		ex
+			use movies
+			db.temp.insert({"a":"b"})
+			db.getName()
+				movies
+			show collections
+				temp
+			list collections
+				db.getCollectionNames()
+					["temp"]
+		databases are created lazily. 
+			"use movies" => movies db is created when you insert something
+		ex
+			db.comedy.insert({name:"Bill & Ted's Excellent Adventure", year:1989})
+		db: refers to database selected with `use` command
+		create
+			ex: insert
+				db.comedy.insert({name:"Wayne's World", year:1992})
+				db.comedy.insert({name:'The School of Rock', year:2003})
+			ex: save
+				db.comedy.save({name:"Wayne's World", year:1992})
+				db.comedy.save({name:'The School of Rock', year:2003})
+			difference: save vs insert
+				insert: always add a  new document
+				save: insert if no _id key, else update
+			use: insert and update not save
+		read
+			ex: find()
+				db.comedy.find()
+				db.comedy.find().limit(2)
+				db.comedy.findOne()
+			ex: conditions
+				db.comedy.find({year:{$lt:1994}})
+			conditional operators
+				$lt - ' $lte - ' $gte - '>='
+				$ne - '!='
+				$in - 'is in array'
+				$nin - '! in array'
+			ex: equal to
+				db.comedy.find({year: 1992})
+			ex: regex
+				db.comedy.find({name:{$regex: /bill|steve/i}})
+			ex: regex 2
+				var names = ['bill', 'steve']
+				names = names.join('|');
+				var re = new RegExp(names, 'i')
+				db.comedy.find({name:{$regex: re}})
+			ex: projection
+				db.comedy.find({year:{'$lt':1994}}, {name:true})
+			ex: insert
+				db.articles.insert({title:'The Amazingness of MongoDB', meta:{author:'Mike Vallely', date:1321958582668, likes:23, tags:['mongo', 'amazing', 'mongodb']}, comments:[{by:'Steve', text:'Amazing article'}, {by:'Dave', text:'Thanks a ton!'}]})
+				db.articles.insert({title:'Mongo Business', meta:{author:'Chad Muska', date:1321958576231, likes:10, tags:['mongodb', 'business', 'mongo']}, comments:[{by:'Taylor', text:'First!'}, {by:'Rob', text:'I like it'}]})
+				db.articles.insert({title:'MongoDB in Mongolia', meta:{author:'Ghenghiz Khan', date:1321958598538, likes:75, tags:['mongo', 'mongolia', 'ghenghiz']}, comments:[{by:'Alex', text:'Dude, it rocks'}, {by:'Steve', text:'The best article ever!'}]})
+			ex: nested search using dot
+				db.articles.find({'meta.author':'Chad Muska'})
+				db.articles.find({'meta.likes':{$gt:10}})
+			ex: query array
+				db.articles.find({'meta.tags':'mongolia'})
+			ex: object inside an array
+				db.articles.find({'comments.by': 'Steve'})
+			ex: refer array indexes
+				db.articles.find({'comments.0.by': 'Steve'})
+			ex: array with elemMatch
+				db.articles.find({'comments': {$elemMatch: {'by': 'Steve'}}}).pretty()
+				===
+				db.articles.find({'comments.by': 'Steve'}).pretty()
+			ex: multiple criteria with elemMatch
+				db.articles.find({'comments': {$elemMatch: {'by': 'Steve', text: /best/i}}}).pretty()
+			ex: js expression
+				db.comedy.find('this.year > 1990 && this.name != "The School of Rock"')
+				===
+				db.comedy.find({year:{$gt:1990}, name:{$ne:'The School of Rock'}})
+			ex: js and where expression
+				db.comedy.find({$where: 'this.year > 2000'})
+		update
+			ex: 
+				db.comedy.update({name:"Bill & Ted's Excellent Adventure"}, {'$set':{director:'Stephen Herek', cast:['Keanu Reeves', 'Alex Winter']}})
+			ex: push to array
+				db.comedy.update({name:"Bill & Ted's Excellent Adventure"}, {'$push':{cast:'George Carlin'}})
+				db.comedy.update({name:"Bill & Ted's Excellent Adventure"}, {'$push':{cast:'Chuck Norris'}})
+			ex: delete from array
+				db.comedy.update({name:"Bill & Ted's Excellent Adventure"}, {'$pull':{cast:'Chuck Norris'}})
+		delete
+			ex: from one document
+				db.comedy.update({name:'Hulk'}, {$unset:{cast:1}})
+			ex: from all documents
+				db.comedy.update({$unset:{cast:1}}, false, true)
+			ex: delete whole document
+				db.comedy.remove({name:'Hulk'})
+			ex: empty collection
+				db.comedy.remove()
+			ex: delete collection
+				db.comedy.drop()
+			ex: drop database
+				db.dropDatabase()
+	Store a JavaScript Function on the Server
+		https://docs.mongodb.com/manual/tutorial/store-javascript-function-on-server/
+		not: tavsiye edilmiyor: performans ve yönetim zorluğundan
+		ex
+			db.system.js.save(
+				 {
+					 _id: "echoFunction",
+					 value : function(x) { return x; }
+				 }
+			)
+	group by 
+		https://www.mkyong.com/mongodb/mongodb-aggregate-and-group-example/
+			test data
+				{ "_id" : 1, "domainName" : "test1.com", "hosting" : "hostgator.com" }
+				{ "_id" : 2, "domainName" : "test2.com", "hosting" : "aws.amazon.com"}
+			ex: $group
+				code
+					db.website.aggregate( {
+						$group : {_id : "$hosting", total : { $sum : 1 }}
+							}
+						);
+				output
+					{
+						"result" : [ 
+							{ 
+								"_id" : "godaddy.com",
+								"total" : 1
+							},
+				sql:
+					SELECT hosting, SUM(hosting) AS total
+								 FROM website
+								 GROUP BY hosting
+	group by and take first document
+		https://docs.mongodb.com/manual/reference/operator/aggregation/first/
+			test data
+				{ "_id" : 1, "item" : "abc", "price" : 10, "quantity" : 2, "date" : ISODate("2014-01-01T08:00:00Z") }
+				{ "_id" : 2, "item" : "jkl", "price" : 20, "quantity" : 1, "date" : ISODate("2014-02-03T09:00:00Z") }
+			query
+				db.sales.aggregate(
+					 [
+						 { $sort: { item: 1, date: 1 } },
+						 {
+							 $group:
+								 {
+									 _id: "$item",
+									 firstSalesDate: { $first: "$date" }
+								 }
+						 }
+					 ]
+				)
+			output
+				{ "_id" : "xyz", "firstSalesDate" : ISODate("2014-02-03T09:05:00Z") }
+	ex: update
+		db.products.update(
+			 { _id: 100 },
+			 { $set:
+					{
+						quantity: 500,
+						details: { model: "14Q3", make: "xyz" },
+						tags: [ "coats", "outerwear", "clothing" ]
+					}
+			 }
+		)
+	delete/remove user
+		use dentas
+		db.dropUser("myUserAdmin")
+	convert String field to Date field in mongodb id=g10148
+		make date from validFrom
+			var validFrom = "1.4.2017"
+			var ad = new Date(validFrom)
+			opt1:
+				function stringToDate(_date,_format,_delimiter)
+				{
+										var formatLowerCase=_format.toLowerCase();
+										var formatItems=formatLowerCase.split(_delimiter);
+										var dateItems=_date.split(_delimiter);
+										var monthIndex=formatItems.indexOf("mm");
+										var dayIndex=formatItems.indexOf("dd");
+										var yearIndex=formatItems.indexOf("yyyy");
+										var month=parseInt(dateItems[monthIndex]);
+										month-=1;
+										var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
+										return formatedDate;
+				}
+				stringToDate("17/9/2014","dd/MM/yyyy","/");
+				stringToDate("9/17/2014","mm/dd/yyyy","/")
+				stringToDate("9-17-2014","mm-dd-yyyy","-")
+		opt1: https://stackoverflow.com/questions/34837489/how-can-convert-string-to-date-with-mongo-aggregation
+			var cursor = db.collection.find({"validFrom": {"$exists": true, "$type": 2 }}),
+					bulkOps = [];
+			cursor.forEach(function (doc) { 
+					var newDate = new Date(doc.validFrom);
+					bulkOps.push(         
+							{ 
+									"updateOne": { 
+											"filter": { "_id": doc._id } ,              
+											"update": { "$set": { "validFrom": newDate } } 
+									}         
+							}           
+					);   
+					if (bulkOps.length === 1000) {
+							db.collection.bulkWrite(bulkUpdateOps);
+							bulkOps = [];
+					}
+			});         
+			if (bulkOps.length > 0) { db.collection.bulkWrite(bulkOps); }
+		save date into mongodb
+			opt1: js
+				https://stackoverflow.com/questions/24483727/how-to-insert-a-document-with-date-in-mongo
+				db.example.insert({"date":ISODate("2016-03-03T08:00:00.000")});

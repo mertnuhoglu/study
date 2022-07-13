@@ -1,0 +1,362 @@
+
+fzf id=g13074
+	https://github.com/junegunn/fzf
+	refcard fzf
+		bash
+			$ some_command <tab>   # shows options
+			^y			# list all commands
+	install
+		brew install fzf
+		$(brew --prefix)/opt/fzf/install
+			to install key bindings
+		brew reinstall fzf
+	ex:
+		find * -type f | fzf
+		-m    multi-select
+			tab: to mark
+	search syntax
+		abcd    fuzzy match
+		^abc    prefix-exact
+		.mp3$   suffix-exact
+		'wild   exact-match
+		!fire   inverse-exact-match
+		!.mp3$
+	ex: multiple args
+		^core rb$ | py$
+		# start with core
+		# ends with rb or py
+	man fzf
+		--tac
+			reverse order of the input
+		+s --no-sort
+	shortcuts for cli
+		^t    paste selected lines onto cli
+			ex: 
+				rg <^t>
+				select multiple items
+				enter
+		^r    paste from history
+		!c    cd into selected dir
+	readme.md
+		usage
+			ex:
+				find * -type f | fzf > selected
+				find * -type f | fzf 
+				vim $(fzf)
+					opens selected file in vim
+				open $(fzf)
+			fzf
+				search for files under current dir
+			finder commands
+				^j ^k ^n ^p			next/prev item 
+				enter					select item
+				^c ^g esc			exit
+				tab +tab			mark multiple items (-m mode)
+			layout
+				default: in fullscreen mode
+				vim $(fzf --height 40%)
+				fzf --reverse
+					finder at top
+				fzf --border
+			options
+				export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+					save options
+			search syntax
+				token examples
+					fuzzy match (default)
+					'wild			exact match
+					^music		prefix match
+					!fire			inverse match
+					.mp3$			suffix match
+				-e --exact
+		fzf-tmux
+			cat /usr/share/dict/words | fzf-tmux -l 20% --multi --reverse
+			git branch | fzf-tmux -d 15
+		key bindings
+			^t		paste selected lines 
+			^r		paste from history
+			!c		cd into selected dir (use esc instead of alt)
+				sometimes it works
+		fuzzy completion
+			vim **<tab>
+			vim ../**<tab>
+			vim fzf**<tab>
+			cd **<tab>
+			ssh **<tab>
+			kill -9 <tab>
+			export **<tab>		# list environment variables
+		executing external commands
+			# Press F1 to open the file with less without leaving fzf
+			# Press CTRL-Y to copy the line to clipboard and aborts fzf (requires pbcopy)
+			fzf --bind 'f1:execute(less -f {}),ctrl-y:execute-silent(echo {} | pbcopy)+abort' 
+				BUILD.md
+		using a script in selected data processing
+			https://github.com/junegunn/fzf/issues/876
+				opt01
+					echo $'one\ntwo\nthree\nfour' |
+						fzf --bind "enter:execute-multi:python -c 'import sys; print \";\".join(sys.argv[1:])' {}" -m +s --tac2
+				opt02
+					echo $'one\ntwo\nthree\nfour' |
+						fzf --bind "enter:execute-multi:~/bin/foobar.py {}" -m +s --tac
+		preview window
+			ex
+				# {} is replaced to the single-quoted string of the focused line
+				fzf --preview 'cat {}'
+				fzf --preview 'head -100 {}'
+	examples.md
+		https://github.com/junegunn/fzf/wiki/examples
+		searching file contents
+			ag --nobreak --nonumbers --noheading . | fzf
+			ag . | fzf
+	article: https://medium.com/@sidneyliebrand/how-fzf-and-ripgrep-improved-my-workflow-61c7ca212861
+		ls | fzf
+		nvim $(ls | fzf)
+		rg --files | fzf
+			--files: list files rg will search
+		use cases:
+			killing processes
+				before:
+					ps -ef | grep <process_name>
+					kill -9 <process_id>
+				now	
+					kp
+			installing brew plugins
+			search only rg valid files (ignore .ignore files)
+				export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+			fzf#vim#with_preview
+	vim plugin: fzf.vim
+		~/.vim/bundle/fzf.vim/README.md
+		https://github.com/junegunn/fzf/blob/master/README-VIM.md
+		commands
+			<url:/Users/mertnuhoglu/.vim/bundle/fzf.vim/README.md#tn=| Command           | List>
+			| `Files [PATH]`    | Files (similar to `:FZF`)                                               |
+			| `GFiles [OPTS]`   | Git files (`git ls-files`)                                              |
+			| `GFiles?`         | Git files (`git status`)                                                |
+			| `Buffers`         | Open buffers                                                            |
+			| `Colors`          | Color schemes                                                           |
+			| `Ag [PATTERN]`    | [ag][ag] search result (`ALT-A` to select all, `ALT-D` to deselect all) |
+			| `Rg [PATTERN]`    | [rg][rg] search result (`ALT-A` to select all, `ALT-D` to deselect all) |
+			| `Lines [QUERY]`   | Lines in loaded buffers                                                 |
+			| `BLines [QUERY]`  | Lines in the current buffer                                             |
+			| `Tags [QUERY]`    | Tags in the project (`ctags -R`)                                        |
+			| `BTags [QUERY]`   | Tags in the current buffer                                              |
+			| `Marks`           | Marks                                                                   |
+			| `Windows`         | Windows                                                                 |
+			| `Locate PATTERN`  | `locate` command output                                                 |
+			| `History`         | `v:oldfiles` and open buffers                                           |
+			| `History:`        | Command history                                                         |
+			| `History/`        | Search history                                                          |
+			| `Snippets`        | Snippets ([UltiSnips][us])                                              |
+			| `Commits`         | Git commits (requires [fugitive.vim][f])                                |
+			| `BCommits`        | Git commits for the current buffer                                      |
+			| `Commands`        | Commands                                                                |
+			| `Maps`            | Normal mode mappings                                                    |
+			| `Helptags`        | Help tags <sup id="a1">[1](#helptags)</sup>                             |
+			| `Filetypes`       | File types
+			Files [PATH]
+			GFiles [OPTS]
+		custom completion helper
+			ex
+				" Replace the default dictionary completion with fzf-based fuzzy completion
+				inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
+		commands
+			:FZF
+				files under current dir
+			FZF ~
+				files under home dir
+			FM FZFMru History
+				nnoremap ıı :FZFMru<CR>
+		opening selected files
+			enter		current window
+			^T		  new tab
+			^X			horizontal split
+			^V			vertical split
+		my customizations:
+			FZFMru
+			imap <c-x><c-k> <plug>(fzf-complete-word)
+			imap <c-x><c-f> <plug>(fzf-complete-path)
+			imap <c-x><c-r> <plug>(fzf-complete-file-rg)
+			" üd: jump to tag with fzf 
+		preview window
+			note: to make it work you need to install fzf plugin using Plug
+				Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+				Plug 'junegunn/fzf.vim'
+			ex
+				command! -bang -nargs=? -complete=dir Files
+					\ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+			note: preview window hidden by default, press `?` to enable it
+				command! -bang -nargs=* Rg
+					\ call fzf#vim#grep(
+					\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+					\   <bang>0 ? fzf#vim#with_preview('up:60%')
+					\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+					\   <bang>0)
+		mappings
+			completions
+				<url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=" completion with fzf>
+		custom input to FZF
+			ref	
+				https://github.com/junegunn/fzf/wiki/Examples-(vim)
+				<url:/Users/mertnuhoglu/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#tn=function! MRU_LoadList()>
+			ex
+				function! MRU_LoadList()
+					return readfile(g:MRU_File)
+				endfun
+				command! FZFMru call fzf#run({
+				\ 'source':  MRU_LoadList(),
+			ex
+				command! FZFTest call fzf#run({
+				\ 'source':  readfile("/Users/mertnuhoglu//itr/vrp_doc/study/cyclejs_vrp.Rmd"),
+				\ 'down':    '40%' })
+			sink options	
+				e
+				tabedit
+				botright split
+				vertical botright split
+				colorscheme
+				function('<sid>bufopen')
+					<vimhelp:E81>
+				tag
+				function('s:tags_sink')
+				function('<sid>ag_handler')
+	studying fzf code 
+		fzf#run nerede tanımlı?
+			fzf#run ~/.fzf/plugin/fzf.vim içinde tanımlı
+				<url:/Users/mertnuhoglu/.fzf/plugin/fzf.vim#tn=function! fzf#run(...) abort>
+			Files ise ~/.vim/bundle/fzf.vim/plugin/fzf.vim içinde tanımlı
+			FZFMru ise ~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim içinde tanımlı ve fzf#run fonksiyonunu kullanıyor
+			bunun örnek kodunu ise wiki'den aldım: https://github.com/junegunn/fzf/wiki/Examples-(vim)
+		fzf#vim#with_preview() code
+			fzf#vim#with_preview
+				output:
+					{'options': ['--preview-window', 'right', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}']}
+				~/.vim/bundle/fzf.vim/bin/preview.rb
+			fzf#vim#files
+				output:
+					args = {'options': ['-m', '--prompt', '~/.vim/']}
+					a:000 = [{'options': ['--preview-window', 'right', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}']}, 0]
+				calls:
+					return s:fzf('files', args, a:000)
+			s:fzf
+				<url:/Users/mertnuhoglu/.vim/bundle/fzf.vim/autoload/fzf/vim.vim#tn=function! s:fzf(name, opts, extra)>
+				function! s:fzf(name, opts, extra)
+					call s:merge_opts(merged, eopts)
+					echo merged
+					" Files
+					" merged = {'options': ['-m', '--prompt', '~/.vim/', '--preview-window', 'right', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}']}
+					" Ag
+					" merged = {'options': ['--ansi', '--prompt', 'Ag> ', '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all', '--color', 'hl:4,hl+:12', '--preview-window', 'right:50%:hidden', '--preview', '''/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb'' {}', '--bind', '?:toggle-preview'], 'source': 'ag --nogroup --column --color  ''h
+					" bang = 0
+	examples for bash
+		chrome bookmarks - fzf
+			ref
+				https://gist.github.com/junegunn/15859538658e449b886f
+				~/projects/stuff/bash/bookmarks.rb
+			usage
+				bookmarks.rb
+		bash/shell/zsh directory bookmarks
+			ref
+				~/.cdg_paths
+				https://dmitryfrank.com/articles/shell_shortcuts
+				/Users/mertnuhoglu/projects/stuff/bash
+					cdscuts_glob_echo cdscuts_list_echo
+			usage
+				cdg
+		chrome history
+			ref
+				https://github.com/junegunn/fzf/wiki/examples#searching-file-contents
+				<url:/Users/mertnuhoglu/.zshenv#tn=vg() {>
+			usage
+				chrome_history
+		file open
+			ref
+				https://github.com/junegunn/fzf/wiki/examples#searching-file-contents
+				<url:/Users/mertnuhoglu/.zshenv#tn=fo() {>
+			usage	
+				fo
+		locate
+			ref
+				https://github.com/junegunn/fzf/wiki/examples#locate
+				<url:/Users/mertnuhoglu/.zshenv#tn=fzf-locate-widget() {>
+			usage
+				fzf-locate-widget
+				esc i
+		lpass
+			usage	
+				lpass show -c --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
+		marker
+			ref
+				<url:/Users/mertnuhoglu/.zshenv#tn=bindkey "${FZF_MARKER_MAIN_KEY:-\C-y}" _fzf_marker_main_widget>
+			usage 
+				ls | grep -
+					^y		show command palette
+					tab				next command
+					^t				next field
+		pdf search
+			ref
+			usage
+				pdf_search 
+		cd interactive
+			ref
+				zsh-interactive-cd.plugin.zsh
+				https://github.com/changyuheng/zsh-interactive-cd
+			usage
+				cd <tab>
+				cd xxx<tab>
+	fzf and fd
+		https://mike.place/2017/fzf-fd/
+		setup
+			export FZF_CTRL_T_COMMAND="fd . $HOME"
+			export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+		ex
+			cp foo.txt <ctrl-t>
+				select destination directory
+			<esc-c>
+				change current dir to selected dir
+			<ctrl-r>
+				select command from history
+	http://sysadvent.blogspot.com/2017/12/day-18-awesome-command-line-fuzzy.html
+		pipe data into fzf
+			cat /usr/share/dict/words | fzf 
+		pipe data out of fzf
+			cat /usr/share/dict/words | fzf | cowsay
+		live preview
+			cat /usr/share/dict/words | fzf --preview "cowsay {}" | cowsay
+		git diff show
+			ref
+				<url:/Users/mertnuhoglu/.zshenv#tn=fshow() {>
+			usage
+				fshow
+		man pages
+			usage
+				mans
+	http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
+		FZF_DEFAULT_OPTS
+			export FZF_DEFAULT_OPTS='--bind J:down,K:up --reverse --ansi --multi'
+				J/K		up/dn
+				--reverse
+		search for text: fr
+			fr <text>
+	usage ex
+		^y: copies current item to clipboard
+		multi select
+			<Tab> to select items 
+	@mine
+		cd benzeri komutlar: ^g fz cdg cd** z
+			opt 
+				fz ^g
+				cdg 
+				cd **<tab>
+				z <name>
+				:Cdg
+			^g fz hepsini içeriyor
+		export FZF_DEFAULT_OPTS='--bind "J:down,K:up,D:page-down,U:page-up,up:preview-up,down:preview-down,ctrl-y:execute-silent(printf {} | pbcopy)+abort" --reverse --ansi --multi'
+			J/K		up/dn
+			D/U		pg dn/up
+			^y		yank
+			up/dn		preview up/dn
+	next
+		don't work:
+			^r    paste from history
+			!c    cd into selected dir
+

@@ -1,0 +1,1421 @@
+
+docker id=g13071
+	refcard
+		docker exec -it vrp_java_1 bash
+	disk space cleaning
+		how much space is used
+			docker system df -v
+			docker ps -s
+			docker system df
+		clean
+			docker volume prune
+			docker system prune -a
+		images and containers
+			docker images -f dangling=true
+			docker volume ls -f dangling=true
+		volumes
+			docker volume ls
+			docker volume rm volume_name
+	docker logging / debugging
+		dc up -d yapma, çünkü -d docker'ın çalışma sırasındaki logları gizliyor
+	restart a single container in docker-compose
+		https://stackoverflow.com/questions/31466428/how-to-restart-a-single-container-with-docker-compose
+			docker-compose restart <container>
+			note: it doesn't load any changes from docker-compose.yml
+			stop is similar to hibernating in pc
+			to reload: stop + remove container. 
+		ex
+			docker-compose stop db
+			docker-compose up db
+	share access files / volume data
+		access files inside container
+			problem: burada sorun şu:
+				host'tan container'daki bir dosyaya erişmek bazen mümkün olmuyor
+				ama hangi koşullarda olmadığını çözemedim
+				sanıyorum private dosyalarla ilgili olabilir
+			opt1: error
+				docker run --rm -ti -v="/Users/mertnuhoglu/projects/itr/itr_docker/docker/alpine01/usrlib:/usr/share" yikaus/alpine-bash /bin/bash
+				bu durumda host'taki klasör/dosyalar container'dakileri ezer
+			opt2: nginx ok
+				docker run --name=nginx -d -v ~/nginxlogs:/var/log/nginx -p 5000:80 nginx
+				bu durumda sorun yok, log dosyalarına erişebiliyorum
+			opt3: postgres ok
+				<url:file:///~/codes/pg/test04b/docker-compose.yml>
+					image: postgres:9.6
+						- "./postgresql/data:/var/lib/postgresql/data"
+		problem: bir dizini mount edebiliyorum, ama bir dosyayı edemiyorum id=g10514
+			problem: bir dizini mount edebiliyorum, ama bir dosyayı edemiyorum <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10514>
+			ref
+				<url:file:///~/codes/pg/test04b/docker-compose.yml>
+				https://stackoverflow.com/questions/42248198/how-to-mount-a-single-file-in-a-volume
+			şu çalışmıyor:
+				#- "${PWD}/postgresql/data/postgresql.conf:/var/lib/postgresql/data/postgresql.conf"
+				#- "/Users/mertnuhoglu/codes/pg/test04b/postgresql/data/postgresql.conf:/var/lib/postgresql/data/postgresql.conf"
+			ama şu çalışıyor:
+				- "./postgresql/data:/var/lib/postgresql/data"
+			opt1: hostta dosya başta olmasın
+			opt2: hostta başta dosya olsun
+		how to push data volumes to registry
+			https://serverfault.com/questions/632122/how-do-i-deploy-a-docker-container-and-associated-data-container-including-cont
+			docker images: union filesystem + metadata
+			data volumes: a directory that bypasses union filesystem
+			since data volumes aren't part of containers, committing a container won't persist data in that volume
+		Manage data in containers
+			https://docs.docker.com/engine/tutorials/dockervolumes/
+			two ways to manage data:
+				data volumes
+				data volume containers
+			data volumes
+				definition: a directory that bypasses union file system
+					union file system: implements a union mount and operate by creating layers
+				features for persistent data
+					volumes are initialized when a container is created
+						if parent image contains data, that data is copied
+							note: this does not apply when mounting a host directory
+					can be reused among containers
+					changes to data volume are direct
+					changes are not included when you update an image
+					data volumes persist after container is dead
+						docker never deletes volumes when you remove container
+			add data volume
+				opt
+					-v flag with 
+						docker create
+						docker run
+					VOLUME in Dockerfile
+				ex
+					docker run -d -P --name web -v /webapp training/webapp python app.py
+						a new volume at /webapp in container
+			locate a volume
+				$ docker inspect web
+				...
+				"Mounts": [ {..}]
+			mount a host directory as data volume
+				opt: host-dir
+					absolute path: starts with /
+					name
+				ex: absolute path
+					$ docker run -d -P --name web -v /src/webapp:/webapp training/webapp python app.py
+					#: /webapp
+			Creating data volume container
+				why: to share between containers
+				ex
+					$ docker create -v /dbdata --name dbstore training/postgres /bin/true
+						creating
+					$ docker run -d --volumes-from dbstore --name db1 training/postgres
+						using
+			Backup, restore, migrate
+				using --volumes-from
+				ex: backup
+					$ docker run --rm --volumes-from dbstore -v $(pwd):/backup ubuntu tar cvf /backup/backup.tar /dbdata
+				ex: restore
+					$ docker run -v /dbdata --name dbstore2 ubuntu /bin/bash
+					$ docker run --rm --volumes-from dbstore2 -v $(pwd):/backup ubuntu bash -c "cd /dbdata && tar xvf /backup/backup.tar --strip 1"
+		data volume container in docker-compose
+			ex: docker-compose.yml
+				version: '3'
+					services:
+						image: mongo:3.4
+						volumes:
+							- "mongostore:/data/db"
+					volumes:
+						mongostore:
+			command line
+				docker volume create --name="myAwesomeApp"
+				docker run -d --name="myApp-1" -v="myAwesomeApp:/data/app" myApp
+		Union file system
+			https://washraf.gitbooks.io/the-docker-ecosystem/content/Chapter%201/Section%203/union_file_system.html
+			https://stackoverflow.com/questions/32775594/why-does-docker-need-a-union-file-system
+				it allows files (known as branches) to be transparently overlaid
+			https://en.wikipedia.org/wiki/UnionFS
+			Union mount
+				https://en.wikipedia.org/wiki/Union_mount
+				a way of combining multiple directories into one
+					that appears to contain their combined contents
+				ex: need to update info in cdrom
+					cdrom is not writable
+					one can overlay cd's mount point with a writable directory in a union mount
+					then updating files in union directory
+						end up in the writable directory
+			Mount point
+				https://en.wikipedia.org/wiki/Mount_(computing)#MOUNT-POINT
+				a physical location in partition used as a root filesystem
+		data volumes
+			https://stackoverflow.com/documentation/docker/1318/docker-data-volumes/11075/creating-a-named-volume
+				data volumes: to pesist data independent of container's life cycle
+				creating named volume
+					opt
+						docker volume create --name="myAwesomeApp"
+						docker run -d --name="myApp-1" -v="myAwesomeApp:/data/app" myApp
+					what is difference from mounting a host directory as a volume?
+						instead of valid path, volume name is specified
+				named volumes can be shared with other containers
+					docker run -d --name="myApp-2" --volumes-from "myApp-1" myApp
+			data volumes and data containers
+				https://stackoverflow.com/documentation/docker/3224/data-volumes-and-data-containers
+				data-only containers
+					obsolet and considered an anti-pattern
+					replaced by "named volumes" and "docker volume" subcommand
+				data volume: a docker volume which is not mounted from the host
+					created either with VOLUME Dockerfile directive, or using -v in docker run, with format -v /path/on/container
+					ex: data only container
+						docker run -d --name "mysql-data" -v "/var/lib/mysql" alpine /bin/true
+						docker run -d --name="mysql" --volumes-from="mysql-data" mysql
+				data volume lives even if the container dies
+		differences in file permissions and owners between osx and linux containers
+			https://stackoverflow.com/questions/40165921/docker-on-the-mac-separates-internal-and-external-file-ownerships-not-so-on-lin
+			ex: 
+				linux
+					root@c7bb08d325c3:/home/opencpu/vrpdata# cd /srv/app/
+					root@c7bb08d325c3:/srv/app# ls -l
+					drwxrwxr-x 3 500 500 4096 Aug  3 16:54 data
+				osx
+					opencpu@6166628a105e:~$ cd /srv/app/
+					opencpu@6166628a105e:/srv/app$ ls -l
+					drwxr-xr-x 10 opencpu www-data 340 Aug  3 16:09 data
+			reason:
+				hosted volumes ownership should be determined by host 
+					that is how linux docker works
+					but osx doesn't comply 
+		Use Linux user namespaces to fix permissions in docker volumes
+			https://www.jujens.eu/posts/en/2017/Jul/02/docker-userns-remap/
+			"chmod -R 777 DIR" yapmadan mounted volume kullanmak için
+		Introduction to User Namespaces in Docker Engine
+			https://success.docker.com/KBase/Introduction_to_User_Namespaces_in_Docker_Engine
+			what are namespaces
+				ex: a process has some pid in container
+					some other pid in host
+					then we say:
+						inside container there is a pid namespace 
+				man definition:
+					A namespace wraps a global system resource in an abstraction that
+					makes it appear to the processes within the namespace that they have
+					their own isolated instance of the global resource...
+				another explanation: 
+					pid namespace is a mechanism for remapping pid inside container
+				uid namespace:
+					remapping UIDs inside container
+		error
+			volume does not mount
+				yanlış yere volume tanımlamışım - docker
+					db:
+						volumes:
+							- "./postgresql/data:/var/lib/postgresql/data"
+					olacağı yerde
+						postgrest: altında tanımlamışım
+	remove all containers
+		docker stop $(docker ps -aq)
+		docker rm $(docker ps -aq)
+	clean up docker files in mac
+		https://blog.mrtrustor.net/post/clean-docker-for-mac/
+			docker has memory leak
+			solution
+				reset to factory
+				or remove files by yoursefl
+					docker rm $(docker ps -a -q)
+					docker rmi $(docker images -q)
+					docker volume rm $(docker volume ls |awk '{print $2}')
+					rm -rf ~/Library/Containers/com.docker.docker/Data/*
+		remove a container and its volumes
+			https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
+			docker rm -v vrp_nginx-router_1
+		purging (removing) all unused images, containers etc.
+			docker system prune
+		list dangling (untagged images) volumes
+			docker images -f "dangling=true" -q
+			remove them
+				docker rmi $(docker images -f "dangling=true" -q --no-trunc)
+	listing containers/volumes/images
+		list container names - print names only - docker ps
+			docker ps -a --format '{{.Names}}'
+			docker ps -a | tail -n +2 | awk '{print $NF}'
+		list volumes
+			docker inspect -f '{{ json .Mounts  }}' <containerid> | python -m json.tool
+	errors
+		error: container exits immediately
+			dc up -d yapma, çünkü -d docker'ın çalışma sırasındaki logları gizliyor
+			sistematik eleme kullan
+			tek başına container'ı çalıştır ve çok sayıda denemeler (tries) yapıp, bunları dok ederek ilerle
+		error: opencpu_1       | httpd (pid 13) already running
+			solution
+				docker rm vrp_opencpu_1
+				docker-compose up
+		error: can't run mvn package:
+			container_linux.go:247: starting container process caused "open /proc/self/fd: no such file or directory"
+			solution
+				VOLUME . /srv/app/itr_vrp
+				->
+				COPY . /srv/app/itr_vrp
+			cause:
+				shared volumes don't have correct file permissions in container
+				see: file permissions problem in docker volumes <url:#r=ccd_0002>
+	entrypoint command exec bash
+		run exec bash in container
+			run container in bash (pseudo-tty)
+				docker run -it --rm cplex01:current bash
+				for docker-compose
+					docker-compose.yml
+						stdin_open: true
+						tty: true
+						entrypoint:
+							- "bash"
+					docker-compose up
+					docker run -it <container_name> bash
+		entrypoint in compose
+			entrypoint:
+				- "java"
+				- "-jar"
+				- "-Done-jar.silent=true"
+				- "target/vrp-0.1.jar"
+				- "server"
+				- "config.yml"
+			equivalent to:
+				java -jar -Done-jar.silent=true target/vrp-0.1.jar server config.yml 
+		working directory in compose
+			working_dir: "/srv/app/itr_vrp"
+		difference between entrypoint vs cmd
+			https://stackoverflow.com/questions/21553353/what-is-the-difference-between-cmd-and-entrypoint-in-a-dockerfile
+				entrypoint: runs always as the actual command
+				cmd: passed as arg to entrypoint
+				ex
+					ENTRYPOINT ["/bin/cat"]
+					docker run img /etc/passwd
+					-> end result:
+					/bin/cat /etc/passwd
+				Dockerfile may specify default ENTRYPOINT and CMD
+					ex
+						CMD ["bash"]
+					if not, then default entrypoint is:
+						/bin/sh -c
+				ex
+					FROM debian:wheezy
+					ENTRYPOINT ["/bin/ping"]
+					CMD ["localhost"]
+					# running
+						docker run -it test
+							->
+							/bin/ping localhost
+						docker run -it test google.com
+							->
+							/bin/ping google.com
+			https://www.ctl.io/developers/blog/post/dockerfile-entrypoint-vs-cmd/
+				default CMD and ENTRYPOINT can be overridden
+					CMD:
+						docker run demo <new_cmd>
+					ENTRYPOINT
+						docker run --entrypoint <new_entrypoint> demo
+	pass environment variables from config file
+		https://docs.docker.com/compose/environment-variables/#substituting-environment-variables-in-compose-files
+		https://docs.docker.com/compose/compose-file/#variable-substitution
+			ex:
+				env variable in shell:
+					POSTGRES_VERSION=9.3
+				docker-compose.yml:
+					db:
+						image: "postgres:${POSTGRES_VERSION}"
+			ex: put env variables into .env file (default)
+				.env
+			ex: default values
+				${VARIABLE:-default} will evaluate to default if VARIABLE is unset or empty in the environment.
+			ex: set env vars in command line
+				docker run -e VARIABLE=VALUE ...
+			ex: multiple env files
+				opt: command line
+					docker run --env-file=FILE ...:
+				opt: in docker-compose.yml
+					web:
+						env_file:
+							- web-variables.env
+			ex: .env file
+				$ cat .env
+				TAG=v1.5
+				$ cat docker-compose.yml
+				version: '3'
+				services:
+					web:
+						image: "webapp:${TAG}"
+	change user in Dockerfile
+		USER <user>[:<group>]
+		USER <uid>[:<gid>]
+	running as non-root user
+		https://stackoverflow.com/questions/24308760/running-app-inside-docker-as-non-root-user
+			root user: security breach
+				can access any host file
+				https://news.ycombinator.com/item?id=7909622
+			note: when using chown
+				make sure that the directory is not a shared volume
+	file permissions problem in docker volumes id=ccd_0002
+		file permissions problem in docker volumes <url:#r=ccd_0002>
+		when mounting a host directory as docker volume, the ownership of the directory becomes messy
+			the ownership belongs to the host user
+			but there is no such user in container
+			a non-root user in container doesn't have permissions to write those shared volumes
+		to fix problem:
+			opt1: old way
+				create same users in container
+				https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
+				https://stackoverflow.com/questions/23544282/what-is-the-best-way-to-manage-permissions-for-docker-shared-volumes
+			opt2: new way using user namespace mapping
+				https://www.jujens.eu/posts/en/2017/Jul/02/docker-userns-remap/
+				https://stackoverflow.com/questions/35291520/docker-and-userns-remap-how-to-manage-volume-permissions-to-share-data-betwee
+			opt3: bad way: run docker apps with root user
+	efficient Dockerfile for nodejs apps
+		http://bitjudo.com/blog/2014/03/13/building-efficient-dockerfiles-node-dot-js/
+		summary:
+			first copy package.json
+			then npm install
+			then copy all other sources
+			so that when a source file changes, docker will reuse caches
+		ex
+			COPY package.json /starter/package.json
+			WORKDIR /starter
+			RUN yarn install --production
+			COPY . /starter
+	create image from running container: commit
+		https://docs.docker.com/engine/reference/commandline/commit/
+		docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+		docker commit 434902323 mertnuhoglu/mongo_vrp:1
+	my docker image settings
+		node
+			ex: compose
+				image: node:6.6.0
+				working_dir: "/starter"
+				entrypoint:
+					- npm
+					- start
+				volumes:
+				 - ./frontend:/starter
+				 - /starter/node_modules
+		nodemon
+			ex: compose 
+				image: mertnuhoglu/nodemon:6.6.0
+				working_dir: "/starter"
+				entrypoint:
+					- nodemon
+					- app.js
+				volumes:
+				 - ./frontend:/starter
+				 - /starter/node_modules
+	networking: links
+		docker container networking
+			https://docs.docker.com/engine/userguide/networking/
+			default networks
+				$ docker network ls
+					3 tane var: bridge, none, host
+					varsayılan bridge
+			detach from container: ^p ^q
+			inspect
+				$ docker network inspect bridge
+			user defined networks
+				bunu kullanmayı tavsiye ediyorlar
+				bridge network
+					$ docker network create --driver bridge isloated_nw
+						isolated_nw: network name
+					$ docker network inspect isolated_nw
+					$ docker network ls
+						isolated_nw de yeni bir network olarak görünür
+					$ docker run --network=isolated_nw -itd --name=container3 busybox
+						yeni container bu network üzerinde çalışır
+		https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks/
+			networks'ten önce link vardı, bu artık deprecate oldu
+			connect using network port mapping
+				$ docker run -d -P training/webapp python app.py
+				-P: map network port inside to a random host port
+				$ docker ps 
+				# 49155 -> 5000
+					host'un 49155 portu container'ın 5000 portuna bağlı
+				opt: -p 49155:5000
+					zararı: bu portta sadece bir tane container kullanabilirsin
+				opt: ephemeral port range
+					-p 8000-9000:5000
+					random portlara bağlar yine
+				$ docker port container_name 5000
+				# 127.0.0.1:49155
+			connect with linking system
+				bu eski yöntem, default bridge network kullanarak
+				naming: önce tüm containerlara isim vermelisin
+					docker run --name db ...
+				buna referans ver:
+					docker run --name web --link db:db ...
+				inspect
+					$ docker inspect -f "{{ .HostConfig.Links }}" web
+					[/db:/web/db]
+				/etc/hosts
+					buraya link mappingleri konuluyor
+				restart
+					docker restart db
+						bu komut tüm linkleri günceller
+		difference between network and link
+			https://stackoverflow.com/questions/41294305/docker-compose-difference-between-network-and-link
+			compose içinde
+				side effecti var linklerin
+				depends_on ile çalıştırmalısın
+	docker-compose
+		docker-compose up vs docker run
+			http://stackoverflow.com/questions/33715499/what-is-the-difference-between-docker-compose-up-and-docker-compose-start
+				docker-compose start
+					starts existing containers
+				docker-compose up
+					-d: starts containers in background
+		docker-compose up vs docker-compose run
+			https://stackoverflow.com/questions/33066528/should-i-use-docker-compose-start-up-or-run
+				eğer yml dosyasını override edeceksen run kullan
+				run kullanacaksan '--service-ports' da ekle
+					çünkü port'lar pasiftir varsayılan
+				docker-compose run --service-ports --rm <service_name>
+					fakat sadece ilgili servisi çalıştırır, tümünü değil
+	tag push
+		docker tag 9fe9654eb474 mertnuhoglu/mertwhalesay:latest
+		docker login --username=mertnuhoglu --email=mert.nuhoglu@gmail.com
+		docker push mertnuhoglu/mertwhalesay:latest
+	build your image
+		write a dockerfile
+			FROM 
+				FROM docker/whalesay:latest
+			RUN
+				RUN apt-get -y update && apt-get install -y fortunes
+				# installs fortunes
+			CMD
+				CMD /usr/games/fortune -a | cowsay
+				# run cmd after setup 
+		build image 
+			code
+				docker build -t docker-whale .
+			-t: gives image a tag
+			.: look for Dockerfile here
+	articles
+		Leanpub.Docker.for.Developers.pdf
+			ch02
+				controlling containers
+					-ti: interactive
+					-rm: remove after exit
+					--name
+				container data
+					volumes
+					-v `pwd`/dir:/root
+					-v /root
+						directory will persist as container lives
+					--volumes-from <other_container>
+						link volumes with other containers
+				networking
+					--link app_php:phpserver
+						access `app_php` with name `phpserver`
+					-p [host_port]:[port]
+			ch03: Containerizing your Application
+				-u $UID
+					change UID of user inside container
+				-w /var/www
+					changes working directory of command
+			ch04: Creating Custom Containers
+				RUN
+					RUN apt-get update && apt-get install -y \
+									nginx \
+									&& apt-get clean \
+									 && rm -rf /var/lib/apt/lists/*
+					desc
+						3. Update the apt cache, and
+						4. and install the nginx package
+						5. and clean the apt cache
+						6. and remove and leftover lists to conserve space in the image
+				CMD
+					can be overridden
+				ENTRYPOINT
+					runs always
+					ex
+						1 $dockerrun\
+						2 -d -v `pwd`:/var/www --name testphp \
+						3 php:5.6-fpm php -S 0.0.0.0:80 -t /var/www/html
+						--> simplify it
+						1 FROM php:5.6
+						2 EXPOSE 80
+						3 ENTRYPOINT ["php", "-S", "0.0.0.0:80"]
+						4 CMD ["-t", "/var/www/html"]
+						This sets the command that will always execute to php -S 0.0.0.0:80, and we can override the -t /var/www/html if we want to. If we build this Dockerfile as ‘phpdevserver’, we can run it like the following:
+						1 $ docker run -d -v `pwd`:/var/www phpdevserver
+						2 // Or to override the path we are watching
+						3 $ docker run -d -v `pwd`:/opt/app phpdevserver -t /opt/app/html
+				VOLUME
+					VOLUME /path/inside/image
+			ch05: Docker Tools
+				Docker Machine
+					handles hosting to DO, AWS ...
+					get an API token from hosting provider
+						1 $ docker-machine create \
+						2 --driver digitalocean \
+						3 --digitalocean-access-token [token] \
+						4 dockerfordevs
+						5
+						6 $ docker-machine ls
+						7 NAME ACTIVE DRIVER STATE URL
+						8 dockerfordevs - digitalocean Running tcp://XXX.XXX.XXX.XXX:2376
+					set env vars
+						1 $ docker-machine env dockerfordevs
+						2 export DOCKER_TLS_VERIFY="1"
+						3 export DOCKER_HOST="tcp://XXX.XXX.XXX.XXX:2376"
+						4 export DOCKER_CERT_PATH="/home/user/.docker/machine/machines/dockerfordevs"
+						5 export DOCKER_MACHINE_NAME="dockerfordevs"
+						6 # Run this command to configure your shell:
+						7 # eval "$(docker-machine env dockerfordevs)"
+				Docker Swarm
+					creating a swarm
+						Swarm Master
+							# get token
+							docker run --rm swarm create
+							493049809 # token
+							# create master
+							docker-machine create -d virtualbox
+								--swarm \
+								--swarm--master \
+								--swarm-discovery token://493049809 \
+								swarm-master
+							# create nodes
+							$ docker-machine create -d virtualbox \
+									--swarm \
+									--swarm-discovery token://40122bb69c98825b4ac7094c87a07e21 \
+									swarm-node-1
+							docker-machine ls
+				Docker Compose
+					docker-compose up -d
+					# 4 tane phpserver container oluştur
+						docker-compose scale phpserver=4
+						docker-compose up -d
+			Getting started mac
+				Setup 
+					https://docs.docker.com/mac/step_one/
+					running
+						create a new docker engine host
+						switch to new VM
+						use docker client
+					how to run?
+						1. docker quickstart terminal
+				Understand images and containers
+					docker run hello-world
+						hello-world: image
+							image: filesystem and parameters to use at runtime
+						container: running instance of an image
+						run: runs a docker container
+						what happens?
+							1. checks if you have hello-world image
+							2. download image form Docker Hub
+							3. load image and run it
+				Find and run whalesay image
+					1. docker hub
+					2. search for whalesay
+					3. run
+						docker run docker/whalesay cowsay boo
+				Build your own image
+					new directory
+					vim Dockerfile
+						FROM docker/whalesay:latest
+						RUN apt-get -y update && apt-get install -y fortunes
+						CMD /usr/games/fortune -a | cowsay
+					docker build -t docker-whale .
+						1. takes Dockerfile
+						2. builds an image "docker-whale"
+							from docker/whalesay
+							runs apt-get command
+					docker images
+					run
+						docker run docker-whale
+				Create docker hub repository
+					docker hub
+						create repository
+				Tag, push, and pull your image
+					docker images
+					tag it
+						docker tag 9fe9654eb474 mertnuhoglu/mertwhalesay:latest
+					push it
+						docker login --username=mertnuhoglu --email=mert.nuhoglu@gmail.com
+						docker push
+					pull new image
+						docker rmi -f 9fe9654eb474
+							removes your image
+						docker run mertnuhoglu/mertwhalesay
+			Docker Hub
+				what is
+					registry service for containers
+					features
+						image repositories
+						automated builds
+						webhooks
+						organizations
+				search
+					docker search ubuntu
+				repositories
+					adding multiple images to a repostory
+						ex: docs/base:testing
+					renaming repos
+						docker tag <existing> <user>/<repo>[:<tag>]
+				automated builds
+					docker hub > create > automated build
+						<url:file:///.select: github project>
+						note: github repo should have ./Dockerfile
+			Docker Compose
+				what it does
+					defines and runs docker apps
+				using it:
+					1. define app's environment in Dockerfile
+					2. define services in docker-compose.yml
+					3. run docker-compose up
+				docker-compose.yml
+					services:
+						web:
+							ports:
+							volumes:
+				use cases
+					creating isolated development environments
+					automated testing environments
+						docker-compose up -d
+						<url:file:///./run_tests>
+						docker-compose down
+			Docker Machine
+				what it does
+					creates host
+				Learn by example
+					Machine concepts and help
+						ip addresses for docker hosts
+							docker-machine ls
+								list machines
+		Manning.Docker.in.Action.1633430235.pdf
+			ch11: Declarative environments with Docker Compose
+				11.1.1 Onboarding with a simple development environment
+					1. install docker
+					2. install docker compose
+					3. clone a development environment
+						create a new dir: wp-example
+						create file: docker-compose.yml
+							wordpress:
+								image: wordpress:4.2.2
+								links:
+									- db:mysql
+								ports:
+									- 8080:80
+							db:
+								image: mariadb
+								environment:
+									MYSQL_ROOT_PASSWORD: example
+						docker-compose up
+						open: http://localhost:8080
+							from osx:
+								docker-machine ip
+								open: its address
+	DockerBook
+		ch1 Introduction
+			containers vs. hypervisor virtualization
+				independent machine runs virtually on physical hardware 
+				containers instead
+					run in user space
+					on top of os' kernel
+					called: os level virtualization
+			docker images
+				like "source code" for containers
+					can be shared, stored
+				"build" part of life cycle
+			registries
+				stores images
+			containers
+				contain running processes
+				launced from images
+		ch2 Installing Docker 
+			use ip address for your local virtual machine's ip instead of localhost
+				docker-machine ip
+			check if daemon is running
+				sudo status docker
+	sudo/root password
+		http://stackoverflow.com/questions/32646952/docker-machine-boot2docker-root-password
+			instead of sudo use:
+				sudo -i
+				or
+				su sudo
+			then it won't ask for root password
+			or use username
+				http://stackoverflow.com/questions/24286007/how-do-i-ssh-into-the-boot2docker-host-vm-that-the-vagrant-1-6-docker-provider-s
+				docker-machine ip
+				ssh docker@192.168.99.100
+				user: docker
+				pass: tcuser
+	How to execute host's Docker command from container? id=g10127
+		How to execute host's Docker command from container? <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10127>
+		ref
+			http://stackoverflow.com/questions/34687421/docker-issue-command-from-one-linked-container-to-another
+			http://stackoverflow.com/questions/31625679/how-to-execute-hosts-docker-command-from-container
+		mantık
+			docker exec komutunu vermelisin, ancak host'a erişmen lazım önce
+				docker exec -it vrp_java_1 bash
+			bunun için host'un docker client'ına soket üzerinden komut iletirsin
+			soket üzerinden komut iletmek için, remote api client kütüphanelerini kullanırsın
+				docker-py, dockerode gibi
+			ancak önce host docker daemon'u soketlerle çalıştırmalısın
+				docker -d -H=0.0.0.0:2375 ..
+	docker daemon vs client
+		http://stackoverflow.com/questions/42641011/what-is-the-need-for-docker-daemon
+			client ve daemon aynı makinede
+				neden ayrı varlıklar?
+			ans1
+				client sadece cli
+					http api wrapper
+				daemon her şeyin beyni
+					ex: docker run komutu
+						client bunu http API call'a çevirir
+						daemon'a gönderir
+						daemon bunu yürütür
+				daemon aynı makinede olmayabilir
+		Docker Overview
+			https://docs.docker.com/engine/understanding-docker/
+			what is docker engine
+				client-server app
+					server: daemon process
+					rest api: daemon'la konuşmak için
+					cli client: docker client
+				manages
+					network
+					data volumes
+					containers
+					images
+		docker daemon in osx
+			traybar > docker > preferences
+			dockerd configuration options
+				daemon configuration file in json
+					--config-file /etc/docker/daemon.json
+		daemon configuration file
+			https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file
+			daemon configuration file in json
+				--config-file /etc/docker/daemon.json
+			json keys = dockerd flag names
+				https://docs.docker.com/engine/reference/commandline/dockerd/
+				if allow several entries, then plural
+			ex
+				"hosts": [],
+			-H = hosts = DOCKER_HOST
+				The Docker client will honor the DOCKER_HOST environment variable to set the -H flag for the client.
+				$ docker -H tcp://0.0.0.0:2375 ps
+				# or
+				$ export DOCKER_HOST="tcp://0.0.0.0:2375"
+				$ docker ps
+				# both are equal
+		Configure the Docker daemon
+			https://docs.docker.com/engine/admin/#configure-the-docker-daemon
+			dockerd -D --tls=true --tlscert=/var/docker/server.pem --tlskey=/var/docker/serverkey.pem -H tcp://192.168.59.3:2376
+		What is the Difference Between 127.0.0.1 and 0.0.0.0?
+			https://www.howtogeek.com/225487/what-is-the-difference-between-127.0.0.1-and-0.0.0.0/
+			127.0.0.1: loopback address (localhost)
+			0.0.0.0: meta address
+				designates invalid/unknown target
+			in servers:
+				0000: all address on local machine
+				if host has 2 ip: 192.168.1.1 and 10.1.2.1
+					and a server running on host listens on 0.0.0.0
+					it is reachable at both ips
+			what is 127.0.0.1
+				loopback ip address = localhost
+			special addresses
+		Telnet
+			https://www.rootusers.com/how-to-test-network-connectivity-with-telnet/
+				telnet google.com 80
+					GET /
+			https://www.howtogeek.com/79830/basic-network-troubleshooting-using-command-line-telnet-fun/
+				telnet towel.blinkenlights.nl
+		Christian Heimes - File descriptors, Unix sockets and other POSIX wizardry - PyCon 2016-Ftg8fjY_YWU.mp4
+			ex
+				# read.py
+				with open('example.txt') as f:
+					print(f.read())
+			ex
+				strace ./read.py
+			open file table (global)
+				kernel maintains this table
+					all open resources
+			every process has 
+				file descriptor table
+				/Users/mertnuhoglu/Dropbox/public/img/ss-164.png
+			different processes can share
+				same file descriptor
+			file descriptor table
+				maps to open file table
+				cloexec flags
+			open file table
+				position
+				mode 
+				owner
+				locks
+				credentials
+				reference count
+				...
+			how unix create processes
+				spawn a new process
+					fork & exec
+				fork()
+					creates a clone of current process
+					child inherits copy of file descriptor table
+				exec()
+					replaces current code
+					file descriptors are inherited
+			why does child process get clone of file descriptor table
+				subprocess.PIPE
+				ex
+					import os
+					readend, writeend = os.pipe()
+					pid = os.fork()
+					if pid != 0: # parent process
+						os.close(writeend)
+					else: # child
+						os.close(readend)
+						os.dup2(writeend, 1)
+						os.execl('/bin/ls', 
+							'ls', '-l', 'example.txt')
+			network sockets
+				addressing/routing: ipv4
+				flow control:
+					tcp
+					udp
+				ex: socket server
+					server = socket(AF_INET, SOCK_STREAM)
+					server.bind(('0.0.0.0', 443))
+					server.listen(1) 
+					while True:
+						conn, addr = server.accept()
+				ex: socket client
+					cl4 = socket(AF_INET, SOCK_STREAM)
+					cl4.connect(('ip..', 443))
+			unix sockets (unix domain sockets / local sockets)
+				like pipes and network sockets
+				ex: server
+					server = socket(AF_UNIX, SOCK_STREAM)
+					server.bind('/path/to/file')
+				ex: client
+					client = socket(AF_UNIX, SOCK_STREAM)
+					client.connect('/path/to/file')
+				ex:
+					a,b = socketpair()
+				ex: peer credentials
+		System Startup Commands and Configurations
+			systemctl - digitalocean
+				https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units
+				intro
+					systemd: init system and system manager
+						new standard for linux
+				service management
+					target of actions: units
+						resources to manage
+						defined with unit files
+							type: suffix of file
+					targut unit of service management: service units 
+						.service suffiex
+				starting and stopping services
+					start command
+					sudo systemctl start application.service
+						===
+						sudo systemctl start application
+				restarting/reloading
+					restart command
+					reload command
+						reloads configuration files without restarting
+				enable/disable
+					enable: start a service at boot
+						creates a symlink
+							from service file
+								in /lib/systemd/system or /etc/systemd/system
+							to autostart files
+								/etc/systemd/system/x.target.wants
+				check status
+					status
+						systemctl status docker.service
+					is-active: is currently running
+						systemctl is-active docker.service
+				unit management
+					display unit file
+						systemctl cat docker.service
+					display dependencies
+						systemctl list-dependencies docker.service
+					editing unit files
+						systemctl edit docker.service
+						sudo systemctl edit --full docker.service
+	Rethinking PID 1
+		http://0pointer.de/blog/projects/systemd.html
+		ref
+			http://0pointer.de/blog/projects/socket-activation.html
+		Process Identifier 1
+			special process identifier 1
+				started by kernel
+					before all processes
+				parent process for all other
+				responsible for things
+					that other process are not responsible for
+				historically: siysvinit
+					replacement: upstart
+			central responsibility:
+				bring up userspace during boot
+					userspace: memory where user processes run
+					kernel space: memory where kernel executes 
+				should be fast
+					sysv was not fast
+			for fast bootup, 2 things are crucial:
+				to start less
+				to start more in parallel
+		hardware and software change dynamically
+			init system
+				needs to dynamically start services
+					as they are needed
+			daemon services depend on each other
+				many of them require syslog
+				so they wait until syslog is started up
+		parallelizing socket services
+			this kind of synchronization
+				results in serialization of boot process
+			how to get rid of it?
+			why is the startup of daemons delayed?
+				they wait until the dependent socket is ready
+				that is an AF_UNIX socket or AF_INET
+				ex: clients of D-Bus wait
+					/var/run/dbus/system_bus_socket
+				ex: clients of syslog wait for
+					/dev/log
+			this (sockets) is all they are waiting for
+				make them available
+					instead of full daemon startup
+			how?
+				create listening sockets before starting daemon
+				then pass the socket during exec() to it
+			ex: you start syslog and syslog clients at the same time
+				messages of the clients are added to 
+					/dev/log socket
+				clients can proceed with their startup
+				when syslog is ready, it dequeues all messages
+	sof: what does fd:// mean exactly in dockerd -H fd://
+		<url:file:///~/Dropbox/mynotes/content/code/sof_what-does-fd-mean-exactly-in-dockerd-h-fd.md>
+	how to ssh to boot2docker vm?
+		docker-machine ssh 
+			or
+			docker-machine ssh default
+		if more than one machine:
+			docker-machine ls
+	docker commands
+		http://zeroturnaround.com/rebellabs/docker-commands-and-best-practices-cheat-sheet/
+	Official Documentation
+		Get started with Docker for Mac
+			https://docs.docker.com/docker-for-mac/
+			check versions
+				docker --version
+			run 
+				❯ docker run -d -p 80:80 --name webserver nginx
+				141ccfa801795c0fa586053ea1cbcc26079af682e101eb2f7b7fc17a23fd391d
+				❯ docker ps
+				CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES
+				141ccfa80179        nginx               "nginx -g 'daemon ..."   42 seconds ago      Up 40 seconds       0.0.0.0:80->80/tcp, 443/tcp   webserver
+				❯ docker stop webserver
+				webserver
+			run hello-world
+				docker run hello-world
+				hello-world: image
+			docker ps
+				show currently running containers
+			docker images
+				lists images
+			build your image
+				write a dockerfile
+					FROM 
+						FROM docker/whalesay:latest
+					RUN
+						RUN apt-get -y update && apt-get install -y fortunes
+						# installs fortunes
+					CMD
+						CMD /usr/games/fortune -a | cowsay
+						# run cmd after setup 
+				build image 
+					code
+						docker build -t docker-whale .
+					-t: gives image a tag
+					.: look for Dockerfile here
+		Sample app overview
+			https://docs.docker.com/engine/getstarted-voting-app/
+	videos
+		Learn Docker in 12 Minutes 🐳-YFl2mCHdv24.mp4
+			container vs. vm
+				c uses kernel of host os
+			image
+				contains apps, software everything
+				built by 
+					Dockerfile
+			container runs image
+				dockerfile builds image
+			Dockerfile
+				use existing image
+					FROM php:7.0-apache
+				copy our src/ folder to docker's dir
+					COPY src/ /var/www/html
+				container listens 80
+					EXPOSE 80
+			build image
+				docker build -t hello-world .
+				-t: gives image a tag
+			run it
+				docker run -p 80:80 hello-world
+					forward 80 on host to 80 on container
+			file structure
+				.: root
+					/hello-world
+						/src
+					Dockerfile
+				docker build hello-world
+		Containers 101 Meetup - Docker Compose Version 2-Uez88TWOECg.mp4
+			docker compose
+				for multi-container docker apps
+			ex
+				chat app
+					containers
+						nodejs container: web
+						mongodb container: mongo
+					docker-compose.yml
+						web
+							build: .
+							ports:
+								- 5000:5000
+							links: 
+								- mongo
+						mongo
+							image: mongo
+							# uses an image
+							# doesn't build therefore
+					run
+						git clone ..demochat.git
+						cd demochat/
+							Dockerfile
+						vim docker-compose.yml
+						docker-compose build
+							builds web container
+							mongo container is an image
+							images created:
+								demochat_web
+								mongo
+						docker-compose up
+							run containers
+						docker-machine ip default
+							ip of container
+					stop
+						docker-compose stop
+						docker-compose rm
+			docker compose v2
+				yml structure
+					version: '2'
+					services
+					networks 
+					volumes
+				ex:
+					docker-compose.yml
+						version: '2'
+						services:
+							web
+								build: .
+								ports:
+									- 5000:5000
+								links: 
+									- mongo
+							mongo
+								image: mongo
+			network
+				we can create several networks
+				each service can use any of them
+		Create a Development Environment with Docker Compose by Mark Ranallo-Soh2k8lCXCA.mp4
+			why use it?
+				disposability and immutability
+				multiple services
+			dockerfile
+				RUN a command
+				ADD Gemfile ..
+				WORKDIR change dir
+				RUN bundle install
+					just run command not during build
+		Docker Tutorial - Docker Container Tutorial for Beginners-JBtWxj9l7zM.mp4
+			basic commands
+				docker run <image>
+					every time you run, you create a new container
+				docker start <name|id>
+					starts existing container
+				docker stop <name|id>
+				docker ps [-a include stopped containers]
+				docker rm <name|id>
+			droplet
+				get ip
+				put into /etc/hosts
+					ip docker.me
+				ssh root@docker.me
+			after ssh
+			ssh1 window
+				docker login
+					login docker hub
+				docker run tutum/hello-world
+					pulls all layers
+					this doesn't expose 80 to external world
+				docker run -p 8080:80 tutum/hello-world
+					http://docker.me:8080
+				docker ps -a
+					i have two copies of container
+				docker rm ee2332342
+			run 2 web servers and load balance
+				docker run -d --name web1 -p 8081:80 tutum/hello-world
+					-d: runs in background
+				docker run -d --name web2 -p 8082:80 tutum/hello-world
+		Docker Tutorial - What is Docker & Docker Containers, Images, etc-pGYAg7TMmp0.mp4
+		Live In-Docker Debugging for Java with IntelliJ-sz5Zv5QQ5ek.mp4
+		Part 6 - Linking and working with multiple containers to perform single operation-HY3WDz6j_hU.mp4
+			mysql container
+				docker pull mysql
+				start a server instance
+					docker run --name mysql01 -e MYSQL_ROOT_PASSWORD=abs -d mysql:latest
+						mysql: image
+						name: instance name: mysql01
+						latest: tag, 5.7
+			wordpress container
+				docker pull wordpress
+				start instance
+					docker run --name wp01 --link mysql01:mysql -d wordpress
+				expose some port
+					-p 8080:80
+					localhost:8080
+			docker images
+			docker ps -a
+			docker port instanceid
+		Part 7 - An Introduction to Docker Compose-k900NVwFfcA.mp4
+			compose: for multi containers
+			yml compose file: to configure services
+				instead of cli commands like docker run --name .. --link .. -p ..
+		Part 8 - Working with Multiple Containers using Docker Compose-UB3-qj2QA50.mp4
+			yml file
+			docker-compose ps
+				nothing
+			docker-compose up
+		Docker Swarm Mode Walkthrough-KC4Ad1DS8xU.mp4
+			you have docker on several vm/machines
+			you manage them using swarm
+			one of them is manager
+				ssh docker-swarm-00
+					docker swarm init --listen-addr 10.0.0.1
+						becomes swarm manager
+					docker node ls
+						one node
+				ssh docker-swarm-01
+					docker swarm join 10.0.04:2377
+						joins as worker
+					docker node ls
+						two nodes
+			we work now on higher level than individual containers
+				this level is called service level
+					docker service create --replicas 2 nginx
+						i want to start 2 nginx containers
+		Using Docker to deploy Apache, Nginx, Wordpress and Nodejs containers with Digital Ocean-1OLyXJJPBSA.mp4
+		Where are Docker images stored?
+			http://blog.thoward37.me/articles/where-are-docker-images-stored/
+			image vs dockerfile
+				dockerfile is used to build the image
+					when you run docker build
+				docker uses images to run your code
+				docker push: publishes an image
+			registry vs index
+				index manages stuff in public web
+					such as: user accounts, permissions, search, tagging
+				registry stores actual image assets
+					it delegates authentication to index
+				docker search: searches index, not registry
+					index may access multiple registries
+				docker push or docker pull: 
+					index determines your permission to access
+					index finds out in which registry image lives
+					registry sends it down
+				docker images: uses not index or registry, but a little of both
+			repository
+				repository vs registry
+				repository vs image
+				repository vs index username
+				repository
+					is all of them and not any of them
+				when you do: docker build or docker commit
+					you specify a name for image
+					username/image_name
+				when you docker push
+					index checks if it has a matching repository
+					if it does, it checks if you have access
+					if so, you can push new version of the image
+					a registry holds a collection of named repositories
+						which are a collection of images
+							tracked by GUIDs
+						this is where tags come in
+							you tag an image
+								and store multiple versions of that image
+									with different GUIDs
+									in a single named repository
+							access different tagged versions of an image
+								username/image_name:tag
+			local storage
+				docker images
+					where is this stuff?
+						/var/lib/docker
+					ex
+						$ sudo cat /var/lib/docker/repositories | python -mjson.tool
+						{
+								"Repositories": {
+										"ubuntu": {
+												"12.04": "8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c",
+												"12.10": "b750fe79269d2ec9a3c593ef05b4332b1d1a02a62b4accb2c21d589ff2f5f2dc",
+					docker images
+						REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+						ubuntu              12.04               8dbd9e392a96        8 months ago        131.3 MB (virtual 131.3 MB)
+						ubuntu              latest              8dbd9e392a96        8 months ago        131.3 MB (virtual 131.3 MB)
+					check: /var/lib/docker/graph
+						$ sudo ls -al /var/lib/docker/graph
+						total 24
+						drwx------ 6 root root 4096 Nov 22 06:52 .
+						drwx------ 5 root root 4096 Dec 13 04:25 ..
+						drwxr-xr-x 3 root root 4096 Dec 13 04:26 27cf784147099545
+						drwxr-xr-x 3 root root 4096 Nov 22 06:52 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c
+					what is actually stored?
+						$ sudo ls -al /var/lib/docker/graph/8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c
+						total 20
+						drwxr-xr-x  3 root root 4096 Nov 22 06:52 .
+						drwx------  6 root root 4096 Nov 22 06:52 ..
+						-rw-------  1 root root  437 Nov 22 06:51 json
+						drwxr-xr-x 22 root root 4096 Apr 11  2013 layer
+						-rw-------  1 root root    9 Nov 22 06:52 layersize
+					folders
+						json: metadata about image
+						layersize: size of layer
+						layer/: holds rootfs for image
+			DIY Dockerfiles
+				FROM ubuntu
+					ubuntu: image as our base layer
+				docker build -t scooby_snacks .
+					look for Dockerfile in `.`
+					build it
+					use name `scooby_snacks` for the repository
+					docker puts it to: /var/lib/docker
+				docker images
+					scooby_snacks       latest              8dbd9e392a96        8 months ago        131.3 MB (virtual 131.3 MB)
+					docker kept the same image id
+				# now make a change
+				RUN touch scooby_snacks.txt
+				docker build -t scooby_snacks .
+					docker gives a new image ID
+				# delete repository
+				docker rmi scooby_snacks
+		How to Automate Docker Deployments
+			http://paislee.io/how-to-automate-docker-deployments/
+			deployment script
+				to upgrade a running container to a newer version
+				code
+					#!/bin/bash
+					docker pull docker.example.com/my-application:latest  
+						pull latest image
+					docker stop my-application  
+						stop running container
+					docker rm my-application  
+						remove stopped container
+					docker rmi docker.example.com/my-application:current  
+						remove image behind stopped container
+					docker tag docker.example.com/my-application:latest docker.example.com/my-application:current  
+						tag newly downloaded image
+					docker run -d --name my-application docker.example.com/my-application:latest  
+						run new container
+		Leanpub.Docker.for.Developers.pdf
+			ch01 Working With Containers
+				Mounting Host Directories
+					ex: docker run
+						mkdir testdir
+						docker run -ti --rm
+							-v `pwd`/testdir:/root
+							ubuntu /bin/bash
+						# testdir/ dizinini /root/ altına yükler
+				Persisting Data with Data volumes
+					ex
+						docker run -ti --name x -v /root ubuntu /bin/bash
+						# create some files
+						exit
+						docker start x
+						docker attach x
+						# files are here
+				Data Containers
+					make a container to store data only
+						docker create -v /root --name docker4devs_data busybox
+					busybox is a very small image
+					let other containers use this data volume
+						docker run \
+							--rm -ti --volumes-from docker4devs_data \
+							ubuntu /bin/bash
+				Networking
+					ex: create a php container
+						dragonmantank@reorx:~$ mkdir -p networking/html
+						dragonmantank@reorx:~$ echo '<?php phpinfo();' > networking/html/index.php dragonmantank@reorx:~$ cd networking/
+						dragonmantank@reorx:~$ docker run \
+						-d --name app_php -v `pwd`/html:/var/www/html \ php:fpm
+					docker ps
+						# exposing port 9000 on container
+					learn ip by docker inspect
+						dragonmantank@reorx:~$ docker inspect \
+								-f "{{.NetworkSettings.IPAddress}}" app_php
+						172.17.0.16
+		@mine: image-container-repository
+			shell
+				❯ docker images
+				REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+				demochat_web        latest              c19e1e8d9846        24 hours ago        405 MB
+				hello2              latest              5e9576a653ca        26 hours ago        182 MB
+				nginx               latest              6b914bbcb89e        13 days ago         182 MB
+				mongo               latest              686238c7a975        2 weeks ago         402 MB
+				hello-world         latest              48b5124b2768        8 weeks ago         1.84 kB
+				node                0.10-slim           6a8ed129edb7        4 months ago        191 MB
+				❯ docker ps
+				CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+				❯ docker ps -a
+				CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                    PORTS               NAMES
+				2e6ebb86e474        hello2              "nginx -g 'daemon ..."   25 hours ago        Exited (0) 25 hours ago                       musing_kowalevski
+				fcb9c1a495a7        hello2              "nginx -g 'daemon ..."   25 hours ago        Exited (0) 25 hours ago                       sleepy_kilby
+				cf1af8fcb51f        hello2              "nginx -g 'daemon ..."   25 hours ago        Exited (0) 25 hours ago                       modest_spence
+				141ccfa80179        nginx               "nginx -g 'daemon ..."   26 hours ago        Exited (0) 26 hours ago                       webserver
+				d70267d8e34f        hello-world         "/hello"                 26 hours ago        Exited (0) 26 hours ago                       ecstatic_hodgkin
+			uml
+				[Layer| image_id; prev_image; ]
+				[Repository| name; tag; ]
+				[Container| id; name; ]
+				[Image]
+				[Image] 1-n [Layer]
+				[Layer] prev_image n->1 [Layer]
+				[Layer] 1-n [Repository]
+				[Layer] 1-n [Container]
+				container: an instance of an image
+				image: a set of layers
+				a running instance of an image is a container
+			commands
+				Dockerfile
+					FROM image_name
+					EXPOSE port1:port2
+				docker build -t container_name:tag PATH
+					creates an image from Dockerfile
+					PATH  path of Dockerfile
+					-t --tag  name and optionally a tag
+				docker run --name container_name -d -p -t .. image_name [bash]
+					docker run [options] IMAGE [command] [arguments]
+					docker run -it --rm cplex01:current bash
+					run a command in a new container
+					--name  assign a name to container
+					-d --detach run container in background
+					-p --publish  publish container's port to host
+					-t --interactive  allocates a pseudo TTY which connects a user's terminal with stdin and stdout
+					-i --interactive  keeps stdin open even if not attached
+					--rm  remove container after running
+					[bash]  run bash command after running
+						so it won't exit after running
+				docker pull image_name
+				docker images
+					shows images
+				docker ps -a
+					shows containers
+				docker ps
+					shows running containers
+				docker attach container_name
+					connect to a container_name after having stopped and started it
+				docker stop container_name
+				docker rm container_name
+		next
+			docker image, instance, container vs. kavramların arasındaki ilişkiler net değil
+				bunları çıkart ve yayınla
+			R ile java docker'ını çağırıp sonucunu nasıl alırım?
+				promise?
+				rest?

@@ -1,0 +1,185 @@
+
+tmux  id=g13078
+	show options
+		:show-options -g
+		tmux show-options -g
+	scroll size
+		set-option -g history-limit 3000
+	default shortcuts
+		window
+			^b n/p		next/prev window
+	move pane to separate window
+		join-pane
+		join-pane -s :3
+			grab pane from window 3 and join current
+		join-pane -t :1
+			send current pane to window 1
+	join session
+		tmux attach -t 0
+		tmux attach
+		tmux attach -d -t 0
+			detach from other sessions so that window size is not small
+			tmux attach -d -t t0
+			tmux attach -d -t t1
+	move windows
+		bind c-o  rotate window up
+		bind m-o  rotate windo down
+	resize
+		resize-pane -R 20
+			resize current pane right by 20 cells
+			-D -U -L -R
+	move pane to separate window
+		break-pane
+	join window into a pane
+		join-pane
+		join-pane -s :3
+			grab pane from window 3 and join current
+		join-pane -t :1
+			send current pane to window 3
+	join session
+		tmux attach -t 0
+		tmux attach
+	move windows
+		bind c-o  rotate window up
+		bind m-o  rotate windo down
+	resize
+		resize-pane -R 20
+			resize current pane right by 20 cells
+			-D -U -L -R
+	articles
+		https://gist.github.com/MohamedAlaa/2961058
+			start new
+				tmux
+				tmux new -s <session_name>
+			attach
+				tmux a #
+				tmux a -t <session_name>
+			tmux ls
+			tmux kill-session -t <session_name>
+	tmux.conf commands manual
+		bind-key -n -r
+			http://man7.org/linux/man-pages/man1/tmux.1.html
+				-n
+					alias for -T root
+					by default (without -T) key is bound in the prefix key table
+					yani: -n yapınca prefix gerekmiyor
+				-r
+					this key may repeat
+	shortcuts
+		prefix ?		list-keys		shortcuts
+		`f		find window
+	custom tmux keybindings with # Cmd @mine id=g10536
+		custom tmux keybindings with # Cmd @mine <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10536>
+		how to do it
+			https://medium.freecodecamp.org/tmux-in-practice-iterm2-and-tmux-integration-7fb0991c6c01
+				steps
+					iterm2 > prefs > profile > keys > + add
+						.key: #z
+						.action: send hex code
+						.hex: 0x60 0x7a
+					# this maps #z to `z
+				how to find hex codes 
+					$ god -t x1
+					`z
+					(press ^D)
+					# output: 
+					60 7a
+				od -t x1
+				❯ god -t x1
+				^A^[[1;5A0000000 01 1b 5b 31 3b 35 41
+				0000007
+				^D ile enter yap (bazen iki kez)
+				`z 60 7a
+		pane navigation
+			vim
+				ıy ık   # right/left
+				ım ıl   # down/up
+			tmux
+				#y #k
+				#m #l
+			hex
+				kmly 6b 6d 6c 79
+		pane size
+			vim
+				^+ arrow
+			tmux
+				#+ arrow
+			hex
+				^left ^right
+				^up ^down
+				0x60 0x1b 0x5b 0x31 0x3b 0x35 0x44 
+				0x60 0x1b 0x5b 0x31 0x3b 0x35 0x43 
+				0x60 0x1b 0x5b 0x31 0x3b 0x35 0x41 
+				0x60 0x1b 0x5b 0x31 0x3b 0x35 0x42
+		tab navigation
+			vim
+				+H +L
+			tmux
+				#+H #+L
+			hex
+				^k ^y (not working) ^l
+				0x60 0x0b
+				0x60 0x0c
+		pane select
+		pane navigation: last pane: select-pane -l
+			vim 
+				^w p
+			tmux
+				#p
+			hex
+				^p
+				0x60 0x10
+		kill pane
+			tmux
+				#x
+			hex
+				x
+				0x60 0x78
+		split window
+			tmux
+				#!+z #!+u
+				#" #%
+			hex
+				" %
+				0x60 0x22
+				0x60 0x25
+		copy-mode
+			tmux
+				#[
+				#!+ı
+			hexa
+				0x60 0x5b
+		list-keys
+			tmux
+				#?
+				#!+y
+			hexa
+				0x60 0x3f
+		display-panes
+			tmux
+				#!q 
+			hexa
+				0x60 0x71
+		command-prompt
+			tmux
+				#:
+				#!+ç
+			hexa
+				0x60 0x3a
+		help
+			#?
+		hex
+			left right
+			up down
+			0x1b 0x5b 0x31 0x3b 0x35 0x44 
+			0x1b 0x5b 0x31 0x3b 0x35 0x43 
+			0x1b 0x5b 0x31 0x3b 0x35 0x41 
+			0x1b 0x5b 0x31 0x3b 0x35 0x42
+	status line
+		show spotify song
+			https://github.com/jdxcode/tmux-spotify-info
+	session
+		:kill-session
+		tmux new -s <session_name>
+	configuration file
+		~/.tmux.conf
