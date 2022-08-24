@@ -213,10 +213,10 @@ Minimalist Fulcro Tutorial :: Fulcro Community id=g12367
 					app
 					Person
 					person-tree)
-				person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir:
+				person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir: id=g13090
 					{:person/id  {1  {:person/id 1   :person/fname "Jo" :person/address [:address/id 11]}}
 					 :address/id {11 {:address/id 11 :address/street "Elm Street 7"}}}
-				nested data tree:
+				nested data tree: id=g13091
 					(def person-tree
 						{:person/id 1
 						 :person/fname "Jo"
@@ -948,7 +948,7 @@ Fulcro Developers Guide id=g12379
 							veri üzerine yerel düşünemiyoruz. mutasyonlar global anlayış gerektiriyor
 							mutasyonlar giderek büyüyüp çirkin hale geliyor
 							bir fact birden çok yerde bulunuyorsa, hepsi için doğru sırada güncelleme yapmak gerekiyor. data duplikasyon meselesi.
-				4.9. The Secret Sauce – Normalizing the Database
+				4.9. The Secret Sauce – Normalizing the Database id=g13088
 					Yukarıdaki problemlerin çözümü: veritabanı normalizasyonu
 						bir mapte (veya graph databasede), referans to-many arity'ye sahip olabilir, ilişkisel veritabanlarından farklı olarak
 						örn:
@@ -1116,7 +1116,7 @@ Fulcro Developers Guide id=g12379
 			(com.fulcrologic.fulcro.application/current-state app.application/app)
 		bir ui komponentin query'sini çekme fonksiyonu:
 			(com.fulcrologic.fulcro.components/get-query app.ui/Root)
-		mevcut state'i ve query'yi kullanarak, veri ağacını çekme fonksiyonu:
+		mevcut state'i ve query'yi kullanarak, veri ağacını çekme fonksiyonu: id=g13089
 			(com.fulcrologic.fulcro.algorithms.denormalize/db->tree query state state)
 			{:friends {:list/id :friends,
 								 :list/label "Friends",

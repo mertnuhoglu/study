@@ -1,0 +1,24 @@
+
+;; edn süreç veri modeli id=g13155
+
+;; rfr: ~/projects/study/clj/ex/study_clojure/ex06/src/edn04_process.tsv
+
+{:process/id {1 {:process/id 1 
+                 :process/title "BPS-01" 
+                 :process/steps [{:step/id 1}
+                                 {:step/id 2}
+                                 {:step/id 3}]}}
+ :step/id    {1 {:step/id 1
+                 :step/fields [{:field/id 1}
+                               {:field/id 2}]}
+              2 {:step/id 2
+                 :step/fields [{:field/id 2}
+                               {:field/id 3}]}
+              3 {:step/id 3
+                 :step/fields [{:field/id 3}]}}
+ :field/id   {1 {:field/id 1
+                 :field/title "Person"}
+              2 {:field/id 2
+                 :field/title "Status"}
+              3 {:field/id 3
+                 :field/title "Measurement"}}}

@@ -159,6 +159,12 @@ browsers
 				H		tab history
 				T		tabs list
 cloud
+	hosting2 hosting domain id=g13192
+		rfr
+			netlify # netlify <url:file:///~/projects/study/otl/ccode.otl#r=g10732>
+		email hosting
+			Google Domains > .Domain > Manage > Get a custom email with Workspace > Manage Workspace > Restore Google Workspace Records
+			bunu yapınca otomatik MX recordlarını oluşturuyor
 	gcloud # gcloud # google cloud  id=g10740
 		gcloud # gcloud # google cloud  <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10740>
 			gcloud compute instances list
@@ -872,12 +878,32 @@ tools tools2
 			shortcuts
 				/ +		quick add
 				+enter		add control
-	broot broot2 id=g12938
-		^-> | preview
+	csv csv2 excel2 tsv2 usv2
+		usv unicode separated values id=g12924
+			[SixArm/usv: USV: Unicode Separated Values](https://github.com/SixArm/usv)
+		ultorg
+		ModernCSV id=g12945
+			ref:
+				[CSV File Editor Application for Windows, Mac, and Linux - Modern CSV](https://www.moderncsv.com/)
+			shortcuts
+				rfr
+					/Users/mertnuhoglu/Library/Application Support/Modern CSV/Modern CSV/Shortcuts (User).csv
+				GoogleSheets uyumlu kısayollar için:
+					Preferences > Edit Shortcuts
+				Command Launcher,cmd+l|cmd+shift+p,cmd+e
+				Edit Selected Cell,cmd+e|f2,shift+return
+				Move Cell Contents Down,alt+down,ctrl+down
+				Move Cell Contents Up,alt+up,ctrl+up
+				Switch to Tab on the Left,cmd+pgup,alt+up
+				Switch to Tab on the Right,cmd+pgdown,alt+down
+		csvkit
+			csvkit
+				install
+				csvcut
+					print columns
+						csvcut -n data.csv
 	docker docker2 id=g10120
 		rfr: docker <url:file:///~/projects/study/otl/docker.otl#r=g13071>
-	duf duf2: disk usage/free utility
-		[muesli/duf: Disk Usage/Free Utility - a better 'df' alternative](https://github.com/muesli/duf)
 	elastic
 			Getting Started Tutorial
 				https://www.elastic.co/guide/en/elasticsearch/guide/current/_installing_elasticsearch.html
@@ -951,23 +977,11 @@ tools tools2
 			spreadsheet
 				shortcuts
 					!/			quick command
-	ffmpeg
-			video slideshow from image + audio
-				ffmpeg -loop 1 -i slide001.jpg -i slide001.mp3 -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest slide001.mp4
-				ffmpeg -loop 1 -framerate 2 -i input.png -i audio.ogg -c:v libx264 -preset medium -tune stillimage -crf 18 -c:a copy -shortest -pix_fmt yuv420p output.mkv
-					optimized for youtube
-					https://trac.ffmpeg.org/wiki/Encode/YouTube
-			concatenating videos
-				opt1
-					ls *.mp4 | perl -ne 'print "file $_"' | ffmpeg -f concat -i - -c copy output.mp4
-				opt2
-					ls *.mp4 | perl -ne 'print "file $_"' | ffmpeg -i - -filter_complex \
-					'[0:0] [0:1] [1:0] [1:1] [2:0] [2:1] \
-					 concat=n=3:v=1:a=1 [v] [a]' \
-					-map '[v]' -map '[a]' output.mp4
 	fzf: fuzzy file finder id=g10242
 		rfr: fzf <url:file:///~/projects/study/otl/fzf.otl#r=g13074>
 	grafik diyagram diagram tools diagram2
+		okso.app
+		tldraw
 		excalidraw
 			whiteboard
 			genel çizim aracı
@@ -983,6 +997,16 @@ tools tools2
 	lf: file manager (list files) lf2 id=g12347
 		ref
 			lf lf3  <url:file:///~/projects/study/code/lf_ranger_file_managers.otl#r=g12426>
+	graphviz graphviz2 digraph dot
+		[How do I make this graph acyclic, with graphviz, dot? - Stack Overflow](https://stackoverflow.com/questions/46525678/how-do-i-make-this-graph-acyclic-with-graphviz-dot)
+			digraph G{
+				START [label="START"]; 
+				A1, A2, A3 [label="A"]; 
+				B1, B2 [label="B"];  
+				C1, C2 [label="C"];  
+				END [label="END"];
+				START-> A1 -> { B1 C1 } -> A2 -> { B2 C2 } -> A3 -> END
+			}
 	hammerspoon
 		ref: ~/projects/study/code/study_hammerspoon.md
 		opt01: bundleid
@@ -994,12 +1018,6 @@ tools tools2
 			hs.application.launchOrFocusByBundleID("com.apple.TextInputMenuAgent")
 			hs.application.launchOrFocusByBundleID("com.jetbrains.datagrip")
 			hs.application.launchOrFocusByBundleID("com.apple.TextInputSwitcher")
-	htop
-			usage
-				use mouse
-					header columns to sort
-				fn+up/dn: page scroll
-				space: line scroll
 	hugo id=g10167
 		rfr: hugo  <url:file:///~/projects/study/otl/hugo.otl#r=g13077>
 	imagemagick

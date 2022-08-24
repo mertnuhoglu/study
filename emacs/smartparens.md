@@ -199,7 +199,10 @@ ref: `~/projects/study/emacs/ex/smartparens/e01/cleverparens_commands.clj`
 
 ref: `sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>`
 
-)(	ıy)lınem
+vim-sexp komutlarının bir kısmını değiştirdim. Güncel ayarlar: 
+
+ref: `vim-sexp <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12870>`
+
   | keybinding | function                            | vim-sexp |
   | slurp barf |                                     |          |
   | >          | evil-cp->                           | >) >(    |

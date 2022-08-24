@@ -1,0 +1,41 @@
+;; sim01_data.edn  id=g13221
+{
+ :person
+ {"p1" {:prs/id "p1"
+        :prs/name "Ali Veli"}}
+
+ :datafieldD
+ {"dd3" {:dfd/id "dd3"
+         :dfd/name "country"
+         :dfd/type :string
+         :dfd/crud true}
+  "dd1" {:dfd/id "dd1"
+         :dfd/name "country ref"
+         :dfd/type :ref
+         :dfd/ref "dd3"}
+  "dd2" {:dfd/id "dd2"
+         :dfd/name "Project Name"
+         :dfd/type :string}}
+ 
+ :datafieldN
+ {"dd3" {"dd31" "tr"
+         "dd32" "uk"}}
+ 
+ :formD
+ {"fd2" {:fd/id "fd2"
+         :fd/name "Proje Görevlendirme CRUD"
+         :fd/dfd ["dd3"]}
+  "fd1" {:fd/id "fd1"}
+        :fd/name "Proje Görevlendirme"
+        :fd/dfd ["dd1" "dd2"]}
+ 
+ :formN
+ {"fn1" {:fn/id "fn1"
+         :fn/fd "fd1"
+         :fn/done true
+         :fn/job-date "20220815"
+         :fn/done-date "20220825"
+         :fn/person "p1"
+         :fn/data-map {"dd2" "Project X"
+                       "dd1" "dd31"}}}}
+

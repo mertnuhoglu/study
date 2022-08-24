@@ -1,0 +1,46 @@
+;; fulcro tipi veritabanı id=g13092
+
+;; rfr
+; person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir: <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g13090>
+; 4.9. The Secret Sauce – Normalizing the Database <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g13088>
+; mevcut state'i ve query'yi kullanarak, veri ağacını çekme fonksiyonu: <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g13089>
+
+;; örnek: db
+{:person/id  {123 {:person/id 123, :person/fname "Jo", :person/address [:address/id 3]}}}
+
+;; örnek: normal db
+{:person/id  {1  {:person/id 1   :person/fname "Jo" :person/address [:address/id 11]}}
+ :address/id {11 {:address/id 11 :address/street "Elm Street 7"}}}
+
+;; örnek: nested data tree
+(def person-tree
+    {:person/id 1
+     :person/fname "Jo"
+     :person/address {:address/id 11
+                      :address/street "Elm Street 7"}})
+
+;; örnek: normalized db
+{:list/id {:friends  {:list/id :friends
+                      :list/label "Friends"
+                      :list/people [[:person/id 1] [:person/id 2]]}}
+ :person/id {1 {:person/id 1 :person/name "Joe"}
+             2 {:person/id 2 :person/name "Sally"}}}
+
+;; örnek: tree
+{:friends {:list/id :friends,
+           :list/label "Friends",
+           :list/people [{:person/id 1, :person/name "Sally", :person/age 32}
+                         {:person/id 2, :person/name "Joe", :person/age 22}]},
+ :enemies {:list/id :enemies,
+           :list/label "Enemies",
+           :list/people [{:person/id 3, :person/name "Fred", :person/age 11}
+                         {:person/id 4, :person/name "Bobby", :person/age 55}]}}
+
+
+; [A] 1-n [B]
+; [B] 1-n [C]
+
+;; a01
+
+{:A []}
+

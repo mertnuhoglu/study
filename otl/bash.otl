@@ -106,28 +106,16 @@ bash id=g13079
 		brew
 			backup installed brew packages
 				brew leaves > ~/projects/private_dotfiles/.config/brew/installed_packages.txt
-	csv csv2 excel2 tsv2 usv2
-		usv unicode separated values id=g12924
-			[SixArm/usv: USV: Unicode Separated Values](https://github.com/SixArm/usv)
-		ultorg
-		ModernCSV id=g12945
-			ref:
-				[CSV File Editor Application for Windows, Mac, and Linux - Modern CSV](https://www.moderncsv.com/)
-			shortcuts
-				GoogleSheets uyumlu kısayollar
-				Preferences > Edit Shortcuts
-		csvkit
-			csvkit
-				install
-				csvcut
-					print columns
-						csvcut -n data.csv
+	broot broot2 id=g12938
+		^-> | preview
 	cut cut2
 		[riquito/tuc: When cut doesn't cut it](https://github.com/riquito/tuc) id=g13035
 		[theryangeary/choose: A human-friendly and fast alternative to cut and (sometimes) awk](https://github.com/theryangeary/choose) id=g13047
 	diff
 			diff-so-fancy
 				https://github.com/so-fancy/diff-so-fancy
+	duf duf2: disk usage/free utility
+		[muesli/duf: Disk Usage/Free Utility - a better 'df' alternative](https://github.com/muesli/duf)
 	fd: find replacement fd2 find2
 		batch delete files with find xargs
 			ref: xargs <url:file:///~/projects/study/otl/ccode.otl#r=g10805>
@@ -160,10 +148,32 @@ bash id=g13079
 		options
 			-H		# hidden files (.git vs.)
 			-I --no-ignore
+	ffmpeg
+			video slideshow from image + audio
+				ffmpeg -loop 1 -i slide001.jpg -i slide001.mp3 -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest slide001.mp4
+				ffmpeg -loop 1 -framerate 2 -i input.png -i audio.ogg -c:v libx264 -preset medium -tune stillimage -crf 18 -c:a copy -shortest -pix_fmt yuv420p output.mkv
+					optimized for youtube
+					https://trac.ffmpeg.org/wiki/Encode/YouTube
+			concatenating videos
+				opt1
+					ls *.mp4 | perl -ne 'print "file $_"' | ffmpeg -f concat -i - -c copy output.mp4
+				opt2
+					ls *.mp4 | perl -ne 'print "file $_"' | ffmpeg -i - -filter_complex \
+					'[0:0] [0:1] [1:0] [1:1] [2:0] [2:1] \
+					 concat=n=3:v=1:a=1 [v] [a]' \
+					-map '[v]' -map '[a]' output.mp4
+	fzf: fuzzy file finder id=g10242
+		rfr: fzf <url:file:///~/projects/study/otl/fzf.otl#r=g13074>
 	global gtags
 			https://www.gnu.org/software/global/download.html
 			tags for definition, reference, calling etc
 			brew install global
+	htop
+			usage
+				use mouse
+					header columns to sort
+				fn+up/dn: page scroll
+				space: line scroll
 	od - octal hexa codes id=ccd_0010
 		od
 			od - octal hexa codes <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=ccd_0010>

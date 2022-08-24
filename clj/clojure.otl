@@ -1,6 +1,8 @@
 ref
 	~/projects/study/clj/refcard_clojure.otl
 index
+	jrnl - clj <url:file:///~/projects/study/clj/clojure.otl#r=g13204>
+	ndx - clj <url:file:///~/projects/study/clj/clojure.otl#r=g13212>
 	ref
 		datomic.otl <url:file:///~/projects/study/clj/datomic.otl#r=g12849>
 		~/projects/study/clj/fulcro.otl
@@ -14,6 +16,7 @@ index
 			~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01.clj
 		/Users/mertnuhoglu/projects/study/clj/ex/fulcro/fulcro.iml
 	rfc quickstart id=g12853
+		ClojureScript Koans <url:file:///~/projects/study/clj/clojure.otl#r=g13161>
 		projects <url:file:///~/projects/study/clj/clojure.otl#r=g12848>
 		datomic <url:file:///~/projects/study/clj/clojure.otl#r=g12850>
 		Setup a new project  <url:file:///~/projects/study/clj/clojure.otl#r=g11946>
@@ -44,14 +47,19 @@ clojure
 		sexp editing id=g12869
 			ref
 				sexp_editing.otl ~/projects/study/clj/sexp_editing.otl
+				Evm: vim-sexp <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12870>
+				sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>
 				Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>
 				smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g12112>
 				sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>
+			vim => vim-sexp SPC s
+			emacs => smartparens + cleverparens
 		cursive intellij
 			ref
 				quickstart cursive <url:file:///~/projects/study/clj/cursive.md#r=g11816>
 			shortcuts
 				Cursive repl eval keybindings <url:file:///~/projects/private_dotfiles/.ideavimrc#r=g12857>
+					surround wrap keybindings <url:file:///~/projects/private_dotfiles/.ideavimrc#r=g13216>
 				QuickList Popup keybindings <url:file:///~/projects/private_dotfiles/.ideavimrc#r=g12856>
 				| çd       | eval top form  |
 				| çe       | eval last form |
@@ -65,9 +73,17 @@ clojure
 				| !u SPC   | popup move menu                |
 		vim conjure
 			conjure
+				rfr
+					sexp editing <url:file:///~/projects/study/clj/clojure.otl#r=g12869>
 				Index: Clojure in Vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11843>
-				conjure <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12847>
 				shortcuts
+					local quick_clojure_map SPC j <url:file:///~/projects/private_dotfiles/.config/nvim/lua/mert/which-key.lua#r=g13215>
+					| SPC j     | prefix instead of comma ,         |
+					| c         | eval comment                      |
+					| d         | eval root form                    |
+					| e         | eval current form                 |
+					| v         | open log buffer vertical          |
+					Evm conjure <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12847>
 					[`,` yerine SPC m konulacak]
 					| SPC m     | prefix instead of comma ,         |
 					| ,vv       | open log buffer vertical          |
@@ -76,7 +92,7 @@ clojure
 					| ,em[mark] | eval form under given `mark`      |
 					| ,ew       | eval word under cursor (peek var) |
 					| ,E        | eval visual selection             |
-					öneksiz düz kısayollar:
+					öneksiz düz kısayollar: (ç ile başlayanları iptal)
 					| çc | eval_comment_current_form |
 					| çe | eval_current_form         |
 					| çr | eval_root_form            |
@@ -147,6 +163,11 @@ clojure
 	libraries
 		clojure.repl help functions <url:file:///~/projects/study/clj/book_essential_reference_borgatti.md#r=g11959>
 			ref_ex: ~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj
+points
+	cons vs conj
+		(cons x xs)
+		(conj xs x)
+		mnemonics: cons'un sonunda s var, bu yüzden xs sonra gelir
 howto problems
 	debugging
 		dirac: chrome devtools plugin id=g12454
@@ -847,9 +868,14 @@ topics
 				(def occurrences [#inst "2013-04-06T17:40:57.688-00:00" #inst "2002-12-25T00:40:57.688-00:00"])
 				(sort occurrences) ;; => (#inst "2002-12-25T00:40:57.688-00:00" #inst "2013-04-06T17:40:57.688-00:00")
 			; Time Interval Between <url:ex/study_clojure/ex06/src/book_clojure_cookbook_van_der_hart.clj#r=g11398>
-		edn edn2
-			ref: 
+		edn edn2 id=g13087
+			rfr:
+				;; fulcro tipi veritabanı <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/edn03.edn#r=g13092>
+				~/projects/study/clj/ex/study_clojure/ex06/src/edn02.edn
+				~/projects/study/clj/ex/study_clojure/ex06/src/edn.cljs
+				~/projects/study/clj/ex/study_clojure/ex06/src/edn.clj
 				[Learn edn in Y Minutes](https://learnxinyminutes.com/docs/edn/)
+				~/projects/study/clj/ex/study_fulcro/glam/out/db_settings.edn
 			edn-format/edn: Extensible Data Notation <url:book_clojure_documentation.md#r=g11402>
 			Tagging elements: #tag {:a 1}
 	datomic id=g12850
@@ -1515,42 +1541,266 @@ inbox
 		type checks
 			associative?
 yayın - clj
+	articles - cljs
+		[ertugrulcetin/racing-game-cljs: A 3D racing game built with ClojureScript, React and ThreeJS](https://github.com/ertugrulcetin/racing-game-cljs)
+		[borkdude/nbb: Ad-hoc CLJS scripting on Node.js.](https://github.com/borkdude/nbb)
+		[Introducing shadow-cljs Inspect - Projects / shadow-cljs - ClojureVerse](https://clojureverse.org/t/introducing-shadow-cljs-inspect/5012)
+		[CLJS: Hidden Google Closure Library gems - Questions & Help / General Questions - ClojureVerse](https://clojureverse.org/t/cljs-hidden-google-closure-library-gems/2321/3)
+		[Apropos Clojure #10 - shadow-cljs - YouTube](https://www.youtube.com/watch?v=Ow4Qdw25CEA)
 	articles - clj
+		tick examples: Countdown Timers id=g13211
+			rfr:
+				[Countdown Timers](https://juxt.github.io/tick/#_countdown_timers)
+		tick - date time library id=g13208
+			rfr: 
+				[tick](https://juxt.github.io/tick/)
+				sandbox_mert$clj-tick > 20220815-tick
+				datetime.clj <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/datetime.clj#r=g13218>
+			function list - tick id=g13214
+				kw
+					:tick/beginning
+					:tick/end
+					:during
+					:finishes
+					:meets
+					:met-by
+					:overlapped-by
+					:overlaps
+					:preceded-by
+					:precedes
+					:starts
+				type
+					date
+					inst
+					instant
+				constant
+					t.i/am
+					t.i/pm
+					t/now
+					t/noon
+					t/today
+					t/tomorrow
+					t/yesterday
+					t/midnight
+				interval
+					t.i/bounds
+					t.i/new-interval
+					t/beginning
+					t/end
+					t/between
+					t/duration
+					t/new-duration
+					t/new-period
+				set ops
+					t.i/relation
+					t.i/difference
+					t.i/union
+					t.i/intersection
+					t.i/intersects?
+				arithmetics
+					t/+
+					t/-
+					t/<
+					t/<<
+					t/<=
+					t/>
+					t/>>
+					t/ago
+					t/inc
+					t/dec
+					t/max
+					t/offset-by
+					t.i/divide
+					t.i/divide-by
+					t.i/extend
+				add attribute
+					t/at
+					t/in
+					t/on
+				clock
+					t/atom
+					t/clock
+				date-time
+					t/date
+					t/date-of-month
+					t/date-time
+					t/day
+					t/day-of-month
+					t/day-of-week
+					t/hour
+					t/epoch
+					t/inst
+					t/instant
+					t/millisecond
+					t/minute
+					t/new-date
+					t/new-time
+					t/new-year-month
+					t/month
+					t/second
+					t/min
+					t/time
+					t/year
+					t/year-month
+					t/offset-date-time
+					t/zoned-date-time
+				get
+					t/seconds
+					t/days
+					t/hours
+					t/micros
+					t/microsecond
+					t/millis
+					t/minutes
+					t/months
+					t/years
+					t/zone
+					t/zone-offset
+				other
+					t.i/concur
+					t.i/concurrencies
+					t.i/conj
+					t.i/group-by
+					t.i/normalize
+					t/coincident?
+					t/fields
+					t/hence
+					t/int
+					t/long
+					t/midnight?
+					t/range
+					t/reset!
+					t/reset-vals!
+					t/truncate
+					t/unit-map
+					t/units
+					t/with
+					tick.alpha.interval
+					tick.core
+		Should I use java.util.Date or switch to java.time.LocalDate - Stack Overflow id=g13206
+			rfr: [Should I use java.util.Date or switch to java.time.LocalDate - Stack Overflow](https://stackoverflow.com/questions/28730136/should-i-use-java-util-date-or-switch-to-java-time-localdate)
+		java - What's the difference between Instant and LocalDateTime? - Stack Overflow id=g13205
+			rfr: 	[java - What's the difference between Instant and LocalDateTime? - Stack Overflow](https://stackoverflow.com/questions/32437550/whats-the-difference-between-instant-and-localdatetime)
+		Cross Platform DateTime Awesomeness - Henry Widd - YouTube id=g13203
+			rfr: [Cross Platform DateTime Awesomeness - Henry Widd - YouTube](https://www.youtube.com/watch?v=UFuL-ZDoB2U)
+			class model
+				[<<platform>>;Date|#inst "2018-12-11T07:52:19.627-01:00"]
+				[Instant|"2018-12-11T07:52:19.627Z"]
+				[Date]<->[Instant]
+				[ZonedDateTime|"2018-12-11T07:52:19.627+01:00(Europe/London)"]
+				[ZoneId|"Europe/London"]
+				[LocalDateTime|"2018-12-11T07:52:19.627"]
+				[LocalDate|"2018-12-11"]
+				[Instant]-Zone>[ZonedDateTime]
+				[ZonedDateTime]->[ZoneId]
+				[ZonedDateTime]->[LocalDateTime]
+				[LocalDateTime]->[LocalDate]
+				[LocalDateTime]->[LocalTime]
+		ClojureScript Koans id=g13161
+			rfr: 
+				[ClojureScript Koans](http://clojurescriptkoans.com/#equality/5)
+					/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/clojurekoans.clj
+				[functional-koans/clojure-koans](https://github.com/functional-koans/clojure-koans)
+					/Users/mertnuhoglu/codes/clj/content/clojure-koans
 		Rich Hickey articles <url:file:///~/projects/study/clj/clojure.otl#r=g13039>
 		articles - datomic <url:file:///~/projects/study/clj/clojure.otl#r=g13040>
 		[replikativ / datahike-invoice](https://gitlab.com/replikativ/datahike-invoice) id=g13032
 		[learn-clojure/resources](https://roamresearch.com/#/app/Zsolt-Blog/page/AC6_8FVVo) id=g13037
-		[(28) Rich Hickey on Datomic Ions, September 12, 2018 - YouTube](https://www.youtube.com/watch?v=thpzXjmYyGk) id=g13038
+		[Rich Hickey on Datomic Ions, September 12, 2018 - YouTube](https://www.youtube.com/watch?v=thpzXjmYyGk) id=g13038
 		[clojure-emacs/clj-refactor.el: A CIDER extension that provides powerful commands for refactoring Clojure code.](https://github.com/clojure-emacs/clj-refactor.el) id=g13056
 			[clojure-vim/clj-refactor.nvim: A neovim clojure refactoring plugin](https://github.com/clojure-vim/clj-refactor.nvim)
+		[babashka 0.3.1 new features: bb.edn + invoke any function from cmd line - YouTube](https://www.youtube.com/watch?v=_zr1dicJs-E)
+			[Babashka tasks (by Michiel Borkent) - YouTube](https://www.youtube.com/watch?v=u5ECoR7KT1Y)
+		debug clj:
+			[AppsFlyer/mate-clj: Clojure library for debugging core functions](https://github.com/AppsFlyer/mate-clj)
+			[Unleash the Power of the REPL - Dana Borinski - YouTube](https://www.youtube.com/watch?v=oLvwbDUXGsc)
+		[First 6 years of a life of Clojure project – Jarppe Länsiö - YouTube](https://www.youtube.com/watch?v=WtdegIqQbrg&t=1209s)
+		[clojureD 2021: "A Trick of the Tool" by Alex Miller - YouTube](https://www.youtube.com/watch?v=BTAx-gFz6Ks)
+		[Clojure Workflow Reloaded](https://www.cognitect.com/blog/2013/06/04/clojure-workflow-reloaded)
+		[greglook/puget: Canonical Colorizing Clojure Printer](https://github.com/greglook/puget)
+		[Building a RESTful Web API in Clojure - a new approach - Malcolm Sparks - YouTube](https://www.youtube.com/watch?v=JWa4NhjWNHQ)
+		[clojureD 2020: "Writing maintainable Clojure" by Erik Assum - YouTube](https://www.youtube.com/watch?v=Tq7r97G4b7Y&t=1492s)
+		vim-iced clojure eklentisi 
+			[vim-iced](https://liquidz.github.io/vim-iced/#installation)
+			nxt
+				[liquidz/vim-iced: Clojure Interactive Development Environment for Vim8/Neovim](https://github.com/liquidz/vim-iced)
+				debugger
+				browsing tapped values in threading macros
+		[FXL - composable data-oriented spreadsheet library for Clojure - Anthony Khong - Scicloj Meeting 20 - YouTube](https://www.youtube.com/watch?v=d6qOzPQ9NUk)
+		daveray/clawk: Like Awk, but Clojure. <url:file:///~/projects/study/clj/clojure.otl#r=g13041>
+		clojure-emacs/clj-refactor.el: A CIDER extension that provides powerful commands for refactoring Clojure code. <url:file:///~/projects/study/clj/clojure.otl#r=g13056>
+		Reduce, Group-by, and Juxt by creating a Look Up Map (Clojure Tutorial) - YouTube <url:file:///~/projects/study/clj/clojure.otl#r=g13042>
+		[Wordle clone in ClojureScript - YouTube](https://www.youtube.com/watch?v=QEEPXuR5wLk)
+		[Use Clojure to build an API - YouTube](https://www.youtube.com/watch?v=e7BTRR0VBsQ)
+		[Coast on Clojure](https://coast.swlkr.com/)
+		[Create a password manager with Clojure using Babashka, sqlite, honeysql and stash - YouTube](https://www.youtube.com/watch?v=jm0RXmyjRJ8) id=g13084
+		[clojureD 2021: "Your own fast, native Clojure scripting CLI with GraalVM and SCI" by Michiel Borkent - YouTube](https://www.youtube.com/watch?v=L2LAaQBVvxM)
+		[inclojure-org/clojure-by-example: An introduction to Clojure, for programmers who are new to Clojure.](https://github.com/inclojure-org/clojure-by-example)
+		[PEZ/rich4clojure: Practice Clojure using Interactive Programming in your editor](https://github.com/PEZ/rich4clojure)
 	örnek uygulamalar - clj id=g13031
 		replikativ / datahike-invoice <url:file:///~/projects/study/clj/clojure.otl#r=g13032>
 		[Create a form using ClojureScript and Re-Frame - YouTube](https://www.youtube.com/watch?v=46Rs6_2pw_Y) id=g13054
+		[Clojure inline tests: example-driven, executable documentation, powered by metadata - YouTube](https://www.youtube.com/watch?v=orFYFwiG1dM)
+		[Re-usable GUI Components with Re-frame and Atomic Design - Mark Nutter - YouTube](https://www.youtube.com/watch?v=JCY_cHzklRs)
 	libraries - clj
 		[quoll/asami: A flexible graph store, written in Clojure](https://github.com/quoll/asami) id=g13036
 		[daveray/clawk: Like Awk, but Clojure.](https://github.com/daveray/clawk) id=g13041
 	Rich Hickey articles id=g13039
-		(28) Rich Hickey on Datomic Ions, September 12, 2018 - YouTube <url:file:///~/projects/study/clj/clojure.otl#r=g13038>
+		Rich Hickey on Datomic Ions, September 12, 2018 - YouTube <url:file:///~/projects/study/clj/clojure.otl#r=g13038>
 	articles - datomic id=g13040
+		[Functional effect and streaming systems in Clojure - Léo Noel - reClojure 2021 - YouTube](https://www.youtube.com/watch?v=tV-DoiGdUIo)
+		[Max Datom - Interactive Datomic Tutorial](https://max-datom.com/)
+		[threatgrid/asami: A graph store for Clojure and ClojureScript](https://github.com/threatgrid/asami)
+		[Datalog all the way down - Christopher Small - YouTube](https://www.youtube.com/watch?v=aI0zVzzoK_E)
+		[DOMAIN MODELING WITH DATALOG by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw)
+			[Datalog: Data All Truth · Append Log · Obtain Graph - Speaker Deck](https://speakerdeck.com/pithyless/datalog-data-all-truth-append-log-obtain-graph)
+			[Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube](https://www.youtube.com/watch?v=UrGJHfB21Ok)
+				ref
+					Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/projects/study/clj/datomic.otl#r=g12910>
+			[Learn Datalog Today!](http://www.learndatalogtoday.org/)
+			[Datalog Links and Notes](https://gist.github.com/pithyless/e00362aa6061bfb4e4749079a33be073)
+		[Datomic/mbrainz-sample: Example queries and rules for working with the Datomic mbrainz example database](https://github.com/Datomic/mbrainz-sample)
+		[XTDB](https://xtdb.com/)
+		[I love Datomic, think it can be revolutionary and use it in my side projects. I ... | Hacker News](https://news.ycombinator.com/item?id=20945613)
+		[Examples | Datomic](https://docs.datomic.com/on-prem/examples.html)
+		[Datomic/mbrainz-sample: Example queries and rules for working with the Datomic mbrainz example database](https://github.com/Datomic/mbrainz-sample)
+		[Datomic/simulant](https://github.com/Datomic/simulant)
+		[Datomic/day-of-datomic: Sample Code for Day of Datomic presentation](https://github.com/Datomic/day-of-datomic)
+		[Day of Datomic Cloud - Session 1 - YouTube](https://www.youtube.com/watch?v=yWdfhQ4_Yfw&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv)
+		[Day of Datomic Part 1 on Vimeo](https://vimeo.com/208676137)
+		[Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube](https://www.youtube.com/watch?v=tV4pHW_WOrY)
+		[clojureD 2020: "Fun with JSON" by Malcolm Sparks - YouTube](https://www.youtube.com/watch?v=gMYQ1vDy7d0)
+		[pmbauer/datomizer: An experimental data structure marshaling library for Datomic](https://github.com/pmbauer/datomizer)
+		Datomic
+		[dustingetz (u/dustingetz) - Reddit](https://www.reddit.com/user/dustingetz/)
+		[Spice up your life with eql - Norbert Wojtowicz - wroc_love.rb 2019 - YouTube](https://www.youtube.com/watch?v=UvJEBMOtayk&t=2281s)
+		[Functional effect and streaming systems in Clojure - Léo Noel - reClojure 2021 - YouTube](https://www.youtube.com/watch?v=tV-DoiGdUIo)
+			[leonoel/missionary: An asynchronous programming toolkit for clojure and clojurescript](https://github.com/leonoel/missionary)
+		["Immutable Relational Data" by Richard Feldman - YouTube](https://www.youtube.com/watch?v=28OdemxhfbU)
+		[Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube](https://www.youtube.com/watch?v=EDojA_fahvM)
+		[Lucas Cavalcanti & Edward Wible - Exploring four hidden superpowers of Datomic - YouTube](https://www.youtube.com/watch?v=7lm3K8zVOdY)
+		[Datahike - ((de)composing persistent datalog for everybody) - YouTube](https://www.youtube.com/watch?v=j_fAJ5wRyes)
+		[Clojure & Datalog is Lisp & Prolog | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2022/01/13/datalog-exercises.html)
+		[markbastian/datascript-playground](https://github.com/markbastian/datascript-playground/tree/master/src/main/clj/datascript_playground)
 		[homebaseio/datalog-console: Administration UI for Datascript, Datahike, and other Datalog databases](https://github.com/homebaseio/datalog-console)
 			[homebaseio/homebase-react: The React state management library for write-heavy applications](https://github.com/homebaseio/homebase-react)
-		[(1201) Learn Datalog Today Chapters 1-4 (Clojure Livecoding Stream) - YouTube](https://www.youtube.com/watch?v=8bc4mBRmmbg)
+		[Learn Datalog Today Chapters 1-4 (Clojure Livecoding Stream) - YouTube](https://www.youtube.com/watch?v=8bc4mBRmmbg)
 		[Datomic Pull | Datomic](https://docs.datomic.com/on-prem/query/pull.html)
 		[Entity Specs — io.replikativ/datahike 0.4.1491](https://cljdoc.org/d/io.replikativ/datahike/0.4.1491/doc/entity-specs)
 		[Pull-API Namespace — io.replikativ/datahike 0.4.1491](https://cljdoc.org/d/io.replikativ/datahike/0.4.1491/doc/pull-api-namespace-)
 		[Datomic Queries and Rules | Datomic](https://docs.datomic.com/on-prem/query/query.html)
-		[(1201) clojureD 2021: "Firetomic: Replacing Datomic with Datahike and Firebase" by Alexander Oloo - YouTube](https://www.youtube.com/watch?v=n0Nb1fY56hU)
+		[clojureD 2021: "Firetomic: Replacing Datomic with Datahike and Firebase" by Alexander Oloo - YouTube](https://www.youtube.com/watch?v=n0Nb1fY56hU)
 		örnek problem çözelim <url:file:///~/projects/myrepo/work/work.otl#r=g12833>
 		datahike-invoice örnek kodunu oku <url:file:///~/projects/myrepo/work/work.otl#r=g12831>
 		juxt makalesini oluşturmak <url:file:///~/projects/myrepo/work/work.otl#r=g12832>
 		datom.com
-		[(1201) Intro into using Crux Db with Clojure - YouTube](https://www.youtube.com/watch?v=_L50rsoDBxQ)
+		[Intro into using Crux Db with Clojure - YouTube](https://www.youtube.com/watch?v=_L50rsoDBxQ)
 		[datahike/cli.md at 336-native-image-cli · replikativ/datahike](https://github.com/replikativ/datahike/blob/336-native-image-cli/doc/cli.md)
 		[Turning the database inside-out with Apache Samza — Martin Kleppmann’s blog](https://martin.kleppmann.com/2015/03/04/turning-the-database-inside-out.html)
 		[Data structures as queries: Expressing CRDTs using Datalog - Speaker Deck](https://speakerdeck.com/ept/data-structures-as-queries-expressing-crdts-using-datalog?slide=19)
-		[(1201) CRDTs: The Hard Parts - YouTube](https://www.youtube.com/watch?v=x7drE24geUw)
-		[(1201) CRDTs for Non Academics - YouTube](https://www.youtube.com/watch?v=vBU70EjwGfw)
-		[(1201) Datalog all the way down - Christopher Small - YouTube](https://www.youtube.com/watch?v=aI0zVzzoK_E&t=2183s)
+		[CRDTs: The Hard Parts - YouTube](https://www.youtube.com/watch?v=x7drE24geUw)
+		[CRDTs for Non Academics - YouTube](https://www.youtube.com/watch?v=vBU70EjwGfw)
+		[Datalog all the way down - Christopher Small - YouTube](https://www.youtube.com/watch?v=aI0zVzzoK_E&t=2183s)
 		[Clojure in the Database · subhash/clj-stack Wiki](https://github.com/subhash/clj-stack/wiki/Clojure-in-the-Database) id=g13068
 		[Datomic MusicBrainz Sample Database – Nextjournal](https://nextjournal.com/kommen/datomic) id=g13066
 		[Clojure Datomic Exercise | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2020/11/14/clojure-datomic-exercise.html) id=g13067
@@ -1562,8 +1812,8 @@ yayın - clj
 		[vvvvalvalval/datofu: there's a :db/fn for that](https://github.com/vvvvalvalval/datofu) id=g13062
 		[juxt/pull: Trees from tables](https://github.com/juxt/pull) id=g13060
 		[subhash/clj-stack: A full-stack Clojure tutorial](https://github.com/subhash/clj-stack)
-		[(27) Clojure European Summer Time - Data Driven RAD with Malli, by Arne Brasseur - YouTube](https://www.youtube.com/watch?v=ww9yR_rbgQs)
-		[(27) I put 7 years of meal data in Datomic - Here's what I learned - Christian Johansen - YouTube](https://www.youtube.com/watch?v=ORQ2qs8GHsQ)
+		[Clojure European Summer Time - Data Driven RAD with Malli, by Arne Brasseur - YouTube](https://www.youtube.com/watch?v=ww9yR_rbgQs)
+		[I put 7 years of meal data in Datomic - Here's what I learned - Christian Johansen - YouTube](https://www.youtube.com/watch?v=ORQ2qs8GHsQ)
 		[Indexes | Datomic](https://docs.datomic.com/on-prem/query/indexes.html)
 		[Entities | Datomic](https://docs.datomic.com/on-prem/overview/entities.html)
 		[Transactions | Datomic](https://docs.datomic.com/on-prem/transactions/transactions.html)
@@ -1574,7 +1824,7 @@ yayın - clj
 		resources datomic <url:file:///~/projects/study/clj/datomic.otl#r=g12880>
 		datomic ile bir json  dosyasında sorgulama yapmayı öğren
 		[markbastian/datascript-playground](https://github.com/markbastian/datascript-playground)
-		datafy+nav on datomic: [(13) REBL - Stuart Halloway - YouTube](https://www.youtube.com/watch?v=c52QhiXsmyI?t=1272)
+		datafy+nav on datomic: [REBL - Stuart Halloway - YouTube](https://www.youtube.com/watch?v=c52QhiXsmyI?t=1272)
 			[Clojure Datafy – Nextjournal](https://nextjournal.com/zampino/clojure-datafy)
 			[shadow-experiments/dev_support.cljs at master · thheller/shadow-experiments](https://github.com/thheller/shadow-experiments/blob/master/src/main/shadow/experiments/grove/dev_support.cljs)
 		REBL Datomic entity'lerini nasıl dolaşıyor?
@@ -1582,11 +1832,11 @@ yayın - clj
 		[Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions](https://cognitect.com/blog/2017/4/21/separation-of-concerns-in-datomic-query-datalog-query-and-pull-expressions)
 		[Datomic/mbrainz-importer: Clojure/Transducers/Datomic ETL example](https://github.com/Datomic/mbrainz-importer#readme)
 		[Datomic Cheat Sheet Series - Queries (Part 5) - Transactions -...](https://curiousprogrammer.dev/blog/datomic-cheat-sheet-series-queries-part-5-transactions/)
-		[(13) Datomic: up and running - YouTube](https://www.youtube.com/watch?v=ao7xEwCjrWQ&t=1769s)
-		[(13) David Greenberg - Building Interactive Query Tools on Datomic - YouTube](https://www.youtube.com/watch?v=YHctJMUG8bI)
-		[(13) Intro to Datomic - YouTube](https://www.youtube.com/watch?v=RKcqYZZ9RDY)
-		[(13) Lucas Cavalcanti & Edward Wible - Exploring four hidden superpowers of Datomic - YouTube](https://www.youtube.com/watch?v=7lm3K8zVOdY)
-		[(13) Test-driven Development with Datomic - YouTube](https://www.youtube.com/watch?v=JaZ1Tm6ixCY)
+		[Datomic: up and running - YouTube](https://www.youtube.com/watch?v=ao7xEwCjrWQ&t=1769s)
+		[David Greenberg - Building Interactive Query Tools on Datomic - YouTube](https://www.youtube.com/watch?v=YHctJMUG8bI)
+		[Intro to Datomic - YouTube](https://www.youtube.com/watch?v=RKcqYZZ9RDY)
+		[Lucas Cavalcanti & Edward Wible - Exploring four hidden superpowers of Datomic - YouTube](https://www.youtube.com/watch?v=7lm3K8zVOdY)
+		[Test-driven Development with Datomic - YouTube](https://www.youtube.com/watch?v=JaZ1Tm6ixCY)
 		[Val on Programming: Datomic: Event Sourcing without the hassle](https://vvvvalvalval.github.io/posts/2018-11-12-datomic-event-sourcing-without-the-hassle.html)
 		[Val on Programming: Using Datomic in your app: a practical guide](https://vvvvalvalval.github.io/posts/2016-07-24-datomic-web-app-a-practical-guide.html)
 		[The Datomic Information Model](https://www.infoq.com/articles/Datomic-Information-Model/)
@@ -1594,14 +1844,14 @@ yayın - clj
 		[Database Reinvented : Datomic | Humble Bits](http://blogs.quovantis.com/introduction-to-datomic/)
 		[clojure-cookbook/6-15_traversing-indices.asciidoc at master · clojure-cookbook/clojure-cookbook](https://github.com/clojure-cookbook/clojure-cookbook/blob/master/06_databases/6-15_traversing-indices.asciidoc)
 		[clojure-cookbook/6-12_transact-basics.asciidoc at master · clojure-cookbook/clojure-cookbook](https://github.com/clojure-cookbook/clojure-cookbook/blob/master/06_databases/6-12_transact-basics.asciidoc)
-		[(13) Datomic Walkthrough Step 0 - Installing, Running Transactor, Console - YouTube](https://www.youtube.com/watch?v=bnBPuN4J_TE)
-			[(13) Datomic Walkthrough Step 1 - Connecting and Exploring Datoms - YouTube](https://www.youtube.com/watch?v=bu2bQNiHzgI&list=PL4SAUIEMXDgIZcA2ZXTplhNYqF71_3yfK&index=3)
-			[(13) John Madison - YouTube](https://www.youtube.com/channel/UCegjRnOL_zu4nYUkNLsTt1w)
+		[Datomic Walkthrough Step 0 - Installing, Running Transactor, Console - YouTube](https://www.youtube.com/watch?v=bnBPuN4J_TE)
+			[Datomic Walkthrough Step 1 - Connecting and Exploring Datoms - YouTube](https://www.youtube.com/watch?v=bu2bQNiHzgI&list=PL4SAUIEMXDgIZcA2ZXTplhNYqF71_3yfK&index=3)
+			[John Madison - YouTube](https://www.youtube.com/channel/UCegjRnOL_zu4nYUkNLsTt1w)
 		[tatut/xtdb-inspector: Web UI for inspecting XTDB database](https://github.com/tatut/xtdb-inspector)
 		[tatut/ripley: Ring live pages experiment](https://github.com/tatut/ripley)
 			photon alternatifi
 		[crux-tutorial – Nextjournal](https://nextjournal.com/crux-tutorial)
-		[(123) Building a powerful Double Entry Accounting system - Lucas Cavalcanti - YouTube](https://www.youtube.com/watch?v=aw6y4r4NAlw&list=PLZdCLR02grLofiMKo0bCeLHZC0_2rpqsz&index=10)
+		[Building a powerful Double Entry Accounting system - Lucas Cavalcanti - YouTube](https://www.youtube.com/watch?v=aw6y4r4NAlw&list=PLZdCLR02grLofiMKo0bCeLHZC0_2rpqsz&index=10)
 		[Simulation Testing with Simulant](https://www.infoq.com/presentations/Simulation-Testing/)
 		[alexpetrov/datomic-facts-slides: Presentation about Datomic](https://github.com/alexpetrov/datomic-facts-slides)
 		[Conversations With Datomic - Squid's Blog](http://gigasquidsoftware.com/blog/2015/08/15/conversations-with-datomic/)
@@ -1611,26 +1861,41 @@ yayın - clj
 		[Datomic Knowledgebase](https://ask.datomic.com/)
 		[clojure-north-2020/x07_queries.clj at master · markbastian/clojure-north-2020](https://github.com/markbastian/clojure-north-2020/blob/master/src/clojure_north_2020/ch02_datalog/x07_queries.clj)
 		ref türü atributları sırayla takip edebileceğim bir veri yapısı olabilir mi?
-		[(28) Learn Reduce, Group-by, and Juxt by creating a Look Up Map (Clojure Tutorial) - YouTube](https://www.youtube.com/watch?v=n0BTsKVs1Lw) id=g13042
+		[Learn Reduce, Group-by, and Juxt by creating a Look Up Map (Clojure Tutorial) - YouTube](https://www.youtube.com/watch?v=n0BTsKVs1Lw) id=g13042
 		[homebaseio/datalog-console: Administration UI for Datascript, Datahike, and other Datalog databases](https://github.com/homebaseio/datalog-console) id=g13045
 		[Rich Hickey's greatest hits |> Changelog](https://changelog.com/posts/rich-hickeys-greatest-hits)
 		[Clojure - Evaluation](https://clojure.org/reference/evaluation)
 		[Clojure - Functional Programming for the JVM | Object Computing, Inc.](https://objectcomputing.com/resources/publications/sett/march-2009-clojure-functional-programming-for-the-jvm)
 		[Visually navigating the data flowing through your serverless functions | Tessellator's Blog](https://www.tessellator.net/blog/visually-navigating-the-data-flowing-through-your-serverless-functions)
-		[(35) Defeating the Four Horsemen of the Coding Apocalypse - Mark Bastian - YouTube](https://www.youtube.com/watch?v=jh4hMAvygjk)
-		[(35) At the Conjunction of Innovation and Enablement - Mark Bastian - YouTube](https://www.youtube.com/watch?v=7jfH5ZB7deU)
-		[(35) Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube](https://www.youtube.com/watch?v=tV4pHW_WOrY)
+		[Defeating the Four Horsemen of the Coding Apocalypse - Mark Bastian - YouTube](https://www.youtube.com/watch?v=jh4hMAvygjk)
+		[At the Conjunction of Innovation and Enablement - Mark Bastian - YouTube](https://www.youtube.com/watch?v=7jfH5ZB7deU)
+		[Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube](https://www.youtube.com/watch?v=tV4pHW_WOrY)
 		[markbastian/replion: A guide to REPL-driven Datomic development](https://github.com/markbastian/replion)
 		[Datomic/datomic-java-examples](https://github.com/Datomic/datomic-java-examples)
 		[Datomic/client-examples: Clojure Client API examples](https://github.com/Datomic/client-examples)
-		[(35) Building Marvelous and Heroic Systems from the Ground Up - Mark Bastian (Workshop) - YouTube](https://www.youtube.com/watch?v=eink6oICdOQ)
+		[Building Marvelous and Heroic Systems from the Ground Up - Mark Bastian (Workshop) - YouTube](https://www.youtube.com/watch?v=eink6oICdOQ)
 		[markbastian/clojure-north-2020](https://github.com/markbastian/clojure-north-2020)
+		homebaseio/datalog-console: Administration UI for Datascript, Datahike, and other Datalog databases <url:file:///~/projects/study/clj/clojure.otl#r=g13045>
+		[Yuppiechef/datomic-schema: Makes it easier to see your Datomic schema without sacrificing any features.](https://github.com/Yuppiechef/datomic-schema)
 gtd - clj id=g13055
 	ndx - gtd - clj id=g13057
 		örnek uygulamalar - clj <url:file:///~/projects/study/clj/clojure.otl#r=g13031>
 	sbs - gtd - clj id=g13058
 		öncelikli işler
+		gtd - fulcro id=g13083
+			Nubank Workspaces
+			ex06 - fulcro exercises <url:file:///~/projects/myrepo/work/work.otl#r=g12395>
+			@questions - clojure <url:file:///~/projects/study/clj/clojure.otl#r=g12396>
+			@questions - fulcro <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g12397>
+			[Clojure on Exercism](https://exercism.org/tracks/clojure/concepts)
+			github PR yönetme
+			[Want more from your frontend framework! Rethinking the web development experience. - YouTube](https://www.youtube.com/watch?v=F651QCU3Sco)
+			[Love Letter To Clojure (Part 1) | Gene Kim](https://itrevolution.com/love-letter-to-clojure-part-1/)
+			clojureatlas.com
+			[holyjak/fulcro-intro-wshop: Introduction to Fulcro workshop held during re:Clojure 2021](https://github.com/holyjak/fulcro-intro-wshop)
 		gtd - datomic id=g13063
+			simülasyon yapacak olsam hiçbir programlama sınırlaması olmadan, ne yapardım? id=g13085
+			oku: 2017 ClojureNYC – Datomic, and the failures of REST, hypermedia and ORM
 			datomic simülasyonları yapalım id=g13064
 				bir dosyada olsun adımlar
 				step01.clj
@@ -1640,51 +1905,28 @@ gtd - clj id=g13055
 				bunları belki bir Rmarkdown ile birleştirip sunum/rapor haline getirelim
 			logseq'te sınıflandırma nasıl yapılıyor? id=g13065
 				bir bloka nasıl yeni bir etiket atarım?
-	Monad kılavuzunu R ve clj ile uygulamayı dene:
-		[(224) The Absolute Best Intro to Monads For Software Engineers - YouTube](https://www.youtube.com/watch?v=C2w45qRc3aU)
-	learn-clojure/resources <url:file:///~/projects/study/clj/clojure.otl#r=g13037>
-	daveray/clawk: Like Awk, but Clojure. <url:file:///~/projects/study/clj/clojure.otl#r=g13041>
-	clojure-emacs/clj-refactor.el: A CIDER extension that provides powerful commands for refactoring Clojure code. <url:file:///~/projects/study/clj/clojure.otl#r=g13056>
-	Reduce, Group-by, and Juxt by creating a Look Up Map (Clojure Tutorial) - YouTube <url:file:///~/projects/study/clj/clojure.otl#r=g13042>
-	homebaseio/datalog-console: Administration UI for Datascript, Datahike, and other Datalog databases <url:file:///~/projects/study/clj/clojure.otl#r=g13045>
-	[(1176) FXL - composable data-oriented spreadsheet library for Clojure - Anthony Khong - Scicloj Meeting 20 - YouTube](https://www.youtube.com/watch?v=d6qOzPQ9NUk)
-	[(1181) Wordle clone in ClojureScript - YouTube](https://www.youtube.com/watch?v=QEEPXuR5wLk)
-	[(1181) Use Clojure to build an API - YouTube](https://www.youtube.com/watch?v=e7BTRR0VBsQ)
-	[Coast on Clojure](https://coast.swlkr.com/)
-	[(1134) Create a password manager with Clojure using Babashka, sqlite, honeysql and stash - YouTube](https://www.youtube.com/watch?v=jm0RXmyjRJ8)
-	oku: 2017 ClojureNYC – Datomic, and the failures of REST, hypermedia and ORM
-	[Functional effect and streaming systems in Clojure - Léo Noel - reClojure 2021 - YouTube](https://www.youtube.com/watch?v=tV-DoiGdUIo)
+		apps - clojure
+			Create a password manager with Clojure using Babashka, sqlite, honeysql and stash - YouTube <url:file:///~/projects/study/clj/clojure.otl#r=g13084>
+	clojure ile veri analizi uygulamaları yap 20220720  <url:file:///~/projects/myrepo/work/work.otl#r=g13160>
+	bir sürecin adımlarını ve formlarını ve veri alanlarını edn ile modelle 20220720  <url:file:///~/projects/myrepo/work/work.otl#r=g13154>
 	[6 types of information systems | Dustin Getz](https://typeshare.co/dustingetz/posts/6-types-of-information-systems)
-	debug clj:
-		[AppsFlyer/mate-clj: Clojure library for debugging core functions](https://github.com/AppsFlyer/mate-clj)
-		[(748) Unleash the Power of the REPL - Dana Borinski - YouTube](https://www.youtube.com/watch?v=oLvwbDUXGsc)
-	[(747) How to work with files in Clojure - YouTube](https://www.youtube.com/watch?v=Kbhe8kFEwlU)
-	[holyjak/fulcro-intro-wshop: Introduction to Fulcro workshop held during re:Clojure 2021](https://github.com/holyjak/fulcro-intro-wshop)
-	[(739) clojureD 2020: "Fun with JSON" by Malcolm Sparks - YouTube](https://www.youtube.com/watch?v=gMYQ1vDy7d0)
-	[CLJS: Hidden Google Closure Library gems - Questions & Help / General Questions - ClojureVerse](https://clojureverse.org/t/cljs-hidden-google-closure-library-gems/2321/3)
-	[Introducing shadow-cljs Inspect - Projects / shadow-cljs - ClojureVerse](https://clojureverse.org/t/introducing-shadow-cljs-inspect/5012)
-	[(733) First 6 years of a life of Clojure project – Jarppe Länsiö - YouTube](https://www.youtube.com/watch?v=WtdegIqQbrg&t=1209s)
-	[(733) Apropos Clojure #10 - shadow-cljs - YouTube](https://www.youtube.com/watch?v=Ow4Qdw25CEA)
-	vim-iced clojure eklentisi 
-		[vim-iced](https://liquidz.github.io/vim-iced/#installation)
-		nxt
-			[liquidz/vim-iced: Clojure Interactive Development Environment for Vim8/Neovim](https://github.com/liquidz/vim-iced)
-			debugger
-			browsing tapped values in threading macros
-	[(729) clojureD 2021: "A Trick of the Tool" by Alex Miller - YouTube](https://www.youtube.com/watch?v=BTAx-gFz6Ks)
-	[Clojure Workflow Reloaded](https://www.cognitect.com/blog/2013/06/04/clojure-workflow-reloaded)
-	[greglook/puget: Canonical Colorizing Clojure Printer](https://github.com/greglook/puget)
-	[(724) Building a RESTful Web API in Clojure - a new approach - Malcolm Sparks - YouTube](https://www.youtube.com/watch?v=JWa4NhjWNHQ)
-	[(727) clojureD 2020: "Writing maintainable Clojure" by Erik Assum - YouTube](https://www.youtube.com/watch?v=Tq7r97G4b7Y&t=1492s)
-	[(727) clojureD 2021: "Your own fast, native Clojure scripting CLI with GraalVM and SCI" by Michiel Borkent - YouTube](https://www.youtube.com/watch?v=L2LAaQBVvxM)
-	[inclojure-org/clojure-by-example: An introduction to Clojure, for programmers who are new to Clojure.](https://github.com/inclojure-org/clojure-by-example)
+	Monad kılavuzunu R ve clj ile uygulamayı dene:
+		[The Absolute Best Intro to Monads For Software Engineers - YouTube](https://www.youtube.com/watch?v=C2w45qRc3aU)
 	plan - geliştirilecek örnek clojure uygulamaları  <url:file:///~/projects/myrepo/work/work.otl#r=g12358>
-	[PEZ/rich4clojure: Practice Clojure using Interactive Programming in your editor](https://github.com/PEZ/rich4clojure)
-	[threatgrid/asami: A graph store for Clojure and ClojureScript](https://github.com/threatgrid/asami)
-	[(523) Clojure inline tests: example-driven, executable documentation, powered by metadata - YouTube](https://www.youtube.com/watch?v=orFYFwiG1dM)
-	[ertugrulcetin/racing-game-cljs: A 3D racing game built with ClojureScript, React and ThreeJS](https://github.com/ertugrulcetin/racing-game-cljs)
-	[borkdude/nbb: Ad-hoc CLJS scripting on Node.js.](https://github.com/borkdude/nbb)
-	[(1185) Re-usable GUI Components with Re-frame and Atomic Design - Mark Nutter - YouTube](https://www.youtube.com/watch?v=JCY_cHzklRs)
-	[Max Datom - Interactive Datomic Tutorial](https://max-datom.com/)
-	[(1201) babashka 0.3.1 new features: bb.edn + invoke any function from cmd line - YouTube](https://www.youtube.com/watch?v=_zr1dicJs-E)
-		[(1201) Babashka tasks (by Michiel Borkent) - YouTube](https://www.youtube.com/watch?v=u5ECoR7KT1Y)
+	learn-clojure/resources <url:file:///~/projects/study/clj/clojure.otl#r=g13037>
+	[How to work with files in Clojure - YouTube](https://www.youtube.com/watch?v=Kbhe8kFEwlU)
+	[clojureD 2020: "Fun with JSON" by Malcolm Sparks - YouTube](https://www.youtube.com/watch?v=gMYQ1vDy7d0)
+jrnl - clj id=g13204
+	20220813 
+	Cross Platform DateTime Awesomeness - Henry Widd - YouTube <url:file:///~/projects/study/clj/clojure.otl#r=g13203>
+	java - What's the difference between Instant and LocalDateTime? - Stack Overflow <url:file:///~/projects/study/clj/clojure.otl#r=g13205>
+	20220815 
+	Should I use java.util.Date or switch to java.time.LocalDate - Stack Overflow <url:file:///~/projects/study/clj/clojure.otl#r=g13206>
+	tick - date time library <url:file:///~/projects/study/clj/clojure.otl#r=g13208>
+	20220817 
+	tick examples: Countdown Timers <url:file:///~/projects/study/clj/clojure.otl#r=g13211>
+	function list - tick <url:file:///~/projects/study/clj/clojure.otl#r=g13214>
+ndx - clj id=g13212
+	kod okuma örnekleri - clj id=g13213
+		tick examples: Countdown Timers <url:file:///~/projects/study/clj/clojure.otl#r=g13211>
+		tick - date time library <url:file:///~/projects/study/clj/clojure.otl#r=g13208>

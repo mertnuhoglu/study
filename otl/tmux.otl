@@ -15,6 +15,7 @@ tmux  id=g13078
 		join-pane -t :1
 			send current pane to window 1
 	join session
+		tmux new -s <session_name>
 		tmux attach -t 0
 		tmux attach
 		tmux attach -d -t 0

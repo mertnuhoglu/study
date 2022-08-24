@@ -5,9 +5,13 @@ ref
 	emacs smartparens: ~/projects/study/emacs/smartparens.md
 	Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>
 	smartparens custom mappings <url:file:///~/projects/private_dotfiles/.config/doom/config.el#r=g12112>
+quickstart
+	vim => vim-sexp
+	emacs => smartparens + cleverparens
 vim-sexp
 	ref: 
-		vim-sexp <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12870>
+		Evm: vim-sexp <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12870>
+		sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>
 		[guns/vim-sexp: Precision Editing for S-expressions](https://github.com/guns/vim-sexp)
 cursive sexp
 	ref

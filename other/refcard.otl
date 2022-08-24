@@ -163,6 +163,8 @@ webapps
 		+enter	bir hücreyi editleme
 		,#enter	hücre içinde yeni satır
 	gdrive gdrive2 google drive id=g_11799
+		shortcuts
+			#!ü | search gdrive
 		error: too slow sync
 			cause: too many files are deleted
 				fix: delete files both from web and local
