@@ -1,0 +1,60 @@
+{
+  "person": {
+             "p1": {
+                    "id": "p1",
+                    "name": "Ali Veli"}}
+    
+  ,
+  "datafieldD": {
+                 "dd3": {
+                         "id": "dd3",
+                         "name": "country",
+                         "type": "string",
+                         "crud": true}
+                 ,
+                 "dd1": {
+                         "id": "dd1",
+                         "name": "country ref",
+                         "type": "ref",
+                         "ref": "dd3"}
+                 ,
+                 "dd2": {
+                         "id": "dd2",
+                         "name": "Project Name",
+                         "type": "string"}}
+    
+  ,
+  "datafieldN": {
+                 "dd3": {
+                         "dd31": "tr",
+                         "dd32": "uk"}}
+    
+  ,
+  "formD": {
+            "fd2": {
+                    "id": "fd2",
+                    "name": "Proje Görevlendirme CRUD",
+                    "dfd": [
+                            "dd3"]}
+      
+            ,
+            "fd1": {
+                    "id": "fd1"}
+            ,
+            "name": "Proje Görevlendirme",
+            "dfd": [
+                    "dd1",
+                    "dd2"]}
+    
+  ,
+  "formN": {
+            "fn1": {
+                    "id": "fn1",
+                    "fd": "fd1",
+                    "done": true,
+                    "job-date": "20220815",
+                    "done-date": "20220825",
+                    "person": "p1",
+                    "data-map": {
+                                 "dd2": "Project X",
+                                 "dd1": "dd31"}}}}

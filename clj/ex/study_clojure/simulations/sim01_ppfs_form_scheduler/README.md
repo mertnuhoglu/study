@@ -56,5 +56,5 @@ get_inbox p d =
 
 ## EDN Data id=g13224
 
-rfr: `~/projects/study/clj/ex/study_clojure/simulations/sim01_form_scheduler/sim01_data.edn`
+rfr: `~/projects/study/clj/ex/study_clojure/simulations/sim01_ppfs_form_scheduler/sim01_data.edn`
 
