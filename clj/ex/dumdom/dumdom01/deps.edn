@@ -1,0 +1,10 @@
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        org.clojure/clojurescript {:mvn/version "1.11.60"}
+        cjohansen/dumdom {:mvn/version "2022.04.12"}}
+ :aliases
+ {:dev {:main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]
+        :extra-paths ["resources"]
+        :extra-deps {com.bhauman/figwheel-main {:mvn/version "0.2.18"}}}
+  :repl {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
+         :main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]}}}

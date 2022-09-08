@@ -163,7 +163,19 @@ clojure
 	libraries
 		clojure.repl help functions <url:file:///~/projects/study/clj/book_essential_reference_borgatti.md#r=g11959>
 			ref_ex: ~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj
-points
+pnt
+	cjohansen/dumdom: Efficiently render and re-render immutable data <url:file:///~/projects/study/logbook/log_20220907.md#r=g13312>
+	figwheel05 project: devcards <url:file:///~/prj/study/clj/clojurescript.md#r=g13311>
+	figwheel04 project <url:file:///~/prj/study/clj/clojurescript.md#r=g13310>
+	figwheel03 project <url:file:///~/prj/study/clj/clojurescript.md#r=g13309>
+	figwheel02 Project  <url:file:///~/prj/study/clj/clojurescript.md#r=g13308>
+	naming conventions for function arguments  <url:file:///~/prj/study/clj/clojurescript.md#r=g13307>
+	Figwheel Tutorial <url:file:///~/prj/study/clj/clojurescript.md#r=g13304>
+	figwheel-main test <url:file:///~/prj/study/clj/clojurescript.md#r=g13303>
+	figwheel vs shadowcljs vs devcard <url:file:///~/prj/study/clj/clojurescript.md#r=g13302>
+	namespaced keywords <url:file:///~/prj/study/clj/ex/study_clojure/ex06/src/destructuring.clj#r=g13269>
+	keeping original value with :as <url:file:///~/prj/study/clj/ex/study_clojure/ex06/src/destructuring.clj#r=g13268>
+	keyword arguments (optional args) <url:file:///~/prj/study/clj/ex/study_clojure/ex06/src/destructuring.clj#r=g13267>
 	cons vs conj
 		(cons x xs)
 		(conj xs x)
@@ -398,6 +410,19 @@ idioms - kendime göre özetler id=g12080
 			(-main)
 			(stop-server)
 topics 
+	cljs id=g13300
+		quickstart
+			figwheel05 project: devcards <url:file:///~/prj/study/clj/clojurescript.md#r=g13311>
+		figwheel06 project: custom home page <url:file:///~/prj/study/clj/clojurescript.md#r=g13314>
+		error: figwheel: repl açılmama problemi <url:file:///~/prj/study/logbook/log_20220908.md#r=g13321>
+		cjohansen/dumdom: Efficiently render and re-render immutable data <url:file:///~/projects/study/logbook/log_20220907.md#r=g13312>
+		figwheel05 project: devcards <url:file:///~/prj/study/clj/clojurescript.md#r=g13311>
+		figwheel03 project <url:file:///~/prj/study/clj/clojurescript.md#r=g13309>
+		figwheel02 Project  <url:file:///~/prj/study/clj/clojurescript.md#r=g13308>
+		figwheel01 Project <url:file:///~/prj/study/clj/clojurescript.md#r=g13306>
+		Figwheel Tutorial <url:file:///~/prj/study/clj/clojurescript.md#r=g13304>
+		Study Figwheel <url:file:///~/prj/study/clj/figwheel.md#r=g13305>
+		figwheel vs shadowcljs vs devcard <url:file:///~/prj/study/clj/clojurescript.md#r=g13302>
 	io - file
 		ref
 			~/projects/study/clj/ex/study_clojure/ex06/src/io_file.clj
@@ -1926,7 +1951,12 @@ jrnl - clj id=g13204
 	20220817 
 	tick examples: Countdown Timers <url:file:///~/projects/study/clj/clojure.otl#r=g13211>
 	function list - tick <url:file:///~/projects/study/clj/clojure.otl#r=g13214>
+	20220903 
+	error: there were no modules containing clojure.main @clj <url:file:///~/projects/study/logbook/log_20220903.md#r=g13270>
+	20220904 
+	Clojure in a nutshell by James Trunk - YouTube @clj  <url:file:///~/projects/study/logbook/log_20220904.md#r=g13271>
 ndx - clj id=g13212
+	Study Devcards  <url:file:///~/prj/study/clj/devcards.md#r=g13299>
 	kod okuma örnekleri - clj id=g13213
 		tick examples: Countdown Timers <url:file:///~/projects/study/clj/clojure.otl#r=g13211>
 		tick - date time library <url:file:///~/projects/study/clj/clojure.otl#r=g13208>

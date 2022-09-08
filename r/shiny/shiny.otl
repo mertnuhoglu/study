@@ -37,18 +37,6 @@ articles
 				~/projects/study/r/shiny/ex/shiny_database/mimicking-google-form-shiny/e01.R
 		nxt
 projects
-	Regular Tasks id=g12926
+	PPFS: Regular Tasks id=g12926
 		ref
-			~/projects/study/r/shiny/ex/shiny/regular-tasks/README.md
-			https://docs.google.com/spreadsheets/d/10lRHF-qgi5ScyGjGc-9nsBlg76F4YvjM/edit#gid=474433315
-				Google Drive > sim_regular_tasks.xlsx
-			bkm: prjrgltsk
-			~/projects/study/r/shiny/ex/shiny/regular-tasks/use_cases.md
-		data model
-			[Scheduler] n-1 [RegularJob]
-			[RegularJob] n-1 [Form]
-			[Form] 1-n [Task]
-			[Task] n-1 [Person]
-		use cases
-			uc01: Yeni RegularJob Oluşturma <url:file:///~/projects/study/r/shiny/ex/shiny/regular-tasks/use_cases.md#r=g12927>
-			opt: use case'i formal bir şekilde yazalım <url:file:///~/projects/study/r/shiny/ex/shiny/regular-tasks/use_cases.md#r=g12928>
+			v01: Shiny PPFS <url:file:///~/projects/myrepo/projects.otl#r=g13239>

@@ -10,7 +10,7 @@ ndx
 	awk <url:file:///~/projects/study/otl/ccode.otl#r=g11686>
 	bash <url:file:///~/projects/study/otl/ccode.otl#r=g11687>
 	osx osx2 macbook <url:file:///~/projects/study/otl/ccode.otl#r=g13010>
-issues
+pnt
 	convert tree/outline to excel/flat table:
 		Fill down = outline tree to linear tree <url:file:///~/projects/study/bash/table_fill_down.md#r=g12547>
 		nxt
@@ -153,11 +153,24 @@ browsers
 	browser plugins
 		care your eyes
 			^!x	toggle background: black/white
-		surfingkeys
-			ref: surfingkeys: vim emulation for chrome <url:/Users/mertnuhoglu/projects/study/code/study_code.Rmd#tn=surfingkeys: vim emulation for chrome>
+		surfingkeys: vim kısayollarıyla tarayıcı kullanmak id=g13255
+			rfr: 
+				~/prj/private_dotfiles/.config/chrome/surfingkeys.js
+				surfingkeys: vim emulation for chrome <url:/Users/mertnuhoglu/projects/study/code/study_code.Rmd#tn=surfingkeys: vim emulation for chrome>
 			shortcuts
 				H		tab history
 				T		tabs list
+				>>: move the current tab to the right
+				<<: move the current tab to the left
+				W: open the current tab in a new window or merge it back to the previous window
+				gx $: close all tabs after the current tab
+				alt p: pin the current tab
+				B: Go to most previously used tab
+				T: View all tabs
+				yg: screenshot/capture the current page
+				yG: fully screenshot/capture the current page
+				b: open you bookmark
+				: : open “command line” box on the current page.
 cloud
 	hosting2 hosting domain id=g13192
 		rfr
@@ -1327,6 +1340,9 @@ tools tools2
 						> Settings
 							> .File: ...
 							Encapsulation method: ..
+	webapp2 webapps id=g13265
+		google2 google id=g13266
+			"timer 5 minutes" | 5 dakikalık bir zaman sayacı çıkartır. sonunda sesli uyarı verir.
 	webfaction id=g10566
 		webfaction
 			webfaction <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10566>

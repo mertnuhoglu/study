@@ -3,7 +3,7 @@
 
 Ref:
 
-[sim_regular_tasks.xlsx - Google Sheets](https://docs.google.com/spreadsheets/d/10lRHF-qgi5ScyGjGc-9nsBlg76F4YvjM/edit#gid=474433315)
+[sim_ppfs_form_scheduler.xlsx - Google Sheets](https://docs.google.com/spreadsheets/d/10lRHF-qgi5ScyGjGc-9nsBlg76F4YvjM/edit#gid=474433315)
 
 ## Model id=g13198
 
@@ -57,4 +57,45 @@ get_inbox p d =
 ## EDN Data id=g13224
 
 rfr: `~/projects/study/clj/ex/study_clojure/simulations/sim01_ppfs_form_scheduler/sim01_data.edn`
+
+## Date Regex Matching id=g13229
+
+rfr: `Scheduling regex matches <url:file:///~/projects/myrepo/projects.otl#r=g13227>`
+
+Farklı tarih regexleri nasıl olur:
+
+- her haftanın 3. günü -> Δ1w + 3d
+- her ayın 5. günü -> Δ1mo + 5d
+- her gün -> Δ1d 
+- her 3 saatte bir -> Δ3h
+- her 2 haftada bir -> Δ2w
+- her 3 günde bir -> Δ3d
+- her 3 iş gününde bir -> Δ3D
+
+Her ayın 5. günü:
+
+```
+y = x₀ + m·x
+x₀: 5d
+m: Δ1mo
+```
+
+- her ayın 3. cuması -> 
+
+```
+haftalık formülü çek	
+	x₀: 2d = 3 - 1
+	m: Δ1w
+ilk 4 hafta için bu formülü uygula	
+	ilk haftanın başlangıcı: 2022-08-29
+	2022-08-29 + 2d
+	2022-08-29 + 2d + 7d
+	...
+	2022-08-29 + 2d + 28d
+kontroller:	
+	bu tarih bugünden büyük mü?
+	bu tarih iptal (son) tarihten küçük mü?
+	bu tarih geçici (son) tarihten küçük mü?
+```
+
 

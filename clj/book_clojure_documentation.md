@@ -88,7 +88,7 @@ Sub-expressions:
 
 ## Weird Characters id=g11401
 
-https://clojure.org/guides/weird_characters
+[Weird Characters](https://clojure.org/guides/weird_characters)
 
 ``` clojure
 	| Instantiation   | new Widget("foo") | (Widget. "foo")  |

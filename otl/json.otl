@@ -2,7 +2,7 @@ use cases id=g12722
 	Json Structure To Graph 20220214  <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12720>
 	ref: Yaml To Json To Edn 20220214 <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12721>
 	ref: Convert: isfkr.yaml to table 20220215 <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12724>
-tools id=g12416
+tools - json id=g12416
 	tabl: convert json/edn to table
 		https://github.com/justone/tabl
 		$ cat test.json

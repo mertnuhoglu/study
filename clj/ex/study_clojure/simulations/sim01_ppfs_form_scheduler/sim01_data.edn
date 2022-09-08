@@ -4,6 +4,10 @@
  {"p1" {:prs/id "p1"
         :prs/name "Ali Veli"}}
 
+ :scheduler
+ {"sch1" {:sch/id "sch1"
+          :sch/name "Her ayın 3. cuması"
+          :}}
  :datafieldD
  {"dd3" {:dfd/id "dd3"
          :dfd/name "country"

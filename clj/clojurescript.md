@@ -411,3 +411,164 @@ Get into ns:
 
 https://github.com/tolitius/mount
 
+# figwheel vs shadowcljs vs devcard id=g13302
+
+[Pros and cons figwheel vs shadowcljs ? - Clojure Q&A](https://ask.clojure.org/index.php/10403/pros-and-cons-figwheel-vs-shadowcljs) id=g13301
+
+Özet: figwheel daha basit. shadowcljs eğer nodejs kullanacaksan yararlı. figwheel ile başla.
+
+# figwheel-main test id=g13303
+
+[bhauman/figwheel-main](https://github.com/bhauman/figwheel-main)
+
+## Figwheel Tutorial id=g13304
+
+[Figwheel Tutorial](https://figwheel.org/tutorial)
+
+### figwheel01 Project id=g13306
+
+rfr: `~/prj/study/clj/ex/study_figwheel/figwheel01/deps.edn`
+
+```sh
+clj -M -m figwheel.main
+```
+
+Open `http://localhost:9500/`
+
+Test in repl:
+
+```clj
+cljs.user=> (filter odd? (map inc (range 5)))
+(1 3 5)
+cljs.user=> (js/alert "ClojureScript!")
+nil
+```
+
+### naming conventions for function arguments  id=g13307
+
+Source: [figwheel-main | Figwheel Main provides tooling for developing ClojureScript applications](https://figwheel.org/tutorial)
+
+f, g, h - function
+n - integer, usually a size
+index, i - integer index
+x, y - numbers
+xs - sequence
+m - map
+s - string
+re - regular expression
+coll - a collection
+pred - a predicate closure
+& more - variable number of arguments
+
+### figwheel02 Project  id=g13308
+
+rfr: `~/prj/study/clj/ex/study_figwheel/figwheel02/deps.edn`
+
+```sh
+clj -M -m figwheel.main
+```
+
+Open `http://localhost:9500/`
+
+Edit `~/prj/study/clj/ex/study_figwheel/figwheel02/src/p01/e01.cljs`
+
+```clj
+cljs.user=> (require 'p01.e01)
+nil
+cljs.user=> (p01.e01/what-kind?)
+"Cruel"
+cljs.user=> (require '[p01.e01 :as e01])
+cljs.user=> (e01/what-kind?)
+"Cruel"
+cljs.user=> (js/console.log (e01/what-kind?))
+```
+
+Kodda değişiklik yap ve sonra tekrar yükle:
+
+```clj
+cljs.user=> (require '[p01.e01 :as e01] :reload)
+```
+
+```
+cljs.user=> (js/document.getElementById "app")
+#object[HTMLDivElement [object HTMLDivElement]]
+```
+
+HTML elementleri değiştirelim:
+
+```
+(def app-element (js/document.getElementById "app"))
+(set! (.-innerHTML app-element) (e01/what-kind?))
+```
+
+##### REPL başlatırken kodu ilklendirmek
+
+Yukarıdaki örnekte, biz kendimiz doğrudan `require` ederek kodu yüklemiştik.
+
+Bunun yerine REPL başlarken, otomatik olarak yüklenecek kodu da belirtebiliriz:
+
+```sh
+clojure -M -m figwheel.main --compile p01.e01 --repl
+```
+
+Figwheel sayesinde, kod değiştiğinde `(require ... :reload)` yapmadan kod otomatik yüklenir.
+
+```clj
+cljs.user=> (p01.e01/what-kind?)
+"Cruel2"
+```
+
+### figwheel03 project: figwheel configuration dev.cljs.edn id=g13309
+
+[setting-up-a-build-with-tools-cli bhauman/figwheel-main](https://github.com/bhauman/figwheel-main#setting-up-a-build-with-tools-cli)
+
+rfr: 
+
+		~/prj/study/clj/ex/study_figwheel/figwheel03/deps.edn
+		~/prj/study/clj/ex/study_figwheel/figwheel03/dev.cljs.edn
+		~/prj/study/clj/ex/study_figwheel/figwheel03/src/p01/e02.cljs
+
+```sh
+clojure -M -m figwheel.main -b dev -r
+```
+
+Dikkat: Bu sefer doğrudan browser konsoluna print eder, `print` komutu. 
+
+`-b`: `--build`: build configuration from `dev.cljs.rdn` 
+
+`-r`: `--repl`: REPL should be launched
+
+Alternatif olarak şöyle de çalıştırabilirsin, çünkü `deps.edn` içinde bu konfigürasyon var zaten:
+
+```sh
+clojure -A:build-dev
+```
+
+### figwheel04 project: extra-main id=g13310
+
+[Extra Mains | figwheel-main](https://figwheel.org/docs/extra_mains.html)
+
+Test sayfası: `http://localhost:9500/figwheel-extra-main/tests`
+
+Test sonuç raporu: Browser console içinde.
+
+### figwheel05 project: devcards id=g13311
+
+[tools.deps, figwheel-main, Devcards, and Emacs](https://cjohansen.no/tools-deps-figwheel-main-devcards-emacs/)
+
+rfr:
+		
+		~/prj/study/clj/ex/study_figwheel/figwheel05/deps.edn
+		~/prj/study/clj/ex/study_figwheel/figwheel05/dev.cljs.edn
+		~/prj/study/clj/ex/study_figwheel/figwheel05/devcards/p01/cards.cljs
+
+Open `http://localhost:9500/figwheel-extra-main/devcards`
+
+### figwheel06 project: custom home page id=g13314
+
+[Figwheel Tutorial: index.html](https://figwheel.org/tutorial#indexhtml)
+
+rfr:
+
+		~/prj/study/clj/ex/study_figwheel/figwheel06/deps.edn
+

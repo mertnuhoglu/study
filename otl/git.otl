@@ -1,9 +1,12 @@
 
 git  id=g13080
-	multiple remote locations: gitlab ve github
+	github cli gh id=g13316
+		Github CLI gh <url:file:///~/prj/study/logbook/log_20220908.md#r=g13315>
+	duplicate multiple remote locations: gitlab ve github id=g13238
 		ref
 			POC uygulamalarını bitbucket'tan github'a taşı 20210412  <url:file:///~/projects/study/logbook/log_20210412.md#r=g12089>
-			gitlab, bitbucket, github repolarını sync et 20200415  <url:file:///~/projects/study/logbook/log_20200415.md#r=g12087>
+			Final: Script <url:file:///~/projects/study/logbook/log_20200415.md#r=g12088>
+				gitlab, bitbucket, github repolarını sync et 20200415  <url:file:///~/projects/study/logbook/log_20200415.md#r=g12087>
 	revert a file to a commit
 		git checkout c5f567 -- file1/to/restore
 	git tag
@@ -510,7 +513,9 @@ git  id=g13080
 				git submodule update
 			opt2
 				git clone --recursive x
-	issues
+	pnt
+		github cli gh <url:file:///~/projects/study/otl/git.otl#r=g13316>
+		Github CLI gh <url:file:///~/prj/study/logbook/log_20220908.md#r=g13315>
 		global git ignore
 			excludesfile = ~/.config/git/ignore
 	articles

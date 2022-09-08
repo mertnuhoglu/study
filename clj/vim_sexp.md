@@ -97,11 +97,14 @@ ref: `vim-sexp <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-cus
   | <(               | sexp_capture_prev_element                 |
   | >)               | sexp_capture_next_element                 |
   | wrapping a01     | rfr: g12870                               |
-  | SPC si           | sexp_round_head_wrap_list                 |
-  | SPC Sı           | sexp_square_head_wrap_list                |
-  | SPC Se           | sexp_curly_head_wrap_list                 |
+  | SPC si           | () sexp_round_head_wrap_list              |
+  | SPC sı           | [] sexp_square_head_wrap_list             |
+  | SPC se           | {} sexp_curly_head_wrap_list              |
+  | SPC Si           | () sexp_round_head_wrap_element           |
+  | SPC Sı           | [] sexp_square_head_wrap_element          |
+  | SPC Se           | {} sexp_curly_head_wrap_element           |
   | wrapping a02     | rfr: vim-sexp regular-people              |
-  | dsf           | dpplice (delete surroundings of form)                 |
-  | cse(           | surround element in parens                |
-  | cse[           | surround element in brackets                 |
-  | cse{           | surround element in curly                 |
+  | dsf              | dpplice (delete surroundings of form)     |
+  | cse(             | surround element in parens                |
+  | cse[             | surround element in brackets              |
+  | cse{             | surround element in curly                 |

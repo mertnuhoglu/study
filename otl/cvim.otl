@@ -12,7 +12,12 @@ kendi kullanım yöntemlerim
 		Bookmarklarla tasnif etme:
 			ref:
 				which-key vim-bookmarks: SPC m <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12560>
-points
+pnt
+	cecutil ile keybinding çatışması <url:file:///~/prj/myrepo/work/work4.otl#r=g13276>
+	rfr: surfingkeys: vim kısayollarıyla tarayıcı kullanmak <url:file:///~/projects/study/otl/ccode.otl#r=g13255>
+	markdown dosyasının hiyerarşisini nasıl görüyorduk? id=g13246
+		SPC ü k t | VoomToggle
+		SPC i SPC m | headings
 	imlecin bulunduğu kelimeleri çek id=g12998
 		ref
 			FindYamlElement2: imleçin bulunduğu yaml ifadesine referansları bul <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12997>

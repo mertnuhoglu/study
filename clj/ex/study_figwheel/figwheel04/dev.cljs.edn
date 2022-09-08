@@ -1,0 +1,3 @@
+^{:watch-dirs ["src" "tests"]
+  :extra-main-files {:tests {:main p01.e04-tests}}}
+{:main p01.e02}
