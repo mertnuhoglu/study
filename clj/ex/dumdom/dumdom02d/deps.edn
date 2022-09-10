@@ -1,0 +1,12 @@
+{:deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        org.clojure/clojurescript {:mvn/version "1.11.60"}
+        cjohansen/dumdom {:mvn/version "2022.04.12"}
+        cjohansen/gadget-inspector {:mvn/version "0.2020.09.10"}}
+ :paths ["src" "resources" "target"]
+ :aliases {:dev {:main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]
+                 :extra-paths ["devcards"]
+                 :extra-deps {com.bhauman/figwheel-main {:mvn/version "0.2.18"}
+                              devcards/devcards {:mvn/version "0.2.7"}
+                              net.clojars.cjohansen/dumdom-devcards {:mvn/version "2021.06.14"}}}
+           :repl {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}}
+                  :main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]}}}

@@ -1,6 +1,24 @@
 
 Logbook id=g13256
+	20220910
+		Referentially transparent CRUD <url:file:///~/prj/study/logbook/log_20220910.md#r=g13339>
+	20220909 
+		Gadget inspector: Bununla datayı gözetleyebilirsin. <url:file:///~/prj/study/clj/clojurescript.md#r=g13336>
+		ClojureScript Debugging <url:file:///~/prj/study/clj/debugging.md#r=g13335>
+		vivaldi: shortcuts <url:file:///~/projects/study/otl/ccode.otl#r=g12572>
+			| Move Tab to New Window | #^N |
+		Conjure + nREPL CIDER Debugger <url:file:///~/prj/study/clj/debugging.md#r=g13334>
+		Study Debugging <url:file:///~/prj/study/clj/debugging.md#r=g13333>
+		dumdom02d project: Auto completion input field <url:file:///~/prj/study/clj/clojurescript.md#r=g13330>
+		dumdom02c project: list items <url:file:///~/prj/study/clj/clojurescript.md#r=g13329>
+		dumdom02b project: defcomponent + add-watch <url:file:///~/prj/study/clj/clojurescript.md#r=g13328>
 	20220908 
+		dumdom02 project: <url:file:///~/prj/study/clj/clojurescript.md#r=g13327>
+		dumdom01 project: dumdom + figwheel + devcards <url:file:///~/prj/study/clj/clojurescript.md#r=g13326>
+		figwheel10 project: dumdom inside devcards <url:file:///~/prj/study/clj/clojurescript.md#r=g13325>
+		figwheel09 project: use dumdom components <url:file:///~/prj/study/clj/clojurescript.md#r=g13324>
+		figwheel08 project: devcards + custom home page <url:file:///~/prj/study/clj/clojurescript.md#r=g13323>
+		figwheel07 project: custom home page manipulate dom  <url:file:///~/prj/study/clj/clojurescript.md#r=g13322>
 		error: figwheel: repl açılmama problemi <url:file:///~/prj/study/logbook/log_20220908.md#r=g13321>
 		Bilgi not alma süreci  <url:file:///~/prj/study/logbook/log_20220908.md#r=g13317>
 		Github CLI gh <url:file:///~/prj/study/logbook/log_20220908.md#r=g13315>

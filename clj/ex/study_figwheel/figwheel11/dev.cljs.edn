@@ -1,0 +1,7 @@
+^{:watch-dirs ["src" "devcards"]
+  :extra-main-files {:devcards {:main p01.cards}}}
+{:main p01.e01
+ :devcards true
+ :optimizations :none
+ :pretty-print true
+ :source-map true}

@@ -1,0 +1,17 @@
+{:deps {org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/clojurescript {:mvn/version "1.10.597"}}
+ :paths ["src" "resources"]
+ :aliases {:fig     {:extra-deps
+                      {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
+                       com.bhauman/figwheel-main {:mvn/version "0.2.4"}}
+                     :extra-paths ["target" "test"]}
+           :build   {:main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]}
+           :min     {:main-opts ["-m" "figwheel.main" "-O" "advanced" "-bo" "dev"]}
+           :release {:main-opts ["-m" "figwheel.main" "-bo" "release"]}
+           :remote  {:main-opts ["-m" "figwheel.main" "-b" "remote" "-r"]}
+           :nrepl   {:extra-deps
+                      {nrepl/nrepl {:mvn/version "0.7.0"}
+                       cider/piggieback {:mvn/version "0.4.2"}
+                       cider/cider-nrepl {:mvn/version "0.24.0"}}
+                     :main-opts ["-m" "figwheel.nrepl" "-b" "remote"]}}}
+

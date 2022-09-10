@@ -572,3 +572,135 @@ rfr:
 
 		~/prj/study/clj/ex/study_figwheel/figwheel06/deps.edn
 
+### figwheel07 project: custom home page manipulate dom  id=g13322
+
+Check `~/prj/study/clj/ex/study_figwheel/figwheel07/src/hello/cruel_world.cljs`
+
+```clj
+(def app-element (js/document.getElementById "app"))
+
+(set! (.-innerHTML app-element) (what-kind?))
+```
+
+### figwheel08 project: devcards + custom home page id=g13323
+
+		~/prj/study/clj/ex/study_figwheel/figwheel08/devcards/p01/cards.cljs
+
+		~/prj/study/clj/ex/study_figwheel/figwheel08/dev.cljs.edn
+
+```clj
+^{:watch-dirs ["src" "devcards"]
+  :extra-main-files {:devcards {:main p01.cards}}}
+```
+
+Tutorial'daki şu satırları silmelisin. Aksi taktirde target/ yerine bu klasöre js dosyalarını compile eder. Bu durumda index.html'den js dosyasına verdiğin referansı ona göre güncellemen gerekir:
+
+```clj
+ :asset-path "/js/dev"
+ :output-to "resources/public/js/dev.js"
+ :output-dir "resources/public/js/dev"}
+```
+
+Open `http://localhost:9500/figwheel-extra-main/devcards`
+
+### figwheel09 project: use dumdom components id=g13324
+
+rfr: `~/prj/study/clj/ex/study_figwheel/figwheel09/src/p01/e01.cljs`
+
+devcards cards: `~/prj/study/clj/ex/study_figwheel/figwheel09/devcards/p01/cards.cljs`
+
+### figwheel10 project: dumdom inside devcards id=g13325
+
+rfr: `~/prj/study/clj/ex/study_figwheel/figwheel10/devcards/p01/dumdom_cards.cljs`
+
+```clj
+  (:require [dumdom.devcards :refer-macros [defcard]]...
+	...
+(defcomponent heading
+  :on-render (fn [dom-node val old-val])
+  [data]
+  [:h2 {:style {:background "#000"}} (:text data)])
+
+(defcomponent page [data]
+  [:div
+    [heading (:heading data)]
+    [:p (:body data)]])
+
+(defcard dumdom-card-02
+  [page {:heading {:text "Hello world2"}}
+        :body "This is a web page"])
+```
+
+### dumdom01 project: dumdom + figwheel + devcards id=g13326
+
+rfr: `~/prj/study/clj/ex/dumdom/dumdom01/deps.edn`
+
+Clone of figwheel10 project.
+
+### dumdom02 project: id=g13327
+
+rfr: `/Users/mertnuhoglu/prj/study/clj/ex/dumdom/dumdom02/deps.edn`
+
+`~/prj/study/clj/ex/dumdom/dumdom02/src/mert/e01.cljs`
+
+```clj
+(defn render [data] 
+  (dumdom/render
+    [:h1.h1 {:style {:color "red"}} "Hello NDC2"]
+    (js/document.getElementById "app")))
+
+(render @store)
+```
+
+#### dumdom02b project: defcomponent + add-watch id=g13328
+
+`~/prj/study/clj/ex/dumdom/dumdom02b/src/mert/e01.cljs`
+
+```clj
+(defcomponent ListPageComponent [data]
+  [:h1.h1 {:style {:color "red"}} "Hello NDC3"])
+
+(defn render [data] 
+  (dumdom/render
+    (ListPageComponent data)
+		...
+```
+
+```clj
+(add-watch store :render (fn [_ _ _ state]
+                           (render state)))
+```
+
+#### dumdom02c project: list items id=g13329
+
+`~/prj/study/clj/ex/dumdom/dumdom02c/src/mert/e01.cljs`
+
+```clj
+    [:ul
+     (for [{:keys [text]} (:items ui-data)]
+       [:li text])]]])
+```
+
+#### dumdom02d project: Auto completion input + gadget inspector id=g13330
+
+[ClojureScript: Fun and productive web development with next level tooling - Christian Johansen - YouTube](https://www.youtube.com/watch?v=yFVk3D76wQw)
+
+`~/prj/study/clj/ex/dumdom/dumdom02d/devcards/mert/dumdom_cards.cljs`
+
+##### Gadget inspector: Bununla datayı gözetleyebilirsin. id=g13336
+
+`~/prj/study/clj/ex/dumdom/dumdom02d/src/mert/e01.cljs`
+
+1. Kodun içine koy:
+
+```clj
+(gadget/inspect "Store" store)
+```
+
+2. Chrome > Devtools > Gadget
+
+### figwheel11 project: conjure setup id=g13337
+
+`~/prj/study/clj/ex/study_figwheel/figwheel11/deps.edn`
+
+Error: Hata veriyor.
