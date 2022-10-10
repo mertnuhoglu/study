@@ -168,4 +168,8 @@ rlwrap bb
 
 Differences of inputting between `-i`, `<<<`
 
+# Babashka Datalevin (datalog) example id=g13410
 
+[pod-registry/datalevin.clj at master · babashka/pod-registry](https://github.com/babashka/pod-registry/blob/master/examples/datalevin.clj)
+
+rfr: `~/prj/study/clj/ex/study_babashka_interpreter/bb-01/datalevin.clj`

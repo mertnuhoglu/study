@@ -1,4 +1,4 @@
-(ns mertnuhoglu.tagsoup-01)
+ns mertnuhoglu.tagsoup-01
 
 ; Copied from: [nathell/clj-tagsoup: A HTML parser for Clojure.](https://github.com/nathell/clj-tagsoup)
 

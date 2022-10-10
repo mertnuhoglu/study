@@ -1,0 +1,3 @@
+[submodule "logseq-study"]
+	path = logseq-study
+	url = https://github.com/mertnuhoglu/logseq-study

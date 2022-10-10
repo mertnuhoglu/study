@@ -66,18 +66,12 @@ issues
 			~/projects/study/clj/ex/study_datomic/hodur01/src/mert/hodur01.clj
 			[hodur-org/hodur-engine](https://github.com/hodur-org/hodur-engine)
 			[hodur-org/hodur-visualizer-schema](https://github.com/hodur-org/hodur-visualizer-schema)
-articles
+articles - datomic id=g13413
+	Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube <url:file:///~/projects/study/logbook/log_20220930.md#r=g13424>
+	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
 	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube id=g12910
 		ref
-			[Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube](https://www.youtube.com/watch?v=UrGJHfB21Ok)
-		Alıntılar:
-			if there's two things in our system there must be a reason why these two things exist and the reason these two things exist is they have different semantics because if they had the same semantics then we could just model it with one thing and because we're limiting the number of kinds of things that we're going to be using we need recursion because recursion will let us
-			Bruce Lee has a lot to teach us about system design he once famously said you must be shapeless formless like water water can drip and it can crash I don't think he
-			flat data turns out to be just like water it can take any shape you want in the system which is a really useful property if we're talking about facts things that
-			eally nice representation for facts coming into our system because a it's flat B it can represent any kind of model we have and lastly it's understandable by everyone
-			playlist is a new relationship between a listener and a song so it's a new edge with certain metadata attached to it similarly if someone creates a playlist
-			amount of core objects of your domain do not change so if you model them correctly you'll be golden what changes is that as you add product features and so forth new relationships emerge between those existing things so you need to be able to reliably model a
-			I think we should all start focusing more on queues I think we don't do enough we don't we don't think enough about Q's in our because in the end of the day your system is just a bunch of Q's through which data passes if you bring that out if you make those first-class
+			Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
 	Datomic from the ground up - subhash id=g12895
 		ref
 			[Datomic from the ground up · subhash/clj-stack Wiki](https://github.com/subhash/clj-stack/wiki/Datomic-from-the-ground-up)

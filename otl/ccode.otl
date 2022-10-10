@@ -135,7 +135,7 @@ browsers
 	vivaldi
 		shortcuts id=g12572
 			| Move Active Tab Forward/Backward | #+dn/up|
-			| Move Tab to New Window | #^N |
+			| Move Tab to New Window | #+P |
 		quick commands
 			https://help.vivaldi.com/article/quick-commands/
 				#e f2

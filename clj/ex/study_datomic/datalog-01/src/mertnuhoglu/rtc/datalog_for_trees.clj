@@ -1,4 +1,4 @@
-(ns mertnuhoglu.datalog-01
+(ns mertnuhoglu.datalog_for_trees
   (:require [datascript.core :as d]
             [pl.danieljanus.tagsoup :as html]
             [clojure.java.io :as io]
