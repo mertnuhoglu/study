@@ -1,0 +1,127 @@
+{
+  "main": {
+    "id": "c2a0b5d1e9250053",
+    "type": "split",
+    "children": [
+      {
+        "id": "f70e5e693511e0d2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b08515492bf8e9e3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "logbook/log_20221023.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "8a82c014c81a5c00",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5846fdb68cdfac30",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e468fcc15e8afaf3",
+    "type": "split",
+    "children": [
+      {
+        "id": "c426d626b3fb2603",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4ea47e935fa4a320",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b7141677a2d1ab4d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1d6b6aa5bb26c501",
+    "type": "split",
+    "children": [
+      {
+        "id": "629fbc7a8a41632b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ef9a35fbae429256",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "logbook/log_20221023.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "ribbon": {
+    "mostRecentAction": ""
+  },
+  "active": "b08515492bf8e9e3",
+  "lastOpenFiles": [
+    "logseq-study/journals/2022_10_14.md",
+    "logseq-study/journals/2022_04_22.md",
+    "r/study_dplyr_mutate.md",
+    "bash/study_fd.md",
+    "new-file-that-doesnt-exist.md",
+    "r/study_htmlwidgets.md",
+    "Headline Title.md",
+    "r/ext/itr/vrp/vrprapi/doc/log/ekran_tablolari_gorup_duzenleyebilme_20191110.md",
+    "logbook/makale_yazilim_trendleri_2022.md",
+    "r/rfc_convert_data.md"
+  ]
+}

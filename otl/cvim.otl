@@ -13,6 +13,10 @@ kendi kullanım yöntemlerim
 			ref:
 				which-key vim-bookmarks: SPC m <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12560>
 pnt
+	Generate UUID in Vim  id=g13451
+		rfr
+			Generate UUID in Vim <url:file:///~/projects/study/logbook/log_20221011.md#r=g13449>
+		:r !uuidgen|tr "[A-Z]" "[a-z]"
 	cecutil ile keybinding çatışması <url:file:///~/prj/myrepo/work/work4.otl#r=g13276>
 	rfr: surfingkeys: vim kısayollarıyla tarayıcı kullanmak <url:file:///~/projects/study/otl/ccode.otl#r=g13255>
 	markdown dosyasının hiyerarşisini nasıl görüyorduk? id=g13246

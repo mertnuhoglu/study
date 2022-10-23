@@ -1,0 +1,2 @@
+- Kısaltmalar = #kslt
+- #fnn Finans

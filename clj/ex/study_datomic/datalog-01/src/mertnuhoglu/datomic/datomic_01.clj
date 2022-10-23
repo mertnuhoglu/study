@@ -7,6 +7,8 @@
 ; cd /Users/mertnuhoglu/codes/clj/lib/datomic-pro-${VERSION}
 ; bin/run -m datomic.peer-server -h localhost -p 8998 -a myaccesskey,mysecret -d hello,datomic:mem://movies
 
+; Step02: Connect to datomic server
+
 (require '[datomic.client.api :as d])
 
 (def cfg {:server-type :peer-server
@@ -29,6 +31,7 @@ conn
  :next-t 1009,
  :type :datomic.client/conn}
 
+; Step03: Define data schema
 ; [Transact a Schema | Datomic](https://docs.datomic.com/on-prem/getting-started/transact-schema.html)
 
 (def movie-schema [{:db/ident :movie/title
@@ -46,6 +49,7 @@ conn
                     :db/cardinality :db.cardinality/one
                     :db/doc "The year the movie was released in theaters"}])
 
+; Step04: Save the schema into datomic
 ; transact the schema
 (d/transact conn {:tx-data movie-schema})
 ;=>
@@ -77,6 +81,7 @@ conn
              #datom[0 13 74 13194139534312 true]],
    :tempids {-9223301668109598134 72, -9223301668109598133 73, -9223301668109598132 74}}
 
+; Step05: Create data
 ; [Transact Data | Datomic](https://docs.datomic.com/on-prem/getting-started/transact-data.html)
 
 (def first-movies [{:movie/title "The Goonies"
@@ -88,6 +93,8 @@ conn
                    {:movie/title "Repo Man"
                     :movie/genre "punk dystopia"
                     :movie/release-year 1984}])
+
+; Step06: Save the data into datomic
 
 (d/transact conn {:tx-data first-movies})
 ;=>
@@ -115,6 +122,7 @@ conn
              -9223301668109598130 17592186045419,
              -9223301668109598129 17592186045420}}
 
+; Step07: Query the data
 ; [Query the Data | Datomic](https://docs.datomic.com/on-prem/getting-started/query-the-data.html)
 
 ; get current database value
@@ -139,6 +147,7 @@ db
 (d/q all-movies-q db)
 ;=> [[17592186045418] [17592186045419] [17592186045420]]
 
+; Step07b: Query 02
 ; query: return titles of the movies
 (def all-titles-q '[:find ?movie-title
                     :where [_ :movie/title ?movie-title]])
@@ -149,6 +158,7 @@ db
 (d/q all-titles-q db)
 ;=> [["Commando"] ["The Goonies"] ["Repo Man"]]
 
+; Step07c: Query 03
 ; query: return titles of movies released in 1985
 ; two clauses:
 ; 1. one to bind tho :movie/title attribute
@@ -170,6 +180,8 @@ db
 ;=> [["The Goonies" 1985 "action/adventure"] ["Commando" 1985 "action/adventure"]]
 ; Note: return value contains multiple tuples
 ; Shape of the relation returned is defined by your :find specification
+
+; Step08: Query historical data
 
 ; [See Historic Data | Datomic](https://docs.datomic.com/on-prem/getting-started/see-historic-data.html)
 

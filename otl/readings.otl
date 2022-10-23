@@ -6,4 +6,7 @@ Readings id=g13178
 	articles
 		Articles <url:file:///~/projects/study/nt/articles.md#r=g13177>
 		Logbook <url:file:///~/prj/study/otl/logbook.otl#r=g13256>
+gtd
+	toread
+		[blacksmithgu/obsidian-dataview: A high-performance data index and query language over Markdown files, for https://obsidian.md/.](https://github.com/blacksmithgu/obsidian-dataview) @obsidian
 		

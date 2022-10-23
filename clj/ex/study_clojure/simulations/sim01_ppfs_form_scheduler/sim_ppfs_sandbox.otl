@@ -1,0 +1,17 @@
+
+Simulation PPFS Sandbox otl id=g13466
+jrnl
+	20221019 
+		sim01 - Bir projedeki görevlendirmeleri kaydedelim id=g13468
+			Görevlendirme: Assignment
+				Assignment: 
+					görevlendirilen: P1
+					görevlendiren: P2
+					tarih: 2022-10-19
+					proje: J1
+					görevlendirme tipi: %50 zamanlı
+				Person:
+					name: P1
+				Project:
+					name: J1
+

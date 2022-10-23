@@ -2,10 +2,26 @@
 logseq id=g13070
 rfr
 	logseq - gtd <url:file:///~/projects/myrepo/gtd_list.otl#r=g13069>
+pnt
+	Logseq: Change Keyboard Shortcuts <url:file:///~/prj/study/logbook/log_20221010.md#r=g13454>
+	Generate UUID in Vim  <url:file:///~/prj/study/otl/cvim.otl#r=g13451>
+	Logseq: Examples for Block References <url:file:///~/prj/study/logseq-study/journals/2022_10_11.md#r=g13450>
+	20221011 
 tutorials articles
-	[Getting started](https://logseq.github.io/#/page/getting%20started)
+	Logseq Documentation Contents <url:file:///~/projects/study/logbook/log_20221010.md#r=g13448>
 shortcuts id=g12842
-	t
+	rfr
+		my logseq shortcuts  ;; <url:file:///~/prj/study/logseq-study/logseq/config.edn#r=g13455>
+		Logseq: Change Keyboard Shortcuts <url:file:///~/prj/study/logbook/log_20221010.md#r=g13454>
+		[Logseq Cheat Sheet by bgrolleman - Download free from Cheatography - Cheatography.com: Cheat Sheets For Every Occasion](https://cheatography.com/bgrolleman/cheat-sheets/logseq/)
+	Quickstart
+		| RET | new block |
+		| +RET | new line |
+		| / | all commands |
+		| [[ | new page/reference |
+		| (( | ref to block |
+		| TAB | indent |
+		| < | formatting commands |
 	| RET     | new block                 |
 	| +RET    | new line in current block |
 	| /       | all commands              |

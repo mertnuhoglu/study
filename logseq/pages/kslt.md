@@ -1,2 +1,0 @@
-- Kısaltmalar = #kslt
--

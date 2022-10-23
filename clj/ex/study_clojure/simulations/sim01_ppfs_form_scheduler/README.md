@@ -29,18 +29,20 @@ yuml:
   [FormIns]
 	[DatafieldDef]
 
+			evler, restoranlar  bankalar fabrikalar gibi
+			evler, restoranlar  bankalar fabrikalar gibi
 ### Model Short id=g13195
 
-             /-> p1
+             ┌-> p1
              |
       fd1 -> rj3 -> sch2
       | |
-      | \-> [dd1 + dd2]
-      v
+      | └-> [dd1 + dd2]
+      ↓
       [fn11 + fn12 +⋯+ fn17]
        |      |
-       v      |data
-       p1     \---> {dd2: "ali"
+			 ↓      |data
+       p1     └-> {dd2: "ali"
                      dd1: dd31 }
 
 ## Inbox List id=g13223

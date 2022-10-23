@@ -4,10 +4,10 @@ datomic.otl id=g13023
 ref
 	Day Of Datomic Cloud otl <url:file:///~/projects/study/clj/archive-datomic.md#r=g12849>
 study-order datomic id=g12866
-	[DOMAIN MODELING WITH DATALOG by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw)
+	[Domain Modeling With Datalog by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw)
 	/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/README.md
 pubs datomic id=g12867
-	[DOMAIN MODELING WITH DATALOG by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw)
+	[Domain Modeling With Datalog by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw)
 doc
 	Console UI
 		run datomic console id=g12858
@@ -67,8 +67,12 @@ issues
 			[hodur-org/hodur-engine](https://github.com/hodur-org/hodur-engine)
 			[hodur-org/hodur-visualizer-schema](https://github.com/hodur-org/hodur-visualizer-schema)
 articles - datomic id=g13413
+	Reactive Datalog for Datomic - Nikolas Göbel - YouTube <url:file:///~/projects/study/logbook/log_20221002.md#r=g13434>
 	Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube <url:file:///~/projects/study/logbook/log_20220930.md#r=g13424>
 	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
+	kristianmandrup/datascript-tutorial: Datascript and Datomic tutorial book <url:file:///~/projects/study/logbook/log_20220924.md#r=g13401>
+	Val on Programming: Datomic: Event Sourcing without the hassle <url:file:///~/projects/study/logbook/log_20220916.md#r=g13382>
+	Referentially transparent CRUD <url:file:///~/prj/study/logbook/log_20220910.md#r=g13339>
 	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube id=g12910
 		ref
 			Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
@@ -507,11 +511,14 @@ articles - datomic id=g13413
 reference functions
 	ref: datalog ref <url:file:///~/projects/study/clj/clojure.otl#r=g12868>
 resources datomic id=g12880
+	[Introduction | Datomic](https://docs.datomic.com/on-prem/tutorial/introduction.html)
+	[Datomic Cloud Documentation](https://docs.datomic.com/)
+	[Datomic/mbrainz-sample: Example queries and rules for working with the Datomic mbrainz example database](https://github.com/Datomic/mbrainz-sample)
+		rfr: mbrainz tutorial <url:file:///~/prj/study/clj/datomic.otl#r=g12871>
 	[markbastian/datascript-playground](https://github.com/markbastian/datascript-playground)
 	[Datomic/day-of-datomic: Sample Code for Day of Datomic presentation](https://github.com/Datomic/day-of-datomic)
 	[Max Datom - Interactive Datomic Tutorial](https://max-datom.com/)
 	[Learn Datalog Today!](http://www.learndatalogtoday.org/)
-	[Datomic Cloud Documentation](https://docs.datomic.com/)
 explorations xpl id=g12904
 	Datomic Veri Modeli id=g12905
 		Notation conventions: id=g12907
