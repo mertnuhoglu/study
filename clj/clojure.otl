@@ -1644,6 +1644,40 @@ yayın - clj
 			@fulcro
 			@serverless
 		toread
+			[(905) Graphcom: composable incremental graph of computations (by Alberto Fernandez) - YouTube](https://www.youtube.com/watch?v=kE9eELYoKrI) @data-analysis/time-series
+			[Wilfred/difftastic: a structural diff that understands syntax 🟥🟩](https://github.com/Wilfred/difftastic)
+			[Writing Transducer Friendly Code | Abhinav Omprakash](https://www.abhinavomprakash.com/posts/writing-transducer-friendly-code/)
+			[(896) London Clojurians Talk: A Tale of Lisp (by Renzo Borgatti) - YouTube](https://www.youtube.com/watch?v=m2mzyf2YS_8)
+			[(896) Clojure visual-tools meeting 8: data cookbook, goldly studio, re-frame state management - YouTube](https://www.youtube.com/watch?v=oDiZxi5FRRc) @data-analysis
+			[(896) FlowStorm Clojure debugger 2.2 new features - YouTube](https://www.youtube.com/watch?v=cnLwRzxrKDk)
+				[jpmonettas/flow-storm-debugger: A debugger for Clojure and ClojureScript with some unique features.](https://github.com/jpmonettas/flow-storm-debugger/)
+			[Welcome - Obsidian Wielder](https://wielder.victor.earth/Welcome)
+			[athos/Postmortem: A tiny data-oriented debugging tool for Clojure(Script), powered by transducers](https://github.com/athos/Postmortem)
+			[Principles of Data-Oriented Programming | Yehonathan Sharvit](https://blog.klipse.tech/dop/2022/06/22/principles-of-dop.html) @dop
+			[Immutable Vars and Clojure - DEV Community 👩‍💻👨‍💻](https://dev.to/quoll/immutable-vars-and-clojure-3nh8) @clj
+			[(896) The Secret Art of Storytelling in Programming by Yehonathan Sharvit - YouTube](https://www.youtube.com/watch?v=xbikBoA3Oik) @dop
+			[(896) Rafal Dittwald, “Data Oriented Programming” - YouTube](https://www.youtube.com/watch?v=8Kc55qOgGps) @dop
+			[(896) Conway's Game of Life in Clojure - TDD MOOC - YouTube](https://www.youtube.com/watch?v=xw-kmp14u0M) @example-app
+			[Loopr: A Loop/Reduction Macro for Clojure](https://aphyr.com/posts/360-loopr-a-loop-reduction-macro-for-clojure)
+			[pitch-io/uix: Idiomatic ClojureScript interface to modern React.js](https://github.com/pitch-io/uix) @ui
+			[Blambda!](https://jmglov.net/blog/2022-07-03-blambda.html) @lambda
+			[borkdude/quickblog: Light-weight static blog engine for Clojure and babashka](https://github.com/borkdude/quickblog)
+			[JUXT Blog - AWS Lambda, now with first class parentheses](https://www.juxt.pro/blog/nbb-lambda)
+			[Marko Kocic Blog - htmx in Clojure using kit framework](https://marko.euptera.com/posts/htmx-kit.html) @ui
+			[lilactown/eql-cli: A CLI for executing EQL queries on EDN data](https://github.com/lilactown/eql-cli) @eql
+			[prestancedesign/usermanager-reitit-example: A little demo web app in Clojure, using Integrant, Ring, Reitit, Selmer (and a database)](https://github.com/prestancedesign/usermanager-reitit-example) #example-app
+			[lilactown/pyramid: A library for storing and querying graph data in Clojure](https://github.com/lilactown/pyramid) @datomic
+			[Ideas for DataScript 2 @ tonsky.me](https://tonsky.me/blog/datascript-2/) @datomic
+			[ivarref/yoltq: An opinionated Datomic queue for building (more) reliable systems. Supports retries, backoff, ordering and more.](https://github.com/ivarref/yoltq) @datomic
+			[borkdude/lein2deps: Lein to deps.edn converter](https://github.com/borkdude/lein2deps)
+			[ivarref/double-trouble: Handle duplicate Datomic transactions with ease (on-prem).](https://github.com/ivarref/double-trouble) @datomic
+			[babashka/cli: Turn Clojure functions into CLIs!](https://github.com/babashka/cli)
+			20221025 
+			[Let over map merge: Software consulting made easy](https://humorless.github.io/posts-output/consulting-story)
+			[Let over map merge: Behavioral Economics and Clojure](https://humorless.github.io/posts-output/economics)
+			[Let over map merge: A Clojurian's idioms and patterns for ETL](https://humorless.github.io/posts-output/etl) @datomic
+			[Let over map merge: Using Datomic in my app](https://humorless.github.io/posts-output/datomic) @datomic
+			20221023 
 			[Clojure Datomic Exercise | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2020/11/14/clojure-datomic-exercise.html) @datomic
 			[ftravers/datomic-tutorial](https://github.com/ftravers/datomic-tutorial) @datomic
 			[(862) A Quick Demo of Metabase+Datomic - YouTube](https://www.youtube.com/watch?v=6eLME2TZ7oU) @datomic

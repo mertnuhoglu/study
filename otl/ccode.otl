@@ -1183,6 +1183,7 @@ tools tools2
 				KeyCode::<key to fire when held continuously>,
 				KeyCode::<key to fire when pressed and released quickly>
 		applications
+			UTM: virtual machine windows on m1
 			krispy: zoom kullanırken arka fondaki gürültüyü temizler
 			iterm2
 				solarized renkleri iterm için bozuk
