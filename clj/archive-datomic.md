@@ -528,7 +528,7 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 
 ### otl notes
 
-[(1137) Day of Datomic Cloud - Session 1 - YouTube](https://www.youtube.com/watch?v=yWdfhQ4_Yfw&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv)
+[(1137) Day of Datomic Cloud - Session 1 - YouTube](https://www.youtube.com/watch?v=yWdfhQ4_Yfw&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv) id=g13502
 
 	slide: agenda
 		notation
@@ -599,7 +599,7 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 			row
 			column, key-value, document, and graph
 		universal relation lets you model all these styles directly
-	one database, many indexes
+	one database, many indexes id=g13503
 		| structure | attribute |
 		| k/v | AVET |
 		| row | EAVT |
@@ -621,7 +621,7 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 			i have some friend, is that a friend of stu?
 		granular approach:
 			hangi yaklaşıma ihtiyacın varsa, ona göre veritabanına erişmene izin verir
-	slide: time aware
+	slide: time aware id=g13504
 		| db view | semantics | supports |
 		| (default) | current state | what is current situation? |
 		| as-of | state at point in past | how were things in the past? |
@@ -629,7 +629,7 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 		| tx report | before/after/change view of tx | automated event response |
 		| with | state with proposed additions | what would happen if we did X? |
 		| history | timeless view of all history | anything |
-	slide: entities
+	slide: entities id=g13505
 		do we really model everything in real world?
 			never.
 		when do we decide what do we care about in relational database?
@@ -649,8 +649,8 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 	slide: tx entity map
 		ex:
 			{:name "jane"
-				:likes [[:name "broccoli"]
-								[:name ":name pizza"]]}
+			 :likes [[:name "broccoli"]
+							 [:name ":name pizza"]]}
 		eav view
 			| e | a | v | opt |
 			| 1001 | 64 | 1002 | true |

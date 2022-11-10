@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "logbook/log_20221023.md",
+                "file": "logbook/log_20220927.md",
                 "mode": "source",
                 "source": false
               }
@@ -62,7 +62,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "file: log_20220927.md",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -71,7 +71,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -91,7 +92,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "logbook/log_20221023.md",
+                "file": "logbook/log_20220927.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,15 +114,15 @@
   },
   "active": "b08515492bf8e9e3",
   "lastOpenFiles": [
+    "logbook/log_20221025.md",
+    "logbook/log_20221024.md",
+    "logbook/log_20221023.md",
     "logseq-study/journals/2022_10_14.md",
     "logseq-study/journals/2022_04_22.md",
     "r/study_dplyr_mutate.md",
     "bash/study_fd.md",
     "new-file-that-doesnt-exist.md",
     "r/study_htmlwidgets.md",
-    "Headline Title.md",
-    "r/ext/itr/vrp/vrprapi/doc/log/ekran_tablolari_gorup_duzenleyebilme_20191110.md",
-    "logbook/makale_yazilim_trendleri_2022.md",
-    "r/rfc_convert_data.md"
+    "Headline Title.md"
   ]
 }

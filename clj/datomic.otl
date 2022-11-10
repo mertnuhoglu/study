@@ -4,10 +4,8 @@ datomic.otl id=g13023
 ref
 	Day Of Datomic Cloud otl <url:file:///~/projects/study/clj/archive-datomic.md#r=g12849>
 study-order datomic id=g12866
-	[Domain Modeling With Datalog by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw)
 	/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/README.md
-pubs datomic id=g12867
-	[Domain Modeling With Datalog by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw)
+	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
 doc
 	Console UI
 		run datomic console id=g12858
@@ -67,15 +65,13 @@ issues
 			[hodur-org/hodur-engine](https://github.com/hodur-org/hodur-engine)
 			[hodur-org/hodur-visualizer-schema](https://github.com/hodur-org/hodur-visualizer-schema)
 articles - datomic id=g13413
+	Datomic Documentation <url:file:///~/projects/study/logbook/log_20221107.md#r=g13500>
 	Reactive Datalog for Datomic - Nikolas Göbel - YouTube <url:file:///~/projects/study/logbook/log_20221002.md#r=g13434>
 	Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube <url:file:///~/projects/study/logbook/log_20220930.md#r=g13424>
 	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
 	kristianmandrup/datascript-tutorial: Datascript and Datomic tutorial book <url:file:///~/projects/study/logbook/log_20220924.md#r=g13401>
 	Val on Programming: Datomic: Event Sourcing without the hassle <url:file:///~/projects/study/logbook/log_20220916.md#r=g13382>
 	Referentially transparent CRUD <url:file:///~/prj/study/logbook/log_20220910.md#r=g13339>
-	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube id=g12910
-		ref
-			Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
 	Datomic from the ground up - subhash id=g12895
 		ref
 			[Datomic from the ground up · subhash/clj-stack Wiki](https://github.com/subhash/clj-stack/wiki/Datomic-from-the-ground-up)
@@ -244,6 +240,7 @@ articles - datomic id=g13413
 	Day of Datomic tutorial id=g12865
 		ref
 			~/codes/clj/content/day-of-datomic/README.md
+			https://github.com/Datomic/day-of-datomic
 		setup
 			cd ~/codes/clj/content/day-of-datomic
 			lein repl

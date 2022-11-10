@@ -22,6 +22,9 @@
  {:block/name "card",
   :block/created-at 1665403153293,
   :block/updated-at 1665403153293}
+ {:block/name "clj",
+  :block/created-at 1668072157224,
+  :block/updated-at 1668072157224}
  {:block/name "contents",
   :block/created-at 1665403153293,
   :block/updated-at 1665403153293}
@@ -70,12 +73,18 @@
  {:block/name "gnd",
   :block/created-at 1665403696202,
   :block/updated-at 1665403696202}
+ {:block/name "grsm",
+  :block/created-at 1668072157225,
+  :block/updated-at 1668072157225}
  {:block/name "in-progress",
   :block/created-at 1665403153293,
   :block/updated-at 1665403153293}
  {:block/name "kimya-sektörü",
   :block/created-at 1665755135535,
   :block/updated-at 1665755135535}
+ {:block/name "kontr",
+  :block/created-at 1667111886657,
+  :block/updated-at 1667111886657}
  {:block/name "kslt",
   :block/created-at 1665403696201,
   :block/updated-at 1665403696201}
@@ -103,6 +112,36 @@
  {:block/name "neden borsaya yatırım yapmalı?",
   :block/created-at 1666278809882,
   :block/updated-at 1666278866788}
+ {:block/name "nov 10th, 2022",
+  :block/created-at 1668031757176,
+  :block/updated-at 1668072240992}
+ {:block/name "nov 1st, 2022",
+  :block/created-at 1667251106165,
+  :block/updated-at 1667411411400}
+ {:block/name "nov 2nd, 2022",
+  :block/created-at 1667336404208,
+  :block/updated-at 1667336404208}
+ {:block/name "nov 3rd, 2022",
+  :block/created-at 1667422803429,
+  :block/updated-at 1667494102299}
+ {:block/name "nov 4th, 2022",
+  :block/created-at 1667511800330,
+  :block/updated-at 1667511800330}
+ {:block/name "nov 5th, 2022",
+  :block/created-at 1667595641228,
+  :block/updated-at 1667595641228}
+ {:block/name "nov 6th, 2022",
+  :block/created-at 1667682002412,
+  :block/updated-at 1667682002412}
+ {:block/name "nov 7th, 2022",
+  :block/created-at 1667768443507,
+  :block/updated-at 1667768443507}
+ {:block/name "nov 8th, 2022",
+  :block/created-at 1667857523881,
+  :block/updated-at 1667857523881}
+ {:block/name "nov 9th, 2022",
+  :block/created-at 1667941226696,
+  :block/updated-at 1667988585502}
  {:block/name "now",
   :block/created-at 1665403153293,
   :block/updated-at 1665403153293}
@@ -166,12 +205,24 @@
  {:block/name "oct 28th, 2022",
   :block/created-at 1666905670079,
   :block/updated-at 1666905670079}
+ {:block/name "oct 29th, 2022",
+  :block/created-at 1666993240338,
+  :block/updated-at 1666993240338}
+ {:block/name "oct 30th, 2022",
+  :block/created-at 1667080852151,
+  :block/updated-at 1667112729742}
+ {:block/name "oct 31st, 2022",
+  :block/created-at 1667163704280,
+  :block/updated-at 1667232517183}
  {:block/name "pkm",
   :block/created-at 1666168969190,
   :block/updated-at 1666168969190}
  {:block/name "qst",
   :block/created-at 1665752711666,
   :block/updated-at 1665752711666}
+ {:block/name "rota-optimizasyonu-sektörü",
+  :block/created-at 1667112086318,
+  :block/updated-at 1667112086318}
  {:block/name "sasa",
   :block/created-at 1665753927438,
   :block/updated-at 1665753927438}
@@ -208,6 +259,9 @@
  {:block/name "tpc/siyaset",
   :block/created-at 1666257983510,
   :block/updated-at 1666257983510}
+ {:block/name "trh",
+  :block/created-at 1667493226771,
+  :block/updated-at 1667493226771}
  {:block/name "twtp",
   :block/created-at 1665750349682,
   :block/updated-at 1665750349682}

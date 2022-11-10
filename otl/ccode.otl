@@ -11,7 +11,7 @@ ndx
 	bash <url:file:///~/projects/study/otl/ccode.otl#r=g11687>
 	osx osx2 macbook <url:file:///~/projects/study/otl/ccode.otl#r=g13010>
 pnt
-	text expansion (metin tamamlama, auto completion) uygulaması: espanso id=g13472
+	text expansion expander (metin tamamlama, auto completion) uygulaması: espanso id=g13472
 		rfr:
 			Espanso (Text Expansion) <url:file:///~/prj/study/logseq-study/pages/espanso.md#r=g13473>
 	convert tree/outline to excel/flat table:
@@ -1129,14 +1129,20 @@ tools tools2
 		spreadsheets - calc
 			Page Layout - Print Layout
 				File > Print Preview > Adjust Margins
-	logseq: outliner notes manager
+	logseq: logseq2 outliner notes manager pkm id=g13499
 		rfr
 			logseq <url:file:///~/projects/study/code/logseq.otl#r=g13070>
 			shortcuts <url:file:///~/projects/study/code/logseq.otl#r=g12842>
+			obsidian: pkm <url:file:///~/prj/study/otl/ccode.otl#r=g13498>
 	mongo2 mongodb
 		rfr: mongodb <url:file:///~/projects/study/otl/mongodb.otl#r=g13073>
 	nginx id=ccd_0004
 		rfr: nginx <url:file:///~/projects/study/otl/nginx.otl#r=g13072>
+	obsidian: obsidian2 pkm (personal knowledge management) id=g13498
+		rfr
+			obsidian otl <url:file:///~/prj/study/code/obsidian.otl#r=g13496>
+			shortcuts <url:file:///~/prj/study/code/obsidian.otl#r=g13497>
+			logseq: <url:file:///~/prj/study/otl/ccode.otl#r=g13499>
 	openshift rhcloud
 		account
 			openshift 2 > applications > .dev > source code: repo
