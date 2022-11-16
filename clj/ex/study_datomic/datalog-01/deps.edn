@@ -6,7 +6,9 @@
         org.clojure/data.xml {:mvn/version "0.0.8"}
         fipp/fipp {:mvn/version "0.6.24"}
         com.datomic/client-pro {:mvn/version "1.0.75"}
-        com.datomic/datomic-pro {:mvn/version "1.0.6397"}}
+        com.datomic/datomic-pro {:mvn/version "1.0.6397"}
+        com.datomic/dev-local {:mvn/version "1.0.243"}
+        org.clojure/data.generators {:mvn/version "1.0.0"}}
         ; com.datomic/datomic-free {:mvn/version "0.9.5697"}}
 
  :mvn/repos

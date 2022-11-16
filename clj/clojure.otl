@@ -2,6 +2,9 @@ ref
 	~/projects/study/clj/refcard_clojure.otl
 index
 	articles - clj <url:file:///~/prj/study/clj/clojure.otl#r=g13373>
+		read <url:file:///~/prj/study/clj/clojure.otl#r=g13518>
+		toread <url:file:///~/prj/study/clj/clojure.otl#r=g13519>
+	articles - datomic <url:file:///~/prj/study/clj/datomic.otl#r=g13413>
 	gtd - clj <url:file:///~/prj/study/clj/clojure.otl#r=g13055>
 		öncelikli işler - clj <url:file:///~/prj/study/clj/clojure.otl#r=g13342>
 	jrnl - clj <url:file:///~/projects/study/clj/clojure.otl#r=g13204>
@@ -1618,7 +1621,19 @@ yayın - clj
 		[Apropos Clojure #10 - shadow-cljs - YouTube](https://www.youtube.com/watch?v=Ow4Qdw25CEA)
 	articles - clj id=g13373
 		articles - datomic <url:file:///~/prj/study/clj/datomic.otl#r=g13413>
-		read
+			read <url:file:///~/prj/study/clj/datomic.otl#r=g13520>
+		read id=g13518
+			Article: The Datomic Information Model by Rich Hickey <url:file:///~/prj/study/clj/archive-datomic.md#r=g13516>
+			The Design of Datomic - Rich Hickey - YouTube <url:file:///~/projects/study/logbook/log_20221112.md#r=g13515>
+			Video: Day of Datomic Cloud - Day 4 <url:file:///~/prj/study/clj/archive-datomic.md#r=g13514>
+			Lab: Accumulate, Read, Retract, History  <url:file:///~/prj/study/clj/archive-datomic.md#r=g13511>
+			Day of Datomic Cloud - Session 3 - YouTube <url:file:///~/prj/study/clj/archive-datomic.md#r=g13510>
+			Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g13509>
+			Lab: Assertion Tutorial <url:file:///~/projects/study/clj/archive-datomic.md#r=g13506>
+			Day of Datomic Cloud - Session 1 - YouTube <url:file:///~/projects/study/clj/archive-datomic.md#r=g13502>
+			20221112 
+			Datomic Documentation <url:file:///~/prj/study/logbook/log_20221107.md#r=g13500>
+			20221109
 			Reactive Datalog for Datomic - Nikolas Göbel - YouTube <url:file:///~/projects/study/logbook/log_20221002.md#r=g13434>
 			20221002 
 			Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube <url:file:///~/projects/study/logbook/log_20220930.md#r=g13424>
@@ -1643,7 +1658,12 @@ yayın - clj
 			@data-structure
 			@fulcro
 			@serverless
-		toread
+		toread id=g13519
+			[mtnygard/datoms-say-what: Visualize the results of a Datomic transaction.](https://github.com/mtnygard/datoms-say-what) @datomic @tool
+			[Datomic/ion-starter](https://github.com/Datomic/ion-starter) @datomic @example
+			[stevebuik/clj-code-gen-hodur: Generates a simple datascript ORM from a Hodur schema. Used as a presentation at Clojure Sydney in May 2019](https://github.com/stevebuik/clj-code-gen-hodur) @datomic
+			[dwhjames/datomic-linklist: A Datomic library of schema attributes and database functions to implement linked-list structures in Datomic.](https://github.com/dwhjames/datomic-linklist) @datomic
+			20221114
 			[briancabbott/programming-sandbox-clojure: Programming Playground for Clojure](https://github.com/briancabbott/programming-sandbox-clojure) @datomic @example
 			[lambdaforge/vertailu: Datahike Datomic comparison](https://github.com/lambdaforge/vertailu) @datomic
 			20221106 

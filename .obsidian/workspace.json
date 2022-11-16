@@ -13,24 +13,10 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "logbook/log_20220927.md",
-                "mode": "source",
+                "file": "logbook/log_20221107.md",
+                "mode": "preview",
                 "source": false
               }
-            }
-          }
-        ]
-      },
-      {
-        "id": "8a82c014c81a5c00",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "5846fdb68cdfac30",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {}
             }
           }
         ]
@@ -62,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "file: log_20220927.md",
+                "query": "file: log_20221107.md",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -71,8 +57,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -92,11 +77,11 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "logbook/log_20220927.md",
-                "collapseAll": false,
-                "extraContext": false,
+                "file": "logbook/log_20221107.md",
+                "collapseAll": true,
+                "extraContext": true,
                 "sortOrder": "alphabetical",
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": false
@@ -107,13 +92,15 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "b08515492bf8e9e3",
+  "active": "4ea47e935fa4a320",
   "lastOpenFiles": [
+    "logbook/log_20220927.md",
     "logbook/log_20221025.md",
     "logbook/log_20221024.md",
     "logbook/log_20221023.md",
@@ -122,7 +109,6 @@
     "r/study_dplyr_mutate.md",
     "bash/study_fd.md",
     "new-file-that-doesnt-exist.md",
-    "r/study_htmlwidgets.md",
-    "Headline Title.md"
+    "r/study_htmlwidgets.md"
   ]
 }

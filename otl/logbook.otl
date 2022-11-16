@@ -1,5 +1,20 @@
 
 Logbook id=g13256
+	20221116 
+		REBL ile datomic verilerini dolaşma #datomic #clj <url:file:///~/projects/study/logbook/log_20221116.md#r=g13522>
+	20221114 
+		Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/archive-datomic.md#r=g13521>
+	20221112 
+		Article: The Datomic Information Model by Rich Hickey <url:file:///~/prj/study/clj/archive-datomic.md#r=g13516>
+		The Design of Datomic - Rich Hickey - YouTube <url:file:///~/projects/study/logbook/log_20221112.md#r=g13515>
+		Video: Day of Datomic Cloud - Day 4 <url:file:///~/prj/study/clj/archive-datomic.md#r=g13514>
+		Lab: Accumulate, Read, Retract, History  <url:file:///~/prj/study/clj/archive-datomic.md#r=g13511>
+		Day of Datomic Cloud - Session 3 - YouTube <url:file:///~/prj/study/clj/archive-datomic.md#r=g13510>
+	20221111 
+		Day of Datomic Cloud - Session 3 - YouTube <url:file:///~/prj/study/clj/archive-datomic.md#r=g13510>
+		Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g13509>
+		Lab: Assertion Tutorial <url:file:///~/projects/study/clj/archive-datomic.md#r=g13506>
+		Day of Datomic Cloud - Session 1 - YouTube <url:file:///~/projects/study/clj/archive-datomic.md#r=g13502>
 	20221109 
 		Datomic Documentation <url:file:///~/prj/study/logbook/log_20221107.md#r=g13500>
 	20221102 
@@ -200,4 +215,14 @@ Logbook id=g13256
 		[Creating Graphs in Troff/Groff with Grap - YouTube](https://www.youtube.com/watch?v=tg56sJUJq4w)
 			groff/troff aracıyla ggplot ile yaptığın işleri düz metin dosyalarından yapabiliyorsun
 		[A Clash of Two Systems. The war in Ukraine is a confrontation… | by Nassim Nicholas Taleb | INCERTO | Medium](https://medium.com/incerto/a-clash-of-two-systems-47009e9715e2)
-		
+	20220901
+		Article: Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious... <url:file:///~/prj/study/clj/archive-datomic.md#r=g12887>
+		Article: Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions <url:file:///~/prj/study/clj/archive-datomic.md#r=g12885>
+		Article: Datomic from the ground up - subhash <url:file:///~/prj/study/clj/archive-datomic.md#r=g12895>
+		Article: Hodur: Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube <url:file:///~/prj/study/clj/archive-datomic.md#r=g12893>
+		Article: Day of Datomic tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g12865>
+		Article: mbrainz tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g12871>
+		Article: rebel ile datomic kullanımı <url:file:///~/prj/study/clj/archive-datomic.md#r=g12873>
+		Article: Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog) <url:file:///~/prj/study/clj/archive-datomic.md#r=g12883>
+		Article: What Datomic brings to businesses | by Val Waeselynck | Medium <url:file:///~/prj/study/clj/archive-datomic.md#r=g12884>
+		Article: Val on Programming: Using Datomic in your app: a practical guide <url:file:///~/prj/study/clj/archive-datomic.md#r=g12886>

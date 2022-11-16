@@ -4,8 +4,19 @@ datomic.otl id=g13023
 ref
 	Day Of Datomic Cloud otl <url:file:///~/projects/study/clj/archive-datomic.md#r=g12849>
 study-order datomic id=g12866
+	REBL ile datomic verilerini dolaşma  <url:file:///~/prj/study/clj/datomic.otl#r=g13523>
+	Lab: Assertion Tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g13506>
+	Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g13509>
+	Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/archive-datomic.md#r=g13521>
+	Article: mbrainz tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g12871>
 	/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/README.md
 	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
+pnt
+	REBL ile datomic verilerini dolaşma  id=g13523
+		REBL ile datomic verilerini dolaşma #datomic #clj <url:file:///~/projects/study/logbook/log_20221116.md#r=g13522>
+		pre:
+			run repl + Rebl + portal <url:file:///~/prj/study/clj/datomic.otl#r=g12891>
+		repl içinde:
 doc
 	Console UI
 		run datomic console id=g12858
@@ -14,17 +25,17 @@ doc
 				~/codes/clj/content/day-of-datomic/tutorial/hello_world.clj
 				[Run a Transactor | Datomic](https://docs.datomic.com/on-prem/getting-started/transactor.html#run-dev-transactor)
 			tüm işlemler datomic-pro klasörü altında:
+				cd /Users/mertnuhoglu/codes/clj/lib/datomic-pro-1.0.6397
 			step01:
 				bin/transactor -Ddatomic.printConnectionInfo=true config/dev-transactor-template.properties
 			step02 (optional):
-					lein repl
-					bin/repl
-					:ConjureConnect
+				lein repl
+				bin/repl
+				:ConjureConnect
 			step03:
-				bin/console -p 9000 dev datomic:dev://localhost:4334/
-			console:
-				bin/console -p 9000 dev datomic:dev://localhost:4334/
-				http://localhost:9000/browse
+				bin/console -p 8080 dev datomic:dev://localhost:4334/
+				error: hata verirse, farklı bir port dene
+				http://localhost:8080/browse
 my questions
 	Client vs Peer vs Transactor
 		Datomic Local Dev
@@ -57,6 +68,7 @@ issues
 	repl code connection id=g12892
 		(require '[datomic.api :as d])
 		ref: def uri examples <url:file:///~/projects/study/clj/datomic.otl#r=g12896>
+			(def uri "datomic:dev://localhost:4334/mbrainz-1968-1973")
 		(def conn (d/connect uri))
 		(def db (d/db conn))
 	hodur ile datomic schema tanımlama id=g12901
@@ -65,446 +77,47 @@ issues
 			[hodur-org/hodur-engine](https://github.com/hodur-org/hodur-engine)
 			[hodur-org/hodur-visualizer-schema](https://github.com/hodur-org/hodur-visualizer-schema)
 articles - datomic id=g13413
-	Datomic Documentation <url:file:///~/projects/study/logbook/log_20221107.md#r=g13500>
-	Reactive Datalog for Datomic - Nikolas Göbel - YouTube <url:file:///~/projects/study/logbook/log_20221002.md#r=g13434>
-	Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube <url:file:///~/projects/study/logbook/log_20220930.md#r=g13424>
-	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
-	kristianmandrup/datascript-tutorial: Datascript and Datomic tutorial book <url:file:///~/projects/study/logbook/log_20220924.md#r=g13401>
-	Val on Programming: Datomic: Event Sourcing without the hassle <url:file:///~/projects/study/logbook/log_20220916.md#r=g13382>
-	Referentially transparent CRUD <url:file:///~/prj/study/logbook/log_20220910.md#r=g13339>
-	Datomic from the ground up - subhash id=g12895
-		ref
-			[Datomic from the ground up · subhash/clj-stack Wiki](https://github.com/subhash/clj-stack/wiki/Datomic-from-the-ground-up)
-			~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/tutorial_ground_up/e01.clj
-		Pitfalls of SQL Models
-			Schema katıdır (rigid)
-				Person (name string, age integer)
-				Sonuçları:
-					Bazı varlıkların ek atributları olabilir => sparsity problem
-					Gereksinimlere göre varlıkların tanımları değişebilir.
-						Bunu sağlamak için, tüm mevcut veriyi yeni tanıma göre taşımak gerekir
-					Yeni ilişkiler keşfedilemez
-						Bütün ilişkilerin önceden tanımlanmış olmasını gerektirir.
-						Örneğin: Person ve Employee tablolarına iki satır ekleyip, bunların aynı varlık olduğunu belirtemem, eğer daha önceden bu ikisi arasında bir FK koymamışsam
-			Relational view of data
-				Codd's relation: n-tuple over n sets of values
-				Ex:
-					set1: {0, 1, 2, ...}
-					set2: {"ali", "fred"}
-					relation: {0, "ali"} 
-					bu relation bir varlığı temsil edebilir
-					relation: {1, "fred", "namık cad."}
-					yeni bir relation farklı atributları içerebilir
-				Datomic atribut tanımları Codd'un relation'larına çok yakındır:
-					{:db/id 101 :db/ident :person/name :db/valueType :db.type/string
-					 :db/cardinality :db.cardinality/one :db.install/_attribute :db.part/db}
-				Points:
-					p01: keywords are namespaced
-						:db | internal identifiers
-						:person | kendi namespaceimiz
-		ex01: Adding schema and data
-			ref: ~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/tutorial_ground_up/e01.clj
-			p01: tekil id'leri otomatik tanımlamak
-				{:db/id #db/id[db.part/db]}
-		ex02: Querying
-			ref: ~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/tutorial_ground_up/e01_querying.clj
-		ex03: Reverse navigation with `_`
-			ref: Reverse ref <url:file:///~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/tutorial_ground_up/e01_ref.clj#r=g12897>
-			:person/_job 103
-		`:db.install/_attribute :db.part/db` nedir?
-			ters referans
-			dolayısıyla `:db.part/db` den yeni tanımlanmış atributa referans demek
-			dolayısıyla `:db.part/db` varlığının (entity) atributlarından bir tanesi `:db.install/attribute`
-			bu atributun değerleri, ilgili varlığın tüm atributlarını içerir
-		Turtles all the way down: Meta data modeli
-			ref
-				~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/tutorial_ground_up/e01_metadata.clj
-			Atributların listesi de bir atributun değeri olarak tutulur
-			ex: sistemdeki tüm atributları listeleyelim:
-				ref: Bir varlığın tüm atributlarını listele <url:file:///~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/tutorial_ground_up/e01_metadata.clj#r=g12898>
-	Hodur: Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube id=g12893
-		ref
-			[(28) Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube](https://www.youtube.com/watch?v=EDojA_fahvM)
-		Temel amaç:
-			system = fn(logic, state, model)
-			where:
-			logic = fn_1 ... fn_n => clojure
-			state = fn(state_{init}, txs) => datomic
-			model = fn(model_{domain}, model_{mech}) => hodur
-		Hodur principles
-			p01: Model is data
-				ex: Entities
-					[Employee
-					 Project
-					 Invoice]
-				ex: Entities with attributes
-					[Employee
-					 [first-name
-					  last-name]
-					 Project
-						[name]
-					 Invoice
-					 [date
-					  amount]]
-				ex: Use metadata for types:
-				  [Employee
-				   [^String first-name
-				  	^String ast-name]
-				   Project
-				   [^String ame]
-				   Invoice
-				   [^Date date
-				  	^Float amount]]
-				ex: references
-					[Employee
-					 [^String first-name
-						^String ast-name
-						supervisor]
-					 Project
-					 [^String ame
-					  employees]
-					 Invoice
-					 [^Date date
-						^Float amount]]
-				ex: references
-					[Employee
-					 [^String first-name
-						^String ast-name
-						^Employee supervisor]
-					 Project
-					 [^String ame
-						^{:type Employee
-						  :cardinality [0 n]} employees]
-					 Invoice
-					 [^Date date
-						^Float amount]]
-				ex: Querying the model with datomic:
-				  (require '[datascript.core :as d])
-					(d/q '[:find [?e ...]
-					       :where
-								 [?e :type/node :field]
-								 [?e :field/cardinality [0 n]]]
-							 @meta-db) ;; => [13]
-				ex: Using pull
-					(d/q '[:find [(pull ?e [:field/name])...]
-					       ...
-							 @meta-db) ;; => [{:field/name "employees"}]
-				ex: Accessing parent
-					(d/q '[:find [(pull ?e [:field/name
-					                        {:field/parent [:type/name]}])...]
-								 ...) 
-					;; => 
-					[{:field/name "employees"
-					  :field/parent {:type/name "Project"}}]
-			p02: One Model Many Views
-				ex: visual
-					(def meta-db
-					  (engine/init-schema
-						 '[Employee
-						   [^String first-name]]))
-					-> meta-db
-					   visualizer/schema
-						 visualizer/apply-diagram!
-				ex: datomic view
-					(hodur-datomic/schema meta-db)
-				ex: spec view
-					(hodur-spec/defspecs meta-db)
-			p04: Let Mahcnies do machine stuff
-				ex:
-					1. build model
-					2. extend with queries & pagination
-					3. deploy it:
-					  - datomic
-						- graphql
-						- datomic cloud ions
-				datomic ions:
-					power of datomic + run your lambda functions in cloud
-					1. write function
-						x.clj
-							(defn hello-from-cloud ..)
-						ion-config.edn
-							:lambdas {:hello-from-cloud ...}
-					2. push
-						clojure -A:dev -m datomic.ion.dev '{:op :push}'
-					3. deploy
-						clojure -A:dev -m datomic.ion.dev \
-						'{:op :deploy
-						  :rev ...
-							:group "qa"}'
-						=> output: lambda
-						; call it:
-						aws lambda invoke --function-name \
-							qa-hello-from-cloud --payload .. 
-					4. plumbing
-						biri şu işlemi yaptığında, bu lambda çağrılsın
-	Day of Datomic tutorial id=g12865
-		ref
-			~/codes/clj/content/day-of-datomic/README.md
-			https://github.com/Datomic/day-of-datomic
-		setup
-			cd ~/codes/clj/content/day-of-datomic
-			lein repl
-	mbrainz tutorial id=g12871
-		ref
-			~/projects/study/clj/ex/study_datomic/mbrainz-sample/examples/clj/datomic/samples/mbrainz.clj
-			[Datomic/mbrainz-sample: Example queries and rules for working with the Datomic mbrainz example database](https://github.com/Datomic/mbrainz-sample)
-		prerequisite
-			ref: run datomic console <url:file:///~/projects/study/clj/datomic.otl#r=g12858>
-		setup
-			; import mbrainz data id=g12872
-			bin/datomic restore-db file:///Users/mertnuhoglu/codes/clj/ex/mbrainz-1968-1973 datomic:dev://localhost:4334/mbrainz-1968-1973
-		run
-			cd /Users/mertnuhoglu/projects/study/clj/ex/study_datomic/mbrainz-sample
-			ref: run repl + Rebl + portal <url:file:///~/projects/study/clj/datomic.otl#r=g12891>
-		repl code
-			ref: repl code connection <url:file:///~/projects/study/clj/datomic.otl#r=g12892>
-			database-name: mbrainz-1968-1973
-			(d/q '[:find ?id ?type ?gender
-						 :in $ ?name
-						 :where
-						 [?e :artist/name ?name]
-						 [?e :artist/gid ?id]
-						 [?e :artist/type ?teid]
-						 [?teid :db/ident ?type]
-						 [?e :artist/gender ?geid]
-						 [?geid :db/ident ?gender]]
-					 db
-					 "Janis Joplin")
-		console
-			ref: run datomic console <url:file:///~/projects/study/clj/datomic.otl#r=g12858>
-			open http://localhost:9000/browse
-   		DB: mbrainz
-		query
-			ref: [Queries · Datomic/mbrainz-sample Wiki](https://github.com/Datomic/mbrainz-sample/wiki/Queries)
-			(d/q '[:find ?title
-						 :in $ ?artist-name
-						 :where
-						 [?a :artist/name ?artist-name]
-						 [?t :track/artists ?a]
-						 [?t :track/name ?title]]
-					 db, "John Lennon")
-			; şimdi rebel ile datayı dolaşabilirsin
-	rebel ile datomic kullanımı id=g12873
-		prerequisite:
-			import mbrainz data <url:file:///~/projects/study/clj/datomic.otl#r=g12872>
-			run datomic console <url:file:///~/projects/study/clj/datomic.otl#r=g12858>
-		run rebel+repl:
-			cd ~/codes/clj/ex/day-of-datomic-cloud
-			ref: run repl + Rebl + portal <url:file:///~/projects/study/clj/datomic.otl#r=g12891>
-		repl code
-			ref: repl code connection <url:file:///~/projects/study/clj/datomic.otl#r=g12892>
-	Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog) id=g12883
-		ref
-			[Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog)](https://augustl.com/blog/2018/datomic_look_at_all_the_things_i_am_not_doing_cont/)
-		p01: Query engine is embedded into the client
-			Geleneksel yaklaşım: sorgu motoru veritabanı sunucusunda
-			Datomic: sorgu motoru istemci içinde
-			Bunun sonucu:
-				Eş zamanlı sorgular yapabilirsin, sunucuyla senkronize olmadan
-				Tek darboğaz: Veriyi sunucudan çekmek
-				Bunu da hafifletmek için, sunucu ve istemci arasına memcached koyabilirsin
-			Başka sonuç: N+1 sorgulardan kaçınmak gerekmez
-				Geleneksel veritabanında N+1 sorgudan kaçınılır
-				Örneğin: Projeleri listele ve sonra her birindeki todo itemları listele.
-				Bunu tek tek yapmazsın. Tek seferde yaparsın.
-				Böylece her sefer gerçekleşecek network round-trip maliyetinden kurtarırsın.
-				Fakat datomicde sorgu motoru zaten senin uygulamanın içinde.
-				Bu yüzden çok daha basit sorgular yapabilirsin, tüm sorguları tek seferde yapman gerekmez.
-			Başka sonuç: Application level caching gerekmez
-				Sorgu sonuçlarını uygulama seviyesinde keşlemen gerekmez, datomic ile.
-				Sorgu motoru ve kullandığın veri (working set) zaten uygulamanın içindedir.
-		p02: Audit logging
-			Her bir varlığın (entity) tüm geçmiş kayıtlarına kolayca erişebilirsin
-			Ayrı bir audit tablo tutmak ve buna json dump etmen gerekmez
-		p03: Change detection
-			Datomic ile tüm değişimleri tembelce (lazily) bir kuyruktan (queue) çekebilirsin
-		p04: Database mocking yapmaya gerek yok
-			with API ile doğrudan veritabanı üzerinde test sorguları çalıştırabilirsin
-		p05: Schema tanımlama önden yapmaya gerek yok
-			Yazarken değil, okuma yaparken yapı oluşturursun.
-	What Datomic brings to businesses | by Val Waeselynck | Medium id=g12884
-		ref
-			[What Datomic brings to businesses | by Val Waeselynck | Medium](https://medium.com/@val.vvalval/what-datomic-brings-to-businesses-e2238a568e1c)
-		Expressive querying
-			High query power
-			veriyle ilgili bir soruyu koda çevirmek çok daha basit
-			sebepleri:
-				çoklu paradigma:
-					mantıksal/ilişkisel (datalog)
-					navigasyonel/graph-like (entity api)
-					graphql tarzı (pull api)
-				Lokal veri
-					Diğer veritabanlarında her bir sorgu, bir geziye (expedition) çıkmak gibidir.
-					Datomic'te veri çoğu zaman lokaldir.
-					Peer lokal uygulama içinde sorguyu çalıştırır
-				Programlanabilir
-					Tüm requestler data olduğundan, esnek bir şekilde programlanabilir
-		No data loss
-			asOf() ile eski bir ana gidilebilir
-		Flexible data modeling
-			Universal schema
-			Bir atribut birden çok entity type tarafından paylaşılabilir
-			Sparsity SQL veritabanlarına göre çok daha kolay yönetilir
-				Schemada bozucu değişikliklere neden olmaz
-				Bir atributa ihtiyaç yoksa, onu silmezsin. Sadece kullanmayı bırakırsın.
-		Testing is cheap
-			with() lokal olarak write işlemlerini yapmış bir view üretir
-			bir nevi veritabanı değerlerinde (database value) fork yapmış gibi
-		Reproducibility
-			Geçmişteki her ana ulaşabilirsin
-			Production veritabanını lokalde klonlayabilirsin
-		Integrating other data systems
-			Eğer doğruluk kaynağı datomic olursa, diğer sistemlere senkronizasyon verilerini göndermek çok kolay olur
-	Val on Programming: Using Datomic in your app: a practical guide id=g12886
-		return: What Datomic brings to businesses | by Val Waeselynck | Medium <url:file:///~/projects/study/clj/datomic.otl#r=g12884>
-		ref
-			[Val on Programming: Using Datomic in your app: a practical guide](https://vvvvalvalval.github.io/posts/2016-07-24-datomic-web-app-a-practical-guide.html)
-		Datomic'in çözdüğü sorunlar:
-			Schema rigidity
-			N+1 problem
-			impedance mismatch
-			remote querying
-			consistency
-		Datomic özet:
-			datom: 5-tuple
-				entity_id attribute value transaction_id operation
-				[42 :user/email "hello@gmail.com" 201 true]
-			database value: immutable, shared data structure that is logically a set of datoms
-				corresponds to a commit in Git
-			database grows by accumulating new datoms
-			Datomic connection is a remote reference to current database value
-			Datomic system is a succession of database values
-			Succession of values is controlled by the Transactor process.
-			Write = transaction request
-			Reading is local. 
-				It happens on the application process, called Peer.
-				This is possible because database values are immutable
-				Thus easy to cache and location-transparent
-			Low-level reading interface via indexes
-				On top of it: 
-					Datalog Query Language
-					Entities
-		Represent business entities with Entities
-			Normal veritabanı uygulamalarında entity'nin tüm verilerini çekip çekmemek performans problemidir.
-			Datomicte her şeyi çekebilirsin, hiç sorun olmaz.
-			ex:
-				(defn comments-of-user-about-post
-				"Given a user Entity and a post Entity, returns the user's comments about that post as a seq of Entities."
-				[user post]
-				(let [db (d/entity-db user)]
-					(->> (d/q '[:find [?comment ...] :in $ ?user ?post :where
-											[?comment :comment/post ?post]
-											[?comment :comment/user ?user]]
-								db (:db/id user) (:db/id post))
-					(map #(d/entity db %))
-					)))
-			Bir entity'nin ilişkilerini serbestçe dolaşabilirsin. N+1 problemi olmaz.
-			ex:
-				(defn cl-comment
-					"clientizes a comment."
-					[cmt]
-					{:id (:comment/id cmt)
-					:content (:comment/content cmt)
-					:author {:id (-> cmt :comment/author :user/id)}
-					:post {:id (-> cmt :comment/post :post/id)}})
-			Veriyi lokalmiş gibi düşünebilirsin.
-		Querying: Datalog vs. Entities
-			Entities: navigating around database
-			Pull API: combines both
-		Schema/model declaration
-		Fixture Data:
-			example based testing
-	Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions id=g12885
-		ref
-			[Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions](https://cognitect.com/blog/2017/4/21/separation-of-concerns-in-datomic-query-datalog-query-and-pull-expressions)
-		Homoicoicity: Code is data. Data is code.
-			Bu kavram çok büyük güç katar.
-		Örnek: Datalog sorguları
-			Data olarak ifade edilir, string olarak değil.
-			Dolayısıyla bunları compose edebiliriz/validate edebiliriz.
-		ex01: Datalog sorgusu
-			(d/q '[:find [?lname ?fname]
-				:in $ ?ssn
-				:where
-				[?e :person/ssn ?ssn]
-				[?e :person/first-name ?fname]
-				[?e :person/last-name ?lname]]
-			(d/db conn)
-			"123-45-6789")
-			;; => ["Murray" "William"]
-		ex02: Dönen veriyi bir map içine koy:
-			(->> (d/q '[:find [?lname ?fname]
-							:in $ ?ssn
-							:where
-							[?e :person/ssn ?ssn]
-							[?e :person/first-name ?fname]
-							[?e :person/last-name ?lname]]
-						(d/db conn)
-						"123-45-6789")
-			 (zipmap [:last-name :first-name]))
-			;; => {:last-name "Murray" :first-name "William"}
-		ex03: Pull API ile
-			(d/pull (d/db conn)
-			;; pull pattern - attributes to retrieve
-			[:person/first-name
-				:person/last-name
-				{:person/address [:address/zipcode]}]
-			;; lookup-ref - entity to find
-			[:person/ssn "123-45-6789"])
-			;; =>
-			{:person/first-name "William"
-			 :person/last-name "Murray"
-			 :person/address {:address/zipcode "02134"}}
-		Burada entity id veya lookup reference verdik, pull'a.
-		ex04: Pull API inside query
-			(d/q '[:find [
-				;; pull expression
-				(pull ?e
-				;; pull pattern
-				[:person/first-name
-					:person/last-name
-					{:person/address [:address/zipcode]}])]
-				:in $ ?zip
-				:where
-				[?a :address/zipcode ?zip]
-				[?e :person/address ?a]]
-			(d/db conn)
-			"02134")
-		Pull pattern datadır. Bu yüzden, bunu argüman olarak paslayabiliriz:
-		ex05: Pull pattern as argument
-			(defn find-by-zip [db zip pattern]
-				(d/q '[:find (pull ?e pattern)
-							:in $ ?zip pattern
-							:where
-							[?a :address/zipcode ?zip]
-							[?e :person/address ?a]]
-						db
-						zip
-						pattern))
-			(find-by-zip (d/db conn)
-									"02134"
-									[:person/first-name
-										:person/middle-name
-										:person/last-name
-										{:person/address [:address/zipcode]}])
-		ex06: Compose etme
-			(def address-pattern [:address/street
-														:address/city
-														:address/state
-														:address/zipcode])
-			(find-by-zip (d/db conn)
-									"02134"
-									[:person/first-name
-										:person/middle-name
-										:person/last-name
-										{:person/address address-pattern}])
-	Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious... id=g12887
-		ref
-			[Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious...](https://curiousprogrammer.dev/blog/datomic-cheat-sheet-series-queries-part-4-pull/)
-	Max-Datom.com Exercises id=g12888
-		ref
-			~/projects/study/clj/ex/study_datomic/max-datom.com/exercises-max-datom.com.md
-		t0
+	ndx
+		datomic okuma planı 20221113  <url:file:///~/prj/myrepo/work/work4.otl#r=g13517>
+	read id=g13520
+		Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/archive-datomic.md#r=g13521>
+		20221114 
+		Article: The Datomic Information Model by Rich Hickey <url:file:///~/prj/study/clj/archive-datomic.md#r=g13516>
+		The Design of Datomic - Rich Hickey - YouTube <url:file:///~/projects/study/logbook/log_20221112.md#r=g13515>
+		Video: Day of Datomic Cloud - Day 4 <url:file:///~/prj/study/clj/archive-datomic.md#r=g13514>
+		Lab: Accumulate, Read, Retract, History  <url:file:///~/prj/study/clj/archive-datomic.md#r=g13511>
+		Day of Datomic Cloud - Session 3 - YouTube <url:file:///~/prj/study/clj/archive-datomic.md#r=g13510>
+		Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g13509>
+		Lab: Assertion Tutorial <url:file:///~/projects/study/clj/archive-datomic.md#r=g13506>
+		Day of Datomic Cloud - Session 1 - YouTube <url:file:///~/projects/study/clj/archive-datomic.md#r=g13502>
+		20221112 
+		Day Of Datomic Cloud <url:file:///~/projects/study/clj/archive-datomic.md#r=g12849>
+		Datomic Documentation <url:file:///~/projects/study/logbook/log_20221107.md#r=g13500>
+		20221107
+		Reactive Datalog for Datomic - Nikolas Göbel - YouTube <url:file:///~/projects/study/logbook/log_20221002.md#r=g13434>
+		Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube <url:file:///~/projects/study/logbook/log_20220930.md#r=g13424>
+		20220930 
+		Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
+		20220928 
+		Babashka Datalevin (datalog) example <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13410>
+		kristianmandrup/datascript-tutorial: Datascript and Datomic tutorial book <url:file:///~/projects/study/logbook/log_20220924.md#r=g13401>
+		20220924 
+		Val on Programming: DataScript as a Lingua Franca for domain modeling <url:file:///~/projects/study/logbook/log_20220921.md#r=g13389>
+		20220921 
+		Val on Programming: Datomic: Event Sourcing without the hassle <url:file:///~/projects/study/logbook/log_20220916.md#r=g13382>
+		20220919 
+		Referentially transparent CRUD <url:file:///~/prj/study/logbook/log_20220910.md#r=g13339>
+		20220912 
+		Article: Datomic from the ground up - subhash <url:file:///~/prj/study/clj/archive-datomic.md#r=g12895>
+		Article: Hodur: Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube <url:file:///~/prj/study/clj/archive-datomic.md#r=g12893>
+		Article: Day of Datomic tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g12865>
+		Article: mbrainz tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g12871>
+		Article: rebel ile datomic kullanımı <url:file:///~/prj/study/clj/archive-datomic.md#r=g12873>
+		Article: Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog) <url:file:///~/prj/study/clj/archive-datomic.md#r=g12883>
+		Article: What Datomic brings to businesses | by Val Waeselynck | Medium <url:file:///~/prj/study/clj/archive-datomic.md#r=g12884>
+		Article: Val on Programming: Using Datomic in your app: a practical guide <url:file:///~/prj/study/clj/archive-datomic.md#r=g12886>
+		Article: Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions <url:file:///~/prj/study/clj/archive-datomic.md#r=g12885>
+		Article: Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious... <url:file:///~/prj/study/clj/archive-datomic.md#r=g12887>
 reference functions
 	ref: datalog ref <url:file:///~/projects/study/clj/clojure.otl#r=g12868>
 resources datomic id=g12880

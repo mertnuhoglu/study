@@ -60,7 +60,7 @@
 (-> (db conn) (d/entity 20) (:db/ident))
 #_:db.type/ref
 
-;That makes sense. :db.install/attribute is a ref because it "points" to other attribute definitions and it's cardinality is many obviously because there are "many" attributes.
+;That makes sense. :db.install/attribute is a ref because it "points" to other attribute definitions and its cardinality is many obviously because there are "many" attributes.
 
 ;By now, something should be obvious. Everything is an entity in Datomic, even attribute definitions. The system is bootstrapped using some basic entities which set up the attribute types etc and everything else is built on top of that
 
