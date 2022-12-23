@@ -794,6 +794,8 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 
 [Assertion | Datomic](https://docs.datomic.com/cloud/tutorial/assertion.html)
 
+rfr: `/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01b.clj`
+
 ### Setup
 
 [Local Dev and CI with dev-local | Datomic](https://docs.datomic.com/cloud/dev-local.html)
@@ -863,11 +865,14 @@ Edit `~/prj/study/clj/ex/study_datomic/datalog-01/deps.edn`
 	:system "ci"}))
 ```
 
-04. Sample Data id=g13507
+04. Connect to Sample Database id=g13507
 
 [Sample Data](https://docs.datomic.com/cloud/dev-local.html#samples)
 
-rfr: `/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01c.clj`
+rfr: 
+
+	/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01b.clj
+	/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01c.clj
 
 Download https://datomic-samples.s3.amazonaws.com/datomic-samples-2020-07-07.zip
 
@@ -883,13 +888,15 @@ Dikkat: Hiç sunucu yazılımı çalıştırmana gerek yok, burada. Aşağıdaki
 => ["mbrainz-subset" "solar-system" "social-news" "movies" ...]
 ```
 
+Bu durumda  `~/.datomic/dev-local.edn` içindeki `{:storage-dir "/Users/mertnuhoglu/db/"}` içinde veritabanları tutulur.
+
 Bu örnekte local-dev kütüphanesi kullanılarak diskte storage-dir altında veriler tutulur.
 
 > dev-local stores data to your local filesystem, in directories under the :system you specify when creating a dev-local client.
 
 > Each database will store transactions in a directory named <storage-dir>/<system-name>/<database-name>. You can "backup" or "restore" a dev-local database simply by copying the database directory.
 
-Next step: rfr: Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/archive-datomic.md#r=g13521>
+Next step: rfr: Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13521>
 
 ### Code - Assertion and Read Tutorial id=g13509
 
@@ -1460,7 +1467,7 @@ rfr: `Accumulate | Datomic <url:file:///~/prj/study/clj/ex/study_datomic/datalog
 				 db, "John Lennon")
 		; şimdi rebel ile datayı dolaşabilirsin
 
-# Article: rebel ile datomic kullanımı id=g12873
+# Article: rebl ile datomic kullanımı id=g12873
 
 	prerequisite:
 		import mbrainz data <url:file:///~/projects/study/clj/datomic.otl#r=g12872>
@@ -1701,6 +1708,25 @@ rfr: `Accumulate | Datomic <url:file:///~/prj/study/clj/ex/study_datomic/datalog
 
 rfr: `/Users/mertnuhoglu/codes/clj/ex/day-of-datomic-cloud/deps.edn`
 
-Previous step: rfr: 04. Sample Data <url:file:///~/prj/study/clj/archive-datomic.md#r=g13507>
+Previous step: rfr: 04. Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13507>
 
 Step01: `/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/day_of_datomic/cloud/hello_world.clj`
+
+# Example: Get Current Datomic Schema id=g13527
+
+[How can I get the current Datomic schema? - Stack Overflow](https://stackoverflow.com/questions/26575320/how-can-i-get-the-current-datomic-schema)
+
+```clj
+(def schema 
+	'[:find ?attr ?type ?card
+		:where
+		[_ :db.install/attribute ?a]
+		[?a :db/valueType ?t]
+		[?a :db/cardinality ?c]
+		[?a :db/ident ?attr]
+		[?t :db/ident ?type]
+		[?c :db/ident ?card]]
+)
+(d/q schema db)
+```
+

@@ -17,6 +17,21 @@ state: wip
 
 # Index babashka  id=g11812
 
+	pnt
+		Deney: nbb ile repl server  <url:file:///~/projects/study/logbook/log_20221126.md#r=g13591>
+		nbb: nodejs için babashka <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13583>
+		20221126
+		bb nrepl server <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g11958>
+		CLI Arguments/Options <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13584>
+		run portal browser on any edn file <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13585>
+		inline script <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13586>
+		Execute clj script <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13587>
+		Loading and using pods <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13590>
+		Babashka Datalevin (datalog) example <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13410>
+	rtc
+		Article: README <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13588>
+		Examples <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13589>
+
 ## bb nrepl server id=g11958
 
 [Quick start: Clojure (babashka) · Olical/conjure Wiki](https://github.com/Olical/conjure/wiki/Quick-start:-Clojure-(babashka))
@@ -26,14 +41,14 @@ echo "5678" > .nrepl-port
 bb --nrepl-server 5678
 ```
 
-## CLI Arguments/Options
+## CLI Arguments/Options id=g13584
 
 	| -i | bind *input* to a seq of lines      |
 	| -I | bind *input* to a seq of EDN values |
 	| -e | eval expr                           |
 	| -f | eval file                           |
 
-## run portal browser on any edn file
+## run portal browser on any edn file id=g13585
 
 `- Inspect Data Files With Portal On Babashka <url:file:///~/projects/study/clj/lib/babashka_interpreter.md#r=g11752>`
 
@@ -41,7 +56,7 @@ bb --nrepl-server 5678
 portal.clj ~/.clojure/deps.edn
 ```
 
-## inline script
+## inline script id=g13586
 
 `Ex01: inline scripts <url:file:///~/projects/study/clj/lib/babashka_interpreter.md#r=g11814>`
 
@@ -51,7 +66,7 @@ $ ls | bb -i '(filter #(-> % io/file .isDirectory) *input*)'
 ("doc" "resources" "sci" "script" "src" "target" "test")
 ```
 
-## clj script
+## Execute clj script id=g13587
 
 `Ex02: Execute clj script <url:file:///~/projects/study/clj/lib/babashka_interpreter.md#r=g11813>`
 
@@ -61,7 +76,7 @@ shebang:
 !/usr/bin/env bb
 ```
 
-# Article: README
+# Article: README id=g13588
 
 [borkdude/babashka: A Clojure babushka for the grey areas of Bash (native fast-starting Clojure scripting environment)](https://github.com/borkdude/babashka)
 
@@ -119,7 +134,7 @@ brew install borkdude/brew/babashka
 brew upgrade babashka
 ```
 
-# Examples
+# Examples id=g13589
 
 [babashka/README.md at master · borkdude/babashka](https://github.com/borkdude/babashka/blob/master/examples/README.md)
 
@@ -154,7 +169,7 @@ rlwrap bb
 ```
 
 
-# Loading and using pods
+# Loading and using pods id=g13590
 
 ```clj
 (require '[babashka.pods :as pods])
@@ -173,3 +188,15 @@ Differences of inputting between `-i`, `<<<`
 [pod-registry/datalevin.clj at master · babashka/pod-registry](https://github.com/babashka/pod-registry/blob/master/examples/datalevin.clj)
 
 rfr: `~/prj/study/clj/ex/study_babashka_interpreter/bb-01/datalevin.clj`
+
+# pnt
+
+## nbb: nodejs için babashka id=g13583
+
+[babashka/nbb: Scripting in Clojure on Node.js using SCI](https://github.com/babashka/nbb)
+
+```bash
+nbb -e '(+ 1 2 3)'
+```
+
+

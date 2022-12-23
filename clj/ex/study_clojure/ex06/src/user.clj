@@ -12,6 +12,7 @@
 
 ;; Add portal as a tap> target
 (p/tap)
+(tap> :hello)
 
 (comment
   (tap> :hello)

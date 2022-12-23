@@ -2,16 +2,22 @@
 datomic.otl id=g13023
 	datomic.otl <url:file:///~/projects/study/clj/datomic.otl#r=g13023>
 ref
-	Day Of Datomic Cloud otl <url:file:///~/projects/study/clj/archive-datomic.md#r=g12849>
+	Day Of Datomic Cloud otl <url:file:///~/projects/study/clj/articles-datomic.md#r=g12849>
 study-order datomic id=g12866
+	Datomic Kod Okumalarından Notlar  <url:file:///~/projects/study/logbook/log_20221119.md#r=g13532>
+	/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01b.clj
+	Connect to Sample Database <url:file:///~/prj/study/clj/articles-datomic.md#r=g13507>
+	Datomic Documentation <url:file:///~/prj/study/logbook/log_20221107.md#r=g13500>
 	REBL ile datomic verilerini dolaşma  <url:file:///~/prj/study/clj/datomic.otl#r=g13523>
-	Lab: Assertion Tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g13506>
-	Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g13509>
-	Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/archive-datomic.md#r=g13521>
-	Article: mbrainz tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g12871>
+	Lab: Assertion Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13506>
+	Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13509>
+	Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13521>
+	Article: mbrainz tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g12871>
 	/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/README.md
 	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
 pnt
+	Datomic Kod Okumalarından Notlar  <url:file:///~/projects/study/logbook/log_20221119.md#r=g13532>
+	Example: Get Current Datomic Schema <url:file:///~/prj/study/clj/articles-datomic.md#r=g13527>
 	REBL ile datomic verilerini dolaşma  id=g13523
 		REBL ile datomic verilerini dolaşma #datomic #clj <url:file:///~/projects/study/logbook/log_20221116.md#r=g13522>
 		pre:
@@ -77,21 +83,23 @@ issues
 			[hodur-org/hodur-engine](https://github.com/hodur-org/hodur-engine)
 			[hodur-org/hodur-visualizer-schema](https://github.com/hodur-org/hodur-visualizer-schema)
 articles - datomic id=g13413
+	rfr
+		<url:vimscript::UtlOpenFileAndSearch>
 	ndx
 		datomic okuma planı 20221113  <url:file:///~/prj/myrepo/work/work4.otl#r=g13517>
 	read id=g13520
-		Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/archive-datomic.md#r=g13521>
+		Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13521>
 		20221114 
-		Article: The Datomic Information Model by Rich Hickey <url:file:///~/prj/study/clj/archive-datomic.md#r=g13516>
+		Article: The Datomic Information Model by Rich Hickey <url:file:///~/prj/study/clj/articles-datomic.md#r=g13516>
 		The Design of Datomic - Rich Hickey - YouTube <url:file:///~/projects/study/logbook/log_20221112.md#r=g13515>
-		Video: Day of Datomic Cloud - Day 4 <url:file:///~/prj/study/clj/archive-datomic.md#r=g13514>
-		Lab: Accumulate, Read, Retract, History  <url:file:///~/prj/study/clj/archive-datomic.md#r=g13511>
-		Day of Datomic Cloud - Session 3 - YouTube <url:file:///~/prj/study/clj/archive-datomic.md#r=g13510>
-		Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g13509>
-		Lab: Assertion Tutorial <url:file:///~/projects/study/clj/archive-datomic.md#r=g13506>
-		Day of Datomic Cloud - Session 1 - YouTube <url:file:///~/projects/study/clj/archive-datomic.md#r=g13502>
+		Video: Day of Datomic Cloud - Day 4 <url:file:///~/prj/study/clj/articles-datomic.md#r=g13514>
+		Lab: Accumulate, Read, Retract, History  <url:file:///~/prj/study/clj/articles-datomic.md#r=g13511>
+		Day of Datomic Cloud - Session 3 - YouTube <url:file:///~/prj/study/clj/articles-datomic.md#r=g13510>
+		Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13509>
+		Lab: Assertion Tutorial <url:file:///~/projects/study/clj/articles-datomic.md#r=g13506>
+		Day of Datomic Cloud - Session 1 - YouTube <url:file:///~/projects/study/clj/articles-datomic.md#r=g13502>
 		20221112 
-		Day Of Datomic Cloud <url:file:///~/projects/study/clj/archive-datomic.md#r=g12849>
+		Day Of Datomic Cloud <url:file:///~/projects/study/clj/articles-datomic.md#r=g12849>
 		Datomic Documentation <url:file:///~/projects/study/logbook/log_20221107.md#r=g13500>
 		20221107
 		Reactive Datalog for Datomic - Nikolas Göbel - YouTube <url:file:///~/projects/study/logbook/log_20221002.md#r=g13434>
@@ -108,16 +116,16 @@ articles - datomic id=g13413
 		20220919 
 		Referentially transparent CRUD <url:file:///~/prj/study/logbook/log_20220910.md#r=g13339>
 		20220912 
-		Article: Datomic from the ground up - subhash <url:file:///~/prj/study/clj/archive-datomic.md#r=g12895>
-		Article: Hodur: Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube <url:file:///~/prj/study/clj/archive-datomic.md#r=g12893>
-		Article: Day of Datomic tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g12865>
-		Article: mbrainz tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g12871>
-		Article: rebel ile datomic kullanımı <url:file:///~/prj/study/clj/archive-datomic.md#r=g12873>
-		Article: Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog) <url:file:///~/prj/study/clj/archive-datomic.md#r=g12883>
-		Article: What Datomic brings to businesses | by Val Waeselynck | Medium <url:file:///~/prj/study/clj/archive-datomic.md#r=g12884>
-		Article: Val on Programming: Using Datomic in your app: a practical guide <url:file:///~/prj/study/clj/archive-datomic.md#r=g12886>
-		Article: Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions <url:file:///~/prj/study/clj/archive-datomic.md#r=g12885>
-		Article: Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious... <url:file:///~/prj/study/clj/archive-datomic.md#r=g12887>
+		Article: Datomic from the ground up - subhash <url:file:///~/prj/study/clj/articles-datomic.md#r=g12895>
+		Article: Hodur: Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube <url:file:///~/prj/study/clj/articles-datomic.md#r=g12893>
+		Article: Day of Datomic tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g12865>
+		Article: mbrainz tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g12871>
+		Article: rebel ile datomic kullanımı <url:file:///~/prj/study/clj/articles-datomic.md#r=g12873>
+		Article: Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog) <url:file:///~/prj/study/clj/articles-datomic.md#r=g12883>
+		Article: What Datomic brings to businesses | by Val Waeselynck | Medium <url:file:///~/prj/study/clj/articles-datomic.md#r=g12884>
+		Article: Val on Programming: Using Datomic in your app: a practical guide <url:file:///~/prj/study/clj/articles-datomic.md#r=g12886>
+		Article: Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions <url:file:///~/prj/study/clj/articles-datomic.md#r=g12885>
+		Article: Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious... <url:file:///~/prj/study/clj/articles-datomic.md#r=g12887>
 reference functions
 	ref: datalog ref <url:file:///~/projects/study/clj/clojure.otl#r=g12868>
 resources datomic id=g12880
@@ -196,6 +204,14 @@ explorations xpl id=g12904
 			Yuvarlak Açıklama:
 				Reverse Lookup: Bir e'ye ref veren tüm varlıklar
 				Forward Lookup: Bir e'nin ref verdiği tüm varlıklar
+logbook
+	Datomic Kod Okumalarından Notlar  <url:file:///~/projects/study/logbook/log_20221119.md#r=g13532>
+	20221119 id=g13531
+		(d/transact)
+			(d/transact conn {:tx-data [[:db/add eid :inv/count 100]]})
+			[:db/add "datomic.tx" :db/doc "correct data entry"]
+			[:db/add [:inv/sku "SKU-21"] <attribute> <value>]
+		
 
 
 

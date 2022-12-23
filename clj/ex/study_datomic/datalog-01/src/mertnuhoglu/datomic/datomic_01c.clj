@@ -1,6 +1,6 @@
 (ns mertnuhoglu.datomic.datomic-01c)
 
-;; 04. Sample Data <url:file:///~/prj/study/clj/archive-datomic.md#r=g13507>
+;; 04. Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13507>
 
 (require '[datomic.client.api :as d])
 

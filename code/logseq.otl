@@ -11,7 +11,10 @@ tutorials articles
 	Logseq Documentation Contents <url:file:///~/projects/study/logbook/log_20221010.md#r=g13448>
 shortcuts id=g12842
 	rfr
-		my logseq shortcuts  ;; <url:file:///~/prj/study/logseq-study/logseq/config.edn#r=g13455>
+		logseq shortcuts custom ;; <url:file:///~/.logseq/config/config.edn#r=g13455>
+			~/codes/clj/lib/logseq/src/main/frontend/modules/shortcut/config.cljs
+			logseq shortcuts custom  ;; <url:file:///~/prj/study/logseq-study/logseq/config.edn#r=g13455>
+			logseq shortcuts custom (myrepo);; <url:file:///~/prj/myrepo/logseq-myrepo/logseq/config.edn#r=g13624>
 		Logseq: Change Keyboard Shortcuts <url:file:///~/prj/study/logbook/log_20221010.md#r=g13454>
 		[Logseq Cheat Sheet by bgrolleman - Download free from Cheatography - Cheatography.com: Cheat Sheets For Every Occasion](https://cheatography.com/bgrolleman/cheat-sheets/logseq/)
 	Quickstart

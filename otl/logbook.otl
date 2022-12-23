@@ -1,6 +1,56 @@
 
 Logbook id=g13256
+	20221222
+		Debug: Portal çalıştırma #clj <url:file:///~/prj/study/logseq-study/journals/2022_12_22.md#r=g13645>
+	20221215
+		Meeting Notes #grsm <url:file:///~/gdrive/grsm/mtng_grsm.md#r=g13635>
+	20221210
+		GTD List grsm <url:file:///~/gdrive/grsm/gtd_list_grsm.md#r=g13631>
+		Global Doc grsm <url:file:///#r=g13632>
+	20221130
+		Article: Would a rich commitment to hierarchies and classification be an anathema to Logseq culture? - General - Logseq #nts <url:file:///~/prj/study/logseq-study/journals/2022_11_30.md#r=g13621>
+		Project PPCM (Checklist Management) otl <url:file:///~/projects/myrepo/logseq-myrepo/pages/prj/ppcm/project-ppcm.md#r=g13618>
+		Project PPXX (Long Name) otl  <url:file:///~/projects/myrepo/opal/template/project-tmpl.otl#r=g13617>
+		Checklist Management ppcm <url:file:///~/prj/myrepo/projects.otl#r=g13616>
+		İngilizce eğitimi ppee <url:file:///~/prj/myrepo/projects.otl#r=g13615>
+		Clojure startup initializer: user.clj #clj #tpc.clj/setup <url:file:///~/prj/study/logseq-study/journals/2022_11_30.md#r=g13614>
+	20221129
+		function! ELogseqStudyJournal() " <url:file:///~/prj/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g13607>
+			SPC ibbs
+			SPC ibbm
+	20221127
+		Genel yaklaşım: Minimalist (savsaklayıcı) ol <url:file:///~/prj/myrepo/prj/cmmi/process_cmmi.otl#r=g13603>
+		Process CMMI otl <url:file:///~/prj/myrepo/prj/cmmi/process_cmmi.otl#r=g13386>
+		Opening Briefing <url:file:///~/prj/myrepo/prj/cmmi/process_cmmi.otl#r=g13600>
+		Process CMMI start to end <url:file:///~/prj/myrepo/prj/cmmi/process_cmmi.otl#r=g13599>
+		Ertelememin bir sebebi de, hep hazırlıklı olmak yönünde kendi kendime koyduğum beklenti. <url:file:///~/prj/myrepo/logseq-myrepo/journals/2022_11_27.md#r=g13598>
+	20221126
+		nbb Readme: nbb scripti (babashka clojurescript) <url:file:///~/prj/study/logbook/log_20221126.md#r=g13593>
+		sndmrt > 20221126-sandbox-notları-datalog-atributu
+		isimlendirme yerine geçici id vermek nasıl olurdu? 20221126 <url:file:///~/prj/myrepo/work/work.otl#r=g13592>
+		Deney: nbb ile repl server  <url:file:///~/projects/study/logbook/log_20221126.md#r=g13591>
+		nbb: nodejs için babashka <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13583>
+		Index babashka  <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g11812>
+		vivaldi > lopalgd
+		vivaldi > gopalgd
+		gdrive > grsm > opal > pdb_decision
+		gdrive > grsm > opal > pdb_datalog
+		vivaldi > gopaldtlg 
+		vivaldi > gopaldcsn
+		vivaldi > mrtdtlg
+	20221124
+		Advanced Queries #logseq <url:file:///~/prj/study/logseq-study/journals/2022_11_24.md#r=g13573>
+		Query tests #logseq <url:file:///~/prj/study/logseq-study/journals/2022_11_24.md#r=g13576>
+		gtd grsm #gtd <url:file:///~/prj/myrepo/logseq-myrepo/pages/grsm.md#r=g13569>
+		grsm Girişimcilik <url:file:///~/prj/myrepo/logseq-myrepo/pages/grsm.md#r=g13568>
+	20221119
+		Datomic Kod Okumalarından Notlar  <url:file:///~/projects/study/logbook/log_20221119.md#r=g13532>
+	20221118 
+		Vim: UTL ile Vimscript komutu oluşturma <url:file:///~/projects/study/logbook/log_20221118.md#r=g13530>
 	20221116 
+		Example: Get Current Datomic Schema <url:file:///~/prj/study/clj/articles-datomic.md#r=g13527>
+		diff diff2  <url:file:///~/prj/study/otl/ccode.otl#r=g13524>
+		delta <url:file:///~/prj/study/otl/ccode.otl#r=g13525>
 		REBL ile datomic verilerini dolaşma #datomic #clj <url:file:///~/projects/study/logbook/log_20221116.md#r=g13522>
 	20221114 
 		Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/archive-datomic.md#r=g13521>

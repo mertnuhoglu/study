@@ -919,6 +919,11 @@ tools tools2
 				csvcut
 					print columns
 						csvcut -n data.csv
+	diff diff2  id=g13524
+		delta id=g13525
+			rfr
+				[dandavison/delta: A syntax-highlighting pager for git, diff, and grep output](https://github.com/dandavison/delta)
+				delta: diff tool <url:file:///~/prj/study/logbook/log_20221116.md#r=g13526>
 	docker docker2 id=g10120
 		rfr: docker <url:file:///~/projects/study/otl/docker.otl#r=g13071>
 	elastic

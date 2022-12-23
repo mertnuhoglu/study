@@ -1,7 +1,7 @@
 (ns mertnuhoglu.day-of-datomic.cloud.hello-world)
 
 ;; [cognitect-labs/day-of-datomic-cloud](https://github.com/cognitect-labs/day-of-datomic-cloud)
-;; rfr: Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/archive-datomic.md#r=g13521>
+;; rfr: Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13521>
 
 (require '[datomic.client.api :as d])
 

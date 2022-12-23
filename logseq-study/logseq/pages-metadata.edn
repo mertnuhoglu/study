@@ -40,6 +40,9 @@
  {:block/name "done",
   :block/created-at 1665403153293,
   :block/updated-at 1665403153293}
+ {:block/name "elon-musk",
+  :block/created-at 1668773431341,
+  :block/updated-at 1668773431341}
  {:block/name "enerji-sektörü",
   :block/created-at 1665756638620,
   :block/updated-at 1665756638620}
@@ -133,9 +136,36 @@
  {:block/name "nov 16th, 2022",
   :block/created-at 1668546024112,
   :block/updated-at 1668546024112}
+ {:block/name "nov 17th, 2022",
+  :block/created-at 1668637789059,
+  :block/updated-at 1668637789059}
+ {:block/name "nov 18th, 2022",
+  :block/created-at 1668721224385,
+  :block/updated-at 1668779619879}
+ {:block/name "nov 19th, 2022",
+  :block/created-at 1668805203089,
+  :block/updated-at 1668805203089}
  {:block/name "nov 1st, 2022",
   :block/created-at 1667251106165,
   :block/updated-at 1667411411400}
+ {:block/name "nov 20th, 2022",
+  :block/created-at 1668891603642,
+  :block/updated-at 1668981487638}
+ {:block/name "nov 21st, 2022",
+  :block/created-at 1668981487619,
+  :block/updated-at 1669015307780}
+ {:block/name "nov 22nd, 2022",
+  :block/created-at 1669065827100,
+  :block/updated-at 1669096319043}
+ {:block/name "nov 23rd, 2022",
+  :block/created-at 1669151998307,
+  :block/updated-at 1669197805955}
+ {:block/name "nov 24th, 2022",
+  :block/created-at 1669238484811,
+  :block/updated-at 1669292367660}
+ {:block/name "nov 25th, 2022",
+  :block/created-at 1669323639781,
+  :block/updated-at 1669323639781}
  {:block/name "nov 2nd, 2022",
   :block/created-at 1667336404208,
   :block/updated-at 1667336404208}
@@ -238,6 +268,9 @@
  {:block/name "qst",
   :block/created-at 1665752711666,
   :block/updated-at 1665752711666}
+ {:block/name "r=g13562>",
+  :block/created-at 1669122879782,
+  :block/updated-at 1669122879782}
  {:block/name "rota-optimizasyonu-sektörü",
   :block/created-at 1667112086318,
   :block/updated-at 1667112086318}
@@ -271,15 +304,27 @@
  {:block/name "tpc/data-visualisation",
   :block/created-at 1666181978642,
   :block/updated-at 1666181978642}
+ {:block/name "tpc/design",
+  :block/created-at 1668779619878,
+  :block/updated-at 1668779619878}
+ {:block/name "tpc/elonmusk",
+  :block/created-at 1669274559872,
+  :block/updated-at 1669274559872}
  {:block/name "tpc/excel",
   :block/created-at 1666161296850,
   :block/updated-at 1666161296850}
  {:block/name "tpc/googlesheets",
   :block/created-at 1666161274080,
   :block/updated-at 1666161274080}
+ {:block/name "tpc/programming",
+  :block/created-at 1669015307779,
+  :block/updated-at 1669015307779}
  {:block/name "tpc/siyaset",
   :block/created-at 1666257983510,
   :block/updated-at 1666257983510}
+ {:block/name "tpc/startup",
+  :block/created-at 1669273724159,
+  :block/updated-at 1669273724159}
  {:block/name "trh",
   :block/created-at 1667493226771,
   :block/updated-at 1667493226771}

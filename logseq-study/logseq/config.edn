@@ -102,6 +102,7 @@
  ;; 4. you can define multiple bindings for one action, eg `["ctrl+j" "down"]`
  ;; full list of configurable shortcuts are available below:
  ;; https://github.com/logseq/logseq/blob/master/src/main/frontend/modules/shortcut/config.cljs
+ ;; ~/codes/clj/lib/logseq/src/main/frontend/modules/shortcut/config.cljs
  ;; Example:
  ;; :shortcuts
  ;; {:editor/new-block       "enter"
@@ -113,27 +114,8 @@
  ;;  :editor/down            ["ctrl+j" "down"]
  ;;  :editor/left            ["ctrl+h" "left"]
  ;;  :editor/right           ["ctrl+l" "right"]}
- :shortcuts  ;; id=g13455
- {
-  :ui/toggle-theme "mod+c mod+t"
-  :go/backward "ctrl+o"
-  :go/forward "ctrl+i"
-   ;; remap insert-link to something else to avoid conflicts
-  :editor/insert-link "ctrl+shift+k"
-  :editor/up ["ctrl+k" "up"]
-  :editor/down ["ctrl+j" "down"]
-  :editor/left ["ctrl+h" "left"]
-  :editor/right ["ctrl+l" "right"]
-  :editor/open-edit ["i" "enter"]
-  :editor/backspace ["ctrl+d" "backspace"] 
-  :date-picker/complete ["enter"]
-  :date-picker/prev-day ["ctrl+h" "left"]
-  :date-picker/next-day ["ctrl+l" "right"]
-  :date-picker/prev-week ["ctrl+k" "up"]
-  :date-picker/next-week ["ctrl+j" "down"] 
-  :auto-complete/prev ["ctrl+k" "up"]
-  :auto-complete/next ["ctrl+j" "down"]
-  :auto-complete/complete ["ctrl+l" "enter"]}
+ :shortcuts  
+ {}
 
  ;; By default, pressing `Enter` in the document mode will create a new line.
  ;; Set this to `true` so that it's the same behaviour as the usual outliner mode.
@@ -246,7 +228,8 @@
  ;; :block-hidden-properties #{}
 
  ;; Enable all your properties to have corresponding pages
- :property-pages/enabled? true}
+ :property-pages/enabled? true
+ :journal/page-title-format "yyyyMMdd"}
 
  ;; Properties to exclude from having property pages
  ;; E.g.:property-pages/excludelist #{:duration :author}

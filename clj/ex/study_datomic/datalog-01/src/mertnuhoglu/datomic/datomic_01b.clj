@@ -1,6 +1,6 @@
 (ns mertnuhoglu.datomic.datomic-01b)
 
-;; Lab: Assertion Tutorial <url:file:///~/prj/study/clj/archive-datomic.md#r=g13506>
+;; Lab: Assertion Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13506>
 
 ;; [Assertion | Datomic](https://docs.datomic.com/cloud/tutorial/assertion.html)
 

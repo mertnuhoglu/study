@@ -102,6 +102,7 @@
  ;; 4. you can define multiple bindings for one action, eg `["ctrl+j" "down"]`
  ;; full list of configurable shortcuts are available below:
  ;; https://github.com/logseq/logseq/blob/master/src/main/frontend/modules/shortcut/config.cljs
+ ;; ~/codes/clj/lib/logseq/src/main/frontend/modules/shortcut/config.cljs
  ;; Example:
  ;; :shortcuts
  ;; {:editor/new-block       "enter"
@@ -115,7 +116,8 @@
  ;;  :editor/right           ["ctrl+l" "right"]}
  :shortcuts  ;; id=g13455
  {
-  :ui/toggle-theme "mod+c mod+t"
+  :command-palette/toggle 
+  :ui/toggle-theme "t n"
   :go/backward "ctrl+o"
   :go/forward "ctrl+i"
    ;; remap insert-link to something else to avoid conflicts
@@ -134,7 +136,6 @@
   :auto-complete/prev ["ctrl+k" "up"]
   :auto-complete/next ["ctrl+j" "down"]
   :auto-complete/complete ["ctrl+l" "enter"]}
-  
 
  ;; By default, pressing `Enter` in the document mode will create a new line.
  ;; Set this to `true` so that it's the same behaviour as the usual outliner mode.
