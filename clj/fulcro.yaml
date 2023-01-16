@@ -30,7 +30,7 @@ topics:
       [(743) Easier REPL-based debugging with scope-capture - Valentin Waeselynck - YouTube](https://www.youtube.com/watch?v=dCInpNWlZ4k&t=146s)
     macro-expand: _
     dirac:
-      ref: <url:file:///~/projects/study/clj/clojure.otl#r=g12454>
+      ref: <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12454>
 use cases:
 anki fulcro:
   ref: |

@@ -2,14 +2,14 @@
 	- ~/projects/study/clj/refcard_clojure.otl
 - index
   collapsed:: true
-	- articles - clj <url:file:///~/prj/study/clj/clojure.otl#r=g13373>
-		- read <url:file:///~/prj/study/clj/clojure.otl#r=g13518>
-		- toread <url:file:///~/prj/study/clj/clojure.otl#r=g13519>
+	- articles - clj <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13373>
+		- read <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13518>
+		- toread <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13519>
 	- articles - datomic <url:file:///~/prj/study/clj/datomic.otl#r=g13413>
-	- gtd - clj <url:file:///~/prj/study/clj/clojure.otl#r=g13055>
-		- öncelikli işler - clj <url:file:///~/prj/study/clj/clojure.otl#r=g13342>
-	- jrnl - clj <url:file:///~/projects/study/clj/clojure.otl#r=g13204>
-	- ndx - clj <url:file:///~/projects/study/clj/clojure.otl#r=g13212>
+	- gtd - clj <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13055>
+		- öncelikli işler - clj <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13342>
+	- jrnl - clj <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13204>
+	- ndx - clj <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13212>
 	- ref
 		- datomic.otl <url:file:///~/projects/study/clj/datomic.otl#r=g12849>
 		- ~/projects/study/clj/fulcro.otl
@@ -23,15 +23,15 @@
 			- ~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01.clj
 		- /Users/mertnuhoglu/projects/study/clj/ex/fulcro/fulcro.iml
 	- rfc quickstart id=g12853
-		- projects <url:file:///~/projects/study/clj/clojure.otl#r=g12848>
-		- datomic <url:file:///~/projects/study/clj/clojure.otl#r=g12850>
-		- Setup a new project  <url:file:///~/projects/study/clj/clojure.otl#r=g11946>
-		- Run REPL <url:file:///~/projects/study/clj/clojure.otl#r=g12068>
-		- Run a clojure script/function/app <url:file:///~/projects/study/clj/clojure.otl#r=g12108>
-		- idioms - kendime göre özetler <url:file:///~/projects/study/clj/clojure.otl#r=g12080>
+		- projects <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12848>
+		- datomic <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12850>
+		- Setup a new project  <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g11946>
+		- Run REPL <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12068>
+		- Run a clojure script/function/app <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12108>
+		- idioms - kendime göre özetler <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12080>
 		- Weird Characters <url:file:///~/projects/study/clj/book_clojure_documentation.md#r=g11401>
-		- editors clojure <url:file:///~/projects/study/clj/clojure.otl#r=g12360>
-		- ClojureScript Koans <url:file:///~/projects/study/clj/clojure.otl#r=g13161>
+		- editors clojure <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12360>
+		- ClojureScript Koans <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13161>
 	- notes
 		- Index babashka  <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g11812>
 - clojure id=g12396 #questions 
@@ -85,7 +85,7 @@
 		- vim conjure
 			- conjure
 				- rfr
-					- sexp editing <url:file:///~/projects/study/clj/clojure.otl#r=g12869>
+					- sexp editing <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12869>
 				- Index: Clojure in Vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11843>
 				- shortcuts
 					- local quick_clojure_map SPC j <url:file:///~/projects/private_dotfiles/.config/nvim/lua/mert/which-key.lua#r=g13215>
@@ -125,7 +125,7 @@
 					- | :Eval  | eval current form          |
 					- | :Eval% | eval file                  |
 			- vim_sexp.md
-				- sexp editing <url:file:///~/projects/study/clj/clojure.otl#r=g12869>
+				- sexp editing <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12869>
 			- Disable linter: <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11965>
 				- call lsp#disable_diagnostics_for_buffer()
 		- emacs
@@ -175,7 +175,6 @@
 		- clojure.repl help functions <url:file:///~/projects/study/clj/book_essential_reference_borgatti.md#r=g11959>
 			- ref_ex: ~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj
 - pnt - clj
-  collapsed:: true
 	- Clojure startup initializer: user.clj #clj #tpc.clj/setup <url:file:///~/prj/study/logseq-study/journals/2022_11_30.md#r=g13614>
 	- 20221130
 	- 20221002
@@ -221,8 +220,8 @@
 		- (conj xs x)
 		- mnemonics: cons'un sonunda s var, bu yüzden xs sonra gelir
 - howto problems
-  collapsed:: true
 	- debugging
+	  collapsed:: true
 		- Study Debugging <url:file:///~/prj/study/clj/debugging.md#r=g13333>
 		- dirac: chrome devtools plugin id=g12454
 			- kurulum:
@@ -247,10 +246,12 @@
 				- hashp for tracing <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g11988>
 				- cider debugging example <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj#r=g11970>
 	- deps.edn
+	  collapsed:: true
 		- find-deps ile search library
 			- ref: find-deps - fuzzy search Maven & Clojars and add deps to deps.edn <url:/Users/mertnuhoglu/projects/private_dotfiles/.config/clojure/deps.edn#tn=;; find-deps - fuzzy search>
 			- clojure -M:project/find-deps http-kit
 	- repl'a mevcut clj namespace'ini yüklemek
+	  collapsed:: true
 		- cursive: load-file veya Send file to REPL
 		- repl:
 			- (require '[my-namespace])
@@ -258,6 +259,7 @@
 				- (require '[clojure.java.io :refer [reader]])
 			- (in-ns 'my-namespace)
 	- Setup a new project  id=g11946
+	  collapsed:: true
 		- New Clojure Project <url:deps_cli.md#r=g11941>
 			- clojure -X:project/new :name main/project01
 				- ; src/main klasörünü oluşturur proje dizininde
@@ -329,20 +331,22 @@
 				- (tap> {:a 1 :b 2})
 		- portal id=g12421
 			- opt00: hem portal hem nrepl
-				- clojure -M:inspect/portal-cli:repl/rebel
+			  				clojure -M:inspect/portal-cli:repl/rebel
 			- opt01: çalışıyor
-				- clojure -M:inspect/portal-cli
-				- (require '[portal.api :as portal])
+			  				clojure -M:inspect/portal-cli
+			  				(require '[portal.api :as portal])
 			- opt02: bozuk
-				- clojure -M:inspect/portal-web
-				- (require '[portal.web :as portal])
+			  				clojure -M:inspect/portal-web
+			  				(require '[portal.web :as portal])
 			- ortak:
-				- (portal/open)
-				- (portal/tap)
-				- (tap> {:accounts [{:name "jen" :email "jen@jen.com"} {:name "sara" :email "sara@sara.com"}]})
+			  				(portal/open)
+			  				(portal/tap)
+			  				(tap> {:accounts [{:name "jen" :email "jen@jen.com"} {:name "sara" :email "sara@sara.com"}]})
 			- opt03: doğrudan main olarak çalıştır
-				- cat deps.edn | clojure -M:portal/cli edn
+			  				cat deps.edn | clojure -M:portal/cli edn
 			- opt03a: doğrudan aliaslar kullan
+				- rfr: 
+					- clojure portal <url:file:///~/.zshrc#r=g13649>
 				- cat deps.edn | edn
 				- cat j01.json | json
 	- Run a clojure script/function/app id=g12108
@@ -393,9 +397,8 @@
 		- Show Documentation in Conjure Floating Window <url:clojure_in_vim.md#r=g11957> ,eb > K
 	- data browser / edn navigation
 		- ref
-			- portal <url:file:///~/projects/study/clj/clojure.otl#r=g12421>
+			- portal <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12421>
 - idioms - kendime göre özetler id=g12080
-  collapsed:: true
 	- let
 		- (let [a b
 			- c a])
@@ -452,8 +455,7 @@
 		- kullanımı:
 			- (-main)
 			- (stop-server)
-- topics 
-  collapsed:: true
+- topics
 	- cljs id=g13300
 		- quickstart
 			- ClojureScript Debugging <url:file:///~/prj/study/clj/debugging.md#r=g13335>
@@ -963,8 +965,8 @@
 	- datomic id=g12850
 		- rfr
 			- datomic.otl <url:file:///~/projects/study/clj/datomic.otl>
-			- articles - datomic <url:file:///~/projects/study/clj/clojure.otl#r=g13040>
-			- gtd - datomic <url:file:///~/projects/study/clj/clojure.otl#r=g13063>
+			- articles - datomic <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13040>
+			- gtd - datomic <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13063>
 		- datalog-01 /Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
 		- Referentially transparent CRUD <url:file:///~/prj/study/logbook/log_20220910.md#r=g13339>
 	- concepts
@@ -1396,7 +1398,6 @@
 			- ; loop <url:refcard_clojure.otl#r=g11309>
 			- ; reduce <url:refcard_clojure.otl#r=g11310>
 - flashcards id=g12065
-  collapsed:: true
 	- ~/projects/study/clj/book_essential_reference_borgatti.md
 		- Book: Essential Reference, Borgatti
 		- -X:project/new :name mertnuhoglu/conjure01
@@ -1480,7 +1481,6 @@
 			- ((constantly 10) nil)
 			- ; 10
 - inbox
-  collapsed:: true
 	- 20210204
 		- debugging cursive: error:
 			- opt01: jdk1.8 tekrar yükleyip dene
@@ -2167,8 +2167,8 @@
 						- /Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/clojurekoans.clj
 					- [functional-koans/clojure-koans](https://github.com/functional-koans/clojure-koans)
 						- /Users/mertnuhoglu/codes/clj/content/clojure-koans
-			- Rich Hickey articles <url:file:///~/projects/study/clj/clojure.otl#r=g13039>
-			- articles - datomic <url:file:///~/projects/study/clj/clojure.otl#r=g13040>
+			- Rich Hickey articles <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13039>
+			- articles - datomic <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13040>
 			- [replikativ / datahike-invoice](https://gitlab.com/replikativ/datahike-invoice) id=g13032
 			- [learn-clojure/resources](https://roamresearch.com/#/app/Zsolt-Blog/page/AC6_8FVVo) id=g13037
 			- [Rich Hickey on Datomic Ions, September 12, 2018 - YouTube](https://www.youtube.com/watch?v=thpzXjmYyGk) id=g13038
@@ -2192,9 +2192,9 @@
 					- debugger
 					- browsing tapped values in threading macros
 			- [FXL - composable data-oriented spreadsheet library for Clojure - Anthony Khong - Scicloj Meeting 20 - YouTube](https://www.youtube.com/watch?v=d6qOzPQ9NUk)
-			- daveray/clawk: Like Awk, but Clojure. <url:file:///~/projects/study/clj/clojure.otl#r=g13041>
-			- clojure-emacs/clj-refactor.el: A CIDER extension that provides powerful commands for refactoring Clojure code. <url:file:///~/projects/study/clj/clojure.otl#r=g13056>
-			- Reduce, Group-by, and Juxt by creating a Look Up Map (Clojure Tutorial) - YouTube <url:file:///~/projects/study/clj/clojure.otl#r=g13042>
+			- daveray/clawk: Like Awk, but Clojure. <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13041>
+			- clojure-emacs/clj-refactor.el: A CIDER extension that provides powerful commands for refactoring Clojure code. <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13056>
+			- Reduce, Group-by, and Juxt by creating a Look Up Map (Clojure Tutorial) - YouTube <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13042>
 			- [Wordle clone in ClojureScript - YouTube](https://www.youtube.com/watch?v=QEEPXuR5wLk)
 			- [Use Clojure to build an API - YouTube](https://www.youtube.com/watch?v=e7BTRR0VBsQ)
 			- [Coast on Clojure](https://coast.swlkr.com/)
@@ -2203,7 +2203,7 @@
 			- [inclojure-org/clojure-by-example: An introduction to Clojure, for programmers who are new to Clojure.](https://github.com/inclojure-org/clojure-by-example)
 			- [PEZ/rich4clojure: Practice Clojure using Interactive Programming in your editor](https://github.com/PEZ/rich4clojure)
 	- örnek uygulamalar - clj id=g13031
-		- replikativ / datahike-invoice <url:file:///~/projects/study/clj/clojure.otl#r=g13032>
+		- replikativ / datahike-invoice <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13032>
 		- [Create a form using ClojureScript and Re-Frame - YouTube](https://www.youtube.com/watch?v=46Rs6_2pw_Y) id=g13054
 		- [Clojure inline tests: example-driven, executable documentation, powered by metadata - YouTube](https://www.youtube.com/watch?v=orFYFwiG1dM)
 		- [Re-usable GUI Components with Re-frame and Atomic Design - Mark Nutter - YouTube](https://www.youtube.com/watch?v=JCY_cHzklRs)
@@ -2211,7 +2211,7 @@
 		- [quoll/asami: A flexible graph store, written in Clojure](https://github.com/quoll/asami) id=g13036
 		- [daveray/clawk: Like Awk, but Clojure.](https://github.com/daveray/clawk) id=g13041
 	- Rich Hickey articles id=g13039
-		- Rich Hickey on Datomic Ions, September 12, 2018 - YouTube <url:file:///~/projects/study/clj/clojure.otl#r=g13038>
+		- Rich Hickey on Datomic Ions, September 12, 2018 - YouTube <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13038>
 	- articles - datomic id=g13040
 		- read
 			- Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube <url:file:///~/projects/study/logbook/log_20220930.md#r=g13424>
@@ -2329,14 +2329,14 @@
 - gtd - clj id=g13055
   collapsed:: true
 	- ndx - gtd - clj id=g13057
-		- örnek uygulamalar - clj <url:file:///~/projects/study/clj/clojure.otl#r=g13031>
+		- örnek uygulamalar - clj <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13031>
 	- öncelikli işler - clj id=g13342
 		- [Val on Programming: DataScript as a Lingua Franca for domain modeling](http://vvvvalvalval.github.io/posts/2018-07-23-datascript-as-a-lingua-franca-for-domain-modeling.html)
 	- sbs - gtd - clj id=g13058
 		- gtd - fulcro id=g13083
 			- Nubank Workspaces
 			- ex06 - fulcro exercises <url:file:///~/projects/myrepo/work/work.otl#r=g12395>
-			- #questions - clojure <url:file:///~/projects/study/clj/clojure.otl#r=g12396>
+			- #questions - clojure <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12396>
 			- #questions - fulcro <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g12397>
 			- [Clojure on Exercism](https://exercism.org/tracks/clojure/concepts)
 			- github PR yönetme
@@ -2357,27 +2357,27 @@
 			- logseq'te sınıflandırma nasıl yapılıyor? id=g13065
 				- bir bloka nasıl yeni bir etiket atarım?
 		- apps - clojure
-			- Create a password manager with Clojure using Babashka, sqlite, honeysql and stash - YouTube <url:file:///~/projects/study/clj/clojure.otl#r=g13084>
+			- Create a password manager with Clojure using Babashka, sqlite, honeysql and stash - YouTube <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13084>
 	- clojure ile veri analizi uygulamaları yap 20220720  <url:file:///~/projects/myrepo/work/work.otl#r=g13160>
 	- bir sürecin adımlarını ve formlarını ve veri alanlarını edn ile modelle 20220720  <url:file:///~/projects/myrepo/work/work.otl#r=g13154>
 	- [6 types of information systems | Dustin Getz](https://typeshare.co/dustingetz/posts/6-types-of-information-systems)
 	- Monad kılavuzunu R ve clj ile uygulamayı dene:
 		- [The Absolute Best Intro to Monads For Software Engineers - YouTube](https://www.youtube.com/watch?v=C2w45qRc3aU)
 	- plan - geliştirilecek örnek clojure uygulamaları  <url:file:///~/projects/myrepo/work/work.otl#r=g12358>
-	- learn-clojure/resources <url:file:///~/projects/study/clj/clojure.otl#r=g13037>
+	- learn-clojure/resources <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13037>
 	- [How to work with files in Clojure - YouTube](https://www.youtube.com/watch?v=Kbhe8kFEwlU)
 	- [clojureD 2020: "Fun with JSON" by Malcolm Sparks - YouTube](https://www.youtube.com/watch?v=gMYQ1vDy7d0)
 - jrnl - clj id=g13204
   collapsed:: true
 	- 20220813
-	- Cross Platform DateTime Awesomeness - Henry Widd - YouTube <url:file:///~/projects/study/clj/clojure.otl#r=g13203>
-	- java - What's the difference between Instant and LocalDateTime? - Stack Overflow <url:file:///~/projects/study/clj/clojure.otl#r=g13205>
+	- Cross Platform DateTime Awesomeness - Henry Widd - YouTube <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13203>
+	- java - What's the difference between Instant and LocalDateTime? - Stack Overflow <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13205>
 	- 20220815
-	- Should I use java.util.Date or switch to java.time.LocalDate - Stack Overflow <url:file:///~/projects/study/clj/clojure.otl#r=g13206>
-	- tick - date time library <url:file:///~/projects/study/clj/clojure.otl#r=g13208>
+	- Should I use java.util.Date or switch to java.time.LocalDate - Stack Overflow <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13206>
+	- tick - date time library <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13208>
 	- 20220817
-	- tick examples: Countdown Timers <url:file:///~/projects/study/clj/clojure.otl#r=g13211>
-	- function list - tick <url:file:///~/projects/study/clj/clojure.otl#r=g13214>
+	- tick examples: Countdown Timers <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13211>
+	- function list - tick <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13214>
 	- 20220903
 	- error: there were no modules containing clojure.main #clj <url:file:///~/projects/study/logbook/log_20220903.md#r=g13270>
 	- 20220904
@@ -2386,5 +2386,5 @@
   collapsed:: true
 	- Study Devcards  <url:file:///~/prj/study/clj/devcards.md#r=g13299>
 	- kod okuma örnekleri - clj id=g13213
-		- tick examples: Countdown Timers <url:file:///~/projects/study/clj/clojure.otl#r=g13211>
-		- tick - date time library <url:file:///~/projects/study/clj/clojure.otl#r=g13208>
+		- tick examples: Countdown Timers <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13211>
+		- tick - date time library <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13208>

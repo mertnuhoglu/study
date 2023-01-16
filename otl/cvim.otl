@@ -13,6 +13,13 @@ kendi kullanım yöntemlerim
 			ref:
 				which-key vim-bookmarks: SPC m <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12560>
 pnt
+	md bufferlarına özel kısayol nasıl tanımlanır? id=g13669
+		[Can you have file type-specific key bindings in Vim? - Stack Overflow](https://stackoverflow.com/questions/6133341/can-you-have-file-type-specific-key-bindings-in-vim)
+		autocmd FileType python map <buffer> <C-G> ...
+	md dosyalarının file type'ı nedir? id=g13670
+		set filetype?
+		vimwiki
+		autocmd FileType vimwiki map <buffer> <C-G> ...
 	Generate UUID in Vim  id=g13451
 		rfr
 			Generate UUID in Vim <url:file:///~/projects/study/logbook/log_20221011.md#r=g13449>
@@ -248,6 +255,30 @@ neovim documentation
 						[nanotee/sqls.nvim: Neovim plugin for sqls that leverages the built-in LSP client](https://github.com/nanotee/sqls.nvim)
 						[lighttiger2505/sqls: SQL language server written in Go.](https://github.com/lighttiger2505/sqls)
 plugins
+	calendar id=g13674
+		rfr
+			[renerocksai/calendar-vim: calendar vimscript](https://github.com/renerocksai/calendar-vim)
+		:Calendar
+		:CalendarT
+			full screen
+	vimwiki id=g13671
+		wikilink linklerinin navigasyonu için
+		örnek: [[this-is-a-link]]
+		alternatif: mkdnflow
+		mkdnflow lua ile yapılmış, ama vimwiki daha düzgün çalışıyor
+		ancak vimwiki her dosya açılırken "no mapping found" warning mesajları veriyor
+	mkdnflow id=g13668
+		rfr
+			[jakewvincent/mkdnflow.nvim: Fluent navigation and management of markdown notebooks](https://github.com/jakewvincent/mkdnflow.nvim)
+			~/prj/private_dotfiles/.config/nvim/lua/mert/mkdnflow.lua
+		wikilink linklerinin navigasyonu için
+		örnek: [[this-is-a-link]]
+		ancak bu wikilink stilinde çalıştırmayı başaramadım. şunlarla çalışıyor:
+			[[Working-Environment|Title]]
+			[[Working-Environment|]]
+			[Working-Environment.md](Working-Environment.md)
+			[Working-Environment.md](./Working-Environment.md)
+		alternatif: vimwiki
 	lsp plugins
 		lspkind-nvim
 			ref

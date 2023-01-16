@@ -704,3 +704,6 @@ rfr: `/Users/mertnuhoglu/prj/study/clj/ex/dumdom/dumdom02/deps.edn`
 `~/prj/study/clj/ex/study_figwheel/figwheel11/deps.edn`
 
 Error: Hata veriyor.
+
+[clojure.md](clojure.md)
+[clojure.md](./clojure.md)

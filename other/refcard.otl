@@ -1,6 +1,6 @@
 
 parent
-	refmine kms <url:file:///~/projects/study/other/refmine.otl#r=g_11660>
+	refmine kms <url:file:///~/projects/study/other/refmine.otl#r=g11660>
 mine
 	study_docs
 		~/projects/study/code/study_visidata.md
@@ -13,27 +13,27 @@ mine
 		file
 			Emvc
 			Cdstudy
-clojure id=g_11314
+clojure id=g11314
 	clojure refcard <url:/Users/mertnuhoglu/projects/study/clj/refcard_clojure.otl#tn=>
 emacs
-	spacemacs refcard <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11015>
+	spacemacs refcard <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g11015>
 		| SPC f e d | open ~/.spacemacs            | find-dotfile              |
 		| SPC ?     | search for key bindings      | show keybindings          |
 		| SPC SPC   | list and search all commands | M-x                       |
-	my keybindings <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11016>
-	important tasks <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g_11017>
+	my keybindings <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g11016>
+	important tasks <url:file:///~/projects/study/emacs/study_spacemacs.md#r=g11017>
 vim
 	mine
 		Emvc
 		ERef
 		vim-infoman.vim
-			ref: spacemacs compatible keybindings for reference management <url:file:///~/projects/vim_repos/vim-infoman/plugin/vim-infoman.vim#r=g_11006>
+			ref: spacemacs compatible keybindings for reference management <url:file:///~/projects/vim_repos/vim-infoman/plugin/vim-infoman.vim#r=g11006>
 		my-vim-custom.vim
-			ref: compatible keybindings: vim vs spacemacs vim-which-key <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11007>
+			ref: compatible keybindings: vim vs spacemacs vim-which-key <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g11007>
 	digraph unicode symbols
 		mine
 			ref
-				mathematical symbols digraph <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g_11564>
+				mathematical symbols digraph <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g11564>
 			:FUnicode
 				Space czu
 			:FDigraph
@@ -131,11 +131,11 @@ cli
 		i	pager
 		e	editor
 		$	shell
-hugo refcard id=g_11654
-	universal theme: sıfırdan oluşturma <url:file:///~/projects/study/logbook/hugo_universal_theme_customization_nuhogluvakfi_20190913.md#r=g_11635>
+hugo refcard id=g11654
+	universal theme: sıfırdan oluşturma <url:file:///~/projects/study/logbook/hugo_universal_theme_customization_nuhogluvakfi_20190913.md#r=g11635>
 	index
-		Migrate burakpehlivan.org from wordrpress to hugo <url:file:///~/projects/study/logbook/hugo_burakpehlivan_org_20201011.md#r=g_11640>
-		hugo: nuhoglu.org.tr taşıma 20201010  <url:file:///~/projects/study/logbook/log_20201009.md#r=g_11633>
+		Migrate burakpehlivan.org from wordrpress to hugo <url:file:///~/projects/study/logbook/hugo_burakpehlivan_org_20201011.md#r=g11640>
+		hugo: nuhoglu.org.tr taşıma 20201010  <url:file:///~/projects/study/logbook/log_20201009.md#r=g11633>
 		~/projects/study/code/study_hugo.md
 osx
 	print photo
@@ -149,20 +149,24 @@ osx
 				Open in Skim pdf viewer
 				File > Print > Paper Size > Postcard 3.94 5.83
 	keybindings for editing text fields
-		ref: osx keybindings for editing text <url:file:///~/projects/study/osx/study_macos_osx.md#r=g_11010>
+		ref: osx keybindings for editing text <url:file:///~/projects/study/osx/study_macos_osx.md#r=g11010>
 			#<- #->	beginning/end of line
 			^a ^e	beginning/end of line
 			| ^k            | kill/cut line          |
 			| ^y            | yank/paste line        |
 	keyboard layout
-		ref: Quickstart Ukulele <url:file:///~/projects/study/osx/ukelele.md#r=g_11829>
-webapps
-	googlesheets google sheets sheets2 id=g_12085
-		!up/dn	next/prev sheet
-		#/	help keyboard shortcuts	
-		+enter	bir hücreyi editleme
-		,#enter	hücre içinde yeni satır
-	gdrive gdrive2 google drive id=g_11799
+		ref: Quickstart Ukulele <url:file:///~/projects/study/osx/ukelele.md#r=g11829>
+webapps id=g13655
+	googlesheets google sheets sheets2 id=g12085
+		shortcuts
+			!up/dn	next/prev sheet
+			#/	help keyboard shortcuts	
+			+enter	bir hücreyi editleme
+			,#enter	hücre içinde yeni satır
+		plugins
+			[philc/sheetkeys](https://github.com/philc/sheetkeys) id=g13656
+				[How to install from source · philc/sheetkeys Wiki](https://github.com/philc/sheetkeys/wiki/How-to-install-from-source)
+	gdrive gdrive2 google drive id=g11799
 		shortcuts
 			#!ü | search gdrive
 		error: too slow sync
@@ -194,9 +198,9 @@ apps
 		previews
 		lots of customization
 	visidata vd
-		refcard visidata <url:file:///~/projects/study/code/study_visidata.md#r=g_11578>
+		refcard visidata <url:file:///~/projects/study/code/study_visidata.md#r=g11578>
 	hammerspoon
-		find name of application <url:file:///~/projects/study/logbook/log_20200717.md#r=g_11480>
+		find name of application <url:file:///~/projects/study/logbook/log_20200717.md#r=g11480>
 			Find name in `Applications` directory: `zoom.us.app`
 			osascript -e 'id of app "zoom.us"'
 				##> us.zoom.xos
@@ -205,12 +209,12 @@ apps
 		#a	action menu
 		SPC SPC	action menu
 		| !+ SPC       | quicklist: popups |
-		intellij refcard <url:file:///~/projects/study/code/study_intellij.md#r=g_11014>
-		my customizations <url:file:///~/projects/study/code/study_intellij.md#r=g_10996>
-		my quick lists <url:file:///~/projects/study/code/study_intellij.md#r=g_10995>
+		intellij refcard <url:file:///~/projects/study/code/study_intellij.md#r=g11014>
+		my customizations <url:file:///~/projects/study/code/study_intellij.md#r=g10996>
+		my quick lists <url:file:///~/projects/study/code/study_intellij.md#r=g10995>
 		study_intellij_ideavim.md <url:file:///~/projects/study/code/study_intellij_ideavim.md>
 	fragment image viewer
-		Quickstart Fragment <url:file:///~/projects/study/code/study_fragment_image_viewer.md#r=g_11682>
+		Quickstart Fragment <url:file:///~/projects/study/code/study_fragment_image_viewer.md#r=g11682>
 	
 tips
 	Hide/show menu bar

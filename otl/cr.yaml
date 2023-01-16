@@ -2695,7 +2695,9 @@ info:
     library("rmarkdown")
   rmarkdown/run: >
     rmarkdown::render("input.Rmd")
+    render("input.Rmd", "ioslides_presentation")
     render("input.Rmd", "pdf_document")
+    render("input.Rmd", "html_document")
   rmarkdown/Presenter Mode: >
     add this to the end of the url while starting
     ?presentme=true

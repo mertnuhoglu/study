@@ -55,12 +55,12 @@ my questions
 			remote client to a peer server
 issues
 	run repl + Rebl + portal id=g12891
-		ref: multiple repls together: <url:file:///~/projects/study/clj/clojure.otl#r=g12447>
+		ref: multiple repls together: <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12447>
 		prerequisite: 
 			deps.edn configuration <url:file:///~/projects/study/clj/datomic.otl#r=g12890>
 		clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl:inspect/portal-cli
 		vim: :ConjureConnect
-		cursive: Remote nREPL Connection <url:file:///~/projects/study/clj/clojure.otl#r=g12889>
+		cursive: Remote nREPL Connection <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12889>
 	deps.edn configuration id=g12890
 		ref: ~/codes/clj/ex/day-of-datomic-cloud/deps.edn
 		com.datomic/dev-local {:mvn/version "0.9.225"}
@@ -127,7 +127,7 @@ articles - datomic id=g13413
 		Article: Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions <url:file:///~/prj/study/clj/articles-datomic.md#r=g12885>
 		Article: Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious... <url:file:///~/prj/study/clj/articles-datomic.md#r=g12887>
 reference functions
-	ref: datalog ref <url:file:///~/projects/study/clj/clojure.otl#r=g12868>
+	ref: datalog ref <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12868>
 resources datomic id=g12880
 	[Introduction | Datomic](https://docs.datomic.com/on-prem/tutorial/introduction.html)
 	[Datomic Cloud Documentation](https://docs.datomic.com/)

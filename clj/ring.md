@@ -16,7 +16,7 @@ output:
 
 # Index
 
-`Ring suyu <url:file:///~/projects/study/clj/clojure.otl#r=g12082>`
+`Ring suyu <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12082>`
 
 # Official Documentation
 

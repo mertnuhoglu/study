@@ -10,7 +10,16 @@ ndx
 	awk <url:file:///~/projects/study/otl/ccode.otl#r=g11686>
 	bash <url:file:///~/projects/study/otl/ccode.otl#r=g11687>
 	osx osx2 macbook <url:file:///~/projects/study/otl/ccode.otl#r=g13010>
+	pkm tools <url:file:///~/projects/study/otl/ccode.otl=g13667>
 pnt
+	pkm tools id=g13667
+		logseq: logseq2 outliner notes manager pkm <url:file:///~/projects/study/otl/ccode.otl=g13499>
+		obsidian: pkm <url:file:///~/prj/study/otl/ccode.otl#r=g13498>
+		[zk](https://github.com/mickael-menu/zk)
+		dendron
+		[Neuron Zettelkasten](https://neuron.zettel.page/editor)
+		[Emanote](https://emanote.srid.ca/)
+		[jakewvincent/mkdnflow.nvim](https://github.com/jakewvincent/mkdnflow.nvim)
 	text expansion expander (metin tamamlama, auto completion) uygulaması: espanso id=g13472
 		rfr:
 			Espanso (Text Expansion) <url:file:///~/prj/study/logseq-study/pages/espanso.md#r=g13473>
@@ -1125,7 +1134,6 @@ tools tools2
 					print(rkafka.read(consumer1))
 					print(rkafka.readPoll(consumer1))
 				test arguments
-					
 	kitty terminal manager
 		ref
 			~/projects/study/code/study_kitty.otl

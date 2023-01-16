@@ -5,6 +5,8 @@
         io.replikativ/datahike {:mvn/version "0.4.1491"}
         org.clojure/data.xml {:mvn/version "0.0.8"}
         fipp/fipp {:mvn/version "0.6.24"}
+        djblue/portal {:mvn/version "0.35.0"}
+        clj-commons/clj-yaml {:mvn/version "0.7.0"}
         com.datomic/client-pro {:mvn/version "1.0.75"}
         com.datomic/datomic-pro {:mvn/version "1.0.6397"}
         com.datomic/dev-local {:mvn/version "1.0.243"}

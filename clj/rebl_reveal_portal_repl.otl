@@ -1,6 +1,6 @@
 ref
-	rebl rebl2 <url:file:///~/projects/study/clj/clojure.otl#r=g12423>
-	run REBL <url:file:///~/projects/study/clj/clojure.otl#r=g12422>
+	rebl rebl2 <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12423>
+	run REBL <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12422>
 örnek kod denemeleri
 	common
 		cd /Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06

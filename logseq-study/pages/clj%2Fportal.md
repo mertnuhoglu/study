@@ -1,13 +1,11 @@
-tags:: tag
-
-- Tüm datomic blokları
+-
+- Query Template: Find tag
 	- query-table:: true
 	  #+BEGIN_QUERY
-	  {:title "Find: Datomic blokları"
+	  {:title "Find: clj/portal blokları"
 	   :query [:find (pull ?b [*])
 	                :where
-	                [?p :block/name "datomic"]
+	                [?p :block/name "clj/portal"]
 	                [?b :block/ref-pages ?p]]
 	  }
 	  #+END_QUERY
--
