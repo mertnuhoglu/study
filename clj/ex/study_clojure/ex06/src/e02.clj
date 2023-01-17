@@ -1,5 +1,7 @@
 (ns e02)
 
+; Tarih: 20230117
+
 ; isimlendirme standartları:
 ; m ~ map
 ; k ~ key
