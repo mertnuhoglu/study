@@ -1,0 +1,4 @@
+- rfr: [Hierarchical tag system - Questions & Help - Logseq](https://discuss.logseq.com/t/hierarchical-tag-system/3335)
+- örnek:
+	- #[[logseq/query]] Bu blok hem logseq sayfasından, hem de logseq/query sayfasından erişilebilir olmalı.
+	-
