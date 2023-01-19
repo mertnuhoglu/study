@@ -44,3 +44,17 @@
 
 {:A []}
 
+(def dbSample {
+               :person [{:id 1 :name "lodos" :surname "eskioğlu" :joindate "01.06.2022" :experience 1 :loyalitylevel 1 :worktime 3}
+                        {:id 2 :name "alp" :surname "boriçi" :joindate "04.04.2021" :experience 2 :loyalitylevel 2 :worktime 1}
+                        {:id 3 :name "emir" :surname "sürmeli" :joindate "09.01.2022" :experience 3 :loyalitylevel 1 :worktime 2}
+                        {:id 4 :name "deniz" :surname "zengin" :joindate "07.08.2020" :experience 2 :loyalitylevel 2 :worktime 1}
+                        {:id 5 :name "alphan" :surname "kaplan" :joindate "01.03.2022" :experience 1 :loyalitylevel 1 :worktime 3}
+                        {:id 6 :name "barış" :surname "can" :joindate "04.04.2020" :experience 2 :loyalitylevel 2 :worktime 1}]
+
+               :employees [:developerteam [:frontend [{:person 1}
+                                                      {:person 2}
+                                                      {:person 3}
+                                                      {:person 4}]
+                                           :backend [{:person 5}
+                                                     {:person 6}]]]})
