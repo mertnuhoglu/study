@@ -2,6 +2,7 @@
 
 ; Tarih: 20230120
 ; Barış'la Clojure Egzersizleri
+; rfr: video/20230120-mert-clj-egzersiz-07.mp4
 
 ; p01: Foreign key ne anlama geliyor map türü veri yapılarında?
 
@@ -118,7 +119,7 @@
     (filter #(-> (:name %1)
                (= "lodos")))
     (first)))
-(print p1)
+(identity p1)
 ;=> {:person/id 1, :name "lodos", :surname "eskioğlu", :managers #:manager{:id 1}}
 
 ; şimdi p1 objesinin (yani başka bir deyişle lodos kişisinin) yöneticilerini bulalım
@@ -173,15 +174,16 @@
 ;=> 3
 
 ; buna da bir isim verelim
-(def smid (->
-            (filter
-              #(->
-                 (:manager/id %1)
-                 (= searched_manager))
-              ms)
-            (first)
-            (:manager/person)
-            (second)))
+(def smid
+  (->
+    (filter
+      #(->
+         (:manager/id %1)
+         (= searched_manager))
+      ms)
+    (first)
+    (:manager/person)
+    (second)))
 
 (def ps (-> db
           (:person)))
@@ -195,3 +197,6 @@
   (first)
   (:name))
 ;=> "emir"
+
+; print yerine identity fonksiyonuyla değişkenlerin değerlerini inceleyebiliriz
+(identity smid)

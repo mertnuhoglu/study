@@ -1,8 +1,8 @@
 (ns e03)
 
 ; Tarih: 20230117
-
-; Barış'ın örnek alıştırmaları:
+; Barış'ın Clojure örnek alıştırmaları:
+; rfr: video/20230117-mert-clj-egzersiz-03.mp4
 
 ;örnek bir map oluşturalım ve içerisine bir vector ekleyelin.
 (def mapExp {

@@ -2,6 +2,7 @@
 
 ; Tarih: 20230118
 ; Barış'la clojure çalışması
+; rfr: video/20230118-mert-clj-egzersiz-04.mp4
 
 (def dbSample {
                :employees [:developerteam [:frontend [{:name "lodos" :surname "eskioğlu" :joindate "01.06.2022" :experience 1 :loyalitylevel 1 :worktime 3}

@@ -1,7 +1,7 @@
-(ns e01
-  (:require [reitit.ring.middleware.muuntaja :as x]))
+(ns e01)
 
 ;; Barış Can 20230109
+;; rfr: video/20230113-mert-clj-egzersiz-01.mp4
 
 (defn f1 [x]
   (* 2 x))

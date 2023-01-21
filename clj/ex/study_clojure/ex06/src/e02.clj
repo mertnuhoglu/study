@@ -1,6 +1,8 @@
 (ns e02)
 
 ; Tarih: 20230117
+; Barış'la Clojure Egzersizleri
+; rfr: video/20230116-mert-clj-egzersiz-02.mp4
 
 ; isimlendirme standartları:
 ; m ~ map
