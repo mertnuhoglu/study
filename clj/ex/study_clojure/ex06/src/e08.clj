@@ -2,6 +2,7 @@
 
 ; Tarih: 20230120
 ; Barış'la Clojure Egzersizleri
+; rfr: video/20230121-mert-clj-egzersiz-09.mp4
 
 (def dbSample {
                :person                   [{:person/id 1 :name "lodos" :surname "eskioğlu" :join-date "01.06.2022" :experience :experience/starter :loyality-level :loyality-level/zero-one-years :work-type :work-type/internship :work-time :worktime/part-time :managers {:manager/id 2}}
