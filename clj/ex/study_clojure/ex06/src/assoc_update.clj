@@ -2,7 +2,8 @@
 
 ;; ## assoc-in
 
-(def users [{:name "James" :age 26}  {:name "John" :age 43}])
+(def users [{:name "James" :age 26}
+            {:name "John" :age 43}])
 
 (assoc-in users [1 :age] 44)
 ;;=> [{:name "James", :age 26} {:name "John", :age 44}]
