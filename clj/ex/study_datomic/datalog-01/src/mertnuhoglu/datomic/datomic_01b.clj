@@ -1,6 +1,6 @@
 (ns mertnuhoglu.datomic.datomic-01b)
 
-;; Lab: Assertion Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13506>
+;; Lab: Assertion Tutorial <url:file:///~/prj/study/clj/datomic_lab_assertion_tutorial.md#r=g13506>
 
 ;; [Assertion | Datomic](https://docs.datomic.com/cloud/tutorial/assertion.html)
 
@@ -53,6 +53,9 @@
 
 (def types [:shirt :pants :dress :hat])
 (def colors [:red :green :blue :yellow])
+
+(make-idents types)
+;=> [#:db{:ident :shirt} #:db{:ident :pants} #:db{:ident :dress} #:db{:ident :hat}]
 
 (d/transact conn {:tx-data (make-idents sizes)})
 (d/transact conn {:tx-data (make-idents colors)})

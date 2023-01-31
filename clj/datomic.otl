@@ -4,6 +4,8 @@ datomic.otl id=g13023
 ref
 	Day Of Datomic Cloud otl <url:file:///~/projects/study/clj/articles-datomic.md#r=g12849>
 study-order datomic id=g12866
+	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
+	[Learn Datalog Today!](http://www.learndatalogtoday.org/)
 	Datomic Kod Okumalarından Notlar  <url:file:///~/projects/study/logbook/log_20221119.md#r=g13532>
 	/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01b.clj
 	Connect to Sample Database <url:file:///~/prj/study/clj/articles-datomic.md#r=g13507>
@@ -14,8 +16,100 @@ study-order datomic id=g12866
 	Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13521>
 	Article: mbrainz tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g12871>
 	/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/README.md
-	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
 pnt
+	datomic okuma planı 20221113 id=g13676
+		rfr
+			work: datomic okuma planı 20221113  <url:file:///~/prj/myrepo/work/work4.otl#r=g13517>
+		pln 00
+			study-order datomic <url:file:///~/projects/study/clj/datomic.otl#r=g12866>
+			[DOMAIN MODELING WITH DATALOG by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw) @datomic
+			mbrainz tutorial <url:file:///~/prj/study/clj/datomic.otl#r=g12871>
+			/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
+			articles - datomic <url:file:///~/projects/study/clj/datomic.otl#r=g13413>
+			resources datomic <url:file:///~/projects/study/clj/datomic.otl#r=g12880>
+		pln 01
+			[markbastian/datascript-playground](https://github.com/markbastian/datascript-playground) @datomic
+			[Max Datom - Interactive Datomic Tutorial](https://max-datom.com/) @datomic
+			[Learn Datalog Today!](http://www.learndatalogtoday.org/) @datomic
+			[ftravers/datomic-tutorial](https://github.com/ftravers/datomic-tutorial) @datomic
+			[Lambda Island](https://lambdaisland.com/episodes/datomic-quickstart-part-1) @datomic @tutorial
+			[mchampine/dscript: DataScript examples and practice](https://github.com/mchampine/dscript) #datomic #example
+		pln ex
+			[vvvvalvalval/datascript-declarative-model-example](https://github.com/vvvvalvalval/datascript-declarative-model-example) @datomic
+			[Clojure Datomic Exercise | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2020/11/14/clojure-datomic-exercise.html) @datomic
+			[markbastian/clojure-exercises: A variety of Clojure puzzlers, problems, and solutions](https://github.com/markbastian/clojure-exercises) @exercise
+			[Clojure & Datalog is Lisp & Prolog | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2022/01/13/datalog-exercises.html) @datomic @tutorial
+			[kristianmandrup/datascript-tutorial: Datascript and Datomic tutorial book](https://github.com/kristianmandrup/datascript-tutorial) @datomic @tutorial
+			[Entity event log in Datomic | jherrlin](https://jherrlin.github.io/posts/datomic-entity-event-log/) @datomic @tutorial @1
+			[subhash/clj-stack: A full-stack Clojure tutorial](https://github.com/subhash/clj-stack) @datomic @project
+			[markbastian/datascript-playground](https://github.com/markbastian/datascript-playground/tree/master/src/main/clj/datascript_playground) @datomic @examples
+			[replikativ / datahike-invoice · GitLab](https://gitlab.com/replikativ/datahike-invoice) @datomic @examples
+			[Datomic MusicBrainz Sample Database – Nextjournal](https://nextjournal.com/kommen/datomic) id=g13066 @datomic @examples
+			[Clojure Datomic Exercise | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2020/11/14/clojure-datomic-exercise.html) id=g13067 @datomic @examples
+			[1: Getting Started with Crux – A Tale of Time and Space – Nextjournal](https://nextjournal.com/crux-tutorial/start) @datomic @examples
+			[A Bitemporal tale – History. Of histories. – Nextjournal](https://nextjournal.com/crux/a-bitemporal-tale) @datomic @examples
+			[Conditional Queries in Datomic](https://grishaev.me/en/datomic-query/) @datomic @examples
+			[Tag: Datomic - Curious Programmer](https://curiousprogrammer.dev/tag/datomic) @datomic @examples
+			[Conversations With Datomic - Squid's Blog](http://gigasquidsoftware.com/blog/2015/08/15/conversations-with-datomic/) @datomic @examples
+			[clojure-north-2020/x07_queries.clj at master · markbastian/clojure-north-2020](https://github.com/markbastian/clojure-north-2020/blob/master/src/clojure_north_2020/ch02_datalog/x07_queries.clj) @datomic @examples
+			[Building Marvelous and Heroic Systems from the Ground Up - Mark Bastian (Workshop) - YouTube](https://www.youtube.com/watch?v=eink6oICdOQ) @datomic @examples
+			[clojure-north-2020 -- Marginalia](https://markbastian.github.io/clojure-north-2020/docs/uberdoc.html) @datomic @examples
+			[clojure-cookbook/6-15_traversing-indices.asciidoc at master · clojure-cookbook/clojure-cookbook](https://github.com/clojure-cookbook/clojure-cookbook/blob/master/06_databases/6-15_traversing-indices.asciidoc) @datomic
+			[clojure-cookbook/6-12_transact-basics.asciidoc at master · clojure-cookbook/clojure-cookbook](https://github.com/clojure-cookbook/clojure-cookbook/blob/master/06_databases/6-12_transact-basics.asciidoc) @datomic
+			[Val on Programming: Using Datomic in your app: a practical guide](https://vvvvalvalval.github.io/posts/2016-07-24-datomic-web-app-a-practical-guide.html) @datomic
+			[Intro to Datomic - YouTube](https://www.youtube.com/watch?v=RKcqYZZ9RDY) @datomic @richhickey
+			[Datomic: up and running - YouTube](https://www.youtube.com/watch?v=ao7xEwCjrWQ&t=1769s) @datomic
+			[Learn Datalog Today Chapters 1-4 (Clojure Livecoding Stream) - YouTube](https://www.youtube.com/watch?v=8bc4mBRmmbg) @datomic
+			[Intro into using Crux Db with Clojure - YouTube](https://www.youtube.com/watch?v=_L50rsoDBxQ) @datomic
+			[Datalog Links and Notes](https://gist.github.com/pithyless/e00362aa6061bfb4e4749079a33be073) @datomic
+			[stevebuik/clj-code-gen-hodur: Generates a simple datascript ORM from a Hodur schema. Used as a presentation at Clojure Sydney in May 2019](https://github.com/stevebuik/clj-code-gen-hodur) @datomic
+			[dwhjames/datomic-linklist: A Datomic library of schema attributes and database functions to implement linked-list structures in Datomic.](https://github.com/dwhjames/datomic-linklist) @datomic
+			[Datomic/ion-starter](https://github.com/Datomic/ion-starter) @datomic @example
+		pln prj
+			[Mamun/clojure-web-app: Clojure web application using compojure, enlive, datomic, clojurescript](https://github.com/Mamun/clojure-web-app)
+			[Coding the τhosmos: Realworld Clojure in a Vase on a Pedestal](https://code.thosmos.com/posts/2018-05-06-realworld-vase.html)
+			[maxweber/todomvc-db-view: An example app that demonstrates the db-view approach](https://github.com/maxweber/todomvc-db-view) @datomic @project
+				[The blog of Max Weber: Introducing db-view - Part 1](https://maxweber.github.io/blog/2019-07-25-introducing-db-view-part-1)
+			[Building a CRUD app with Datomic Cloud Ions](https://jacobobryant.com/p/post-2019-ion/) @datomic @project
+			[jacobobryant/flexbudget: FlexBudget, a flexible budgeting app](https://github.com/jacobobryant/flexbudget) @datomic @project
+			[jacobobryant/clue](https://github.com/jacobobryant/clue) @datomic @project
+			[markbastian/tetris: A simple Tetris-like game written in Clojure(Script)](https://github.com/markbastian/tetris) @project
+			[markbastian/7guis](https://github.com/markbastian/7guis) @project
+			[imalooney/t3tr0s: 30th anniversary tetris in ClojureScript](https://github.com/imalooney/t3tr0s) @project
+		pln ui
+			[Incremental Datalog with Differential Dataflows](https://www.nikolasgoebel.com/2018/09/13/incremental-datalog.html) @datomic @frp 1
+			[Pushing Database Changes to the Web with Datomic](https://fuqua.io/blog/2014/05/pushing-database-changes-to-the-web-with-datomic/) @datomic
+			[Biff - Web framework](https://biffweb.com/) @datomic @ui
+			[mpdairy/posh: A luxuriously simple and powerful way to make front-ends with DataScript and Reagent in Clojure.](https://github.com/mpdairy/posh) @datomic @ui
+			[metasoarous/datsys: (+ clj cljs datomic datascript re-frame-esque-frp)](https://github.com/metasoarous/datsys) @datomic @ui
+		pln eql
+			[souenzzo/eql-style-guide](https://github.com/souenzzo/eql-style-guide) @eql
+			[souenzzo/eql-as: Aliases in EQL](https://github.com/souenzzo/eql-as) @eql
+			[souenzzo/eql-datomic: ast->query and query->ast for datomic pull syntax](https://github.com/souenzzo/eql-datomic) @datomic @eql
+		pln tools
+			[(148) A Quick Demo of Metabase+Datomic - YouTube](https://www.youtube.com/watch?v=6eLME2TZ7oU) @datomic @tool
+			[bostonaholic/datomic-export: A Clojure library designed to export datomic data to flat files.](https://github.com/bostonaholic/datomic-export) @datomic @tool
+			[(148) Datomic QBuilder Console Preview - YouTube](https://www.youtube.com/watch?v=1SSmsKTfFRk)
+			[David Greenberg - Building Interactive Query Tools on Datomic - YouTube](https://www.youtube.com/watch?v=YHctJMUG8bI) @datomic
+			[sixthnormal/pullql: A GraphQL-like query language for DataScript, optimized for execution across many entities at once.](https://github.com/sixthnormal/pullql) @datomic
+			[tatut/xtdb-inspector: Web UI for inspecting XTDB database](https://github.com/tatut/xtdb-inspector) @datomic @tll
+			[Datomic/simulant](https://github.com/Datomic/simulant) @datomic
+			[vvvvalvalval/datofu: there's a :db/fn for that](https://github.com/vvvvalvalval/datofu) @datomic
+			[mtnygard/datoms-say-what: Visualize the results of a Datomic transaction.](https://github.com/mtnygard/datoms-say-what) @datomic @tool
+		pln schema
+			[Coding the τhosmos: Spec-Driven UI](https://code.thosmos.com/posts/2019-12-04-spec-driven-ui.html) @datomic
+			[A Unified Specification](https://cjohansen.no/a-unified-specification/) @datomic
+		pln logic
+			[Data modeling in Datomic – Dev – RotaDEV.com](https://rotadev.com/data-modeling-in-datomic-dev/) @datomic
+			[Let over map merge: Using Datomic in my app](https://humorless.github.io/posts-output/datomic) @datomic
+			[Clojure in the Database · subhash/clj-stack Wiki](https://github.com/subhash/clj-stack/wiki/Clojure-in-the-Database) @datomic
+			[Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions](https://cognitect.com/blog/2017/4/21/separation-of-concerns-in-datomic-query-datalog-query-and-pull-expressions) @datomic
+			[Datomic for Five Year Olds](https://www.flyingmachinestudios.com/programming/datomic-for-five-year-olds/) @datomic
+			[Frequent 'datomic' Questions - Stack Overflow](https://stackoverflow.com/questions/tagged/datomic) @datomic
+			[alexpetrov/datomic-facts-slides: Presentation about Datomic](https://github.com/alexpetrov/datomic-facts-slides) @datomic
+			[Val on Programming: Application architecture with Datomic: branching reality](http://vvvvalvalval.github.io/posts/2016-01-03-architecture-datomic-branching-reality.html)
+			[Val on Programming: DataScript as a Lingua Franca for domain modeling](http://vvvvalvalval.github.io/posts/2018-07-23-datascript-as-a-lingua-franca-for-domain-modeling.html) @datomic
+			[Datomic as a Protocol @ tonsky.me](https://tonsky.me/blog/datomic-as-protocol/) @datomic
 	Datomic Kod Okumalarından Notlar  <url:file:///~/projects/study/logbook/log_20221119.md#r=g13532>
 	Example: Get Current Datomic Schema <url:file:///~/prj/study/clj/articles-datomic.md#r=g13527>
 	REBL ile datomic verilerini dolaşma  id=g13523

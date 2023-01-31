@@ -2,6 +2,7 @@
 
 ; Tarih: 20230125
 ; Barış'la Clojure Egzersizleri
+; rfr: video/20230125-mert-clj-egzersiz-11.mp4
 
 ; q: Macrolar ne kadar önemli?
 ; prensip: makro yazmanın birinci kuralı: macro yazmayın.

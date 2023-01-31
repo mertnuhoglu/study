@@ -6,7 +6,7 @@
 		- read <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13518>
 		- toread <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13519>
 	- articles - datomic <url:file:///~/prj/study/clj/datomic.otl#r=g13413>
-		- datomic okuma planı 20221113  <url:file:///~/prj/myrepo/work/work4.otl=g13517>
+		- datomic okuma planı 20221113 <url:file:///~/prj/study/clj/datomic.otl#r=g13676>
 	- gtd - clj <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13055>
 		- öncelikli işler - clj <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13342>
 	- jrnl - clj <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g13204>
