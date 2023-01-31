@@ -8,6 +8,7 @@
 
 ; Barış'la Clojure Egzersizleri
 ; Tarih: 20230131
+; rfr: video/20230131-mert-clj-egzersiz-12.mp4
 
 ; Portal kullanımı
 ; Herhangi bir clojure programını çalıştırdığında, ilk başta user namespace run edilir

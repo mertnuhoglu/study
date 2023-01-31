@@ -2,6 +2,7 @@
 
 ; Barış'la Datomic Egzersizleri
 ; Tarih: 20230131
+; rfr: video/20230131-mert-clj-egzersiz-13.mp4
 
 ; Çalışma sıralaması:
 ; Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
