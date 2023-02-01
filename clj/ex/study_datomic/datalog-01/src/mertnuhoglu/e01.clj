@@ -5,6 +5,7 @@
 ; rfr: video/20230131-mert-clj-egzersiz-13.mp4
 
 ; Çalışma sıralaması:
+; rfr: study-order datomic <url:file:///~/prj/study/clj/datomic.otl#r=g12866>
 ; Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
 ;	[Learn Datalog Today!](http://www.learndatalogtoday.org/)
 ; Lab: Assertion Tutorial <url:file:///~/prj/study/clj/datomic_lab_assertion_tutorial.md#r=g13506>
