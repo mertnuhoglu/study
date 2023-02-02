@@ -2,7 +2,7 @@
 
 ; Barış'la Datomic Egzersizleri
 ; Tarih: 20230201
-; rfr: video/
+; rfr: video/20230201-mert-clj-egzersiz-13.mp4
 
 ; rfr: sndgrsm > 20230201-Barışla-Datomic-Çalışma
 ; https://docs.google.com/spreadsheets/d/12IY0eoK8ny1i_EICUMxPas7UHHz_WfoW5b6xh8wUpCE/edit#gid=0
