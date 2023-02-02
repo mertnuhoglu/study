@@ -7,14 +7,14 @@
         fipp/fipp {:mvn/version "0.6.24"}
         djblue/portal {:mvn/version "0.35.0"}
         clj-commons/clj-yaml {:mvn/version "0.7.0"}
-        ;com.datomic/client-pro {:mvn/version "1.0.75"}
-        ;com.datomic/datomic-pro {:mvn/version "1.0.6397"}
+        com.datomic/client-pro {:mvn/version "1.0.75"}
+        com.datomic/datomic-pro {:mvn/version "1.0.6397"}
         com.datomic/dev-local {:mvn/version "1.0.243"}
         org.clojure/data.generators {:mvn/version "1.0.0"}}
         ; com.datomic/datomic-free {:mvn/version "0.9.5697"}}
 
- ;:mvn/repos
- ;{"my.datomic.com" {:url "https://my.datomic.com/repo"}}
+ :mvn/repos
+ {"my.datomic.com" {:url "https://my.datomic.com/repo"}}
 
  :aliases
  {:test {:extra-paths ["test"]

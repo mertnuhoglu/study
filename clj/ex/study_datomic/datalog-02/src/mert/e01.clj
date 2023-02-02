@@ -1,4 +1,4 @@
-(ns mertnuhoglu.e01)
+(ns mert.e01)
 
 ; Barış'la Datomic Egzersizleri
 ; Tarih: 20230131
@@ -10,6 +10,7 @@
 ;	[Learn Datalog Today!](http://www.learndatalogtoday.org/)
 ; Lab: Assertion Tutorial <url:file:///~/prj/study/clj/datomic_lab_assertion_tutorial.md#r=g13506>
 ;	Datomic Kod Okumalarından Notlar  <url:file:///~/projects/study/logbook/log_20221119.md#r=g13532>
+; [Max Datom - Interactive Datomic Tutorial](https://max-datom.com/)
 ;	/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01b.clj
 ;	Connect to Sample Database <url:file:///~/prj/study/clj/articles-datomic.md#r=g13507>
 ;	Datomic Documentation <url:file:///~/prj/study/logbook/log_20221107.md#r=g13500>

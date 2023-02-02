@@ -1,4 +1,4 @@
-(ns mertnuhoglu.e02)
+(ns mert.e02)
 
 ; Barış'la Datomic Egzersizleri
 ; Tarih: 20230201

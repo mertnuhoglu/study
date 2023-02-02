@@ -1,8 +1,8 @@
-(ns mertnuhoglu.e03)
+(ns mert.e03)
 
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230202
-; rfr: video/
+; rfr: video/20230202-mert-clj-egzersiz-14.mp4
 
 ; rfr: sndgrsm > 20230202-Barışla-Datomic-Çalışma
 ; https://docs.google.com/spreadsheets/d/12IY0eoK8ny1i_EICUMxPas7UHHz_WfoW5b6xh8wUpCE/edit#gid=0

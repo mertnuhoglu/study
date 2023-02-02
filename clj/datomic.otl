@@ -6,10 +6,11 @@ ref
 study-order datomic id=g12866
 	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
 	[Learn Datalog Today!](http://www.learndatalogtoday.org/)
-	Datomic Kod Okumalarından Notlar  <url:file:///~/projects/study/logbook/log_20221119.md#r=g13532>
+	Datomic Kod Okumalarından Notlar  <url:file:///~/prj/study/clj/datomic_kod_okumalarindan_notlar.md#r=g13532>
+	[Max Datom - Interactive Datomic Tutorial](https://max-datom.com/)
 	/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01b.clj
 	Connect to Sample Database <url:file:///~/prj/study/clj/articles-datomic.md#r=g13507>
-	Datomic Documentation <url:file:///~/prj/study/logbook/log_20221107.md#r=g13500>
+	Datomic Documentation <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13500>
 	REBL ile datomic verilerini dolaşma  <url:file:///~/prj/study/clj/datomic.otl#r=g13523>
 	Lab: Assertion Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13506>
 	Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13509>
@@ -110,7 +111,7 @@ pnt
 			[Val on Programming: Application architecture with Datomic: branching reality](http://vvvvalvalval.github.io/posts/2016-01-03-architecture-datomic-branching-reality.html)
 			[Val on Programming: DataScript as a Lingua Franca for domain modeling](http://vvvvalvalval.github.io/posts/2018-07-23-datascript-as-a-lingua-franca-for-domain-modeling.html) @datomic
 			[Datomic as a Protocol @ tonsky.me](https://tonsky.me/blog/datomic-as-protocol/) @datomic
-	Datomic Kod Okumalarından Notlar  <url:file:///~/projects/study/logbook/log_20221119.md#r=g13532>
+	Datomic Kod Okumalarından Notlar  <url:file:///~/prj/study/clj/datomic_kod_okumalarindan_notlar.md#r=g13532>
 	Example: Get Current Datomic Schema <url:file:///~/prj/study/clj/articles-datomic.md#r=g13527>
 	REBL ile datomic verilerini dolaşma  id=g13523
 		REBL ile datomic verilerini dolaşma #datomic #clj <url:file:///~/projects/study/logbook/log_20221116.md#r=g13522>
@@ -194,7 +195,7 @@ articles - datomic id=g13413
 		Day of Datomic Cloud - Session 1 - YouTube <url:file:///~/projects/study/clj/articles-datomic.md#r=g13502>
 		20221112 
 		Day Of Datomic Cloud <url:file:///~/projects/study/clj/articles-datomic.md#r=g12849>
-		Datomic Documentation <url:file:///~/projects/study/logbook/log_20221107.md#r=g13500>
+		Datomic Documentation <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13500>
 		20221107
 		Reactive Datalog for Datomic - Nikolas Göbel - YouTube <url:file:///~/projects/study/logbook/log_20221002.md#r=g13434>
 		Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube <url:file:///~/projects/study/logbook/log_20220930.md#r=g13424>
@@ -299,7 +300,7 @@ explorations xpl id=g12904
 				Reverse Lookup: Bir e'ye ref veren tüm varlıklar
 				Forward Lookup: Bir e'nin ref verdiği tüm varlıklar
 logbook
-	Datomic Kod Okumalarından Notlar  <url:file:///~/projects/study/logbook/log_20221119.md#r=g13532>
+	Datomic Kod Okumalarından Notlar  <url:file:///~/prj/study/clj/datomic_kod_okumalarindan_notlar.md#r=g13532>
 	20221119 id=g13531
 		(d/transact)
 			(d/transact conn {:tx-data [[:db/add eid :inv/count 100]]})
