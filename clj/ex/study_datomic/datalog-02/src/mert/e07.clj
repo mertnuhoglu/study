@@ -50,3 +50,31 @@
     [$ ?e :product/name ?product-name]]
   db "Kalem")
 ;=> [[92358976733263] [92358976733264]]
+
+; Bu parametrik sorguların bir fonksiyon içinde kullanımına bakalım
+(defn find-product-by-name [product-name]
+  (d/q
+    '[:find ?e
+      :in $ ?product-name
+      :where
+      [?e :product/name ?product-name]]
+    db product-name))
+(find-product-by-name "Kalem")
+;=> [[92358976733263] [92358976733264]]
+(find-product-by-name "Defter")
+;=> [[92358976733265] [92358976733266]]
+
+; Parametrik sorgu yapmasaydık, doğrudan sorgu cümleciğinin içine koysaydık parametreleri ne olurdu?
+; Çalışmazdı
+(defn find-product-by-name-wrong [product-name]
+  (d/q
+    '[:find ?e
+      :where
+      [?e :product/name product-name]]
+    db))
+(find-product-by-name-wrong "Kalem")
+;=> []
+; Hiçbir şey dönmüyor.
+; Neden?
+; Çünkü d/q'nun sorgu cümlesi olan argüman aslında escapelenmiş bir formdur.
+; Escapelenmiş olan formlar da eval edilmez. Daha sonra başka bir şekilde çalıştırılır.

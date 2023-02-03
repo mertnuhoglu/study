@@ -1,6 +1,7 @@
 (ns mert.e06)
 
-; rfr: 20230203-Barışla-Datomic-Çalışma
+; Egzersiz
+; rfr: video/20230203-mert-clj-egzersiz-16.mp4
 
 (require '[datomic.client.api :as d])
 

@@ -792,6 +792,8 @@ Varlıkları bulma işlemiyle, bu varlıklardan bilgi çekme işlemini ayırt ed
 
 #### Bindings id=g13542
 
+rfr: [Bindings](https://docs.datomic.com/on-prem/query/query.html?search=Tuple%20Binding#bindings)
+
 	| Binding Form | Binds      |
 	|--------------|------------|
 	| ?a           | scalar     |
@@ -843,6 +845,8 @@ db,  [["John Lennon" "Mind Games"]
 ```
 
 #### Find Specifications id=g13543
+
+rfr: [Datomic Queries and Rules | Datomic](https://docs.datomic.com/on-prem/query/query.html#find-specifications)
 
 Bindings: girdileri tarif eder
 
