@@ -7,7 +7,7 @@
 ; rfr: sndgrsm > 20230202-Barışla-Datomic-Çalışma
 ; https://docs.google.com/spreadsheets/d/12IY0eoK8ny1i_EICUMxPas7UHHz_WfoW5b6xh8wUpCE/edit#gid=0
 
-; Topic: :db/ident
+; Konu: :db/ident
 
 ; [Schema Modeling | Datomic](https://docs.datomic.com/on-prem/schema/schema-modeling.html)
 
@@ -119,7 +119,7 @@
 ; Biz kendi alan modelimizdeki (domain model) varlıklara, normal varlık (entity) diyoruz.
 ; Fakat meta modeldeki varlıklara, schema entity diyoruz.
 
-; Topic: :db.valueType/ref
+; Konu: :db.valueType/ref
 
 ; Örnek problem:
 ; Benim bir mağazam var.
@@ -191,7 +191,7 @@
 (type :color/red)
 ;=> clojure.lang.Keyword
 
-; Topic: Başka varlık tiplerine referans vermek (enum yerine)
+; Konu: Başka varlık tiplerine referans vermek (enum yerine)
 
 ; Markette bir ürün listemiz olur.
 ; Bir de bu ürünlerin siparişleri olur.
@@ -258,7 +258,7 @@
   db)
 ;=> [[96757023244373 6] [92358976733267 5]]
 
-; Topic: Pull API
+; Konu: Pull API
 
 ; Şu ana kadar sonuç içinde döndürmek istediğimiz tüm atributları find içine tek tek yazıyorduk
 ; Bunun daha pratik bir yolu yok mu?
@@ -274,25 +274,3 @@
 ;=>
 ;[[{:db/id 92358976733267, :order/product #:db{:id 92358976733263}, :order/size 5}]
 ; [{:db/id 96757023244373, :order/product #:db{:id 92358976733263}, :order/size 6}]]
-
-; Topic: Identity erişimi
-
-; Yukarıdaki sorgularda "Kırmızı kalem" siparişlerine ulaşmak için iki tane data pattern yazmamız gerekti.
-; Bu çok pratik bir yöntem değil.
-; Normalde biz alıştığımız veritabanı sorgularında bir tane FK referansıyla bunu hallederiz.
-; Benzeri bir yaklaşımı burada nasıl uygularız?
-
-; Bir tane identity FK kolonu tanımlarız
-(def product-schema-2
-  [{:db/ident :product/id
-    :db/valueType :db.type/long
-    :db/unique :db.unique/identity
-    :db/cardinality :db.cardinality/one}])
-(d/transact conn {:tx-data product-schema-2})
-
-; Şimdi mevcut varlıklarımıza bu id değerini eklememiz lazım elbette
-
-
-; next
-; identity
-; map specification (pull)
