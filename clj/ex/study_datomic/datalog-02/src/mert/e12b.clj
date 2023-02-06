@@ -1,4 +1,4 @@
-(ns mert.e12)
+(ns mert.e12b)
 
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230206
@@ -19,7 +19,7 @@
   '[:find ?order ?size ?result
     :where
     [?order :order/size ?size]
-    [(mert.e12/multiply_by ?size 10) ?result]]
+    [(mert.e12b/multiply_by ?size 10) ?result]]
   db)
 ;=> [[96757023244376 6 60] [92358976733271 4 40] [92358976733270 5 50]]
 ; Dikkat: `multiply_by` fonksiyonunun sonucunu ?result değişkeninin içine koyduk
@@ -41,7 +41,7 @@
   '[:find ?order ?size ?a1 ?a2
     :where
     [?order :order/size ?size]
-    [(mert.e12/to_tuple ?size 10) [?a1 ?a2]]]
+    [(mert.e12b/to_tuple ?size 10) [?a1 ?a2]]]
   db)
 ;=> [[92358976733271 4 40 14] [96757023244376 6 60 16] [92358976733270 5 50 15]]
 
@@ -54,7 +54,7 @@
     :where
     [?order :order/size ?size]
     [(< ?size 5)]
-    [(mert.e12/to_coll ?size) [?xs ...]]]
+    [(mert.e12b/to_coll ?size) [?xs ...]]]
   db)
 ;=> [[92358976733271 4 3] [92358976733271 4 2] [92358976733271 4 1] [92358976733271 4 0]]
 
@@ -79,6 +79,6 @@
     :where
     [?order :order/size ?size]
     [(< ?size 5)]
-    [(mert.e12/to_rel ?size) [[?a ?b]]]]
+    [(mert.e12b/to_rel ?size) [[?a ?b]]]]
   db)
 ;=> [[92358976733271 4 :a 1] [92358976733271 4 :c 3] [92358976733271 4 :b 2] [92358976733271 4 :d 4]]

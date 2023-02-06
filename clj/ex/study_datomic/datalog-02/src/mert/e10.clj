@@ -181,3 +181,88 @@
         [?eid :product/id 1 ?tx]]
       db)
 ;=> [[#:db{:id 13194139533327, :txInstant #inst"2023-02-03T09:57:53.923-00:00"}]]
+
+; İşlem yaparken bu işlemle ilgili istediğimiz herhangi bir bilgiyi kaydedebiliriz.
+; En çok ihtiyaç duyulan bilgilerden bir tanesi, bu işlemi kimin yaptığı.
+; Server-client (sunucu-istemci) mantığıyla çalışır veritabanı yazılımları.
+; Server: uygulama sunucusu
+; Client: Web tarayıcısında çalışan uygulama
+; Backend tarafı veritabanıyla iletişim kurar.
+; Bir connection oluşturursun
+; Bu connectionı başlatırken, kullanıcı adı ve şifre girersin
+; Hangi kullanıcının adını gireceğiz burada veritabanına bağlantı oluştururken?
+; Veritabanı kullanıcısını gireceğiz.
+; Client tarafında uygulamayı kullanan bir kişi. Son kullanıcı diyelim.
+; Son kullanıcının şifresini mi gireceğiz?
+; Veritabanına erişme yetkisi olan kullanıcının bilgisini gireceğiz.
+; Bir tane kullanıcı hesabı oluşturulur.
+; Admin kullanıcısı.
+; Tek bir admin kullanıcısının bağlantısı üzerinden tüm veritabanı işlemleri gerçekleştirilecek.
+; Peki soru şu:
+; Bu durumda, ben yeni bir Sipariş (Order) eklediğim vakit, bu işlemi gerçekleştiren kullanıcı olarak kimi veritabanına kaydetmeliyim?
+; Son kullanıcı mı, admin kullanıcı mı?
+; Transactiona bu bilgiyi nasıl ekleriz?
+
+; Önce transactiona ekleyeceğimiz bilgiler için bir attribute eklemeliyiz schemaya
+(def tx-schema
+      [{:db/ident       :tx/user
+        :db/valueType   :db.type/string
+        :db/cardinality :db.cardinality/one}])
+(d/transact conn {:tx-data tx-schema})
+;:tx-data [#datom[13194139533329 50 #inst"2023-02-06T12:51:47.070-00:00" 13194139533329 true]
+;          #datom[78 10 :tx/user 13194139533329 true]
+;          #datom[78 40 23 13194139533329 true]
+;          #datom[78 41 35 13194139533329 true]
+;          #datom[0 13 78 13194139533329 true]],
+
+(def order-list-4
+      [{:order/product [:product/id 3]
+        :order/size 2}
+       {:order/product [:product/id 4]
+        :order/size 3}
+       {:db/id "datomic.tx"
+        :tx/user "mertnuhoglu"}])
+; Not: the temporary id "datomic.tx" always identifies the current transaction
+; rfr: https://docs.datomic.com/on-prem/transactions/transactions.html#creating-temp-id
+; Dikkat: Transactionla ilgili bir veri kaydedeceksen, mutlaka bunun için "datomic.tx" entity idyi kullanman gerekiyor.
+; Bu "datomic.tx" aslında o tx'in gerçek entity idsi değil. Geçici olarak bunu kullanıyor datomic.
+; Gerçek entity id'yi işlem gerçekleştikten sonra sana bildiriyor.
+
+(d/transact conn {:tx-data order-list-4})
+;=>
+;{:db-before #datomic.core.db.Db{:id "a39457f0-2870-4d83-891f-e31c2af60e96",
+;                                :basisT 17,
+;                                :indexBasisT 0,
+;                                :index-root-id nil,
+;                                :asOfT nil,
+;                                :sinceT nil,
+;                                :raw nil},
+; :db-after #datomic.core.db.Db{:id "a39457f0-2870-4d83-891f-e31c2af60e96",
+;                               :basisT 18,
+;                               :indexBasisT 0,
+;                               :index-root-id nil,
+;                               :asOfT nil,
+;                               :sinceT nil,
+;                               :raw nil},
+; :tx-data [#datom[13194139533330 50 #inst"2023-02-06T12:55:01.370-00:00" 13194139533330 true]
+;           #datom[101155069755482 75 92358976733268 13194139533330 true]
+;           #datom[101155069755482 76 2 13194139533330 true]
+;           #datom[101155069755483 75 92358976733269 13194139533330 true]
+;           #datom[101155069755483 76 3 13194139533330 true]
+;           #datom[13194139533330 78 "mertnuhoglu" 13194139533330 true]],
+; :tempids {"datomic.tx" 13194139533330}}
+; Not: tx-data içindeki ilk datom transaction entitynin datomudur
+; Dolayısıyla bu tx'in gerçek kalıcı entity idsi: 13194139533330
+; ; :tx-data [#datom[13194139533330 50 #inst"2023-02-06T12:55:01.370-00:00" 13194139533330 true]
+
+; Şimdi bu transaction verisi için sorgulama yapalım
+(def db (d/db conn))
+(d/q
+      '[:find (pull ?tx [*])
+        :where
+        [_ :order/product [:product/id 4] ?tx]]
+      db)
+;=> [[
+; {:db/id 13194139533330,
+; :db/txInstant #inst"2023-02-06T12:55:01.370-00:00",
+; :tx/user "mertnuhoglu"}]]
