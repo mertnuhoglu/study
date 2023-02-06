@@ -138,6 +138,7 @@
     :where
     [$ ?e :product/name ?product-name]]
   db "Kalem")
+;=> [[92358976733266] [92358976733267]]
 
 ; Tuple: [?a ?b]
 (d/q
@@ -147,6 +148,7 @@
     [?e :product/name ?product-name]
     [?e :product/color ?color]]
   db ["Kalem" :color/red])
+;=> [[92358976733266]]
 
 ; Collection: [?a ...]
 (d/q
@@ -155,6 +157,7 @@
     :where
     [?e :product/name ?product-name]]
   db ["Kalem" "Defter"])
+;=> [[92358976733266] [92358976733267] [92358976733268] [92358976733269]]
 
 ; Relation: [ [?a ?b] ]
 (d/q
@@ -163,4 +166,10 @@
     :where
     [?e :product/name ?product-name]
     [?e :product/color ?color]]
-  db [["Kalem" 120] ["Defter" 250]])
+  db [["Kalem" 120]
+      ["Defter" 250]])
+;=>
+;[[92358976733267 "Kalem" 74766790688846 120]
+; [92358976733268 "Defter" 74766790688844 250]
+; [92358976733269 "Defter" 74766790688845 250]
+; [92358976733266 "Kalem" 74766790688844 120]]
