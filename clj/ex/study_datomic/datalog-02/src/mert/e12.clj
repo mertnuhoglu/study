@@ -9,6 +9,7 @@
 (require '[datomic.client.api :as d])
 (use '[mert.e04 :only [conn] :as e04])
 (require '[mert.e05 :as e05])
+(def db (d/db conn))
 
 ; Konu: Transformation Functions
 
