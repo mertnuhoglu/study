@@ -1,5 +1,9 @@
 (ns mert.e16)
 
+; Barış'la Datomic Çalışmaları
+; Tarih: 20230207
+; rfr: video/20230207-mert-clj-egzersiz-23.mp4
+
 ; Konu: Reverse Lookup (Ters Referans)
 
 ; https://docs.datomic.com/on-prem/query/pull.html#reverse-lookup

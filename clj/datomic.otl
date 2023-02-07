@@ -129,6 +129,7 @@ doc
 				cd /Users/mertnuhoglu/codes/clj/lib/datomic-pro-1.0.6397
 			step01:
 				bin/transactor -Ddatomic.printConnectionInfo=true config/dev-transactor-template.properties
+			rfr: hata: lein repl çalışmıyor veya datomic-pro.jar dosyası indirilemiyor <url:file:///~/prj/study/clj/datomic.otl#r=g13696>
 			step02 (optional):
 				lein repl
 				bin/repl
@@ -137,6 +138,34 @@ doc
 				bin/console -p 8080 dev datomic:dev://localhost:4334/
 				error: hata verirse, farklı bir port dene
 				http://localhost:8080/browse
+		hata: lein repl çalışmıyor veya datomic-pro.jar dosyası indirilemiyor id=g13696
+			Could not find artifact com.datomic:datomic-pro:jar:1.0.6610 in central (https://repo1.maven.org/maven2/)
+			Could not find artifact com.datomic:datomic-pro:jar:1.0.6610 in clojars (https://repo.clojars.org/)
+			Problemin nedeni şu:
+				Bizim deps.edn dosyasında biz kullanacağımız tüm kütüphanelerin tanımını veriyoruz
+				Mesela {org.clojure/clojure {:mvn/version "1.11.1"}}
+				Burada aslında diyoruz ki, git maven reposundan org.clojure/clojure isim repoyu bul.
+				Bunun 1.11.1 versiyonunu bul ve indir.
+				Fakat bunu yapabilmemiz için, ilgili repoda bu kütüphanenin (jar) bulunması lazım.
+				Eğer kullandığımız library jar dosyası public değilse, o zaman bulamayız.
+				Private jar dosyaları için ekstra bir konfigürasyon yapmamız gerekiyor, onlara erişebilmek için.
+				datomic-pro.jar  dosyası da private olduğundan bu konfigürasyon yapmamız gerekiyor.
+			https://my.datomic.com/account adresinde erişim konfigürasyonunu;; In ~/.m2/settings.xml:
+				<!-- ~/.m2/settings.xml (see the Maven server settings docs) -->
+					<servers>
+						…
+						<server>
+							<id>my.datomic.com</id>
+							<username>mert.nuhoglu+2@gmail.com</username>
+							<password>a2f02e57-448d-4823-9f06-50a21c66eda3</password>
+						</server>
+						…
+					</servers>
+			;; In deps.edn:
+				{:mvn/repos
+				{"my.datomic.com" {:url "https://my.datomic.com/repo"}}
+				:deps
+				{com.datomic/datomic-pro {:mvn/version "${VERSION}"}}} anlatıyor.
 my questions
 	Client vs Peer vs Transactor
 		Datomic Local Dev

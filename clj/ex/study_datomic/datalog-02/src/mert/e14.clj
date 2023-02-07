@@ -1,5 +1,9 @@
 (ns mert.e14)
 
+; Barış'la Datomic Çalışmaları
+; Tarih: 20230207
+; rfr: video/20230207-mert-clj-egzersiz-22.mp4
+
 ; Konu: Rules
 
 ; [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/8)

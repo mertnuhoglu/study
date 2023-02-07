@@ -4,14 +4,13 @@
 ; Tarih: 20230206
 ; rfr: video/20230206-mert-clj-egzersiz-21.mp4
 
+; Konu: Transformation Functions
 ; rfr: [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/6)
 
 (require '[datomic.client.api :as d])
 (use '[mert.e04 :only [conn] :as e04])
 (require '[mert.e05 :as e05])
 (def db (d/db conn))
-
-; Konu: Transformation Functions
 
 ; Bu konu, predicatelara çok benziyor.
 ; Predicatelarda biz sorgu kriterlerimizin içinde fonksiyon kullanıyorduk.

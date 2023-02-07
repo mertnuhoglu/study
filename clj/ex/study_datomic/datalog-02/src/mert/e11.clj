@@ -4,6 +4,7 @@
 ; Tarih: 20230206
 ; rfr: video/20230206-mert-clj-egzersiz-20.mp4
 
+; Konu: Predicates
 ; rfr: [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/5)
 
 (require '[datomic.client.api :as d])
@@ -11,7 +12,6 @@
 (use '[mert.e05 :as e05])
 (def db (d/db conn))
 
-; Konu: Predicates
 ; Predicate kelimesinin Türkçe doğrudan karşılığı yüklem.
 ; Fakat kullanım anlamı şu: Doğru veya yanlış olabilen ifadeler için kullanılıyor.
 

@@ -308,7 +308,7 @@
 ; Bu durumda son tx'leri sorguyla çekebilirsin:
 
 @(def recent-txns
-   (d/q
+   (d/ db/add db/retractq
      '[:find (max 3 ?tx)
        :where
        [?tx :db/txInstant]]
