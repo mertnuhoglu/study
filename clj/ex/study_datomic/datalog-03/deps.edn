@@ -2,9 +2,9 @@
 
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
         com.datomic/dev-local {:mvn/version "1.0.243"}
-        com.datomic/client-cloud {:mvn/version "1.0.122"}}
-        ;com.datomic/client-pro {:mvn/version "1.0.75"}
-        ;com.datomic/datomic-pro {:mvn/version "1.0.6610"}}
+        com.datomic/client-cloud {:mvn/version "1.0.122"}
+        com.datomic/client-pro {:mvn/version "1.0.75"}
+        com.datomic/datomic-pro {:mvn/version "1.0.6610"}}
 
  :mvn/repos
  {"my.datomic.com" {:url "https://my.datomic.com/repo"}}}
