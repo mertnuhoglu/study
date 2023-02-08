@@ -2,10 +2,11 @@
 
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230207
-; rfr: video/20230207-mert-clj-egzersiz-26.mp4
+; rfr: video/20230207-mert-clj-egzersiz-24.mp4
 
 ; Konu: mbrainz database setup
 
+; rfr: Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc.md#r=g12871>
 ; rfr: [Datomic - Datomic MusicBrainz sample database](https://blog.datomic.com/2013/07/datomic-musicbrainz-sample-database.html)
 
 ; Relationship Diagram
@@ -16,7 +17,9 @@
 ; Class model ile ER Model birbirine çok benzer
 
 ; 1. Önce datomic transactor programını çalıştır
-; rfr: run datomic console <url:file:///~/prj/study/clj/datomic.otl#r=g12858>
+; rfr:
+; datomic-pro maven setup <url:file:///~/prj/study/clj/datomic-pro-maven-setup.md#r=g13697>
+; run datomic console <url:file:///~/prj/study/clj/run-datomic-console.md#r=g12858>
 
 (use '[datomic.api :only [q db] :as d])
 ; (def uri "datomic:mem://movies")

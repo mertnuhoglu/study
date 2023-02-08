@@ -2,7 +2,7 @@
 
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230207
-; rfr: video/20230207-mert-clj-egzersiz-24.mp4
+; rfr: video/20230207-mert-clj-egzersiz-23.mp4
 
 ; Konu: Transaction Functions
 
@@ -110,3 +110,6 @@
 ;  :product/color #:db{:id 74766790688844, :ident :color/red},
 ;  :product/id 6}]
 
+; [:db/add ...] ile kullanıma list formu
+; {..} ile veri kaydetmeye map formu deniyor
+; rfr: https://docs.datomic.com/cloud/tutorial/assertion.html#list-and-map-forms

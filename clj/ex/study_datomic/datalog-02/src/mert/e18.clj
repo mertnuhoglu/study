@@ -3,7 +3,7 @@
 
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230207
-; rfr: video/20230207-mert-clj-egzersiz-25.mp4
+; rfr: video/20230207-mert-clj-egzersiz-24.mp4
 
 ; Konu: DataScript
 
