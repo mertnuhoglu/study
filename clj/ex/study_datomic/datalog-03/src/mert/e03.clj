@@ -2,7 +2,7 @@
 
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230209
-; rfr: video/
+; rfr: video/20230209-mert-clj-egzersiz-28.mp4
 
 ; Konu: mbrainz örnekler
 

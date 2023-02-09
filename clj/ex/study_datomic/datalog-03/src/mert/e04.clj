@@ -2,7 +2,8 @@
 
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230209
-; rfr: video/
+; rfr: video/20230209-mert-clj-egzersiz-29.mp4
+; rfr: sndgrsm > 20230209-Barış'la-Datomic-Çalışmaları
 
 ; rfr: https://github.com/Bariscanates404/study e01.clj
 
