@@ -168,3 +168,4 @@
 ; Açıklama: Demek ki, buradaki sorguda, iki sorgu cümleciği arasında herhangi bir join bulunmadığından,
 ; iki tane oluşan result set (küme) arasında kartezyen çarpım yapılıyor.
 ; Bu da 10^10 satırdan oluşan bir küme oluşturuyor. O yüzden aşırı uzun sürüyor.
+

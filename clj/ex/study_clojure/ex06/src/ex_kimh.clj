@@ -10,6 +10,9 @@
 
 true
 
+(+ 15 45)
+; => 60
+
 (str "each " "line " "is a" " form")
 ;; => "each line is a form"
 

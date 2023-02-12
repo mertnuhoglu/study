@@ -104,3 +104,37 @@
 ; ["John Lennon" "John Lennon/Plastic Ono Band" :medium.format/vinyl]
 ; ["John Lennon" "Power to the People" :medium.format/vinyl7]
 ; ["John Lennon" "Unfinished Music No. 2: Life With the Lions" :medium.format/vinyl12])
+
+; Tarih: 20230212
+; Video: ...
+;
+
+;Ödev:
+;Şu ana kadar AV üzerinden E'lere ulaştık
+;Benzer şekilde EA üzerinden V'lere ulaştık
+;Peki EV üzerinden A'lara ulaşabilir miyiz?
+;Evet, bunu bir egzersiz olarak yapalım.
+
+; "John Lennon" değerli bir atributa sahip olan entity'nin, atributu ve onun ismi nedir?
+(d/q '[:find ?a
+       :in $ ?name
+       :where
+       [527765581346058 ?a ?name]]
+  db "John Lennon")
+;=> #{[67]}
+; Bu 67 bulduğumuz atributun ?a'nın entity idsi.
+; Datomicte atributların kendileri de bir entity olarak tanımlanıyor.
+; Meta modelde entity olarak tanımlanıyor.
+; Şimdi benim bu entity'nin ismini bulmam gerekiyor.
+
+; Datomic'te tüm keywordler (enumlar) bir entity olarak saklanır.
+; Bu entitylerin hepsinin :db/ident diye bir atributu vardır.
+; Bu atributun içinde de o keyword entitysinin ismi saklanır.
+
+(d/q '[:find ?a ?attr-name
+       :in $ ?name
+       :where
+       [527765581346058 ?a ?name]
+       [?a :db/ident ?attr-name]]
+  db "John Lennon")
+;=> #{[67 :artist/name]}

@@ -6,6 +6,7 @@
 
 ; Çalışma sıralaması:
 ; rfr: study-order datomic <url:file:///~/prj/study/clj/datomic.otl#r=g12866>
+; [DOMAIN MODELING WITH DATALOG by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw)
 ; Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
 ;	[Learn Datalog Today!](http://www.learndatalogtoday.org/)
 ; Lab: Assertion Tutorial <url:file:///~/prj/study/clj/datomic_lab_assertion_tutorial.md#r=g13506>
@@ -22,6 +23,8 @@
 ;	/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/README.md
 
 ; Önce yukarıdaki sıralamayla giderseniz daha pratik olur öğrenmek zannediyorum
+; İlk başta Norbert'ın şu videosunu izleyin:
+; [DOMAIN MODELING WITH DATALOG by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw)
 
 ; benim kod örneklerinden datomic_01b.clj en kolay başlangıç örneği olabilir
 ; burada diğer veritabanı sunucularından farklı olarak,

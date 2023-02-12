@@ -21,10 +21,19 @@
 ; datomic-pro maven setup <url:file:///~/prj/study/clj/datomic-pro-maven-setup.md#r=g13697>
 ; run datomic console <url:file:///~/prj/study/clj/run-datomic-console.md#r=g12858>
 
+; Prerequisite:
+
+; Step 01: import data (bir kere yapmak yeterli)
+; cd datomic-pro-$VERSION
+; bin/datomic restore-db file:///Users/mertnuhoglu/codes/clj/ex/mbrainz-1968-1973 datomic:dev://localhost:4334/mbrainz-1968-1973
+
+; Step 02: run database server (ne zaman veritabanını kullanacaksak bu işlemi tekrar yapmamız lazım)
+; cd datomic-pro-$VERSION
+; bin/transactor config/samples/dev-transactor-template.properties
+
 (use '[datomic.api :only [q db] :as d])
 ; (def uri "datomic:mem://movies")
 (def uri "datomic:dev://localhost:4334/mbrainz-1968-1973")
-(d/create-database uri)
 (def conn (d/connect uri))
 
 ;; qry01: tüm attribute'ları listele
