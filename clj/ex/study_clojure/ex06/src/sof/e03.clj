@@ -3,6 +3,7 @@
 ; Barış'la Clojure Veri Analizi Çalışmaları
 ; Tarih: 20230212
 ; rfr: video/20230212-mert-clj-egzersiz-32.mp4
+; rfr: sndgrsm > 20230212-Barış'la-Clojure-Çalışması
 
 ; [Can someone explain Clojure Transducers to me in Simple terms? - Stack Overflow](https://stackoverflow.com/questions/26317325/can-someone-explain-clojure-transducers-to-me-in-simple-terms)
 
@@ -105,6 +106,10 @@
     (filter odd?)))
 (transduce xform + (range 0 10)) ; 35
 
+; The order of combinators is like you write it with threading macro (natural order)
+
+; Compared to composing calls to the old map, filter, reduce etc. you get better performance because you don't need to build intermediate collections between each step, and repeatedly walk those collections.
+
 ; buradaki comp, partial, transduce gibi fonksiyonlar oldukça karmaşık fonksiyonlar
 ; bunları şimdi öğrenmenize gerek yok
 ; bu tip kodları gördüğünüzde her şeyiyle öğrenme şartı koymayın kendinize
@@ -129,3 +134,4 @@
 ; orda da bunlara denk fonksiyonlar var
 ; fp daha olgun, üst bir yöntemdir
 ; bu yüzden imperatif dillerde programlama yapan fp'cılar, oradaki kavramları burada da uygulamaya sağlayacak kütüphaneleri geliştirirler
+

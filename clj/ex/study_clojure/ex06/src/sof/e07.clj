@@ -54,3 +54,12 @@
   ; (2 4)
   ,)  
 
+; a02:
+
+(defn to-map [v]
+  (apply hash-map
+    (if (odd? (count v))
+      (conj v nil)
+      v)))
+(to-map [1 2 3])
+;=> {1 2, 3 nil}
