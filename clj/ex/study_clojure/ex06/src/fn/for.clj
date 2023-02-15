@@ -2,7 +2,7 @@
 
 ; rfr: video/20230215-mert-clj-egzersiz-37.mp4
 
-; (for seq-exprs body-expr)
+; (for seq-exprs body-expr)  #nclk/çok-önemli
 ; List comprehension. Takes a vector of one or more
 ;  binding-form/collection-expr pairs, each followed by zero or more
 ;  modifiers, and yields a lazy sequence of evaluations of expr.
