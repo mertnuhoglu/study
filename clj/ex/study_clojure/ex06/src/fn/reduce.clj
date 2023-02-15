@@ -33,3 +33,21 @@
 (reduce + [1 2])        ;;=> 3
 (reduce + 1 [])         ;;=> 1
 (reduce + 1 [2 3])      ;;=> 6
+
+; e03: reduce fonksiyonunun çalışma mantığını anlama: id=g13703
+
+(reduce conj {} [[:a 1] [:b 2]])
+;{:a 1, :b 2}
+
+(comment
+  (reduce conj {} [[:a 1] [:b 2]])
+  ; bunun çalışması nasıldır?
+  ; reduce, conj fonksiyonunu coll'daki öğelere sırayla uygular
+  ; ilk çağrıyı yapar. bunun sonucunu ve bir sonraki coll öğesini conj fonksiyonuna paslar
+
+  (conj {} [:a 1])
+  ;=> {:a 1}
+  ; reduce bu ara sonucu alır. conj fonksiyonuna bunu ve bir sonraki öğeyi uygular.
+  (conj {:a 1} [:b 2])
+  ;=> {:a 1, :b 2}
+  ,)

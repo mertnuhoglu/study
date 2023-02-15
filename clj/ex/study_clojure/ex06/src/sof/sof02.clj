@@ -1,4 +1,4 @@
-(ns sof.e02)
+(ns sof.sof02)
 
 ; Barış'la Clojure Veri Analizi Çalışmaları
 ; Tarih: 20230209
