@@ -1,13 +1,20 @@
 (ns sof.sof07)
 
+; Barış'la Clojure Veri Analizi Çalışmaları
+; Tarih: 20230215
+; rfr: video/20230215-mert-clj-egzersiz-37.mp4
+
 ; [functional programming - What's the one-level sequence flattening function in Clojure? - Stack Overflow](https://stackoverflow.com/questions/10723451/whats-the-one-level-sequence-flattening-function-in-clojure)
 
-(def bs [[[1 2]] [[2 3]] [[4 5]]])
+(def bs '([[1 2]] [[2 3]] [[4 5]]))
 
+; a01: apply concat
 (apply concat bs) ; ([1 2] [2 3] [4 5])
 
+; a02: for (list) comprehension
 (for [subcoll bs, item subcoll] item) ; ([1 2] [2 3] [4 5])
 
+; a03:
 (mapcat identity bs) ; ([1 2] [2 3] [4 5])
 
 (mapcat seq bs) ; ([1 2] [2 3] [4 5])
