@@ -1,5 +1,138 @@
 (ns sof.sof07)
 
+; [functional programming - What's the one-level sequence flattening function in Clojure? - Stack Overflow](https://stackoverflow.com/questions/10723451/whats-the-one-level-sequence-flattening-function-in-clojure)
+
+(def bs [[[1 2]] [[2 3]] [[4 5]]])
+
+(apply concat bs) ; ([1 2] [2 3] [4 5])
+
+(for [subcoll bs, item subcoll] item) ; ([1 2] [2 3] [4 5])
+
+(mapcat identity bs) ; ([1 2] [2 3] [4 5])
+
+(mapcat seq bs) ; ([1 2] [2 3] [4 5])
+
+; a0n: özel durum: eğer ilk öğe primitifse apply concat hata verir
+#_(apply concat [1 [2 3] [4 [5]]])
+
+(defn flatten-one-level [coll]
+  (mapcat  #(if (sequential? %) % [%]) coll))
+
+(flatten-one-level [1 [2 3] [4 [5]]]) ; (1 2 3 4 [5])
+
+; [idioms - What is the idiomatic way to assoc several keys/values in a nested map in Clojure? - Stack Overflow](https://stackoverflow.com/questions/4495345/what-is-the-idiomatic-way-to-assoc-several-keys-values-in-a-nested-map-in-clojur)
+
+(def person {
+             :name {
+                    :first-name "John"
+                    :middle-name "Michael"
+                    :last-name "Smith"}})
+
+(update-in person [:name] assoc :first-name "Bob" :last-name "Doe")
+; {:name {:middle-name "Michael", :last-name "Doe", :first-name "Bob"}}
+
+(update-in person [:name] merge {:first-name "Bob" :last-name "Doe"})
+; {:name {:middle-name "Michael", :last-name "Doe", :first-name "Bob"}}
+
+(update-in person [:name] into {:first-name "Bob" :last-name "Doe"})
+; {:name {:middle-name "Michael", :last-name "Doe", :first-name "Bob"}}
+
+(-> person
+  (assoc-in [:name :first-name] "Bob")
+  (assoc-in [:name :last-name]  "Doe"))
+; {:name {:middle-name "Michael", :last-name "Doe", :first-name "Bob"}}
+
+; update-in does recursive assocs on your map. In this case it's roughly equivalent to:
+(assoc person :name
+  (assoc (:name person)
+    :first-name "Bob"
+    :last-name "Doe"))
+; {:name {:first-name "Bob", :middle-name "Michael", :last-name "Doe"}}
+
+(def foo {:bar {:baz {:quux 123}}})
+
+(assoc foo :bar
+  (assoc (:bar foo) :baz
+    (assoc (:baz (:bar foo)) :quux
+      (inc (:quux (:baz (:bar foo)))))))
+; {:bar {:baz {:quux 124}}}
+
+(update-in foo [:bar :baz :quux] inc)
+; {:bar {:baz {:quux 124}}}
+
+; [clojure - Remove nil values from a map? - Stack Overflow](https://stackoverflow.com/questions/3937661/remove-nil-values-from-a-map)
+
+(def record {:a 1 :b 2 :c nil})
+(merge (for [[k v] record :when (not (nil? v))] {k v}))
+; ({:a 1} {:b 2})
+
+; I would like to have:
+{:a 1, :b 2}
+
+; a01
+(apply merge (for [[k v] record :when (not (nil? v))] {k v})) ; {:a 1, :b 2}
+
+; a02: kısa
+(into {} (filter second record)) ; {:a 1, :b 2}
+
+; Dont remove false values:
+(into {} (remove (comp nil? second) record)) ; {:a 1, :b 2}
+
+; a03: dissoc
+; Using dissoc to allow persistent data sharing instead of creating a whole new map:
+(apply dissoc
+  record
+  (for [[k v] record :when (nil? v)] k)) ; {:a 1, :b 2}
+
+; a04: nested maps
+; Here is one that works on nested maps:
+
+(require '[clojure.walk :refer [postwalk]])
+(defn remove-nils
+  [m]
+  (let [f (fn [[k v]] (when v [k v]))]
+    (postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
+(remove-nils record) ; {:a 1, :b 2}
+(remove-nils {:a 1 :b {:c 2 :d nil}}) ; {:a 1, :b {:c 2}}
+
+; a05
+(into {} (remove (fn [[k v]] (nil? v)) {:a 1 :b 2 :c nil})) ; {:a 1, :b 2}
+
+; shorter
+(into {} (remove #(nil? (val %)) {:a true :b false :c nil})) ; {:a true, :b false}
+
+(into {} (filter #(not (nil? (val %))) {:a true :b false :c nil})) ; {:a true, :b false}
+
+; a06: select-keys
+
+(select-keys record (for [[k v] record :when (not (nil? v))] k)) ; {:a 1, :b 2}
+
+; a07: reduce-kv
+
+(reduce-kv
+  (fn [m key value]
+    (if (nil? value)
+      (dissoc m key)
+      m))
+  record
+  record) ; {:a 1, :b 2}
+
+; a08: hem map hem vector üzerinde çalışır:
+
+(defn compact
+  [coll]
+  (cond
+    (vector? coll) (into [] (filter (complement nil?) coll))
+    (map? coll) (into {} (filter (comp not nil? second) coll))))
+
+(compact record) ; {:a 1, :b 2}
+
+; a09: reduce ile
+
+(reduce (fn [m [k v]] (if (nil? v) m (assoc m k v))) {} record) ; {:a 1, :b 2}
+
+; sırayı korumak için dissoc
+(reduce (fn [m [k v]] (if (nil? v) (dissoc m k) m)) record record) ; {:a 1, :b 2}
 ; [hashmap - clojure convert lazy-seq to hash map - Stack Overflow](https://stackoverflow.com/questions/7034685/clojure-convert-lazy-seq-to-hash-map)
 
 ; How do I create a map from a lazySeq?
