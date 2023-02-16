@@ -20,6 +20,9 @@
 ; apply ile yukarıdaki vektörü bir nevi parçalayıp, tek tek argüman argüman max fonksiyonuna iletiyoruz:
 (apply max [1 2 3])
 ;;=> 3
+; bir nevi coll (vektör veya listeyi) box (kutu) olarak düşünelim
+; apply sayesinde coll argümanını unbox (kutudan çıkartıp) sırayla argüman listesine ekliyoruz
+; & rest argüman isteyen fonksiyonlarda kullanılıyor
 
 ; max'ın dokümantasyonuna baktığımızda imzasında rest operatörünü görürüz:
 ; [x y & more]

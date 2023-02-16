@@ -160,3 +160,19 @@
 
 (for [subcoll bs, item subcoll] item)
 ;=> ({1 2} {2 3} {4 5})
+
+; rfr: video/20230216-mert-clj-egzersiz-40.mp4
+
+;; :when
+(for [x [1 2 3]] (+ x 10))
+;=> (11 12 13)
+
+; yukarıdaki işlemi sadece tek sayılar için yapalım
+(for [x [1 2 3] :when (odd? x)] (+ x 10))
+;=> (11 13)
+; tekil sayıya ulaşınca, onu atlarız
+
+;; :while
+(for [x [1 2 3] :while (odd? x)] (+ x 10))
+;=> (11)
+; ilk tekil sayıya ulaşır ulaşmaz, for döngüsünü sonlandırdık
