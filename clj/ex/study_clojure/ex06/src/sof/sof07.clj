@@ -11,14 +11,18 @@
 
 ; a01: apply concat
 (apply concat bs) ; ([1 2] [2 3] [4 5])
+; rfr: fn/concat.clj
+; rfr: fn/apply.clj
 
 ; a02: for (list) comprehension
 (for [subcoll bs, item subcoll] item) ; ([1 2] [2 3] [4 5])
+; rfr: fn/for.clj
 
 ; rfr: video/20230215-mert-clj-egzersiz-38.mp4
 
 ; a03:
 (mapcat identity bs) ; ([1 2] [2 3] [4 5])
+; rfr: fn/mapcat.clj
 
 (mapcat seq bs) ; ([1 2] [2 3] [4 5])
 
@@ -30,6 +34,8 @@
 
 (defn flatten-one-level [coll]
   (mapcat  #(if (sequential? %) % [%]) coll))
+; rfr: fn/if.clj
+; rfr: fn/sequential?.clj
 
 (flatten-one-level [1 [2 3] [4 [5]]]) ; (1 2 3 4 [5])
 

@@ -23,6 +23,7 @@
 
 (conj '(:bar :baz) :foo)
 ; (:foo :bar :baz)
+; rfr: fn/conj.clj
 
 ; Appending to a vector is easy:
 

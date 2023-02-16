@@ -1,73 +1,75 @@
 (ns sof.sof09)
 
-; [Clojure: Convert hash-maps key strings to keywords? - Stack Overflow](https://stackoverflow.com/questions/9406156/clojure-convert-hash-maps-key-strings-to-keywords)
+; [clojure - Remove nil values from a map? - Stack Overflow](https://stackoverflow.com/questions/3937661/remove-nil-values-from-a-map)
 
-;The problem is this data comes back with strings for keys, for ex:
+(def record {:a 1 :b 2 :c nil})
+(merge (for [[k v] record :when (not (nil? v))] {k v}))
+; ({:a 1} {:b 2})
 
-;({"name" "Tylenol", "how" "instructions"})
+; I would like to have:
+{:a 1, :b 2}
 
-;When I need it to be:
+; a01
+(apply merge (for [[k v] record :when (not (nil? v))] {k v})) ; {:a 1, :b 2}
 
-;({:name "Tylenol", :how "instructions"})
+; a02: kısa
+(into {} (filter second record)) ; {:a 1, :b 2}
 
-; a01: clojure.walk
+; Dont remove false values:
+(into {} (remove (comp nil? second) record)) ; {:a 1, :b 2}
 
-(use 'clojure.walk)
-(keywordize-keys {"name" "Tylenol", "how" "instructions"})
-;=> {:name "Tylenol", :how "instructions"}
+; a03: dissoc
+; Using dissoc to allow persistent data sharing instead of creating a whole new map:
+(apply dissoc
+  record
+  (for [[k v] record :when (nil? v)] k)) ; {:a 1, :b 2}
 
-; This will walk the map recursively as well so it will "keywordize" keys in nested map too
+; a04: nested maps
+; Here is one that works on nested maps:
 
-; a02: keyword
-
-(def m {"name" "Tylenol", "how" "instructions"})
-(into {}
-  (for [[k v] m]
-    [(keyword k) v]))
-;=> {:name "Tylenol", :how "instructions"}
-
-(keyword "foo")
-;=> :foo
-
-; a03: clojure kaynak kodunu okuyup ilgili fonksiyonu kendi amacına göre yeniden yazmak:
-
-;It's worth peeking at the source code of clojure.walk/keywordize-keys:
-
-(defn keywordize-keys-2
-  "Recursively transforms all map keys from strings to keywords."
+(require '[clojure.walk :refer [postwalk]])
+(defn remove-nils
   [m]
-  (let [f (fn [[k v]] (if (string? k) [(keyword k) v] [k v]))]
-    (clojure.walk/postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
+  (let [f (fn [[k v]] (when v [k v]))]
+    (postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
+(remove-nils record) ; {:a 1, :b 2}
+(remove-nils {:a 1 :b {:c 2 :d nil}}) ; {:a 1, :b {:c 2}}
 
-;The inverse transform is sometimes handy for java interop:
+; a05
+(into {} (remove (fn [[k v]] (nil? v)) {:a 1 :b 2 :c nil})) ; {:a 1, :b 2}
 
-(defn stringify-keys-2
-  "Recursively transforms all map keys from keywords to strings."
-  [m]
-  (let [f (fn [[k v]] (if (keyword? k) [(name k) v] [k v]))]
-    (clojure.walk/postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
+; shorter
+(into {} (remove #(nil? (val %)) {:a true :b false :c nil})) ; {:a true, :b false}
 
-; a04: json/read-str
+(into {} (filter #(not (nil? (val %))) {:a true :b false :c nil})) ; {:a true, :b false}
 
-;Perhaps it is worth noting that, if the incoming data is json and you are using clojure.data.json,
-; you can specify both a key-fn and a value-fn for manipulating results on parsing the string (docs) -
+; a06: select-keys
 
-(require '[clojure.data.json :as json])
+(select-keys record (for [[k v] record :when (not (nil? v))] k)) ; {:a 1, :b 2}
 
-(json/read-str "{\"a\":1,\"b\":2}" :key-fn keyword)
-;;=> {:a 1, :b 2}
+; a07: reduce-kv
 
-(json/read-str "{\"a\":1,\"b\":2}" :key-fn #(keyword "com.example" %))
-;;=> {:com.example/a 1, :com.example/b 2}
+(reduce-kv
+  (fn [m key value]
+    (if (nil? value)
+      (dissoc m key)
+      m))
+  record
+  record) ; {:a 1, :b 2}
 
-; a04: zipmap
+; a08: hem map hem vector üzerinde çalışır:
 
-(defn modify-keys [f m] (zipmap (map f (keys m)) (vals m)))
-(modify-keys keyword {"name" "Tylenol", "how" "instructions"})
-; {:how "instructions", :name "Tylenol"}
+(defn compact
+  [coll]
+  (cond
+    (vector? coll) (into [] (filter (complement nil?) coll))
+    (map? coll) (into {} (filter (comp not nil? second) coll))))
 
-(comment
-  (def f keyword)
-  (map f (keys m))
-  ;=> (:name :how)
-  ,)
+(compact record) ; {:a 1, :b 2}
+
+; a09: reduce ile
+
+(reduce (fn [m [k v]] (if (nil? v) m (assoc m k v))) {} record) ; {:a 1, :b 2}
+
+; sırayı korumak için dissoc
+(reduce (fn [m [k v]] (if (nil? v) (dissoc m k) m)) record record) ; {:a 1, :b 2}
