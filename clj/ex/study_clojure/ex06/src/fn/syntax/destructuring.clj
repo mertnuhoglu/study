@@ -225,7 +225,7 @@
 
 (m :a)  ; map as a function
 ;=> 1
-(ps 0)  ; index as a function?
+(ps 0)  ; vector as a function?
 ;=> 1
 
 (let [p1 (ps 0)
