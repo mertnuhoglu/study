@@ -3,6 +3,7 @@
 ; Barış'la Clojure Veri Analizi Çalışmaları
 ; Tarih: 20230216
 ; rfr: video/20230216-mert-clj-egzersiz-40.mp4
+; rfr: video/20230217-mert-clj-egzersiz-41.mp4
 
 ; [clojure - Remove nil values from a map? - Stack Overflow](https://stackoverflow.com/questions/3937661/remove-nil-values-from-a-map)
 
@@ -69,6 +70,8 @@
   ,)
 
 ; a03: dissoc
+; rfr: video/20230217-mert-clj-egzersiz-41.mp4
+
 ; Using dissoc to allow persistent data sharing instead of creating a whole new map:
 (apply dissoc
   m
@@ -82,11 +85,19 @@
   [m]
   (let [f (fn [[k v]] (when v [k v]))]
     (postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
-(remove-nils m) ; {:a 1, :b 2}
-(remove-nils {:a 1 :b {:c 2 :d nil}}) ; {:a 1, :b {:c 2}}
+
+(remove-nils m)
+; {:a 1, :b 2}
+(remove-nils {:a 1 :b {:c 2 :d nil}})
+; {:a 1, :b {:c 2}}
+(remove-nils {:a 1 :b {:c 2 :d {:e 3 :f nil}}})
+;=> {:a 1, :b {:c 2, :d {:e 3}}}
 
 ; a05
 (into {} (remove (fn [[k v]] (nil? v)) {:a 1 :b 2 :c nil})) ; {:a 1, :b 2}
+; not: yukarıdaki into remove comp nil? second kullanımıyla aynı, fakat orada second kullanmıştık, burada destructuring kullandık
+
+;; BURADA KALDIK
 
 ; shorter
 (into {} (remove #(nil? (val %)) {:a true :b false :c nil})) ; {:a true, :b false}
