@@ -1,5 +1,21 @@
 
 Logbook id=g13256
+	20230215
+		function! Clojuredocs2Comment() "  SPC ükj  <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g13714>
+		function! Otl2Logseq() "  SPC ükl <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g13713>
+	20230209
+		README Keynote <url:file:///~/gdrive/mynotes/nx/keynote/README-keynote.md#r=g13701>
+		Dijital Pazarlama Stratejisi 20230209 <url:file:///~/gdrive/grsm/opal/docs-grsm/pages/Dijital Pazarlama Stratejisi 20230209.md#r=g13699>
+		Satınalma Yönetimi Sektörü Pazar İhtiyaçları 20230208 <url:file:///~/gdrive/grsm/opal/docs-grsm/pages/Satınalma Yönetimi Sektörü Pazar İhtiyaçları 20230208.md#r=g13698>
+	20230201
+		GTD List <url:file:///~/prj/myrepo/gtd_list.otl#r=g13692>
+		GTD List grsm <url:file:///~/gdrive/grsm/opal/docs-grsm/pages/gtd_list_grsm.md#r=g13631>
+		qst Questions <url:file:///~/prj/myrepo/logseq-myrepo/pages/qst.md#r=g13685>
+		Sorgu: qst <url:file:///~/gdrive/grsm/opal/docs-grsm/pages/sorgu-qst.md#r=g13691>
+		Sorgu: qst <url:file:///~/prj/myrepo/logseq-myrepo/pages/sorgu-qst.md#r=g13686>
+		Sorgu: qst grsm <url:file:///~/prj/myrepo/logseq-myrepo/pages/sorgu-qst-grsm.md#r=g13687>
+		Sorgu: qst grsm yücel <url:file:///~/prj/myrepo/logseq-myrepo/pages/sorgu-qst-grsm-yücel.md#r=g13688>
+		Sorgu: qst grsm ömer-akkentli  <url:file:///~/prj/myrepo/logseq-myrepo/pages/sorgu-qst-grsm-ömer.md#r=g13689>
 	20230128
 		Proje ve İş Fikirleri isfkr  <url:file:///~/prj/myrepo/prj/proje_fikirleri.otl#r=g13682>
 	20230119

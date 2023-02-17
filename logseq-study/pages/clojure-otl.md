@@ -1675,6 +1675,8 @@
 			- #fulcro
 			- #serverless
 		- toread id=g13519
+			- [functional-koans/clojure-koans: A set of exercises for learning Clojure](https://github.com/functional-koans/clojure-koans)
+			- [Learning functional/Clojure programming - practical exercises? - Stack Overflow](https://stackoverflow.com/questions/2888041/learning-functional-clojure-programming-practical-exercises)
 			- [The Clojure Toolbox](https://www.clojure-toolbox.com/)
 			- [next-jdbc/friendly-sql-functions.md at develop · seancorfield/next-jdbc · GitHub](https://github.com/seancorfield/next-jdbc/blob/develop/doc/friendly-sql-functions.md)
 			- 20221223

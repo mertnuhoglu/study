@@ -555,7 +555,7 @@ Veritabanı listesinin üyeleri 5 öğeli bir tupledır:
 
 `datomic.client.api/q` ana fonksiyon.
 
-- `:query` - map, list veya string olabilir
+- `:query` - query map, list veya string olabilir
   - `:find`
 	- `:with` - opsiyonel.
 	- `:in` - optional. Eğer yoksa `:in $` olur

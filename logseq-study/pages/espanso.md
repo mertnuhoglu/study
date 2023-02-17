@@ -9,4 +9,5 @@ tags:: tag
   <url:file:///Users/mertnuhoglu/Library/Application Support/espanso/config/default.yml>
   	Expansions
   espanso match file <url:file:///~/Library/Application Support/espanso/match/base.yml#r=g13562>
--
+- Packages
+	- espanso package list
