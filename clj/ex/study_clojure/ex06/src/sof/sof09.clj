@@ -4,6 +4,7 @@
 ; Tarih: 20230216
 ; rfr: video/20230216-mert-clj-egzersiz-40.mp4
 ; rfr: video/20230217-mert-clj-egzersiz-41.mp4
+; rfr: video/20230217-mert-clj-egzersiz-42.mp4
 
 ; [clojure - Remove nil values from a map? - Stack Overflow](https://stackoverflow.com/questions/3937661/remove-nil-values-from-a-map)
 
@@ -94,19 +95,33 @@
 ;=> {:a 1, :b {:c 2, :d {:e 3}}}
 
 ; a05
-(into {} (remove (fn [[k v]] (nil? v)) {:a 1 :b 2 :c nil})) ; {:a 1, :b 2}
+(into {} (remove (fn [[k v]] (nil? v)) m)) ; {:a 1, :b 2}
 ; not: yukarıdaki into remove comp nil? second kullanımıyla aynı, fakat orada second kullanmıştık, burada destructuring kullandık
 
-;; BURADA KALDIK
+; into remove second ile birbirine çok benziyor
+; second ile ikililerin değer kısmına erişmek yerine [k v] destructuring ile erişiyoruz
+(into {} (remove (fn [[k v]] (nil? v)) m)) ; {:a 1, :b 2}
+(into {} (remove (comp nil? second) m)) ; {:a 1, :b 2}
+
+; rfr: video/20230217-mert-clj-egzersiz-42.mp4
 
 ; shorter
-(into {} (remove #(nil? (val %)) {:a true :b false :c nil})) ; {:a true, :b false}
+(into {} (remove #(nil? (val %)) m)) ;=> {:a 1, :b 2}
 
-(into {} (filter #(not (nil? (val %))) {:a true :b false :c nil})) ; {:a true, :b false}
+(into {} (filter #(not (nil? (val %))) m)) ;=> {:a 1, :b 2}
 
 ; a06: select-keys
 
 (select-keys m (for [[k v] m :when (not (nil? v))] k)) ; {:a 1, :b 2}
+
+; şuna denktir
+(select-keys m '(:a :b))
+
+; TODO: cursive editörünün eğitiminde `!e e` ve `!e d` farkını anlatalım
+; #terim: kısayol = shortcut = key binding
+; benim kısayollarımın kökeni, emacs'in spacemacs eklentisi
+; cursive (intellij), vim, emacs, vscode: bunların hepsinde aynı standart kısayolları tanımlıyorum
+; mnemonics (çağrışımlara) bağlı bu kısayollar
 
 ; a07: reduce-kv
 

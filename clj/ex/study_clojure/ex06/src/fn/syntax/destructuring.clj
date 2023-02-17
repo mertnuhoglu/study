@@ -2,7 +2,9 @@
 
 ; rfr: video/20230217-mert-clj-egzersiz-41.mp4
 
-; [Clojure - Destructuring in Clojure](https://clojure.org/guides/destructuring)
+; [Clojure - Destructuring in Clojure](https://clojure.org/guides/destructuring) #nclk/çok-önemli
+
+; Part 1: Sequential Destructuring (Ardışık Parçalama)
 
 ; normalde destructuring olmadan assignmentları nasıl yaparız?
 (def my-line [[5 10] [10 20]])
@@ -63,6 +65,8 @@
 
 ; q: Destructuring için yeni bir fonksiyon yazmıyoruz?
 ; Evet, destructuring ile bir bileşke objenin alt parçalarını tek işlemde bir grup değişkene (isme) atama işlemi sadece.
+
+; Part 2: Associative Destructuring (İlişkili Parçalama)
 
 ; Şu ana kadar yaptığımız destructuring sadece sequential objeler içindi
 ; Yani vektör ve list
@@ -177,3 +181,93 @@
 ; Ama bilemediğimiz nadir jenerik fonksiyon yazmamız gerekebilir
 ; O durumlarda bile yine destructuring yapmak gerekecek
 ; Meta model üzerinden varsayımlarda bulunabiliriz verinin yapısına dair
+
+; rfr: video/20230217-mert-clj-egzersiz-42.mp4
+
+; Şu ana kadarki destructuring örneklerini hep `let` formu üzerinde yaptık
+; Başka formlarda da destructuring çalışır
+; Özellikle de `defn` içinde çok kullanılır
+; Aynı mantıkla çalışır orada da.
+; Bir fonksiyona gönderdiğimiz argümanlar, aynı let içindeki gibi parçalarına ayrıştırılabilir destructuring ile.
+
+; q: RHS'da 3 parçalı bir vektör var. LHS'daysa 2 tane sembol var.
+; Bu durumda 3. parça ne olur acaba?
+
+(def ps [1 2 3])
+(let [[p1 p2] ps]
+  (str "p1: " p1 " p2: " p2))
+;=> "p1: 1 p2: 2"
+; Hiç sorunsuz parçaladı
+
+; q: RHS 3 öğeli bir vektör. LHS 2 sembol. Fakat ben ilk öğeyle, son öğeyi istiyorum.
+(let [[p1 _ p3] ps]
+  (str "p1: " p1 " p3: " p3))
+;=> "p1: 1 p3: 3"
+
+; q: RHS 4 öğeli. LHS 2 sembol. 1. ve 4. öğeleri istiyorum.
+(def ps4 [1 2 3 4])
+(let [[p1 _ _ p4] ps4]
+  (str "p1: " p1 " p4: " p4))
+;=> "p1: 1 p4: 4"
+
+; q: Vektör associative bir veri yapısı olduğuna göre, map'in key'leri gibi vektörün indekslerini kullanabilir miyiz destructuring için?
+; map'te şöyle yapıyoruz:
+(let [x (:a m)
+      y (:b m)]
+  (str "a değeri: " x " b değeri: " y))
+
+(:a m)  ; keyword as a function
+;=> 1
+#_(0 ps)  ; index as a function çalışmaz
+;class java.lang.Long cannot be cast to class clojure.lang.IFn (java.lang.Long is in module java.base of loader 'bootstrap'); clojure.lang.IFn is in unnamed module of loader 'app')
+'(0 ps)
+;=> (0 ps)
+
+(m :a)  ; map as a function
+;=> 1
+(ps 0)  ; index as a function?
+;=> 1
+
+(let [p1 (ps 0)
+      p2 (ps 1)]
+  (str "p1: " p1 " p2: " p2))
+;=> "p1: 1 p2: 2"
+
+; map'in anahtarı keyword yerine string veya numerik olunca çalışır mı?
+(def m3 {"a" 1 "b" 2})
+#_("a" m)  ; string as a function hata verir
+;class java.lang.String cannot be cast to class clojure.lang.IFn (java.lang.String is in module java.base of loader 'bootstrap'); clojure.lang.IFn is in unnamed module of loader 'app')
+(def m4 {0 1 1 2})
+#_(0 m4)   ; numeric as a function hata verir
+;class java.lang.String cannot be cast to class clojure.lang.IFn (java.lang.String is in module java.base of loader 'bootstrap'); clojure.lang.IFn is in unnamed module of loader 'app')
+
+; mapin anahtarları numerik/string olunca destructuring çalışır mı?
+(let [{x "a"
+       y "b"} m3]
+  (str "a değeri: " x " b değeri: " y))
+;=> "a değeri: 1 b değeri: 2"
+
+(let [{x 0
+       y 1} m4]
+  (str "a değeri: " x " b değeri: " y))
+;=> "a değeri: 1 b değeri: 2"
+
+; map'te bu model çalışıyorsa, vektörde de çalışabilir
+(let [{x 0
+       y 1} ps]
+  (str "a değeri: " x " b değeri: " y))
+;=> "a değeri: 1 b değeri: 2"
+
+; çok büyük bir vektör üzerinden bunu deneyelim
+(def ps100 (range 0 100))
+(identity ps100)
+;95
+;96
+;97
+;98
+;99
+
+(let [{x 50
+       y 90} ps100]
+  (str "a değeri: " x " b değeri: " y))
+;=> "a değeri: 51 b değeri: 91"
