@@ -5,7 +5,7 @@
 ; rfr: video/20230216-mert-clj-egzersiz-40.mp4
 ; rfr: video/20230217-mert-clj-egzersiz-41.mp4
 ; rfr: video/20230217-mert-clj-egzersiz-42.mp4
-; rfr: video/20230217-mert-clj-egzersiz-43.mp4
+; rfr: video/20230218-mert-clj-egzersiz-43.mp4
 
 ; [clojure - Remove nil values from a map? - Stack Overflow](https://stackoverflow.com/questions/3937661/remove-nil-values-from-a-map)
 
@@ -124,7 +124,7 @@
 ; cursive (intellij), vim, emacs, vscode: bunların hepsinde aynı standart kısayolları tanımlıyorum
 ; mnemonics (çağrışımlara) bağlı bu kısayollar
 
-; rfr: video/20230217-mert-clj-egzersiz-43.mp4
+; rfr: video/20230218-mert-clj-egzersiz-43.mp4
 
 ; a07: reduce-kv
 
@@ -220,6 +220,7 @@
       (assoc m k v)))   ; else clause
   {}                                               ; val (init)
   m)                                               ; coll
+; {:a 1, :b 2}
 
 (comment
   ; reducer fonksiyonları 2 argüman alır her zaman (reduce için)
@@ -251,7 +252,6 @@
 
   ;end
   ,)
-; {:a 1, :b 2}
 
 ; sırayı korumak için dissoc
 (reduce (fn [m [k v]] (if (nil? v) (dissoc m k) m)) m m) ; {:a 1, :b 2}

@@ -22,7 +22,7 @@
 (dissoc {:a 1 :b 2 :c 3} :c :b) ; several keys at once
 ;;=> {:a 1}
 
-; rfr: video/20230217-mert-clj-egzersiz-43.mp4
+; rfr: video/20230218-mert-clj-egzersiz-43.mp4
 
 ; vektörde test edelim
 #_(dissoc [10 20 30] 0)

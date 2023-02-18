@@ -1,7 +1,7 @@
 (ns fn.reduce-kv)
 
 ; rfr: video/20230217-mert-clj-egzersiz-42.mp4
-; rfr: video/20230217-mert-clj-egzersiz-43.mp4
+; rfr: video/20230218-mert-clj-egzersiz-43.mp4
 
 ; (reduce-kv f init coll)
 ; Reduces an associative collection. f should be a function of 3
