@@ -46,3 +46,14 @@
 
 ; Üst seviye fonksiyonlar, FP'nın çıkış noktasıdır.
 ; Her şey buradan başlıyor.
+
+; %1 %2 %3 anonim fonksiyona gönderdiğimiz argümanların sıralarıdır
+(#(- %1 %2) 7  5)
+;=> 2
+; burada %1 ile 1. argüman yani 7
+; %2 ile 2. argüman yani 5 koymuş olduk
+
+(#(- %2 %1) 7  5)
+;=> -2
+; burada %2 ile 2. argümanı yani 5'i koyduk
+; %1 ile 1. argümanı yani 7'yi koyduk

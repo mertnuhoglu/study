@@ -1,6 +1,7 @@
 (ns fn.reduce-kv)
 
 ; rfr: video/20230217-mert-clj-egzersiz-42.mp4
+; rfr: video/20230217-mert-clj-egzersiz-43.mp4
 
 ; (reduce-kv f init coll)
 ; Reduces an associative collection. f should be a function of 3
@@ -69,6 +70,29 @@
 ;; Swap keys and values in a map
 (reduce-kv #(assoc %1 %3 %2) {} {:a 1 :b 2 :c 3})
 ;{1 :a, 2 :b, 3 :c}
+
+(comment
+  (assoc {} 1 :a)      ; ilk tur (iterasyon)
+  ;=> {1 :a}
+  (assoc {1 :a} 2 :b)  ; ikinci tur (iterasyon)
+  ;=> {1 :a, 2 :b}
+  (assoc {1 :a, 2 :b} 3 :c)  ; 3. tur
+  ;=> {1 :a, 2 :b, 3 :c}
+
+  ; ilk tur ve ikinci tur arasındaki argümanlar açısından fark nedir?
+  ; ilk turda f'e 3 argüman veriyoruz.
+  ; ikinci turda da f'e 3 argüman veriyoruz.
+  ; her iki turda da 2. ve 3. argümanlar aynı yerden geliyor
+  ; yani sıralı ikililerin k ve v parçaları
+  ; fakat ilk argüman birinci tur ile sonraki turlar arasında farklı
+  ; ilk turda, ilk argüman init argümanı oluyor
+  ; yani reduce-kv çağrısındaki 2. argüman
+  ; fakat ikinci ve sonraki turlarda, f'in ilk argümanı, artık init değil
+  ; bir önceki turdaki f çağrısının sonucunda dönen değerdir
+
+  ; (reduce-kv f                 init coll           )
+  ; (...       #(assoc ...)      {}   {:a 1 :b 2 ...})
+  ,)
 
 ; e03
 ;; Swap keys with values, only if values are not empty,

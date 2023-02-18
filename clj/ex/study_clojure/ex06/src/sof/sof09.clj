@@ -5,6 +5,7 @@
 ; rfr: video/20230216-mert-clj-egzersiz-40.mp4
 ; rfr: video/20230217-mert-clj-egzersiz-41.mp4
 ; rfr: video/20230217-mert-clj-egzersiz-42.mp4
+; rfr: video/20230217-mert-clj-egzersiz-43.mp4
 
 ; [clojure - Remove nil values from a map? - Stack Overflow](https://stackoverflow.com/questions/3937661/remove-nil-values-from-a-map)
 
@@ -123,15 +124,60 @@
 ; cursive (intellij), vim, emacs, vscode: bunların hepsinde aynı standart kısayolları tanımlıyorum
 ; mnemonics (çağrışımlara) bağlı bu kısayollar
 
+; rfr: video/20230217-mert-clj-egzersiz-43.mp4
+
 ; a07: reduce-kv
 
-(reduce-kv
+(identity m)
+;=> {:a 1, :b 2, :c nil}
+(def f9
   (fn [m key value]
     (if (nil? value)
       (dissoc m key)
-      m))
-  m
-  m) ; {:a 1, :b 2}
+      m)))
+(reduce-kv
+  f9             ; f
+  m              ; init
+  m)
+; {:a 1, :b 2}
+
+(comment
+  ; (reduce-kv f                 init coll)
+  ; (...       anonim-function   m    m   )
+  ; ilk tur:
+  (f9 m :a 1)
+  ;=> {:a 1, :b 2, :c nil}
+  ; 2. tur:
+  (f9 {:a 1, :b 2, :c nil} :b 2)
+  ;=> {:a 1, :b 2, :c nil}
+  ; 3. tur:
+  (f9 {:a 1, :b 2, :c nil} :c nil)
+  ;=> {:a 1, :b 2}
+
+  ; q: anonim fonksiyona verdiğimiz [m key value] argümanları destructuring mı?
+  ; [m key value]
+  ; %1
+  (def f10
+    #(if (nil? %2)
+       (dissoc %1 %3)
+       %1))
+  (reduce-kv f10 m m)
+  ;=> {:a 1, :b 2, :c nil}
+  (def f11
+    #(if (nil? %3)
+       (dissoc %1 %2)
+       %1)
+    ,)
+  (reduce-kv f11 m m)
+  ;=> {:a 1, :b 2}
+  ; end
+  ,)
+
+; reduce-kv vektör üzerinde de çalışabilir
+(def v [10 20 nil])
+#_(reduce-kv f11 v v)
+;class clojure.lang.PersistentVector cannot be cast to class clojure.lang.IPersistentMap (clojure.lang.PersistentVector and clojure.lang.IPersistentMap are in unnamed module of loader 'app')
+; dissoc'un ilk argümanı mutlaka map olmalı
 
 ; a08: hem map hem vector üzerinde çalışır:
 
@@ -141,11 +187,74 @@
     (vector? coll) (into [] (filter (complement nil?) coll))
     (map? coll) (into {} (filter (comp not nil? second) coll))))
 
-(compact m) ; {:a 1, :b 2}
+(identity m)
+;=> {:a 1, :b 2, :c nil}
+(compact m)
+; {:a 1, :b 2}
+
+(compact v)
+;=> [10 20]
+
+(comment
+  ; yukarıda complement yerine not kullanırsak hata verir
+  ; çünkü filter fonksiyonu arg olarak bir fonksiyon alır
+  ; fakat not fonksiyon değil, değer döner
+  (defn compact2
+    [coll]
+    (cond
+      (vector? coll) (into [] (filter (not nil?) coll))
+      (map? coll) (into {} (filter (comp not nil? second) coll))))
+  ;class java.lang.Boolean cannot be cast to class clojure.lang.IFn (java.lang.Boolean is in module java.base of loader 'bootstrap'); clojure.lang.IFn is in unnamed module of loader 'app')
+  ; end
+  ,)
 
 ; a09: reduce ile
 
-(reduce (fn [m [k v]] (if (nil? v) m (assoc m k v))) {} m) ; {:a 1, :b 2}
+(identity m)
+;=> {:a 1, :b 2, :c nil}
+(reduce
+  (fn [m [k v]]                                    ; f (reducer)
+    (if
+      (nil? v)          ; test
+      m                 ; then clause
+      (assoc m k v)))   ; else clause
+  {}                                               ; val (init)
+  m)                                               ; coll
+
+(comment
+  ; reducer fonksiyonları 2 argüman alır her zaman (reduce için)
+  ; ilk arg: ya başlangıç değeri yani init (ilk tur için), ya da bir önceki turun sonuç değeri
+  ; ikinci arg: coll'daki sıradaki öğe
+  ; ilk arg: m
+  ; 2. arg: [k v]
+  ; 2. argümanda destructuring yapyıor
+
+  ; 1. tur:
+  ; reducer fonksiyonunun 1. arg: {}
+  ;                       2. arg: [:a 1]
+  ;                               [k  v]  (destructuring)
+  ; k <- :a
+  ; v <- 1
+  ; (assoc m k v)
+  ; (assoc {} :a 1)
+  ;
+  ; 2. tur:
+  ; (assoc {:a 1} :b 2)
+  ; 3. tur:
+  ; (assoc {:a 1 :b 2} :c nil)
+
+  ; q: anonim fonksiyonun içindeki m ile dışarıdaki m aynı değiller mi?
+  ; değiller
+  ; scope meselesinden dolayı
+  ; inner scope, outer scope'u ezer (override eder).
+  ; rfr: fn/syntax/scope.clj
+
+  ;end
+  ,)
+; {:a 1, :b 2}
 
 ; sırayı korumak için dissoc
 (reduce (fn [m [k v]] (if (nil? v) (dissoc m k) m)) m m) ; {:a 1, :b 2}
+; init argümanları yukarıdakinden farklı:
+; yukarıda en başta boş bir map ile başlıyorduk
+; burada ise en başta tam dolu map ile başlıyoruz.
