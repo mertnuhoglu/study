@@ -119,3 +119,22 @@
 ; {:a 1 :b 1}
 ; :a -> 1
 ; 1 -> :a veya :b
+
+; rfr: video/20230220-mert-clj-egzersiz-44.mp4
+
+; Map'ler nasıl ki bir get fonksiyonu olarak kullanılabiliyor, aynı şekilde set'ler de kullanılabilir
+(def t #{:a :b :c})
+; aşağıdaki 3 fonksiyon çağrısı birbirine denktir:
+(get t :a)
+;=> :a
+(t :a)
+;=> :a
+(:a t)
+;=> :a
+
+; q: `(get t :a)` :a dönüyor. Zaten :a'yı arg olarak vermiştik. Bu fonksiyon nerede işimize yarayabilir?
+; olmayana ergi yapalım
+(t :d)
+;=> nil
+; bir öğenin ilgili kümede bulunup bulunmadığını anlamamızı sağlar
+; Java'daki contains() fonksiyonuna denk gelir

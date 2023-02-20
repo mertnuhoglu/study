@@ -25,12 +25,60 @@ cursive
 		| !b n | close notification |
 		| !p i | import project from existing sources |
 	quicklists
+		| !u   | SPC ç |
 		| !u j | clojure quicklist |
+		| !u SPC  | move quicklist |
 		| !u n | next quicklist |
 		| !u ç | general quicklist |
+		| !u p | popup quicklist |
+	structural edit quicklist 
+		rfr: vim-sexp compatible <url:file:///~/prj/private_dotfiles/.ideavimrc#r=g12468>
+		/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20230218_214509.jpg
+		| !ğ      | SPC <          |
+		| !h      | SPC >          |
+		| !+I     | (              |
+		| !+L     | )              |
+		| SPC < ( | slurp backward |
+		| SPC > ) | slurp forward  |
+		| SPC < ) | barf backward  |
+		| SPC > ( | barf forward   |
+		| #!↑     | < f            | move form up   |
+		| #!↓     | > f            | move form down |
+		| !s +s   | ds)            | splice sexp    |
+		| !s r    | SPC s r        | raise sexp     |
+		| !s d    | SPC s d        | kill           |
+		| !s k    | SPC s k        | kill sexp      |
+		| !s y    | SPC s y        | copy as kill   |
+		| !s p    | SPC s p        | split          |
+		| !s j    | SPC s j        | join           |
+		| !s t    | SPC s t        | thread form    |
+		| !s u    | SPC s u        | unthread form  |
+		| !s c    | cs)]           | cycle coll type|
+		surround wrap keybindings <url:file:///~/prj/private_dotfiles/.ideavimrc#r=g13216>
+		| !s i  | SPC s ( | wrap with ()             |
+		| !s e  | SPC s { | wrap with {}             |
+		| !s ı  | SPC s [ | wrap with []             |
+		| !s z  | SPC s " | wrap with ""             |
+		| +␤    |         | close ()[]{} and newline |
+		| !s +⏎ |         | close paren and newline  |
+	move quicklist SPC ç SPC
+		structural movement  <url:file:///~/prj/private_dotfiles/.ideavimrc#r=g13715>
+		| !e !b | SPC e SPC b |
+		| !e    | E           | move forward            |
+		| !b    | B           | move backward           |
+		| !e i  | SPC e i     | move forward into sexp  |
+		| !b i  | SPC b i     | move backward into sexp |
+		| !e o  | SPC e o     | move forward out sexp   |
+		| !b o  | SPC b o     | move backward out sexp  |
+	next quicklist ç n
+		| !e n | SPC e n | next error |
+		| !e p | SPC e p | prev error |
 	frequent commands
-		| #!dn/up | next occurrence |
-		| !u m | structural movement |
+		| #!dn/up | next occurrence     |
+		| !u m    | structural movement |
+		| !r s    | repl Start |
+		| !r q    | repl Quit |
+		| !p f    | select File in project view |
 	file navigator (project tab)
 		| space | preview |
 		| !#enter | quick actions | 
@@ -43,11 +91,11 @@ gtd
 	incele: Productity Guide 
 mnemonics
 	| !p | project |
-	| !u | pop-Up  |
+	| !u | pop-Up |
 	| !u | qUicklist |
 	| ç  | quicklist ÇabUk Listesi |
-	| !u SPC       | quicklist: move (boşlukta hareket)  |
-	| !u p         | quicklist: Popups  |
-	| !u j         | quicklist: cloJure |
-	| !u e         | quicklist: Edit structurally |
-	| !u n         | quicklist: next |
+	| !u SPC       | ç SPC | quicklist: move (boşlukta hareket)  |
+	| !u p         | ç p | quicklist: Popups  |
+	| !u j         | ç j | quicklist: cloJure |
+	| !u t         | ç t | quicklist: Edit structurally |
+	| !u n         | ç n | quicklist: next |

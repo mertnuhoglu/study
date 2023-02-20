@@ -1,5 +1,7 @@
 (ns sof.sof13)
 
+; rfr: video/20230220-mert-clj-egzersiz-44.mp4
+
 ; [Clojure: Convert hash-maps key strings to keywords? - Stack Overflow](https://stackoverflow.com/questions/9406156/clojure-convert-hash-maps-key-strings-to-keywords)
 
 ;The problem is this data comes back with strings for keys, for ex:
@@ -12,8 +14,8 @@
 
 ; a01: clojure.walk
 
-(use 'clojure.walk)
-(keywordize-keys {"name" "Tylenol", "how" "instructions"})
+(require 'clojure.walk)
+(clojure.walk/keywordize-keys {"name" "Tylenol", "how" "instructions"})
 ;=> {:name "Tylenol", :how "instructions"}
 
 ; This will walk the map recursively as well so it will "keywordize" keys in nested map too
@@ -30,10 +32,13 @@
 ;=> :foo
 
 ; a03: clojure kaynak kodunu okuyup ilgili fonksiyonu kendi amacına göre yeniden yazmak:
+; yukarıdaki işlemin tam tersini yapalım
+; yani keyword olan keyleri stringe çevirelim
+; bunun için de clojure'un mevcut kodunu temel alabiliriz
 
 ;It's worth peeking at the source code of clojure.walk/keywordize-keys:
 
-(defn keywordize-keys-2
+(defn keywordize-keys
   "Recursively transforms all map keys from strings to keywords."
   [m]
   (let [f (fn [[k v]] (if (string? k) [(keyword k) v] [k v]))]
@@ -42,7 +47,6 @@
 ;The inverse transform is sometimes handy for java interop:
 
 (defn stringify-keys-2
-  "Recursively transforms all map keys from keywords to strings."
   [m]
   (let [f (fn [[k v]] (if (keyword? k) [(name k) v] [k v]))]
     (clojure.walk/postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
@@ -54,10 +58,10 @@
 
 (require '[clojure.data.json :as json])
 
-(json/read-str "{\"a\":1,\"b\":2}" :key-fn keyword)
+(json/read-str "{\"a\": 1,\"b\": 2}" :key-fn keyword)
 ;;=> {:a 1, :b 2}
 
-(json/read-str "{\"a\":1,\"b\":2}" :key-fn #(keyword "com.example" %))
+(json/read-str "{\"a\": 1,\"b\": 2}" :key-fn #(keyword "com.example" %))
 ;;=> {:com.example/a 1, :com.example/b 2}
 
 ; a04: zipmap
@@ -70,4 +74,6 @@
   (def f keyword)
   (map f (keys m))
   ;=> (:name :how)
+  (vals m)
+  ;=> ("Tylenol" "instructions")
   ,)

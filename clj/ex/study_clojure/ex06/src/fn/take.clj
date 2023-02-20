@@ -1,6 +1,6 @@
 (ns fn.take)
 
-; (take n)
+; (take n)     #nclk/çok-önemli
 ; (take n coll)
 ; Returns a lazy sequence of the first n items in coll, or all items if
 ; there are fewer than n.  Returns a stateful transducer when

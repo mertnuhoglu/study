@@ -29,6 +29,7 @@
         djblue/portal {:mvn/version "0.35.0"}
         clj-commons/clj-yaml {:mvn/version "0.7.0"}
         tick/tick {:mvn/version "RELEASE"}
+        org.clojure/math.combinatorics {:mvn/version "0.1.6"}
         metosin/reitit {:mvn/version "0.5.18"}},
  :paths ["src"]}
 

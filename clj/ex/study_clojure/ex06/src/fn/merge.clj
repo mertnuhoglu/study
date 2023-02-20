@@ -29,3 +29,13 @@
   (first options)
   ;=> [:opt1 "custom-1"]
   ,)
+
+; apply merge ile map listesini birleştirebiliriz
+(def fields [:name :age :color])
+(def values ["joe" 32 "red"])
+(map hash-map fields values)
+;=> ({:name "joe"} {:age 32} {:color "red"})
+(hash-map :name "joe")
+;=> {:name "joe"}
+(apply merge (map hash-map fields values))
+;=> {:age 32, :color "red", :name "joe"}
