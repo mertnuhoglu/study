@@ -33,3 +33,10 @@
 ;; Note the equivalence of the following two forms
 (apply str ["str1" "str2" "str3"])  ;;=> "str1str2str3"
 (str "str1" "str2" "str3")          ;;=> "str1str2str3"
+
+; apply:
+; verilen bir fonksiyonu bir koleksiyonun içine girip oradaki bilgileri parametre olarak atamamıza yarar
+; yani o fonksiyonu o verilerle çalıştırmamızı sağlar
+; apply, bir fonksiyonu verdiğin argümanlarla çalıştırır
+; ama bunu yaparken verilen argümanı unbox eder ve o fonksiyonun rest argümanları olarak gönderir
+; apply aslında variadic bir fonksiyona verilen paketlenmiş (seq içindeki) argümanları unbox ederek gönderir.

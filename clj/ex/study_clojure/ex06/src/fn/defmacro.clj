@@ -1,6 +1,6 @@
 (ns fn.defmacro)
 
-; (defmacro name doc-string? attr-map? [params*] body)
+; (defmacro name doc-string? attr-map? [params*] body)   #nclk/later
 ; (defmacro name doc-string? attr-map?
 ; ([params*] body) + attr-map?)
 ; Like defn, but the resulting function name is declared as a

@@ -1,5 +1,12 @@
 (ns fn.merge)
 
+; (merge & maps)
+; Returns a map that consists of the rest of the maps conj-ed onto
+; the first.  If a key occurs in more than one map, the mapping from
+; the latter
+; (left-to-right) will be the mapping in the result.
+;
+
 ; [merge - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/merge)
 
 (merge {:a 1 :b 2 :c 3} {:b 9 :d 4})

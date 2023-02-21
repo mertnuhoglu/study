@@ -27,3 +27,18 @@
 
 ; genel olarak set ve map'lerde sıralama önemli değildir
 ; liste ve vektördeyse sıralama özüne aittir
+
+; rfr: video/20230220-mert-clj-egzersiz-45.mp4
+
+; q: bunlardan hangileri sequential?
+; sequential: sıralı, ardışık
+; liste ve vektör sequential
+; diğerleri değil.
+
+; q: hangileri associative (ilişkili)?
+; map ve vektör
+
+; bunların hepsi birer collection veya data structure.
+
+; q: set'in girdiği bir grup var mı?
+; mutlaka bir kategoriye girer. ama bu ikisine girmez.

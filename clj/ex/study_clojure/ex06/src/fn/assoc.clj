@@ -6,14 +6,16 @@
 ; rfr: fn/assoc-in.clj
 ; rfr: fn/update.clj
 
-; (assoc! coll key val)
-; (assoc! coll key val & kvs)
-; When applied to a transient map, adds mapping of key
+; (assoc map key val)
+; (assoc map key val & kvs)
+; assoc[iate]. When applied to a map, returns a new map of the
+;   same
+; (hashed/sorted) type, that contains the mapping of key
 ; (s) to
-; val
-; (s). When applied to a transient vector, sets the val at index.
-; Note - index must be <=
-; (count vector). Returns coll.
+;   val
+; (s). When applied to a vector, returns a new vector that
+;   contains val at index. Note - index must be <=
+; (count vector).
 
 ;; [assoc - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/assoc)
 

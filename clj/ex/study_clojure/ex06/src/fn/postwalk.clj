@@ -8,6 +8,9 @@
 ; Recognizes all Clojure data structures. Consumes seqs as with doall.
 ;
 
+; verilen bir veri yapısının tüm öğelerini dolaşıp f fonksiyonunu bu öğeye uygular
+; sonuçları biriktirir ve aynı şekildeki veri yapısında geri döner
+
 (require '[clojure.walk :refer [postwalk]])
 
 ; [postwalk - clojure.walk | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.walk/postwalk)
