@@ -1,5 +1,7 @@
 (ns sof.sof21)
 
+; rfr: video/20230221-mert-clj-egzersiz-47.mp4
+
 ; [Clojure nil vs Java null? - Stack Overflow](https://stackoverflow.com/questions/691925/clojure-nil-vs-java-null)
 
 ; The only difference between nil and null is that one is Clojure and the other is Java,

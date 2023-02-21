@@ -1,6 +1,8 @@
 (ns fn.for)
 
 ; rfr: video/20230215-mert-clj-egzersiz-37.mp4
+; rfr: sof20.clj
+; rfr: fn/doseq.clj
 
 ; (for seq-exprs body-expr)  #nclk/çok-önemli
 ; List comprehension. Takes a vector of one or more
