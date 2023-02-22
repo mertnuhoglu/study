@@ -1,12 +1,27 @@
 (ns sof.sof24)
 
+; rfr: video/20230222-mert-clj-egzersiz-48.mp4
+
 ; [Idiomatic clojure map lookup by keyword - Stack Overflow](https://stackoverflow.com/questions/7034803/idiomatic-clojure-map-lookup-by-keyword)
 
+(def m {:a 1 :b 2})
+
 ; a01:
-(:color my-car)
-; bu şekilde hotspot daha iyi kodu optimize eder, çünkü :color sabittir, my-car ise değil
+(:a m)
+;=> 1
+; bu şekilde hotspot (Java uygulamalarını çalıştıran yazılım) daha iyi kodu optimize eder,
+; çünkü :color sabittir, my-car ise değil
 
 ; a02:
+(m :a)
+;=> 1
+
+; olur da verdiğim m map objesi eğer nilse, bu durumda hata verir
+#_(nil :a)
+;ERROR: can't call nil
+(:a nil)
+;=> nil
+; ama (:a nil) formundaki kullanım hata vermez
 
 ;For me, the most compelling reason: (:color nil) returns nil, whereas (nil :color) throws an Exception. –
 
@@ -20,13 +35,40 @@
 ;From the library coding standards:
 ;
 ;Use keyword-first syntax to access properties on objects:
+; #trm: property (object) = attribute (object, tablo) = column (tablo) = key (map)
+; aslında bu terimlerin hepsi birbirine denktir
+; dolayısıyla birbiri yerine de geçer çoğu zaman
 
-(:property object-like-map)
+; eğer obje gibi kullandığımız bir mapin propertylerine erişmek istiyorsak, keyword fonksiyonu kullan
+
+;(:property object-like-map)
 
 ;Use collection-first syntax to extract values from a collection (or use get if the collection might be nil).
 
-(collection-like-map key)
-(get collection-like-map key)
+; eğer collection gibi kullandığımız bir mapin değerlerine erişmek istiyorsan, map fonksiyonu kullan
+
+;(collection-like-map key)
+;(get collection-like-map key)
+
+; q: collection gibi map ile obje gibi map arasındaki fark ne?
+; obje deyince genelde şunu anlarız: bir tablodaki bir satır gibi bir şey
+; collection deyince genelde, bir liste gibi bir şey anlarız
+
+; collection gibi map'e bir örnek: fulcro tarzı veritabanı örnekleri buna girer:
+(def students
+  {101 {:name "ali" :id 101}
+   102 {:name "ayşe" :id 102}
+   103 {:name "nazım" :id 103}})
+(students 102)
+;=> {:name "ayşe", :id 102}
+; bu map bir nevi collection gibidir (liste)
+; bu mapin her bir öğesi, bir listedeki bir satır gibidir
+
+(def student
+  {:name "ali" :id 101})
+; objeye benzeyen bir map örneği
+(:name student)
+;=> "ali"
 
 ; I interpreted an "object like map" as a map with predefined keys and their properties such as having
 ; {:first first, :last last, :age age } being a Person object,
@@ -58,10 +100,12 @@
 ;  ERROR: string cannot be cast to IFn
 
 ; a06: pro map: Consistency with list access in Clojure
+
+; #trm: consistency = uyumluluk = tutarlılık
 ;
 ([:a :b :c] 1)
 ;  :b
-(1 [:a :b :c])
+;(1 [:a :b :c])
 ;  ERROR: long cannot be cast to IFn
 
 ; a07: pro map: Similarity to other forms of object access

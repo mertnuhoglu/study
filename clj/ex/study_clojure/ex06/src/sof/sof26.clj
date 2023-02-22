@@ -1,5 +1,7 @@
 (ns sof.sof26)
 
+; rfr: video/20230222-mert-clj-egzersiz-48.mp4
+
 ; [Find index of an element matching a predicate in Clojure? - Stack Overflow](https://stackoverflow.com/questions/8641305/find-index-of-an-element-matching-a-predicate-in-clojure)
 
 ;With Clojure, how do I find the first index with a positive value in this vector [-1 0 3 7 9]?
@@ -7,6 +9,14 @@
 (first (filter pos? [-1 0 99 100 101]))
 ;=> 99
 ;This code returns the value 99. The answer I want is the index which is 2.
+
+(comment
+  (filter pos? [-1 0 99 100 101])
+  ;=> (99 100 101)
+  ; pozitif sayıları filtreledik
+  (first '(99 100 101))
+  ;=> 99
+  ,)
 
 ; a01: keep-indexed
 (defn indices [pred coll]

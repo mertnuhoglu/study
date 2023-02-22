@@ -15,7 +15,7 @@ state: wip
 
 ---
 
-[(293) Keynote: Transparency through data by James Reeves - YouTube](https://www.youtube.com/watch?v=zznwKCifC1A)
+[Keynote: Transparency through data by James Reeves - YouTube](https://www.youtube.com/watch?v=zznwKCifC1A)
 
 ## What is transparency?
 
@@ -350,15 +350,4 @@ Article: Transparency through data by James Reeves
 				| :kw | request methods       |
 				| sym | path parameters       |
 		kural06: karmaşık gramer kuralları için spec'ten yararlan
-
-
-
-
-
-			
-
-
-
-	
-
 

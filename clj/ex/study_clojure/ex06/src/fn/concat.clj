@@ -28,3 +28,12 @@
 
 (apply concat '(([1 2]) ([3 4] [5 6]) ([7 8])))
 ;([1 2] [3 4] [5 6] [7 8])
+
+; rfr: video/20230222-mert-clj-egzersiz-48.mp4
+
+(concat {:a 1} {:b 2})
+;=> ([:a 1] [:b 2])
+; map'leri de birleştiriyor ama seq'e çevirerek
+; tekrar geri map'e çevirmemiz lazım
+(into {} '([:a 1] [:b 2]))
+;=> {:a 1, :b 2}
