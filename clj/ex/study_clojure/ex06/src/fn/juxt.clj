@@ -1,6 +1,6 @@
 (ns fn.juxt)
 
-; rfr: video/20230223-mert-clj-egzersiz-50.mp4
+; rfr: video/20230223-mert-clj-egzersiz-51.mp4
 
 ; (juxt f)
 ; (juxt f g)

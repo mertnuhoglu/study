@@ -1,6 +1,6 @@
 (ns sof.sof32)
 
-; rfr: video/20230223-mert-clj-egzersiz-50.mp4
+; rfr: video/20230223-mert-clj-egzersiz-51.mp4
 
 ; [Clojure get nested map value - Stack Overflow](https://stackoverflow.com/questions/15639060/clojure-get-nested-map-value)
 

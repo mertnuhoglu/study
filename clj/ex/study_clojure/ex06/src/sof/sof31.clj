@@ -1,6 +1,6 @@
 (ns sof.sof31)
 
-; rfr: video/20230223-mert-clj-egzersiz-50.mp4
+; rfr: video/20230223-mert-clj-egzersiz-51.mp4
 
 ; [How can I update an item in a vector in Clojure? - Stack Overflow](https://stackoverflow.com/questions/6168415/how-can-i-update-an-item-in-a-vector-in-clojure)
 

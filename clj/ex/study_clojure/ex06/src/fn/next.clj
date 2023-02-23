@@ -9,6 +9,10 @@
 ; argument.  If there are no more items, returns nil.
 ;
 
+; next ve rest aynı işi yapar
+; coll'ın ilk öğesi hariç diğer öğelerini bir liste olarak döner
+; ancak eğer diğer öğeler yoksa, next nil döner; rest ise boş liste döner.
+
 (def coll [10 20 30])
 (next coll)
 ;=> (20 30)

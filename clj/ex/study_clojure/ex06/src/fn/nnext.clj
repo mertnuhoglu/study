@@ -1,5 +1,7 @@
 (ns fn.nnext)
 
+; rfr: video/20230223-mert-clj-egzersiz-52.mp4
+
 ; (nnext x)
 ; Same as (next (next x))
 

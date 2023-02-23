@@ -1,5 +1,7 @@
 (ns sof.sof35)
 
+; rfr: video/20230223-mert-clj-egzersiz-52.mp4
+
 ; [java - Difference between two maps - Stack Overflow](https://stackoverflow.com/questions/3387155/difference-between-two-maps)
 
 ;i.e. I am looking for the most efficient way to a write a function like:
@@ -21,4 +23,9 @@
               (not e2) (recur (assoc! m k (e1 1)) (next ks))
               :else    (recur m (next ks))))
       (persistent! m))))
-
+(map-difference {:a 1 :b 2} {:a 1})
+;=> {:b 2}
+(map-difference {:a 1} {:a nil})
+;=> {:a 1}
+(map-difference {:a 1} {:b nil})
+;=> {:a 1, :b nil}
