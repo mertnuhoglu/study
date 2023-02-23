@@ -1,5 +1,7 @@
 (ns sof.sof28)
 
+; rfr: video/20230223-mert-clj-egzersiz-50.mp4
+
 ; [clojure - When to use `zipmap` and when `map vector`? - Stack Overflow](https://stackoverflow.com/questions/6135764/when-to-use-zipmap-and-when-map-vector)
 
 #_(for [pair (map vector v (rest v))]
@@ -19,6 +21,12 @@
 (into {} (map vector  [:k1 :k2 :k3] [10 20 40]))
 ; is quite a convoluted way to do zipmap
 
+(comment
+  (map vector  [:k1 :k2 :k3] [10 20 40])
+  ;=> ([:k1 10] [:k2 20] [:k3 40])
+
+  ,)
+
 ;Use (map vector ...) when you are trying to merge multiple sequences. The output is a lazy sequence of vectors:
 
 (map vector [1 2 3] [4 5 6] [7 8 9])
@@ -33,6 +41,15 @@
    {:id 102 :b 20}])
 (zipmap (map :id data) data)
 ;=> {101 {:id 101, :b 2}, 102 {:id 102, :b 20}}
+; yukarıdaki data tablosunu fulcro tipi bir veritabanı formatına çevirmişim
+
+(comment
+  (map :id data)
+  ;=> (101 102)
+  (zipmap '(101 102) data)
+  ;=> {101 {:id 101, :b 2}, 102 {:id 102, :b 20}}
+
+  ,)
 
 ; fulcro tipi veritabanı yapılarında kullanılabilir
 
