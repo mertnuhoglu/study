@@ -1,5 +1,7 @@
 (ns fn.group-by)
 
+; rfr: video/20230223-mert-clj-egzersiz-50.mp4
+
 ; (group-by f coll)
 ; Returns a map of the elements of coll keyed by the result of
 ; f on each element. The value at each key will be a vector of the
@@ -9,6 +11,22 @@
 ;; group strings by their length
 (group-by count ["a" "as" "asd" "aa" "asdf" "qwer"])
 ;;=> {1 ["a"], 2 ["as" "aa"], 3 ["asd"], 4 ["asdf" "qwer"]}
+
+(comment
+  (def coll ["a" "as" "asd" "aa" "asdf" "qwer"])
+  (map count coll)
+  ;=> (1 2 3 2 4 4)
+  {1 ["a"]
+   2 ["as" "aa"]
+   3 ["asd"]
+   4 ["asdf" "qwer"]}
+
+  (group-by type ["ali" 10 "ayşe" 20 :a :b \n \m])
+  ;=> {java.lang.String ["ali" "ayşe"],
+  ;    java.lang.Long [10 20],
+  ;    clojure.lang.Keyword [:a :b],
+  ;    java.lang.Character [\n \m]}
+  ,)
 
 ;; group integers by a predicate
 (group-by odd? (range 10))
@@ -31,6 +49,13 @@
 ;;[\A 5] ["Awake"],
 ;;[\B 5] ["Break"],
 ;;[\C 5] ["Chunk" "Check"]}
+
+(comment
+  (map (juxt first count) words)
+  ;=> ([\A 3] [\B 3] [\C 3] [\A 5] [\B 5] [\C 5] [\A 3] [\B 3] [\C 5])
+  (set (map (juxt first count) words))
+  ;=> #{[\C 5] [\B 5] [\B 3] [\C 3] [\A 5] [\A 3]}
+  ,)
 
 (group-by :category [{:category "a" :id 1}
                      {:category "a" :id 2}

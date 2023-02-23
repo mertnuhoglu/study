@@ -21,6 +21,9 @@
    :k2 :v4})
 (def Ms
   [m1 m2])
+(identity Ms)
+;=> [{:k1 :v1, :k2 :v2}
+;    {:k1 :v3, :k2 :v4}]
 
 ; Ms'in ilk öğesindeki mapi al ve o mapin içindeki :k1 propertysinin değerini al:
 (-> Ms
@@ -49,3 +52,12 @@
 (get-in Ms [1 :k1])
 ;=> :v3
 
+; rfr: video/20230223-mert-clj-egzersiz-50.mp4
+
+; varsayılan değer belirtebiliriz
+(get-in Ms [0 :k1] :not-found)
+;=> :v1
+(get-in Ms [0 :k3] :not-found)
+;=> :not-found
+(get-in Ms [0 :k4] "default value")
+;=> "default value"
