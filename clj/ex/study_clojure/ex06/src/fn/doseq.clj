@@ -3,7 +3,7 @@
 ; rfr: video/20230221-mert-clj-egzersiz-47.mp4
 ; rfr: fn/for.clj
 
-; (doseq seq-exprs & body)
+; (doseq seq-exprs & body)   #nclk/orta-seviye
 ; Repeatedly executes body
 ; (presumably for side-effects) with
 ; bindings and filtering as provided by "for".  Does not retain

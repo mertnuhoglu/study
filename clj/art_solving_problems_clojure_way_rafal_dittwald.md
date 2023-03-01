@@ -15,6 +15,8 @@ state: wip
 
 ---
 
+# Article: Solving Problems the Clojure Way - Rafal Dittwald id=g13746
+
 [Solving Problems the Clojure Way - Rafal Dittwald - YouTube](https://www.youtube.com/watch?v=vK1DazRK_a0)
 
 Source code: [grierson/bounty: Solving Problems the Clojure Way - Rafal Dittwald in Clojure](https://github.com/grierson/bounty)

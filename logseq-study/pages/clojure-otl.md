@@ -2,6 +2,7 @@
 	- ~/projects/study/clj/refcard_clojure.otl
 - index
   collapsed:: true
+	- clojurescript.otl <url:file:///~/prj/study/clj/clojurescript.otl#r=g13733>
 	- articles - clj <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13373>
 		- read <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13518>
 		- toread <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g13519>
@@ -46,6 +47,7 @@
 		- unprompt - Meander
 		- Brian Will - Intro to Clojure
 		- Reeves - polymorphism
+		- Rafal Dittwald
 		- Jimmy Miller - Meander
 		- Nathan Marz - Specter
 		- Tony Kay - Fulcro
@@ -458,6 +460,8 @@
 			- (stop-server)
 - topics
 	- cljs id=g13300
+		- ClojureScript REPL and Evaluation <url:file:///~/prj/study/logseq-study/journals/2023_02_21.md#r=g13726>
+		- ClojureScript REPL Konfigürasyonu 20230221 <url:file:///~/projects/study/logseq-study/journals/2023_02_21.md#r=g13725>
 		- quickstart
 			- ClojureScript Debugging <url:file:///~/prj/study/clj/debugging.md#r=g13335>
 			- dumdom01 project: dumdom + figwheel + devcards <url:file:///~/prj/study/clj/clojurescript.md#r=g13326>
@@ -1639,6 +1643,8 @@
 		- articles - datomic <url:file:///~/prj/study/clj/datomic.otl#r=g13413>
 			- read <url:file:///~/prj/study/clj/datomic.otl#r=g13520>
 		- read id=g13518
+			- Transparency through data by James Reeves  <url:file:///~/prj/study/clj/art_transparency_through_data_by_james_reeves.md#r=g13747>
+			- Article: Solving Problems the Clojure Way - Rafal Dittwald <url:file:///~/prj/study/clj/art_solving_problems_clojure_way_rafal_dittwald.md#r=g13746>
 			- Article: The Datomic Information Model by Rich Hickey <url:file:///~/prj/study/clj/articles-datomic.md#r=g13516>
 			- The Design of Datomic - Rich Hickey - YouTube <url:file:///~/projects/study/logbook/log_20221112.md#r=g13515>
 			- Video: Day of Datomic Cloud - Day 4 <url:file:///~/prj/study/clj/articles-datomic.md#r=g13514>

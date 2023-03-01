@@ -1,5 +1,34 @@
 
 Logbook id=g13256
+	20230301
+		[How to shorten long paths in frecency? · Issue #2408 · nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim/issues/2408)
+		local quicklist_map = { -- SPC ç <url:file:///~/prj/private_dotfiles/.config/nvim/lua/mert/which-key.lua#r=g13792>
+		function Telescope_grep() -- SPC fg <url:file:///~/prj/private_dotfiles/.config/nvim/lua/mert/telescope_grep.lua#r=g13791>
+	20230228
+		[[20230228-Electric-ile-REPL-Baglantisi]] <url:file:///~/gdrive/grsm/opal/docs-grsm/pages/20230228-Electric-ile-REPL-Baglantisi.md#r=g13765>
+	20230227
+		[[20230228-ShadowCljs:-IntelliJ-ile-REPL-Baglantisi]] <url:file:///~/gdrive/grsm/opal/docs-grsm/pages/20230228-ShadowCljs--IntelliJ-ile-REPL-Baglantisi.md#r=g13764>
+		function! RefIdJournal()  " SPC rj <url:file:///~/prj/vim_repos/vim-infoman/plugin/vim-infoman.vim#r=g13761>
+		20230226-Hizli-Dosya-Tasnifi-Sureci <url:file:///~/prj/myrepo/logseq-myrepo/pages/20230226-Hizli-Dosya-Tasnifi-Sureci.md#r=g13757>
+	20230226
+		function! ConvertTurkish2AsciiKebabCaseAndSaveWithTitle() "  SPC üka <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g13756>
+		function! ELogseqMyrepoPage() " SPC ibbp <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g13753>
+	20230225
+		20230225-msg-Dijital-Pazarlama-Adayları-İçin-Videolar <url:file:///~/gdrive/grsm-prv/20230225-msg-dijital-pazarlama-adaylari-icin-videolar.md#r=g13752>
+	20230224
+		ShadowCLJS Quick Start  <url:file:///~/projects/study/logseq-study/journals/2023_02_24.md#r=g13749>
+	20230223
+		20230223 Web Sitesi Marka Sıralaması <url:file:///~/prj/myrepo/20230223-web-sitesi-marka-siralama.md#r=g13745>
+	20230222
+		cljs ile repl kullanımı <url:file:///~/prj/study/clj/clojurescript.otl#r=g13741>
+		clojurescript.otl <url:file:///~/prj/study/clj/clojurescript.otl#r=g13733>
+		ClojureScript REPL Denemeleri 20230222  <url:file:///~/prj/study/logseq-study/journals/2023_02_22.md#r=g13728>
+		20230222 brandpersonalityquiz.com  <url:file:///~/prj/myrepo/20230222-brandpersonalityquiz.md#r=g13744>
+	20230221
+		ClojureScript REPL and Evaluation <url:file:///~/prj/study/logseq-study/journals/2023_02_21.md#r=g13726>
+		ClojureScript REPL Konfigürasyonu 20230221 <url:file:///~/projects/study/logseq-study/journals/2023_02_21.md#r=g13725>
+	20230218
+		structural movement  <url:file:///~/prj/private_dotfiles/.ideavimrc#r=g13715>
 	20230215
 		function! Clojuredocs2Comment() "  SPC ükj  <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g13714>
 		function! Otl2Logseq() "  SPC ükl <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g13713>

@@ -13,6 +13,12 @@
 ; Use the class name with a "." at the end to make a new instance
 (Date.)
 ;=> #inst"2023-02-17T20:53:49.982-00:00"
+; java'da bu şuna denk gelir:
+; new Date()
+; ≣
+; alternatif olarak `new` makrosuyla da oluşturabiliriz Date objesini
+(new Date)
+;=> #inst"2023-02-28T13:20:33.545-00:00"
 
 ; Use . to call methods. Or, use the ".method" shortcut
 (. (Date.) getTime)

@@ -15,6 +15,8 @@ state: wip
 
 ---
 
+# Transparency through data by James Reeves  id=g13747
+
 [Keynote: Transparency through data by James Reeves - YouTube](https://www.youtube.com/watch?v=zznwKCifC1A)
 
 ## What is transparency?
