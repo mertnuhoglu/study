@@ -1,0 +1,12 @@
+;; shadowcljs-01 id=g13750
+;; shadow-cljs configuration
+{:source-paths
+ ["src/dev"
+  "src/main"
+  "src/test"]
+
+ :dependencies
+ []
+
+ :builds
+ {}}

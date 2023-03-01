@@ -1,0 +1,36 @@
+
+clojurescript.otl id=g13733
+ndx
+	pnt-cljs <url:file:///~/prj/study/clj/clojurescript.otl#r=g13737>
+	yayin-cljs <url:file:///~/prj/study/clj/clojurescript.otl#r=g13736>
+	mydocs-cljs <url:file:///~/prj/study/clj/clojurescript.otl#r=g13735>
+	prj-cljs <url:file:///~/prj/study/clj/clojurescript.otl#r=g13734>
+pnt-cljs id=g13737
+	cljs ile repl kullanımı <url:file:///~/prj/study/clj/clojurescript.otl#r=g13741>
+yayin-cljs id=g13736
+	articles-cljs
+mydocs-cljs id=g13735
+	[[20230228-Electric-TodoMVC-Inceleme]] <url:file:///~/gdrive/grsm/opal/docs-grsm/pages/20230228-Electric-TodoMVC-Inceleme.md#r=g13770>
+	[[20230228-Electric-ile-REPL-Baglantisi]] <url:file:///~/gdrive/grsm/opal/docs-grsm/pages/20230228-Electric-ile-REPL-Baglantisi.md#r=g13765>
+	20230228-ShadowCljs:-IntelliJ-ile-REPL-Baglantisi <url:file:///~/gdrive/grsm/opal/docs-grsm/pages/20230228-ShadowCljs--IntelliJ-ile-REPL-Baglantisi.md#r=g13764>
+	[[20230224-ShadowCLJS-Quick-Start---Project-02]] <url:file:///~/gdrive/grsm/opal/docs-grsm/pages/20230224-ShadowCLJS-Quick-Start---Project-02.md#r=g13796>
+	[[20230224-ShadowCLJS-Quick-Start---Project-01]] <url:file:///~/gdrive/grsm/opal/docs-grsm/pages/20230224-ShadowCLJS-Quick-Start---Project-01.md#r=g13798>
+	ShadowCLJS Quick Start  <url:file:///~/projects/study/logseq-study/journals/2023_02_24.md#r=g13749>
+	ClojureScript REPL Konfigürasyonu 20230221 <url:file:///~/prj/study/logseq-study/journals/2023_02_21.md#r=g13725>
+	ClojureScript REPL using Browser as Evaluation Environment <url:file:///~/prj/study/logseq-study/journals/2023_02_22.md#r=g13738>
+		alternative: ClojureScript REPL and Evaluation <url:file:///~/prj/study/logseq-study/journals/2023_02_21.md#r=g13726>
+prj-cljs id=g13734
+	~/prj/study/clj/ex/study_clojurescript/cljs-01/deps.edn
+	cljs-03: Browser REPL'ına bağlanmak <url:file:///~/prj/study/clj/ex/study_clojurescript/cljs-03/README.md#r=g13739>
+		alternative: ~/prj/study/clj/ex/study_clojurescript/cljs-02/foo.cljs
+			@state: çalışmıyor
+	shadowcljs-01 <url:file:///~/prj/study/clj/ex/shadowcljs/shadowcljs-01/shadow-cljs.edn#r=g13750>
+doc-cljs id=g13740
+	cljs ile repl kullanımı id=g13741
+		rfr
+			ClojureScript REPL Konfigürasyonu 20230221 <url:file:///~/prj/study/logseq-study/journals/2023_02_21.md#r=g13725>
+				~/prj/study/clj/ex/study_clojurescript/cljs-01/deps.edn
+			ClojureScript REPL using Browser as Evaluation Environment <url:file:///~/prj/study/logseq-study/journals/2023_02_22.md#r=g13738>
+				cljs-03: Browser REPL'ına bağlanmak <url:file:///~/prj/study/clj/ex/study_clojurescript/cljs-03/README.md#r=g13739>
+
+
