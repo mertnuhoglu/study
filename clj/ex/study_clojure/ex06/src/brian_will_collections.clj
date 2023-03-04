@@ -69,9 +69,9 @@
 ;;=> ([10 20])
 
 (def ys [])
-(loop [xs [1 2 3]]
-  (conj ys xs)
-  (recur (rest xs)))
+#_(loop [xs [1 2 3]]
+    (conj ys xs)
+    (recur (rest xs)))
 (identity ys)
 (count ys)
 
@@ -114,7 +114,7 @@
 ;;=> (2 3 4)
 
 (defn zeroes []
-  (lazy-seq 
+  (lazy-seq
     (cons 0 (zeroes))))
 (first (zeroes))
 ;;=> 0
@@ -124,7 +124,7 @@
 ;;=> 0
 
 (defn increasing [n]
-  (lazy-seq 
+  (lazy-seq
     (cons n (increasing (inc n)))))
 (first (increasing 2))
 ;;=> 2
@@ -134,9 +134,9 @@
 ;;=> 4
 
 (defn increasingTo7 [n]
-  (if (> n 7) 
+  (if (> n 7)
     nil
-    (lazy-seq 
+    (lazy-seq
       (cons n (increasingTo7 (inc n))))))
 (rest (increasingTo7 3))
 ;;=> (4 5 6 7)
