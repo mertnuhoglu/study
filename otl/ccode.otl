@@ -1165,6 +1165,10 @@ tools tools2
 			git push
 	osx osx2 macbook id=g13010
 		ref: shortcuts kısayollar keybindings - osx <url:file:///~/projects/study/otl/cosx.otl#r=g12084>
+		AltTab - window navigation id=g13821
+			rfr: [AltTab - Windows alt-tab on macOS](https://alt-tab-macos.netlify.app/)
+			pencereler ve uygulamalar arasında dolaşma
+			Command+Tab gibi ama önizleme görüntüsü var
 		sesli kayıt alma - audio recording
 			Simple Recorder: küresel kısayollarla ses kaydı başlatıp tamamlama
 			Vox: Playlist ile bunları dinleme

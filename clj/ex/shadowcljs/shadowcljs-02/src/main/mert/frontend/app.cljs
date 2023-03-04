@@ -1,7 +1,7 @@
 (ns mert.frontend.app)
 
 (defn init []
-  (println "Hello World3"))
+  (println "Hello World4"))
 
 ; (+ 1 2)
 ; (js/alert "hi")

@@ -1,5 +1,14 @@
 
 Logbook id=g13256
+	20230304
+		function! ToggleColorScheme() " SPC tn <url:file:///~/prj/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g13823>
+		Refactoring in Neovim #vim <url:file:///~/projects/study/logseq-study/journals/2023_03_04.md#r=g13822>
+	20230303
+		[[20230303-MarkdownPreview-Diagram-PlantUML-Test]] <url:file:///~/projects/study/logseq-study/pages/20230303-MarkdownPreview-Diagram-PlantUML-Test.md#r=g13811>
+	20230302
+		fix: error: markdown code fence  sembolleri otomatik gizleniyor <url:file:///~/prj/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g13809>
+		function! CnvOtl2Unindent() "  SPC ücO  <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g13803>
+		local convert_map = { -- SPC üc <url:file:///~/projects/private_dotfiles/.config/nvim/lua/mert/which-key.lua#r=g13802>
 	20230301
 		[How to shorten long paths in frecency? · Issue #2408 · nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim/issues/2408)
 		local quicklist_map = { -- SPC ç <url:file:///~/prj/private_dotfiles/.config/nvim/lua/mert/which-key.lua#r=g13792>
