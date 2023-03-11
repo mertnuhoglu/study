@@ -1,4 +1,84 @@
 
+osx macos cosx.otl  id=g13852
+parent
+	ccode.otl <url:file:///~/prj/study/otl/ccode.otl#r=g13853>
+ndx
+pnt - osx
+	çizim grafik tasarım foto diyagram araçları id=g13860
+		FlameShot
+		Ksnip
+		SnagIt
+		Skitch
+		Sketch
+		Fragment
+		Figma
+		Monosnap
+		Snappy
+tpc - osx
+	ref: shortcuts kısayollar keybindings - osx <url:file:///~/projects/study/otl/cosx.otl#r=g12084>
+	AltTab - window navigation id=g13821
+		rfr: [AltTab - Windows alt-tab on macOS](https://alt-tab-macos.netlify.app/)
+		pencereler ve uygulamalar arasında dolaşma
+		Command+Tab gibi ama önizleme görüntüsü var
+	sesli kayıt alma - audio recording
+		Simple Recorder: küresel kısayollarla ses kaydı başlatıp tamamlama
+		Vox: Playlist ile bunları dinleme
+		VLC: m4a dosyalarının taglerini düzenleme
+		Syncthing: mac ve telefon arasında senkronizasyon
+	Simple Recorder id=g12829
+		#^+u | record
+		#^+i | pause
+		#^+o | stop
+		myrecords folder
+	Vim Motion: macos vim keybindings id=g12830
+		#+SPC | activate vim
+	music/mp3/audio players
+		Vox
+		foobar2000
+		Strawberry
+	transfer files from osx to ipad
+	image viewer
+		finder > select all > space
+	osx setup guide for development tools
+		http://sourabhbajaj.com/mac-setup/index.html
+	karabiner
+		dahili tanım dosyaları burada
+			<url:file:///Applications/Karabiner.app/Contents/Resources>
+		kendi özelleştirmelerim burada
+			<url:file:///~/Library/Application Support/Karabiner/private.xml>
+		ModifierFlag::NONE
+			http://blog.iansinnott.com/using-keyremap4macbooks-private-xml/
+			like non-recursive mapping in vim
+		mapping alt+shift to return
+			http://apple.stackexchange.com/questions/236774/how-to-map-altshiftspace-to-return-correctly-in-karabiner
+		KeyOverlaidModifier
+			--KeyOverlaidModifier--
+			KeyCode::<key we want to affect>,
+			KeyCode::<key to fire when held continuously>,
+			KeyCode::<key to fire when pressed and released quickly>
+	applications
+		UTM: virtual machine windows on m1
+		krispy: zoom kullanırken arka fondaki gürültüyü temizler
+		iterm2
+			solarized renkleri iterm için bozuk
+				https://gitlab.com/gnachman/iterm2/issues/3989
+				https://github.com/altercation/solarized/issues/257
+				violet light ve violet dark kullan onlar yerine
+					https://github.com/mbadolato/iTerm2-Color-Schemes
+		spotify
+			limit cache size
+				https://community.spotify.com/t5/Desktop-Mac/How-to-limit-cache-size/td-p/2907725
+				cd "~/Library/Application Support/Spotify/"
+				nvim prefs
+		ukelele: keyboard layout manager
+		mucommander
+		fragment: image viewer
+		fork: git client
+		syncthing: android-desktop sync
+		be focused: pomodoro timer
+		anki: spaced repetition for memory
+		karabiner: shortcuts, hotkeys management
+		copyq: multiple clipboard manager
 ## Tree
 
 	shortcuts kısayollar keybindings - osx id=g12084

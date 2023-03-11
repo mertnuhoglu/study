@@ -1,6 +1,7 @@
 (ns e01)
 
-;; Barış Can 20230109
+; Tarih: 20230109
+; Barış'la Clojure Egzersizleri
 ;; rfr: video/20230113-mert-clj-egzersiz-01.mp4
 
 (defn f1 [x]

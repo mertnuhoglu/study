@@ -1,5 +1,7 @@
 
 Logbook id=g13256
+	20230311
+		function! RefIdJournalFromAnywhere()  " SPC rb  <url:file:///~/.vim/bundle/vim-infoman/plugin/vim-infoman.vim#r=g13901>
 	20230304
 		function! ToggleColorScheme() " SPC tn <url:file:///~/prj/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g13823>
 		Refactoring in Neovim #vim <url:file:///~/projects/study/logseq-study/journals/2023_03_04.md#r=g13822>
@@ -23,6 +25,7 @@ Logbook id=g13256
 		function! ConvertTurkish2AsciiKebabCaseAndSaveWithTitle() "  SPC üka <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g13756>
 		function! ELogseqMyrepoPage() " SPC ibbp <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g13753>
 	20230225
+		[[20230225-mtng-Engin--Marka-calismasi]] <url:file:///~/projects/myrepo/logseq-myrepo/pages/20230225-mtng-Engin--Marka-calismasi.md#r=g13827>
 		20230225-msg-Dijital-Pazarlama-Adayları-İçin-Videolar <url:file:///~/gdrive/grsm-prv/20230225-msg-dijital-pazarlama-adaylari-icin-videolar.md#r=g13752>
 	20230224
 		ShadowCLJS Quick Start  <url:file:///~/projects/study/logseq-study/journals/2023_02_24.md#r=g13749>

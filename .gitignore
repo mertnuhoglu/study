@@ -109,3 +109,10 @@ r/**/*.html
 **/resources/public/js/dev
 
 **/.repl*
+
+# electric resources
+clj/ex/**/resources/public/js
+**/yarn.lock
+**/.obsidian/*
+./.obsidian
+**/.obsidian

@@ -151,6 +151,10 @@ cbe/outer
   a
   "else")
 ;; => 0
+;; bunun karşılığı şu:
+(let [a 0]
+  (if a a "else"))
+;; => 0
 
 (when true "10")
 ;; => "10"
