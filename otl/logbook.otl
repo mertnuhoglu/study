@@ -1,5 +1,8 @@
 
 Logbook id=g13256
+	20230312
+		function! ChangeDirToClojureDepsEdn() " SPC cdj <url:file:///~/prj/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g13915>
+		function! FindDepsEdnOfCurrentClojureProject() " SPC ükd <url:file:///~/prj/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g13914>
 	20230311
 		function! RefIdJournalFromAnywhere()  " SPC rb  <url:file:///~/.vim/bundle/vim-infoman/plugin/vim-infoman.vim#r=g13901>
 	20230304

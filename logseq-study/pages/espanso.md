@@ -4,6 +4,7 @@ tags:: tag
 # Espanso (Text Expansion) id=g13473
 - Text expansion (metin tamamlama) aracı
 - Örneğin: ":lox" yazıyorsun bunu "😂" sembolüne çeviriyor.
+- Kısayolu: `Option+Space` = `! SPC`
 - Configuration:
   	Settings
   <url:file:///Users/mertnuhoglu/Library/Application Support/espanso/config/default.yml>
