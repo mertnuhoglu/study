@@ -1,0 +1,9 @@
+h1 {
+    background-color: red;
+}
+
+/* [html - Display new line in code tag - Stack Overflow](https://stackoverflow.com/questions/32550310/html-display-new-line-in-code-tag) */
+code {
+  display: block;
+  white-space: pre-wrap   
+}
