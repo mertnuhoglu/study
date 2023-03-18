@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>* Selectors</title>
+  <meta charset="UTF-8">
+
+  <style>
+      h3 {
+          background-color: green;
+          text-align: left;
+      }
+
+      pre {
+          background-color: red;
+          text-align: left;
+      }
+
+      /* universal selector */
+      * {
+          background-color: white;
+          text-align: center;
+      }
+
+      /* type selector */
+      span {
+          background-color: skyblue;
+      }
+
+      /* id selector */
+      #div1 {
+          color: green;
+          text-align: center;
+          font-size: 20px;
+          font-weight: bold;
+      }
+      /* class selector */
+      .div2 {
+          color: orange;
+          text-align: left;
+          font-size: 25px;
+          font-weight: bold;
+      }
+      /* attribute selector */
+      div[style] {
+          text-align: center;
+          color: purple;
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: -20px;
+      }
+
+      /* combinator selector */
+      div>p {
+          color: #009900;
+          font-size: 32px;
+          font-weight: bold;
+          margin: 0px;
+          text-align: center;
+      }
+      /* class selector */
+      .box {
+          background-color: yellow;
+          width: 300px;
+          height: 100px;
+          margin: auto;
+          font-size: 30px;
+          text-align: center;
+      }
+      /* pseudo selector */
+      .box:hover {
+          background-color: orange;
+      }
+  </style>
+</head>
+<body>
+<div>
+  Source: https://www.geeksforgeeks.org/css-cheat-sheet-a-basic-guide-to-css/?ref=rp#CSS%20Basics
+</div>
+
+<div>
+  <h3>1. Selektör: *</h3>
+  <div>
+    *(Universal) selektörü tüm arka fonu (background) pembe yapar
+  </div>
+  <pre>
+      * {
+          background-color: hsl(325, 63%, 82%);
+          text-align: center;
+      }
+  </pre>
+</div>
+           
+<div>
+  <h3>2. Selektör: span</h3>
+  <div>span selektörü span elementini seçer</div>
+  <pre>
+      span {
+          background-color: skyblue;
+      }
+  </pre>
+  <span>This span is styled using type selector.
+</div>
+
+<div>
+  <h3>3. Selektör: #div1</h3>
+  <div>#div1 selektörü -> div id="div1"</div>
+  <pre>
+      #div1 {
+          color: green;
+          text-align: center;
+          font-size: 20px;
+          font-weight: bold;
+      }
+  </pre>
+  <div id="div1">
+    This div is styled using id selector
+  </div>
+</div>
+
+<div>
+  <h3>4. Selektör: .div2</h3>
+  <div>.div2 -> div class="div2"</div>
+  <pre>
+    .div2 {
+        color: orange;
+        text-align: left;
+        font-size: 25px;
+        font-weight: bold;
+    }
+  </pre>
+  <div class="div2 ">
+    This div is styled using class selector
+  </div>
+</div>
+
+<div>
+  <h3>5. Selektör: div[style]</h3>
+  <div>div[style] -> div style="color:green"</div>
+  <pre>
+      CSS:
+        div[style] {
+            text-align: center;
+            color: purple;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: -20px;
+        }
+
+      HTML:
+
+      < div style="color:green"></ div>
+  </pre>
+  <div style="color:green">
+    This div is styled using attribute selector 
+  </div>
+</div>
+
+<div>
+  <h3>6. Selektör: < div>< p></h3>
+  <div>div>p -> div p</div>
+  <pre>
+      div>p {
+          color: #009900;
+          font-size: 32px;
+          font-weight: bold;
+          margin: 0px;
+          text-align: center;
+      }
+  </pre>
+  <div style="text-align:center;">
+    This div is styled using combinators
+    <p>child selector</p>
+  </div>
+</div>
+
+<div>
+  <h3>7. Selektör: .box:hover</h3>
+  <div>.box:hover -> class="box" imleç üzerine gelince</div>
+  <pre>
+      .box:hover {
+          background-color: orange;
+      }
+  </pre>
+  <p>pseudo selector:</p>
+  <div class="box">
+    My color changes if you hover over me!
+  </div>
+</div>
+
+</body>
+</html>
