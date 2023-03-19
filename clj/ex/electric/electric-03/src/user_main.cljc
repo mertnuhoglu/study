@@ -10,6 +10,10 @@
             app.e01-html-elements
             app.e02-collection
             app.e02b-collection
+            demo.demo-2-toggle01
+            demo.demo-2-toggle02
+            demo.demo-2-toggle03
+            demo.demo-3-system-properties01
             ; end
             ,))
 
@@ -22,10 +26,14 @@
 (e/defn Pages [page]
   (e/server
     (case page
-      `demo.demo-index/Demos demo.demo-index/Demos
       `app.e01-html-elements/HtmlElements app.e01-html-elements/HtmlElements
       `app.e02-collection/CollectionTable app.e02-collection/CollectionTable
-      `app.e02b-collection/MapTable app.e02b-collection/MapTable)))
+      `app.e02b-collection/MapTable app.e02b-collection/MapTable
+      ::demos/toggle01 demo.demo-2-toggle01/App
+      ::demos/toggle02 demo.demo-2-toggle02/App
+      ::demos/toggle03 demo.demo-2-toggle03/App
+      ::demos/System-Properties01 demo.demo-3-system-properties01/App
+      `demo.demo-index/Demos demo.demo-index/Demos)))
 
 (e/defn Main []
   (binding [history/encode contrib.ednish/encode-uri

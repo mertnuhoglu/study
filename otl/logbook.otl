@@ -1,10 +1,13 @@
 
 Logbook id=g13256
-	20230312
+	20230319
+		local goto_map = { -- SPC SPC g <url:file:///~/projects/private_dotfiles/.config/nvim/lua/mert/which-key.lua#r=g13792>
+	20230318
 		Emmet HTML code template expansion autocompleter <url:file:///~/projects/study/otl/cvim.otl#r=g14029>
 		Bracey (live html preview) kullanımı <url:file:///~/projects/study/otl/cvim.otl#r=g14027>
 		goto navigation commands <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g14030>
 		vim: ^k^k Emmet expand HTML abbreviations <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g14028>
+	20230312
 		function! ChangeDirToClojureDepsEdn() " SPC cdj <url:file:///~/prj/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g13915>
 		function! FindDepsEdnOfCurrentClojureProject() " SPC ükd <url:file:///~/prj/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g13914>
 	20230311

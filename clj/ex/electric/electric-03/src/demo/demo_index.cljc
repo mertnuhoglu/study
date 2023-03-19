@@ -7,7 +7,12 @@
 (def pages
   [`app.e01-html-elements/HtmlElements
    `app.e02-collection/CollectionTable
-   `app.e02b-collection/MapTable])
+   `app.e02b-collection/MapTable
+   ::toggle01
+   ::toggle02
+   ::toggle03
+   ::System-Properties01
+   ::end])
 
 (e/defn Demos []
   (e/client
