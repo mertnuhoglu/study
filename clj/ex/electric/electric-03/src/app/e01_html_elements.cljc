@@ -218,6 +218,19 @@
           (dom/text " Female"))
 
         (dom/p
+          (dom/text "form > fieldset > label > input > :type = checkbox"))
+        (dom/label
+          (dom/input (dom/props {:type "checkbox"
+                                 :name "gender"
+                                 :value "male"}))
+          (dom/text " Male"))
+        (dom/label
+          (dom/input (dom/props {:type "checkbox"
+                                 :name "gender"
+                                 :value "female"}))
+          (dom/text " Female"))
+
+        (dom/p
           (dom/text "form > fieldset > label > input > :list"))
         (dom/label
           (dom/text "Label4:"))

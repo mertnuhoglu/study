@@ -12,6 +12,10 @@
    ::toggle02
    ::toggle03
    ::System-Properties01
+   ::System-Properties02
+   ::System-Properties03
+   ::System-Properties04
+   ::System-Properties05
    ::end])
 
 (e/defn Demos []

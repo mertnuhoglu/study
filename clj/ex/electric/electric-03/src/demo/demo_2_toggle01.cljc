@@ -4,6 +4,10 @@
     [hyperfiddle.electric-dom2 :as dom]
     [hyperfiddle.electric-ui4 :as ui]))
 
+; Tarih: 20230320
+; Konu: Barış'la Electric Çalışması
+; Video: mert-cljs-05-electric-reaktif-mantigi.mp4
+
 ; A stateful app with a server-side counter
 ; Electric functions are reactive and incrementally maintained,
 ; which means that when you make a small change to the state,
@@ -22,3 +26,9 @@
         (if (e/server x)
           (e/client (pr-str (type 1))) ; javascript number type
           (e/server (pr-str (type 1)))))))) ; java number type
+
+(comment
+  (identity !x)
+
+  ; end
+  ,)

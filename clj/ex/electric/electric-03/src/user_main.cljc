@@ -14,6 +14,10 @@
             demo.demo-2-toggle02
             demo.demo-2-toggle03
             demo.demo-3-system-properties01
+            demo.demo-3-system-properties02
+            demo.demo-3-system-properties03
+            demo.demo-3-system-properties04
+            demo.demo-3-system-properties05
             ; end
             ,))
 
@@ -33,6 +37,10 @@
       ::demos/toggle02 demo.demo-2-toggle02/App
       ::demos/toggle03 demo.demo-2-toggle03/App
       ::demos/System-Properties01 demo.demo-3-system-properties01/App
+      ::demos/System-Properties02 demo.demo-3-system-properties02/App
+      ::demos/System-Properties03 demo.demo-3-system-properties03/App
+      ::demos/System-Properties04 demo.demo-3-system-properties04/App
+      ::demos/System-Properties05 demo.demo-3-system-properties05/App
       `demo.demo-index/Demos demo.demo-index/Demos)))
 
 (e/defn Main []

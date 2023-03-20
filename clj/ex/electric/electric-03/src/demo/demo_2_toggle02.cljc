@@ -4,6 +4,8 @@
     [hyperfiddle.electric-dom2 :as dom]
     [hyperfiddle.electric-ui4 :as ui]))
 
+; Video: mert-cljs-05-electric-reaktif-mantigi.mp4
+
 ; A stateful app with a server-side counter
 ; Electric functions are reactive and incrementally maintained,
 ; which means that when you make a small change to the state,

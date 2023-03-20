@@ -4,6 +4,8 @@
     [hyperfiddle.electric-dom2 :as dom]
     [hyperfiddle.electric-ui4 :as ui]))
 
+; Video: mert-cljs-05-electric-reaktif-mantigi.mp4
+
 #?(:clj (defonce !x (atom true)))
 (e/def x (e/server (e/watch !x)))
 (e/def y (e/server (not x)))

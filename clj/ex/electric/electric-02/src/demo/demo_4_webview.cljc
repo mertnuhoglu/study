@@ -49,5 +49,5 @@
   #?(:clj (d/transact conn [{:db/id 2 :order/email "bob2@example.com"}]))
   #?(:clj (d/transact conn [{:order/email "dan@example.com"}]))
   #?(:clj (d/transact conn [{:order/email "erin@example.com"}]))
-  #?(:clj (d/transact conn [{:order/email "frank@example.com"}]))
-  )
+  #?(:clj (d/transact conn [{:order/email "frank@example.com"}])))
+
