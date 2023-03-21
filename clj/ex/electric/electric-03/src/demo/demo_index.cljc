@@ -16,6 +16,12 @@
    ::System-Properties03
    ::System-Properties04
    ::System-Properties05
+   ::System-Properties06
+   ::System-Properties06b
+   ::System-Properties06c
+   ::System-Properties06d
+   ::System-Properties06e
+   ::Search-Map
    ::end])
 
 (e/defn Demos []

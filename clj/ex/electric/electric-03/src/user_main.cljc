@@ -18,6 +18,12 @@
             demo.demo-3-system-properties03
             demo.demo-3-system-properties04
             demo.demo-3-system-properties05
+            demo.demo-3-system-properties06
+            demo.demo-3-system-properties06b
+            demo.demo-3-system-properties06c
+            demo.demo-3-system-properties06d
+            demo.demo-3-system-properties06e
+            app.e03-search-map
             ; end
             ,))
 
@@ -41,6 +47,12 @@
       ::demos/System-Properties03 demo.demo-3-system-properties03/App
       ::demos/System-Properties04 demo.demo-3-system-properties04/App
       ::demos/System-Properties05 demo.demo-3-system-properties05/App
+      ::demos/System-Properties06 demo.demo-3-system-properties06/App
+      ::demos/System-Properties06b demo.demo-3-system-properties06b/App
+      ::demos/System-Properties06c demo.demo-3-system-properties06c/App
+      ::demos/System-Properties06d demo.demo-3-system-properties06d/App
+      ::demos/System-Properties06e demo.demo-3-system-properties06e/App
+      ::demos/Search-Map app.e03-search-map/App
       `demo.demo-index/Demos demo.demo-index/Demos)))
 
 (e/defn Main []
