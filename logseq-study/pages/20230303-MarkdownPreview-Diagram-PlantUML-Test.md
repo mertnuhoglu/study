@@ -1,14 +1,14 @@
+tags:: tpc/markdown, tpc/diagram, vim
 
 # 20230303-MarkdownPreview-Diagram-PlantUML-Test id=g13811
 
-${toc}
+rfr: [[20230321-markdown-it-Examples]] <url:file:///~/projects/study/logseq-study/pages/20230321-markdown-it-Examples.md#r=g14052>
 
+${toc}
 
 ## Heading 1
 
-
 ## Heading 3
-
 
 ## Image Size
 
