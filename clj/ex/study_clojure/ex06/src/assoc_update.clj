@@ -209,6 +209,21 @@ p
 (update m [:sel] assoc :id 2)
 ;;=> {:sel [{:id 1}], [:sel] {:id 2}}
 
+(comment
+  (get-in m [:sel])
+  ;=> [{:id 1}]
+  #_(assoc [{:id 1}] :id 2)
+  ;Key must be integer
+  (get [{:id 1}] 0)
+  ;=> {:id 1}
+  (assoc-in [{:id 1}] [0 :id] 2)
+  ;=> [{:id 2}]
+
+  (update m :sel assoc-in [0 :id] 2)
+  ;=> {:sel [{:id 2}]}
+
+  ,)
+
 (update m :sel assoc :id 2)
 ; (err) Key must be integer
 

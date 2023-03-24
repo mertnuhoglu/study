@@ -33,6 +33,24 @@
 (comment
   (identity db)
   (filter-db "a")
+  ;=> {"a1" "v1", "a2" "v2"}
+
+  (def ?s "a")
+  (->> db
+    (filter (fn [[k v]] (str/includes? (str/lower-case (str k)) (str/lower-case (str ?s)))))
+    (into {}))
+  ;=> {"a1" "v1", "a2" "v2"}
+
+  (filter
+    (fn [[k v]] (str/includes? (str/lower-case (str k)) (str/lower-case (str ?s))))
+    db)
+  ;=> (["a1" "v1"] ["a2" "v2"])
+
+  ((fn
+     [[k v]]
+     (str/includes? (str/lower-case (str k)) (str/lower-case (str ?s))))
+   {"a1" "v1"})
+  ;nth not supported on this type: PersistentArrayMap
 
   ; end
   ,)

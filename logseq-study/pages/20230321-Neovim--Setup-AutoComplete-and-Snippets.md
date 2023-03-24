@@ -2,7 +2,15 @@ tags:: vim/lsp
 
 # 20230321-Neovim--Setup-AutoComplete-and-Snippets id=g14059
 
-[Code like a GOD with Neovim AutoComplete and Snippets! - YouTube](https://www.youtube.com/watch?v=h4g0m0Iwmys)
+pprv: [[20230321-Neovim-LSP-Setup-and-Configuration]] <url:file:///~/prj/study/logseq-study/pages/20230321-Neovim-LSP-Setup-and-Configuration.md#r=g14063>
+
+rfr: cmp.setup({ -- autocomplete mappings <url:file:///~/prj/private_dotfiles/.config/nvim/lua/mert/completions.lua#r=g14079>
+
+## Sıfırdan Neovim Konfigürasyonu id=g14061
+
+[(563) How to Configure Neovim to make it Amazing -- complete tutorial - YouTube](https://www.youtube.com/watch?v=J9yqSdvAKXY)
+
+[Code with Neovim AutoComplete and Snippets! - YouTube](https://www.youtube.com/watch?v=h4g0m0Iwmys)
 
 Edit `~/prj/private_dotfiles/.config/nvim/lua/plugins.lua`
 
@@ -11,32 +19,21 @@ Edit `~/prj/private_dotfiles/.config/nvim/lua/plugins.lua`
 	use 'hrsh7th/cmp-nvim-lua'
 ```
 
-Edit `~/prj/private_dotfiles/.config/nvim/lua/lsp_auto_complete.lua`
+Edit `~/prj/private_dotfiles/.config/nvim/lua/mert/completions.lua`
 
-rfr: nvim-cmp setup <url:file:///~/prj/private_dotfiles/.config/nvim/lua/lsp_auto_complete.lua#r=g14060>
+## Snippet engine configuration
 
-```
-local cmp = require 'cmp'
-cmp.setup {
-  mapping = {
-    ['<CR>'] = cmp.mapping.confirm { select = true, },
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'buffer' },
-    { name = 'path' },
-    { name = 'calc' },
-  },
-	formatting = {
-    format = lspkind.cmp_format({
-      with_text = true, -- do not show text alongside icons
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-    })
-  }
-}
-```
+rfr: snippet <url:file:///~/prj/private_dotfiles/.config/nvim/lua/mert/completions.lua#r=g14074>
 
-## Sıfırdan Neovim Konfigürasyonu id=g14061
+Eklenti: `luasnip`
 
-[(563) How to Configure Neovim to make it Amazing -- complete tutorial - YouTube](https://www.youtube.com/watch?v=J9yqSdvAKXY)
+## VsCode Snippets
+
+VsCode'un snippetlarını kullanmak için iki eklenti gerekiyor:
+
+Eklenti: 
+'saadparwaiz1/cmp_luasnip'
+'rafamadriz/friendly-snippets'
+
+pnxt: [[20230323-VsCode-Snippet-Ekleme-Vim-Icine]] <url:file:///~/projects/study/logseq-study/pages/20230323-VsCode-Snippet-Ekleme-Vim-Icine.md#r=g14080>
+
