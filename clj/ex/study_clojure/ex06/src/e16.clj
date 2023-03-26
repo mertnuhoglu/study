@@ -82,6 +82,8 @@
   ,)
 
 (comment
+  ; Bu veri yapısıyla yapmak baştan sorunlu.
+
   (def db
     [{:ali "veli"}
      {:bekir "nazmi"}])
@@ -98,6 +100,8 @@
   ,)
 
 (comment
+  ; Olması gereken veri yapısı şu şekildeydi:
+  ; Bunu çözmeye çalışalım.
   (def db
     [{:name "ali" :surname "veli"}
      {:name "bekir" :surname "nazmi"}])
@@ -125,7 +129,6 @@
 
   (filter-db "a")
   ;=> ({:name "ali", :surname "veli"})
-
 
   ; end
   ,)
