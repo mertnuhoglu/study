@@ -20,7 +20,7 @@
 (vector 3 6) ; [3 6]
 
 ; a02: interleave ile
-(interleave [1 2 3 4] [5 6 7 8]) 
+(interleave [1 2 3 4] [5 6 7 8])
 ; (1 5 2 6 3 7 4 8)
 (partition 2 (interleave [1 2 3 4] [5 6 7 8]))  
 ; ((1 5) (2 6) (3 7) (4 8))

@@ -26,6 +26,7 @@
 ; 3 + 5 diye yazarız
 ; +(3, 5) şeklinde de yazılabiliriz matematiksel notasyonda da
 
+; aradaki argüman: başlangıç değeri (init)
 ; (reduce f val coll) kullanımı:
 (reduce + 5 '(1 2 3))
 ;=> 11

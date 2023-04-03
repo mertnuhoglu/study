@@ -1431,7 +1431,7 @@
 		- (take 3 (repeat #p (+ 1 2)))
 		- cider debugging: ; put break point: `,db`
 		- cider debugger: locals:
-		- #break
+		- `#break`
 	- Function Definition
 		- (macroexpand  ; <1>
 			- '(defn hello [person]

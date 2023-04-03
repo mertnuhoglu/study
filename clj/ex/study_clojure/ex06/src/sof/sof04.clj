@@ -28,8 +28,8 @@
 
 (into [] '(1 2 3 4)) ; ==> [1 2 3 4]         "have a lazy list and want a vector"
 
-; lazy list ne demek? #nclk/önemli #zihinsel-model/sezgisel
-; her şeyin lazy'si olabilir
+; lazy list ne demek? #nclk/önemli #zihinsel-model/sezgisel id=lazy-list-ne-demek
+; her şeyin (her datanın) lazy'si olabilir
 ; lazy: bir veri yapısının içindeki öğelerin, yavaş yavaş gelmesi anlamına gelir
 ; yukarıda bütün öğeler en baştan hazır, o yüzden bu bir lazy list değil
 ; mesela bir veritabanından sorgu yaptık ve bir resultset objesi döndü

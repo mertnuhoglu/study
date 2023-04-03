@@ -20,6 +20,9 @@ tpc - osx
 		rfr: [AltTab - Windows alt-tab on macOS](https://alt-tab-macos.netlify.app/)
 		pencereler ve uygulamalar arasında dolaşma
 		Command+Tab gibi ama önizleme görüntüsü var
+		Aynı uygulamanın pencereleri arasında dolaşmak
+			[macos - Shortcut for toggling between different windows of same app? - Ask Different](https://apple.stackexchange.com/questions/193937/shortcut-for-toggling-between-different-windows-of-same-app)
+			Disable: Keyboard > Shortcuts > Keyboard > Move focus to next window
 	sesli kayıt alma - audio recording
 		Simple Recorder: küresel kısayollarla ses kaydı başlatıp tamamlama
 		Vox: Playlist ile bunları dinleme
