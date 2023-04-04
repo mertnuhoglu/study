@@ -26,7 +26,7 @@
 ; Bunu bir hafta yapınca, her şey zihnime oturmuştu. Refleks olmuştu her şey.
 ; Bunun bir başka çağrışım: Mental experiment (Einstein'ın kullandığı bir yöntem)
 
-; Zihinsel model dediğimiz şey, aslında gerçek hayattaki bir olayın, en öz ve sade modelidir.
+; Zihinsel model dediğimiz şey, aslında gerçek hayattaki bir olayın, en öz ve sade modelidir. id=zihinsel-model-nedir
 ; #terim: model = gerçek hayattaki bir şeyin temsilidir
 ; Zihinsel model, bir şeyin özüne inebilmektir. Dolayısıyla minimal hale getirmektir.
 ; Yaman Barlas'ın anlatımıyla:

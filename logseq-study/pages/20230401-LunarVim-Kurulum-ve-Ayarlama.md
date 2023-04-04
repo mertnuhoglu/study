@@ -35,6 +35,8 @@ ln -s ~/prj/private_dotfiles/.vim/ftplugin ~/.config/lvim/ftplugin
 ln -s ~/prj/private_dotfiles/.vim/indent ~/.config/lvim/indent
 ```
 
+rfr: `~/prj/private_dotfiles/.vim/after/ftplugin/markdown.vim`
+
 ## lua ayarları
 
 ## which-key ayarları
