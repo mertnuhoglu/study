@@ -1,5 +1,8 @@
 (ns e23)
 
+; Tarih: 20230407
+; Konu: Barış'la postwalk debug
+
 (def my-map {1 {:id 1 :name "ali" :surname "veli"}
              2 {:id 2 :name "batu" :surname "can"}})
 

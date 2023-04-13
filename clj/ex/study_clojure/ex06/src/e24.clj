@@ -1,7 +1,7 @@
 (ns e24)
 
 ; Tarih: 20230407
-; Konu: Ahmet'le Çalışma
+; Konu: Ahmet'le threading macro ve get/keyword fonksiyon debug örnekleri
 ; Video: 20230407-mert-clj-egzersiz-55-e24-threading-macro-debug.mp4
 
 ; Kaynak: file1.clj

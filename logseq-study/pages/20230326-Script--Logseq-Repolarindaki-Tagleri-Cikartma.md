@@ -23,3 +23,4 @@ rfr: `function! LogseqExtractTags() " <url:file:///~/prj/vim_repos/my-vim-custom
 
 Hata ayıklama:
 
+rfr: [[kslt]] <url:file:///~/prj/myrepo/logseq-myrepo/pages/kslt.md#r=g14145>

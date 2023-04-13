@@ -15,5 +15,8 @@ nvswap.sh "$HOME/.config/nvimconfigs/kickstart.nvim"
 	| gr | go to references |
 	| ^q | add to quicklist (inside telescope) |
 	| Telescope symbols | list all symbols |
+	| !SPC | extend selection |
 
 Check `~/prj/private_dotfiles/.config/nvimconfigs/kickstart.nvim/init.lua`
+
+

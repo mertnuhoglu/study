@@ -1,4 +1,4 @@
-tags:: vim/nvchad
+t ğsqgs:: vim/nvchad
 
 # 20230328-Neovim-Nvchad-Kurulum-ve-Ayarlama id=g14156
 
