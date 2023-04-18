@@ -1,5 +1,7 @@
 
 Logbook id=g13256
+	20230413
+		function! LogseqAddPageRefToJournal2()  " Sibr <url:file:///~/prj/private_dotfiles/vim/my-vim-custom2/plugin/my-vim-custom2.vim#r=g14212>
 	20230319
 		local goto_map = { -- SPC SPC g <url:file:///~/projects/private_dotfiles/.config/nvim/lua/mert/which-key.lua#r=g13792>
 	20230318

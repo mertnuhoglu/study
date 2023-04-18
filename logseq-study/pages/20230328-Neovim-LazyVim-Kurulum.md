@@ -68,3 +68,11 @@ ln -s ~/projects/private_dotfiles/.vim/ftplugin ~/prj/private_dotfiles/.config/n
 
 Treesitter options (custom): `~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/plugins/treesitter.lua`
 
+Kendi ayarlarımın olduğu eklentileri symlink ile aktar:
+
+```
+ln -s /Users/mertnuhoglu/prj/private_dotfiles/vim/my-vim-lazyvim/plugin/my-vim-lazyvim.vim /Users/mertnuhoglu/projects/private_dotfiles/.vim/after/plugin
+ln -s /Users/mertnuhoglu/prj/private_dotfiles/vim/my-vim-custom2/plugin/my-vim-custom2.vim ~/projects/private_dotfiles/.vim/after/plugin
+```
+
+
