@@ -17,12 +17,13 @@ state: wip
 
 ---
 
-# quickstart surfingkeys
+# quickstart surfingkeys id=g14235
 
     | p  | PassThrough mode - temporarily disable |
     | !s | disable                                |
 		| >> | move tab to right                      |
 		| << | move tab to left                       |
+		| T  | navigate tabs                          |
 
 # surfingkeys: vim emulation for chrome
 
