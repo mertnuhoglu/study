@@ -14,6 +14,9 @@ intellij
 			| f1           | quickdocs          |
 			| ^^           | Run anything       |
 			| #! SPC, ...  | menus              |
+pnt
+	which-key  <url:file:///~/prj/private_dotfiles/.ideavimrc#r=g14252>
+	intellij #error: Alt-R kısayolu intellij'de çalışmıyor: <url:file:///~/prj/study/logseq-study/journals/2023_04_23.md#r=g14251>
 cursive
 	ref
 		~/projects/study/clj/cursive.md
