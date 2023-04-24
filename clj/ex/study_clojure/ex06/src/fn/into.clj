@@ -1,7 +1,12 @@
 (ns fn.into)
 
+; Video: 20230420-mert-clj-57-d08-refactoring-debug.mp4
+
 ; into: #nclk/çok-önemli #tpc/conversion
+; []
+; [to]
 ; [to from]
+; [to xform from]
 ; Returns a new coll consisting of to-coll with all of the items of from-coll conjoined. A transducer may be supplied.
 ; ikinci argümandaki (from) öğeleri ilk argümandaki veri yapısının içine koyar
 
@@ -24,5 +29,21 @@
 ; bu tip çözümlere hack veya trick denir
 ; bir şeyi yapmanın beklenmedik bir yolu.
 
+(into {:x 4} [{:a 1} {:b 2} {:c 3}])
+;{:x 4, :a 1, :b 2, :c 3}
+
+; into'nun 4. kullanım şekli, transducer kullanıyor
+(def xform
+  (map #(+ 2 %)))
+
+(into [-1 -2] xform (range 10))
+;=> [-1 -2 2 3 4 5 6 7 8 9 10 11]
+
+; şuna denktir:
+(map #(+ 2 %) (range 10))
+;=> (2 3 4 5 6 7 8 9 10 11)
+
+(into [-1 -2] '(2 3 4 5 6 7 8 9 10 11))
+;=> [-1 -2 2 3 4 5 6 7 8 9 10 11]
 
 
