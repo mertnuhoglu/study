@@ -1,7 +1,17 @@
 (ns e02
   (:require [nextjournal.clerk :as clerk]))
 
-;; Hello e02
+(require '[nextjournal.clerk :as clerk])
 
-(clerk/html [:div "As Clojurians we " [:em "really"] " enjoy hiccup 2"])
+;; rfr: [[20230414-Clj-Clerk-ile-Uygulama-Simulasyonu]]
+;;
+
+;; ## p02: Departman bir entitydir id=g14241
+;;
+;; - e01: yuml notasyonuyla modelleme
+
+;; ```
+;; [Department| title; ]
+;; [Student] n-1 [Department]
+;; ```
 
