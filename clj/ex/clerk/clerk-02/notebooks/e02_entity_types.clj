@@ -1,4 +1,4 @@
-(ns e02
+(ns e02-entity-types
   (:require [nextjournal.clerk :as clerk]))
 
 (require '[nextjournal.clerk :as clerk])

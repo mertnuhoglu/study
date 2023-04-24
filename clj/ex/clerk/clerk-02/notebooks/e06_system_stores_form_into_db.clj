@@ -1,4 +1,4 @@
-(ns e06)
+(ns e06_system_stores_form_into_db)
 
 (require '[nextjournal.clerk :as clerk])
 (require '[clojure.walk :refer [postwalk]])
