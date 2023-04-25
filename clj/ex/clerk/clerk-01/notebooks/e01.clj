@@ -2,6 +2,7 @@
 
 ;; rfr: [[20230412-Clerk-Kurulum]]
 ;; Video: 20230414-mert-clj-56-clerk-kurulum-kurcalama.mp4
+;; Video: 20230425-mert-clj-58-clerk-uygulama-simulasyonu.mp4
 
 ;; Clerk enables a _rich_, local-first notebook experience using standard Clojure namespaces.
 (ns e01

@@ -1,6 +1,9 @@
+^{::clerk/visibility {:code :hide}}
 (ns e04_steps_form_submit)
 
+^{::clerk/visibility {:code :hide}}
 (require '[nextjournal.clerk :as clerk])
+^{::clerk/visibility {:code :hide}}
 (require '[clojure.walk :refer [postwalk]])
 
 ; s01: Öğrenci boş bir Student Registration formu açar.
@@ -20,12 +23,13 @@
 (defn to-clerk [m]
   (postwalk
     #(if
-       (string? %)
+       (or (string? %) (map? %))
+       ;(string? %)
        (vector %)
        %)
     m))
 ^{::clerk/visibility {:code :hide}}
-(to-clerk form)
+#_(to-clerk form)
 
 ^{::clerk/visibility {:code :hide}}
 (clerk/table
@@ -66,7 +70,7 @@
   (defn to-clerk [m]
     (postwalk
       #(if
-         (string? %)
+         (or (string? %) (map? %))
          (vector %)
          %)
       m))
@@ -93,6 +97,30 @@
   {:name "Can Ali"
    :department {:department/id 101
                 :department/title "Matematik"}})
+
+; bunu clerk table olarak nasıl gösterir?
+(def form5
+  {:name       ["Can Ali"]
+   :department [{:department/id 101
+                 :department/title "Matematik"}]})
+^{::clerk/visibility {:code :hide}}
+(clerk/table
+  form5)
+
+^{::clerk/visibility {:code :hide}}
+(comment
+  (defn to-clerk [m]
+    (postwalk
+      #(if
+         (or (string? %) (map? %))
+         ;(string? %)
+         (vector %)
+         %)
+      m))
+  (to-clerk form4)
+  ;=> [{:name ["Can Ali"], :department [#:department{:id 101, :title ["Matematik"]}]}]
+
+  ,)
 
 ; s03: Sistem bu formu [Student] tablosuna kaydeder.
 

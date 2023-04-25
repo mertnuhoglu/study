@@ -9,7 +9,7 @@
 
 (comment
   ;; either call `clerk/show!` explicitly
-  ;(clerk/show! "notebooks/e02.clj")
+  (clerk/show! "notebooks/e02.clj")
 
   ;; or let Clerk watch the given `:paths` for changes
   (clerk/serve! {:watch-paths ["notebooks" "src"]})

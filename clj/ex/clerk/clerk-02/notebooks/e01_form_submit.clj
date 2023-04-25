@@ -3,7 +3,7 @@
 (require '[nextjournal.clerk :as clerk])
 
 ;; rfr: [[20230414-Clj-Clerk-ile-Uygulama-Simulasyonu]]
-;;
+;; Video: 20230425-mert-clj-58-clerk-uygulama-simulasyonu.mp4
 
 ;; ## p01: Form kayıt id=g14240
 ;;

@@ -121,3 +121,5 @@ clj/ex/**/resources/public/js
 **/.clerk/
 **/.clj-kondo/
 
+logseq-study/whiteboards
+
