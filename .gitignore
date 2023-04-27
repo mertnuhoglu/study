@@ -118,7 +118,7 @@ clj/ex/**/resources/public/js
 **/.obsidian
 
 # clerk clj
-**/.clerk/
+**/.clerk
 **/.clj-kondo/
 
 logseq-study/whiteboards

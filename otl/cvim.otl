@@ -13,6 +13,15 @@ kendi kullanım yöntemlerim
 			ref:
 				which-key vim-bookmarks: SPC m <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12560>
 pnt
+	vim #error Çince karakterler görünüyor <url:file:///~/prj/study/logseq-study/journals/2023_04_26.md#r=g14260>
+	markdown outline bullets: indent and outdent lines id=g14256
+		<C-t> indent
+		<C-d> outdent
+		[key bindings - Is there a way to indent and outdent lines without moving the cursor? - Vi and Vim Stack Exchange](https://vi.stackexchange.com/questions/15247/is-there-a-way-to-indent-and-outdent-lines-without-moving-the-cursor)
+		[(3) TIL in insert mode you can indent/outdent with C-t and C-d : vim](https://www.reddit.com/r/vim/comments/i6vpm3/til_in_insert_mode_you_can_indentoutdent_with_ct/)
+			:h usr_30
+			:h i_CTRL-F
+			:h indentkeys-format
 	Emmet HTML code template expansion autocompleter id=g14029
 		imap   <C-k><C-k>   <plug>(emmet-expand-abbr) " <url:file:///~/.vim/bundle/my-vim-custom/plugin/my-vim-custom.vim#r=g14028>
 	Bracey (live html preview) kullanımı id=g14027
