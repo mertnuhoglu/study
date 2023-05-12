@@ -1011,7 +1011,7 @@ tools tools2
 					!/			quick command
 	fzf: fuzzy file finder id=g10242
 		rfr: fzf <url:file:///~/projects/study/otl/fzf.otl#r=g13074>
-	grafik diyagram diagram tools diagram2
+	grafik diyagram diagram tools diagram2 id=g14283
 		rfr
 			çizim grafik tasarım foto diyagram araçları <url:file:///~/projects/study/otl/cosx.otl#r=g13860>
 		okso.app

@@ -26,7 +26,7 @@
 ; İlk başta Norbert'ın şu videosunu izleyin:
 ; [DOMAIN MODELING WITH DATALOG by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw)
 
-; benim kod örneklerinden datomic_01b.clj en kolay başlangıç örneği olabilir
+; benim kod örneklerinden e02.clj en kolay başlangıç örneği olabilir
 ; burada diğer veritabanı sunucularından farklı olarak,
 ; ayrı bir prosesste bir veritabanı sunucusu başlatmanıza gerek yok
 ; örneğin, mysql ile çalışırken önce mysql sunucusunu başlatırsın (server)

@@ -11,3 +11,9 @@ Is it possible to toggle between `spell` and `nospell` globally so that I can at
 
   [1]: https://stackoverflow.com/questions/54169337/set-nospell-in-vimrc-has-no-effect
 
+Answer:
+
+```vim
+:bufdo set spell
+```
+

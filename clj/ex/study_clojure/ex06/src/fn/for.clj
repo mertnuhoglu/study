@@ -113,6 +113,27 @@
 ;   }
 ; }
 
+(defn f [e]
+  (+ e 1))
+
+(def v [10 20 30])
+(map f v)
+; javada bunun implementasyonu:
+; integer[] v = [10, 20, 30];
+; integer[] result = [];
+; for (i = 0; i < length(v); i++) {
+;   result.add(i + 1);
+; }
+; println(result);
+;
+; pseudocode olarak yazarsak:
+;
+; result = []
+; for (e in v) {
+;   result.append(f(e))
+; }
+; return(result)
+
 ; Terim: cartesian product (kartezyen çarpım)
 ; İki farklı kümedeki öğelerin, birbiriyle sıralı kombinasyonu anlamına gelir.
 
