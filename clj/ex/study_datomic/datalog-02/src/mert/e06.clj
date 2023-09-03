@@ -1,5 +1,6 @@
 (ns mert.e06)
 
+; Author: Barış Can Çalış
 ; Egzersiz
 ; rfr: video/20230203-mert-clj-egzersiz-16.mp4
 

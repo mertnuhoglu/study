@@ -4,11 +4,16 @@ tags:: study, logseq, my/script, kms
 
 rfr: Title: Extract tags from all notes <url:file:///~/prj/study/script/tag_extract.sh#r=g14267>
 
+```sh
+sh ~/prj/study/script/tag_extract.sh
+#> /Users/mertnuhoglu/projects/myrepo/scrap/out/tags_20230607.txt
+```
+
 Output: `/Users/mertnuhoglu/projects/myrepo/scrap/out/tags.txt`
 
 `:LogseqExtractTags` ile etiketleri çıkart.
 
-rfr: `function! LogseqExtractTags() " <url:file:///~/prj/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g14147>`
+rfr: `function! LogseqExtractTags() " <url:file:///~/prj/private_dotfiles/vim/my-vim-custom2/plugin/my-vim-custom2.vim#r=g14147>`
 
 Sonuçları buraya aktar:
 

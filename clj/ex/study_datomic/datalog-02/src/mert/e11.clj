@@ -141,6 +141,8 @@
 (def a 4)
 (f 2)
 ;=> 6
+; `(f 2) ` ifadesi önce 5 sonra 6 değerini döndürdü.
+; Demek ki, f saf olmayan bir fonksiyondur.
 
 ; Örneğin: `<` fonksiyonuna kendimiz yeni bir isim verip o yeni isimle fonksiyonu predicate olarak kullanalım:
 (def test-predicate <)
@@ -158,3 +160,4 @@
     [(mert.e11/test-predicate ?size 5)]]
   db)
 ;=> [[{:db/id 92358976733271, :order/product #:db{:id 92358976733265}, :order/size 4}]]
+; `mert.e11/test-predicate` şeklinde namespace ile bir fonksiyonu belirterek, qualified name anlamına geliyor.

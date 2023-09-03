@@ -45,6 +45,7 @@
                        :storage-dir :mem
                        :system "ci"}))
 
+(d/delete-database client {:db-name "db04"})
 (d/create-database client {:db-name "db04"})
 
 (def conn (d/connect client {:db-name "db04"}))
@@ -179,6 +180,31 @@
    {:product/name "Defter"
     :product/color :color/green}])
 (d/transact conn {:tx-data product-list})
+;=>
+;{:db-before #datomic.core.db.Db{:id "3fae223c-e155-42f6-b723-bc07307cb5b0",
+;                                :basisT 9,
+;                                :indexBasisT 0,
+;                                :index-root-id nil,
+;                                :asOfT nil,
+;                                :sinceT nil,
+;                                :raw nil},
+; :db-after #datomic.core.db.Db{:id "3fae223c-e155-42f6-b723-bc07307cb5b0",
+;                               :basisT 10,
+;                               :indexBasisT 0,
+;                               :index-root-id nil,
+;                               :asOfT nil,
+;                               :sinceT nil,
+;                               :raw nil},
+; :tx-data [#datom[13194139533322 50 #inst"2023-06-10T14:02:12.620-00:00" 13194139533322 true]
+;           #datom[96757023244370 73 "Kalem" 13194139533322 true]
+;           #datom[96757023244370 74 92358976733260 13194139533322 true]
+;           #datom[96757023244371 73 "Kalem" 13194139533322 true]
+;           #datom[96757023244371 74 92358976733262 13194139533322 true]
+;           #datom[96757023244372 73 "Defter" 13194139533322 true]
+;           #datom[96757023244372 74 92358976733260 13194139533322 true]
+;           #datom[96757023244373 73 "Defter" 13194139533322 true]
+;           #datom[96757023244373 74 92358976733261 13194139533322 true]],
+; :tempids {}}
 
 ; q: acaba ben buradaki reflerin yerinde daha önceden kayıtlı olmayan bir enum kullansaydım ne olurdu?
 (def product-list-2
@@ -208,9 +234,9 @@
 (d/transact conn {:tx-data order-schema})
 
 (def order-list
-  [{:order/product 92358976733263
+  [{:order/product 74766790688850
     :order/size 5}
-   {:order/product 92358976733265
+   {:order/product 74766790688852
     :order/size 4}])
 (d/transact conn {:tx-data order-list})
 ; Not: Ürünlere referans vermek için onların entity_id'lerini kullandık.
@@ -226,7 +252,7 @@
     [?e :product/name "Kalem"]
     [?e :product/color :color/red]]
   db)
-;=> [[92358976733263]]
+;=> [[74766790688850]]
 ; ama bu gelen sonuç bir vektörün içindeki vektör olarak geldi
 ; içindeki datayı çekmek için: ffirst
 (def product-id
@@ -237,7 +263,7 @@
               [?e :product/color :color/red]]
             db)))
 (identity product-id)
-;=> 92358976733263
+;=> 74766790688850
 
 ; o zaman artık yukarıda hard-code ettiğim entity_id yerine bu `product_id` değişkenini kullanabilirim
 (def order-list
@@ -256,7 +282,7 @@
     [?order :order/product ?e]
     [?order :order/size ?size]]
   db)
-;=> [[96757023244373 6] [92358976733267 5]]
+;=> [[74766790688850 6] [74766790688850 5]]
 
 ; Konu: Pull API
 
@@ -272,5 +298,33 @@
     [?order :order/product ?e]]
   db)
 ;=>
-;[[{:db/id 92358976733267, :order/product #:db{:id 92358976733263}, :order/size 5}]
-; [{:db/id 96757023244373, :order/product #:db{:id 92358976733263}, :order/size 6}]]
+;[[{:db/id 92358976733267, :order/product #:db{:id 74766790688850}, :order/size 5}]
+; [{:db/id 96757023244373, :order/product #:db{:id 74766790688850}, :order/size 6}]]
+
+; keyword referansı sorgu parametresi olarak vermek
+(d/q
+  '[:find (pull ?order [*])
+    :in $ ?color
+    :where
+    [?e :product/name "Kalem"]
+    [?e :product/color ?color]
+    [?order :order/product ?e]]
+  db :color/red)
+;=>
+;[[{:db/id 79164837199958, :order/product #:db{:id 74766790688850}, :order/size 5}]
+; [{:db/id 83562883711064, :order/product #:db{:id 74766790688850}, :order/size 6}]]
+
+; birden çok keywork referansı sorgu parametresi olarak vermek
+(d/q
+  '[:find (pull ?order [*])
+    :in $ [?colors ...]
+    :where
+    [?e :product/name "Kalem"]
+    [?e :product/color ?colors]
+    [?order :order/product ?e]]
+  db [:color/red])
+;=>
+;[[{:db/id 79164837199958, :order/product #:db{:id 74766790688850}, :order/size 5}]
+; [{:db/id 83562883711064, :order/product #:db{:id 74766790688850}, :order/size 6}]]
+
+(+ (+ 2 3) 4)

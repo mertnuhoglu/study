@@ -6,7 +6,7 @@
 
   ;; start Clerk's built-in webserver on the default port 7777, opening the browser when done
   (clerk/serve! {:browse? true
-                 :port 7779})
+                 :port 7780})
 
   (clerk/clear-cache!)
 

@@ -26,7 +26,7 @@
  :person/id {1 {:person/id 1 :person/name "Joe"}
              2 {:person/id 2 :person/name "Sally"}}}
 
-;; örnek: tree
+;; örnek: tree (nested objects)
 {:friends {:list/id :friends,
            :list/label "Friends",
            :list/people [{:person/id 1, :person/name "Sally", :person/age 32}

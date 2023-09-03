@@ -20,6 +20,8 @@ Related documents:
 		~/projects/bizqualify/BQ-data-run/datarun/restore_snapshot_on_aws_ec2_20181220.md
 		aws # aws # amazon <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10640>
 
+study_aws_cli.Rmd id=g14408
+
 # config and credentials
 
 https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html

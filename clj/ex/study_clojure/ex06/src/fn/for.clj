@@ -20,6 +20,7 @@
 
 ; aynısını map ile yapsak nasıl olurdu?
 (map identity digits)
+
 ;=> (1 2 3)
 
 ; identity kullanmasak nasıl yapardık map ile?

@@ -1,5 +1,7 @@
 (ns mertnuhoglu.datomic.datomic-01b)
 
+;; rfr: ~/prj/study/clj/ex/study_datomic/datalog-02/src/mert/e01.clj
+;;
 ;; Lab: Assertion Tutorial <url:file:///~/prj/study/clj/datomic_lab_assertion_tutorial.md#r=g13506>
 
 ;; [Assertion | Datomic](https://docs.datomic.com/cloud/tutorial/assertion.html)

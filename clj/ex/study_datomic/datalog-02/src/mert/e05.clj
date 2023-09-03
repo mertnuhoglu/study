@@ -38,7 +38,7 @@
 ; [{:db/id 92358976733265, :product/name "Defter", :product/color #:db{:id 96757023244361, :ident :color/red}}]
 ; [{:db/id 92358976733266, :product/name "Defter", :product/color #:db{:id 96757023244362, :ident :color/green}}]]
 
-; Dikkat: Başka varlıklara verilen referanslar, diğer atributlardan farklı olarak bir map olarak görünüyor:
+; Dikkat: Başka varlıklara verilen referanslar, diğer atributlardan farklı olarak bir kv ikilisi (key-value pair) olarak görünüyor:
 ; 👉 :product/color #:db{:id 96757023244361, :ident :color/red} 👈
 ; Diğer normal atributların değerleri ise primitif olarak geliyor:
 ; :product/name "Kalem"

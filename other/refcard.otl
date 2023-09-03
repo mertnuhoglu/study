@@ -1,7 +1,8 @@
 
+refcard.otl id=g14412
 parent
 	refmine kms <url:file:///~/projects/study/other/refmine.otl#r=g11660>
-mine
+mine id=g14413
 	study_docs
 		~/projects/study/code/study_visidata.md
 		~/projects/study/code/study_fzf.Rmd

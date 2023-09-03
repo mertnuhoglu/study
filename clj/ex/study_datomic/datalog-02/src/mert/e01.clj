@@ -40,6 +40,8 @@
 ; önce kurulum için:
 ; [Local Dev and CI with dev-local | Datomic](https://docs.datomic.com/cloud/dev-local.html)
 
+; 
+
 ;  '[:find ?sku
 ;    :where
 ;    [?e :inv/sku "SKU-42"]

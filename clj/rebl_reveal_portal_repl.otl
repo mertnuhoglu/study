@@ -1,7 +1,12 @@
+rebl_reveal_portal_repl.otl id=g14498
 ref
 	rebl rebl2 <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12423>
 	run REBL <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12422>
 örnek kod denemeleri
+	rfr
+		/Users/mertnuhoglu/prj/study/clj/ex/study_clojure/ex06/src/user.clj
+		/Users/mertnuhoglu/prj/study/clj/ex/study_clojure/ex06/src/ex/e11.clj
+		/Users/mertnuhoglu/prj/study/clj/ex/study_clojure/ex06/src/fulcro/study_fulcro_book.clj
 	common
 		cd /Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06
 		(tap> {:accounts [{:name "jen" :email "jen@jen.com"} {:name "sara" :email "sara@sara.com"}]})

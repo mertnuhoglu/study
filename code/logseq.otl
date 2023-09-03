@@ -17,7 +17,7 @@ shortcuts id=g12842
 			logseq shortcuts custom (myrepo);; <url:file:///~/prj/myrepo/logseq-myrepo/logseq/config.edn#r=g13624>
 		Logseq: Change Keyboard Shortcuts <url:file:///~/prj/study/logbook/log_20221010.md#r=g13454>
 		[Logseq Cheat Sheet by bgrolleman - Download free from Cheatography - Cheatography.com: Cheat Sheets For Every Occasion](https://cheatography.com/bgrolleman/cheat-sheets/logseq/)
-	Quickstart
+	Quickstart id=g14406
 		| RET | new block |
 		| +RET | new line |
 		| / | all commands |

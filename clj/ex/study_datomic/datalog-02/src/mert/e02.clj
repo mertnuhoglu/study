@@ -170,6 +170,7 @@
 ;           #datom[79164837199949 75 "Kütahya" 13194139533319 true]],
 ; :tempids {}}
 
+; Dikkat: data: list of hashmap = list of entity
 ; Şimdi EAV tablomuzu veritabanımıza kaydetmiş olduk.
 ;| E     | A       | V             |
 ;|-----  |-------  |-------------  |
@@ -234,6 +235,7 @@
 ; 3: aynı satırın `sehir` atributunun değerini içerir: "Bursa"
 
 ; bu 3 datom aynı entity'ye ait.
+; hepsinin entity_id'si: 79164837199948
 ; o entity de aslında bizim düz tablomuzdaki bir satıra denk geliyor:
 ;| 101   | isim    | Ali Niyazi    |
 ; dolayısıyla yukarıdaki `d/q` sorgu cümlelerinde `?e` değişkeniyle bu entity'ye referans veriyorum hep

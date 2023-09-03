@@ -105,7 +105,6 @@
 
 ; join external relations
 ; relation: kelimesini görünce aklınıza tablo gelsin.
-;
 
 ; Bindings
 

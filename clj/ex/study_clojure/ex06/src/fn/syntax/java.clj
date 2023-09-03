@@ -23,6 +23,7 @@
 ; Use . to call methods. Or, use the ".method" shortcut
 (. (Date.) getTime)
 ;=> 1676667362472
+; new Date().getTime()
 (.getTime (Date.))
 ;=> 1676667362472
 

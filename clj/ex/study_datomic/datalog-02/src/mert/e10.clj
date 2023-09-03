@@ -17,13 +17,13 @@
 
 ; Alan modeli (veya veri modeli) deyince biz aslında schema ile tanımladığımız dizayn yapısını anlıyoruz.
 ; Yani bizim örneğimizden bakarsak:
-#_(def db-schema
-      [{:db/ident :product/name
-        :db/valueType :db.type/string
-        :db/cardinality :db.cardinality/one}
-       {:db/ident :product/color
-        :db/valueType :db.type/ref
-        :db/cardinality :db.cardinality/one}])
+; (def db-schema
+;     [{:db/ident :product/name
+;       :db/valueType :db.type/string
+;       :db/cardinality :db.cardinality/one}
+;      {:db/ident :product/color
+;       :db/valueType :db.type/ref
+;       :db/cardinality :db.cardinality/one}])
 ; Burada 2 tane atribut tanımlamışız.
 ; product/name, product/color
 ; Normalde SQL veritabanlarında sadece atribut tanımlamayız, bu atributların bulunduğu tabloyla başlarız.
@@ -32,21 +32,21 @@
 ; Yani aslında "Product" tablomuz var. Bu 2 kolon da o tabloya ait gibi düşünebiliriz.
 
 ; Daha sonra bir tablo daha eklemiştik. Order isminde
-#_(def order-schema
-      [{:db/ident :order/product
-        :db/valueType :db.type/ref
-        :db/cardinality :db.cardinality/one}
-       {:db/ident :order/size
-        :db/valueType :db.type/long
-        :db/cardinality :db.cardinality/one}])
+; (def order-schema
+;     [{:db/ident :order/product
+;       :db/valueType :db.type/ref
+;       :db/cardinality :db.cardinality/one}
+;      {:db/ident :order/size
+;       :db/valueType :db.type/long
+;       :db/cardinality :db.cardinality/one}])
 
 ; Bu iki tabloya ait atributlar bizim alan modelimizi oluşturuyor.
 ; Niye alan modeli diyoruz?
 ; Domain = alan
-; Problem alanı veya business domain (iş alanıyla) alakalı verileri burda tutacağız
+; Problem alanı veya business domain (iş alanıyla) alakalı verileri burada tutacağız
 
 ; Meta model dediğimiz bir de kavram var.
-; Bizim bu atributların bilgisini de veritabında saklıyoruz
+; Bizim bu atributların bilgisini de veritabanında saklıyoruz
 ; :db/ident diye bizim bir kolonumuz var
 ; Schemayı tanımlarken bu meta modelin atributlarını kullanıyoruz.
 ; Örneğin bir atribut tanımlarken şu 4 değeri tanımlıyoruz:
@@ -54,7 +54,7 @@
     :db/valueType :db.type/long
     :db/unique :db.unique/identity
     :db/cardinality :db.cardinality/one}]
-; Dolayısıyla aslında Datomic veritabanında bizden önce tanımlanmış olan 4 tane kolon (atribut) var.
+; Dolayısıyla aslında Datomic veritabanında bizden önce tanımlanmış olan en az 4 tane kolon (atribut) var.
 ; Bunlara meta modelin atributları diyoruz.
 ; db/ident, db/valueType, db/unique, db/cardinality
 
@@ -66,7 +66,7 @@
 ;| order/product   | db.type/ref      | NA          | db.cardinality/one   |
 ;| order/size      | db.type/long     | NA          | db.cardinality/one   |
 
-; Meta model, işte bu Attributes tablosu ve onun kolonlarına (attribut) denk geliyor
+; Meta model, işte bu Attributes tablosu ve onun kolonlarına (atribut) denk geliyor
 ; db/ident, db/valueType, db/unique, db/cardinality
 
 ; Biz veri modelimizi tanımlarken, bu meta modelin yapılarını kullanarak tanımlıyoruz.
@@ -91,9 +91,9 @@
       db)
 ;=> [[:product/name] [:product/id] [:product/color]]
 ; Türkçesi:
-; :product/name attributu bulunan tüm entityleri bul (?eid)
-; bu entitylerin tüm attributlarını bul (?a)
-; bu attributların isimlerini bul (?attr)
+; :product/name atributu bulunan tüm entityleri bul (?eid)
+; bu entitylerin tüm atributlarını bul (?a)
+; bu atributların isimlerini bul (?attr)
 
 ; bir data pattern
 ;| değişken            | form    |
@@ -137,7 +137,7 @@
 ; Hatırlarsanız, veri tabanını oluşturduktan sonra ilk yaptığımız işlem schemayı kaydetmekti.
 ; Schemayı kaydettiğimizde çeşitli datomlar almıştık.
 ; Bu datomlar aslında schemada tanımladığımız atributlara ait verileri içeriyordu.
-; Aslında her bir atributun kendisi veritabanında sakladığımız bir entitydir.
+; Aslında her bir atributun kendisi de veritabanında sakladığımız bir entitydir.
 ; Fakat bu entityleri, esas verilerimizden farklı düşünmeliyiz.
 ; Esas verilerimize, alan modeline (domain model) ait veriler diyebiliriz.
 ; Atributların entityleri ve bu entitylere ait verilereyse, meta modele ait veriler diyebiliriz.

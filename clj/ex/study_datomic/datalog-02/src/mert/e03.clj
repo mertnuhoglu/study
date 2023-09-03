@@ -219,19 +219,19 @@
 ;=> [["Commando"] ["The Goonies"]]
 ; buradaki sorgu:
 ; önce bana içinde :movie/title olan tüm entityleri bul. Bunların :movie/title değerlerini ?title değişkenine koy.
-; sonra bu entitiylerden :movie/release-year değeri 1985 olanları filtrele.
+; sonra bu entitilerden :movie/release-year değeri 1985 olanları filtrele.
 ; Bu filtrelenmiş (yani kalan) entitylerin ?title değerlerini göster.
 
 ; Burada datalogun bir join işlemini yaptık.
 ; İki sorgu cümleciğimiz var.
 ; Bu iki sorgu cümleciğinin kesişim kümesini alıyoruz aslında.
-; İlk sorguda ?e-?title kümesi çıkıyor.
-; İkinci sorguda başka bir ?e kümesi çıkıyor.
+; İlk sorgu cümleciğinde ?e-?title kümesi çıkıyor. [?e :movie/title ?title]
+; İkinci sorguda başka bir ?e kümesi çıkıyor. [?e :movie/release-year 1985]
 ; İlk sorgudaki ?e kümesiyle ikinci ?e kümesinin ortak kesişimini alıyoruz.
 ; Bu ortak kesişimdeki ?title değerlerini alıyoruz sonra.
 ; İki tane kümeyi aslında join ediyoruz.
 
-; q: Buradaki ?e değişkenini herhangi bir yerde kullanmadık. find yanında kullansak mantıklı gelecek.
+; q: Buradaki ?e değişkenini herhangi bir yerde kullanmadık. find yanında kullansak mantıklı olacak
 ; ?e değişkenini find içinde kullanabiliriz
 (def titles-from-1985b '[:find ?title ?e
                          :where
@@ -239,11 +239,12 @@
                          [?e :movie/release-year 1985]])
 (d/q titles-from-1985b db)
 ;=> [["The Goonies" 101155069755468] ["Commando" 101155069755469]]
+; Dikkat: ?e entity_id'leri getiriyor. Anlamlı birer sayı değil bunlar. Sadece tekilliği sağlamak için varlar.
 ; join işlemi yapmak, bir mantıksal değişkeni birden çok data pattern (sorgu cümleciği) içinde kullanmak anlamına geliyor.
 ;[?e :movie/title ?title]
 ;[?e :movie/release-year 1985]
 ; Ben ?e'yi her iki cümlecikte kullanıyorum.
-; Dolayısıyla sonuç kümede, ?e her iki cümlecikteki kriteri de karşılaması gerekiyor.
+; Dolayısıyla sonuç kümedeki ?e değişkeninin her iki cümlecikteki kriteri de karşılaması gerekiyor.
 
 ; Bunun SQL karşılığını yazmaya çalışalım
 ; SELECT title, entity_id
@@ -252,8 +253,22 @@
 ; m.release-year = 1985 AND
 ; m.title IS NOT NULL;
 
+; Bu SQL cümlesindeki şu iki cümlecik bizim yukarıdaki where cümleciklerine denk geliyor:
+; m.release-year = 1985 AND
+; m.title IS NOT NULL;
+; ==
+; [?e :movie/title ?title]
+; [?e :movie/release-year 1985])
+;
+; Yalnız SQL cümlesinde join yok. Biz datalog'da ise join yaptık diyoruz.
+; Neden böyle?
+; Aslında SQL cümlesinde de bir join var dolaylı olarak:
+; `m.` ifadesi iki farklı cümlecikteki sonuçların birbirine bağlanmasını sağlıyor.
+; Bu `m.` ifadesi datalogdaki `?e` değişkeninin gördüğü işlevi görüyor.
+;
 (def all-data-from-1985 '[:find ?title ?year ?genre
-                          :where [?e :movie/title ?title]
+                          :where 
+                          [?e :movie/title ?title]
                           [?e :movie/release-year ?year]
                           [?e :movie/genre ?genre]
                           [?e :movie/release-year 1985]])
@@ -267,7 +282,7 @@
        :where [?e :movie/title "Commando"]]
   db)
 ;=> [[101155069755469]]
-; bu entity_id'yi bir değişkene atayalım
+; bu entity_id'yi bir değişkene atayalım def kullanarak:
 (def commando-id
   (ffirst (d/q '[:find ?e
                  :where [?e :movie/title "Commando"]]
@@ -301,10 +316,21 @@
 ;           #datom[101155069755469 74 "action/adventure" 13194139533321 false]],
 ; :tempids {}}
 
+; Tekrar kodu inceleyelim:
+; (d/transact conn {:tx-data [{:db/id commando-id :movie/genre "futuristic"}]})
+; Dikkat: `:db/id commando-id `
+; Bu ne anlama geliyor?
+; `:db/id` bir entitinin idsini belirtiyor
+; Yani mevcut bir entiti var. Ona erişmemizi sağlıyor.
+; Daha önce hep sıfırdan entiti oluşturuyorduk. Bu yüzden `:db/id` kullanmıyorduk
+; Çünkü idleri zaten datomic kendisi otomatik üretiyordu.
+;
 ; Şimdi ne yaptık?
 ; İki tane datom ekledik, tx datomuna ek olarak
 ;           #datom[101155069755469 74 "futuristic" 13194139533321 true]
 ;           #datom[101155069755469 74 "action/adventure" 13194139533321 false]],
+; Dikkat: true ve false değerlerine dikkat edin.
+;
 ; İlk datom futuristic diyor. Yani bizim genre'mızın yeni değerini bildiriyor.
 ; İkinci datomsa, bizim eski değerimiz. "action/adventure"
 ; İlk datomun son öğesi: true
@@ -313,10 +339,14 @@
 ; Türkçe çevirirsek:
 ; Bu an itibariyle, artık bu entity için genre değeri "futuristic"tir.
 ; Eski değer olan "action/adventure" artık geçerli değildir.
+;
 ; Hangi an itibariyle?
 ; tx numarası 13194139533321 itibariyle.
 ; Peki  bu tx ne zaman gerçekleşti?
 ; "2023-02-02T09:10:24.174-00:00" tarihinde.
+; Nerede yazıyor bu tarih?
+; :tx-data [#datom[13194139533321 50 #inst"2023-02-02T09:10:24.174-00:00" 13194139533321 true]
+;
 
 ; Dolayısıyla, artık, veritabanımın güncellendiği andan öncesi ve sonrasına ait verileri de takip edebiliyorum.
 ; Bu özellik datalog'a has bir özellik.
@@ -359,7 +389,7 @@
 ; Dolayısıyla bundan bir önceki veritabanı durumu: 8 olur
 
 ; 8 anındaki veritabanını çekmek istiyorum şimdi:
-(def old-db (d/as-of db 8))
+(def old-db (d/as-of db 7))
 (identity old-db)
 ; Şimdi bu eski veritabanı üzerinde sorgulama yapalım:
 (d/q all-data-from-1985 old-db)
@@ -390,3 +420,23 @@
 ;                    :raw true}
 (type hdb)
 ;=> datomic.core.db.Db
+
+; q: yukarıdaki ?e yerine `_` koysak ne olur?
+(def titles-from-1985c '[:find ?title
+                         :where
+                         [_ :movie/title ?title]
+                         [_ :movie/release-year 1985]])
+(d/q titles-from-1985c db)
+;=> [["Commando"] ["The Goonies"] ["Repo Man"]]
+
+; q: datom kelimesi nereden geliyor?
+; Datalog dili eski bir dil. 1970'lerden kalma.
+; Datalog'da: EAV cümleleri var. Bu cümlelere fact deniyor. Belki önerme diyebiliriz.
+; Datomic'teyse, datalog'un EAV cümlesine ek bir tümleç daha ekleniyor. Transaction. T.
+; EAV -> EAVT oluyor
+; Transaction: Bir factin gerçekleşme anı olarak düşünebiliriz.
+; Belli bir an itibariyle ben bu facte (önermeye) inanıyorum, doğru kabul ediyorum, diyebiliriz.
+; Daha sonra 1 hafta sonra belki bu önermenin doğruluğuna inanmıyorum. Yanlışlıyorum.
+; Bu durumda aynı EAV'yi farklı bir T ile birleştirerek, veritabanına tekrar kaydediyorum.
+; Datom: EAVT cümlesinin toplamı oluyor.
+; Fact: EAV oluyor.

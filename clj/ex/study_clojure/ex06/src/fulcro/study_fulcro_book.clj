@@ -7,6 +7,7 @@
             ))
 
 (comment
+  (tap> :hello)
 ; ex11
   (def edn01
     (io/file "/Users/mertnuhoglu/projects/study/clj/ex/study_fulcro/book/out/ex11_union_example-1_router_tony.edn"))

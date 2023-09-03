@@ -1,3 +1,4 @@
+clojure-otl.md id=g14426
 - ref
 	- ~/projects/study/clj/refcard_clojure.otl
 - index
@@ -86,12 +87,13 @@
 				- | !ue/çt   | popup structural editing menu  |
 				- | !u SPC   | popup move menu                |
 		- vim conjure
-			- conjure
+			- conjure id=g14425
 				- rfr
 					- sexp editing <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12869>
 				- Index: Clojure in Vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11843>
 				- shortcuts
-					- local quick_clojure_map SPC j <url:file:///~/projects/private_dotfiles/.config/nvim/lua/mert/which-key.lua#r=g13215>
+					- local quick_clojure_map = { -- Sj <url:file:///~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/config/which-key.lua#r=g13215>
+					- conjure <url:file:///~/prj/private_dotfiles/vim/my-vim-custom2/plugin/my-vim-custom2.vim#r=g12847>
 					- | SPC j     | prefix instead of comma ,         |
 					- | c         | eval comment                      |
 					- | d         | eval root form                    |
@@ -1643,6 +1645,7 @@
 		- articles - datomic <url:file:///~/prj/study/clj/datomic.otl#r=g13413>
 			- read <url:file:///~/prj/study/clj/datomic.otl#r=g13520>
 		- read id=g13518
+			- Clojure Power Tools Part 1 | Kari Marttila Blog <url:file:///~/prj/study/clj/ex/study_clojure/ex06/src/ex/e29.clj#r=g14497>
 			- Transparency through data by James Reeves  <url:file:///~/prj/study/clj/art_transparency_through_data_by_james_reeves.md#r=g13747>
 			- Article: Solving Problems the Clojure Way - Rafal Dittwald <url:file:///~/prj/study/clj/art_solving_problems_clojure_way_rafal_dittwald.md#r=g13746>
 			- Article: The Datomic Information Model by Rich Hickey <url:file:///~/prj/study/clj/articles-datomic.md#r=g13516>

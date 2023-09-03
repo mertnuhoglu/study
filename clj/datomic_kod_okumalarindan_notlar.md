@@ -3,6 +3,8 @@
 
 rfr: /Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01b.clj
 
+rfr: `refcard <url:file:///~/prj/study/clj/datomic.otl#r=g14436>`
+
 ## transact
 
 	(d/transact)
@@ -179,11 +181,13 @@ since <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13566>
 	(d/q ('[:find ?count 
 					:in $ $since ?id 
 					:where [$ ?e :item/id ?id] 
-								[$since ?e :item/count ?count]]) 
+								 [$since ?e :item/count ?count]]) 
 		db since-2014 "DLC-042")
 	;;=>
 	{:item/count 100, 
 			:db/id 17592186045418}
+
+Note: $, $since, since-2014
 
 ## queries
 
@@ -316,7 +320,7 @@ Heterogeneous Tuples:
 rfr: `Temporary ids <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13540>`
 
 	[[:db/add "jdoe" :person/first "Jan"]
-	[:db/add "jdoe" :person/last "Doe"]]
+	 [:db/add "jdoe" :person/last "Doe"]]
 
 ## transaction functions
 

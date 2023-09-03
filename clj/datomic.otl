@@ -1,8 +1,11 @@
 
 datomic.otl id=g13023
 	datomic.otl <url:file:///~/projects/study/clj/datomic.otl#r=g13023>
-ref
+rfr
+	Datomic Kod Okumalarından Notlar  <url:file:///~/prj/study/clj/datomic_kod_okumalarindan_notlar.md#r=g13532>
 	Day Of Datomic Cloud otl <url:file:///~/projects/study/clj/articles-datomic.md#r=g12849>
+ndx
+	refcard <url:file:///~/prj/study/clj/datomic.otl#r=g14436>
 study-order datomic id=g12866
 	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
 	[Learn Datalog Today!](http://www.learndatalogtoday.org/)
@@ -16,7 +19,8 @@ study-order datomic id=g12866
 	Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13509>
 	Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13521>
 	Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc.md#r=g12871>
-	/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/README.md
+	~/prj/study/clj/ex/study_datomic/datalog-02/src/mert/e01.clj
+	datomic okuma planı 20221113 <url:file:///~/prj/study/clj/datomic.otl#r=g13676>
 pnt
 	datomic okuma planı 20221113 id=g13676
 		rfr
@@ -24,20 +28,23 @@ pnt
 		pln 00
 			study-order datomic <url:file:///~/projects/study/clj/datomic.otl#r=g12866>
 			[DOMAIN MODELING WITH DATALOG by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw) @datomic
-			mbrainz tutorial <url:file:///~/prj/study/clj/datomic.otl#r=g12871>
+			Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc.md#r=g12871>
 			/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
 			articles - datomic <url:file:///~/projects/study/clj/datomic.otl#r=g13413>
 			resources datomic <url:file:///~/projects/study/clj/datomic.otl#r=g12880>
+			[Highest scored 'datomic' questions - Stack Overflow](https://stackoverflow.com/questions/tagged/datomic)
+			[cloojure/tupelo-datomic: Tupelo-Datomic - Datomic With A Spoonful of Honey](https://github.com/cloojure/tupelo-datomic)
 		pln 01
-			[markbastian/datascript-playground](https://github.com/markbastian/datascript-playground) @datomic
+			[[20230525-clj-markbastian-datascript-playground]] <url:file:///~/prj/study/logseq-study/pages/20230525-clj-markbastian-datascript-playground.md#r=g14455>
 			[Max Datom - Interactive Datomic Tutorial](https://max-datom.com/) @datomic
 			[Learn Datalog Today!](http://www.learndatalogtoday.org/) @datomic
 			[ftravers/datomic-tutorial](https://github.com/ftravers/datomic-tutorial) @datomic
 			[Lambda Island](https://lambdaisland.com/episodes/datomic-quickstart-part-1) @datomic @tutorial
 			[mchampine/dscript: DataScript examples and practice](https://github.com/mchampine/dscript) #datomic #example
 		pln ex
+			[day-of-datomic/query.clj at 98c1d9b2967ad5317e83b6da50f7c0e5c3d7a207 · Datomic/day-of-datomic · GitHub](https://github.com/Datomic/day-of-datomic/blob/98c1d9b2967ad5317e83b6da50f7c0e5c3d7a207/tutorial/query.clj)
+			[Datomic - A Whirlwind Tour of Datomic Query](https://blog.datomic.com/2013/05/a-whirlwind-tour-of-datomic-query_16.html)
 			[vvvvalvalval/datascript-declarative-model-example](https://github.com/vvvvalvalval/datascript-declarative-model-example) @datomic
-			[Clojure Datomic Exercise | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2020/11/14/clojure-datomic-exercise.html) @datomic
 			[markbastian/clojure-exercises: A variety of Clojure puzzlers, problems, and solutions](https://github.com/markbastian/clojure-exercises) @exercise
 			[Clojure & Datalog is Lisp & Prolog | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2022/01/13/datalog-exercises.html) @datomic @tutorial
 			[kristianmandrup/datascript-tutorial: Datascript and Datomic tutorial book](https://github.com/kristianmandrup/datascript-tutorial) @datomic @tutorial
@@ -46,11 +53,11 @@ pnt
 			[markbastian/datascript-playground](https://github.com/markbastian/datascript-playground/tree/master/src/main/clj/datascript_playground) @datomic @examples
 			[replikativ / datahike-invoice · GitLab](https://gitlab.com/replikativ/datahike-invoice) @datomic @examples
 			[Datomic MusicBrainz Sample Database – Nextjournal](https://nextjournal.com/kommen/datomic) id=g13066 @datomic @examples
-			[Clojure Datomic Exercise | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2020/11/14/clojure-datomic-exercise.html) id=g13067 @datomic @examples
 			[1: Getting Started with Crux – A Tale of Time and Space – Nextjournal](https://nextjournal.com/crux-tutorial/start) @datomic @examples
 			[A Bitemporal tale – History. Of histories. – Nextjournal](https://nextjournal.com/crux/a-bitemporal-tale) @datomic @examples
 			[Conditional Queries in Datomic](https://grishaev.me/en/datomic-query/) @datomic @examples
 			[Tag: Datomic - Curious Programmer](https://curiousprogrammer.dev/tag/datomic) @datomic @examples
+			[The use of d/tempid - General - Datomic Developers](https://forum.datomic.com/t/the-use-of-d-tempid/815)
 			[Conversations With Datomic - Squid's Blog](http://gigasquidsoftware.com/blog/2015/08/15/conversations-with-datomic/) @datomic @examples
 			[clojure-north-2020/x07_queries.clj at master · markbastian/clojure-north-2020](https://github.com/markbastian/clojure-north-2020/blob/master/src/clojure_north_2020/ch02_datalog/x07_queries.clj) @datomic @examples
 			[Building Marvelous and Heroic Systems from the Ground Up - Mark Bastian (Workshop) - YouTube](https://www.youtube.com/watch?v=eink6oICdOQ) @datomic @examples
@@ -105,7 +112,7 @@ pnt
 			[Let over map merge: Using Datomic in my app](https://humorless.github.io/posts-output/datomic) @datomic
 			[Clojure in the Database · subhash/clj-stack Wiki](https://github.com/subhash/clj-stack/wiki/Clojure-in-the-Database) @datomic
 			[Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions](https://cognitect.com/blog/2017/4/21/separation-of-concerns-in-datomic-query-datalog-query-and-pull-expressions) @datomic
-			[Datomic for Five Year Olds](https://www.flyingmachinestudios.com/programming/datomic-for-five-year-olds/) @datomic
+			[[20230524-rtc-Datomic-for-Five-Year-Olds]] <url:file:///~/prj/study/logseq-study/pages/20230524-rtc-Datomic-for-Five-Year-Olds.md#r=g14446>
 			[Frequent 'datomic' Questions - Stack Overflow](https://stackoverflow.com/questions/tagged/datomic) @datomic
 			[alexpetrov/datomic-facts-slides: Presentation about Datomic](https://github.com/alexpetrov/datomic-facts-slides) @datomic
 			[Val on Programming: Application architecture with Datomic: branching reality](http://vvvvalvalval.github.io/posts/2016-01-03-architecture-datomic-branching-reality.html)
@@ -118,6 +125,228 @@ pnt
 		pre:
 			run repl + Rebl + portal <url:file:///~/prj/study/clj/datomic.otl#r=g12891>
 		repl içinde:
+refcard id=g14436
+	rfr
+		Datomic Kod Okumalarından Notlar  <url:file:///~/prj/study/clj/datomic_kod_okumalarindan_notlar.md#r=g13532>
+	transact
+		(d/transact conn {:tx-data [{:db/ident :red}]}
+		(def tx-result (d/transact conn {:tx-data [{:story/title "value1" story/url "value2"} ]}))
+		(d/transact conn {:tx-data 👈 [ 👉[:db/add eid :inv/count 100]]})
+		[:db/add entity-id attribute value]
+		[:db/retract 👈 [:inv/sku "SKU-22"] :inv/count 7]
+		[:db/add [:inv/sku "SKU-21"] 👈 <attribute> <value>] ;; lookup ref
+	schema
+		(def attributes
+			[{:db/ident :inv/count
+				:db/valueType :db.type/long
+				:db/cardinality :db.cardinality/one}])
+		(d/transact conn {:tx-data [{:db/ident :red}]}
+			;=>
+			;{:db-before #datomic.core.db.Db{:id "19c724ee-3905-4f85-92d7-0d0623302e69",
+			;                              👉:basisT 5,
+			;                              👉:asOfT nil,  👈
+			...
+			; 👉:db-after #datomic.core.db.Db{:id "19c724ee-3905-4f85-92d7-0d0623302e69",
+			...
+			; 👉:tx-data [#datom[13194139533318 50 #inst"2022-11-11T11:28:45.337-00:00" 13194139533318 true]
+	Parameterized Query
+		(d/q ...
+			:in $ ?inv 👈
+			...
+			[:inv/sku "SKU-25"] 👈)
+	Rules
+		(d/q ...
+		👉	:in $ % ?inv where
+		👉	(ordered-together ?inv ?other-inv)
+				[?other-inv :inv/sku ?sku]]
+		👉db rules [:inv/sku "SKU-25"])
+	Lookup ref
+		[:db/add [:inv/sku "SKU-21"] <attribute> <value>]
+		[{:db/ident :inv/sku
+		👉:db/unique :db.unique/identity 
+		(def stu [:user/email "stuarthalloway@datomic.com"] 👈)
+		{:tx-data
+		:source/user stu 👈}]}))
+	Connection
+		memory
+			(def client (d/client {:server-type :dev-local
+														:storage-dir :mem
+														:system "ci"}))
+			(d/create-database client {:db-name "db03"})
+			(def conn (d/connect client {:db-name "db03"}))
+		file
+			(def client (d/client {:server-type :dev-local
+													👉:system "datomic-samples"}))
+			{:storage-dir "/Users/mertnuhoglu/db/"}
+	as-of
+		(def db-t 👉 (:t (:db-after tx-result))) ;=> 12
+		(d/pull (d/as-of db db-t 👈) '[:story/title] story)
+	history
+		(dh/q '[:find ?a ...
+			(dh/history @conn))
+	since
+		(d/q ('[:find ?count 
+						:in $ $since ?id 
+						:where [$ ?e :item/id ?id] 
+									[$since ?e :item/count ?count]]) 
+			db since-2014 "DLC-042")
+		note: $, $since, since-2014
+	queries
+		what is the entire history of entity e?
+			👉[?e ?a ?v ?tx ?added]
+				[?a 👈 :db/ident ?aname]
+				[?tx :db/txInstant ?inst]]
+			(d/history (d/db conn))
+		who changed the title, and when?
+			👉	[?tx :source/user ?user]
+				[?tx :db/txInstant ?inst]
+				[?user :user/email ?email]]
+			(d/history (d/db conn))
+	metadata queries
+		List all attributes
+			👉 [:db.part/db :db.install/attribute ?a] 
+				 [?a :db/ident 👈 ?n]] 
+		Atributların kendi atributları:
+			(q '[:find (pull ?a [*] 👈) :where 
+					 [?a :db/ident :db.install/attribute]]  👈
+	find clause
+		:find ?n 👈 
+		:find ?n . 👈
+		:find ?n ?a 👈
+		:find [?n ...] 👈
+	entity api
+	datom api
+		(dh/datoms @db {:index :eavt})
+	tuples
+		Composite Tuples:
+			:db/valueType :db.type/tuple 👈
+			:db/tupleAttrs [:reg/course 👈:reg/semester 👈:reg/studen 👈]
+	temporary ids
+		[[:db/add "jdoe" :person/first "Jan"]
+		 [:db/add "jdoe" :person/last "Doe"]]
+	transaction functions
+		[[:db/cas 42 :account/balance 100 110]]
+	pattern inputs
+		'[:find (pull ?e pattern 👈)
+			:in $ ?name 👉 pattern
+			:where [?e :artist/name ?name]]
+		[db "The Beatles" 👉 [:artist/startYear :artist/endYear]]
+	bindings
+		| ?a           | scalar     |
+		| [?a ?b]      | tuple      |
+		| [?a …]       | collection |
+		| [ [?a ?b ] ] | relation   |
+	find specifications
+		| :find ?a . 👈    | single scalar | 
+		| :find [?a ?b]    | single tuple  | 
+		| :find [?a …👈 ]  | collection    | 
+		| :find ?a ?b      | relation      | 
+	return maps
+		:find ?artist-name ?release-name
+		:keys artist 👈 release
+		=>
+		#{{:artist 👈 "George Jones" :release "With Love"}
+	not
+		(not 👈 [?eid :artist/country :country/CA])]
+	or clause
+		:where (or 👈 [?artist :artist/type :artist.type/group]
+								(and [?artist :artist/type :artist.type/person]
+										[?artist :artist/gender :artist.gender/female]))]
+	predicate expressions
+		[(< 👈 ?year 1600)]]
+	function expressions
+		[(quot 👈 ?millis 60000) ?minutes 👈]
+	Built-in expressions
+		[(get-else src-var ent attr default) ?val-or-default]
+	rules
+		[(twitter? ?c) ; 1 arg
+		[?c :community/type :community.type/twitter]]
+	aggregates
+		[:find (sum ?heads) .
+	aggregates returning a single value
+		(min ?xs)
+		(max ?xs)
+	aggregates returning collections
+		(distinct ?xs)
+		(min n ?xs)
+	pull 02
+		:find (pull ?e [:release/name])
+		e02: pattern arg
+			:find (pull ?e 👉 pattern)
+			:in $ ?artist pattern 👈
+			:where ...
+			db, led-zeppelin, 👉 [:release/name]
+		e03: multiple
+			:find (👉 pull ?e [:release/name]) (👉 pull ?a [*])
+	entity identifier in V position
+		db, [:country/name "Belgium"] ;; lookup ref
+		db, :country/BE               ;; ident
+		db, 17592186045516            ;; entity id
+	index
+		(d/index-pull db {:index    :avet 👈
+											:selector '[:artist/name :artist/startYear :artist/endYear]
+	pull 03
+		(pull db '[*] led-zeppelin)
+		(pull-many db '[*] [led-zeppelin jimi-hendrix janis-joplin])
+	pull reverse lookup
+		{:artist/_country [{:db/id 17592186045751} {:db/id 17592186045755} ...]}
+	pull map specifications
+		[:track/name 👉 {:track/artists 👉 [:db/id :artist/name]}]
+	pull attribute specifications
+		[:artist/name :as 👈 "Band Name"]
+		[{(:track/_artists :limit 2 👈) [:track/name]}]
+	pull wildcards
+		[*]   
+		;;=>  özyinelemeli şekilde alt üyeleri çeker
+		["*" {:track/artists [:artist/name]}]
+		;;=>  ref öğelerin belirli atributlarını çeker
+	recursion limits
+		[:person/lastName {:person/friends 6 👈}] ;; 6 seviye iner
+	datoms api
+		db.datoms(AVET, ":account/balance");
+refcard2
+	rfr
+		~/prj/study/clj/ex/study_datomic/datalog-02/src/mert/e04.clj
+	meta model
+		; schemayı ilk transact kaydettiğimizde bize şöyle bir data dönmüştü:
+		; #datom[73 10 :ogrenci_id 13194139533318 true]
+		; #datom[73 40 22 13194139533318 true]
+		; #datom[73 42 38 13194139533318 true]
+	{:tx-data [{:db/ident :red} ...
+	{:tx-data [{:db/ident :color/red}
+	[{:db/ident :order/product
+		:db/valueType :db.type/ref
+		:db/cardinality :db.cardinality/one}
+	[{:order/product 92358976733263
+		:order/size 5}
+	[{:order/product [:product/id 2]
+		:order/size 7}])
+	parameter: scalar binding
+		'[:find ?e
+		:in $ ?product-name
+		:where
+		[?e :product/name ?product-name]]
+	tuple binding
+		...
+		:in $ [?product-name ?color] 
+		...
+		db ["Kalem" :color/red])
+	collection binding
+		...
+		:in $ [?product-name ...]  ; 👈 ... sembolü
+		:where
+		[?e :product/name ?product-name]]
+		db ["Kalem" "Defter"])
+	relation binding
+		'[:find ?e ?product-name ?color ?product-price
+			:in $ [[?product-name ?product-price]]
+			:where
+			[?e :product/name ?product-name]
+			[?e :product/color ?color]]
+		db [["Kalem" 120] ["Defter" 250]])
+	datomic.tx always identifies the current transaction
+		{:db/id "datomic.tx"
+		 :tx/user "mertnuhoglu"}])
 doc
 	Console UI
 		run datomic console id=g12858
@@ -170,10 +399,15 @@ issues
 			[hodur-org/hodur-visualizer-schema](https://github.com/hodur-org/hodur-visualizer-schema)
 articles - datomic id=g13413
 	rfr
-		<url:vimscript::UtlOpenFileAndSearch>
+		datomic okuma planı 20221113 <url:file:///~/prj/study/clj/datomic.otl#r=g13676>
 	ndx
-		datomic okuma planı 20221113  <url:file:///~/prj/myrepo/work/work4.otl#r=g13517>
+		datomic okuma planı 20221113 <url:file:///~/prj/study/clj/datomic.otl#r=g13676>
 	read id=g13520
+		Clojure Power Tools Part 1 | Kari Marttila Blog <url:file:///~/prj/study/clj/ex/study_clojure/ex06/src/ex/e29.clj#r=g14497>
+		[Clojure Datomic Exercise | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2020/11/14/clojure-datomic-exercise.html) id=g13067 @datomic @examples
+		[[20230524-rtc-Stackoverflow-Questions--Datomic]] <url:file:///~/prj/study/logseq-study/pages/20230524-rtc-Stackoverflow-Questions--Datomic.md#r=g14447>
+		[[20230524-rtc-Datomic-for-Five-Year-Olds]] <url:file:///~/prj/study/logseq-study/pages/20230524-rtc-Datomic-for-Five-Year-Olds.md#r=g14446>
+		20230524
 		Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13521>
 		20221114 
 		Article: The Datomic Information Model by Rich Hickey <url:file:///~/prj/study/clj/articles-datomic.md#r=g13516>
@@ -205,7 +439,7 @@ articles - datomic id=g13413
 		Article: Datomic from the ground up - subhash <url:file:///~/prj/study/clj/articles-datomic.md#r=g12895>
 		Article: Hodur: Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube <url:file:///~/prj/study/clj/articles-datomic.md#r=g12893>
 		Article: Day of Datomic tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g12865>
-		Article: mbrainz tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g12871>
+		Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc.md#r=g12871>
 		Article: rebel ile datomic kullanımı <url:file:///~/prj/study/clj/articles-datomic.md#r=g12873>
 		Article: Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog) <url:file:///~/prj/study/clj/articles-datomic.md#r=g12883>
 		Article: What Datomic brings to businesses | by Val Waeselynck | Medium <url:file:///~/prj/study/clj/articles-datomic.md#r=g12884>
@@ -218,7 +452,7 @@ resources datomic id=g12880
 	[Introduction | Datomic](https://docs.datomic.com/on-prem/tutorial/introduction.html)
 	[Datomic Cloud Documentation](https://docs.datomic.com/)
 	[Datomic/mbrainz-sample: Example queries and rules for working with the Datomic mbrainz example database](https://github.com/Datomic/mbrainz-sample)
-		rfr: mbrainz tutorial <url:file:///~/prj/study/clj/datomic.otl#r=g12871>
+		rfr: Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc.md#r=g12871>
 	[markbastian/datascript-playground](https://github.com/markbastian/datascript-playground)
 	[Datomic/day-of-datomic: Sample Code for Day of Datomic presentation](https://github.com/Datomic/day-of-datomic)
 	[Max Datom - Interactive Datomic Tutorial](https://max-datom.com/)

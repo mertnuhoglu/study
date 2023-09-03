@@ -18,6 +18,8 @@ path: ~/projects/study/bash/study_csvcut.Rmd
 state: wip
 ---
 
+study_csvcut.Rmd id=g14410
+
 Better alternative to `csvcut`: `xsv` explained in `~/projects/study/code/study_xsv.md`
 
 ## Article01: Official Tutorial

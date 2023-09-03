@@ -1,5 +1,5 @@
 
-kendi kullanım yöntemlerim
+quicklist: kendi kullanım yöntemlerim - ndx id=g14299
 	otl-yaml:
 		otl yaml dokümanlarındaki bilgileri etkili dolaşma (navigasyon)  <url:file:///~/projects/study/otl/cvim.otl#r=g12603>
 		convert:- otl to yaml: <url:file:///~/projects/myrepo/otl/notesme.otl#r=g12590>
@@ -12,7 +12,13 @@ kendi kullanım yöntemlerim
 		Bookmarklarla tasnif etme:
 			ref:
 				which-key vim-bookmarks: SPC m <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12560>
+	teg kullanımı
+		neoscopes: teglere hızlı erişim <url:file:///~/projects/study/otl/cvim.otl#r=g14298>
 pnt
+	neoscopes: teglere hızlı erişim id=g14298
+		teglere hızlı erişim için neoscopes kullan
+		:lua require('neoscopes').select() > kslt
+		kslt.md dosyasındaki tegleri listeler
 	[[20230504-vim--otomatik-dash--hyphen-tire--isareti-koyma]] <url:file:///~/prj/study/logseq-study/pages/20230504-vim--otomatik-dash--hyphen-tire--isareti-koyma.md#r=g14266>
 	vim #error Çince karakterler görünüyor <url:file:///~/prj/study/logseq-study/journals/2023_04_26.md#r=g14260>
 	markdown outline bullets: indent and outdent lines id=g14256
