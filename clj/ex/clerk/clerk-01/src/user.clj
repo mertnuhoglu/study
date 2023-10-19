@@ -5,7 +5,7 @@
 ;; start Clerk's built-in webserver on the default port 7777, opening the browser when done
 (clerk/serve! {:browse? true})
 
-(clerk/show! "notebooks/e01.clj")
+(clerk/show! "notebooks/e03.md")
 
 (comment
   ;; either call `clerk/show!` explicitly

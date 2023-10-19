@@ -8,3 +8,12 @@ problem/datatables_in_cyclejs/ex/ex06/src/handsontable.full.min.036.js
 problem/datatables_in_cyclejs/ex/ex06/src/handsontable.full.min.js
 js/ex/study_notes_cyclejs/src/problems/p07/ex02/dom/EventDelegator.ts
 js/ex/study_notes_cyclejs/src/problems/p07/ex02/dom/EventDelegator.js
+
+**/libraries/frameworks
+**/public/js
+**/*.svg
+**/static/bower_components
+**/public/css
+**/yarn.lock
+**/*.md-e*
+**/*.bak

@@ -1,0 +1,192 @@
+MATCH="ekip/gnd"
+REPLACE="p\\/ekip, g\\/gnd"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="grsm/tst"
+REPLACE="grsm, f\\/tst"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="p/engin/gnd"
+REPLACE="p\\/engin, g\\/gnd"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="pcm/rpa"
+REPLACE="org\\/pcm\\/rpa"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="rdb"
+REPLACE="prd\\/rdb"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="tpc/oryantasyon"
+REPLACE="org\\/orientation"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="ui"
+REPLACE="prd\\/ui"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="vim"
+REPLACE="tll\\/vim"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="wtng"
+REPLACE="g\\/wtng"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="yöntem"
+REPLACE="tpc\\/method"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="work/piyasa-arastirmasi"
+REPLACE="org\\/market-research"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="geribildirim"
+REPLACE="frm\\/feedback"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="msg"
+REPLACE="frm\\/msg"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="mtng"
+REPLACE="frm\\/mtng"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="ndx"
+REPLACE="frm\\/ndx"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="rtc"
+REPLACE="frm\\/rtc"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="qst"
+REPLACE="frm\\/qst"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="qry"
+REPLACE="frm\\/qry"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="query"
+REPLACE="frm\\/qry"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="prb"
+REPLACE="frm\\/prb"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="pln"
+REPLACE="frm\\/pln"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="review"
+REPLACE="frm\\/review"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="analiz"
+REPLACE="prd\\/analysis"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="analysis"
+REPLACE="prd\\/analysis"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="barış"
+REPLACE="p\\/baris"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="branding"
+REPLACE="org\\/branding"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="calisma-ortami"
+REPLACE="org\\/tll"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="clj"
+REPLACE="prg\\/clj"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="clj/clerk"
+REPLACE="prj\\/clj\\/clerk"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="clj/datomic"
+REPLACE="prg\\/datomic"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="clj/electric"
+REPLACE="prg\\/clj\\/electric"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="clojure"
+REPLACE="prg\\/clj"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="cmmi"
+REPLACE="org\\/cmmi"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="cms"
+REPLACE="prj\\/cms"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="code-review"
+REPLACE="org\\/code-review"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="data-model"
+REPLACE="org\\/data-modelling"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="data-modelling"
+REPLACE="org\\/data-modelling"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="documentation"
+REPLACE="org\\/documentation"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="doğukan"
+REPLACE="p\\/dogukan"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="ekip"
+REPLACE="p\\/ekip"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="fkr"
+REPLACE="f\\/fkr"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="g/engin"
+REPLACE="p\\/engin"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="git"
+REPLACE="tll\\/git"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="graphics-design"
+REPLACE="prd\\/graphics-design"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="grsm/branding"
+REPLACE="org\\/branding"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="gtd/mert"
+REPLACE="p\\/mert"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="intellij"
+REPLACE="tll\\/intellij"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="kslt"
+REPLACE="org\\/opal\\/kslt"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="management"
+REPLACE="org\\/management"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="market/competition"
+REPLACE="org\\/market"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="mockup"
+REPLACE="prd\\/mockup"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="org/dijital-pazarlama"
+REPLACE="org\\/marketing\\/digital"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="org/planlama"
+REPLACE="org\\/planning"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="p/doğukan"
+REPLACE="p\\/dogukan"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="pazarlama"
+REPLACE="org\\/marketing"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="procurement"
+REPLACE="prj\\/pms"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="strategy/roadmap"
+REPLACE="org\\/strategy\\/roadmap"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="strategy/technology"
+REPLACE="org\\/strategy\\/technology"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="terminal"
+REPLACE="prg\\/terminal"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="tpc/terminal"
+REPLACE="prg\\/terminal"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="training"
+REPLACE="org\\/training"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="orientation"
+REPLACE="org\\/orientation"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="oryantasyon"
+REPLACE="org\\/orientation"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}
+MATCH="p/pms"
+REPLACE="prj\\/pms"
+rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}

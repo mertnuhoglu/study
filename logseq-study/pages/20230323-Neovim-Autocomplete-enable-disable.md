@@ -10,6 +10,8 @@ autocmd BufNewFile,BufRead *.md lua require('cmp').setup.buffer { enabled = true
 
 rfr: `autocomplete settings<url:file:///~/prj/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g14094>`
 
+rfr: new `autocomplete settings<url:file:///~/projects/private_dotfiles/vim/my-vim-custom2/plugin/my-vim-custom2.vim#r=g14094>`
+
 Özel komut tanımladım: `:ToggleAutoComplete`
 
 Mevcut bufferda autocomplete özelliğini açıp kapatır.

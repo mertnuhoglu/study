@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Usage:
+# apply_data_to_template d01.tsv template01.txt
+#
+# rfr: doc: std: [[20230924-Script--Apply-Data-To-Template]] <url:file:///~/prj/study/logseq-study/pages/20230924-Script--Apply-Data-To-Template.md#r=g14760>
+
+data=$1
+template=$2
+Rscript --quiet --vanilla ~/prj/study/logseq-study/pages/ex/20230916-Script-Generation-from-CSV-Files/apply_data_to_template.R "${data}" "${template}"

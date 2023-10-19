@@ -1,0 +1,5 @@
+- ![Science-of-Artificial_Herbert-Simon.pdf](../assets/Science-of-Artificial_Herbert-Simon_1695182162782_0.pdf)
+- ((650a6d74-4b2c-476a-a814-c10c1ab61c9b))
+- > ((650a6d83-d609-48cb-8938-5d78c9449688))
+- ((650a700d-2d55-43af-9908-baa897af536c))
+-

@@ -61,6 +61,7 @@ clojure-otl.md id=g14426
 	- editors clojure id=g12360
 		- sexp editing id=g12869
 			- ref
+				- clojure_files_map -- SPC icj <url:file:///~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/config/which-key.lua#r=g14885>
 				- sexp_editing.otl ~/projects/study/clj/sexp_editing.otl
 				- Evm: vim-sexp <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12870>
 				- sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>
@@ -90,6 +91,7 @@ clojure-otl.md id=g14426
 			- conjure id=g14425
 				- rfr
 					- sexp editing <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12869>
+					- clojure_files_map -- SPC icj <url:file:///~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/config/which-key.lua#r=g14885>
 				- Index: Clojure in Vim <url:file:///~/projects/study/clj/clojure_in_vim.md#r=g11843>
 				- shortcuts
 					- local quick_clojure_map = { -- Sj <url:file:///~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/config/which-key.lua#r=g13215>

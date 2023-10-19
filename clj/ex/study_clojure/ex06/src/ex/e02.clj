@@ -64,7 +64,14 @@
 ;; => [{:k1 :v1, :k2 :v2}
 ;;     {:k1 :v3, :k2 :v4}]
 
-; şimdi ben Ms tablosundaki bir satırı almak istiyorum
+; Not: print yerine identity kullanalım.
+; print side-effect içeren bir fonksiyondur.
+; print bir değer dönmez.
+; identity ise değer döner. side-effect içermez.
+(identity Ms)
+;=> [{:k1 :v1, :k2 :v2} {:k1 :v3, :k2 :v4}]
+
+; şimdi ben Ms hashmapindeki (tablosundaki) bir satırı almak istiyorum
 (get Ms 0)
 ;=> {:k1 :v1, :k2 :v2}
 (get Ms 1)
@@ -76,9 +83,12 @@
   (get :k1))
 ;=> :v1
 
-; aynı şeyi threading macro olmadan da yapabilirim
+; aynı şeyi threading macro ("->") olmadan da yapabilirim
 (get (get Ms 0) :k1)
 ;=> :v1
+; ancak bu kullanım güzel değil.
+; Dizayn prensibi olarak, olabildiğince az içiçe (nested) fonksiyon çağrısı yapalım.
+; Threading macro kullanarak lineer bir pipeline oluşturuyoruz. Bu daha kolay okunabilir ve anlaşılabilir.
 
 ; get fonksiyonunu hiç kullanmayabilirdik
 (->

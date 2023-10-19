@@ -9,6 +9,16 @@
 ; (pred item) returns logical true. pred must be free of side-effects.
 ; Returns a transducer when no collection is provided.
 
+(def m1 {:k1 :v1 :k2 :v2})
+
+(def m2 {:k1 :v3 :k2 :v4})
+
+(def Ms [m1 m2])
+
+(filter
+  (fn [m] (= (:k1 m) :v1))
+  Ms)
+
 (filter odd? [1 2 3])
 ;=> (1 3)
 

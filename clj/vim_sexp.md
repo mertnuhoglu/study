@@ -16,6 +16,10 @@ output:
 
 # Tool: vim-sexp id=g11846
 
+## TOC
+
+- sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>
+
 [tpope/vim-sexp-mappings-for-regular-people: vim-sexp mappings for regular people](https://github.com/tpope/vim-sexp-mappings-for-regular-people)
 
 [guns/vim-sexp: Precision Editing for S-expressions](https://github.com/guns/vim-sexp)
@@ -104,7 +108,7 @@ ref: `vim-sexp <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-cus
   | SPC Sı           | [] sexp_square_head_wrap_element          |
   | SPC Se           | {} sexp_curly_head_wrap_element           |
   | wrapping a02     | rfr: vim-sexp regular-people              |
-  | dsf              | dpplice (delete surroundings of form)     |
+  | dsf              | splice (delete surroundings of form)      |
   | cse(             | surround element in parens                |
   | cse[             | surround element in brackets              |
   | cse{             | surround element in curly                 |

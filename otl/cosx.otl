@@ -62,7 +62,9 @@ tpc - osx
 			KeyCode::<key we want to affect>,
 			KeyCode::<key to fire when held continuously>,
 			KeyCode::<key to fire when pressed and released quickly>
+## Tree
 	applications
+		AltTab - window navigation <url:file:///~/projects/study/otl/cosx.otl#r=g13821>
 		UTM: virtual machine windows on m1
 		krispy: zoom kullanırken arka fondaki gürültüyü temizler
 		iterm2
@@ -85,8 +87,6 @@ tpc - osx
 		anki: spaced repetition for memory
 		karabiner: shortcuts, hotkeys management
 		copyq: multiple clipboard manager
-## Tree
-
 	shortcuts kısayollar keybindings - osx id=g12084
 		sol alt köşe: #^+
       | r | obs: streaming           |

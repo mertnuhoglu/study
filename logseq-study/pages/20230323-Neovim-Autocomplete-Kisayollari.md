@@ -1,4 +1,4 @@
-tags:: vim/autocomplete
+tags:: vim/autocomplete, f/kybd
 
 # 20230323-Neovim-Autocomplete-Kisayollari id=g14092
 

@@ -1,0 +1,13 @@
+match	replace
+"ekip/gnd"	"ekip, gnd"
+"grsm/tst"	"grsm, tst"
+"p/engin/gnd"	"p/engin, gnd"
+"pcm/rpa"	"org/pcm/rpa"
+"rdb"	"prd/rdb"
+"tpc/oryantasyon"	"org/orientation"
+"ui"	"prd/ui"
+"vim"	"tll/vim"
+"wtng"	"gtd/wtng"
+"yöntem"	"tpc/method"
+"work/piyasa-arastirmasi"	"org/market-research"
+

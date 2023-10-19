@@ -1,0 +1,6 @@
+export MATCH_TEXT="{match}"
+export REPLACE_TEXT="{replace}"
+rg -l "tags::.*${{MATCH_TEXT}}"
+rg "tags::.*${{MATCH_TEXT}}"
+rg -l "tags::.*${{MATCH_TEXT}}" | gxargs -n1 -d '\n' -I {{}} gsed -i -e "1s#${{MATCH_TEXT}}#${{REPLACE_TEXT}}#w /dev/stdout" {{}}
+

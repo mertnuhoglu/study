@@ -6,6 +6,9 @@ rfr: Title: Extract tags from all notes <url:file:///~/prj/study/script/tag_extr
 
 ```sh
 sh ~/prj/study/script/tag_extract.sh
+# grsm etiketleri:
+#> ~/prj/myrepo/scrap/out/tags_grsm_20230912.txt
+# tüm etiketler:
 #> /Users/mertnuhoglu/projects/myrepo/scrap/out/tags_20230607.txt
 ```
 

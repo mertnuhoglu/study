@@ -20,3 +20,5 @@ Mason komutu ile hangi LSP server yazılımlarının kurulduğunu inceleyebilirs
 
 rfr: lsp keybindings <url:file:///~/prj/private_dotfiles/.config/nvim/lua/mert/lsp_config.lua#r=g14073>
 
+<file:///~/prj/private_dotfiles/.config/nvim/lua/mert/lsp_config.lua>
+

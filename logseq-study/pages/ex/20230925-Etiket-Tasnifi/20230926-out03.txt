@@ -1,0 +1,383 @@
+export MATCH_TEXT="ekip/gnd"
+export REPLACE_TEXT="p\\/ekip, g\\/gnd"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="grsm/tst"
+export REPLACE_TEXT="grsm, f\\/tst"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="p/engin/gnd"
+export REPLACE_TEXT="p\\/engin, g\\/gnd"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="pcm/rpa"
+export REPLACE_TEXT="org\\/pcm\\/rpa"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="rdb"
+export REPLACE_TEXT="prd\\/rdb"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="tpc/oryantasyon"
+export REPLACE_TEXT="org\\/orientation"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="ui"
+export REPLACE_TEXT="prd\\/ui"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="vim"
+export REPLACE_TEXT="tll\\/vim"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="wtng"
+export REPLACE_TEXT="g\\/wtng"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="yöntem"
+export REPLACE_TEXT="tpc\\/method"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="work/piyasa-arastirmasi"
+export REPLACE_TEXT="org\\/market-research"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="geribildirim"
+export REPLACE_TEXT="frm\\/feedback"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="msg"
+export REPLACE_TEXT="frm\\/msg"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="mtng"
+export REPLACE_TEXT="frm\\/mtng"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="ndx"
+export REPLACE_TEXT="frm\\/ndx"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="rtc"
+export REPLACE_TEXT="frm\\/rtc"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="qst"
+export REPLACE_TEXT="frm\\/qst"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="qry"
+export REPLACE_TEXT="frm\\/qry"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="query"
+export REPLACE_TEXT="frm\\/qry"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="prb"
+export REPLACE_TEXT="frm\\/prb"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="pln"
+export REPLACE_TEXT="frm\\/pln"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="review"
+export REPLACE_TEXT="frm\\/review"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="analiz"
+export REPLACE_TEXT="prd\\/analysis"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="analysis"
+export REPLACE_TEXT="prd\\/analysis"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="barış"
+export REPLACE_TEXT="p\\/baris"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="branding"
+export REPLACE_TEXT="org\\/branding"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="calisma-ortami"
+export REPLACE_TEXT="org\\/tll"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="clj"
+export REPLACE_TEXT="prg\\/clj"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="clj/clerk"
+export REPLACE_TEXT="prj\\/clj\\/clerk"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="clj/datomic"
+export REPLACE_TEXT="prg\\/datomic"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="clj/electric"
+export REPLACE_TEXT="prg\\/clj\\/electric"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="clojure"
+export REPLACE_TEXT="prg\\/clj"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="cmmi"
+export REPLACE_TEXT="org\\/cmmi"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="cms"
+export REPLACE_TEXT="prj\\/cms"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="code-review"
+export REPLACE_TEXT="org\\/code-review"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="data-model"
+export REPLACE_TEXT="org\\/data-modelling"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="data-modelling"
+export REPLACE_TEXT="org\\/data-modelling"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="documentation"
+export REPLACE_TEXT="org\\/documentation"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="doğukan"
+export REPLACE_TEXT="p\\/dogukan"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="ekip"
+export REPLACE_TEXT="p\\/ekip"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="fkr"
+export REPLACE_TEXT="f\\/fkr"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="g/engin"
+export REPLACE_TEXT="p\\/engin"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="git"
+export REPLACE_TEXT="tll\\/git"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="graphics-design"
+export REPLACE_TEXT="prd\\/graphics-design"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="grsm/branding"
+export REPLACE_TEXT="org\\/branding"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="gtd/mert"
+export REPLACE_TEXT="p\\/mert"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="intellij"
+export REPLACE_TEXT="tll\\/intellij"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="kslt"
+export REPLACE_TEXT="org\\/opal\\/kslt"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="management"
+export REPLACE_TEXT="org\\/management"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="market/competition"
+export REPLACE_TEXT="org\\/market"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="mockup"
+export REPLACE_TEXT="prd\\/mockup"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="org/dijital-pazarlama"
+export REPLACE_TEXT="org\\/marketing\\/digital"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="org/planlama"
+export REPLACE_TEXT="org\\/planning"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="p/doğukan"
+export REPLACE_TEXT="p\\/dogukan"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="pazarlama"
+export REPLACE_TEXT="org\\/marketing"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="procurement"
+export REPLACE_TEXT="prj\\/pms"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="strategy/roadmap"
+export REPLACE_TEXT="org\\/strategy\\/roadmap"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="strategy/technology"
+export REPLACE_TEXT="org\\/strategy\\/technology"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="terminal"
+export REPLACE_TEXT="prg\\/terminal"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="tpc/terminal"
+export REPLACE_TEXT="prg\\/terminal"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="training"
+export REPLACE_TEXT="org\\/training"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="orientation"
+export REPLACE_TEXT="org\\/orientation"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="oryantasyon"
+export REPLACE_TEXT="org\\/orientation"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}
+
+export MATCH_TEXT="p/pms"
+export REPLACE_TEXT="prj\\/pms"
+rg -l "tags::.*${MATCH_TEXT}"
+rg "tags::.*${MATCH_TEXT}"
+rg -l "tags::.*${MATCH_TEXT}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s#${MATCH_TEXT}#${REPLACE_TEXT}#w /dev/stdout" {}

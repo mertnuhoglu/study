@@ -1,0 +1,4 @@
+match	replace
+analiz	prd\\/analysis
+"analysis"	"prd\\/analysis"
+
