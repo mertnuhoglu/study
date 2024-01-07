@@ -15,7 +15,8 @@ state: wip
 
 ---
 
-# Quickstart Clojure id=g11627
+- # Quickstart Clojure id=g11627
+  id:: 830dcd5f-476f-4612-b1a1-659da47a7a4e
 
 Exercises: Clojure By Example - kimh <url:file:///~/projects/study/clj/exercise_with_clojure_examples.md#r=g10990>
 
@@ -58,7 +59,8 @@ Repl:
 
 # Questions
 
-## reduce-kv id=g11444
+- ## reduce-kv id=g11444
+  id:: 81b92318-1132-4fe9-ac34-7318a8c67558
 
 [reduce-kv - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/reduce-kv)
 
@@ -88,7 +90,8 @@ ex: all vals are incremented by 1.
 (map #(update-map % inc) vector-of-maps)
 ``` 
 
-## keep  id=g11435
+- ## keep  id=g11435
+  id:: 513c62cc-9c4c-410b-a12b-d761e430ecea
 
 [keep - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/keep)
 
@@ -108,7 +111,8 @@ ex: all vals are incremented by 1.
 ;;=> (1 3 5 7 9)
 ``` 
 
-## complement id=g11433
+- ## complement id=g11433
+  id:: 203e51e3-3362-4c72-b392-505a8b83a2a6
 
 [complement - clojure.core | ClojureDocs - Community-Powered Clojure Documentation and Examples](https://clojuredocs.org/clojure.core/complement)
 
@@ -120,7 +124,8 @@ ex: all vals are incremented by 1.
 (not-empty? [1 2]) ;;=> true
 ``` 
 
-## map doc id=g11276
+- ## map doc id=g11276
+  id:: f16a2238-e024-477a-a7b5-e6df2095ac2b
 
 https://clojuredocs.org/clojure.core/map
 
@@ -161,7 +166,8 @@ https://clojuredocs.org/clojure.core/map
 ;;=> ([:a :d :g] [:b :e :h] [:c :f :i])
 ``` 
 
-## partial doc id=g11277
+- ## partial doc id=g11277
+  id:: cdac1ea7-104e-4178-a7c7-0516ad9b36ea
 
 https://clojuredocs.org/clojure.core/partial
 
@@ -186,7 +192,8 @@ user=> (hundred-times 4 5 6)
 ``` 
 
 
-## apply doc id=g11278
+- ## apply doc id=g11278
+  id:: f0f7d83d-7de4-46a7-99f6-740fb0979474
 
 https://clojuredocs.org/clojure.core/apply
 
@@ -219,7 +226,8 @@ Applies fn f to the argument list formed by prepending intervening arguments to 
 ;;=> 3
 ``` 
 
-## comp doc id=g11279
+- ## comp doc id=g11279
+  id:: 1444c095-c871-48fd-a9eb-71d2596e7243
 
 https://clojuredocs.org/clojure.core/comp
 
@@ -249,7 +257,8 @@ Takes a set of functions and returns a fn that is the composition of those fns. 
 (negative-quotient 8 3)  ;;=> -8/3
 ``` 
 
-## juxt doc id=g11280
+- ## juxt doc id=g11280
+  id:: 79cb6793-bd2f-4059-b8c3-cacce96160c0
 
 https://clojuredocs.org/clojure.core/juxt
 
@@ -286,14 +295,16 @@ of those fns.
 ;;=> {:a "a" :b "b" :c "c" :d "d"}
 ``` 
 
-## identity doc id=g11281
+- ## identity doc id=g11281
+  id:: 00992df9-a5e6-4224-ba58-b3daf9bc6734
 
 ``` clojure
 user=> (identity 4)
 4
 ``` 
 
-## name doc id=g11282
+- ## name doc id=g11282
+  id:: 873d97e6-a711-457f-8942-a1de1da82917
 
 https://clojuredocs.org/clojure.core/name
 
@@ -316,7 +327,8 @@ Returns the name String of a string, symbol or keyword.
 ;;=> "x"
 ``` 
 
-## pr-str doc id=g11283
+- ## pr-str doc id=g11283
+  id:: 46f4e83c-a2ee-4b8d-ade0-8cc7c654da43
 
 https://clojuredocs.org/clojure.core/pr-str
 
@@ -341,7 +353,8 @@ user=> x
 ;; => [1 2 3 4 5]
 ``` 
 
-## repeat doc id=g11284
+- ## repeat doc id=g11284
+  id:: e9b15bb8-56d2-49b6-91e2-9fc7418328ab
 
 https://clojuredocs.org/clojure.core/repeat
 
@@ -362,7 +375,8 @@ Returns a lazy (infinite!, or length n if supplied) sequence of xs.
 
 ``` 
 
-## into doc id=g11285
+- ## into doc id=g11285
+  id:: 645268ee-4ad4-40b8-93d7-fc742d3c0bbc
 
 https://clojuredocs.org/clojure.core/into
 
@@ -386,7 +400,8 @@ https://clojuredocs.org/clojure.core/into
 ;; => [[1 2] [3 4]]
 ``` 
 
-## remove doc id=g11286
+- ## remove doc id=g11286
+  id:: 0415395d-49a2-45ac-bef5-178df6636562
 
 https://clojuredocs.org/clojure.core/remove
 
@@ -440,7 +455,8 @@ Evet, bu durumda, tek tek gönderiliyor. O zaman, item değil de vector olarak m
 
 Evet, map'in öğeleri `{:a 1}` gibi map değil, `[:a 1]` gibi vector.
 
-## update-in id=g11287
+- ## update-in id=g11287
+  id:: 4196a925-0822-4bcc-9044-9e30159d8499
 
 https://clojuredocs.org/clojure.core/update-in
 
@@ -452,7 +468,8 @@ https://clojuredocs.org/clojure.core/update-in
 ;;=> {:name "James", :age 27}
 ``` 
 
-## assoc-in id=g11288
+- ## assoc-in id=g11288
+  id:: 79d35b9c-4f6e-46ab-b3a8-4c7ea628cf75
 
 https://clojuredocs.org/clojure.core/assoc-in
 
@@ -464,7 +481,8 @@ https://clojuredocs.org/clojure.core/assoc-in
 ; => {:person "Violet"}
 ``` 
 
-## swap! amap assoc akey nasıl çalışıyor? id=g11289
+- ## swap! amap assoc akey nasıl çalışıyor? id=g11289
+  id:: 12c4ae98-1329-4f05-96d8-fd3dc5541eda
 
 ``` clojure
 (def m (atom {:a 1}))
@@ -486,7 +504,8 @@ Acaba sıralama değişince ne oluyor?
 
 `assoc` 2 argüman alıyor. Bu yüzden, `swap!` ile kullanımda ilk argüman otomatikman mevcut atom oluyor. 
 
-## defonce id=g11290
+- ## defonce id=g11290
+  id:: 6ff73f8a-5941-46db-ad04-dc1b9867599c
 
 Like def, but you cannot overwrite it.
 
@@ -505,7 +524,8 @@ foo
 ;; => 5
 ``` 
 
-## printing a map id=g11291
+- ## printing a map id=g11291
+  id:: e33c4a95-b701-4846-81d7-82990ee2c8de
 
 ``` clojure
 (print {:a 1 :b 2})
@@ -524,7 +544,8 @@ https://stackoverflow.com/questions/1527548/why-does-clojure-have-keywords-in-ad
 
 > Keywords are generally used as lightweight "constant strings", e.g. for the keys of a hash-map or the dispatch values of a multimethod. Symbols are generally used to name variable and functions and it's less common to manipulate them as objects
 
-## mapv function id=g11292
+- ## mapv function id=g11292
+  id:: bd622e7c-51de-4c7b-bf6f-a1c4190ccdba
 
 > Returns a vector consisting of the result of applying f to the
 > set of first items of each coll, followed by applying f to the set
@@ -544,7 +565,8 @@ Usage:
 ;; => [4 6]
 ``` 
 
-## hash-map function id=g11293
+- ## hash-map function id=g11293
+  id:: 468a5192-4e10-465f-91ac-d10a6faa0406
 
 https://clojuredocs.org/clojure.core/hash-map
 
@@ -568,7 +590,8 @@ https://clojuredocs.org/clojure.core/hash-map
 ;; => {"a" "1", "b" "2", "c" "3"}
 ``` 
 
-## namespaced keyword notations id=g11294
+- ## namespaced keyword notations id=g11294
+  id:: 2c3d28e1-ec24-4382-b495-c358d02eceee
 
 ``` clojure
   #:a{:b :c}
@@ -577,7 +600,8 @@ https://clojuredocs.org/clojure.core/hash-map
 	;; => #:a{:b :c}
 ``` 
 
-### Destructuring qualified keywords id=g12377
+- ### Destructuring qualified keywords id=g12377
+  id:: c1c2e39a-0e73-40b2-ac41-bc644485f4ce
 
 ``` clojure
 ;; Given:
@@ -596,7 +620,8 @@ https://clojuredocs.org/clojure.core/hash-map
   (println make selected?))
 ``` 
 
-### Destructuring qualified keywords of alias namespaces  id=g12378
+- ### Destructuring qualified keywords of alias namespaces  id=g12378
+  id:: b3a5f7a9-64a0-4cbe-ba81-4d296ad372dd
 
 Alias ile qualify edilen keyword iki tane `:` gerektirir: `::<ns_alias>/kwd`
 
@@ -610,7 +635,8 @@ Eğer alias ile qualify etmeden çift `:` kullanırsan, current ns ile genişlet
 ; OUT> Škoda 2020 true true
 ``` 
 
-## map-indexed function id=g11295
+- ## map-indexed function id=g11295
+  id:: 2d27420c-1da5-4772-8fe0-3346633626d6
 
 ``` clojure
 (map-indexed (fn [idx itm] [idx itm]) "foobar")
@@ -619,7 +645,8 @@ Eğer alias ile qualify etmeden çift `:` kullanırsan, current ns ile genişlet
 ;; => ({0 "f"} {1 "o"} {2 "o"} {3 "b"} {4 "a"} {5 "r"})
 ``` 
 
-## vec function id=g11296
+- ## vec function id=g11296
+  id:: 19bf302c-8da2-4fe8-ae8c-1cc501c71e2e
 
 ``` clojure
 (vec '(1 2 3))
@@ -668,7 +695,8 @@ clj
 ;; => "2019-11-01T11:53:40.214Z"
 ``` 
 
-## Writing a program id=g11297
+- ## Writing a program id=g11297
+  id:: 0b06510d-891d-42b2-b591-e4558f652c6f
 
 Edit `~/projects/study/clj/ex/study_clojure/ex01/src/hello.clj`
 
@@ -681,7 +709,8 @@ clj -m hello
 
 ## Article: Freecodecamp Clojure
 
-### Hashmaps id=g11298
+- ### Hashmaps id=g11298
+  id:: e56434f9-d5b6-4348-bc0b-f5896b3f3349
 
 https://guide.freecodecamp.org/clojure/hashmaps/
 
@@ -701,7 +730,8 @@ Two ways to construct:
 ;; => {:a 1, :b 2}
 ``` 
 
-#### Converting other collections to hashmaps id=g11299
+- #### Converting other collections to hashmaps id=g11299
+  id:: e0c00c71-37f1-4576-986b-98db74a83ac5
 
 ``` clojure
 (hash-map [:a 1 :b 2 :c 3])
@@ -723,7 +753,8 @@ It destructures a collection before applying a function to it:
 
 https://www.braveclojure.com/do-things/
 
-### Special Forms id=g11300
+- ### Special Forms id=g11300
+  id:: 87214ec3-00fd-4df3-814f-ea04daf7865e
 
 In the previous section, you learned that function calls are expressions that have a function expression as the operator. The two other kinds of expressions are macro calls and special forms
 
@@ -731,7 +762,8 @@ the main feature that makes special forms “special” is that, unlike function
 
 Another feature that differentiates special forms is that you can’t use them as arguments to functions
 
-### Multi-arity id=g11301
+- ### Multi-arity id=g11301
+  id:: fc072c16-c541-47fd-9028-d1b224abd36b
 
 Functions also support arity overloading. This means that you can define a function so a different function body will run depending on the arity
 
@@ -761,7 +793,8 @@ Arity overloading is one way to provide default values for arguments
 
 "karate" is the default value.
 
-### Variable-arity id=g11302
+- ### Variable-arity id=g11302
+  id:: 05da7039-5244-4871-97f9-149120335898
 
 By including a `rest` parameter. 
 
@@ -777,7 +810,8 @@ By including a `rest` parameter.
 ; => "Hi, Doreen, here are my favorite things: gum, shoes, kara-te"
 ``` 
 
-### Destructuring id=g11303
+- ### Destructuring id=g11303
+  id:: cc911e94-34a3-4815-b2ab-3abd090fe055
 
 Binding names to values within a collection.
 
@@ -806,7 +840,8 @@ opt01:
 ; => Treasure lng: 50
 ``` 
 
-opt02: short form id=g11487
+- opt02: short form id=g11487
+  id:: 70b84db3-2a52-41f9-88c7-a21d13fc8805
 
 ``` clojure
 (defn announce-treasure-location
@@ -827,7 +862,8 @@ opt02: short form id=g11487
   (steer-ship! treasure-location))
 ``` 
 
-### anonymous functions id=g11304
+- ### anonymous functions id=g11304
+  id:: 977b1a1b-2318-4bfb-b3b4-51bf0ac9614f
 
 `%&`: Rest parameter
 
@@ -836,7 +872,8 @@ opt02: short form id=g11487
 ; => (1 "blarg" :yip)
 ``` 
 
-### returning functions id=g11305
+- ### returning functions id=g11305
+  id:: 553f38b8-31bd-4fd8-94bb-39d66e6f6bae
 
 Returned functions are closures
 
@@ -892,7 +929,8 @@ Returned functions are closures
                      (set [part (matching-part part)])))))))
 ``` 
 
-### let id=g11307
+- ### let id=g11307
+  id:: 6e33b436-f94c-4a5c-8cf0-ff575ad0ea34
 
 Rest parameters in `let`
 
@@ -907,7 +945,8 @@ Rest parameters in `let`
 ; => ["Pongo" ("Perdita" "Puppy 1" "Puppy 2")]
 ``` 
 
-### loop id=g11308
+- ### loop id=g11308
+  id:: dd882295-6a5c-454a-ba01-3cb89cd2e7d5
 
 ``` clojure
 (loop [iteration 0]
@@ -943,7 +982,9 @@ You can do the same thing by recursive functions but this is more verbose:
 ; => Goodbye!
 ``` 
 
-### reduce id=g11306
+- - ### reduce id=g11306
+  id:: 23b40e22-653e-4b0d-8616-cd20c2f793e6
+  id:: d66b8b99-6937-4714-a176-38ae8206d76a
 
 Process each element in a sequence and build a result.
 
@@ -984,7 +1025,8 @@ With `reduce` you know that you are processing elements of collection.
 
 https://github.com/stuarthalloway/presentations/blob/master/ClojureInTenBigIdeas-Jun-2017.pdf?raw=true
 
-## Article: Functional-navigational programming in Clojure(Script) with Specter id=g11311
+- ## Article: Functional-navigational programming in Clojure(Script) with Specter id=g11311
+  id:: 236a959c-b534-4ecd-b94e-64af9d3d4ea4
 
 http://nathanmarz.com/blog/functional-navigational-programming-in-clojurescript-with-sp.html
 

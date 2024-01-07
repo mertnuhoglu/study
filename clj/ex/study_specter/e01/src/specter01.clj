@@ -5,6 +5,7 @@
 ; Most codes taken from: https://github.com/redplanetlabs/specter/blob/master/README.md
 
 ; ex: Increment every even number nested within map of vector of maps id=g11441
+;   id:: 0c5942b5-c664-4529-8155-c865bc125751
 
 (def data {:a [{:aa 1 :bb 2}
                {:cc 3}]
@@ -41,6 +42,7 @@
 ;; => [[{:aa 1, :bb 2} {:cc 3}] [{:dd 4}]]
 
 ; ex: Append a sequence of elements to a nested vector id=g11440
+;   id:: c24b99b2-846a-41b9-9c6f-acc5a9b33d56
 
 (def data {:a [1 2 3]})
 
@@ -60,6 +62,7 @@
 
 
 ; ex: Increment the last odd number in a sequence id=g11442
+;   id:: 825dfcb5-19f4-49e6-b6d8-0e3615371656
 
 
 (def data [1 2 3 4])
@@ -84,6 +87,7 @@
 
 
 ; ex: Map a function over a sequence without changing the type or order of the sequence id=g11446
+;   id:: baecaf7a-67ce-4bb8-a075-59f63491d9e2
 
 ;; Manual Clojure
 (map inc data) ;; doesn't work, becomes a lazy sequence
@@ -97,6 +101,7 @@
 
 
 ; ex: Increment all the values in maps of maps: id=g11447
+;   id:: 347b5aeb-87b4-40e7-9608-3ca93ad69a30
 
 (transform [MAP-VALS MAP-VALS]
         inc
@@ -209,6 +214,7 @@
 
 
 ; Video: Understanding Specter - Clojure's missing piece - rh5J4vacG98  id=g11449
+;   id:: f23048d2-dbbf-4287-9b46-6102fa023bd9
 
 ; ex01
 
@@ -608,6 +614,7 @@
 
 
 ; Video: Specter  Powerful and Simple Data Structure Manipulation - Nathan Marz - VTCy_DkAJGk id=g11450
+;   id:: 73ab3122-7036-4518-8697-2392d3338b46
 
                                         ; ex: add a value to a nested set
 

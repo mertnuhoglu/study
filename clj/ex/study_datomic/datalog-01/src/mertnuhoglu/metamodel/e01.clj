@@ -82,6 +82,7 @@
 ; #{[63 :db.type/tuple] [22 :db.type/long] [26 :db.type/fn] [24 :db.type/boolean] [23 :db.type/string] [25 :db.type/instant] [20 :db.type/ref] [21 :db.type/keyword] [64 :db.type/symbol]}
 
 ;; qry05b: valueType = ref olan tüm atributları çıkartalım id=g12902
+;;   id:: e21ffc37-917d-4249-b064-c4a3a993ccf1
 (q '[:find ?ae ?v
      :where 
      [:db.part/db :db.install/attribute ?ae]

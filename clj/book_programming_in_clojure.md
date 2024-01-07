@@ -143,7 +143,8 @@ All clojure functions implement `Callable` and `Runnable`
 (hello "Stu")
 ``` 
 
-#### Special Variables id=g11409
+- #### Special Variables id=g11409
+  id:: 06ffbb99-f433-4887-8239-ab644bc96f42
 
 `*1 *2 ...`: result of most recent evaluation
 
@@ -417,7 +418,8 @@ Keyword: begin with colon. They resolve to themselves.
 :foo
 ``` 
 
-If several maps have keys in common, create a record: id=g11411
+- If several maps have keys in common, create a record: id=g11411
+  id:: 7c47a468-12a9-4aa2-b76d-9600f25c5271
 
 ``` clojure
 (defrecord Book [title author])
@@ -703,7 +705,8 @@ Ex: take a string and return first three words
   ;; "The quick brown ..."
 ``` 
 
-#### Namespaces id=g11412
+- #### Namespaces id=g11412
+  id:: 5d2d7258-af18-4a97-a1b1-35d2ded03f87
 
 Root bindings live in a namespace.
 
@@ -860,7 +863,8 @@ Call methods: using dot special form
   ;; 10
 ``` 
 
-###### dot dot syntax id=g11413
+- ###### dot dot syntax id=g11413
+  id:: 65d65e67-c3be-4f33-8cca-d35cb6c5076b
 
 https://clojure.org/reference/java_interop#dot
 

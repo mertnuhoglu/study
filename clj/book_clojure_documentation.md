@@ -27,7 +27,8 @@ http://clojure-doc.org/articles/content.html#essentials
 lein repl
 ``` 
 
-### Your first project id=g11399
+- ### Your first project id=g11399
+  id:: 2827cc78-5a42-4243-be75-2f5e826624c4
 
 ``` clojure
 lein new app proj01
@@ -43,7 +44,8 @@ lein run
   ##> Hello, World!
 ``` 
 
-### Interactive Development id=g11400
+- ### Interactive Development id=g11400
+  id:: 0a7cc1d7-93da-4150-987e-5eccec3e3b7c
 
 ``` clojure
 cd ~/projects/study/clj/ex/study_clojure/ex02/proj01
@@ -86,7 +88,8 @@ Sub-expressions:
   ##> 12
 ``` 
 
-## Weird Characters id=g11401
+- ## Weird Characters id=g11401
+  id:: 373ea7e0-e7c8-4d75-a1ec-c664e8d7b5b6
 
 [Weird Characters](https://clojure.org/guides/weird_characters)
 
@@ -179,7 +182,8 @@ Sub-expressions:
 		deprecated
 ``` 
 
-# edn-format/edn: Extensible Data Notation id=g11402
+- # edn-format/edn: Extensible Data Notation id=g11402
+  id:: fe32328f-c7be-4195-a4a0-45ce03088cb6
 
 https://github.com/edn-format/edn
 

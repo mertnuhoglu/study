@@ -38,7 +38,8 @@ Launch an nREPL server and client:
 
 [CIDER :: CIDER Docs](https://docs.cider.mx/cider/index.html)
 
-## Debugging cider id=g11969
+- ## Debugging cider id=g11969
+  id:: d0099df2-1568-479a-801a-3a0eb9974053
 
 [Debugger :: CIDER Docs](https://docs.cider.mx/cider/debugging/debugger.html)
 

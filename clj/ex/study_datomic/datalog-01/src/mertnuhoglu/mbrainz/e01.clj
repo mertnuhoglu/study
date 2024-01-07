@@ -19,6 +19,7 @@
 ; #{[:language/ukw] [:language/bow] [:media/part_48] [:artist/part_15] [:language/tij] [:language/cre] [:language/ciy] [:language/dlg] [:script/Tagb] [:script/Zyyy] [:language/nsl] [:language/nka] [:language/lwm] [:language/mht] [:language/yuk] [:language/gbh] [:language/jrr] [:language/ylo] [:language/ncg] [:language/dts] [:language/hmb] [:language/omo] [:language/nsm] [:language/jal] [:language/pha] [:language/kcx] [:language/amj] [:language/bwr] [:db/retract] [:language/aug] ...
 
 ;; qry03 mbrainz içindeki tüm ref tipindeki atributlar id=g12903
+;;   id:: ad0b4b3d-64c0-43f1-a635-2d46e8e6752d
 (q '[:find ?ae ?v
      :where 
      [:db.part/db :db.install/attribute ?ae]

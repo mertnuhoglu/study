@@ -15,7 +15,8 @@ state: wip
 
 ---
 
-# Quickstart reveal id=g11738
+- # Quickstart reveal id=g11738
+  id:: d1c095fe-65f2-4cd9-91ee-40207a5ff09c
 
 # Index reveal repl
 
@@ -60,7 +61,8 @@ clj -Sdeps '{:deps {vlaaad/reveal {:mvn/version "1.1.163"}}}' -m vlaaad.reveal r
          :exec-fn repl}
 ```
 
-## Ex01: reveal repl on terminal id=g11734
+- ## Ex01: reveal repl on terminal id=g11734
+  id:: 04750453-06d0-4c86-b577-6f0b96c12e71
 
 Check `~/projects/study/clj/ex/study_reveal_repl/reveal-01/deps.edn`
 
@@ -86,7 +88,8 @@ Oklar ve return tuşlarıyla objeleri inceleyebilirsin.
 
 [Reveal: Read Eval Visualize Loop for Clojure](https://vlaaad.github.io/reveal/#cursive)
 
-#### Ex01: reveal repl on cursive id=g11735
+- #### Ex01: reveal repl on cursive id=g11735
+  id:: 916bd762-d139-4949-9051-5d63ab7a3b4f
 
 Edit `~/projects/study/clj/ex/study_reveal_repl/reveal-repl-01/deps.edn`
 
@@ -231,7 +234,8 @@ Keybindings
 	- convert java array to vector
 	- view color
 
-## Remote connection with prepl id=g11737
+- ## Remote connection with prepl id=g11737
+  id:: 9c7b2f3a-e1d6-4325-96df-3130c6851cad
 
 Run server:
 
@@ -247,7 +251,8 @@ nc localhost 5555
   ##> reveal window appears
 ```
 
-## Navigation id=g11918
+- ## Navigation id=g11918
+  id:: 3ea0f74e-8b96-494e-a406-ba7fb8372a17
 
   | space enter           | open context menu                 |
   | tab                   | switch between output and results |
@@ -260,7 +265,8 @@ nc localhost 5555
 	| !up !dn               | next/prev                         |
 	| !Home !End            | first/last                        |
 
-# rebel-readline with reveal id=g11749
+- # rebel-readline with reveal id=g11749
+  id:: 119082f9-043b-4681-880a-f9816c0ddea9
 
 [Reveal · Practicalli Clojure](http://practicalli.github.io/clojure/clojure-tools/data-browsers/reveal.html)
 
@@ -294,7 +300,8 @@ clojure -M:inspect/reveal:repl/rebel
 clojure -M:inspect/reveal
 ```
 
-# reveal with emacs cider id=g11949
+- # reveal with emacs cider id=g11949
+  id:: 04c7013b-46f9-4fbd-9819-3eb8246ab77c
 
 [Using Reveal with nrepl Editors](https://practicalli.github.io/clojure/clojure-tools/data-browsers/reveal.html#using-reveal-with-nrepl-editors)
 
@@ -304,7 +311,8 @@ clojure -M:inspect/reveal-nrepl
 
 Emacs: `cider-connect`
 
-# Video: Reveal REPL and data browser for Clojure by practicalli - YouTube id=g11917
+- # Video: Reveal REPL and data browser for Clojure by practicalli - YouTube id=g11917
+  id:: c418ce61-47e6-4e53-a237-30425b5ae9ba
 
 [Reveal REPL and data browser for Clojure - YouTube](https://www.youtube.com/watch?v=1jy09_16EeY)
 

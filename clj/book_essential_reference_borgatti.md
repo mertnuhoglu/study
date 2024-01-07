@@ -50,9 +50,10 @@ Check rich comment: `~/projects/study/clj/ex/book_essential_reference_borgatti/e
 
 Check also: `~/projects/study/clj/ex/study_clojure/ex06/src/book_essential_reference_borgatti.clj`
 
-## clojure.repl help functions id=g11959
+- ## clojure.repl help functions id=g11959
+  id:: 9d547dc1-3716-47f0-80bb-0d0b18a16666
 
-Help functions: `~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj`
+rfr: Help functions: `~/projects/study/clj/ex/study_clojure/ex06/src/help_functions.clj`
 
 ```clj
 clojure.inspector/inspect-table
@@ -81,7 +82,8 @@ Require functions: `~/projects/study/clj/ex/study_clojure/ex06/src/require_funct
 (use '[clojure.string :only (split)])
 ```
 
-## Debug Functions id=g11960
+- ## Debug Functions id=g11960
+  id:: a9857cc8-aa95-4948-9890-062cfe7f51c6
 
 Debug functions: `~/projects/study/clj/ex/study_clojure/ex06/src/debug_functions.clj`
 

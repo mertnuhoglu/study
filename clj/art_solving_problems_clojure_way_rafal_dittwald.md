@@ -15,7 +15,8 @@ state: wip
 
 ---
 
-# Article: Solving Problems the Clojure Way - Rafal Dittwald id=g13746
+- # Article: Solving Problems the Clojure Way - Rafal Dittwald id=g13746
+  id:: 3f026ca7-a8d9-465f-bb8e-abcb9ed27ea3
 
 [Solving Problems the Clojure Way - Rafal Dittwald - YouTube](https://www.youtube.com/watch?v=vK1DazRK_a0)
 

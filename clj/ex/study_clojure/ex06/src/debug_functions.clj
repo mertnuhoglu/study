@@ -6,6 +6,7 @@
 
 (comment 
   ; hashp for tracing id=g11988
+  ;   id:: 07e840dd-b1c4-4e4e-8e09-f166315813ea
   ; [Clojure observability and debugging tools](http://www.futurile.net/2020/05/16/clojure-observability-and-debugging-tools/)
 
   (require 'hashp.core)
@@ -85,6 +86,7 @@
 
 (comment
   ; cider debugging example id=g11970
+  ;   id:: 12cc3a35-1a81-42d8-af77-1927e2251174
   ; [Cider Debugger - YouTube](https://www.youtube.com/watch?v=jHCch3-Yuac)
 
   ; 01: put break point here: `,db`

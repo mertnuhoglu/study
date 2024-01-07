@@ -22,7 +22,8 @@ state: wip
 
 ref: `nxt - datomic <url:file:///~/projects/myrepo/work/work.otl#r=g12787>`
 
-# Datomic Tutorial: Getting Started id=g12785
+- # Datomic Tutorial: Getting Started id=g12785
+  id:: f05f0dbb-83c2-4e1b-8635-c97ccfa5c786
 
 [Connect to a Database | Datomic](https://docs.datomic.com/on-prem/getting-started/connect-to-a-database.html)
 
@@ -68,7 +69,8 @@ Edit `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
 
 ### Introduction
 
-#### Information, not CRUD id=g12786
+- #### Information, not CRUD id=g12786
+  id:: f25e39b4-596e-4e6f-aa18-e32e7de0d593
 
 Information is not forgotten as a side effect of acquiring new information.
 
@@ -262,7 +264,8 @@ Datalog is the query engine.
 
 ### The REST API and clients
 
-## Article: The Datomic Information Model by Rich Hickey id=g13516
+- ## Article: The Datomic Information Model by Rich Hickey id=g13516
+  id:: a41dc9e5-479a-480d-a5e7-02d4d5e1f722
 
 https://www.infoq.com/articles/Datomic-Information-Model/
 
@@ -519,13 +522,15 @@ Ex: Query historical data
 Peer.q(query, db.history())
 ``` 
 
-# Article: JUXT Blog - Datalog for trees in Clojure id=g12784
+- # Article: JUXT Blog - Datalog for trees in Clojure id=g12784
+  id:: 1a511e15-f75a-4038-8e4d-639b4c514a74
 
 [JUXT Blog - Datalog for trees in Clojure](https://www.juxt.pro/blog/datascript-dom)
 
 ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datalog_01.clj`
 
-# Video: Day of Datomic Cloud - Session 1 id=g12788
+- # Video: Day of Datomic Cloud - Session 1 id=g12788
+  id:: f9672f6a-4dbd-4f09-81c8-2532686baa2c
 
 [(1137) Day of Datomic Cloud - Session 1 - YouTube](https://www.youtube.com/watch?v=yWdfhQ4_Yfw&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv)
 
@@ -538,7 +543,8 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 
 ### otl notes
 
-[(1137) Day of Datomic Cloud - Session 1 - YouTube](https://www.youtube.com/watch?v=yWdfhQ4_Yfw&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv) id=g13502
+- [(1137) Day of Datomic Cloud - Session 1 - YouTube](https://www.youtube.com/watch?v=yWdfhQ4_Yfw&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv) id=g13502
+  id:: f2ec249e-ae48-46f7-a3d5-65193c2888f1
 
 	slide: agenda
 		notation
@@ -609,7 +615,8 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 			row
 			column, key-value, document, and graph
 		universal relation lets you model all these styles directly
-	one database, many indexes id=g13503
+	- one database, many indexes id=g13503
+  id:: 787bdb1a-489f-4d47-a679-9539d71c87d5
 		| structure | attribute |
 		| k/v | AVET |
 		| row | EAVT |
@@ -631,7 +638,8 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 			i have some friend, is that a friend of stu?
 		granular approach:
 			hangi yaklaşıma ihtiyacın varsa, ona göre veritabanına erişmene izin verir
-	slide: time aware id=g13504
+	- slide: time aware id=g13504
+  id:: 09f78de7-1e7d-4ef6-8a75-d5fa3328ea94
 		| db view | semantics | supports |
 		| (default) | current state | what is current situation? |
 		| as-of | state at point in past | how were things in the past? |
@@ -639,7 +647,8 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 		| tx report | before/after/change view of tx | automated event response |
 		| with | state with proposed additions | what would happen if we did X? |
 		| history | timeless view of all history | anything |
-	slide: entities id=g13505
+	- slide: entities id=g13505
+  id:: 77d707b9-fba4-4bf1-9b16-b035c183f8bc
 		do we really model everything in real world?
 			never.
 		when do we decide what do we care about in relational database?
@@ -790,7 +799,8 @@ ref: `/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/src/mert
 			buna özel bir edn scheması yaz
 			veritabanına transaction yap
 
-## Lab: Assertion Tutorial id=g13506
+- ## Lab: Assertion Tutorial id=g13506
+  id:: bd2404fa-801e-4e5f-b588-0bf3df066df7
 
 rfr: `Lab: Assertion Tutorial <url:file:///~/prj/study/clj/datomic_lab_assertion_tutorial.md#r=g13506>`
 
@@ -961,15 +971,18 @@ rfr: `Lab: Assertion Tutorial <url:file:///~/prj/study/clj/datomic_lab_assertion
 			aslında Datomicin hikayesi de bu şekilde başlamıştı
 			evet bunu yapabilirsin, ama kullanışsız ve düşük performanslı olur
 
-## Lab: Accumulate, Read, Retract, History  id=g13511
+- ## Lab: Accumulate, Read, Retract, History  id=g13511
+  id:: 64d5fc36-8b5f-4a07-86a6-8a85a3d6676e
 
 rfr: `Accumulate | Datomic <url:file:///~/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01b.clj#r=g13513>`
 
-## Video: Day of Datomic Cloud - Day 4 id=g13514
+- ## Video: Day of Datomic Cloud - Day 4 id=g13514
+  id:: f8c75942-35e9-4d0b-b9cc-0f5757683c13
 
 [(1143) Day of Datomic Cloud - Session 4 - YouTube](https://www.youtube.com/watch?v=qplsC2Q2xBA&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv&index=4)
 
-### Day Of Datomic Cloud otl id=g12849
+- ### Day Of Datomic Cloud otl id=g12849
+  id:: 16e26788-be81-414a-9a5d-ac8ec9ffcd99
 
 	slide: query model
 		datalog
@@ -1134,7 +1147,8 @@ rfr: `Accumulate | Datomic <url:file:///~/prj/study/clj/ex/study_datomic/datalog
 		deploy: artifact revisions
 		configure and bond: ion entry points
 			
-# Article: Datomic from the ground up - subhash id=g12895
+- # Article: Datomic from the ground up - subhash id=g12895
+  id:: c180dee2-cacc-41b6-b32a-68bf4c899b1b
 
 	ref
 		[Datomic from the ground up · subhash/clj-stack Wiki](https://github.com/subhash/clj-stack/wiki/Datomic-from-the-ground-up)
@@ -1185,7 +1199,8 @@ rfr: `Accumulate | Datomic <url:file:///~/prj/study/clj/ex/study_datomic/datalog
 		ex: sistemdeki tüm atributları listeleyelim:
 			ref: Bir varlığın tüm atributlarını listele <url:file:///~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/tutorial_ground_up/e01_metadata.clj#r=g12898>
 
-# Article: Hodur: Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube id=g12893
+- # Article: Hodur: Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube id=g12893
+  id:: 5ced0014-a68f-42c7-a283-7970f7dc5f6e
 
 	ref
 		[(28) Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube](https://www.youtube.com/watch?v=EDojA_fahvM)
@@ -1302,7 +1317,8 @@ rfr: `Accumulate | Datomic <url:file:///~/prj/study/clj/ex/study_datomic/datalog
 				4. plumbing
 					biri şu işlemi yaptığında, bu lambda çağrılsın
 
-# Article: Day of Datomic tutorial id=g12865
+- # Article: Day of Datomic tutorial id=g12865
+  id:: 0d75c8fc-cf8f-42c7-8679-c79710b819f8
 
 	ref
 		~/codes/clj/content/day-of-datomic/README.md
@@ -1311,11 +1327,13 @@ rfr: `Accumulate | Datomic <url:file:///~/prj/study/clj/ex/study_datomic/datalog
 		cd ~/codes/clj/content/day-of-datomic
 		lein repl
 
-# Article: mbrainz tutorial id=g12871
+- # Article: mbrainz tutorial id=g12871
+  id:: 8a84d26d-a2d2-47b2-abd1-bda755c6ff69
 
 rfr: Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc.md#r=g12871>
 
-# Article: rebl ile datomic kullanımı id=g12873
+- # Article: rebl ile datomic kullanımı id=g12873
+  id:: 8e388b06-d39c-44cc-aee4-4d6fc74e8cb4
 
 	prerequisite:
 		import mbrainz data <url:file:///~/projects/study/clj/datomic.otl#r=g12872>
@@ -1326,7 +1344,8 @@ rfr: Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc
 	repl code
 		ref: repl code connection <url:file:///~/projects/study/clj/datomic.otl#r=g12892>
 
-# Article: Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog) id=g12883
+- # Article: Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog) id=g12883
+  id:: 709b00ac-6d51-40f1-a23c-b7987c6618c6
 
 	ref
 		[Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog)](https://augustl.com/blog/2018/datomic_look_at_all_the_things_i_am_not_doing_cont/)
@@ -1357,7 +1376,8 @@ rfr: Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc
 	p05: Schema tanımlama önden yapmaya gerek yok
 		Yazarken değil, okuma yaparken yapı oluşturursun.
 
-# Article: What Datomic brings to businesses | by Val Waeselynck | Medium id=g12884
+- # Article: What Datomic brings to businesses | by Val Waeselynck | Medium id=g12884
+  id:: ad58bad0-2f18-4c78-998f-800ae7a0c7b0
 
 	ref
 		[What Datomic brings to businesses | by Val Waeselynck | Medium](https://medium.com/@val.vvalval/what-datomic-brings-to-businesses-e2238a568e1c)
@@ -1392,7 +1412,8 @@ rfr: Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc
 	Integrating other data systems
 		Eğer doğruluk kaynağı datomic olursa, diğer sistemlere senkronizasyon verilerini göndermek çok kolay olur
 
-# Article: Val on Programming: Using Datomic in your app: a practical guide id=g12886
+- # Article: Val on Programming: Using Datomic in your app: a practical guide id=g12886
+  id:: b0c6aeff-d772-4741-b4ec-767c6471763d
 
 	return: What Datomic brings to businesses | by Val Waeselynck | Medium <url:file:///~/projects/study/clj/datomic.otl#r=g12884>
 	ref
@@ -1453,7 +1474,8 @@ rfr: Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc
 	Fixture Data:
 		example based testing
 
-# Article: Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions id=g12885
+- # Article: Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions id=g12885
+  id:: ee78c208-b0a7-43ad-83fc-f5bd6f110ddb
 
 	ref
 		[Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions](https://cognitect.com/blog/2017/4/21/separation-of-concerns-in-datomic-query-datalog-query-and-pull-expressions)
@@ -1539,18 +1561,21 @@ rfr: Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc
 									:person/last-name
 									{:person/address address-pattern}])
 
-# Article: Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious... id=g12887
+- # Article: Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious... id=g12887
+  id:: 79c1f00a-eb82-4a3e-ba30-e0b2e3097499
 
 	ref
 		[Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious...](https://curiousprogrammer.dev/blog/datomic-cheat-sheet-series-queries-part-4-pull/)
 
-# Article: Max-Datom.com Exercises id=g12888
+- # Article: Max-Datom.com Exercises id=g12888
+  id:: eef7acb9-ab84-4881-83ce-73ec94eea96d
 
 	ref
 		~/projects/study/clj/ex/study_datomic/max-datom.com/exercises-max-datom.com.md
 	t0
 
-# Example: Day of Datomic Cloud Sample Data id=g13521
+- # Example: Day of Datomic Cloud Sample Data id=g13521
+  id:: 5d1168f7-1672-4a97-a62d-c0764fd17cad
 
 [cognitect-labs/day-of-datomic-cloud](https://github.com/cognitect-labs/day-of-datomic-cloud)
 
@@ -1560,7 +1585,8 @@ Previous step: rfr: 04. Sample Data <url:file:///~/prj/study/clj/articles-datomi
 
 Step01: `/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/day_of_datomic/cloud/hello_world.clj`
 
-# Example: Get Current Datomic Schema id=g13527
+- # Example: Get Current Datomic Schema id=g13527
+  id:: d7ccf1be-c513-466f-9ff2-4b4dd5323523
 
 [How can I get the current Datomic schema? - Stack Overflow](https://stackoverflow.com/questions/26575320/how-can-i-get-the-current-datomic-schema)
 

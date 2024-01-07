@@ -15,7 +15,8 @@ state: wip
 
 ---
 
-# Quickstart deps.edn id=g11724
+- # Quickstart deps.edn id=g11724
+  id:: a085c5fa-d057-4c9f-9194-bf81040d07c8
 
 `New Project <url:file:///~/projects/study/clj/deps_cli.md#r=g11941>`
 
@@ -45,11 +46,14 @@ Practicalli deps.edn: `~/projects/study/clj/practicalli_deps_edn.md`
 
 `Socket REPL <url:file:///~/projects/study/clj/clojure_cli_tools.md#r=g11931>`
 
-# Index deps.edn id=g11723
+- # Index deps.edn id=g11723
+  id:: d6a310c9-11f6-4f90-bfa9-57997c650c1b
 
-# Issues CLI Tools  id=g11940
+- # Issues CLI Tools  id=g11940
+  id:: 7bfcd543-6dcb-420c-ad3d-f8b1e3ab8f31
 
-## New Project id=g11941
+- ## New Project id=g11941
+  id:: b5e89103-66a6-4329-be41-40f8d2e64945
 
 ```bash
 clojure -X:project/new :name mertnuhoglu/datawalk-01
@@ -62,7 +66,8 @@ clojure -M::datawalk:repl/rebel
 
 > -A (for REPL invocation), -X (for function execution), or -M (for clojure.main execution). 
 
-## Run main function id=g12070
+- ## Run main function id=g12070
+  id:: 03507dde-c1f4-4ae9-a68e-39f7bd2ff71b
 
 `Run main function: <url:file:///~/projects/study/clj/deps_cli.md#r=g11745>`
 
@@ -101,7 +106,8 @@ ref: `Article: rebel-readline README <url:file:///~/projects/study/clj/deps_cli.
 clj -Sdescribe
 ```
 
-## Running functions id=g12071
+- ## Running functions id=g12071
+  id:: 89beddd4-c284-4253-b8e2-1faffdd56e5a
 
 opt01a: `Executing a function <url:file:///~/projects/study/clj/deps_cli.md#r=g11721>`
 
@@ -217,7 +223,8 @@ clj -X hello/run
 
 `-X` executes an entry function.
 
-## Using local libraries id=g11719
+- ## Using local libraries id=g11719
+  id:: c87032c3-e760-4e9b-bf72-dd0623821682
 
 Create a local library:
 
@@ -245,7 +252,8 @@ Check `~/projects/study/clj/ex/study_deps_cli/deps-local-libraries/src/hello.clj
 clj -X hello/run
 ```
 
-## Using git libraries id=g11720
+- ## Using git libraries id=g11720
+  id:: 46831089-91ac-4d2b-b3d8-cc82096b92e3
 
 ```clojure
 {:deps
@@ -312,7 +320,8 @@ clojure: for other uses
 clj
 ```
 
-## Executing a function id=g11721
+- ## Executing a function id=g11721
+  id:: cbeab27a-7c2c-449a-96c4-bc0f10a2c6ae
 
 Ex: A function that takes a map: 
 
@@ -349,7 +358,8 @@ Execute an arbitrary function:
 clj -X my.qualified/fn :config 789
 ```
 
-## Running a main or script id=g11722
+- ## Running a main or script id=g11722
+  id:: d1920c11-1fd2-4cd1-be2a-62a5c7da971d
 
 `-M` calls a `-main` function or a clojure script
 
@@ -363,7 +373,8 @@ ref: `clj-new: Generate new projects based on templates  <url:file:///~/projects
 clojure -M -m clj-new-01.clj-new-01
 ```
 
-# find-deps id=g11716
+- # find-deps id=g11716
+  id:: 6a906127-9558-4a24-a9c4-42907f01b28b
 
 [hagmonk/find-deps: tools.deps friendly utility for searching clojars and maven](https://github.com/hagmonk/find-deps)
 
@@ -438,7 +449,8 @@ clj -A:rebel
 
 
 
-# Article: rebel-readline README id=g11718
+- # Article: rebel-readline README id=g11718
+  id:: 8eb5bf3e-62ab-416e-bbbb-ed2bc71b6edd
 
 [bhauman/rebel-readline: Terminal readline library for Clojure dialects](https://github.com/bhauman/rebel-readline)
 
@@ -558,7 +570,8 @@ Check `~/projects/study/clj/ex/study_deps_cli/main-function/src/practicalli/what
 clojure -m practicalli.what-time-is-it
 ```
 
-# clj-new: Generate new projects based on templates  id=g11717
+- # clj-new: Generate new projects based on templates  id=g11717
+  id:: ec7ae3c9-5978-49c9-83b8-d23b649f0c63
 
 Using practicalli deps:
 
@@ -621,13 +634,15 @@ clojure -M:test:runner
 
 Check test scripts: `~/projects/study/clj/ex/study_deps_cli/clj-new-01/test/clj_new_01/clj_new_01_test.clj`
 
-### Run main function: id=g11745
+- ### Run main function: id=g11745
+  id:: 09d17dc3-015f-4ee5-b6ec-ce17231c5246
 
 ```bash
 clj -M -m clj-new-01.clj-new-01
 ```
 
-### Run any function as alias: id=g11746
+- ### Run any function as alias: id=g11746
+  id:: b5e19821-d4e6-4dc3-aa31-28cfc3e66b93
 
 Check: `deps.edn > aliases > :my-fn <url:/Users/mertnuhoglu/projects/study/clj/ex/study_deps_cli/clj-new-01/deps.edn#tn=:my-fn>`
 
@@ -652,7 +667,8 @@ You can skip `:exec-args` in `:aliases`
 clj -X:my-fn2			;; ok
 ```
 
-### Run a clojure file as script  id=g12069
+- ### Run a clojure file as script  id=g12069
+  id:: 57a10623-30ec-4a9b-8cef-20be5e9a5550
 
 [ubuntu - How to run a Clojure File? - Stack Overflow](https://stackoverflow.com/questions/30445590/how-to-run-a-clojure-file)
 

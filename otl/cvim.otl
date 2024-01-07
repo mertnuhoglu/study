@@ -1054,7 +1054,7 @@ viml vimscript id=g10491
 		Up to 20 arguments can be given, separated by commas.  After the named arguments an argument "..." can be specified
 		"a:000" is set to a |List| that contains these arguments
 regex2
-	ref: vim regex <url:file:///~/projects/study/otl/cregex.otl#r=g12543>
+	vim regex || ((ce6031ec-5990-4f67-a316-64c4fd3dea0e))
 vim documentation
 	neovim
 		:TOhtml id=g11899

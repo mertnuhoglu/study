@@ -14,7 +14,8 @@ output:
 
 ---
 
-# Tool: vim-sexp id=g11846
+- # Tool: vim-sexp id=g11846
+  id:: f6fe7842-e922-434d-8ddb-1f6a16a904a0
 
 ## TOC
 
@@ -75,7 +76,8 @@ wrap:
   | ,e[ ,e]          | element []                                |
   | ,e{ ,e}          | element {}                                |
 
-# sexp cheatsheet id=g11971
+- # sexp cheatsheet id=g11971
+  id:: 7caeba47-93e3-44b2-bde9-387baed34273
 
 ref: `vim-sexp <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12870>`
 

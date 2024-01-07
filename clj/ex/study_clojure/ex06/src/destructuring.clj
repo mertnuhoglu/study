@@ -1,6 +1,7 @@
 (ns destructuring)
 
 ; destructuring id=g11408
+;   id:: 2c91e0d4-4735-4bfb-8247-edf684efcdff
 ; ref: Destructuring <url:file:///~/projects/study/clj/book_clojure_practicalli.md#r=g11407>
 
 (let [[a b & c :as d] [1 2 3 4]] [a b])
@@ -28,6 +29,7 @@
 ;; => "1(2 3)"
 
 ; keyword arguments (optional args) id=g13267
+;   id:: 794d9112-3554-4f60-99f9-6581f303076a
 
 (defn manage-pc
   [{os :os} & {:keys [scan upgrade]
@@ -51,6 +53,7 @@
 (foo :x "X" :y "Y") ;; => {:y Y, :x X}
 
 ;; keeping original value with :as id=g13268
+;;   id:: bb981b9a-e80d-4744-9cb5-ce6a443d8d6f
 
 ; with vector
 (defn test [[x y :as v]]
@@ -86,6 +89,7 @@
 ;; => [2 {:a 2, :b 3}]
 
 ;; namespaced keywords id=g13269
+;;   id:: a92833f2-e9db-40e2-8521-431a0959ea6c
 
 ; ref: [Clojure - Destructuring in Clojure](https://clojure.org/guides/destructuring)
 

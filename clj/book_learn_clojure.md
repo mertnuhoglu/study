@@ -21,7 +21,8 @@ state: wip
 
 https://clojure.org/guides/learn/syntax
 
-### Strings (character types) id=g11315
+- ### Strings (character types) id=g11315
+  id:: 8d8249af-ef66-4962-a863-3b2709cf49a9
 
 ``` clojure
 "hello"         ; string
@@ -29,7 +30,8 @@ https://clojure.org/guides/learn/syntax
   #"[0-9]+"       ; regular expression
 ``` 
 
-### Symbols and idents: id=g11316
+- ### Symbols and idents: id=g11316
+  id:: 3443b96f-20e7-4473-a007-099a21c83869
 
 		map             ; symbol
 		+               ; symbol - most punctuation allowed
@@ -72,7 +74,8 @@ Lists are evaluated as invocation.
 
 Some languages have both statements and expressions. Statements have stateful effect but don't return a value. In clojure, everything is an expression that evaluates to a value.
 
-### Delaying evaluation with quoting id=g11317
+- ### Delaying evaluation with quoting id=g11317
+  id:: 370456da-2f86-423c-9c1c-743da07afd44
 
 Sometimes, symbols should just be a symbol without looking up what it refers to. Then we suspend evaluation with quoting:
 
@@ -86,7 +89,8 @@ Sometimes, a list should just be a list of data values:
 '(1 2 3)
 ``` 
 
-### REPL id=g11318
+- ### REPL id=g11318
+  id:: 546b0f6f-4a3c-45cd-8ac1-d1ab43c4cabc
 
 Clojure is always compiled to JVM bytecode. There is no clojure interpreter.
 
@@ -99,7 +103,8 @@ History of values of last expressions: `*1` `*2`...
 ;; => 17
 ``` 
 
-#### Helper functions id=g11313
+- #### Helper functions id=g11313
+  id:: a105f818-7d63-4d39-815b-760aa30fc11d
 
 Helper functions: `doc`, `find-doc`, `apropos`, `source`, `dir`
 
@@ -147,7 +152,8 @@ Symbols are evaluated by looking up what they refer to:
   ##> 14
 ``` 
 
-#### Printing id=g11319
+- #### Printing id=g11319
+  id:: 22c6df42-48be-4159-83a3-ce6b0d6aebfa
 
 `println` and `print` for human-readable printing.
 
@@ -295,7 +301,8 @@ Instead you can simply write:
 
 ### Java Interop
 
-#### invoking java code id=g11324
+- #### invoking java code id=g11324
+  id:: 2e7b9c18-7110-459c-84ea-004dea4ce826
 
 ``` clojure
 	| Task            | Java              | Clojure          |

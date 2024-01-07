@@ -15,9 +15,11 @@ state: wip
 
 ---
 
-# Quickstart rebl id=g11926
+- # Quickstart rebl id=g11926
+  id:: 02189e60-1f3e-4306-a370-14bb1aa30e40
 
-# Index rebl id=g11927
+- # Index rebl id=g11927
+  id:: 5be301eb-86a6-4572-9efd-b24e2aea89d2
 
 Emacs integration: `Run REBL for nREPL <url:file:///~/projects/study/clj/rebl.md#r=g11934>`
 
@@ -37,7 +39,8 @@ Get REBL by email.
 bash ./install
 ```
 
-# Run REBL id=g11928
+- # Run REBL id=g11928
+  id:: ec85d4d3-b6e0-484d-b609-7f327d600ba2
 
 opt01: seancorfield deps:
 
@@ -51,7 +54,8 @@ opt02: practicalli deps:
 
 `Run cognitect rebl: <url:file:///~/projects/study/clj/practicalli_deps_edn.md#r=g11925>`
 
-# Run REBL for nREPL id=g11934
+- # Run REBL for nREPL id=g11934
+  id:: e98cfc10-df6f-4633-b5f1-8e8d3f6bb773
 
 ref: `Run cognitect rebl: <url:file:///~/projects/study/clj/practicalli_deps_edn.md#r=g11925>`
 
@@ -86,7 +90,8 @@ java15
 clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl
 ```
 
-## Connect REBL from Emacs Cider id=g11943
+- ## Connect REBL from Emacs Cider id=g11943
+  id:: a39dca0d-29d5-476e-b009-d34ba61a4ae6
 
 Emacs: Open  `~/projects/study/clj/ex/rebl/rebl-nrepl-01/deps.edn`
 
@@ -94,7 +99,8 @@ Emacs: Open  `~/projects/study/clj/ex/rebl/rebl-nrepl-01/deps.edn`
 
 Run commands in `~/projects/study/clj/ex/rebl/rebl-examples/src/e01/rebl_examples.clj`
 
-## Connect REBL from Intellij Cursive id=g11944
+- ## Connect REBL from Intellij Cursive id=g11944
+  id:: 0c9470f8-8283-4f23-b730-c2a05deeb40b
 
 ```
 Configurations > Clojure REPL > Remote
@@ -106,11 +112,13 @@ Use pot from nREPL file
 
 ![](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/scs20210121_211450.jpg)
 
-## Connect REBL from Vim Conjure id=g11945
+- ## Connect REBL from Vim Conjure id=g11945
+  id:: 3efd5f99-c530-425c-aba2-3b57affa3fd4
 
 `:ConjureConnect <port>`
 
-# Video: REBL - Stuart Halloway - YouTube id=g11935
+- # Video: REBL - Stuart Halloway - YouTube id=g11935
+  id:: bb2bd02a-ed07-4a58-9ac4-7df3a7fe1008
 
 [REBL - Stuart Halloway - YouTube](https://www.youtube.com/watch?v=c52QhiXsmyI&t=1347s)
 

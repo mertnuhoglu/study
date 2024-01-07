@@ -77,7 +77,8 @@ opt: `C-x b` select buffer `*scratch*`
 
 02: Go to the sexp. `eval-print-last-sexp`
 
-## Multiple Emacs Setups/Installations in Osx id=g12029
+- ## Multiple Emacs Setups/Installations in Osx id=g12029
+  id:: ce2950c3-af20-42f8-96c7-59582abdc4db
 
 https://medium.com/dev-genius/how-to-set-up-multiple-custom-emacs-configurations-for-one-user-using-chemacs-102cdd617677
 
@@ -752,7 +753,8 @@ expand-region
 
 `SPC v` or `er/expand-region`
 
-# Article: The Emacs Guru Guide to Key Bindings – Wilfred Hughes id=g12045
+- # Article: The Emacs Guru Guide to Key Bindings – Wilfred Hughes id=g12045
+  id:: 5530cd0d-a3c4-4c9a-a421-30b25868e229
 
 [The Emacs Guru Guide to Key Bindings – Wilfred Hughes::Blog](http://www.wilfred.me.uk/blog/2018/01/06/the-emacs-guru-guide-to-key-bindings/)
 
@@ -796,7 +798,8 @@ Discovering Key Bindings:
 	| C-h k <?> | describe-keybinding |
 	| C-h l | what command ran recently |
 
-Article: keyboard shortcuts - Learning emacs - useful mnemonics? - Stack Overflow id=g12046
+- Article: keyboard shortcuts - Learning emacs - useful mnemonics? - Stack Overflow id=g12046
+  id:: 11cad18d-5d0f-4493-aaaa-185b228f87e2
 
 [keyboard shortcuts - Learning emacs - useful mnemonics? - Stack Overflow](https://stackoverflow.com/questions/2677300/learning-emacs-useful-mnemonics/38317797)
 

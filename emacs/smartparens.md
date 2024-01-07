@@ -15,7 +15,8 @@ state: wip
 
 ---
 
-# Index - smartparens id=g11901
+- # Index - smartparens id=g11901
+  id:: 1a2d151b-e246-4b46-8c17-18f5524d9321
 
 `Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>`
 
@@ -31,7 +32,8 @@ state: wip
 
 # @mine
 
-## Mantık: Smartparens, paredit ve structural editing id=g11858
+- ## Mantık: Smartparens, paredit ve structural editing id=g11858
+  id:: a5cac50a-2bac-4a6c-b464-a2fb0e6f1cf5
 
 @mine: paredit'in çalışmasını sağlayan şey, kodun AST yapısında veri olması. Yani kod eğer AST ile aynı formda olmasaydı, o zaman onun üzerinde paredit'teki değişiklikleri yapmak bu kadar kesin tanımlanamazdı.
 
@@ -129,13 +131,15 @@ Feature04: kill to the end of line
 
 Feature05: join-sexps
 
-# Article: Emacs and Pairs id=g11855
+- # Article: Emacs and Pairs id=g11855
+  id:: 0f2da62d-c9f0-439e-bc21-baa7facd5310
 
 [Emacs and Pairs](https://ebzzry.io/en/emacs-pairs/)
 
 # cleverparens:
 
-## Aktifleştirme: cleverparens id=g11857
+- ## Aktifleştirme: cleverparens id=g11857
+  id:: 7c5fc91d-eed7-4f21-9040-332cb01fa9f6
 
 opt01:
 
@@ -187,13 +191,16 @@ To enable evil-cleverparens with your favorite lispy-mode use:
 
 @q: lispy-mode nedir? Nerede tanımlanmıştır?
 
-## cleverparens: README id=g11864
+- ## cleverparens: README id=g11864
+  id:: 249586fe-26e5-4aee-b1e4-ddf9442f9750
 
 [luxbock/evil-cleverparens: Evil normal-state minor-mode for editing lisp-like languages. Work in progress.](https://github.com/luxbock/evil-cleverparens)
 
 Part of embracing Lisp and structural editing is learning to love the parentheses. Vim/evil is optimized for moving around by units of text, but for friends of Lisp the parentheses are more than just text
 
-## Cheatsheet cleverparens vim-sexp id=g11961
+- ## Cheatsheet cleverparens vim-sexp id=g11961
+  id:: 2a8e1fae-de5e-40f7-a4bd-44412466b4db
+  id:: 61048688-4992-4a9c-b7a7-c46dc395e672
 
 ref: `~/projects/study/emacs/ex/smartparens/e01/cleverparens_commands.clj`
 

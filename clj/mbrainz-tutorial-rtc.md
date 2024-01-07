@@ -1,5 +1,6 @@
 
 # Article: mbrainz tutorial id=g12871
+  id:: 8953b710-fb40-4ff8-a81b-830ce55b1d31
 
 ref
 
@@ -14,6 +15,7 @@ prerequisite:
 setup
 
 	; import mbrainz data id=g12872
+  ;   id:: 30835f00-d0d9-4700-8097-e917c1de133b
 	bin/datomic restore-db file:///Users/mertnuhoglu/codes/clj/ex/mbrainz-1968-1973 datomic:dev://localhost:4334/mbrainz-1968-1973
 
 run

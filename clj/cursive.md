@@ -15,7 +15,8 @@ state: wip
 
 ---
 
-# quickstart cursive id=g11816
+- # quickstart cursive id=g11816
+  id:: 5ca5d9f4-e284-46fc-9135-ee66212848c0
 
     " QuickList Popup keybindings <url:file:///~/projects/private_dotfiles/.ideavimrc#r=g12856>
     | ^^ repl  | run anything: repl             |
@@ -35,7 +36,8 @@ state: wip
     | #enter   | repl: submit command           |
     | !++enter | repl: submit command           |
 
-# Index cursive id=g11817
+- # Index cursive id=g11817
+  id:: abbb2fda-76fd-434e-8506-de30b30dfdd5
 
 	Shortcuts cursive <url:file:///~/projects/study/clj/cursive.md#r=g12405>
 	Getting around: Structural movement <url:file:///~/projects/study/clj/cursive.md#r=g11818>
@@ -44,7 +46,8 @@ state: wip
 
 # Issues
 
-## Bir projeyi REPL ile incelemek  id=g12072
+- ## Bir projeyi REPL ile incelemek  id=g12072
+  id:: ae0af00e-387c-4e04-b886-d214e2846f6c
 
 ### deps.edn
 
@@ -156,7 +159,8 @@ Quick documentation `F1`
 
 ![quick documentation](/Users/mertnuhoglu/gdrive/keynote_resimler/screencapture/20200413124352.png)
 
-## Structural editing (paredit) id=g11819
+- ## Structural editing (paredit) id=g11819
+  id:: 44ebbf47-a910-48f6-8d44-efa84a09a8da
 
 Add shortcut for: `Structural Editing` as `#+s`
 
@@ -188,7 +192,8 @@ Press `#+0`, cursor goes to:
 		split		split the list
 		join		unsplit the list
 
-### Getting around: Structural movement id=g11818
+- ### Getting around: Structural movement id=g11818
+  id:: 8ba67f02-e630-4e9a-b7e5-4071e318c133
 
 Navigate > Structural Movement
 
@@ -223,7 +228,8 @@ Note that, str was not in the current namespace yet.
 
 [Colin Fleming - Debugging Clojure Code Wtih Cursive - YouTube](https://www.youtube.com/watch?v=ql77RwhcCK0)
 
-# Shortcuts cursive id=g12405
+- # Shortcuts cursive id=g12405
+  id:: 08392325-8d07-4c35-8d7f-c64f05054692
 
 `custom shortcuts <url:file:///~/projects/study/otl/intellij.otl#r=g12410>`
 

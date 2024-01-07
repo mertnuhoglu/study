@@ -1,6 +1,7 @@
 (ns ex.e29)
 
 ; Title: Clojure Power Tools Part 1 | Kari Marttila Blog id=g14497
+;   id:: 82083240-cbf1-4eaa-b042-b908c236bd37
 ; Date: 20230614
 
 ; [Clojure Power Tools Part 1 | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2020/10/26/clojure-power-tools-part-1.html)

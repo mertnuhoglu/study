@@ -2,6 +2,7 @@
   (:require [clojure.string :as str]))
 
 ;; printing https://clojuredocs.org/clojure.core/pr id=g_11321
+;;   id:: cbe69a05-4d85-4b6b-a60e-1818b54f76ca
 
 (println "ali")
 (print "ali")
@@ -26,12 +27,14 @@
 ;; => 3
 
 ; slurp: read file url id=g_11404
+;   id:: b89c9c97-d5bc-45cb-81ba-c18ea4ff0458
 ; https://clojuredocs.org/clojure.core/slurp
 
 (spit "tmp.txt" "test")
 (slurp "tmp.txt")
 
 ; record id=g_11410
+;   id:: 2bfbea8a-f9f9-4db6-b6de-61729cb18023
 ; ref: If several maps have keys in common, create a record: <url:file:///~/projects/study/clj/book_programming_in_clojure.md#r=g_11411>
 
 (defrecord Book [title author])
@@ -39,14 +42,16 @@
 ;; => #user.Book{:title "title01", :author "author01"}
 
 ; complement id=g_11434
-; ref: complement <url:file:///~/projects/study/clj/study_clojure.md#r=g_11433>)
+;   id:: c1d9a688-de98-4f92-8a61-ef0cadb6fddb
+; rfr: complement || ((203e51e3-3362-4c72-b392-505a8b83a2a6))
 
 (def not-empty? (complement empty?))
 (not-empty? [])    ;;=> false
 (not-empty? [1 2]) ;;=> true
 
 ; keep  id=g_11436
-; ref: 	keep  <url:file:///~/projects/study/clj/study_clojure.md#r=g_11435>
+;   id:: 77ad19d0-3f1d-4cba-9988-bb76059495c4
+; keep  || ((513c62cc-9c4c-410b-a12b-d761e430ecea))
 
 (keep #(if (odd? %) %) (range 4))
 ;;=> (1 3 5 7 9)
@@ -61,7 +66,8 @@
 ;;=> (1 3 5 7 9)
 
 ; reduce-kv
-; ref: reduce-kv <url:file:///~/projects/study/clj/study_clojure.md#r=g_11444>
+;   id:: 11824791-e3e3-4e27-9b00-2e7b6c3f704b
+; reduce-kv || ((81b92318-1132-4fe9-ac34-7318a8c67558))
 
 (reduce-kv #(assoc %1 %3 %2) {} {:a 1 :b 2})
 ;; => {1 :a, 2 :b}

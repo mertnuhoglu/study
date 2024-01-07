@@ -19,6 +19,12 @@ state: wip
 ---
 
 # visidata
+  .
+- [[f/ndx]]
+  - ex: Read json array || ((4968aebd-5b4b-4cb8-9167-15b860db960d))
+	  .
+- # f/pnt
+  .
 
 https://github.com/saulpw/visidata
 
@@ -590,11 +596,18 @@ ex: Read directory:
 vd .
 ```
 
-ex: Read json array:
+- ## ex: Read json array:
+  id:: 4968aebd-5b4b-4cb8-9167-15b860db960d
 
 ```bash
 vd ~/projects/study/problem/sample_data/j01.json
 ```
+
+| id  | title |
+|-----|-------|
+| 101 | a     |
+| 102 | b     |
+| 104 | c     |
 
 ex: Read html tables:
 

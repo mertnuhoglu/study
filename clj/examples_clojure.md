@@ -18,7 +18,8 @@ state: wip
 
 # Index
 
-## repl id=g11312
+- ## repl id=g11312
+  id:: 3b97a1e6-63eb-4196-bb92-38d74e78cc86
 
 ``` clojure
 (str *1 " result of most recent evaluation")

@@ -16,7 +16,8 @@ resource_files:
 
 ---
 
-## Lab: Assertion Tutorial id=g13506
+- ## Lab: Assertion Tutorial id=g13506
+  id:: b20d171e-081c-4110-a5dd-3650c81f2fe2
 
 [Assertion | Datomic](https://docs.datomic.com/cloud/tutorial/assertion.html)
 
@@ -91,7 +92,8 @@ Edit `~/prj/study/clj/ex/study_datomic/datalog-01/deps.edn`
 	:system "ci"}))
 ```
 
-04. Connect to Sample Database id=g13507
+- 04. Connect to Sample Database id=g13507
+  id:: 0313e396-3a12-41fe-a82b-7997f09a42cb
 
 [Sample Data](https://docs.datomic.com/cloud/dev-local.html#samples)
 
@@ -124,7 +126,8 @@ Bu örnekte local-dev kütüphanesi kullanılarak diskte storage-dir altında ve
 
 Next step: rfr: Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13521>
 
-### Code - Assertion and Read Tutorial id=g13509
+- ### Code - Assertion and Read Tutorial id=g13509
+  id:: d8c6d317-b6ab-4861-b39f-d7cd36d11083
 
 rfr: `/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01b.clj`
 
@@ -132,6 +135,7 @@ Bu örnekte local-dev kütüphanesi kullanılarak bellekte veriler tutulur.
 
 ## Session 3
 
-[Day of Datomic Cloud - Session 3 - YouTube](https://www.youtube.com/watch?v=0ozQ5aSPB04&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv&index=3) id=g13510
+- [Day of Datomic Cloud - Session 3 - YouTube](https://www.youtube.com/watch?v=0ozQ5aSPB04&list=PLjyLzdfdsKwqF9I1XSX_Y4TXAo8pYXbOv&index=3) id=g13510
+  id:: e6996a34-a911-42e7-bf66-432ada13f72a
 
 

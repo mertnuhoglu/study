@@ -1,9 +1,11 @@
 index
 	Minimalist Fulcro Tutorial <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g12367>
 @questions - fulcro id=g12397
+  id:: dd777e52-5132-43c6-bc44-ca60ec7922c3
 	Bir defsc fonksiyonunu nasıl REPL ile test edebilirim çıktısının ne olacağını görmek için?
 Referenced Articles:
 	Article: Prop Drilling id=g12402
+	  id:: 22c5848a-c2a6-4486-910c-f7c3f6402f4d
 		[Prop Drilling](https://kentcdodds.com/blog/prop-drilling)
 		alıntılar
 			you have to go through to get data to parts of the React Component tree
@@ -17,6 +19,7 @@ Referenced Articles:
 			over-forwarding props: bazı prop'lara gerek kalmamıştır, ama temizlenmesi zor
 			under-forwarding props: abusing defaultProps
 Minimalist Fulcro Tutorial :: Fulcro Community id=g12367
+  id:: 0a1699c8-aed2-40e5-9619-d05c8c793ebb
 	[Minimalist Fulcro Tutorial :: Fulcro Community](https://fulcro-community.github.io/guides/tutorial-minimalist-fulcro/)
 	Study path
 		1. study this tutorial
@@ -214,9 +217,11 @@ Minimalist Fulcro Tutorial :: Fulcro Community id=g12367
 					Person
 					person-tree)
 				person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir: id=g13090
+				  id:: ccde00d1-c18a-43a8-a424-460690b98236
 					{:person/id  {1  {:person/id 1   :person/fname "Jo" :person/address [:address/id 11]}}
 					 :address/id {11 {:address/id 11 :address/street "Elm Street 7"}}}
 				nested data tree: id=g13091
+				  id:: 2412d78c-8201-4f52-8983-1a225a466c1f
 					(def person-tree
 						{:person/id 1
 						 :person/fname "Jo"
@@ -243,6 +248,7 @@ Minimalist Fulcro Tutorial :: Fulcro Community id=g12367
 				:append :prepend :replace :replace
 				ref: ~/projects/study/clj/ex/articles_fulcro/minimalist/data_targeting.cljs
 Guide to learning Fulcro :: Fulcro Community Guide to learning Fulcro :: Fulcro Community  id=g12366
+  id:: 066fdcf6-c31a-4be1-a389-1ba5289dac9f
 	[Guide to learning Fulcro :: Fulcro Community](https://fulcro-community.github.io/guides/guide-learning-fulcro/index.html)
 	1. Study: Minimalist Fulcro Tutorial :: Fulcro Community <url:file:///~/projects/study/clj/articles_clojure.otl#r=g12367>
 	2. Watch Fulcro Tutorial Videos 1-7
@@ -250,6 +256,7 @@ Guide to learning Fulcro :: Fulcro Community Guide to learning Fulcro :: Fulcro 
 	4. Play with fulcro-template
 	5. Revisit awesome-fulcro
 Fulcro Explained: When UI Components and Data Entities Diverge id=g12363
+  id:: 8bff48fd-3a75-4f9b-bc46-136011a059bd
 	[Holy on Dev: Fulcro Explained: When UI Components and Data Entities Diverge](https://blog.jakubholy.net/2020/fulcro-divergent-ui-data/)
 	UI component defines a Data Entity
 		defsc
@@ -276,6 +283,7 @@ Fulcro Explained: When UI Components and Data Entities Diverge id=g12363
 	A Data Entity spread across multiple (sibling) components
 	Accessing top-level data from a nested component
 Eql Pathom Overview :: Fulcro Community id=g12368
+  id:: 8f3836da-51c2-4995-9065-d3dc79a3eddd
 	[Eql Pathom Overview :: Fulcro Community](https://fulcro-community.github.io/guides/tutorial-eql-pathom-overview/index.html)
 	data:
 	transaction = EQL interaction
@@ -332,12 +340,15 @@ Eql Pathom Overview :: Fulcro Community id=g12368
 			1. symbol: name of mutation
 			2. map: data to add
 Introduction | Pathom id=g12369
+  id:: ac959f79-df46-4cb4-b2a9-8fd21ea8a8bd
 	[Introduction | Pathom](https://blog.wsscode.com/pathom/v2/pathom/2.2.0/introduction.html)
 	[Resolvers | Pathom](https://blog.wsscode.com/pathom/v2/pathom/2.2.0/connect/resolvers.html)
 Implementing custom Om.next parsers | by Wilker Lucio  id=g12372
+  id:: 721d0ec7-0f79-4fb1-8278-34475dc39e65
 	[Implementing custom Om.next parsers | by Wilker Lucio | Medium](https://medium.com/@wilkerlucio/implementing-custom-om-next-parsers-f20ca6db1664)
 	read: [Om Next Query Syntax Explained · anmonteiro](https://anmonteiro.com/2016/01/om-next-query-syntax/)
 Demand-Driven Architecture - David Nolen id=g12374
+  id:: 8f4f399f-0231-444b-9c5c-292ce648b4e0
 	[Demand-Driven Architecture](https://www.infoq.com/presentations/domain-driven-architecture/)
 	@anki-cards
 		Supply driven architecture
@@ -467,6 +478,7 @@ Demand-Driven Architecture - David Nolen id=g12374
 				[:person/first-name {person/address ...}]
 		Böylece gelen datanın bir daha reshape edilmesi gerekmez
 Om Next - David Nolen - YouTube id=g12373
+  id:: ac097c85-4e94-4d9a-b191-6b4a9aac67b0
 	[Om Next - David Nolen - YouTube](https://www.youtube.com/watch?v=ByNs9TG30E8)
 	@anki-cards
 		REST ile çözülemeyen temel problem
@@ -483,6 +495,7 @@ Om Next - David Nolen - YouTube id=g12373
 		(select-keys {:a 1 :b 2} [:a :c])
 		;;=> {:a 1}
 Implementing Graph API's with Clojure - Wilker Lúcio - YouTube id=g12375
+  id:: 015bb54c-4263-465c-a1a4-5ad28f17fa25
 	[Implementing Graph API's with Clojure - Wilker Lúcio - YouTube](https://www.youtube.com/watch?v=r3zywlNflJI)
 	@anki-cards
 		Write a pathom resolver to get youtube video data
@@ -516,8 +529,10 @@ Implementing Graph API's with Clojure - Wilker Lúcio - YouTube id=g12375
 					{:as :auto})
 				:body))
 Grokking Fulcro – Part 1: React DOM and Fulcro - YouTube id=g12381
+  id:: 497707e6-ba11-408a-98e0-bee389ce0dc9
 	[Grokking Fulcro – Part 1: React DOM and Fulcro - YouTube](https://www.youtube.com/watch?v=3dZK5seIaVI&list=PLVi9lDx-4C_TBRiHfjnjXaK2J3BIUDPnf&index=1&t=1828s)
 Why Build Solutions with Fulcro - Tom Toor - Youtube id=g12382
+  id:: d4da65f6-0564-4660-9fa8-9c150fbf867b
 	Om Next Ideas:
 		UI Component co-located identity/query
 		Auto-normalize client-side database
@@ -591,6 +606,7 @@ Why Build Solutions with Fulcro - Tom Toor - Youtube id=g12382
 		Network tab: requests in IO
 		Query builder for EQL queries
 The Maximal Graph - Wilker Silva - YouTube id=g12376
+  id:: 1de9d84a-b113-4961-9a0e-e97447bfcf35
 	[The Maximal Graph - Wilker Silva - YouTube](https://www.youtube.com/watch?v=IS3i3DTUnAI&t=1220s)
 	Demand Driven Architecture Principles
 		Clients must be able to specify what they need (which) and in which shape (what)
@@ -721,8 +737,10 @@ The Maximal Graph - Wilker Silva - YouTube id=g12376
 		Property Alias
 		...
 Pathom Developers Guide id=g12384
+  id:: 38c2dd08-84a7-4d10-81a0-b42616b1c3b6
 	[Pathom Developers Guide](https://blog.wsscode.com/pathom/#_baseline_boilerplate)
 Getting Started | Pathom 3 id=g12385
+  id:: 691d8410-73dd-4f40-81c3-31463f44db8b
 	ref: Article: Getting Started | Pathom 3 <url:file:///~/projects/study/clj/study_pathom.md#r=g12386>
 	[Getting Started | Pathom 3](https://pathom3.wsscode.com/docs/)
 	Resolver is like a function, with some constraints:
@@ -730,10 +748,12 @@ Getting Started | Pathom 3 id=g12385
 		2. Must return a map
 		3. May receive another map containing environment information
 EQL Documentation id=g12387
+  id:: 0c77a72d-c6d9-4fba-a3c9-b6ffd2a38ca8
 	[What is EQL? | EDN Query Language](https://edn-query-language.org/eql/1.0.0/what-is-eql.html)
 	ref
 		~/projects/study/clj/study_eql.md
 Pathom v2 Documentation   id=g12389
+  id:: 9c5a366e-5c2b-41b9-941b-111ec8ffb518
 	ref
 		Article: Pathom v2 Documentation  <url:file:///~/projects/study/clj/study_pathom.md#r=g12388>
 	terms
@@ -747,6 +767,7 @@ Pathom v2 Documentation   id=g12389
 			2. outputs: output shape
 			3. a function
 Project: Fulcro Exercises id=g12390
+  id:: b3d7339c-96d8-4352-a846-c40864cb48fe
 	ref
 		/Users/mertnuhoglu/codes/clj/prj/web/fulcro-exercises/deps.edn
 		Project: Fulcro Exercises <url:file:///~/projects/study/clj/fulcro.md#r=g12391>
@@ -754,6 +775,7 @@ Project: Fulcro Exercises id=g12390
 Podcast: S4 E6 Fulcro with Tony Kay (Part 1) by ClojureScript Podcast
 	[S4 E6 Fulcro with Tony Kay (Part 1) by ClojureScript Podcast](https://soundcloud.com/user-959992602/s4-e6-fulcro-with-tony-kay-part-1)
 Fulcro Developers Guide id=g12379
+  id:: 517019f6-c4ed-46d4-b7ec-2eab45e54c7c
 	[Fulcro Developers Guide](https://book.fulcrologic.com/#_core_concepts)
 	3. Core Concepts
 		Client DB Naming Conventions
@@ -949,6 +971,7 @@ Fulcro Developers Guide id=g12379
 							mutasyonlar giderek büyüyüp çirkin hale geliyor
 							bir fact birden çok yerde bulunuyorsa, hepsi için doğru sırada güncelleme yapmak gerekiyor. data duplikasyon meselesi.
 				4.9. The Secret Sauce – Normalizing the Database id=g13088
+				  id:: c0c93645-d5df-4810-8371-99be53b59d1c
 					Yukarıdaki problemlerin çözümü: veritabanı normalizasyonu
 						bir mapte (veya graph databasede), referans to-many arity'ye sahip olabilir, ilişkisel veritabanlarından farklı olarak
 						örn:
@@ -988,6 +1011,7 @@ Fulcro Developers Guide id=g12379
 							[:list/id list-id :list/people]: path to the list of idents that you want to remove it from
 							ref: ~/projects/study/clj/ex/articles_fulcro/docs/4_9_2_mutation_usage.cljs
 					4.9.3. How Automatic Normalization Works (optional) id=g12383
+					  id:: 37e2a73d-6422-4e88-97ec-7f46e70c7005
 				4.10. Review So Far
 				4.11. Using Better Tools
 					4.11.1. Fulcro Inspect
@@ -1117,6 +1141,7 @@ Fulcro Developers Guide id=g12379
 		bir ui komponentin query'sini çekme fonksiyonu:
 			(com.fulcrologic.fulcro.components/get-query app.ui/Root)
 		mevcut state'i ve query'yi kullanarak, veri ağacını çekme fonksiyonu: id=g13089
+		  id:: 7fda790f-7f38-48ad-a3aa-03eeae49493c
 			(com.fulcrologic.fulcro.algorithms.denormalize/db->tree query state state)
 			{:friends {:list/id :friends,
 								 :list/label "Friends",
@@ -1141,6 +1166,7 @@ Fulcro Developers Guide id=g12379
 			{:entity [:prop01 :subentity [:prop02] ]}
 			bu durumda prop02'nin subentity'nin nested mapinde olduğunu anlayamazdık
 	17. UI State Machines id=g12460
+	  id:: f51b7484-15f1-471c-97e8-c84722827534
 		17.1 Aliases
 			actor: a keyword defined in the state machine
 				stands for a UI component
@@ -1240,9 +1266,11 @@ Fulcro Developers Guide id=g12379
 						:actor/session Session
 						:actor/form    LoginForm})
 Nubank Workspaces   id=g12399
+  id:: fef026dd-3836-4cc0-a1cf-aba247cb20d3
 	ref
 		Project: nubank/workspaces <url:file:///~/projects/study/clj/fulcro.md#r=g12400>
 Project: Gift list  id=g12401
+  id:: fbd8d369-c376-4aa4-82ca-7cf7e4bed291
 	[Gift list dev diary: introduction · Chris's Blog](https://chrisodonnell.dev/posts/giftlist/intro/)
 		alıntılar
 			Without normalized application state, it’s very easy to end up with two pieces of data describing the same thing that get out of sync. 
@@ -1252,6 +1280,7 @@ Project: Gift list  id=g12401
 			A component's data structure is something you can ship to a server and get back a response with all the data necessary to render that part of your UI
 	[Gift list dev diary: authentication · Chris's Blog](https://chrisodonnell.dev/posts/giftlist/authentication/)
 Project: glam id=g12411
+  id:: 38e62379-546d-4753-b41b-d50324aae86d
 	düzgün çalışıyor
 	running
 		readme içindeki cursive adımlarını uygula, şu farklarla:

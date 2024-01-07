@@ -518,6 +518,7 @@ state: wip
 			equivalent to java interfaces
 			types must implement all protocol methods
 		create types id=g12115
+			id:: 9b66271a-dfd0-4f75-89f0-e06ffd348a87
 			deftype: for data structure
 				mutable fields
 			defrecord: for domain data
@@ -534,6 +535,7 @@ state: wip
 			this: by convention
 				the object which implements the protocol
 		defrecord id=g12114
+			id:: 800a642e-9804-461d-b196-a480c6656f17
 			(defrecord name fields specs)
 			(defrecord Nadine [x y z] ; fields
 				Roger ; protocol implemented

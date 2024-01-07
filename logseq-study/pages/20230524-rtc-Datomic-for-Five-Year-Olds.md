@@ -1,6 +1,7 @@
 tags:: study, clj/datomic, rtc
 
 # 20230524-rtc-Datomic-for-Five-Year-Olds id=g14446
+  id:: 46222825-c713-4fde-9d3e-aef47ff7db6d
 
 rfr: [Datomic for Five Year Olds](https://www.flyingmachinestudios.com/programming/datomic-for-five-year-olds/)
 

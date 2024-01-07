@@ -9,7 +9,7 @@ rfr
 ndx id=g14427
 	android android2 <url:file:///~/projects/study/otl/ccode.otl#r=g12841>
 	awk <url:file:///~/projects/study/otl/ccode.otl#r=g11686>
-	bash <url:file:///~/projects/study/otl/ccode.otl#r=g11687>
+	[[c/bash]] <url:file:///~/projects/study/logseq-study/pages/c___bash.md>
 	clojure-otl.md <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g14426>
 		conjure <url:file:///~/prj/study/logseq-study/pages/clojure-otl.md#r=g14425>
 	osx macos cosx.otl  <url:file:///~/projects/study/otl/cosx.otl>

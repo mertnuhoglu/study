@@ -411,21 +411,25 @@ Get into ns:
 
 https://github.com/tolitius/mount
 
-# figwheel vs shadowcljs vs devcard id=g13302
+- # figwheel vs shadowcljs vs devcard id=g13302
+  id:: 31f42c86-878e-4151-9c4f-e9bb4add682f
 
-[Pros and cons figwheel vs shadowcljs ? - Clojure Q&A](https://ask.clojure.org/index.php/10403/pros-and-cons-figwheel-vs-shadowcljs) id=g13301
+- [Pros and cons figwheel vs shadowcljs ? - Clojure Q&A](https://ask.clojure.org/index.php/10403/pros-and-cons-figwheel-vs-shadowcljs) id=g13301
 
 Özet: figwheel daha basit. shadowcljs eğer nodejs kullanacaksan yararlı. figwheel ile başla.
 
-# figwheel-main test id=g13303
+- # figwheel-main test id=g13303
+  id:: 7a18eb37-2f65-4702-8650-316f8340f5c2
 
 [bhauman/figwheel-main](https://github.com/bhauman/figwheel-main)
 
-## Figwheel Tutorial id=g13304
+- ## Figwheel Tutorial id=g13304
+  id:: e568d216-1505-41b0-bdc5-c72cdad0b62b
 
 [Figwheel Tutorial](https://figwheel.org/tutorial)
 
-### figwheel01 Project id=g13306
+- ### figwheel01 Project id=g13306
+  id:: 59ebab69-a4ff-4463-8832-fd471e1d99f7
 
 rfr: `~/prj/study/clj/ex/study_figwheel/figwheel01/deps.edn`
 
@@ -444,7 +448,8 @@ cljs.user=> (js/alert "ClojureScript!")
 nil
 ```
 
-### naming conventions for function arguments  id=g13307
+- ### naming conventions for function arguments  id=g13307
+  id:: 3d04ddcb-efb0-4e4f-8e29-508baa5cb0a4
 
 Source: [figwheel-main | Figwheel Main provides tooling for developing ClojureScript applications](https://figwheel.org/tutorial)
 
@@ -460,7 +465,8 @@ coll - a collection
 pred - a predicate closure
 & more - variable number of arguments
 
-### figwheel02 Project  id=g13308
+- ### figwheel02 Project  id=g13308
+  id:: 0eb26bd0-c7b4-4fda-9dd6-369a67a9cd16
 
 rfr: `~/prj/study/clj/ex/study_figwheel/figwheel02/deps.edn`
 
@@ -518,7 +524,8 @@ cljs.user=> (p01.e01/what-kind?)
 "Cruel2"
 ```
 
-### figwheel03 project: figwheel configuration dev.cljs.edn id=g13309
+- ### figwheel03 project: figwheel configuration dev.cljs.edn id=g13309
+  id:: fe5ad234-3763-499a-b96e-8f019fcfe137
 
 [setting-up-a-build-with-tools-cli bhauman/figwheel-main](https://github.com/bhauman/figwheel-main#setting-up-a-build-with-tools-cli)
 
@@ -544,7 +551,8 @@ Alternatif olarak şöyle de çalıştırabilirsin, çünkü `deps.edn` içinde 
 clojure -A:build-dev
 ```
 
-### figwheel04 project: extra-main id=g13310
+- ### figwheel04 project: extra-main id=g13310
+  id:: ec44889c-5eb8-4223-af64-4f42f3e8b6fb
 
 [Extra Mains | figwheel-main](https://figwheel.org/docs/extra_mains.html)
 
@@ -552,7 +560,8 @@ Test sayfası: `http://localhost:9500/figwheel-extra-main/tests`
 
 Test sonuç raporu: Browser console içinde.
 
-### figwheel05 project: devcards id=g13311
+- ### figwheel05 project: devcards id=g13311
+  id:: f0d64321-788d-4983-8e83-e05707617466
 
 [tools.deps, figwheel-main, Devcards, and Emacs](https://cjohansen.no/tools-deps-figwheel-main-devcards-emacs/)
 
@@ -564,7 +573,8 @@ rfr:
 
 Open `http://localhost:9500/figwheel-extra-main/devcards`
 
-### figwheel06 project: custom home page id=g13314
+- ### figwheel06 project: custom home page id=g13314
+  id:: b5b260c1-0ba2-4a34-9788-ca3519c3dbf0
 
 [Figwheel Tutorial: index.html](https://figwheel.org/tutorial#indexhtml)
 
@@ -572,7 +582,8 @@ rfr:
 
 		~/prj/study/clj/ex/study_figwheel/figwheel06/deps.edn
 
-### figwheel07 project: custom home page manipulate dom  id=g13322
+- ### figwheel07 project: custom home page manipulate dom  id=g13322
+  id:: bcd36af4-66ed-4de5-b27c-35996c58c4d7
 
 Check `~/prj/study/clj/ex/study_figwheel/figwheel07/src/hello/cruel_world.cljs`
 
@@ -582,7 +593,8 @@ Check `~/prj/study/clj/ex/study_figwheel/figwheel07/src/hello/cruel_world.cljs`
 (set! (.-innerHTML app-element) (what-kind?))
 ```
 
-### figwheel08 project: devcards + custom home page id=g13323
+- ### figwheel08 project: devcards + custom home page id=g13323
+  id:: 37b21d77-8354-484a-843e-80c9c0a9e493
 
 		~/prj/study/clj/ex/study_figwheel/figwheel08/devcards/p01/cards.cljs
 
@@ -603,13 +615,15 @@ Tutorial'daki şu satırları silmelisin. Aksi taktirde target/ yerine bu klasö
 
 Open `http://localhost:9500/figwheel-extra-main/devcards`
 
-### figwheel09 project: use dumdom components id=g13324
+- ### figwheel09 project: use dumdom components id=g13324
+  id:: 3a10b9ad-89e7-4052-87ca-1eb5b995fd91
 
 rfr: `~/prj/study/clj/ex/study_figwheel/figwheel09/src/p01/e01.cljs`
 
 devcards cards: `~/prj/study/clj/ex/study_figwheel/figwheel09/devcards/p01/cards.cljs`
 
-### figwheel10 project: dumdom inside devcards id=g13325
+- ### figwheel10 project: dumdom inside devcards id=g13325
+  id:: ce043a32-40de-4918-8cd6-c00d143be823
 
 rfr: `~/prj/study/clj/ex/study_figwheel/figwheel10/devcards/p01/dumdom_cards.cljs`
 
@@ -631,13 +645,15 @@ rfr: `~/prj/study/clj/ex/study_figwheel/figwheel10/devcards/p01/dumdom_cards.clj
         :body "This is a web page"])
 ```
 
-### dumdom01 project: dumdom + figwheel + devcards id=g13326
+- ### dumdom01 project: dumdom + figwheel + devcards id=g13326
+  id:: 5e4f610b-0fad-4854-ab3b-88514eb74048
 
 rfr: `~/prj/study/clj/ex/dumdom/dumdom01/deps.edn`
 
 Clone of figwheel10 project.
 
-### dumdom02 project: id=g13327
+- ### dumdom02 project: id=g13327
+  id:: fcdb2a77-6ace-444f-ac78-bf120bc539a7
 
 rfr: `/Users/mertnuhoglu/prj/study/clj/ex/dumdom/dumdom02/deps.edn`
 
@@ -652,7 +668,8 @@ rfr: `/Users/mertnuhoglu/prj/study/clj/ex/dumdom/dumdom02/deps.edn`
 (render @store)
 ```
 
-#### dumdom02b project: defcomponent + add-watch id=g13328
+- #### dumdom02b project: defcomponent + add-watch id=g13328
+  id:: 0439aaf0-32a5-4ba9-a48e-e2039b3a701f
 
 `~/prj/study/clj/ex/dumdom/dumdom02b/src/mert/e01.cljs`
 
@@ -671,7 +688,8 @@ rfr: `/Users/mertnuhoglu/prj/study/clj/ex/dumdom/dumdom02/deps.edn`
                            (render state)))
 ```
 
-#### dumdom02c project: list items id=g13329
+- #### dumdom02c project: list items id=g13329
+  id:: 88f97beb-3ff5-4bc9-aed1-649e6e2511ad
 
 `~/prj/study/clj/ex/dumdom/dumdom02c/src/mert/e01.cljs`
 
@@ -681,13 +699,15 @@ rfr: `/Users/mertnuhoglu/prj/study/clj/ex/dumdom/dumdom02/deps.edn`
        [:li text])]]])
 ```
 
-#### dumdom02d project: Auto completion input + gadget inspector id=g13330
+- #### dumdom02d project: Auto completion input + gadget inspector id=g13330
+  id:: 844a0f9a-b0a4-43ef-9f3d-f58c91c910af
 
 [ClojureScript: Fun and productive web development with next level tooling - Christian Johansen - YouTube](https://www.youtube.com/watch?v=yFVk3D76wQw)
 
 `~/prj/study/clj/ex/dumdom/dumdom02d/devcards/mert/dumdom_cards.cljs`
 
-##### Gadget inspector: Bununla datayı gözetleyebilirsin. id=g13336
+- ##### Gadget inspector: Bununla datayı gözetleyebilirsin. id=g13336
+  id:: 09445e1a-b671-45f3-a9f5-c926ea7e8b99
 
 `~/prj/study/clj/ex/dumdom/dumdom02d/src/mert/e01.cljs`
 
@@ -699,7 +719,8 @@ rfr: `/Users/mertnuhoglu/prj/study/clj/ex/dumdom/dumdom02/deps.edn`
 
 2. Chrome > Devtools > Gadget
 
-### figwheel11 project: conjure setup id=g13337
+- ### figwheel11 project: conjure setup id=g13337
+  id:: 30235c9c-32f5-412f-ba0b-1e52d0e0ee84
 
 `~/prj/study/clj/ex/study_figwheel/figwheel11/deps.edn`
 

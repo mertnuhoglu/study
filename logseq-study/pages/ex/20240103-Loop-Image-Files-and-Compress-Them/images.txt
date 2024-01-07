@@ -1,0 +1,2 @@
+input/img01.png
+input/img02.png

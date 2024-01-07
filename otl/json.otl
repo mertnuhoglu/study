@@ -1,3 +1,6 @@
+# json
+rfr
+	[[ndx/json]]
 use cases id=g12722
 	Json Structure To Graph 20220214  <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12720>
 	ref: Yaml To Json To Edn 20220214 <url:file:///~/projects/myrepo/scrap/sandbox.Rmd#r=g12721>
@@ -6,6 +9,7 @@ tools - json id=g12416
 	jpq id=g13384
 		[noahgorstein/jqp: A TUI playground to experiment with jq](https://github.com/noahgorstein/jqp)
 	tabl: convert json/edn to table
+	  id:: 83ad5aa8-2967-4650-8e86-18af19f33f6c
 		https://github.com/justone/tabl
 		$ cat test.json
 		{"foo":"bar","baz":4}
@@ -15,9 +19,6 @@ tools - json id=g12416
 		------|------
 		 4    | bar
 		 4    | oof
-	jsonvisio: navigator and visualizer
-		ref
-			[JSON Visio - Directly onto graphs](https://jsonvisio.com/)
 	fx:- json navigation tool id=g12412:
 		ref
 			~/projects/study/bash/json_fx.md
@@ -84,6 +85,7 @@ tools - json id=g12416
 	cq: clojure query
 		[markus-wa/cq: Clojure Command-line Data Processor for JSON, YAML, EDN, XML and more](https://github.com/markus-wa/cq)
 	jet: edn id=g12717
+	  id:: c110c47c-6ee4-489c-9d08-a92fb639b924
 		ex: convert from json
 			echo '{"a": 2}' | jet --from json --to edn
 		ex: yaml -> json -> edn

@@ -1,5 +1,6 @@
 
 # datomic-pro maven setup id=g13697
+  id:: a4f895dd-855f-4a6e-9865-9ca827a40f8a
 
 rfr: grsm/video/20230207-mert-clj-egzersiz-24.mp4
 

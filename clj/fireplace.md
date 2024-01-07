@@ -16,7 +16,8 @@ output:
 
 # Index
 
-# Quickref fireplace.vim id=g12014
+- # Quickref fireplace.vim id=g12014
+  id:: fdf9d21a-64e2-41e3-a048-369d3a5163c5
 
 	| :Connect [port] | connect to nrepl server    |
 	| ]d              | Source                     |

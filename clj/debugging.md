@@ -15,9 +15,11 @@ state: wip
 
 ---
 
-# Study Debugging id=g13333
+- # Study Debugging id=g13333
+  id:: f34aa738-1d5b-46b2-9207-bd692b697dba
 
-## Conjure + nREPL CIDER Debugger id=g13334
+- ## Conjure + nREPL CIDER Debugger id=g13334
+  id:: 83818c2d-dc80-4eae-b64b-657dd1737572
 
 Source: [(450) Debugging Clojure with Conjure and Neovim - YouTube](https://www.youtube.com/watch?v=uP9iSEh7dxg)
 
@@ -56,7 +58,8 @@ Vim: `:ConjureCljDebugInput [input]`
 
 rfr: `/Users/mertnuhoglu/prj/study/clj/ex/debugging/debug02/deps.edn`
 
-## ClojureScript Debugging id=g13335
+- ## ClojureScript Debugging id=g13335
+  id:: e51d9b0f-1174-4136-9c91-f75f358c709d
 
 ClojureScripte nrepl ile bağlanabilirsin. REPL'dan browser'a komut gönderebilirsin. Ama debug edemezsin.
 

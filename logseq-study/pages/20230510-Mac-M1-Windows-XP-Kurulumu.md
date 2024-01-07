@@ -1,4 +1,4 @@
-tags:: study, mac
+tags:: study, tll/mac
 
 # 20230510-Mac-M1-Windows-XP-Kurulumu id=g14280
 
@@ -18,4 +18,10 @@ UTM > VM > Settings > Network
 				10.0.2.0/24
 
 Şimdi host bilgisayarda bir web/http server başlat herhangi bir klasörde. Bu dosyalara VM içinden erişebilirsin.
+
+```
+python -m http.server 8000
+```
+
+
 

@@ -17,7 +17,8 @@ state: wip
 
 # Index cli tools
 
-## Import source, doc, apropos and other REPL functions id=g11947
+- ## Import source, doc, apropos and other REPL functions id=g11947
+  id:: d6f06674-6209-4599-a63f-83b21373467e
 
 If your repl doesn't have above functions such as `source` or `apropos`, require them:
 

@@ -1,6 +1,7 @@
 tags:: study, clj/datomic, rtc
 
 # 20230524-rtc-Stackoverflow-Questions--Datomic id=g14447
+  id:: b6ebd9b1-6b74-46d3-9ed4-186178d9676d
 
 rfr: [Highest scored 'datomic' questions - Stack Overflow](https://stackoverflow.com/questions/tagged/datomic)
 

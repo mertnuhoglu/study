@@ -55,7 +55,8 @@ Activities:
 
 ## Basic Clojure
 
-### Whats my environment id=g11403
+- ### Whats my environment id=g11403
+  id:: fb98313a-b053-48ad-83bd-3e1a9ccadc26
 
 ``` clojure
 *clojure-version*
@@ -158,7 +159,8 @@ Or `(use 'cloujure.repl)`
 
 When you assign a name to a value, that name is called a symbol.
 
-### Namespace id=g11405
+- ### Namespace id=g11405
+  id:: e1e2bc94-e439-4818-a1a8-8347167f9486
 
 Using a function from another namespace:
 
@@ -346,7 +348,8 @@ Use map directly:
 (:fullname (:vader starwars-characters))
 ``` 
 
-Threading macro to shorten code: id=g11406
+- Threading macro to shorten code: id=g11406
+  id:: 5092eb8a-3bda-4bd6-b088-a698d9e77aee
 
 ``` clojure
 (-> starwars-characters
@@ -449,7 +452,8 @@ Common functions:
 (take 4 (range))
 ``` 
 
-### Destructuring id=g11407
+- ### Destructuring id=g11407
+  id:: b349f4f3-4be8-4a04-bae1-f9c2951c6d0d
 
 ``` clojure
 (let [[a b c & d :as e] [1 2 3 4 5 6 7]]

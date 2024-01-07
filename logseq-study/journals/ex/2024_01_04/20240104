@@ -1,0 +1,842 @@
+let SessionLoad = 1
+let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
+let v:this_session=expand("<sfile>:p")
+let Italic = "italic"
+let Bold = "bold"
+silent only
+silent tabonly
+cd ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+let s:shortmess_save = &shortmess
+if &shortmess =~ 'A'
+  set shortmess=aoOA
+else
+  set shortmess=aoO
+endif
+badd +1539 ~/prj/myrepo/work/work.otl
+badd +2 ~/prj/collabry/cldocs/cllogseq/.gitignore
+badd +1 ~/prj/collabry/cldocs/cllogseq/.rgignore
+badd +2 ~/prj/collabry/cldocs/.gitignore
+badd +1 ~/prj/collabry/cldocs/cllogseq/.ignore
+badd +322 ~/prj/private_dotfiles/.hammerspoon/init.lua
+badd +728 ~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/config/which-key.lua
+badd +1 ~/prj/stuff/bash/screenshot_copy_path.sh
+badd +13 ~/prj/myrepo/logseq-myrepo/pages/ndx___bash.md
+badd +217 ~/prj/private_dotfiles/vim/my-vim-custom2/plugin/my-vim-custom2.vim
+badd +85 ~/prj/private_dotfiles/vim/my-vim-lazyvim/plugin/my-vim-lazyvim.vim
+badd +14 ~/prj/stuff/bash/screenshot_copy_path_study.sh
+badd +16 ~/prj/study/logseq-study/journals/2024_01_03.md
+badd +25 ~/prj/myrepo/logseq-myrepo/pages/ndx-kslt.md
+badd +931 ~/prj/myrepo/logseq-myrepo/pages/ndx-journal.md
+badd +8 ~/prj/myrepo/logseq-myrepo/pages/ndx___script.md
+badd +1 ~/prj/study/logseq-study/pages/20230326-Script--Logseq-Repolarindaki-Tagleri-Cikartma.md
+badd +1 ~/prj/study/script/tag_extract.sh
+badd +8 ~/prj/study/script/exmp_loop_over_lines_in_file.sh
+badd +20 ~/prj/study/logseq-study/pages/20240103-Loop-Image-Files-and-Compress-Them.md
+badd +50 ~/prj/study/logseq-study/journals/2024_01_04.md
+badd +1 ~/prj/collabry/cldocs/cllogseq/pages/frm.md
+badd +1 ~/prj/collabry/cldocs/cllogseq/assets/big_images.txt
+badd +1 ~/prj/study/script/loop_images_compress.sh
+badd +367 ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt
+badd +1 ~/prj/gist/gist_figwheel06/run.sh
+badd +18 ~/prj/myrepo/logseq-myrepo/pages/ndx___vim.md
+badd +117 ~/prj/myrepo/logseq-myrepo/journals/2024_01_02.md
+badd +1 ~/prj/study/clj/ex/study_figwheel/figwheel06/run.sh
+badd +8 ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files.txt
+badd +1402 ~/.zshrc
+badd +76 ~/prj/myrepo/logseq-myrepo/pages/20240104-log.md
+badd +15 ~/prj/myrepo/logseq-myrepo/journals/2024_01_04.md
+badd +5 20240104-out_rg_convert.txt
+badd +40 ~/prj/study/bash/study_fd.md
+badd +1 ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-test-rg.txt
+badd +3 ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-test-rg03.txt
+badd +1 ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-test-rg02.txt
+badd +1 tmp
+badd +3 20240104-test-rg03.txt
+badd +1 20240104-test-rg.txt
+argglobal
+%argdel
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabrewind
+edit ~/prj/myrepo/work/work.otl
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 119 + 120) / 240)
+exe '2resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 119 + 120) / 240)
+exe '3resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 3resize ' . ((&columns * 120 + 120) / 240)
+exe '4resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 4resize ' . ((&columns * 120 + 120) / 240)
+argglobal
+setlocal fdm=expr
+setlocal fde=MyFoldLevel(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+1389
+normal! zo
+1464
+normal! zo
+1482
+normal! zo
+1488
+normal! zo
+1491
+normal! zo
+1492
+normal! zo
+1497
+normal! zo
+1499
+normal! zo
+1503
+normal! zo
+1512
+normal! zo
+1518
+normal! zo
+1521
+normal! zo
+1530
+normal! zo
+1531
+normal! zo
+1533
+normal! zo
+1536
+normal! zo
+1537
+normal! zo
+1541
+normal! zo
+1544
+normal! zo
+1546
+normal! zo
+let s:l = 1497 - ((292 * winheight(0) + 15) / 30)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1497
+normal! 033|
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/study/logseq-study/journals/2024_01_03.md", ":p")) | buffer ~/prj/study/logseq-study/journals/2024_01_03.md | else | edit ~/prj/study/logseq-study/journals/2024_01_03.md | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/study/logseq-study/journals/2024_01_03.md
+endif
+balt ~/prj/myrepo/work/work.otl
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 13 - ((12 * winheight(0) + 14) / 29)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 13
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/myrepo/logseq-myrepo/pages/ndx___script.md", ":p")) | buffer ~/prj/myrepo/logseq-myrepo/pages/ndx___script.md | else | edit ~/prj/myrepo/logseq-myrepo/pages/ndx___script.md | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/myrepo/logseq-myrepo/pages/ndx___script.md
+endif
+balt ~/prj/myrepo/logseq-myrepo/pages/ndx___bash.md
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 7 - ((6 * winheight(0) + 15) / 30)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 7
+normal! 018|
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/study/logseq-study/journals/2024_01_03.md", ":p")) | buffer ~/prj/study/logseq-study/journals/2024_01_03.md | else | edit ~/prj/study/logseq-study/journals/2024_01_03.md | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/study/logseq-study/journals/2024_01_03.md
+endif
+balt ~/prj/myrepo/logseq-myrepo/pages/ndx-journal.md
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 15 - ((14 * winheight(0) + 14) / 29)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 15
+normal! 0
+wincmd w
+exe '1resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 119 + 120) / 240)
+exe '2resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 119 + 120) / 240)
+exe '3resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 3resize ' . ((&columns * 120 + 120) / 240)
+exe '4resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 4resize ' . ((&columns * 120 + 120) / 240)
+tabnext
+edit ~/prj/myrepo/work/work.otl
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd _ | wincmd |
+split
+wincmd _ | wincmd |
+split
+2wincmd k
+wincmd w
+wincmd w
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 20 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 120 + 120) / 240)
+exe '2resize ' . ((&lines * 19 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 120 + 120) / 240)
+exe '3resize ' . ((&lines * 19 + 31) / 62)
+exe 'vert 3resize ' . ((&columns * 120 + 120) / 240)
+exe 'vert 4resize ' . ((&columns * 119 + 120) / 240)
+argglobal
+setlocal fdm=expr
+setlocal fde=MyFoldLevel(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+1389
+normal! zo
+1464
+normal! zo
+1491
+normal! zo
+1521
+normal! zo
+1533
+normal! zo
+let s:l = 1518 - ((7 * winheight(0) + 10) / 20)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1518
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/study/script/loop_images_compress.sh", ":p")) | buffer ~/prj/study/script/loop_images_compress.sh | else | edit ~/prj/study/script/loop_images_compress.sh | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/study/script/loop_images_compress.sh
+endif
+balt ~/prj/study/script/exmp_loop_over_lines_in_file.sh
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 14 - ((13 * winheight(0) + 9) / 19)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 14
+normal! 010|
+lcd ~/prj/study/script
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/study/logseq-study/pages/20240103-Loop-Image-Files-and-Compress-Them.md", ":p")) | buffer ~/prj/study/logseq-study/pages/20240103-Loop-Image-Files-and-Compress-Them.md | else | edit ~/prj/study/logseq-study/pages/20240103-Loop-Image-Files-and-Compress-Them.md | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/study/logseq-study/pages/20240103-Loop-Image-Files-and-Compress-Them.md
+endif
+balt ~/prj/study/script/exmp_loop_over_lines_in_file.sh
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 13 - ((11 * winheight(0) + 9) / 19)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 13
+normal! 0
+lcd ~/prj/study/script
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/study/logseq-study/journals/2024_01_04.md", ":p")) | buffer ~/prj/study/logseq-study/journals/2024_01_04.md | else | edit ~/prj/study/logseq-study/journals/2024_01_04.md | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/study/logseq-study/journals/2024_01_04.md
+endif
+balt ~/prj/collabry/cldocs/cllogseq/pages/frm.md
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 65 - ((13 * winheight(0) + 30) / 60)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 65
+normal! 02|
+lcd ~
+wincmd w
+exe '1resize ' . ((&lines * 20 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 120 + 120) / 240)
+exe '2resize ' . ((&lines * 19 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 120 + 120) / 240)
+exe '3resize ' . ((&lines * 19 + 31) / 62)
+exe 'vert 3resize ' . ((&columns * 120 + 120) / 240)
+exe 'vert 4resize ' . ((&columns * 119 + 120) / 240)
+tabnext
+edit ~/prj/myrepo/logseq-myrepo/pages/20240104-log.md
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 120 + 120) / 240)
+exe '2resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 120 + 120) / 240)
+exe '3resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 3resize ' . ((&columns * 119 + 120) / 240)
+exe '4resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 4resize ' . ((&columns * 119 + 120) / 240)
+argglobal
+balt ~/prj/myrepo/logseq-myrepo/journals/2024_01_04.md
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 9 - ((4 * winheight(0) + 15) / 30)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 9
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-out_rg_convert.txt", ":p")) | buffer ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-out_rg_convert.txt | else | edit ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-out_rg_convert.txt | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-out_rg_convert.txt
+endif
+balt ~/prj/myrepo/logseq-myrepo/pages/20240104-log.md
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 124 - ((17 * winheight(0) + 14) / 29)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 124
+normal! 019|
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt", ":p")) | buffer ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt | else | edit ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt
+endif
+balt ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files.txt
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 15) / 30)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+lcd ~/prj/study/logseq-study/journals/ex/2024_01_04
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt", ":p")) | buffer ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt | else | edit ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt
+endif
+balt ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files.txt
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 14) / 29)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+lcd ~/prj/study/logseq-study/journals/ex/2024_01_04
+wincmd w
+exe '1resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 120 + 120) / 240)
+exe '2resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 120 + 120) / 240)
+exe '3resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 3resize ' . ((&columns * 119 + 120) / 240)
+exe '4resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 4resize ' . ((&columns * 119 + 120) / 240)
+tabnext
+edit ~/prj/study/logseq-study/journals/2024_01_04.md
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 119 + 120) / 240)
+exe '2resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 119 + 120) / 240)
+exe '3resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 3resize ' . ((&columns * 120 + 120) / 240)
+exe '4resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 4resize ' . ((&columns * 120 + 120) / 240)
+argglobal
+balt ~/prj/myrepo/logseq-myrepo/pages/20240104-log.md
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 47 - ((7 * winheight(0) + 15) / 30)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 47
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/myrepo/logseq-myrepo/pages/20240104-log.md", ":p")) | buffer ~/prj/myrepo/logseq-myrepo/pages/20240104-log.md | else | edit ~/prj/myrepo/logseq-myrepo/pages/20240104-log.md | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/myrepo/logseq-myrepo/pages/20240104-log.md
+endif
+balt ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-test-rg03.txt
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 76 - ((25 * winheight(0) + 14) / 29)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 76
+normal! 0
+lcd ~/prj/myrepo/logseq-myrepo/pages
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-test-rg.txt", ":p")) | buffer ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-test-rg.txt | else | edit ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-test-rg.txt | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-test-rg.txt
+endif
+balt ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-test-rg03.txt
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 15) / 30)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+lcd ~/prj/study/logseq-study/journals/ex/2024_01_04
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt", ":p")) | buffer ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt | else | edit ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt
+endif
+balt ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-test-rg.txt
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 14) / 29)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+lcd ~/prj/study/logseq-study/journals/ex/2024_01_04
+wincmd w
+exe '1resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 119 + 120) / 240)
+exe '2resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 119 + 120) / 240)
+exe '3resize ' . ((&lines * 30 + 31) / 62)
+exe 'vert 3resize ' . ((&columns * 120 + 120) / 240)
+exe '4resize ' . ((&lines * 29 + 31) / 62)
+exe 'vert 4resize ' . ((&columns * 120 + 120) / 240)
+tabnext
+edit ~/prj/myrepo/logseq-myrepo/journals/2024_01_04.md
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+balt ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-test-rg.txt
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 15 - ((14 * winheight(0) + 30) / 60)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 15
+normal! 029|
+lcd ~/prj/study/logseq-study/journals/ex/2024_01_04
+tabnext
+edit ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-out_rg_convert.txt
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+wincmd =
+argglobal
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 92 - ((47 * winheight(0) + 30) / 60)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 92
+normal! 014|
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-out_rg_convert.txt", ":p")) | buffer ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-out_rg_convert.txt | else | edit ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-out_rg_convert.txt | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/myrepo/logseq-myrepo/pages/ex/20240104-log/20240104-out_rg_convert.txt
+endif
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 66 - ((21 * winheight(0) + 30) / 60)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 66
+let s:c = 14 - ((8 * winwidth(0) + 59) / 119)
+if s:c > 0
+  exe 'normal! ' . s:c . '|zs' . 14 . '|'
+else
+  normal! 014|
+endif
+wincmd w
+wincmd =
+tabnext
+edit ~/prj/study/logseq-study/journals/2024_01_04.md
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+wincmd =
+argglobal
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 42 - ((24 * winheight(0) + 30) / 60)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 42
+normal! 03|
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/study/logseq-study/journals/2024_01_04.md", ":p")) | buffer ~/prj/study/logseq-study/journals/2024_01_04.md | else | edit ~/prj/study/logseq-study/journals/2024_01_04.md | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/study/logseq-study/journals/2024_01_04.md
+endif
+balt ~/prj/collabry/cldocs/cllogseq/pages/frm.md
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 48 - ((29 * winheight(0) + 15) / 30)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 48
+normal! 0
+lcd ~/prj/study/logseq-study/journals
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt", ":p")) | buffer ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt | else | edit ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt | endif
+if &buftype ==# 'terminal'
+  silent file ~/prj/study/logseq-study/journals/ex/2024_01_04/20240104-out_sh_files02.txt
+endif
+balt ~/prj/gist/gist_figwheel06/run.sh
+setlocal fdm=expr
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 14) / 29)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+wincmd w
+wincmd =
+tabnext
+edit ~/prj/myrepo/work/work.otl
+argglobal
+setlocal fdm=expr
+setlocal fde=MyFoldLevel(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+1389
+normal! zo
+1464
+normal! zo
+1491
+normal! zo
+1503
+normal! zo
+1512
+normal! zo
+1518
+normal! zo
+1521
+normal! zo
+1530
+normal! zo
+1531
+normal! zo
+1533
+normal! zo
+1536
+normal! zo
+1537
+normal! zo
+1541
+normal! zo
+1544
+normal! zo
+1546
+normal! zo
+let s:l = 1537 - ((16 * winheight(0) + 30) / 60)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1537
+normal! 042|
+tabnext 5
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20
+let &shortmess = s:shortmess_save
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if filereadable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &g:so = s:so_save | let &g:siso = s:siso_save
+set hlsearch
+nohlsearch
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :

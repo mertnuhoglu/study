@@ -21,7 +21,8 @@ blog: mertnuhoglu.com
 	compatible keybindings: spacemacs and intellij <url:file:///~/.ideavimrc#r=g10991>
 	compatible keybindings: custom intellij  {{{ <url:file:///~/.ideavimrc#r=g11485>
 
-## intellij refcard id=g11014
+- ## intellij refcard id=g11014
+  id:: 9249847c-a95b-4efb-9d36-b0e842608a04
 
     | #e / SPC SPC | find action        |
     | ++           | search everywhere  |
@@ -71,7 +72,8 @@ Switcher `#s`
 
 		| ^+ up/dn | next/prev method |
 
-## quicklist: select popups id=g11320
+- ## quicklist: select popups id=g11320
+  id:: 88cda924-4c4d-4e72-b43f-398f5464d863
 
 `!+SPC`
 
@@ -100,13 +102,15 @@ Quick List > .add frequent commands
 
 # my keybindings and customizations
 
-## my quick lists id=g10995
+- ## my quick lists id=g10995
+  id:: 6a93ca2c-2dc1-48ec-800d-5fced4066339
 
 		| !+space | popups  |
 		| !u p    | popups  |
 		| !u c    | clojure |
 
-## my customizations id=g10996
+- ## my customizations id=g10996
+  id:: 65cd6fcb-c9a9-48dc-be2b-479c768e85c8
 
 ref: `": compatible keybindings: custom intellij  {{{ <url:file:///~/.ideavimrc#r=g11485>`
 
@@ -132,7 +136,8 @@ Ref: `~/projects/study/code/study_intellij_ideavim.md`
 
 		| ^w o | restore default layout |
 
-# doc: Intellij Kısayolları 20210408 id=g12289
+- # doc: Intellij Kısayolları 20210408 id=g12289
+  id:: 415c0808-4be4-4e5e-90e7-db205837628e
 
 ref: intelij_kisayollari_20210408.m4a
 

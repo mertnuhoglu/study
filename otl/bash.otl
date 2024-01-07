@@ -1,545 +1,547 @@
 
 bash id=g13079
-	bash2 
-	other
-		for loop in bash
-			ref
-				~/projects/study/bash/ex_bash_loop.Rmd
-			e01
-				for filename in *.Rmd; do
-					echo $filename 
-				done
-		enhancd - cd2 cd id=g12783
-			ref
-				enhancd setup <url:file:///~/.zshrc#r=g12782>
-				[b4b4r07/enhancd: A next-generation cd command with your interactive filter](https://github.com/b4b4r07/enhancd)
-			features
-				recent directories
-					cd 
-					cd <fuzzy>
-				go to visited directory in past
-					cd -
-				echo .. | cd
-				go to specific parent directory
-					cd .
-		makefile
-			ref: Makefile for build and install <url:file:///~/projects/study/otl/cr.otl#r=g12099>
-		points
-			list files with absolute paths
-				ls -d "$PWD"/* 
-		prompt customization - bash id=g10644
-			prompt customization - bash <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10644>
-			ref
-				http://ezprompt.net
-			current dir
-				export PS1="\W $ "
-			green fg
-				export PS1="\[\e[32m\]\W\[\e[m\] $ "
-		http://www.tldp.org/LDP/abs/html/commandsub.html
-		replace last command with this command: ^old^new
-			ex:
-				cat file
-				^cat^less
-				# replaces in last line "cat" with "less"
-		errors
-			$ rg ramda "$VRP_WORK_DIRS"
-				$ eval "rg ramda $VRP_WORK_DIRS"
-				is different than
-				$ rg ramda "$VRP_WORK_DIRS"
-				because $VRP_WORK_DIRS
-				contains multiple '...' quoted paths
-					$ echo $VRP_WORK_DIRS
-					'/Users/mertnuhoglu/Dropbox/mynotes' '/Users/mertnuhoglu/projects/study' '..'
-				bunu tek bir dosya olarak kabul ediyor bash
-		evaluate execute expressions
-			eval
-				ex: <url:/Users/mertnuhoglu/.zshenv#tn=fr() {>
-					files=`eval $rg_command $search | fzf --ansi --multi --reverse --preview-window=right --preview "/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb {}" | awk -F ':' '{print "nvim \"+normal "$2"G"$3"|\" "$1}'`
-					# nvim "+normal 10G5|" ecmascript_modules.Rmd
-					[[ -n "$files" ]] && eval $files
-			exec
-			command substitution $(..) `..`
-				cd "`pwd`"
-				better: $(..)
-					output=$(sed -n /"$1"/p $file)
-	awk id=g11686
-		awk
-			built-in variables
-				OFS	output field separator
-				-F	input field separator
-			print column 2
-				awk '{print $2}' 
-			tsv file (tab separated):
-				awk -F "\t" '{print $2}' 
-			articles
-				Awk Tutorial
-					ref
-						http://www.grymoire.com/Unix/Awk.html#uh-0
-						<url:/Users/mertnuhoglu/Dropbox/mynotes/nx/keynote/kodlar/unix.md#tn=## 5-20 Awk Tutorial>
-					pattern { action }
-					ex
-						$ awk { print $8, "\t", $3}
-						$8: 8th field
-						field: column
-					ex
-						{print "$8\t$3" }
-						doesn't work. inside quotes $ has no meaning unlike bash
-			ex
-				ls -la | awk '{print $9, $10, $11}' | head -20
-			ex
-				quoting quotes
-					awk -F "\t" '{printf("INSERT  %s ;\n", $1)}'
-					->
-					awk -F "\t" '{printf("INSERT '\''%s'\'' ;\n", $1)}'
-				awk '{print $1}'
-				docker ps -a | tail -n +2 | awk '{print $NF}'
-				cat data.csv | awk -F "\t" '{printf("INSERT INTO T_COMMON_ENUM_VALUE (id,name,category_id) values (%s, '\''%s'\'', %s, %s);\n", $1, $2, $3, $4)}'
-				awk "NR >= 2 && NR <= 4"
-				cat | awk '/pattern/ { print }'
-				ps --no-headers -u $USER -o pcpu,rss | awk '{cpu += $1; rss += $2} END {print cpu, rss}'
-				getent hosts google.com | awk '{print $1}'
-	bench
-		 performance benchmark like time 
-		 ex
-			 bench 'fd --type f'
-	brew
-		brew
-			backup installed brew packages
-				brew leaves > ~/projects/private_dotfiles/.config/brew/installed_packages.txt
-	broot broot2 id=g12938
-		^-> | preview
-	cut cut2
-		[riquito/tuc: When cut doesn't cut it](https://github.com/riquito/tuc) id=g13035
-		[theryangeary/choose: A human-friendly and fast alternative to cut and (sometimes) awk](https://github.com/theryangeary/choose) id=g13047
-	diff
-			diff-so-fancy
-				https://github.com/so-fancy/diff-so-fancy
-	duf duf2: disk usage/free utility
-		[muesli/duf: Disk Usage/Free Utility - a better 'df' alternative](https://github.com/muesli/duf)
-	fd: find replacement fd2 find2
-		batch delete files with find xargs
-			ref: xargs <url:file:///~/projects/study/otl/ccode.otl#r=g10805>
-		help:
-			fd --help
-				örneklerle çok güzel dokümante edilmiş
-		examples:
-			fd --change-newer-than  '2020-12-07 06:00:00' --change-older-than  '2020-12-08 10:00:00'
-				ref: Belli bir date tarihte update edilen dosyaları nasıl bulurum? <url:file:///~/projects/study/bash/study_fd.md#r=g11822>
-		https://github.com/sharkdp/fd
+c/bash id=g15121
+bash2 
+other
+	for loop in bash
 		ref
-			<url:file:///~/projects/study/vim/vim_ex_fzf_fuzzy_file_finder.Rmd> 
-		mantıksal hatırlatıcı @mine
-			fd <pattern> <paths>
-			sed <pattern> <files>
-			grep # aynı
-			ls <path>
-			find . -iname <pattern>
-			ls ve sed gibi
-			neden <paths> pattern'dan sonra?
-				çünkü paths birden çok olabilir
-		brew install fd
-		fd '[0-9]\.jpg$' ~
-			list jpg files in home
-		fd <pattern>
-		fd . ~
-			list all files in home
-		fd . -d 1 -t f .
-			sadece mevcut klasördeki tüm dosyaları (no directory) listeler
-		options
-			-H		# hidden files (.git vs.)
-			-I --no-ignore
-	ffmpeg
-			video slideshow from image + audio
-				ffmpeg -loop 1 -i slide001.jpg -i slide001.mp3 -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest slide001.mp4
-				ffmpeg -loop 1 -framerate 2 -i input.png -i audio.ogg -c:v libx264 -preset medium -tune stillimage -crf 18 -c:a copy -shortest -pix_fmt yuv420p output.mkv
-					optimized for youtube
-					https://trac.ffmpeg.org/wiki/Encode/YouTube
-			concatenating videos
-				opt1
-					ls *.mp4 | perl -ne 'print "file $_"' | ffmpeg -f concat -i - -c copy output.mp4
-				opt2
-					ls *.mp4 | perl -ne 'print "file $_"' | ffmpeg -i - -filter_complex \
-					'[0:0] [0:1] [1:0] [1:1] [2:0] [2:1] \
-					 concat=n=3:v=1:a=1 [v] [a]' \
-					-map '[v]' -map '[a]' output.mp4
-	fzf: fuzzy file finder id=g10242
-		rfr: fzf <url:file:///~/projects/study/otl/fzf.otl#r=g13074>
-	global gtags
-			https://www.gnu.org/software/global/download.html
-			tags for definition, reference, calling etc
-			brew install global
-	htop
-			usage
-				use mouse
-					header columns to sort
-				fn+up/dn: page scroll
-				space: line scroll
-	od - octal hexa codes id=ccd_0010
-		od
-			od - octal hexa codes <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=ccd_0010>
-			how to find hex codes 
-				$ god -t x1
-				`z
-				(press ^D)
-				# output: 
-				60 7a
-	pandoc2 id=g11900
-		FILE=valve_usecase_shut_work_order
-		find . -maxdepth 1 -type f -iname "*.md" -print0 | xargs --null -I{} pandoc --output {}.docx --standalone {} | echo
-		pandoc --output $FILE.docx --standalone $FILE.md
-		pandoc --from gfm --output README.html --standalone README.md
-			gfm: github flavored markdown
-	rm
-		rm
-			prevent rm from -rf /
-				safe-rm
-					https://repo.or.cz/w/safe-rm.git
-					~/projects/private_dotfiles/.config/safe-rm
-	rsync
-			rsync manual
-				https://linux.die.net/man/1/rsync
-				intro
-					delta-transfer algorithm
-						sends only differences
-					finds files that need to be transferred
-				Usage
-					rsync -t *.c foo:src/
-						all files matching pattern *.c
-						to machine foo
-					rsync -avz <src> <dest>
-						recursively transfer
-					# get file list (osx)
-						rsync -nPaz mertnuhoglu@mertnuhoglu.webfactional.com:/home/mertnuhoglu/ ~/projects
-					# get files 
-						rsync -Paz mertnuhoglu@mertnuhoglu.webfactional.com:/home/mertnuhoglu/files/backup ~/projects/backup
-	screen
-		screen
-			http://aperiodic.net/screen/quick_reference
-				screen -S <name>
-					new session
-				screen -ls
-					list sessions
-				screen -x
-					attach to session
-	sed sed2 id=g10806
-		sed
-			sed <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10806>
-			[Sed Cheatsheet](https://gist.github.com/sergeyklay/4641c7665b262680f8b9cf38de923af1)
-			options
-				-r extended regex
-					+ ? çalışır bununla
-				-n			print if match
-					echo "id=g10843" | sed -n "/=g/p" 
-					sed -n '3 p' config.conf
-				-p			print pattern space
-				q				quit
-				-e			Execute multiple sed commands
-					sed -e 'command1' -e 'command2' input-file
-			global command
-				Delete with d
-					sed '/WORD/d'
-				ilk 10 satırı bırak
-					sed '11,$ d' <file
-				ex
-					sed -i -e '/^\s*#/!s/\\$val\>/$pid/g' getproc.pl 
-						Replace all variables $val with $pid in test.pl, except on commented lines. #SEDtember
-					sed "/re/d"
-				ed -s file <<< $'g/^\*/m$\nwq\n'
-				ex
-					>temp2 ed -s temp <<< $'g/[.:#]/d\n,p'  
-					>temp3 ed -s temp2 <<< $'v/]/d\n,p'
-					>temp4 sort -u temp3 
-					>temp5 ed -s temp4 <<< $'g/|/m0\n,p'
-				hints 
-					there is no pipe
-					at the end: \n,p
-					at start: $
-					regex:  
-						https://www.gnu.org/software/gnulib/manual/html_node/ed-regular-expression-syntax.html
-						http://www.regular-expressions.info/gnu.html
-			differences in regex
-				no \d use:
-					[[:digit:]]
-				\1 \2 groups
-				\{3\} multiplier repeater
-				\(...\)
-			commands
-				find then sed
-					find . -maxdepth 1 -name "*.R" -exec sed -i "s/\<enum_id\>/enum_category_id/g" {} \;
-				replace in place
-					sed -i 's/test/sinav/g' temp
-				find replace 
-					sed 's/test/sinav/g' temp
-					echo day | sed s/day/night/
-					sed 's/day/night/' <old >new
-				global command like use (replace in matching lines)
-					multiple commands
-						sed -e '/match/ {s/: /:@@/ ; s/ /%20/g ; s/:@@/: /}' temp.md
-						sed -i -e '/searchstring/ s/mystring/1/ ; /searchstring/! s/mystring/0/' $target
-							/searchstring/!
-								non-matching lines
-					inverse or negation operator: `!`
-						echo -e 'happy\nhappy\nunhappy\nhappy' | sed '/^happy/! s/.*/VERY HAPPY/'
-				ilk ve son satırlara ekleme yap 
-					sed -i '1s/^/\nCOMMIT;\n/' data/sql/*.sql
-					sed -i '$s/$/\nCOMMIT;\n/' data/sql/*.sql
-				Append a line with 'a'
-					sed '/WORD/ a\
-					Add this line after every line with WORD
-					'
-				Insert a line with 'i'
-				Change a line with 'c'
-				You can combine all three actions using curly braces: 
-				#!/bin/sh
-					#!/bin/bash
-					shebang
-					#!/usr/bin/env python3
-						portability için
-					#!/usr/local/bin python3
-						hardcoded ve statik
-					#!/usr/bin/env Rscript
-				sed '
-				/WORD/ {
-				i\
-				Add this line before
-				a\
-				Add this line after
-				c\
-				Change the line to this one
-				}'
-				Using & as the matched string
-				wrap the matched text in paranthesis:
-				sed 's/[a-z]*/(&)/' <old >new
-				\1 to keep part of the pattern
-				keep first match in a line, delete the rest
-				sed 's/\([a-z]*\).*/\1/'
-			examples
-				replace in file
-					sed -i -e 's/=g_\([[:digit:]][[:digit:]]*\)/=g\1/g' devcards.md
-				convert g_101 -> g101
-					echo "id=g10843" | sed -e "s/=g_\([[:digit:]][[:digit:]]*\)/=g\1/g" 
-				double every empty line
-				sed '/^$/ p'
-				act like grep
-					sed -n '/match/ p'
-				Reversing the restriction with !
-				sed -n '/match/ !p' </tmp/b
-				save inline
-				sed -i 's/test/sinav/g' temp
-				run recursively in subdirectories
-				find . -type f -print0 | xargs -0 sed -i 's/subdomainA.example.com/subdomainB.example.com/g'
-			range and lines
-				/begin/,/end/ {
-				line number
-				sed '3 s/[0-9][0-9]*//' <file >new
-				patterns
-				sed '/^#/ s/[0-9][0-9]*//'
-				https://stackoverflow.com/questions/83329/how-can-i-extract-a-predetermined-range-of-lines-from-a-text-file-on-unix
-					sed -n '16224,16482p;16483q' filename > newfile
-				ex:
-					from second line on
-						tree -di -L 1 /Users/mertnuhoglu/gdrive/ | sed -e '2,$ s/$/\//' 
-			flags
-				/g global replacement
-				/p print
-			options
-				no print by default
-				sed -n 's/pattern/&/p' <file
-				Multiple commands with -e
-				sed -e 's/a/a/' -e 's/b/B/' <old >new
-				run script file
-				sed -f scriptname
-	ssh
-		ssh
-			ref
-				ssh key <url:/Users/mertnuhoglu/projects/study/bash/examples_bash.Rmd#tn=ssh key>
-			keep ssh sessions alive - drop out time id=g10643
-				keep ssh sessions alive - drop out time <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10643>
-				https://sysadmincasts.com/episodes/39-cli-monday-how-to-keep-your-ssh-sessions-alive
-					local
-						$ cat ~/.ssh/config
-						Host *
-							ServerAliveInterval 60
-						$ chmod 600 ~/.ssh/config
-						$ chown user:group ~/.ssh/config
-					aws
-						sudo vi /etc/ssh/sshd_config
-							ClientAliveInterval 60
-						sudo service ssh restart
-			ssh user@host uname -a
-				run 1 command and exit: uname -a
-			ssh-agent
-				remembers ssh key passphrase
-			ssh-copy-id
-				installs your ssh key on a host
-				ssh-copy-id user@host
-			~.
-				closes ssh connection
-			mosh
-				keeps ssh open
-			port forwarding
-				ssh user@host.com -NfL 3333:localhost:8888
-					open browser to connect to remote server
-	xargs id=g10805
-		xargs
-			xargs <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10805>
-			find files and convert them using pandoc to markdown
-				find . -type f -iname "*.docx" -print0 | xargs --null -I{} pandoc -f docx -t markdown '{}' -o '{}.md'
-			find files and remove them
-				fd '\-e' | xargs echo rm -f
-				find . -iname "tags" | rg -v ".git" | xargs ls -lh
-				find . -name "*.bak" -type f | head | xargs rm -f                                       
-				fd . -name "*.bak" -type f | head | xargs rm -f
-			spaces in the arguments
-				xargs -n1 -d '\n' zip "temp.zip"
-					-d delimiter is \n
-					-n1 use only one argument
-				brew list | xargs -d '\n' brew info
-			pipe after piped xargs command
-				brew list | xargs -I {} -d '\n' sh -c "brew info {} | head -n 2"
-			placehold
-				-i[placeholder] 
-						behaves like -I, except that the placeholder is optional; if you omit the placeholder string, it defaults to the string {}. Thus, the previous example could be written as
-								xargs -i mv dir1/'{}' dir2/'{}'
-								xargs -i'{}'/ mv dir1/'{}' dir2/'{}'
-				ls | xargs -I {} mv {} 20080815-{}
-				This works because {} is a placeholder meaning "the current argument". (You can use xxx or yyy or any other string instead of {} if you want, as well, and it'll do exactly the same thing.) -I implies -n1, because you want to act on each file individually. 
-			find ack and xargs
-				http://blog.jessitron.com/2014/10/repeating-commands-in-bash-per-line-per.html
-				find . -iname "data*" | ack 'data_model|datamodel' | ack '\.md' | ack -v 'huseyin|arif|rdm|intro|audit|2016|alexey|temp|datamodel_bps_02|/tr/|/en/' | xargs -n1 -d '\n' -I {} make_uml {}
-					runs each input one by one
-					not in a batch: -n1
-			ack/grep and sed by xargs
-				ack -l "view_data_model_all.md" | xargs -n1 -d '\n' -I {} echo {}
-				ack -l "view_data_model_all.md" | xargs -n1 -d '\n' -I {} sed -i -e 's#view_data_model_all.md#view/view_data_model_all.md#g' {}
-				grep -lRZ "\.jpg|\.png|\.gif" . | xargs -0 -l sed -i -e 's/\.jpg\|\.gif\|\.png/.bmp/g'
-					grep
-					xargs
-						-0: use \0 as record separator
-						-l: use one line per command as parameter
-	zsh
+			~/projects/study/bash/ex_bash_loop.Rmd
+		e01
+			for filename in *.Rmd; do
+				echo $filename 
+			done
+	enhancd - cd2 cd id=g12783
+		ref
+			enhancd setup <url:file:///~/.zshrc#r=g12782>
+			[b4b4r07/enhancd: A next-generation cd command with your interactive filter](https://github.com/b4b4r07/enhancd)
+		features
+			recent directories
+				cd 
+				cd <fuzzy>
+			go to visited directory in past
+				cd -
+			echo .. | cd
+			go to specific parent directory
+				cd .
+	makefile
+		ref: Makefile for build and install <url:file:///~/projects/study/otl/cr.otl#r=g12099>
+	points
+		list files with absolute paths
+			ls -d "$PWD"/* 
+	prompt customization - bash id=g10644
+		prompt customization - bash <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10644>
+		ref
+			http://ezprompt.net
+		current dir
+			export PS1="\W $ "
+		green fg
+			export PS1="\[\e[32m\]\W\[\e[m\] $ "
+	http://www.tldp.org/LDP/abs/html/commandsub.html
+	replace last command with this command: ^old^new
+		ex:
+			cat file
+			^cat^less
+			# replaces in last line "cat" with "less"
+	errors
+		$ rg ramda "$VRP_WORK_DIRS"
+			$ eval "rg ramda $VRP_WORK_DIRS"
+			is different than
+			$ rg ramda "$VRP_WORK_DIRS"
+			because $VRP_WORK_DIRS
+			contains multiple '...' quoted paths
+				$ echo $VRP_WORK_DIRS
+				'/Users/mertnuhoglu/Dropbox/mynotes' '/Users/mertnuhoglu/projects/study' '..'
+			bunu tek bir dosya olarak kabul ediyor bash
+	evaluate execute expressions
+		eval
+			ex: <url:/Users/mertnuhoglu/.zshenv#tn=fr() {>
+				files=`eval $rg_command $search | fzf --ansi --multi --reverse --preview-window=right --preview "/Users/mertnuhoglu/.vim/bundle/fzf.vim/bin/preview.rb {}" | awk -F ':' '{print "nvim \"+normal "$2"G"$3"|\" "$1}'`
+				# nvim "+normal 10G5|" ecmascript_modules.Rmd
+				[[ -n "$files" ]] && eval $files
+		exec
+		command substitution $(..) `..`
+			cd "`pwd`"
+			better: $(..)
+				output=$(sed -n /"$1"/p $file)
+awk id=g11686
+	awk
+		built-in variables
+			OFS	output field separator
+			-F	input field separator
+		print column 2
+			awk '{print $2}' 
+		tsv file (tab separated):
+			awk -F "\t" '{print $2}' 
 		articles
-			zsh line editor and creating custom widgets id=g10558
-				zsh line editor and creating custom widgets <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10558>
-				https://sgeb.io/posts/2014/04/zsh-zle-custom-widgets/
-				zsh line editor: command prompt
-				keymaps
-					keymaps: collection of shortcuts and interaction modes
-					default keymaps:
-						emacs, viins (vi insert), vicmd (vi command), isearch (incremental search)
-					emacs: default mode
-						!b !f ^a ^e ^w
-						enabled with:
-							bindkey -e
-					vi mode
-						bindeky -v
-				alt meta and escape
-					different spellings for the same shortcut
-						ex: backward-word spelled as
-							<alt>+b \eb <esc>+b <Meta>+b M-b
-				zle commands and widgets
-					zle command: a functionality provided by zle
-					zle widget: synonym for zle command
-					any interaction with zsh is done by a widget
-						ex:
-							beginning-of-line:	move to beginning of line
-							backward-word
-							backward-kill-word
-				list of widgets
-					$ zle -la
-					.accept-and-hold
-					.accept-and-infer-next-history
-					.accept-and-menu-complete
-					...
-				invoking a widget
-					alternatives:
-						key binding such as ^a
-						from inside another vidget via `zle <widget_name>`
-						from a special widget called `execute-name-cmd`
-					how to execute `execute-name-cmd`?
-						emacs: !x
-						vi: `:`
-				which widget is invoked by a given shortcut?
+			Awk Tutorial
+				ref
+					http://www.grymoire.com/Unix/Awk.html#uh-0
+					<url:/Users/mertnuhoglu/Dropbox/mynotes/nx/keynote/kodlar/unix.md#tn=## 5-20 Awk Tutorial>
+				pattern { action }
+				ex
+					$ awk { print $8, "\t", $3}
+					$8: 8th field
+					field: column
+				ex
+					{print "$8\t$3" }
+					doesn't work. inside quotes $ has no meaning unlike bash
+		ex
+			ls -la | awk '{print $9, $10, $11}' | head -20
+		ex
+			quoting quotes
+				awk -F "\t" '{printf("INSERT  %s ;\n", $1)}'
+				->
+				awk -F "\t" '{printf("INSERT '\''%s'\'' ;\n", $1)}'
+			awk '{print $1}'
+			docker ps -a | tail -n +2 | awk '{print $NF}'
+			cat data.csv | awk -F "\t" '{printf("INSERT INTO T_COMMON_ENUM_VALUE (id,name,category_id) values (%s, '\''%s'\'', %s, %s);\n", $1, $2, $3, $4)}'
+			awk "NR >= 2 && NR <= 4"
+			cat | awk '/pattern/ { print }'
+			ps --no-headers -u $USER -o pcpu,rss | awk '{cpu += $1; rss += $2} END {print cpu, rss}'
+			getent hosts google.com | awk '{print $1}'
+bench
+		performance benchmark like time 
+		ex
+			bench 'fd --type f'
+brew
+	brew
+		backup installed brew packages
+			brew leaves > ~/projects/private_dotfiles/.config/brew/installed_packages.txt
+broot broot2 id=g12938
+	^-> | preview
+cut cut2
+	[riquito/tuc: When cut doesn't cut it](https://github.com/riquito/tuc) id=g13035
+	[theryangeary/choose: A human-friendly and fast alternative to cut and (sometimes) awk](https://github.com/theryangeary/choose) id=g13047
+diff
+		diff-so-fancy
+			https://github.com/so-fancy/diff-so-fancy
+duf duf2: disk usage/free utility
+	[muesli/duf: Disk Usage/Free Utility - a better 'df' alternative](https://github.com/muesli/duf)
+fd: find replacement fd2 find2
+	batch delete files with find xargs
+		ref: xargs <url:file:///~/projects/study/otl/ccode.otl#r=g10805>
+	help:
+		fd --help
+			örneklerle çok güzel dokümante edilmiş
+	examples:
+		fd --change-newer-than  '2020-12-07 06:00:00' --change-older-than  '2020-12-08 10:00:00'
+			ref: Belli bir date tarihte update edilen dosyaları nasıl bulurum? <url:file:///~/projects/study/bash/study_fd.md#r=g11822>
+	https://github.com/sharkdp/fd
+	ref
+		<url:file:///~/projects/study/vim/vim_ex_fzf_fuzzy_file_finder.Rmd> 
+	mantıksal hatırlatıcı @mine
+		fd <pattern> <paths>
+		sed <pattern> <files>
+		grep # aynı
+		ls <path>
+		find . -iname <pattern>
+		ls ve sed gibi
+		neden <paths> pattern'dan sonra?
+			çünkü paths birden çok olabilir
+	brew install fd
+	fd '[0-9]\.jpg$' ~
+		list jpg files in home
+	fd <pattern>
+	fd . ~
+		list all files in home
+	fd . -d 1 -t f .
+		sadece mevcut klasördeki tüm dosyaları (no directory) listeler
+	options
+		-H		# hidden files (.git vs.)
+		-I --no-ignore
+ffmpeg
+		video slideshow from image + audio
+			ffmpeg -loop 1 -i slide001.jpg -i slide001.mp3 -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest slide001.mp4
+			ffmpeg -loop 1 -framerate 2 -i input.png -i audio.ogg -c:v libx264 -preset medium -tune stillimage -crf 18 -c:a copy -shortest -pix_fmt yuv420p output.mkv
+				optimized for youtube
+				https://trac.ffmpeg.org/wiki/Encode/YouTube
+		concatenating videos
+			opt1
+				ls *.mp4 | perl -ne 'print "file $_"' | ffmpeg -f concat -i - -c copy output.mp4
+			opt2
+				ls *.mp4 | perl -ne 'print "file $_"' | ffmpeg -i - -filter_complex \
+				'[0:0] [0:1] [1:0] [1:1] [2:0] [2:1] \
+					concat=n=3:v=1:a=1 [v] [a]' \
+				-map '[v]' -map '[a]' output.mp4
+fzf: fuzzy file finder id=g10242
+	rfr: fzf <url:file:///~/projects/study/otl/fzf.otl#r=g13074>
+global gtags
+		https://www.gnu.org/software/global/download.html
+		tags for definition, reference, calling etc
+		brew install global
+htop
+		usage
+			use mouse
+				header columns to sort
+			fn+up/dn: page scroll
+			space: line scroll
+od - octal hexa codes id=ccd_0010
+	od
+		od - octal hexa codes <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=ccd_0010>
+		how to find hex codes 
+			$ god -t x1
+			`z
+			(press ^D)
+			# output: 
+			60 7a
+pandoc2 id=g11900
+	FILE=valve_usecase_shut_work_order
+	find . -maxdepth 1 -type f -iname "*.md" -print0 | xargs --null -I{} pandoc --output {}.docx --standalone {} | echo
+	pandoc --output $FILE.docx --standalone $FILE.md
+	pandoc --from gfm --output README.html --standalone README.md
+		gfm: github flavored markdown
+rm
+	rm
+		prevent rm from -rf /
+			safe-rm
+				https://repo.or.cz/w/safe-rm.git
+				~/projects/private_dotfiles/.config/safe-rm
+rsync
+		rsync manual
+			https://linux.die.net/man/1/rsync
+			intro
+				delta-transfer algorithm
+					sends only differences
+				finds files that need to be transferred
+			Usage
+				rsync -t *.c foo:src/
+					all files matching pattern *.c
+					to machine foo
+				rsync -avz <src> <dest>
+					recursively transfer
+				# get file list (osx)
+					rsync -nPaz mertnuhoglu@mertnuhoglu.webfactional.com:/home/mertnuhoglu/ ~/projects
+				# get files 
+					rsync -Paz mertnuhoglu@mertnuhoglu.webfactional.com:/home/mertnuhoglu/files/backup ~/projects/backup
+screen
+	id:: 7e5b0df6-e91c-4104-b503-70e523f84830
+	screen
+		http://aperiodic.net/screen/quick_reference
+			screen -S <name>
+				new session
+			screen -ls
+				list sessions
+			screen -x
+				attach to session
+sed sed2 id=g10806
+	sed
+		sed <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10806>
+		[Sed Cheatsheet](https://gist.github.com/sergeyklay/4641c7665b262680f8b9cf38de923af1)
+		options
+			-r extended regex
+				+ ? çalışır bununla
+			-n			print if match
+				echo "id=g10843" | sed -n "/=g/p" 
+				sed -n '3 p' config.conf
+			-p			print pattern space
+			q				quit
+			-e			Execute multiple sed commands
+				sed -e 'command1' -e 'command2' input-file
+		global command
+			Delete with d
+				sed '/WORD/d'
+			ilk 10 satırı bırak
+				sed '11,$ d' <file
+			ex
+				sed -i -e '/^\s*#/!s/\\$val\>/$pid/g' getproc.pl 
+					Replace all variables $val with $pid in test.pl, except on commented lines. #_SEDtember
+				sed "/re/d"
+			ed -s file <<< $'g/^\*/m$\nwq\n'
+			ex
+				>temp2 ed -s temp <<< $'g/[.:#]/d\n,p'  
+				>temp3 ed -s temp2 <<< $'v/]/d\n,p'
+				>temp4 sort -u temp3 
+				>temp5 ed -s temp4 <<< $'g/|/m0\n,p'
+			hints 
+				there is no pipe
+				at the end: \n,p
+				at start: $
+				regex:  
+					https://www.gnu.org/software/gnulib/manual/html_node/ed-regular-expression-syntax.html
+					http://www.regular-expressions.info/gnu.html
+		differences in regex
+			no \d use:
+				[[:digit:]]
+			\1 \2 groups
+			\{3\} multiplier repeater
+			\(...\)
+		commands
+			find then sed
+				find . -maxdepth 1 -name "*.R" -exec sed -i "s/\<enum_id\>/enum_category_id/g" {} \;
+			replace in place
+				sed -i 's/test/sinav/g' temp
+			find replace 
+				sed 's/test/sinav/g' temp
+				echo day | sed s/day/night/
+				sed 's/day/night/' <old >new
+			global command like use (replace in matching lines)
+				multiple commands
+					sed -e '/match/ {s/: /:@@/ ; s/ /%20/g ; s/:@@/: /}' temp.md
+					sed -i -e '/searchstring/ s/mystring/1/ ; /searchstring/! s/mystring/0/' $target
+						/searchstring/!
+							non-matching lines
+				inverse or negation operator: `!`
+					echo -e 'happy\nhappy\nunhappy\nhappy' | sed '/^happy/! s/.*/VERY HAPPY/'
+			ilk ve son satırlara ekleme yap 
+				sed -i '1s/^/\nCOMMIT;\n/' data/sql/*.sql
+				sed -i '$s/$/\nCOMMIT;\n/' data/sql/*.sql
+			Append a line with 'a'
+				sed '/WORD/ a\
+				Add this line after every line with WORD
+				'
+			Insert a line with 'i'
+			Change a line with 'c'
+			You can combine all three actions using curly braces: 
+			#!/bin/sh
+				#!/bin/bash
+				shebang
+				#!/usr/bin/env python3
+					portability için
+				#!/usr/local/bin python3
+					hardcoded ve statik
+				#!/usr/bin/env Rscript
+			sed '
+			/WORD/ {
+			i\
+			Add this line before
+			a\
+			Add this line after
+			c\
+			Change the line to this one
+			}'
+			Using & as the matched string
+			wrap the matched text in paranthesis:
+			sed 's/[a-z]*/(&)/' <old >new
+			\1 to keep part of the pattern
+			keep first match in a line, delete the rest
+			sed 's/\([a-z]*\).*/\1/'
+		examples
+			replace in file
+				sed -i -e 's/=g_\([[:digit:]][[:digit:]]*\)/=g\1/g' devcards.md
+			convert g_101 -> g101
+				echo "id=g10843" | sed -e "s/=g_\([[:digit:]][[:digit:]]*\)/=g\1/g" 
+			double every empty line
+			sed '/^$/ p'
+			act like grep
+				sed -n '/match/ p'
+			Reversing the restriction with !
+			sed -n '/match/ !p' </tmp/b
+			save inline
+			sed -i 's/test/sinav/g' temp
+			run recursively in subdirectories
+			find . -type f -print0 | xargs -0 sed -i 's/subdomainA.example.com/subdomainB.example.com/g'
+		range and lines
+			/begin/,/end/ {
+			line number
+			sed '3 s/[0-9][0-9]*//' <file >new
+			patterns
+			sed '/^#/ s/[0-9][0-9]*//'
+			https://stackoverflow.com/questions/83329/how-can-i-extract-a-predetermined-range-of-lines-from-a-text-file-on-unix
+				sed -n '16224,16482p;16483q' filename > newfile
+			ex:
+				from second line on
+					tree -di -L 1 /Users/mertnuhoglu/gdrive/ | sed -e '2,$ s/$/\//' 
+		flags
+			/g global replacement
+			/p print
+		options
+			no print by default
+			sed -n 's/pattern/&/p' <file
+			Multiple commands with -e
+			sed -e 's/a/a/' -e 's/b/B/' <old >new
+			run script file
+			sed -f scriptname
+ssh
+	ssh
+		ref
+			ssh key <url:/Users/mertnuhoglu/projects/study/bash/examples_bash.Rmd#tn=ssh key>
+		keep ssh sessions alive - drop out time id=g10643
+			keep ssh sessions alive - drop out time <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10643>
+			https://sysadmincasts.com/episodes/39-cli-monday-how-to-keep-your-ssh-sessions-alive
+				local
+					$ cat ~/.ssh/config
+					Host *
+						ServerAliveInterval 60
+					$ chmod 600 ~/.ssh/config
+					$ chown user:group ~/.ssh/config
+				aws
+					sudo vi /etc/ssh/sshd_config
+						ClientAliveInterval 60
+					sudo service ssh restart
+		ssh user@host uname -a
+			run 1 command and exit: uname -a
+		ssh-agent
+			remembers ssh key passphrase
+		ssh-copy-id
+			installs your ssh key on a host
+			ssh-copy-id user@host
+		~.
+			closes ssh connection
+		mosh
+			keeps ssh open
+		port forwarding
+			ssh user@host.com -NfL 3333:localhost:8888
+				open browser to connect to remote server
+xargs id=g10805
+	xargs
+		xargs <url:file:///~/gdrive/mynotes/content/code/ccode.md#r=g10805>
+		find files and convert them using pandoc to markdown
+			find . -type f -iname "*.docx" -print0 | xargs --null -I{} pandoc -f docx -t markdown '{}' -o '{}.md'
+		find files and remove them
+			fd '\-e' | xargs echo rm -f
+			find . -iname "tags" | rg -v ".git" | xargs ls -lh
+			find . -name "*.bak" -type f | head | xargs rm -f                                       
+			fd . -name "*.bak" -type f | head | xargs rm -f
+		spaces in the arguments
+			xargs -n1 -d '\n' zip "temp.zip"
+				-d delimiter is \n
+				-n1 use only one argument
+			brew list | xargs -d '\n' brew info
+		pipe after piped xargs command
+			brew list | xargs -I {} -d '\n' sh -c "brew info {} | head -n 2"
+		placehold
+			-i[placeholder] 
+					behaves like -I, except that the placeholder is optional; if you omit the placeholder string, it defaults to the string {}. Thus, the previous example could be written as
+							xargs -i mv dir1/'{}' dir2/'{}'
+							xargs -i'{}'/ mv dir1/'{}' dir2/'{}'
+			ls | xargs -I {} mv {} 20080815-{}
+			This works because {} is a placeholder meaning "the current argument". (You can use xxx or yyy or any other string instead of {} if you want, as well, and it'll do exactly the same thing.) -I implies -n1, because you want to act on each file individually. 
+		find ack and xargs
+			http://blog.jessitron.com/2014/10/repeating-commands-in-bash-per-line-per.html
+			find . -iname "data*" | ack 'data_model|datamodel' | ack '\.md' | ack -v 'huseyin|arif|rdm|intro|audit|2016|alexey|temp|datamodel_bps_02|/tr/|/en/' | xargs -n1 -d '\n' -I {} make_uml {}
+				runs each input one by one
+				not in a batch: -n1
+		ack/grep and sed by xargs
+			ack -l "view_data_model_all.md" | xargs -n1 -d '\n' -I {} echo {}
+			ack -l "view_data_model_all.md" | xargs -n1 -d '\n' -I {} sed -i -e 's#view_data_model_all.md#view/view_data_model_all.md#g' {}
+			grep -lRZ "\.jpg|\.png|\.gif" . | xargs -0 -l sed -i -e 's/\.jpg\|\.gif\|\.png/.bmp/g'
+				grep
+				xargs
+					-0: use \0 as record separator
+					-l: use one line per command as parameter
+zsh
+	articles
+		zsh line editor and creating custom widgets id=g10558
+			zsh line editor and creating custom widgets <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10558>
+			https://sgeb.io/posts/2014/04/zsh-zle-custom-widgets/
+			zsh line editor: command prompt
+			keymaps
+				keymaps: collection of shortcuts and interaction modes
+				default keymaps:
+					emacs, viins (vi insert), vicmd (vi command), isearch (incremental search)
+				emacs: default mode
+					!b !f ^a ^e ^w
+					enabled with:
+						bindkey -e
+				vi mode
+					bindeky -v
+			alt meta and escape
+				different spellings for the same shortcut
+					ex: backward-word spelled as
+						<alt>+b \eb <esc>+b <Meta>+b M-b
+			zle commands and widgets
+				zle command: a functionality provided by zle
+				zle widget: synonym for zle command
+				any interaction with zsh is done by a widget
+					ex:
+						beginning-of-line:	move to beginning of line
+						backward-word
+						backward-kill-word
+			list of widgets
+				$ zle -la
+				.accept-and-hold
+				.accept-and-infer-next-history
+				.accept-and-menu-complete
+				...
+			invoking a widget
+				alternatives:
+					key binding such as ^a
+					from inside another vidget via `zle <widget_name>`
+					from a special widget called `execute-name-cmd`
+				how to execute `execute-name-cmd`?
+					emacs: !x
+					vi: `:`
+			which widget is invoked by a given shortcut?
+				ex
+					$ bindkey '\eb'
+					"^[b" backward-word
+				ex: check a different keymap by `-M`
+					$ bindkey -M vicmd 'b'
+				complete list of shortcuts
+					$ bindkey
+			which shortcut invokes a given widget?
+				ex
+					$ <!x>
+					execute: where-is
+				ex: list all shortcuts and grep
+					bindkey | grep backward
+			shortcut to simulate input
+				ex: !s inserts 'hello!'
+					$ bindkey -s '\es' 'hello!'
+			custom widget
+				1. create a function
 					ex
-						$ bindkey '\eb'
-						"^[b" backward-word
-					ex: check a different keymap by `-M`
-						$ bindkey -M vicmd 'b'
-					complete list of shortcuts
-						$ bindkey
-				which shortcut invokes a given widget?
-					ex
-						$ <!x>
-						execute: where-is
-					ex: list all shortcuts and grep
-						bindkey | grep backward
-				shortcut to simulate input
-					ex: !s inserts 'hello!'
-						$ bindkey -s '\es' 'hello!'
-				custom widget
-					1. create a function
-						ex
-							function _git-status {
-								zle kill-whole-line
-								zle -U "git status"
-								zle accept-line
-							}
-						explain:
-							`zle <widget_name>` invokes widget
-							`zle -U <string>` puts string to line buffer
-					2. declare that function as a widget
-						$ zle -N _git-status
-					$BUFFER
-						keeps current content of zle
-					built-in variables
-						http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#User_002dDefined-Widgets
-					list custom widgets:
-						$ zle -l
+						function _git-status {
+							zle kill-whole-line
+							zle -U "git status"
+							zle accept-line
+						}
+					explain:
+						`zle <widget_name>` invokes widget
+						`zle -U <string>` puts string to line buffer
+				2. declare that function as a widget
+					$ zle -N _git-status
+				$BUFFER
+					keeps current content of zle
+				built-in variables
+					http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#User_002dDefined-Widgets
+				list custom widgets:
+					$ zle -l
+	zsh plugins
 		zsh plugins
-			zsh plugins
-				antigen id=g10559
-					antigen <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10559>
-					https://github.com/zsh-users/antigen
-					install
-						brew install antigen
-					motivation
-						https://github.com/zsh-users/antigen#motivation
-						oh-my-zsh: not good for plugin management
-					installing plugins
-						antigen bundle git
-					articles
-						https://joshldavis.com/2014/07/26/oh-my-zsh-is-a-disease-antigen-is-the-vaccine/
-							antigen: similar to Vundle
-							addresses issues with oh-my-zsh
-				forgit  id=g10561
-					forgit  <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10561>
-					ref
-						<url:/Users/mertnuhoglu/.zshenv#tn=forgit aliases>
-					https://github.com/wfxr/forgit
-					ga: git add
-					glo: git log
-					gi: .gitignore generator
-					gd: git diff
-					gcf: git checkout <file>
-					gclean: git clean
-				fzf-z id=g10560
-					fzf-z <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10560>
-					usage
-						^g		list directories (subdirs, recent dirs, all in FZFZ_EXTRA_DIRS)
-						$ fzfz-file-widget
-						$ __fzfz
-				fzf-finder 
-					https://github.com/leophys/zsh-plugin-fzf-finder
-					!e   # shortcut
-					$ fzf-finder-widget
-				zsh-autosuggestions id=g10557
-					zsh-autosuggestions <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10557>
-					https://github.com/zsh-users/zsh-autosuggestions
-					usage:
-						$ echo <^F> # forward-char
-						$ echo <^E> # end-of-line
-					key bindings
-						bindkey '[[AS' autosuggest-accept
-						# make iterm2 send '[[AS' when !space is pressed
-					which shortcut is bound?
-						bindkey | rg autosuggest-accept
+			antigen id=g10559
+				antigen <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10559>
+				https://github.com/zsh-users/antigen
+				install
+					brew install antigen
+				motivation
+					https://github.com/zsh-users/antigen#motivation
+					oh-my-zsh: not good for plugin management
+				installing plugins
+					antigen bundle git
+				articles
+					https://joshldavis.com/2014/07/26/oh-my-zsh-is-a-disease-antigen-is-the-vaccine/
+						antigen: similar to Vundle
+						addresses issues with oh-my-zsh
+			forgit  id=g10561
+				forgit  <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10561>
+				ref
+					<url:/Users/mertnuhoglu/.zshenv#tn=forgit aliases>
+				https://github.com/wfxr/forgit
+				ga: git add
+				glo: git log
+				gi: .gitignore generator
+				gd: git diff
+				gcf: git checkout <file>
+				gclean: git clean
+			fzf-z id=g10560
+				fzf-z <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10560>
+				usage
+					^g		list directories (subdirs, recent dirs, all in FZFZ_EXTRA_DIRS)
+					$ fzfz-file-widget
+					$ __fzfz
+			fzf-finder 
+				https://github.com/leophys/zsh-plugin-fzf-finder
+				!e   # shortcut
+				$ fzf-finder-widget
+			zsh-autosuggestions id=g10557
+				zsh-autosuggestions <url:file:///~/Dropbox/mynotes/content/code/ccode.md#r=g10557>
+				https://github.com/zsh-users/zsh-autosuggestions
+				usage:
+					$ echo <^F> # forward-char
+					$ echo <^E> # end-of-line
+				key bindings
+					bindkey '[[AS' autosuggest-accept
+					# make iterm2 send '[[AS' when !space is pressed
+				which shortcut is bound?
+					bindkey | rg autosuggest-accept

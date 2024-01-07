@@ -1,41 +1,44 @@
 
 datomic.otl id=g13023
-	datomic.otl <url:file:///~/projects/study/clj/datomic.otl#r=g13023>
+  id:: 8361a15c-7452-4dc2-babd-5faf76e3fe47
+	datomic.otl || ((8361a15c-7452-4dc2-babd-5faf76e3fe47)) 
 rfr
-	Datomic Kod Okumalarından Notlar  <url:file:///~/prj/study/clj/datomic_kod_okumalarindan_notlar.md#r=g13532>
-	Day Of Datomic Cloud otl <url:file:///~/projects/study/clj/articles-datomic.md#r=g12849>
+	Datomic Kod Okumalarından Notlar  || ((fb4641e7-4412-4eec-95d6-f397216b36a6))
+	Day Of Datomic Cloud otl || ((16e26788-be81-414a-9a5d-ac8ec9ffcd99)) 
 ndx
-	refcard <url:file:///~/prj/study/clj/datomic.otl#r=g14436>
+	refcard || ((87b63076-64b3-46ab-8500-992c4a72f85a)) 
 study-order datomic id=g12866
-	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
+  id:: a3301462-1f5d-405c-9f58-1127a3be3976
+	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube || ((6fc0de1c-0413-4807-ac5b-50d73849c9ce))
 	[Learn Datalog Today!](http://www.learndatalogtoday.org/)
-	Datomic Kod Okumalarından Notlar  <url:file:///~/prj/study/clj/datomic_kod_okumalarindan_notlar.md#r=g13532>
+	Datomic Kod Okumalarından Notlar  || ((fb4641e7-4412-4eec-95d6-f397216b36a6))
 	[Max Datom - Interactive Datomic Tutorial](https://max-datom.com/)
 	/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01b.clj
-	Connect to Sample Database <url:file:///~/prj/study/clj/articles-datomic.md#r=g13507>
-	Datomic Documentation <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13500>
-	REBL ile datomic verilerini dolaşma  <url:file:///~/prj/study/clj/datomic.otl#r=g13523>
-	Lab: Assertion Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13506>
-	Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13509>
-	Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13521>
-	Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc.md#r=g12871>
+	Connect to Sample Database || ((0313e396-3a12-41fe-a82b-7997f09a42cb))
+	Datomic Documentation || ((6104bcb1-0d38-48f3-a917-806e0dcf067c)) 
+	REBL ile datomic verilerini dolaşma  || ((a0747d5a-9210-4599-9bc0-5b280a777953)) 
+	Lab: Assertion Tutorial || ((bd2404fa-801e-4e5f-b588-0bf3df066df7)) 
+	Code - Assertion and Read Tutorial || ((d8c6d317-b6ab-4861-b39f-d7cd36d11083)) 
+	Example: Day of Datomic Cloud Sample Data || ((5d1168f7-1672-4a97-a62d-c0764fd17cad)) 
+	Article: mbrainz tutorial || ((8953b710-fb40-4ff8-a81b-830ce55b1d31)) 
 	~/prj/study/clj/ex/study_datomic/datalog-02/src/mert/e01.clj
-	datomic okuma planı 20221113 <url:file:///~/prj/study/clj/datomic.otl#r=g13676>
+	datomic okuma planı 20221113 || ((c3d0e4dd-d834-4f50-8812-d713ba858307)) 
 pnt
 	datomic okuma planı 20221113 id=g13676
+	  id:: c3d0e4dd-d834-4f50-8812-d713ba858307
 		rfr
 			work: datomic okuma planı 20221113  <url:file:///~/prj/myrepo/work/work4.otl#r=g13517>
 		pln 00
-			study-order datomic <url:file:///~/projects/study/clj/datomic.otl#r=g12866>
+			study-order datomic || ((a3301462-1f5d-405c-9f58-1127a3be3976)) 
 			[DOMAIN MODELING WITH DATALOG by Norbert Wojtowicz - YouTube](https://www.youtube.com/watch?v=oo-7mN9WXTw) @datomic
-			Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc.md#r=g12871>
+			Article: mbrainz tutorial || ((8953b710-fb40-4ff8-a81b-830ce55b1d31)) 
 			/Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
-			articles - datomic <url:file:///~/projects/study/clj/datomic.otl#r=g13413>
-			resources datomic <url:file:///~/projects/study/clj/datomic.otl#r=g12880>
+			articles - datomic || ((a5ba3664-9936-4611-9567-2d142c70c85e)) 
+			resources datomic || ((23234769-fd4f-4bc4-ab3a-a4f4b48a28f6)) 
 			[Highest scored 'datomic' questions - Stack Overflow](https://stackoverflow.com/questions/tagged/datomic)
 			[cloojure/tupelo-datomic: Tupelo-Datomic - Datomic With A Spoonful of Honey](https://github.com/cloojure/tupelo-datomic)
 		pln 01
-			[[20230525-clj-markbastian-datascript-playground]] <url:file:///~/prj/study/logseq-study/pages/20230525-clj-markbastian-datascript-playground.md#r=g14455>
+			20230525-clj-markbastian-datascript-playground || ((bb12b195-c212-4ac3-bf65-3a5151fa7ef0))
 			[Max Datom - Interactive Datomic Tutorial](https://max-datom.com/) @datomic
 			[Learn Datalog Today!](http://www.learndatalogtoday.org/) @datomic
 			[ftravers/datomic-tutorial](https://github.com/ftravers/datomic-tutorial) @datomic
@@ -53,6 +56,7 @@ pnt
 			[markbastian/datascript-playground](https://github.com/markbastian/datascript-playground/tree/master/src/main/clj/datascript_playground) @datomic @examples
 			[replikativ / datahike-invoice · GitLab](https://gitlab.com/replikativ/datahike-invoice) @datomic @examples
 			[Datomic MusicBrainz Sample Database – Nextjournal](https://nextjournal.com/kommen/datomic) id=g13066 @datomic @examples
+			  id:: b19f7816-0765-45b6-9114-a3324a3e78a5
 			[1: Getting Started with Crux – A Tale of Time and Space – Nextjournal](https://nextjournal.com/crux-tutorial/start) @datomic @examples
 			[A Bitemporal tale – History. Of histories. – Nextjournal](https://nextjournal.com/crux/a-bitemporal-tale) @datomic @examples
 			[Conditional Queries in Datomic](https://grishaev.me/en/datomic-query/) @datomic @examples
@@ -112,22 +116,24 @@ pnt
 			[Let over map merge: Using Datomic in my app](https://humorless.github.io/posts-output/datomic) @datomic
 			[Clojure in the Database · subhash/clj-stack Wiki](https://github.com/subhash/clj-stack/wiki/Clojure-in-the-Database) @datomic
 			[Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions](https://cognitect.com/blog/2017/4/21/separation-of-concerns-in-datomic-query-datalog-query-and-pull-expressions) @datomic
-			[[20230524-rtc-Datomic-for-Five-Year-Olds]] <url:file:///~/prj/study/logseq-study/pages/20230524-rtc-Datomic-for-Five-Year-Olds.md#r=g14446>
+			20230524-rtc-Datomic-for-Five-Year-Olds || ((46222825-c713-4fde-9d3e-aef47ff7db6d)) 
 			[Frequent 'datomic' Questions - Stack Overflow](https://stackoverflow.com/questions/tagged/datomic) @datomic
 			[alexpetrov/datomic-facts-slides: Presentation about Datomic](https://github.com/alexpetrov/datomic-facts-slides) @datomic
 			[Val on Programming: Application architecture with Datomic: branching reality](http://vvvvalvalval.github.io/posts/2016-01-03-architecture-datomic-branching-reality.html)
 			[Val on Programming: DataScript as a Lingua Franca for domain modeling](http://vvvvalvalval.github.io/posts/2018-07-23-datascript-as-a-lingua-franca-for-domain-modeling.html) @datomic
 			[Datomic as a Protocol @ tonsky.me](https://tonsky.me/blog/datomic-as-protocol/) @datomic
-	Datomic Kod Okumalarından Notlar  <url:file:///~/prj/study/clj/datomic_kod_okumalarindan_notlar.md#r=g13532>
-	Example: Get Current Datomic Schema <url:file:///~/prj/study/clj/articles-datomic.md#r=g13527>
+	Datomic Kod Okumalarından Notlar  || ((fb4641e7-4412-4eec-95d6-f397216b36a6))
+	Example: Get Current Datomic Schema || ((d7ccf1be-c513-466f-9ff2-4b4dd5323523)) 
 	REBL ile datomic verilerini dolaşma  id=g13523
-		REBL ile datomic verilerini dolaşma #datomic #clj <url:file:///~/projects/study/logbook/log_20221116.md#r=g13522>
+	  id:: a0747d5a-9210-4599-9bc0-5b280a777953
+		REBL ile datomic verilerini dolaşma   || ((4bf75242-f06c-4650-998e-4d9e64a94fee))
 		pre:
-			run repl + Rebl + portal <url:file:///~/prj/study/clj/datomic.otl#r=g12891>
+			run repl + Rebl + portal || ((4f88cbbf-9ba6-4a17-9714-32e1e61bc791)) 
 		repl içinde:
-refcard id=g14436
+refcard datomic id=g14436
+  id:: 87b63076-64b3-46ab-8500-992c4a72f85a
 	rfr
-		Datomic Kod Okumalarından Notlar  <url:file:///~/prj/study/clj/datomic_kod_okumalarindan_notlar.md#r=g13532>
+		Datomic Kod Okumalarından Notlar  || ((fb4641e7-4412-4eec-95d6-f397216b36a6))
 	transact
 		(d/transact conn {:tx-data [{:db/ident :red}]}
 		(def tx-result (d/transact conn {:tx-data [{:story/title "value1" story/url "value2"} ]}))
@@ -350,13 +356,15 @@ refcard2
 doc
 	Console UI
 		run datomic console id=g12858
+		  id:: 3114aa97-824d-4054-8f76-d7dd0d4e4589
 			rfr
-				datomic-pro maven setup <url:file:///~/prj/study/clj/datomic-pro-maven-setup.md#r=g13697>
-				run datomic console <url:file:///~/prj/study/clj/run-datomic-console.md#r=g12858>
+				datomic-pro maven setup || ((a4f895dd-855f-4a6e-9865-9ca827a40f8a))
+				run datomic console || ((da5248f4-ba34-4aab-98d9-ada1bb3ad075))
 		hata: lein repl çalışmıyor veya datomic-pro.jar dosyası indirilemiyor id=g13696
+		  id:: b377f2cb-f769-42e9-a9bf-4a2e00c5fc91
 			rfr
 				Error: lein repl çalışmıyor veya datomic-pro.jar dosyası indirilemiyor <url:file:///~/prj/study/clj/error-datomic-pro-indirilemiyor.md#r=g13696>
-				datomic-pro maven setup <url:file:///~/prj/study/clj/datomic-pro-maven-setup.md#r=g13697>
+				datomic-pro maven setup || ((a4f895dd-855f-4a6e-9865-9ca827a40f8a))
 my questions
 	Client vs Peer vs Transactor
 		Datomic Local Dev
@@ -370,96 +378,108 @@ my questions
 			remote client to a peer server
 issues
 	run repl + Rebl + portal id=g12891
-		ref: multiple repls together: <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12447>
+	  id:: 4f88cbbf-9ba6-4a17-9714-32e1e61bc791
+		multiple repls together: || ((767ee759-820c-44de-8ba0-807298d37a74)) 
 		prerequisite: 
-			deps.edn configuration <url:file:///~/projects/study/clj/datomic.otl#r=g12890>
+			deps.edn configuration || ((a9bf1cdd-63c5-499e-bbcc-e4272368fc2f)) 
 		clojure -M:lib/cider-nrepl:inspect/rebl15:middleware/nrebl:inspect/portal-cli
 		vim: :ConjureConnect
-		cursive: Remote nREPL Connection <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12889>
+		Remote nREPL Connection || ((7edaeeff-82b9-4e6a-b68f-3b01dfdf2c8c)) 
 	deps.edn configuration id=g12890
+	  id:: a9bf1cdd-63c5-499e-bbcc-e4272368fc2f
 		ref: ~/codes/clj/ex/day-of-datomic-cloud/deps.edn
 		com.datomic/dev-local {:mvn/version "0.9.225"}
 		com.datomic/datomic-pro {:mvn/version "0.9.5951"}
 		:mvn/repos {"datomic-cloud" {:url "s3://datomic-releases-1fc2183a/maven/releases"}}
 	def uri examples id=g12896
+	  id:: 950bdb99-47cf-4f67-ab1e-0d5cd6028398
 		(def uri "datomic:dev://localhost:4334/<database-name>")
 		(def uri "datomic:dev://localhost:4334/mbrainz-1968-1973")
 		(def uri "datomic:mem://trial")
 		(def uri "datomic:mem://movies")
 	repl code connection id=g12892
+	  id:: 695aba49-b5be-478a-a182-fc74c84d26ad
 		(require '[datomic.api :as d])
-		ref: def uri examples <url:file:///~/projects/study/clj/datomic.otl#r=g12896>
+		def uri examples || ((950bdb99-47cf-4f67-ab1e-0d5cd6028398)) 
 			(def uri "datomic:dev://localhost:4334/mbrainz-1968-1973")
 		(def conn (d/connect uri))
 		(def db (d/db conn))
 	hodur ile datomic schema tanımlama id=g12901
+	  id:: d5906a60-1318-40e8-bb2f-7f2d9a0670f6
 		ref
 			~/projects/study/clj/ex/study_datomic/hodur01/src/mert/hodur01.clj
 			[hodur-org/hodur-engine](https://github.com/hodur-org/hodur-engine)
 			[hodur-org/hodur-visualizer-schema](https://github.com/hodur-org/hodur-visualizer-schema)
 articles - datomic id=g13413
+  id:: a5ba3664-9936-4611-9567-2d142c70c85e
 	rfr
-		datomic okuma planı 20221113 <url:file:///~/prj/study/clj/datomic.otl#r=g13676>
+		datomic okuma planı 20221113 || ((c3d0e4dd-d834-4f50-8812-d713ba858307)) 
 	ndx
-		datomic okuma planı 20221113 <url:file:///~/prj/study/clj/datomic.otl#r=g13676>
+		datomic okuma planı 20221113 || ((c3d0e4dd-d834-4f50-8812-d713ba858307)) 
 	read id=g13520
+	  id:: 95e7fd42-19c9-44ee-ae6f-e70bef1bf794
 		Clojure Power Tools Part 1 | Kari Marttila Blog <url:file:///~/prj/study/clj/ex/study_clojure/ex06/src/ex/e29.clj#r=g14497>
 		[Clojure Datomic Exercise | Kari Marttila Blog](https://www.karimarttila.fi/clojure/2020/11/14/clojure-datomic-exercise.html) id=g13067 @datomic @examples
-		[[20230524-rtc-Stackoverflow-Questions--Datomic]] <url:file:///~/prj/study/logseq-study/pages/20230524-rtc-Stackoverflow-Questions--Datomic.md#r=g14447>
-		[[20230524-rtc-Datomic-for-Five-Year-Olds]] <url:file:///~/prj/study/logseq-study/pages/20230524-rtc-Datomic-for-Five-Year-Olds.md#r=g14446>
+		  id:: b701bad7-362f-43a7-9b51-66ffe0fb8ad1
+		20230524-rtc-Stackoverflow-Questions--Datomic || ((b6ebd9b1-6b74-46d3-9ed4-186178d9676d)) 
+		20230524-rtc-Datomic-for-Five-Year-Olds || ((46222825-c713-4fde-9d3e-aef47ff7db6d)) 
 		20230524
-		Example: Day of Datomic Cloud Sample Data <url:file:///~/prj/study/clj/articles-datomic.md#r=g13521>
+		Example: Day of Datomic Cloud Sample Data || ((5d1168f7-1672-4a97-a62d-c0764fd17cad)) 
 		20221114 
-		Article: The Datomic Information Model by Rich Hickey <url:file:///~/prj/study/clj/articles-datomic.md#r=g13516>
-		The Design of Datomic - Rich Hickey - YouTube <url:file:///~/projects/study/logbook/log_20221112.md#r=g13515>
-		Video: Day of Datomic Cloud - Day 4 <url:file:///~/prj/study/clj/articles-datomic.md#r=g13514>
-		Lab: Accumulate, Read, Retract, History  <url:file:///~/prj/study/clj/articles-datomic.md#r=g13511>
-		Day of Datomic Cloud - Session 3 - YouTube <url:file:///~/prj/study/clj/articles-datomic.md#r=g13510>
-		Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13509>
-		Lab: Assertion Tutorial <url:file:///~/projects/study/clj/articles-datomic.md#r=g13506>
-		Day of Datomic Cloud - Session 1 - YouTube <url:file:///~/projects/study/clj/articles-datomic.md#r=g13502>
+		Article: The Datomic Information Model by Rich Hickey || ((a41dc9e5-479a-480d-a5e7-02d4d5e1f722)) 
+		The Design of Datomic - Rich Hickey - YouTube || ((d339aade-d800-46cf-b652-6f79dc998773))
+		Video: Day of Datomic Cloud - Day 4 || ((f8c75942-35e9-4d0b-b9cc-0f5757683c13)) 
+		Lab: Accumulate, Read, Retract, History  || ((64d5fc36-8b5f-4a07-86a6-8a85a3d6676e)) 
+		Video: Day of Datomic Cloud - Day 4 || ((f8c75942-35e9-4d0b-b9cc-0f5757683c13)) 
+		Lab: Accumulate, Read, Retract, History  || ((64d5fc36-8b5f-4a07-86a6-8a85a3d6676e)) 
+		Lab: Assertion Tutorial || ((bd2404fa-801e-4e5f-b588-0bf3df066df7)) 
+		(1137) Day of Datomic Cloud - Session 1 - YouTube || ((f2ec249e-ae48-46f7-a3d5-65193c2888f1)) 
 		20221112 
-		Day Of Datomic Cloud <url:file:///~/projects/study/clj/articles-datomic.md#r=g12849>
-		Datomic Documentation <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13500>
+		Day Of Datomic Cloud otl || ((16e26788-be81-414a-9a5d-ac8ec9ffcd99)) 
+		Datomic Documentation || ((6104bcb1-0d38-48f3-a917-806e0dcf067c)) 
 		20221107
-		Reactive Datalog for Datomic - Nikolas Göbel - YouTube <url:file:///~/projects/study/logbook/log_20221002.md#r=g13434>
-		Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube <url:file:///~/projects/study/logbook/log_20220930.md#r=g13424>
+		Reactive Datalog for Datomic - Nikolas Göbel - YouTube  || ((8273b1ae-362e-4e50-a2fe-964d6d014681))
+		Datascript and Datomic: Data Modeling for Heroes - Mark Bastian - YouTube || ((96d81571-64a4-4420-be93-d5f312d60f2a))
 		20220930 
-		Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube <url:file:///~/prj/study/logbook/log_20220927.md#r=g13409>
+		Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube || ((6fc0de1c-0413-4807-ac5b-50d73849c9ce))
 		20220928 
-		Babashka Datalevin (datalog) example <url:file:///~/prj/study/clj/babashka_interpreter.md#r=g13410>
-		kristianmandrup/datascript-tutorial: Datascript and Datomic tutorial book <url:file:///~/projects/study/logbook/log_20220924.md#r=g13401>
+		Babashka Datalevin (datalog) example || ((665a9c3f-6e20-490f-a435-9470447ea6dc))
+		kristianmandrup/datascript-tutorial: Datascript and Datomic tutorial book || ((15f7f4c9-0201-4ed2-a69b-abd82a59e9dc))
 		20220924 
-		Val on Programming: DataScript as a Lingua Franca for domain modeling <url:file:///~/projects/study/logbook/log_20220921.md#r=g13389>
+		Val on Programming: DataScript as a Lingua Franca for domain modeling || ((8bf31b4c-d757-4e2e-833a-5b334b9b861f))
 		20220921 
-		Val on Programming: Datomic: Event Sourcing without the hassle <url:file:///~/projects/study/logbook/log_20220916.md#r=g13382>
+		Val on Programming: Datomic: Event Sourcing without the hassle || ((53bafcf9-bf70-43c7-8820-5ae0e8c93009))
 		20220919 
-		Referentially transparent CRUD <url:file:///~/prj/study/logbook/log_20220910.md#r=g13339>
+		Referentially transparent CRUD - Christian Johansen || ((40ca8c98-7901-4900-b1a3-3e719129c58c))
 		20220912 
-		Article: Datomic from the ground up - subhash <url:file:///~/prj/study/clj/articles-datomic.md#r=g12895>
-		Article: Hodur: Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube <url:file:///~/prj/study/clj/articles-datomic.md#r=g12893>
-		Article: Day of Datomic tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g12865>
-		Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc.md#r=g12871>
-		Article: rebel ile datomic kullanımı <url:file:///~/prj/study/clj/articles-datomic.md#r=g12873>
-		Article: Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog) <url:file:///~/prj/study/clj/articles-datomic.md#r=g12883>
-		Article: What Datomic brings to businesses | by Val Waeselynck | Medium <url:file:///~/prj/study/clj/articles-datomic.md#r=g12884>
-		Article: Val on Programming: Using Datomic in your app: a practical guide <url:file:///~/prj/study/clj/articles-datomic.md#r=g12886>
-		Article: Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions <url:file:///~/prj/study/clj/articles-datomic.md#r=g12885>
-		Article: Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious... <url:file:///~/prj/study/clj/articles-datomic.md#r=g12887>
+		Article: Datomic from the ground up - subhash || ((c180dee2-cacc-41b6-b32a-68bf4c899b1b)) 
+		Article: Hodur: Declarative Domain Modeling for Datomic Ion/Cloud - Tiago Luchini - YouTube || ((5ced0014-a68f-42c7-a283-7970f7dc5f6e)) 
+		Article: Day of Datomic tutorial || ((0d75c8fc-cf8f-42c7-8679-c79710b819f8)) 
+		Article: mbrainz tutorial || ((8953b710-fb40-4ff8-a81b-830ce55b1d31)) 
+		Article: rebl ile datomic kullanımı || ((8e388b06-d39c-44cc-aee4-4d6fc74e8cb4)) 
+		Article: Datomic: Look at all the things I'm not doing! (Cont.) (August Lilleaas' blog) || ((709b00ac-6d51-40f1-a23c-b7987c6618c6)) 
+		Article: What Datomic brings to businesses | by Val Waeselynck | Medium || ((ad58bad0-2f18-4c78-998f-800ae7a0c7b0)) 
+		Article: Val on Programming: Using Datomic in your app: a practical guide || ((b0c6aeff-d772-4741-b4ec-767c6471763d)) 
+		Article: Separation of Concerns in Datomic Query: Datalog Query and Pull Expressions || ((ee78c208-b0a7-43ad-83fc-f5bd6f110ddb)) 
+		Article: Datomic Cheat Sheet Series - Queries (Part 4) - Pull - Curious... || ((79c1f00a-eb82-4a3e-ba30-e0b2e3097499)) 
 reference functions
-	ref: datalog ref <url:file:///~/projects/study/logseq-study/pages/clojure-otl.md#r=g12868>
+	datalog ref || ((c9e45717-2bda-4a89-b9b0-ec8e3d829ae0)) 
 resources datomic id=g12880
+  id:: 23234769-fd4f-4bc4-ab3a-a4f4b48a28f6
 	[Introduction | Datomic](https://docs.datomic.com/on-prem/tutorial/introduction.html)
 	[Datomic Cloud Documentation](https://docs.datomic.com/)
 	[Datomic/mbrainz-sample: Example queries and rules for working with the Datomic mbrainz example database](https://github.com/Datomic/mbrainz-sample)
-		rfr: Article: mbrainz tutorial <url:file:///~/prj/study/clj/mbrainz-tutorial-rtc.md#r=g12871>
-	[markbastian/datascript-playground](https://github.com/markbastian/datascript-playground)
+		Article: mbrainz tutorial || ((8953b710-fb40-4ff8-a81b-830ce55b1d31)) 
+	; import mbrainz data || ((30835f00-d0d9-4700-8097-e917c1de133b)) 
 	[Datomic/day-of-datomic: Sample Code for Day of Datomic presentation](https://github.com/Datomic/day-of-datomic)
 	[Max Datom - Interactive Datomic Tutorial](https://max-datom.com/)
 	[Learn Datalog Today!](http://www.learndatalogtoday.org/)
 explorations xpl id=g12904
+  id:: 0e99a19c-ec24-4c7d-bce4-80a33f94afad
 	Datomic Veri Modeli id=g12905
+	  id:: 795b8089-5a56-450c-8d17-b70086dac669
 		Notation conventions: id=g12907
+		  id:: bc84439c-a53b-4936-8a48-540b2e640cfe
 			t, y: entity types
 			e_t1: entity 1 of type t
 			e_y1: entity 1 of type y
@@ -486,8 +506,8 @@ explorations xpl id=g12904
 			:dtr = :db.type/ref
 		örnek:
 			ref: 
-				qry05b: valueType = ref olan tüm atributları çıkartalım <url:file:///~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/metamodel/e01.clj#r=g12902>
-				qry03 mbrainz içindeki tüm ref tipindeki atributlar <url:file:///~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/mbrainz/e01.clj#r=g12903>
+				;; qry05b: valueType = ref olan tüm atributları çıkartalım || ((e21ffc37-917d-4249-b064-c4a3a993ccf1))
+				;; qry03 mbrainz içindeki tüm ref tipindeki atributlar || ((ad0b4b3d-64c0-43f1-a635-2d46e8e6752d))
 			{:dpd {:dia [ae1 ae2]}}
 			{ae1 {:dvt te1}}
 			{te1 {:did :dtr}}
@@ -514,6 +534,7 @@ explorations xpl id=g12904
 				(def led-zeppelin [:artist/gid #uuid "678d88b2-87b0-403b-b63d-5da7465aecc3"])
 				(d/pull db0 [:artist/name :artist/startYear] led-zeppelin)
 		Reverse Lookup id=g12908
+		  id:: 67bf8eec-7bd5-4bd6-ac9e-1b489d94659c
 			Örnek:
 				[?e :t/_k e_y1] ; => [e_t1]   | Reverse Lookup
 				[e_t1 :t/k ?e]  ; => [e_y1]   | Forward Lookup
@@ -525,8 +546,9 @@ explorations xpl id=g12904
 				Reverse Lookup: Bir e'ye ref veren tüm varlıklar
 				Forward Lookup: Bir e'nin ref verdiği tüm varlıklar
 logbook
-	Datomic Kod Okumalarından Notlar  <url:file:///~/prj/study/clj/datomic_kod_okumalarindan_notlar.md#r=g13532>
+	Datomic Kod Okumalarından Notlar  || ((fb4641e7-4412-4eec-95d6-f397216b36a6))
 	20221119 id=g13531
+	  id:: 506addf4-6ce9-40dd-a0e6-3fd7ded3e9ec
 		(d/transact)
 			(d/transact conn {:tx-data [[:db/add eid :inv/count 100]]})
 			[:db/add "datomic.tx" :db/doc "correct data entry"]
