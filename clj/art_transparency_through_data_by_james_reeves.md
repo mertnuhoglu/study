@@ -15,6 +15,8 @@ state: wip
 
 ---
 
+# art_transparency_through_data_by_james_reeves
+
 - # Transparency through data by James Reeves  id=g13747
   id:: a421ec34-2d23-4188-9624-6e5dd8331684
 
@@ -102,7 +104,7 @@ Solution: DSL
 - Ruby: dsl ~ obfuscated API
 - actual dsl = actual language with syntax & grammar
 
-Develop DSL that is delibarately less powerful. DSL that is constrained.
+Develop DSL that is deliberately less powerful. DSL that is constrained.
 
 ### DSL Example: literal map
 
@@ -250,12 +252,14 @@ Bu sayede grameri hem uyumlu yaparız, hem de kısayollar kullanabiliriz.
 
 Örnek: ataraxy: 
 
-| :kw | request methods       |
-| sym | path parameters       |
-| ""  | static path           |
-| #{} | query parameters      |
-| {}  | request destructuring |
-| []  | combination rules     |
+| symbol | description           |
+|--------|-----------------------|
+| :kw    | request methods       |
+| sym    | path parameters       |
+| ""     | static path           |
+| #{}    | query parameters      |
+| {}     | request destructuring |
+| []     | combination rules     |
 
 Rule 06: Use spec for complex grammars
 
@@ -263,7 +267,7 @@ Most people use specs for validation. It is a parser for data structures. atarax
 
 ## Question
 
-Eğer TC olmasına gerek varsa dilinin, API kullanırsın DSL yerine. Hem yazması daha kolay, hem de daha alışıldık.
+Eğer TC (turing complete) olmasına gerek varsa dilinin, API kullanırsın DSL yerine. Hem yazması daha kolay, hem de daha alışıldık.
 
 Çok karmaşık olan fakat TC olmayan diller de var. regex böyle. 
 

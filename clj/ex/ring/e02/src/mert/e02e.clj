@@ -8,7 +8,7 @@
   (def request
     {:status  200
      :headers {"Content-Type" "text/plain"}
-     :body    "Hello e02c updated2"} )
+     :body    "Hello e02c updated2"})
   (def handler identity)
   (handler request)
 

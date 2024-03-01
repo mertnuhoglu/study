@@ -15,6 +15,8 @@ state: wip
 
 ---
 
+# art_solving_problems_clojure_way_rafal_dittwald
+
 - # Article: Solving Problems the Clojure Way - Rafal Dittwald id=g13746
   id:: 3f026ca7-a8d9-465f-bb8e-abcb9ed27ea3
 
@@ -148,6 +150,4 @@ C. programming where data (not code) defines some of the control flow:
 Use data structures to describe the logic. Have other code that manipulates these data structures and do the things we want.
 
 Because data structures are purest thing. They don't even have a behaviour.
-
-
 

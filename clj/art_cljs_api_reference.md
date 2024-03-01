@@ -15,6 +15,8 @@ state: wip
 
 ---
 
+# art_cljs_api_reference
+
 [CLJS API](https://cljs.github.io/api/)
 
 	Syntax
@@ -55,7 +57,7 @@ state: wip
 		Conventions
 			? predicate
 			! impure
-			*earmuffs*
+			*earmuffs* -- dynamic vars
 			_ unused
 			whitespace
 			, comma

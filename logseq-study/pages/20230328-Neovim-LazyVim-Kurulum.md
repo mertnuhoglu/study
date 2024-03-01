@@ -16,7 +16,8 @@ Kendi ayarları: `/Users/mertnuhoglu/.local/share/nvim/lazy/LazyVim/lua/lazyvim/
 
 Default options: `~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/config/options.lua`
 
-Default keybindings: `~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/config/keymaps.lua`
+- Default keybindings: `~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/config/keymaps.lua`
+  id:: fde3a182-b38c-4da8-8eea-a34ec06c8d2e
 
 Default plugins: `~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua`
 

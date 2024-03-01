@@ -1,5 +1,8 @@
 
-# 20230326-vim-expand-directory-path-islemleri id=g14136
+- # 20230326-vim-expand-directory-path-islemleri #vim 
+  id:: 0b9b44e9-b3c7-4978-93ed-0ddce8859a16
+
+id=g14136
 
 ```lua
 local function directory_name() 
@@ -18,7 +21,7 @@ end
 
 Örnek:
 
-```vimscript
+```vim
 :echo expand("%:h:t")
 => pages
 :echo expand("%:h:t:t")

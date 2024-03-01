@@ -8,7 +8,7 @@ FIXME: write usage documentation!
 
 Invoke a library API function from the command-line:
 
-    $ clojure -X mert.datalog-02/foo :a 1 :b '"two"'
+    $ clojure -X dev_local.datalog-02/foo :a 1 :b '"two"'
     {:a 1, :b "two"} "Hello, World!"
 
 Run the project's tests (they'll fail until you edit them):
@@ -32,7 +32,7 @@ variables (requires the `ci` task be run first):
 
     $ clojure -T:build deploy
 
-Your library will be deployed to net.clojars.mert/datalog-02 on clojars.org by default.
+Your library will be deployed to net.clojars.dev_local/datalog-02 on clojars.org by default.
 
 ## License
 

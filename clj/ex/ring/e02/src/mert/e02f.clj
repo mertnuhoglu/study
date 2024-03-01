@@ -4,8 +4,8 @@
             [ring.middleware.content-type :refer [wrap-content-type]]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.resource :refer [wrap-resource]]
-            [ring.util.io :refer [string-input-stream]]
-            ))
+            [ring.util.io :refer [string-input-stream]]))
+            
 
 (comment
 

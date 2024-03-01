@@ -15,6 +15,8 @@ state: wip
 
 ---
 
+# art_clojure_language_brian_will
+
 [The Clojure Language - YouTube](https://www.youtube.com/playlist?list=PLAC43CFB134E85266)
 
 	fp: functional programming - brian will
@@ -262,7 +264,7 @@ state: wip
 				peek
 					(peek vec)
 					(peek lst)
-					returns the elmenet/key-value pair that would be removed by pop
+					returns the element/key-value pair that would be removed by pop
 		sequence
 			a sequence is an interface that supports two operations:
 				first
@@ -424,7 +426,7 @@ state: wip
 		4 kinds of mappings
 			symbol-to-var (interned)
 				(def bar 4)
-				bar -> var01 -> 4
+				bar -> var -> 4
 				sym -> var -> value
 			symbol-to-var (referred)
 				(clojure.core/refer 'foo)
@@ -484,6 +486,7 @@ state: wip
 		short for fct
 		#(print "hi")
 	#{set-vals}
+		.
 	#'var
 		#'x
 	^sym
@@ -494,7 +497,7 @@ state: wip
 		used to convey type information
 	^keyword
 		short for
-		^{kw true}
+		^{:kw true}
 		^:foo
 		=
 		^{:foo true}
@@ -574,7 +577,7 @@ state: wip
 			can add additional protocols to existing type/record
 	Reference types
 		reference type = mutable data structures
-		refs, atomms, agents, vars
+		refs, atoms, agents, vars
 		vars
 			objects mapped to syms and ns
 			purpose: hold top-level code objects in global vars

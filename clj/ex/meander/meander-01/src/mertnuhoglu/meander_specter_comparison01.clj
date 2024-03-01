@@ -15,10 +15,10 @@
   (->> data
     (map (fn [{:keys [id] :as m}]
            (let [v (some (fn [[k v]]
-                              (when (and (= (namespace k) "pick-me")
-                                         (some? v))
-                                {(-> k name keyword) v}))
-                          m)]
+                             (when (and (= (namespace k) "pick-me")
+                                        (some? v))
+                               {(-> k name keyword) v}))
+                         m)]
              [id v])))
     (into {})))
 
@@ -39,8 +39,8 @@
           [FIRST
            (if-path [NAMESPACE (pred= "pick-me")]
              [NAMESPACE (terminal-val nil)]
-             (terminal-val NONE))]
-          )]
+             (terminal-val NONE))])]
+          
        identity)]
     data))
 

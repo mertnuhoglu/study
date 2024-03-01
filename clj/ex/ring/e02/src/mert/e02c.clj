@@ -10,8 +10,8 @@
 (defn -main []
   (println "server started on port 3000")
   (run-jetty (wrap-reload #'handler) {:port 8080
-                                      :join? false})
-  )
+                                      :join? false}))
+  
 
 (comment
   (-main))

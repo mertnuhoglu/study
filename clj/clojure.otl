@@ -1,8 +1,7 @@
-
-clojure-otl
-rfr: yeni index: [[ndx-clj]]
-ref
-	~/projects/study/clj/refcard_clojure.otl
+[[clojure.otl]]
+prn: [[ndx/clj.otl]]
+rfr: yeni index: [[ndx/clj]]
+rfr: pprv: [[clojure-otl]]
 [[f/ndx]]
 	index || ((098687d3-3c60-417b-8c3b-1c7017c6dda8))
 		projects || ((5e9ff4e1-5cc1-43a1-ab1f-6c1e17065a1e))
@@ -40,7 +39,7 @@ index
 	  id:: 5e9ff4e1-5cc1-43a1-ab1f-6c1e17065a1e
 		ex06 ~/projects/study/clj/ex/study_clojure/ex06/deps.edn
 			~/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj
-		datalog-01 /Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
+		datalog-01 ~/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
 			~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01.clj
 		/Users/mertnuhoglu/projects/study/clj/ex/fulcro/fulcro.iml
 	rfc quickstart id=g12853
@@ -1018,45 +1017,6 @@ topics
 		datalog-01 /Users/mertnuhoglu/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
 		Referentially transparent CRUD - Christian Johansen || ((40ca8c98-7901-4900-b1a3-3e719129c58c)) 
 	concepts
-		record defrecord
-			defrecord || ((800a642e-9804-461d-b196-a480c6656f17)) 
-				ex
-					(defrecord Nadine [x y z] ; fields
-						Roger ; protocol implemented
-						(foo [this]
-					(def adam (new Nadine 3 "hi" false)) ; new special form
-					(foo adam 7 2) ; instance adam: adam.foo(7, 2)
-					(. adam x) ; adam.x field access
-					(get adam :x) ; adam.x as keyword
-				defprotocol = interface
-				defrecord = class
-				map fct returns a new record
-					(assoc adam :x 5) ; new Nadine record {:x 5 :y "hi" :z false}
-			create types || ((9b66271a-dfd0-4f75-89f0-e06ffd348a87)) 
-				deftype: for data structure
-				defrecord: for domain data
-			;; printing https://clojuredocs.org/clojure.core/pr id=g_11321 || ((cbe69a05-4d85-4b6b-a60e-1818b54f76ca)) 
-				(defrecord Book [title author])
-				(->Book "title01" "author01") ;; => #user.Book{:title "title01", :author "author01"}
-		global bindings
-			; global bindings: defn vs def || ((e3ea91e4-6757-4eeb-a217-a0f1e0851451)) 
-				(defn f [a] a)
-				(def g (fn [a] a))
-				(defn documented "This is documentation" [] (str ""))
-		quoting
-			(quote (1 2 3)) ;; (1 2 3)
-			(type 'quoted-symbols-are-not-evaluated) ;; => clojure.lang.Symbol
-			; quotes || ((37128a13-2be6-44a5-b7d9-8f587a09ebb3))
-				(quote (+ 1 2)) ;; => (+ 1 2)
-				'(+ 1 2) ;; => (+ 1 2)
-			; syntax-quoting  || ((090330d6-df66-42d3-8ced-7f312302146e))
-				`(+ 1 2) ;; => (clojure.core/+ 1 2)
-				`(+ 1 ~(inc 1)) ;; => (clojure.core/+ 1 2)
-				`(+ ~(list 1 2)) ;; => (clojure.core/+ (1 2))
-				`(+ ~@(list 1 2)) ;; => (clojure.core/+ 1 2)
-			Delaying evaluation with quoting || ((370456da-2f86-423c-9c1c-743da07afd44)) 
-				'x
-				'(1 2 3)
 		special forms
 			Special Forms || ((87214ec3-00fd-4df3-814f-ea04daf7865e))
 				unlike function calls, they don’t always evaluate all of their operands
@@ -1074,12 +1034,11 @@ topics
 					(defn fn1
 						([a b] (str a b))
 						([a] (fn1 a "karate")))
-		variable-arity
+		variable-arity variadic
 			Variable-arity || ((05da7039-5244-4871-97f9-149120335898))
 				(defn fn1
 					[name & things]
 					(str name (clojure.string/join ", " things)))
-		variadic
 			;; printing https://clojuredocs.org/clojure.core/pr id=g_11321 || ((cbe69a05-4d85-4b6b-a60e-1818b54f76ca)) 
 			(defn f [x & xs] (str x xs))
 			(f 1 2 3) ;; => "1(2 3)"
@@ -1176,38 +1135,19 @@ topics
 				(if-let [a 1] a 0) ;; => 1
 				(when true "10") ;; => "10"
 				(let [n 2] (case n 1 "a" 2 "b" "other")) ;; => "b"
+			loop id=g11309
+				loop || ((dd882295-6a5c-454a-ba01-3cb89cd2e7d5))
+					(loop [i 0]
+						(println (str i))
+						(if (> i 1)
+							(println "Goodbye!")
+							(recur (inc i))))
+					; => 0
+					; => 1
+					; => Goodbye!
 		let
 			let || ((6e33b436-f94c-4a5c-8cf0-ff575ad0ea34))
 				(let [[a & b] [1 2 3]] [a b]) ;; => [1 (2 3)]
-		loop id=g11309
-			loop || ((dd882295-6a5c-454a-ba01-3cb89cd2e7d5))
-				(loop [i 0]
-					(println (str i))
-					(if (> i 1)
-						(println "Goodbye!")
-						(recur (inc i))))
-				; => 0
-				; => 1
-				; => Goodbye!
-		java calls
-			invoking java code || ((2e7b9c18-7110-459c-84ea-004dea4ce826)) 
-				| Instantiation   | new Widget("foo") | (Widget. "foo")  |
-				| Instance method | rnd.nextInt()     | (.nextInt rnd)   |
-				| Instance field  | object.field      | (.-field object) |
-				| Static method   | Math.sqrt(25)     | (Math/sqrt 25)   |
-				| Static field    | Math.PI           | Math/PI          |
-			; java || ((fe99755d-5ac7-428c-a7e8-2a994c046486))
-				(new java.util.Date) ;; => #inst "2020-06-15T14:27:36.415-00:00"
-				(java.util.Date. "2016/2/19") ;; => #inst "2016-02-18T22:00:00.000-00:00"
-				(let [d (java.util.Date.)] (str d)) ;; => "Mon Jun 15 17:27:43 EEST 2020"
-				(Math/pow 2 3) ;; => 8.0
-				(let [d (java.util.Date.)] (.toString d)) ;; => "Mon Jun 15 17:27:47 EEST 2020"
-				(let [d (java.util.Date.)] (. d toString)) ;; => "Mon Jun 15 17:27:51 EEST 2020"
-			dot dot syntax || ((65d65e67-c3be-4f33-8cca-d35cb6c5076b)) 
-				(.. System (getProperties) (get "os.name"))
-				;; expands to:
-				(. (. System (getProperties)) (get "os.name"))
-				(-> (System/getProperties) (.get "os.name"))
 		recursions
 			; recursion || ((2aac3d3e-de4c-4133-a143-4747a345c4e5))
 			(defn length2 [result xs]
@@ -1295,6 +1235,64 @@ topics
 			, - Whitespace character
 			#= Reader eval
 			& rest parameters
+		record defrecord
+			defrecord || ((800a642e-9804-461d-b196-a480c6656f17)) 
+				ex
+					(defrecord Nadine [x y z] ; fields
+						Roger ; protocol implemented
+						(foo [this]
+					(def adam (new Nadine 3 "hi" false)) ; new special form
+					(foo adam 7 2) ; instance adam: adam.foo(7, 2)
+					(. adam x) ; adam.x field access
+					(get adam :x) ; adam.x as keyword
+				defprotocol = interface
+				defrecord = class
+				map fct returns a new record
+					(assoc adam :x 5) ; new Nadine record {:x 5 :y "hi" :z false}
+			create types || ((9b66271a-dfd0-4f75-89f0-e06ffd348a87)) 
+				deftype: for data structure
+				defrecord: for domain data
+			;; printing https://clojuredocs.org/clojure.core/pr id=g_11321 || ((cbe69a05-4d85-4b6b-a60e-1818b54f76ca)) 
+				(defrecord Book [title author])
+				(->Book "title01" "author01") ;; => #user.Book{:title "title01", :author "author01"}
+		global bindings
+			; global bindings: defn vs def || ((e3ea91e4-6757-4eeb-a217-a0f1e0851451)) 
+				(defn f [a] a)
+				(def g (fn [a] a))
+				(defn documented "This is documentation" [] (str ""))
+		quoting
+			(quote (1 2 3)) ;; (1 2 3)
+			(type 'quoted-symbols-are-not-evaluated) ;; => clojure.lang.Symbol
+			; quotes || ((37128a13-2be6-44a5-b7d9-8f587a09ebb3))
+				(quote (+ 1 2)) ;; => (+ 1 2)
+				'(+ 1 2) ;; => (+ 1 2)
+			; syntax-quoting  || ((090330d6-df66-42d3-8ced-7f312302146e))
+				`(+ 1 2) ;; => (clojure.core/+ 1 2)
+				`(+ 1 ~(inc 1)) ;; => (clojure.core/+ 1 2)
+				`(+ ~(list 1 2)) ;; => (clojure.core/+ (1 2))
+				`(+ ~@(list 1 2)) ;; => (clojure.core/+ 1 2)
+			Delaying evaluation with quoting || ((370456da-2f86-423c-9c1c-743da07afd44)) 
+				'x
+				'(1 2 3)
+		java calls
+			invoking java code || ((2e7b9c18-7110-459c-84ea-004dea4ce826)) 
+				| Instantiation   | new Widget("foo") | (Widget. "foo")  |
+				| Instance method | rnd.nextInt()     | (.nextInt rnd)   |
+				| Instance field  | object.field      | (.-field object) |
+				| Static method   | Math.sqrt(25)     | (Math/sqrt 25)   |
+				| Static field    | Math.PI           | Math/PI          |
+			; java || ((fe99755d-5ac7-428c-a7e8-2a994c046486))
+				(new java.util.Date) ;; => #inst "2020-06-15T14:27:36.415-00:00"
+				(java.util.Date. "2016/2/19") ;; => #inst "2016-02-18T22:00:00.000-00:00"
+				(let [d (java.util.Date.)] (str d)) ;; => "Mon Jun 15 17:27:43 EEST 2020"
+				(Math/pow 2 3) ;; => 8.0
+				(let [d (java.util.Date.)] (.toString d)) ;; => "Mon Jun 15 17:27:47 EEST 2020"
+				(let [d (java.util.Date.)] (. d toString)) ;; => "Mon Jun 15 17:27:51 EEST 2020"
+			dot dot syntax || ((65d65e67-c3be-4f33-8cca-d35cb6c5076b)) 
+				(.. System (getProperties) (get "os.name"))
+				;; expands to:
+				(. (. System (getProperties)) (get "os.name"))
+				(-> (System/getProperties) (.get "os.name"))
 	conventions
 		side-effect functions
 			side-effect funs return nil as result

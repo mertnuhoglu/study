@@ -60,7 +60,7 @@
 
   ((GET "/foo/:x" [x] (str x))
    (mock/request :get "/foo/bar"))
-,)
+ ,)
 
 (GET "/foo/:x" [x] (str x))
 ((GET "/foo/:x" [x] (str x))

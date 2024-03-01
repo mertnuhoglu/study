@@ -15,6 +15,7 @@ state: wip
 
 ---
 
+# art_logic_programming
 # Logic Programming - Episode 1 - Intro - YouTube
 
 [Logic Programming - Episode 1 - Intro - YouTube](https://www.youtube.com/watch?v=7CWEPRKOwgI)

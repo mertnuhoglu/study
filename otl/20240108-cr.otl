@@ -1,0 +1,2773 @@
+
+index rprg id=g12476
+	sample data <url:file:///~/projects/study/r/examples_r.Rmd#r=g11655>
+		tags: sample_data, table, dataframe
+	projects
+		bizqualify
+			/Users/mertnuhoglu/projects/bizqualify/BQ-data-run/datarun
+			/Users/mertnuhoglu/projects/bizqualify/SEC_Filings
+		btg
+			/Users/mertnuhoglu/dropbox_btg/TEUIS_PROJECT_05-ANALYSIS/working_library/requirements_database/scripts
+		itr
+			/Users/mertnuhoglu/projects/itr
+		packages
+			/Users/mertnuhoglu/projects/rutils
+			/Users/mertnuhoglu/projects/yuml2data
+		other
+			/Users/mertnuhoglu/projects/study/r
+			/Users/mertnuhoglu/projects/stuff
+			/Users/mertnuhoglu/projects/anki_english/scripts
+			/Users/mertnuhoglu/projects/dewey/secim_verileri
+			/Users/mertnuhoglu/projects/dewey/data_analysis_presentations
+			~/gdrive/shared/ozguremin_mert/egar
+	refcards
+		~/projects/study/r/rfc_convert_data.md
+		~/projects/study/r/examples_r.Rmd
+	cheatsheets and vignettes
+		vignette()
+		vignette(package = "dplyr")
+		[rstudio/cheatsheets: RStudio Cheat Sheets](https://github.com/rstudio/cheatsheets)
+		[A Grammar of Data Manipulation • dplyr](https://dplyr.tidyverse.org/)
+topics
+	r programming
+		http://daattali.com/shiny/timevis-demo/
+		http://www.rdocumentation.org/domains/ExperimentalDesign
+		https://briatte.github.io/ggnetwork/
+		http://lenkiefer.com/archive.html
+		http://istc-bigdata.org/index.php/modeldb-a-system-for-managing-machine-learning-models/
+		https://www.rforexcelusers.com/make-pivottable-in-r/
+		https://blog.exploratory.io/working-with-json-data-in-very-simple-way-ad7ebcc0bb89#.pq3age4hf
+		https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html
+		https://www.gitbook.com/book/towcenter/curious-journalist-s-guide-to-data/details
+		https://github.com/hadley/dplyr/blob/master/NEWS.md
+		https://blog.exploratory.io/filter-with-text-data-952df792c2ba#.jxz21ms7j
+		why sapply is bad
+			https://blog.rstudio.org/2016/01/06/purrr-0-2-0/
+			ex
+				df[1:4] %>% map_chr(class)
+				# error
+				df[1:4] %>% map_chr(~ paste(class(.), collapse = "/"))
+			ex2
+				x <- list(1, 3, 5)
+				y <- list(2, 4, 6)
+				map2(x, y, c)
+				#> [[1]]
+				#> [1] 1 2
+				#> 
+				#> [[2]]
+				#> [1] 3 4
+				#> 
+				#> [[3]]
+				#> [1] 5 6
+			ex3
+				map2_dbl(x, y, `+`)
+				#> [1]  3  7 11
+			ex4
+				spread <- list(sd = sd, iqr = IQR, mad = mad)
+				x <- rnorm(100)
+				invoke_map_dbl(spread, x = x)
+				#>        sd       iqr       mad 
+				#> 0.9121309 1.2515807 0.9774154
+			ex5: flatten
+				x <- list(1L, 2:3, 4L)
+				x %>% str()
+				#> List of 3
+				#>  $ : int 1
+				#>  $ : int [1:2] 2 3
+				#>  $ : int 4
+				x %>% flatten() %>% str()
+				#> List of 4
+				#>  $ : int 1
+				#>  $ : int 2
+				#>  $ : int 3
+				#>  $ : int 4
+				x %>% flatten_int() %>% str()
+				#>  int [1:4] 1 2 3 4
+		http://r4ds.had.co.nz/functions.html
+		http://sebastianbarfort.github.io/sds/syllabus/
+		http://www.rforexcelusers.com/book/data-frames/working-data-frame-rows/dplyr-sqldf/
+		https://blog.exploratory.io/
+		http://rmarkdown.rstudio.com/gallery.html
+cookbook
+	basics
+		assert_that
+			https://github.com/hadley/assertthat
+			install.packages('assertthat')
+				library('assertthat')
+			replacement for stopifnot
+				assert_that(is.character(x))
+				# Error: x is not a character vector
+			examples
+				assert_that( all_nonna(de$data_entity_id) )
+				assert_that( nrow(dd) == nrow(dd3) )
+				assert_that( none(n1 & n2) )
+				assert_that( (sum(n1) + sum(n2) + sum(n3)) == nrow(dd4) )
+				assert_that( setequal(dd$entity_name, de$entity_name) )
+				assert_that( nrow(dd2) == 0 )
+				assert_that( all_unique(df$data_field_id) )
+		compare
+			ref
+				~/projects/study/r/study_compare.Rmd
+			base R: 
+				identical
+				all.equal
+			kullanım örnekleri
+		console: 
+			run R from console
+			oneliner
+				R -e 'rmarkdown::render("data_generation.Rmd", "html_document")'
+			run script
+				R CMD BATCH file.R
+					# output to standard out
+				Rscript file.R
+					# output in a file: file.Rout
+			shebang
+				#!/usr/bin/env Rscript
+		control
+			if (cond) expr1 else expr2
+			for (var in seq) expr
+			while (cond) expr
+			ifelse(cond, yes, no)
+		convert string int numeric
+			as.numeric("3")
+		operators
+			[ [<- [[ $ [[<- $<-
+		option
+			> options(mert_test = "selam")
+			> getOption("mert_test")
+			[1] "selam"
+		list
+			[    # same class + multiple returns
+			[[    # any type + single element
+			$    # semantics similar to [[
+			ls[ [length(ls)+1] ] = elem # append item
+		base
+			vignette
+				browseVignettes("dplyr")
+				vignette("backend", package = "DBI")
+			match.arg
+				‘match.arg’ matches ‘arg’ against a table of candidate values as specified by ‘choices’, where ‘NULL’ means to take the first one.
+				code
+					my_repos <- function(type = c("all", "owner", "public", "private", "member")) {
+						type <- match.arg(type)
+		environment variables
+			> Sys.getenv("PATH")
+			[1] "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Library/TeX/texbin"
+			> Sys.setenv(mert_test = "selam")
+			> Sys.getenv("mert_test")
+			[1] "selam"
+		vector
+			x=c(1,2,4,8,16 )               #create a data vector with specified elements
+			y=c(1:10)                 #create a data vector with elements 1-10
+			vect=c(x,y)               #combine them into one vector of length 2n
+		Operator precedence
+			x = text[data_starts_at+1:length(text)]
+			-->
+			x = text[(data_starts_at+1):length(text)]
+		Loop
+			vector/list
+				for (e in mylist) {...}
+			data frame/table
+				for (i in 1:nrow(df)) {
+					df[i,]
+					dt[i]
+				# wrong: for (row in df/dt)
+		set operations
+			union(x, y)
+			intersect(x, y)
+			setdiff(x, y)
+			setequal(x, y)
+			is.element(el, set)
+	df2 df
+		names colnames setNames unname
+			colnames(df)
+			setNames( 1:3, c("foo", "bar", "baz") )
+				> setNames(data.frame(v1=c(1:10), v2=seq(1, 100, length=10)), c("X","Y"))
+				X   Y
+				1   1   1
+				2   2  12
+				df = import(path) %>%
+					setNames(c("IsYeri","IE_Lot_No","Stok_Kodu","Kalite_Kodu","Siparis","Str","L_Eni","L_Boy","IE_Tarihi","Terrmin_Tarihi","Miktar","sira"))
+			names(df) <- tolower(names(df)) 
+			unname(obj) # remove names
+		access row col 
+			df[i,]   # row i 
+			df[,j]   # column j
+			tail(df, 1)
+				Last row
+		columns
+			cols = names(df) %in% c("q3", "q4")
+			df = df[!cols] # remove
+			df = df[c(-8, -9)] # remove
+			dt[ , -6:-16 ] # by range
+			df[cols] # keep
+			df$cols = NULL # remove
+			df[ , c(2,1,3) ] # change column order
+		rows
+			remove rows
+				df[ -ids, ] # remove by index
+				df[ !dups, ] # remove by T/F
+				but if ids is integer() above methods won't work
+				opt1
+					df %>%
+						 filter(!row_number() %in% drop)
+				opt2 
+					df[!seq_len(nrow(df)) %in% drop, ]
+				opt3
+					df[ setdiff(1:nrow(df), drop), ]
+		rownames
+			rownames(f) <- c()
+		subset/query
+			df[ df$col == logical ]          
+		examples/use cases
+			find rows with all NA cells
+				d4 = data.frame( x = c(1, NA), y = c(NA, NA))
+				applyr = partial(apply, MARGIN = 1)
+				r4 = applyr(is.na(d4), all)
+				r4 == c(F,T)
+			remove rows with all NA values
+				df %>%
+					filter( !applyr(is.na(.), all) )
+			{ # loop over all columns of some df
+				df3 = data.frame( operation_id = df[['operation_id']] )
+				# opt1
+				for (i in seq_along(cols)) {
+					df3[[cols[i]]] = df[[cols[i]]]
+				}
+				# opt2
+				df4 = df[cols] 
+				# opt3
+				df6 = lapply(seq_along(cols), function(i) df[[cols[i]]] %>% as.numeric )
+				# opt4
+				df7 = lapply(cols, function(col) df[[col]] %>% as.numeric ) %>% 
+					setNames(cols) %>%
+					as.data.frame
+				}
+			apply for datframe is lapply
+				convert list of vectors to dataframe
+					df7 = lapply(cols, function(col) df[[col]] %>% as.numeric ) %>% 
+						setNames(cols) %>%
+						as.data.frame
+					map(df, ~ str_replace_all(.x, '\\n', '') ) %>%
+						as.data.frame
+			study_create_dataframe_with_columns_specified_in_list 
+				opt1
+					l = list( a = NA, b = NA )
+					df = as_data_frame(l)
+				opt2
+					l2 = setNames( replicate(2,NA, simplify = F), c('a', 'b'))
+					df = as_data_frame(l2)
+		access row col 
+			m[4, 2]
+			m[3, ] # row
+			m[ , 2] # col
+		growing cbind rbind
+			m = cbind(m1, m2) # column bind
+			rbind(df1, df2)
+		filter
+			iris %>% filter( column("Sepal.Length") < 5 )
+				var <- "Sepal.Length"
+				iris %>% filter( column(var) < 5 )
+		Equivalent of SQL CASE - mutate if
+			https://github.com/hadley/dplyr/issues/631
+			ex: if not smoker, then comsumption of cigarettes <- 0
+				#standard R way
+				smoke$cigarrettes[!smoke$is_smoker & is.na(smoke$cigarrettes)] <- 0
+				opt1: filter + rbind
+					#dplyr option 1: split the data set, fix one part and combine the two
+					smoker_true <- smoke %>% filter(!is_smoker, is.na(smoke$cigarettes))
+					# complement
+					smoker_false <- smoke %>% filter(is_smoker | !is.na(smoke$cigarettes))
+					smoke2 <- rbind( smoker_true %>% mutate(cigarrettes=0)
+												 , smoker_false
+					)
+				opt2: mutate if
+					# dplyr option 2: replace the whole variable and do the filtering in the assignment
+					smoke2 <- smoke %>%
+						mutate(cigarrettes=ifelse(!is_smoker & is.na(cigarrettes), 0, cigarrettes))
+				opt3: coalesce
+					mutate(smoke, cigarettes = if_else(is_smoker, cigarettes, 0L, 0L))
+				opt4: case_when
+					mtcars %>% tbl_df %>%  transmute(size = case_when(.$cyl > 6 ~ "big", TRUE ~ "small"))
+				opt5: if_else
+					mutate(smoke, cigarettes = if_else(is_smoker, cigarettes, 0L, 0L))
+		tibble2
+			ref: [Simple Data Frames • tibble](https://tibble.tidyverse.org/)
+			opt01: tablo gibi oluşturma: tribble
+				tribble(
+					~x, ~y,  ~z,
+					"a", 2,  3.6,
+					"b", 1,  8.5
+				)
+			opt02: df tarzı oluşturma: tibble
+				tibble(x = 1:5, y = 1, z = x ^ 2 + y)
+			opt03: convert
+				as_tibble(iris)
+			tibble::add_row
+				library(tibble)
+				df <- data_frame(x = 1:3, y = 3:1)
+				add_row(df, x = 4, y = 0)
+	dplyr2 dplyr
+		vignettes and tutorials
+			http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/
+			https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html
+		aliases for operators: extract [ extract2 [[
+			extract2 [[
+			check magrittr alias
+			?magrittr::extract2
+				‘extract’                 ‘`[`’
+				‘extract2’                ‘`[[`’
+				‘inset’                   ‘`[<-`’
+				‘inset2’                  ‘`[[<-`’
+				‘use_series’              ‘`$`’
+				‘add’                     ‘`+`’
+				‘subtract’                ‘`-`’
+				‘multiply_by’             ‘`*`’
+				‘raise_to_power’          ‘`^`’
+				‘multiply_by_matrix’      ‘`%*%`’
+				‘divide_by’               ‘`/`’
+				‘divide_by_int’           ‘`%/%`’
+				‘mod’                     ‘`%%`’
+				‘is_in’                   ‘`%in%`’
+				‘and’                     ‘`&`’
+				‘or’                      ‘`|`’
+				‘equals’                  ‘`==`’
+				‘is_greater_than’         ‘`>`’
+				‘is_weakly_greater_than’  ‘`>=`’
+				‘is_less_than’            ‘`<`’
+				‘is_weakly_less_than’     ‘`<=`’
+				‘not’ (‘`n'est pas`’)     ‘`!`’
+				‘set_colnames’            ‘`colnames<-`’
+				‘set_rownames’            ‘`rownames<-`’
+				‘set_names’               ‘`names<-`’
+			Examples:
+				iris %>%
+					 extract(, 1:4) %>%
+					 head
+		examples
+			http://stackoverflow.com/questions/31358953/in-r-subset-or-dplyrfilter-with-variable-from-vector
+			rbind: filter mutate select left_join(original)
+				fkd = r_data_field() %>%
+					select( 1:2, pk_fk ) %>%
+					filter( pk_fk == "FK" ) %>%
+					mutate( fk_data_entity_name = ...)
+					select( data_field_id, fk_data_entity_name )
+				dfl = r_data_field(with_invalid=T) %>%
+					select( -fk_data_entity_name ) %>%
+					left_join(fkd)
+				export(dfl, "data/updates/DataField_updated.tsv")
+			incremental row id
+				fte02 = import( "inbox/formasiya_tomi_emsallari.xlsx" ) %>%
+					remove_all_na_rows %>%
+					mutate( fte_id = 1:n() )
+			summarise_each( funs(last(.)) )
+				result = by_cik %>%
+					summarise_each( funs(last(.)) )
+			join by multiple columns
+				inner_join(xcr, by = c("filename", "contextRef"))
+			join by different columns
+				org3 = org %>%
+					left_join( org2, by = c("parent_id" = "organization_id") )
+		debugging dplyr
+			https://github.com/gaborcsardi/tamper
+			devtools::install_github("gaborcsardi/tamper")
+			options(error = tamper::tamper)
+			ex
+				1:10 %>%
+					multiply_by(10) %>%
+					add(10) %>%
+					add("oh no!") %>%
+					subtract(5) %>%
+					divide_by(5)
+		verbs
+			mutate mutate_if
+				add new columns with mutate()
+					mutate(flights, gain = arr_delay - dep_delay)
+				mutate if
+					mutate( type = ifelse(  f$type == f$field, NA, f$type ) )
+					opts
+						data.table
+							id = "field_id" 
+							flden = import("data/translation/field_en.xlsx") %>%
+								select( one_of("field_id"), ends_with("_en") ) %>%
+								as.data.table
+							setkey(flden, field_id)
+							flden2 = flden[!is.na(field_name_en)]
+							fld = read_rdb_field() %>%
+								as.data.table
+							setkey(fld, field_id)
+							assert_that(all( flden2$field_id %in% fld$field_id ) )
+							fld2 = fld
+							fld2[field_id %in% flden2$field_id]$field_name_en = flden2$field_name_en
+							assert_that( setequal( fld[[id]], fld2[[id]] ) )
+							export(fld2, "data/translation/field2.tsv")
+						dplyr
+							id = "field_id" 
+							flden = import("data/translation/field_en.xlsx") %>%
+								select( one_of("field_id"), ends_with("_en") )
+							fld = read_rdb_field()
+							fld2 = fld %>%
+								left_join( flden, by = id) %>%
+								mutate( field_name_en = ifelse( is.na(field_name_en.y), field_name_en.x, field_name_en.y )) %>%
+								select( -one_of("field_name_en.y", "field_name_en.x") )
+							assert_that( setequal( fld[[id]], fld2[[id]] ) )
+							export(fld2, "data/translation/field2.tsv")
+				mutate_if: Conditional replace in-place
+					@deprecated use case_when
+					ref: case_when      <url:file:///~/projects/study/otl/cr.otl#r=g12317>
+					mutate_if(df,a==3,x=100)
+					use
+						mutate( type = ifelse(  f$type == f$field, NA, f$type ) )
+			select rename
+				select(flights, year, month, day)
+				select(flights, year:day)
+				select(flights, -(year:day))
+				helper functions
+					starts_with()
+					ends_with
+					matches()
+					contains()
+					?select
+				rename variables using named arguments
+					select(flights, tail_num = tailnum) # others are dropped
+					rename(flights, tail_num = tailnum)
+					rename using string functions
+						iris %>% rename_(.dots=setNames(names(.), tolower(gsub("\\.", "_", names(.)))))
+				order columns
+					select(field_id, data_entity_id:variable_name)
+					remaining columns ordering
+						http://stackoverflow.com/questions/32040742/dplyrselect-including-all-other-columns-at-end-of-new-data-frame-or-beginni
+						all other (remaining) columns at end
+							col <- c("carrier", "tailnum", "year", "month", "day")
+							select(flights, one_of(col), everything()) 
+						all other at beginning
+							select(flights, -one_of(col), one_of(col))
+						all dataframe at end
+							bind_cols(select(flights, one_of(col)), flights)
+						all dataframe at beginning
+							bind_cols(flights, select(flights, one_of(col)))
+				Select/arrange columns with character variables
+					cols = c("mpg","cyl, hp:vs")
+					mtcars %.%
+						filter(gear == 3,cyl == 8) %.%
+						s_select(cols)
+					s_arrange(mtcars, c("gear", "-mpg"))
+					normal way:
+						select(mpg, cyl)
+			filter slice
+				select by position: slice
+					slice(flights, 1:10)
+				boolean operators explicit
+					filter(flights, month == 1 | day == 1)
+				filter(flights, month == 1, day == 1)
+				babynames %>%
+					filter(name %>% substr(1, 3) %>% equals("Ste")) %>%
+					group_by(year, sex) %>%
+					summarize(total = sum(n)) %>%
+					qplot(year, total, color = sex, data = ., geom = "line") %>%
+					add(ggtitle('Names starting with "Ste"')) %>%
+					print
+				filter vector
+					files = list.files( "data/" ) %>%
+						vgrepv( "\\.tsv$" )
+				slice     
+					row_number'a göre filtreleme yapar
+					slice(mtcars, 1L)
+					slice(mtcars, n())
+					slice(mtcars, 5:n())
+					by_cyl <- group_by(mtcars, cyl)
+					slice(by_cyl, 1:2)
+					# Equivalent code using filter that will also work with databases,
+					# but won't be as fast for in-memory data. For many databases, you'll
+					# need to supply an explicit variable to use to compute the row number.
+					filter(mtcars, row_number() == 1L)
+					filter(mtcars, row_number() == n())
+					filter(mtcars, between(row_number(), 5, n()))
+			arrange
+				arrange(flights, year, month, day)
+				descending order: desc()  
+					arrange(flights, desc(year))
+				more verbose
+					flights[order(flights$year, flights$month, flights$day), ]
+			summarise summarize aggregate
+				summarise(flight, delay = mean(dep_delay, na.rm = T))
+				expenses %>% group_by(month=lubridate::floor_date(date, "month")) %>% summarize(amount=sum(amount))
+				use summarise() with aggregate functions
+					that take a vector values, return a single number
+					base R: min, max, sum, mean,
+					dplyr: n, n_distinct(x), first(x), last(x), nth(x,n)
+				ex
+					destinations = group_by(flights, dest)
+					summarise(destinations, 
+						planes = n_distinct(tailnum),
+						flights = n()
+					)
+				when grouping by multiple variables, each summary peels off one level of grouping
+					daily = group_by(flights, year, month, day)
+					per_day = summarise(daily, flights = n())
+					per_month = summarise(per_day, flights = sum(flights))
+				how does summarise_each work?
+					> by_species <- iris %>% group_by(Species)
+					> by_species %>% summarise_each(funs(length))
+					Source: local data frame [3 x 5]
+							 Species Sepal.Length Sepal.Width Petal.Length Petal.Width
+					1     setosa           50          50           50          50
+					2 versicolor           50          50           50          50
+					3  virginica           50          50           50          50
+					funs(...) applied to each column separately
+						> by_species %>% summarise_each(funs(mean), matches("Width"))
+						Source: local data frame [3 x 3]
+								 Species Sepal.Width Petal.Width
+						1     setosa       3.428       0.246
+						2 versicolor       2.770       1.326
+						3  virginica       2.974       2.026
+						> by_species %>% summarise_each(funs(mean), Petal.Width)
+						Source: local data frame [3 x 2]
+								 Species Petal.Width
+						1     setosa       0.246
+						2 versicolor       1.326
+						3  virginica       2.026
+				ex: # <url:dropbox_btg/TEUIS PROJECT 05-ANALYSIS/working_library/requirements_database/scripts/prepare_rdb_field_operations.R#p108_rdb_gfield_aggregate_dfield>
+					# the result is not useful usually
+					fld2 = fld %>%
+						left_join(scr, by = "screen_id") %>%
+						left_join(dfl, by = "data_entity_id") 
+					fld3 = fld2 %>%
+						group_by(field_id) %>%
+						summarize(list(data_field_name))
+					{ # testing
+						head(fld3)[[2]]
+						paste(head(fld3)[[2]], collaps=",")
+						toString(unlist(fld3[1,][[2]]))
+						fld3[1:3,][[2]]
+					}
+					dfn = lapply( fld3[1:nrow(fld3),][[2]], toString ) %>% unlist
+					fld4 = data_frame(
+						field_id = fld3$field_id,
+						data_field_name_aggregated = dfn
+					)
+					fld5 = fld %>%
+						left_join(fld4, by = "field_id")
+			distinct: unique rows
+				distinct(select(flights, tailnum))
+				normalde sadece seçtiğin kolonları tutar
+					tüm kolonları tutması için:
+						.keep_all = T
+			join
+				join key: group_by keys
+					delays <- flights %>%
+						group_by(dest) %>%
+						summarise(arr_delay = mean(arr_delay, na.rm = TRUE), n = n()) %>%
+						arrange(desc(arr_delay)) %>%
+						inner_join(location)
+				multiple join keys
+					inner_join(xcr, by = c("filename", "contextRef")) 
+				join types
+					left_join
+					inner_join
+					anti_join
+						excluded in right
+						but not join
+					semi_join
+						intersection rows
+						but not join
+					right_join
+						reverse of left
+					outer_join
+						union
+				keys to join
+					default: all common columns
+					join by different columns
+						org3 = org %>%
+							left_join( org2, by = c("parent_id" = "organization_id") )
+					by: explicitly specify
+						inner_join(xcr, by = c("filename", "contextRef")) 
+						inner_join(mcf, by="filename") %>%
+						documentation says but doesn't work
+							by = c("a")
+							by = c("a" = "b")
+			mutate + transmute
+			sample_n + sample_frac
+		case_when      id=g12317
+			ref
+				mutate case_when instead of mutate_if <url:file:///~/projects/study/r/examples_r.Rmd#r=g12318>
+			ex1
+				x <- 1:50
+				case_when(
+					x %% 35 == 0 ~ "fizz buzz",
+					x %% 5 == 0 ~ "fizz",
+					x %% 7 == 0 ~ "buzz",
+					TRUE ~ as.character(x)
+				)
+		sample rows
+			sample_n(flights, 10)
+			sample_frac(flights, 0.01)
+				replace = T
+		grouped operations
+			group by day of date
+				ref: dplyr:: group by day of the date  <url:file:///~/projects/study/r/examples_r.Rmd#r=g12341>
+			arrayization: convert single valued cells into multiple valued cells
+				var = r_variable() %>%
+					group_by( test_id ) %>%
+					summarise( variable_id_list = paste( variable_id, collapse = "," ) ) 
+			unarrayization with unnest
+				ex2
+					http://bioinfoblog.it/2015/02/the-most-useful-r-command-unnest-from-tidyr/comment-page-1/
+					d1
+						k v
+						k1  v1,v2
+					->
+					d2
+						k v
+						k1  v1
+						k1  v2
+					opt1
+						d1 %>%
+							mutate( v = str_split(v, ",") ) %>%
+							unnest(v)
+					opt2
+						d1 %>%
+							unnest( v = str_split(v, ",") )
+				ex
+					denp1 = r_data_entity() %>%
+						select(data_entity_id, bps_id_list)
+					denp2 = r_data_entity() %>%
+						mutate(bps_id=str_split(bps_id_list, ",")) %>% 
+						unnest(bps_id) %>%
+						select(data_entity_id, bps_id)
+					#> denp1
+						 #data_entity_id                    bps_id_list
+					#1              86 1,2,3,5,6,7,8,9,10,11,12,13,14
+					#2              99                             11
+					#> denp2
+						 #data_entity_id bps_id
+					#1              86      1
+					#2              86      2
+					#3              86      3
+			group_by and concat strings by column
+				rvw2 = rvw %>%
+					left_join( vsc, by = "view_id" ) %>%
+					left_join( scw, by = "screen_id" ) %>%
+					group_by( view_id ) %>%
+					distinct( window_id ) %>%
+					summarise( window_id_list = paste( window_id, collapse = "," ) ) %>%
+					arrange( view_id )
+			filter first row from group_by
+				http://stackoverflow.com/questions/31528981/dplyr-select-first-and-last-row-from-grouped-data
+				opt1: row_number() == 1
+					df %>%
+						group_by(id) %>%
+						arrange(stopSequence) %>%
+						filter(row_number()==1 | row_number()==n())
+				opt2: slice(1)
+					df %>% arrange(stopSequence) %>% group_by(id) %>% slice(c(1,n()))
+			verbs affected by grouping as:
+				select() no change
+				arrange() orders first by grouping variables
+				mutate() and filter() most usefil with window functions (rank() or min(x) == x)
+					vignette("window-function")
+				sample_n() sample rows in each group
+				slice() extract rows within each group
+				summarise() explained below
+			example
+				planes = group_by(flights, tailnum)
+				delay = summarise(planes,
+					count = n(),
+					dist = mean(distance, na.rm = T),
+					delay = mean(arr_delay, na.rm = T))
+				delay = filter(delay, count > 20, dist < 2000)
+			grouping without summarising
+				flights %>%
+					group_by(Dest) %>%
+					select(Cancelled) %>%
+					table() %>%
+					head()
+		window functions
+			n inputs and n outputs
+			ex
+				filter(min_rank(desc(DepDelay)) <= 2) %>%
+				=
+				top_n(2) %>%
+			# for each month, calculate the number of flights and the change from the previous month
+				flights %>%
+					group_by(Month) %>%
+					summarise(flight_count = n()) %>%
+					mutate(change = flight_count - lag(flight_count))
+				# rewrite more simply with tally
+					tally() %>%
+					mutate(change = n - lag(n))
+			# row numbers of each element in each group
+				r2 %>%
+					group_by( from ) %>%
+					mutate( order2 = row_number(order) )
+				# from to order order2
+				#    a  b     1      1
+				#    a  c     1      2
+				#    b  d     2      1
+				r2 %>%
+					group_by( from ) %>%
+					mutate( order2 = row_number() )
+				# from to order order2
+				#    a  b     1      1
+				#    a  c     1      2
+				#    b  d     2      1
+			ranking 
+				functions
+					row_number
+					min_rank
+					dense_rank
+				difference:
+					how to solve ties
+				example
+					nums = c(1, 1, 2, 3)
+					> min_rank(nums)
+					[1] 1 1 3 4
+					> dense_rank(nums)
+					[1] 1 1 2 3
+					> row_number(nums)
+					[1] 1 2 3 4
+				how to handle ties
+					min_rank
+						normal ranking
+					dense_rank
+						doesn't skip the places
+					row_number
+						ignores ties
+		selecting columns
+			select by suffix/prefix
+				cols = c("op_id", "no")
+				opt1
+					cols[ends_with(cols, '_id')]
+				opt2
+					cols %>%
+						extract( ends_with(., '_id') )
+			opt1
+				cols = cols[ends_with(cols, '_id')] 
+				df4 = df[cols]
+			opt2
+				df5 = df %>%
+					extract( cols[ends_with(cols, '_id')] )
+		utilities
+			instead of str(): glimpse(flights)
+		databases - sql
+			connect to database
+				jdbc - most reliable
+					username = "btg_mis"
+					password = "..."
+					conStr =  "jdbc:oracle:thin:@52.73.23.191:1521:btgdev"
+					drv <- JDBC("oracle.jdbc.driver.OracleDriver",
+						"other/ojdbc6.jar",
+						identifier.quote="`")
+					conn = dbConnect(drv, conStr, username, password)
+				my_db = src_sqlite("my_db.sqlite3")
+			create new database
+				my_db <- src_sqlite("my_db.sqlite3", create = T)
+			read table
+				dbReadTibble = function(db, table_name) {
+					dbReadTable(db, table_name) %>%
+						as_tibble
+				}
+				act_evt_log = function(db) dbReadTibble(db, "ACT_EVT_LOG")
+			select query: dbGetQuery() or tbl()
+				load/read data: database to df
+				conn = get_db_aws()
+				df = dbGetQuery(conn, "SELECT * FROM T_TEST")
+				weather_db <- hflights_db %>% tbl("weather")
+			connect to
+			select queries with tbl()
+				tbl(my_db, "hflights")
+				tbl(my_db, sql("SELECT * FROM hflights LIMIT 100"))
+			convert dplyr to sql: explain()
+				show sql and show plan
+				flights_db %>% filter(n > 10) %>% explain()
+			insert/copy df to database: copy_to()
+				copy_to(hflights_db, as.data.frame(flights), name = "flights", 
+					indexes = list(c("date", "hour"), "plane", "dest", "arr"), temporary = FALSE)
+			work with data as if they are local data frames
+				flights_db %>% left_join(planes_db)
+				operations are lazy, until you see the data
+			get all data locally
+				hourly_local <- collect(hourly)
+		tally
+			planes %>% group_by(type) %>% tally()
+			simple count() by group
+		do()
+			if existing verbs don't work, use do()
+			similar to dlply()
+			slower
+			uses pronoun: . to refer to current group
+			ex
+				df: houseID, year, price
+				by_house = df %>% 
+					group_by(houseID) 
+				by_house %>% do(na.locf(.))
+					na.locf: last observation carried forward. replace na with last non-na value
+				by_house %>% do(head(., 2))
+				by_house %>% do(data.frame(year = .$year[1]))
+		learning sql
+			how indices work
+				sqlite.org/queryplanner.html
+			how select works
+				10 easy steps to a complete understanding of sql
+		bind_rows
+			do.call(rbind, x) # ==
+			bind_rows(x)
+		errors
+			# Error: `false` has type 'integer' not 'double'
+				sip3 %>%
+					mutate( bicak_sayisi = if_else( T, 1, as.integer(1) ))
+				if_else'in tüm çıktıları aynı type'ta olmalı. fakat integer ve numeric farklı tipler.
+				ex2
+					if_else: Error: `false` has type 'logical' not 'double'
+						if_else(TRUE, 1, NA)
+						#> Error: `false` has type 'logical' not 'double'
+						if_else(TRUE, 1, NA_real_)
+						#> [1] 1
+			error: index out of bounds
+				join key mevcut değil
+			Error: argument "x" is missing, with no default
+				4: lapply(result, . %>% "kombin"[[]]) %>% bind_rows() %>% mutate(kombin_id = row_number()) at optimize_trim_in_one_step.R#70
+				sebep: 
+					result = list()
+		row_number: add sequence of row number column
+			[r - Add an index (numeric ID) column to large data frame - Stack Overflow](https://stackoverflow.com/questions/23518605/add-an-index-numeric-id-column-to-large-data-frame/23518737)
+				df <- df %>% mutate(id = row_number())
+	apply/ldply/foreach list generations
+		cases for lapply, map
+			we need to loop over this function:
+				find_correct_tag = function(fn, revenue, xdca) {..}
+			opt1: make xdca global
+				ct = Map(find_correct_tag, vxtf$filename, vxtf$revenue) %>%
+					rbindlist
+			opt2: partial find_correct_tag
+				fun1 = partial(find_correct_tag, xdca = xdca)
+				ct = Map(fun1, vxtf$filename, vxtf$revenue) %>%
+					rbindlist
+			opt3: use seq_along in lapply
+				ct = lapply(seq_along(vxtf$filename), 
+					function(i, vxtf, xdca) 
+						find_correct_tag(vxtf[i]$filename, vxtf[i]$revenue, xdca)
+					, vxtf, xdca
+				) %>%
+					rbindlist
+		lapply over names
+			example_apply_with_names = function() {
+				ls = list( a = 3, b = 5 )
+				# opt1 
+				for (n in names(ls)) {
+					print(ls[[n]] + 1)
+				} 
+				# opt2 
+				lapply( seq_along(ls), function(i, ns, ls) {
+						ls[[ns[i]]] + 1
+					}, names(ls), ls)
+				# opt4
+				mapn(ls, function(elem, name) {
+						 print(elem + 1)
+						 print(name)
+					})
+			}
+		lapply datatable columns
+			lapply(data, function(x) sprintf(t, x))
+		for loop functionals: lapply/sapply/vapply/mapply
+			lapply for lists
+				for rows of data frames: use apply
+			lapply(l, f)
+				apply f to each element of list
+				return: list as l
+			aggregating l elements with f
+				lapply(l, f) %>% unlist # ==
+				sapply(l, f)
+				replicate(n, expr, simplify = "array")
+					wrapper for sapply
+				simplify
+					result simplifed to vector, matrix, array?
+				simplify = F, value: list
+			Map
+				lapply: one argument varies
+				Map: multiple args
+					Map(f, list1, list2)
+				mtmeans <- lapply(mtcars, mean) 
+				mtmeans[] <- Map(`/`, mtcars, mtmeans) # ==
+				mtcars[] <- lapply(mtcars, function(x) x / mean(x))
+			mapply
+				variant of Map
+				do.call vs. lapply
+					do.call(fun, args)
+						fun(args)
+					lapply(args, fun)
+						args passed to fun one by one
+						fun(args[[1]])
+					sprintf
+						do.call( 'sprintf', list( fmt = t, data[,1], data[,2] ) ) # works
+						arg = c( list(t), as.list(data) )
+						do.call( 'sprintf', arg ) # works
+						not works
+							do.call( 'sprintf', t, data )
+							do.call( 'sprintf', t, list(data[,1], data[,2]) )
+							sprintf( t, list(data[,1], data[,2]) )
+							do.call( 'sprintf', list( fmt = t, data ) )
+		lapply variants lapply2
+			lapply and bind_rows:
+				dlist %>% lapply(as_data_frame) %>% bind_rows()
+			ldfapply: list of dataframe
+				# v0: lapply
+				lapply( seq_along(ldf), function( i, ldf ) {
+						sheet = names(ldf)[i]
+						print(sheet)
+						text = unlist( ldf[i] )
+						writeLines( text, paste0( "../rdm/auto_dm_", sheet, ".md" ) )
+					}, ldf
+				)
+				# v1: ldfapply
+				ldfapply( ldf, function( df, n ) {
+					print(n)
+					text = unlist(df)
+					writeLines( text, paste0( "../rdm/auto_dm_", n, ".md" ) )
+				})
+	convert data: text yaml list df vector factor flatten
+		ref:
+			~/projects/study/r/rfc_convert_data.md
+		text -> yaml -> list -> dataframe
+			study_build_ddl_2_table = function() {
+				ddl = readLines("data/delete_sql/hibernate_ddl_create_table.sql")
+				out = ddl %>%
+					str_replace_all("create table", "") %>%
+					str_replace_all("number\\([^)]*\\)[^,]*", "") %>%
+					str_replace_all("varchar2?\\([^)]*\\)", "") %>%
+					str_replace_all("primary key *\\([^)]*\\)", "") %>%
+					str_replace_all(", *\\)$", "") %>%
+					str_replace_all(" *\\(", "\t") %>%
+					str_replace_all(" *, *", "\t") %>%
+					str_trim(side = "both")
+				writeLines(out, "data/delete_sql/ddl_out1.txt")
+				out2 = out %>%
+					str_replace_all("\t(\\w+)", "\n  - \\1") %>%
+					str_trim(side = "both") %>%
+					str_replace_all("^(\\w+)", "\\1:") %>%
+					str_trim(side = "both") 
+				writeLines(out2, "data/delete_sql/ddl_out2.yaml")
+				yml = yaml.load_file( "data/delete_sql/ddl_out2.yaml")
+				extract_columns = function(i, yml) {
+					table = yml[i] %>% names
+					data_frame( 
+						table_name = table,
+						column_name = yml[[table]] 
+					)
+				}
+				out3 = lapply( seq_along(yml), extract_columns, yml) %>%
+					bind_rows
+				writeLines(out3, "data/delete_sql/ddl_out3.tsv" )
+			}
+		convert list to dataframe / tree to flat
+			opt7: purr map_chr
+				repos = my_repos("owner", limit = 100)
+				toJSON(repos) %>%
+					writeLines( "data/repos.json" )
+				df = tibble(
+					name = repos %>% map_chr("name", .null = NA_character_),
+					full_name = repos %>% map_chr("full_name", .null = NA_character_)
+				)
+			opt6: str_split unnest group_by spread
+				str_split then convert to dataframe column  <url:#r=sr_0003>
+			opt5: using nest
+				mygenes
+					Entrez  symbols
+					7841    MOGS,CDG2B,CWH41,DER7,GCS1 
+				mygenes %>% 
+					mutate(symbols=strsplit(as.character(symbols), ",")) %>% 
+					unnest(symbols)
+							 Entrez symbols
+						1    7841    MOGS
+						2    7841   CDG2B
+						3    7841   CWH41 
+			opt1
+				https://gist.github.com/aammd/9ae2f5cce9afd799bafb
+				https://github.com/krlmlr/kimisc/blob/develop/R/list_to_df.R
+					unnamed.list <- replicate(10,rand_mat(),simplify = FALSE) 
+					named.list <- unnamed.list %>% set_names(LETTERS[1:10])
+					list_to_df <- function(listfordf){
+						if(!is.list(named.list)) stop("it should be a list")
+					df <- list(list.element = listfordf)
+					class(df) <- c("tbl_df", "data.frame")
+					attr(df, "row.names") <- .set_row_names(length(listfordf))
+					if (!is.null(names(listfordf))) {
+						df$name <- names(listfordf)
+					}
+					df
+				}
+				rand_mat <- function() {
+					Nrow <- sample(2:15,1)
+					Ncol <- sample(2:15,1)
+					rpois(Nrow*Ncol,20) %>%
+						matrix(nrow = Nrow,ncol = Ncol)
+				}
+				list_to_df(unnamed.list)
+			opt2
+				http://stackoverflow.com/questions/29265702/r-reorganize-list-into-dataframe-using-dplyr
+				l =list()
+				l[[1]] = list(member1=c(a=rnorm(1)),member2=matrix(rnorm(3),nrow=3,ncol=1 2016-06-12imnames=list(c(letters[2:4]),c("sample"))))
+				l[[2]] = list(member1=c(a=rnorm(1)),member2=matrix(rnorm(3),nrow=3,ncol=1 2016-06-12imnames=list(c(letters[2:4]),c("sample"))))
+				l[[3]] = list(member1=c(a=rnorm(1)),member2=matrix(rnorm(3),nrow=3,ncol=1 2016-06-12imnames=list(c(letters[2:4]),c("sample"))))
+				lapply(l, `[[`, 2) %>% 
+					data.frame %>% 
+					add_rownames("key") %>% 
+					gather(x, value, -key) %>% 
+					select(-x) 
+			opt3
+				obs1 <- list(x="a", value=123)
+				obs2 <- list(x="b", value=27)
+				obs3 <- list(x="c", value=99)
+				dlist <- list(obs1, obs2, obs3)
+				dlist
+				opt1: lapply
+					dlist %>% lapply(as_data_frame) %>% bind_rows()
+					df %>% lapply(as_data_frame) %>% bind_rows()
+				opt2: do.call
+					as.data.frame(do.call(rbind, dlist), stringsAsFactors = FALSE) 
+			opt4: manual lapply per each list
+				# study_convert_list_to_dataframe = function() { <url:file:///~/dropbox_btg/TEUIS PROJECT 05-ANALYSIS/working_library/requirements_database/scripts/verify_enums.R#r=g10023>
+		convert factor columns to character
+			http://stackoverflow.com/questions/2851015/convert-data-frame-columns-from-factors-to-characters
+			opt1: lapply df[]
+				df[] = lapply(df, as.character)
+			opt2: purr
+				bob %>% map_if(is.factor, as.character)
+		convert list of vectors to dataframe
+			df7 = lapply(cols, function(col) df[[col]] %>% as.numeric ) %>% 
+				setNames(cols) %>%
+				as.data.frame
+		split_by into list of df
+			lapply( ect$enum_category_id, function( ecid, evl ) {
+				filter( evl, enum_category_id == ecid )
+			}, evl )
+	Data Use Cases
+		distinct/unique values of vector
+			unique()
+		switch(ext,
+			txt=dir_filings_txt(),
+			xml=dir_filings_xbrl(),
+			zip=dir_filings_zip(),
+			xbrl=dir_filings_xbrl())
+		duplicates
+			duplicated rows in dplyr
+				# opt1: duplikasyonları ve orjinal kayıtları siler
+				dups8 = dd8 %>%
+					group_by( entity_name, data_field_name ) %>%
+					filter( n() > 1 )
+				# opt2: sadece duplikasyonları siler
+				dups8b = dd8 %>%
+					distinct( entity_name, data_field_name, .keep_all = T ) 
+				duplicated_rows = function(df, column) {
+					fld %>%
+						group_by_(column) %>%
+						filter( n() > 1 )
+				}
+				duplicated_rows(fld, "field_id")
+			duplicated(vec) # T, F, T
+			get both: duplicated and its reference
+				x = c(1,3,1)
+				duplicated(x) | duplicated(x, fromLast = T)
+			Remove duplicate rows 
+				dups = duplicated( dt$cik )
+				dt[!dups] 
+			filter and select duplicate values
+				v = filter_nonna(df, "enum_id")$enum_id
+				v[ duplicated(v) ]
+				===
+				duplicated_values = function(df, column) {
+					v = filter_nonna(df, column)[[column]]
+					v[ duplicated(v) ] %>% unique
+				}
+				duplicated_values(df, "enum_id")
+			all_unique = function(v) { duplicated(v) %>% sum == 0 }
+		which(logical) # 1, 3
+		is.na(d1)
+		rep(x, times)
+			ref: sequence rep length cut seq <url:file:///~/projects/study/otl/cr.otl#r=g12316>
+		unlist(x) # flatten
+		do.call('fun', iterable) # fun(iterable[1], iterable[2] ..)
+		Access last value
+			tail(vector, n=1)
+			data frame :
+				x[length(x[,1]),]
+				x[dim(x)[1],]
+				x[nrow(x),]
+		is.null check: is.blank() in utils.R
+		split df by filename
+			split(df, df$filename)
+		Queries/Subsetting
+			Assignment if true
+				df$agecat[age > 75] <- "Elder"
+			how many exists?
+				a = length( which(x$category == 'I.setosa') )
+			non na values from vector
+				d[!is.na(d)]
+			non na rows from df
+				filter_nonna = function(df, column) {
+					df[!is.na(df[[column]]), ]
+				}
+				filter_nonna(df, "enum_id")
+		Growing
+			build parts then join them
+				using for loop
+					rl = vector('list', n)
+					for(i in 1:n) {
+						rl[[i]] = data.table(..)
+					}
+					dt = do.call('rbind', rl)
+				dt = rbindlist(rl) # better
+					rbindlist bug
+						when columns order is different, rbindlist will produce nonsense 
+						use use.names=T
+		Serialization
+			saveRDS(women, "women.rds")
+			women2 <- readRDS("women.rds")
+			dput(mean, "foo") # write in ascii
+			bar <- dget("foo")
+			unlink("foo") # remove
+		Conversions
+			dataframe to datatable
+				den = read_excel2(path, 'DataEntity') %>% data.table
+			list to data frame/table
+				opt1
+					my.df <- do.call('rbind', my.list)
+					rbindlist(my.list)
+				opt2
+					as.data.frame(e)
+				opt3: differing sizes
+					test4 <- list('Row1'=letters[1:5], 'Row2'=letters[1:7], 'Row3'=letters[8:14])
+					as.data.table(test4)
+				http://www.r-bloggers.com/converting-a-list-to-a-data-frame/
+			dataframe to list conversion
+				# 2: transpose and as.list. elements are vectors
+					dl2 = df %>%
+						t %>%
+						as.data.frame %>%
+						as.list
+				# 3: unlist. elements are vectors
+					dl3 = df %>%
+						apply(1, list) %>%
+						unlist(recursive = F)
+			convert vector to list
+				as.list(c(1,2,3)
+			vector to list
+				kn <- c("1", "a", "b")
+				nl <- vector(mode="list", length=length(kn)-1)
+				names(nl) <- kn[-1]
+				ml <- lapply(nl, function(x) kn[1])
+				ml
+					$a
+					[1] "1"
+					$b
+					[1] "1"
+			build list from a vector and multiple valued vector
+				input
+					> tags
+					[[1]]
+					[1] "Revenues"                "SalesRevenueServicesNet"
+					[[2]]
+					[1] "Revenues"
+					> f
+					[1] "1000045-0001193125-14-237425" "1000180-0001000180-15-000013"
+				target
+					ft 
+					[[1]]
+					$filename "100045"
+					$tags list
+						[[1]] "Revenues" ...
+				using for loop
+					ft = vector("list", length(f))
+					for (i in seq_along(ft)) {
+						ft[[i]]$filename = f[i]
+						ft[[i]]$tags = tags[[i]]
+					}
+				using lapply
+					ft2 = lapply(seq_along(f), 
+						function(i, f, tags)
+							list(
+								filename = f[[i]],
+								tags = tags[[i]]
+							),
+						f, tags
+						)
+					identical(ft, ft2)
+		Generate Test Data
+			sample_with_replace = function(v, n = 100) sample(v, size = n, replace = T)
+			sample_datatable = function(dt, n = 100) dt[ sample(nrow(dt), size = n) ]
+			auction_data = data.frame(
+				Price = 1:100 %>% sample_with_replace)
+			s = auction_data %>% sample_datatable(5)
+		read header of csv only
+			con = file("data/flights4.csv")
+			open(con)
+			h4 = read.table(con, skip = 0, nrow = 1, sep = ",") %>% 
+				unlist %>% unname
+			close(con)
+		complete
+			It turns implicitly missing values into explicitly missing values.
+			df <- data_frame(
+				group = c(1:2, 1),
+				item_id = c(1:2, 2),
+				item_name = c("a", "b", "b"),
+				value1 = 1:3,
+				value2 = 4:6
+			)
+			df %>% complete(group, c(item_id, item_name))
+				group item_id item_name value1 value2
+				1       1         a      1      4
+				1       2         b      3      6
+				2       1         a     NA     NA
+				2       2         b      2      5
+			df
+				Source: local data frame [3 x 5]
+				group item_id item_name value1 value2
+				1       1         a      1      4
+				2       2         b      2      5
+				1       2         b      3      6
+	database
+		ref
+			<url:file:///~/projects/study/ds/study_db_with_r.Rmd>
+		RSQLite
+			install.packages("RSQLite")
+			library("RSQLite")
+		RPostgreSQL
+			install.packages("RPostgreSQL")
+			library("RPostgreSQL")
+			dbDriver
+			dbConnect
+				dbDisconnect
+			dbApply: apply function to each row
+			dbCallProc: call stored procedure
+			dbCommit
+				dbRollback
+			dbGetInfo
+				dbGetInfo(rs, what = "rowsAffected")
+				names(dbGetInfo)
+			ex
+				dbDriver
+				con = dbConnect(..)
+				df = dbGetQuery(con, ..)
+				rs = dbSendQuery(..)
+				df = fetch(rs, n = -1)
+			dbDataType.
+			dbListTables
+			dbReadTable
+				dbRemoveTable
+				dbWriteTable
+					append
+						If the ‘append’ argument is ‘TRUE’, the rows in an existing table
+						are preserved, and the new data are appended. If the table doesn't
+						exist yet, it is created.
+						Note: if append=F then it won't add any new lines even if the table is empty
+				dbExistsTable
+			rs = dbSendQuery
+				df = dbGetQuery
+		ROracle
+			install.packages("ROracle")
+			installing
+				tutorial
+					http://www.baldwhiteguy.co.nz/technical/index_files/mac-osx-oracle-instantclient.html
+				download:
+					instantclient-basic-macos.x64-11.2.0.4.0.zip
+					instantclient-sdk-macos.x64-11.2.0.4.0.zip
+					instantclient-sqlplus-macos.x64-11.2.0.4.0.zip
+					put into ~/tools/oracle/instantclient_11_2
+				setup
+					cd ~/tools/oracle/instantclient_11_2
+					ln -s libclntsh.dylib.11.1 libclntsh.dylib
+					export PATH=~/tools/oracle/instantclient_11_2:$PATH
+				https://docs.oracle.com/cd/E11882_01/install.112/e38228/inst_task.htm#BABHEBIG
+					export ORACLE=$HOME/tools/oracle/instantclient_11_2
+					export PATH=$ORACLE:$PATH
+					export DYLD_LIBRARY_PATH=$ORACLE
+					export NLS_LANG=$ORACLE
+					export OCI_LIB_DIR=$ORACLE
+					export OCI_INC_DIR=$ORACLE/sdk/include
+					sqlplus
+				install ROracle
+					http://dba.stackexchange.com/questions/66424/how-to-install-roracle-on-linux
+						R CMD INSTALL --configure-args='--with-oci-lib=/Users/mertnuhoglu/tools/oracle/instantclient_11_2 --with-oci-inc=/Users/mertnuhoglu/tools/oracle/instantclient_11_2/sdk/include' ROracle_1.2-2.tar.gz
+						
+			connection
+				ex
+					con <- DBI::dbConnect(RPostgreSQL::PostgreSQL()
+						, user = Sys.getenv("SUPER_USER")
+						, password = Sys.getenv("SUPER_USER_PASSWORD")
+						, dbname = "app"
+						, host = "localhost"
+						, port = "5432"
+					)
+					df = DBI::dbGetQuery(con, "SELECT * FROM data.client")
+					df
+				opt1
+					drv <- dbDriver("Oracle")
+					username = "system"
+					password = "..."
+					dbname = "52.73.23.191:1521/btgdev"
+					con <- dbConnect(drv, user = username, password = password, dbname = dbname)
+				opt2
+					drv <- dbDriver("Oracle")
+					username = "system"
+					password = "..."
+					host = "52.73.23.191"
+					port = "1521"
+					sid = "btgdev"
+					connect.string <- paste( 
+						"(DESCRIPTION=",
+						"(ADDRESS=(PROTOCOL=tcp)(HOST=", host, 
+						")(PORT=", port, "))", 
+						"(CONNECT_DATA=(SID=", sid, ")))", sep = "")
+		RJdbc
+			install.packages("RJDBC")
+		dbplyr
+			browseVignettes("dbplyr")
+			vignette("dbplyr")
+			install.packages("dbplyr")
+	date id=g10725
+		date <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10725>
+		why multiple date classes
+			as.Date: simplest. without times
+			chron: handles dates and times but not time zones
+			POSIXct, POSIXlt: dates and times with time zones
+			POSIXlt: stores a list of day, month, year ...
+			POSIXct: stores seconds since unix epoch
+			strptime: converts char to POSIXlt
+			as.POSIXlt: converts some to POSIXlt 
+				if char arg: expects ISO8601 standard format: "2017-12-30"
+			as.POSIXct: converts some to POSIXlt
+			use simplest possible
+		POSIX.ct ve POSIXlt
+			as.POSIXct("2015-01-01")
+			as.POSIXct(df02$validFrom, format = "%d.%m.%Y")
+		char to POSIX.ct
+			strptime("20160115", "%Y%m%d")
+		as.Date
+			as.Date('1915-6-16')
+			as.Date('20170517', format = "%Y%d%m")
+		format
+			format(Sys.time(), "%y%m%d%H%M")
+				[1] "1907291705"
+			format(Sys.time(), "%Y%m%d%H%M")
+				[1] "201907291706"
+			format(Sys.time(), "%Y%m%d_%H%M")
+				[1] "20190729_1706"
+			format(Sys.time(), "%Y%m%d_%H%M%S")
+				[1] "20190729_170652"
+		?strftime
+		?strptime
+			z <- strptime("20/2/06 11:16:16.683", "%d/%m/%y %H:%M:%OS")
+			strptime("20160115", "%Y%m%d")
+			# [1] "2016-01-15 AST"
+		extract year, mon out of date
+			as.numeric(format(date1, "%m"))
+		convert char to date
+			as.Date( '2012-05-12' )
+			as.Date('20140408',"%Y%m%d")
+		lubridate
+			month(date1)
+			year(date1)
+		current date
+			Sys.time()
+			Sys.Date()
+		convert string to time
+			t
+			# [1] "1505" "1825" "1156" "1925" "1055" "1850"
+			t %>%
+				strptime( format = "%H%M" ) %>%
+				strftime( "%H" )
+			# [1] "15" "18" "11" "19" "10" "18"
+			t %>%
+				strptime( format = "%H%M" ) 
+			# [1] "2015-09-15 15:05:00 EEST" "2015-09-15 18:25:00 EEST" "2015-09-15 11:56:00 EEST" 
+		sequence of dates
+			## first days of years
+			seq(as.Date("1910/1/1"), as.Date("1999/1/1"), "years")
+			seq(from = as.Date("1910/1/1"), to = as.Date("1999/1/1"), "day")
+			seq(from = as.Date("1910/1/1"), by = "day", length.out = 30)
+			seq(as.Date("2016-01-01"), as.Date("2016-01-05"), by=1)
+				# "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"
+		difference of time
+			ex
+				d1 = Sys.Date()
+				d2 = as.Date("2017-03-04")
+				difftime( d1, d2, units = "days")
+			ex
+				a = strptime("20160115", "%Y%m%d")
+				b = strptime("20160119", "%Y%m%d")
+				difftime(a, b, units = "days") 
+				# Time difference of -4 days
+				difftime(a, b, units = "days") %>% as.double
+				# -4
+			ex
+				mutate( gecikme_gun = 0 - as.double(difftime( strptime(termin_tarihi, "%Y%m%d"), strptime(kesim_tarihi, "%Y%m%d"), units = "days")) )
+			t0 = strptime("0000", format = "%H%M")
+			difftime(today(), t0)
+			difftime(now(), t0)
+			difftime(t2, t0)
+			note: give units = "hours" to difftime to make it reproducible
+		increment date by period
+			d1 = strptime("20170512", "%Y%m%d")
+			d2 = d1 + days(1)
+			format(d2, "%Y%m%d")
+		excel date as number to posixct date
+			opt1: 
+				readxl::read_excel(path = sevk_emri_file, col_types = c("text", "date", "text", "text", "text", "text", "text", "text", "text", "numeric", "text", "text", "text", "text"))
+			opt2:
+				as.POSIXct(sem$shipment_date * (60*60*24) , origin="1899-12-30" , tz="GMT")
+	debug
+		debug(fun); setBreakpoint('script.R#5')
+		debug(get_olasi_kombin);
+			bu durumda bu fonksiyonun ilk satırında breakpoint konulmuş olur
+		browser()
+		show sizes of objects
+			object.size(x)
+			format(object.size(x), units = "Mb")
+	file system
+		file name from path
+			basename("C:/some_dir/a")
+			> [1]  "a"
+			dirname("C:/some_dir/a")
+			>[1] "C:/some_dir"
+		dir.create(path = ... ) # mkdir
+			dir.create(path = ..., recursive = T) # mkdir -p
+		list.files(path = ".", pattern = NULL, all.files = FALSE,
+			full.names = FALSE, recursive = FALSE,
+			ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE) # ls
+		dir(path = ".", pattern = NULL, all.files = FALSE,
+			full.names = FALSE, recursive = FALSE,
+			ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE)
+		list.dirs(path = ".", full.names = TRUE, recursive = TRUE)
+		home directory
+			setwd("~")
+		join/concat paths
+			file.path(dir1, dir2)
+		file.copy(from, to)
+			copy directories
+				file.copy("data/verify", get_transaction_dir_v1(file_name), recursive = T)
+		file.create(..., showWarnings = TRUE)
+		file.exists(...)
+		file.remove(...)
+		file.rename(from, to)
+		file.append(file1, file2)
+		file.copy(from, to, overwrite = recursive, recursive = FALSE,
+							copy.mode = TRUE, copy.date = FALSE)
+		file.symlink(from, to)
+		file.link(from, to)
+		file extension
+			library("tools")
+			file_ext("test.txt")
+	fp: partial ... purrr
+		currying  
+			partial
+		purrr
+			install.packages("tidyverse")
+			reduce
+				ex
+					<url:file:///~/Dropbox/mynotes/content/mine/study_assign_kombin_termin.R>
+				ex1
+					# step4: full_join için for loop kullan
+					res = evls[[1]]
+					for ( i in 2:length(evls) ) {
+						res = res %>%
+							full_join( evls[[i]], by = "dependent_id" )
+					}
+					# step5: reduce ile yap
+					full_join_by_dependent_id = function( evl1, evl2 ) {
+						evl1 %>%
+							full_join( evl2, by = "dependent_id" )
+					}
+					evls %>% reduce( full_join_by_dependent_id )
+		generifying a function using functional programming
+			write_xbrl_data_x_hd = write_array_fun('xbrl_data_x_hd')
+			write_list_xbrl_data_x_hd = function(xbrl_data_list) {
+				for (i in seq_along(xbrl_data_list)) {
+					title = names(xbrl_data_list)[[i]]
+					write_xbrl_data_x_hd(xbrl_data_list[[i]], title)
+				}
+			}
+			->
+			write_list_fun = function(file) {
+				write_file_fun = write_array_fun(file)
+				function(df_l, arg, ...) {
+					for (i in seq_along(df_l)) {
+						title = names(df_l)[[i]]
+						write_file_fun(df_l[[i]], title)
+					}
+				}
+			}
+		problem: how to make a function testable
+			change its dependencies without changing its definition
+			download_company_idx_files(use_cache = use_cache)
+			solution 1: using partials
+				definition
+					.download_company_idx_files = function(year, quarter, use_cache = F ) {
+						file.names = path_array_company_0000_qtr0_zip(year, quarter)
+						for (i in 1:length(file.names)) {
+							file.name = file.names[i]
+							download.file(url, destfile=file.name, method="wget") #@ > company_0000-qtr0.zip
+						}
+					}
+					download_company_idx_files_real = partial(.download_company_idx_files, year = 2009:year(Sys.Date()), quarter = 1:4)
+					download_company_idx_files = download_company_idx_files_real 
+				test code
+					year = '2014'
+					quarter = '4'
+					download_company_idx_files_test = partial(.download_company_idx_files, year = year, quarter = quarter)
+					download_company_idx_files = download_company_idx_files_test
+			problem 2: we have lots of similar test functions. how to abstract commonalities?
+				example:
+					unzip_company_idx_files_test = partial(.unzip_company_idx_files, year = year, quarter = quarter)
+					unzip_company_idx_files = unzip_company_idx_files_test
+					convert_idx2csv_test = partial(.convert_idx2csv, year = year, quarter = quarter)
+			solution 2: using higher order function generator for partial
+				make_test_fun = function(fun) {
+					function(year, quarter) {
+						partial(fun, year = year, quarter = quarter)
+					}
+				}
+				download_company_idx_files_test = make_test_fun(.download_company_idx_files)
+				download_company_idx_files = download_company_idx_files_test(year, quarter)
+				unzip_company_idx_files_test = make_test_fun(.unzip_company_idx_files)
+				unzip_company_idx_files = unzip_company_idx_files_test(year, quarter)
+			solution 3: abstract one more step
+				make_test_fun = function(fun, year, quarter) {
+					partial(fun, year = year, quarter = quarter)
+				}
+				download_company_idx_files = make_test_fun(.download_company_idx_files, year, quarter)
+		three dots/ellipsis/...
+			arguments <- list(...)
+	GIS
+		sf2 sf id=g12298
+			sf: simple features
+				modern tidyverse uyumlu gis kütüphanesi
+				eskisi: sp: spatial
+				ref: ~/gdrive/shared/ozguremin_mert/egar/test11_sf01.R
+			convert to sf:
+				ref: ~/gdrive/shared/ozguremin_mert/egar/test07_sf.R
+					world_sp = as(world, "Spatial")
+					world_sf = st_as_sf(world_sp)
+				ref: ~/gdrive/shared/ozguremin_mert/egar/test13_convert_lnglat_to_sf.R
+					locations <- read_csv("~/codes/rr/intro-to-r/data/locations.csv")
+					locations_sf <- st_as_sf(locations, coords = c("lon", "lat"), crs = 4326)
+			sfc: sf geometry column
+				ref: sfc: list-column of type simple feature geometry <url:file:///~/gdrive/shared/ozguremin_mert/egar/test11_sf01.R#r=g12296>
+				nc_geom <- st_geometry(nc)
+			sfg: sf geometry object
+				ref: ~/gdrive/shared/ozguremin_mert/egar/test11_sf01.R
+					x <- st_point(c(1,2))
+					p <- rbind(c(3.2,4), c(3,4.6), c(3.8,4.4), c(3.5,3.8), c(3.4,3.6), c(3.9,4.5))
+					mp <- st_multipoint(p)
+				ref: ~/gdrive/shared/ozguremin_mert/egar/test14_sf_from_scratch.R
+					g = st_sfc(st_point(1:2))
+					st_sf(a=3,g)
+			wkt: well-known text
+				ref: ~/gdrive/shared/ozguremin_mert/egar/test11_sf01.R
+				x <- st_linestring(matrix(10:1,5))
+				st_as_text(x)
+					"LINESTRING (10 5, 9 4, 8 3, 7 2, 6 1)"
+				st_as_sfc("LINESTRING(10 5, 9 4, 8 3, 7 2, 6 1)")[[1]]
+			read/write shape files
+				ref: ~/gdrive/shared/ozguremin_mert/egar/test11_sf01.R
+				filename <- system.file("shape/nc.shp", package="sf")
+				nc <- st_read(filename)
+			view sf objects on map
+				ref: ~/gdrive/shared/ozguremin_mert/egar/test13_convert_lnglat_to_sf.R
+				mapview(locations_sf) # opt01
+				leaflet(locations_sf) %>% addProviderTiles("OpenStreetMap.Mapnik") %>% addCircles(weight = 20)
+		leaflet2 leaflet id=g12297
+			ref: Documentation: Leaflet for R <url:file:///~/projects/study/r/shiny/study_leaflet.Rmd#r=g12293>
+			shiny-leaflet
+				leaflet haritasını shiny içine koyma
+					ref: ~/projects/study/r/shiny/ex/study_leaflet/leaflet_shiny/e01.R
+					ui
+						leafletOutput("mymap", height = "700px"),
+					server
+						output$mymap <- renderLeaflet({
+							leaflet() %>%
+				Dashboard sidebar ve giriş ekranı
+					ref: ~/projects/study/r/shiny/ex/study_leaflet/ex02/01.R
+					ui:
+						dashboardBody(
+							leafletOutput("map")
+					server:
+						output$map <- renderLeaflet({
+				click eventleri
+					ref: Inputs/Events <url:file:///~/projects/study/r/shiny/study_leaflet.Rmd#r=g12294>
+					ref: ~/projects/study/r/shiny/ex/study_leaflet/ex02/02.R
+						ui:
+							map <- leaflet() %>% addCircleMarkers(
+								layerId = paste0("marker", 1:10), ...)
+						server:
+							observeEvent(input$map1_marker_click, {
+								leafletProxy("map1", session) %>%
+									removeMarker(input$map1_marker_click$id)
+					ref: ~/gdrive/shared/ozguremin_mert/egar/test15_click_in_leaflet01.R
+						observe({
+							click<-input$map_marker_click
+							if(is.null(click)) return()
+							map$showPopup( click$lat, click$lng, "text")
+							output$Click_text <- renderText({ text2 }) # debug
+				map objesini state içine koy, güncellemeler için:
+					ref: ~/projects/study/r/shiny/ex/study_leaflet/ex02/03.R
+					server:
+						state = reactiveValues( map = make_map())
+						output$map1 = renderLeaflet(state$map)
+			markers
+				text kullan pin marker içinde
+					ref: ~/projects/study/r/shiny/ex/study_leaflet/ex01/04.R
+					icon.fa <- makeAwesomeIcon(text = 1)
+				remove marker
+					ref: ~/projects/study/r/shiny/ex/study_leaflet/ex01/06.R
+					önce layerId ile oluştur, sonra onunla sil
+					leaflet() %>% addTiles() %>%
+						addMarkers( layerId = "2", lng = -118.556554, lat = 34.078039, label = "red" ) %>%
+						removeMarker( layerId = "2" )
+				sadece label'dan oluşan marker
+					ref: ~/gdrive/shared/ozguremin_mert/egar/test01_label.R
+					addLabelOnlyMarkers(data = centers,
+						lng = ~x, lat = ~y, label = ~region,
+						labelOptions = labelOptions(noHide = TRUE, direction = 'top', textOnly = TRUE)) %>%
+				marker olarak resim kullanmak
+					ref: ~/gdrive/shared/ozguremin_mert/egar/test06_icons.R
+					addMarkers(~long, ~lat, icon = leafIcons)
+					...
+					leafIcons <- icons(
+						iconUrl = ifelse(quakes1$mag < 4.6,
+														 "http://leafletjs.com/examples/custom-icons/leaf-green.png",
+														 "http://leafletjs.com/examples/custom-icons/leaf-red.png"
+			Türkiye illerinin poligon haritası
+				library(rgdal)
+				library(leaflet)
+				file =  "ne_50m_admin_0_countries.zip"
+				download.file(file.path('http://www.naturalearthdata.com/http/',
+						'www.naturalearthdata.com/download/50m/cultural',
+						'ne_50m_admin_0_countries.zip'), 
+						destfile = file)
+				unzip(file)
+				world <- readOGR(tempdir(), 'ne_50m_admin_0_countries', encoding='UTF-8')
+				leaflet() %>%
+					addTiles() %>%
+					addPolygons(data=subset(world, name %in% "Turkey"), weight=2)
+	IO csv fread readLines read.csv readr excel sheets rio
+		rio
+			install.packages("rio")
+			library("rio")
+			ev = import("data/enum_value.csv")
+			export(ev, "data/enum_value.tsv")
+			ev2 = import("data/enum_value.tsv")
+			all.equal(ev, ev2, check.attributes = F)
+			convert("data/enum_value.csv", "data/enum_value.tsv")
+			# Rscript -e "rio::convert('data/enum_value.csv', 'data/enum_value.tsv')"
+			Rscript -e "rio::convert('$FILE', '$FILE.xlsx')"
+		csv
+			dt = fread(file) 
+			read.csv(filename, header=T)   
+			write.csv(df, file)
+			read.csv(text = "..")
+				csv = 'id,size
+				1,100
+				2,150'
+				read.csv(text = csv)
+		fread arguments
+			skip
+				skip = "string"
+					search "string" start on that line
+				skip = 10
+					skip first 10 lines
+			select = cols # columns to keep
+			drop = cols # column names to drop
+			fread(url) # read url directly
+			fread(string) # read string directly
+		readLines writeLines - text
+			text = readLines( file )
+			writeLines(lines, "names_stats.txt")
+			readLines(con <- file("Unicode.txt", encoding = "UCS-2LE"))
+		read.csv args
+			na.strings = c("foo", "bar") # custom NA labels
+			header = T
+			sep = ","
+			read.csv(file, header = TRUE, sep = ",", quote = "\"",
+				dec = ".", fill = TRUE, comment.char = "", ...)
+			read.delim(file, header = TRUE, sep = "\t", quote = "\"",
+				dec = ".", fill = TRUE, comment.char = "", ...)
+			read.csv(paste0(raw_data_dir, file), stringsAsFactors = FALSE)
+		readr
+			delimited: read_delim(), read_csv(), read_tsv(), read_csv2().
+			fixed width: read_fwf(), read_table().
+			lines: read_lines().
+			whole file: read_file().
+			write_csv()
+			points - readr
+				read_csv sparse kolonlarda tipleri yanlış tanıyabiliyor id=g10656
+					read_csv sparse kolonlarda tipleri yanlış tanıyabiliyor <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10656>
+					bug:
+						ref: <url:/Users/mertnuhoglu/projects/bizqualify/BQ-data-run/datarun/debug_missing_data_20181027.md#tn=CONTEXT:  COPY all_data2, line 5958, column bq_cogs: "39879e3">
+						örneğin çok fazla NA olan satırları character olarak algılıyor. (bq_cogs)
+						halbuki bq_cogs numeric
+						bu yüzden 359e4 gibi bilimsel notasyonnda yazılmış numerik değerleri çeviremiyorum: options(scipen=999) ile
+						bu yüzden postgresql copy from csv hata veriyor
+				disable scientific notation in write_csv  id=g10657
+					scientific notationdan kurtulmak için  <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10657>
+					opt01: scipen
+						options(scipen = 999)
+					opt02: as.character
+				write_csv(na = ""): don't forget NA id=g10658
+					write_csv(na = ""): don't forget NA <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10658>
+		excel2 excel readxl
+			Excel: Farklı sayfalardaki tabloları birleştir <url:file:///~/projects/study/r/examples_r.Rmd#r=g12544>
+			Excel: Farklı sayfaları/sheets sıraya  dizelim <url:file:///~/projects/study/r/examples_r.Rmd#r=g12545>
+			readxl::read_excel("my-spreadsheet.xls", sheet = "data")
+			readxl::read_excel("egar_gis_db.xlsx", sheet = "bolgeler")
+			link içeren excel dosyaları
+				bir excel dosyası başka bir dosyaya link içerdiğinde, "update links" demek gerekiyor
+				aksi taktirde eski veriler okunur
+			list all sheets
+				sheet_names = readxl::excel_sheets(piid)
+		write excel
+			opt1: openxlsx: no external dependency
+				library(openxlsx)
+				write.xlsx( r, "temp3.xlsx" )
+				write.xlsx( r, "temp4.xlsx", asTable = T)
+				write.xlsx( r, "temp.xlsx", sheetName = "storyboard2", append = T )
+				write.xlsx( r, "temp.xlsx", sheetName = "storyboard3", append = T )
+				write.xlsx( r, "rdb_mockups.xlsx", sheetName = "storyboard3", append = T )
+			opt2: xlsx: uses java apache poi
+				library(xlsx)
+				write.xlsx(report, 'view_open_problems.xlsx', row.names = F)
+			opt3     
+				## Lists elements are written to individual worksheets, using list names as sheet names if available
+				l <- list("IRIS" = iris, "MTCATS" = mtcars, matrix(runif(1000), ncol = 5))
+				write.xlsx(l, "writeList1.xlsx")
+		read.table
+			read.table(file, header = FALSE, sep = "", quote = "\"'",
+				dec = ".", numerals = c("allow.loss", "warn.loss", "no.loss"),
+				row.names, col.names, as.is = !stringsAsFactors,
+				na.strings = "NA", colClasses = NA, nrows = -1,
+				skip = 0, check.names = TRUE, fill = !blank.lines.skip,
+				strip.white = FALSE, blank.lines.skip = TRUE,
+				comment.char = "#",
+				allowEscapes = FALSE, flush = FALSE,
+				stringsAsFactors = default.stringsAsFactors(),
+				fileEncoding = "", encoding = "unknown", text, skipNul = FALSE)
+		openxlsx
+			read.xlsx(xlsxFile, sheet = 1, startRow = 1, colNames = TRUE, 
+				rowNames = FALSE, detectDates = FALSE, skipEmptyRows = TRUE, 
+				rows = NULL, cols = NULL, check.names = FALSE, namedRegion = NULL)
+		google spreadsheets
+			https://github.com/tidyverse/googlesheets4
+			install
+				install.packages("devtools")
+				devtools::install_github("tidyverse/googlesheets4")
+			googlesheets
+				https://cran.r-project.org/web/packages/googlesheets/vignettes/basic-usage.html
+		convention: export(.., na = "")
+			always export, write csv files where na = ""
+			because java DataFrame doesn't read rows with "NA" when the columns are numeric
+	json jsonr yaml - rest id=sr_0004
+		json - rest <url:#r=sr_0004>
+		jsonlite
+			tercih
+			doğrudan df olarak döndürüyor
+		jsonlite örnek
+			jsonlite::toJSON(obj)
+			result = jsonlite::fromJSON("data/input/postman_20160719.json")
+			jsonlite::fromJSON("data/arcgis/aws.json", simplifyDataFrame = T)
+				df üretir, bazen
+		rjson
+			result = rjson::fromJSON(file="data/input/postman_20160719.json")
+		all.equal(mtcars, fromJSON(toJSON(mtcars)))
+		emdkj = jsonlite::fromJSON("data/arcgis/emdk.json")$services
+			direk df döndü
+		call rest api
+			https://cran.r-project.org/web/packages/jsonlite/vignettes/json-apis.html
+			hadley_orgs <- fromJSON("https://api.github.com/users/hadley/orgs")
+			response: 
+				json [{..}, {..}]
+				->
+				dataframe
+			ex
+				[
+					{
+						"login": "ggobi",
+						"id": 423638,
+						"url": "https://api.github.com/orgs/ggobi",
+						"repos_url": "https://api.github.com/orgs/ggobi/repos",
+						"events_url": "https://api.github.com/orgs/ggobi/events",
+						"hooks_url": "https://api.github.com/orgs/ggobi/hooks",
+						"issues_url": "https://api.github.com/orgs/ggobi/issues",
+						"members_url": "https://api.github.com/orgs/ggobi/members{/member}",
+						"public_members_url": "https://api.github.com/orgs/ggobi/public_members{/member}",
+						"avatar_url": "https://avatars2.githubusercontent.com/u/423638?v=3",
+						"description": ""
+					},
+				->
+				hadley_orgs %>% s
+				'data.frame'
+				 $ login             
+				 $ id                
+				 $ url               
+				 $ repos_url         
+				 $ events_url        
+				 $ hooks_url         
+				 $ issues_url        
+				 $ members_url       
+				 $ public_members_url
+				 $ avatar_url        
+				 $ description       
+		http://juliasilge.com/blog/Mapping-Utah-Caucus/
+			library(jsonlite)
+			utahRJSON <- fromJSON("http://data.cnn.com/ELECTION/2016primary/UT/county/S.json", flatten=TRUE)
+			cruz <- mutate(map_df(utahRJSON$counties$race.candidates, function(x) {
+					x %>% filter(lname == "Cruz")
+				}), FIPS=utahRJSON$counties$countycode)
+		yaml
+			library('yaml')
+			install.packages('yaml')
+			install_github("MangoTheCat/rematch")
+			yaml.load(aString)
+			yaml.load_file(apath)
+			as.yaml(obj)
+	magrittr pipe
+		basic
+			x %>% f === f(x)
+			x %>% f(y) === f(x,y)
+			x %>% f %>% g === g(f(x))
+		argument placeholder
+			x %>% f(y, .) === f(y,x)
+		reusing placeholder
+			x %>% f(y = nrow(.)) === f(x, y = nrow(x))
+			overrule this by enclosing in braces
+			x %>% {f(y = nrow(.))} === f(y = nrow(x))
+		unary function
+			f <- . %>% cos %>% sin # ==
+			f <- function(.) sin(cos(.)) 
+		create functions (or functional sequences)
+			mae <- . %>% abs %>% mean(na.rm = TRUE)
+			mae(rnorm(10))
+			#> [1] 0.5605
+			ex
+				n1 = lapply(filenames,
+					. %>% nchar )
+				n2 = filenames %>% 
+					lapply( . %>% nchar )
+				n3 = filenames %>% 
+					lapply(function(x) nchar(x))
+				n4 = filenames %>% 
+					lapply(., function(x) nchar(x))
+			rules:
+				if dot is used, then first arg is not passed automatically
+				if dot is used as lambda, then first arg is still passed
+			exception
+				works
+					lapply(x, . %>% {ifelse(is.blank(.),NA,.)} )
+				fails
+					lapply(x, . %>% ifelse(is.blank(.),NA,.) )
+				lesson:
+					if using dot as inner arg, then first arg is automatically passed
+			ex2: remove na records
+				# opt1: works
+				df = data.frame( id = c(1, 2, NA) )
+				r1 = dplyr::filter( df, !is.na(df$id) )
+				# opt2: doesn't work
+				r2 = df %>%
+					filter( !is.na(.$id) )
+				# opt3: works
+				r3 = df %>>%
+					(dplyr::filter(., !is.na(.$id) ))
+			ex3: mutate some columns
+				# opt1: works
+				df = data.frame( id = c(1, 2, NA) )
+				as.character(df$id)
+				# opt2: works
+				r2 = df %>%
+					mutate( id = as.character(id) )
+		alias 
+			equals add multiply_by
+			extract [
+				ecd %>% extract("independent_id")
+			extract2 [[
+			use_series $
+				ecd %>% use_series("independent_id")
+			‘extract’                 ‘`[`’
+			‘extract2’                ‘`[[`’
+			‘inset’                   ‘`[<-`’
+			‘inset2’                  ‘`[[<-`’
+			‘use_series’              ‘`$`’
+			‘add’                     ‘`+`’
+			‘subtract’                ‘`-`’
+			‘multiply_by’             ‘`*`’
+			‘raise_to_power’          ‘`^`’
+			‘multiply_by_matrix’      ‘`%*%`’
+			‘divide_by’               ‘`/`’
+			‘divide_by_int’           ‘`%/%`’
+			‘mod’                     ‘`%%`’
+			‘is_in’                   ‘`%in%`’
+			‘and’                     ‘`&`’
+			‘or’                      ‘`|`’
+			‘equals’                  ‘`==`’
+			‘is_greater_than’         ‘`>`’
+			‘is_weakly_greater_than’  ‘`>=`’
+			‘is_less_than’            ‘`<`’
+			‘is_weakly_less_than’     ‘`<=`’
+			‘not’ (‘`n'est pas`’)     ‘`!`’
+			‘set_colnames’            ‘`colnames<-`’
+			‘set_rownames’            ‘`rownames<-`’
+			‘set_names’               ‘`names<-`’
+		map function
+			equvalent:
+				lapply( rownames %>% {. %>% partial( path_array_exchange_listing_x, . )})
+				rownames %>% { partial( path_array_exchange_listing_x, . ) }
+				rownames %>% partialm(path_array_exchange_listing_x)
+		argument placeholder
+			x %>% f(y, .) === f(y,x)
+		stepwise string-cleaning
+			files %<>%
+				basename %>%
+				str_replace("...", "") %>%
+				str_replace("...", "")
+		paste
+			"this" %>% paste("is not") %>% paste("a pipe")
+		https://twitter.com/isthatsol/status/557981863432564739
+			foo_foo %>%
+				hop_through(forest) %>%
+				scoop_up(field_mouse) %>%
+				bop_on(head)
+		assign and str
+			x = x %T>% str
+		using operations instead of aliases
+			x %>% .[3] %>% `+`(3)
+			setnames
+				`names<-`
+				`colnames<-`
+				`rename
+		tee: return lhs
+			matrix(ncol = 2) %T>%
+				plot %>%
+				colSums
+		exposition of variables
+			iris %$% cor(Sepal.Length, Sepal.Width)
+		define function on fly
+			long_vector %>%
+			lapply(
+				. %>%
+				one_action %>%
+				two_action
+			)
+		lambdas (unary function)
+			iris %>% 
+				{
+					n = sample(1:10, size = 1)
+					H = head(., n)
+					T = tail(., n)
+					rbind(H, T)
+				} %>%
+		examples
+			x[!is.na(x)] # equivalent in pipe where x is any vector.
+				x %>% '['(is.na(.) %>% '!')
+		pipe examples
+			make_na
+					filename %>% root_xbrl %>>% (x ~ NA),
+					filename %>% root_xbrl %>>% function(x) NA,
+			detect filename that causes error
+				filenames %>% l_ply(. %T>% print %>% root_xbrl2, .progress = "text")
+	platform: install update system options time profiling
+		library install.packages update upgrade install_github
+			library("devtools")
+			library(updateR)
+			install.packages("devtools")
+			install_github("repo/username")
+			devtools::install_github("AndreaCirilloAC/updateR")
+			updateR(admin_password = '<pass>') 
+		update all packages from CRAN
+			update.packages(checkBuilt=TRUE, ask=FALSE)
+		Performance
+			measure time
+				system.time(for(i in 1:100) mad(runif(1000)))
+			profiling
+				Rprof('file')
+				# code
+				Rprof(NULL)
+				summaryRprof('file')
+		System
+			system(cmd)
+			system(cmd, intern=T)
+				capture output of command 
+			system2("echo", "hello")
+			output = system2(main_yuml_to_uml.sh, data_model_dir, stdout=TRUE)
+				capture output of command 
+			calling R from shell
+				bash
+					Rscript RscriptEcho.R study_rscript1.R test 10
+				study_rscript1.R
+					#! /usr/bin/Rscript --vanilla --default-packages=utils
+					args <- commandArgs(TRUE)
+					print(args)
+			taking argument in R scripts
+				args <- commandArgs(trailingOnly = TRUE)
+				print(args)
+		initial/startup/default session settings
+			~/.Rprofile
+		options/settings
+			options(max.width=100)
+			GetOption("max.width")
+			options(max.print=100)
+			options(max.print=6)
+		packages2: usethis
+			ref
+				packages2: packagesr packager <url:file:///~/projects/study/otl/cr_archived.otl#r=g12292>
+			usethis
+				https://www.tidyverse.org/articles/2017/11/usethis-1.0.0/
+				install.packages("usethis")
+				library(usethis)
+				Create a new package -------------------------------------------------
+					tmp <- file.path(tempdir(), "mypkg")
+					create_package(tmp)
+					#> Changing active project to mypkg
+					#> ✔ Creating 'R/'
+					#> ✔ Creating 'man/'
+					#> ✔ Writing 'DESCRIPTION'
+					#> ✔ Writing 'NAMESPACE'
+				create/edit a script file in R/:
+					use_r("foo")
+					#> ● Edit 'R/foo.R'
+				unit testing
+					use_test("foo")
+					#> ✔ Adding 'testthat' to Suggests field in DESCRIPTION
+					#> ✔ Creating 'tests/testthat/'
+					#> ✔ Writing 'tests/testthat.R'
+					#> ✔ Writing 'tests/testthat/test-foo.R'
+					#> ● Edit 'tests/testthat/test-foo.R'
+				dependency/library
+					use_package("ggplot2")
+					#> ✔ Adding 'ggplot2' to Imports field in DESCRIPTION
+					#> ● Refer to functions with `ggplot2::fun()`
+					opt
+						use_dev_package()
+				use_roxygen_md() 
+					sets up roxygen2 and enables markdown mode 
+				use_package_doc() 
+					creates a skeleton documentation file for the complete package
+				use_readme_rmd() 
+					creates a README.Rmd
+				use_news_md() 
+					creates a basic NEWS.md 
+				use_vignette("vignette-name") 
+					sets you up for success by configuring DESCRIPTION and creating a .Rmd template in vignettes/
+				licenses
+					use_mit_license("Mert Nuhoglu")
+					use_apl2_license()
+					use_gpl3_license()
+					use_cc0_license()
+				init git
+					use_git()
+					#> ✔ Initialising Git repo
+					#> ✔ Adding '.Rhistory', '.RData', '.Rproj.user' to './.gitignore'
+					#> ✔ Adding files and committing
+				publish to github
+					use_github()
+				browsing config files
+					R
+						edit_r_profile()
+						edit_r_environ()
+						edit_r_makevars()
+					git
+						edit_git_config()
+						edit_git_ignore()
+	rep vs replicate 
+		ref:
+			sequence rep length cut seq <url:file:///~/projects/study/otl/cr.otl#r=g12316>
+		a2 = data_frame( id = 5:7 )
+		a3 = a2 %>%
+			slice( rep(1:n(), each = 2)) %>%
+			mutate( col = rep(1:2, each = 3) )
+		#      id   col
+		#   <int> <int>
+		# 1     5     1
+		# 2     5     1
+		# 3     6     1
+		# 4     6     2
+		# 5     7     2
+		# 6     7     2
+		replicate(3, 1:2, simplify=F) %>% unlist
+		# [1] 1 2 1 2 1 2
+		a4 = a2 %>%
+			slice( rep(1:n(), each = 2)) %>%
+			mutate( col = unlist(replicate(3, 1:2, simplify = F)) )
+		#      id   col
+		#   <int> <int>
+		# 1     5     1
+		# 2     5     2
+		# 3     6     1
+		# 4     6     2
+		# 5     7     1
+		# 6     7     2
+		elems = 1:2
+		a5 = a2 %>%
+			slice( rep(1:n(), each = length(elems))) %>%
+			mutate( col = unlist(replicate(n()/length(elems), elems, simplify = F)) )
+		a6 = a2 %>%
+			mutate_looping(elems, "col")
+	reproducible: reprex datapasta
+		reprex: reproducible example codes
+			install.packages("reprex")
+			http://reprex.tidyverse.org
+			library(reprex)
+			opt1: copy some code into clipboard
+				reprex()
+				ex:
+					(y <- 1:4)
+					mean(y)
+				out:
+					``` r
+					(y <- 1:4)
+					#> [1] 1 2 3 4
+					mean(y)
+					#> [1] 2.5
+					```
+			opt2: from expression
+				reprex(mean(rnorm(10)))
+			opt3: from character vector
+				reprex(input = "mean(rnorm(10))\n")
+				reprex(input = "> mean(rnorm(10))\n")
+			opt4: from file
+				reprex(input = "my_reprex.R") 
+			opt5: RStudio addin text
+			for stackoverflow
+				reprex(..., venue = "so")
+			for runnable R script
+				reprex(..., venue = "R")
+		datapasta
+			https://github.com/MilesMcBain/datapasta
+			ref
+				<url:file:///~/projects/study/r/refcard_datapasta.Rmd>
+			install.packages("datapasta")
+			copy paste table/vector data
+			ex: terminal
+				library(magrittr); library(datapasta)
+				mtcars %>% head() %>% dpasta()
+				#> data.frame(
+				#>          mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1),
+				#>          cyl = c(6, 6, 4, 6, 8, 6),
+				#>         disp = c(160, 160, 108, 258, 360, 225),
+				#> )
+			ex: copy table from excel
+				df_paste()
+			functions
+				dpasta()
+				dmdclip()
+					for md. preceded by 4 spaces
+				tribble_paste()
+				vector_paste()
+				vector_paste_vertical()
+	rmarkdown
+		install.packages("rmarkdown")
+		library("rmarkdown")
+		run
+		rmarkdown::render("input.Rmd")
+		render("input.Rmd", "pdf_document")
+		Presenter Mode
+		add this to the end of the url while starting
+			?presentme=true
+			/Users/mertnuhoglu/projects/dewey/data_analysis_presentations/istanbulcoders/input.html?presentme=true
+		adding to slides
+			<div class="notes">
+			this is notes
+			</div>
+	Rstudio
+		custom shortcuts
+			#F12  go to file/function
+			#B    go to function definition
+			^O    navigate back
+		View() Rstudio
+			planes %>% filter(no.seats < 10) %>% View()
+	sequence rep length cut seq id=g12316
+		rep(x, ntimes)
+			rep(c(0, 5), times=c(3, 2)) # 0 0 0 5 5 
+			rep(c(0, 5), c(3, 2)) # 0 0 0 5 5 
+			rep(c(0, 5), each=4) # 0 0 0 0 5 5 5 5
+		gl(n, k, length = n*k, labels = seq_len(n), ordered = FALSE)
+			gl(2, 1, 6) ##> [1] 1 2 1 2 1 2
+			gl(3, 2, 6) ##> [1] 1 1 2 2 3 3
+		length(x)
+		seq(from, to, by)
+		cut(x, n)
+		sample(x, size, replace = F)
+		replicate(n, expr)
+			replicate(5, sample(1:10, 15, replace = T), simplify = F)
+				list of 5 vectors with 15 numbers
+			simplify=T # dataframe of 15 rows 5 columns
+			unlist(..) # 75 numbers
+	shiny2 shiny id=g12300
+		install.packages("shiny")
+		ref
+			~/projects/study/r/shiny/shiny_reactivity.md
+			~/projects/study/r/shiny/study_shiny.Rmd
+		shiny examples
+			ref: ~/projects/study/r/shiny/ref_shiny_examples.txt
+			https://github.com/rstudio/shiny-examples
+			https://shiny.rstudio.com/gallery/#demos
+		örnek projelerim
+			~/gdrive/shared/ozguremin_mert/egar/egar07.R
+			~/projects/itr/peyman/pmap/R/route_navigator.R
+			~/projects/itr/vrp/vrprapi/app/server.R
+			~/projects/itr/palet/dentas_palet/app/server.R
+			~/projects/itr/peyman/pmap/doc/study/ex/leaflet_rota_cizimi_20190530/ex33d03.R
+			~/projects/study/r/shiny/ex/study_shiny/ex03/01.R
+		run
+			runApp("shinyScript.R")
+			runApp(shinyApp(ui, server), host="0.0.0.0",port=5050)
+				host parametresi verirsen tüm her yerden bağlanabilirsin. 
+				ref: ~/projects/itr/peyman/pmap/doc/study/ex/leaflet_rota_cizimi_20190530/ex15.R
+				https://stackoverflow.com/questions/26799722/hosting-and-setting-up-own-shiny-apps-without-shiny-server
+			opt03
+				app = shiny::shinyApp(ui, server)
+				runApp(app)
+		publishing to shinyapps.io
+			shinyapps.io/admin
+			new domain name
+			authorize account
+			library(rsconnect)
+			rsconnect::deployApp('path/to/your/app')
+				rsconnect::deployApp('shiny/lesson01')
+		conf
+			location
+				site_dir
+					folder where multiple apps are stored in each folder
+				app_dir
+					only one application
+				ex
+					# Define the location '/specialApp'
+					location /specialApp {
+						# Run this location in 'app_dir' mode, which will host a single Shiny
+						# Application available at '/srv/shiny-server/myApp'
+						app_dir /srv/shiny-server/myApp
+					}
+					# Define the location '/otherApps'
+					location /otherApps {
+						# Run this location in 'site_dir' mode, which hosts the entire directory
+						# tree at '/srv/shiny-server/apps'
+						site_dir /srv/shiny-server/apps;
+					}
+			...
+		shinydashboard ekranı
+			ref
+		login ekranı: shinyauthr
+			ref
+				login ekranı <url:file:///~/projects/study/r/shiny/study_shiny.Rmd#r=g12312>
+				~/projects/study/r/shiny/ex/study_shiny/shinyauthr/e02_shinydashboard.R
+		form fields id=g12301
+			ref
+				Form Field Examples <url:file:///~/projects/study/r/shiny/shiny_reactivity.md#r=g12299>
+				~/projects/study/r/shiny/ex/shiny_reactivity/form_fields/e02.R
+			widgets
+				ref
+					~/projects/study/r/shiny/ex/shiny_reactivity/form_fields/e01.R
+					https://shiny.rstudio.com/reference/shiny/1.6.0/
+					~/projects/study/r/shiny/ex/shiny_reactivity/form_fields/e03_table.R
+				numericInput("obs", "Numeric:", 10),
+				textInput("obsText", "Text:", 10),
+				textAreaInput("obsTextArea", "Text Area:", 10),
+				checkboxInput("obsCheck", "checkbox", FALSE),
+				dateInput("obsDate", "date", FALSE),
+				selectInput("obsSelect", "select", c("Long Value 01" = "v01", "Long Value 02" = "v02", "Long Value 03" = "v03")),
+			inputWidget -> render -> outputWidget
+				ref
+					~/projects/study/r/shiny/ex/shiny_reactivity/form_fields/e01.R
+				numericInput("obs", "Numeric:", 10),
+				verbatimTextOutput("print"),
+				output$print = renderPrint({ input$obs })
+			inputWidget -> observe(state$val <- input$id ) -> output
+				ref
+					~/projects/study/r/shiny/ex/shiny_reactivity/form_fields/e02.R
+				numericInput("obs", "Numeric:", 10),
+				verbatimTextOutput("obs4"),
+				state <- shiny::reactiveValues( obs3 = 0, obs4 = 0)
+				observe({ state$obs4 <- input$obs })
+				output$obs4 = renderPrint({ state$obs4 })
+			button -> output
+				actionButton("button", "Show")
+				opt01: observeEvent
+					ref: ~/projects/study/r/shiny/ex/shiny_reactivity/api/e03_observeEvent.R
+					observeEvent(input$button, { cat("Showing", input$x, "rows\n") })
+				opt02: render + isolate
+					ref: ~/projects/study/r/shiny/ex/shiny_reactivity/art01/e03.R
+					output$distPlot <- renderPlot({
+						input$goButton
+						dist <- isolate(rnorm(input$obs))
+						hist(dist)
+					})
+	sort
+		sort/order difference
+			order(symbols)
+			[1] 1 2 3   # indexes
+			sort(symbols)
+			[1] "A"  "AA" "AA^"  # actual values
+		dataframe
+			df[ order(df$B), ]  
+			df[ rev(order(df$B)), ] # reverse order
+		data table
+			dt[order(x,y))
+			dt[order(-rank(x),y))
+				no dt$col since dt is an environment
+	String
+		stringi
+			transliterate
+			totitle case
+				label %>%
+					str_replace_all( "_", " " ) %>%
+					stri_trans_totitle( locale = "tr_TR" )
+		substring
+			substring("ahmet", 1, 3)
+			substring("ahmet", 1, 3:5)
+			remove last n chars
+				substr(x, 1, nchar(x) - n)
+		string templating
+			sprintf
+				sprintf("Filings: %d", nrow(hfs) )
+				sprintf("Filings: %f", 7.2 )
+				out of order
+					sprintf("%2$s %1$s", "hello", "world")
+			leading zeros
+				sprintf("%03s", 1:end)
+				> sprintf("%05d", 1:3)
+				[1] "00001" "00002" "00003"
+			escaping percent
+				sprintf("%s escape %%that", "ali")
+			examples
+			sprintf: arguments cannot be recycled to the same length
+				problem
+					sprintf( "%s/QTR%s", as.character(year), as.character(quarter) )
+					year and quarter cannot be recycled
+				cross join and using dataframe with sprintf
+					opt03: by = character()
+						band_members
+						df_uppercase = data.frame( case = c("upper", "lower") )
+						band_members %>%
+							dplyr::full_join(df_uppercase, by = character())
+					opt01: data.table::CJ
+						df = CJ(year, quarter)
+						sprintf("%s,%s",df$V1, df$V2)
+					opt02: dummy column
+						cust_time$k <- 1
+						cust_time %>% 
+							inner_join(cust_time, by='k') %>%
+							select(-k)
+			named placeholders
+				gsubfn
+					library("gsubfn")
+					df = data.frame( id = 1:3, eroziya = 5:7 )
+					'%(id)s: %(eroziya)d' %format% df
+					#[1] "1: 5" "2: 6" "3: 7"
+		paste (concat concatenate)
+			na'leri blank ile replace et
+				> na.exclude(c(NA, 3)) %>% as.character
+				[1] "3"
+			paste("q", 1:5, sep="") # concat +
+				[1] "q1" "q2" "q3" "q4" "q5"
+			vektör için collapse: # python join
+				paste(c("ali","veli"), collapse=",")
+					[1] "ali,veli"
+			collapse: tek parçaya collapse eder
+			sep: concat edilen stringler nasıl ayrılmalı. 
+			paste0('converted ', "here")
+				[1] "converted here"
+		regex
+			https://www.regex101.com/ 
+				debug regex
+			ref
+				grep(pattern, x, ignore.case = FALSE, perl = FALSE, value = FALSE, fixed = FALSE, useBytes = FALSE, invert = FALSE)
+				grepl(pattern, x, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE)
+					str_detect
+				sub(pattern, replacement, x, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE)
+				gsub(pattern, replacement, x, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE)
+				regexpr(pattern, text, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE)
+				gregexpr(pattern, text, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE)
+				regexec(pattern, text, ignore.case = FALSE, fixed = FALSE, useBytes = FALSE)
+			stringr
+				str_replace(string, pattern, replacement) # "string" %s/pattern/repl/
+				str_replace(fruits, "[aeiou]", "-")
+				str_replace_all(fruits, "[aeiou]", "-")
+				str_replace_all("\t(\\w+)", "\n  - \\1") %>%
+				multiple patterns
+					fruits <- c("one apple", "two pears", "three bananas")
+					# If you want to apply multiple patterns and replacements to the same
+					# string, pass a named version to pattern.
+					str_replace_all(str_c(fruits, collapse = "---"),
+					c("one" = 1, "two" = 2, "three" = 3)) 
+					# [1] "1 apple---2 pears---3 bananas"
+				str_match
+					strings = c(" 219 733 8965", "329-293-8753 ", "banana")
+					pattern <- "([2-9][0-9]{2})[- .]([0-9]{3})[- .]([0-9]{4})"
+					str_extract(strings, pattern)
+					m = str_match(strings, pattern)
+								 [,1]      [,2] [,3]  [,4]
+						[1,] "219 733 8965" "219" "733" "8965"
+						[2,] "329-293-8753" "329" "293" "8753"
+						[3,] NA      NA NA  NA
+					m[1,1] # match 1 group 1
+					m[1,2] # match 1 group 2
+				str_locate("aaa12xxx", "[0-9]+")
+					#      start end
+					# [1,]     4   5
+				str_extract("aaa12xxx", "[0-9]+")
+					# [1] "12"
+				str_trunc(string, width, side = c("right", "left", "center"), ellipsis = "...") # truncate
+					str_trunc(x, 20, "right"),
+					str_trunc(x, 20, "left"),
+					str_trunc(x, 20, "center")
+			lookaround
+				lookbehind
+					(?<=) positive
+					(?<!) positive
+				lookahead
+					(?=)  positive
+					(?!)  negative
+			escapes backslashes
+				backslashes need to be doubled for regex
+				newline: single
+					"\n"
+					cat("this\nis new")
+					# this
+					# is new
+			character classes
+				[:alnum:]
+					[:alpha:] [:digit]
+				[:blank:]
+			examples
+				trim whitespace
+					# returns string w/o leading whitespace
+					trim.leading <- function (x)  sub("^\\s+", "", x)
+						# returns string w/o trailing whitespace
+					trim.trailing <- function (x) sub("\\s+$", "", x)
+						# returns string w/o leading or trailing whitespace
+					trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+					To use one of these functions on myDummy$country:
+					myDummy$country <- trim(myDummy$country)
+		character functions
+			nchar(x)    
+				number of char in x
+			substr(x, start, stop)    
+				substr(x, 2, 4)
+				substr(x, 2, 4) <- "222"
+			grep(pattern, x, ignore.case=FALSE, fixed=FALSE)
+				fixed=FALSE   regex
+				returns matching indices
+			sub(pattern, replacement, x, ignore.case=FALSE, fixed=FALSE)
+				sub("\\s", ".", "Hello there")
+				> Hello.there
+			strsplit(x, split)
+				strsplit("abc", "")
+			paste(..., sep="")
+				concatenate strings
+				paste("x", 1:3, sep="m")
+				> c("xM1", "xm2", "xm3")
+				paste( 1:3, collapse = "; " )
+				> [1] "1; 2; 3"
+			case conversions
+				toUnderscore(x)
+					convert camel case to underscore separated lower case
+				toupper(x)
+				tolower(x)
+				tocamel(x)
+					library("rapportools")
+					tocamel("foo.bar")
+					## [1] "fooBar"
+					tocamel("foo.bar", upper = TRUE)
+					## [1] "FooBar"
+					tocamel(c("foobar", "foo.bar", "camel_case", "a.b.c.d"))
+					## [1] "foobar"    "fooBar"    "camelCase" "aBCD"
+				unicode: stri_trans_tolower
+					stri_trans_totitle( locale = "tr_TR" )
+				str_to_upper(string, locale = "en")
+				str_to_lower(string, locale = "en")
+				str_to_title(string, locale = "en") # title
+				str_to_sentence(string, locale = "en")
+		stringr
+			ref
+				~/projects/study/r/study_stringr.Rmd
+			str_trim
+				str_trim(string, side = c("both", "left", "right"))
+				x %>% 
+					str_trim(side = "both")
+			str_split
+				returns list
+				str_split with dplyr: take last element
+					df = data_frame( a = c("ali,veli", "can,cin" ) )
+					d6 = df %>%
+						mutate( b = str_split(a, ",") ) %>%
+						unnest(b) %>%
+						group_by(a) %>%
+						filter(row_number()==n())
+				use unlist to convert to vector
+					t %>%
+					str_split("\\n") %>%
+					unlist
+				str_split then convert to dataframe column  id=sr_0003
+					str_split then convert to dataframe column  <url:#r=sr_0003>
+					d4 = ft %>%
+						mutate( bn = str_split(sinif_tip_formasiya_adi, "\\(") ) %>%
+						unnest(bn) %>%
+						group_by( fte_id ) %>%
+						mutate( info = row_number() ) %>%
+						spread( info, bn ) %>%
+						rename( dom_subdom = `1`, bitki_adlari = `2`, other = `3` )
+			str_trim( unlist( str_split(goog,',') ) )
+				[1] "GOOG"  "GOOGL"
+			basic
+				str_c: concetenate
+					paste0 like
+				str_length
+					nchar like
+					preserves NA
+				str_sub
+					substr like
+					negative positions
+						end: -1
+					zero length input
+					ex
+						hw <- "Hadley Wickham"
+						str_sub(hw, 1, 6)
+						str_sub(hw, end = 6)
+						str_sub(hw, 8, 14)
+						str_sub(hw, 8)
+						str_sub(hw, c(1, 8), c(6, 14))
+						# Negative indices
+						str_sub(hw, -1)
+						str_sub(hw, -7)
+						str_sub(hw, end = -7)
+						# Alternatively, you can pass in a two colum matrix, as in the
+						# output from str_locate_all
+						pos <- str_locate_all(hw, "[aeio]")[[1]]
+						str_sub(hw, pos)
+						str_sub(hw, pos[, 1], pos[, 2])
+						# Vectorisation
+						str_sub(hw, seq_len(str_length(hw)))
+						str_sub(hw, end = seq_len(str_length(hw)))
+						# Replacement form
+						x <- "BBCDEF"
+						str_sub(x, 1, 1) <- "A"; x
+						str_sub(x, -1, -1) <- "K"; x
+						str_sub(x, -2, -2) <- "GHIJ"; x
+						str_sub(x, 2, -2) <- ""; x 
+				str_str<-
+					substr<-
+				str_dup
+					to duplicate chars
+				str_trim
+				str_pad
+					pad extra whitespace
+			pattern matching
+				detect
+					str_detect
+						grepl like
+				locate
+					str_locate
+					str_locate_all
+					based on: regexpr
+				extract
+					str_extract
+					str_extract_all
+				match
+					str_match
+						capture groups by ()
+					return: matrix
+						one column for each group
+					str_match_all
+				replace
+					str_replace
+					str_replace_all
+					based: sub
+					backreferences
+						\1 \2
+				split
+					str_split_fixed
+		unicode
+			detect encoding
+				s = readLines(paste0(dir, "siparisler.csv"), n = 100) %>% paste(collapse = "\\n")
+				if (stri_enc_isutf8(s)) 
+			totitle case
+				label %>%
+					str_replace_all( "_", " " ) %>%
+					stri_trans_totitle( locale = "tr_TR" )
+			transliterate
+				iconv
+					x = "Addyişm__NİO_Yasamal.PDF"
+					iconv(x, "utf-8", "ASCII//TRANSLIT")
+				stringi
+					label %>%
+						stri_trans_totitle( locale = "tr_TR" )
+				regex
+					transliterate_tr_to_ascii = function( lines ) {
+						lines %>%
+							str_replace_all(c("ü"="u", "ö"="o", "ı"="i", "Ü"="U", "Ö"="O", "İ"="I", "ş"="s", "ğ"="g", "ç"="c", "Ş"="S", "Ğ"="G", "Ç"="C", "ə"="e", "Ə"="E"))
+					}
+		examples
+			append new lines
+				r = character()
+				r = c(r, sprintf("filings that don't have xbrl: %s", length(missing_xbrl)))
+	tidyr
+		tutorial
+			https://rpubs.com/bradleyboehmke/data_wrangling
+		extract_numeric
+			mutate(valuation = extract_numeric(`Valuation ($B)`))
+		gather
+			takes multiple columns, gathers them into key-value pairs
+			wide to longer
+		spread
+			takes key-value columns, spreads into multiple columns
+			logn to wider
+		separate
+			split single column into multiple
+		unite
+			unite multiple columns into single
+			unite(df, "New_Column", col1:coln)
+			unite(df, "New_Column", col1:coln, sep = ";", remove = FALSE)
+				remove: eski kolonları silme
+				sep: birleştirme separator
+		gather
+			ex
+				data
+					trt wT1 hT1 wT2 hT2
+					....
+				output
+					trt key value
+					..  wT1 ..
+					..  wT2 ..
+				api
+					gather( data, key, value, ..)
+						data: df
+						key: column for new variable
+						value: column for values
+					gather( data, key, value, wT1:hT2)
+		reshape
+			reverse gather
+			ex
+			api
+				data
+					trt key value
+					..  wT1 ..
+					..  wT2 ..
+				output
+					trt wT1 hT1 wT2 hT2
+					....
+				spread(data, key, value, ..)
+					reshaping long format to wide format
+					params
+						data: df
+						key: column to convert
+						value: new column
+					error: duplicate identifiers for rows
+						bir identifier eklemelisin
+						mutate( row = row_number() ) 
+				gather( data, key, value)
+		separate
+			ex
+				data
+					yr  qtr rev
+					..  q1  10
+					..  q2  20
+				output
+					yr  int id  rev
+					..  q   1   10
+					..  q   2   20
+				api
+					separate( data, col, into, sep)
+						data: df
+						col: current var
+						into: new variables
+						sep: separator
+		unite
+			reverse of separate
+bookmarks
+	tools
+		https://github.com/yihui/xaringan
+			presentation library
+		igraph tutorial
+			http://kateto.net/network-visualization
+		datapasta: RStudio Addins for Data Copy-Pasta
+			RStudio addins to make copy-pasting vectors and tables into source painless.
+index_rmd for r  id=g10652
+	index_rmd for r  <url:file:///~/Dropbox/mynotes/content/code/cr/cr.md#r=g10652>
+	~/projects/study/r
+	~/projects/study/r/debug_bugs.Rmd
+	~/projects/study/r/debug_datatable_bracket_in_own_package.Rmd
+	~/projects/study/r/debug_r_isna_all_checks_column_inside_dplyr_mutate.Rmd
+	~/projects/study/r/df.Rmd
+	~/projects/study/r/ex_gather_spread_group_separate_unnest.Rmd
+	~/projects/study/r/ex_r_rmarkdown.Rmd
+	~/projects/study/r/ex_r_time_date.Rmd
+	~/projects/study/r/rdb_to_data.Rmd
+	~/projects/study/r/rdb_to_ddl.Rmd
+	~/projects/study/r/read_json.Rmd
+	~/projects/study/r/refcard_datapasta.Rmd
+	~/projects/study/r/refcard_loops.Rmd
+	~/projects/study/r/study_compare.Rmd
+	~/projects/study/r/study_httr.Rmd id=g10777
+		~/projects/study/r/study_httr.Rmd <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10777>
+		POST
+			b2 <- "http://httpbin.org/post"
+			POST(b2, body = "A simple text string")
+		Debugging http requests
+			response <- httr::POST("http://localhost:8888/rest/table01", 
+														body = list(id = 601, title = "t601"),
+														encode = "json", verbose()
+														)
+			add_headers(
+				Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoid2VidXNlciJ9.uSsS2cukBlM6QXe4Y0H90fsdkJSGcle9b7p_kMV1Ymk", 
+				Content-Type = "text/csv"
+			body = upload_file("~/projects/study/db/ex/study_postgrest/e03/table01.csv"),
+	~/projects/study/r/study_plumber_restful_apis.Rmd id=g10653
+		~/projects/study/r/study_plumber_restful_apis.Rmd <url:file:///~/gdrive/mynotes/content/code/cr/cr.md#r=g10653>
+		ref
+			~/projects/study/db/study_postgrest.Rmd <url:file:///~/gdrive/mynotes/content/code/cdb.md#r=g10633>
+			~/projects/study/js/study_expressjs_server.Rmd <url:file:///~/gdrive/mynotes/content/code/cjs/cjs.md#r=g10634>
+		run plumber
+			pr <- plumber::plumb("e01.R")
+			pr$run(port=4500)
+		ex01: basic service
+			rest service definition
+				#' @get /echo
+				function(msg=""){
+					list(msg = paste0("The message is: '", msg, "'"))
+				}
+			client curl
+				curl http://localhost:4500/echo
+		ex02: service with argument
+			rest service
+				#' @post /add1
+				function(num=0){
+			curl client 
+				curl -X POST -H "Content-Type: application/json" -d '{"num":"3"}' http://localhost:4500/add1
+				# {"y":[4]}
+			cyclejs client
+				const requests$ = xs.from( [ {
+					url: 'http://localhost:4500/add2',
+					send: '{"num":"3"}',
+		ex04: file upload service
+			rest service
+				#' @post /echo2
+				function(req){
+					formContents = Rook::Multipart$parse(req)
+					somefile <- readLines(con = formContents$upload$tempfile)
+					print(formContents$upload$tempfile)
+					list(formContents=formContents)
+			curl client
+				curl -v -F foo=bar -F upload=@e01.R http://localhost:7814/echo2
+			superagent client
+				superagent.post( 'http://localhost:4500/echo2' )
+					.set('Content-Type', 'multipart/form-data')
+					.attach('upload', '~/projects/study/r/ex/study_plumber_restful_apis/e01.R')
+			cyclejs client 
+				url: 'http://localhost:4755/echo2',
+				method: 'POST',
+				attach: [
+					{
+						name: 'upload',
+						path: '~/projects/study/r/ex/study_plumber_restful_apis/e01.R',
+						filename: 'e01.R'
+	~/projects/study/r/study_r.Rmd
+	~/projects/study/r/study_rpostgres.Rmd
+	~/projects/study/r/yuml_to_rdb.Rmd
+	~/projects/study/r/yuml_to_rdb2.Rmd
+

@@ -15,14 +15,14 @@
        :headers {"Content-Type" "text/plain"}
        :body    "Hello e02c updated2"}
       "text/plain")
-    "application/json")
-  )
+    "application/json"))
+  
 
 (defn -main []
   (println "server started on port 8080")
   (run-jetty (wrap-reload #'handler) {:port  8080
-                                      :join? false})
-  )
+                                      :join? false}))
+  
 
 (comment
   (-main)
@@ -30,7 +30,7 @@
   (def request
     {:status  200
      :headers {"Content-Type" "text/plain"}
-     :body    "Hello e02c updated2"} )
+     :body    "Hello e02c updated2"})
   (handler request)
 
   (defn handler [request]
@@ -38,8 +38,8 @@
       {:status  200
        :headers {"Content-Type" "text/plain"}
        :body    "Hello e02c updated2"}
-      "text/plain")
-    )
+      "text/plain"))
+    
   (handler request)
 
   (defn handler [request]
@@ -47,9 +47,9 @@
       {:status  200
        :headers {"Content-Type" "text/plain"}
        :body    "Hello e02c updated2"}
-      "text/plain")
-    )
-  (handler request)
+      "text/plain"))
+    
+  (handler request))
 
 
-  )
+  

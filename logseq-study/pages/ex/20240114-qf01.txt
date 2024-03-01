@@ -1,0 +1,5 @@
+vim_repos/my-vim-custom/plugin/my-vim-custom.vim|1 col 1| /Users/mertnuhoglu/prj/vim_repos/my-vim-custom/plugin/my-vim-custom.vim
+vim_repos/vim-infoman/plugin/vim-infoman.vim|1 col 1| /Users/mertnuhoglu/prj/vim_repos/vim-infoman/plugin/vim-infoman.vim
+vim_repos/vim-infoman/plugin/vim-infoman.vim-e|1 col 1| /Users/mertnuhoglu/prj/vim_repos/vim-infoman/plugin/vim-infoman.vim-e
+collabry/cldocs/cllogseq/pages/qry-todo-mert-wip.md|1 col 1| /Users/mertnuhoglu/prj/collabry/cldocs/cllogseq/pages/qry-todo-mert-wip.md
+myrepo/logseq-myrepo/pages/ndx___vim.md|1 col 1| /Users/mertnuhoglu/prj/myrepo/logseq-myrepo/pages/ndx___vim.md

@@ -16,10 +16,9 @@
   "ali veli
    neler")
 
-(defn test 
-  [:key val
+; (defn test 
+;   [:key val
+;    :key2 val2])
 
-            :key2 val2
-
-            ]
-  )
+            
+  

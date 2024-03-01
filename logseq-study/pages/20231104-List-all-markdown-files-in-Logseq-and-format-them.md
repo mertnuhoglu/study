@@ -1,7 +1,8 @@
-tags:: study, myst, vim
+tags:: study, myst, vim, f/script
 date:: 20231104
 
-# 20231104-List-all-markdown-files-in-Logseq-and-format-them 
+- # 20231104-List-all-markdown-files-in-Logseq-and-format-them #myst #f/script
+  id:: a40d9829-8a42-4148-bf05-7f01763208be
 
 id=g15155
 
@@ -11,9 +12,18 @@ id=g15155
 
 All together:
 
-```
+```sh
 fd --extension md --type f | sed -e 's|^./||' -e 's|.md$||' -e 's|^|[[|' -e 's|$|]]|' > "`date +%Y%m%d`-Document-List.md"
 ```
 
 Example Output: `~/gdrive/grsm/opal/docs-grsm/pages/20231104-Document-List.md`
+
+- rfr: script: 
+	- [[dir_2_list_md.sh]]
+	- [[dir_2_list_md_in_logseq_myrepo.sh]]
+	- [[dir_2_list_md_in_logseq_cllb.sh]]
+
+```sh
+sh ~/prj/study/script/dir_2_list_md_in_logseq_myrepo.sh
+```
 

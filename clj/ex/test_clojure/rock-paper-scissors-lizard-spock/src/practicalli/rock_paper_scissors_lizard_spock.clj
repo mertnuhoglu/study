@@ -1,4 +1,4 @@
-(ns practicalli.rock-paper-scissors-lizard-spock )
+(ns practicalli.rock-paper-scissors-lizard-spock)
 ;; Rock Paper Scissors Game
 ;; https://en.wikipedia.org/wiki/Rock_paper_scissors
 ;; Let's play! You have to return which player won! In case of a draw return Draw!.
@@ -37,8 +37,8 @@
     (= player1 player2)                             "Draw!"
     (and (= player1 "rock") (= player2 "scissors")) "Player 1 won!"
     (and (= player1 "rock") (= player2 "paper"))    "Player 2 won!"
-    ,,,  ;; and so on for every combination
-    ))
+    ,,,))  ;; and so on for every combination
+    
 
 
 ;; Defining rules as a mapping
@@ -199,7 +199,7 @@
   (cond
     (= player1 player2)                                                              "Draw!"
     (#{["paper" "rock"] ["scissors" "paper"] ["rock" "scissors"]} [player1 player2]) "Player 1 won!"
-    :else                                                                            "Player 2 won!"
-    )
-  )
+    :else                                                                            "Player 2 won!"))
+    
+  
 

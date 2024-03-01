@@ -5,29 +5,47 @@
 # rfr: [[20230326-Script--Logseq-Repolarindaki-Tagleri-Cikartma]] <url:file:///~/prj/study/logseq-study/pages/20230326-Script--Logseq-Repolarindaki-Tagleri-Cikartma.md#r=g14146>
 
 DAY=$(date +%Y%m%d)
-cd $HOME/projects/myrepo/logseq-myrepo
-# match:
-# #sometag
-rg -g "!ndx-kslt.md" "#\w+" >tags_myrepo_$DAY.txt
-rg --ignore-file ~/prj/study/script/.tag_extract_ignore "#\w+" >tags_myrepo_$DAY.txt
+cd $HOME/prj/myrepo/logseq-myrepo
+
+# myr
+#
+# match: inline #sometag
+rg -g "!ndx-kslt.md" "#\w+" >tags_myr_$DAY.txt
+rg --ignore-file ~/prj/study/script/.tag_extract_ignore "#\w+" >tags_std_$DAY.txt
 # match:
 # tags:: myrepo, tfk/motivasyon
-rg "tags::" >>tags_myrepo_$DAY.txt
-cd $HOME/projects/study/logseq-study
-rg "#\w+" >tags_study_$DAY.txt
-rg "tags::" >>tags_study_$DAY.txt
-cd $HOME/gdrive/grsm/opal/docs-grsm
-rg "#\w+" >tags_grsm_$DAY.txt
-rg "tags::" >>tags_grsm_$DAY.txt
-mv $HOME/projects/myrepo/logseq-myrepo/tags_myrepo_$DAY.txt $HOME/projects/myrepo/scrap/out
-mv $HOME/projects/study/logseq-study/tags_study_$DAY.txt $HOME/projects/myrepo/scrap/out
-mv $HOME/gdrive/grsm/opal/docs-grsm/tags_grsm_$DAY.txt $HOME/projects/myrepo/scrap/out
-cd $HOME/projects/myrepo/scrap/out
-cat tags_myrepo_$DAY.txt tags_study_$DAY.txt tags_grsm_$DAY.txt >tags_$DAY.txt
+rg "tags::" >>tags_myr_$DAY.txt
 
-nvim -c "LogseqExtractTags" -c "wq" tags_grsm_$DAY.txt
-cp -f tags_grsm_$DAY.txt tags_grsm.txt
-cp -f tags_grsm_$DAY.txt $HOME/gdrive/grsm/opal/docs-grsm/pages/$DAY-Tag-List.md
-cp -f tags_grsm_$DAY.txt $HOME/gdrive/grsm/opal/docs-grsm/pages/Tag-List-out.md
+# std
+cd $HOME/prj/study/logseq-study
+rg "#\w+" >tags_std_$DAY.txt
+rg "tags::" >>tags_std_$DAY.txt
 
-echo "$HOME/projects/myrepo/scrap/out/tags_$DAY.txt"
+# cllb
+cd $HOME/prj/collabry/cldocs/cllogseq
+rg "#\w+" >tags_cllb_$DAY.txt
+rg "tags::" >>tags_cllb_$DAY.txt
+
+mv $HOME/prj/myrepo/logseq-myrepo/tags_myr_$DAY.txt $HOME/prj/myrepo/scrap/out
+mv $HOME/prj/study/logseq-study/tags_std_$DAY.txt $HOME/prj/myrepo/scrap/out
+mv $HOME/prj/collabry/cldocs/cllogseq/tags_cllb_$DAY.txt $HOME/prj/myrepo/scrap/out
+
+cd $HOME/prj/myrepo/scrap/out
+cat tags_myr_$DAY.txt tags_std_$DAY.txt tags_cllb_$DAY.txt >tags_all_$DAY.txt
+
+nvim -c "LogseqExtractTags" -c "wq" tags_cllb_$DAY.txt
+cp -f tags_cllb_$DAY.txt tags_cllb.txt
+cp -f tags_cllb_$DAY.txt $HOME/prj/collabry/cldocs/cllogseq/pages/$DAY-Tag-List-cllb.md
+cp -f tags_cllb_$DAY.txt $HOME/prj/collabry/cldocs/cllogseq/pages/Tag-List-out-cllb.md
+
+nvim -c "LogseqExtractTags" -c "wq" tags_myr_$DAY.txt
+cp -f tags_myr_$DAY.txt tags_myr.txt
+cp -f tags_myr_$DAY.txt $HOME/prj/myrepo/logseq-myrepo/pages/$DAY-Tag-List-myr.md
+cp -f tags_myr_$DAY.txt $HOME/prj/myrepo/logseq-myrepo/pages/Tag-List-out-myr.md
+
+nvim -c "LogseqExtractTags" -c "wq" tags_std_$DAY.txt
+cp -f tags_std_$DAY.txt tags_std.txt
+cp -f tags_std_$DAY.txt $HOME/prj/study/logseq-study/pages/$DAY-Tag-List-std.md
+cp -f tags_std_$DAY.txt $HOME/prj/study/logseq-study/pages/Tag-List-out-std.md
+
+echo "$HOME/prj/myrepo/scrap/out/tags_all_$DAY.txt" | pbcopy

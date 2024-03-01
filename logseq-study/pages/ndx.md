@@ -9,6 +9,4 @@ tags:: opal, ndx
 		- [[Metadata/Property]]
 		- [[Metadata/Template]]
 		- [[Metadata/Namespace]]
-	- [[clj]]
-		- [[ndx-clj]]
 	-

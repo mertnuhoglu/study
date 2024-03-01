@@ -42,13 +42,13 @@ Literal notation:
 - Map: `{:foo "a" :bar "b"}`
 - Set: `#{"a" "b" "c"}`
 
-Cloujure logic is written using its data structures. Using the same syntax for both data and olgic allows for powerful metaprogramming features.
+Clojure logic is written using its data structures. Using the same syntax for both data and logic allows for powerful metaprogramming features.
 
 Code is data and data is code.
 
 ## Functions
 
-``` clojure
+```clj
 (function-name param1 param2)
 ``` 
 
@@ -56,7 +56,7 @@ The function call is simply a list containing the function name and its paramete
 
 Creating a list:
 
-``` clojure
+```clj
 (list 1 2 3)
 ``` 
 
@@ -64,20 +64,20 @@ Creating a list:
 
 Functions that aren't bound to a name.
 
-``` clojure
+```clj
 (fn [arg] (println arg))
 ``` 
 
 We can call this function by settings it as a first item in a list and its argument as the second.
 
-``` clojure
+```clj
 ((fn [arg] (println arg)) "hello")
   ##> hello
 ``` 
 
 Syntactic sugar for defining anonymous functions using the `#` notation
 
-``` clojure
+```clj
   #(println %)
 ``` 
 
@@ -85,7 +85,7 @@ Syntactic sugar for defining anonymous functions using the `#` notation
 
 If multiple arguments exist:
 
-``` clojure
+```clj
   #(println %1 %2 %3)
 ``` 
 
@@ -93,7 +93,7 @@ If multiple arguments exist:
 
 Creating global variables using `def`
 
-``` clojure
+```clj
 (def double
   (fn [x] (* 2 x)))
 ``` 
@@ -102,14 +102,14 @@ It accepts a name and the body.
 
 Syntactic sugar for this: `defn`
 
-``` clojure
+```clj
 (defn square [x]
   (* x x))
 ``` 
 
 The body can consist of multiple expressions:
 
-``` clojure
+```clj
 (defn bmi [height weight]
   (println "height:" height)
   (println "weight:" weight)
@@ -118,7 +118,7 @@ The body can consist of multiple expressions:
 
 Clojure uses a single pass compiler. So, the functions must be declared before they are used.
 
-``` clojure
+```clj
 (declare down)
 
 (defn up [n]
@@ -131,7 +131,7 @@ Clojure uses a single pass compiler. So, the functions must be declared before t
 
 ### Higher-Order Functions
 
-``` clojure
+```clj
 (map #(* % %) [1 2 3 4 5]) => (1 4 9 16 25)
 (filter even? [1 2 3 4 5]) => (2 4)
 (filter even?
@@ -149,7 +149,7 @@ Functions that return other functions as their result.
 
 One use is to mimic constructors in oop languages.
 
-``` clojure
+```clj
 (defn greeting [greeting-string]
   (fn [guest]
     (println greeting-string guest)))
@@ -167,13 +167,13 @@ One use is to mimic constructors in oop languages.
 
 Reading nested expressions is difficult. 
 
-``` clojure
+```clj
 (reduce + (interpose 5 (map inc (range 10))))
 ``` 
 
 We want to read them in linear form:
 
-``` clojure
+```clj
 (->> (range 10) (map inc) (interpose 5) (reduce +))
 ``` 
 
@@ -185,7 +185,7 @@ We want to read them in linear form:
 
 ## Code Structure
 
-``` clojure
+```clj
 (println
   (filter #(= (mod % 2) 0)
     (map #(* % %) (range 1 6))))
@@ -193,7 +193,7 @@ We want to read them in linear form:
 
 Flattened steps:
 
-``` clojure
+```clj
 (->> (range 1 6)
      (map #(* % %))
      (filter #(= (mod % 2) 0))
@@ -206,7 +206,7 @@ Clojure uses persistent data structures that create in-memory revisions of the d
 
 ### Destructuring id=g11903
 
-``` clojure
+```clj
 (let [[smaller bigger] (split-with #(< % 5) (range 10))]
     (println smaller bigger))
 
@@ -215,7 +215,7 @@ Clojure uses persistent data structures that create in-memory revisions of the d
 
 `split-with` returns two elements: numbers less than 5 and greater than 5. They are bound to `smaller` and `bigger` variables.
 
-``` clojure
+```clj
 (defn print-user [[name address phone]]
   (println name "-" address phone))
 
@@ -225,7 +225,7 @@ Clojure uses persistent data structures that create in-memory revisions of the d
 
 `print-user` takes 3 arguments: `name`, `address`, and `phone`
 
-``` clojure
+```clj
 (defn print-args [& args]
   (println args))
 
@@ -236,7 +236,7 @@ Clojure uses persistent data structures that create in-memory revisions of the d
 
 Variable arguments can be destructured too:
 
-``` clojure
+```clj
 (defn print-args [arg1 & [arg2]]
   (println
     (if arg2
@@ -252,13 +252,13 @@ Variable arguments can be destructured too:
 
 Destructuring maps. Supply the names for the local bindings pointing to the keys of the original map:
 
-``` clojure
+```clj
 (let [{foo :foo bar :bar} {:foo "foo" :bar "bar"}]
   (println foo bar))
   ##> foo bar
 ``` 
 
-``` clojure
+```clj
 (let [{f :foo b :bar} {:foo "hello" :bar "world"}]
   (println f b))
   ##> hello world
@@ -266,7 +266,7 @@ Destructuring maps. Supply the names for the local bindings pointing to the keys
 
 Destructuring nested maps:
 
-``` clojure
+```clj
 (let [{[a b c] :items id :id} {:id "foo" :items [1 2 3]}]
   (println id "->" a b c))
   ##> foo -> 1 2 3
@@ -276,7 +276,7 @@ Destructuring nested maps:
 
 ex01: long form
 
-``` clojure
+```clj
 (let [{foo :foo bar :bar} {:foo "foo" :bar "bar"}]
   (println foo bar))
   ##> foo bar
@@ -284,7 +284,7 @@ ex01: long form
 
 ex05: :keys short form
 
-``` clojure
+```clj
 (let [{:keys [foo bar]} {:foo "foo" :bar "bar"}]
   (println foo bar))
   ##> foo bar
@@ -292,7 +292,7 @@ ex05: :keys short form
 
 Error:
 
-``` clojure
+```clj
 (let [:keys [foo bar] {:foo "foo" :bar "bar"}]
   (println foo bar))
   ##> [:keys [foo bar] {:foo "foo", :bar "bar"}] - failed: even-number-of-forms? at: [:bindings] spec: :clojure.core.specs.alpha/bindings
@@ -300,7 +300,7 @@ Error:
 
 ex02:
 
-``` clojure
+```clj
 (defn announce-treasure-location
   [{lat :lat lng :lng}]
   (println (str "Treasure lat: " lat))
@@ -317,7 +317,7 @@ ex02:
 
 ex03:
 
-``` clojure
+```clj
 (defn login [{:keys [user pass]}]
  (and (= user "bob") (= pass "secret")))
 
@@ -328,7 +328,7 @@ ex03:
 
 ex01:
 
-``` clojure
+```clj
 (defn register [{:keys [id pass repeat-pass] :as user}]
   (cond
     (nil? id) "user id is required"
@@ -338,7 +338,7 @@ ex01:
 
 ex02:
 
-``` clojure
+```clj
 (let [{:keys [a b], :as all} {:a 1, :b 2, :c 3}]
   (println a b all))
   ##> 1 2 {:a 1, :b 2, :c 3}
@@ -346,7 +346,7 @@ ex02:
 
 ### Namespaces
 
-``` clojure
+```clj
 (ns colors)
 
 (defn hex->rgb [[_ & rgb]]
@@ -356,7 +356,7 @@ ex02:
 
 Calling a function from another namespace: `:use` or `require`
 
-``` clojure
+```clj
 (ns myns
   (:use colors))
 
@@ -367,14 +367,14 @@ Calling a function from another namespace: `:use` or `require`
 
 `:only` restricts imported variables:
 
-``` clojure
+```clj
 (ns myns
   (:use [colors :only [rgb->hex]]))
 ``` 
 
 `:require` requires variables to be prefixed:
 
-``` clojure
+```clj
 (ns myns (:require colors))
 
 (colors/hex->rgb "#324a9b")
@@ -382,7 +382,7 @@ Calling a function from another namespace: `:use` or `require`
 
 `:as` alias for imported variables.
 
-``` clojure
+```clj
 (ns myotherns
   (:require [colors :as c]))
 
@@ -395,7 +395,7 @@ Calling a function from another namespace: `:use` or `require`
 
 #### Multimethods
 
-``` clojure
+```clj
 (defmulti area :shape)
 
 (defmethod area :circle [{:keys [r]}]
@@ -418,7 +418,7 @@ Calling a function from another namespace: `:use` or `require`
 
 Abstract set of functions
 
-``` clojure
+```clj
 (defprotocol Foo
   "Foo doc string"
   (bar [this b] "bar doc string")

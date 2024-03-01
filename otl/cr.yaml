@@ -1,4 +1,5 @@
 ---
+test:
 new:
   error id=g12932: 
     argument is of length zero:

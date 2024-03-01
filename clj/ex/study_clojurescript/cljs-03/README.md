@@ -1,11 +1,13 @@
-# cljs-03: Browser REPL'ına bağlanmak id=g13739
+# README
+
+# cljs-03: Browser REPL'ına bağlanmak
 
 rfr: `~/codes/clj/clojurescript/samples/repl/README.md`
 
 s01:
 
-```bash
-sh /Users/mertnuhoglu/codes/clj/clojurescript/script/repl
+```sh
+sh ~/codes/clj/clojurescript/script/repl
 ```
 
 s02: eval in repl:
