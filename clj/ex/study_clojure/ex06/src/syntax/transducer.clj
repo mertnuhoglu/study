@@ -1,4 +1,4 @@
-(ns fn.syntax.transducer)
+(ns syntax.transducer)
 
 ; Video: 20230420-mert-clj-57-d08-refactoring-debug.mp4
 

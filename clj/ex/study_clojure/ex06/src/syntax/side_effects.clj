@@ -1,4 +1,4 @@
-(ns fn.syntax.side-effects)
+(ns syntax.side-effects)
 
 ; rfr: video/20230221-mert-clj-egzersiz-46.mp4
 

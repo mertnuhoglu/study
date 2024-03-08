@@ -1,4 +1,4 @@
-(ns fn.syntax.defn)
+(ns syntax.defn)
 
 ; rfr: video/20230216-mert-clj-egzersiz-40.mp4
 

@@ -88,64 +88,53 @@ Sub-expressions:
   ##> 12
 ``` 
 
-- ## Weird Characters id=g11401
+- ## Weird Characters 
   id:: 373ea7e0-e7c8-4d75-a1ec-c664e8d7b5b6
+  src:: Weird Characters  || ((373ea7e0-e7c8-4d75-a1ec-c664e8d7b5b6))
+	id=g11401
 
 [Weird Characters](https://clojure.org/guides/weird_characters)
 
-``` clojure
-	| Instantiation   | new Widget("foo") | (Widget. "foo")  |
-	| Instance method | rnd.nextInt()     | (.nextInt rnd)   |
-	| Instance field  | object.field      | (.-field object) |
-	(.. System (getProperties) (get "os.name"))
-		;; expands to:
-		(. (. System (getProperties)) (get "os.name"))
-		(-> (System/getProperties) (.get "os.name"))
-	; java <url:ex/study_clojure/ex06/src/ex_kimh.clj#r=g11357>
-		(new java.util.Date) ;; => #inst "2020-06-15T14:27:36.415-00:00"
-		(java.util.Date. "2016/2/19") ;; => #inst "2016-02-18T22:00:00.000-00:00"
-		(let [d (java.util.Date.)] (.toString d)) ;; => "Mon Jun 15 17:27:47 EEST 2020"
-		(let [d (java.util.Date.)] (. d toString)) ;; => "Mon Jun 15 17:27:51 EEST 2020"
-  ( … ) - List
-  [ … ] - Vector
-  { … } - Map
-  # - Dispatch character: interpret the next character using a read table
+|-----------------|-------------------|------------------|
+| Purpose         | Java              | Clj              |
+|-----------------|-------------------|------------------|
+| Instantiation   | new Widget("foo") | (Widget. "foo")  |
+| Instance method | rnd.nextInt()     | (.nextInt rnd)   |
+| Instance field  | object.field      | (.-field object) |
+
+```clj
+; ## ..
+```
+
+- `#` - Dispatch character: interpret the next character using a read table
 		short for gensym (at the end of a symbol): x#
-		#{set} - Set
-		#_ - Discard
-		#"re" - Regular Expression
-		#(…) - Anonymous function
-		#' - Var quote
-		## - Symbolic values
-			##Inf ##NaN ##-Inf
-		#inst #uuid #js etc. - tagged literals
+		`#{set}` - Set
+		`#_` - Discard
+		`#"re"` - Regular Expression
+		`#(…)` - Anonymous function
+		`#'` - Var quote
+		`##` - Symbolic values
+			`##Inf` `##NaN` `##-Inf` 
+		`#inst` `#uuid` `#js` etc. - tagged literals
+- Data structures: 
+  `( … )` - List
+  `[ … ]` - Vector
+  `{ … }` - Map
   %, %n, %& - Anonymous function arguments
   @ - Deref
   ^ (and #^) - Metadata
-		(def ^{:debug true} five 5)
-		(meta #'five)
-		(def ^:debug five 5) ; bc single value
-		(def ^Integer ^:debug ^:private five 5) ; stack shorthand notations
-	k #^ deprecated in favor of ^
-  ' - Quote: read but not evaluate
-  ; - Comment
-  : - Keyword
-  :: - Auto-resolve keyword in current ns
-  #: and #:: - Namespace Map Syntax
-		ex: equivalent:
-			#:person{:first "Han"}
-			{:person/first "Han"}
-		ex: equivalent:
-			(keys {:user/a 1, :user/b 2})
-			(keys #::{:a 1, :b 2})
-		ex: equivalent:
-			(ns rebel.core (:require [rebel.person :as p]))
-			#::p{:first "Han"}
-			{:rebel.person/first "Han"}
+	`#^` deprecated in favor of `^`
+  `'` - Quote: read but not evaluate
+  `;` - Comment
+  `:` - Keyword
+  `::` - Auto-resolve keyword in current ns
+  `#:` and `#::` - Namespace Map Syntax
   / - Namespace separator
   \ - Character literal
   $ - Inner class reference
-		BaseXClient$EventNotifier
+		`BaseXClient$EventNotifier`
+
+```clj
   ->, ->>, some->, cond->, as-> etc. - Threading macros
   ` - Syntax quote
 		backquote grave

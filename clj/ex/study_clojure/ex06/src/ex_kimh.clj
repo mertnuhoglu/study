@@ -645,9 +645,9 @@ cbe/outer
   ;(throw (Exception. "wrong"))
   (alter rec merge {:age 40}))
 
-; java id=g11357
+; ## java interoperability
 ;   id:: fe99755d-5ac7-428c-a7e8-2a994c046486
-
+;   detail:: Java Interoparability || ((b87bc0b9-628c-461a-b035-c280c3e1bbfd))
 
 (new java.util.Date)
 ;; => #inst "2020-06-15T14:27:36.415-00:00"

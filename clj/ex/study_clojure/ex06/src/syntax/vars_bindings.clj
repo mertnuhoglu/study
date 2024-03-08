@@ -1,4 +1,4 @@
-(ns fn.syntax.vars-bindings)
+(ns syntax.vars-bindings)
 
 ; rfr: fn/binding.clj
 

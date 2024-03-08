@@ -1,4 +1,4 @@
-(ns fn.syntax.anonymous-functions)
+(ns syntax.anonymous-functions)
 
 ; rfr: video/20230215-mert-clj-egzersiz-36.mp4
 

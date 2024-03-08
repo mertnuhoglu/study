@@ -1,4 +1,4 @@
-(ns fn.syntax.constructor)
+(ns syntax.constructor)
 
 ; rfr: video/20230220-mert-clj-egzersiz-44.mp4
 

@@ -1,4 +1,4 @@
-(ns fn.syntax.seq-interface)
+(ns syntax.seq-interface)
 
 ; rfr: video/20230215-mert-clj-egzersiz-38.mp4
 ;

@@ -1,4 +1,4 @@
-(ns fn.syntax.recursion)
+(ns syntax.recursion)
 
 ; rfr: video/20230223-mert-clj-egzersiz-52.mp4
 

@@ -1,6 +1,24 @@
 (ns java-interoperability)
 
-; From: [Clojure - Wikipedia](https://en.wikipedia.org/wiki/Clojure)) > Java Interoperability
+; ## Java Interoparability
+;   id:: b87bc0b9-628c-461a-b035-c280c3e1bbfd
+; Source: [Clojure - Java Interop](https://clojure.org/reference/java_interop)
+
+(.. System (getProperties) (get "os.name"))
+;; expands to:
+(. (. System (getProperties)) (get "os.name"))
+(-> (System/getProperties) (.get "os.name"))
+
+; java interoperability || ((fe99755d-5ac7-428c-a7e8-2a994c046486))
+(new java.util.Date) ;; => #inst "2020-06-15T14:27:36.415-00:00"
+(java.util.Date. "2016/2/19") ;; => #inst "2016-02-18T22:00:00.000-00:00"
+(let [d (java.util.Date.)] (.toString d)) ;; => "Mon Jun 15 17:27:47 EEST 2020"
+(let [d (java.util.Date.)] (. d toString)) ;; => "Mon Jun 15 17:27:51 EEST 2020"
+
+(let [d1 (java.util.Date.)
+      d2 (java.util.Date.)]
+  (.equals d1 d2))
+;; => true
 
 ;; call an instance method
 (.toUpperCase "apple")

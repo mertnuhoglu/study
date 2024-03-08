@@ -1,4 +1,4 @@
-(ns fn.syntax.immutable)
+(ns syntax.immutable)
 
 ; rfr: video/20230220-mert-clj-egzersiz-45.mp4
 

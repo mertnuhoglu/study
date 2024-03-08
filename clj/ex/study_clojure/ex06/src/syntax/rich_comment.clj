@@ -1,4 +1,4 @@
-(ns fn.syntax.rich-comment)
+(ns syntax.rich-comment)
 
 ;; Tarih: 20230331
 ;; Video: 20230331-mert-clj-egzersiz-53.mp4
@@ -136,7 +136,7 @@
 
   ; sonra anonim fonksiyonu debug edelim
   #(+ 2 %)
-  ;=> #object[fn.syntax.rich_comment$eval4667$fn__4668 0x39f111a8 "fn.syntax.rich_comment$eval4667$fn__4668@39f111a8"]
+  ;=> #object[syntax.rich_comment$eval4667$fn__4668 0x39f111a8 "syntax.rich_comment$eval4667$fn__4668@39f111a8"]
   ; anonim fonksiyonu nasıl test edeceğim?
   (#(+ 2 %) 0)
   ;=> 2

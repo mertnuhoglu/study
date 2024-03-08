@@ -200,15 +200,14 @@ Part of embracing Lisp and structural editing is learning to love the parenthese
 
 - ## Cheatsheet cleverparens vim-sexp id=g11961
   id:: 2a8e1fae-de5e-40f7-a4bd-44412466b4db
-  id:: 61048688-4992-4a9c-b7a7-c46dc395e672
 
 ref: `~/projects/study/emacs/ex/smartparens/e01/cleverparens_commands.clj`
 
-ref: `sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>`
+ref: sexp cheatsheet  || ((7caeba47-93e3-44b2-bde9-387baed34273))
 
 vim-sexp komutlarının bir kısmını değiştirdim. Güncel ayarlar: 
 
-ref: `vim-sexp <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12870>`
+ref: let g:sexp_mappings = {  || ((192a456b-4684-44a3-a2b9-ebdcf3738172))
 
   | keybinding | function                            | vim-sexp |
   | slurp barf |                                     |          |

@@ -1,4 +1,4 @@
-(ns fn.syntax.multi-variadic-functions)
+(ns syntax.multi-variadic-functions)
 
 ; rfr: video/20230220-mert-clj-egzersiz-44.mp4
 

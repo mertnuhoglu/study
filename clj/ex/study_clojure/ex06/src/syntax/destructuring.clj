@@ -1,4 +1,4 @@
-(ns fn.syntax.destructuring)
+(ns syntax.destructuring)
 
 ; rfr: video/20230217-mert-clj-egzersiz-41.mp4
 

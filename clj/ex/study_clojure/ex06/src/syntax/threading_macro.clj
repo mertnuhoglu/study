@@ -1,4 +1,4 @@
-(ns fn.syntax.threading-macro)
+(ns syntax.threading-macro)
 
 ; Tarih: 20230407
 ; Video: 20230407-mert-clj-egzersiz-55-e24-threading-macro-debug.mp4

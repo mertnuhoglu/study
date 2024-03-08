@@ -1,4 +1,4 @@
-(ns fn.syntax.java)
+(ns syntax.java)
 
 ; [Learn clojure in Y Minutes](https://learnxinyminutes.com/docs/clojure/)
 

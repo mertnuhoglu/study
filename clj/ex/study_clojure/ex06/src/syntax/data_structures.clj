@@ -1,4 +1,4 @@
-(ns fn.syntax.data-structures)
+(ns syntax.data-structures)
 
 ; rfr: video/20230220-mert-clj-egzersiz-44.mp4
 

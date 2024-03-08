@@ -1,6 +1,5 @@
-
+[[sexp_editing.otl]]
 ref
-	vim-sexp <url:file:///~/projects/study/clj/sexp_editing.otl#r=g13700>
 	emacs paredit: ~/projects/study/emacs/paredit.md
 	emacs smartparens: ~/projects/study/emacs/smartparens.md
 	Cheatsheet cleverparens vim-sexp <url:file:///~/projects/study/emacs/smartparens.md#r=g11961>
@@ -10,9 +9,7 @@ quickstart
 	emacs => smartparens + cleverparens
 vim-sexp id=g13700
 	ref: 
-		Evm: vim-sexp <url:file:///~/projects/vim_repos/my-vim-custom/plugin/my-vim-custom.vim#r=g12870>
-		vim_sexp: ~/projects/study/clj/vim_sexp.md
-		sexp cheatsheet <url:file:///~/projects/study/clj/vim_sexp.md#r=g11971>
+		sexp cheatsheet || ((7caeba47-93e3-44b2-bde9-387baed34273))
 		[guns/vim-sexp: Precision Editing for S-expressions](https://github.com/guns/vim-sexp)
 cursive sexp
 	ref
