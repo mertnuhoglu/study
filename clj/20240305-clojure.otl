@@ -1195,7 +1195,7 @@ topics
 		Weird Characters 
 			id:: 60209199-79a0-41e8-be9d-8b571db3f946
 			src: Weird Characters || ((373ea7e0-e7c8-4d75-a1ec-c664e8d7b5b6))
-			ref: ~/projects/study/clj/ex/study_clojure/ex06/src/weird_characters.clj
+			ref: [[weird_characters.clj]]
 			# - Dispatch character
 			#{ … } - Set
 			#_ - Discard

@@ -42,7 +42,7 @@
 ; şu ana kadar anonim fonksiyonunların özü
 ; bu anonim fonksiyonlar genellikle bu gibi durumlarda kullanılmıyor
 ; genelde anonim fonksiyonlar, üst seviye fonksiyonların (higher-order functions) bir argümanı olarak kullanılır
-; üst seviye fonksiyon: argüman olarak bir fonksiyon olan fonksiyonlardır
+; üst seviye fonksiyon: argüman olarak bir fonksiyon alan fonksiyonlardır
 
 ; Üst seviye fonksiyonlar, FP'nın çıkış noktasıdır.
 ; Her şey buradan başlıyor.

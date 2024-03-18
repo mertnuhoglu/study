@@ -862,8 +862,9 @@ opt01:
   (steer-ship! treasure-location))
 ``` 
 
-- ### anonymous functions id=g11304
+- ### anonymous functions 
   id:: 977b1a1b-2318-4bfb-b3b4-51bf0ac9614f
+	id=g11304
 
 `%&`: Rest parameter
 

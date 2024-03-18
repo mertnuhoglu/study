@@ -1,0 +1,2 @@
+if -> "then A" -> end
+if -> "then B" -> end

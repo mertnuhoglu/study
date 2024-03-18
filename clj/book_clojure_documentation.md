@@ -90,7 +90,7 @@ Sub-expressions:
 
 - ## Weird Characters 
   id:: 373ea7e0-e7c8-4d75-a1ec-c664e8d7b5b6
-  src:: Weird Characters  || ((373ea7e0-e7c8-4d75-a1ec-c664e8d7b5b6))
+  src:: ; Weird Characters || ((f75edafd-c289-4f43-b376-46d57a23bae1))
 	id=g11401
 
 [Weird Characters](https://clojure.org/guides/weird_characters)

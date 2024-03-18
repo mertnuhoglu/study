@@ -1,7 +1,7 @@
 [[clojure.otl]]
 prn: [[ndx/clj.otl]]
 prdcl:
-	[[20240305-clojure.otl]]
+	pprv: [[20240305-clojure.otl]]
 rfr: yeni index: [[ndx/clj]]
 rfr: pprv: [[clojure-otl]]
 ndx
@@ -16,7 +16,6 @@ ndx
 		Weird Characters  || ((60209199-79a0-41e8-be9d-8b571db3f946))
 		Java Interoparability || ((b87bc0b9-628c-461a-b035-c280c3e1bbfd))
 		Destructuring || ((cc911e94-34a3-4815-b2ab-3abd090fe055))
-		anonymous functions || ((977b1a1b-2318-4bfb-b3b4-51bf0ac9614f))
 pnt
 	editors
 		conjure 20240306

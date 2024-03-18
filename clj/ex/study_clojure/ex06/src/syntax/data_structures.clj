@@ -55,7 +55,8 @@
 ; bu yüzden, clojure'da "code is data"
 ; C tipi dillerdeki LinkedList'e denk gelir
 ; burada indeks yok
-; 2. öğe nedir diye soramıyorsun?
+; 2. öğe nedir diye tek seferde soramıyorsun? (get xs 2) gibi
+; Onun yerine next ile sırayla dolaşıyorsun öğeleri teker teker
 
 [10 20 30]
 ;=> [10 20 30]
@@ -89,7 +90,7 @@
 
 ; get fonksiyonu en çok kullanılan işlem olduğundan bunu daha da basit ve kolay hale getirmiş clojure:
 (get {:a 200, :b 300} :a)
-; =
+; = (equivalent to)
 ({:a 200 :b 300} :a)
 ;=> 200
 ; map'in kendisi aynı zamanda bir get fonksiyonu işlevi de görüyor
