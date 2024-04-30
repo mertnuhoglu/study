@@ -1,4 +1,4 @@
-# electric-04
+# electric-05
 
 Source: https://github.com/hyperfiddle/electric-starter-app
 
@@ -6,7 +6,7 @@ Source: https://github.com/hyperfiddle/electric-starter-app
 
 Dev build:
 
-Shell: `clj -A:dev -X dev/-main`, or repl: `(dev/-main)`
+Shell: clj -A:dev -X dev/-main, or repl: (dev/-main)
 http://localhost:8080
 
 ## License
