@@ -1,8 +1,10 @@
-# electric-05
+# electric-06
 
 Source: https://github.com/hyperfiddle/electric-starter-app
 
 ## Usage
+
+1. step: `npm install`
 
 Dev build:
 

@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "create-react-class": "^15.7.0",
+    "process": "^0.11.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "slate": "^0.94.1",
+    "slate-react": "^0.97.0"
+  }
+}
