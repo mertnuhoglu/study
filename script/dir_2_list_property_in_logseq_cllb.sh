@@ -10,7 +10,7 @@
 #   dir_2_list_property_in_logseq_cllb.sh
 #
 
-DIR=$HOME/prj/collabry/cldocs/cllogseq
+DIR=$HOME/prj/collabryio/cldocs/cllogseq
 REPO=cllb
 DATE=$(date +%Y%m%d)
 BASENAME=$DATE-Property-List-$REPO

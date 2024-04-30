@@ -45,14 +45,16 @@
 (d/q '[:find ?e :where [?e :user/name "jillosaurus"]] (d/db conn))   
 ; [[101155069755466]]
 
-; #grsm/tst Yukarıda `:db-after` `:db-before` ve `d/db` ifadeleri arasındaki farkları açıklayın. id=g14473
+; #grsm/tst Yukarıda `:db-after` `:db-before` ve `d/db` ifadeleri arasındaki farkları açıklayın. 
+;   id:: a6bc892b-c6e3-4a55-a7be-8cb939f31740
 
 (:tx-data tx-result) 
 ; [#datom[13194139533319 50 #inst "2023-06-09T08:53:09.874-00:00" 13194139533319 true] 
 ;  #datom[101155069755466 73 "jillosaurus" 13194139533319 true] 
 ;  #datom[101155069755467 73 "jonnyboy" 13194139533319 true]]
 
-; #grsm/tst Yukarıda 3 tane datom objesinin kaydını görüyoruz. Hepsinde ortak olan `13194139533319` değeri ne anlama geliyor? id=g14476
+; #grsm/tst Yukarıda 3 tane datom objesinin kaydını görüyoruz. Hepsinde ortak olan `13194139533319` değeri ne anlama geliyor? 
+;   id:: 374c0461-8798-452c-b683-4a3789f4e33b
 
 ; (d/ident (d/db conn) 50)                       ;;=> :db/txInstant
 (d/q '[:find ?i :where [50 ?a] [?a :db/ident ?i]] (d/db conn)) 

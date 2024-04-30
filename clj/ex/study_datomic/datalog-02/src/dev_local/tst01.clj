@@ -28,4 +28,5 @@
 ;Execution error (ExceptionInfo) at datomic.core.error/raise (error.clj:55).
 ;:db.error/not-an-entity Unable to resolve entity: :user/name
 
-; #grsm/tst Yukarıdaki `not-an-entity` hatasının sebebi ve çözümü nedir? id=g14475
+; #grsm/tst Yukarıdaki `not-an-entity` hatasının sebebi ve çözümü nedir? 
+;   id:: 30c695af-98a0-410c-90b9-6883ce46c1b0

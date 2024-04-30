@@ -1,4 +1,4 @@
-(ns ex00.ex00.anki_repeat)
+(ns ex00.anki_repeat)
 
 ;; # update-in
 

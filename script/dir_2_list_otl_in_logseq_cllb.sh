@@ -10,7 +10,7 @@
 #   dir_2_list_otl_in_logseq_cllb.sh
 #
 
-DIR=$HOME/prj/collabry/cldocs/cllogseq
+DIR=$HOME/prj/collabryio/cldocs/cllogseq
 DATE=$(date +%Y%m%d)
 FILENAME=$DATE-otl-list-cllb.md
 OUTPUT="$DIR/pages/$FILENAME"
@@ -21,7 +21,8 @@ gsed -i "1 i tags:: cllb, f/ndx\\
 date:: $DATE\\
 .\\
 - # $DATE-otl-list-cllb\\
-." "$OUTPUT"
+.
+  - prn: [[ndx/otl-list-myr]]" "$OUTPUT"
 
 echo "$FILENAME" | pbcopy
 echo "$OUTPUT" 

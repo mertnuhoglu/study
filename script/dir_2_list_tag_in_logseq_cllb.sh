@@ -10,7 +10,7 @@
 #   dir_2_list_tag_in_logseq_cllb.sh
 #
 
-DIR=$HOME/prj/collabry/cldocs/cllogseq
+DIR=$HOME/prj/collabryio/cldocs/cllogseq
 REPO=cllb
 DATE=$(date +%Y%m%d)
 BASENAME=$DATE-Tag-List-$REPO

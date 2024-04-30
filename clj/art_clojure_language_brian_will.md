@@ -48,7 +48,7 @@ state: wip
 		reader: source -> AST (reader data)
 		AST: language constructs sa. stmt, fct
 		reader data: std data types sa nums, lists
-		source --reader-> reader data --evaluator-> running code
+		[source] --reader-> [reader data] --evaluator-> [running code]
 		evaluator: very transparent
 			follows a few rules
 		symbol: foo
@@ -79,7 +79,7 @@ state: wip
 			evaluator treats a list first as a function call
 			the function that gets invoked is stored in the var resolved from symbol foo
 			the number 51 and the object resolved from symbol bar are arguments
-			if the var resolved from symbol foo does not store a function, exception is throwed
+			if the var resolved from symbol foo does not store a function, exception is thrown
 			a macro is a special kind of function that is invoked in compile time, not during execution
 			if foo is macro
 				evaluator passes args (`bar`) unevaluated
@@ -170,7 +170,7 @@ state: wip
 			(quote elem)
 			(foo (quote bar))
 			=
-			(foo !bar)
+			(foo 'bar)
 		throw and try
 			general
 				(throw exception)
@@ -269,16 +269,16 @@ state: wip
 			a sequence is an interface that supports two operations:
 				first
 				rest
-				Sequence types implement the interface clojure.lang.Iseq
-				Seqable types have operations that produce sequences.
-				seq function returns a sequence from a collection
-				Why is a vector itself not a sequence but a list is?
-				Because of efficiency issues. 
-				Uygulamada bir collectionın doğrudan sequence mı yoksa seqable mı olduğu çok önemli değil
-					çünkü first ve rest fonksiyonları zaten otomatik olarak seq fonksiyonunu çağırıp collectionı sequence'a çeviriyor
-					(first {3 5}) => (first (seq {3 5}))
-				Sequence interfaceinin temel amacı: collectionlar üzerinde loop yapabilmek
-					ve bunu hem yüksek performanslı, hem de stateless yapabilmek
+			Sequence types implement the interface clojure.lang.Iseq
+			Seqable types have operations that produce sequences.
+			seq function returns a sequence from a collection
+			Why is a vector itself not a sequence but a list is?
+			Because of efficiency issues. 
+			Uygulamada bir collectionın doğrudan sequence mı yoksa seqable mı olduğu çok önemli değil
+				çünkü first ve rest fonksiyonları zaten otomatik olarak seq fonksiyonunu çağırıp collectionı sequence'a çeviriyor
+				(first {3 5}) => (first (seq {3 5}))
+			Sequence interfaceinin temel amacı: collectionlar üzerinde loop yapabilmek
+				ve bunu hem yüksek performanslı, hem de stateless yapabilmek
 		Sequence Interface
 			seq
 				(seq coll)

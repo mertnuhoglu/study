@@ -21,7 +21,8 @@ gsed -i "1 i tags:: myrepo, f/ndx\\
 date:: $DATE\\
 .\\
 - # $DATE-otl-list-myr\\
-." "$OUTPUT"
+.
+  - prn: [[ndx/otl-list-myr]]" "$OUTPUT"
 
 echo "$FILENAME" | pbcopy
 echo "$OUTPUT" 

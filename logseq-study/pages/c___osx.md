@@ -1,6 +1,7 @@
 tags:: study, tag, tll/mac
 
-- # c/osx id=g15117
+- # c/osx 
+  id=g15117
 	- rfr: pprv: ~/projects/study/otl/cosx.otl
 - pnt - osx
 	- clipboard history  id=g15110
@@ -10,6 +11,7 @@ tags:: study, tag, tll/mac
 		- Ultorg
 		- Explorer - R
 	- çizim grafik tasarım foto diyagram araçları id=g13860
+		- Shottr: Screenshot
 		- FlameShot
 		- Ksnip
 		- SnagIt
@@ -20,6 +22,7 @@ tags:: study, tag, tll/mac
 		- Monosnap
 		- Snappy
 - tpc - osx
+	- Shottr: Screenshot
 	- ref: shortcuts kısayollar keybindings - osx <url:file:///~/projects/study/otl/cosx.otl#r=g12084>
 	- UTM: vm virtual machine
 		tags:: tll/mac

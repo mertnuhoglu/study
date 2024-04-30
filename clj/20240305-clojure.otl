@@ -3,7 +3,7 @@
 f/ndx
 	index || ((098687d3-3c60-417b-8c3b-1c7017c6dda8))
 		projects || ((5e9ff4e1-5cc1-43a1-ab1f-6c1e17065a1e))
-		rfc quickstart || ((5e9ff4e1-5cc1-43a1-ab1f-6c1e17065a1e))
+		rfc quickstart || ((efb64927-b3f8-4f35-af39-4dd15eb62502))
 	clojure || ((5b4cbe89-49a2-4098-a9f9-201a31344086))
 	authors || ((3267d5b9-691a-475a-a19a-5313afaa9f8e))
 	editors clojure || ((55576e79-e538-4439-a88b-b2facbda2d78))
@@ -34,12 +34,15 @@ index
 		~/projects/study/clj/anki_clojure.tsv
 	projects id=g12848
 		id:: 5e9ff4e1-5cc1-43a1-ab1f-6c1e17065a1e
+		cllb
+			niyi5-demo ~/prj/collabryio/Niyi5-demo/deps.edn
 		ex06 ~/projects/study/clj/ex/study_clojure/ex06/deps.edn
 			~/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj
 		datalog-01 ~/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
 			~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01.clj
 		/Users/mertnuhoglu/projects/study/clj/ex/fulcro/fulcro.iml
 	rfc quickstart id=g12853
+	  id:: efb64927-b3f8-4f35-af39-4dd15eb62502
 		projects || ((5e9ff4e1-5cc1-43a1-ab1f-6c1e17065a1e))
 		datomic || ((fe47891e-5cc8-428e-afaf-833c581325d4))
 		Setup a new project  || ((4ca15728-2340-441f-87fa-353093d2f7d9))

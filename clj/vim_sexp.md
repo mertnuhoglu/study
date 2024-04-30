@@ -80,6 +80,7 @@ wrap:
   id:: 7caeba47-93e3-44b2-bde9-387baed34273
 
 rfr: `~/.local/share/nvim/lazy/vim-sexp-mappings-for-regular-people/plugin/sexp_mappings_for_regular_people.vim`
+
 rfr: default: ((function! s:sexp_mappings))
 
 rfr: myst: let g:sexp_mappings = {  || ((192a456b-4684-44a3-a2b9-ebdcf3738172))

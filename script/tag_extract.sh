@@ -22,21 +22,21 @@ rg "#\w+" >tags_std_$DAY.txt
 rg "tags::" >>tags_std_$DAY.txt
 
 # cllb
-cd $HOME/prj/collabry/cldocs/cllogseq
+cd $HOME/prj/collabryio/cldocs/cllogseq
 rg "#\w+" >tags_cllb_$DAY.txt
 rg "tags::" >>tags_cllb_$DAY.txt
 
 mv $HOME/prj/myrepo/logseq-myrepo/tags_myr_$DAY.txt $HOME/prj/myrepo/scrap/out
 mv $HOME/prj/study/logseq-study/tags_std_$DAY.txt $HOME/prj/myrepo/scrap/out
-mv $HOME/prj/collabry/cldocs/cllogseq/tags_cllb_$DAY.txt $HOME/prj/myrepo/scrap/out
+mv $HOME/prj/collabryio/cldocs/cllogseq/tags_cllb_$DAY.txt $HOME/prj/myrepo/scrap/out
 
 cd $HOME/prj/myrepo/scrap/out
 cat tags_myr_$DAY.txt tags_std_$DAY.txt tags_cllb_$DAY.txt >tags_all_$DAY.txt
 
 nvim -c "LogseqExtractTags" -c "wq" tags_cllb_$DAY.txt
 cp -f tags_cllb_$DAY.txt tags_cllb.txt
-cp -f tags_cllb_$DAY.txt $HOME/prj/collabry/cldocs/cllogseq/pages/$DAY-Tag-List-cllb.md
-cp -f tags_cllb_$DAY.txt $HOME/prj/collabry/cldocs/cllogseq/pages/Tag-List-out-cllb.md
+cp -f tags_cllb_$DAY.txt $HOME/prj/collabryio/cldocs/cllogseq/pages/$DAY-Tag-List-cllb.md
+cp -f tags_cllb_$DAY.txt $HOME/prj/collabryio/cldocs/cllogseq/pages/Tag-List-out-cllb.md
 
 nvim -c "LogseqExtractTags" -c "wq" tags_myr_$DAY.txt
 cp -f tags_myr_$DAY.txt tags_myr.txt
