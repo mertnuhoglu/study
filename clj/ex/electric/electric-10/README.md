@@ -1,4 +1,4 @@
-# electric-10
+# electric-09
 
 Source: https://github.com/hyperfiddle/electric-starter-app
 
@@ -10,6 +10,28 @@ Dev build:
 
 Shell: clj -A:dev -X dev/-main, or repl: (dev/-main)
 http://localhost:8080
+
+# Changelog
+
+Chat-Extended
+
+It doesn't work fully.
+
+```
+ERROR hyperfiddle.electric: #error {
+ :cause nth not supported on this type cljs.core/Symbol
+ :via
+ [{:type hyperfiddle.electric.FailureInfo
+   :message nth not supported on this type cljs.core/Symbol
+ :trace
+ []}
+in remote ( clojure.core/nth auth 0 nil )
+in remote reactive (fn [] ...)
+in remote case default branch
+in remote (case "2" ...)
+in remote reactive (defn Focus [] ...) in hyperfiddle/router.cljc line 316
+client logged an exception, too
+```
 
 ## License
 

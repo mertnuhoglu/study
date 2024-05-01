@@ -8,6 +8,7 @@
             #?(:cljs ["react-dom/client" :as ReactDom])
             [app.system-properties :refer [SystemProperties]]
             [app.chat :refer [Chat]]
+            [app.chat-extended :refer [ChatExtended]]
             [hyperfiddle.electric-dom2 :as dom]))
 
 ;; This example adds a Navbar to the Example-05
@@ -48,7 +49,10 @@
                                                  (router/link ['.. [::systemproperties]] (dom/a  (dom/text "System Properties")))))
                                              (dom/li (dom/props {:class "nav-item"})
                                                (dom/div (dom/props {:class "nav-link"})
-                                                 (router/link ['.. [::chat]] (dom/a  (dom/text "Chat")))))))))))
+                                                 (router/link ['.. [::chat]] (dom/a  (dom/text "Chat")))))
+                                             (dom/li (dom/props {:class "nav-item"})
+                                               (dom/div (dom/props {:class "nav-link"})
+                                                 (router/link ['.. [::chat-extended]] (dom/a  (dom/text "Chat Extended")))))))))))
 
 
 
@@ -65,7 +69,7 @@
 (e/defn Main [ring-request]
   (e/client
     (binding [dom/node js/document.body]
-      (dom/h1 (dom/text "electric-10"))
+      (dom/h1 (dom/text "electric-09"))
       (navbar.)
       (router/router (router/HTML5-History.)
                      (let [[page x :as route] (ffirst router/route)]
@@ -77,5 +81,6 @@
                                        ::about (e/server (About.))
                                        ::systemproperties (e/server (SystemProperties.))
                                        ::chat (e/server (Chat.))
+                                       ::chat-extended (e/server (ChatExtended.))
 
                                        (e/client (dom/text "no matching route: " (pr-str page)))))))))))

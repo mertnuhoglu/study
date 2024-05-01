@@ -66,6 +66,15 @@
   {:k1 1 :k2 2})
 ;=> ()
 
+; Burada neden boş küme döndü?
+; Çünkü filter coll argümanını birer birer alıyor.
+; Map objesinin her bir öğesi bir kv pair, bu bir Map değil.
+; kv pair aslında bir tuple
+; yukarıdaki ifadenin çalışma şekli şöyle oluyor:
+
+; 1. iterasyon
+(#(:k1 [:k1 1]))
+
 (filter
   #(= (:k1 %) 1)
   {:k1 1 :k2 2})
@@ -97,4 +106,6 @@
    :b 2
    :c 1})
 ;=> ([:a 1] [:c 1])
+
+(filter #(:k1 %) m1)
 
