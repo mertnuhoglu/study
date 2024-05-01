@@ -112,6 +112,7 @@ r/**/*.html
 
 # electric resources
 clj/ex/**/resources/public/js
+**/resources/public/js/cljs-runtime
 **/yarn.lock
 **/.obsidian/*
 ./.obsidian

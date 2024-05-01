@@ -27,4 +27,4 @@
                                 (e/server (swap! !msgs #(cons v (take 9 %))))
                                 (set! (.-value dom/node) ""))))))
       (catch Pending e
-        (dom/style {:background-color "yellow"})))))
+        (dom/style {:background-color "red"})))))

@@ -27,3 +27,4 @@
 /checkouts
 /classes
 /target
+resources/public/js/cljs-runtime

@@ -16,7 +16,7 @@
 (def Ms [m1 m2])
 
 (filter
-  (fn [m] (= (:k1 m) :v1))
+  (fn [kv] (= (:k1 kv) :v1))
   Ms)
 
 (filter odd? [1 2 3])
