@@ -124,3 +124,7 @@ clj/ex/**/resources/public/js
 
 logseq-study/whiteboards
 
+# quarto output
+**/*_files/figure-html
+**/*_files/figure-html/
+**/*_files/libs
