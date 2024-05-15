@@ -17,10 +17,18 @@
 #
 
 
-DEST="$1"
+DEST_DIR="$1"
 
-LAST_FILE=$(ls "${DIR_SCREENCAPTURE}" | sort | rg '^SCR-202' | tail -n1)
-mv "${DIR_SCREENCAPTURE}/${LAST_FILE}" "${DEST}/assets"
-echo "moved ${LAST_FILE} to ${DEST}/assets"
+LAST_FILE=$(ls -t "${DIR_SCREENCAPTURE}" | rg '^SCR-202' | head -n1)
+mv "${DIR_SCREENCAPTURE}/${LAST_FILE}" "${DEST_DIR}/assets"
+DEST_FILE="${DEST_DIR}/assets/${LAST_FILE}"
+echo "moved ${LAST_FILE} to ${DEST_DIR}/assets"
 echo "![](assets/${LAST_FILE})" | pbcopy
+
+if test -f "${DEST_FILE}"; then
+	echo "$DEST_FILE exists."
+	/Applications/ImageOptim.app/Contents/MacOS/ImageOptim "${DEST_FILE}"
+else
+	echo "$DEST_FILE does not exist." | pbcopy
+fi
 

@@ -19,6 +19,10 @@ state: wip
 
 [CLJS API](https://cljs.github.io/api/)
 
+	review 20240513
+		? predicate
+		! impure
+		*earmuffs* -- dynamic vars
 	Syntax
 		Literals
 			number literal

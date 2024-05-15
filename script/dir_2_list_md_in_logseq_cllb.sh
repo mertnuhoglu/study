@@ -19,7 +19,7 @@ gsed -i "1 i tags:: cllb, f/ndx\\
 date:: $DATE\\
 .\\
 - # $DATE-Document-List-cllb\\
-.
+.\\
   - prn: [[ndx/Document-List-cllb]]" "$OUTPUT"
 
 echo "$FILENAME" | pbcopy

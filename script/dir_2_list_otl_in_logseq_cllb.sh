@@ -21,7 +21,7 @@ gsed -i "1 i tags:: cllb, f/ndx\\
 date:: $DATE\\
 .\\
 - # $DATE-otl-list-cllb\\
-.
+.\\
   - prn: [[ndx/otl-list-myr]]" "$OUTPUT"
 
 echo "$FILENAME" | pbcopy

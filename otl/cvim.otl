@@ -15,6 +15,39 @@ quicklist: kendi kullanım yöntemlerim - ndx id=g14299
 	teg kullanımı
 		neoscopes: teglere hızlı erişim <url:file:///~/projects/study/otl/cvim.otl#r=g14298>
 pnt
+	LuaSnips Configuration and Setup
+		Introduction to LuaSnip - Youtube `prg/vim` || ((833457c0-3c05-4b80-b50e-262d96a6b543))
+		[[snips.lua]]  `prg/vim` || ((f9e37d52-47f4-4d13-a7b6-11b0c0479ceb))
+	ndx/lazyvim docs
+	  id:: 4a4612e6-70d3-4447-bab8-7a888f54d520
+		[[20230328-Neovim-LazyVim-Kurulum]]
+		LazyVim config
+			Default: 
+				~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/init.lua
+				[[lua/lazyvim/init.lua]]
+			Options: 
+				~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/config/options.lua
+			Key mappings: 
+				~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/config/keymaps.lua
+				[⌨️ Keymaps - LazyVim](https://www.lazyvim.org/keymaps)
+			Plugins: 
+				Editor: ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
+		My config: 
+			Init: ~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/init.lua
+			Options: ~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/config/options.lua
+			Key mappings: ~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/config/keymaps.lua
+			Plugins:
+				All plugins: ~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/plugins/plugins.lua
+				Gruvbox: ~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/plugins/gruvbox.lua
+				Change plugin settings: ~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/plugins/alpha.lua
+				Belli bir kısayolla aktifleşen plugin: `~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/plugins/file-browser.lua`
+				Disable plugin: `~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/plugins/disabled.lua`
+				Treesitter: ~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/plugins/treesitter.lua
+			ftplugin:
+				votl: ~/prj/private_dotfiles/.vim/ftplugin/votl.vim
+		My plugins:
+			my-vim-lazyvim: `~/prj/private_dotfiles/vim/my-vim-lazyvim/plugin/my-vim-lazyvim.vim`
+			my-vim-custom2: ~/prj/private_dotfiles/vim/my-vim-custom2/plugin/my-vim-custom2.vim
 	neoscopes: teglere hızlı erişim id=g14298
 		teglere hızlı erişim için neoscopes kullan
 		:lua require('neoscopes').select() > kslt

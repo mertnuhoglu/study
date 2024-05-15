@@ -101,6 +101,7 @@ cookbook
 			run R from console
 			oneliner
 				R -e 'rmarkdown::render("data_generation.Rmd", "html_document")'
+				R -e 'rmarkdown::render("data_generation.Rmd", "pdf_document")'
 			run script
 				R CMD BATCH file.R
 					# output to standard out

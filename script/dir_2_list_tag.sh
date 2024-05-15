@@ -43,9 +43,9 @@ gsed -i "1 i tags:: $REPO, f/ndx\\
 date:: $DATE\\
 .\\
 - # $BASENAME\\
-.
-  - prn: [[ndx/Tag-List-myr]]
-  - prn: [[ndx/Tag-List-cllb]]
+.\\
+  - prn: [[ndx/Tag-List-myr]]\\
+  - prn: [[ndx/Tag-List-cllb]]\\
 " "$OUTPUT"
 
 echo "$OUTPUT" | pbcopy

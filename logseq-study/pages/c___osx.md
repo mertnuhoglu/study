@@ -92,7 +92,7 @@ tags:: study, tag, tll/mac
 		- fragment: image viewer
 		- fork: git client
 		- syncthing: android-desktop sync
-		- be focused: pomodoro timer
+		- be focused: pomodoro timer 
 		- anki: spaced repetition for memory
 		- karabiner: shortcuts, hotkeys management
 		- copyq: multiple clipboard manager
