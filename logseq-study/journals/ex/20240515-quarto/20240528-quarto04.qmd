@@ -1,0 +1,27 @@
+---
+title: "Quarto 04: Parameters"
+date: 2024-05-28
+format: html
+params:
+  my_class: "suv"
+---
+# [[20240528-quarto04.qmd]] Parameters
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+
+class <- mpg |> filter(class == params$my_class)
+```
+
+# Fuel economy for `r params$my_class`s
+
+```{r}
+#| message: false
+
+ggplot(class, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+```

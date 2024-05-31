@@ -1,0 +1,20 @@
+project:
+  type: website
+
+website:
+  title: "20240529-quarto-website01"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - 20240529-quarto-website01-p2.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+

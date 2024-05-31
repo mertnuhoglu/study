@@ -1,0 +1,11 @@
+---
+title: "Quarto 05: Multiple Formats"
+date: 2024-05-29
+format:
+  html:
+    code-fold: true
+jupyter: python3
+---
+
+Source: [Quarto – Tutorial: Hello, Quarto](https://quarto.org/docs/get-started/hello/neovim.html#render-and-preview)
+

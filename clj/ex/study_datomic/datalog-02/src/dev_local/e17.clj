@@ -23,6 +23,7 @@
 (d/transact conn {:tx-data product-list})
 
 ; Başka bir yol da :db/add adı verilen transaction function kullanmaktır
+; Burada "foo" tempid sayılıyor.
 (def product-list-2
   [[:db/add "foo" :product/id 6]
    [:db/add "foo" :product/name "Boya"]

@@ -16,14 +16,14 @@
 #     ![](assets/SCR-20240427-jrqj.png)
 #
 
-
 DEST_DIR="$1"
 
 LAST_FILE=$(ls -t "${DIR_SCREENCAPTURE}" | rg '^SCR-202' | head -n1)
-mv "${DIR_SCREENCAPTURE}/${LAST_FILE}" "${DEST_DIR}/assets"
 DEST_FILE="${DEST_DIR}/assets/${LAST_FILE}"
-echo "moved ${LAST_FILE} to ${DEST_DIR}/assets"
 echo "![](assets/${LAST_FILE})" | pbcopy
+
+mv "${DIR_SCREENCAPTURE}/${LAST_FILE}" "${DEST_DIR}/assets"
+echo "moved ${LAST_FILE} to ${DEST_DIR}/assets"
 
 if test -f "${DEST_FILE}"; then
 	echo "$DEST_FILE exists."
@@ -31,4 +31,3 @@ if test -f "${DEST_FILE}"; then
 else
 	echo "$DEST_FILE does not exist." | pbcopy
 fi
-

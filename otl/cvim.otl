@@ -15,6 +15,8 @@ quicklist: kendi kullanım yöntemlerim - ndx id=g14299
 	teg kullanımı
 		neoscopes: teglere hızlı erişim <url:file:///~/projects/study/otl/cvim.otl#r=g14298>
 pnt
+	Fix title of current scope on top
+		rfr: Vim: Fix title of current scope on top line `prg/vim` || ((fcaf5c62-5e50-4ede-b337-829071a997f1))
 	LuaSnips Configuration and Setup
 		Introduction to LuaSnip - Youtube `prg/vim` || ((833457c0-3c05-4b80-b50e-262d96a6b543))
 		[[snips.lua]]  `prg/vim` || ((f9e37d52-47f4-4d13-a7b6-11b0c0479ceb))

@@ -191,7 +191,7 @@ rfr: moved-from: 3-355 Don't Make Me Think - Steve Krug || ((d70f043d-e839-4095-
   arama
   didikleyiciler (teases). bir dergi kapağı gibi, içerideki iyi malzemeyi vurgulamalı. content promos: en popüler, yeni içerik. feature promos: yeni özellikleri keşfetmeye davet.
   zamansal içerik (timely content). site beni yeniden gelmeye davet etmeli. içerik görece sabit olsa bile, canlı olduğuna dair bir işaret olmalı (son basın duyuruları gibi)
-  anlaşmalar (deals). reklam, çapraz promosyon ve birlikte marka anlaşmaları
+  fırsatlar (deals). reklam, çapraz promosyon ve birlikte marka anlaşmaları
   kısayollar. çok kullanılan içerik parçaları için (yazılım güncellemeleri gibi)
   kayıt
   ayrıca soyut amaçları karşılamalı:
@@ -259,16 +259,16 @@ rfr: moved-from: 3-355 Don't Make Me Think - Steve Krug || ((d70f043d-e839-4095-
   adım adım süreçlerde, giriş noktası (sigorta)
   kayıt önemliyse, vurgulu olmalı
   her şeyi vurgulamak, giriş yerlerini gizler
-  açık etiketler kullan: search, browse by category, sign in, start here
-  anasayfa dolaşma tekil olabilir
+  açık başlıklar kullan: search, browse by category, sign in, start here
+  anasayfa dolaşma herkese özel olabilir
   kalıcı seyir çubuğundaki farklılıklar
   bölüm tarifleri
   bölüm isimlerinde açıklama olabilir
   farklı sayfa yerleşimi
   kimlik için daha çok alan
-  çok fazla da değişiklik yapma. insanlar seyir çubuğunun aynı şey olduğunu anlayabilsin.
+  çok fazla da değişiklik yapma. insanlar seyir çubuğunun (navigation bar) aynı şey olduğunu anlayabilsin.
   bölüm isimleri aynı olmalı. hem görsel hem metinsel olarak
-  çekme menü sorunu
+  çekme menü (drowdown) sorunu
   alan tasarrufu için çekme menü kullanımı. 
   ![](./assets/0999.jpg)
   sorunlar:

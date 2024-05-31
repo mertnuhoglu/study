@@ -1,4 +1,5 @@
 #!/bin/sh
+#
 
 # Title: Move last shottr screencapture to Logseq assets
 # Date: 20240428

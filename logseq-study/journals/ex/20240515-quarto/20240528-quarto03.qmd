@@ -1,0 +1,21 @@
+---
+title: "Quarto 03: Code chunks"
+date: 2024-05-28
+format: html
+---
+# [[20240528-quarto03.qmd]]
+
+```{r}
+#| label: simple-addition
+
+1 + 1
+```
+
+```{r}
+#| label: simple-multiplication
+#| eval: false
+
+2 * 2
+```
+
+- Inline code: `r nrow(mtcars)` R expressions.
