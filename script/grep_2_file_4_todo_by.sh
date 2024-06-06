@@ -13,7 +13,7 @@ DATE=$(date +%Y%m%d)
 
 if [ -z "$1" ]; then
 	PERSON=""
-	FILENAME=$DATE-grep-todo-by.txt
+	FILENAME=$DATE-grep-todo-by-all.txt
 else
 	PERSON="$1"
 	PERSON_NAME=$(echo "${PERSON}" | sed -nE 's/.*\/([^/]+)$/\1/p')
@@ -24,6 +24,6 @@ DEST_DIR="${DIR_CLLOGSEQ}"
 OUTPUT="${DIR_CLLOGSEQ}/out/${FILENAME}"
 cd "${DEST_DIR}"
 
-rg --vimgrep "\bTODO\b.*${PERSON}" >"${OUTPUT}"
+rg --vimgrep "\bTODO\b.*${PERSON}" | sort --reverse | rg -v "pages\/ndx\w+.md" | rg "(pages|journals)\/2024.*.md" | rg -v "pages\/.*-Tag-List-.*\.md" >"${OUTPUT}"
 echo "${DIR_CLLOGSEQ}/out/${FILENAME}"
 echo "${DIR_CLLOGSEQ}/out/${FILENAME}" | pbcopy

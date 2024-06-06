@@ -43,4 +43,3 @@
 ~/prj/study/script/grep_2_file_4_todo_by.sh "#org/opal"
 ~/prj/study/script/grep_2_file_4_todo_by.sh "#org/rpa"
 ~/prj/study/script/grep_2_file_4_todo_by.sh "#org/training"
-
