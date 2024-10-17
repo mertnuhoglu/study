@@ -39,5 +39,5 @@ date:: $DATE\\
 - # $BASENAME\\
 ." "$OUTPUT"
 
-echo "$OUTPUT" | pbcopy
+printf "$OUTPUT" | pbcopy
 echo "$OUTPUT" 

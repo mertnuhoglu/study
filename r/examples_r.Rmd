@@ -28,7 +28,7 @@ output:
 
 tbl or dplyr with sql
 
-```{r}
+```r
 sql01 = "
 (SELECT *
 FROM data_20181220.all_data
@@ -56,7 +56,7 @@ d01 = tbl(con, sql(sql01)) %>% collect
 
 Specify names of selected fields with a vector
 
-```{r}
+```r
 d02 = d01 %>%
   select_(.dots = vars_f)
 write_csv(d02, path = "file.csv", na = "")
@@ -66,7 +66,7 @@ write_csv(d02, path = "file.csv", na = "")
 
 ## Mutate column types of df id=g12484
 
-```{r}
+```r
 bd10 = bd10 %>%
   mutate(bq_revenue = as.numeric(bq_revenue)) %>%
   mutate(bq_cogs = as.numeric(bq_cogs)) %>%
@@ -85,7 +85,7 @@ bd10 = bd10 %>%
 
 show_query id=g10794
 
-```{r}
+```r
 d01 = tbl(con, sql(s))
 vars = c("bq_ticker", "bq_company_name", "bq_revenue")
 d02 = d01 %>%
@@ -98,7 +98,7 @@ show_query(d02)
 
 ## gather: wide format to long format id=g10792
 
-```{r}
+```r
 library(tidyverse)
 d0 = data_frame(
   a = c(1,1,2,2,3),
@@ -110,7 +110,7 @@ gather(d0, "var", "value")
   ##>  2 a         1
 ```
 
-```{r}
+```r
 d0 = data_frame(
   a = c(1,1,2,2,3),
   b = c(5,6,5,8,9),
@@ -127,7 +127,7 @@ gather(d0, key = "var", value = "value", c(a,b))
 
 ## spread: long format to wide format id=g10803
 
-```{r}
+```r
 s1 = tibble::tribble(
   ~id,   ~key, ~value,
   1,   "a",  2,
@@ -145,7 +145,7 @@ s1
 
 ## dplyr join id=g12498
 
-``` bash
+```bash
 left_join(kmbg, by = "kombin_id")
 inner_join( child_df, by = fk_name )
 left_join( org2, by = c("parent_id" = "organization_id") )
@@ -154,7 +154,7 @@ inner_join(xcr, by = c("filename", "contextRef"))
 
 ## replace_na id=g12497
 
-```{r}
+```r
 twc3 = twc %>%
   left_join(c0, by = "customer_id") %>%
   dplyr::mutate_at("customer_name", tidyr::replace_na, "Depo")
@@ -162,7 +162,7 @@ twc3 = twc %>%
 
 ## dplyr: group_by then count tally  id=g12512
 
-```{r}
+```r
 pl1 %>%
   count(depot)
   ##>   depot         n
@@ -175,7 +175,7 @@ pl1 %>%
 
 Equivalent to:
 
-```{r}
+```r
 pl1 %>%
   group_by(depot) %>%
   tally()
@@ -183,7 +183,7 @@ pl1 %>%
 
 ## dplyr: bind_rows concatenate tables id=g12524
 
-``` bash
+```bash
 bind_rows(data.frame(x = 1:3), data.frame(y = 1:4))
   ##>    x  y
   ##> 1  1 NA
@@ -197,7 +197,7 @@ bind_rows(data.frame(x = 1:3), data.frame(y = 1:4))
 
 ## dplyr: ifelse id=g12526
 
-``` bash
+```bash
   f05 = f04b %>%
     dplyr::mutate( axis = ifelse(cpl == 0, "ver", "hor") )
 ```
@@ -387,7 +387,7 @@ ref: `~/gdrive/btg/dcwater_mert/ams/scripts/scr01_collect_data_fields_from_ams_s
 
 Önce okuma ve birleştirme işlemini yap: `Excel: Farklı sayfalardaki tabloları birleştir <url:file:///~/projects/study/r/examples_r.Rmd#r=g12544>`
 
-```{r}
+```r
 sn <- group_keys(df01, maximo_table)$maximo_table
 dl01 <- df01 %>%
   group_split(maximo_table) %>%
@@ -400,7 +400,7 @@ ref: `~/gdrive/btg/dcwater_mert/ams/scripts/scr01_collect_data_fields_from_ams_s
 
 `ams_sandbox` excel dosyasındaki tüm sayfaları dolaşıp, buralardaki bilgileri tek bir tabloya toplayalım:
 
-```{r}
+```r
 ams_sandbox <- "data/ams_sandbox.xlsx"
 sheet_names <- readxl::excel_sheets(ams_sandbox)
 df01 <- lapply(sheet_names[3:length(sheet_names)],
@@ -415,11 +415,11 @@ df01 <- lapply(sheet_names[3:length(sheet_names)],
 
 opt01: tidyverse readxl
 
-``` bash
+```bash
 d1 = readxl::read_excel("file01.xlsx", sheet = "d0")
 ```
 
-```{r}
+```r
 d0 = dplyr::tibble(a = 1:3, b = 10:12)
 WriteXLS::WriteXLS(d0, "file01.xlsx", SheetNames = "d0")
 rio::export(d0, "file.xlsx")
@@ -444,7 +444,7 @@ for (sheet in 2:19) {
 
 ## ex: import excel file 2nd sheet, select one column, convert it to lowercase id=g12542
 
-```{r}
+```r
 vars01 = rio::import("inpot.xlsx", which = 2) %>%
   select(field_name) %>%
   mutate(field_name = tolower(field_name))
@@ -456,7 +456,7 @@ vars01 = rio::import("inpot.xlsx", which = 2) %>%
 
 ex01:
 
-```{r}
+```r
 files = googledrive::drive_ls("~/IFTTT/Spotify")
 names(files)
   ##> [1] "name"           "id"             "drive_resource"
@@ -502,7 +502,7 @@ s01 = tibble::tribble(
 
 Now,
 
-```{r}
+```r
 cnt = tbl(con, sql("SELECT * FROM data_20181202.companies_non_ts")) %>% collect
 length(unique(cnt$company_ein))
   ##> [1] 1149644
@@ -512,7 +512,7 @@ nrow(cnt)
 
 Check other variables
 
-```{r}
+```r
 distinct(cnt, company_ein, bq_company_legal_name) %>% nrow()
   ##> [1] 1149644
 ```
@@ -523,7 +523,7 @@ Note that, write_csv formats big numbers that end with multiple zeros in scienti
 
 To disable scientific notation, there are alternative ways:
 
-```{r}
+```r
 options(scipen = 999)
 write_csv(bd11[270:290,], "~/bizqualify_data/tmp.csv", na = "")
 options(digits=22)
@@ -534,7 +534,7 @@ write.csv(bd11[1:10000,], "~/bizqualify_data/tmp.csv", na = "", row.names = F)
 
 ## Diff a column in two df id=g12481
 
-```{r}
+```r
 d2 = setdiff(d0$company_ein, d1$company_ein)
 length(d2)
   ##> [1] 112087
@@ -547,7 +547,7 @@ length(d3)
 
 Compare with 20180903 and 20180806:
 
-```{r}
+```r
 c01 = read_csv("~/bizqualify_data/data_20180903_ts.csv") %>%
 nrow(c01)
   ##> [1] 6521042
@@ -569,7 +569,7 @@ length(dif_09_11)
 
 Let's compare 08 (august) to 09 (september)
 
-```{r}
+```r
 dif_09_08 = c04[!c04 %in% d04]
 length(dif_09_08)
   ##> [1] 922
@@ -580,7 +580,7 @@ length(dif_08_09)
 
 ## Diff Lists of Lines or Words id=g12483
 
-```{r}
+```r
 > d09 = readLines("0903.txt")
 > d10 = readLines("1027.txt")
 > setdiff(d09, d10)
@@ -592,13 +592,13 @@ length(dif_08_09)
 
 ## read csv: strings as factors
 
-```{r}
+```r
 layout <- read.csv(paste0(raw_data_dir, file), stringsAsFactors = FALSE)
 ```
 
 ## summary statistics id=g12489
 
-```{r}
+```r
 summary(d0$percent_change_revenue)
   ##>     Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's
   ##>     0.00     0.00     0.00    11.69     0.00 40400.00        2
@@ -609,7 +609,7 @@ summary(d0$percent_change_employment)
 
 ## custom summary of a df id=g12490
 
-```{r}
+```r
 f1 = d0 %>%
   filter(percent_change_employment != 0)
 stat = list(
@@ -625,7 +625,7 @@ stat = list(
 
 for categorical vars:
 
-```{r}
+```r
 desc_cat(d0, c('SP500'))
   ##>   var     `0`   `1`    avg    sd missing     n
   ##> 1 SP500  92.2  7.78 0.0778 0.268       0  6492
@@ -633,7 +633,7 @@ desc_cat(d0, c('SP500'))
 
 for numeric vars:
 
-```{r}
+```r
 desc_num(d0, c('marketValue'))
   ##>   var           avg      sd missing     n   min   med      max
   ##> 1 marketValue 7412. 178617.       0  6492     0  254. 14186708
@@ -641,7 +641,7 @@ desc_num(d0, c('marketValue'))
 
 Check values of other categorical fields:
 
-```{r}
+```r
 unique(d0$xindustry) %>% sort
   ##>   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  15  16  17  18  19
 ```
@@ -650,14 +650,14 @@ unique(d0$xindustry) %>% sort
 
 check uniqueness
 
-```{r}
+```r
 length(unique(d0$ticker)) == nrow(d0)
   ##> TRUE
 ```
 
 What is the duplicate `name` value?
 
-```{r}
+```r
 d0 %>%
   distinct(ticker, name) %>%
   group_by(name) %>%
@@ -679,7 +679,7 @@ Verify that the foreign keys are valid:
     `all_data$mindustry` to `industrie$M_Industry`
     `all_data$xsector` to `sectors$xsector`
 
-```{r}
+```r
 setdiff(d0$mindustry, i0$M_Industry)
   ##> empty
 setdiff(d0$xsector, i0$xsector)
@@ -691,7 +691,7 @@ setdiff(d0$xsector, i0$xsector)
 https://stackoverflow.com/questions/3936285/is-there-a-way-to-use-read-csv-to-read-from-a-string-value-rather-than-a-file-in
 
 
-```{r}
+```r
 lines <- "
 + flim,flam
 + 1.2,2.2
@@ -701,7 +701,7 @@ lines <- "
 
 opt01: `read.csv`
 
-```{r}
+```r
 data <- read.csv(text=lines)
 data
   ##>   flim flam
@@ -711,7 +711,7 @@ data
 
 opt02: `textConnection`
 
-```{r}
+```r
 con <- textConnection(lines)
 data <- read.csv(con)
 close(con)
@@ -725,7 +725,7 @@ data
 
 https://gis.stackexchange.com/questions/224915/extracting-data-frame-from-simple-features-object-in-r
 
-```{r}
+```r
 r0 = dplyr::select(state$routeSS, salesman_id, week_day)
 sf::st_geometry(r0) <- NULL
 r0
@@ -733,7 +733,7 @@ r0
 
 ## Json: Json to df with `jsonlite` id=g12509
 
-```{r}
+```r
 pl0 = jsonlite::fromJSON("logs/plan_jobs.json", simplifyDataFrame = T) %>%
   as_tibble()
 str(pl0)
@@ -748,7 +748,7 @@ pl0
 
 ## Json: Json to `list` with `rjson` id=g12510
 
-```{r}
+```r
 pj0 = rjson::fromJSON(file="logs/plan_jobs.json")
   ##>  $ :List of 11
   ##>   ..$ _id              :List of 1
@@ -784,7 +784,7 @@ vd ~/projects/study/problem/sample_data/j01.json
 
 Filter public companies into different files because current files are too big:
 
-```{r}
+```r
 library(dplyr)
 library(readr)
 setwd("~/bizqualify_data")
@@ -796,7 +796,7 @@ write_csv(d10b, "public_20181001.csv", na="")
 
 Import data into database using R:
 
-```{r}
+```r
 library("RPostgreSQL")
 source("~/BQ-data-run/config.R")
 dbWriteTable(con, c("client", "altdg_sample"), d0, row.names=F)
@@ -808,13 +808,13 @@ Note that: `dbWriteTable` doesn't write the data when it has `append=F` and the 
 
 Load both data sets from database now:
 
-```{r}
+```r
 d10 = tbl(con, sql("SELECT * FROM data_20181001.public_all_data")) %>% collect
 ```
 
 ## Run a SQL query id=g12480
 
-``` bash
+```bash
 dbGetQuery(con, statement = paste0("
   insert into ", data_schema, ".master_variables
   select * from ", data_schema, ".master_variables_forecast
@@ -824,7 +824,7 @@ dbGetQuery(con, statement = paste0("
 
 opt02: use dplyr::tbl()
 
-``` bash
+```bash
 d0 = tbl(con, sql("
   SELECT company_ein
   FROM data_20181202.master_variables
@@ -837,7 +837,7 @@ nrow(d0)
 
 ## glue: string templating id=g10793
 
-```{r}
+```r
 library(glue)
 schema = "data_20190203"
 s = glue("
@@ -850,7 +850,7 @@ FROM {schema}.all_data
 
 https://stackoverflow.com/questions/3443687/formatting-decimal-places-in-r
 
-```{r}
+```r
 format(round(carea / parea, 2), nsmall = 2)
 ```
 
@@ -858,7 +858,7 @@ format(round(carea / parea, 2), nsmall = 2)
 
 `nchar` or `str_length`: preserves NA
 
-```{r}
+```r
 nchar("ali")
   ##> 3
 ```
@@ -867,7 +867,7 @@ nchar("ali")
 
 ## string: truncate / trim string by length id=g12532
 
-```{r}
+```r
 mutate(`...2` = stringr::str_trunc(stringr::str_replace_all(`...2`, "\\n", "Þ"), 75, "right"))
 ```
 
@@ -998,7 +998,7 @@ lapply(templates, function(template) {
 
 ## Stringr: grep logical: grepl str_detect id=g12513
 
-```{r}
+```r
 "(ali)" %>% stringr::str_detect("^\\(.*\\)$")
   ##> [1] TRUE
 ```
@@ -1009,12 +1009,12 @@ Ref: `~/projects/study/r/study_stringr.Rmd`
 
 ## regex: sed s command: str_replace str_replace_all id=g12520
 
-``` bash
+```bash
 library(stringr)
 str_replace(string, pattern, replacement)
 ```
 
-```{r}
+```r
 fruits <- c("one apple", "two pears", "three bananas")
 str_replace(fruits, "[aeiou]", "-")
   ##> [1] "-ne apple"     "tw- pears"     "thr-e bananas"
@@ -1025,12 +1025,12 @@ str_replace_all(fruits, "[aeiou]", toupper)
 
 ## regex: str_match id=g12521
 
-``` bash
+```bash
 str_match(string, pattern)
 str_match_all(string, pattern)
 ```
 
-```{r}
+```r
 strings = c(" 219 733 8965", "329-293-8753 ", "banana")
 pattern <- "([2-9][0-9]{2})[- .]([0-9]{3})[- .]([0-9]{4})"
 str_extract(strings, pattern)
@@ -1049,12 +1049,12 @@ m[1,2] # match 1 group 2
 
 ## regex: grep = str_which ; grep(value = T) = str_subset   id=g12522
 
-```{r}
+```r
   str_subset(string, pattern, negate = FALSE)
   str_which(string, pattern, negate = FALSE)
 ```
 
-```{r}
+```r
 fruit <- c("apple", "banana", "pear", "pinapple")
 str_subset(fruit, "a")
   #> [1] "apple"    "banana"   "pear"     "pinapple"
@@ -1064,7 +1064,7 @@ str_which(fruit, "a")
 
 ## regex: grepl = detect id=g12523
 
-```{r}
+```r
 str_detect(fruit, "a")
   ##> [1] TRUE TRUE TRUE TRUE
   # Also vectorised over pattern
@@ -1078,7 +1078,7 @@ str_detect("aecfg", letters)
 
 ## Environment variable id=g12494
 
-```{r}
+```r
 dbhost = Sys.getenv("DB_HOST")
 ```
 
@@ -1086,12 +1086,12 @@ dbhost = Sys.getenv("DB_HOST")
 
 opt02: building on R console (for debugging)
 
-``` bash
+```bash
 cd ~/projects/yuml2data/
 Rs
 ```
 
-```{r}
+```r
 library(devtools)
 devtools::document()
 devtools::build_vignettes()
@@ -1103,7 +1103,7 @@ devtools::install()
 
 opt03: building on terminal
 
-``` bash
+```bash
 cd ~/projects
 R CMD build yuml2data
 R CMD INSTALL yuml2data_0.1.0.tar.gz
@@ -1117,25 +1117,25 @@ devtools::load_all()
 
 ## export rmarkdown report id=g12491
 
-``` bash
+```bash
 file=twosigma/report_twosigma_florida_20190211.Rmd
 R -e 'rmarkdown::render("'"$file"'", "md_document")'
 ```
 
 Run it from inside vim:
 
-``` bash
+```bash
 command! Rmarkdown :!R -e 'rmarkdown::render("%")'
 :Rmarkdown
 ```
 
 ## Rmarkdown code blocks id=g12488
 
-``` {R include=F}
+```{R include=F}
 options(scipen = 999)
 ```
 
-``` {R echo = F, message = F, warning = F}
+```{R echo = F, message = F, warning = F}
 library("RPostgreSQL")
 library(dplyr)
 library(readr)
@@ -1144,7 +1144,7 @@ library(knitr)
 source("~/BQ-data-run/config.R")
 ```
 
-``` {R echo=F}
+```{R echo=F}
 sql = "
 SELECT schemaname,relname,n_live_tup AS row_count
   FROM pg_stat_user_tables
@@ -1154,7 +1154,7 @@ SELECT schemaname,relname,n_live_tup AS row_count
 dbGetQuery(con, sql)
 ```
 
-``` {R echo=F}
+```{R echo=F}
 sql = glue("
 WITH unique_year_ticker AS (
   SELECT DISTINCT ON (bq_year, bq_ticker) bq_year, bq_ticker
@@ -1172,7 +1172,9 @@ knitr::kable(d01)
 
 ## Google Drive Access using R googledrive id=g12487
 
-``` bash
+rfr: source: [[study_gdrive_gdocs]]
+
+```bash
 install.packages("devtools")
 devtools::install_github("tidyverse/googlesheets4")
 library(googledrive)
@@ -1181,34 +1183,34 @@ library(googlesheets4)
 
 Upload the csv and simultaneously convert to a Sheet
 
-``` bash
+```bash
 (iris_tempfile <- tempfile(pattern = "iris-", fileext = ".csv"))
 write.csv(iris, iris_tempfile, row.names = FALSE)
 (iris_ss <- drive_upload(iris_tempfile, type = "spreadsheet"))
 ```
 
-``` bash
+```bash
   # visit the new Sheet in the browser, in an interactive session!
 drive_browse(iris_ss)
 ```
 
 ## mkdir mv ls directory commands id=g12499
 
-```{r}
-     file.create(..., showWarnings = TRUE)
-     file.exists(...)
-     file.remove(...)
-     file.rename(from, to)
-     file.append(file1, file2)
-     file.copy(from, to, overwrite = recursive, recursive = FALSE,
-               copy.mode = TRUE, copy.date = FALSE)
-     file.symlink(from, to)
-     file.link(from, to)
+```r
+file.create(..., showWarnings = TRUE)
+file.exists(...)
+file.remove(...)
+file.rename(from, to)
+file.append(file1, file2)
+file.copy(from, to, overwrite = recursive, recursive = FALSE,
+					copy.mode = TRUE, copy.date = FALSE)
+file.symlink(from, to)
+file.link(from, to)
 ```
 
 cp file.copy
 
-``` bash
+```bash
 file.copy(from = "/Users/mertnuhoglu/projects/itr/vrp/vrps/data/jtn/input/default/rate_optimization.xlsx", to = glue::glue( "/Users/mertnuhoglu/projects/itr/vrp/vrps/data/jtn/input/{folder_name}"), overwrite = T)
 ```
 
@@ -1221,7 +1223,7 @@ There are two ways that it works:
 
 safe way of file copying: first copy to some directory, then rename (move)
 
-``` bash
+```bash
   folder_name = format(Sys.time(), "%y%m%d_%H%M")
   sem_src = formContents$sevk_emri_file$tempfile
   sem_dest = sprintf("%s/input/%s/sevk_emri.xlsx", data_dir(), folder_name)
@@ -1234,27 +1236,27 @@ safe way of file copying: first copy to some directory, then rename (move)
 
 mkdir dir.create
 
-```{r}
+```r
 dir.create(path = ... ) # mkdir
 dir.create(path = ..., recursive = T) # mkdir -p
 ```
 
 ls list.files
 
-```{r}
+```r
 list.files(path = glue::glue("{PEYMAN_PROJECT_DIR}/pvrp_data/out"), include.dirs = T, pattern = "^report_\\d+.*")
 ```
 
 mv move move_files rename files and directories
 
-``` bash
+```bash
 file.rename(
   glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp/out")
   , glue::glue("{pvrpr::PEYMAN_PROJECT_DIR}/pvrp/out_{format(Sys.time(), '%Y%m%d_%H%M%S')}")
 )
 ```
 
-```{r}
+```r
 install.packages("filesstrings")
 install.packages("processx")
 filesstrings::move_files(
@@ -1265,7 +1267,7 @@ filesstrings::move_files(
 
 ## basedir basename dirname id=g12500
 
-``` bash
+```bash
 basename("C:/some_dir/a")
 > [1]  "a"
 dirname("C:/some_dir/a")
@@ -1281,7 +1283,7 @@ foo <- function(..)
 
 Add symbols:
 
-```{r}
+```r
   #' @importFrom magrittr "%>%"
 NULL
 ```
@@ -1290,18 +1292,18 @@ NULL
 
 `Makefile`
 
-``` txt
+```txt
 build:
   R -e 'devtools::document(); devtools::build_vignettes(); devtools::build(); devtools::install()'
 ```
 
-``` bash
+```bash
 make build
 ```
 
 ## run r script from terminal id=g12514
 
-``` bash
+```bash
 Rscript --verbose --vanilla backtesting/backtesting.R
 R CMD ... # deprecated
 R --vanilla -e "source('~/projects/itr/vrp_doc/study/ex/peyman_data_relations_20190522/prepare_od_table.R'); test_origin_destination_json()"
@@ -1311,13 +1313,13 @@ R --no-save --no-restore-data -e "source('~/projects/itr/vrp_doc/study/ex/peyman
 
 ## Package: get version of a package id=g12515
 
-```{r}
+```r
 packageVersion("stringr")
 ```
 
 ## Print: print/show all rows of a df id=g12516
 
-```{r}
+```r
 state$routes %>% print(n = 20)
 ```
 
@@ -1329,7 +1331,7 @@ https://stackoverflow.com/questions/11488174/how-to-select-a-cran-mirror-in-r
 
 Ref: `arguments to Rscript  <url:file:///~/projects/study/r/study_r.Rmd#r=g10954>`
 
-```
+```r
 args <- commandArgs(trailingOnly = TRUE)
 ```
 
@@ -1339,7 +1341,7 @@ args <- commandArgs(trailingOnly = TRUE)
 
 Use `seq_along` with list/vector objects instead of `1:length(vec)`. This won't run the loop when object is empty.
 
-```{r}
+```r
   for (gr in seq_along(route_groups)) {
     print(gr)
   }
@@ -1348,7 +1350,7 @@ Use `seq_along` with list/vector objects instead of `1:length(vec)`. This won't 
 
 Use `seq_len` for dataframes. This won't run the loop when there is no rows:
 
-```{r}
+```r
   for (sqn in seq_len(nrow(df))) {
     print(sqn)
   }
@@ -1358,19 +1360,19 @@ Use `seq_len` for dataframes. This won't run the loop when there is no rows:
 
 opt01: runApp from directory
 
-```{r}
+```r
 shiny::runApp(".")
 ```
 
 opt02: runApp from functions
 
-```{r}
+```r
 runApp(shinyApp(ui, server), host="0.0.0.0",port=5050)
 ```
 
 or
 
-```{r}
+```r
 app = shiny::shinyApp(ui, server)
 runApp(app)
 ```
@@ -1379,7 +1381,7 @@ runApp(app)
 
 https://stackoverflow.com/questions/27312292/convert-seconds-to-days-hoursminutesseconds
 
-```{r}
+```r
 library(lubridate)
 seconds_to_period(86400)
   ##> #[1] "1d 0H 0M 0S"
@@ -1402,7 +1404,7 @@ sprintf('%03d %02d:%02d:%02d', day(td), td@hour, minute(td), second(td))
 
 Print as hours
 
-```{r}
+```r
 lubridate::seconds_to_period(sum(d2$sure, na.rm=T)) %>%
   lubridate::as.duration() %>%
   as.numeric("hours")
@@ -1412,7 +1414,7 @@ lubridate::seconds_to_period(sum(d2$sure, na.rm=T)) %>%
 
 Check `~/projects/itr/itr_scripts/dentas/geocoding_20190824/ex/e05.R`
 
-```{r}
+```r
 d0 = rio::import("/Users/mertnuhoglu/projects/itr/itr_scripts/dentas/geocoding_20190824/data/addresses.xlsx") %>%
   dplyr::mutate(
     url = glue::glue("https://maps.googleapis.com/maps/api/geocode/json?&address={URLencode(adres)}&key={KEY}")
@@ -1432,7 +1434,7 @@ d0$adres9 = vURLencode(d0$adres)
 
 ## setNames id=g12600
 
-```{r}
+```r
 df <- data.frame(a = 1:3, b = 11:13)
 colnames(df)
   ##> [1] "a" "b"
@@ -1472,7 +1474,7 @@ df %>% slice(3:dplyr::n())
 
 ## df/find rows with all NA cells id=g12613
 
-```{r}
+```r
 d4 = data.frame( x = c(1, NA, 3), y = c(NA, NA, 3))
 applyr = purrr::partial(apply, MARGIN = 1)
 r4 = applyr(is.na(d4), all)
@@ -1481,7 +1483,7 @@ r4 == c(F,T,F)
 
 ## dplyr.ex/read multiple sheets and bind_rows id=g12614
 
-```{r}
+```r
 vars01 <- rio::import("data/d01.xlsx", which = 1) %>%
   select(title) %>%
   mutate(title = tolower(title))
@@ -1506,7 +1508,7 @@ length(vars_f)
 
 ## apply/ex02 id=g12615
 
-```{r}
+```r
   # Construct a 2x3 matrix
 X <- matrix(c(1,2,3,4,5,6), nrow=2, ncol=3)
 
@@ -1519,7 +1521,7 @@ apply(X, 2, sum)
 
 ref: [R tutorial on the Apply family of functions - DataCamp](https://www.datacamp.com/community/tutorials/r-tutorial-apply-family#codelapplycode)
 
-```{r}
+```r
 t01 <- matrix(1:9, nrow=3, ncol=3)
   ##>      [,1] [,2] [,3]
   ##> [1,]    1    4    7
@@ -1550,7 +1552,7 @@ lapply(m01, "[", 1, ) # 1. row of each element
 
 ## rep/ex06 id=g12623
 
-```{r}
+```r
 v1 <- c(1,4,8)
 rep(v1,c(3,1,2))
   ##> [1] 1 1 1 4 8 8

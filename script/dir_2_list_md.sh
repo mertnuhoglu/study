@@ -15,4 +15,15 @@
 # Output: [[Document-List]]
 
 DIR="$1"
-fd --extension md --type f --base-directory="${DIR}" | sed -e 's|^./||' -e 's|.md$||' -e 's|^|[[|' -e 's|$|]]|' | sort
+# fd --extension md --type f --base-directory="${DIR}" | sed -e 's|^./||' -e 's|.md$||' -e 's|^|[[|' -e 's|$|]]|' -e 's#pages/##' -e 's#journals/##' | sort
+fd --extension md \
+	--type f \
+	--base-directory="${DIR}" | \
+sed -e 's|^./||' \
+    -e 's|.md$||' \
+    -e 's|^|[[|' \
+    -e 's|$|]]|' \
+    -e 's#pages/##' \
+    -e 's#journals/##' | \
+sort
+

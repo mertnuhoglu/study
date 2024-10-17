@@ -24,5 +24,5 @@ date:: $DATE\\
 .\\
   - prn: [[ndx/Document-List-myr]]" "$OUTPUT"
 
-echo "$FILENAME" | pbcopy
+printf "$FILENAME" | pbcopy
 echo "$OUTPUT" 

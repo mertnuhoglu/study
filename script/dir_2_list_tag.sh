@@ -29,13 +29,13 @@ cd "${DIR}"
 # ignore files that already includes previously extracted tags such as: Tag-List.md
 rg --ignore-file ~/prj/study/script/.tag_extract_ignore "#\w+" >$BASENAME.txt
 
-rg "tags::" >>$BASENAME.txt
+rg --ignore-file ~/prj/study/script/.tag_extract_ignore "tags::" >>$BASENAME.txt
 mv $DIR/$BASENAME.txt $HOME/prj/myrepo/scrap/out
 
 cd $HOME/prj/myrepo/scrap/out
 
 nvim -c "LogseqExtractTags" -c "wq" $BASENAME.txt
-cp -f $BASENAME.txt tags_$REPO.txt
+cp -f $BASENAME.txt tags/tags_$REPO.txt
 cp -f $BASENAME.txt $DIR/pages/$FILENAME
 cp -f $BASENAME.txt $DIR/pages/Tag-List-out-$REPO.md
 
@@ -48,5 +48,5 @@ date:: $DATE\\
   - prn: [[ndx/Tag-List-cllb]]\\
 " "$OUTPUT"
 
-echo "$OUTPUT" | pbcopy
+printf "$OUTPUT" | pbcopy
 echo "$OUTPUT" 

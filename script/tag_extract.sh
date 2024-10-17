@@ -48,4 +48,4 @@ cp -f tags_std_$DAY.txt tags_std.txt
 cp -f tags_std_$DAY.txt $HOME/prj/study/logseq-study/pages/$DAY-Tag-List-std.md
 cp -f tags_std_$DAY.txt $HOME/prj/study/logseq-study/pages/Tag-List-out-std.md
 
-echo "$HOME/prj/myrepo/scrap/out/tags_all_$DAY.txt" | pbcopy
+printf "$HOME/prj/myrepo/scrap/out/tags_all_$DAY.txt" | pbcopy

@@ -1,6 +1,7 @@
 tags:: study, my/script, prg/rlang, f/blg
 
-# 20230924-Script--Apply-Data-To-Template id=g14760
+# 20230924-Script--Apply-Data-To-Template 
+	- id=g14760
 
 rfr: parent: [[20230916-Script-Generation-from-CSV-Files]]
 
@@ -9,9 +10,9 @@ rfr: use-case:
 	[[20230926-Etiket-Duzeltme]] <url:file:///~/prj/myrepo/logseq-myrepo/pages/20230926-Etiket-Duzeltme.md#r=g14786>
 	[[20230925-Etiket-Tasnifi]] <url:file:///~/prj/study/logseq-study/pages/20230925-Etiket-Tasnifi.md#r=g14778>
 
-rfr: R-script: ~/prj/study/logseq-study/pages/ex/20230916-Script-Generation-from-CSV-Files/apply_data_to_template.R
+rfr: R-script: [[apply_data_to_template.R]]
 
-rfr: shell-script: ~/prj/study/logseq-study/pages/ex/20230916-Script-Generation-from-CSV-Files/apply_data_to_template
+rfr: shell-script: [[apply_data_to_template]]
 
 ```
 # Usage:

@@ -19,5 +19,5 @@ OUTPUT="$DIR/pages/$FILENAME"
 
 sh ~/prj/study/script/dir_2_list_tag.sh $DIR $REPO >"$OUTPUT"
 
-echo "$OUTPUT" | pbcopy
+printf "$OUTPUT" | pbcopy
 echo "$OUTPUT" 

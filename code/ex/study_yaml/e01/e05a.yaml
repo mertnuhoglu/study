@@ -1,5 +1,5 @@
 ---
 explicit_keys:
-	foo: 1
-	bar baz: 2
-	"qux:quux": 3
+  foo: 1
+  bar baz: 2
+  "qux:quux": 3

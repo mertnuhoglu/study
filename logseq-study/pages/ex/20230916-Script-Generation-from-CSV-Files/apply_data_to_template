@@ -4,6 +4,7 @@
 # apply_data_to_template d01.tsv template01.txt
 #
 # rfr: doc: std: [[20230924-Script--Apply-Data-To-Template]] <url:file:///~/prj/study/logseq-study/pages/20230924-Script--Apply-Data-To-Template.md#r=g14760>
+# rfr: [[apply_data_to_template.R]]
 
 data=$1
 template=$2

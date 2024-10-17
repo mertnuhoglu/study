@@ -29,4 +29,4 @@ sort --reverse --output="${OUTPUT}" "${OUTPUT}"
 echo "${TAG}"
 # echo "rg --vimgrep \bTODO\b.*${TAG} >\"${OUTPUT}\""
 echo "${OUTPUT}"
-echo "${OUTPUT}" | pbcopy
+printf "${OUTPUT}" | pbcopy

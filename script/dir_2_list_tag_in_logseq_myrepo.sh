@@ -10,7 +10,7 @@
 #   dir_2_list_tag_in_logseq_myrepo.sh
 #
 
-DIR=$HOME/prj/myrepo/logseq-myrepo
+DIR=${DIR_MYREPO_LOGSEQ}
 REPO=myr
 DATE=$(date +%Y%m%d)
 BASENAME=$DATE-Tag-List-$REPO
@@ -19,5 +19,5 @@ OUTPUT="$DIR/pages/$FILENAME"
 
 sh ~/prj/study/script/dir_2_list_tag.sh $DIR $REPO >"$OUTPUT"
 
-echo "$OUTPUT" | pbcopy
+printf "$OUTPUT" | pbcopy
 echo "$OUTPUT" 

@@ -1,3 +1,4 @@
+[[cr.otl]]
 
 index rprg id=g12476
 	sample data <url:file:///~/projects/study/r/examples_r.Rmd#r=g11655>
@@ -102,6 +103,7 @@ cookbook
 			oneliner
 				R -e 'rmarkdown::render("data_generation.Rmd", "html_document")'
 				R -e 'rmarkdown::render("data_generation.Rmd", "pdf_document")'
+				R -e 'rmarkdown::render("data_generation.Rmd", "ioslides_presentation")'
 			run script
 				R CMD BATCH file.R
 					# output to standard out
@@ -2147,20 +2149,26 @@ cookbook
 				tribble_paste()
 				vector_paste()
 				vector_paste_vertical()
-	rmarkdown
-		install.packages("rmarkdown")
-		library("rmarkdown")
-		run
-		rmarkdown::render("input.Rmd")
-		render("input.Rmd", "pdf_document")
-		Presenter Mode
-		add this to the end of the url while starting
-			?presentme=true
-			/Users/mertnuhoglu/projects/dewey/data_analysis_presentations/istanbulcoders/input.html?presentme=true
-		adding to slides
-			<div class="notes">
-			this is notes
-			</div>
+	notebooks
+		quarto
+			[[20240723-Quarto]]
+				20240723-Quarto || ((5d4f4738-7c05-491c-afff-48ab4d3da39d))
+				Creating a Website – Quarto || ((5f7bda1d-41b7-4b36-9416-444603362608))
+				Website Navigation – Quarto || ((0bbe54d9-04f8-49bc-b01b-87882ed21f78))
+		rmarkdown
+			install.packages("rmarkdown")
+			library("rmarkdown")
+			run
+			rmarkdown::render("input.Rmd")
+			render("input.Rmd", "pdf_document")
+			Presenter Mode
+			add this to the end of the url while starting
+				?presentme=true
+				/Users/mertnuhoglu/projects/dewey/data_analysis_presentations/istanbulcoders/input.html?presentme=true
+			adding to slides
+				<div class="notes">
+				this is notes
+				</div>
 	Rstudio
 		custom shortcuts
 			#F12  go to file/function

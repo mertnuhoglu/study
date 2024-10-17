@@ -1,4 +1,4 @@
-suppressMessages(library(dplyr))
+sBppressMessages(library(dplyr))
 suppressMessages(library(readr))
 
 # e01.R scriptini generic hale getirir.

@@ -18,21 +18,31 @@ path: ~/projects/study/bash/study_gdrive_gdocs.Rmd
 state: wip
 ---
 
-
+# study_gdrive_gdocs
+.
+- ## [[f/ndx]]
+	- rfr: [[gdrivesync.R]]
+	- `googledrive`
+	- `drive_find()`
+	- `drive_ls()`
+	- `drive_get()`
+	- `drive_download(as_id(""))`
+	- `drive_upload()`
+.
+- ## f/pnt
 # R googledrive
 
 ## Authentication
 
 Call this once in a directory. It will cache the authentication OAuth credentials in the current dir inside .httr-oauth
 
-``` r
+```r
 googledrive::drive_auth()
 ``` 
 
-
 ## Find files `drive_find()`
 
-``` r
+```r
 install.packages("googledrive")
 library(googledrive)
 googledrive::drive_find(q = "name contains 'Antifragile'")
@@ -41,14 +51,14 @@ googledrive::drive_find(pattern = "Antifragile")
 googledrive::drive_find(type = "")
 ``` 
 
-``` r
+```r
 googledrive::drive_find(type = "folder")
 googledrive::drive_find(q = "mimeType = 'application/vnd.google-apps.folder'")
 ``` 
 
 ls root folder
 
-``` r
+```r
 googledrive::drive_find(q = "'root' in parents")
   ##>    name                                                                                   id                                            drive_resource
   ##>  * <chr>                                                                                  <chr>                                         <list>
@@ -71,13 +81,13 @@ af0
 
 ## find files `drive_get()`
 
-``` r
+```r
 (file = drive_get('~/Play Books Notes/Notes from "Antifragile: Things That Gain from Disorder".gdoc'))
 ``` 
 
 ## mime types: `drive_mime_type()`
 
-``` r
+```r
 drive_mime_type("spreadsheet")
   ##> [1] "application/vnd.google-apps.spreadsheet"
 drive_mime_type(c("presentation", "pdf", "document"))
@@ -94,7 +104,7 @@ drive_mime_type(expose())
 
 Use `as_id`
 
-``` r
+```r
 as_id("1b3_1uRZmS9LxiBdfpCQxmin_WhEocDoIJ-4j2G_rfZE")
 drive_download(as_id("1b3_1uRZmS9LxiBdfpCQxmin_WhEocDoIJ-4j2G_rfZE"), type = "txt")
 drive_download(as_id("1b3_1uRZmS9LxiBdfpCQxmin_WhEocDoIJ-4j2G_rfZE"), type = "txt", path = "/Users/mertnuhoglu/gdrive/Play Books Notes/Notes from Antifragile.txt")
@@ -102,7 +112,7 @@ drive_download(as_id("1b3_1uRZmS9LxiBdfpCQxmin_WhEocDoIJ-4j2G_rfZE"), type = "tx
  
 ## Setup Google Drive Access using R googledrive
 
-``` r
+```r
 install.packages("devtools")
 devtools::install_github("tidyverse/googlesheets4")
 library(googledrive)
@@ -111,13 +121,13 @@ library(googlesheets4)
 
 Upload the csv and simultaneously convert to a Sheet
 
-``` r
+```r
 (iris_tempfile <- tempfile(pattern = "iris-", fileext = ".csv"))
 write.csv(iris, iris_tempfile, row.names = FALSE)
 (iris_ss <- drive_upload(iris_tempfile, type = "spreadsheet"))
 ``` 
 
-``` r
+```r
 ## visit the new Sheet in the browser, in an interactive session!
 drive_browse(iris_ss)
 ``` 
@@ -126,7 +136,7 @@ drive_browse(iris_ss)
 
 ### ex01: download all files in a folder id=g11018
 
-``` r
+```r
 files = googledrive::drive_ls("~/IFTTT/Spotify")
 lapply(seq(nrow(files)), 
 	function(row) {
@@ -140,13 +150,13 @@ lapply(seq(nrow(files)),
 )
 ``` 
 
-
-
-# prasmussen/gdrive deprecated
+# glotlabs/gdrive 
 
 ## Setup Google Drive Access using gdrive
 
-Use `gdrive` tool from https://github.com/prasmussen/gdrive
+Use `gdrive` tool from https://github.com/glotlabs/gdrive
+
+Previously:
 
 Install on Mac:
 

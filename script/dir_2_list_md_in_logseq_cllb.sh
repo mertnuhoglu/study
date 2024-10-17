@@ -22,5 +22,6 @@ date:: $DATE\\
 .\\
   - prn: [[ndx/Document-List-cllb]]" "$OUTPUT"
 
-echo "$FILENAME" | pbcopy
+printf "$FILENAME" | pbcopy
 echo "$OUTPUT"
+

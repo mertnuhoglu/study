@@ -10,7 +10,7 @@ tags:: study, prg/rlang, org/pcm/atm
   
   Şu çıktıyı oluşturmak istiyorum:
   
-  ```
+  ```sh
   MATCH="analiz"
   REPLACE="prd\\/analysis"
   rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/$MATCH/$REPLACE/" {}
@@ -32,7 +32,7 @@ tags:: study, prg/rlang, org/pcm/atm
   
   rfr: `~/prj/study/logseq-study/pages/ex/20230916-Script-Generation-from-CSV-Files/template01.txt`
   
-  ```txt
+  ```sh
   MATCH="{match}"
   REPLACE="{replace}"
   rg -l "tags::.*${{MATCH}}" | gxargs -n1 -d '\n' -I {{}} gsed -i -e "1s/${{MATCH}}/${{REPLACE}}/" {{}}
@@ -44,7 +44,7 @@ tags:: study, prg/rlang, org/pcm/atm
   
   rfr: `~/prj/study/logseq-study/pages/ex/20230916-Script-Generation-from-CSV-Files/out01.txt`
   
-  ```txt
+  ```sh
   MATCH="analiz"
   REPLACE="prd\\/analysis"
   rg -l "tags::.*${MATCH}" | gxargs -n1 -d '\n' -I {} gsed -i -e "1s/${MATCH}/${REPLACE}/" {}

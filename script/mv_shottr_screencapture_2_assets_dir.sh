@@ -20,7 +20,7 @@ DEST_DIR="$1"
 
 LAST_FILE=$(ls -t "${DIR_SCREENCAPTURE}" | rg '^SCR-202' | head -n1)
 DEST_FILE="${DEST_DIR}/assets/${LAST_FILE}"
-echo "![](assets/${LAST_FILE})" | pbcopy
+printf "![](assets/${LAST_FILE})" | pbcopy
 
 mv "${DIR_SCREENCAPTURE}/${LAST_FILE}" "${DEST_DIR}/assets"
 echo "moved ${LAST_FILE} to ${DEST_DIR}/assets"
@@ -29,5 +29,5 @@ if test -f "${DEST_FILE}"; then
 	echo "$DEST_FILE exists."
 	/Applications/ImageOptim.app/Contents/MacOS/ImageOptim "${DEST_FILE}"
 else
-	echo "$DEST_FILE does not exist." | pbcopy
+	printf "$DEST_FILE does not exist." | pbcopy
 fi
