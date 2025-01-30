@@ -10,6 +10,8 @@
 # Usage:
 #   grep_2_file_4_by_tag.sh "${DIR_MYREPO_LOGSEQ}" "#f/isfkr"
 
+source ~/.zshenv
+
 DEST_DIR=$1
 
 DATE=$(date +%Y%m%d)

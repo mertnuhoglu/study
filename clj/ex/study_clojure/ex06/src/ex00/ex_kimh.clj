@@ -1,4 +1,4 @@
-(ns ex00.ex_kimh
+(ns ex0-0.ex_kimh
   (:require [clojure.string :as str]))
 
 ; autosaved
@@ -50,7 +50,7 @@ true
   (+ 10 20))
 ;; => 30
 
-; global bindings: defn vs def id=g11323
+; global bindings: defn vs def 
 ;   id:: e3ea91e4-6757-4eeb-a217-a0f1e0851451
 
 (defn f [a] a)
@@ -72,7 +72,7 @@ true
   (str ""))
 ;; => #'ex_kimh/documented
 
-; var and reader macro  id=g11325
+; var and reader macro  
 ;   id:: 5a50be6a-394b-4bc2-96dc-57fdb78acaa4
 
 (meta (var documented))
@@ -80,7 +80,7 @@ true
 (meta #'documented)
 ;; => {:arglists ([]), :doc "This is documentation", :line 65, :column 1, :file "/Users/mertnuhoglu/projects/study/clj/ex/study_clojure/ex06/src/ex_kimh.clj", :name documented, :ns #namespace[ex_kimh]}
 
-;; anonymous functions id=g11322
+;; anonymous functions 
 ;;   id:: deb49adf-3aaf-4f5e-ac88-7d8a88003f72
 
 (fn [] (str ""))
@@ -101,7 +101,7 @@ true
 (#(+ 6 %1) 3)
 ;; => 9
 
-;; higher-order-functions id=g11326
+;; higher-order-functions 
 ;;   id:: adda3cb1-de0f-49da-a8ce-d32dece25097
 
 (defn h [fun]
@@ -110,7 +110,7 @@ true
 (h inc)
 ;; => 11
 
-;; closure  id=g11327
+;; closure  
 ;;   id:: 98ee1e5c-05a3-4048-8ffe-43dadfd9db57
 (defn closure [a] #(inc a))
 ;; => #'ex_kimh/closure
@@ -119,7 +119,7 @@ true
 outer
 ;; => 21
 
-;; Namespaces id=g11328
+;; Namespaces 
 ;;   id:: c4ff0c3b-a85c-4088-9006-953bfe881490
 
 (in-ns 'user)
@@ -141,7 +141,7 @@ ex_kimh/outer
 cbe/outer
 ;; => 21
 
-;; control flow id=g11329
+;; control flow 
 ;;   id:: cfe118fa-2c8a-4481-b462-c715a443ce45
 
 (if (< 3 5)
@@ -205,7 +205,7 @@ cbe/outer
 (boolean :a)
 ;; => true
 
-;; Strings id=g11330
+;; Strings 
 ;;   id:: 128660fd-05fd-4105-ba98-800741f658c8
 
 (str "join " "strings")
@@ -215,7 +215,7 @@ cbe/outer
 (format "%s %s" "this is" "me")
 ;; => "this is me"
 
-;; Numbers id=g11331
+;; Numbers 
 ;;   id:: 2e6859f0-9ce1-4c3c-ac5c-9d45c3bf67d7
 
 (/ 4 3)
@@ -227,9 +227,8 @@ cbe/outer
 (mod 3 2)
 ;; => 1
 
-;; Lists id=g11332
+;; Lists 
 ;;   id:: 8b47dcf1-75f2-451b-bd6a-5ea57c9919b0
-
 
 '(1 2 3)
 ;; => (1 2 3)
@@ -240,9 +239,8 @@ cbe/outer
 (count '(5 3))
 ;; => 2
 
-;; Vectors id=g11333
+;; Vectors 
 ;;   id:: 78b279d9-fa12-4af5-84b1-182ce53ac80f
-
 
 [3 2 5]
 ;; => [3 2 5]
@@ -258,9 +256,8 @@ cbe/outer
 (get ["a" "b"] 1)
 ;; => "b"
 
-;; Sets id=g11334
+;; Sets 
 ;;   id:: 2f6651e2-2d48-41f7-a0ff-fec67e7b7469
-
 
 #{1 2 3}
 ;; => #{1 3 2}
@@ -277,7 +274,7 @@ cbe/outer
 (clojure.set/superset? #{1 2 3} #{1 2})
 ;; => true
 
-;; Maps id=g11335
+;; Maps 
 ;;   id:: d167482b-e877-4a15-8593-bb125f4381f9
 
 {:a 1 :b 2}
@@ -299,9 +296,8 @@ cbe/outer
 (vals {:a 1 :b 2})
 ;; => (1 2)
 
-;; Sequences id=g11336
+;; Sequences 
 ;;   id:: 225c144e-9630-4b13-8b00-1a5d1b4e4793
-
 
 (seq '(1 2))
 ;; => (1 2)
@@ -324,9 +320,8 @@ cbe/outer
 (concat '(1 2) '(3 4))
 ;; => (1 2 3 4)
 
-; map id=g11338
+; map 
 ;   id:: ee4578b4-0927-4726-9a79-0469b6816cfd
-
 
 (map inc [1 2])
 ;; => (2 3)
@@ -341,7 +336,7 @@ cbe/outer
 (map vector [:a :b] [:d :e])
 ;; => ([:a :d] [:b :e])
 
-; reduce  id=g11337
+; reduce  
 ;   id:: 7d017956-fe1e-4ca8-b89e-3699bca0fad6
 
 
@@ -352,7 +347,7 @@ cbe/outer
 (reduce + -10 [1 2 3])
 ;; => -4
 
-; into id=g11339
+; ## into 
 ;   id:: a264f005-b49c-45d9-b74f-c87b1549cf3b
 
 
@@ -372,7 +367,7 @@ cbe/outer
 (reverse [1 2])
 ;; => (2 1)
 
-; iterations id=g11340
+; ## iterations 
 ;   id:: f7b18ad3-cf15-4b21-b0b3-d4fd644b6f53
 
 
@@ -385,7 +380,7 @@ cbe/outer
 (doseq [a [1 2 3]] (println a))
 ;; => nil
 
-; take drop id=g11342
+; ## take drop 
 ;   id:: 40c9c95c-f4bd-4c2c-b654-2e5b7690b39e
 
 
@@ -398,7 +393,7 @@ cbe/outer
 (drop-while pos? [1 2 -3 4])
 ;; => (-3 4)
 
-; filter id=g11343
+; filter 
 ;   id:: 0854153b-66e4-4a95-9d26-0acf73c40bd9
 
 
@@ -407,7 +402,7 @@ cbe/outer
 (remove pos? [1 2 -3 4])
 ;; => (-3)
 
-; grouping id=g11344
+; grouping 
 ;   id:: 8c3a0508-6346-4c59-b375-8468649428d0
 
 
@@ -416,7 +411,7 @@ cbe/outer
 (group-by pos? [1 2 -3])
 ;; => {true [1 2], false [-3]}
 
-; for: list comprehension id=g11345
+; for: list comprehension 
 ;   id:: 57172385-7a2e-4ef3-a8cb-62ba2b202cf0
 
 
@@ -437,7 +432,7 @@ cbe/outer
   [x y])
 ;; => ([a 1] [a 2] [b 1] [b 2])
 
-; recursion id=g11346
+; recursion 
 ;   id:: 2aac3d3e-de4c-4133-a143-4747a345c4e5
 
 
@@ -468,7 +463,7 @@ cbe/outer
 (count-down [] 3)
 ;; => [3 2 1]
 
-; loop id=g11347
+; loop 
 ;   id:: 5e95fd26-1c8d-4b92-9afe-186e1796ac58
 
 
@@ -480,7 +475,7 @@ cbe/outer
       (recur (inc i)))))
 ;; => nil
 
-; macros id=g11348
+; macros 
 ;   id:: 00581b49-f912-4a76-8c04-5a6b701c6877
 
 
@@ -496,7 +491,7 @@ cbe/outer
 (macroexpand '(unless false 1))
 ;; => (if (not false) 1)
 
-; quotes id=g11349
+; quotes 
 ;   id:: 37128a13-2be6-44a5-b7d9-8f587a09ebb3
 
 
@@ -507,7 +502,7 @@ cbe/outer
 '(+ 1 2)
 ;; => (+ 1 2)
 
-; syntax-quoting  id=g11350
+; syntax-quoting  
 ;   id:: 090330d6-df66-42d3-8ced-7f312302146e
 
 
@@ -520,7 +515,7 @@ cbe/outer
 `(+ ~@(list 1 2))                                           ; unqoute splice `~@` expands a seq
 ;; => (clojure.core/+ 1 2)
 
-; threading macros id=g11351
+; threading macros 
 ;   id:: 08d6bb4e-494e-4dbb-a092-b18047f19aff
 
 
@@ -535,7 +530,7 @@ cbe/outer
   (map #(* 2 %)))
 ;; => (4 6)
 
-; delay id=g11352
+; delay 
 ;   id:: 853d8c4c-c267-401b-9225-e919b4a199ce
 
 
@@ -573,7 +568,7 @@ cbe/outer
 (job)
 ;; => #promise[{:status :ready, :val "value"} 0x2f87b537]
 
-; atom id=g11353
+; atom 
 ;   id:: 71b98458-e1e3-4880-b50a-fc74d45b28b3
 
 
@@ -592,7 +587,7 @@ cbe/outer
 (swap! a multiple-by 3)
 ;; => 9
 
-; thread safety id=g11354
+; thread safety 
 ;   id:: b2e2dcb4-ec83-4df3-b291-25902a7a9656
 
 
@@ -614,7 +609,7 @@ cbe/outer
   (fn [] (future (swap! g inc))))
 ;; => (#future[{:status :ready, :val 2} 0x60880eb9] #future[{:status :ready, :val 1} 0x6505ef8c])
 
-; ref id=g11355
+; ref 
 ;   id:: 3f2bfd73-7021-4b6f-a8bf-d3e58a538ab9
 
 
@@ -623,7 +618,7 @@ cbe/outer
 (deref r)
 ;; => 0
 
-; transaction ref-set id=g11356
+; transaction ref-set 
 ;   id:: d66c78c5-c268-4a19-9a4d-6c6f3c17dc3a
 
 

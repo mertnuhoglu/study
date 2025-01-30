@@ -5,9 +5,11 @@
               :main-opts ["-m" "deps-deploy.deps-deploy" "install" "e01.jar"]},
     :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.1.126"}},
           :main-opts ["-m" "hf.depstar.jar" "e01.jar"]},
-    :nREPL {:extra-deps {cider/cider-nrepl {:mvn/version "0.25.4"},
+    :nREPL {:extra-deps {
+                         cider/cider-nrepl {:mvn/version "0.25.4"},
                          com.bhauman/rebel-readline {:mvn/version "0.1.4"},
-                         nrepl/nrepl {:mvn/version "0.8.3"}},
+                         nrepl/nrepl {:mvn/version "0.8.3"}}
+                        ,
             :main-opts ["-m" "nrepl.cmdline" "--middleware"
                         "[cider.nrepl/cider-middleware]" "-i" "-f"
                         "rebel-readline.main/-main"]},
@@ -18,11 +20,14 @@
              :main-opts ["-m" "cognitect.test-runner" "-d" "test"]},
     :test {:extra-deps {org.clojure/test.check {:mvn/version "1.0.0"}},
            :extra-paths ["test"]},
-    :trace {:extra-deps {hashp/hashp {:mvn/version "0.2.0"},
+    :trace {:extra-deps {
+                         ;hashp/hashp {:mvn/version "0.2.0"},
                          org.clojure/tools.trace {:mvn/version "0.7.10"},
                          spyscope/spyscope {:mvn/version "0.1.6"}},
-                         junegunn/clj-inspector {:git/url "https://github.com/junegunn/clj-inspector" :sha "d0de58df92e52a8de233fda187b516a1cad777c7"}}}
- :deps {org.clojure/clojure {:mvn/version "1.10.1"}
+                         junegunn/clj-inspector {:git/url "https://github.com/junegunn/clj-inspector" :sha "d0de58df92e52a8de233fda187b516a1cad777c7"}}
+    ,}
+ :deps {org.clojure/clojure {:mvn/version "1.12.0"}
+        org.clojure/clojure$sources  {:mvn/version "1.12.0"}
         org.clojure/core.async {:mvn/version "1.3.610"}
         edn-json/edn-json {:mvn/version "1.1.0"}
         cheshire/cheshire {:mvn/version "5.10.1"}
@@ -30,7 +35,9 @@
         clj-commons/clj-yaml {:mvn/version "0.7.0"}
         tick/tick {:mvn/version "RELEASE"}
         org.clojure/math.combinatorics {:mvn/version "0.1.6"}
+        ;hashp/hashp {:mvn/version "0.2.0"}
         metosin/reitit {:mvn/version "0.5.18"}
-        hashp/hashp {:mvn/version "0.2.0"}},
+        ,}
+       ,
  :paths ["src"]}
 

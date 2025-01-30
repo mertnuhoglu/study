@@ -56,7 +56,7 @@ Practicalli deps.edn: `~/projects/study/clj/practicalli_deps_edn.md`
   id:: b5e89103-66a6-4329-be41-40f8d2e64945
 
 ```bash
-clojure -X:project/new :name mertnuhoglu/datawalk-01
+clojure -Tnew app :name mertnuhoglu/datawalk-01
 clojure -M:project/find-deps datawalk
 cd datawalk-01
 clojure -M::datawalk:repl/rebel

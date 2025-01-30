@@ -7,6 +7,7 @@
 # Usage:
 #
 
+source ~/.zshenv
 PERSON=$1
 DEST_DIR="${DIR_CLLOGSEQ}"
 ~/prj/study/script/grep_2_file_4_gtd_by_person.sh "${PERSON}" "${DEST_DIR}"

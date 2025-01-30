@@ -13,6 +13,7 @@
 # Output: [[refid-to-path.tsv]]
 
 # ~/prj/study/script/tag_extract.sh
+source ~/.zshenv
 DIR="/Users/mertnuhoglu/prj/myrepo/scrap/out/refid-to-path"
 INPUT="${DIR}/vimgrep-refid.txt"
 DATE=$(date +%Y%m%d)
@@ -24,6 +25,6 @@ TSOUTPUT="$DIR/$FILENAME.tsv"
 cat "${INPUT}" | sed -E 's/^([^:]+):([0-9]+):[0-9]+:.*id:: ([^ ]+)$/\3\t\1\t\2/' >"${OUTPUT}"
 cp "${OUTPUT}" "${TSOUTPUT}"
 
-printf "${TSOUTPUT}" | pbcopy
-printf "${OUTPUT}" | pbcopy
+printf "${TSOUTPUT}" 
+printf "${OUTPUT}" 
 echo "${OUTPUT}" 

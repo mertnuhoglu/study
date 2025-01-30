@@ -41,7 +41,7 @@ index
 		datalog-01 ~/projects/study/clj/ex/study_datomic/datalog-01/deps.edn
 			~/projects/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01.clj
 		/Users/mertnuhoglu/projects/study/clj/ex/fulcro/fulcro.iml
-	rfc quickstart id=g12853
+	rfcr quickstart id=g12853
 	  id:: efb64927-b3f8-4f35-af39-4dd15eb62502
 		projects || ((5e9ff4e1-5cc1-43a1-ab1f-6c1e17065a1e))
 		datomic || ((fe47891e-5cc8-428e-afaf-833c581325d4))
@@ -285,15 +285,17 @@ howto problems
 				(require '[clojure.edn :as edn])
 				(require '[clojure.java.io :refer [reader]])
 			(in-ns 'my-namespace)
-	Setup a new project  id=g11946
+	Setup a new project
 		id:: 4ca15728-2340-441f-87fa-353093d2f7d9
 		New Project || ((b5e89103-66a6-4329-be41-40f8d2e64945))
-			clojure -X:project/new :name main/project01
+			clojure -Tnew app :name mert/project-01
 				; src/main klasörünü oluşturur proje dizininde
 				; project01/src/main
-			clojure -X:project/new :name mert/project-01
-			clojure -X:project/new :name mertnuhoglu/project-01
 			cd project-01
+			deprecated:
+				clojure -X:project/new :name main/project01
+				clojure -X:project/new :name mert/project-01
+				clojure -X:project/new :name mertnuhoglu/project-01
 	Run REPL id=g12068
 		id:: 3fb0b095-1c79-454f-922e-596318fb2122
 		rfr: [[rebl_reveal_portal_repl]]
@@ -1206,17 +1208,32 @@ topics
 			#(…) - Anonymous function
 			#' - Var quote
 			## - Symbolic values
+        exmp: ##Inf ##-Inf ##NaN
 			#inst, #uuid, and #js etc. - tagged literals
 			%, %n, %& - Anonymous function arguments
 			@ - Deref
+				(def x (atom 1))
+				@x ;> 1
+				(deref x) ;> 1
 			^ (and #^) - Metadata
+				(def ^{:debug true} five 5)
+				(meta #'five) ;> {:ns #<Namespace user>, :name five, :column 1, :debug true, :line 1, :file "NO_SOURCE_PATH"}
+				(def ^:debug five 5)
 			' - Quote
+				'(1 3 4)
+				(quote (1 2 3))
 			; - Comment
 			: - Keyword
 			:: - Auto-resolved keyword
+				:my-keyword ;> my-keyword
+				::my-keyword ;> user/my-keyword
+				(= ::my-keyword :my-keyword) ;> false
 			#: and #:: - Namespace Map Syntax
+				#:person{:first "Han"} ;> {:person/first "Han"}
+				(keys #::{:a 1, :b 2}) ;> (:user/a :user/b)
 			/ - Namespace separator
 			\ - Character literal
+				(str \h \i) ;> "hi"
 			$ - Inner class reference
 			->, ->>, some->, cond->, as-> etc. - Threading macros
 			` - Syntax quote

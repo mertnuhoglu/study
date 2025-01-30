@@ -57,6 +57,8 @@ tags:: study, tag, tll/mac
 	- osx setup guide for development tools
 		- http://sourabhbajaj.com/mac-setup/index.html
 	- karabiner
+		- yeni config:
+			- ~/prj/private_dotfiles/.config/karabiner/karabiner.json
 		- dahili tanım dosyaları burada
 			- <url:file:///Applications/Karabiner.app/Contents/Resources>
 		- kendi özelleştirmelerim burada

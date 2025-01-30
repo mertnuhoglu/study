@@ -15,6 +15,8 @@ quicklist: kendi kullanım yöntemlerim - ndx id=g14299
 	teg kullanımı
 		neoscopes: teglere hızlı erişim <url:file:///~/projects/study/otl/cvim.otl#r=g14298>
 pnt
+	neotree
+		Mappings || ((c88a1cd8-ddfe-4f40-8e9b-f22783efad3f))
 	Fix title of current scope on top
 		rfr: Vim: Fix title of current scope on top line `prg/vim` || ((fcaf5c62-5e50-4ede-b337-829071a997f1))
 	LuaSnips Configuration and Setup
@@ -32,8 +34,11 @@ pnt
 			Key mappings: 
 				~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/config/keymaps.lua
 				[⌨️ Keymaps - LazyVim](https://www.lazyvim.org/keymaps)
+				override key mappings:
+					~/prj/private_dotfiles/.config/lazyvim/lua/config/keymaps.lua
 			Plugins: 
 				Editor: ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
+				~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
 		My config: 
 			Init: ~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/init.lua
 			Options: ~/prj/private_dotfiles/.config/nvimconfigs/lazyvim/lua/config/options.lua

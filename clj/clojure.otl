@@ -1,13 +1,14 @@
 [[clojure.otl]]
-prn: [[ndx/clj.otl]]
-prdcl:
-	pprv: [[20240305-clojure.otl]]
+	prn: [[ndx-clj.otl]]
+	prdcl:
+		pprv: [[20240305-clojure.otl]]
+	wk: SPC iscjj
 rfr: yeni index: [[ndx/clj]]
 rfr: pprv: [[clojure-otl]]
 ndx
 	topics
-		rfc quickstart || ((efb64927-b3f8-4f35-af39-4dd15eb62502))
-			Setup a new project  || ((4ca15728-2340-441f-87fa-353093d2f7d9))
+		rfcr quickstart || ((efb64927-b3f8-4f35-af39-4dd15eb62502))
+		new project || ((0106465a-7e20-4cd3-8169-585ab498b7d6))
 		editors clojure || ((55576e79-e538-4439-a88b-b2facbda2d78))
 			vim clojure || ((183f0d00-2fd7-4418-872e-b1d467f5571d))
 				conjure 20240306 || ((1dd44c0f-f457-4786-8fbd-a3f4a93c8ec6))
@@ -18,7 +19,15 @@ ndx
 		Weird Characters  || ((60209199-79a0-41e8-be9d-8b571db3f946))
 		Java Interoparability || ((b87bc0b9-628c-461a-b035-c280c3e1bbfd))
 		Destructuring || ((cc911e94-34a3-4815-b2ab-3abd090fe055))
+		[[datomic.otl]]
+			[[ndx-datomic.otl]]
+	prt
+		[[20250118-clj-core.otl]]
 pnt
+	new project
+	  id:: 0106465a-7e20-4cd3-8169-585ab498b7d6
+		pprv: Setup a new project  || ((4ca15728-2340-441f-87fa-353093d2f7d9))
+		clojure -Tnew app :name mert/project-01
 	editors
 		conjure 20240306
 		  id:: 1dd44c0f-f457-4786-8fbd-a3f4a93c8ec6

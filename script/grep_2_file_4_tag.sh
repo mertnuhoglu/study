@@ -9,6 +9,7 @@
 #
 #    ~/prj/study/script/grep_2_file_4_tag.sh "g/gnd"
 
+source ~/.zshenv
 DATE=$(date +%Y%m%d)
 
 if [ -z "$1" ]; then
@@ -29,4 +30,4 @@ sort --reverse --output="${OUTPUT}" "${OUTPUT}"
 echo "${TAG}"
 # echo "rg --vimgrep \bTODO\b.*${TAG} >\"${OUTPUT}\""
 echo "${OUTPUT}"
-printf "${OUTPUT}" | pbcopy
+printf "${OUTPUT}" 

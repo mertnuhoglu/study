@@ -3,10 +3,19 @@ datomic.otl id=g13023
   id:: 8361a15c-7452-4dc2-babd-5faf76e3fe47
 	datomic.otl || ((8361a15c-7452-4dc2-babd-5faf76e3fe47)) 
 rfr
-	Datomic Kod Okumalarından Notlar  || ((fb4641e7-4412-4eec-95d6-f397216b36a6))
+	exmp: 
+		[[datomic_01b.clj]]
+		[[datomic_kod_okumalarindan_notlar.md]]
+			Datomic Kod Okumalarından Notlar  || ((fb4641e7-4412-4eec-95d6-f397216b36a6))
 	Day Of Datomic Cloud otl || ((16e26788-be81-414a-9a5d-ac8ec9ffcd99)) 
 ndx
 	refcard || ((87b63076-64b3-46ab-8500-992c4a72f85a)) 
+	new otl: [[ndx-datomic.otl]]
+	exmp:
+		datalog-04:
+			Peer API `datomic.api`: [[datalog_04_01.clj]]
+			Client API `datomic.client.api`: [[datalog_04_06.clj]]
+				[[datalog_04_12.clj]]
 study-order datomic id=g12866
   id:: a3301462-1f5d-405c-9f58-1127a3be3976
 	Norbert Wojtowicz - Modeling your domain (Lambda Days 2016) - YouTube || ((6fc0de1c-0413-4807-ac5b-50d73849c9ce))
@@ -24,6 +33,9 @@ study-order datomic id=g12866
 	~/prj/study/clj/ex/study_datomic/datalog-02/src/mert/e01.clj
 	datomic okuma planı 20221113 || ((c3d0e4dd-d834-4f50-8812-d713ba858307)) 
 pnt
+	New Datomic Project 20250129 || ((7e9d0f4e-cba7-4c93-8f04-0d149eb23565))
+	Datomic Pro vs Datomic Local || ((5f8e6607-5407-4108-af56-2462d92739bb))
+	reference exmp - datomic || ((a45257ee-94fb-4bda-8fb4-f8e73c06c379))
 	datomic okuma planı 20221113 id=g13676
 	  id:: c3d0e4dd-d834-4f50-8812-d713ba858307
 		rfr
@@ -130,10 +142,11 @@ pnt
 		pre:
 			run repl + Rebl + portal || ((4f88cbbf-9ba6-4a17-9714-32e1e61bc791)) 
 		repl içinde:
-refcard datomic id=g14436
+refcard datomic 
   id:: 87b63076-64b3-46ab-8500-992c4a72f85a
 	rfr
-		Datomic Kod Okumalarından Notlar  || ((fb4641e7-4412-4eec-95d6-f397216b36a6))
+		src: Datomic Kod Okumalarından Notlar  || ((fb4641e7-4412-4eec-95d6-f397216b36a6))
+		20250128: reference exmp - datomic || ((a45257ee-94fb-4bda-8fb4-f8e73c06c379))
 	transact
 		(d/transact conn {:tx-data [{:db/ident :red}]}
 		(def tx-result (d/transact conn {:tx-data [{:story/title "value1" story/url "value2"} ]}))
@@ -554,6 +567,15 @@ logbook
 			[:db/add "datomic.tx" :db/doc "correct data entry"]
 			[:db/add [:inv/sku "SKU-21"] <attribute> <value>]
 		
+reference exmp - datomic
+  id:: a45257ee-94fb-4bda-8fb4-f8e73c06c379
+	rfrmap:
+		src:
+			[[datomic_01b.clj]]
+			[[datomic_kod_okumalarindan_notlar.md]]
+				Datomic Kod Okumalarından Notlar  || ((fb4641e7-4412-4eec-95d6-f397216b36a6))
+		pprv: refcard datomic  || ((87b63076-64b3-46ab-8500-992c4a72f85a))
+
 
 
 

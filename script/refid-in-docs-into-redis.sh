@@ -11,8 +11,9 @@
 #
 # Output: [[vimgrep-refid.txt]]
 
-doc-refid-to-vimgrep.sh
-vimgrep-to-refid-path-tsv.sh
-run_import_refid_into_redis.R
+source ~/.zshenv
+/Users/mertnuhoglu/prj/study/script/doc-refid-to-vimgrep.sh
+/Users/mertnuhoglu/prj/study/script/vimgrep-to-refid-path-tsv.sh
+/Users/mertnuhoglu/prj/study/script/run_import_refid_into_redis.R
 echo "Completed: refid-in-docs-into-redis.sh"
 

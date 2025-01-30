@@ -29,3 +29,9 @@ r2 <- redux::from_redis_hash(rconn, key)
 str(r2)
  # Named chr [1:2] "/Users/mertnuhoglu/projects/myrepo/global_doc.otl" "39"
  # - attr(*, "names")= chr [1:2] "fpath" "lnum"
+
+r3 <- as.list(r2)
+str(r3)
+# List of 2
+# $ fpath: chr "/Users/mertnuhoglu/projects/myrepo/global_doc.otl"
+# $ lnum : chr "39"

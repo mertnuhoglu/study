@@ -12,6 +12,7 @@
 # Output: [[vimgrep-refid.txt]]
 
 # ~/prj/study/script/tag_extract.sh
+source ~/.zshenv
 DIR="/Users/mertnuhoglu/prj/myrepo/scrap/out/refid-to-path"
 DATE=$(date +%Y%m%d)
 BASETITLE=vimgrep-refid
@@ -22,10 +23,11 @@ TSOUTPUT="$DIR/$FILENAME.txt"
 SEARCH_DIR="/Users/mertnuhoglu/projects"
 cd "${SEARCH_DIR}"
 
-rg --no-messages --vimgrep '^[ -"#;/\t]+id:: [^ ]+$' "${SEARCH_DIR}" >"${OUTPUT}"
+# exclude all `archive` directories
+rg --hidden --no-messages --vimgrep --glob '!**/archive/**' '[ -"#;/\t]+id:: [^ ]+$' "${SEARCH_DIR}" >"${OUTPUT}"
 cp "${OUTPUT}" "${TSOUTPUT}"
 
 echo "Completed: doc-refid-to-vimgrep.sh"
-printf "${TSOUTPUT}" | pbcopy
-printf "${OUTPUT}" | pbcopy
+printf "${TSOUTPUT}" 
+printf "${OUTPUT}" 
 echo "${OUTPUT}" 
