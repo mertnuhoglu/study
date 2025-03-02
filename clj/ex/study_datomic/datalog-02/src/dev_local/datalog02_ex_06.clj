@@ -1,7 +1,7 @@
 (ns dev-local.datalog02-ex-06)
 
-; Author: Barış Can Çalış
 ; Egzersiz
+; Author: Barış Can Çalış
 ; rfr: video/20230203-mert-clj-egzersiz-16.mp4
 
 (require '[datomic.client.api :as d])

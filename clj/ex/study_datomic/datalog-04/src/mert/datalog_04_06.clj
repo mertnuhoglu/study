@@ -5,6 +5,8 @@
 (def client (d/client cfg))
 ;; [[datalog_04_06.clj]]
 
+;; Konu: Client API Tutorial
+;;   id:: f480298c-023d-458c-8f47-4538b6cf0895
 ;; [Client API Tutorial | Datomic](https://docs.datomic.com/client-tutorial/client.html)
 
 (d/create-database client {:db-name "movies"})

@@ -2,8 +2,8 @@
 # [[cron_vim_index.sh]]
 # f/mpct: [[vim-index-docs.lua]]
 # rltd: [[list_files_for_gotodef.sh]]
-# lgs: /tmp/cron_vim_index.txt
-# lgs: /tmp/cron_vim_index.log
+# lgs: /Users/mertnuhoglu/tmp/cron_vim_index.txt
+# lgs: /Users/mertnuhoglu/tmp/cron_vim_index.log
 #
 # rfr: spcs: Convert Vim Scheduled Job to Bash Cron Job `f/prmp prg/vim prg/bash` || ((b7fe329c-391e-4af3-b360-ffeaad74db38))
 #
@@ -19,17 +19,17 @@
 	# ~/prj/myrepo/scrap/out/oldfiles/oldfiles.lua
 #
 # crontab -e
-# * * * * * /Users/mertnuhoglu/prj/study/script/cron_vim_index.sh >> /tmp/cron_vim_index.log 2>&1
+# * * * * * /Users/mertnuhoglu/prj/study/script/cron_vim_index.sh >> /Users/mertnuhoglu/tmp/cron_vim_index.log 2>&1
 #
-echo started: /Users/mertnuhoglu/prj/study/script/cron_vim_index.sh
-date
+echo $(date +"%Y%m%d-%H%M%S") started: /Users/mertnuhoglu/prj/study/script/cron_vim_index.sh
 
 PATH="/usr/local/bin:/usr/bin:/bin"
 export PATH
 
-sh /Users/mertnuhoglu/prj/study/script/list_files_for_gotodef.sh >> /tmp/cron_vim_index.txt 2>&1
+sh /Users/mertnuhoglu/prj/study/script/list_files_for_gotodef.sh >> /Users/mertnuhoglu/tmp/cron_vim_index.log 2>&1
+# [[vim-index-docs.lua]]
 /usr/local/bin/nvim --headless \
 			-c "lua require('user.vim-index-docs')" \
-			-c "quit" >> /tmp/cron_vim_index.txt 2>&1
+			-c "quit" >> /Users/mertnuhoglu/tmp/cron_vim_index.log 2>&1
 # log_script
-echo completed: ~/prj/study/script/cron_vim_index.sh
+echo $(date +"%Y%m%d-%H%M%S") completed: ~/prj/study/script/cron_vim_index.sh

@@ -6,7 +6,7 @@ index:
     fulcro examples project <url:file:///~/projects/study/clj/fulcro.yaml#r=g12548>
 topics:
   fulcro veritabanı örnekleri:
-    rfr:- fulcro tipi veritabanı <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/edn03.edn#r=g13092>
+    rfr:- fulcro tipi veritabanı || ((f284aba4-df07-46ec-9ba3-6d1bf3c205f4))
   debug - fulcro id=g12453:
     defsc defmutation vs nasıl debug edilir?:
       a01. kodun içinde loglama yap: |

@@ -18,6 +18,7 @@
 
 (def inventory-update
   [[:db/add [:inv/sku "SKU-21"] :inv/count 7]
+     ;; id:: 8af428a5-5fbe-4ca3-a34f-dbc7f2ee64c0]
    [:db/add [:inv/sku "SKU-22"] :inv/count 7]
    [:db/add [:inv/sku "SKU-42"] :inv/count 100]])
 

@@ -1,18 +1,20 @@
 (ns dev-local.datalog02-ex-14)
 
+; Konu: Rules
+;   id:: ead6f2ed-2ff0-4c60-a66f-bc68adb7839f
+;
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230207
 ; rfr: video/20230207-mert-clj-egzersiz-22.mp4
 
-; Konu: Rules
 
 ; [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/8)
 ; https://docs.datomic.com/on-prem/query/query.html#rules-grammar
 ; https://docs.datomic.com/on-prem/query/query.html#rules
 
 (require '[datomic.client.api :as d])
-(use '[dev-local.e04 :only [conn] :as e04])
-(require '[dev-local.e05 :as e05])
+(use '[dev-local.datalog02-ex-04 :only [conn] :as e04])
+(require '[dev-local.datalog02-ex-05 :as e05])
 (def db (d/db conn))
 
 ; Şu ana kadar öğrendiğimiz 3 farklı fonksiyon tipi var:
@@ -46,7 +48,7 @@
 ; ondan sonra bizim tekrar kullanacağımız sorgu kriterleri geliyor.
 
 ; aynı db gibi bir argüman olarak q fonksiyonuna rules verisini gönderiyorum
-; ayrıca :in cümleciğine `%` sembolünü koyuyorum
+; ayrıca :in cümleciğine `%` sembolünü koyuyorum (herhangi bir placeholder sembolü)
 ; ondan sonra data pattern içinde yukarıda tanımladığım `kirmizi-kalem` sembolünü kullanıyorum
 (d/q
   '[:find (pull ?e [*])

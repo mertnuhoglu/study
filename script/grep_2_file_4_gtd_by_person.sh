@@ -32,7 +32,7 @@ else
 fi
 
 OUTPUT="${DEST_DIR}/out/${FILENAME}"
-echo $OUTPUT
+# echo $OUTPUT
 mkdir -p "${DEST_DIR}/out"
 cd "${DEST_DIR}"
 
@@ -40,7 +40,7 @@ GTD='\bg\/(gtd|gnd)\b'
 Q1="${GTD}.*${PERSON}"
 Q2="${PERSON}.*${GTD}"
 QRY="(${Q1})|(${Q2})"
-echo "OUTPUT: " "${OUTPUT}"
+# echo "OUTPUT: " "${OUTPUT}"
 rg --vimgrep "${QRY}" >"${OUTPUT}"
 rg --vimgrep "\bTODO\b.*${PERSON}" >>"${OUTPUT}"
 cat "${OUTPUT}" | sort --reverse | rg -v "pages\/ndx\w+.md" | rg "(pages|journals)\/2024.*.md" | rg -v "pages\/.*-Tag-List.*\.md" | sponge "${OUTPUT}"

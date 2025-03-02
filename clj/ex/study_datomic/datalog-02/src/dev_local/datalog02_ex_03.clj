@@ -1,5 +1,7 @@
 (ns dev-local.datalog02-ex-03)
 
+; Konu: Transact Datoms ve Basic Queries
+;
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230202
 ; rfr: video/20230202-mert-clj-egzersiz-14.mp4

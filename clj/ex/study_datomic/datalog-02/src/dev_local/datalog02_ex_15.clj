@@ -1,16 +1,17 @@
 (ns dev-local.datalog02-ex-15)
 
+; Konu: Pull API
+;
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230207
 ; rfr: video/20230207-mert-clj-egzersiz-23.mp4
 
-; Konu: Pull API
 
 ; [Datomic Pull | Datomic](https://docs.datomic.com/on-prem/query/pull.html)
 
 (require '[datomic.client.api :as d])
-(use '[dev-local.e04 :only [conn] :as e04])
-(require '[dev-local.e05 :as e05])
+(use '[dev-local.datalog02-ex-04 :only [conn] :as e04])
+(require '[dev-local.datalog02-ex-05 :as e05])
 (def db (d/db conn))
 
 ; Örnek. Daha önceden aşağıdaki gibi bir sorgu yapmıştık.
@@ -56,7 +57,7 @@
 ; Bu durumda ne yapacağız?
 
 (d/q
-  '[:find (pull ?order [:db/id {:order/product [:product/name]}])
+  '[:find (pull ?order [:db/id {:order/product [:product/name]}])  ; 👈 [:product/name]
     :where
     [?e :product/name "Kalem"]
     [?e :product/color :color/red]

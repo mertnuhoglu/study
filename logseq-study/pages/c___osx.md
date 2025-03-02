@@ -4,13 +4,33 @@ tags:: study, tag, tll/mac
   id=g15117
 	- rfr: pprv: ~/projects/study/otl/cosx.otl
 - pnt - osx
+	- Ukelele: change keyboard layout
+		- [claude](https://claude.ai/chat/dbce81fa-d379-4731-9f3b-0fe41e5da583)
+		- Ukelele > File > New From Current Input Source
+			- Değişiklikler yap. 
+			- Save 
+			- Dosyayı .bundle uzantılı kaydeder.
+		- .bundle bir zip paketidir.
+			- Bunun içinde .keylayout dosyasını bul.
+			- Bunu şuraya kopyala:
+			- /Users/mertnuhoglu/Library/Keyboard Layouts
+			- Logoff ve login ol
+		- .keylayout dosyasının ismini değiştir.
+			- xml dosyasını aç. name atributunu değiştir.
+		- System Settings > Keyboard > Input Sources > +
+			- Other içinde yeni klavyeyi görürsün
+			- Görmezsen arama yapabilirsin.
+	- KeyCombiner: Learning keyboard shortcuts with exercises 20250226 #prg/tll
+	  id:: 987599a4-5687-416f-ac04-0f7a9c96b4b7
 	- clipboard history  id=g15110
 		- Maccy
 			- #!9
 	- excel türü veri analiz araçları id=g14243
 		- Ultorg
 		- Explorer - R
-	- çizim grafik tasarım foto diyagram araçları id=g13860
+	- çizim grafik tasarım foto diyagram araçları 
+	  id:: 9e01c920-b670-461f-ba13-3b1b9e914f79
+		- id=g13860
 		- Shottr: Screenshot
 		- FlameShot
 		- Ksnip
@@ -28,7 +48,8 @@ tags:: study, tag, tll/mac
 		tags:: tll/mac
 		alternative:: virtualbox
 		- [[20230510-Mac-M1-Windows-XP-Kurulumu]]
-	- AltTab - window navigation id=g13821
+	- AltTab - window navigation 
+	  id:: f1e1f2d2-9719-49cf-bc57-d2cbf648992c
 		- rfr: [AltTab - Windows alt-tab on macOS](https://alt-tab-macos.netlify.app/)
 		- pencereler ve uygulamalar arasında dolaşma
 		- Command+Tab gibi ama önizleme görüntüsü var
@@ -75,7 +96,7 @@ tags:: study, tag, tll/mac
 			- KeyCode::<key to fire when pressed and released quickly>
 - ## Tree
 	- applications
-		- AltTab - window navigation <url:file:///~/projects/study/otl/cosx.otl#r=g13821>
+		- AltTab - window navigation  || ((f1e1f2d2-9719-49cf-bc57-d2cbf648992c))
 		- UTM: virtual machine windows on m1
 		- krispy: zoom kullanırken arka fondaki gürültüyü temizler
 		- iterm2

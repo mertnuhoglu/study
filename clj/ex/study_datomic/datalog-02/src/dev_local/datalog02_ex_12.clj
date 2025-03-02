@@ -1,21 +1,22 @@
 (ns dev-local.datalog02-ex-12)
 
+; Konu: Transformation Functions
+;
+; rfr: [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/6)
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230206
 ; rfr: video/20230206-mert-clj-egzersiz-21.mp4
 
-; Konu: Transformation Functions
-; rfr: [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/6)
 
 (require '[datomic.client.api :as d])
-(use '[dev-local.e04 :only [conn] :as e04])
-(require '[dev-local.e05 :as e05])
+(use '[dev-local.datalog02-ex-04 :only [conn] :as e04])
+(require '[dev-local.datalog02-ex-05 :as e05])
 (def db (d/db conn))
 
 ; Bu konu, predicatelara çok benziyor.
 ; Predicatelarda biz sorgu kriterlerimizin içinde fonksiyon kullanıyorduk.
 ; Transformasyon fonksiyonlarındaysa, yine data pattern içinde kullanacağız bu fonksiyonları
-; Ama amacımız bu sefer ?x mantıksal değişkenlerimizin içindeki verileri işlemek (transformasyon)
+; Ama amacımız bu sefer ?x mantıksal değişkenlerimizin içindeki verileri işlemek (transformasyon) 👈 
 
 ; Mesela hepimiz çarpma işlemini biliriz
 ; Doğrudan dahili `*` operatörünü kullanalım şimdi
@@ -23,7 +24,7 @@
   '[:find ?order ?size ?result
     :where
     [?order :order/size ?size]
-    [(* ?size 10) ?result]]
+    [(* ?size 10) ?result]] ; 👈 
   db)
 ;=> [[96757023244376 6 60] [92358976733271 4 40] [92358976733270 5 50]]
 
@@ -39,11 +40,16 @@
   '[:find ?order ?size ?result
     :where
     [?order :order/size ?size]
-    [(dev-local.e12/multiply_by ?size 10) ?result]]
+    [(dev-local.e12/multiply_by ?size 10) ?result]] ; 👉 long name: dev-local.e12/multiply_by
   db)
 ;=> [[96757023244376 6 60] [92358976733271 4 40] [92358976733270 5 50]]
 ; Dikkat: `multiply_by` fonksiyonunun sonucunu ?result değişkeninin içine koyduk
 
+; Binding of Transformation Function Results
+;   id:: 150d2443-2abe-4a95-854d-4e08706d0a04
+;
+; rfr: spcs: Bindings  || ((3de017b1-1bf5-4db6-a972-a097b1e3d6ca))
+;
 ;| Binding Form | Binds      |
 ;|--------------|------------|
 ;| ?a           | scalar     |
@@ -119,7 +125,7 @@
     :where
     [?order :order/size ?size]
     [(< ?size 5)]
-    [(dev-local.e12/to_rel ?size) [[?a ?b]]]]
+    [(dev-local.e12/to_rel ?size) [[?a ?b]]]]  ; 👉 [[?a ?b]
   db)
 ;=> [[92358976733271 4 :a 1] [92358976733271 4 :c 3] [92358976733271 4 :b 2] [92358976733271 4 :d 4]]
 ; Burada iki tane kümenin kartezyen çarpımını aldık

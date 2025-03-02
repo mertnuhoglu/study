@@ -1,15 +1,17 @@
 (ns dev-local.datalog02-ex-05)
 
 (require '[datomic.client.api :as d])
-(use '[dev-local.e04 :only [conn] :as e04])
+(use '[dev-local.datalog02-ex-04 :only [conn] :as e04])
 
+; Konu: Identity erişimi
+;   id:: 7325ce6b-0eaf-4cd9-a3ce-cc8b25110f73
+;
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230203
 ; rfr: video/20230203-mert-clj-egzersiz-16.mp4
 
 ; e04'ün devamı
 
-; Konu: Identity erişimi
 
 ; Yukarıdaki sorgularda "Kırmızı kalem" siparişlerine ulaşmak için iki tane data pattern yazmamız gerekti.
 ; Bu çok pratik bir yöntem değil.
@@ -60,7 +62,7 @@
 ; {:db/id 92358976733265, :product/name "Defter", :product/color #:db{:id 96757023244361, :ident :color/red}}
 ; {:db/id 92358976733266, :product/name "Defter", :product/color #:db{:id 96757023244362, :ident :color/green}})
 
-; Şimdi tek seviyelik liste oldu. Ancak bizim liste değil vektör olmasına ihtiyacımız var, kolayca assoc-in ile öğeleri dolaşabilmek için
+; Şimdi tek seviyelik liste oldu. Ancak bizim liste değil vektör olmasına ihtiyacımız var, kolayca 👉 assoc-in ile öğeleri dolaşabilmek için 
 (-> (d/q
       '[:find (pull ?e [*])
         :where
@@ -163,7 +165,7 @@
 
 ; Not: (d/transact conn {:tx-data product-list-4}) ifadesiyle güncel ürün listesini veritabanına kaydetmiştik.
 ; Dikkat ederseniz, product-list-4 içinde :product/id dışında 3 atribut daha bulunuyordu.
-; Peki datomic neden bu 4 varlık için, yeni entity kayıtları oluşturmak yerine, mevcut kayıtları güncelledi?
+; 👉 Peki datomic neden bu 4 varlık için, yeni entity kayıtları oluşturmak yerine, mevcut kayıtları güncelledi? 👈 
 ; Cevap: Çünkü :db/id ile mevcut varlıkların id'lerini vermiştik.
 ; Datomic bu db/id değerlerine ait varlıkları buldu veritabanından. Sonra bunların atribut değerlerini güncelledi.
 ; Yeni varlık kaydı eklemedi.
@@ -176,7 +178,7 @@
 ; Bu kodun sorunu `product-id` isimli entity_id değerini bulmak için bir hayli ek iş yapmak gerekiyordu.
 ; Artık her bir ürün kaydımız için tekil bir PK atributumuz (:product/id) bulunduğundan, işimiz çok daha kolay.
 (def order-list-3
-  [{:order/product [:product/id 2]
+  [{:order/product [:product/id 2]  ; 👈
     :order/size 7}])
 (d/transact conn {:tx-data order-list-3})
 ;=>
@@ -186,4 +188,4 @@
 
 ; Not: Eskiden entity_id ile ilişkili varlıklara referans veriyorduk.
 ; Şimdi ise [:product/id 2] formuyla ilişkili ürün varlığına referans verdik.
-; Bunu yapmamızı sağlayan şey, `:product/id` atributunun `identity` olarak tanımlanmış olması schemada.
+; Bunu yapmamızı sağlayan şey, `:product/id` atributunun 👉 `identity` 👈 olarak tanımlanmış olması schemada.

@@ -26,5 +26,5 @@ OUTPUT="${DIR_CLLOGSEQ}/out/${FILENAME}"
 cd "${DEST_DIR}"
 
 rg --vimgrep "\bTODO\b.*${PERSON}" | sort --reverse | rg -v "pages\/ndx\w+.md" | rg "(pages|journals)\/2024.*.md" | rg -v "pages\/.*-Tag-List-.*\.md" >"${OUTPUT}"
-echo "${DIR_CLLOGSEQ}/out/${FILENAME}"
+# echo "${DIR_CLLOGSEQ}/out/${FILENAME}"
 printf "${DIR_CLLOGSEQ}/out/${FILENAME}" 

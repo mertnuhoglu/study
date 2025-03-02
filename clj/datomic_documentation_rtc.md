@@ -1,5 +1,5 @@
 
-# Datomic Documentation id=g13500
+# Datomic Documentation 
   id:: 6104bcb1-0d38-48f3-a917-806e0dcf067c
 
 [Introduction | Datomic](https://docs.datomic.com/on-prem/overview/introduction.html)
@@ -14,7 +14,7 @@ Required schema attributes:
 - `:db/valueType` - `db.type/ref` `db.type/string` `db.type/tuple` …
 - `:db/cardinality` - `db.cardinality/one`
 
-### Tuples id=g13537
+### Tuples 
   id:: 9a6169d2-6e66-41ca-a48e-076b9dc18ec7
 
 3 tür tuple var:
@@ -234,7 +234,7 @@ Global olarak tekil id oluşturmak için.
 
 `:db.type/uuid` tipinde atributlarda kullanılır.
 
-#### Lookup Refs id=g13538
+#### Lookup Refs 
   id:: bb299957-c1b6-45fa-acf8-556a891bdb67
 
 Bir listedir. Listenin ilk elemanı bir atribut ismi, ikincisi ise onun değeridir.
@@ -258,7 +258,7 @@ Transactionlarda mevcut varlıklara ref vermek için kullanabilirsin:
 
 Tüm yazma işlemleri ACID transaction olarak gerçekleşir. Yani ya hepsi birden yazılır, ya hiçbiri yazılmaz.
 
-### Transaction structure id=g13539
+### Transaction structure 
   id:: 6d62456b-92a9-4d45-8858-83a3e4a7cc0e
 
 A transaction is simply a list of lists and/or maps, each of which is a statement in the transaction.
@@ -298,7 +298,7 @@ Eğer entity-id vermediysen, datomic bir geçici entity-id oluşturur:
 
 ### Identifying entities
 
-#### Temporary ids id=g13540
+#### Temporary ids 
   id:: 872db05e-de9f-4517-a5ce-a0653469e64a
 
 Yeni bir varlık eklerken, geçici id kullanırsın.
@@ -501,7 +501,7 @@ Eğer bir datomla aynı değerlere sahip fakat sadece tx idsi farklı bir datom 
 
 Ama txler hiçbir zaman gereksiz olmaz. Aynı şekilde schema atributları da.
 
-### Transaction Functions id=g13541
+### Transaction Functions 
   id:: c7c0f40b-c30a-4699-a9e5-2732e0ffaf1b
 
 [Transaction Functions | Datomic](https://docs.datomic.com/on-prem/transactions/transaction-functions.html)
@@ -796,17 +796,21 @@ Varlıkları bulma işlemiyle, bu varlıklardan bilgi çekme işlemini ayırt ed
    #:release{:_media #:release{:artists [#:artist{:name "Bob Dylan"}], :name "A Rare Batch of Little White Wonder"}}}]
 ```
 
-#### Bindings id=g13542
+#### Bindings 
   id:: 3de017b1-1bf5-4db6-a972-a097b1e3d6ca
 
-rfr: [Bindings](https://docs.datomic.com/on-prem/query/query.html?search=Tuple%20Binding#bindings)
+- rfr: 
+	- web: [Bindings](https://docs.datomic.com/on-prem/query/query.html?search=Tuple%20Binding#bindings)
+	- exmp: Binding Forms || ((f9aab781-594d-4dd7-85bc-a3e7a69832d6))
+	- exmp: Binding of Transformation Function Results || ((150d2443-2abe-4a95-854d-4e08706d0a04))
+	- exmp: Find Specifications || ((0c70d19a-64e4-4e10-aec0-70a87092fa6f))
 
-	| Binding Form | Binds      |
-	|--------------|------------|
-	| ?a           | scalar     |
-	| [?a ?b]      | tuple      |
-	| [?a …]       | collection |
-	| [ [?a ?b ] ] | relation   |
+| Binding Form | Binds      |
+|--------------|------------|
+| ?a           | scalar     |
+| [?a ?b]      | tuple      |
+| [?a …]       | collection |
+| [ [?a ?b ] ] | relation   |
 
 ##### Tuple Binding
 
@@ -851,7 +855,7 @@ db,  [["John Lennon" "Mind Games"]
       ["Paul McCartney" "Ram"]]
 ```
 
-#### Find Specifications id=g13543
+#### Find Specifications 
   id:: 24874b63-7707-4220-857c-fb4dead840bf
 
 rfr: [Datomic Queries and Rules | Datomic](https://docs.datomic.com/on-prem/query/query.html#find-specifications)
@@ -937,16 +941,16 @@ db "John Lennon"
 1940
 ```
 
-#### Return Maps id=g13544
+#### Return Maps 
   id:: fcde5413-4a77-4785-9133-7cbc8314df81
 
 Tuple yerine map döndürmeyi sağlar.
 
-	| keyword | symbols become |
-	|---------|----------------|
-	| :keys   | keyword keys   |
-	| :strs   | string keys    |
-	| :syms   | symbol keys    |
+| keyword | symbols become |
+|---------|----------------|
+| :keys   | keyword keys   |
+| :strs   | string keys    |
+| :syms   | symbol keys    |
 
 ```clj
 ;; query
@@ -965,7 +969,7 @@ db
   ...}
 ```
 
-#### Not Clauses id=g13546
+#### Not Clauses 
   id:: 1faf7bac-f188-4e01-8da8-04763f076de9
 
 a. not
@@ -1027,7 +1031,7 @@ db
 
 Not cümleciklerini alt birer sorgu olarak düşün. Buradaki değişkenler ve veri kaynakları, kuşatan sorguyla birleşir. Bu alt sorgunun sonuçları, kuşatan sorgunun sonuçlarından çıkartılırr. 
 
-#### Or Clauses id=g13545
+#### Or Clauses 
   id:: 43e9c64f-05b2-4e58-b7ec-f4966ce4bf68
 
 ```clj
@@ -1098,7 +1102,7 @@ Expression cümlecikleriyle, herhangi bir clojure fonksiyonu çağrılabilir.
 [(function ...) bindings]
 ```
 
-##### Predicate Expressions id=g13547
+##### Predicate Expressions 
   id:: b23094c0-50a2-4f30-a54e-59ca8ae091a3
 
 Eğer binding yoksa, bir yüklem (predicate) olarak yorumlanır. Yani truth değeri döner. `null` ve `false` yanlıştır. Diğer her şey doğrudur.
@@ -1114,7 +1118,7 @@ Eğer binding yoksa, bir yüklem (predicate) olarak yorumlanır. Yani truth değ
 db
 ```
 
-##### Function Expressions id=g13548
+##### Function Expressions 
   id:: 720fadaa-5bb4-4dcf-9bb3-c24f4f5bd2ff
 
 Fonksiyon ifadelerinin çıktısı mantıksal bir değişkene bağlanır.
@@ -1154,7 +1158,7 @@ Bunun yerine ardışık ifade cümlecikleri yazılır:
 212
 ```
 
-#### Built-in Expression Functions and Predicates id=g13549
+#### Built-in Expression Functions and Predicates 
   id:: 0cc8801b-ddab-4ada-a4fe-49bf599382aa
 
 Dahili fonksiyonlar ve yüklemler:
@@ -1379,7 +1383,7 @@ Tek bir veri kaynağı varsa, buna `$` şeklinde erişebilirsin.
 [:find ?e :in $data ?age :where [$data ?e :age ?age]]
 ```
 
-### Rules id=g13550
+### Rules 
   id:: 299fb991-7a21-4e55-92f8-8615360d2495
 
 Kurallar (rules), isimlendirilmiş bir cümlecik grubudur.
@@ -1453,7 +1457,7 @@ c. `:where` kısmında kuralı kullan
 
 08. Kural cümleciklerinde, diğer cümlecik türlerini kullanabilirsin: veri, ifade (expression), başka kurallar gibi.
 
-### Aggregates id=g13551
+### Aggregates 
   id:: d8da4036-3be5-420e-9563-01bb4bdd68c1
 
 ```clj
@@ -1502,7 +1506,7 @@ Buradaki örnekte, küme mantığı `1` değerlerinin tümünü tek bir öğeye 
 
 Burada `?monster` değişkenine göre sonucun taban kümesi oluşturulur. Daha sonra `?monster` değerleri silinir. Kalan değerler bir `bag` oluşturur, küme değil. Bunlarla kümeleme işlemi yapılır.
 
-#### Aggregates Returning a Single Value id=g13552
+#### Aggregates Returning a Single Value 
   id:: 07bdcc9c-0b9a-4330-963a-2cf77e3d984a
 
 ```clj
@@ -1519,7 +1523,7 @@ Burada `?monster` değişkenine göre sonucun taban kümesi oluşturulur. Daha s
 
 Tek değer dönen kümeleme fonksiyonları bunlardır.
 
-#### Aggregates Returning Collections id=g13553
+#### Aggregates Returning Collections 
   id:: 1791fdbc-24ce-40b9-8693-932d006d392d
 
 ```clj
@@ -1601,7 +1605,7 @@ db
 2
 ```
 
-### Pull Expressions id=g13555
+### Pull Expressions 
   id:: 5aae8c1d-3259-478b-9ba9-7831fdfbdff2
 
 [Pull Expressions](https://docs.datomic.com/on-prem/query/query.html#pull-expressions)
@@ -1682,7 +1686,7 @@ db, "Led Zeppelin"
 
 ### Limitations
 
-#### Resolving Entity Identifiers in V (value) Position id=g13556
+#### Resolving Entity Identifiers in V (value) Position 
   id:: 7ad9cfca-fad4-4e33-a95b-c9a34610eb1c
 
 01. Entity id, ident veya lookup ref birbiri yerine kullanılabilir:
@@ -1730,7 +1734,7 @@ Fonksiyon iki girdi alır: `db` ve bir map. Map'in key'leri şunlardır:
 - `:selector` - bir pull selector
 - `:start`
 
-#### Indexes id=g13557
+#### Indexes 
   id:: 9d1c97a4-9a16-4854-9d07-d404dd067f94
 
 ##### AVET
@@ -1785,7 +1789,7 @@ Fonksiyon iki girdi alır: `db` ve bir map. Map'in key'leri şunlardır:
 
 [Datomic Pull | Datomic](https://docs.datomic.com/on-prem/query/pull.html)
 
-#### Pull API id=g13558
+#### Pull API 
   id:: 8726751a-8c25-40e1-8065-e31b281e190f
 
 `pull` API 3 argüman alır:
@@ -1814,7 +1818,7 @@ Fonksiyon iki girdi alır: `db` ve bir map. Map'in key'leri şunlardır:
 {:artist/gid #uuid "678d88b2-87b0-403b-b63d-5da7465aecc3", :artist/name "Led Zeppelin"}
 ```
 
-##### Reverse Lookup id=g13559
+##### Reverse Lookup 
   id:: 38a7eb11-1aed-4514-bc45-9eaa05fc660a
 
 `_` underscore: ters yönde dolaşmayı sağlar
@@ -1827,7 +1831,7 @@ Fonksiyon iki girdi alır: `db` ve bir map. Map'in key'leri şunlardır:
 {:artist/_country [{:db/id 17592186045751} {:db/id 17592186045755} ...]}
 ```
 
-#### Map Specifications id=g13560
+#### Map Specifications 
   id:: 88e2371a-3131-4901-b11b-8933f11a213a
 
 ```clj
@@ -1862,7 +1866,7 @@ Fonksiyon iki girdi alır: `db` ve bir map. Map'in key'leri şunlardır:
             ...}
 ```
 
-#### Attribute Specifications id=g13561
+#### Attribute Specifications 
   id:: 3fc3e595-79d6-42af-a2c1-c8eb84fb9514
 
 ##### :as Option
@@ -1945,7 +1949,7 @@ Fonksiyon iki girdi alır: `db` ve bir map. Map'in key'leri şunlardır:
 
 Kullanabileceğin transformasyon fonksiyonları: `str, keyword, symbol, name, namespace, clojure.edn/read-string`
 
-#### Wildcards id=g13563
+#### Wildcards 
   id:: 67f58aa8-17a7-4c8f-9210-6ac43ef8bc1b
 
 Bir varlığın tüm atributlarını çeker. Ayrıca komponentlerinin atributlarını da özyinelemeli bir şekilde çeker.
@@ -2147,7 +2151,7 @@ Bu indeks ters yönlü ref navigasyonunda işe yarar.
 
 ![VAET](https://docs.datomic.com/on-prem/images/vaet.png)
 
-#### Datoms API id=g13564
+#### Datoms API 
   id:: fb19d7b6-ed2f-47ee-a218-9192431995c5
 
 Örnek: Tüm `:account/balance` atributuna göre sıralanmış datomlar:
@@ -2205,7 +2209,7 @@ Peer kütüphanesi, `slf4j` kullanarak loglama yapar.
 
 REST API kalıntıdır (legacy). Yeni güncellemeler yapılmıyor. Client API kullanılmalı onun yerine.
 
-### Datomic Clojure API id=g13565
+### Datomic Clojure API 
   id:: ff814fd5-2083-44e9-b009-37eef251e137
 
 [datomic.api - Datomic Clojure API documentation](https://docs.datomic.com/on-prem/clojure/index.html)
@@ -2545,7 +2549,7 @@ REST servisleriyle erişebilirler.
  :db/id 17592186045418}
 ```
 
-### since id=g13566
+### since 
   id:: 080cc09c-1684-4b34-92ac-6bf4278069ee
 
 since returns a value of the database that includes only datoms added by transactions after that point in time.
@@ -2599,7 +2603,7 @@ Bu işlemi bir sorgu ile yapacak olsak:
 
 [Analytics Support (Preview) | Datomic](https://docs.datomic.com/on-prem/analytics/analytics-concepts.html)
 
-## Datomic Best Practices id=g13567
+## Datomic Best Practices 
   id:: 9d1f507e-c6a8-41f0-9465-969a0d84e818
 
 [Datomic Best Practices | Datomic](https://docs.datomic.com/on-prem/best-practices.html)

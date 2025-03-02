@@ -1,5 +1,7 @@
 (ns dev-local.datalog02-ex-01)
 
+; Konu: Genel
+;
 ; Barış'la Datomic Egzersizleri
 ; Tarih: 20230131
 ; rfr: video/20230131-mert-clj-egzersiz-13.mp4
@@ -14,7 +16,7 @@
 ; [Max Datom - Interactive Datomic Tutorial](https://max-datom.com/)
 ;	/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datomic/datomic_01b.clj
 ;	Connect to Sample Database <url:file:///~/prj/study/clj/articles-datomic.md#r=g13507>
-;	Datomic Documentation <url:file:///~/prj/study/logbook/log_20221107.md#r=g13500>
+;	Datomic Documentation  || ((6104bcb1-0d38-48f3-a917-806e0dcf067c))
 ;	REBL ile datomic verilerini dolaşma  <url:file:///~/prj/study/clj/datomic.otl#r=g13523>
 ;	Lab: Assertion Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13506>
 ;	Code - Assertion and Read Tutorial <url:file:///~/prj/study/clj/articles-datomic.md#r=g13509>

@@ -1,12 +1,13 @@
 (ns dev-local.datalog02-ex-10)
 
+; Konu: Meta Model Sorgulamaları
+;
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230206
 ; rfr: video/20230206-mert-clj-egzersiz-19.mp4
 
 ; rfr: [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/4)
 
-; Konu: Meta Model Sorgulamaları
 
 ; Attributes:
 ; Şu ana kadar hep alana (domain) ait verilerle ilgili sorgulamalar yaptık.
@@ -79,7 +80,7 @@
 ; Peki meta model üzerinde nasıl sorgulama yaparız?
 
 (require '[datomic.client.api :as d])
-(use '[dev-local.e04 :only [conn] :as e04])
+(use '[dev-local.datalog02-ex-04 :only [conn] :as e04])
 (def db (d/db conn))
 
 (d/q

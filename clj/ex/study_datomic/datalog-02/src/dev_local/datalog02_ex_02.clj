@@ -1,5 +1,7 @@
 (ns dev-local.datalog02-ex-02)
 
+; Konu: Schema ve Temel Sorgular
+;
 ; Barış'la Datomic Egzersizleri
 ; Tarih: 20230201
 ; rfr: video/20230201-mert-clj-egzersiz-13.mp4

@@ -1,16 +1,17 @@
 (ns dev-local.datalog02-ex-08)
 
+; Konu: Parametrik Sorgularda Destructuring ve Binding
+;
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230203
 ; rfr: video/20230203-mert-clj-egzersiz-17.mp4
 
-; Konu: Parametrik Sorgularda Destructuring ve Binding
 
 ; Source: [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/3)
 
 (require '[datomic.client.api :as d])
-(use '[dev-local.e04 :only [conn] :as e04])
-(use '[dev-local.e05 :as e05])
+(use '[dev-local.datalog02-ex-04 :only [conn] :as e04])
+(use '[dev-local.datalog02-ex-05 :as e05])
 
 ; En son yaptığımız parametrik sorguya bakalım:
 (d/q
@@ -21,12 +22,12 @@
   db "Kalem")
 ; Bu güzel
 ; Burada parametre olarak gönderdiğimiz değer primitif bir değer.
-; Fakat bizim clojureda fonksiyonlara sadece primitif tipte değerler değil, kompozit (bileşik) türde değerler de gönderebiliyoruz.
+; Fakat bizim clojureda fonksiyonlara sadece primitif tipte değerler değil, 👉 kompozit 👈 (bileşik) türde değerler de gönderebiliyoruz.
 ; Tuples/Vector/List: [.. ..]
 ; Map
 ; Bunların bir kombinasyonu olabilir
 
-; Bu tarz bir değer argüman olarak gönderileceği vakit destructuring yapılması gerekiyor.
+; Bu tarz bir değer argüman olarak gönderileceği vakit 👉 destructuring 👈 yapılması gerekiyor.
 ; Klasik clojure destructuring sentaksı gibi, ama biraz farklılıklar var.
 ; [Clojure - Destructuring in Clojure](https://clojure.org/guides/destructuring)
 ; [Clojure Destructuring Tutorial and Cheat Sheet](https://gist.github.com/john2x/e1dca953548bfdfb9844)
@@ -34,7 +35,7 @@
 ; Tuple:
 (d/q
   '[:find ?e
-    :in $ [?product-name ?color]
+    :in $ [?product-name ?color]  ; destructuring: 👉 [?v1 ?v2 ] 👈 
     :where
     [?e :product/name ?product-name]
     [?e :product/color ?color]]
@@ -45,7 +46,7 @@
 ; Collection:
 (d/q
   '[:find ?e
-    :in $ [?product-name ...]  ; 👈 ... sembolü
+    :in $ [?product-name ...]  ; 👉 ... 👈 
     :where
     [?e :product/name ?product-name]]
   db ["Kalem" "Defter"])
@@ -68,7 +69,7 @@
 ; Relations
 (d/q
   '[:find ?e ?product-name ?color ?product-price
-    :in $ [[?product-name ?product-price]]
+    :in $ [[?product-name ?product-price]]  ; 👉 [[?v1 ?v2]] 👈 
     :where
     [?e :product/name ?product-name]
     [?e :product/color ?color]]
@@ -106,10 +107,11 @@
 ; join external relations
 ; relation: kelimesini görünce aklınıza tablo gelsin.
 
-; Bindings
+; ## Binding Forms
+;   id:: f9aab781-594d-4dd7-85bc-a3e7a69832d6
 
-; rfr: Bindings <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13542>
-; rfr: [Bindings](https://docs.datomic.com/on-prem/query/query.html?search=Tuple%20Binding#bindings)
+; rfr: spcs: Bindings  || ((3de017b1-1bf5-4db6-a972-a097b1e3d6ca))
+; rfr: web: [Bindings](https://docs.datomic.com/query/query-data-reference.html#binding-forms)
 
 ; Şimdi bu parametrelerin sorgu değişkenlerine bağlanması işine binding diyoruz.
 (d/q

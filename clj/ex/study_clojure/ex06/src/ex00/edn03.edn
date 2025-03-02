@@ -1,5 +1,6 @@
-;; fulcro tipi veritabanı id=g13092
+;; fulcro tipi veritabanı 
 ;;   id:: f284aba4-df07-46ec-9ba3-6d1bf3c205f4
+;;   id=g13092
 
 ;; rfr
 ; person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir: <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g13090>

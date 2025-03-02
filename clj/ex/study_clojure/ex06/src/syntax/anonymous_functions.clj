@@ -57,3 +57,5 @@
 ;=> -2
 ; burada %2 ile 2. argümanı yani 5'i koyduk
 ; %1 ile 1. argümanı yani 7'yi koyduk
+;
+; tap

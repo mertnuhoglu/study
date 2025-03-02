@@ -12,8 +12,10 @@
 # Output: [[vimgrep-refid.txt]]
 
 source ~/.zshenv
+
+echo $(date +"%Y%m%d-%H%M%S") started: refid-in-docs-into-redis.sh
 /Users/mertnuhoglu/prj/study/script/doc-refid-to-vimgrep.sh
 /Users/mertnuhoglu/prj/study/script/vimgrep-to-refid-path-tsv.sh
 /Users/mertnuhoglu/prj/study/script/run_import_refid_into_redis.R
-echo "Completed: refid-in-docs-into-redis.sh"
+echo $(date +"%Y%m%d-%H%M%S") completed: refid-in-docs-into-redis.sh
 

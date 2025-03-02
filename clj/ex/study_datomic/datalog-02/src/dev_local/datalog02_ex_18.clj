@@ -1,11 +1,12 @@
 (ns dev-local.datalog02-ex-18
   (:require [datascript.core :as d]))
 
+; Konu: DataScript
+;
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230207
 ; rfr: video/20230207-mert-clj-egzersiz-24.mp4
 
-; Konu: DataScript
 
 ;; Source: [Getting Started](https://github.com/kristianmandrup/datascript-tutorial/blob/master/datascript_getting_started.md)
 

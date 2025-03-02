@@ -7,10 +7,10 @@
 		- prn: [[datomic.otl]]
 		- exmp: 
 			- [[datomic_01b.clj]]
-			- [[datalog02-ex-01.clj]]
+			- [[datalog02_ex_01.clj]]
+		- extended notes: [[datomic_documentation_rtc.md]]
 		- rfr: refcard || ((87b63076-64b3-46ab-8500-992c4a72f85a))
 			- classified-otl: reference exmp - datomic || ((a45257ee-94fb-4bda-8fb4-f8e73c06c379))
-  - transact || ((91da1a06-1a44-4b25-8548-31ade1b98609))
   - transact || ((91da1a06-1a44-4b25-8548-31ade1b98609))
   - schema || ((7aa798c0-c5ae-4c72-a92b-1b977c84e9ef))
   - pull || ((579aa9e5-0027-4b65-a384-3b834c60b3fe))
@@ -43,7 +43,7 @@
   - aggregates || ((4320184c-e3f7-4da9-a429-58b6cbb3c46a))
   - aggregates returning a single value || ((f66ad660-253b-4e5f-b6e6-c019ef38fc48))
   - aggregates returning collections || ((86bd8c5c-663a-4e66-bad9-7c1153ddd57d))
-  - pull 02 || ((1bc12071-4435-4dd7-a2e3-a4cec43ed4f2))
+	- pull Expressions || ((1bc12071-4435-4dd7-a2e3-a4cec43ed4f2))
   - entity identifier in V position || ((80cd9b06-ecde-4db9-a33c-3aa33a04a7b0))
   - index || ((a69f952d-4896-41a4-a793-8cd48ac927fd))
   - pull 03 || ((4cec4105-9f46-4905-900b-b69e0cc30a64))
@@ -75,7 +75,7 @@
 
 	(def datoms [{:db/id -1 :name "Bob" :age 30}
 							{:db/id -2 :name "Sally" :age 15}])
-	(d/transact! conn datoms)
+	(d/transact! conn {:tx-data datoms})
 ```
 
 rfr: Transaction structure || ((6d62456b-92a9-4d45-8858-83a3e4a7cc0e))
@@ -133,6 +133,15 @@ rfr: Transaction structure || ((6d62456b-92a9-4d45-8858-83a3e4a7cc0e))
 	;;=> #:inv{:color #:db{:ident :blue}, :size #:db{:ident :large}, :type #:db{:ident :dress}}
 
 	(pull-many db '[*] [led-zeppelin jimi-hendrix janis-joplin])
+
+
+	;; Note: pull clause is a little different:
+	;; rfr: pull Expressions || ((1bc12071-4435-4dd7-a2e3-a4cec43ed4f2))
+	(d/q
+		'[:find (pull ?product [*])
+			:where
+			[?product :product/id]]
+		db)
 ```
 
 - ## Nested entity map
@@ -147,10 +156,12 @@ rfr: Transaction structure || ((6d62456b-92a9-4d45-8858-83a3e4a7cc0e))
 		    :item/count 20}]})
 ```
 
-rfr: `fulcro tipi veritabanı <url:file:///~/projects/study/clj/ex/study_clojure/ex06/src/edn03.edn#r=g13092>`
+rfr: fulcro tipi veritabanı || ((f284aba4-df07-46ec-9ba3-6d1bf3c205f4))
 
 - ## Parameterized Query
   id:: 3bf21976-f0a5-4c9d-a610-84c35cce5244
+
+rfr: exmp: ; Konu: Parametrik Sorgular (Parameterised Queries) || ((5f11d317-e9c1-47bc-9d37-700415cbbb56))
 
 ```clj
 	(d/q
@@ -161,12 +172,16 @@ rfr: `fulcro tipi veritabanı <url:file:///~/projects/study/clj/ex/study_clojure
 		[:inv/sku "SKU-25"] 👈)
 ```
 
+rfr: q: Bu tuple: hangi değişkene bağlanıyor? `?inv` değişkenine. `[:inv/sku "SKU-25"]` || ((2803ff84-04f9-405d-a337-6945821002a5))
+
 - ## Rules
   id:: 2d960e66-110b-403f-b28e-36b9e362a5e7
 
+rfr: exmp: Rules || ((ead6f2ed-2ff0-4c60-a66f-bc68adb7839f))
+
 Kurallarla, çok sayıda join cümleciğini kapsülleyebiliriz.
 
-Bu kuralları sorguda kullanmak için `:in` cümleciğinde `%` sembolünü kullanmalıyız:
+Bu kuralları sorguda kullanmak için `:in` cümleciğinde `%` sembolü gibi bir placeholder kullanabiliriz:
 
 ```clj
 	(def rules
@@ -190,6 +205,9 @@ Bu kuralları sorguda kullanmak için `:in` cümleciğinde `%` sembolünü kulla
 
 - ## Lookup ref
   id:: 45e68a5c-19ca-4bc3-94a7-19b7717f1e27
+
+rfr: Konu: Identity erişimi || ((7325ce6b-0eaf-4cd9-a3ce-cc8b25110f73))
+rfr: exmp: [[:db/add [:inv/sku "SKU-21"] :inv/count 7 || ((8af428a5-5fbe-4ca3-a34f-dbc7f2ee64c0))
 
 ```clj
 	[:inv/sku "SKU-21"]
@@ -218,7 +236,7 @@ Bu kuralları sorguda kullanmak için `:in` cümleciğinde `%` sembolünü kulla
 
 Mevcut varlıklara ref vermek için:
 
-rfr: `Lookup Refs <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13538>`
+rfr: Lookup Refs  || ((bb299957-c1b6-45fa-acf8-556a891bdb67))
 
 ```clj
 	{👉 :db/id [:person/email "joe@example.com"]
@@ -228,7 +246,11 @@ rfr: `Lookup Refs <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g1
 - ## Connection
   id:: c8ae1746-e9df-4ca5-bd05-e51648a2c3b7
 
-rfr: `Connect to Sample Database <url:file:///~/prj/study/clj/articles-datomic.md#r=g13507>`
+rfr: 04. Connect to Sample Database  || ((756d565b-c26d-4be7-8445-c06adb70dc3c))
+
+rfr: exmp: Konu: Client API Tutorial || ((f480298c-023d-458c-8f47-4538b6cf0895))
+
+Client API ile connection: 
 
 ```clj
 	(def client (d/client {:server-type :dev-local
@@ -253,6 +275,8 @@ Bu durumda  `~/.datomic/dev-local.edn` içindeki `{:storage-dir "/Users/mertnuho
 - ## as-of
   id:: db3aaea0-4884-407e-b09c-46dbb769c97d
 
+rfr: exmp: [[datalog02_ex_03.clj]]
+
 ```clj
 	(def tx-result (d/transact conn {:tx-data ...}))
 	(def db-t 👉 (:t (:db-after tx-result))) ;=> 12
@@ -268,6 +292,8 @@ Bu durumda  `~/.datomic/dev-local.edn` içindeki `{:storage-dir "/Users/mertnuho
 - ## history
   id:: fc2f4749-ab3f-4ef0-a426-34d4a0e0ec69
 
+rfr: exmp: [[datalog02_ex_03.clj]]
+
 query the history of the data
 
 ```clj
@@ -278,24 +304,6 @@ query the history of the data
 		(dh/history @conn))
 	;; => #{[20] [25]}
 ```
-
-- ## since
-  id:: f9959d43-d2ec-4bfe-ac93-da502bd75bf2
-
-since <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13566>
-
-```clj
-	(d/q ('[:find ?count 
-					:in $ $since ?id 
-					:where [$ ?e :item/id ?id] 
-								 [$since ?e :item/count ?count]]) 
-		db since-2014 "DLC-042")
-	;;=>
-	{:item/count 100, 
-			:db/id 17592186045418}
-```
-
-Note: $, $since, since-2014
 
 - ## queries
   id:: 17d06a30-6681-4de7-b05d-34d22fc5b3ee
@@ -388,7 +396,7 @@ list all eav tuples
 - ## find clause
   id:: 8dc2f28f-9f4d-42b2-a729-32808fa89b20
 
-rfr: `/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/tutorial_ground_up/e01_querying.clj`
+rfr: exmp: [[e01_querying.clj]]
 
 ```clj
 	; return list of scalars
@@ -414,23 +422,17 @@ rfr: `/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhog
 	;=> ["Lucy" "Jerry"]
 ```
 
-- ## entity api
-  id:: 2891cc75-146a-4602-b8ff-421a3c0dbfcb
-
-```clj
-	(-> (db conn) (d/entity 36 👈) (:db/ident 👈))
-	#_:db.cardinality/many
-```
 
 - ## datom api
   id:: edee69a5-37a2-4921-909c-3639cc32549b
 
+rfr: exmp: [[e02_datoms.clj]]
 rfr: `/Users/mertnuhoglu/prj/study/clj/ex/study_datomic/datalog-01/src/mertnuhoglu/datahike/e02_datoms.clj`
 
 - ## tuples
   id:: c8cc396e-4aeb-45e3-8a30-4dc44d9763ed
 
-rfr: `Tuples <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13537>`
+rfr: Tuples  || ((9a6169d2-6e66-41ca-a48e-076b9dc18ec7))
 
 Composite Tuples:
 
@@ -460,7 +462,7 @@ Heterogeneous Tuples:
 - ## temporary ids
   id:: 498065d9-d2cf-4883-b6d2-3a049bd9c33d
 
-rfr: `Temporary ids <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13540>`
+rfr: Temporary ids  || ((872db05e-de9f-4517-a5ce-a0653469e64a))
 
 ```clj
 	[[:db/add "jdoe" :person/first "Jan"]
@@ -470,7 +472,7 @@ rfr: `Temporary ids <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=
 - ## transaction functions
   id:: 542bbcd7-7a63-4fc0-9abd-0461627ae779
 
-rfr: `Transaction Functions <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13541>`
+rfr: Transaction Functions  || ((c7c0f40b-c30a-4699-a9e5-2732e0ffaf1b))
 
 ```clj
 	[:db/retractEntity [:person/email "jdoe@example.com"]]]
@@ -500,7 +502,8 @@ cas = compare-and-swap. 4 argüman alır: eid, atribut, eski değer, yeni değer
 - ## bindings
   id:: 84e970c4-fa0c-4358-9a03-b8e1d80f1abb
 
-rfr: `Bindings <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13542>`
+rfr: Bindings  || ((3de017b1-1bf5-4db6-a972-a097b1e3d6ca))
+rfr: ; Binding Forms || ((f9aab781-594d-4dd7-85bc-a3e7a69832d6))
 
 | clause       | type       |
 |--------------|------------|
@@ -537,7 +540,7 @@ Relation:
 - ## find specifications
   id:: 2be4a43b-936a-4dae-909c-af418983bc28
 
-rfr: `Find Specifications <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13543>`
+rfr: Find Specifications  || ((24874b63-7707-4220-857c-fb4dead840bf))
 
 | clause          | type          |
 |-----------------|---------------|
@@ -575,7 +578,7 @@ rfr: `Find Specifications <url:file:///~/prj/study/clj/datomic_documentation_rtc
 - ## return maps
   id:: d7ba52a5-6b97-48b3-bcad-ccf418d371f2
 
-rfr: `Return Maps <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13544>`
+rfr: Return Maps  || ((fcde5413-4a77-4785-9133-7cbc8314df81))
 
 | clause | type         |
 |--------|--------------|
@@ -593,7 +596,7 @@ rfr: `Return Maps <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g1
 - ## not clause
   id:: ecc81a84-e850-49fc-8a5c-4fe86a7e87c2
 
-Not Clauses <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13546>
+rfr: Not Clauses  || ((1faf7bac-f188-4e01-8da8-04763f076de9))
 
 ```clj
 	:where [?eid :artist/name]
@@ -609,7 +612,7 @@ Not Clauses <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13546>
 - ## or clause
   id:: 7e114f0a-bf91-4377-8103-4065ad63fe1a
 
-rfr: Or Clauses <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13545>
+rfr: Or Clauses  || ((43e9c64f-05b2-4e58-b7ec-f4966ce4bf68))
 
 ```clj
 	:where (or 👈 [?artist :artist/type :artist.type/group]
@@ -627,7 +630,7 @@ rfr: Or Clauses <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g135
 - ## predicate expressions
   id:: e1779fa1-9e0e-4c81-8949-1a32dbdf528d
 
-Predicate Expressions <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13547>
+Predicate Expressions  || ((b23094c0-50a2-4f30-a54e-59ca8ae091a3))
 
 ```clj
  :where 
@@ -638,7 +641,7 @@ Predicate Expressions <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#
 - ## function expressions
   id:: 423cca22-9177-45e8-9c48-244ca671c688
 
-Function Expressions <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13548>
+Function Expressions  || ((720fadaa-5bb4-4dcf-9bb3-c24f4f5bd2ff))
 
 ```clj
   :find ?track-name ?minutes 👈
@@ -650,7 +653,7 @@ Function Expressions <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r
 - ## Built-in expressions
   id:: 182e3b23-486d-4a18-b2d6-80d803db5ba8
 
-Built-in Expression Functions and Predicates <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13549>
+Built-in Expression Functions and Predicates  || ((0cc8801b-ddab-4ada-a4fe-49bf599382aa))
 
 ```clj
 	[(get-else 👈 $ ?artist :artist/startYear "N/A") ?year]]
@@ -698,7 +701,7 @@ Built-in Expression Functions and Predicates <url:file:///~/prj/study/clj/datomi
 - ## rules
   id:: 2a9d3472-9df4-444d-9b61-ef538dc277cd
 
-Rules <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13550>
+rfr: Rules  || ((299fb991-7a21-4e55-92f8-8615360d2495))
 
 ```clj
 	[(twitter? ?c) ; 1 arg
@@ -724,7 +727,7 @@ Rules <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13550>
 - ## aggregates
   id:: 4320184c-e3f7-4da9-a429-58b6cbb3c46a
 
-Aggregates <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13551>
+rfr: Aggregates  || ((d8da4036-3be5-420e-9563-01bb4bdd68c1))
 
 ```clj
 	:find ?a (min ?b) 
@@ -751,7 +754,7 @@ Aggregates <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13551>
 - ## aggregates returning a single value
   id:: f66ad660-253b-4e5f-b6e6-c019ef38fc48
 
-Aggregates Returning a Single Value <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13552>
+rfr: Aggregates Returning a Single Value  || ((07bdcc9c-0b9a-4330-963a-2cf77e3d984a))
 
 ```clj
 	(min ?xs)
@@ -768,7 +771,7 @@ Aggregates Returning a Single Value <url:file:///~/prj/study/clj/datomic_documen
 - ## aggregates returning collections
   id:: 86bd8c5c-663a-4e66-bad9-7c1153ddd57d
 
-Aggregates Returning Collections <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13553>
+rfr: Aggregates Returning Collections  || ((1791fdbc-24ce-40b9-8693-932d006d392d))
 
 ```clj
 	(distinct ?xs)
@@ -778,10 +781,10 @@ Aggregates Returning Collections <url:file:///~/prj/study/clj/datomic_documentat
 	(sample n ?xs)
 ```
 
-- ## pull 02
+- ## pull Expressions
   id:: 1bc12071-4435-4dd7-a2e3-a4cec43ed4f2
 
-Pull Expressions <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13555>
+rfr: Pull Expressions  || ((5aae8c1d-3259-478b-9ba9-7831fdfbdff2))
 
 ```clj
 	:find (pull ?e [:release/name])
@@ -807,7 +810,7 @@ Birden çok pull olabilir:
 - ## entity identifier in V position
   id:: 80cd9b06-ecde-4db9-a33c-3aa33a04a7b0
 
-Resolving Entity Identifiers in V (value) Position <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13556>
+rfr: Resolving Entity Identifiers in V (value) Position  || ((7ad9cfca-fad4-4e33-a95b-c9a34610eb1c))
 
 ```clj
 	db, [:country/name "Belgium"] ;; lookup ref
@@ -818,7 +821,7 @@ Resolving Entity Identifiers in V (value) Position <url:file:///~/prj/study/clj/
 - ## index
   id:: a69f952d-4896-41a4-a793-8cd48ac927fd
 
-Indexes <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13557>
+rfr: Indexes  || ((9d1c97a4-9a16-4854-9d07-d404dd067f94))
 
 ```clj
 	(d/index-pull db {:index    :avet 👈
@@ -829,10 +832,10 @@ Indexes <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13557>
 	#:artist{:name "Heinrich Schütz", :startYear 1585, :endYear 1672}
 ```
 
-- ## pull 03
+- ## pull API
   id:: 4cec4105-9f46-4905-900b-b69e0cc30a64
 
-Pull API <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13558>
+rfr: Pull API  || ((8726751a-8c25-40e1-8065-e31b281e190f))
 
 ```clj
 	(pull db '[*] led-zeppelin)
@@ -842,7 +845,7 @@ Pull API <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13558>
 - ## pull reverse lookup
   id:: 2dd5b84b-a1fc-41d4-8d09-e2afcb51a5e0
 
-Reverse Lookup <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13559>
+rfr: Reverse Lookup || ((38a7eb11-1aed-4514-bc45-9eaa05fc660a))
 
 Örnek: `:country/GB` ülkesine ait artistleri bulmak:
 
@@ -855,7 +858,7 @@ Reverse Lookup <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g1355
 - ## pull map specifications
   id:: 8a7e38c6-8b2d-4ac7-aacd-5513ecdef695
 
-Map Specifications <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13560>
+rfr: Map Specifications  || ((88e2371a-3131-4901-b11b-8933f11a213a))
 
 ```clj
 	[:track/name 👉 {:track/artists 👉 [:db/id :artist/name]}]
@@ -868,7 +871,7 @@ Map Specifications <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g
 - ## pull attribute specifications
   id:: f7cc8a4d-4563-4837-a4d0-5e3cd0d7d0c2
 
-Attribute Specifications <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13561>
+rfr: Attribute Specifications  || ((3fc3e595-79d6-42af-a2c1-c8eb84fb9514))
 
 ```clj
 	[:artist/name :as 👈 "Band Name"]
@@ -903,7 +906,7 @@ Attribute Specifications <url:file:///~/prj/study/clj/datomic_documentation_rtc.
 - ## pull wildcards
   id:: d700152e-b06d-4300-abcb-0f7306edb77a
 
-Wildcards <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13563>
+rfr: Wildcards  || ((67f58aa8-17a7-4c8f-9210-6ac43ef8bc1b))
 
 ```clj
 	[*]   
@@ -933,7 +936,7 @@ Wildcards <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13563>
 - ## datoms api
   id:: bdbe2f5f-a936-4a4f-aea5-04bfc768a00b
 
-Datoms API <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13564>
+rfr: Datoms API  || ((fb19d7b6-ed2f-47ee-a218-9192431995c5))
 
 ```clj
 	db.datoms(AVET, ":account/balance");
@@ -942,7 +945,7 @@ Datoms API <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13564>
 - ## datomic clojure api
   id:: e44b9c8b-5b49-47e6-b8b1-716a3f58537d
 
-Datomic Clojure API <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13565>
+rfr: Datomic Clojure API  || ((ff814fd5-2083-44e9-b009-37eef251e137))
 
 ```clj
 	(as-of db t)
@@ -999,7 +1002,7 @@ Datomic Clojure API <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=
 - ## best practices
   id:: 412a7a34-986a-4b45-b9ce-bf6e588357aa
 
-Datomic Best Practices <url:file:///~/prj/study/clj/datomic_documentation_rtc.md#r=g13567>
+rfr: Datomic Best Practices  || ((9d1f507e-c6a8-41f0-9465-969a0d84e818))
 
 Use aliases:
 
@@ -1031,4 +1034,30 @@ Pass multiple points-in-time to a single query
 					[$since ?e :item/count ?count]]
 ```
 
+- ## Deprecated
+	- ### since
+		id:: f9959d43-d2ec-4bfe-ac93-da502bd75bf2
+
+		rfr: since  || ((080cc09c-1684-4b34-92ac-6bf4278069ee))
+
+		```clj
+			(d/q ('[:find ?count 
+							:in $ $since ?id 
+							:where [$ ?e :item/id ?id] 
+										[$since ?e :item/count ?count]]) 
+				db since-2014 "DLC-042")
+			;;=>
+			{:item/count 100, 
+					:db/id 17592186045418}
+		```
+
+		Note: $, $since, since-2014
+
+	- ### entity api
+		id:: 2891cc75-146a-4602-b8ff-421a3c0dbfcb
+
+		```clj
+			(-> (db conn) (d/entity 36 👈) (:db/ident 👈))
+			#_:db.cardinality/many
+		```
 

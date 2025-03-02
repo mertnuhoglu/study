@@ -1,7 +1,8 @@
 (ns dev-local.datalog02-ex-20)
 
+; Konu: Temp idlerle referans verme
+;
 ; Tarih: 20230607
-; Title: Temp idlerle referans verme
 
 (require '[datomic.client.api :as d])
 

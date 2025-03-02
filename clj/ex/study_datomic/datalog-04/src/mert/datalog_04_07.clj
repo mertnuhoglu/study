@@ -40,6 +40,7 @@
 (d/transact conn {:tx-data (make-idents types)})
 
 (def schema-1
+    ;; id:: 7509f916-1f37-4b38-b167-319cccce4c81
   [{:db/ident :inv/sku
     :db/valueType :db.type/string
     :db/unique :db.unique/identity

@@ -1,15 +1,16 @@
 (ns dev-local.datalog02-ex-11)
 
+; Konu: Predicates
+;
+; rfr: [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/5)
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230206
 ; rfr: video/20230206-mert-clj-egzersiz-20.mp4
 
-; Konu: Predicates
-; rfr: [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/5)
 
 (require '[datomic.client.api :as d])
-(use '[dev-local.e04 :only [conn] :as e04])
-(use '[dev-local.e05 :as e05])
+(use '[dev-local.datalog02-ex-04 :only [conn] :as e04])
+(use '[dev-local.datalog02-ex-05 :as e05])
 (def db (d/db conn))
 
 ; Predicate kelimesinin Türkçe doğrudan karşılığı yüklem.
@@ -55,7 +56,7 @@
   '[:find (pull ?e [*])
     :where
     [?e :product/name ?name]
-    [(.startsWith ?name "K")]]
+    [(.startsWith ?name "K")]]  ; 👈 
   db)
 ;=>
 ;[[{:db/id 92358976733266,
@@ -120,7 +121,7 @@
 
 ; Kendimiz nasıl fonksiyon tanımlayıp sorgularda kullanabiliriz?
 ; rfr: [Query Reference | Datomic](https://docs.datomic.com/cloud/query/query-data-reference.html#predicates)
-; Değer döndüren ve pure (side-effect üretmeyen) tüm clojure fonksiyonlarını bu şekilde predicate gibi kullanabiliriz.
+; 👉 Değer döndüren ve pure 👈 (side-effect üretmeyen) tüm clojure fonksiyonlarını bu şekilde predicate gibi kullanabiliriz.
 ; Değer döndürmek: Herhangi bir şeyi return etmesi anlamına geliyor.
 ; Pure = saf fonksiyon ne demek?
 ; f(x) = x+3

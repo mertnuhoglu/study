@@ -1,5 +1,7 @@
 (ns dev-local.datalog02-ex-04)
 
+; Konu: :db/ident
+;
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230202
 ; rfr: video/20230202-mert-clj-egzersiz-15.mp4
@@ -7,7 +9,6 @@
 ; rfr: sndgrsm > 20230202-Barışla-Datomic-Çalışma
 ; https://docs.google.com/spreadsheets/d/12IY0eoK8ny1i_EICUMxPas7UHHz_WfoW5b6xh8wUpCE/edit#gid=0
 
-; Konu: :db/ident
 
 ; [Schema Modeling | Datomic](https://docs.datomic.com/on-prem/schema/schema-modeling.html)
 
@@ -31,7 +32,7 @@
 ;  LOW,
 ;  MEDIUM,
 ;  HIGH
-;}
+; }
 ; Peki Clojureda nasıl tanımlarız?
 ; keyword kullanarak:
 ; :LOW, :MEDIUM, :HIGH
@@ -322,7 +323,7 @@
     [?e :product/name "Kalem"]
     [?e :product/color ?colors]
     [?order :order/product ?e]]
-  db [:color/red])
+  db [:color/red :color/green])
 ;=>
 ;[[{:db/id 79164837199958, :order/product #:db{:id 74766790688850}, :order/size 5}]
 ; [{:db/id 83562883711064, :order/product #:db{:id 74766790688850}, :order/size 6}]]

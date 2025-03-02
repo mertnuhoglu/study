@@ -7,6 +7,8 @@
 # Usage:
 #
 
+echo $(date +"%Y%m%d-%H%M%S") started: grep_2_file_4_gtd_by_all.sh
+
 ~/prj/study/script/grep_2_file_4_gtd_by_person_cllb.sh ""
 ~/prj/study/script/grep_2_file_4_gtd_by_person_cllb.sh "#p/beyza"
 ~/prj/study/script/grep_2_file_4_gtd_by_person_cllb.sh "#p/can-turkun"
@@ -76,3 +78,6 @@
 ~/prj/study/script/grep_2_file_4_gtd_by_person_myr.sh "#org/opal"
 ~/prj/study/script/grep_2_file_4_gtd_by_person_myr.sh "#org/rpa"
 ~/prj/study/script/grep_2_file_4_gtd_by_person_myr.sh "#org/training"
+
+echo $(date +"%Y%m%d-%H%M%S") completed: grep_2_file_4_gtd_by_all.sh
+

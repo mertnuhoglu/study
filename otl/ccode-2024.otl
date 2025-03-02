@@ -187,10 +187,10 @@ browsers
 				yG: fully screenshot/capture the current page
 				b: open you bookmark
 				: : open “command line” box on the current page.
-cloud
+cloud hosting
 	hosting2 hosting domain id=g13192
-		rfr
-			netlify # netlify <url:file:///~/projects/study/otl/ccode.otl#r=g10732>
+		[[20230306-Wordpress-Web-Sitesi-Hosting-Sureci]]
+			a02: Wordpress Droplet || ((517431c3-a0bf-403f-864c-928c5443f098))
 		email hosting
 			Google Domains > .Domain > Manage > Get a custom email with Workspace > Manage Workspace > Restore Google Workspace Records
 			bunu yapınca otomatik MX recordlarını oluşturuyor
@@ -1015,7 +1015,7 @@ tools tools2
 		rfr: fzf <url:file:///~/projects/study/otl/fzf.otl#r=g13074>
 	grafik diyagram diagram tools diagram2 id=g14283
 		rfr
-			çizim grafik tasarım foto diyagram araçları <url:file:///~/projects/study/otl/cosx.otl#r=g13860>
+			çizim grafik tasarım foto diyagram araçları  || ((9e01c920-b670-461f-ba13-3b1b9e914f79))
 		okso.app
 		tldraw
 		excalidraw

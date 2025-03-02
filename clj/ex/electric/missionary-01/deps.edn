@@ -1,0 +1,22 @@
+#_ "spcs: study: Missionary for dummies, Timur Latypoff || ((5a875957-3aae-44f3-a914-08958dbe7909))"
+
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.12.0"}
+        compliment/compliment {:mvn/version "0.3.9"} ;; Used by NextJournal, as I understand
+        missionary/missionary {:mvn/version "b.33"} ;; Missionary library itself
+        com.hyperfiddle/rcf {:mvn/version "20220926-202227"}
+        thheller/shadow-cljs {:mvn/version "2.25.8"}
+        com.hyperfiddle/electric {:mvn/version "v2-alpha-540-ga4699532"}
+        #_"end of dependencies"} 
+ :aliases
+ {:run-m {:main-opts ["-m" "mert.missionary-01"]}
+  :run-x {:ns-default mert.missionary-01
+          :exec-fn greet
+          :exec-args {:name "Clojure"}}
+  :build {:deps {io.github.clojure/tools.build
+                 {:mvn/version "0.10.5"}}
+          :ns-default build}
+  :test {:extra-paths ["test"]
+         :extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}
+                      io.github.cognitect-labs/test-runner
+                      {:git/tag "v0.5.1" :git/sha "dfb30dd"}}}}}

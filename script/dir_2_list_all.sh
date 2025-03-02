@@ -10,4 +10,4 @@
 # Output: text
 
 DIR="$1"
-fd --type f --base-directory="${DIR}" | sed -e 's|^./||' -e 's|^|[[|' -e 's|$|]]|'
+fd --type f --no-ignore --base-directory="${DIR}" | sed -e 's|^./||' -e 's|^|[[|' -e 's|$|]]|'

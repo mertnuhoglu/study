@@ -1,17 +1,17 @@
 (ns dev-local.datalog02-ex-13)
 
+; Konu: Aggregates
+;
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230207
 ; rfr: video/20230207-mert-clj-egzersiz-22.mp4
-
-; Konu: Aggregates
 
 ; [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/7)
 ; https://docs.datomic.com/on-prem/query/query.html#aggregates
 
 (require '[datomic.client.api :as d])
-(use '[dev-local.e04 :only [conn] :as e04])
-(require '[dev-local.e05 :as e05])
+(use '[dev-local.datalog02-ex-04 :only [conn] :as e04])
+(require '[dev-local.datalog02-ex-05 :as e05])
 (def db (d/db conn))
 
 ; SQL'deki MAX, MIN, DISTINCT, AVG gibi fonksiyonlara aggregate fonksiyonları deniyor.
@@ -46,7 +46,7 @@
 ; 4 5 2 3 4 7 6 5 3 4
 
 (d/q
-  '[:find (distinct ?size)
+  '[:find (distinct ?size)  ; 👈 
     :where
     [?order :order/size ?size]]
   db)
@@ -222,7 +222,7 @@
 ; ?a ve ?c'ye göre gruplar
 
 (d/q
-  '[:find ?size (count ?size)
+  '[:find ?size (count ?size)  ; 👈 `group by ?size` gibi
     :where
     [?order :order/size ?size]]
   db)

@@ -1,15 +1,18 @@
 (ns dev-local.datalog02-ex-09)
 
+; Konu: Find Specifications
+;   id:: 0c70d19a-64e4-4e10-aec0-70a87092fa6f
+;
 ; Barış'la Datomic Çalışmaları
 ; Tarih: 20230203
 ; rfr: video/20230203-mert-clj-egzersiz-18.mp4
 
-; Konu: Find Specifications
 
+; rfr: spcs: Bindings  || ((3de017b1-1bf5-4db6-a972-a097b1e3d6ca))
 ; Source: [Learn Datalog Today!](https://www.learndatalogtoday.org/chapter/3)
 
 (require '[datomic.client.api :as d])
-(use '[dev-local.e04 :only [conn] :as e04])
+(use '[dev-local.datalog02-ex-04 :only [conn] :as e04])
 (def db (d/db conn))
 
 ; Şu ana kadar Parametreleri bağlarken, farklı türlerde objeleri parametre olarak gönderebileceğimizi gördük.
