@@ -7,15 +7,45 @@
 #
 # pprv: [[dir_2_list_tag.sh]]
 # [grok](https://grok.com/chat/ea38b467-dab6-43f0-995d-9f8d97aa3bb5)
+# tpt: [[Tag-List-out-myrepo.md]]
+# called-by: [[cron_weekly.sh]]
+#
+# nu ~/prj/study/script/dir_2_list_tag.nu /Users/mertnuhoglu/prj/myrepo/logseq-myrepo myrepo
 
-def main [DIR: string, REPO: string] {
+def get_params [repo: string] {
+	source ~/.config/nushell/env.nu
+	if $repo not-in ["myr", "cl"] {
+		error make {
+			msg: $"Invalid argument: '($repo)'\nExpected one of: myr  cllb"
+		}
+	}
+
+	let repos = {
+		myr: $env.DIR_MYREPO_LOGSEQ,
+		cl: $env.DIR_CLLOGSEQ,
+	}
+	let docs = {
+		myr: "myr",
+		cl: "cllb",
+	}
+
+	{
+		DIR: ($repos | get $repo)
+		repo: ($docs | get $repo)
+	}
+}
+
+def dir_2_list_tag_in_repo [repo: string] {
+	let p = get_params $repo
+
+	let DIR = $p.DIR
 	let DATE = (date now | format date "%Y%m%d")
-	let BASENAME = $"($DATE)-Tag-List-($REPO)"
+	let BASENAME = $"($DATE)-Tag-List-($p.repo)"
 	let FILENAME = $"($BASENAME).md"
 	let SCRAP_DIR = $"($env.HOME)/prj/myrepo/scrap/out"
 	let OUTPUT_RG = $"($SCRAP_DIR)/($BASENAME).txt"
-	let OUTPUT = $"($DIR)/out/($FILENAME)"
-	let COPY_CURRENT = $"($DIR)/pages/Tag-List-out-($REPO).md"
+	let OUTPUT = $"($DIR)/.out/($FILENAME)"
+	let COPY_CURRENT = $"($DIR)/pages/Tag-List-out-($p.repo).md"
 	# let dfl = {
 	# 	name = "dir_2_list_tag.nu",
 	# 	inlist = [ $DIR ],
@@ -28,7 +58,7 @@ def main [DIR: string, REPO: string] {
 	rg --ignore-file ~/prj/study/script/.tag_extract_ignore "#\\w+" | save -f --raw $"($OUTPUT_RG)"
 
 
-	let header = $"tags:: ($REPO), f/ndx
+	let header = $"tags:: ($p.repo), f/ndx
 date:: ($DATE)
 .
 - # ($BASENAME)
@@ -56,12 +86,17 @@ date:: ($DATE)
 	logseq-extract-tags-run $"($OUTPUT_RG)" | lines | sort | uniq | prepend $header | save -f --raw $"($OUTPUT)"
 	# nvim -c "LogseqExtractTags" -c "wq" $BASENAME.txt
 
-	cp -f $"($OUTPUT)" $"($SCRAP_DIR)/tags/tags_($REPO).txt"
+	cp -f $"($OUTPUT)" $"($SCRAP_DIR)/tags/tags_($p.repo).txt"
 	cp -f $"($OUTPUT)" $COPY_CURRENT
 
 	# pbcopy equivalent in Nushell would need external command or clipboard module
 }
 
+def main [] {
+	dir_2_list_tag_in_repo cl
+	dir_2_list_tag_in_repo myr
+}
+#
 # Character encoding formatting: 
 # [grok](https://grok.com/chat/a774a2b0-4315-4f01-8825-e9b63925cfe2)
 # Use `--raw` flag with `save` command

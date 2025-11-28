@@ -18,11 +18,7 @@ nu ~/prj/myrepo/logseq-myrepo/exmp/20250312-filter-outline/20250312-dfl-filter-a
 sh /Users/mertnuhoglu/prj/study/script/grep_2_file_4_gtd_by_all.sh >> /Users/mertnuhoglu/tmp/cron_daily.log 2>&1
 sh /Users/mertnuhoglu/prj/study/script/grep_2_file_4_todo_by_all.sh >> /Users/mertnuhoglu/tmp/cron_daily.log 2>&1
 
-nu ~/prj/study/script/dir_2_list_tag_in_logseq_myrepo.nu >> /Users/mertnuhoglu/tmp/cron_daily.log 2>&1
-sh ~/prj/study/script/dir_2_list_md_in_logseq_cllb.sh >> /Users/mertnuhoglu/tmp/cron_daily.log 2>&1
-sh ~/prj/study/script/dir_2_list_otl_in_logseq_cllb.sh >> /Users/mertnuhoglu/tmp/cron_daily.log 2>&1
-sh ~/prj/study/script/dir_2_list_md_in_logseq_myrepo.sh >> /Users/mertnuhoglu/tmp/cron_daily.log 2>&1
-sh ~/prj/study/script/dir_2_list_otl_in_logseq_myrepo.sh >> /Users/mertnuhoglu/tmp/cron_daily.log 2>&1
-nu ~/prj/myrepo/logseq-myrepo/exmp/20250320-scrap/20251031-cron-git-pull.nu >>
+nu ~/prj/study/script/dir_2_list_in_repo.nu >> /Users/mertnuhoglu/tmp/cron_daily.log 2>&1
+nu ~/prj/myrepo/logseq-myrepo/exmp/20250320-scrap/20251031-cron-git-pull.nu
 
 echo $(date +"%Y%m%d-%H%M%S") completed: ~/prj/study/script/cron_daily.sh

@@ -7,4 +7,5 @@ echo $(date +"%Y%m%d-%H%M%S") started: ~/prj/study/script/cron_weekly.sh
 PATH="/usr/local/bin:/usr/bin:/bin"
 export PATH
 
+nu ~/prj/study/script/dir_2_list_tag.nu
 echo $(date +"%Y%m%d-%H%M%S") completed: ~/prj/study/script/cron_weekly.sh

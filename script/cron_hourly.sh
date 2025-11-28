@@ -6,7 +6,6 @@
 # 30 10 * * * /Users/mertnuhoglu/prj/study/script/cron_daily.sh >> /Users/mertnuhoglu/tmp/cron_daily.log 2>&1
 # 30 11 * * 1 /Users/mertnuhoglu/prj/study/script/cron_weekly.sh >> /Users/mertnuhoglu/tmp/cron_weekly.log 2>&1
 
-
 echo $(date +"%Y%m%d-%H%M%S") started: ~/prj/study/script/cron_hourly.sh
 
 PATH="/usr/local/bin:/usr/bin:/bin"
@@ -14,6 +13,7 @@ export PATH
 
 nu ~/prj/myrepo/logseq-myrepo/exmp/20250317-nu-list-files/list-files-in-outlist.nu >> /Users/mertnuhoglu/tmp/cron_hourly.log 2>&1
 nu ~/prj/myrepo/logseq-myrepo/exmp/20250317-nu-list-files/list-files-in-args.nu >> /Users/mertnuhoglu/tmp/cron_hourly.log 2>&1
+lua ~/prj/myrepo/logseq-myrepo/exmp/20250319-update-wk-tags/20251119-dfl-root-to-list-tags.lua
 nu ~/prj/myrepo/logseq-myrepo/exmp/20250312-filter-outline/20251124-dfl-xtrc-blocks-by-tags.nu myr >> /Users/mertnuhoglu/tmp/cron_daily.log 2>&1
 nu ~/prj/myrepo/logseq-myrepo/exmp/20250312-filter-outline/20251124-dfl-xtrc-blocks-by-tags.nu cl >> /Users/mertnuhoglu/tmp/cron_daily.log 2>&1
 
