@@ -1,6 +1,7 @@
-_ id=r_lastid ccd_0010
-
-ccode.otl id=g13853
+[[ccode-2024.otl]]
+	id=g13853
+	id=r_lastid ccd_0010
+	rnmd: [[ccode.otl]] -> ccode-2024.otl
 parent
 	refmine kms <url:file:///~/projects/myrepo/general/refmine.otl#r=g11660>
 rfr

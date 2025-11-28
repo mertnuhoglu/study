@@ -1,0 +1,1 @@
+/Users/mertnuhoglu/prj/private_dotfiles/.config/nushell/modules/mert_utils.nu

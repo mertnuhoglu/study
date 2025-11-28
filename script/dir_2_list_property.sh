@@ -17,7 +17,8 @@ REPO="$2"
 DATE=$(date +%Y%m%d)
 BASENAME=$DATE-Property-List-$REPO
 FILENAME=$BASENAME.md
-OUTPUT="$DIR/pages/$FILENAME"
+OUTPUT_DATED="$DIR/pages/$FILENAME"
+OUTPUT="$DIR/pages/Property-List-out-$REPO.md"
 
 cd "${DIR}"
 
@@ -30,8 +31,8 @@ cd $HOME/prj/myrepo/scrap/out
 
 nvim -c "LogseqExtractProperty" -c "wq" $BASENAME.txt
 cp -f $BASENAME.txt property_$REPO.txt
-cp -f $BASENAME.txt $DIR/pages/$FILENAME
-cp -f $BASENAME.txt $DIR/pages/Property-List-out-$REPO.md
+cp -f $BASENAME.txt $OUTPUT_DATED
+cp -f $BASENAME.txt $OUTPUT
 
 gsed -i "1 i tags:: $REPO, f/ndx\\
 date:: $DATE\\

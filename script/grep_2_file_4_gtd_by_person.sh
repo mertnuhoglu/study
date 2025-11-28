@@ -31,9 +31,9 @@ else
 	FILENAME="$DATE-grep-gtd-by-${PERSON_NAME}.txt"
 fi
 
-OUTPUT="${DEST_DIR}/out/${FILENAME}"
+OUTPUT="${DEST_DIR}/.out/${FILENAME}"
 # echo $OUTPUT
-mkdir -p "${DEST_DIR}/out"
+mkdir -p "${DEST_DIR}/.out"
 cd "${DEST_DIR}"
 
 GTD='\bg\/(gtd|gnd)\b'

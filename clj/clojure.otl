@@ -38,6 +38,12 @@ pnt
 			which-key
 				local clj = { -- SPC j || ((bea33b56-79e7-420e-b4da-31fa9cfdfcc9))
 				local clj_eval = { -- SPC SPC or SPC je || ((64e979d5-01e8-4047-b479-04bc77b3263f))
+			neovim: conjure: connect to bb repl  || ((f9d2061c-4f14-4dd9-a15e-6457f501dc58))
 		vim-sexp 20240306
 		  id:: 8124cf36-8b84-43b1-a829-7abb499ceb40
 			sexp cheatsheet || ((7caeba47-93e3-44b2-bde9-387baed34273))
+	neovim: conjure: connect to bb repl 
+	  id:: f9d2061c-4f14-4dd9-a15e-6457f501dc58
+		[grok](https://grok.com/chat/009640a8-30b3-486e-a55d-2473774dba72)
+		bb --nrepl-server
+		ConjureConnect <port>

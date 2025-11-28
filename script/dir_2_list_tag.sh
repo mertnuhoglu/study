@@ -1,10 +1,10 @@
 #!/bin/sh
+# dir_2_list_tag.nu
 
-# Title: Directory to List of Tags [[dir_2_list_tag.sh]] #myst #f/script
-#   id:: d1238b17-5cf1-4e80-bf8b-46d51c477d27
 # Date: 20240121
 # [[dir_2_list_tag.sh]]
 #
+# pnxt: [[dir_2_list_tag.nu]]
 # prt:
 # [[dir_2_list_tag_in_logseq_myrepo.sh]]
 # [[dir_2_list_tag_in_logseq_cllb.sh]]
@@ -21,23 +21,36 @@ REPO="$2"
 DATE=$(date +%Y%m%d)
 BASENAME=$DATE-Tag-List-$REPO
 FILENAME=$BASENAME.md
-OUTPUT="$DIR/pages/$FILENAME"
+OUTPUT_DATED="$DIR/out/$FILENAME"
+OUTPUT="$DIR/pages/Tag-List-out-$REPO.txt"
 
 cd "${DIR}"
+
+echo step01
 
 # rg -g "!ndx-kslt.md" "#\w+" >$BASENAME.txt
 # ignore files that already includes previously extracted tags such as: Tag-List.md
 rg --ignore-file ~/prj/study/script/.tag_extract_ignore "#\w+" >$BASENAME.txt
 
+echo step02
+
 rg --ignore-file ~/prj/study/script/.tag_extract_ignore "tags::" >>$BASENAME.txt
 mv $DIR/$BASENAME.txt $HOME/prj/myrepo/scrap/out
 
+echo step03
+
 cd $HOME/prj/myrepo/scrap/out
 
-nvim -c "LogseqExtractTags" -c "wq" $BASENAME.txt
+# use ~/.config/nushell/modules/mert_utils.nu logseq-extract-tags-run
+# logseq-extract-tags-run $BASENAME.txt | save $BASENAME-01.txt
+# nvim -c "LogseqExtractTags" -c "wq" $BASENAME.txt
+echo step04
+
 cp -f $BASENAME.txt tags/tags_$REPO.txt
-cp -f $BASENAME.txt $DIR/pages/$FILENAME
-cp -f $BASENAME.txt $DIR/pages/Tag-List-out-$REPO.md
+cp -f $BASENAME.txt $OUTPUT_DATED
+cp -f $BASENAME.txt $OUTPUT
+
+echo step05
 
 gsed -i "1 i tags:: $REPO, f/ndx\\
 date:: $DATE\\
@@ -46,7 +59,9 @@ date:: $DATE\\
 .\\
   - prn: [[ndx/Tag-List-myr]]\\
   - prn: [[ndx/Tag-List-cllb]]\\
-" "$OUTPUT"
+" "$OUTPUT_DATED"
+
+echo step06
 
 printf "$OUTPUT" | pbcopy
 echo "$OUTPUT" 

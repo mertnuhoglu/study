@@ -1,10 +1,8 @@
 #!/bin/sh
 
-# Title: Directory to List of Markdown Files [[dir_2_list_md.sh]] #myst #f/script
-#   id:: df371dc9-e2c6-493d-b946-f6f1d3503caa
-# Date: 20240121
 # [[dir_2_list_md.sh]]
 #
+# pnxt: [[dir_2_list_md.nu]]
 # prt:
 # [[dir_2_list_md_in_logseq_myrepo.sh]]
 # [[dir_2_list_md_in_logseq_cllb.sh]]
@@ -25,6 +23,9 @@ sed -e 's|^./||' \
     -e 's|^|[[|' \
     -e 's|$|]]|' \
     -e 's#pages/##' \
-    -e 's#journals/##' | \
+    -e 's#journals/##' \
+    -e '/logseq\/version.files/d' \
+    -e '/archive\//d' \
+    -e '/logseq\/bak/d' | \
 sort
 

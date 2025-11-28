@@ -1,4 +1,5 @@
 #!/bin/sh
+# dir_2_list_tag_in_logseq_cllb.nu
 
 # Title: Directory to List of Tag (in logseq-cllb dir)
 # Date: 20240121
@@ -20,4 +21,5 @@ OUTPUT="$DIR/pages/$FILENAME"
 sh ~/prj/study/script/dir_2_list_tag.sh $DIR $REPO >"$OUTPUT"
 
 printf "$OUTPUT" 
+
 echo "$OUTPUT" 

@@ -103,6 +103,7 @@ cookbook
 			oneliner
 				R -e 'rmarkdown::render("data_generation.Rmd", "html_document")'
 				R -e 'rmarkdown::render("data_generation.Rmd", "pdf_document")'
+				R -e 'rmarkdown::render("data_generation.Rmd", "pptx_document")'
 				R -e 'rmarkdown::render("data_generation.Rmd", "ioslides_presentation")'
 			run script
 				R CMD BATCH file.R
