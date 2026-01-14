@@ -34,9 +34,12 @@ nu /Users/mertnuhoglu/prj/study/script/list_files_for_gotodef.nu >> /Users/mertn
 # /usr/local/bin/nvim --headless \
 # 			-c "lua require('user.vim-index-docs')" \
 # 			-c "quit" >> /Users/mertnuhoglu/tmp/cron_vim_index.log 2>&1
-echo $(date +"%Y%m%d-%H%M%S") started: 20250815-serialize-oldfiles-map.lua
-lua ~/prj/myrepo/logseq-myrepo/exmp/20250320-scrap/20250815-serialize-oldfiles-map.lua >> /Users/mertnuhoglu/tmp/cron_vim_index.log 2>&1
+# echo $(date +"%Y%m%d-%H%M%S") started: 20250815-serialize-oldfiles-map.lua
+# lua ~/prj/myrepo/logseq-myrepo/exmp/20250320-scrap/20250815-serialize-oldfiles-map.lua >> /Users/mertnuhoglu/tmp/cron_vim_index.log 2>&1
 echo $(date +"%Y%m%d-%H%M%S") started: vim-index-docs.lua
 lua ~/prj/private_dotfiles/.config/lazyvim/lua/user/vim-index-docs.lua >> /Users/mertnuhoglu/tmp/cron_vim_index.log 2>&1
 # log_script
 echo $(date +"%Y%m%d-%H%M%S") completed: ~/prj/study/script/cron_vim_index.sh
+
+nu ~/prj/myrepo/logseq-myrepo/exmp/20250320-scrap/20251217-cron-git-push.nu
+

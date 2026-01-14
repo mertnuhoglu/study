@@ -15,20 +15,32 @@ local mt = {
 
 setmetatable(u, mt)
 
-local redis = require("redis").connect("127.0.0.1", 6379)
+-- local redis = require("redis").connect("127.0.0.1", 6379)
+local redis_client = nil  -- Module-level local for the connection
+
+local function get_redis()
+  if not redis_client then
+    local redis = require("redis")
+    redis_client = redis.connect("127.0.0.1", 6379)
+    -- Optional: Set auth or timeout if needed
+    -- redis_client:auth("password")
+    -- redis_client:set_timeout(1000)  -- 1s, if supported by your client
+  end
+  return redis_client
+end
 
 local function rset(key, val)
   -- id:: 9839ddf6-c68a-4a2d-bf2d-86433d8028be
 	-- exmp: [[20241012-redis-putRefId.lua]]
 	-- renamed: putRefId -> rset
-  redis:set(key, val)
+  get_redis():set(key, val)
 end
 
 local function rget(key)
   -- id:: a595edb5-84b8-4822-87eb-51c4499bfdd5
 	-- exmp: [[20241012-redis-putRefId.lua]]
 	-- renamed: getFpath -> rget
-  return redis:get(key)
+  return get_redis():get(key)
 end
 
 local function rget_prefix(prefix)
@@ -44,7 +56,7 @@ local function rget_keys(keys)
   -- id:: 3c3a3f8b-5c15-4547-b732-84fe66d2ad69
   -- a<key> -> m<key, val>
   -- exmp: [[20250107-flat-lua-tbl-to-redis-set.lua]]
-  local redis = require("redis").connect("127.0.0.1", 6379)
+  local redis = get_redis()
 
   local m = {}
 	for _, key in ipairs(keys) do
@@ -62,7 +74,7 @@ end
 local function fn2fp(fn)
   -- id:: 518bcbf8-2781-4545-9861-db01db8766eb
   -- exmp: [[20250413-exmp-fn2fp.lua]]
-  local redis = require("redis").connect("127.0.0.1", 6379)
+  local redis = get_redis()
 
   local rs = redis:get("path:" .. fn)
   if not rs then
@@ -80,28 +92,31 @@ local function set_kv3df(df)
 	--   val = { "/Users/mertnuhoglu/prj/private_dotfiles/.config/lazyvim/lua/config/20241121-wk-edits-1121-134809.lua", ... }
 	-- }
 	-- 20250415 tfrm kv2df
-  local redis = require("redis")
-  local client = redis.connect("127.0.0.1", 6379)
+  local client = get_redis()
 
   for i = 1, #df.key do
     client:set(df.key[i], df.val[i])
   end
 end
 
-local function hget_fields(tbl)
+function removeRefidPrefix(str)
+    return string.match(str, "^refid:(.*)") or str
+end
+
+local function hget_fields(fields)
 	-- #f/renamed: hget_tbl -> hget_fields
 	-- exmp: [[20250413-exmp-hget_tbl.lua]]
   -- exmp: [[20250107-tfrm-tsv-tbl-to-redis-tbl-hget.lua]]
-  local redis = require("redis")
-  local client = redis.connect("127.0.0.1", 6379)
+  local client = get_redis()
   local out = {}
 
   -- For each key-value pair
-  for i = 1, #tbl.field do
-    local field = tbl.field[i]
+  for i = 1, #fields.field do
+    local field = fields.field[i]
     -- Use the first group value as the hash key since they're identical
-    out[field] = client:hget(tbl.key[1], field)
+    out[field] = client:hget(fields.key[1], field)
   end
+	out.id = removeRefidPrefix(fields.key[1])
 
   return out
 end
@@ -110,8 +125,7 @@ local function rhset_refid_fp_lnum(refid, fpath, lnum)
   -- id:: a2142f03-3e42-4757-ab4c-1c9214cf0e16
 	-- renamed: putRefIdObj -> rhset_refid_fp_lnum
 	-- usage: call g:f.putRefIdObj(uuid, fpath, lnum) || ((af615167-09dd-4528-98ee-d98e99fd2d33))
-  local redis = require("redis").connect("127.0.0.1", 6379)
-  redis:hset("refid:" .. refid, "fpath", fpath, "lnum", lnum)
+  get_redis():hset("refid:" .. refid, "fpath", fpath, "lnum", lnum)
 end
 
 local function escapeDashes(str)
@@ -162,7 +176,7 @@ end
 local function mFn2Fp_lua(fname)
   -- id:: 47a66bdd-f0e9-47e0-a8f3-a634297197f4
 	--
-	-- renamed: getInOldfiles -> mFn2Fp
+	-- renamed: getInOldfiles -> mFn2Fp -> mFn2Fp_lua
 	-- exmp: [[20250415-debug-PutBref2NdxGeneric.vim]]
 	-- debug: [[20251119-debug-mFn2Fp_lua.lua]]
 	--
@@ -215,8 +229,10 @@ local function rhget_refid(refid)
   -- id:: c9de1b95-69d2-481c-8d5e-78b58e2cb521
 	-- exmp: [[20241012-redis-hset-hget.lua]]
 	-- renamed: getFpathObj -> rhget_refid
-  local redis = require("redis").connect("127.0.0.1", 6379)
-  return redis:hgetall("refid:" .. refid)
+	-- rltd: local function hget_tbl_block(uuid) || ((a8d07b5e-3ae1-4750-9a8f-3373c45538f4))
+	local rs = get_redis():hgetall("refid:" .. refid)
+	rs.id = refid
+  return rs
 end
 
 local function hset_rcrd(data, prefix)
@@ -225,8 +241,7 @@ local function hset_rcrd(data, prefix)
   -- exmp: [[20241012-redis-lua-06.lua]]
   -- exmp: [[20250107-tfrm-tsv-tbl-to-redis-tbl.lua]]
   --
-  local redis = require("redis")
-  local client = redis.connect("127.0.0.1", 6379)
+  local client = get_redis()
   local cjson = require("cjson")
   if type(data) ~= "table" then
     return nil, "Data must be a table"
@@ -305,6 +320,86 @@ local function redis_to_fn(params)
 	return fn
 end
 
+local function import_tbl_to_redis(tbl)
+  -- id:: 7555ea11-7ee8-4bd8-ad33-f2db8aad27dd
+  -- date:: 20251209
+	-- rltd: local function hset_tbl_block(tbl) || ((07ef6954-b0b2-409b-a453-7561422f31f0))
+	--
+	-- Function to import JSON data into Redis as hash-maps
+	-- mplm: [[20250825-import-json-into-redis.lua]]
+	local redis = get_redis()
+
+	-- exmp: [[20251209-lua-tbl-loop-over-each-field.lua]]
+	-- Iterate over each object in the array
+	for _, item in ipairs(tbl) do
+		local key = "refid:" .. item.id
+		-- redis:hset(key, "date", item.date)
+    for field, value in pairs(item) do
+        -- Skip 'id' since it's used in the hash key (optional; remove if you want to include it)
+        if field ~= "id" then
+            redis:hset(key, field, tostring(value))  -- Use tostring() if values might not be strings
+        end
+    end
+	end
+end
+
+local function hset_tbl_block(tbl)
+  -- id:: 07ef6954-b0b2-409b-a453-7561422f31f0
+  -- date:: 20251210
+	-- rltd: local function import_tbl_to_redis(tbl) || ((7555ea11-7ee8-4bd8-ad33-f2db8aad27dd))
+	-- mplm: [[20251209-redis-set-status--from-cln-attr-03.lua]]
+	-- Import a logseq block table into redis. Uses redis sets for tags element.
+	--
+  local redis = get_redis()
+
+  for _, item in ipairs(tbl) do
+    local base_key = "refid:" .. item.id  -- e.g., "refid:cae99f5b-..."
+
+    -- Store simple fields in the main hash (exclude 'tags')
+    for field, value in pairs(item) do
+      if field ~= "id" and field ~= "tags" then
+        redis:hset(base_key, field, tostring(value))
+      end
+    end
+
+    -- Store tags as a set (sub-key)
+    if item.tags and type(item.tags) == "table" then
+      local tags_key = base_key .. ":tags"
+      for _, tag in ipairs(item.tags) do
+        redis:sadd(tags_key, tag)  -- SADD: adds uniquely
+      end
+    end
+  end
+end
+
+local function hget_tbl_block(uuid)
+  -- id:: a8d07b5e-3ae1-4750-9a8f-3373c45538f4
+  -- date:: 20251210
+	-- rltd: local function rhget_refid(refid) || ((c9de1b95-69d2-481c-8d5e-78b58e2cb521))
+	-- mplm: [[20251209-redis-set-status--from-cln-attr-03.lua]]
+  local redis = get_redis()
+  local rs = redis:hgetall("refid:" .. uuid)
+  rs.id = uuid
+
+  -- Fetch tags as a set and convert to Lua array
+  local tags_key = "refid:" .. uuid .. ":tags"
+  local tags_set = redis:smembers(tags_key)  -- Returns Lua array of strings (unordered)
+  if #tags_set > 0 then
+    rs.tags = tags_set  -- Assign as array
+  else
+    rs.tags = {}  -- Empty if no tags
+  end
+
+  return rs
+end
+
+local function import_json_file_to_redis(json_fp)
+	-- mplm: [[20250825-import-json-into-redis.lua]]
+	local tbl = u.u.read_json(json_fp)
+
+	return import_tbl_to_redis(tbl)
+end
+
 return {
   -- redis
 	rset = rset,
@@ -329,6 +424,10 @@ return {
 	importWikilinkIntoRedis = importWikilinkIntoRedis,
 	params_to_redis = params_to_redis,
 	redis_to_fn = redis_to_fn,
+	import_tbl_to_redis = import_tbl_to_redis,
+	import_json_file_to_redis = import_json_file_to_redis,
+	hset_tbl_block = hset_tbl_block,
+	hget_tbl_block = hget_tbl_block,
 }
 
 -- mert-utils-regex.lua

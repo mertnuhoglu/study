@@ -4,8 +4,8 @@
   # id:: 83752498-9352-46b4-819f-064c60158bdb
   # date:: 20251127
 # pprv: [[dir_2_list_md_in_logseq_cllb.sh]]
-# tpt: [[Document-List-cllb.md]]
-#   [[Document-List-myr.md]]
+# tpt: [[DocList-cllb.md]]
+#   [[DocList-myr.md]]
 # prt: [[dir_2_list_md.nu]]
 #
 # Usage:
@@ -13,7 +13,7 @@
 
 def get_params [repo: string] {
 	source ~/.config/nushell/env.nu
-	if $repo not-in ["myr", "cl"] {
+	if $repo not-in ["myr", "cl", "bldt"] {
 		error make {
 			msg: $"Invalid argument: '($repo)'\nExpected one of: myr  cllb"
 		}
@@ -22,10 +22,12 @@ def get_params [repo: string] {
 	let repos = {
 		myr: $env.DIR_MYREPO_LOGSEQ,
 		cl: $env.DIR_CLLOGSEQ,
+		bldt: $"($env.DIR_MYREPO_LOGSEQ)/bldt",
 	}
 	let docs = {
 		myr: "myr",
 		cl: "cllb",
+		bldt: "bldt",
 	}
 
 	{
@@ -40,12 +42,12 @@ def dir_2_list_in_repo_by_ext [ repo: string, ext: string] {  #  #f/myst #f/scrp
 
 	let DIR = $p.DIR
 	let DATE = (date now | format date "%Y%m%d")
-	let FILENAME = $"Doc-List-($ext)-($p.doc).md"
-	let OUTPUT = $"($DIR)/pages/Doc-List-($ext)-($p.doc).md"
+	let FILENAME = $"DocList-($ext)-($p.doc).md"
+	let OUTPUT = $"($DIR)/($FILENAME)"
 
 	let files = (nu ~/prj/study/script/dir_2_list_md.nu $DIR $ext)
 
-	let hl = [$"tags:: ($p.doc), f/ndx", $"date:: ($DATE)", ".", $"- # Doc-List-($ext)-($p.doc)", "."]
+	let hl = [$"tags:: ($p.doc), f/ndx", $"date:: ($DATE)", ".", $"- # DocList-($ext)-($p.doc)", "."]
 	let hls = $hl | str join "\n"
 	let lns = ([$hls, $files] | str join "\n")
 	$lns | save -f $OUTPUT
@@ -59,9 +61,11 @@ def dir_2_list_in_repo [ repo: string ] {  #  #f/myst #f/scrp #prg/nu
   # date:: 20251128
 	dir_2_list_in_repo_by_ext $repo 'md'
 	dir_2_list_in_repo_by_ext $repo 'otl'
+	dir_2_list_in_repo_by_ext $repo ''
 }
 
 def main [] {
 	dir_2_list_in_repo cl
 	dir_2_list_in_repo myr
+	dir_2_list_in_repo bldt
 }

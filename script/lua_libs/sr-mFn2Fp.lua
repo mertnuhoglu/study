@@ -1,4 +1,6 @@
--- [[serialize-oldfiles-map.lua]]
+-- [[sr-mFn2Fp.lua]]
+--
+-- renamed: serialize-oldfiles-map.lua -> sr-mFn2Fp.lua
 --
 -- mplm: [[20250815-serialize-oldfiles-map.lua]]
 
@@ -17,8 +19,10 @@ local mt = {
 
 setmetatable(u, mt)
 
-function serialize_oldfiles_map()
+function sr_mFn2Fp()
   -- id:: 2b3b7e66-d856-4be4-896e-03a6500c3a06
+	-- renamed:: serialize_oldfiles_map -> sr_mFn2Fp
+	--
   -- tpt: 
 	-- [[oldfiles.lua]]
 	-- [[mFn2Fp.lua]]
@@ -45,6 +49,7 @@ function serialize_oldfiles_map()
 end
 
 return {
-	serialize_oldfiles_map = serialize_oldfiles_map
+	serialize_oldfiles_map = sr_mFn2Fp,
+	sr_mFn2Fp = sr_mFn2Fp
 }
 

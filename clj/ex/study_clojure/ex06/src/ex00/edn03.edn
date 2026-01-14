@@ -3,14 +3,16 @@
 ;;   id=g13092
 
 ;; rfr
-; person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir: <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g13090>
-; 4.9. The Secret Sauce – Normalizing the Database <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g13088>
-; mevcut state'i ve query'yi kullanarak, veri ağacını çekme fonksiyonu: <url:file:///~/projects/study/clj/articles_fulcro.otl#r=g13089>
+; person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir: 				person-tree'deki nested datayı normalize eder ve şu client DB'yi üretir: || ((ccde00d1-c18a-43a8-a424-460690b98236))
+; 4.9. The Secret Sauce – Normalizing the Database 				4.9. The Secret Sauce – Normalizing the Database || ((c0c93645-d5df-4810-8371-99be53b59d1c))
+; mevcut state'i ve query'yi kullanarak, veri ağacını çekme fonksiyonu: 		mevcut state'i ve query'yi kullanarak, veri ağacını çekme fonksiyonu: || ((7fda790f-7f38-48ad-a3aa-03eeae49493c))
 
 ;; örnek: db
 {:person/id  {123 {:person/id 123, :person/fname "Jo", :person/address [:address/id 3]}}}
 
 ;; örnek: normal db
+  ;; id:: e15257c7-df16-4f01-887b-a855268c7d8e
+  ;; date:: 20260104}
 {:person/id  {1  {:person/id 1   :person/fname "Jo" :person/address [:address/id 11]}}
  :address/id {11 {:address/id 11 :address/street "Elm Street 7"}}}
 
@@ -22,6 +24,8 @@
                       :address/street "Elm Street 7"}})
 
 ;; örnek: normalized db
+  ;; id:: 7ea84275-99b2-4737-858f-fc3c7a197cbf
+  ;; date:: 20260105
 {:list/id {:friends  {:list/id :friends
                       :list/label "Friends"
                       :list/people [[:person/id 1] [:person/id 2]]}}

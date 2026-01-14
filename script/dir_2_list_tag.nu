@@ -1,13 +1,14 @@
 #!/usr/bin/env nu
 # [[dir_2_list_tag.nu]]
 #
-# Title: Directory to List of Tags [[dir_2_list_tag.nu]] #myst #f/script
+# List all Tags in directory  #myst #f/script
 #   id:: d1238b17-5cf1-4e80-bf8b-46d51c477d27
 # Date: 20250528
 #
 # pprv: [[dir_2_list_tag.sh]]
 # [grok](https://grok.com/chat/ea38b467-dab6-43f0-995d-9f8d97aa3bb5)
-# tpt: [[Tag-List-out-myrepo.md]]
+# tpt: [[Tag-List-cllb.md]]
+# tpt: [[Tag-List-myr.md]]
 # called-by: [[cron_weekly.sh]]
 #
 # nu ~/prj/study/script/dir_2_list_tag.nu /Users/mertnuhoglu/prj/myrepo/logseq-myrepo myrepo
@@ -40,12 +41,13 @@ def dir_2_list_tag_in_repo [repo: string] {
 
 	let DIR = $p.DIR
 	let DATE = (date now | format date "%Y%m%d")
-	let BASENAME = $"($DATE)-Tag-List-($p.repo)"
+	# let BASENAME = $"($DATE)-Tag-List-($p.repo)"
+	let BASENAME = $"Tag-List-($p.repo)"
 	let FILENAME = $"($BASENAME).md"
 	let SCRAP_DIR = $"($env.HOME)/prj/myrepo/scrap/out"
 	let OUTPUT_RG = $"($SCRAP_DIR)/($BASENAME).txt"
-	let OUTPUT = $"($DIR)/.out/($FILENAME)"
-	let COPY_CURRENT = $"($DIR)/pages/Tag-List-out-($p.repo).md"
+	let OUTPUT = $"($DIR)/pages/($FILENAME)"
+	# let COPY_CURRENT = $"($DIR)/pages/Tag-List-out-($p.repo).md"
 	# let dfl = {
 	# 	name = "dir_2_list_tag.nu",
 	# 	inlist = [ $DIR ],
@@ -87,7 +89,7 @@ date:: ($DATE)
 	# nvim -c "LogseqExtractTags" -c "wq" $BASENAME.txt
 
 	cp -f $"($OUTPUT)" $"($SCRAP_DIR)/tags/tags_($p.repo).txt"
-	cp -f $"($OUTPUT)" $COPY_CURRENT
+	# cp -f $"($OUTPUT)" $COPY_CURRENT
 
 	# pbcopy equivalent in Nushell would need external command or clipboard module
 }

@@ -283,6 +283,8 @@ return {
 	removeElem = u.ds.removeElem,
 	renameElem = u.ds.renameElem,
 	tbl_minus = u.ds.tbl_minus,
+	tbl_find_first_match = u.ds.tbl_find_first_match,
+	is_empty = u.ds.is_empty,
 
 	-- [[mert-utils-date.lua]]
 	get_dt = u.dt.get_dt,
@@ -296,7 +298,9 @@ return {
 	tfrm_root2edits = u.wk.tfrm_root2edits,
 	tfrm_root2tags = u.wk.tfrm_root2tags,
 	tfrm_root2brefs = u.wk.tfrm_root2brefs,
-	tfrm_root2edit_block_by_tags = u.wk.tfrm_root2edit_block_by_tags,
+	tfrm_root2attrs = u.wk.tfrm_root2attrs,
+	tfrm_root2tabrename = u.wk.tfrm_root2tabrename,
+	tfrm_root2edit_rbl = u.wk.tfrm_root2edit_rbl,
 	merge_cstm_w_stnd = u.wk.merge_cstm_w_stnd,
 	tfrm_root2listtags = u.wk.tfrm_root2listtags,
 	tfrm_root2kypn_tags = u.wk.tfrm_root2kypn_tags,
@@ -311,6 +315,7 @@ return {
 	filter_tbl = u.fp.filter_tbl,
 	drop_tbl2 = u.fp.drop_tbl2,
 	drop_tbl = u.fp.drop_tbl,
+	shallow_copy = u.fp.shallow_copy,
 
 	-- [[mert-utils-fpath.lua]]
 	-- fpath
@@ -358,6 +363,7 @@ return {
 
 	-- [[mert-utils-text.lua]]
 	-- text
+	is_blank = u.text.is_blank,
 	substitutel = u.text.substitutel,
 	clean_wk_otl = u.text.clean_wk_otl,
 	tsv2tbl = u.text.tsv2tbl,
@@ -373,6 +379,7 @@ return {
 	sbst_underscore_w_slash = u.text.sbst_underscore_w_slash,
 	sbst_slash_w_underscore = u.text.sbst_slash_w_underscore,
 	gen_uuid = u.text.gen_uuid,
+	block_to_edn = u.text.block_to_edn,
 
 	-- [[mert-utils-io-logging.lua]]
 	-- io: logging debug
@@ -438,10 +445,14 @@ return {
 	mFn2Fp_redis = u.redis.mFn2Fp_redis,
 	mFn2Fp = u.redis.mFn2Fp,
 	map_oldfiles = u.redis.map_oldfiles,
-	fuzzyLookup = u.fuzzyLookup,
+	fuzzyLookup = u.redis.fuzzyLookup,
 	importWikilinkIntoRedis = u.redis.importWikilinkIntoRedis,
 	params_to_redis = u.redis.params_to_redis,
 	redis_to_fn = u.redis.redis_to_fn,
+	import_tbl_to_redis = u.redis.import_tbl_to_redis,
+	import_json_file_to_redis = u.redis.import_json_file_to_redis,
+	hset_tbl_block = u.redis.hset_tbl_block,
+	hget_tbl_block = u.redis.hget_tbl_block,
 
 	-- [[mert-utils-debug.lua]]
 	-- debug

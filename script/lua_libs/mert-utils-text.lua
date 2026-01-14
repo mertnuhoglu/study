@@ -15,6 +15,11 @@ local mt = {
 
 setmetatable(u, mt)
 
+local function is_blank(str)
+	-- [gemini](https://gemini.google.com/share/0fab825f2111)
+	return str == nil or str == ""
+end
+
 local function tsv2tbl(tsv_string)
   local result = {}
   local headers = {}
@@ -328,7 +333,35 @@ local function clean_wk_otl(wk_otl)
 	return wk_otl05
 end
 
+local function block_to_edn(tbl)
+  -- id:: 86bd24ed-14ed-46b4-b211-54417d08b864
+  -- date:: 20260107
+	-- called-by: local function cblock_to_edn(tbl) || ((ecf94541-a0f0-4c62-b1b5-f87b063a8eee))
+	
+	-- mplm: [[20260107-tfrm-block-to-bldt-edn.lua]]
+  -- 1. Convert the tags table to a list of quoted strings
+  local tag_list = {}
+  if tbl.tags then
+    for _, tag in ipairs(tbl.tags) do
+      table.insert(tag_list, string.format('"%s"', tag))
+    end
+  end
+
+  -- 2. Join tags with spaces and wrap in brackets (EDN vector format)
+  local tags_str = "[" .. table.concat(tag_list, " ") .. "]"
+
+  -- 3. Construct the final map string
+  -- Note: We use strict ordering here to match your requested output string exactly.
+  return string.format(
+    '{:id "%s", :tags %s, :title "%s"}',
+    tbl.id,
+    tags_str,
+    tbl.title
+  )
+end
+
 return {
+	is_blank = is_blank,
 	substitutel = substitutel,
 	clean_wk_otl = clean_wk_otl,
 
@@ -347,5 +380,7 @@ return {
 
 	-- random
 	gen_uuid = gen_uuid,
+
+	block_to_edn = block_to_edn,
 }
 

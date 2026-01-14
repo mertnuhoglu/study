@@ -27,14 +27,14 @@ local function write_runlog(content)
 	-- exmp:
 	-- u.u.write_runlog("otl_stnd: " .. otl_stnd_fp)
 	--
-  local fpath = "/Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog.txt"
+  local fpath = "/Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog/runlog.txt"
   local c2 = u.u.get_ts() .. " type: " .. type(content) .. "\n" .. u.u.toStringVar(content)
   append_file(c2, fpath)
 end
 
 local function write_runlog_lua(content)
 	-- id:: dc937f40-2eef-494e-99d0-bb7828022df3
-  local fpath = "/Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog_lua.txt"
+  local fpath = "/Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog/runlog_lua.txt"
   local c2 = u.u.get_ts() .. ":\n" .. content
   append_file(c2, fpath)
 end

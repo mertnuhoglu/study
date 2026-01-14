@@ -69,10 +69,53 @@ local function tfrm_edits_to_root(input)
 	return output
 end
 
-local function tfrm_root2wk(input, prefix, postfix, substitute_slash)
+-- Helper function to check if a table is a leaf table (no nested tables)
+local function is_leaf(tbl)
+  if type(tbl) ~= "table" then
+    return false
+  end
+  for _, value in pairs(tbl) do
+    if type(value) == "table" then
+      return false
+    end
+  end
+  return true
+end
+
+-- Helper function to get and process the first element of a table (using insertion order)
+local function process_first_element(tbl, tfrm)
+  local first_key, first_value = next(tbl)
+  if first_key and type(first_value) == "string" then
+    tbl[first_key] = tfrm(first_value)
+  end
+end
+
+-- Recursive function to process the table (modifies in place and returns the table)
+local function tbl_tfrm(tbl, tfrm)
+	-- spcs: Lua: Loop over nested table and transform each string element    || ((510eded9-f52a-44c3-9402-e20da3a20f3b))
+	-- exmp: [[20251207-lua-loop-nested-table-8-tfrm-each-element-in-wk_root.lua]]
+  if type(tbl) ~= "table" then
+    return nil
+  end
+  -- First, recurse into all subtables
+  for key, value in pairs(tbl) do
+    if type(value) == "table" then
+      tbl[key] = tbl_tfrm(value, tfrm)  -- Recursively process and update reference (though in-place)
+    end
+  end
+  -- Now, after all children processed, check if this tbl is a leaf
+  if is_leaf(tbl) then
+    process_first_element(tbl, tfrm)
+  end
+  return tbl
+end
+
+
+local function tfrm_root2wk(input, prefix, postfix)
   -- id:: 6fa68401-3b1c-46bd-b0c6-041f70787bf6
-  -- mplm: [[20250505-mnml-root-to-stnd.lua]]
+  -- mplm: 
 		-- [[20251017-mnml-root-to-stnd.lua]]
+		-- [[20250505-mnml-root-to-stnd.lua]]
 	local output = {}
 
 	for key, value in pairs(input) do
@@ -97,12 +140,9 @@ local function tfrm_root2wk(input, prefix, postfix, substitute_slash)
 			if type(value) == "table" then
 				local fn = value[1]
 				if #value == 2 and type(fn) == "string" and type(value[2]) == "string" then
-					if substitute_slash then
-						fn = string.gsub(fn, "/", "___")
-					end
 					transformed_value = {prefix .. fn .. postfix, value[2]}
 				else
-					transformed_value = tfrm_root2wk(value, prefix, postfix, substitute_slash)
+					transformed_value = tfrm_root2wk(value, prefix, postfix)
 				end
 			else
 				transformed_value = value
@@ -119,12 +159,9 @@ local function tfrm_root2wk(input, prefix, postfix, substitute_slash)
 				local fn = value[1]
 				local count = 0
 				if #value == 2 and type(fn) == "string" and type(value[2]) == "string" then
-					if substitute_slash then
-						fn, count = string.gsub(fn, "/", "___")
-					end
 					output[key] = {prefix .. fn .. postfix, value[2]}
 				else
-					output[key] = tfrm_root2wk(value, prefix, postfix, substitute_slash)
+					output[key] = tfrm_root2wk(value, prefix, postfix)
 				end
 			else
 				output[key] = value
@@ -140,8 +177,7 @@ function tfrm_root2edits(input)
   -- id:: 8842aaec-1f94-4f38-8ff0-c8a91722b39a
 	local prefix = "<cmd>e ~/prj/myrepo/logseq-myrepo/pages/"
 	local postfix = "<cr>"
-	local substitute_slash = true
-	return tfrm_root2wk(input, prefix, postfix, substitute_slash)
+	return tfrm_root2wk(input, prefix, postfix)
 end
 
 function tfrm_root2tags(input)
@@ -149,25 +185,45 @@ function tfrm_root2tags(input)
 	-- Check if input is a string and not nil
 	local prefix = "<cmd>call AppendTag('#"
 	local postfix = "')<cr>"
-	local substitute_slash = false
-	return tfrm_root2wk(input, prefix, postfix, substitute_slash)
+	return tfrm_root2wk(input, prefix, postfix)
+end
+
+function tfrm_root2attrs(input)
+	local prefix = "<cmd>call PrependTagFf('"
+	local postfix = "')<cr>"
+	return tfrm_root2wk(input, prefix, postfix)
+end
+
+function tfrm_root2tabrename(input)
+	local prefix = "<cmd>TabRename "
+	local postfix = "<cr>"
+	local tfrm_string = function(val)
+		local val2 = string.gsub(val, "___", "/")
+		return string.gsub(val2, "%.md$", "")
+	end
+	local input2 = tbl_tfrm(input, tfrm_string)
+	return tfrm_root2wk(input2, prefix, postfix)
 end
 
 function tfrm_root2brefs(input)
 	local prefix = "<cmd>call PutBref2NdxGeneric('~/prj/myrepo/logseq-myrepo/pages/"
 	local postfix = "')<cr>"
-	local substitute_slash = true
-	return tfrm_root2wk(input, prefix, postfix, substitute_slash)
+	return tfrm_root2wk(input, prefix, postfix)
 end
 
-function tfrm_root2edit_block_by_tags(input)
+function tfrm_root2edit_rbl(input)
   -- id:: 96e7abda-94cb-4ede-b9b5-c84db8ef59a7
   -- date:: 20251119
-	local prefix = "<cmd>e /Users/mertnuhoglu/prj/myrepo/logseq-myrepo/exmp/20250312-filter-outline/.out/20251001-xtrc-blocks-blocks_by_tags-"
-	local postfix = "<cr>"
-	local substitute_slash = true
-	-- print("tfrm_root2edits: substitute 01: " .. tostring(substitute_slash))
-	return tfrm_root2wk(input, prefix, postfix, true)
+	-- spcs: Lua: Loop over nested table and transform each string element    || ((510eded9-f52a-44c3-9402-e20da3a20f3b))
+	-- mplm: [[20251207-lua-loop-nested-table-8-tfrm-each-element-in-wk_root.lua]]
+	-- exmp: ~/prj/myrepo/logseq-myrepo/exmp/20250312-filter-outline/.out/concat/md/rbl--g___pln--concat.md
+	local prefix = "<cmd>e /Users/mertnuhoglu/prj/myrepo/logseq-myrepo/exmp/20250312-filter-outline/.out/concat/md/rbl--"
+	local postfix = "--concat.md<cr>"
+	local tfrm_string = function(val)
+		return string.gsub(val, "%.md$", "")
+	end
+	local input2 = tbl_tfrm(input, tfrm_string)
+	return tfrm_root2wk(input2, prefix, postfix)
 end
 
 local function merge_cstm_w_stnd(arg_fp, wk_type)
@@ -343,8 +399,10 @@ return {
 	tfrm_root2wk = tfrm_root2wk,
 	tfrm_root2edits = tfrm_root2edits,
 	tfrm_root2tags = tfrm_root2tags,
+	tfrm_root2attrs = tfrm_root2attrs,
+	tfrm_root2tabrename = tfrm_root2tabrename,
 	tfrm_root2brefs = tfrm_root2brefs,
-	tfrm_root2edit_block_by_tags = tfrm_root2edit_block_by_tags,
+	tfrm_root2edit_rbl = tfrm_root2edit_rbl,
 	merge_cstm_w_stnd = merge_cstm_w_stnd,
 	tfrm_root2listtags = tfrm_root2listtags,
 	tfrm_root2kypn_tags = tfrm_root2kypn_tags,

@@ -12,9 +12,10 @@
 # Usage:
 #   nu ~/prj/study/script/dir_2_list_md.nu /Users/mertnuhoglu/prj/collabryio/cldocs/cllogseq
 
-def main [DIR: string, ext: string] {
+def main [DIR: string, ext?: string] {
 	let base = ($DIR | path expand)
-	let files = (glob ($base | path join $"**/*.($ext)"))
+	let pattern = if ($ext | is-empty) { "**/*" } else { $"**/*.($ext)" }
+	let files = (glob ($base | path join $pattern))
 	let transformed = (
 		$files
 		| each { |f|

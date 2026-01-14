@@ -270,8 +270,11 @@ end
 
 local function dir_of_that_fl(m)
 	-- translated: DirOfThatFl || ((55933025-ce8a-464a-8278-65770e74e587))
-  local that_flpt = m.flPt
-  local that_dir = fname_modify(that_flpt, ':p:h')
+	local that_dir = m.dir
+	if that_dir == nil then
+		local that_flpt = m.flPt
+		that_dir = fname_modify(that_flpt, ':p:h')
+	end
   return that_dir
 end
 
@@ -292,9 +295,21 @@ end
 local function cp3NmFn(NmFn)
   -- id:: f676b4f8-1eff-4697-a10d-4029aaaf00d9
 	-- moved-from: cp3NmFn(NmFn) || ((3197305f-f38e-4fb1-bc62-1cf868869b17))
-	return function(src_fp)
-		local m = GetDefaultFlPtArgs()
-		m.flPt = src_fp
+	--
+	-- rfrmap: 	cp3NmWDt fn lerine arg atamak || ((06bc1306-f684-42e0-a320-e0ecac678ed4))
+	-- 	F: local function cp3NmFn(NmFn, m) || ((f676b4f8-1eff-4697-a10d-4029aaaf00d9))
+	-- 	M: mplm: [[20250821-lua-naming-fns.lua]]
+	-- 		N: cp3NmFn: configure dest dir || ((88c14035-e5ae-410f-b6e6-6429ca6320f6))
+	return function(src_fp, m)
+		local opts = u.u.shallow_copy(m)
+
+		if opts == nil then
+			opts = GetDefaultFlPtArgs()
+		elseif (opts.dir ~= nil) and u.u.is_blank(opts.flPt) then
+			opts.flNm = fname_modify(src_fp, ':t')
+			opts.flPt = opts.dir .. '/' .. opts.flNm
+		end
+		-- m.flPt = src_fp
 		-- {
 		--   ext = "",
 		--   flPt = "/Users/mertnuhoglu/prj/myrepo/logseq-myrepo/exmp/20250320-scrap/out/base-file.txt",
@@ -302,7 +317,7 @@ local function cp3NmFn(NmFn)
 		--     title = ""
 		--   }
 		-- }
-		local dest_fp = get_fp_in_dir_of_that_fl(NmFn, m)
+		local dest_fp = get_fp_in_dir_of_that_fl(NmFn, opts)
 		-- "/Users/mertnuhoglu/prj/myrepo/logseq-myrepo/exmp/20250320-scrap/out/20250511-base-file.txt"
 		u.u.cp8mv(src_fp, dest_fp)
 		return dest_fp

@@ -147,6 +147,23 @@ local function drop_tbl(specs, vals, key)
 	return drop_tbl2(specs, vals2, key)
 end
 
+local function shallow_copy(orig)
+	-- Make immutable object in Lua  #prg/lua #prg/fp #f/prmp
+		-- id:: 1877cd54-a245-4bd2-9b6d-4a2b3d61c839
+		-- date:: 20251229
+	-- Lua: How to make the object `m` an immutable object that is passed as an argument to the closure function below:
+	-- [gemini](https://gemini.google.com/share/7282ff38e892)
+  -- 1. If it's not a table (e.g. nil, number, string), return it directly.
+  if type(orig) ~= 'table' then return orig end
+
+  -- 2. Create a new table and copy keys/values
+  local copy = {}
+  for k, v in pairs(orig) do
+    copy[k] = v
+  end
+  return copy
+end
+
 return {
 	map = map,
 	map_kv = map_kv,
@@ -156,5 +173,6 @@ return {
 	filter_tbl = filter_tbl,
 	drop_tbl2 = drop_tbl2,
 	drop_tbl = drop_tbl,
+	shallow_copy = shallow_copy,
 
 }

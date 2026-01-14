@@ -601,30 +601,54 @@ local function tbl_minus(lhs, rhs)
 	return rs3
 end
 
+local function tbl_find_first_match(tbl, pattern)
+  -- id:: 57ff0b52-b114-4b14-b1c3-46d95cb2f878
+  -- date:: 20251209
+	-- mplm: [[20251209-tbl-find-elem-that-starts-with.lua]]
+	for _, value in ipairs(tbl) do
+		if string.match(value, pattern) then
+			return value
+		end
+	end
+	return nil  -- If no match found
+end
+
+local function is_empty(t)
+  -- id:: f5323448-2494-40cb-a5e9-ff3c13164985
+  -- date:: 20251210
+	-- f/mplm::  [[20251210-lua-check-if-tbl-is-empty.lua]]
+	if t == nil then
+		return true
+	end
+	return next(t) == nil
+end
+
 return {
-  -- data structure
+	-- data structure
 	getTitle = getTitle,
 	tableToOutline3Tbl = tableToOutline3Tbl,
 	tableToOutline = tableToOutline,
 	isArrayLike = isArrayLike,
 	len = len,
 	head_tbl = head_tbl,
-  merge = merge,
-  map = map,
-  map_kv = map_kv,
-  reduce = reduce,
-  partial = partial,
-  identity = identity,
-  filter_tbl = filter_tbl,
+	merge = merge,
+	map = map,
+	map_kv = map_kv,
+	reduce = reduce,
+	partial = partial,
+	identity = identity,
+	filter_tbl = filter_tbl,
 	filter_tbl2 = filter_tbl2,
-  drop_tbl = drop_tbl,
-  drop_tbl2 = drop_tbl2,
-  deep_merge = deep_merge,
+	drop_tbl = drop_tbl,
+	drop_tbl2 = drop_tbl2,
+	deep_merge = deep_merge,
 	innerJoinByPath = innerJoinByPath,
 	extractAttribute = extractAttribute,
 	removeElem = removeElem,
 	renameElem = renameElem,
 	tbl_minus = tbl_minus,
+	tbl_find_first_match = tbl_find_first_match,
+	is_empty = is_empty,
 	-- make_stnd = make_stnd,
 }
 

@@ -3,6 +3,16 @@ regex
 		[Regular Expression Tutorial - Learn How to Use Regular Expressions](https://www.regular-expressions.info/tutorial.html)
 vim regex id=g12543
   id:: ce6031ec-5990-4f67-a316-64c4fd3dea0e
+	trm
+		Refcard: Terms and examples of regex     || ((2f53a8b3-c06c-437c-97f2-c9e02411792d))
+	multiline
+		" substitute: line start anchor: match in multiple lines   || ((684e073f-3e07-4126-aa28-8f769f2c2ff8))
+		" Vimscript: How to write a multi-line string   || ((28a0778b-1c52-4122-9ecd-b49253a1afd9))
+		multiline newline match
+			\_. match any single char including newline
+				:h /\_.
+			\_.\{-}
+				lazy match
 	backreferences
 	variants of regex
 		re2
@@ -23,8 +33,3 @@ vim regex id=g12543
 						operators:- [info, operators]
 					match:
 						operators:- [info, ^operators]
-	multiline newline match
-		\_. match any single char including newline
-			:h /\_.
-		\_.\{-}
-			lazy match

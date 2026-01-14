@@ -1,8 +1,10 @@
-
 datomic.otl id=g13023
   id:: 8361a15c-7452-4dc2-babd-5faf76e3fe47
 	datomic.otl || ((8361a15c-7452-4dc2-babd-5faf76e3fe47)) 
 rfr
+	prn:
+		[[ndx-clj.otl]]
+		[[cdb.otl]]
 	exmp: 
 		[[datomic_01b.clj]]
 		[[datomic_kod_okumalarindan_notlar.md]]
@@ -575,7 +577,4 @@ reference exmp - datomic
 			[[datomic_kod_okumalarindan_notlar.md]]
 				Datomic Kod Okumalarından Notlar  || ((fb4641e7-4412-4eec-95d6-f397216b36a6))
 		pprv: refcard datomic  || ((87b63076-64b3-46ab-8500-992c4a72f85a))
-
-
-
 

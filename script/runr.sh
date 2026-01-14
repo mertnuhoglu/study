@@ -12,8 +12,8 @@
 # redis-cli SET path:20241124-exmp-input.tsv '...'
 
 source /Users/mertnuhoglu/prj/study/script/zsh_libs/mert_utils.sh
-echo "\n# Run: $(get_ts): runr.sh" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog.txt
-echo "$0 $@" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog.txt
+echo "\n# Run: $(get_ts): runr.sh" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog/runlog.txt
+echo "$0 $@" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog/runlog.txt
 
 if [ $# -eq 0 ]; then
     echo "Error: No arguments provided"
@@ -63,14 +63,14 @@ done
 
 # Validate required arguments
 if [ -z "$script" ]; then
-    echo "Error: --script is required" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog.txt
-    echo "Usage: $0 --script=file.txt [--output=output.txt]" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog.txt
+    echo "Error: --script is required" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog/runlog.txt
+    echo "Usage: $0 --script=file.txt [--output=output.txt]" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog/runlog.txt
     exit 1
 fi
 
 if [ -z "$input" ]; then
-    echo "Error: --input is required" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog.txt
-    echo "Usage: $0 --input=file.txt [--output=output.txt]" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog.txt
+    echo "Error: --input is required" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog/runlog.txt
+    echo "Usage: $0 --input=file.txt [--output=output.txt]" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog/runlog.txt
     exit 1
 fi
 
@@ -135,14 +135,14 @@ if [ ! -f "$input_path" ]; then
     exit 1
 fi
 
-echo "\n# Run: $(get_dt)-$(get_time) script:" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog.txt
+echo "\n# Run: $(get_dt)-$(get_time) script:" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog/runlog.txt
 echo "Rscript \"${script_path}\" \
   --input=\"${input_path}\" \
   --input2=\"${input2_path}\" \
   --input3=\"${input3_path}\" \
   --output=\"${output_path}\" \
   --output2=\"${output2_path}\" \
-  --output3=\"${output3_path}\"" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog.txt
+  --output3=\"${output3_path}\"" >> /Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog/runlog.txt
 
 Rscript "${script_path}" \
     --input="${input_path}" \
