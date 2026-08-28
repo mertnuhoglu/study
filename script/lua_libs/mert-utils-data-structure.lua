@@ -20,6 +20,8 @@ local mt = {
 setmetatable(u, mt)
 
 local function getTitle(value)
+  -- id:: 22b0ba5d-d03a-45aa-8ba8-b3ca19dcb74c
+  -- date:: 20260202
   -- If it's a table with a name property, use that
   if type(value) == "table" and value.name then
     return value.name
@@ -32,6 +34,8 @@ local function getTitle(value)
 end
 
 local function tableToOutline3Tbl(tbl, indent)
+  -- id:: 6825eb42-8c59-4d8d-9db0-e0acaa3c31f0
+  -- date:: 20260202
 	-- rfr: specs: Lua table -> otl outline `f/prompt prg/lua f/spcs` || ((0b9c08d6-c3fa-4742-b075-c2fcc231279e))
 	-- renamed: tableToOutline -> tableToOutline3Tbl
 	-- write_runlog("## tbl: ")
@@ -84,6 +88,8 @@ end
 
 -- Function to convert the outline table to a string
 local function tableToOutline(tbl)
+  -- id:: a9ef928f-172b-4b51-b7b4-6032a1dcaa75
+  -- date:: 20260202
   -- renamed: outlineToString -> tableToOutline
   local result = tableToOutline3Tbl(tbl)
   return table.concat(result, "\n")
@@ -91,6 +97,8 @@ end
 
 -- Helper function to check if a table is array-like
 local function isArrayLike(tbl)
+  -- id:: 56304ce8-2b88-4a90-8e7c-02e11f5e80f3
+  -- date:: 20260202
   local maxIndex = 0
   local count = 0
   for k, v in pairs(tbl) do
@@ -110,6 +118,8 @@ end
 -- @return number The total number of elements (key-value pairs) in the table,
 --                or 0 if the input is not a table.
 local function len(tbl)
+  -- id:: d4c90d2c-133e-47b7-ac54-b34104ac8db0
+  -- date:: 20260202
 	-- exmp: [[20250414-exmp-len.lua]]
 	--
   -- Check if the input is actually a table
@@ -131,6 +141,8 @@ local function len(tbl)
 end
 
 local function head_tbl_20250414(x)
+  -- id:: 197f2eab-e547-46e5-96ed-8a8f4d683b0e
+  -- date:: 20260202
 	-- exmp: [[20250414-debug-head_tbl.lua]]
 	--   [[20250414-debug-head_tbl-01.lua]]
 	if type(x) == "string" then
@@ -186,7 +198,72 @@ local function head_tbl(x, size)
 	end
 end
 
-function merge(t1, t2)
+local function getLastN(t, n)
+	-- [grok](https://grok.com/share/bGVnYWN5_95273e9a-7d7f-40d6-a101-1aafc62b4f2a)
+	local len = #t
+	local result = {}
+
+	for i = math.max(1, len - n + 1), len do
+		table.insert(result, t[i])
+	end
+
+	return result
+end
+
+local function tail_tbl(x, n)
+	-- error: tam çalışmıyor
+	-- [grok](https://grok.com/chat/e26f7313-2be2-45a2-8ddb-8136333cfc79)
+	n = n or 10  -- default to 10 if n is not provided
+
+	if type(x) == "string" then
+	-- Keep the last 'n' characters (or up to the whole string)
+	local len = #x
+	return x:sub(math.max(1, len - n + 1), len)
+
+	elseif type(x) == "table" then
+	local result = {}
+	local count = 0
+	local array_len = #x   -- length of the sequential numeric part
+
+	-- === 1. Handle the array-like (numeric) part - take the LAST n elements ===
+local start_idx = math.max(1, array_len - n + 1)
+	for i = start_idx, array_len do
+	local v = x[i]
+	result[i] = (type(v) == "table") and tail_tbl(v, n) or v
+	count = count + 1
+	end
+
+	-- === 2. If we still need more items, add from the hash part ===
+	if count < n then
+	local remaining = n - count
+	local hash_pairs = {}
+
+	for k, v in pairs(x) do
+	-- Skip numeric keys that belong to the array part we already processed
+	if type(k) ~= "number" or k < 1 or k > array_len then
+	hash_pairs[k] = v
+	end
+	end
+
+	-- Add up to 'remaining' hash pairs (order is arbitrary)
+	for k, v in pairs(hash_pairs) do
+	if count < n then
+	result[k] = (type(v) == "table") and tail_tbl(v, n) or v
+	count = count + 1
+	else
+	break
+	end
+	end
+	end
+
+	return result
+	else
+	return x
+	end
+	end
+local function merge(t1, t2)
+	-- id:: 75b69705-a834-437f-81a3-f77dc27656ae
+  -- date:: 20260202
   -- [Claude](https://claude.ai/chat/0fc84ebd-56d7-4e97-aa45-b6b6f9d504de)
   -- Usage:
   -- local table1 = { a = 1, b = 2 }
@@ -203,7 +280,9 @@ function merge(t1, t2)
   return result
 end
 
-function map(x, f)
+local function map(x, f)
+  -- id:: f461799a-63bc-4116-843b-d146db004fa1
+  -- date:: 20260202
   -- spcs: FP in Lua: `f/prmp prg/lua` || ((1458e6d0-d49d-4165-9c81-46ceb31656a1))
   local r = {}
   for i, v in ipairs(x) do
@@ -224,7 +303,9 @@ local function map_kv(tbl, f)
   return result
 end
 
-function reduce(x, f, initial)
+local function reduce(x, f, initial)
+  -- id:: 8e0b5c7c-b409-46db-8513-d00f3afd8a00
+  -- date:: 20260202
   -- spcs: Tfrm: Array to Logical Table `prg/lua f/prmp` || ((7f5d3217-5d41-4a12-94f8-12a2d11d39a6))
   local result = initial
   for _, v in ipairs(x) do
@@ -233,7 +314,9 @@ function reduce(x, f, initial)
   return result
 end
 
-function partial(func, ...)
+local function partial(func, ...)
+  -- id:: 925279bb-63f9-416a-8a07-93843c2eed57
+  -- date:: 20260202
   -- spcs: FP in Lua: `f/prmp prg/lua` || ((1458e6d0-d49d-4165-9c81-46ceb31656a1))
   local args = { ... }
   return function(...)
@@ -256,7 +339,9 @@ function partial(func, ...)
   end
 end
 
-function identity(x)
+local function identity(x)
+  -- id:: 58ef643a-4bf1-420f-8054-c586b25c0a5c
+  -- date:: 20260202
   return x
 end
 
@@ -382,6 +467,8 @@ end
 
 -- Helper function to deep copy a table
 function table.deepcopy(orig)
+  -- id:: 2b6928f3-4f4c-459c-9b86-0d6d31d8b368
+  -- date:: 20260202
   local orig_type = type(orig)
   local copy
   if orig_type == "table" then
@@ -395,8 +482,24 @@ function table.deepcopy(orig)
   return copy
 end
 
+local function deepcopy(orig)
+  -- id:: 72e7e7b8-c10b-4277-a406-d89f705b4d2a
+  -- date:: 20260202
+	-- [gemini](https://gemini.google.com/share/0ed445d3012d)
+  local orig_type = type(orig)
+  local copy
+  if orig_type == 'table' then
+    copy = {}
+    for orig_key, orig_value in pairs(orig) do
+      copy[orig_key] = deepcopy(orig_value)
+    end
+  else
+    copy = orig
+  end
+  return copy
+end
 -- [grok](https://grok.com/share/bGVnYWN5_2b95fc3d-78b8-4880-8237-54d5b61d7815)
-function deep_merge(t1, t2, path)
+local function deep_merge(t1, t2, path)
   -- id:: b78b7ad7-8bd1-42b8-914f-a25aefdb7cbf
   -- Initialize path if not provided (for top-level call)
   path = path or "root"
@@ -440,7 +543,9 @@ function deep_merge(t1, t2, path)
   return result
 end
 
-function innerJoinByPath(leftTable, rightTable)
+local function innerJoinByPath(leftTable, rightTable)
+  -- id:: 33e779a8-d1ca-4869-ab54-f9934be1e563
+  -- date:: 20260202
 	-- src: [[20250402-join-lua-tables-02.lua]]
 	--
 	-- Helper function to collect all paths from a table
@@ -493,6 +598,8 @@ function innerJoinByPath(leftTable, rightTable)
 end
 
 local function extractAttribute(tbl, attrName)
+  -- id:: 8623dd97-2d8e-4db8-874e-1a6f52959a6d
+  -- date:: 20260202
 	-- exmp: [[20250403-lua-table-extract-a-specific-element.lua]]
 	--
 	local result = {}
@@ -539,6 +646,8 @@ local function innerJoin(lhs, rhs)
 end
 
 local function removeElem(tbl, elem)
+  -- id:: 5ddef109-499e-4d16-a6d7-642509a8811b
+  -- date:: 20260202
 	-- src: [[20250403-table-remove-element-01.lua]]
 	-- exmp: [[20250403-table-remove-element-03.lua]]
 	if type(tbl) ~= "table" then
@@ -559,6 +668,8 @@ local function removeElem(tbl, elem)
 end
 
 local function renameElem(tbl, old_key, new_key)
+  -- id:: 906993a7-5442-4243-96e7-87ea94ebbebd
+  -- date:: 20260202
 	-- spcs: [[20250405-table-rename-element.lua]]
 	-- exmp: [[20250405-table-rename-element-01.lua]]
   -- If the input is not a table, return it unchanged
@@ -590,6 +701,8 @@ local function renameElem(tbl, old_key, new_key)
 end
 
 local function tbl_minus(lhs, rhs)
+  -- id:: 1cffa170-47cd-4ee8-9a24-3da3d2d0be7e
+  -- date:: 20260202
 	-- exmp: [[20250422-mnml-wk-setup-prcs.lua]]
 	local lhs_w_path = ap_path(lhs)
 	local rhs_w_path = ap_path(rhs)
@@ -605,6 +718,7 @@ local function tbl_find_first_match(tbl, pattern)
   -- id:: 57ff0b52-b114-4b14-b1c3-46d95cb2f878
   -- date:: 20251209
 	-- mplm: [[20251209-tbl-find-elem-that-starts-with.lua]]
+	-- debug:  [[20260217-debug-tbl_find_first_match.lua]]
 	for _, value in ipairs(tbl) do
 		if string.match(value, pattern) then
 			return value
@@ -631,6 +745,8 @@ return {
 	isArrayLike = isArrayLike,
 	len = len,
 	head_tbl = head_tbl,
+	tail_tbl = tail_tbl,
+	getLastN = getLastN,
 	merge = merge,
 	map = map,
 	map_kv = map_kv,
@@ -641,6 +757,7 @@ return {
 	filter_tbl2 = filter_tbl2,
 	drop_tbl = drop_tbl,
 	drop_tbl2 = drop_tbl2,
+	deepcopy = deepcopy,
 	deep_merge = deep_merge,
 	innerJoinByPath = innerJoinByPath,
 	extractAttribute = extractAttribute,

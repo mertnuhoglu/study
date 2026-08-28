@@ -17,6 +17,8 @@ local mt = {
 setmetatable(u, mt)
 
 local function make_stnd(lhs, rhs)
+  -- id:: b04e3266-7630-4921-ba00-68d9c70212b0
+  -- date:: 20260202
   -- mplm: [[20250421-dfl-wk-setup.lua]]
 	local s0 = u.u.innerJoin(lhs, rhs)
 	local s1 = u.u.removeElem(s0, "_path")
@@ -25,6 +27,8 @@ local function make_stnd(lhs, rhs)
 end
 
 local function tfrm_edits_to_root(input)
+  -- id:: dda60957-154f-4c65-9d85-a1bbd5f726cf
+  -- date:: 20260202
   -- mplm: [[20250508-mnml-stnd-to-root.lua]]
 	local output = {}
 
@@ -71,6 +75,8 @@ end
 
 -- Helper function to check if a table is a leaf table (no nested tables)
 local function is_leaf(tbl)
+  -- id:: 8b0fea71-929b-488a-b4df-026bc684fdd9
+  -- date:: 20260202
   if type(tbl) ~= "table" then
     return false
   end
@@ -84,6 +90,8 @@ end
 
 -- Helper function to get and process the first element of a table (using insertion order)
 local function process_first_element(tbl, tfrm)
+  -- id:: 875a38a4-3b19-4b06-8fa4-e378659e2f4d
+  -- date:: 20260202
   local first_key, first_value = next(tbl)
   if first_key and type(first_value) == "string" then
     tbl[first_key] = tfrm(first_value)
@@ -92,6 +100,8 @@ end
 
 -- Recursive function to process the table (modifies in place and returns the table)
 local function tbl_tfrm(tbl, tfrm)
+  -- id:: cc5b7d69-a92b-47f7-b266-1a80eefaefda
+  -- date:: 20260202
 	-- spcs: Lua: Loop over nested table and transform each string element    || ((510eded9-f52a-44c3-9402-e20da3a20f3b))
 	-- exmp: [[20251207-lua-loop-nested-table-8-tfrm-each-element-in-wk_root.lua]]
   if type(tbl) ~= "table" then
@@ -173,14 +183,14 @@ local function tfrm_root2wk(input, prefix, postfix)
 	return output
 end
 
-function tfrm_root2edits(input)
+local function tfrm_root2edits(input)
   -- id:: 8842aaec-1f94-4f38-8ff0-c8a91722b39a
 	local prefix = "<cmd>e ~/prj/myrepo/logseq-myrepo/pages/"
 	local postfix = "<cr>"
 	return tfrm_root2wk(input, prefix, postfix)
 end
 
-function tfrm_root2tags(input)
+local function tfrm_root2tags(input)
   -- id:: ce490b0f-f0e3-42a0-aba7-6cbd25ff0b92
 	-- Check if input is a string and not nil
 	local prefix = "<cmd>call AppendTag('#"
@@ -188,13 +198,17 @@ function tfrm_root2tags(input)
 	return tfrm_root2wk(input, prefix, postfix)
 end
 
-function tfrm_root2attrs(input)
+local function tfrm_root2attrs(input)
+  -- id:: d29688a6-134c-448c-a8e4-50d13470e147
+  -- date:: 20260202
 	local prefix = "<cmd>call PrependTagFf('"
 	local postfix = "')<cr>"
 	return tfrm_root2wk(input, prefix, postfix)
 end
 
-function tfrm_root2tabrename(input)
+local function tfrm_root2tabrename(input)
+  -- id:: 7bdbec1c-152f-4d42-9c6d-1cd645bd9df4
+  -- date:: 20260202
 	local prefix = "<cmd>TabRename "
 	local postfix = "<cr>"
 	local tfrm_string = function(val)
@@ -205,13 +219,15 @@ function tfrm_root2tabrename(input)
 	return tfrm_root2wk(input2, prefix, postfix)
 end
 
-function tfrm_root2brefs(input)
+local function tfrm_root2brefs(input)
+  -- id:: 78b0e6c5-276c-4e79-beae-fee7a84f46d2
+  -- date:: 20260202
 	local prefix = "<cmd>call PutBref2NdxGeneric('~/prj/myrepo/logseq-myrepo/pages/"
 	local postfix = "')<cr>"
 	return tfrm_root2wk(input, prefix, postfix)
 end
 
-function tfrm_root2edit_rbl(input)
+local function tfrm_root2edit_rbl(input)
   -- id:: 96e7abda-94cb-4ede-b9b5-c84db8ef59a7
   -- date:: 20251119
 	-- spcs: Lua: Loop over nested table and transform each string element    || ((510eded9-f52a-44c3-9402-e20da3a20f3b))
@@ -232,6 +248,11 @@ local function merge_cstm_w_stnd(arg_fp, wk_type)
   -- debug: [[20250513-debug-merge_cstm_w_stnd.lua]]
   --   [[20250614-debug-merge_cstm_w_stnd.lua]]
 	--   [[20250910-debug-merge_cstm_w_stnd.lua]]
+
+  -- 🔥 FORCE RELOAD so we definitely get the new serialize_obj_factory
+  package.loaded["mert-utils-io-serialize"] = nil
+  package.loaded["mert-lua-utils"] = nil
+
 	local original = wk_type .. '_original'
 	local cstm = wk_type .. '_cstm'
 	local stnd = wk_type .. '_stnd'
@@ -256,15 +277,32 @@ local function merge_cstm_w_stnd(arg_fp, wk_type)
 	}
 	u.u.write_outlist_cfile(dfl)
 
-	local wk_cstm_str = u.u.read_file(arg[cstm])
-	local wk_cstm = load(wk_cstm_str)()
-	local stnd_str = u.u.read_file(arg[stnd])
-	local wk_stnd = load(stnd_str)()
+  -- 🔥 NEW: safe loader that works for BOTH old tables AND new factory functions
+  local function safe_load_wk(str)
+    local raw = load(str)()
+    if type(raw) == "function" then
+      return raw()          -- call factory → get the real table
+    end
+    return raw              -- old style: already a table
+  end
+
+	-- local wk_cstm_str = u.u.read_file(arg[cstm])
+	-- local wk_cstm = load(wk_cstm_str)()
+	-- local stnd_str = u.u.read_file(arg[stnd])
+	-- local wk_stnd = load(stnd_str)()
+  local wk_cstm_str = u.u.read_file(arg[cstm])
+  local wk_cstm = safe_load_wk(wk_cstm_str)
+
+  local stnd_str = u.u.read_file(arg[stnd])
+  local wk_stnd = safe_load_wk(stnd_str)
+
 
 	-- local wk_pnxt = utils.deep_merge(wk_stnd, wk_cstm)
   -- [grok](https://grok.com/share/bGVnYWN5_2b95fc3d-78b8-4880-8237-54d5b61d7815)
 	local wk_pnxt = u.u.deep_merge(wk_stnd, wk_cstm, "root")
-	u.u.serialize_obj(wk_pnxt, arg[pnxt])
+  -- spcs: Return factory function in wk-edit wk-tags etc    || ((a754f3c2-3580-4819-8b57-314d60a3238d))
+  u.u.serialize_obj_factory(wk_pnxt, arg[pnxt])
+    -- id:: 88122c06-f0dc-4821-b13f-fe51664d700c
 
   -- prdt: predate
 	local m = u.u.GetDefaultFlPtArgs()
@@ -312,6 +350,8 @@ local function merge_cstm_w_stnd(arg_fp, wk_type)
 end
 
 local function helloworld_adgwk()
+  -- id:: 972c1d1b-f88c-4d7e-bd01-0933909b8838
+  -- date:: 20260202
 	print("hello from mert-utils-adg-wk.lua 11")
 end
 
@@ -392,6 +432,31 @@ local function tfrm_root2kypn_tags(current)
   return result
 end
 
+local function build_wk_tree_2_text_outline(t, indent, lines)
+	indent = indent or ""
+	lines = lines or {}
+
+	if t.name then
+		table.insert(lines, indent .. t.name)
+	end
+
+	for key, value in pairs(t) do
+		if type(value) == "table" 
+			and key ~= "name" 
+			and value.name then
+			build_outline(value, indent .. "  ", lines)
+		end
+	end
+
+	return lines
+end
+
+local function tfrm_wk_tree_2_text_outline(tree)
+	-- mplm: [[20260210-tfrm-wk-tree-to-text-outline.lua]]
+	local lines = build_wk_tree_2_text_outline(tree)
+	return table.concat(lines, "\n")
+end
+
 return {
 	helloworld_adgwk = helloworld_adgwk,
 
@@ -406,6 +471,7 @@ return {
 	merge_cstm_w_stnd = merge_cstm_w_stnd,
 	tfrm_root2listtags = tfrm_root2listtags,
 	tfrm_root2kypn_tags = tfrm_root2kypn_tags,
+	tfrm_wk_tree_2_text_outline = tfrm_wk_tree_2_text_outline,
 
 
 }

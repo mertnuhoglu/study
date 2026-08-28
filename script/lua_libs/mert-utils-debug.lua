@@ -41,6 +41,8 @@ local function eval_lua_variable(var_name)
 end
 
 local function eval_lua_expression(expr)
+  -- id:: edbf44d3-33ad-4aaa-987f-b98692692c4f
+  -- date:: 20260202
   -- Local variables included:
   --
   -- Usage
@@ -57,6 +59,8 @@ local function eval_lua_expression(expr)
 end
 
 local function get_script_path()
+  -- id:: 5778a96a-7cae-45e8-8a65-9880f61a5988
+  -- date:: 20260202
   -- spcs: Lua: How to get path of current script file's directory? || ((71b69a48-475d-486e-9acf-6749e1860014))
   local source = debug.getinfo(1).source
   if source:sub(1, 1) == "@" then
@@ -69,6 +73,8 @@ local function get_script_path()
 end
 
 local function get_caller_script_path()
+  -- id:: 345faa02-9b90-488f-b669-57ca383e4491
+  -- date:: 20260202
   -- spcs: Lua: How to get path of current script file's directory? `f/prmp prg/lua` || ((71b69a48-475d-486e-9acf-6749e1860014))
   -- Start from level 1 and work up the stack
   local level = 1
@@ -94,6 +100,8 @@ local function get_caller_script_path()
 end
 
 local function toStringVar(var)
+  -- id:: 88f76683-9f82-4cef-b0f4-510ba8b6b8e7
+  -- date:: 20260202
   -- [grok](https://grok.com/chat/7df48c9b-4fb9-4da3-8cb8-98edc32fe30c)
   -- Example usage:
   -- local str = "Hello"
@@ -134,6 +142,8 @@ end
 
 -- Function to convert value to string
 local function valueToString(value)
+  -- id:: 1b33a117-d695-4a58-a3d5-1cb7f7b34e78
+  -- date:: 20260202
   if value == nil then
     return ""
   elseif type(value) == "table" then
@@ -144,6 +154,8 @@ local function valueToString(value)
 end
 
 local function tableToString(rectTable, separator)
+  -- id:: 80a86740-983c-4bef-99a1-733ff2a985cd
+  -- date:: 20260202
   -- rfr: src: [[20241222-tfrm-tbl-2-tsv-06.lua]]
   separator = separator or ","
   local result = {}
@@ -160,6 +172,8 @@ local function tableToString(rectTable, separator)
 end
 
 local function printVar(var)
+  -- id:: 1309a12c-4d4b-4d9a-8b7d-4f4314727ab7
+  -- date:: 20260202
   -- [grok](https://grok.com/chat/7df48c9b-4fb9-4da3-8cb8-98edc32fe30c)
   -- -- Example usage:
   -- local str = "Hello"
@@ -192,6 +206,8 @@ local function printVar(var)
 end
 
 local function inspect(x)
+  -- id:: 422c6946-62ab-4928-b307-215a9501426f
+  -- date:: 20260202
   -- exmp: [[20250323-inspect.lua]]
   -- [grok](https://grok.com/chat/ad38db12-d052-41b9-96d3-949528b61b08)
   -- exmp:
@@ -237,6 +253,8 @@ end
 
 -- Function to print the table
 local function printOrdered(tbl)
+  -- id:: 323dec90-374f-4292-ada6-daf9a9fda856
+  -- date:: 20260202
   print(serializeOrdered(tbl))
 end
 

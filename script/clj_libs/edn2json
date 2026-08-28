@@ -1,0 +1,36 @@
+#!/usr/bin/env bb
+
+(ns edn2json
+  (:require [cheshire.core :as json]
+            [clojure.edn :as edn]
+            [clojure.java.io :as io]
+            [clojure.string :as str]
+            [babashka.cli :as cli]))
+
+(defn read-all [source]
+  (let [raw (if (string? source) (slurp source) (slurp *in*))]
+    (-> raw str/trim)))
+
+(let [{:keys [opts args]} (cli/parse-opts *command-line-args* {:alias {:p :pretty}})]
+  (if (seq args)
+    ;; file argument(s)
+    (doseq [path args]
+      (let [content (read-all path)]
+        (try
+          (let [edn (edn/read-string content)]
+            (println (json/generate-string edn (when (:pretty opts) {:pretty true}))))
+          (catch Throwable e
+            (binding [*out* *err*]
+              (println "Failed to parse" path ":")
+              (println (.getMessage e)))
+            (System/exit 1)))))
+    ;; stdin
+    (let [content (read-all *in*)]
+      (try
+        (let [edn (edn/read-string content)]
+          (println (json/generate-string edn (when (:pretty opts) {:pretty true}))))
+        (catch Throwable e
+          (binding [*out* *err*]
+            (println "EDN parse error from stdin:")
+            (println (.getMessage e)))
+          (System/exit 1))))))

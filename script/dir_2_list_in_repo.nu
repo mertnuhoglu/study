@@ -7,13 +7,14 @@
 # tpt: [[DocList-cllb.md]]
 #   [[DocList-myr.md]]
 # prt: [[dir_2_list_md.nu]]
+# called-by: [[cron_daily.sh]]
 #
 # Usage:
 #   nu ~/prj/study/script/dir_2_list_in_repo.nu
 
 def get_params [repo: string] {
 	source ~/.config/nushell/env.nu
-	if $repo not-in ["myr", "cl", "bldt"] {
+	if $repo not-in ["myr", "cllogseq", "bldt", "clteam"] {
 		error make {
 			msg: $"Invalid argument: '($repo)'\nExpected one of: myr  cllb"
 		}
@@ -21,13 +22,15 @@ def get_params [repo: string] {
 
 	let repos = {
 		myr: $env.DIR_MYREPO_LOGSEQ,
-		cl: $env.DIR_CLLOGSEQ,
+		cllogseq: $env.DIR_CLLOGSEQ,
 		bldt: $"($env.DIR_MYREPO_LOGSEQ)/bldt",
+		clteam: $env.DIR_CLTEAM,
 	}
 	let docs = {
 		myr: "myr",
-		cl: "cllb",
+		cllogseq: "cllb",
 		bldt: "bldt",
+		clteam: "clteam",
 	}
 
 	{
@@ -65,7 +68,8 @@ def dir_2_list_in_repo [ repo: string ] {  #  #f/myst #f/scrp #prg/nu
 }
 
 def main [] {
-	dir_2_list_in_repo cl
+	dir_2_list_in_repo cllogseq
 	dir_2_list_in_repo myr
 	dir_2_list_in_repo bldt
+	dir_2_list_in_repo clteam
 }

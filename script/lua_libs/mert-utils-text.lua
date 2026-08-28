@@ -1,5 +1,11 @@
 -- [[mert-utils-text.lua]]
-
+--
+-- prn: [[mert-lua-utils.lua]]
+-- prt: [[mert-utils-text-bbl.lua]]
+--
+-- mplm: [[20260305-mplm-ref_id-01.lua]]
+--
+--
 local u = {}
 
 -- Use a metatable to lazily load mert-lua-utils
@@ -16,11 +22,15 @@ local mt = {
 setmetatable(u, mt)
 
 local function is_blank(str)
+  -- id:: f6fa32b9-5bfa-4db4-b2cc-e26fc2472bfb
+  -- date:: 20260202
 	-- [gemini](https://gemini.google.com/share/0fab825f2111)
 	return str == nil or str == ""
 end
 
 local function tsv2tbl(tsv_string)
+  -- id:: 58a587e4-3776-406b-9ba0-b2431fa30fe1
+  -- date:: 20260202
   local result = {}
   local headers = {}
   local lines = {}
@@ -94,6 +104,8 @@ end
 
 -- Function to split a string by delimiter
 local function split(str, delimiter)
+  -- id:: d5ad2537-5668-4d6f-a3f8-2122c1a038e4
+  -- date:: 20260202
   local result = {}
   for match in (str .. delimiter):gmatch("(.-)" .. delimiter) do
     table.insert(result, match)
@@ -102,6 +114,8 @@ local function split(str, delimiter)
 end
 
 local function flat_table_2_tsv_string(input, delimiter)
+  -- id:: 10a421e6-2535-423b-a1ca-c878e14b9d48
+  -- date:: 20260202
   -- src: [[20241223-tfrm-flat-tbl-2-tsv.lua]]
   -- csv = flat_table_2_tsv_string(input, ",")
   -- tsv = flat_table_2_tsv_string(input, "\t")
@@ -170,6 +184,8 @@ end
 
 -- Function to split TSV line into fields
 local function split_tsv(line)
+  -- id:: 06a9d941-cb88-40f8-9ab3-541abbdddee8
+  -- date:: 20260202
   local result = {}
   for field in line:gmatch("[^\t]+") do
     table.insert(result, field)
@@ -178,6 +194,8 @@ local function split_tsv(line)
 end
 
 local function get_column_f_tsv_str(tsv_data, column)
+  -- id:: 1ef6b389-e8b1-4169-af91-9094c4f5f8f1
+  -- date:: 20260202
   -- #f/renamed: get_column -> get_column_f_tsv_str
   -- column: column number
   local titles = {}
@@ -191,6 +209,8 @@ local function get_column_f_tsv_str(tsv_data, column)
 end
 
 local function file_paths_to_map(input_text)
+  -- id:: 8cbf43e3-d01d-4e0a-836b-8025f3dffa06
+  -- date:: 20260202
   local result = {}
   for line in input_text:gmatch("[^\r\n]+") do
     local file_name = line:match("([^/]+)$")
@@ -202,6 +222,8 @@ local function file_paths_to_map(input_text)
 end
 
 local function table_to_literal(t, indent)
+  -- id:: adea8699-f535-4223-91f4-52407577517c
+  -- date:: 20260202
   -- [grok](https://grok.com/chat/042a26bd-1721-408a-8f77-72dd56c0dd13)
   indent = indent or "  "  -- Default to empty string for indentation
   local str = "{"
@@ -239,6 +261,8 @@ local function table_to_literal(t, indent)
 end
 
 local function addPrefix(str, prefix)
+  -- id:: ed603be0-068c-442e-b540-ee7d0a3f573f
+  -- date:: 20260202
   -- dls: trimPrefix(str, prefix) || ((699d9077-c72e-4eb0-adec-5107c1149a2a))
   return prefix .. str
 end
@@ -275,11 +299,15 @@ local function get_fn(fp)
 end
 
 local function sbst_underscore_w_slash(input)
+  -- id:: 9858f6e7-e48e-4f1d-a5be-dd967d19fb2d
+  -- date:: 20260202
 	-- [grok](https://grok.com/chat/774e2f40-edb1-45bc-ab6a-a78ed61f815c)
 	return string.gsub(input, "___", "/")
 end
 
 local function sbst_slash_w_underscore(input)
+  -- id:: 9ece7e3c-5364-4c38-9c16-38bbea6c4447
+  -- date:: 20260202
 	return string.gsub(input, "/", "___")
 end
 
@@ -312,6 +340,8 @@ local function gen_uuid()
 end
 
 local function substitutel(str, pattern, repl, flags)
+  -- id:: 9b4aedea-6778-47b2-9f03-cf6ca92d936f
+  -- date:: 20260202
   -- substitute per line instead of complete string
   -- [grok](https://grok.com/chat/dba744d0-728b-42eb-bf95-40e7083152ec)
   --
@@ -326,6 +356,8 @@ local function substitutel(str, pattern, repl, flags)
 end
 
 local function clean_wk_otl(wk_otl)
+  -- id:: 1f6a1066-e936-40e7-bf17-a2eb5c4b5e81
+  -- date:: 20260202
 	local wk_otl02 = substitutel(wk_otl, "<.\\{-}'", '', '')
 	local wk_otl03 = substitutel(wk_otl02, "<.*/", '', '')
 	local wk_otl04 = substitutel(wk_otl03, "'.*", '', '')
@@ -333,31 +365,100 @@ local function clean_wk_otl(wk_otl)
 	return wk_otl05
 end
 
-local function block_to_edn(tbl)
-  -- id:: 86bd24ed-14ed-46b4-b211-54417d08b864
-  -- date:: 20260107
-	-- called-by: local function cblock_to_edn(tbl) || ((ecf94541-a0f0-4c62-b1b5-f87b063a8eee))
-	
-	-- mplm: [[20260107-tfrm-block-to-bldt-edn.lua]]
-  -- 1. Convert the tags table to a list of quoted strings
-  local tag_list = {}
-  if tbl.tags then
-    for _, tag in ipairs(tbl.tags) do
-      table.insert(tag_list, string.format('"%s"', tag))
+local function escape_pattern_literal(s)
+	-- Escapes all characters that have special meaning in Lua patterns
+	-- Escape dash characters automatically #f/prmp #prg/lua
+    -- id:: 8f8573d2-d710-4dd4-8de4-2d9c90586100
+    -- date:: 20260216
+	-- [grok](https://grok.com/share/bGVnYWN5_6626964d-8a15-4274-b8e1-09d00be19916)
+	return (s:gsub("[%^%$%(%)%%%.%[%]%+%-%*%?]", "%%%0"))
+end
+
+local function sort_filenames_by_counter(filenames)
+	-- id:: 185d32e3-6a16-4018-bb99-88f1e225b03b
+	-- date:: 20260216
+	-- version 01: Sort according to the natural order. #f/prmp #prg/lua
+	-- Lua code that sorts files and returns the last one. 
+	-- [grok](https://grok.com/share/bGVnYWN5_71cbb14d-6bbf-4ab9-bd40-2e6b2efc8c53)
+	-- version 02:
+	-- [[20260331-dbg-sort_filenames_by_counter.lua]]
+
+    -- Helper to extract normalized base + counter
+    local function get_base_and_counter(f)
+        -- Strip extension (if present) to work on the stem only
+        local stem = f:match("^(.-)%.[^%.]+$") or f
+
+        -- Split stem into base and trailing counter (-NNN at the very end)
+        local base, counter = stem:match("^(.-)%-(%d+)$")
+        if base then
+            return base, tonumber(counter)
+        else
+            -- No trailing counter → treat as counter = 0
+            return stem, 0
+        end
     end
-  end
 
-  -- 2. Join tags with spaces and wrap in brackets (EDN vector format)
-  local tags_str = "[" .. table.concat(tag_list, " ") .. "]"
+    local result = {}
+    for i, v in ipairs(filenames) do
+        result[i] = v
+    end
 
-  -- 3. Construct the final map string
-  -- Note: We use strict ordering here to match your requested output string exactly.
-  return string.format(
-    '{:id "%s", :tags %s, :title "%s"}',
-    tbl.id,
-    tags_str,
-    tbl.title
-  )
+    table.sort(result, function(a, b)
+        local base_a, counter_a = get_base_and_counter(a)
+        local base_b, counter_b = get_base_and_counter(b)
+
+        -- 1. Primary sort: alphabetical by base name (ignores counter completely)
+        if base_a ~= base_b then
+            return base_a < base_b
+        end
+
+        -- 2. Secondary sort: only when bases are identical → by counter ascending
+        if counter_a ~= counter_b then
+            return counter_a < counter_b
+        end
+
+        -- Fallback (should never be needed)
+        return a < b
+    end)
+
+    return result
+end
+
+local function strip2(input_string)
+  -- id:: 4fe2e0fc-2e74-4133-b15b-183d662ff589
+  -- date:: 20260305
+  -- Translated from Strip2(input_string)
+  local a0 = input_string:gsub('^%s*(.-)%s*$', '%1')
+  local a1 = a0:gsub('^#* ', '')
+  local a2 = a1:gsub('`', '', 1)
+  return a2
+end
+
+local function strip(input_string)
+  -- id:: cf148be2-d5c8-4c89-9793-2e851222dc14
+  -- date:: 20260305
+  -- Translated from Strip(input_string)
+  local a2 = strip2(input_string)
+  local a3 = a2:gsub(':%s*$', '', 1)
+  return a3
+end
+
+local function line2_comment4_ext(line, ext)
+  -- id:: 93ef7de9-c55f-4085-b3ff-a9b05aa2b2cb
+  -- date:: 20260305
+  -- Translated from Line2Comment4Ext(line, ext)
+  local prefixes = {
+    R = '#',
+    clj = ';;',
+    edn = ';;',
+    lua = '--',
+    md = '-',
+    sh = '#',
+    vim = '"',
+    otl = '',
+  }
+  local prefix = prefixes[ext] or '#'
+  return prefix == '' and line or prefix .. ' ' .. line
 end
 
 return {
@@ -381,6 +482,11 @@ return {
 	-- random
 	gen_uuid = gen_uuid,
 
-	block_to_edn = block_to_edn,
+	escape_pattern_literal = escape_pattern_literal,
+	sort_filenames_by_counter = sort_filenames_by_counter,
+
+	strip = strip,
+	strip2 = strip2,
+	line2_comment4_ext = line2_comment4_ext,
 }
 

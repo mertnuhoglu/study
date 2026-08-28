@@ -2,6 +2,7 @@
 # [[cron_vim_index.sh]]
 # f/mpct: [[vim-index-docs.lua]]
 # rltd: [[list_files_for_gotodef.sh]]
+# rltd: [[cron_hourly.sh]]
 # lgs: /Users/mertnuhoglu/tmp/cron_vim_index.txt
 # lgs: /Users/mertnuhoglu/tmp/cron_vim_index.log
 #

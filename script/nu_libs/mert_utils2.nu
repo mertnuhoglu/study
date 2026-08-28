@@ -6,6 +6,6 @@
 # ~/prj/study/script/nu_libs/mert_utils2.nu
 #
 # usage:
-# source /Users/mertnuhoglu/prj/study/script/nu_libs/mert_utils2.nu
+# source ~/prj/private_dotfiles/.config/nushell/modules/mert_utils.nu
 
 

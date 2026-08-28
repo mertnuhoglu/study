@@ -10,7 +10,9 @@
 --
 -- mert-lua-stnd.lua
 --
-function mock_vim()
+local function mock_vim()
+  -- id:: 15c2e2d4-ab9f-46aa-afbf-9d0d8744e8a5
+  -- date:: 20260202
 	-- Mock vim object
 	--   id:: 84ac04d5-609e-4d8c-ab4e-b1d732d16254
 	-- [grok](https://grok.com/chat/32486e9b-718a-46f7-99ab-e288dec1ba8b)
@@ -42,6 +44,7 @@ end
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.config/nvim/lua/?.lua"
 package.path = package.path .. ";/Users/mertnuhoglu/.config/lazyvim/lua/?.lua"
 package.path = package.path .. ";/Users/mertnuhoglu/.config/lazyvim/lua/config/?.lua"
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/prj/study/script/lua_libs/?.lua"
 package.path = package.path .. ";/Users/mertnuhoglu/prj/myrepo/logseq-myrepo/exmp/luapath/lua/?.lua"
 package.path = package.path .. ";/Users/mertnuhoglu/prj/myrepo/logseq-myrepo/exmp/20240924-tfrm-wk-table/lua/?.lua"
 package.path = package.path .. ";/Users/mertnuhoglu/prj/myrepo/logseq-myrepo/exmp/20241117-setops-ndx-files/lua/?.lua"
@@ -58,14 +61,20 @@ package.path = package.path
 local M = {}  -- Create a table to hold the module's functions
 
 function M.hello()
+  -- id:: f4914bb0-5f7d-489a-88f2-4d586199d21c
+  -- date:: 20260202
     print("Hello from repl_init!")
 end
 
 function M.add(a, b)
+  -- id:: b4480929-da1d-47fb-b72a-85f71a6727e0
+  -- date:: 20260202
     return a + b
 end
 
 function M.load_utils()
+  -- id:: bdf0355e-33a2-4f84-b7a9-e643e268582f
+  -- date:: 20260202
 	package.loaded["mert-lua-utils"] = nil
 	local u = require("mert-lua-utils")
 	return u

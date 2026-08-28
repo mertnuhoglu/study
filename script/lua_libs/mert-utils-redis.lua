@@ -1,4 +1,8 @@
 -- [[mert-utils-redis.lua]]
+--
+-- prn: [[mert-lua-utils.lua]]
+-- prt: [[mert-utils-redis-bbl.lua]]
+--
 
 local u = {}
 
@@ -19,6 +23,8 @@ setmetatable(u, mt)
 local redis_client = nil  -- Module-level local for the connection
 
 local function get_redis()
+  -- id:: 1edb244b-7d84-48bd-8aad-694ea61fb447
+  -- date:: 20260202
   if not redis_client then
     local redis = require("redis")
     redis_client = redis.connect("127.0.0.1", 6379)
@@ -84,6 +90,8 @@ local function fn2fp(fn)
 end
 
 local function set_kv3df(df)
+  -- id:: 3b648d7a-002e-4908-a3cd-a0fc9e611268
+  -- date:: 20260202
   -- exmp: [[20250107-flat-lua-tbl-to-redis-set.lua]]
 	-- #f/renamed: redis_set -> set_kv3df
 	-- df structure:
@@ -99,11 +107,15 @@ local function set_kv3df(df)
   end
 end
 
-function removeRefidPrefix(str)
+local function removeRefidPrefix(str)
+  -- id:: 766888c9-ccf1-4d72-bca4-89ea88d8d5e8
+  -- date:: 20260202
     return string.match(str, "^refid:(.*)") or str
 end
 
 local function hget_fields(fields)
+  -- id:: e78c1058-9122-49c3-a68c-b6193bb13dff
+  -- date:: 20260202
 	-- #f/renamed: hget_tbl -> hget_fields
 	-- exmp: [[20250413-exmp-hget_tbl.lua]]
   -- exmp: [[20250107-tfrm-tsv-tbl-to-redis-tbl-hget.lua]]
@@ -145,10 +157,14 @@ local function fuzzyLookup(tbl, prefix)
 end
 
 local function removeExtension(fname)
+  -- id:: 47000f50-8bc9-4d52-b5f9-ef048d5f3543
+  -- date:: 20260202
   return fname:match("(.+)%.[^%.]+$") or fname
 end
 
-function has_extension(filename)
+local function has_extension(filename)
+  -- id:: 6a658122-85ad-427e-a506-98fb6fe39614
+  -- date:: 20260202
 	-- [grok](https://grok.com/share/bGVnYWN5_db49e351-5a26-4b8c-9d61-852fe1013fc3)
 	return filename:match("^.+(%..+)$") ~= nil
 end
@@ -157,6 +173,8 @@ end
 local _cached_mFn2Fp = nil
 
 local function load_mFn2Fp()
+  -- id:: 8687481b-ec7b-4553-bb49-23ff7bb3cf57
+  -- date:: 20260202
 	-- The actual loading function – keep it private
 	local map_fpath = '/Users/mertnuhoglu/prj/myrepo/logseq-myrepo/exmp/luapath/lua/mFn2Fp.lua'
 	return u.u.loadTableFromFile(map_fpath)
@@ -236,6 +254,8 @@ local function rhget_refid(refid)
 end
 
 local function hset_rcrd(data, prefix)
+  -- id:: 024edfe1-aee4-4e74-b671-7c7e4f977fa5
+  -- date:: 20260202
 	-- #f/renamed: hset_tbl -> hset_rcrd
 	-- exmp: [[20250413-exmp-hget_tbl.lua]]
   -- exmp: [[20241012-redis-lua-06.lua]]
@@ -280,6 +300,8 @@ local function hset_rcrd(data, prefix)
 end
 
 local function importWikilinkIntoRedis()
+  -- id:: 9c18708c-d4b4-4b24-bfb4-15bf2222caee
+  -- date:: 20260202
   -- id:: dk747af15-e39b-44b0-b712-bcd7ba88e8ff
 	-- exmp: [[20250414-exmp-importWikilinkIntoRedis.lua]]
 	-- debug: [[20250414-debug-importWikilinkIntoRedis.lua]]
@@ -314,6 +336,8 @@ local function params_to_redis(params, paths)
 end
 
 local function redis_to_fn(params)
+  -- id:: bc39831e-bd68-49cb-9c53-6da9db82379c
+  -- date:: 20260202
   -- exmp: [[20250324-exmp-redis_to_fn.lua]]
 	local df = u.u.read_tsv_file(params)
 	local fn = hget_fields(df)
@@ -330,70 +354,35 @@ local function import_tbl_to_redis(tbl)
 	local redis = get_redis()
 
 	-- exmp: [[20251209-lua-tbl-loop-over-each-field.lua]]
-	-- Iterate over each object in the array
+	-- [grok](https://grok.com/share/bGVnYWN5_a6845d9a-3d5a-4720-82c9-22bfc4cf5fba)
 	for _, item in ipairs(tbl) do
-		local key = "refid:" .. item.id
-		-- redis:hset(key, "date", item.date)
-    for field, value in pairs(item) do
-        -- Skip 'id' since it's used in the hash key (optional; remove if you want to include it)
-        if field ~= "id" then
-            redis:hset(key, field, tostring(value))  -- Use tostring() if values might not be strings
-        end
-    end
+		local key
+
+		if item.id then
+			key = "refid:" .. tostring(item.id)
+		elseif item.refid then
+			key = "refid:" .. tostring(item.refid)
+		else
+			-- Skip this item if neither id nor refid exists
+			u.u.printVar(item)
+			print("WARNING: import_tbl_to_redis: Item skipped - missing both 'id' and 'refid'")
+			-- Continue to next item (no goto)
+		end
+
+		-- Only process fields if we have a valid key
+		if key then
+			for field, value in pairs(item) do
+				if field ~= "id" and field ~= "refid" then
+					redis:hset(key, field, tostring(value))
+				end
+			end
+		end
 	end
 end
 
-local function hset_tbl_block(tbl)
-  -- id:: 07ef6954-b0b2-409b-a453-7561422f31f0
-  -- date:: 20251210
-	-- rltd: local function import_tbl_to_redis(tbl) || ((7555ea11-7ee8-4bd8-ad33-f2db8aad27dd))
-	-- mplm: [[20251209-redis-set-status--from-cln-attr-03.lua]]
-	-- Import a logseq block table into redis. Uses redis sets for tags element.
-	--
-  local redis = get_redis()
-
-  for _, item in ipairs(tbl) do
-    local base_key = "refid:" .. item.id  -- e.g., "refid:cae99f5b-..."
-
-    -- Store simple fields in the main hash (exclude 'tags')
-    for field, value in pairs(item) do
-      if field ~= "id" and field ~= "tags" then
-        redis:hset(base_key, field, tostring(value))
-      end
-    end
-
-    -- Store tags as a set (sub-key)
-    if item.tags and type(item.tags) == "table" then
-      local tags_key = base_key .. ":tags"
-      for _, tag in ipairs(item.tags) do
-        redis:sadd(tags_key, tag)  -- SADD: adds uniquely
-      end
-    end
-  end
-end
-
-local function hget_tbl_block(uuid)
-  -- id:: a8d07b5e-3ae1-4750-9a8f-3373c45538f4
-  -- date:: 20251210
-	-- rltd: local function rhget_refid(refid) || ((c9de1b95-69d2-481c-8d5e-78b58e2cb521))
-	-- mplm: [[20251209-redis-set-status--from-cln-attr-03.lua]]
-  local redis = get_redis()
-  local rs = redis:hgetall("refid:" .. uuid)
-  rs.id = uuid
-
-  -- Fetch tags as a set and convert to Lua array
-  local tags_key = "refid:" .. uuid .. ":tags"
-  local tags_set = redis:smembers(tags_key)  -- Returns Lua array of strings (unordered)
-  if #tags_set > 0 then
-    rs.tags = tags_set  -- Assign as array
-  else
-    rs.tags = {}  -- Empty if no tags
-  end
-
-  return rs
-end
-
 local function import_json_file_to_redis(json_fp)
+  -- id:: 88d73b64-e2b6-41f2-a50f-eff654d4b888
+  -- date:: 20260202
 	-- mplm: [[20250825-import-json-into-redis.lua]]
 	local tbl = u.u.read_json(json_fp)
 
@@ -418,7 +407,7 @@ return {
 	rhset_refid_fp_lnum = rhset_refid_fp_lnum,
 	mFn2Fp_lua = mFn2Fp_lua,
 	mFn2Fp_redis = mFn2Fp_redis,
-	mFn2Fp = mFn2Fp,
+	mFn2Fp = mFn2Fp_redis,
 	map_oldfiles = map_oldfiles,
 	fuzzyLookup = fuzzyLookup,
 	importWikilinkIntoRedis = importWikilinkIntoRedis,
@@ -426,8 +415,6 @@ return {
 	redis_to_fn = redis_to_fn,
 	import_tbl_to_redis = import_tbl_to_redis,
 	import_json_file_to_redis = import_json_file_to_redis,
-	hset_tbl_block = hset_tbl_block,
-	hget_tbl_block = hget_tbl_block,
 }
 
 -- mert-utils-regex.lua

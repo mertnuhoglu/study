@@ -1,5 +1,6 @@
 [[clojure.otl]]
 	prn: [[ndx-clj.otl]]
+	stnd: [[cstnd-otl-documentation.otl]]
 	prdcl:
 		pprv: [[20240305-clojure.otl]]
 	wk: SPC iscjj
@@ -47,3 +48,19 @@ pnt
 		[grok](https://grok.com/chat/009640a8-30b3-486e-a55d-2473774dba72)
 		bb --nrepl-server
 		ConjureConnect <port>
+babashka
+	require/import
+		Single utils module containing several submodules   || ((21ffe1f3-f09e-4427-b7de-e0c1b7eae99d))
+			(ns mert-utils (:require [mert-utils-base :as base]...
+			(def to-string-var base/to-string-var)
+		load-file vs. require #prg/clj
+			id:: 3f4b82ed-a013-42e9-b6c3-691e475ac145
+			date:: 20260304
+			[grok](https://grok.com/share/bGVnYWN5_0f6041c0-a73d-4552-beb1-42ea2cf0e695)
+	classpath
+		Babashka: Classpath for imported modules     || ((7d0553e6-1330-4b68-94d6-f8167ece8984))
+			bb.edn
+			bb.edn: classpath: relative path: where is the script called   || ((cee837a7-58cb-480a-95ee-2b937115b174))
+				relatif path olduğundan, scripti çalıştırdığım yer önemli
+	set operations:
+		[[20260303-exmp-rbl-tags-setops.nu]]

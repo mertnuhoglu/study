@@ -16,6 +16,8 @@ local mt = {
 setmetatable(u, mt)
 
 local function extract_uuid(line)
+  -- id:: 3575bf88-d43d-41d5-9347-860ecf4336e7
+  -- date:: 20260202
   local uuid = line:match("(%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x)")
   return uuid
 end

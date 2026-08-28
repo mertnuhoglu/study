@@ -16,6 +16,8 @@ local mt = {
 setmetatable(u, mt)
 
 local function map(x, f)
+  -- id:: 060e25dc-95c4-42d9-8a4f-6c05dfe8e59c
+  -- date:: 20260202
   -- spcs: FP in Lua: `f/prmp prg/lua` || ((1458e6d0-d49d-4165-9c81-46ceb31656a1))
   local r = {}
   for i, v in ipairs(x) do
@@ -37,6 +39,8 @@ local function map_kv(tbl, f)
 end
 
 local function reduce(x, f, initial)
+  -- id:: 769e9358-e271-4c83-b6e6-964d983794e3
+  -- date:: 20260202
   -- spcs: Tfrm: Array to Logical Table `prg/lua f/prmp` || ((7f5d3217-5d41-4a12-94f8-12a2d11d39a6))
   local result = initial
   for _, v in ipairs(x) do
@@ -46,6 +50,8 @@ local function reduce(x, f, initial)
 end
 
 local function partial(func, ...)
+  -- id:: 516cdc30-e902-4343-a3f9-a8276addb190
+  -- date:: 20260202
   -- spcs: FP in Lua: `f/prmp prg/lua` || ((1458e6d0-d49d-4165-9c81-46ceb31656a1))
   local args = { ... }
   return function(...)
@@ -69,6 +75,8 @@ local function partial(func, ...)
 end
 
 local function identity(x)
+  -- id:: 600373a8-53a8-422f-b52d-299932f8eb64
+  -- date:: 20260202
   return x
 end
 
@@ -148,6 +156,8 @@ local function drop_tbl(specs, vals, key)
 end
 
 local function shallow_copy(orig)
+  -- id:: 4938ee14-e66e-4bfe-b8dd-da63208c1adc
+  -- date:: 20260202
 	-- Make immutable object in Lua  #prg/lua #prg/fp #f/prmp
 		-- id:: 1877cd54-a245-4bd2-9b6d-4a2b3d61c839
 		-- date:: 20251229

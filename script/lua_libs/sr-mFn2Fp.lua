@@ -19,7 +19,7 @@ local mt = {
 
 setmetatable(u, mt)
 
-function sr_mFn2Fp()
+local function sr_mFn2Fp()
   -- id:: 2b3b7e66-d856-4be4-896e-03a6500c3a06
 	-- renamed:: serialize_oldfiles_map -> sr_mFn2Fp
 	--

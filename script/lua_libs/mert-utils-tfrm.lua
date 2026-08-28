@@ -16,6 +16,8 @@ local mt = {
 setmetatable(u, mt)
 
 local function df2kv3key_val(input)
+  -- id:: 2a6be317-d3e4-4410-9847-266916dfbec5
+  -- date:: 20260202
 	-- exmp: [[20250415-tfrm-kv2df.lua]]
 	local result = {}
 	for i = 1, #input.key do
@@ -25,6 +27,8 @@ local function df2kv3key_val(input)
 end
 
 local function kv2df3key_val(input)
+  -- id:: 7ec48d44-8e78-4d0d-99e0-7f26b0a35ba9
+  -- date:: 20260202
 	-- exmp: [[20250415-tfrm-kv2df.lua]]
 	local result = { key = {}, val = {} }
 	for k, v in pairs(input) do
@@ -35,6 +39,8 @@ local function kv2df3key_val(input)
 end
 
 local function filterTwoTuples(tbl)
+  -- id:: 8dfcc689-e4b0-4188-8826-b9b7f14d1494
+  -- date:: 20260202
   -- spcs: İkili olmayan satırları sil `f/prmp` || ((791c0c1c-8228-4d8a-b7f1-3fc7d031382f))
   -- local filtered = filterTwoTuples(yourTable)
   --
@@ -48,6 +54,8 @@ local function filterTwoTuples(tbl)
 end
 
 local function get_values(tbl)
+  -- id:: fabbe02e-23d3-4715-84b5-f6672e67b42f
+  -- date:: 20260202
   -- Get values from key-value pairs in a table
   --   [Claude](https://claude.ai/chat/5d7e38eb-241e-477b-b704-6e6e5047dd8f)
   -- Approach 2: If you need the values in a new table

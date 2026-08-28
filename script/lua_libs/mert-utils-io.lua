@@ -1,4 +1,6 @@
 -- [[mert-utils-io.lua]]
+--
+-- prn: [[mert-lua-utils.lua]]
 
 local u = {}
 
@@ -16,6 +18,8 @@ local mt = {
 setmetatable(u, mt)
 
 local function cp(src_fp, dst_fp)
+  -- id:: 271e18e5-be39-45d7-931d-099bbedfc770
+  -- date:: 20260202
   -- [grok](https://grok.com/chat/64ef289e-708c-476b-9af2-0b9845c7692a)
   -- exmp: [[20250407-exmp-copy-file.lua]]
   -- Open source file for reading
@@ -61,6 +65,8 @@ local function mv(src_fp, dst_fp)
 end
 
 local function cp8mv(src_fp, dst_fp)
+  -- id:: d32b5095-7feb-42c2-b885-ba1ad68e1c83
+  -- date:: 20260202
   -- exmp: [[20250407-exmp-copy-file-02.lua]]
 	local src_fn = u.u.get_fn(src_fp)
 	local tmp_fp = "/Users/mertnuhoglu/tmp/" .. src_fn
@@ -69,10 +75,26 @@ local function cp8mv(src_fp, dst_fp)
 end
 
 local function cp8mv_fn(fn_src, fn_dst)
+  -- id:: aa827904-340c-40c6-9cc3-8c7c61f318c3
+  -- date:: 20260202
   -- exmp: [[20250407-exmp-copy-file-02.lua]]
 	local src_fp = u.u.fn2fp(fn_src)
 	local dst_fp = u.u.fn2fp(fn_dst)
 	cp8mv(src_fp, dst_fp)
+end
+
+local function mkdir_p(path)
+	-- id:: 50a1fc22-3c11-4e9c-9eda-6d3e685547d0
+	-- date:: 20260314
+	-- -p creates parents and doesn't error if already exists
+	local cmd = 'mkdir -p "' .. path:gsub('"', '\\"') .. '"'
+	local status, _, code = os.execute(cmd)
+
+	if status == true or (type(status) == "number" and status == 0) then
+		return true
+	end
+
+	error("mkdir -p failed with code " .. tostring(code or "?") .. "\nCommand: " .. cmd, 2)
 end
 
 return {
@@ -80,4 +102,5 @@ return {
 	mv = mv,
 	cp8mv = cp8mv,
 	cp8mv_fn = cp8mv_fn,
+	mkdir_p = mkdir_p,
 }

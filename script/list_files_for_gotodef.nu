@@ -29,6 +29,7 @@ let dirs = [
     $"($home)/prj/rutils",
     $"($home)/prj/collabryio/cldocs/cllogseq",
     $"($home)/prj/collabryio/clteam",
+		$"($home)/.out/rbl",
     $"($home)/prj/collabryio/clinbox",
     $"($home)/prj/collabryio/clbackup",
     $"($home)/prj/collabryio/examples-datalog-02",
