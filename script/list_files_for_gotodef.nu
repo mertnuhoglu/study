@@ -16,24 +16,32 @@ source ~/.config/nushell/modules/mert_utils.nu
 let home = $env.HOME
 
 let exts = [
-    clj, cljc, cljs, txt, md, lua, otl, tsv, html, R, sh, css, Rmd, json, yaml, sql, edn, csv, vim, log, xml, bb, nu
+    clj, cljc, cljs, txt, md, lua, otl, tsv, html, R, sh, css, Rmd, json, yaml, sql, edn, csv, vim, log, xml, bb, nu, ttl
 ]
 
 let ext_args = ($exts | each { |it| ["-e", $it] } | flatten)
 
 let dirs = [
+    $"($home)/prj/collabryio",
     $"($home)/prj/myrepo",
     $"($home)/prj/study",
     $"($home)/prj/myinbox",
     $"($home)/prj/stuff",
     $"($home)/prj/rutils",
-    $"($home)/prj/collabryio/cldocs/cllogseq",
-    $"($home)/prj/collabryio/clteam",
+    # $"($home)/prj/collabryio/cldocs/cllogseq",
+    # $"($home)/prj/collabryio/clteam",
 		$"($home)/.out/rbl",
-    $"($home)/prj/collabryio/clinbox",
-    $"($home)/prj/collabryio/clbackup",
-    $"($home)/prj/collabryio/examples-datalog-02",
-    $"($home)/prj/collabryio/oryn-app",
+    # $"($home)/prj/collabryio/clinbox",
+    # $"($home)/prj/collabryio/clbackup",
+    # $"($home)/prj/collabryio/examples-datalog-02",
+    # $"($home)/prj/collabryio/clbugra",
+    # $"($home)/prj/collabryio/clmcp",
+    # $"($home)/prj/collabryio/cloutput",
+    # $"($home)/prj/collabryio/osda-monitoring-automation",
+    # $"($home)/prj/collabryio/posthog-ga4-report",
+    # $"($home)/prj/collabryio/database-sim",
+    # $"($home)/prj/collabryio/screenwriter-agent",
+    # $"($home)/prj/collabryio/oryn-app",
     $"($home)/prj/private_dotfiles",
     $"($home)/prj/private_dotfiles/.config",
     $"($home)/.local/share/nvim/lazy",

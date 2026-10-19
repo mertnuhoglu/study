@@ -494,6 +494,7 @@ return {
 	append_file = u.lg.append_file,
 	write_runlog = u.lg.write_runlog,
 	write_runlog_lua = u.lg.write_runlog_lua,
+	write_runlog_nvim_wky = u.lg.write_runlog_nvim_wky,
 	write_outlist = u.lg.write_outlist,
 	write_outlist_json = u.lg.write_outlist_json,
 	write_outlist_cfile = u.lg.write_outlist_fl,  -- deprecated

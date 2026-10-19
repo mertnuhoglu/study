@@ -51,6 +51,14 @@ local function write_runlog_lua(content)
   append_file(c2, fpath)
 end
 
+local function write_runlog_nvim_wky(content)  -- #vim/wky #prg/lua
+  -- id:: eae2fd74-9026-437f-81e1-f7aa8bcae923
+  -- date:: 20260910
+  local fpath = "/Users/mertnuhoglu/prj/private_dotfiles/.config/params/runlog/runlog_nvim_wky.txt"
+  local c2 = u.u.get_ts() .. ":\n" .. content
+  append_file(c2, fpath)
+end
+
 local function write_outlist(out_files, fname)
   -- id:: bad28662-5e1e-4cd3-8228-e6eff4f63071
   -- exmp: write_outlist in lua || ((457f8a55-1c07-49dc-a421-059899fcbb69))
@@ -152,6 +160,7 @@ return {
 	append_file = append_file,
   write_runlog = write_runlog,
   write_runlog_lua = write_runlog_lua,
+	write_runlog_nvim_wky = write_runlog_nvim_wky,
 	write_outlist = write_outlist,
 	write_outlist_json = write_outlist_json,
 	write_outlist_cfile = write_outlist_fl,
@@ -162,3 +171,4 @@ return {
 }
 -- mert-utils-io-serialize.lua
 
+  -- local function write_runlog_nvim_wky(content)  --   || ((eae2fd74-9026-437f-81e1-f7aa8bcae923))

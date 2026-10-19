@@ -1,7 +1,7 @@
 #!/bin/sh
 # [[cron_daily.sh]]
 #   id:: 7a675d96-7517-4b48-966d-b52af34a5d75
-#   date:: 20250101
+#   date:: 202
 # rltd: [[cron_hourly.sh]]
 
 echo $(date +"%Y%m%d-%H%M%S") started: ~/prj/study/script/cron_daily.sh
